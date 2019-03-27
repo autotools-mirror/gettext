@@ -5,6 +5,7 @@ New in 0.8:
   - The SIGCONT signal handler would fail to restore the proper styling,
     with a low probability.
   - The SIGTSTP and SIGCONT signal handlers could clobber errno.
+* Added support for Windows consoles.
 
 New in 0.7:
 * Reliable tty control, as described by the ttyctl_t enum, is now implemented.

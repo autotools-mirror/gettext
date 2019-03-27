@@ -29,12 +29,24 @@
 #if HAVE_TCDRAIN
 # include <termios.h>
 #endif
+#if defined _WIN32 || defined __CYGWIN__ /* Windows */
+# define HAVE_WINDOWS_CONSOLES 1
+# include <windows.h>
+#endif
 
 #include "error.h"
 #include "full-write.h"
 #include "terminfo.h"
 #include "xalloc.h"
 #include "xsize.h"
+#if HAVE_WINDOWS_CONSOLES
+/* Get _get_osfhandle().  */
+# if defined _WIN32 && ! defined __CYGWIN__
+#  include "msvc-nothrow.h"
+# else
+#  include <io.h>
+# endif
+#endif
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -977,6 +989,10 @@ fields:
      uses the baud rate information from file descriptor 1 (stdout) if it is
      a tty, or from file descriptor 2 (stderr) otherwise.  */
   int volatile fd;
+  #if HAVE_WINDOWS_CONSOLES
+  HANDLE volatile handle;
+  bool volatile is_windows_console;
+  #endif
   char *filename;
   /* Values from the terminal type's terminfo/termcap description.
      See terminfo(5) for details.  */
@@ -1009,6 +1025,10 @@ fields:
   /* Signal handling and tty control.  */
   struct term_style_control_data control_data;
   /* Variable state, representing past output.  */
+  #if HAVE_WINDOWS_CONSOLES
+  WORD volatile default_console_attributes;
+  WORD volatile current_console_attributes;
+  #endif
   attributes_t default_attr;         /* Default simplified attributes of the
                                         terminal.  */
   attributes_t volatile active_attr; /* Simplified attributes that we have set
@@ -1111,12 +1131,30 @@ out_color_change (term_ostream_t stream, term_color_t new_color,
     {
     case cm_common8:
       assert (new_color >= 0 && new_color < 8);
-      if (stream->set_a_foreground != NULL)
-        tputs (tparm (stream->set_a_foreground, color_bgr (new_color)),
-               1, async_safe ? out_char_unchecked : out_char);
+      #if HAVE_WINDOWS_CONSOLES
+      if (stream->is_windows_console)
+        {
+          /* SetConsoleTextAttribute
+             <https://docs.microsoft.com/en-us/windows/console/setconsoletextattribute>
+             <https://docs.microsoft.com/en-us/windows/console/console-screen-buffers>  */
+          /* Assign to stream->current_console_attributes *before* calling
+             SetConsoleTextAttribute, otherwise async_set_attributes_from_default
+             will not do its job correctly.  */
+          stream->current_console_attributes =
+            (stream->current_console_attributes & ~(7 << 0))
+            | (new_color << 0);
+          SetConsoleTextAttribute (stream->handle, stream->current_console_attributes);
+        }
       else
-        tputs (tparm (stream->set_foreground, new_color),
-               1, async_safe ? out_char_unchecked : out_char);
+      #endif
+        {
+          if (stream->set_a_foreground != NULL)
+            tputs (tparm (stream->set_a_foreground, color_bgr (new_color)),
+                   1, async_safe ? out_char_unchecked : out_char);
+          else
+            tputs (tparm (stream->set_foreground, new_color),
+                   1, async_safe ? out_char_unchecked : out_char);
+        }
       break;
     /* When we are dealing with an xterm, there is no need to go through
        tputs() because we know there is no padding and sleeping.  */
@@ -1205,12 +1243,30 @@ out_bgcolor_change (term_ostream_t stream, term_color_t new_bgcolor,
     {
     case cm_common8:
       assert (new_bgcolor >= 0 && new_bgcolor < 8);
-      if (stream->set_a_background != NULL)
-        tputs (tparm (stream->set_a_background, color_bgr (new_bgcolor)),
-               1, async_safe ? out_char_unchecked : out_char);
+      #if HAVE_WINDOWS_CONSOLES
+      if (stream->is_windows_console)
+        {
+          /* SetConsoleTextAttribute
+             <https://docs.microsoft.com/en-us/windows/console/setconsoletextattribute>
+             <https://docs.microsoft.com/en-us/windows/console/console-screen-buffers>  */
+          /* Assign to stream->current_console_attributes *before* calling
+             SetConsoleTextAttribute, otherwise async_set_attributes_from_default
+             will not do its job correctly.  */
+          stream->current_console_attributes =
+            (stream->current_console_attributes & ~(7 << 4))
+            | (new_bgcolor << 4);
+          SetConsoleTextAttribute (stream->handle, stream->current_console_attributes);
+        }
       else
-        tputs (tparm (stream->set_background, new_bgcolor),
-               1, async_safe ? out_char_unchecked : out_char);
+      #endif
+        {
+          if (stream->set_a_background != NULL)
+            tputs (tparm (stream->set_a_background, color_bgr (new_bgcolor)),
+                   1, async_safe ? out_char_unchecked : out_char);
+          else
+            tputs (tparm (stream->set_background, new_bgcolor),
+                   1, async_safe ? out_char_unchecked : out_char);
+        }
       break;
     /* When we are dealing with an xterm, there is no need to go through
        tputs() because we know there is no padding and sleeping.  */
@@ -1327,8 +1383,25 @@ out_underline_change (term_ostream_t stream, term_underline_t new_underline,
   assert (new_underline != UNDERLINE_DEFAULT);
   /* This implies:  */
   assert (new_underline == UNDERLINE_ON);
-  tputs (stream->enter_underline_mode,
-         1, async_safe ? out_char_unchecked : out_char);
+  #if HAVE_WINDOWS_CONSOLES
+  if (stream->is_windows_console)
+    {
+      /* SetConsoleTextAttribute
+         <https://docs.microsoft.com/en-us/windows/console/setconsoletextattribute>
+         <https://docs.microsoft.com/en-us/windows/console/console-screen-buffers>  */
+      /* Assign to stream->current_console_attributes *before* calling
+         SetConsoleTextAttribute, otherwise async_set_attributes_from_default
+         will not do its job correctly.  */
+      stream->current_console_attributes =
+        stream->current_console_attributes | COMMON_LVB_UNDERSCORE;
+      SetConsoleTextAttribute (stream->handle, stream->current_console_attributes);
+    }
+  else
+  #endif
+    {
+      tputs (stream->enter_underline_mode,
+             1, async_safe ? out_char_unchecked : out_char);
+    }
 }
 
 /* Output escape sequences to switch from STREAM->ACTIVE_ATTR to NEW_ATTR,
@@ -1337,167 +1410,229 @@ static void
 out_attr_change (term_ostream_t stream, attributes_t new_attr)
 {
   attributes_t old_attr = stream->active_attr;
-  bool cleared_attributes;
 
   /* Keep track of the active attributes.  Do this *before* emitting the
      escape sequences, otherwise async_set_attributes_from_default will not
      do its job correctly.  */
   stream->active_attr = new_attr;
 
-  /* For out_char to work.  */
-  out_stream = stream;
-  out_fd = stream->fd;
+  #if HAVE_WINDOWS_CONSOLES
+  if (stream->is_windows_console)
+    {
+      /* SetConsoleTextAttribute
+         <https://docs.microsoft.com/en-us/windows/console/setconsoletextattribute>
+         <https://docs.microsoft.com/en-us/windows/console/console-screen-buffers>  */
+      /* Assign to stream->current_console_attributes *before* calling
+         SetConsoleTextAttribute, otherwise async_set_attributes_from_default
+         will not do its job correctly.  */
+      stream->current_console_attributes =
+        (stream->current_console_attributes
+         & ~((7 << 0) | (7 << 4) | COMMON_LVB_UNDERSCORE))
+        | (new_attr.color == COLOR_DEFAULT
+           ? stream->default_console_attributes & (7 << 0)
+           : (new_attr.color << 0))
+        | (new_attr.bgcolor == COLOR_DEFAULT
+           ? stream->default_console_attributes & (7 << 4)
+           : (new_attr.bgcolor << 4))
+        | (new_attr.underline ? COMMON_LVB_UNDERSCORE : 0);
+      SetConsoleTextAttribute (stream->handle, stream->current_console_attributes);
+    }
+  else
+  #endif
+    {
+      bool cleared_attributes;
 
-  /* We don't know the default colors of the terminal.  The only way to switch
-     back to a default color is to use stream->orig_pair.  */
-  if ((new_attr.color == COLOR_DEFAULT && old_attr.color != COLOR_DEFAULT)
-      || (new_attr.bgcolor == COLOR_DEFAULT && old_attr.bgcolor != COLOR_DEFAULT))
-    {
-      assert (stream->supports_foreground || stream->supports_background);
-      tputs (stream->orig_pair, 1, out_char);
-      old_attr.color = COLOR_DEFAULT;
-      old_attr.bgcolor = COLOR_DEFAULT;
-    }
+      /* For out_char to work.  */
+      out_stream = stream;
+      out_fd = stream->fd;
 
-  /* To turn off WEIGHT_BOLD, the only way is to output the exit_attribute_mode
-     sequence.  (With xterm, you can also do it with "Esc [ 0 m", but this
-     escape sequence is not contained in the terminfo description.)  It may
-     also clear the colors; this is the case e.g. when TERM="xterm" or
-     TERM="ansi".
-     To turn off UNDERLINE_ON, we can use the exit_underline_mode or the
-     exit_attribute_mode sequence.  In the latter case, it will not only
-     turn off UNDERLINE_ON, but also the other attributes, and possibly also
-     the colors.
-     To turn off POSTURE_ITALIC, we can use the exit_italics_mode or the
-     exit_attribute_mode sequence.  Again, in the latter case, it will not
-     only turn off POSTURE_ITALIC, but also the other attributes, and possibly
-     also the colors.
-     There is no point in setting an attribute just before emitting an
-     escape sequence that may again turn off the attribute.  Therefore we
-     proceed in two steps: First, clear the attributes that need to be
-     cleared; then - taking into account that this may have cleared all
-     attributes and all colors - set the colors and the attributes.
-     The variable 'cleared_attributes' tells whether an escape sequence
-     has been output that may have cleared all attributes and all color
-     settings.  */
-  cleared_attributes = false;
-  if (old_attr.posture != POSTURE_NORMAL
-      && new_attr.posture == POSTURE_NORMAL
-      && stream->exit_italics_mode != NULL)
-    {
-      tputs (stream->exit_italics_mode, 1, out_char);
-      old_attr.posture = POSTURE_NORMAL;
-      cleared_attributes = true;
-    }
-  if (old_attr.underline != UNDERLINE_OFF
-      && new_attr.underline == UNDERLINE_OFF
-      && stream->exit_underline_mode != NULL)
-    {
-      tputs (stream->exit_underline_mode, 1, out_char);
-      old_attr.underline = UNDERLINE_OFF;
-      cleared_attributes = true;
-    }
-  if ((old_attr.weight != WEIGHT_NORMAL
-       && new_attr.weight == WEIGHT_NORMAL)
-      || (old_attr.posture != POSTURE_NORMAL
+      /* We don't know the default colors of the terminal.  The only way to
+         switch back to a default color is to use stream->orig_pair.  */
+      if ((new_attr.color == COLOR_DEFAULT && old_attr.color != COLOR_DEFAULT)
+          || (new_attr.bgcolor == COLOR_DEFAULT && old_attr.bgcolor != COLOR_DEFAULT))
+        {
+          assert (stream->supports_foreground || stream->supports_background);
+          tputs (stream->orig_pair, 1, out_char);
+          old_attr.color = COLOR_DEFAULT;
+          old_attr.bgcolor = COLOR_DEFAULT;
+        }
+
+      /* To turn off WEIGHT_BOLD, the only way is to output the
+         exit_attribute_mode sequence.  (With xterm, you can also do it with
+         "Esc [ 0 m", but this escape sequence is not contained in the terminfo
+         description.)  It may also clear the colors; this is the case e.g. when
+         TERM="xterm" or TERM="ansi".
+         To turn off UNDERLINE_ON, we can use the exit_underline_mode or the
+         exit_attribute_mode sequence.  In the latter case, it will not only
+         turn off UNDERLINE_ON, but also the other attributes, and possibly also
+         the colors.
+         To turn off POSTURE_ITALIC, we can use the exit_italics_mode or the
+         exit_attribute_mode sequence.  Again, in the latter case, it will not
+         only turn off POSTURE_ITALIC, but also the other attributes, and
+         possibly also the colors.
+         There is no point in setting an attribute just before emitting an
+         escape sequence that may again turn off the attribute.  Therefore we
+         proceed in two steps: First, clear the attributes that need to be
+         cleared; then - taking into account that this may have cleared all
+         attributes and all colors - set the colors and the attributes.
+         The variable 'cleared_attributes' tells whether an escape sequence
+         has been output that may have cleared all attributes and all color
+         settings.  */
+      cleared_attributes = false;
+      if (old_attr.posture != POSTURE_NORMAL
           && new_attr.posture == POSTURE_NORMAL
-          /* implies stream->exit_italics_mode == NULL */)
-      || (old_attr.underline != UNDERLINE_OFF
+          && stream->exit_italics_mode != NULL)
+        {
+          tputs (stream->exit_italics_mode, 1, out_char);
+          old_attr.posture = POSTURE_NORMAL;
+          cleared_attributes = true;
+        }
+      if (old_attr.underline != UNDERLINE_OFF
           && new_attr.underline == UNDERLINE_OFF
-          /* implies stream->exit_underline_mode == NULL */))
-    {
-      tputs (stream->exit_attribute_mode, 1, out_char);
-      /* We don't know exactly what effects exit_attribute_mode has, but
-         this is the minimum effect:  */
-      old_attr.weight = WEIGHT_NORMAL;
-      if (stream->exit_italics_mode == NULL)
-        old_attr.posture = POSTURE_NORMAL;
-      if (stream->exit_underline_mode == NULL)
-        old_attr.underline = UNDERLINE_OFF;
-      cleared_attributes = true;
-    }
+          && stream->exit_underline_mode != NULL)
+        {
+          tputs (stream->exit_underline_mode, 1, out_char);
+          old_attr.underline = UNDERLINE_OFF;
+          cleared_attributes = true;
+        }
+      if ((old_attr.weight != WEIGHT_NORMAL
+           && new_attr.weight == WEIGHT_NORMAL)
+          || (old_attr.posture != POSTURE_NORMAL
+              && new_attr.posture == POSTURE_NORMAL
+              /* implies stream->exit_italics_mode == NULL */)
+          || (old_attr.underline != UNDERLINE_OFF
+              && new_attr.underline == UNDERLINE_OFF
+              /* implies stream->exit_underline_mode == NULL */))
+        {
+          tputs (stream->exit_attribute_mode, 1, out_char);
+          /* We don't know exactly what effects exit_attribute_mode has, but
+             this is the minimum effect:  */
+          old_attr.weight = WEIGHT_NORMAL;
+          if (stream->exit_italics_mode == NULL)
+            old_attr.posture = POSTURE_NORMAL;
+          if (stream->exit_underline_mode == NULL)
+            old_attr.underline = UNDERLINE_OFF;
+          cleared_attributes = true;
+        }
 
-  /* Turn on the colors.  */
-  if (new_attr.color != old_attr.color
-      || (cleared_attributes && new_attr.color != COLOR_DEFAULT))
-    {
-      out_color_change (stream, new_attr.color, false);
-    }
-  if (new_attr.bgcolor != old_attr.bgcolor
-      || (cleared_attributes && new_attr.bgcolor != COLOR_DEFAULT))
-    {
-      out_bgcolor_change (stream, new_attr.bgcolor, false);
-    }
-  if (new_attr.weight != old_attr.weight
-      || (cleared_attributes && new_attr.weight != WEIGHT_DEFAULT))
-    {
-      out_weight_change (stream, new_attr.weight, false);
-    }
-  if (new_attr.posture != old_attr.posture
-      || (cleared_attributes && new_attr.posture != POSTURE_DEFAULT))
-    {
-      out_posture_change (stream, new_attr.posture, false);
-    }
-  if (new_attr.underline != old_attr.underline
-      || (cleared_attributes && new_attr.underline != UNDERLINE_DEFAULT))
-    {
-      out_underline_change (stream, new_attr.underline, false);
+      /* Turn on the colors.  */
+      if (new_attr.color != old_attr.color
+          || (cleared_attributes && new_attr.color != COLOR_DEFAULT))
+        {
+          out_color_change (stream, new_attr.color, false);
+        }
+      if (new_attr.bgcolor != old_attr.bgcolor
+          || (cleared_attributes && new_attr.bgcolor != COLOR_DEFAULT))
+        {
+          out_bgcolor_change (stream, new_attr.bgcolor, false);
+        }
+      if (new_attr.weight != old_attr.weight
+          || (cleared_attributes && new_attr.weight != WEIGHT_DEFAULT))
+        {
+          out_weight_change (stream, new_attr.weight, false);
+        }
+      if (new_attr.posture != old_attr.posture
+          || (cleared_attributes && new_attr.posture != POSTURE_DEFAULT))
+        {
+          out_posture_change (stream, new_attr.posture, false);
+        }
+      if (new_attr.underline != old_attr.underline
+          || (cleared_attributes && new_attr.underline != UNDERLINE_DEFAULT))
+        {
+          out_underline_change (stream, new_attr.underline, false);
+        }
     }
 }
 
 static void
 restore (term_ostream_t stream)
 {
-  /* For out_char_unchecked to work.  */
-  out_stream = stream;
-  out_fd = stream->fd;
+  #if HAVE_WINDOWS_CONSOLES
+  if (stream->is_windows_console)
+    {
+      /* SetConsoleTextAttribute
+         <https://docs.microsoft.com/en-us/windows/console/setconsoletextattribute>
+         <https://docs.microsoft.com/en-us/windows/console/console-screen-buffers>  */
+      SetConsoleTextAttribute (stream->handle, stream->default_console_attributes);
+    }
+  else
+  #endif
+    {
+      /* For out_char_unchecked to work.  */
+      out_stream = stream;
+      out_fd = stream->fd;
 
-  if (stream->restore_colors != NULL)
-    tputs (stream->restore_colors, 1, out_char_unchecked);
-  if (stream->restore_weight != NULL)
-    tputs (stream->restore_weight, 1, out_char_unchecked);
-  if (stream->restore_posture != NULL)
-    tputs (stream->restore_posture, 1, out_char_unchecked);
-  if (stream->restore_underline != NULL)
-    tputs (stream->restore_underline, 1, out_char_unchecked);
+      if (stream->restore_colors != NULL)
+        tputs (stream->restore_colors, 1, out_char_unchecked);
+      if (stream->restore_weight != NULL)
+        tputs (stream->restore_weight, 1, out_char_unchecked);
+      if (stream->restore_posture != NULL)
+        tputs (stream->restore_posture, 1, out_char_unchecked);
+      if (stream->restore_underline != NULL)
+        tputs (stream->restore_underline, 1, out_char_unchecked);
+    }
 }
 
 static _GL_ASYNC_SAFE void
 async_restore (term_ostream_t stream)
 {
-  /* For out_char_unchecked to work.  */
-  out_stream = stream;
-  out_fd = stream->fd;
+  #if HAVE_WINDOWS_CONSOLES
+  if (stream->is_windows_console)
+    {
+      /* SetConsoleTextAttribute
+         <https://docs.microsoft.com/en-us/windows/console/setconsoletextattribute>
+         <https://docs.microsoft.com/en-us/windows/console/console-screen-buffers>  */
+      SetConsoleTextAttribute (stream->handle, stream->default_console_attributes);
+    }
+  else
+  #endif
+    {
+      /* For out_char_unchecked to work.  */
+      out_stream = stream;
+      out_fd = stream->fd;
 
-  if (stream->restore_colors != NULL)
-    tputs (stream->restore_colors, 1, out_char_unchecked);
-  if (stream->restore_weight != NULL)
-    tputs (stream->restore_weight, 1, out_char_unchecked);
-  if (stream->restore_posture != NULL)
-    tputs (stream->restore_posture, 1, out_char_unchecked);
-  if (stream->restore_underline != NULL)
-    tputs (stream->restore_underline, 1, out_char_unchecked);
+      if (stream->restore_colors != NULL)
+        tputs (stream->restore_colors, 1, out_char_unchecked);
+      if (stream->restore_weight != NULL)
+        tputs (stream->restore_weight, 1, out_char_unchecked);
+      if (stream->restore_posture != NULL)
+        tputs (stream->restore_posture, 1, out_char_unchecked);
+      if (stream->restore_underline != NULL)
+        tputs (stream->restore_underline, 1, out_char_unchecked);
+    }
 }
 
 static _GL_ASYNC_SAFE void
 async_set_attributes_from_default (term_ostream_t stream)
 {
-  attributes_t new_attr = stream->active_attr;
+  #if HAVE_WINDOWS_CONSOLES
+  if (stream->is_windows_console)
+    {
+      /* SetConsoleTextAttribute
+         <https://docs.microsoft.com/en-us/windows/console/setconsoletextattribute>
+         <https://docs.microsoft.com/en-us/windows/console/console-screen-buffers>  */
+      SetConsoleTextAttribute (stream->handle, stream->current_console_attributes);
+    }
+  else
+  #endif
+    {
+      attributes_t new_attr = stream->active_attr;
 
-  /* For out_char_unchecked to work.  */
-  out_stream = stream;
-  out_fd = stream->fd;
+      /* For out_char_unchecked to work.  */
+      out_stream = stream;
+      out_fd = stream->fd;
 
-  if (new_attr.color != COLOR_DEFAULT)
-    out_color_change (stream, new_attr.color, true);
-  if (new_attr.bgcolor != COLOR_DEFAULT)
-    out_bgcolor_change (stream, new_attr.bgcolor, true);
-  if (new_attr.weight != WEIGHT_DEFAULT)
-    out_weight_change (stream, new_attr.weight, true);
-  if (new_attr.posture != POSTURE_DEFAULT)
-    out_posture_change (stream, new_attr.posture, true);
-  if (new_attr.underline != UNDERLINE_DEFAULT)
-    out_underline_change (stream, new_attr.underline, true);
+      if (new_attr.color != COLOR_DEFAULT)
+        out_color_change (stream, new_attr.color, true);
+      if (new_attr.bgcolor != COLOR_DEFAULT)
+        out_bgcolor_change (stream, new_attr.bgcolor, true);
+      if (new_attr.weight != WEIGHT_DEFAULT)
+        out_weight_change (stream, new_attr.weight, true);
+      if (new_attr.posture != POSTURE_DEFAULT)
+        out_posture_change (stream, new_attr.posture, true);
+      if (new_attr.underline != UNDERLINE_DEFAULT)
+        out_underline_change (stream, new_attr.underline, true);
+    }
 }
 
 static const struct term_style_controller controller =
@@ -1678,12 +1813,17 @@ term_ostream::flush (term_ostream_t stream, ostream_flush_scope_t scope)
   output_buffer (stream, stream->default_attr);
   if (scope == FLUSH_ALL)
     {
-      /* For streams connected to a disk file:  */
-      fsync (stream->fd);
-      #if HAVE_TCDRAIN
-      /* For streams connected to a terminal:  */
-      nonintr_tcdrain (stream->fd);
+      #if HAVE_WINDOWS_CONSOLES
+      if (!stream->is_windows_console)
       #endif
+        {
+          /* For streams connected to a disk file:  */
+          fsync (stream->fd);
+          #if HAVE_TCDRAIN
+          /* For streams connected to a terminal:  */
+          nonintr_tcdrain (stream->fd);
+          #endif
+        }
     }
 }
 
@@ -1812,10 +1952,61 @@ term_ostream_t
 term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
 {
   term_ostream_t stream = XMALLOC (struct term_ostream_representation);
-  const char *term;
 
   stream->base.vtable = &term_ostream_vtable;
   stream->fd = fd;
+  #if HAVE_WINDOWS_CONSOLES
+  stream->handle = (HANDLE) _get_osfhandle (fd);
+  {
+    DWORD mode;
+
+    if (stream->handle != INVALID_HANDLE_VALUE
+        /* GetConsoleMode
+           <https://docs.microsoft.com/en-us/windows/console/getconsolemode>  */
+        && GetConsoleMode (stream->handle, &mode) != 0)
+      {
+        CONSOLE_SCREEN_BUFFER_INFO info;
+        BOOL ok;
+
+        /* GetConsoleScreenBufferInfo
+           <https://docs.microsoft.com/en-us/windows/console/getconsolescreenbufferinfo>
+           <https://docs.microsoft.com/en-us/windows/console/console-screen-buffer-info-str>  */
+        ok = GetConsoleScreenBufferInfo (stream->handle, &info);
+        if (!ok)
+          {
+            /* GetConsoleScreenBufferInfo
+                 - fails when the handle is == GetStdHandle (STD_INPUT_HANDLE)
+                 - but succeeds when it is == GetStdHandle (STD_OUTPUT_HANDLE)
+                   or == GetStdHandle (STD_ERROR_HANDLE).
+               Native Windows programs use GetStdHandle (STD_OUTPUT_HANDLE) for
+               fd 1, as expected.
+               But Cygwin uses GetStdHandle (STD_INPUT_HANDLE) for all of fd 0,
+               1, 2.  So, we have to use either GetStdHandle (STD_OUTPUT_HANDLE)
+               or GetStdHandle (STD_ERROR_HANDLE) in order to be able to use
+               GetConsoleScreenBufferInfo.  */
+            if (fd == 1 || fd == 2)
+              {
+                HANDLE handle =
+                  GetStdHandle (fd == 1 ? STD_OUTPUT_HANDLE : STD_ERROR_HANDLE);
+                ok = GetConsoleScreenBufferInfo (handle, &info);
+                if (ok)
+                  stream->handle = handle;
+              }
+          }
+        if (ok)
+          {
+            stream->is_windows_console = true;
+            stream->default_console_attributes = info.wAttributes;
+            stream->current_console_attributes = stream->default_console_attributes;
+          }
+        else
+          /* It's a console, but we cannot use GetConsoleScreenBufferInfo.  */
+          stream->is_windows_console = false;
+      }
+    else
+      stream->is_windows_console = false;
+  }
+  #endif
   stream->filename = xstrdup (filename);
 
   /* Defaults.  */
@@ -1833,186 +2024,234 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
   stream->exit_underline_mode = NULL;
   stream->exit_attribute_mode = NULL;
 
-  /* Retrieve the terminal type.  */
-  term = getenv ("TERM");
-  if (term != NULL && term[0] != '\0')
+  #if HAVE_WINDOWS_CONSOLES
+  if (stream->is_windows_console)
     {
-      /* When the terminfo function are available, we prefer them over the
-         termcap functions because
-           1. they don't risk a buffer overflow,
-           2. on OSF/1, for TERM=xterm, the tiget* functions provide access
-              to the number of colors and the color escape sequences, whereas
-              the tget* functions don't provide them.  */
-#if HAVE_TERMINFO
-      int err = 1;
+      /* For Windows consoles, two approaches are possible:
+         (A) Use SetConsoleMode
+             <https://docs.microsoft.com/en-us/windows/console/setconsolemode>
+             to enable the ENABLE_VIRTUAL_TERMINAL_PROCESSING flag, and then
+             emit escape sequences, as documented in
+             <https://docs.microsoft.com/en-us/windows/console/console-virtual-terminal-sequences>.
+         (B) Use SetConsoleTextAttribute
+             <https://docs.microsoft.com/en-us/windows/console/setconsoletextattribute>
+             to change the text attributes.
+         Approach (A) has two drawbacks:
+           * It produces colors that ignore the console's configuration: it
+             assumes the default configuration (light grey foreground).  Thus
+             when you ask for cyan, you will always get some blue color, never
+             real cyan.  Whereas approach (B) produces colors that respect the
+             "Screen Text" and "Screen Background" settings in the console's
+             configuration.
+           * When the program terminates abnormally, we would leave the console
+             with ENABLE_VIRTUAL_TERMINAL_PROCESSING enabled, which can be
+             dangerous.
+         Therefore we use approach (B).  */
+      stream->max_colors = 8;
+      stream->no_color_video = 1 | 4;
+      stream->supports_foreground = true;
+      stream->supports_background = true;
+      stream->colormodel = cm_common8;
+      /* The Windows consoles have high and low intensity, but the default is
+         high intensity.  If we wanted to support WEIGHT_BOLD, we would have to
+         use low-intensity rendering for normal output, which would look ugly
+         compared to the output by other programs.  We could support WEIGHT_DIM,
+         but this is not part of our enum term_weight_t.  */
+      stream->supports_weight = false;
+      stream->supports_posture = false;
+      stream->supports_underline = true;
+      stream->restore_colors = NULL;
+      stream->restore_weight = NULL;
+      stream->restore_posture = NULL;
+      stream->restore_underline = NULL;
+    }
+  else
+  #endif
+    {
+      const char *term;
 
-      if (setupterm (term, fd, &err) || err == 1)
+      /* Retrieve the terminal type.  */
+      term = getenv ("TERM");
+      if (term != NULL && term[0] != '\0')
         {
-          /* Retrieve particular values depending on the terminal type.  */
-          stream->max_colors = tigetnum ("colors");
-          stream->no_color_video = tigetnum ("ncv");
-          stream->set_a_foreground = xstrdup0 (tigetstr ("setaf"));
-          stream->set_foreground = xstrdup0 (tigetstr ("setf"));
-          stream->set_a_background = xstrdup0 (tigetstr ("setab"));
-          stream->set_background = xstrdup0 (tigetstr ("setb"));
-          stream->orig_pair = xstrdup0 (tigetstr ("op"));
-          stream->enter_bold_mode = xstrdup0 (tigetstr ("bold"));
-          stream->enter_italics_mode = xstrdup0 (tigetstr ("sitm"));
-          stream->exit_italics_mode = xstrdup0 (tigetstr ("ritm"));
-          stream->enter_underline_mode = xstrdup0 (tigetstr ("smul"));
-          stream->exit_underline_mode = xstrdup0 (tigetstr ("rmul"));
-          stream->exit_attribute_mode = xstrdup0 (tigetstr ("sgr0"));
-        }
-#elif HAVE_TERMCAP
-      struct { char buf[1024]; char canary[4]; } termcapbuf;
-      int retval;
+          /* When the terminfo function are available, we prefer them over the
+             termcap functions because
+               1. they don't risk a buffer overflow,
+               2. on OSF/1, for TERM=xterm, the tiget* functions provide access
+                  to the number of colors and the color escape sequences,
+                  whereas the tget* functions don't provide them.  */
+          #if HAVE_TERMINFO
+          int err = 1;
 
-      /* Call tgetent, being defensive against buffer overflow.  */
-      memcpy (termcapbuf.canary, "CnRy", 4);
-      retval = tgetent (termcapbuf.buf, term);
-      if (memcmp (termcapbuf.canary, "CnRy", 4) != 0)
-        /* Buffer overflow!  */
-        abort ();
-
-      if (retval > 0)
-        {
-          struct { char buf[1024]; char canary[4]; } termentrybuf;
-          char *termentryptr;
-
-          /* Prepare for calling tgetstr, being defensive against buffer
-             overflow.  ncurses' tgetstr() supports a second argument NULL,
-             but NetBSD's tgetstr() doesn't.  */
-          memcpy (termentrybuf.canary, "CnRz", 4);
-          #define TEBP ((termentryptr = termentrybuf.buf), &termentryptr)
-
-          /* Retrieve particular values depending on the terminal type.  */
-          stream->max_colors = tgetnum ("Co");
-          stream->no_color_video = tgetnum ("NC");
-          stream->set_a_foreground = xstrdup0 (tgetstr ("AF", TEBP));
-          stream->set_foreground = xstrdup0 (tgetstr ("Sf", TEBP));
-          stream->set_a_background = xstrdup0 (tgetstr ("AB", TEBP));
-          stream->set_background = xstrdup0 (tgetstr ("Sb", TEBP));
-          stream->orig_pair = xstrdup0 (tgetstr ("op", TEBP));
-          stream->enter_bold_mode = xstrdup0 (tgetstr ("md", TEBP));
-          stream->enter_italics_mode = xstrdup0 (tgetstr ("ZH", TEBP));
-          stream->exit_italics_mode = xstrdup0 (tgetstr ("ZR", TEBP));
-          stream->enter_underline_mode = xstrdup0 (tgetstr ("us", TEBP));
-          stream->exit_underline_mode = xstrdup0 (tgetstr ("ue", TEBP));
-          stream->exit_attribute_mode = xstrdup0 (tgetstr ("me", TEBP));
-
-# ifdef __BEOS__
-          /* The BeOS termcap entry for "beterm" is broken: For "AF" and "AB"
-             it contains balues in terminfo syntax but the system's tparam()
-             function understands only the termcap syntax.  */
-          if (stream->set_a_foreground != NULL
-              && strcmp (stream->set_a_foreground, "\033[3%p1%dm") == 0)
+          if (setupterm (term, fd, &err) || err == 1)
             {
-              free (stream->set_a_foreground);
-              stream->set_a_foreground = xstrdup ("\033[3%dm");
+              /* Retrieve particular values depending on the terminal type.  */
+              stream->max_colors = tigetnum ("colors");
+              stream->no_color_video = tigetnum ("ncv");
+              stream->set_a_foreground = xstrdup0 (tigetstr ("setaf"));
+              stream->set_foreground = xstrdup0 (tigetstr ("setf"));
+              stream->set_a_background = xstrdup0 (tigetstr ("setab"));
+              stream->set_background = xstrdup0 (tigetstr ("setb"));
+              stream->orig_pair = xstrdup0 (tigetstr ("op"));
+              stream->enter_bold_mode = xstrdup0 (tigetstr ("bold"));
+              stream->enter_italics_mode = xstrdup0 (tigetstr ("sitm"));
+              stream->exit_italics_mode = xstrdup0 (tigetstr ("ritm"));
+              stream->enter_underline_mode = xstrdup0 (tigetstr ("smul"));
+              stream->exit_underline_mode = xstrdup0 (tigetstr ("rmul"));
+              stream->exit_attribute_mode = xstrdup0 (tigetstr ("sgr0"));
             }
-          if (stream->set_a_background != NULL
-              && strcmp (stream->set_a_background, "\033[4%p1%dm") == 0)
-            {
-              free (stream->set_a_background);
-              stream->set_a_background = xstrdup ("\033[4%dm");
-            }
-# endif
+          #elif HAVE_TERMCAP
+          struct { char buf[1024]; char canary[4]; } termcapbuf;
+          int retval;
 
-          /* The termcap entry for cygwin is broken: It has no "ncv" value,
-             but bold and underline are actually rendered through colors.  */
-          if (strcmp (term, "cygwin") == 0)
-            stream->no_color_video |= 2 | 32;
-
-          /* Done with tgetstr.  Detect possible buffer overflow.  */
-          #undef TEBP
-          if (memcmp (termentrybuf.canary, "CnRz", 4) != 0)
+          /* Call tgetent, being defensive against buffer overflow.  */
+          memcpy (termcapbuf.canary, "CnRy", 4);
+          retval = tgetent (termcapbuf.buf, term);
+          if (memcmp (termcapbuf.canary, "CnRy", 4) != 0)
             /* Buffer overflow!  */
             abort ();
-        }
-#else
-    /* Fallback code for platforms with neither the terminfo nor the termcap
-       functions, such as mingw.
-       Assume the ANSI escape sequences.  Extracted through
-       "TERM=ansi infocmp", replacing \E with \033.  */
-      stream->max_colors = 8;
-      stream->no_color_video = 3;
-      stream->set_a_foreground = xstrdup ("\033[3%p1%dm");
-      stream->set_a_background = xstrdup ("\033[4%p1%dm");
-      stream->orig_pair = xstrdup ("\033[39;49m");
-      stream->enter_bold_mode = xstrdup ("\033[1m");
-      stream->enter_underline_mode = xstrdup ("\033[4m");
-      stream->exit_underline_mode = xstrdup ("\033[m");
-      stream->exit_attribute_mode = xstrdup ("\033[0;10m");
-#endif
 
-      /* AIX 4.3.2, IRIX 6.5, HP-UX 11, Solaris 7..10 all lack the
-         description of color capabilities of "xterm" and "xterms"
-         in their terminfo database.  But it is important to have
-         color in xterm.  So we provide the color capabilities here.  */
-      if (stream->max_colors <= 1
-          && (strcmp (term, "xterm") == 0 || strcmp (term, "xterms") == 0))
-        {
+          if (retval > 0)
+            {
+              struct { char buf[1024]; char canary[4]; } termentrybuf;
+              char *termentryptr;
+
+              /* Prepare for calling tgetstr, being defensive against buffer
+                 overflow.  ncurses' tgetstr() supports a second argument NULL,
+                 but NetBSD's tgetstr() doesn't.  */
+              memcpy (termentrybuf.canary, "CnRz", 4);
+              #define TEBP ((termentryptr = termentrybuf.buf), &termentryptr)
+
+              /* Retrieve particular values depending on the terminal type.  */
+              stream->max_colors = tgetnum ("Co");
+              stream->no_color_video = tgetnum ("NC");
+              stream->set_a_foreground = xstrdup0 (tgetstr ("AF", TEBP));
+              stream->set_foreground = xstrdup0 (tgetstr ("Sf", TEBP));
+              stream->set_a_background = xstrdup0 (tgetstr ("AB", TEBP));
+              stream->set_background = xstrdup0 (tgetstr ("Sb", TEBP));
+              stream->orig_pair = xstrdup0 (tgetstr ("op", TEBP));
+              stream->enter_bold_mode = xstrdup0 (tgetstr ("md", TEBP));
+              stream->enter_italics_mode = xstrdup0 (tgetstr ("ZH", TEBP));
+              stream->exit_italics_mode = xstrdup0 (tgetstr ("ZR", TEBP));
+              stream->enter_underline_mode = xstrdup0 (tgetstr ("us", TEBP));
+              stream->exit_underline_mode = xstrdup0 (tgetstr ("ue", TEBP));
+              stream->exit_attribute_mode = xstrdup0 (tgetstr ("me", TEBP));
+
+              #ifdef __BEOS__
+              /* The BeOS termcap entry for "beterm" is broken: For "AF" and
+                 "AB" it contains balues in terminfo syntax but the system's
+                 tparam() function understands only the termcap syntax.  */
+              if (stream->set_a_foreground != NULL
+                  && strcmp (stream->set_a_foreground, "\033[3%p1%dm") == 0)
+                {
+                  free (stream->set_a_foreground);
+                  stream->set_a_foreground = xstrdup ("\033[3%dm");
+                }
+              if (stream->set_a_background != NULL
+                  && strcmp (stream->set_a_background, "\033[4%p1%dm") == 0)
+                {
+                  free (stream->set_a_background);
+                  stream->set_a_background = xstrdup ("\033[4%dm");
+                }
+              #endif
+
+              /* The termcap entry for cygwin is broken: It has no "ncv" value,
+                 but bold and underline are actually rendered through colors.  */
+              if (strcmp (term, "cygwin") == 0)
+                stream->no_color_video |= 2 | 32;
+
+              /* Done with tgetstr.  Detect possible buffer overflow.  */
+              #undef TEBP
+              if (memcmp (termentrybuf.canary, "CnRz", 4) != 0)
+                /* Buffer overflow!  */
+                abort ();
+            }
+          #else
+          /* Fallback code for platforms with neither the terminfo nor the
+             termcap functions, such as mingw.
+             Assume the ANSI escape sequences.  Extracted through
+             "TERM=ansi infocmp", replacing \E with \033.  */
           stream->max_colors = 8;
+          stream->no_color_video = 3;
           stream->set_a_foreground = xstrdup ("\033[3%p1%dm");
           stream->set_a_background = xstrdup ("\033[4%p1%dm");
           stream->orig_pair = xstrdup ("\033[39;49m");
+          stream->enter_bold_mode = xstrdup ("\033[1m");
+          stream->enter_underline_mode = xstrdup ("\033[4m");
+          stream->exit_underline_mode = xstrdup ("\033[m");
+          stream->exit_attribute_mode = xstrdup ("\033[0;10m");
+          #endif
+
+          /* AIX 4.3.2, IRIX 6.5, HP-UX 11, Solaris 7..10 all lack the
+             description of color capabilities of "xterm" and "xterms"
+             in their terminfo database.  But it is important to have
+             color in xterm.  So we provide the color capabilities here.  */
+          if (stream->max_colors <= 1
+              && (strcmp (term, "xterm") == 0 || strcmp (term, "xterms") == 0))
+            {
+              stream->max_colors = 8;
+              stream->set_a_foreground = xstrdup ("\033[3%p1%dm");
+              stream->set_a_background = xstrdup ("\033[4%p1%dm");
+              stream->orig_pair = xstrdup ("\033[39;49m");
+            }
         }
+
+      /* Infer the capabilities.  */
+      stream->supports_foreground =
+        (stream->max_colors >= 8
+         && (stream->set_a_foreground != NULL || stream->set_foreground != NULL)
+         && stream->orig_pair != NULL);
+      stream->supports_background =
+        (stream->max_colors >= 8
+         && (stream->set_a_background != NULL || stream->set_background != NULL)
+         && stream->orig_pair != NULL);
+      stream->colormodel =
+        (stream->supports_foreground || stream->supports_background
+         ? (term != NULL
+            && (/* Recognize xterm-16color, xterm-88color, xterm-256color.  */
+                (strlen (term) >= 5 && memcmp (term, "xterm", 5) == 0)
+                || /* Recognize rxvt-16color.  */
+                   (strlen (term) >= 4 && memcmp (term, "rxvt", 4) == 0)
+                || /* Recognize konsole-16color.  */
+                   (strlen (term) >= 7 && memcmp (term, "konsole", 7) == 0))
+            ? (stream->max_colors == 256 ? cm_xterm256 :
+               stream->max_colors == 88 ? cm_xterm88 :
+               stream->max_colors == 16 ? cm_xterm16 :
+               cm_xterm8)
+            : cm_common8)
+         : cm_monochrome);
+      stream->supports_weight =
+        (stream->enter_bold_mode != NULL
+         && stream->exit_attribute_mode != NULL);
+      stream->supports_posture =
+        (stream->enter_italics_mode != NULL
+         && (stream->exit_italics_mode != NULL
+             || stream->exit_attribute_mode != NULL));
+      stream->supports_underline =
+        (stream->enter_underline_mode != NULL
+         && (stream->exit_underline_mode != NULL
+             || stream->exit_attribute_mode != NULL));
+
+      /* Infer the restore strings.  */
+      stream->restore_colors =
+        (stream->supports_foreground || stream->supports_background
+         ? stream->orig_pair
+         : NULL);
+      stream->restore_weight =
+        (stream->supports_weight ? stream->exit_attribute_mode : NULL);
+      stream->restore_posture =
+        (stream->supports_posture
+         ? (stream->exit_italics_mode != NULL
+            ? stream->exit_italics_mode
+            : stream->exit_attribute_mode)
+         : NULL);
+      stream->restore_underline =
+        (stream->supports_underline
+         ? (stream->exit_underline_mode != NULL
+            ? stream->exit_underline_mode
+            : stream->exit_attribute_mode)
+         : NULL);
     }
-
-  /* Infer the capabilities.  */
-  stream->supports_foreground =
-    (stream->max_colors >= 8
-     && (stream->set_a_foreground != NULL || stream->set_foreground != NULL)
-     && stream->orig_pair != NULL);
-  stream->supports_background =
-    (stream->max_colors >= 8
-     && (stream->set_a_background != NULL || stream->set_background != NULL)
-     && stream->orig_pair != NULL);
-  stream->colormodel =
-    (stream->supports_foreground || stream->supports_background
-     ? (term != NULL
-        && (/* Recognize xterm-16color, xterm-88color, xterm-256color.  */
-            (strlen (term) >= 5 && memcmp (term, "xterm", 5) == 0)
-            || /* Recognize rxvt-16color.  */
-               (strlen (term) >= 4 && memcmp (term, "rxvt", 4) == 0)
-            || /* Recognize konsole-16color.  */
-               (strlen (term) >= 7 && memcmp (term, "konsole", 7) == 0))
-        ? (stream->max_colors == 256 ? cm_xterm256 :
-           stream->max_colors == 88 ? cm_xterm88 :
-           stream->max_colors == 16 ? cm_xterm16 :
-           cm_xterm8)
-        : cm_common8)
-     : cm_monochrome);
-  stream->supports_weight =
-    (stream->enter_bold_mode != NULL && stream->exit_attribute_mode != NULL);
-  stream->supports_posture =
-    (stream->enter_italics_mode != NULL
-     && (stream->exit_italics_mode != NULL
-         || stream->exit_attribute_mode != NULL));
-  stream->supports_underline =
-    (stream->enter_underline_mode != NULL
-     && (stream->exit_underline_mode != NULL
-         || stream->exit_attribute_mode != NULL));
-
-  /* Infer the restore strings.  */
-  stream->restore_colors =
-    (stream->supports_foreground || stream->supports_background
-     ? stream->orig_pair
-     : NULL);
-  stream->restore_weight =
-    (stream->supports_weight ? stream->exit_attribute_mode : NULL);
-  stream->restore_posture =
-    (stream->supports_posture
-     ? (stream->exit_italics_mode != NULL
-        ? stream->exit_italics_mode
-        : stream->exit_attribute_mode)
-     : NULL);
-  stream->restore_underline =
-    (stream->supports_underline
-     ? (stream->exit_underline_mode != NULL
-        ? stream->exit_underline_mode
-        : stream->exit_attribute_mode)
-     : NULL);
 
   /* Initialize the buffer.  */
   stream->allocated = 120;

@@ -17,6 +17,7 @@ gettext-h
 terminfo-h
 xalloc
 xsize
+msvc-nothrow
 
 configure.ac:
 gl_TERM_OSTREAM
