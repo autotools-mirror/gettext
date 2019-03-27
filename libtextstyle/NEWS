@@ -1,3 +1,9 @@
+New in 0.8:
+* Fixed a couple of reliability bugs:
+  - When a program exits while the terminal was in non-default state, the
+    library left the terminal with ECHO off.
+  - The SIGTSTP and SIGCONT signal handlers could clobber errno.
+
 New in 0.7:
 * Reliable tty control, as described by the ttyctl_t enum, is now implemented.
 
