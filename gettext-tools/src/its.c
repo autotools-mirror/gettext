@@ -480,28 +480,25 @@ normalize_whitespace (const char *text, enum its_whitespace_type_ty whitespace)
         return result;
       }
     default:
-      /* Normalize whitespaces within the text, but not at the beginning
-         nor the end of the text.  */
+      /* Normalize whitespaces within the text, but do not eliminate whitespace
+         at the beginning nor the end of the text.  */
       {
-        char *result, *p, *out;
-        bool last_ws = false;
+        char *result = xstrdup (text);
+        char *out;
+        const char *p;
 
-        result = xstrdup (text);
-        for (p = out = result; *p != '\0'; p++)
+        out = result;
+        for (p = result; *p != '\0';)
           {
             if (*p == ' ' || *p == '\t' || *p == '\n')
               {
-                if (!last_ws)
-                  {
-                    *out++ = ' ';
-                    last_ws = true;
-                  }
+                do
+                  p++;
+                while (*p == ' ' || *p == '\t' || *p == '\n');
+                *out++ = ' ';
               }
             else
-              {
-                *out++ = *p;
-                last_ws = false;
-              }
+              *out++ = *p++;
           }
         *out = '\0';
         return result;
