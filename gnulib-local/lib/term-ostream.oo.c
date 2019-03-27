@@ -976,7 +976,7 @@ fields:
   /* The file descriptor used for output.  Note that ncurses termcap emulation
      uses the baud rate information from file descriptor 1 (stdout) if it is
      a tty, or from file descriptor 2 (stderr) otherwise.  */
-  int fd;
+  int volatile fd;
   char *filename;
   /* Values from the terminal type's terminfo/termcap description.
      See terminfo(5) for details.  */
