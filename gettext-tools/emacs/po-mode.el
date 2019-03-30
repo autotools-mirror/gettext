@@ -916,8 +916,7 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
     ("\\\\.\\|%[*$-.0-9hjltuzL]*[a-zA-Z]" . font-lock-variable-name-face)
     ("^# .*\\|^#[:,]?" . font-lock-comment-face)
     ("^#:\\(.*\\)" 1 font-lock-reference-face)
-    ;; The following line does not work, and I wonder why.
-    ;;("^#,\\(.*\\)" 1 font-function-name-reference-face)
+    ("^#,\\(.*\\)" 1 font-lock-function-name-face)
     )
   "Additional expressions to highlight in PO mode.")
 
