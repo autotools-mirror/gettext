@@ -1,6 +1,6 @@
 ;;; po-compat.el --- basic support of PO translation files -*- coding: latin-1; -*-
 
-;; Copyright (C) 1995-2002, 2010, 2016 Free Software Foundation, Inc.
+;; Copyright (C) 1995-2002, 2010, 2016, 2019 Free Software Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>,
 ;;          Greg McGary <gkm@magilla.cichlid.com>,
@@ -38,15 +38,12 @@
 
 ;; Identify which Emacs variety is being used.
 ;; This file supports:
-;;   - XEmacs (version 19 and above) -> po-XEMACS = t,
 ;;   - GNU Emacs (version 20 and above) -> po-EMACS20 = t,
 ;;   - GNU Emacs (version 19) -> no flag.
 (eval-and-compile
-  (cond ((string-match "XEmacs\\|Lucid" emacs-version)
-         (setq po-EMACS20 nil po-XEMACS t))
-        ((and (string-lessp "19" emacs-version) (featurep 'faces))
-         (setq po-EMACS20 t po-XEMACS nil))
-        (t (setq po-EMACS20 nil po-XEMACS nil))))
+  (cond ((and (string-lessp "19" emacs-version) (featurep 'faces))
+         (setq po-EMACS20 t))
+        (t (setq po-EMACS20 nil))))
 
 ;; Handle missing 'with-temp-buffer' function.
 (eval-and-compile
@@ -130,7 +127,7 @@
     ("CP1255" . iso-8859-8) ; approximation
     ;("CP1256" . ??)
     ("CP1257" . cp1257) ; requires Emacs 20
-    ("GB2312" . cn-gb-2312)  ; also named 'gb2312' in XEmacs 21 or Emacs 21
+    ("GB2312" . cn-gb-2312)  ; also named 'gb2312' in Emacs 21
                              ; also named 'euc-cn' in Emacs 20 or Emacs 21
     ("EUC-JP" . euc-jp)
     ("EUC-KR" . euc-kr)
@@ -212,25 +209,6 @@ Called through file-coding-system-alist, before the file is visited for real."
                             (t
                              'no-conversion))))))))
 
-  (if po-XEMACS
-      (defun po-find-file-coding-system-guts (operation filename)
-        "\
-Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
-Called through file-coding-system-alist, before the file is visited for real."
-        (and (eq operation 'insert-file-contents)
-             (file-exists-p filename)
-             (po-with-temp-buffer
-               (let ((coding-system-for-read 'no-conversion))
-                 (let* ((charset (or (po-find-charset filename)
-                                     "ascii"))
-                        (charset-upper (upcase charset))
-                        (charset-lower (intern (downcase charset))))
-                   (list (or (cdr (assoc charset-upper
-                                         po-content-type-charset-alist))
-                             (if (memq charset-lower (coding-system-list))
-                                 charset-lower
-                               'no-conversion)))))))))
-
   (if po-EMACS20
       (defun po-find-file-coding-system (arg-list)
         "\
@@ -238,28 +216,20 @@ Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
         (po-find-file-coding-system-guts (car arg-list) (car (cdr arg-list)))))
 
-  (if po-XEMACS
-      (defun po-find-file-coding-system (operation filename)
-        "\
-Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
-Called through file-coding-system-alist, before the file is visited for real."
-        (po-find-file-coding-system-guts operation filename)))
-
   )
 
 (provide 'po-compat)
 
 ;;; Testing this file:
 
-;; For each emacsimpl in { emacs, xemacs } do
-;;   For each pofile in {
-;;     cs.po           ; gettext/po/cs.el, charset=ISO-8859-2
-;;     cs-modified.po  ; gettext/po/cs.el, charset=ISO_8859-2
-;;     de.po           ; gettext/po/de.el, charset=UTF-8, if $emacsimpl = emacs
-;;   } do
-;;     Start $emacsimpl
-;;     M-x load-file  po-compat.el RET
-;;     C-x C-f  $pofile RET
-;;     Verify charset marker in status line ('2' = ISO-8859-2, 'u' = UTF-8).
+;; For each pofile in {
+;;   cs.po           ; gettext/po/cs.el, charset=ISO-8859-2
+;;   cs-modified.po  ; gettext/po/cs.el, charset=ISO_8859-2
+;;   de.po           ; gettext/po/de.el, charset=UTF-8, if $emacsimpl = emacs
+;; } do
+;;   Start $emacsimpl
+;;   M-x load-file  po-compat.el RET
+;;   C-x C-f  $pofile RET
+;;   Verify charset marker in status line ('2' = ISO-8859-2, 'u' = UTF-8).
 
 ;;; po-compat.el ends here
