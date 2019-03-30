@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/misc subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2000-2003, 2005-2007, 2009-2010 Free
+## Copyright (C) 1995-1997, 2000-2003, 2005-2007, 2009-2010, 2019 Free
 ## Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
@@ -113,9 +113,3 @@ archive.cvs.tar.gz: archive.dir.tar
 	  inputfile='$(srcdir)'/archive.dir.tar; \
 	fi; \
 	./convert-archive dir cvs "$$inputfile" $@
-
-# Emacs Lisp code.
-
-lisp_LISP = start-po.el po-mode.el po-compat.el
-
-EXTRA_DIST += $(lisp_LISP)

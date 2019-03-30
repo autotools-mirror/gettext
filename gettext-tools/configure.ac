@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-tools directory of GNU gettext
-dnl Copyright (C) 1995-2018 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2019 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -530,6 +530,8 @@ AC_CONFIG_FILES([po/Makefile.in])
 AC_CONFIG_FILES([projects/Makefile])
 
 AC_CONFIG_FILES([styles/Makefile])
+
+AC_CONFIG_FILES([emacs/Makefile])
 
 AC_CONFIG_FILES([misc/Makefile])
 AC_CONFIG_FILES([misc/gettextize], [chmod a+x misc/gettextize])
