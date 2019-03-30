@@ -63,20 +63,11 @@
 
 ;;; Code:
 
-(defconst po-mode-version-string "2.25" "\
+(defconst po-mode-version-string "2.26" "\
 Version number of this version of po-mode.el.")
 
 ;;; Emacs portability matters - part I.
 ;;; Here is the minimum for customization to work.  See part II.
-
-;; Identify which Emacs variety is being used.
-;; This file supports:
-;;   - GNU Emacs (version 20 and above) -> po-EMACS20 = t,
-;;   - GNU Emacs (version 19) -> no flag.
-(eval-and-compile
-  (cond ((and (string-lessp "19" emacs-version) (featurep 'faces))
-         (setq po-EMACS20 t))
-        (t (setq po-EMACS20 nil))))
 
 ;; Experiment with Emacs LISP message internationalisation.
 (eval-and-compile
@@ -180,7 +171,7 @@ to this email address."
   :type 'string
   :group 'po)
 
-(defcustom po-highlighting po-EMACS20
+(defcustom po-highlighting t
   "*Highlight text whenever appropriate, when non-nil.
 However, on older Emacses, a yet unexplained highlighting bug causes files
 to get mangled."
@@ -562,100 +553,27 @@ or remove the -m if you are not using the GNU version of 'uuencode'."
 
 ;; Handle portable highlighting.  Code has been adapted (OK... stolen! :-)
 ;; from 'ispell.el'.
-(eval-and-compile
-  (cond
-   (po-EMACS20
 
-    (defun po-create-overlay ()
-      "Create and return a deleted overlay structure.
+(defun po-create-overlay ()
+  "Create and return a deleted overlay structure.
 The variable 'po-highlight-face' selects the face to use for highlighting."
-      (let ((overlay (make-overlay (point) (point))))
-        (overlay-put overlay 'face po-highlight-face)
-        ;; The fun thing is that a deleted overlay retains its face, and is
-        ;; movable.
-        (delete-overlay overlay)
-        overlay))
+  (let ((overlay (make-overlay (point) (point))))
+    (overlay-put overlay 'face po-highlight-face)
+    ;; The fun thing is that a deleted overlay retains its face, and is
+    ;; movable.
+    (delete-overlay overlay)
+    overlay))
 
-    (defun po-highlight (overlay start end &optional buffer)
-      "Use OVERLAY to highlight the string from START to END.
+(defun po-highlight (overlay start end &optional buffer)
+  "Use OVERLAY to highlight the string from START to END.
 If limits are not relative to the current buffer, use optional BUFFER."
-      (move-overlay overlay start end (or buffer (current-buffer))))
+  (move-overlay overlay start end (or buffer (current-buffer))))
 
-    (defun po-rehighlight (overlay)
-      "Ensure OVERLAY is highlighted."
-      ;; There is nothing to do, as GNU Emacs allows multiple highlights.
-      nil)
-
-    (defun po-dehighlight (overlay)
-      "Display normally the last string which OVERLAY highlighted.
+(defun po-dehighlight (overlay)
+  "Display normally the last string which OVERLAY highlighted.
 The current buffer should be in PO mode, when this function is called."
-      (delete-overlay overlay)))
+  (delete-overlay overlay))
 
-   (t
-
-    (defun po-create-overlay ()
-      "Create and return a deleted overlay structure."
-      (cons (make-marker) (make-marker)))
-
-    (defun po-highlight (overlay start end &optional buffer)
-      "Use OVERLAY to highlight the string from START to END.
-If limits are not relative to the current buffer, use optional BUFFER.
-No doubt that highlighting, when Emacs does not allow it, is a kludge."
-      (save-excursion
-        (and buffer (set-buffer buffer))
-        (let ((modified (buffer-modified-p))
-              (buffer-read-only nil)
-              (inhibit-quit t)
-              (buffer-undo-list t)
-              (text (buffer-substring start end)))
-          (goto-char start)
-          (delete-region start end)
-          (insert-char ?  (- end start))
-          (sit-for 0)
-          (setq inverse-video (not inverse-video))
-          (delete-region start end)
-          (insert text)
-          (sit-for 0)
-          (setq inverse-video (not inverse-video))
-          (set-buffer-modified-p modified)))
-      (set-marker (car overlay) start (or buffer (current-buffer)))
-      (set-marker (cdr overlay) end (or buffer (current-buffer))))
-
-    (defun po-rehighlight (overlay)
-      "Ensure OVERLAY is highlighted."
-      (let ((buffer (marker-buffer (car overlay)))
-            (start (marker-position (car overlay)))
-            (end (marker-position (cdr overlay))))
-        (and buffer
-             (buffer-name buffer)
-             (po-highlight overlay start end buffer))))
-
-    (defun po-dehighlight (overlay)
-      "Display normally the last string which OVERLAY highlighted."
-      (let ((buffer (marker-buffer (car overlay)))
-            (start (marker-position (car overlay)))
-            (end (marker-position (cdr overlay))))
-        (if buffer
-            (save-excursion
-              (set-buffer buffer)
-              (let ((modified (buffer-modified-p))
-                    (buffer-read-only nil)
-                    (inhibit-quit t)
-                    (buffer-undo-list t))
-                (let ((text (buffer-substring start end)))
-                  (goto-char start)
-                  (delete-region start end)
-                  (insert-char ?  (- end start))
-                  (sit-for 0)
-                  (delete-region start end)
-                  (insert text)
-                  (sit-for 0)
-                  (set-buffer-modified-p modified)))))
-        (setcar overlay (make-marker))
-        (setcdr overlay (make-marker))))
-
-    )))
-
 ;;; Buffer local variables.
 
 ;; The following block of declarations has the main purpose of avoiding
@@ -2164,8 +2082,6 @@ comments) from the current entry, if the user gives the permission."
       (let ((slot (car po-edited-fields)))
         (goto-char (nth 0 slot))
         (pop-to-buffer (nth 1 slot))
-        (let ((overlay (nth 2 slot)))
-          (and overlay (po-rehighlight overlay)))
         (message po-subedit-message)
         nil)))
 
@@ -2179,8 +2095,6 @@ comments) from the current entry, if the user gives the permission."
           (progn
             (goto-char marker)
             (pop-to-buffer (nth 1 slot))
-            (let ((overlay (nth 2 slot)))
-              (and overlay (po-rehighlight overlay)))
             (message po-subedit-message)))
       (not slot))))
 

@@ -1,6 +1,6 @@
 ;;; start-po.el --- autoload definitions for viewing and editing PO files
 
-;; Copyright (C) 1995-2004, 2016 Free Software Foundation, Inc.
+;; Copyright (C) 1995-2004, 2016, 2019 Free Software Foundation, Inc.
 ;;
 ;; This file is part of GNU gettext.
 ;;
@@ -44,7 +44,7 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
 
 ;; For viewing PO and POT files.
 
-;; To use the right coding system automatically under Emacs 20 or newer.
+;; To use the right coding system automatically.
 (unless (fboundp 'po-find-file-coding-system)
   (autoload 'po-find-file-coding-system "po-compat"
     "\

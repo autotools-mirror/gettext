@@ -36,35 +36,6 @@
 
 ;;; Emacs portability matters.
 
-;; Identify which Emacs variety is being used.
-;; This file supports:
-;;   - GNU Emacs (version 20 and above) -> po-EMACS20 = t,
-;;   - GNU Emacs (version 19) -> no flag.
-(eval-and-compile
-  (cond ((and (string-lessp "19" emacs-version) (featurep 'faces))
-         (setq po-EMACS20 t))
-        (t (setq po-EMACS20 nil))))
-
-;; Handle missing 'with-temp-buffer' function.
-(eval-and-compile
-  (if (fboundp 'with-temp-buffer)
-      (fset 'po-with-temp-buffer (symbol-function 'with-temp-buffer))
-
-    (defmacro po-with-temp-buffer (&rest forms)
-      "Create a temporary buffer, and evaluate FORMS there like 'progn'."
-      (let ((curr-buffer (make-symbol "curr-buffer"))
-            (temp-buffer (make-symbol "temp-buffer")))
-        `(let ((,curr-buffer (current-buffer))
-               (,temp-buffer (get-buffer-create
-                              (generate-new-buffer-name " *po-temp*"))))
-           (unwind-protect
-               (progn
-                 (set-buffer ,temp-buffer)
-                 ,@forms)
-             (set-buffer ,curr-buffer)
-             (and (buffer-name ,temp-buffer)
-                  (kill-buffer ,temp-buffer))))))))
-
 (defconst po-content-type-charset-alist
   '(; Note: Emacs 21 doesn't support all encodings, thus the missing entries.
     ("ASCII" . undecided)
@@ -92,24 +63,24 @@
     ;("ISO_8859-13" . ??)
     ;("ISO-8859-14" . ??)
     ;("ISO_8859-14" . ??)
-    ("ISO-8859-15" . iso-8859-15) ; requires Emacs 21
-    ("ISO_8859-15" . iso-8859-15) ; requires Emacs 21
+    ("ISO-8859-15" . iso-8859-15)
+    ("ISO_8859-15" . iso-8859-15)
     ("KOI8-R" . koi8-r)
     ;("KOI8-U" . ??)
     ;("KOI8-T" . ??)
-    ("CP437" . cp437) ; requires Emacs 20
-    ("CP775" . cp775) ; requires Emacs 20
-    ("CP850" . cp850) ; requires Emacs 20
-    ("CP852" . cp852) ; requires Emacs 20
-    ("CP855" . cp855) ; requires Emacs 20
+    ("CP437" . cp437)
+    ("CP775" . cp775)
+    ("CP850" . cp850)
+    ("CP852" . cp852)
+    ("CP855" . cp855)
     ;("CP856" . ??)
-    ("CP857" . cp857) ; requires Emacs 20
-    ("CP861" . cp861) ; requires Emacs 20
-    ("CP862" . cp862) ; requires Emacs 20
-    ("CP864" . cp864) ; requires Emacs 20
-    ("CP865" . cp865) ; requires Emacs 20
-    ("CP866" . cp866) ; requires Emacs 21
-    ("CP869" . cp869) ; requires Emacs 20
+    ("CP857" . cp857)
+    ("CP861" . cp861)
+    ("CP862" . cp862)
+    ("CP864" . cp864)
+    ("CP865" . cp865)
+    ("CP866" . cp866)
+    ("CP869" . cp869)
     ;("CP874" . ??)
     ;("CP922" . ??)
     ;("CP932" . ??)
@@ -119,16 +90,15 @@
     ;("CP1046" . ??)
     ;("CP1124" . ??)
     ;("CP1129" . ??)
-    ("CP1250" . cp1250) ; requires Emacs 20
-    ("CP1251" . cp1251) ; requires Emacs 20
+    ("CP1250" . cp1250)
+    ("CP1251" . cp1251)
     ("CP1252" . iso-8859-1) ; approximation
-    ("CP1253" . cp1253) ; requires Emacs 20
+    ("CP1253" . cp1253)
     ("CP1254" . iso-8859-9) ; approximation
     ("CP1255" . iso-8859-8) ; approximation
     ;("CP1256" . ??)
-    ("CP1257" . cp1257) ; requires Emacs 20
-    ("GB2312" . cn-gb-2312)  ; also named 'gb2312' in Emacs 21
-                             ; also named 'euc-cn' in Emacs 20 or Emacs 21
+    ("CP1257" . cp1257)
+    ("GB2312" . cn-gb-2312)  ; also named 'gb2312' and 'euc-cn'
     ("EUC-JP" . euc-jp)
     ("EUC-KR" . euc-kr)
     ;("EUC-TW" . ??)
@@ -138,10 +108,10 @@
     ;("GB18030" . ??)
     ("SHIFT_JIS" . shift_jis)
     ;("JOHAB" . ??)
-    ("TIS-620" . tis-620)    ; requires Emacs 20 or Emacs 21
-    ("VISCII" . viscii)      ; requires Emacs 20 or Emacs 21
+    ("TIS-620" . tis-620)
+    ("VISCII" . viscii)
     ;("GEORGIAN-PS" . ??)
-    ("UTF-8" . utf-8)        ; requires Mule-UCS in Emacs 20, or Emacs 21
+    ("UTF-8" . utf-8)
     )
   "How to convert a GNU libc/libiconv canonical charset name as seen in
 Content-Type into a Mule coding system.")
@@ -178,45 +148,39 @@ Content-Type into a Mule coding system.")
 
 ;;;###autoload (autoload 'po-find-file-coding-system "po-compat")
 
-(eval-and-compile
-  (if po-EMACS20
-      (defun po-find-file-coding-system-guts (operation filename)
-        "\
+(defun po-find-file-coding-system-guts (operation filename)
+  "\
 Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
-        (and (eq operation 'insert-file-contents)
-             (file-exists-p filename)
-             (po-with-temp-buffer
-              (let* ((coding-system-for-read 'no-conversion)
-                     (charset (or (po-find-charset filename) "ascii"))
-                     (charset-upper (upcase charset))
-                     (charset-lower (downcase charset))
-                     (candidate
-                      (cdr (assoc charset-upper po-content-type-charset-alist)))
-                     (try-symbol (or candidate (intern-soft charset-lower)))
-                     (try-string
-                      (if try-symbol (symbol-name try-symbol) charset-lower)))
-                (list (cond ((and try-symbol (coding-system-p try-symbol))
-                             try-symbol)
-                            ((and po-EMACS20
-                                  (not (string-lessp "23" emacs-version))
-                                  (string-match "\\`cp[1-9][0-9][0-9]?\\'"
-                                                try-string)
-                                  (assoc (substring try-string 2)
-                                         (cp-supported-codepages)))
-                             (codepage-setup (substring try-string 2))
-                             (intern try-string))
-                            (t
-                             'no-conversion))))))))
+  (and (eq operation 'insert-file-contents)
+       (file-exists-p filename)
+       (po-with-temp-buffer
+        (let* ((coding-system-for-read 'no-conversion)
+               (charset (or (po-find-charset filename) "ascii"))
+               (charset-upper (upcase charset))
+               (charset-lower (downcase charset))
+               (candidate
+                (cdr (assoc charset-upper po-content-type-charset-alist)))
+               (try-symbol (or candidate (intern-soft charset-lower)))
+               (try-string
+                (if try-symbol (symbol-name try-symbol) charset-lower)))
+          (list (cond ((and try-symbol (coding-system-p try-symbol))
+                       try-symbol)
+                      ((and (not (string-lessp "23" emacs-version))
+                            (string-match "\\`cp[1-9][0-9][0-9]?\\'"
+                                          try-string)
+                            (assoc (substring try-string 2)
+                                   (cp-supported-codepages)))
+                       (codepage-setup (substring try-string 2))
+                       (intern try-string))
+                      (t
+                       'no-conversion)))))))
 
-  (if po-EMACS20
-      (defun po-find-file-coding-system (arg-list)
-        "\
+(defun po-find-file-coding-system (arg-list)
+  "\
 Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
-        (po-find-file-coding-system-guts (car arg-list) (car (cdr arg-list)))))
-
-  )
+  (po-find-file-coding-system-guts (car arg-list) (car (cdr arg-list))))
 
 (provide 'po-compat)
 
