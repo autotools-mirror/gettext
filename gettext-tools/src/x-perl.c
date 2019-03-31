@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2010, 2013, 2016, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2010, 2013, 2016, 2018-2019 Free Software Foundation, Inc.
 
    This file was written by Guido Flohr <guido@imperia.net>, 2002-2010.
 
@@ -335,8 +335,8 @@ get_here_document (const char *delimiter)
           else
             {
               error_with_progname = false;
-              error (EXIT_SUCCESS, 0, _("\
-%s:%d: can't find string terminator \"%s\" anywhere before EOF"),
+              error (EXIT_SUCCESS, 0,
+                     _("%s:%d: can't find string terminator \"%s\" anywhere before EOF"),
                      real_file_name, line_number, delimiter);
               error_with_progname = true;
 
@@ -1070,8 +1070,9 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
                     if (end == NULL)
                       {
                         error_with_progname = false;
-                        error (error_level, 0, _("\
-%s:%d: missing right brace on \\x{HEXNUMBER}"), real_file_name, line_number);
+                        error (error_level, 0,
+                               _("%s:%d: missing right brace on \\x{HEXNUMBER}"),
+                               real_file_name, line_number);
                         error_with_progname = true;
                         ++crs;
                         continue;
@@ -1190,8 +1191,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
               else if ((unsigned char) *crs >= 0x80)
                 {
                   error_with_progname = false;
-                  error (error_level, 0, _("\
-%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""),
+                  error (error_level, 0,
+                         _("%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""),
                          real_file_name, line_number, *crs);
                   error_with_progname = true;
                 }
@@ -1210,8 +1211,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
               else if ((unsigned char) *crs >= 0x80)
                 {
                   error_with_progname = false;
-                  error (error_level, 0, _("\
-%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""),
+                  error (error_level, 0,
+                         _("%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""),
                          real_file_name, line_number, *crs);
                   error_with_progname = true;
                 }
@@ -1244,8 +1245,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
       if (!backslashed && !extract_all && (*crs == '$' || *crs == '@'))
         {
           error_with_progname = false;
-          error (error_level, 0, _("\
-%s:%d: invalid variable interpolation at \"%c\""),
+          error (error_level, 0,
+                 _("%s:%d: invalid variable interpolation at \"%c\""),
                  real_file_name, line_number, *crs);
           error_with_progname = true;
           ++crs;
@@ -1257,8 +1258,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
           else if ((unsigned char) *crs >= 0x80)
             {
               error_with_progname = false;
-              error (error_level, 0, _("\
-%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""),
+              error (error_level, 0,
+                     _("%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""),
                      real_file_name, line_number, *crs);
               error_with_progname = true;
               buffer[bufpos++] = *crs;
@@ -1274,8 +1275,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
           else if ((unsigned char) *crs >= 0x80)
             {
               error_with_progname = false;
-              error (error_level, 0, _("\
-%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""),
+              error (error_level, 0,
+                     _("%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""),
                      real_file_name, line_number, *crs);
               error_with_progname = true;
               buffer[bufpos++] = *crs;

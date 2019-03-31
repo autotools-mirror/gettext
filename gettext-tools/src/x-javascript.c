@@ -1,5 +1,5 @@
 /* xgettext JavaScript backend.
-   Copyright (C) 2002-2003, 2005-2009, 2013-2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009, 2013-2014, 2018-2019 Free Software Foundation, Inc.
 
    This file was written by Andreas Stricker <andy@knitter.ch>, 2010
    It's based on x-python from Bruno Haible.
@@ -228,8 +228,7 @@ phase2_getc ()
                                       non_ascii_error_message (lexical_context,
                                                                real_file_name,
                                                                line_number),
-                                      _("\
-Please specify the source encoding through --from-code\n")));
+                                      _("Please specify the source encoding through --from-code\n")));
           exit (EXIT_FAILURE);
         }
       return c;

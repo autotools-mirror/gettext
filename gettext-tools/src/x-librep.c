@@ -1,5 +1,5 @@
 /* xgettext librep backend.
-   Copyright (C) 2001-2003, 2005-2009, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009, 2018-2019 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -143,8 +143,8 @@ do_getc ()
   if (c == EOF)
     {
       if (ferror (fp))
-        error (EXIT_FAILURE, errno, _("\
-error while reading \"%s\""), real_file_name);
+        error (EXIT_FAILURE, errno,
+               _("error while reading \"%s\""), real_file_name);
     }
   else if (c == '\n')
    line_number++;

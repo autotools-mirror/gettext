@@ -66,8 +66,7 @@ extract_rules (FILE *fp,
       error_at_line (0, 0,
                      logical_filename,
                      xmlGetLineNo (node),
-                     _("\
-The root element must be <%s>"),
+                     _("The root element must be <%s>"),
                      "supplementalData");
       goto out;
     }
@@ -102,8 +101,7 @@ The root element must be <%s>"),
           error_at_line (0, 0,
                          logical_filename,
                          xmlGetLineNo (n),
-                         _("\
-The element <%s> does not have attribute <%s>"),
+                         _("The element <%s> does not have attribute <%s>"),
                          "pluralRules", "locales");
           continue;
         }
@@ -143,8 +141,7 @@ The element <%s> does not have attribute <%s>"),
               error_at_line (0, 0,
                              logical_filename,
                              xmlGetLineNo (n2),
-                             _("\
-The element <%s> does not have attribute <%s>"),
+                             _("The element <%s> does not have attribute <%s>"),
                              "pluralRule", "count");
               break;
             }

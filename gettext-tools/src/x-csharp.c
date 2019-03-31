@@ -1,5 +1,5 @@
 /* xgettext C# backend.
-   Copyright (C) 2003-2009, 2011, 2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2003-2009, 2011, 2014, 2018-2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -222,8 +222,7 @@ phase2_getc ()
                                       non_ascii_error_message (lexical_context,
                                                                real_file_name,
                                                                line_number),
-                                      _("\
-Please specify the source encoding through --from-code.")));
+                                      _("Please specify the source encoding through --from-code.")));
           exit (EXIT_FAILURE);
         }
       return c;

@@ -1,5 +1,5 @@
 /* Reading NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003, 2005-2007, 2009 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2007, 2009, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -936,8 +936,8 @@ stringtable_parse (abstract_catalog_reader_ty *pop, FILE *file,
             {
               po_xerror (PO_SEVERITY_ERROR, NULL,
                          real_file_name, gram_pos.line_number, (size_t)(-1),
-                         false, _("\
-warning: syntax error, expected ';' after string"));
+                         false,
+                         _("warning: syntax error, expected ';' after string"));
               break;
             }
         }
@@ -945,8 +945,7 @@ warning: syntax error, expected ';' after string"));
         {
           po_xerror (PO_SEVERITY_ERROR, NULL,
                      real_file_name, gram_pos.line_number, (size_t)(-1), false,
-                     _("\
-warning: syntax error, expected '=' or ';' after string"));
+                     _("warning: syntax error, expected '=' or ';' after string"));
           break;
         }
     }

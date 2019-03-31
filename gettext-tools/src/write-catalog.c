@@ -127,11 +127,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
   if (!output_syntax->supports_multiple_domains && mdlp->nitems > 1)
     {
       if (output_syntax->alternative_is_po)
-        po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false, _("\
-Cannot output multiple translation domains into a single file with the specified output format. Try using PO file syntax instead."));
+        po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                   _("Cannot output multiple translation domains into a single file with the specified output format. Try using PO file syntax instead."));
       else
-        po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false, _("\
-Cannot output multiple translation domains into a single file with the specified output format."));
+        po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                   _("Cannot output multiple translation domains into a single file with the specified output format."));
     }
   else
     {
@@ -163,8 +163,8 @@ Cannot output multiple translation domains into a single file with the specified
               error_with_progname = false;
               po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
                          has_context->file_name, has_context->line_number,
-                         (size_t)(-1), false, _("\
-message catalog has context dependent translations, but the output format does not support them."));
+                         (size_t)(-1), false,
+                         _("message catalog has context dependent translations, but the output format does not support them."));
               error_with_progname = true;
             }
         }
@@ -198,13 +198,13 @@ message catalog has context dependent translations, but the output format does n
               if (output_syntax->alternative_is_java_class)
                 po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
                            has_plural->file_name, has_plural->line_number,
-                           (size_t)(-1), false, _("\
-message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
+                           (size_t)(-1), false,
+                           _("message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
               else
                 po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
                            has_plural->file_name, has_plural->line_number,
-                           (size_t)(-1), false, _("\
-message catalog has plural form translations, but the output format does not support them."));
+                           (size_t)(-1), false,
+                           _("message catalog has plural form translations, but the output format does not support them."));
               error_with_progname = true;
             }
         }

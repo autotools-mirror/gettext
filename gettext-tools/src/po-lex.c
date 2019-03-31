@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-2009, 2011 Free Software Foundation, Inc.
+   Copyright (C) 1995-2009, 2011, 2019 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>.
    Multibyte character handling by Bruno Haible <haible@clisp.cons.org>.
@@ -462,8 +462,7 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
                       if (ferror (mbf->fp))
                         goto eof;
                       if (signal_eilseq)
-                        po_gram_error (_("\
-incomplete multibyte sequence at end of file"));
+                        po_gram_error (_("incomplete multibyte sequence at end of file"));
                       bytes = mbf->bufcount;
                       mbc->uc_valid = false;
                       break;
@@ -472,8 +471,7 @@ incomplete multibyte sequence at end of file"));
                   if (c == '\n')
                     {
                       if (signal_eilseq)
-                        po_gram_error (_("\
-incomplete multibyte sequence at end of line"));
+                        po_gram_error (_("incomplete multibyte sequence at end of line"));
                       bytes = mbf->bufcount - 1;
                       mbc->uc_valid = false;
                       break;

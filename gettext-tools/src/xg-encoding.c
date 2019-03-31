@@ -1,5 +1,5 @@
 /* Keeping track of the encoding of strings to be extracted.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -106,8 +106,7 @@ from_current_source_encoding (const char *string,
                                       non_ascii_error_message (lcontext,
                                                                file_name,
                                                                line_number),
-                                      _("\
-Please specify the source encoding through --from-code.")));
+                                      _("Please specify the source encoding through --from-code.")));
           exit (EXIT_FAILURE);
         }
     }

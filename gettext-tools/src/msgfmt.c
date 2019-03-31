@@ -1182,11 +1182,9 @@ msgfmt_parse_debrief (abstract_catalog_reader_ty *that)
       if (!this->has_header_entry)
         {
           multiline_error (xasprintf ("%s: ", this->file_name),
-                           xasprintf (_("\
-warning: PO file header missing or invalid\n")));
+                           xasprintf (_("warning: PO file header missing or invalid\n")));
           multiline_error (NULL,
-                           xasprintf (_("\
-warning: charset conversion will not work\n")));
+                           xasprintf (_("warning: charset conversion will not work\n")));
         }
     }
 }
@@ -1209,13 +1207,14 @@ msgfmt_set_domain (default_catalog_reader_ty *this, char *name)
           exit_status = EXIT_FAILURE;
           if (correct == 0)
             {
-              error (0, 0, _("\
-domain name \"%s\" not suitable as file name"), name);
+              error (0, 0,
+                     _("domain name \"%s\" not suitable as file name"), name);
               return;
             }
           else
-            error (0, 0, _("\
-domain name \"%s\" not suitable as file name: will use prefix"), name);
+            error (0, 0,
+                   _("domain name \"%s\" not suitable as file name: will use prefix"),
+                   name);
           name[correct] = '\0';
         }
 
@@ -1336,8 +1335,8 @@ msgfmt_comment_special (abstract_catalog_reader_ty *that, const char *s)
       if (!include_fuzzies && check_compatibility && !warned)
         {
           warned = true;
-          error (0, 0, _("\
-%s: warning: source file contains fuzzy translation"),
+          error (0, 0,
+                 _("%s: warning: source file contains fuzzy translation"),
                  gram_pos.file_name);
         }
     }

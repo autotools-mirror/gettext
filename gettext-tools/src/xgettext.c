@@ -563,8 +563,7 @@ main (int argc, char *argv[])
         if (xgettext_global_source_encoding == NULL)
           {
             multiline_warning (xasprintf (_("warning: ")),
-                               xasprintf (_("\
-'%s' is not a valid encoding name.  Using ASCII as fallback.\n"),
+                               xasprintf (_("'%s' is not a valid encoding name.  Using ASCII as fallback.\n"),
                                           optarg));
             xgettext_global_source_encoding = po_charset_ascii;
           }
@@ -697,8 +696,8 @@ There is NO WARRANTY, to the extent permitted by law.\n\
            "--kde", "--boost");
 
   if (join_existing && strcmp (default_domain, "-") == 0)
-    error (EXIT_FAILURE, 0, _("\
---join-existing cannot be used when output is written to stdout"));
+    error (EXIT_FAILURE, 0,
+           _("--join-existing cannot be used when output is written to stdout"));
 
   if (no_default_keywords && !some_additional_keywords)
     {
@@ -783,16 +782,14 @@ xgettext cannot work without keywords to look for"));
 # endif
       cd = iconv_open (po_charset_utf8, xgettext_global_source_encoding);
       if (cd == (iconv_t)(-1))
-        error (EXIT_FAILURE, 0, _("\
-Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
-and iconv() does not support this conversion."),
+        error (EXIT_FAILURE, 0,
+               _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does not support this conversion."),
                xgettext_global_source_encoding, po_charset_utf8,
                basename (program_name));
       xgettext_global_source_iconv = cd;
 #else
-      error (EXIT_FAILURE, 0, _("\
-Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). \
-This version was built without iconv()."),
+      error (EXIT_FAILURE, 0,
+             _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was built without iconv()."),
              xgettext_global_source_encoding, po_charset_utf8,
              basename (program_name));
 #endif
@@ -837,10 +834,9 @@ This version was built without iconv()."),
           its_rules = its_rule_list_alloc ();
           if (!its_rule_list_add_from_file (its_rules,
                                             explicit_its_filename))
-            {
-              error (EXIT_FAILURE, 0, _("\
-warning: ITS rule file '%s' does not exist"), explicit_its_filename);
-            }
+            error (EXIT_FAILURE, 0,
+                   _("warning: ITS rule file '%s' does not exist"),
+                   explicit_its_filename);
         }
       else
         {
@@ -919,8 +915,8 @@ warning: ITS rule file '%s' does not exist"), explicit_its_filename);
                     }
                   if (its_dirs[j] == NULL)
                     {
-                      error (0, 0, _("\
-warning: ITS rule file '%s' does not exist; check your gettext installation"),
+                      error (0, 0,
+                             _("warning: ITS rule file '%s' does not exist; check your gettext installation"),
                              its_basename);
                       its_rule_list_free (its_rules);
                       its_rules = NULL;
@@ -937,8 +933,9 @@ warning: ITS rule file '%s' does not exist; check your gettext installation"),
                     extension = "";
                   else
                     extension++;
-                  error (0, 0, _("\
-warning: file '%s' extension '%s' is unknown; will try C"), filename, extension);
+                  error (0, 0,
+                         _("warning: file '%s' extension '%s' is unknown; will try C"),
+                         filename, extension);
                   language_from_extension = "C";
                 }
 
@@ -1595,8 +1592,8 @@ xgettext_record_flag (const char *optionstring)
   }
 
 err:
-  error (EXIT_FAILURE, 0, _("\
-A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: %s"),
+  error (EXIT_FAILURE, 0,
+         _("A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: %s"),
          optionstring);
 }
 
@@ -1703,8 +1700,8 @@ xgettext_open (const char *fn,
       new_name = xstrdup (fn);
       fp = fopen (fn, "r");
       if (fp == NULL)
-        error (EXIT_FAILURE, errno, _("\
-error while opening \"%s\" for reading"), fn);
+        error (EXIT_FAILURE, errno,
+               _("error while opening \"%s\" for reading"), fn);
       logical_file_name = xstrdup (new_name);
     }
   else
@@ -1716,8 +1713,8 @@ error while opening \"%s\" for reading"), fn);
           const char *dir = dir_list_nth (j);
 
           if (dir == NULL)
-            error (EXIT_FAILURE, ENOENT, _("\
-error while opening \"%s\" for reading"), fn);
+            error (EXIT_FAILURE, ENOENT,
+                   _("error while opening \"%s\" for reading"), fn);
 
           new_name = xconcatenated_filename (dir, fn, NULL);
 
@@ -1726,8 +1723,8 @@ error while opening \"%s\" for reading"), fn);
             break;
 
           if (errno != ENOENT)
-            error (EXIT_FAILURE, errno, _("\
-error while opening \"%s\" for reading"), new_name);
+            error (EXIT_FAILURE, errno,
+                   _("error while opening \"%s\" for reading"), new_name);
           free (new_name);
         }
 

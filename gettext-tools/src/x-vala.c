@@ -1,5 +1,5 @@
 /* xgettext Vala backend.
-   Copyright (C) 2013-2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2013-2014, 2018-2019 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2013.
 
@@ -903,8 +903,8 @@ phase3_get (token_ty *tp)
                   if (c == P7_NEWLINE)
                     {
                       error_with_progname = false;
-                      error (0, 0, _("\
-%s:%d: warning: unterminated string literal"),
+                      error (0, 0,
+                             _("%s:%d: warning: unterminated string literal"),
                              logical_file_name, line_number - 1);
                       error_with_progname = true;
                       phase7_ungetc ('\n');

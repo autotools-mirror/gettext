@@ -1,5 +1,5 @@
 /* Writing Java ResourceBundles.
-   Copyright (C) 2001-2003, 2005-2010, 2014, 2016, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2010, 2014, 2016, 2018-2019 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -1212,11 +1212,11 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
                           true, false, true, verbose > 0))
     {
       if (!verbose)
-        error (0, 0, _("\
-compilation of Java class failed, please try --verbose or set $JAVAC"));
+        error (0, 0,
+               _("compilation of Java class failed, please try --verbose or set $JAVAC"));
       else
-        error (0, 0, _("\
-compilation of Java class failed, please try to set $JAVAC"));
+        error (0, 0,
+               _("compilation of Java class failed, please try to set $JAVAC"));
       goto quit3;
     }
 

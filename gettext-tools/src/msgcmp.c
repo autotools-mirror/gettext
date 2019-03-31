@@ -320,14 +320,14 @@ match_domain (const char *fn1, const char *fn2,
           if (!include_untranslated && defmsg->msgstr[0] == '\0')
             {
               (*nerrors)++;
-              po_gram_error_at_line (&defmsg->pos, _("\
-this message is untranslated"));
+              po_gram_error_at_line (&defmsg->pos,
+                                     _("this message is untranslated"));
             }
           else if (!include_fuzzies && defmsg->is_fuzzy && !is_header (defmsg))
             {
               (*nerrors)++;
-              po_gram_error_at_line (&defmsg->pos, _("\
-this message needs to be reviewed by the translator"));
+              po_gram_error_at_line (&defmsg->pos,
+                                     _("this message needs to be reviewed by the translator"));
             }
           else
             defmsg->used = 1;
@@ -365,16 +365,17 @@ this message needs to be reviewed by the translator"));
             defmsg = NULL;
           if (defmsg)
             {
-              po_gram_error_at_line (&refmsg->pos, _("\
-this message is used but not defined..."));
+              po_gram_error_at_line (&refmsg->pos,
+                                     _("this message is used but not defined..."));
               error_message_count--;
-              po_gram_error_at_line (&defmsg->pos, _("\
-...but this definition is similar"));
+              po_gram_error_at_line (&defmsg->pos,
+                                     _("...but this definition is similar"));
               defmsg->used = 1;
             }
           else
-            po_gram_error_at_line (&refmsg->pos, _("\
-this message is used but not defined in %s"), fn1);
+            po_gram_error_at_line (&refmsg->pos,
+                                   _("this message is used but not defined in %s"),
+                                   fn1);
         }
     }
 }

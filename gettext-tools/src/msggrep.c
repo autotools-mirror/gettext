@@ -243,8 +243,8 @@ main (int argc, char **argv)
           FILE *fp = fopen (optarg, "r");
 
           if (fp == NULL)
-            error (EXIT_FAILURE, errno, _("\
-error while opening \"%s\" for reading"), optarg);
+            error (EXIT_FAILURE, errno,
+                   _("error while opening \"%s\" for reading"), optarg);
 
           while (!feof (fp))
             {
@@ -254,8 +254,8 @@ error while opening \"%s\" for reading"), optarg);
               if (count == 0)
                 {
                   if (ferror (fp))
-                    error (EXIT_FAILURE, errno, _("\
-error while reading \"%s\""), optarg);
+                    error (EXIT_FAILURE, errno,
+                           _("error while reading \"%s\""), optarg);
                   /* EOF reached.  */
                   break;
                 }

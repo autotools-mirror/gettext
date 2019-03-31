@@ -284,23 +284,20 @@ process (FILE *stream)
           conv_from_utf8 = iconv_open (locale_code, "UTF-8");
         }
       if (conv_to_utf8 == (iconv_t)(-1))
-        error (EXIT_FAILURE, 0, _("\
-Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
-and iconv() does not support this conversion."),
+        error (EXIT_FAILURE, 0,
+               _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does not support this conversion."),
                locale_code, "UTF-8", basename (program_name));
       if (conv_from_utf8 == (iconv_t)(-1))
-        error (EXIT_FAILURE, 0, _("\
-Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
-and iconv() does not support this conversion."),
+        error (EXIT_FAILURE, 0,
+               _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does not support this conversion."),
                "UTF-8", locale_code, basename (program_name));
       last_utf8_line = NULL;
       last_utf8_line_len = 0;
       last_backconv_line = NULL;
       last_backconv_line_len = 0;
 #else
-      error (EXIT_FAILURE, 0, _("\
-Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). \
-This version was built without iconv()."),
+      error (EXIT_FAILURE, 0,
+             _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was built without iconv()."),
              locale_code, "UTF-8", basename (program_name));
 #endif
     }

@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002-2003, 2005-2011, 2013-2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2011, 2013-2014, 2018-2019 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -595,18 +595,16 @@ set_current_file_source_encoding (const char *canon_encoding)
 # endif
       cd = iconv_open (po_charset_utf8, xgettext_current_file_source_encoding);
       if (cd == (iconv_t)(-1))
-        error_at_line (EXIT_FAILURE, 0, logical_file_name, line_number - 1, _("\
-Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), \
-and iconv() does not support this conversion."),
-               xgettext_current_file_source_encoding, po_charset_utf8,
-               basename (program_name));
+        error_at_line (EXIT_FAILURE, 0, logical_file_name, line_number - 1,
+                       _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does not support this conversion."),
+                       xgettext_current_file_source_encoding, po_charset_utf8,
+                       basename (program_name));
       xgettext_current_file_source_iconv = cd;
 #else
-      error_at_line (EXIT_FAILURE, 0, logical_file_name, line_number - 1, _("\
-Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). \
-This version was built without iconv()."),
-             xgettext_global_source_encoding, po_charset_utf8,
-             basename (program_name));
+      error_at_line (EXIT_FAILURE, 0, logical_file_name, line_number - 1,
+                     _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was built without iconv()."),
+                     xgettext_global_source_encoding, po_charset_utf8,
+                     basename (program_name));
 #endif
     }
 
@@ -652,8 +650,8 @@ try_to_extract_coding (const char *comment)
                     if (canon_encoding == NULL)
                       {
                         error_at_line (0, 0,
-                                       logical_file_name, line_number - 1, _("\
-Unknown encoding \"%s\". Proceeding with ASCII instead."),
+                                       logical_file_name, line_number - 1,
+                                       _("Unknown encoding \"%s\". Proceeding with ASCII instead."),
                                        encoding);
                         canon_encoding = po_charset_ascii;
                       }

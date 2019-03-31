@@ -1,5 +1,5 @@
 /* Checking of messages in PO files.
-   Copyright (C) 1995-1998, 2000-2008, 2010-2016 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2008, 2010-2016, 2019 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -612,16 +612,16 @@ check_pair (const message_ty *mp,
             {
               po_xerror (PO_SEVERITY_ERROR,
                          mp, msgid_pos->file_name, msgid_pos->line_number,
-                         (size_t)(-1), false, _("\
-'msgid' and 'msgid_plural' entries do not both begin with '\\n'"));
+                         (size_t)(-1), false,
+                         _("'msgid' and 'msgid_plural' entries do not both begin with '\\n'"));
               seen_errors++;
             }
           for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
             if (TEST_NEWLINE(p) != has_newline)
               {
                 char *msg =
-                  xasprintf (_("\
-'msgid' and 'msgstr[%u]' entries do not both begin with '\\n'"), j);
+                  xasprintf (_("'msgid' and 'msgstr[%u]' entries do not both begin with '\\n'"),
+                             j);
                 po_xerror (PO_SEVERITY_ERROR,
                            mp, msgid_pos->file_name, msgid_pos->line_number,
                            (size_t)(-1), false, msg);
@@ -635,8 +635,8 @@ check_pair (const message_ty *mp,
             {
               po_xerror (PO_SEVERITY_ERROR,
                          mp, msgid_pos->file_name, msgid_pos->line_number,
-                         (size_t)(-1), false, _("\
-'msgid' and 'msgstr' entries do not both begin with '\\n'"));
+                         (size_t)(-1), false,
+                         _("'msgid' and 'msgstr' entries do not both begin with '\\n'"));
               seen_errors++;
             }
         }
@@ -653,16 +653,16 @@ check_pair (const message_ty *mp,
             {
               po_xerror (PO_SEVERITY_ERROR,
                          mp, msgid_pos->file_name, msgid_pos->line_number,
-                         (size_t)(-1), false, _("\
-'msgid' and 'msgid_plural' entries do not both end with '\\n'"));
+                         (size_t)(-1), false,
+                         _("'msgid' and 'msgid_plural' entries do not both end with '\\n'"));
               seen_errors++;
             }
           for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
             if (TEST_NEWLINE(p) != has_newline)
               {
                 char *msg =
-                  xasprintf (_("\
-'msgid' and 'msgstr[%u]' entries do not both end with '\\n'"), j);
+                  xasprintf (_("'msgid' and 'msgstr[%u]' entries do not both end with '\\n'"),
+                             j);
                 po_xerror (PO_SEVERITY_ERROR,
                            mp, msgid_pos->file_name, msgid_pos->line_number,
                            (size_t)(-1), false, msg);
@@ -676,8 +676,8 @@ check_pair (const message_ty *mp,
             {
               po_xerror (PO_SEVERITY_ERROR,
                          mp, msgid_pos->file_name, msgid_pos->line_number,
-                         (size_t)(-1), false, _("\
-'msgid' and 'msgstr' entries do not both end with '\\n'"));
+                         (size_t)(-1), false,
+                         _("'msgid' and 'msgstr' entries do not both end with '\\n'"));
               seen_errors++;
             }
         }
@@ -688,8 +688,8 @@ check_pair (const message_ty *mp,
     {
       po_xerror (PO_SEVERITY_ERROR,
                  mp, msgid_pos->file_name, msgid_pos->line_number,
-                 (size_t)(-1), false, _("\
-plural handling is a GNU gettext extension"));
+                 (size_t)(-1), false,
+                 _("plural handling is a GNU gettext extension"));
       seen_errors++;
     }
 
@@ -1010,8 +1010,7 @@ syntax_check_space_ellipsis (const message_ty *mp, const char *msgid)
           if (uc != 0xfffd && uc_is_space (uc))
             {
               po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false,
-                         _("\
-space before ellipsis found in user visible strings"));
+                         _("space before ellipsis found in user visible strings"));
               seen_errors++;
             }
         }

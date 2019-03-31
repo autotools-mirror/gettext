@@ -444,8 +444,8 @@ do_getc ()
   if (c == EOF)
     {
       if (ferror (stdin))
-        error (EXIT_FAILURE, errno, _("\
-error while reading \"%s\""), _("standard input"));
+        error (EXIT_FAILURE, errno,
+               _("error while reading \"%s\""), _("standard input"));
     }
 
   return c;
