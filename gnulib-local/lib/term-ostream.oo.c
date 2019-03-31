@@ -256,7 +256,8 @@ typedef enum
   cm_xterm8,            /* TERM=xterm, with 8 colors.  */
   cm_xterm16,           /* TERM=xterm-16color, with 16 colors.  */
   cm_xterm88,           /* TERM=xterm-88color, with 88 colors.  */
-  cm_xterm256           /* TERM=xterm-256color, with 256 colors.  */
+  cm_xterm256,          /* TERM=xterm-256color, with 256 colors.  */
+  cm_xtermrgb           /* TERM=xterm-direct, with 256*256*256 colors.  */
 } colormodel_t;
 
 /* ----------------------- cm_monochrome color model ----------------------- */
@@ -922,6 +923,17 @@ rgb_to_color_xterm256 (int r, int g, int b)
     return nearest_color (color, colors_of_xterm256, 256);
 }
 
+/* ------------------------ cm_xtermrgb color model ------------------------ */
+
+/* We represent a color as an RGB triplet: (r << 16) | (g << 8) | (b << 0),
+   where r, g, b are in the range [0..255].  */
+
+static inline term_color_t
+rgb_to_color_xtermrgb (int r, int g, int b)
+{
+  return (r << 16) | (g << 8) | (b << 0);
+}
+
 
 /* ============================= attributes_t ============================= */
 
@@ -938,8 +950,8 @@ rgb_to_color_xterm256 (int r, int g, int b)
 /* Attributes that can be set on a character.  */
 typedef struct
 {
-  BITFIELD_TYPE(term_color_t,     signed int)   color     : 9;
-  BITFIELD_TYPE(term_color_t,     signed int)   bgcolor   : 9;
+  BITFIELD_TYPE(term_color_t,     signed int)   color     : 25;
+  BITFIELD_TYPE(term_color_t,     signed int)   bgcolor   : 25;
   BITFIELD_TYPE(term_weight_t,    unsigned int) weight    : 1;
   BITFIELD_TYPE(term_posture_t,   unsigned int) posture   : 1;
   BITFIELD_TYPE(term_underline_t, unsigned int) underline : 1;
@@ -1033,6 +1045,10 @@ fields:
                                         terminal.  */
   attributes_t volatile active_attr; /* Simplified attributes that we have set
                                         on the terminal.  */
+  term_color_t volatile active_attr_color;   /* Same as active_attr.color,
+                                                atomically accessible.  */
+  term_color_t volatile active_attr_bgcolor; /* Same as active_attr.bgcolor,
+                                                atomically accessible.  */
   /* Variable state, representing future output.  */
   char *buffer;                      /* Buffer for the current line.  */
   attributes_t *attrbuffer;          /* Buffer for the simplified attributes;
@@ -1227,6 +1243,41 @@ out_color_change (term_ostream_t stream, term_color_t new_color,
             out_error ();
       }
       break;
+    case cm_xtermrgb:
+      assert (new_color >= 0 && new_color < 0x1000000);
+      {
+        char bytes[19];
+        char *p;
+        unsigned int r = (new_color >> 16) & 0xff;
+        unsigned int g = (new_color >> 8) & 0xff;
+        unsigned int b = new_color & 0xff;
+        bytes[0] = 0x1B; bytes[1] = '[';
+        bytes[2] = '3'; bytes[3] = '8'; bytes[4] = ';';
+        bytes[5] = '2'; bytes[6] = ';';
+        p = bytes + 7;
+        if (r >= 100)
+          *p++ = '0' + (r / 100);
+        if (r >= 10)
+          *p++ = '0' + ((r % 100) / 10);
+        *p++ = '0' + (r % 10);
+        *p++ = ';';
+        if (g >= 100)
+          *p++ = '0' + (g / 100);
+        if (g >= 10)
+          *p++ = '0' + ((g % 100) / 10);
+        *p++ = '0' + (g % 10);
+        *p++ = ';';
+        if (b >= 100)
+          *p++ = '0' + (b / 100);
+        if (b >= 10)
+          *p++ = '0' + ((b % 100) / 10);
+        *p++ = '0' + (b % 10);
+        *p++ = 'm';
+        if (full_write (out_fd, bytes, p - bytes) < p - bytes)
+          if (!async_safe)
+            out_error ();
+      }
+      break;
     default:
       abort ();
     }
@@ -1343,6 +1394,41 @@ out_bgcolor_change (term_ostream_t stream, term_color_t new_bgcolor,
             out_error ();
       }
       break;
+    case cm_xtermrgb:
+      assert (new_bgcolor >= 0 && new_bgcolor < 0x1000000);
+      {
+        char bytes[19];
+        char *p;
+        unsigned int r = (new_bgcolor >> 16) & 0xff;
+        unsigned int g = (new_bgcolor >> 8) & 0xff;
+        unsigned int b = new_bgcolor & 0xff;
+        bytes[0] = 0x1B; bytes[1] = '[';
+        bytes[2] = '4'; bytes[3] = '8'; bytes[4] = ';';
+        bytes[5] = '2'; bytes[6] = ';';
+        p = bytes + 7;
+        if (r >= 100)
+          *p++ = '0' + (r / 100);
+        if (r >= 10)
+          *p++ = '0' + ((r % 100) / 10);
+        *p++ = '0' + (r % 10);
+        *p++ = ';';
+        if (g >= 100)
+          *p++ = '0' + (g / 100);
+        if (g >= 10)
+          *p++ = '0' + ((g % 100) / 10);
+        *p++ = '0' + (g % 10);
+        *p++ = ';';
+        if (b >= 100)
+          *p++ = '0' + (b / 100);
+        if (b >= 10)
+          *p++ = '0' + ((b % 100) / 10);
+        *p++ = '0' + (b % 10);
+        *p++ = 'm';
+        if (full_write (out_fd, bytes, p - bytes) < p - bytes)
+          if (!async_safe)
+            out_error ();
+      }
+      break;
     default:
       abort ();
     }
@@ -1415,6 +1501,8 @@ out_attr_change (term_ostream_t stream, attributes_t new_attr)
      escape sequences, otherwise async_set_attributes_from_default will not
      do its job correctly.  */
   stream->active_attr = new_attr;
+  stream->active_attr_color = new_attr.color;
+  stream->active_attr_bgcolor = new_attr.bgcolor;
 
   #if HAVE_WINDOWS_CONSOLES
   if (stream->is_windows_console)
@@ -1617,6 +1705,11 @@ async_set_attributes_from_default (term_ostream_t stream)
   #endif
     {
       attributes_t new_attr = stream->active_attr;
+      /* Since stream->active_attr is not guaranteed to be loaded atomically,
+         new_attr.color and new_attr.bgcolor may have invalid values.
+         Use the atomically loadable values instead.  */
+      new_attr.color = stream->active_attr_color;
+      new_attr.bgcolor = stream->active_attr_bgcolor;
 
       /* For out_char_unchecked to work.  */
       out_stream = stream;
@@ -1751,6 +1844,8 @@ term_ostream::rgb_to_color (term_ostream_t stream, int red, int green, int blue)
       return rgb_to_color_xterm88 (red, green, blue);
     case cm_xterm256:
       return rgb_to_color_xterm256 (red, green, blue);
+    case cm_xtermrgb:
+      return rgb_to_color_xtermrgb (red, green, blue);
     default:
       abort ();
     }
@@ -2215,8 +2310,12 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
                     && strcmp (term + strlen (term) - 8, "-16color") == 0)
                 || /* Recognize *-256color.  */
                    (strlen (term) > 9
-                    && strcmp (term + strlen (term) - 9, "-256color") == 0))
-            ? (stream->max_colors == 256 ? cm_xterm256 :
+                    && strcmp (term + strlen (term) - 9, "-256color") == 0)
+                || /* Recognize *-direct.  */
+                   (strlen (term) > 8
+                    && strcmp (term + strlen (term) - 8, "-direct") == 0))
+            ? (stream->max_colors >= 0x7fff ? cm_xtermrgb :
+               stream->max_colors == 256 ? cm_xterm256 :
                stream->max_colors == 88 ? cm_xterm88 :
                stream->max_colors == 16 ? cm_xterm16 :
                cm_xterm8)

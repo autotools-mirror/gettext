@@ -323,6 +323,27 @@ On Windows: @code{TeraTerm} (sets @code{TERM=xterm}).  You need to set
 @code{TERM=xterm-256color}.
 @end itemize
 
+A couple of terminal emulator programs support even the entire RGB color
+space (16 million colors).  To get this to work, at this date (2019), you
+need three things:
+@itemize @bullet
+@item
+The @code{ncurses} library version 6.1 or newer must be installed.
+@item
+You need a recent version of the respective terminal emulator program.
+See @url{https://gist.github.com/XVilka/8346728} for the most recent
+developments in this area.
+@item
+You need to set the @code{TERM} environment variable to the corresponding
+value:
+@code{TERM=xterm-direct} instead of
+@code{TERM=xterm} or @code{TERM=xterm-256color},
+@code{TERM=konsole-direct} in @code{konsole},
+@code{TERM=st-direct} in @code{st},
+@code{TERM=mlterm-direct} in @code{mlterm},
+or @code{TERM=iterm2-direct} in @code{iTerm2} on macOS.
+@end itemize
+
 @node Consoles
 @subsection Consoles
 
