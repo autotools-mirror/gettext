@@ -2210,10 +2210,12 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
          ? (term != NULL
             && (/* Recognize xterm-16color, xterm-88color, xterm-256color.  */
                 (strlen (term) >= 5 && memcmp (term, "xterm", 5) == 0)
-                || /* Recognize rxvt-16color.  */
-                   (strlen (term) >= 4 && memcmp (term, "rxvt", 4) == 0)
-                || /* Recognize konsole-16color.  */
-                   (strlen (term) >= 7 && memcmp (term, "konsole", 7) == 0))
+                || /* Recognize *-16color.  */
+                   (strlen (term) > 8
+                    && strcmp (term + strlen (term) - 8, "-16color") == 0)
+                || /* Recognize *-256color.  */
+                   (strlen (term) > 9
+                    && strcmp (term + strlen (term) - 9, "-256color") == 0))
             ? (stream->max_colors == 256 ? cm_xterm256 :
                stream->max_colors == 88 ? cm_xterm88 :
                stream->max_colors == 16 ? cm_xterm16 :

@@ -6,6 +6,7 @@ New in 0.8:
     with a low probability.
   - The SIGTSTP and SIGCONT signal handlers could clobber errno.
 * Added support for Windows consoles.
+* Improved support for TERM=Eterm-256color and TERM=mlterm-256color.
 
 New in 0.7:
 * Reliable tty control, as described by the ttyctl_t enum, is now implemented.
