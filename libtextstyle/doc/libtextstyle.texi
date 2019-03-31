@@ -254,8 +254,8 @@ scroll around in the styled output.  For example:
 @vindex TERM@r{, environment variable}
 The environment variable @code{TERM} contains a identifier for the text
 window's capabilities.  You can get a detailed list of these cababilities
-by using the @samp{infocmp} command, using @samp{man 5 terminfo} as a
-reference.
+by using the @samp{infocmp} command (for example: @code{infocmp -L1 xterm}),
+using @samp{man 5 terminfo} as a reference.
 
 When producing text with embedded color directives, a
 @code{libtextstyle}-enabled program looks at the @code{TERM} variable.
@@ -263,28 +263,76 @@ Text windows today typically support at least 8 colors.  Often, however,
 the text window supports 16 or more colors, even though the @code{TERM}
 variable is set to a identifier denoting only 8 supported colors.  It
 can be worth setting the @code{TERM} variable to a different value in
-these cases:
+these cases.
 
-@table @code
-@item xterm
-@code{xterm} is in most cases built with support for 16 colors.  It can
-also be built with support for 88 or 256 colors (but not both).  You can
-try to set @code{TERM} to either @code{xterm-16color},
-@code{xterm-88color}, or @code{xterm-256color}.
-
-@item rxvt
-@code{rxvt} is often built with support for 16 colors.  You can try to
-set @code{TERM} to @code{rxvt-16color}.
-
-@item konsole
-@code{konsole} too is often built with support for 16 colors.  You can
-try to set @code{TERM} to @code{konsole-16color} or @code{xterm-16color}.
-@end table
-
-After setting @code{TERM}, you can verify it by invoking
+After setting @code{TERM}, you can verify how well it works by invoking
 @samp{@var{program} --color=test}, where @code{@var{program}} is any
 @code{libtextstyle}-enabled program, and seeing whether the output looks
 like a reasonable color map.
+
+@menu
+* Terminal emulators::
+* Consoles::
+@end menu
+
+@node Terminal emulators
+@subsection Terminal emulator programs
+
+The following terminal emulator programs support 256 colors and set
+@code{TERM=xterm-256color} accordingly:
+
+@itemize @bullet
+@item
+In GNOME: @code{gnome-terminal}, @code{tilda}.
+@item
+@code{rxvt-unicode} (sets @code{TERM=rxvt-unicode-256color}).
+@item
+@code{st} (sets @code{TERM=st-256color}).
+@item
+On macOS: @code{Terminal}, @code{iTerm2}.
+@end itemize
+
+The following terminal emulator programs support 256 colors.  You only
+need to set @code{TERM=xterm-256color} or similar; the programs by default
+set @code{TERM} to a value that supports only 8 colors.
+
+@itemize @bullet
+@item
+@code{xterm} is in many cases built with support for 256 colors.  But it
+sets @code{TERM=xterm}.  You need to set @code{TERM=xterm-256color}.
+@item
+In GNOME: @code{guake} (sets @code{TERM=xterm}).  You need to set
+@code{TERM=xterm-256color}.
+@item
+In KDE: @code{konsole} (sets @code{TERM=xterm}).  You need to set
+@code{TERM=xterm-256color} or @code{TERM=konsole-256color}.
+@item
+In KDE: @code{yakuake} (sets @code{TERM=xterm}).  You need to set
+@code{TERM=xterm-256color}.
+@item
+In Enlightenment: @code{Eterm} (sets @code{TERM=Eterm}).  You need to set
+@code{TERM=Eterm-256color}.
+@item
+@code{mlterm} (sets @code{TERM=mlterm}).  You need to set
+@code{TERM=mlterm-256color}.
+@item
+On Windows: @code{PuTTY} (sets @code{TERM=xterm}).  You need to set
+@code{TERM=xterm-256color} or @code{TERM=putty-256color}.
+@item
+On Windows: @code{TeraTerm} (sets @code{TERM=xterm}).  You need to set
+@code{TERM=xterm-256color}.
+@end itemize
+
+@node Consoles
+@subsection Consoles
+
+On OpenBSD 6 consoles, @code{TERM=xterm} produces better results than the
+default @code{TERM=vt220}.
+
+On NetBSD 8 consoles, @code{TERM=netbsd6} produces better results than the
+default @code{TERM=vt100}.
+
+On Windows consoles, no @code{TERM} setting is needed.
 
 @node Emacs
 @section Emacs as a terminal emulator
