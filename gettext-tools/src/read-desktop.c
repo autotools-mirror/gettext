@@ -380,14 +380,14 @@ desktop_lex (token_ty *tp)
               }
             APPEND (0);
 
-            /* Skip any whitespace before '='.  */
+            /* Skip any space before '='.  */
             for (;;)
               {
                 c = phase2_getc ();
                 switch (c)
                   {
                   default:
-                    if (c_isspace (c))
+                    if (c == ' ')
                       continue;
                     phase2_ungetc (c);
                     break;
@@ -413,18 +413,18 @@ desktop_lex (token_ty *tp)
                 return;
               }
 
-            /* Skip any whitespace after '='.  */
+            /* Skip any space after '='.  */
             for (;;)
               {
                 c = phase2_getc ();
                 switch (c)
                   {
                   default:
-                    if (c_isspace (c))
+                    if (c == ' ')
                       continue;
                     phase2_ungetc (c);
                     break;
-                  case EOF: case '\n':
+                  case EOF:
                     break;
                   }
                 break;
