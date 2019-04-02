@@ -19,11 +19,7 @@
 
 #include <stdbool.h>
 
-#ifdef GETTEXTDATADIR
-# include <textstyle.h>
-#else
-# include "ostream.h"
-#endif
+#include <textstyle.h>
 
 #include "message.h"
 

@@ -35,11 +35,7 @@
 # include <iconv.h>
 #endif
 
-#ifdef GETTEXTDATADIR
-# include <textstyle.h>
-#else
-# include "ostream.h"
-#endif
+#include <textstyle.h>
 
 #include "c-ctype.h"
 #include "po-charset.h"

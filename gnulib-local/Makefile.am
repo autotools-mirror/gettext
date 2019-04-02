@@ -281,6 +281,7 @@ modules/iconv-ostream \
 modules/java \
 modules/libcroco \
 modules/libglib \
+modules/libtextstyle-dummy \
 modules/libxml \
 modules/markup \
 modules/memory-ostream \

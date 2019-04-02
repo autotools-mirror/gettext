@@ -281,7 +281,6 @@ if ! $skip_gnulib; then
     c-strstr
     error
     error-progname
-    file-ostream
     filename
     fopen
     fstrcmp
@@ -291,11 +290,11 @@ if ! $skip_gnulib; then
     gettext-h
     hash
     iconv
+    libtextstyle-dummy
     libunistring-optional
     markup
     minmax
     open
-    ostream
     progname
     relocatable-lib
     sigpipe

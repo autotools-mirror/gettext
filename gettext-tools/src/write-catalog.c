@@ -34,12 +34,7 @@
 # define STDOUT_FILENO 1
 #endif
 
-#ifdef GETTEXTDATADIR
-# include <textstyle.h>
-#else
-# include "ostream.h"
-# include "file-ostream.h"
-#endif
+#include <textstyle.h>
 
 #include "fwriteerror.h"
 #include "error-progname.h"
