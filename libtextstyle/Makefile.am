@@ -108,6 +108,7 @@ EXTRA_DIST = \
   gnulib-local/lib/libcroco/libcroco-config.h \
   gnulib-local/lib/libcroco/libcroco.h \
   gnulib-local/lib/libcroco/README \
+  gnulib-local/lib/libxml/xmlversion.in.h.diff \
   gnulib-local/lib/memory-ostream.oo.c \
   gnulib-local/lib/memory-ostream.oo.h \
   gnulib-local/lib/moo.h \
@@ -139,6 +140,7 @@ EXTRA_DIST = \
   gnulib-local/modules/iconv-ostream \
   gnulib-local/modules/libcroco \
   gnulib-local/modules/libglib \
+  gnulib-local/modules/libxml.diff \
   gnulib-local/modules/memory-ostream \
   gnulib-local/modules/moo \
   gnulib-local/modules/moo-tests \
