@@ -313,9 +313,10 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
         }
 #else
       output_syntax->print (mdlp, stream, page_width, debug);
+      /* Don't call ostream_free if file_ostream_create is a dummy.  */
+      if (stream != fp)
 #endif
-
-      ostream_free (stream);
+        ostream_free (stream);
 
       /* Make sure nothing went wrong.  */
       if (fwriteerror (fp))
