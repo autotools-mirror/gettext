@@ -1,5 +1,5 @@
 /* Writing NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003, 2006-2008 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006-2008, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -26,12 +26,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <textstyle.h>
+
 #include "message.h"
 #include "msgl-ascii.h"
 #include "msgl-iconv.h"
 #include "po-charset.h"
 #include "c-strstr.h"
-#include "ostream.h"
 #include "xvasprintf.h"
 #include "write-po.h"
 

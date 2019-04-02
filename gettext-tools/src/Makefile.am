@@ -39,7 +39,7 @@ noinst_HEADERS = pos.h message.h po-error.h po-xerror.h po-gram.h po-charset.h \
 po-lex.h open-catalog.h read-catalog-abstract.h read-catalog.h \
 read-po.h read-properties.h read-stringtable.h \
 str-list.h \
-color.h write-catalog.h write-po.h write-properties.h write-stringtable.h \
+write-catalog.h write-po.h write-properties.h write-stringtable.h \
 dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h cldr-plural.h \
 cldr-plural-exp.h locating-rule.h its.h search-path.h \
 msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h msgl-header.h \
@@ -75,6 +75,7 @@ AM_CPPFLAGS = \
   -I.. -I$(top_srcdir) \
   -I$(top_srcdir)/libgrep \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
+  -I../../libtextstyle/lib -I$(top_srcdir)/../libtextstyle/lib \
   -I../intl -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = \
   -DLOCALEDIR=\"$(localedir)\" -DBISON_LOCALEDIR=\"$(BISON_LOCALEDIR)\" \
@@ -149,7 +150,7 @@ FORMAT_SOURCE += \
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
 $(COMMON_SOURCE) read-catalog.c \
-color.c write-catalog.c write-properties.c write-stringtable.c write-po.c \
+write-catalog.c write-properties.c write-stringtable.c write-po.c \
 msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-header.c msgl-english.c \
 msgl-check.c file-list.c msgl-charset.c po-time.c plural-exp.c plural-eval.c \
 plural-table.c quote.h sentence.h sentence.c \
@@ -259,7 +260,7 @@ cldr_plurals_LDADD = libgettextsrc.la $(LDADD)
 # use iconv().
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
-  ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+  ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) ../../libtextstyle/lib/libtextstyle.la @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
 
 # OS/2 does not support a DLL name longer than 8 characters.
 if OS2

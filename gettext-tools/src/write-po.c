@@ -35,6 +35,12 @@
 # include <iconv.h>
 #endif
 
+#ifdef GETTEXTDATADIR
+# include <textstyle.h>
+#else
+# include "ostream.h"
+#endif
+
 #include "c-ctype.h"
 #include "po-charset.h"
 #include "format.h"
@@ -44,10 +50,6 @@
 #include "xalloc.h"
 #include "xmalloca.h"
 #include "c-strstr.h"
-#include "ostream.h"
-#ifdef GETTEXTDATADIR
-# include "styled-ostream.h"
-#endif
 #include "xvasprintf.h"
 #include "po-xerror.h"
 #include "gettext.h"
@@ -160,27 +162,20 @@ make_c_width_description_string (enum is_wrap do_wrap)
    When compiled in libgettextpo, don't enable styling support.  */
 #ifdef GETTEXTDATADIR
 
-/* Return true if the stream is an instance of styled_ostream_t.  */
-static inline bool
-is_stylable (ostream_t stream)
-{
-  return IS_INSTANCE (stream, ostream, styled_ostream);
-}
+/* All ostream_t instances are in fact styled_ostream_t instances.  */
 
 /* Start a run of text belonging to a given CSS class.  */
-static void
+static inline void
 begin_css_class (ostream_t stream, const char *classname)
 {
-  if (is_stylable (stream))
-    styled_ostream_begin_use_class ((styled_ostream_t) stream, classname);
+  styled_ostream_begin_use_class ((styled_ostream_t) stream, classname);
 }
 
 /* End a run of text belonging to a given CSS class.  */
-static void
+static inline void
 end_css_class (ostream_t stream, const char *classname)
 {
-  if (is_stylable (stream))
-    styled_ostream_end_use_class ((styled_ostream_t) stream, classname);
+  styled_ostream_end_use_class ((styled_ostream_t) stream, classname);
 }
 
 #else

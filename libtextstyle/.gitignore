@@ -200,8 +200,6 @@
 /build-aux/run-test
 /build-aux/test-driver.diff
 /build-aux/texinfo.tex
-/lib/color.c
-/lib/color.h
 /lib/declared.sh
 /lib/exported.sh.in
 /m4/exported.m4

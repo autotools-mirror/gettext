@@ -58,9 +58,6 @@ endif
 # Rules generated and collected by gnulib-tool.
 include Makefile.gnulib
 
-# Which classes to export from the shared library.
-MOOPPFLAGS += --dllexport=styled_ostream
-
 # OS/2 does not support a DLL name longer than 8 characters.
 if OS2
 libgettextlib_la_LDFLAGS += -os2dllname gtlib

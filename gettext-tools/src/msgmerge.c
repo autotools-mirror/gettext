@@ -29,6 +29,8 @@
 #include <string.h>
 #include <locale.h>
 
+#include <textstyle.h>
+
 #include "closeout.h"
 #include "dir-list.h"
 #include "error.h"
@@ -45,7 +47,6 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
-#include "color.h"
 #include "format.h"
 #include "xalloc.h"
 #include "xmalloca.h"

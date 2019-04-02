@@ -136,8 +136,6 @@ if ! $skip_gnulib; then
     error
     error-progname
     execute
-    fd-ostream
-    file-ostream
     filename
     findprog
     fnmatch
@@ -151,11 +149,11 @@ if ! $skip_gnulib; then
     gettext
     gettext-h
     hash
-    html-styled-ostream
     iconv
     javacomp
     javaexec
     libunistring-optional
+    libxml
     localcharset
     locale
     localename
@@ -169,7 +167,6 @@ if ! $skip_gnulib; then
     open
     opendir
     openmp
-    ostream
     pipe-filter-ii
     progname
     propername
@@ -193,11 +190,9 @@ if ! $skip_gnulib; then
     strpbrk
     strtol
     strtoul
-    styled-ostream
     sys_select
     sys_stat
     sys_time
-    term-styled-ostream
     trim
     unictype/ctype-space
     unilbrk/ulc-width-linebreaks

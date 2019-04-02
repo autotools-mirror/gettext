@@ -39,6 +39,8 @@
 #include <iconv.h>
 #endif
 
+#include <textstyle.h>
+
 #include "rc-str-list.h"
 #include "xg-encoding.h"
 #include "xg-arglist-context.h"
@@ -74,7 +76,6 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
-#include "color.h"
 #include "format.h"
 #include "propername.h"
 #include "sentence.h"

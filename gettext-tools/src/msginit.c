@@ -49,6 +49,8 @@
 # define HAVE_DIR 0
 #endif
 
+#include <textstyle.h>
+
 #include "closeout.h"
 #include "error.h"
 #include "error-progname.h"
@@ -66,7 +68,6 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
-#include "color.h"
 #include "po-charset.h"
 #include "localcharset.h"
 #include "localename.h"

@@ -117,8 +117,6 @@ cp -p ../m4/woe32-dll.m4 m4/
 cp -p ../build-aux/ltmain.sh build-aux/
 cp -p ../gettext-tools/m4/exported.m4 m4/
 cp -p ../gettext-tools/libgettextpo/exported.sh.in lib/
-sed -e 's/DLL_VARIABLE/LIBTEXTSTYLE_DLL_VARIABLE/g' < ../gettext-tools/src/color.h > lib/color.h
-cp -p ../gettext-tools/src/color.c lib/
 
 aclocal -I m4 -I gnulib-m4
 autoconf

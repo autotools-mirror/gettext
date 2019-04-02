@@ -34,8 +34,13 @@
 # define STDOUT_FILENO 1
 #endif
 
-#include "ostream.h"
-#include "file-ostream.h"
+#ifdef GETTEXTDATADIR
+# include <textstyle.h>
+#else
+# include "ostream.h"
+# include "file-ostream.h"
+#endif
+
 #include "fwriteerror.h"
 #include "error-progname.h"
 #include "xvasprintf.h"
@@ -51,12 +56,6 @@
 
 # define ENABLE_COLOR 1
 
-# include "styled-ostream.h"
-# include "term-styled-ostream.h"
-# include "html-styled-ostream.h"
-# include "fd-ostream.h"
-
-# include "color.h"
 # include "relocatable.h"
 # include "po-charset.h"
 # include "msgl-iconv.h"
@@ -247,9 +246,7 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
                           "GETTEXTSTYLESDIR", relocate (GETTEXTSTYLESDIR),
                           "po-default.css");
       stream =
-        term_styled_ostream_create (fd, filename, TTYCTL_AUTO, style_file_name);
-      if (stream == NULL)
-        stream = fd_ostream_create (fd, filename, true);
+        styled_ostream_create (fd, filename, TTYCTL_AUTO, style_file_name);
       output_syntax->print (mdlp, stream, page_width, debug);
       ostream_free (stream);
 
@@ -312,10 +309,16 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
           ostream_free (html_stream);
         }
       else
-#endif
         {
-          output_syntax->print (mdlp, stream, page_width, debug);
+          noop_styled_ostream_t styled_stream;
+
+          styled_stream = noop_styled_ostream_create (stream, false);
+          output_syntax->print (mdlp, styled_stream, page_width, debug);
+          ostream_free (styled_stream);
         }
+#else
+      output_syntax->print (mdlp, stream, page_width, debug);
+#endif
 
       ostream_free (stream);
 

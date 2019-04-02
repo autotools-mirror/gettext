@@ -27,6 +27,8 @@
 #include <stdlib.h>
 #include <locale.h>
 
+#include <textstyle.h>
+
 #include "closeout.h"
 #include "dir-list.h"
 #include "str-list.h"
@@ -44,7 +46,6 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
-#include "color.h"
 #include "msgl-cat.h"
 #include "propername.h"
 #include "gettext.h"

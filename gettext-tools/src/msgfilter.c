@@ -30,6 +30,8 @@
 #include <sys/time.h>
 #include <unistd.h>
 
+#include <textstyle.h>
+
 #include "closeout.h"
 #include "dir-list.h"
 #include "error.h"
@@ -47,7 +49,6 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
-#include "color.h"
 #include "msgl-charset.h"
 #include "xalloc.h"
 #include "findprog.h"

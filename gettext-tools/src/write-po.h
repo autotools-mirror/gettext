@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003, 2006, 2008, 2014, 2018 Free Software
+   Copyright (C) 1995-1998, 2000-2003, 2006, 2008, 2014, 2018-2019 Free Software
    Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -20,10 +20,15 @@
 #ifndef _WRITE_PO_H
 #define _WRITE_PO_H
 
-#include "ostream.h"
-#include "message.h"
-
 #include <stdbool.h>
+
+#ifdef GETTEXTDATADIR
+# include <textstyle.h>
+#else
+# include "ostream.h"
+#endif
+
+#include "message.h"
 
 
 #ifdef __cplusplus
