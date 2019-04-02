@@ -206,8 +206,6 @@ EXTRA_DIST = \
   examples/color-hello/hello.c \
   examples/color-hello/names.c \
   examples/color-hello/hello-default.css
-#TEMPORARY
-#  m4/woe32-dll.m4
 
 
 # Allow users to use "gnulib-tool --update".
