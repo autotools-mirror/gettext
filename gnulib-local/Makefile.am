@@ -37,8 +37,6 @@ lib/error-progname.h \
 lib/exitfail.h.diff \
 lib/fd-ostream.oo.c \
 lib/fd-ostream.oo.h \
-lib/fd-styled-ostream.oo.c \
-lib/fd-styled-ostream.oo.h \
 lib/file-ostream.oo.c \
 lib/file-ostream.oo.h \
 lib/fnmatch.c.diff \
@@ -230,6 +228,8 @@ lib/markup.h \
 lib/memory-ostream.oo.c \
 lib/memory-ostream.oo.h \
 lib/moo.h \
+lib/noop-styled-ostream.oo.c \
+lib/noop-styled-ostream.oo.h \
 lib/obstack.h.diff \
 lib/ostream.oo.c \
 lib/ostream.oo.h \
@@ -270,7 +270,6 @@ modules/basename \
 modules/closeout \
 modules/error-progname \
 modules/fd-ostream \
-modules/fd-styled-ostream \
 modules/file-ostream \
 modules/fnmatch.diff \
 modules/gettext-runtime-misc \
@@ -287,6 +286,7 @@ modules/markup \
 modules/memory-ostream \
 modules/moo \
 modules/moo-tests \
+modules/noop-styled-ostream \
 modules/ostream \
 modules/styled-ostream \
 modules/termcap \

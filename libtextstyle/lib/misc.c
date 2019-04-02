@@ -21,7 +21,8 @@
 #include "misc.h"
 
 #include "term-styled-ostream.h"
-#include "fd-styled-ostream.h"
+#include "noop-styled-ostream.h"
+#include "fd-ostream.h"
 #include "exitfail.h"
 
 extern int xmalloc_exit_failure;
@@ -35,7 +36,8 @@ styled_ostream_create (int fd, const char *filename, ttyctl_t tty_control,
 
   stream = term_styled_ostream_create (fd, filename, tty_control, css_filename);
   if (stream == NULL)
-    stream = fd_styled_ostream_create (fd, filename);
+    stream =
+      noop_styled_ostream_create (fd_ostream_create (fd, filename, true), true);
 
   return stream;
 }

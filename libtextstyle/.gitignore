@@ -49,8 +49,6 @@
 /lib/fd-hook.h
 /lib/fd-ostream.oo.c
 /lib/fd-ostream.oo.h
-/lib/fd-styled-ostream.oo.c
-/lib/fd-styled-ostream.oo.h
 /lib/file-ostream.oo.c
 /lib/file-ostream.oo.h
 /lib/filename.h
@@ -108,6 +106,8 @@
 /lib/msvc-inval.h
 /lib/msvc-nothrow.c
 /lib/msvc-nothrow.h
+/lib/noop-styled-ostream.oo.c
+/lib/noop-styled-ostream.oo.h
 /lib/obstack.c
 /lib/obstack.h
 /lib/ostream.oo.c
@@ -233,12 +233,8 @@
 /lib/libtextstyle.sym.in
 /lib/fd-ostream.c
 /lib/fd-ostream.h
-/lib/fd-styled-ostream.c
-/lib/fd-styled-ostream.h
 /lib/fd_ostream.priv.h
 /lib/fd_ostream.vt.h
-/lib/fd_styled_ostream.priv.h
-/lib/fd_styled_ostream.vt.h
 /lib/file-ostream.c
 /lib/file-ostream.h
 /lib/file_ostream.priv.h
@@ -259,6 +255,10 @@
 /lib/memory-ostream.h
 /lib/memory_ostream.priv.h
 /lib/memory_ostream.vt.h
+/lib/noop-styled-ostream.c
+/lib/noop-styled-ostream.h
+/lib/noop_styled_ostream.priv.h
+/lib/noop_styled_ostream.vt.h
 /lib/ostream.c
 /lib/ostream.h
 /lib/ostream.priv.h

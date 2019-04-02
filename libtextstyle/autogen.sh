@@ -80,8 +80,8 @@ if test $skip_gnulib = false; then
         memory-ostream
         term-ostream
       styled-ostream
-        fd-styled-ostream
         html-styled-ostream
+        noop-styled-ostream
         term-styled-ostream
       filename
       isatty

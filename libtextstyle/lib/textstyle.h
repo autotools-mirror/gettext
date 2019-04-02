@@ -462,6 +462,44 @@ extern html_styled_ostream_t
 }
 #endif
 
+/* ----------------------- From noop-styled-ostream.h ----------------------- */
+
+/* noop_styled_ostream_t is a subtype of styled_ostream_t.  */
+typedef styled_ostream_t noop_styled_ostream_t;
+
+/* Functions that invoke the methods.  */
+#ifdef __cplusplus
+extern "C" {
+#endif
+extern void noop_styled_ostream_write_mem (noop_styled_ostream_t first_arg, const void *data, size_t len);
+extern void noop_styled_ostream_flush (noop_styled_ostream_t first_arg, ostream_flush_scope_t scope);
+extern void noop_styled_ostream_free (noop_styled_ostream_t first_arg);
+extern void noop_styled_ostream_begin_use_class (noop_styled_ostream_t first_arg, const char *classname);
+extern void noop_styled_ostream_end_use_class (noop_styled_ostream_t first_arg, const char *classname);
+extern void noop_styled_ostream_flush_to_current_style (noop_styled_ostream_t first_arg);
+#ifdef __cplusplus
+}
+#endif
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+/* Create an output stream that delegates to DESTINATION and that supports
+   the styling operations as no-ops.
+   If PASS_OWNERSHIP is true, closing the resulting stream will automatically
+   close the DESTINATION.
+   Note that if PASS_OWNERSHIP is false, the resulting stream must be closed
+   before DESTINATION can be closed.  */
+extern noop_styled_ostream_t
+       noop_styled_ostream_create (ostream_t destination, bool pass_ownership);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 /* ------------------------------ From color.h ------------------------------ */
 
 #ifdef __cplusplus

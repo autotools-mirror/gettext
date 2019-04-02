@@ -1,4 +1,4 @@
-/* Output stream with no-op styling, referring to a file descriptor.
+/* Output stream with no-op styling.
    Copyright (C) 2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2019.
 
@@ -15,13 +15,15 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-#ifndef _FD_STYLED_OSTREAM_H
-#define _FD_STYLED_OSTREAM_H
+#ifndef _NOOP_STYLED_OSTREAM_H
+#define _NOOP_STYLED_OSTREAM_H
+
+#include <stdbool.h>
 
 #include "styled-ostream.h"
 
 
-struct fd_styled_ostream : struct styled_ostream
+struct noop_styled_ostream : struct styled_ostream
 {
 methods:
 };
@@ -32,16 +34,18 @@ extern "C" {
 #endif
 
 
-/* Create an output stream referring to the file descriptor FD, that supports
+/* Create an output stream that delegates to DESTINATION and that supports
    the styling operations as no-ops.
-   FILENAME is used only for error messages.
-   Note that the resulting stream must be closed before FD can be closed.  */
-extern fd_styled_ostream_t
-       fd_styled_ostream_create (int fd, const char *filename);
+   If PASS_OWNERSHIP is true, closing the resulting stream will automatically
+   close the DESTINATION.
+   Note that if PASS_OWNERSHIP is false, the resulting stream must be closed
+   before DESTINATION can be closed.  */
+extern noop_styled_ostream_t
+       noop_styled_ostream_create (ostream_t destination, bool pass_ownership);
 
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _FD_STYLED_OSTREAM_H */
+#endif /* _NOOP_STYLED_OSTREAM_H */

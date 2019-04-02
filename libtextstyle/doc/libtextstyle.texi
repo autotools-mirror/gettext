@@ -990,6 +990,7 @@ can be closed.
 @menu
 * The term_styled_ostream class::  Styled output to a terminal.
 * The html_styled_ostream class::  Styled output to an HTML file.
+* The noop_styled_ostream class::  No-op styling.
 @end menu
 
 @node The term_styled_ostream class
@@ -1050,6 +1051,27 @@ writes it in HTML form on @code{@var{destination}}, styled with the file
 
 Note: The resulting stream must be closed before @code{@var{destination}}
 can be closed.
+@end deftypefn
+
+@node The noop_styled_ostream class
+@subsubsection The @code{noop_styled_ostream} class
+
+The @code{noop_styled_ostream} class supports the styled output operations
+to any destination.  The text is output to the given destination; the
+styling operations, however, do nothing.  Its type is
+@samp{noop_styled_ostream_t}.  It is a subclass of @samp{styled_ostream_t}.
+
+It can be instantiated through this function:
+
+@deftypefn Function noop_styled_ostream_t noop_styled_ostream_create (ostream_t@tie{}@var{destination}, bool@tie{}@var{pass_ownership})
+Creates an output stream that delegates to @code{@var{destination}} and
+that supports the styling operations as no-ops.
+
+If @code{@var{pass_ownership}} is @code{true}, closing the resulting
+stream will automatically close the @code{@var{destination}}.
+
+Note: If @code{@var{pass_ownership}} is @code{false}, the resulting stream
+must be closed before @code{@var{destination}} can be closed.
 @end deftypefn
 
 @node What to document
