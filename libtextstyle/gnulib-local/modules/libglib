@@ -26,7 +26,15 @@ xvasprintf
 no-c++
 
 configure.ac:
-gl_LIBGLIB
+# In libtextstyle, we don't want to use an external libglib, because its
+# dynamic relocations have an impact on the startup time of a program that
+# is linked with it. As you can see by using 'readelf -r ... | wc -l',
+# 'readelf -d ... | grep NEEDED', and 'nm --dynamic ...':
+# - libglib-2.0.so has more than 300 relocations and depends on libpcre.
+# - But libtextstyle needs only less than 10% of libglib: out of the more
+#   than 1600 exported symbols, libtextstyle needs less than 160.
+# So, force the use of the included libglib part.
+gl_LIBGLIB([yes])
 
 Makefile.am:
 if INCLUDED_LIBGLIB

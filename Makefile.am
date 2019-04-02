@@ -52,7 +52,7 @@ changelog_etc = \
 
 EXTRA_DIST = \
   $(changelog_etc) DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh \
-  build-aux/ac-help.sed build-aux/moopp build-aux/git-version-gen \
+  build-aux/ac-help.sed build-aux/git-version-gen \
   m4/fixautomake.m4 m4/woe32-dll.m4 \
   m4/libtool.m4
 
