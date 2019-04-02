@@ -3,11 +3,16 @@ Packaging hints for binary package distributors
 
 Although the source of the gettext package comes as a single package,
 I recommend that in distributions of binary packages the installed files
-be split into two packages:
+be split into three packages:
 
    gettext-runtime
         Contents: Runtime libraries and programs.
         Audience: Anyone who wants to run internationalized programs.
+
+   libtextstyle
+        Contents: Text styling library.
+        Audience: Anyone who wants to run or develop programs that produce
+                  styled text, to be displayed in a terminal emulator.
 
    gettext-tools
         Contents: Tools and documentation for developers and translators.
@@ -27,6 +32,13 @@ The 'gettext-runtime' binary package can be installed by doing
       make
       make install
 
+The 'libtextstyle' binary package can be installed by doing
+
+      cd libtextstyle
+      ./configure
+      make
+      make install
+
 The 'gettext-tools' binary package can be installed by doing
 
       cd gettext-tools
@@ -34,15 +46,15 @@ The 'gettext-tools' binary package can be installed by doing
       make
       make install
 
-If you want to install both at the same time, you simply do at the toplevel
-directory:
+If you want to install all three at the same time, you simply do at the
+top-level directory:
 
       ./configure
       make
       make install
 
-The precise split between gettext and gettext-tools is according to the
-following file list.
+The precise split between gettext-runtime, libtextstyle, and gettext-tools
+is according to the following file list.
 
    gettext-runtime
 
@@ -76,6 +88,14 @@ following file list.
       $prefix/include/autosprintf.h
       $prefix/share/doc/libasprintf/autosprintf*.html
       $prefix/share/info/autosprintf.info
+
+   libtextstyle
+
+      $prefix/lib/libtextstyle.*
+      $prefix/include/textstyle.h
+      $prefix/include/textstyle/*
+      $prefix/share/doc/libtextstyle/libtextstyle*.html
+      $prefix/share/info/libtextstyle.info
 
    gettext-tools
 

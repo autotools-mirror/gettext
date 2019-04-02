@@ -59,6 +59,12 @@
     compliant.  There is no conflict any more between these replacements
     and other possible replacements provided by gnulib or mingw.
 
+* Libtextstyle:
+  - This package installs a new library 'libtextstyle', together with a new
+    header file <textstyle.h>.  It is a library for styling text output sent
+    to a console or terminal emulator.
+    Packagers: please see the suggested packaging hints in the file PACKAGING.
+
 Version 0.19.8 - June 2016
 
 * Support for reproducible builds:

@@ -36,10 +36,11 @@
 (unset CDPATH) >/dev/null 2>&1 && unset CDPATH
 
 skip_gnulib=false
+skip_gnulib_option=
 
 while :; do
   case "$1" in
-    --skip-gnulib) skip_gnulib=true; shift;;
+    --skip-gnulib) skip_gnulib=true; skip_gnulib_option='--skip-gnulib'; shift;;
     *) break ;;
   esac
 done
@@ -410,6 +411,11 @@ aclocal -I m4 -I ../m4 -I gnulib-m4 \
   && automake --add-missing --copy \
   && rm -rf autom4te.cache \
   || exit $?
+cd "$dir0"
+
+echo "$0: generating files in libtextstyle..."
+cd libtextstyle
+./autogen.sh $skip_gnulib_option || exit $?
 cd "$dir0"
 
 echo "$0: generating configure in gettext-tools/examples..."

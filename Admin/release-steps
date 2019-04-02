@@ -10,9 +10,9 @@ We assume that the following environment variables are set:
 
 ** Update 'gnulib' git submodule:
 
-    git submodule foreach git pull origin master
+    ./gitsub.sh upgrade
     git add gnulib
-    git commit -m 'Update gnulib'
+    git commit -m 'Update to newest gnulib'
 
 ** Run these commands, in this order:
 

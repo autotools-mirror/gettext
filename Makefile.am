@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-2018 Free Software Foundation, Inc.
+## Copyright (C) 1995-2019 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = gnulib-local gettext-runtime gettext-tools
+SUBDIRS = gnulib-local gettext-runtime libtextstyle gettext-tools
 
 changelog_etc = \
   gettext-runtime/ChangeLog.0 \
