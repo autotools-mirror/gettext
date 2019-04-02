@@ -21,401 +21,333 @@
 #   - Autoconf
 #   - Automake >= 1.13
 #   - Wget
-#   - Git
 #   - XZ Utils
-#
-# By default, it fetches Gnulib as a git submodule.  If you already
-# have a local copy of Gnulib, you can avoid extra network traffic by
-# setting the GNULIB_SRCDIR environment variable pointing to the path.
+# If not used from a released tarball, it also requires either
+#   - the GNULIB_SRCDIR environment variable pointing to a gnulib checkout, or
+#   - a preceding invocation of './gitsub.sh pull'.
 #
 # In addition, it fetches the archive.dir.tar.gz file, which contains
 # data files used by the autopoint program.  If you already have the
 # file, place it under gettext-tools/misc, before running this script.
 #
-# Usage: ./autogen.sh [--skip-gnulib] [--no-git]
-#
-# Usage after a git clone:              ./autogen.sh
-# Usage from a released tarball:        ./autogen.sh --skip-gnulib
-# This does not use a gnulib checkout.
+# Usage: ./autogen.sh [--skip-gnulib]
 
 # Nuisances.
 (unset CDPATH) >/dev/null 2>&1 && unset CDPATH
 
 skip_gnulib=false
 
-# Use git to update gnulib sources
-use_git=true
-
 while :; do
   case "$1" in
     --skip-gnulib) skip_gnulib=true; shift;;
-    --no-git) use_git=false; shift;;
     *) break ;;
   esac
 done
-
-if ! $use_git && ! test -d "$GNULIB_SRCDIR"; then
-  echo "error: --no-git requires GNULIB_SRCDIR to be set" 1>&2
-  exit 1
-fi
-
-cleanup_gnulib() {
-  status=$?
-  rm -fr "$gnulib_path"
-  exit $status
-}
-
-git_modules_config () {
-  test -f .gitmodules && git config --file .gitmodules "$@"
-}
-
-gnulib_path=$(git_modules_config submodule.gnulib.path)
-test -z "$gnulib_path" && gnulib_path=gnulib
 
 # The tests in gettext-tools/tests are not meant to be executable, because
 # they have a TESTS_ENVIRONMENT that specifies the shell explicitly.
 
 if ! $skip_gnulib; then
-  # Get gnulib files.
-  case ${GNULIB_SRCDIR--} in
-  -)
-    if git_modules_config submodule.gnulib.url >/dev/null; then
-      echo "$0: getting gnulib files..."
-      git submodule init || exit $?
-      git submodule update || exit $?
-
-    elif [ ! -d "$gnulib_path" ]; then
-      echo "$0: getting gnulib files..."
-
-      trap cleanup_gnulib 1 2 13 15
-
-      shallow=
-      git clone -h 2>&1 | grep -- --depth > /dev/null && shallow='--depth 2'
-      git clone $shallow git://git.sv.gnu.org/gnulib "$gnulib_path" ||
-        cleanup_gnulib
-
-      trap - 1 2 13 15
-    fi
-    GNULIB_SRCDIR=$gnulib_path
-    ;;
-  *)
-    # Use GNULIB_SRCDIR as a reference.
-    if $use_git && test -d "$GNULIB_SRCDIR"/.git && \
-          git_modules_config submodule.gnulib.url >/dev/null; then
-      echo "$0: getting gnulib files..."
-      if git submodule -h | grep -- --reference > /dev/null; then
-        # Prefer the one-liner available in git 1.6.4 or newer.
-        git submodule update --init --reference "$GNULIB_SRCDIR" \
-          "$gnulib_path" || exit $?
-      else
-        # This fallback allows at least git 1.5.5.
-        if test -f "$gnulib_path"/gnulib-tool; then
-          # Since file already exists, assume submodule init already complete.
-          git submodule update || exit $?
-        else
-          # Older git can't clone into an empty directory.
-          rmdir "$gnulib_path" 2>/dev/null
-          git clone --reference "$GNULIB_SRCDIR" \
-            "$(git_modules_config submodule.gnulib.url)" "$gnulib_path" \
-            && git submodule init && git submodule update \
-            || exit $?
-        fi
-      fi
-      GNULIB_SRCDIR=$gnulib_path
-    fi
-    ;;
-  esac
-  # Now it should contain a gnulib-tool.
-  if test -f "$GNULIB_SRCDIR"/gnulib-tool; then
-    GNULIB_TOOL="$GNULIB_SRCDIR"/gnulib-tool
+  if test -n "$GNULIB_SRCDIR"; then
+    test -d "$GNULIB_SRCDIR" || {
+      echo "*** GNULIB_SRCDIR is set but does not point to an existing directory." 1>&2
+      exit 1
+    }
   else
-    echo "** warning: gnulib-tool not found" 1>&2
+    GNULIB_SRCDIR=`pwd`/gnulib
+    test -d "$GNULIB_SRCDIR" || {
+      echo "*** Subdirectory 'gnulib' does not yet exist. Use './gitsub.sh pull' to create it, or set the environment variable GNULIB_SRCDIR." 1>&2
+      exit 1
+    }
   fi
-  # Skip the gnulib-tool step if gnulib-tool was not found.
-  if test -n "$GNULIB_TOOL"; then
-    # In gettext-runtime:
-    GNULIB_MODULES_RUNTIME_FOR_SRC='
-      atexit
-      basename
-      binary-io
-      closeout
-      error
-      getopt-gnu
-      gettext-h
-      havelib
-      memmove
-      progname
-      propername
-      relocatable-prog
-      setlocale
-      sigpipe
-      stdbool
-      stdio
-      stdlib
-      strtoul
-      unistd
-      unlocked-io
-      xalloc
-    '
-    GNULIB_MODULES_RUNTIME_OTHER='
-      gettext-runtime-misc
-      ansi-c++-opt
-      csharpcomp-script
-      java
-      javacomp-script
-    '
-    $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
-      --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER || exit $?
-    # In gettext-runtime/libasprintf:
-    GNULIB_MODULES_LIBASPRINTF='
-      alloca
-      errno
-      verify
-      xsize
-    '
-    GNULIB_MODULES_LIBASPRINTF_OTHER='
-    '
-    $GNULIB_TOOL --dir=gettext-runtime/libasprintf --source-base=. --m4-base=gnulib-m4 --lgpl=2 --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
-      --import $GNULIB_MODULES_LIBASPRINTF $GNULIB_MODULES_LIBASPRINTF_OTHER || exit $?
-    $GNULIB_TOOL --copy-file m4/intmax_t.m4 gettext-runtime/libasprintf/gnulib-m4/intmax_t.m4 || exit $?
-    $GNULIB_TOOL --copy-file m4/wchar_t.m4 gettext-runtime/libasprintf/gnulib-m4/wchar_t.m4 || exit $?
-    $GNULIB_TOOL --copy-file m4/wint_t.m4 gettext-runtime/libasprintf/gnulib-m4/wint_t.m4 || exit $?
-    # In gettext-tools:
-    GNULIB_MODULES_TOOLS_FOR_SRC='
-      alloca-opt
-      atexit
-      backupfile
-      basename
-      binary-io
-      bison-i18n
-      byteswap
-      c-ctype
-      c-strcase
-      c-strcasestr
-      c-strstr
-      clean-temp
-      closedir
-      closeout
-      copy-file
-      csharpcomp
-      csharpexec
-      error
-      error-progname
-      execute
-      fd-ostream
-      file-ostream
-      filename
-      findprog
-      fnmatch
-      fopen
-      fstrcmp
-      full-write
-      fwriteerror
-      gcd
-      getline
-      getopt-gnu
-      gettext
-      gettext-h
-      hash
-      html-styled-ostream
-      iconv
-      javacomp
-      javaexec
-      libunistring-optional
-      localcharset
-      locale
-      localename
-      lock
-      memchr
-      memmove
-      memset
-      minmax
-      mkdir
-      obstack
-      open
-      opendir
-      openmp
-      ostream
-      pipe-filter-ii
-      progname
-      propername
-      read-file
-      readdir
-      relocatable-prog
-      relocatable-script
-      setlocale
-      sh-quote
-      sigpipe
-      sigprocmask
-      spawn-pipe
-      stdbool
-      stdio
-      stdlib
-      stpcpy
-      stpncpy
-      strchrnul
-      strcspn
-      strerror
-      strpbrk
-      strtol
-      strtoul
-      styled-ostream
-      sys_select
-      sys_stat
-      sys_time
-      term-styled-ostream
-      trim
-      unictype/ctype-space
-      unilbrk/ulc-width-linebreaks
-      uniname/uniname
-      unistd
-      unistr/u8-check
-      unistr/u8-mbtouc
-      unistr/u8-mbtoucr
-      unistr/u8-uctomb
-      unistr/u16-mbtouc
-      uniwidth/width
-      unlocked-io
-      vasprintf
-      wait-process
-      write
-      xalloc
-      xconcat-filename
-      xerror
-      xmalloca
-      xmemdup0
-      xsetenv
-      xstriconv
-      xstriconveh
-      xvasprintf
-    '
-    # Common dependencies of GNULIB_MODULES_TOOLS_FOR_SRC and GNULIB_MODULES_TOOLS_FOR_LIBGREP.
-    GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES='
-      alloca-opt
-      extensions
-      gettext-h
-      include_next
-      locale
-      localcharset
-      malloc-posix
-      mbrtowc
-      mbsinit
-      multiarch
-      snippet/arg-nonnull
-      snippet/c++defs
-      snippet/warn-on-use
-      ssize_t
-      stdbool
-      stddef
-      stdint
-      stdlib
-      streq
-      unistd
-      verify
-      wchar
-      wctype-h
-    '
-    GNULIB_MODULES_TOOLS_OTHER='
-      gettext-tools-misc
-      ansi-c++-opt
-      csharpcomp-script
-      csharpexec-script
-      java
-      javacomp-script
-      javaexec-script
-      stdint
-    '
-    GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS='
-      unilbrk/u8-possible-linebreaks-tests
-      unilbrk/ulc-width-linebreaks-tests
-      unistr/u8-mbtouc-tests
-      unistr/u8-mbtouc-unsafe-tests
-      uniwidth/width-tests
-    '
-    $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --tests-base=gnulib-tests --makefile-name=Makefile.gnulib --libtool --with-tests --local-dir=gnulib-local --local-symlink \
-      --import --avoid=hash-tests --avoid=fdutimensat-tests --avoid=futimens-tests --avoid=utime-tests --avoid=utimens-tests --avoid=utimensat-tests \
-      `for m in $GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS; do echo --avoid=$m; done` $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES $GNULIB_MODULES_TOOLS_OTHER || exit $?
-    # In gettext-tools/libgrep:
-    GNULIB_MODULES_TOOLS_FOR_LIBGREP='
-      mbrlen
-      regex
-    '
-    $GNULIB_TOOL --dir=gettext-tools --macro-prefix=grgl --lib=libgrep --source-base=libgrep --m4-base=libgrep/gnulib-m4 --witness-c-macro=IN_GETTEXT_TOOLS_LIBGREP --makefile-name=Makefile.gnulib --local-dir=gnulib-local --local-symlink \
-      --import `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do if test \`$GNULIB_TOOL --extract-applicability $m\` != all; then echo --avoid=$m; fi; done` $GNULIB_MODULES_TOOLS_FOR_LIBGREP || exit $?
-    # In gettext-tools/libgettextpo:
-    # This is a subset of the GNULIB_MODULES_FOR_SRC.
-    GNULIB_MODULES_LIBGETTEXTPO='
-      basename
-      close
-      c-ctype
-      c-strcase
-      c-strstr
-      error
-      error-progname
-      file-ostream
-      filename
-      fopen
-      fstrcmp
-      fwriteerror
-      gcd
-      getline
-      gettext-h
-      hash
-      iconv
-      libunistring-optional
-      markup
-      minmax
-      open
-      ostream
-      progname
-      relocatable-lib
-      sigpipe
-      stdbool
-      stdio
-      stdlib
-      stpcpy
-      stpncpy
-      strchrnul
-      strerror
-      unictype/ctype-space
-      unilbrk/ulc-width-linebreaks
-      unistr/u8-mbtouc
-      unistr/u8-mbtoucr
-      unistr/u8-uctomb
-      unistr/u16-mbtouc
-      uniwidth/width
-      unlocked-io
-      vasprintf
-      xalloc
-      xconcat-filename
-      xmalloca
-      xerror
-      xstriconv
-      xvasprintf
-    '
-    # Module 'realloc-posix' is enabled in gettext-tools/config.status, because
-    # it occurs as dependency of some module ('read-file') in
-    # GNULIB_MODULES_TOOLS_FOR_SRC. Therefore on mingw, libgettextpo/stdlib.h
-    # contains '#define realloc rpl_realloc'. Therefore we need to include
-    # realloc.lo in libgettextpo.la.
-    GNULIB_MODULES_LIBGETTEXTPO_OTHER='
-      realloc-posix
-    '
-    $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
-      --import $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER || exit $?
-    # Overwrite older versions of .m4 files with the up-to-date version.
-    cp gettext-runtime/m4/gettext.m4 gettext-tools/gnulib-m4/gettext.m4
-    cp gettext-runtime/m4/intl.m4 gettext-tools/gnulib-m4/intl.m4
-    # Import build tools.  We use --copy-file to avoid directory creation.
-    $GNULIB_TOOL --copy-file tests/init.sh gettext-tools || exit $?
-    $GNULIB_TOOL --copy-file build-aux/git-version-gen || exit $?
-    $GNULIB_TOOL --copy-file build-aux/gitlog-to-changelog || exit $?
-    $GNULIB_TOOL --copy-file build-aux/update-copyright || exit $?
-    $GNULIB_TOOL --copy-file build-aux/useless-if-before-free || exit $?
-    $GNULIB_TOOL --copy-file build-aux/vc-list-files || exit $?
-    $GNULIB_TOOL --copy-file top/GNUmakefile . || exit $?
-    $GNULIB_TOOL --copy-file top/maint.mk . || exit $?
-  fi
+  # Now it should contain a gnulib-tool.
+  GNULIB_TOOL="$GNULIB_SRCDIR/gnulib-tool"
+  test -f "$GNULIB_TOOL" || {
+    echo "*** gnulib-tool not found." 1>&2
+    exit 1
+  }
+  # In gettext-runtime:
+  GNULIB_MODULES_RUNTIME_FOR_SRC='
+    atexit
+    basename
+    binary-io
+    closeout
+    error
+    getopt-gnu
+    gettext-h
+    havelib
+    memmove
+    progname
+    propername
+    relocatable-prog
+    setlocale
+    sigpipe
+    stdbool
+    stdio
+    stdlib
+    strtoul
+    unistd
+    unlocked-io
+    xalloc
+  '
+  GNULIB_MODULES_RUNTIME_OTHER='
+    gettext-runtime-misc
+    ansi-c++-opt
+    csharpcomp-script
+    java
+    javacomp-script
+  '
+  $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
+    --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER || exit $?
+  # In gettext-runtime/libasprintf:
+  GNULIB_MODULES_LIBASPRINTF='
+    alloca
+    errno
+    verify
+    xsize
+  '
+  GNULIB_MODULES_LIBASPRINTF_OTHER='
+  '
+  $GNULIB_TOOL --dir=gettext-runtime/libasprintf --source-base=. --m4-base=gnulib-m4 --lgpl=2 --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
+    --import $GNULIB_MODULES_LIBASPRINTF $GNULIB_MODULES_LIBASPRINTF_OTHER || exit $?
+  $GNULIB_TOOL --copy-file m4/intmax_t.m4 gettext-runtime/libasprintf/gnulib-m4/intmax_t.m4 || exit $?
+  $GNULIB_TOOL --copy-file m4/wchar_t.m4 gettext-runtime/libasprintf/gnulib-m4/wchar_t.m4 || exit $?
+  $GNULIB_TOOL --copy-file m4/wint_t.m4 gettext-runtime/libasprintf/gnulib-m4/wint_t.m4 || exit $?
+  # In gettext-tools:
+  GNULIB_MODULES_TOOLS_FOR_SRC='
+    alloca-opt
+    atexit
+    backupfile
+    basename
+    binary-io
+    bison-i18n
+    byteswap
+    c-ctype
+    c-strcase
+    c-strcasestr
+    c-strstr
+    clean-temp
+    closedir
+    closeout
+    copy-file
+    csharpcomp
+    csharpexec
+    error
+    error-progname
+    execute
+    fd-ostream
+    file-ostream
+    filename
+    findprog
+    fnmatch
+    fopen
+    fstrcmp
+    full-write
+    fwriteerror
+    gcd
+    getline
+    getopt-gnu
+    gettext
+    gettext-h
+    hash
+    html-styled-ostream
+    iconv
+    javacomp
+    javaexec
+    libunistring-optional
+    localcharset
+    locale
+    localename
+    lock
+    memchr
+    memmove
+    memset
+    minmax
+    mkdir
+    obstack
+    open
+    opendir
+    openmp
+    ostream
+    pipe-filter-ii
+    progname
+    propername
+    read-file
+    readdir
+    relocatable-prog
+    relocatable-script
+    setlocale
+    sh-quote
+    sigpipe
+    sigprocmask
+    spawn-pipe
+    stdbool
+    stdio
+    stdlib
+    stpcpy
+    stpncpy
+    strchrnul
+    strcspn
+    strerror
+    strpbrk
+    strtol
+    strtoul
+    styled-ostream
+    sys_select
+    sys_stat
+    sys_time
+    term-styled-ostream
+    trim
+    unictype/ctype-space
+    unilbrk/ulc-width-linebreaks
+    uniname/uniname
+    unistd
+    unistr/u8-check
+    unistr/u8-mbtouc
+    unistr/u8-mbtoucr
+    unistr/u8-uctomb
+    unistr/u16-mbtouc
+    uniwidth/width
+    unlocked-io
+    vasprintf
+    wait-process
+    write
+    xalloc
+    xconcat-filename
+    xerror
+    xmalloca
+    xmemdup0
+    xsetenv
+    xstriconv
+    xstriconveh
+    xvasprintf
+  '
+  # Common dependencies of GNULIB_MODULES_TOOLS_FOR_SRC and GNULIB_MODULES_TOOLS_FOR_LIBGREP.
+  GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES='
+    alloca-opt
+    extensions
+    gettext-h
+    include_next
+    locale
+    localcharset
+    malloc-posix
+    mbrtowc
+    mbsinit
+    multiarch
+    snippet/arg-nonnull
+    snippet/c++defs
+    snippet/warn-on-use
+    ssize_t
+    stdbool
+    stddef
+    stdint
+    stdlib
+    streq
+    unistd
+    verify
+    wchar
+    wctype-h
+  '
+  GNULIB_MODULES_TOOLS_OTHER='
+    gettext-tools-misc
+    ansi-c++-opt
+    csharpcomp-script
+    csharpexec-script
+    java
+    javacomp-script
+    javaexec-script
+    stdint
+  '
+  GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS='
+    unilbrk/u8-possible-linebreaks-tests
+    unilbrk/ulc-width-linebreaks-tests
+    unistr/u8-mbtouc-tests
+    unistr/u8-mbtouc-unsafe-tests
+    uniwidth/width-tests
+  '
+  $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --tests-base=gnulib-tests --makefile-name=Makefile.gnulib --libtool --with-tests --local-dir=gnulib-local --local-symlink \
+    --import --avoid=hash-tests --avoid=fdutimensat-tests --avoid=futimens-tests --avoid=utime-tests --avoid=utimens-tests --avoid=utimensat-tests \
+    `for m in $GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS; do echo --avoid=$m; done` $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES $GNULIB_MODULES_TOOLS_OTHER || exit $?
+  # In gettext-tools/libgrep:
+  GNULIB_MODULES_TOOLS_FOR_LIBGREP='
+    mbrlen
+    regex
+  '
+  $GNULIB_TOOL --dir=gettext-tools --macro-prefix=grgl --lib=libgrep --source-base=libgrep --m4-base=libgrep/gnulib-m4 --witness-c-macro=IN_GETTEXT_TOOLS_LIBGREP --makefile-name=Makefile.gnulib --local-dir=gnulib-local --local-symlink \
+    --import `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do if test \`$GNULIB_TOOL --extract-applicability $m\` != all; then echo --avoid=$m; fi; done` $GNULIB_MODULES_TOOLS_FOR_LIBGREP || exit $?
+  # In gettext-tools/libgettextpo:
+  # This is a subset of the GNULIB_MODULES_FOR_SRC.
+  GNULIB_MODULES_LIBGETTEXTPO='
+    basename
+    close
+    c-ctype
+    c-strcase
+    c-strstr
+    error
+    error-progname
+    file-ostream
+    filename
+    fopen
+    fstrcmp
+    fwriteerror
+    gcd
+    getline
+    gettext-h
+    hash
+    iconv
+    libunistring-optional
+    markup
+    minmax
+    open
+    ostream
+    progname
+    relocatable-lib
+    sigpipe
+    stdbool
+    stdio
+    stdlib
+    stpcpy
+    stpncpy
+    strchrnul
+    strerror
+    unictype/ctype-space
+    unilbrk/ulc-width-linebreaks
+    unistr/u8-mbtouc
+    unistr/u8-mbtoucr
+    unistr/u8-uctomb
+    unistr/u16-mbtouc
+    uniwidth/width
+    unlocked-io
+    vasprintf
+    xalloc
+    xconcat-filename
+    xmalloca
+    xerror
+    xstriconv
+    xvasprintf
+  '
+  # Module 'realloc-posix' is enabled in gettext-tools/config.status, because
+  # it occurs as dependency of some module ('read-file') in
+  # GNULIB_MODULES_TOOLS_FOR_SRC. Therefore on mingw, libgettextpo/stdlib.h
+  # contains '#define realloc rpl_realloc'. Therefore we need to include
+  # realloc.lo in libgettextpo.la.
+  GNULIB_MODULES_LIBGETTEXTPO_OTHER='
+    realloc-posix
+  '
+  $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
+    --import $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER || exit $?
+  # Overwrite older versions of .m4 files with the up-to-date version.
+  cp gettext-runtime/m4/gettext.m4 gettext-tools/gnulib-m4/gettext.m4
+  cp gettext-runtime/m4/intl.m4 gettext-tools/gnulib-m4/intl.m4
+  # Import build tools.  We use --copy-file to avoid directory creation.
+  $GNULIB_TOOL --copy-file tests/init.sh gettext-tools || exit $?
+  $GNULIB_TOOL --copy-file build-aux/git-version-gen || exit $?
+  $GNULIB_TOOL --copy-file build-aux/gitlog-to-changelog || exit $?
+  $GNULIB_TOOL --copy-file build-aux/update-copyright || exit $?
+  $GNULIB_TOOL --copy-file build-aux/useless-if-before-free || exit $?
+  $GNULIB_TOOL --copy-file build-aux/vc-list-files || exit $?
+  $GNULIB_TOOL --copy-file top/GNUmakefile . || exit $?
+  $GNULIB_TOOL --copy-file top/maint.mk . || exit $?
 fi
 
 # Fetch config.guess, config.sub.

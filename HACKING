@@ -192,15 +192,21 @@ $ sudo localedef -i tr_TR -f UTF-8 tr_TR.UTF-8
 $ sudo localedef -i zh_CN -f GB18030 zh_CN.GB18030
 
 
-Building off the git repository
+Building off the Git repository
 ===============================
 
-Access to the git repository is described at
-  https://savannah.gnu.org/git/?group=gettext
+Access to the Git repository is described at
+https://savannah.gnu.org/git/?group=gettext .
 
-After fetching the sources from the repository, peek at the comments in
-autogen.sh, then run "./autogen.sh"; then you can proceed with "./configure"
-as usual.
+After fetching the sources from the Git repository, peek at the comments in
+autogen.sh, then run
+  ./gitsub.sh pull
+  ./autogen.sh
+Then you can proceed with "./configure" as usual.
+
+Each time you want to update the source, do not only "git pull".  Instead do
+  git pull && ./gitsub.sh pull
+  ./autogen.sh
 
 
 Submitting patches
