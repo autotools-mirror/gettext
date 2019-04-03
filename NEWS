@@ -34,9 +34,9 @@
   - Java:
     o xgettext now supports UTF-8 encoded .properties files (a new feature
       of Java 9).
-    o The build system and tools now support Java 9 and 10. On the other
-      hand, support for old versions of Java (Java 5 and older, GCJ 4.2.x
-      and older) has been dropped.
+    o The build system and tools now support Java 9, 10, and 11. On the
+      other hand, support for old versions of Java (Java 5 and older,
+      GCJ 4.2.x and older) has been dropped.
   - Perl:
     o Native support for context functions (pgettext, dpgettext, dcpgettext,
       npgettext, dnpgettext, dcnpgettext).
