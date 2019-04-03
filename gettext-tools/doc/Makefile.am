@@ -1,6 +1,6 @@
 ## Makefile for the gettext-tools/doc subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2007, 2009, 2013-2016 Free Software
-## Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2007, 2009, 2013-2015, 2018-2019 Free
+## Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -46,7 +46,9 @@ gettext_TEXINFOS = \
   gpl.texi lgpl.texi fdl.texi \
   $(top_srcdir)/../gettext-runtime/doc/rt-gettext.texi \
   $(top_srcdir)/../gettext-runtime/doc/rt-ngettext.texi \
-  $(top_srcdir)/../gettext-runtime/doc/rt-envsubst.texi
+  $(top_srcdir)/../gettext-runtime/doc/rt-envsubst.texi \
+  $(top_srcdir)/../gettext-runtime/doc/nls.texi \
+  $(top_srcdir)/../gettext-runtime/doc/matrix.texi
 
 # The FAQ. To be edited with Mozilla.
 # The tutorial. To be edited by hand.

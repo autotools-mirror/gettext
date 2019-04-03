@@ -503,6 +503,7 @@ Compiled Message Catalogs
 Concluding Remarks
 
 * History::                     History of GNU @code{gettext}
+* The original ABOUT-NLS::      Historical introduction
 * References::                  Related Readings
 
 Language Codes
@@ -12670,6 +12671,7 @@ about Native Language Support matters.
 
 @menu
 * History::                     History of GNU @code{gettext}
+* The original ABOUT-NLS::      Historical introduction
 * References::                  Related Readings
 @end menu
 
@@ -12751,6 +12753,8 @@ he handed over the GNU @code{gettext} maintenance to Bruno Haible in
 2000.  Bruno added the plural form handling to the tools as well, added
 support for UTF-8 and CJK locales, and wrote a few new tools for
 manipulating PO files.
+
+@include nls.texi
 
 @node References
 @section Related Readings
