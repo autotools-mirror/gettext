@@ -55,13 +55,11 @@ We assume that the following environment variables are set:
 
 ** Update files:
 
-  - gettext-runtime/ABOUT-NLS
   - gettext-runtime/doc/matrix.texi
 
     Update with information from the Translation Project, by running
     run.sh in gettext-runtime/doc/Admin/.  Copy resulting matrix.texi
-    into gettext-runtime/doc/, and gettext-runtime/ABOUT-NLS will be
-    automatically regenerated in the next build process.
+    into gettext-runtime/doc/.
 
   - gettext-runtime/intl/locale.alias
 

@@ -100,13 +100,10 @@ no existing file will be replaced unless the option @code{--force}
 @enumerate
 @item
 The @file{ABOUT-NLS} file is copied in the main directory of your package,
-the one being at the top level.  This file gives the main indications
-about how to install and use the Native Language Support features
-of your program.  You might elect to use a more recent copy of this
-@file{ABOUT-NLS} file than the one provided through @code{gettextize},
-if you have one handy.  You may also fetch a more recent copy of file
-@file{ABOUT-NLS} from Translation Project sites, and from most GNU
-archive sites.
+the one being at the top level.  This file contains a reference to the
+GNU gettext documentation.  It also avoids an error from Automake in
+packages that use the Automake option @samp{gnu} or @samp{gnits}:
+``error: required file './ABOUT-NLS' not found''.
 
 @item
 A @file{po/} directory is created for eventually holding

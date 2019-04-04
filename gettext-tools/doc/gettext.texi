@@ -1391,8 +1391,6 @@ understanding where each localization file is stored on the file system.
 For programs that participate in the Translation Project, you can start
 looking for translations here:
 @url{https://translationproject.org/team/index.html}.
-A snapshot of this information is also found in the @file{ABOUT-NLS} file
-that is shipped with GNU gettext.
 
 For programs that are part of the KDE project, the starting point is:
 @url{https://l10n.kde.org/}.
@@ -7749,7 +7747,7 @@ choices for the Translation Project.  Keep in mind that translator teams are @em
 driven by maintainers.  You can help by carefully redirecting all
 communications and reports from users about linguistic matters to the
 appropriate translation team, or explain users how to reach or join
-their team.  The simplest might be to send them the @file{ABOUT-NLS} file.
+their team.
 
 Maintainers should @emph{never ever} apply PO file bug reports
 themselves, short-cutting translation teams.  If some translator has
@@ -8117,10 +8115,6 @@ so the @samp{dist:} goal will work properly (as explained further down):
 PACKAGE = @@PACKAGE@@
 VERSION = @@VERSION@@
 @end example
-
-@item
-Add file @file{ABOUT-NLS} to the @code{DISTFILES} definition, so the file gets
-distributed.
 
 @item
 Wherever you process subdirectories in your @file{Makefile.in}, be sure

@@ -293,11 +293,15 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       locale = gl_locale_name (LC_MESSAGES, "LC_MESSAGES");
       if (strcmp (locale, "C") == 0)
         {
+          const char *doc_url =
+            "https://www.gnu.org/software/gettext/manual/html_node/Setting-the-POSIX-Locale.html";
           multiline_error (xstrdup (""),
-                           xstrdup (_("\
+                           xasprintf (_("\
 You are in a language indifferent environment.  Please set\n\
-your LANG environment variable, as described in the ABOUT-NLS\n\
-file.  This is necessary so you can test your translations.\n")));
+your LANG environment variable, as described in\n\
+<%s>.\n\
+This is necessary so you can test your translations.\n"),
+                                      doc_url));
           exit (EXIT_FAILURE);
         }
     }
