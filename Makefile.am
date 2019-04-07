@@ -52,6 +52,7 @@ changelog_etc = \
 
 EXTRA_DIST = \
   $(changelog_etc) DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh \
+  check-copyright-headers \
   build-aux/ac-help.sed build-aux/git-version-gen build-aux/texi2html \
   m4/fixautomake.m4 m4/woe32-dll.m4 \
   m4/libtool.m4
@@ -59,8 +60,8 @@ EXTRA_DIST = \
 # Additional dependencies for configure, due to the use of autoconf --trace.
 $(srcdir)/configure: $(srcdir)/gettext-runtime/configure.ac $(srcdir)/gettext-tools/configure.ac 
 
-# Verify that some files are the same.
 distcheck-hook:
+# Verify that some files are the same.
 	cmp -s $(srcdir)/gettext-runtime/po/Makefile.in.in $(srcdir)/gettext-tools/po/Makefile.in.in
 	cmp -s $(srcdir)/gettext-runtime/po/Rules-quot $(srcdir)/gettext-tools/po/Rules-quot
 	cmp -s $(srcdir)/gettext-runtime/po/boldquot.sed $(srcdir)/gettext-tools/po/boldquot.sed
@@ -118,7 +119,8 @@ distcheck-hook:
 	cmp -s $(srcdir)/gettext-tools/examples/hello-java-awt/m4/TestAWT.java $(srcdir)/gettext-tools/examples/hello-java-swing/m4/TestAWT.java
 	cmp -s $(srcdir)/gettext-tools/examples/hello-java-awt/m4/TestAWT.class $(srcdir)/gettext-tools/examples/hello-java-swing/m4/TestAWT.class
 	test "`sed 1,15d $(srcdir)/gnulib-local/lib/alloca.in.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-runtime/libasprintf/alloca.in.h | md5sum`"
-
+# Verify that all files have appropriate copyright headers.
+	if test -d '$(distdir)'; then $(srcdir)/check-copyright-headers '$(distdir)'; fi
 
 # OS/2 port.
 
