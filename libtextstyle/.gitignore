@@ -199,6 +199,7 @@
 /build-aux/ltmain.sh
 /build-aux/run-test
 /build-aux/test-driver.diff
+/build-aux/texi2html
 /build-aux/texinfo.tex
 /lib/declared.sh
 /lib/exported.sh.in

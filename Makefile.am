@@ -52,7 +52,7 @@ changelog_etc = \
 
 EXTRA_DIST = \
   $(changelog_etc) DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh \
-  build-aux/ac-help.sed build-aux/git-version-gen \
+  build-aux/ac-help.sed build-aux/git-version-gen build-aux/texi2html \
   m4/fixautomake.m4 m4/woe32-dll.m4 \
   m4/libtool.m4
 
@@ -115,7 +115,6 @@ distcheck-hook:
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/xsize.h | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/xsize.h | md5sum`"
 	cmp -s $(srcdir)/gettext-runtime/man/help2man $(srcdir)/gettext-tools/man/help2man
 	cmp -s $(srcdir)/gettext-runtime/man/x-to-1.in $(srcdir)/gettext-tools/man/x-to-1.in
-	cmp -s $(srcdir)/gettext-runtime/libasprintf/texi2html $(srcdir)/gettext-tools/doc/texi2html
 	cmp -s $(srcdir)/gettext-tools/examples/hello-java-awt/m4/TestAWT.java $(srcdir)/gettext-tools/examples/hello-java-swing/m4/TestAWT.java
 	cmp -s $(srcdir)/gettext-tools/examples/hello-java-awt/m4/TestAWT.class $(srcdir)/gettext-tools/examples/hello-java-swing/m4/TestAWT.class
 	test "`sed 1,15d $(srcdir)/gnulib-local/lib/alloca.in.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-runtime/libasprintf/alloca.in.h | md5sum`"

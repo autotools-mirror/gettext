@@ -57,8 +57,7 @@ EXTRA_DIST += $(doc_DATA)
 
 EXTRA_DIST += \
   iso-639.sed iso-639-2.sed iso-3166.sed \
-  ISO_639 ISO_639-2 ISO_3166 ISO_3166_de \
-  texi2html
+  ISO_639 ISO_639-2 ISO_3166 ISO_3166_de
 
 iso-639.texi: ISO_639 iso-639.sed
 	$(SED) -f $(srcdir)/iso-639.sed $(srcdir)/ISO_639 > iso-639.tmp
@@ -180,7 +179,7 @@ uninstall-pdf:
 
 # Documentation in HTML format.
 
-TEXI2HTML = @PERL@ $(srcdir)/texi2html
+TEXI2HTML = @PERL@ $(top_srcdir)/../build-aux/texi2html
 
 html-monolithic: gettext.html
 html-split: gettext_toc.html

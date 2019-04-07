@@ -185,7 +185,7 @@ uninstall-pdf:
 
 # Documentation in HTML format.
 
-TEXI2HTML = @PERL@ $(srcdir)/texi2html
+TEXI2HTML = @PERL@ $(top_srcdir)/../../build-aux/texi2html
 
 HTMLS = autosprintf_all.html
 
@@ -205,7 +205,7 @@ installdirs-html:
 uninstall-html:
 	$(RM) $(DESTDIR)$(htmldir)/autosprintf.html
 
-EXTRA_DIST += texi2html autosprintf_all.html
+EXTRA_DIST += autosprintf_all.html
 
 
 # Windows support.

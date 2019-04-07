@@ -115,6 +115,7 @@ cp -p ../m4/libtool.m4 m4/
 cp -p ../m4/lt*.m4 m4/
 cp -p ../m4/woe32-dll.m4 m4/
 cp -p ../build-aux/ltmain.sh build-aux/
+cp -p ../build-aux/texi2html build-aux/
 cp -p ../gettext-tools/m4/exported.m4 m4/
 cp -p ../gettext-tools/libgettextpo/exported.sh.in lib/
 
