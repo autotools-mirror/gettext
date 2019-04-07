@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/tests subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2010, 2012-2016, 2018 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2010, 2012-2016, 2018-2019 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -118,6 +118,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-lua-1 xgettext-lua-2 \
 	xgettext-javascript-1 xgettext-javascript-2 xgettext-javascript-3 \
 	xgettext-javascript-4 xgettext-javascript-5 xgettext-javascript-6 \
+	xgettext-javascript-7 \
 	xgettext-vala-1 xgettext-vala-2 \
 	xgettext-gsettings-1 \
 	xgettext-desktop-1 \

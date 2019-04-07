@@ -633,6 +633,7 @@ phase3_ungetc (int c)
 /* Return value of phase7_getuc when EOF is reached.  */
 #define P7_EOF (-1)
 #define P7_STRING_END (-2)
+#define P7_TEMPLATE_START_OF_EXPRESSION (-3) /* ${ */
 
 /* Convert an UTF-16 or UTF-32 code point to a return value that can be
    distinguished from a single-byte return value.  */
@@ -663,6 +664,10 @@ enum token_type_ty
   token_type_operator,          /* - * / % . < > = ~ ! | & ? : ^ */
   token_type_equal,             /* = */
   token_type_string,            /* "abc", 'abc' */
+  token_type_template,          /* `abc` */
+  token_type_ltemplate,         /* left part of template: `abc${ */
+  token_type_mtemplate,         /* middle part of template: }abc${ */
+  token_type_rtemplate,         /* right part of template: }abc` */
   token_type_keyword,           /* return, else */
   token_type_symbol,            /* symbol, number */
   token_type_other              /* misc. operator */
@@ -674,8 +679,8 @@ struct token_ty
 {
   token_type_ty type;
   char *string;                  /* for token_type_symbol, token_type_keyword */
-  mixed_string_ty *mixed_string;        /* for token_type_string */
-  refcounted_string_list_ty *comment;   /* for token_type_string */
+  mixed_string_ty *mixed_string;        /* for token_type_string, token_type_template */
+  refcounted_string_list_ty *comment;   /* for token_type_string, token_type_template */
   int line_number;
 };
 
@@ -686,7 +691,7 @@ free_token (token_ty *tp)
 {
   if (tp->type == token_type_symbol || tp->type == token_type_keyword)
     free (tp->string);
-  if (tp->type == token_type_string)
+  if (tp->type == token_type_string || tp->type == token_type_template)
     {
       mixed_string_free (tp->mixed_string);
       drop_reference (tp->comment);
@@ -695,7 +700,7 @@ free_token (token_ty *tp)
 
 
 /* JavaScript provides strings with either double or single quotes:
-     "abc" or 'abc'
+     "abc" or 'abc' or `abc`
    Both may contain special sequences after a backslash:
      \', \", \\, \b, \f, \n, \r, \t, \v
    Special characters can be entered using hexadecimal escape
@@ -723,14 +728,39 @@ phase7_getuc (int quote_char)
       if (c == quote_char)
         return P7_STRING_END;
 
+      if (c == '$' && quote_char == '`')
+        {
+          int c1 = phase2_getc ();
+
+          if (c1 == '{')
+            return P7_TEMPLATE_START_OF_EXPRESSION;
+          phase2_ungetc (c1);
+        }
+
       if (c == '\n')
         {
-          phase2_ungetc (c);
-          error_with_progname = false;
-          error (0, 0, _("%s:%d: warning: unterminated string"),
-                 logical_file_name, line_number);
-          error_with_progname = true;
-          return P7_STRING_END;
+          if (quote_char == '`')
+            return UNICODE ('\n');
+          else
+            {
+              phase2_ungetc (c);
+              error_with_progname = false;
+              error (0, 0, _("%s:%d: warning: unterminated string"),
+                     logical_file_name, line_number);
+              error_with_progname = true;
+              return P7_STRING_END;
+            }
+        }
+
+      if (c == '\r' && quote_char == '`')
+        {
+          /* Line terminators inside template literals are normalized to \n,
+             says <http://exploringjs.com/es6/ch_template-literals.html>.  */
+          int c1 = phase2_getc ();
+
+          if (c1 == '\n')
+            return UNICODE ('\n');
+          phase2_ungetc (c1);
         }
 
       if (c != '\\')
@@ -898,6 +928,12 @@ phase5_scan_regexp (void)
     if (!(c == 'g' || c == 'i' || c == 'm'))
       phase2_ungetc (c);
 }
+
+/* Number of open '{' tokens.  */
+static int brace_depth;
+
+/* Number of open template literals `...${  */
+static int template_literal_depth;
 
 /* Number of open XML elements.  */
 static int xml_element_depth;
@@ -1162,6 +1198,52 @@ phase5_get (token_ty *tp)
             return;
           }
 
+        case '`':
+          /* Template literals.  */
+          {
+            struct mixed_string_buffer msb;
+
+            lexical_context = lc_string;
+            /* Start accumulating the string.  */
+            mixed_string_buffer_init (&msb, lexical_context,
+                                      logical_file_name, line_number);
+            for (;;)
+              {
+                int uc = phase7_getuc ('`');
+
+                /* Keep line_number in sync.  */
+                msb.line_number = line_number;
+
+                if (uc == P7_EOF || uc == P7_STRING_END)
+                  {
+                    tp->mixed_string = mixed_string_buffer_result (&msb);
+                    tp->comment = add_reference (savable_comment);
+                    tp->type = last_token_type = token_type_template;
+                    break;
+                  }
+
+                if (uc == P7_TEMPLATE_START_OF_EXPRESSION)
+                  {
+                    mixed_string_buffer_destroy (&msb);
+                    tp->type = last_token_type = token_type_ltemplate;
+                    template_literal_depth++;
+                    break;
+                  }
+
+                if (IS_UNICODE (uc))
+                  {
+                    assert (UNICODE_VALUE (uc) >= 0
+                            && UNICODE_VALUE (uc) < 0x110000);
+                    mixed_string_buffer_append_unicode (&msb,
+                                                        UNICODE_VALUE (uc));
+                  }
+                else
+                  mixed_string_buffer_append_char (&msb, uc);
+              }
+            lexical_context = lc_outside;
+            return;
+          }
+
         case '+':
           tp->type = last_token_type = token_type_plus;
           return;
@@ -1274,12 +1356,38 @@ phase5_get (token_ty *tp)
         case '{':
           if (xml_element_depth > 0 && !inside_embedded_js_in_xml)
             inside_embedded_js_in_xml = true;
+          else
+            brace_depth++;
           tp->type = last_token_type = token_type_other;
           return;
 
         case '}':
           if (xml_element_depth > 0 && inside_embedded_js_in_xml)
             inside_embedded_js_in_xml = false;
+          else if (brace_depth > 0)
+            brace_depth--;
+          else if (template_literal_depth > 0)
+            {
+              /* Middle or right part of template literal.  */
+              for (;;)
+                {
+                  int uc = phase7_getuc ('`');
+
+                  if (uc == P7_EOF || uc == P7_STRING_END)
+                    {
+                      tp->type = last_token_type = token_type_rtemplate;
+                      template_literal_depth--;
+                      break;
+                    }
+
+                  if (uc == P7_TEMPLATE_START_OF_EXPRESSION)
+                    {
+                      tp->type = last_token_type = token_type_mtemplate;
+                      break;
+                    }
+                }
+              return;
+            }
           tp->type = last_token_type = token_type_other;
           return;
 
@@ -1326,13 +1434,14 @@ phase5_unget (token_ty *tp)
 }
 
 
-/* String concatenation with '+'.  */
+/* String concatenation with '+'.
+   Handling of tagged template literals.  */
 
 static void
 x_javascript_lex (token_ty *tp)
 {
   phase5_get (tp);
-  if (tp->type == token_type_string)
+  if (tp->type == token_type_string || tp->type == token_type_template)
     {
       mixed_string_ty *sum = tp->mixed_string;
 
@@ -1346,7 +1455,8 @@ x_javascript_lex (token_ty *tp)
               token_ty token3;
 
               phase5_get (&token3);
-              if (token3.type == token_type_string)
+              if (token3.type == token_type_string
+                  || token3.type == token_type_template)
                 {
                   sum = mixed_string_concat_free1 (sum, token3.mixed_string);
 
@@ -1360,6 +1470,24 @@ x_javascript_lex (token_ty *tp)
           break;
         }
       tp->mixed_string = sum;
+    }
+  else if (tp->type == token_type_symbol)
+    {
+      token_ty token2;
+
+      phase5_get (&token2);
+      if (token2.type == token_type_template)
+        {
+          /* The value of
+               tag `abc`
+             is the value of the function call
+               tag (["abc"])
+             We don't know anything about this value.  Therefore, don't
+             let the extractor see this template literal.  */
+          free_token (&token2);
+        }
+      else
+        phase5_unget (&token2);
     }
 }
 
@@ -1500,6 +1628,7 @@ extract_balanced (message_list_ty *mlp,
           continue;
 
         case token_type_string:
+        case token_type_template:
           {
             lex_pos_ty pos;
 
@@ -1528,6 +1657,9 @@ extract_balanced (message_list_ty *mlp,
           arglist_parser_done (argparser, arg);
           return true;
 
+        case token_type_ltemplate:
+        case token_type_mtemplate:
+        case token_type_rtemplate:
         case token_type_keyword:
         case token_type_plus:
         case token_type_regexp:
@@ -1563,6 +1695,8 @@ extract_javascript (FILE *f,
   last_comment_line = -1;
   last_non_comment_line = -1;
 
+  brace_depth = 0;
+  template_literal_depth = 0;
   xml_element_depth = 0;
   inside_embedded_js_in_xml = false;
 

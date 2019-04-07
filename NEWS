@@ -50,6 +50,8 @@
     Free Pascal compiler version 3.0.0 or newer.
   - Vala:
     xgettext now parses escape sequences in strings more accurately.
+  - JavaScript:
+    xgettext now parses template literals correctly.
 
 * Runtime behaviour:
   - The interpretation of the language preferences on macOS has been fixed.

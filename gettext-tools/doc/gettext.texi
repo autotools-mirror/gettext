@@ -12070,6 +12070,8 @@ gjs
 
 @item @code{'abc'}
 
+@item @code{`abc`}
+
 @end itemize
 
 @item gettext shorthand
