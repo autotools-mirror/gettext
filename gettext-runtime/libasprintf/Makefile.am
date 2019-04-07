@@ -114,10 +114,18 @@ clean-local:
 
 # Documentation.
 
+# List of -I options referring to directories that contain texinfo sources
+# used by this directory.
+# Should contain at least one -I option, to work around a bug in texi2dvi 1.13,
+# see <https://lists.gnu.org/archive/html/bug-automake/2009-04/msg00029.html>.
+TEXINCLUDES = -I .
+
 MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
-MAKEINFOFLAGS = --no-split
+MAKEINFOFLAGS = $(TEXINCLUDES) --no-split
 
 info_TEXINFOS = autosprintf.texi
+# List of texinfo sources @included by autosprintf.texi.
+autosprintf_TEXINFOS = lgpl.texi gpl.texi fdl.texi
 
 # We distribute only the HTML documentation.
 # The user can generate the others, via
@@ -185,8 +193,8 @@ html-local: $(HTMLS)
 
 # Override of automake's definition.
 # We want to use texi2html, not makeinfo --html.
-autosprintf_all.html: autosprintf.texi
-	$(TEXI2HTML) -number -monolithic `if test -f autosprintf.texi; then echo autosprintf.texi; else echo $(srcdir)/autosprintf.texi; fi`
+autosprintf_all.html: autosprintf.texi $(autosprintf_TEXINFOS)
+	$(TEXI2HTML) $(TEXINCLUDES) -no-sec-nav -no-menu -toc-links -number -monolithic $(srcdir)/autosprintf.texi
 	mv autosprintf.html autosprintf_all.html
 
 # The install-html target is already defined by automake.
