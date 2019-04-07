@@ -189,15 +189,21 @@ html-split: gettext_toc.html
 # We want to use texi2html, not makeinfo --html.
 # Newer versions of texi2html also need the options --no-menu --no-sec-nav.
 gettext.html: gettext.texi version.texi $(gettext_TEXINFOS)
-	$(TEXI2HTML) $(TEXINCLUDES) -number -monolithic `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi`
+	$(TEXI2HTML) $(TEXINCLUDES) -no-sec-nav -no-menu -toc-links -number -monolithic $(srcdir)/gettext.texi
 
 gettext_toc.html: gettext.texi version.texi $(gettext_TEXINFOS)
 	case "@PERL@" in \
 	  *"/missing perl") \
-	     $(TEXI2HTML) $(TEXINCLUDES) -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` || exit 0 ;; \
+	     $(TEXI2HTML) $(TEXINCLUDES) -no-sec-nav -no-menu -toc-links -number -split_chapter $(srcdir)/gettext.texi || exit 0 ;; \
 	  *) $(RM) gettext_*.html ; \
-	     $(TEXI2HTML) $(TEXINCLUDES) -number -split_chapter `if test -f gettext.texi; then echo gettext.texi; else echo $(srcdir)/gettext.texi; fi` ;; \
-	esac
+	     $(TEXI2HTML) $(TEXINCLUDES) -no-sec-nav -no-menu -toc-links -number -split_chapter $(srcdir)/gettext.texi ;; \
+	esac \
+	&& { mv gettext/gettext.html gettext_toc.html; \
+	     for file in gettext/*.html; do \
+	       sed -e 's/gettext\.html/gettext_toc.html/g' < $$file > `basename $$file` && rm -f $$file; \
+	     done; \
+	     rmdir gettext; \
+	   }
 
 install-html-monolithic: gettext.html
 	$(MKDIR_P) $(DESTDIR)$(htmldir)

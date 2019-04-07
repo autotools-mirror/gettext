@@ -139,7 +139,7 @@ A copy of the license is included in @ref{GNU GPL}.
 @c Table of Contents
 @contents
 
-@ifset makeinfo
+@ifnottex
 @node Top
 @top GNU @code{gettext} utilities
 
@@ -520,7 +520,7 @@ Licenses
 @end detailmenu
 @end menu
 
-@end ifset
+@end ifnottex
 
 @node Introduction
 @chapter Introduction
