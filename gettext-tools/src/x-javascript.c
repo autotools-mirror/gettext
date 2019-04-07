@@ -899,8 +899,9 @@ phase5_scan_regexp (void)
       phase2_ungetc (c);
 }
 
-static int xml_element_depth = 0;
-static bool inside_embedded_js_in_xml = false;
+/* Number of open XML elements.  */
+static int xml_element_depth;
+static bool inside_embedded_js_in_xml;
 
 static bool
 phase5_scan_xml_markup (token_ty *tp)
@@ -1563,6 +1564,7 @@ extract_javascript (FILE *f,
   last_non_comment_line = -1;
 
   xml_element_depth = 0;
+  inside_embedded_js_in_xml = false;
 
   xgettext_current_file_source_encoding = xgettext_global_source_encoding;
 #if HAVE_ICONV
