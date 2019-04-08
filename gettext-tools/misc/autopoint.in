@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 2002-2018 Free Software Foundation, Inc.
+# Copyright (C) 2002-2019 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -610,7 +610,12 @@ case "@ARCHIVE_FORMAT@" in
     (git --version) >/dev/null 2>/dev/null || func_fatal_error "git program not found"
     mkdir "$work_dir/archive"
     gzip -d -c < "$gettext_datadir/archive.git.tar.gz" | (cd "$work_dir/archive" && tar xf -)
-    (cd "$work_dir/archive" && git checkout -q "gettext-$ver") || {
+    (unset GIT_CONFIG
+     unset XDG_CONFIG_HOME
+     unset HOME
+     GIT_CONFIG_NOSYSTEM=1; export GIT_CONFIG_NOSYSTEM
+     cd "$work_dir/archive" && git checkout -q "gettext-$ver"
+    ) || {
       rm -rf "$work_dir"
       func_fatal_error "infrastructure files for version $ver not found; this is autopoint from GNU $package $version"
     }
