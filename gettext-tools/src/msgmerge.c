@@ -28,6 +28,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#ifdef _OPENMP
+# include <omp.h>
+#endif
 
 #include <textstyle.h>
 
@@ -458,6 +461,11 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       /* With --for-msgfmt, no need for source location lines.  */
       message_print_style_filepos (filepos_comment_none);
     }
+
+  /* Initialize OpenMP.  */
+  #ifdef _OPENMP
+  openmp_init ();
+  #endif
 
   /* Merge the two files.  */
   result = merge (argv[optind], argv[optind + 1], input_syntax, &def);
