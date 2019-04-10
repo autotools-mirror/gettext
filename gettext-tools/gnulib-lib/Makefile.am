@@ -83,5 +83,7 @@ libgettextlib_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX \
 	$(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=link \
 	$(CXXLD) $(AM_CXXFLAGS) $(CXXFLAGS) $(libgettextlib_la_LDFLAGS) $(LDFLAGS) \
 	-o $@
+# Use the same definition of CXXLD as Automake generates in other Makefiles.
+CXXLD = $(CXX)
 endif
 
