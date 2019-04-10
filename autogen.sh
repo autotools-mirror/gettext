@@ -157,6 +157,7 @@ if ! $skip_gnulib; then
     localcharset
     locale
     localename
+    localtime
     lock
     memchr
     memmove
@@ -205,6 +206,7 @@ if ! $skip_gnulib; then
     unistr/u16-mbtouc
     uniwidth/width
     unlocked-io
+    unsetenv
     vasprintf
     wait-process
     write
