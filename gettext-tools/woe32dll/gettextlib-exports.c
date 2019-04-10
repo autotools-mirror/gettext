@@ -1,5 +1,5 @@
 /* List of exported symbols of libgettextlib on Cygwin.
-   Copyright (C) 2006-2007, 2010, 2012 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2010, 2012, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -25,7 +25,6 @@ VARIABLE(rpl_error_print_progname)
 #endif
 VARIABLE(error_with_progname)
 VARIABLE(exit_failure)
-VARIABLE(gl_array_list_implementation)
 VARIABLE(gl_linkedhash_list_implementation)
 VARIABLE(program_name)
 #if GNULIB_DEFINED_GETOPT
@@ -33,4 +32,3 @@ VARIABLE(rpl_optarg)
 VARIABLE(rpl_optind)
 #endif
 VARIABLE(simple_backup_suffix)
-VARIABLE(styled_ostream_typeinfo)

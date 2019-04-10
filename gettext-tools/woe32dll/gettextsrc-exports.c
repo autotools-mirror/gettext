@@ -1,5 +1,5 @@
 /* List of exported symbols of libgettextsrc on Cygwin.
-   Copyright (C) 2006-2007, 2009-2011, 2013-2015 Free Software Foundation,
+   Copyright (C) 2006-2007, 2009-2011, 2013-2015, 2019 Free Software Foundation,
    Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
@@ -23,8 +23,6 @@
 #include "woe32dll/export.h"
 
 VARIABLE(allow_duplicates)
-VARIABLE(color_mode)
-VARIABLE(color_test_mode)
 VARIABLE(format_language)
 VARIABLE(format_language_pretty)
 VARIABLE(formatstring_awk)
@@ -86,5 +84,4 @@ VARIABLE(po_multiline_warning)
 VARIABLE(po_xerror)
 VARIABLE(po_xerror2)
 VARIABLE(syntax_check_name)
-VARIABLE(style_file_name)
 VARIABLE(use_first)
