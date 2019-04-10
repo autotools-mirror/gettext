@@ -41,7 +41,7 @@ AC_CANONICAL_HOST
 
 dnl Checks that augment the CPPFLAGS.
 
-gl_EARLY
+lts_EARLY
 
 dnl Checks for compiler output filename suffixes.
 
@@ -68,7 +68,7 @@ AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
 
 dnl Checks for types, header files, functions and declarations.
 
-gl_INIT
+lts_INIT
 
 dnl Arrange that the gnulib-generated <unistd.h> does not declare isatty(). The
 dnl adhoc-tests want to get this declaration from <textstyle.h>, not <unistd.h>.

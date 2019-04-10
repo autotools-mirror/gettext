@@ -91,6 +91,7 @@ if test $skip_gnulib = false; then
       term-ostream-tests
     '
     $GNULIB_TOOL --lib=libtextstyle --source-base=lib --m4-base=gnulib-m4 --tests-base=tests \
+      --macro-prefix=lts \
       --makefile-name=Makefile.gnulib --libtool \
       --local-dir=gnulib-local --local-dir=../gnulib-local \
       --import --avoid=hash-tests $GNULIB_MODULES
