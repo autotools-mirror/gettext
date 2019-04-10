@@ -151,7 +151,7 @@ msgid_hashcode (const char *msgctxt, const char *msgid)
       char *combined;
       unsigned int result;
 
-      combined = (char *) xmalloca (combined_len);
+      combined = (char *) xmalloca (combined_len + 1);
       memcpy (combined, msgctxt, msgctxt_len);
       combined[msgctxt_len] = MSGCTXT_SEPARATOR;
       memcpy (combined + msgctxt_len + 1, msgid, msgid_len + 1);
