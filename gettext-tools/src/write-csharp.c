@@ -1,5 +1,5 @@
 /* Writing C# satellite assemblies.
-   Copyright (C) 2003-2010, 2016, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2003-2010, 2016, 2018-2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -234,7 +234,7 @@ write_csharp_msgid (FILE *stream, message_ty *mp)
       size_t combined_len = msgctxt_len + 1 + msgid_len;
       char *combined;
 
-      combined = (char *) xmalloca (combined_len);
+      combined = (char *) xmalloca (combined_len + 1);
       memcpy (combined, msgctxt, msgctxt_len);
       combined[msgctxt_len] = MSGCTXT_SEPARATOR;
       memcpy (combined + msgctxt_len + 1, msgid, msgid_len + 1);

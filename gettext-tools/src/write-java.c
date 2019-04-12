@@ -417,7 +417,7 @@ write_java_msgid (FILE *stream, message_ty *mp)
       size_t combined_len = msgctxt_len + 1 + msgid_len;
       char *combined;
 
-      combined = (char *) xmalloca (combined_len);
+      combined = (char *) xmalloca (combined_len + 1);
       memcpy (combined, msgctxt, msgctxt_len);
       combined[msgctxt_len] = MSGCTXT_SEPARATOR;
       memcpy (combined + msgctxt_len + 1, msgid, msgid_len + 1);
