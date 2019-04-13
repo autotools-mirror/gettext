@@ -156,6 +156,11 @@ func_check_file ()
       # This is a form, used for communication with the FSF.
       return 0 ;;
 
+    /gettext-tools/misc/archive.dir.tar )
+      # This is an archive of files that were part of earlier gettext releases.
+      # As a binary file, it cannot have a copyright header.
+      return 0 ;;
+
     *.gmo )
       # These are binary files. FOO.gmo is generated from FOO.po, which is
       # also distributed.
