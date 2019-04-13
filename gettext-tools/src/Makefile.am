@@ -75,7 +75,6 @@ AM_CPPFLAGS = \
   -I.. -I$(top_srcdir) \
   -I$(top_srcdir)/libgrep \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
-  -I../../libtextstyle/lib -I$(top_srcdir)/../libtextstyle/lib \
   -I../intl -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = \
   -DLOCALEDIR=\"$(localedir)\" -DBISON_LOCALEDIR=\"$(BISON_LOCALEDIR)\" \
@@ -249,6 +248,14 @@ urlget_SOURCES = urlget.c
 cldr_plurals_SOURCES = cldr-plural.y cldr-plural-exp.c cldr-plurals.c
 cldr_plurals_CFLAGS = $(AM_CFLAGS) $(INCXML)
 cldr_plurals_LDADD = libgettextsrc.la $(LDADD)
+
+# How to get the include files of libtextstyle.
+textstyle.h textstyle/stdbool.h textstyle/version.h textstyle/woe32dll.h:
+	here=`pwd`; \
+	cd ../../libtextstyle/lib && \
+	  $(MAKE) install-nobase_includeHEADERS install-nobase_nodist_includeHEADERS includedir="$$here"
+BUILT_SOURCES    += textstyle.h textstyle/stdbool.h textstyle/version.h textstyle/woe32dll.h
+MOSTLYCLEANFILES += textstyle.h textstyle/stdbool.h textstyle/version.h textstyle/woe32dll.h
 
 # How to build libgettextsrc.la.
 # Need ../gnulib-lib/libgettextlib.la.
