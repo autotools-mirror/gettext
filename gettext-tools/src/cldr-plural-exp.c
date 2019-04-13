@@ -1,5 +1,5 @@
 /* Unicode CLDR plural rule parser and converter
-   Copyright (C) 2015, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2015, 2018-2019 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -668,7 +668,7 @@ cldr_plural_rule_list_print (struct cldr_plural_rule_list_ty *rules, FILE *fp)
     }
 
   /* If there are more printable rules, build a ternary operator.  */
-  fprintf (fp, "nplurals=%zu; plural=(", nplurals);
+  fprintf (fp, "nplurals=%lu; plural=(", (unsigned long) nplurals);
   for (i = 0, count = 0; i < rules->nitems; i++)
     {
       struct cldr_plural_rule_ty *rule = rules->items[i];
@@ -686,10 +686,11 @@ cldr_plural_rule_list_print (struct cldr_plural_rule_list_ty *rules, FILE *fp)
               printable_left = true;
 
           if (i < rules->nitems - 1 && printable_left)
-            fprintf (fp, " ? %zu : ", count++);
+            fprintf (fp, " ? %lu : ", (unsigned long) count++);
         }
     }
   if (rules->nitems > 1)
-    fprintf (fp, " ? %zu : %zu", count, count + 1);
+    fprintf (fp, " ? %lu : %lu",
+             (unsigned long) count, (unsigned long) (count + 1));
   fprintf (fp, ");\n");
 }
