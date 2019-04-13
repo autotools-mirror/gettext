@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-runtime 0.19.4.73\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2015-06-23 15:18+0900\n"
+"POT-Creation-Date: 2019-04-13 11:21+0200\n"
 "PO-Revision-Date: 2015-06-24 12:18+0900\n"
 "Last-Translator: Masahito Yamaga <ma@yama-ga.com>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
@@ -15,87 +15,72 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=EUC-JP\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: gnulib-lib/closeout.c:66
 msgid "write error"
 msgstr "書き込みエラー"
 
-#: gnulib-lib/error.c:191
+#: gnulib-lib/error.c:195
 msgid "Unknown system error"
 msgstr "未知のシステムエラー"
 
-#: gnulib-lib/getopt.c:575 gnulib-lib/getopt.c:604
-#, c-format
-msgid "%s: option '%s' is ambiguous; possibilities:"
-msgstr "%s: オプション '%s' が曖昧. 指定可能なもの:"
-
-#: gnulib-lib/getopt.c:619
-#, c-format
-msgid "%s: option '%s' is ambiguous\n"
+#: gnulib-lib/getopt.c:278
+#, fuzzy, c-format
+#| msgid "%s: option '%s' is ambiguous\n"
+msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: オプション '%s' は曖昧です\n"
 
-#: gnulib-lib/getopt.c:654 gnulib-lib/getopt.c:658
-#, c-format
-msgid "%s: option '--%s' doesn't allow an argument\n"
-msgstr "%s: オプション '--%s' に引数はありません\n"
+#: gnulib-lib/getopt.c:284
+#, fuzzy, c-format
+#| msgid "%s: option '%s' is ambiguous; possibilities:"
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s: オプション '%s' が曖昧. 指定可能なもの:"
 
-#: gnulib-lib/getopt.c:667 gnulib-lib/getopt.c:672
-#, c-format
-msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgstr "%s: オプション '%c%s' に引数はありません\n"
-
-#: gnulib-lib/getopt.c:715 gnulib-lib/getopt.c:734
-#, c-format
-msgid "%s: option '--%s' requires an argument\n"
-msgstr "%s: オプション '--%s' には引数が必要です\n"
-
-#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
-#, c-format
-msgid "%s: unrecognized option '--%s'\n"
-msgstr "%s: オプション '--%s' は不可\n"
-
-#: gnulib-lib/getopt.c:783 gnulib-lib/getopt.c:786
-#, c-format
-msgid "%s: unrecognized option '%c%s'\n"
+#: gnulib-lib/getopt.c:319
+#, fuzzy, c-format
+#| msgid "%s: unrecognized option '%c%s'\n"
+msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: オプション '%c%s' は不可\n"
 
-#: gnulib-lib/getopt.c:835 gnulib-lib/getopt.c:838
+#: gnulib-lib/getopt.c:345
+#, fuzzy, c-format
+#| msgid "%s: option '%c%s' doesn't allow an argument\n"
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s: オプション '%c%s' に引数はありません\n"
+
+#: gnulib-lib/getopt.c:360
+#, fuzzy, c-format
+#| msgid "%s: option '--%s' requires an argument\n"
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s: オプション '--%s' には引数が必要です\n"
+
+#: gnulib-lib/getopt.c:621
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: 無効なオプション -- '%c'\n"
 
-#: gnulib-lib/getopt.c:891 gnulib-lib/getopt.c:908 gnulib-lib/getopt.c:1118
-#: gnulib-lib/getopt.c:1136
+#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: 引数が必要なオプション -- '%c'\n"
-
-#: gnulib-lib/getopt.c:964 gnulib-lib/getopt.c:980
-#, c-format
-msgid "%s: option '-W %s' is ambiguous\n"
-msgstr "%s: オプション '-W %s' は曖昧です\n"
-
-#: gnulib-lib/getopt.c:1004 gnulib-lib/getopt.c:1022
-#, c-format
-msgid "%s: option '-W %s' doesn't allow an argument\n"
-msgstr "%s: オプション '-W %s' に引数はありません\n"
-
-#: gnulib-lib/getopt.c:1043 gnulib-lib/getopt.c:1061
-#, c-format
-msgid "%s: option '-W %s' requires an argument\n"
-msgstr "%s: オプション '-W %s' には引数が必要です\n"
 
 #: gnulib-lib/xmalloc.c:38
 #, c-format
 msgid "memory exhausted"
 msgstr "メモリを使い果たしました"
 
-#: src/envsubst.c:112 src/gettext.c:134 src/ngettext.c:124
-#, c-format, no-wrap
+#: src/envsubst.c:112 src/gettext.c:137 src/ngettext.c:126
+#, fuzzy, c-format, no-wrap
+#| msgid ""
+#| "Copyright (C) %s Free Software Foundation, Inc.\n"
+#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+#| "This is free software: you are free to change and redistribute it.\n"
+#| "There is NO WARRANTY, to the extent permitted by law.\n"
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
@@ -109,7 +94,7 @@ msgstr ""
 "これはフリー・ソフトウェアです. 改変と再配布は自由です.\n"
 "法で許された範囲内で無保証です.\n"
 
-#: src/envsubst.c:118 src/gettext.c:140 src/ngettext.c:130
+#: src/envsubst.c:118 src/gettext.c:143 src/ngettext.c:132
 #, c-format
 msgid "Written by %s.\n"
 msgstr "作者 %s.\n"
@@ -119,57 +104,57 @@ msgstr "作者 %s.\n"
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:127 src/gettext.c:158 src/ngettext.c:142
+#: src/envsubst.c:127 src/gettext.c:161 src/ngettext.c:144
 #, c-format
 msgid "too many arguments"
 msgstr "引数が多すぎます"
 
-#: src/envsubst.c:138 src/gettext.c:168 src/ngettext.c:154
+#: src/envsubst.c:138 src/gettext.c:171 src/ngettext.c:156
 #, c-format
 msgid "missing arguments"
 msgstr "引数がありません"
 
-#: src/envsubst.c:171 src/gettext.c:239 src/ngettext.c:208
+#: src/envsubst.c:176 src/gettext.c:248 src/ngettext.c:213
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "より多くの情報を得るためには '%s --help' と入力してください.\n"
 
-#: src/envsubst.c:176
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "使用法: %s [オプション] [シェル形式]\n"
 
-#: src/envsubst.c:181
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "環境変数の値を代入.\n"
 
-#: src/envsubst.c:185
+#: src/envsubst.c:190
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "オペレーションモード:\n"
 
-#: src/envsubst.c:188
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             シェル形式に現れる変数を出力\n"
 
-#: src/envsubst.c:192
+#: src/envsubst.c:197 src/gettext.c:277 src/ngettext.c:243
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "有益な出力:\n"
 
-#: src/envsubst.c:195
+#: src/envsubst.c:200
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  このヘルプを表示して終了\n"
 
-#: src/envsubst.c:198
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               バージョン情報を出力して終了\n"
 
-#: src/envsubst.c:202
+#: src/envsubst.c:207
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -184,7 +169,7 @@ msgstr ""
 "シェル形式が指定されると, シェル形式で参照される, そのような環境変数だけが\n"
 "代入されますが, そうでない場合は標準入力に現れる全ての環境変数が代入されます.\n"
 
-#: src/envsubst.c:211
+#: src/envsubst.c:216
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -197,25 +182,25 @@ msgstr ""
 #. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:219 src/gettext.c:280 src/ngettext.c:246
+#: src/envsubst.c:224 src/gettext.c:300 src/ngettext.c:263
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "バグレポートは <bug-gnu-gettext@gnu.org> まで.\n"
 
-#: src/envsubst.c:442
+#: src/envsubst.c:448
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "\"%s\" 読み込み中のエラー"
 
-#: src/envsubst.c:443
+#: src/envsubst.c:448
 msgid "standard input"
 msgstr "標準入力"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:140 src/ngettext.c:130
+#: src/gettext.c:143 src/ngettext.c:132
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:244
+#: src/gettext.c:253
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -224,33 +209,56 @@ msgstr ""
 "使用法: %s [オプション] [[TEXTDOMAIN] MSGID]\n"
 "または: %s [オプション] -s [MSGID]...\n"
 
-#: src/gettext.c:250
+#: src/gettext.c:259
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "原文のメッセージの自国語翻訳を表示.\n"
 
-#: src/gettext.c:254
+#: src/gettext.c:263
 #, c-format, no-wrap
+msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+msgstr ""
+
+#: src/gettext.c:265 src/ngettext.c:230
+#, c-format
+msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
+msgstr ""
+
+#: src/gettext.c:267 src/ngettext.c:232
+#, c-format
+msgid "  -e                        enable expansion of some escape sequences\n"
+msgstr ""
+
+#: src/gettext.c:269
+#, c-format
+msgid "  -n                        suppress trailing newline\n"
+msgstr ""
+
+#: src/gettext.c:271 src/ngettext.c:234
+#, c-format
+msgid "  -E                        (ignored for compatibility)\n"
+msgstr ""
+
+#: src/gettext.c:273
+#, c-format
 msgid ""
-"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-"  -e                        enable expansion of some escape sequences\n"
-"  -E                        (ignored for compatibility)\n"
-"  -h, --help                display this help and exit\n"
-"  -n                        suppress trailing newline\n"
-"  -V, --version             display version information and exit\n"
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
-"  -d, --domain=TEXTDOMAIN   TEXTDOMAIN から翻訳されたメッセージを取り出す\n"
-"  -e                        エスケープシーケンスを展開する\n"
-"  -E                        (互換性のために無視される)\n"
-"  -h, --help                このヘルプを表示して終了\n"
-"  -n                        末尾の改行を出力しない\n"
-"  -V, --version             バージョン情報を表示して終了\n"
-"  [TEXTDOMAIN] MSGID        MSGID に応じた翻訳メッセージを TEXTDOMAIN から\n"
-"                            取り出す\n"
 
-#: src/gettext.c:265
+#: src/gettext.c:279 src/ngettext.c:245
+#, fuzzy, c-format
+#| msgid "  -h, --help                  display this help and exit\n"
+msgid "  -h, --help                display this help and exit\n"
+msgstr "  -h, --help                  このヘルプを表示して終了\n"
+
+#: src/gettext.c:281 src/ngettext.c:247
+#, fuzzy, c-format
+#| msgid "  -V, --version               output version information and exit\n"
+msgid "  -V, --version             display version information and exit\n"
+msgstr "  -V, --version               バージョン情報を出力して終了\n"
+
+#: src/gettext.c:285
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -271,40 +279,43 @@ msgstr ""
 "翻訳されたものを表示します.\n"
 "標準の検索ディレクトリ: %s\n"
 
-#: src/ngettext.c:213
+#: src/ngettext.c:218
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "使用法: %s [オプション] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 
-#: src/ngettext.c:218
+#: src/ngettext.c:223
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr "文法上, 形式が数によって異なっている原文メッセージの自国語翻訳を表示.\n"
 
-#: src/ngettext.c:223
+#: src/ngettext.c:228
 #, c-format, no-wrap
+msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+msgstr ""
+
+#: src/ngettext.c:236
+#, c-format
 msgid ""
-"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-"  -e                        enable expansion of some escape sequences\n"
-"  -E                        (ignored for compatibility)\n"
-"  -h, --help                display this help and exit\n"
-"  -V, --version             display version information and exit\n"
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+msgstr ""
+
+#: src/ngettext.c:238
+#, c-format
+msgid ""
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
+"(plural)\n"
+msgstr ""
+
+#: src/ngettext.c:240
+#, c-format
+msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"  -d, --domain=TEXTDOMAIN   TEXTDOMAIN から翻訳されたメッセージを取り出す\n"
-"  -e                        エスケープシーケンスを展開する\n"
-"  -E                        (互換性のために無視される)\n"
-"  -h, --help                このヘルプを表示して終了\n"
-"  -V, --version             バージョン情報を表示して終了\n"
-"  [TEXTDOMAIN]              翻訳メッセージを TEXTDOMAIN から取り出す\n"
-"  MSGID MSGID-PLURAL        MSGID (単数形) / MSGID-PLURAL (複数形) を翻訳\n"
-"  COUNT                     この値を基本にして単数/複数形を選択\n"
 
-#: src/ngettext.c:234
+#: src/ngettext.c:251
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -317,3 +328,63 @@ msgstr ""
 "ドメインが決まります. もし標準のディレクトリにメッセージカタログが\n"
 "見つからなければ, 環境変数 TEXTDOMAINDIR で指定された場所から探します.\n"
 "標準の検索ディレクトリ: %s\n"
+
+#, c-format
+#~ msgid "%s: option '--%s' doesn't allow an argument\n"
+#~ msgstr "%s: オプション '--%s' に引数はありません\n"
+
+#, c-format
+#~ msgid "%s: unrecognized option '--%s'\n"
+#~ msgstr "%s: オプション '--%s' は不可\n"
+
+#, c-format
+#~ msgid "%s: option '-W %s' is ambiguous\n"
+#~ msgstr "%s: オプション '-W %s' は曖昧です\n"
+
+#, c-format
+#~ msgid "%s: option '-W %s' doesn't allow an argument\n"
+#~ msgstr "%s: オプション '-W %s' に引数はありません\n"
+
+#, c-format
+#~ msgid "%s: option '-W %s' requires an argument\n"
+#~ msgstr "%s: オプション '-W %s' には引数が必要です\n"
+
+#, c-format, no-wrap
+#~ msgid ""
+#~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+#~ "  -e                        enable expansion of some escape sequences\n"
+#~ "  -E                        (ignored for compatibility)\n"
+#~ "  -h, --help                display this help and exit\n"
+#~ "  -n                        suppress trailing newline\n"
+#~ "  -V, --version             display version information and exit\n"
+#~ "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
+#~ "                            to MSGID from TEXTDOMAIN\n"
+#~ msgstr ""
+#~ "  -d, --domain=TEXTDOMAIN   TEXTDOMAIN から翻訳されたメッセージを取り出す\n"
+#~ "  -e                        エスケープシーケンスを展開する\n"
+#~ "  -E                        (互換性のために無視される)\n"
+#~ "  -h, --help                このヘルプを表示して終了\n"
+#~ "  -n                        末尾の改行を出力しない\n"
+#~ "  -V, --version             バージョン情報を表示して終了\n"
+#~ "  [TEXTDOMAIN] MSGID        MSGID に応じた翻訳メッセージを TEXTDOMAIN から\n"
+#~ "                            取り出す\n"
+
+#, c-format, no-wrap
+#~ msgid ""
+#~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+#~ "  -e                        enable expansion of some escape sequences\n"
+#~ "  -E                        (ignored for compatibility)\n"
+#~ "  -h, --help                display this help and exit\n"
+#~ "  -V, --version             display version information and exit\n"
+#~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+#~ "  COUNT                     choose singular/plural form based on this value\n"
+#~ msgstr ""
+#~ "  -d, --domain=TEXTDOMAIN   TEXTDOMAIN から翻訳されたメッセージを取り出す\n"
+#~ "  -e                        エスケープシーケンスを展開する\n"
+#~ "  -E                        (互換性のために無視される)\n"
+#~ "  -h, --help                このヘルプを表示して終了\n"
+#~ "  -V, --version             バージョン情報を表示して終了\n"
+#~ "  [TEXTDOMAIN]              翻訳メッセージを TEXTDOMAIN から取り出す\n"
+#~ "  MSGID MSGID-PLURAL        MSGID (単数形) / MSGID-PLURAL (複数形) を翻訳\n"
+#~ "  COUNT                     この値を基本にして単数/複数形を選択\n"

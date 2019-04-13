@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime-0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-10-07 23:09+0200\n"
+"POT-Creation-Date: 2019-04-13 11:21+0200\n"
 "PO-Revision-Date: 2008-08-13 18:40+0200\n"
 "Last-Translator: Eirik U. Birkeland <eirbir@gmail.com>\n"
 "Language-Team: Norwegian Nynorsk <i18n-nn@lister.ping.uio.no>\n"
@@ -16,6 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8-bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "X-Generator: Lokalize 0.2\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 
@@ -23,77 +24,67 @@ msgstr ""
 msgid "write error"
 msgstr "skrivefeil"
 
-#: gnulib-lib/error.c:125
+#: gnulib-lib/error.c:195
 msgid "Unknown system error"
 msgstr "Ukjend systemfeil"
 
-#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
-#, c-format
-msgid "%s: option `%s' is ambiguous\n"
+#: gnulib-lib/getopt.c:278
+#, fuzzy, c-format
+#| msgid "%s: option `%s' is ambiguous\n"
+msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: Valet «%s» er fleirtydig\n"
 
-#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
-#, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: Valet «--%s» tek ikkje argument\n"
+#: gnulib-lib/getopt.c:284
+#, fuzzy, c-format
+#| msgid "%s: option `%s' is ambiguous\n"
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s: Valet «%s» er fleirtydig\n"
 
-#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
-#, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: Valet «%c%s» tek ikkje argument\n"
-
-#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
-#: gnulib-lib/getopt.c:994
-#, c-format
-msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: Valet «%s» treng eit argument\n"
-
-#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
-#, c-format
-msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s: Ukjent val – «--%s»\n"
-
-#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
-#, c-format
-msgid "%s: unrecognized option `%c%s'\n"
+#: gnulib-lib/getopt.c:319
+#, fuzzy, c-format
+#| msgid "%s: unrecognized option `%c%s'\n"
+msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: Ukjent val – «%c%s»\n"
 
-#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
-#, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s: Ulovleg val – %c\n"
+#: gnulib-lib/getopt.c:345
+#, fuzzy, c-format
+#| msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s: Valet «%c%s» tek ikkje argument\n"
 
-#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
-#, c-format
-msgid "%s: invalid option -- %c\n"
+#: gnulib-lib/getopt.c:360
+#, fuzzy, c-format
+#| msgid "%s: option `%s' requires an argument\n"
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s: Valet «%s» treng eit argument\n"
+
+#: gnulib-lib/getopt.c:621
+#, fuzzy, c-format
+#| msgid "%s: invalid option -- %c\n"
+msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: Ugyldig val – %c\n"
 
-#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
-#: gnulib-lib/getopt.c:1065
-#, c-format
-msgid "%s: option requires an argument -- %c\n"
+#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#, fuzzy, c-format
+#| msgid "%s: option requires an argument -- %c\n"
+msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: Valet treng eit argument – %c\n"
 
-#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
-#, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: Valet «-W %s» er fleirtydig\n"
-
-#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
-#, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: Valet «-W %s» tek ikkje argument\n"
-
-#: gnulib-lib/xmalloc.c:37
+#: gnulib-lib/xmalloc.c:38
 #, c-format
 msgid "memory exhausted"
 msgstr "gjekk tom for minne"
 
-#: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
-#, c-format, no-wrap
+#: src/envsubst.c:112 src/gettext.c:137 src/ngettext.c:126
+#, fuzzy, c-format, no-wrap
+#| msgid ""
+#| "Copyright (C) %s Free Software Foundation, Inc.\n"
+#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+#| "This is free software: you are free to change and redistribute it.\n"
+#| "There is NO WARRANTY, to the extent permitted by law.\n"
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
@@ -102,7 +93,7 @@ msgstr ""
 "Dette er fri programvare. Du kan fritt endra og distribuera henne vidare.\n"
 "Det er INGEN GARANTI for dette produktet utover det som står i lova.\n"
 
-#: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
+#: src/envsubst.c:118 src/gettext.c:143 src/ngettext.c:132
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Skrive av %s.\n"
@@ -112,57 +103,58 @@ msgstr "Skrive av %s.\n"
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:127 src/gettext.c:157 src/ngettext.c:141
+#: src/envsubst.c:127 src/gettext.c:161 src/ngettext.c:144
 #, c-format
 msgid "too many arguments"
 msgstr "for mange argument"
 
-#: src/envsubst.c:138 src/gettext.c:167 src/ngettext.c:153
+#: src/envsubst.c:138 src/gettext.c:171 src/ngettext.c:156
 #, c-format
 msgid "missing arguments"
 msgstr "manglar argument"
 
-#: src/envsubst.c:171 src/gettext.c:238 src/ngettext.c:207
-#, c-format
-msgid "Try `%s --help' for more information.\n"
+#: src/envsubst.c:176 src/gettext.c:248 src/ngettext.c:213
+#, fuzzy, c-format
+#| msgid "Try `%s --help' for more information.\n"
+msgid "Try '%s --help' for more information.\n"
 msgstr "Prøv «%s --help» for meir informasjon.\n"
 
-#: src/envsubst.c:176
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Bruk: %s [VAL] [SKALTYPE]\n"
 
-#: src/envsubst.c:181
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Erstattar verdiane i miljøvariablar.\n"
 
-#: src/envsubst.c:185
+#: src/envsubst.c:190
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Handlingsmodus:\n"
 
-#: src/envsubst.c:188
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             vis variablane i SKALTYPE\n"
 
-#: src/envsubst.c:192
+#: src/envsubst.c:197 src/gettext.c:277 src/ngettext.c:243
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informativ vising:\n"
 
-#: src/envsubst.c:195
+#: src/envsubst.c:200
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  vis denne hjelpa og avslutt\n"
 
-#: src/envsubst.c:198
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               vis informasjon om versjon og avslutt\n"
 
-#: src/envsubst.c:202
+#: src/envsubst.c:207
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -178,7 +170,7 @@ msgstr ""
 "miljøvariablane det er referert til i «SKALTYPE» erstatta. Elles vil alle referansar\n"
 "til miljøvariablar som førekjem i standard inndata verta erstatta.\n"
 
-#: src/envsubst.c:211
+#: src/envsubst.c:216
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -191,25 +183,25 @@ msgstr ""
 #. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:219 src/gettext.c:279 src/ngettext.c:245
+#: src/envsubst.c:224 src/gettext.c:300 src/ngettext.c:263
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Rapporter feil til <bug-gnu-gettext@gnu.org>.\n"
 
-#: src/envsubst.c:442
+#: src/envsubst.c:448
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "feil ved lesing av «%s»"
 
-#: src/envsubst.c:443
+#: src/envsubst.c:448
 msgid "standard input"
 msgstr "standard inndata"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:139 src/ngettext.c:129
+#: src/gettext.c:143 src/ngettext.c:132
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:243
+#: src/gettext.c:253
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -218,40 +210,72 @@ msgstr ""
 "Bruk:  %s [VAL] [[TEKSTOMRÅDE] MSGID]\n"
 "eller: %s [VAL] -s [MSGID] …\n"
 
-#: src/gettext.c:249
+#: src/gettext.c:259
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Vis omsetjinga av ein tekststreng.\n"
 
-#: src/gettext.c:253
+#: src/gettext.c:263
 #, c-format, no-wrap
+msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+msgstr ""
+
+#: src/gettext.c:265 src/ngettext.c:230
+#, c-format
+msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
+msgstr ""
+
+#: src/gettext.c:267 src/ngettext.c:232
+#, c-format
+msgid "  -e                        enable expansion of some escape sequences\n"
+msgstr ""
+
+#: src/gettext.c:269
+#, c-format
+msgid "  -n                        suppress trailing newline\n"
+msgstr ""
+
+#: src/gettext.c:271 src/ngettext.c:234
+#, c-format
+msgid "  -E                        (ignored for compatibility)\n"
+msgstr ""
+
+#: src/gettext.c:273
+#, c-format
 msgid ""
-"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-"  -e                        enable expansion of some escape sequences\n"
-"  -E                        (ignored for compatibility)\n"
-"  -h, --help                display this help and exit\n"
-"  -n                        suppress trailing newline\n"
-"  -V, --version             display version information and exit\n"
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
-"  -d, --domain=TEKSTOMRÅDE  hent omsette meldingar frå TEKSTOMRÅDE\n"
-"  -e                        slå på utviding av nokre escape-sekvensar\n"
-"  -E                        (ignorert grunna kompatibilitetsomsyn)\n"
-"  -h, --help                vis denne hjelpa og avslutt\n"
-"  -n                        undertrykk etterfølgjande linjeskift\n"
-"  -V, --version             vis informasjon om versjon og avslutt\n"
-"  [TEKSTOMRÅDE] MSGID       hent omsett melding som stemmer overeins med\n"
-"                            MSGID frå «TEXTDOMAIN»\n"
 
-#: src/gettext.c:264
-#, c-format, no-wrap
+#: src/gettext.c:279 src/ngettext.c:245
+#, fuzzy, c-format
+#| msgid "  -h, --help                  display this help and exit\n"
+msgid "  -h, --help                display this help and exit\n"
+msgstr "  -h, --help                  vis denne hjelpa og avslutt\n"
+
+#: src/gettext.c:281 src/ngettext.c:247
+#, fuzzy, c-format
+#| msgid "  -V, --version               output version information and exit\n"
+msgid "  -V, --version             display version information and exit\n"
+msgstr "  -V, --version               vis informasjon om versjon og avslutt\n"
+
+#: src/gettext.c:285
+#, fuzzy, c-format, no-wrap
+#| msgid ""
+#| "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
+#| "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
+#| "regular directory, another location can be specified with the environment\n"
+#| "variable TEXTDOMAINDIR.\n"
+#| "When used with the -s option the program behaves like the `echo' command.\n"
+#| "But it does not simply copy its arguments to stdout.  Instead those messages\n"
+#| "found in the selected catalog are translated.\n"
+#| "Standard search directory: %s\n"
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
 "regular directory, another location can be specified with the environment\n"
 "variable TEXTDOMAINDIR.\n"
-"When used with the -s option the program behaves like the `echo' command.\n"
+"When used with the -s option the program behaves like the 'echo' command.\n"
 "But it does not simply copy its arguments to stdout.  Instead those messages\n"
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
@@ -265,41 +289,43 @@ msgstr ""
 "meldingar som er funne i den valde katalogen omsette.\n"
 "Standard søkjekatalog er: %s\n"
 
-#: src/ngettext.c:212
+#: src/ngettext.c:218
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Bruk: %s [VAL] [TEKSTOMRDE] MSGID MSGID-PLURAL TAL\n"
 
-#: src/ngettext.c:217
+#: src/ngettext.c:223
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr "Vis omsetjinga av ein tekststreng som har ei grammatisk form som er avhengig av eit tal.\n"
 
-#: src/ngettext.c:222
+#: src/ngettext.c:228
 #, c-format, no-wrap
+msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+msgstr ""
+
+#: src/ngettext.c:236
+#, c-format
 msgid ""
-"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-"  -e                        enable expansion of some escape sequences\n"
-"  -E                        (ignored for compatibility)\n"
-"  -h, --help                display this help and exit\n"
-"  -V, --version             display version information and exit\n"
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+msgstr ""
+
+#: src/ngettext.c:238
+#, c-format
+msgid ""
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
+"(plural)\n"
+msgstr ""
+
+#: src/ngettext.c:240
+#, c-format
+msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"  -d, --domain=TEKSTOMRÅDE  hent omsette meldingar frå TEKSTOMRÅDE\n"
-"  -e                        slå på utviding av nokre escape-sekvensar\n"
-"  -E                        (ignorert grunna kompatibilitetsomsyn)\n"
-"  -h, --help                vis denne hjelpa og avslutt\n"
-"  -n                        undertrykk etterfølgjande linjeskift\n"
-"  -V, --version             vis informasjon om versjon og avslutt\n"
-"  [TEKSTOMRÅDE]             hent omsett melding frå «TEXTDOMAIN»\n"
-"  MSGID MSGID-PLURAL        omset MSGID (eintal) / MSGID-PLURAL (fleirtal)\n"
-"  TAL                       vel eintal-/fleirtalsform basert på denne verdien\n"
 
-#: src/ngettext.c:233
+#: src/ngettext.c:251
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -314,8 +340,72 @@ msgstr ""
 "«TEXTDOMAIN».\n"
 "Standard søkjekatalog er: %s\n"
 
-#~ msgid "internationalized messages should not contain the `\\%c' escape sequence"
-#~ msgstr "internasjonaliserte meldingar skal ikkje innehalde escape-sekvensen «\\%c»"
+#, c-format
+#~ msgid "%s: option `--%s' doesn't allow an argument\n"
+#~ msgstr "%s: Valet «--%s» tek ikkje argument\n"
+
+#, c-format
+#~ msgid "%s: unrecognized option `--%s'\n"
+#~ msgstr "%s: Ukjent val – «--%s»\n"
+
+#, c-format
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s: Ulovleg val – %c\n"
+
+#, c-format
+#~ msgid "%s: option `-W %s' is ambiguous\n"
+#~ msgstr "%s: Valet «-W %s» er fleirtydig\n"
+
+#, c-format
+#~ msgid "%s: option `-W %s' doesn't allow an argument\n"
+#~ msgstr "%s: Valet «-W %s» tek ikkje argument\n"
+
+#, c-format, no-wrap
+#~ msgid ""
+#~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+#~ "  -e                        enable expansion of some escape sequences\n"
+#~ "  -E                        (ignored for compatibility)\n"
+#~ "  -h, --help                display this help and exit\n"
+#~ "  -n                        suppress trailing newline\n"
+#~ "  -V, --version             display version information and exit\n"
+#~ "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
+#~ "                            to MSGID from TEXTDOMAIN\n"
+#~ msgstr ""
+#~ "  -d, --domain=TEKSTOMRÅDE  hent omsette meldingar frå TEKSTOMRÅDE\n"
+#~ "  -e                        slå på utviding av nokre escape-sekvensar\n"
+#~ "  -E                        (ignorert grunna kompatibilitetsomsyn)\n"
+#~ "  -h, --help                vis denne hjelpa og avslutt\n"
+#~ "  -n                        undertrykk etterfølgjande linjeskift\n"
+#~ "  -V, --version             vis informasjon om versjon og avslutt\n"
+#~ "  [TEKSTOMRÅDE] MSGID       hent omsett melding som stemmer overeins med\n"
+#~ "                            MSGID frå «TEXTDOMAIN»\n"
+
+#, c-format, no-wrap
+#~ msgid ""
+#~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+#~ "  -e                        enable expansion of some escape sequences\n"
+#~ "  -E                        (ignored for compatibility)\n"
+#~ "  -h, --help                display this help and exit\n"
+#~ "  -V, --version             display version information and exit\n"
+#~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+#~ "  COUNT                     choose singular/plural form based on this value\n"
+#~ msgstr ""
+#~ "  -d, --domain=TEKSTOMRÅDE  hent omsette meldingar frå TEKSTOMRÅDE\n"
+#~ "  -e                        slå på utviding av nokre escape-sekvensar\n"
+#~ "  -E                        (ignorert grunna kompatibilitetsomsyn)\n"
+#~ "  -h, --help                vis denne hjelpa og avslutt\n"
+#~ "  -n                        undertrykk etterfølgjande linjeskift\n"
+#~ "  -V, --version             vis informasjon om versjon og avslutt\n"
+#~ "  [TEKSTOMRÅDE]             hent omsett melding frå «TEXTDOMAIN»\n"
+#~ "  MSGID MSGID-PLURAL        omset MSGID (eintal) / MSGID-PLURAL (fleirtal)\n"
+#~ "  TAL                       vel eintal-/fleirtalsform basert på denne verdien\n"
+
+#~ msgid ""
+#~ "internationalized messages should not contain the `\\%c' escape sequence"
+#~ msgstr ""
+#~ "internasjonaliserte meldingar skal ikkje innehalde escape-sekvensen «\\"
+#~ "%c»"
 
 #~ msgid "cannot create output file \"%s\""
 #~ msgstr "kan ikkje opprette utfila \"%s\""
@@ -334,7 +424,8 @@ msgstr ""
 #~ msgid ""
 #~ "Usage: %s [OPTION] def.po ref.po\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
+#~ "search\n"
 #~ "  -h, --help                  display this help and exit\n"
 #~ "  -V, --version               output version information and exit\n"
 #~ "\n"
@@ -346,15 +437,19 @@ msgstr ""
 #~ "cannot be found, fuzzy matching is used to produce better diagnostics.\n"
 #~ msgstr ""
 #~ "Bruk: %s [FLAGG] def.po ref.po\n"
-#~ "Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
+#~ "Obligatoriske argumenter til lange flagg er obligatoriske også til korte "
+#~ "flagg.\n"
 #~ "  -h, --help               vis denne hjelpeteksta og avslutt\n"
 #~ "  -V, --version            vis programversjon og avslutt\n"
 #~ "\n"
-#~ "Samanliknar to Uniforum .po-filer for å sjekke at begge inneheld det samme\n"
+#~ "Samanliknar to Uniforum .po-filer for å sjekke at begge inneheld det "
+#~ "samme\n"
 #~ "settet msgid-strengar.  def.po-filen er ein eksisterende PO-fil med dei\n"
 #~ "gamle oversetjingane.  ref.po-filen er den sist genererte PO-fila\n"
-#~ "(vanligvis generert med xgettext).  Dette er nyttig for å sjekke at du har\n"
-#~ "oversett alle meldingar i programmet.  Der samsvar ikkje kan finnast, vert\n"
+#~ "(vanligvis generert med xgettext).  Dette er nyttig for å sjekke at du "
+#~ "har\n"
+#~ "oversett alle meldingar i programmet.  Der samsvar ikkje kan finnast, "
+#~ "vert\n"
 #~ "«fuzzy» samanlikning brukt for å få betre diagnostikk.\n"
 
 #~ msgid "this message is used but not defined..."
@@ -386,17 +481,22 @@ msgstr ""
 #~ msgid ""
 #~ "Usage: %s [OPTION] INPUTFILE ...\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
-#~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
-#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
-#~ "  -E, --escape                   use C escapes in output, no extended chars\n"
+#~ "  -d, --default-domain=NAME      use NAME.po for output (instead of "
+#~ "messages.po)\n"
+#~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files "
+#~ "search\n"
+#~ "  -e, --no-escape                do not use C escapes in output "
+#~ "(default)\n"
+#~ "  -E, --escape                   use C escapes in output, no extended "
+#~ "chars\n"
 #~ "  -f, --files-from=FILE          get list of input files from FILE\n"
 #~ "      --force-po                 write PO file even if empty\n"
 #~ "  -F, --sort-by-file             sort output by file location\n"
 #~ "  -h, --help                     display this help and exit\n"
 #~ msgstr ""
 #~ "Bruk: %s [FLAGG] INNFIL ...\n"
-#~ "Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
+#~ "Obligatoriske argumenter til lange flagg er obligatoriske også til korte "
+#~ "flagg.\n"
 #~ "  -a, --extract-all             ekstrahér alle strengar\n"
 #~ "  -c, --add-comments[=TAG]      lagre kommentarblokker med TAG (eller\n"
 #~ "                                kommentarar i linjer som kjem foran\n"
@@ -405,8 +505,10 @@ msgstr ""
 #~ "  -d, --default-domain=NAVN     lagre utdata i NAVN.po (i staden for\n"
 #~ "                                messages.po)\n"
 #~ "  -D, --directory=FILKATALOG    skift til FILKATALOG før prosessering\n"
-#~ "  -e, --no-escape               ikkje bruk C-escapekoder i utdata (forvalgt)\n"
-#~ "  -E, --escape                  bruk C-escapekoder i utdata, ingen utvida teikn\n"
+#~ "  -e, --no-escape               ikkje bruk C-escapekoder i utdata "
+#~ "(forvalgt)\n"
+#~ "  -E, --escape                  bruk C-escapekoder i utdata, ingen utvida "
+#~ "teikn\n"
 #~ "  -f, --files-from=FIL          hent liste av innfiler frå FIL\n"
 #~ "  -F, --sort-by-file            sorter utdata etter fil-lokasjon\n"
 
@@ -414,18 +516,25 @@ msgstr ""
 #~ msgid ""
 #~ "  -i, --indent                   write the .po file using indented style\n"
 #~ "      --no-location              do not write '#: filename:line' lines\n"
-#~ "  -n, --add-location             generate '#: filename:line' lines (default)\n"
-#~ "      --omit-header              don't write header with `msgid \"\"' entry\n"
+#~ "  -n, --add-location             generate '#: filename:line' lines "
+#~ "(default)\n"
+#~ "      --omit-header              don't write header with `msgid \"\"' "
+#~ "entry\n"
 #~ "  -o, --output=FILE              write output to specified file\n"
-#~ "  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
-#~ "  -s, --sort-output              generate sorted output and remove duplicates\n"
-#~ "      --strict                   write out strict Uniforum conforming .po file\n"
+#~ "  -p, --output-dir=DIR           output files will be placed in directory "
+#~ "DIR\n"
+#~ "  -s, --sort-output              generate sorted output and remove "
+#~ "duplicates\n"
+#~ "      --strict                   write out strict Uniforum conforming .po "
+#~ "file\n"
 #~ "  -T, --trigraphs                understand ANSI C trigraphs for input\n"
 #~ "  -u, --unique                   shorthand for --less-than=2, requests\n"
 #~ "                                 that only unique messages be printed\n"
 #~ msgstr ""
-#~ "  -n, --add-location            lag «#: filenavn:linje»-linjer (forvalgt)\n"
-#~ "      --omit-header             ikkje lag startseksjon med «msgid \"\"»\n"
+#~ "  -n, --add-location            lag «#: filenavn:linje»-linjer "
+#~ "(forvalgt)\n"
+#~ "      --omit-header             ikkje lag startseksjon med «msgid "
+#~ "\"\"»\n"
 #~ "  -p, --output-dir=KAT          plassér utfiler i filkatalogen KAT\n"
 #~ "  -s, --sort-output             sortér utdata og ta bort duplikat\n"
 #~ "      --strict                  lag strengt Uniforum-konform .po-fil\n"
@@ -455,12 +564,16 @@ msgstr ""
 #~ "Generate binary message catalog from textual translation description.\n"
 #~ "\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
-#~ "  -c, --check                 perform language dependent checks on strings\n"
-#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: "
+#~ "%d)\n"
+#~ "  -c, --check                 perform language dependent checks on "
+#~ "strings\n"
+#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
+#~ "search\n"
 #~ "  -f, --use-fuzzy             use fuzzy entries in output\n"
 #~ "  -h, --help                  display this help and exit\n"
-#~ "      --no-hash               binary file will not include the hash table\n"
+#~ "      --no-hash               binary file will not include the hash "
+#~ "table\n"
 #~ "  -o, --output-file=FILE      specify output file name as FILE\n"
 #~ "      --statistics            print statistics about translations\n"
 #~ "      --strict                enable strict Uniforum mode\n"
@@ -473,8 +586,10 @@ msgstr ""
 #~ "output is written to standard output.\n"
 #~ msgstr ""
 #~ "Bruk: %s [FLAGG] filnavn.po ...\n"
-#~ "Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
-#~ "  -a, --alignment=ANTALL    justér strengar til ANTALL bytes (forvalgt: %d)\n"
+#~ "Obligatoriske argumenter til lange flagg er obligatoriske også til korte "
+#~ "flagg.\n"
+#~ "  -a, --alignment=ANTALL    justér strengar til ANTALL bytes (forvalgt: "
+#~ "%d)\n"
 #~ "  -h, --help                vis denne hjelpeteksta og avslutt\n"
 #~ "      --no-hash             binærfil skal ikkje innehalde hash-tabell\n"
 #~ "  -o, --output-file=FILNAVN sett utfil til FILNAVN\n"
@@ -482,7 +597,8 @@ msgstr ""
 #~ "  -v, --verbose             list alle avvik i innfil\n"
 #~ "  -V, --version             vis programversjon og avslutt\n"
 #~ "\n"
-#~ "Dersom innfil er -, vil inndata verte lest frå standard inn.  Dersom utfil\n"
+#~ "Dersom innfil er -, vil inndata verte lest frå standard inn.  Dersom "
+#~ "utfil\n"
 #~ "er -, vil utdata verte skrive til standard ut.\n"
 
 #~ msgid "while creating hash table"
@@ -522,8 +638,11 @@ msgstr ""
 #~ msgid "`msgid' and `msgstr' entries do not both end with '\\n'"
 #~ msgstr "«msgid»- og «msgstr»-verdiane sluttar ikkje båe med '\\n'"
 
-#~ msgid "number of format specifications in `msgid' and `msgstr' does not match"
-#~ msgstr "antall format-spesifiseringar i «msgid» og «msgstr» stemmer ikkje overeins"
+#~ msgid ""
+#~ "number of format specifications in `msgid' and `msgstr' does not match"
+#~ msgstr ""
+#~ "antall format-spesifiseringar i «msgid» og «msgstr» stemmer ikkje "
+#~ "overeins"
 
 #~ msgid "format specifications for argument %u are not the same"
 #~ msgstr "format-spesifiseringane for argument %u er ulike"
@@ -532,7 +651,8 @@ msgstr ""
 #~ msgid ""
 #~ "Usage: %s [OPTION] def.po ref.po\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
+#~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
+#~ "search\n"
 #~ "  -e, --no-escape             do not use C escapes in output (default)\n"
 #~ "  -E, --escape                use C escapes in output, no extended chars\n"
 #~ "      --force-po              write PO file even if empty\n"
@@ -540,16 +660,19 @@ msgstr ""
 #~ "  -i, --indent                indented output style\n"
 #~ "  -o, --output-file=FILE      result will be written to FILE\n"
 #~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines (default)\n"
+#~ "      --add-location          preserve '#: filename:line' lines "
+#~ "(default)\n"
 #~ "      --strict                strict Uniforum output style\n"
 #~ "  -v, --verbose               increase verbosity level\n"
 #~ "  -V, --version               output version information and exit\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
 #~ msgstr ""
 #~ "Bruk: %s [FLAGG] INNFIL ...\n"
-#~ "Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
+#~ "Obligatoriske argumenter til lange flagg er obligatoriske også til korte "
+#~ "flagg.\n"
 #~ "  -e, --no-escape          ikkje bruk C-escapekoder i utdata (forvalgt)\n"
-#~ "  -E, --escape             bruk C-escapekoder i utdata, ingen utvida teikn\n"
+#~ "  -E, --escape             bruk C-escapekoder i utdata, ingen utvida "
+#~ "teikn\n"
 #~ "  -h, --help               vis denne hjelpeteksta og avslutt\n"
 #~ "  -i, --indent             indentert utdata\n"
 #~ "  -o, --output-file=FIL    resultat vert skrive til FIL\n"
@@ -571,18 +694,25 @@ msgstr ""
 #~ "\n"
 #~ "Fletter saman to Uniforum .po-filer.  def.po-filen er ei eksisterande\n"
 #~ "PO-fil med gamle oversetjingar, som vil verte overført til den nye fila\n"
-#~ "dersom dei framleis stemmer.  Kommentarar vert teke med, men kommentarer om\n"
-#~ "sjølve ekstraheringa og fil-posisjoner vert sletta.  ref.po-filen er den\n"
+#~ "dersom dei framleis stemmer.  Kommentarar vert teke med, men kommentarer "
+#~ "om\n"
+#~ "sjølve ekstraheringa og fil-posisjoner vert sletta.  ref.po-filen er "
+#~ "den\n"
 #~ "sist genererte PO-fila (vanlegvis generert med xgettext).  Oversetjingar\n"
 #~ "eller kommentarer i denne fila vert sletta, men punktum-kommentarer og\n"
 #~ "fil-posisjonar vert teke vare på.  Der det ikkje er mogleg å finne ei\n"
-#~ "eksakt overeinsstemming, vert «fuzzy» samanlikning brukt for å få betre\n"
-#~ "resultat.  Resultatet vert skrive til standard ut, med mindre ei utfil er\n"
+#~ "eksakt overeinsstemming, vert «fuzzy» samanlikning brukt for å få "
+#~ "betre\n"
+#~ "resultat.  Resultatet vert skrive til standard ut, med mindre ei utfil "
+#~ "er\n"
 #~ "spesifisert.\n"
 
-#~ msgid "%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete %d.\n"
+#~ msgid ""
+#~ "%sRead %d old + %d reference, merged %d, fuzzied %d, missing %d, obsolete "
+#~ "%d.\n"
 #~ msgstr ""
-#~ "%sLeste %d gamle + %d referansar, fletta inn %d, «fuzzya» %d, manglar %d,\n"
+#~ "%sLeste %d gamle + %d referansar, fletta inn %d, «fuzzya» %d, manglar "
+#~ "%d,\n"
 #~ "utdaterte %d.\n"
 
 #, fuzzy
@@ -594,7 +724,8 @@ msgstr ""
 #~ "      --force-po           write PO file even if empty\n"
 #~ "  -h, --help               display this help and exit\n"
 #~ "  -i, --indent             write indented output style\n"
-#~ "  -o, --output-file=FILE   write output into FILE instead of standard output\n"
+#~ "  -o, --output-file=FILE   write output into FILE instead of standard "
+#~ "output\n"
 #~ "      --strict             write strict uniforum style\n"
 #~ "  -V, --version            output version information and exit\n"
 #~ "  -w, --width=NUMBER       set output page width\n"
@@ -605,7 +736,8 @@ msgstr ""
 #~ "  -E, --escape             use C escapes in output, no extended chars\n"
 #~ "  -h, --help               display this help and exit\n"
 #~ "  -i, --indent             write indented output style\n"
-#~ "  -o, --output-file=FILE   write output into FILE instead of standard output\n"
+#~ "  -o, --output-file=FILE   write output into FILE instead of standard "
+#~ "output\n"
 #~ "      --strict             write strict uniforum style\n"
 #~ "  -V, --version            output version information and exit\n"
 
@@ -618,8 +750,10 @@ msgstr ""
 #~ "By default the output is written to standard output.\n"
 #~ msgstr ""
 #~ "\n"
-#~ "Konverter binære .mo-filer til Uniforum .po-filer.  Både «little-endian» og\n"
-#~ "«big-endian» .mo filer vert håndtert.  Dersom innfil er -, blir standard\n"
+#~ "Konverter binære .mo-filer til Uniforum .po-filer.  Både «little-"
+#~ "endian» og\n"
+#~ "«big-endian» .mo filer vert håndtert.  Dersom innfil er -, blir "
+#~ "standard\n"
 #~ "inn lest.  Dersom utfil er -, vert det skrive til standard ut.\n"
 
 #~ msgid "file \"%s\" truncated"
@@ -643,7 +777,8 @@ msgstr ""
 #~ msgstr "for mange feil, avsluttar"
 
 #~ msgid "--join-existing cannot be used when output is written to stdout"
-#~ msgstr "--join-existing kan ikkje brukast når utdata vert skrive til standard ut"
+#~ msgstr ""
+#~ "--join-existing kan ikkje brukast når utdata vert skrive til standard ut"
 
 #, fuzzy
 #~ msgid ""
@@ -655,18 +790,25 @@ msgstr ""
 #~ "  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
 #~ "                                 preceding keyword lines) in output file\n"
 #~ "  -C, --c++                      shorthand for --language=C++\n"
-#~ "      --debug                    more detailed formatstring recognision result\n"
-#~ "  -d, --default-domain=NAME      use NAME.po for output (instead of messages.po)\n"
-#~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files search\n"
-#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
-#~ "  -E, --escape                   use C escapes in output, no extended chars\n"
+#~ "      --debug                    more detailed formatstring recognision "
+#~ "result\n"
+#~ "  -d, --default-domain=NAME      use NAME.po for output (instead of "
+#~ "messages.po)\n"
+#~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files "
+#~ "search\n"
+#~ "  -e, --no-escape                do not use C escapes in output "
+#~ "(default)\n"
+#~ "  -E, --escape                   use C escapes in output, no extended "
+#~ "chars\n"
 #~ "  -f, --files-from=FILE          get list of input files from FILE\n"
 #~ "      --force-po                 write PO file even if empty\n"
-#~ "      --foreign-user             omit FSF copyright in output for foreign user\n"
+#~ "      --foreign-user             omit FSF copyright in output for foreign "
+#~ "user\n"
 #~ "  -F, --sort-by-file             sort output by file location\n"
 #~ msgstr ""
 #~ "Bruk: %s [FLAGG] INNFIL ...\n"
-#~ "Obligatoriske argumenter til lange flagg er obligatoriske også til korte flagg.\n"
+#~ "Obligatoriske argumenter til lange flagg er obligatoriske også til korte "
+#~ "flagg.\n"
 #~ "  -a, --extract-all             ekstrahér alle strengar\n"
 #~ "  -c, --add-comments[=TAG]      lagre kommentarblokker med TAG (eller\n"
 #~ "                                kommentarar i linjer som kjem foran\n"
@@ -675,8 +817,10 @@ msgstr ""
 #~ "  -d, --default-domain=NAVN     lagre utdata i NAVN.po (i staden for\n"
 #~ "                                messages.po)\n"
 #~ "  -D, --directory=FILKATALOG    skift til FILKATALOG før prosessering\n"
-#~ "  -e, --no-escape               ikkje bruk C-escapekoder i utdata (forvalgt)\n"
-#~ "  -E, --escape                  bruk C-escapekoder i utdata, ingen utvida teikn\n"
+#~ "  -e, --no-escape               ikkje bruk C-escapekoder i utdata "
+#~ "(forvalgt)\n"
+#~ "  -E, --escape                  bruk C-escapekoder i utdata, ingen utvida "
+#~ "teikn\n"
 #~ "  -f, --files-from=FIL          hent liste av innfiler frå FIL\n"
 #~ "  -F, --sort-by-file            sorter utdata etter fil-lokasjon\n"
 
@@ -685,20 +829,29 @@ msgstr ""
 #~ "  -h, --help                     display this help and exit\n"
 #~ "  -i, --indent                   write the .po file using indented style\n"
 #~ "  -j, --join-existing            join messages with existing file\n"
-#~ "  -k, --keyword[=WORD]           additonal keyword to be looked for (without\n"
+#~ "  -k, --keyword[=WORD]           additonal keyword to be looked for "
+#~ "(without\n"
 #~ "                                 WORD means not to use default keywords)\n"
-#~ "  -l, --string-limit=NUMBER      set string length limit to NUMBER instead %u\n"
-#~ "  -L, --language=NAME            recognise the specified language (C, C++, PO),\n"
-#~ "                                 otherwise is guessed from file extension\n"
-#~ "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr entries\n"
-#~ "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr entries\n"
+#~ "  -l, --string-limit=NUMBER      set string length limit to NUMBER "
+#~ "instead %u\n"
+#~ "  -L, --language=NAME            recognise the specified language (C, C+"
+#~ "+, PO),\n"
+#~ "                                 otherwise is guessed from file "
+#~ "extension\n"
+#~ "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr "
+#~ "entries\n"
+#~ "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr "
+#~ "entries\n"
 #~ "      --no-location              do not write '#: filename:line' lines\n"
 #~ msgstr ""
 #~ "  -h, --help                    vis denne hjelpeteksta og avslutt\n"
 #~ "  -i, --indent                  lag indentert utdata\n"
-#~ "  -j, --join-existing           flett saman meldingar med eksisterande fil\n"
-#~ "  -k, --keyword[=ORD]           sjå også etter nøkkelordet ORD (manglar ORD,\n"
-#~ "                                skal ikkje dei vanlege nøkkelorda nyttast)\n"
+#~ "  -j, --join-existing           flett saman meldingar med eksisterande "
+#~ "fil\n"
+#~ "  -k, --keyword[=ORD]           sjå også etter nøkkelordet ORD "
+#~ "(manglar ORD,\n"
+#~ "                                skal ikkje dei vanlege nøkkelorda "
+#~ "nyttast)\n"
 #~ "  -l, --string-limit=NUMMER     sett største streng-lengde til NUMMER\n"
 #~ "                                i staden for %u\n"
 #~ "  -m, --msgstr-prefix[=STRENG]  bruk STRENG eller \"\" som prefiks for\n"
@@ -709,12 +862,17 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "  -n, --add-location             generate '#: filename:line' lines (default)\n"
-#~ "      --omit-header              don't write header with `msgid \"\"' entry\n"
+#~ "  -n, --add-location             generate '#: filename:line' lines "
+#~ "(default)\n"
+#~ "      --omit-header              don't write header with `msgid \"\"' "
+#~ "entry\n"
 #~ "  -o, --output=FILE              write output to specified file\n"
-#~ "  -p, --output-dir=DIR           output files will be placed in directory DIR\n"
-#~ "  -s, --sort-output              generate sorted output and remove duplicates\n"
-#~ "      --strict                   write out strict Uniforum conforming .po file\n"
+#~ "  -p, --output-dir=DIR           output files will be placed in directory "
+#~ "DIR\n"
+#~ "  -s, --sort-output              generate sorted output and remove "
+#~ "duplicates\n"
+#~ "      --strict                   write out strict Uniforum conforming .po "
+#~ "file\n"
 #~ "  -T, --trigraphs                understand ANSI C trigraphs for input\n"
 #~ "  -V, --version                  output version information and exit\n"
 #~ "  -w, --width=NUMBER             set output page width\n"
@@ -722,8 +880,10 @@ msgstr ""
 #~ "\n"
 #~ "If INPUTFILE is -, standard input is read.\n"
 #~ msgstr ""
-#~ "  -n, --add-location            lag «#: filenavn:linje»-linjer (forvalgt)\n"
-#~ "      --omit-header             ikkje lag startseksjon med «msgid \"\"»\n"
+#~ "  -n, --add-location            lag «#: filenavn:linje»-linjer "
+#~ "(forvalgt)\n"
+#~ "      --omit-header             ikkje lag startseksjon med «msgid "
+#~ "\"\"»\n"
 #~ "  -p, --output-dir=KAT          plassér utfiler i filkatalogen KAT\n"
 #~ "  -s, --sort-output             sortér utdata og ta bort duplikat\n"
 #~ "      --strict                  lag strengt Uniforum-konform .po-fil\n"

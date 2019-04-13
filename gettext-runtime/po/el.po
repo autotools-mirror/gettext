@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.34\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-11-02 03:22+0100\n"
+"POT-Creation-Date: 2019-04-13 11:21+0200\n"
 "PO-Revision-Date: 1998-05-17 13:12+0200\n"
 "Last-Translator: Simos KSenitellis <simos@teiath.gr>\n"
 "Language-Team: Greek <simos@teiath.gr>\n"
@@ -14,6 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-7\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: gnulib-lib/closeout.c:66
@@ -21,95 +22,76 @@ msgid "write error"
 msgstr ""
 
 #
-#: gnulib-lib/error.c:125
+#: gnulib-lib/error.c:195
 msgid "Unknown system error"
 msgstr "Άγνωστο σφάλμα συστήματος"
 
 #
-#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
-#, c-format
-msgid "%s: option `%s' is ambiguous\n"
+#: gnulib-lib/getopt.c:278
+#, fuzzy, c-format
+#| msgid "%s: option `%s' is ambiguous\n"
+msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: η επιλογή `%s' είναι διφορούμενη\n"
 
 #
-#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
-#, c-format
-msgid "%s: option `--%s' doesn't allow an argument\n"
-msgstr "%s: η επιλογή `--%s' δεν επιτρέπει παράμετρο\n"
+#: gnulib-lib/getopt.c:284
+#, fuzzy, c-format
+#| msgid "%s: option `%s' is ambiguous\n"
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s: η επιλογή `%s' είναι διφορούμενη\n"
 
 #
-#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
-#, c-format
-msgid "%s: option `%c%s' doesn't allow an argument\n"
-msgstr "%s: η επιλογή `%c%s' δεν επιτρέπει παράμετρο\n"
-
-#
-#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
-#: gnulib-lib/getopt.c:994
-#, c-format
-msgid "%s: option `%s' requires an argument\n"
-msgstr "%s: η επιλογή `%s' απαιτεί παράμετρο\n"
-
-#
-#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
-#, c-format
-msgid "%s: unrecognized option `--%s'\n"
-msgstr "%s: μη αναγνωρίσιμη επιλογή `--%s'\n"
-
-#
-#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
-#, c-format
-msgid "%s: unrecognized option `%c%s'\n"
+#: gnulib-lib/getopt.c:319
+#, fuzzy, c-format
+#| msgid "%s: unrecognized option `%c%s'\n"
+msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: μη αναγνωρίσιμη επιλογή `%c%s'\n"
 
 #
-#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
-#, c-format
-msgid "%s: illegal option -- %c\n"
-msgstr "%s: μη αποδεκτή επιλογή -- %c\n"
+#: gnulib-lib/getopt.c:345
+#, fuzzy, c-format
+#| msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s: η επιλογή `%c%s' δεν επιτρέπει παράμετρο\n"
 
 #
-#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
-#, c-format
-msgid "%s: invalid option -- %c\n"
+#: gnulib-lib/getopt.c:360
+#, fuzzy, c-format
+#| msgid "%s: option `%s' requires an argument\n"
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s: η επιλογή `%s' απαιτεί παράμετρο\n"
+
+#
+#: gnulib-lib/getopt.c:621
+#, fuzzy, c-format
+#| msgid "%s: invalid option -- %c\n"
+msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: μη έγκυρη επιλογή -- %c\n"
 
 #
-#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
-#: gnulib-lib/getopt.c:1065
-#, c-format
-msgid "%s: option requires an argument -- %c\n"
+#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#, fuzzy, c-format
+#| msgid "%s: option requires an argument -- %c\n"
+msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: η επιλογή απαιτεί παράμετρο -- %c\n"
 
 #
-#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
-#, c-format
-msgid "%s: option `-W %s' is ambiguous\n"
-msgstr "%s: η επιλογή `-W %s' είναι διφορούμενη\n"
-
-#
-#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
-#, c-format
-msgid "%s: option `-W %s' doesn't allow an argument\n"
-msgstr "%s: η επιλογή `-W %s' δεν επιτρέπει παράμετρο\n"
-
-#
-#: gnulib-lib/xmalloc.c:37
+#: gnulib-lib/xmalloc.c:38
 #, fuzzy, c-format
 msgid "memory exhausted"
 msgstr "H μνήμη εξαντλήθηκε"
 
-#: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
+#: src/envsubst.c:112 src/gettext.c:137 src/ngettext.c:126
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 
 #
-#: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
+#: src/envsubst.c:118 src/gettext.c:143 src/ngettext.c:132
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Γραμμένο από τον/την %s.\n"
@@ -120,59 +102,60 @@ msgid "Bruno Haible"
 msgstr ""
 
 #
-#: src/envsubst.c:127 src/gettext.c:157 src/ngettext.c:141
+#: src/envsubst.c:127 src/gettext.c:161 src/ngettext.c:144
 #, c-format
 msgid "too many arguments"
 msgstr "πάρα πολλά ορίσματα"
 
 #
-#: src/envsubst.c:138 src/gettext.c:167 src/ngettext.c:153
+#: src/envsubst.c:138 src/gettext.c:171 src/ngettext.c:156
 #, c-format
 msgid "missing arguments"
 msgstr "υπολείπονται ορίσματα"
 
 #
-#: src/envsubst.c:171 src/gettext.c:238 src/ngettext.c:207
-#, c-format
-msgid "Try `%s --help' for more information.\n"
+#: src/envsubst.c:176 src/gettext.c:248 src/ngettext.c:213
+#, fuzzy, c-format
+#| msgid "Try `%s --help' for more information.\n"
+msgid "Try '%s --help' for more information.\n"
 msgstr "Δοκιμάστε `%s --help' για περισσότερες πληροφορίες.\n"
 
-#: src/envsubst.c:176
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr ""
 
-#: src/envsubst.c:181
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr ""
 
-#: src/envsubst.c:185
+#: src/envsubst.c:190
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr ""
 
-#: src/envsubst.c:188
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr ""
 
-#: src/envsubst.c:192
+#: src/envsubst.c:197 src/gettext.c:277 src/ngettext.c:243
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr ""
 
-#: src/envsubst.c:195
+#: src/envsubst.c:200
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr ""
 
-#: src/envsubst.c:198
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr ""
 
-#: src/envsubst.c:202
+#: src/envsubst.c:207
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -183,7 +166,7 @@ msgid ""
 "standard input are substituted.\n"
 msgstr ""
 
-#: src/envsubst.c:211
+#: src/envsubst.c:216
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -195,72 +178,90 @@ msgstr ""
 #. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:219 src/gettext.c:279 src/ngettext.c:245
+#: src/envsubst.c:224 src/gettext.c:300 src/ngettext.c:263
 #, fuzzy
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 msgstr "Στείλτε αναφορές σφαλμάτων στο <bug-gnu-utils@gnu.org>.\n"
 
 #
-#: src/envsubst.c:442
+#: src/envsubst.c:448
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "σφάλμα στην ανάγνωση του \"%s\""
 
 #
-#: src/envsubst.c:443
+#: src/envsubst.c:448
 msgid "standard input"
 msgstr "κανονική είσοδος"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:139 src/ngettext.c:129
+#: src/gettext.c:143 src/ngettext.c:132
 msgid "Ulrich Drepper"
 msgstr ""
 
-#: src/gettext.c:243
+#: src/gettext.c:253
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
 
-#: src/gettext.c:249
+#: src/gettext.c:259
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr ""
 
-#
-#: src/gettext.c:253
-#, fuzzy, c-format, no-wrap
+#: src/gettext.c:263
+#, c-format, no-wrap
+msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+msgstr ""
+
+#: src/gettext.c:265 src/ngettext.c:230
+#, c-format
+msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
+msgstr ""
+
+#: src/gettext.c:267 src/ngettext.c:232
+#, c-format
+msgid "  -e                        enable expansion of some escape sequences\n"
+msgstr ""
+
+#: src/gettext.c:269
+#, c-format
+msgid "  -n                        suppress trailing newline\n"
+msgstr ""
+
+#: src/gettext.c:271 src/ngettext.c:234
+#, c-format
+msgid "  -E                        (ignored for compatibility)\n"
+msgstr ""
+
+#: src/gettext.c:273
+#, c-format
 msgid ""
-"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-"  -e                        enable expansion of some escape sequences\n"
-"  -E                        (ignored for compatibility)\n"
-"  -h, --help                display this help and exit\n"
-"  -n                        suppress trailing newline\n"
-"  -V, --version             display version information and exit\n"
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
-"Χρήση: %s [ΕΠΙΛΟΓΗ] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
-"  -d, --domain=TEXTDOMAIN   ανάκτηση μεταφρασμένων μηνυμάτων από το TEXTDOMAIN\n"
-"  -e                        ενεργοποίηση της αναδίπλωσης ορισμένων σειρών\n"
-"                              χαρακτήρων διαφυγής\n"
-"  -E                        (αγνοείται για λόγους συμβατότητας)\n"
-"  -h, --help                εμφάνιση αυτής της βοήθειας και έξοδος\n"
-"  -n                        αποβολή χαρακτήρα αλλαγής γραμμής στο τέλος της σειράς\n"
-"  -v, --version             εμφάνιση πληροφοριών έκδοσης και έξοδος\n"
-"  [TEXTDOMAIN] MSGID        ανάκτηση αντίστοιχου μεταφρασμένου μηνύματος που αντιστοιχεί\n"
-"                            στο MSGID από το TEXTDOMAIN\n"
+
+#: src/gettext.c:279 src/ngettext.c:245
+#, c-format
+msgid "  -h, --help                display this help and exit\n"
+msgstr ""
+
+#: src/gettext.c:281 src/ngettext.c:247
+#, c-format
+msgid "  -V, --version             display version information and exit\n"
+msgstr ""
 
 #
-#: src/gettext.c:264
+#: src/gettext.c:285
 #, fuzzy, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
 "regular directory, another location can be specified with the environment\n"
 "variable TEXTDOMAINDIR.\n"
-"When used with the -s option the program behaves like the `echo' command.\n"
+"When used with the -s option the program behaves like the 'echo' command.\n"
 "But it does not simply copy its arguments to stdout.  Instead those messages\n"
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
@@ -274,44 +275,44 @@ msgstr ""
 "Αντίθετα, τα μηνύματα που βρίσκονται στο επιλεγμένο κατάλογο, μεταφράζονται.\n"
 "Καθιερωμένος κατάλογος αναζήτησης: %s\n"
 
-#: src/ngettext.c:212
+#: src/ngettext.c:218
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr ""
 
-#: src/ngettext.c:217
+#: src/ngettext.c:223
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr ""
 
-#
-#: src/ngettext.c:222
-#, fuzzy, c-format, no-wrap
+#: src/ngettext.c:228
+#, c-format, no-wrap
+msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+msgstr ""
+
+#: src/ngettext.c:236
+#, c-format
 msgid ""
-"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-"  -e                        enable expansion of some escape sequences\n"
-"  -E                        (ignored for compatibility)\n"
-"  -h, --help                display this help and exit\n"
-"  -V, --version             display version information and exit\n"
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+msgstr ""
+
+#: src/ngettext.c:238
+#, c-format
+msgid ""
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
+"(plural)\n"
+msgstr ""
+
+#: src/ngettext.c:240
+#, c-format
+msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
-"Χρήση: %s [ΕΠΙΛΟΓΗ] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
-"  -d, --domain=TEXTDOMAIN   ανάκτηση μεταφρασμένων μηνυμάτων από το TEXTDOMAIN\n"
-"  -e                        ενεργοποίηση της αναδίπλωσης ορισμένων σειρών\n"
-"                              χαρακτήρων διαφυγής\n"
-"  -E                        (αγνοείται για λόγους συμβατότητας)\n"
-"  -h, --help                εμφάνιση αυτής της βοήθειας και έξοδος\n"
-"  -n                        αποβολή χαρακτήρα αλλαγής γραμμής στο τέλος της σειράς\n"
-"  -v, --version             εμφάνιση πληροφοριών έκδοσης και έξοδος\n"
-"  [TEXTDOMAIN] MSGID        ανάκτηση αντίστοιχου μεταφρασμένου μηνύματος που αντιστοιχεί\n"
-"                            στο MSGID από το TEXTDOMAIN\n"
 
 #
-#: src/ngettext.c:233
+#: src/ngettext.c:251
 #, fuzzy, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -328,6 +329,77 @@ msgstr ""
 "την εντολή `echo'. Αλλά δεν αντιγράφει απλά τα ορίσματα στην κανονική έξοδο.\n"
 "Αντίθετα, τα μηνύματα που βρίσκονται στο επιλεγμένο κατάλογο, μεταφράζονται.\n"
 "Καθιερωμένος κατάλογος αναζήτησης: %s\n"
+
+#
+#, c-format
+#~ msgid "%s: option `--%s' doesn't allow an argument\n"
+#~ msgstr "%s: η επιλογή `--%s' δεν επιτρέπει παράμετρο\n"
+
+#
+#, c-format
+#~ msgid "%s: unrecognized option `--%s'\n"
+#~ msgstr "%s: μη αναγνωρίσιμη επιλογή `--%s'\n"
+
+#
+#, c-format
+#~ msgid "%s: illegal option -- %c\n"
+#~ msgstr "%s: μη αποδεκτή επιλογή -- %c\n"
+
+#
+#, c-format
+#~ msgid "%s: option `-W %s' is ambiguous\n"
+#~ msgstr "%s: η επιλογή `-W %s' είναι διφορούμενη\n"
+
+#
+#, c-format
+#~ msgid "%s: option `-W %s' doesn't allow an argument\n"
+#~ msgstr "%s: η επιλογή `-W %s' δεν επιτρέπει παράμετρο\n"
+
+#
+#, fuzzy, c-format, no-wrap
+#~ msgid ""
+#~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+#~ "  -e                        enable expansion of some escape sequences\n"
+#~ "  -E                        (ignored for compatibility)\n"
+#~ "  -h, --help                display this help and exit\n"
+#~ "  -n                        suppress trailing newline\n"
+#~ "  -V, --version             display version information and exit\n"
+#~ "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
+#~ "                            to MSGID from TEXTDOMAIN\n"
+#~ msgstr ""
+#~ "Χρήση: %s [ΕΠΙΛΟΓΗ] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
+#~ "  -d, --domain=TEXTDOMAIN   ανάκτηση μεταφρασμένων μηνυμάτων από το TEXTDOMAIN\n"
+#~ "  -e                        ενεργοποίηση της αναδίπλωσης ορισμένων σειρών\n"
+#~ "                              χαρακτήρων διαφυγής\n"
+#~ "  -E                        (αγνοείται για λόγους συμβατότητας)\n"
+#~ "  -h, --help                εμφάνιση αυτής της βοήθειας και έξοδος\n"
+#~ "  -n                        αποβολή χαρακτήρα αλλαγής γραμμής στο τέλος της σειράς\n"
+#~ "  -v, --version             εμφάνιση πληροφοριών έκδοσης και έξοδος\n"
+#~ "  [TEXTDOMAIN] MSGID        ανάκτηση αντίστοιχου μεταφρασμένου μηνύματος που αντιστοιχεί\n"
+#~ "                            στο MSGID από το TEXTDOMAIN\n"
+
+#
+#, fuzzy, c-format, no-wrap
+#~ msgid ""
+#~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+#~ "  -e                        enable expansion of some escape sequences\n"
+#~ "  -E                        (ignored for compatibility)\n"
+#~ "  -h, --help                display this help and exit\n"
+#~ "  -V, --version             display version information and exit\n"
+#~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+#~ "  COUNT                     choose singular/plural form based on this value\n"
+#~ msgstr ""
+#~ "Χρήση: %s [ΕΠΙΛΟΓΗ] [[[TEXTDOMAIN] MSGID] | [-s [MSGID]...]]\n"
+#~ "  -d, --domain=TEXTDOMAIN   ανάκτηση μεταφρασμένων μηνυμάτων από το TEXTDOMAIN\n"
+#~ "  -e                        ενεργοποίηση της αναδίπλωσης ορισμένων σειρών\n"
+#~ "                              χαρακτήρων διαφυγής\n"
+#~ "  -E                        (αγνοείται για λόγους συμβατότητας)\n"
+#~ "  -h, --help                εμφάνιση αυτής της βοήθειας και έξοδος\n"
+#~ "  -n                        αποβολή χαρακτήρα αλλαγής γραμμής στο τέλος της σειράς\n"
+#~ "  -v, --version             εμφάνιση πληροφοριών έκδοσης και έξοδος\n"
+#~ "  [TEXTDOMAIN] MSGID        ανάκτηση αντίστοιχου μεταφρασμένου μηνύματος που αντιστοιχεί\n"
+#~ "                            στο MSGID από το TEXTDOMAIN\n"
 
 #
 #~ msgid ""
@@ -1567,8 +1639,8 @@ msgstr ""
 #~ "Generate binary message catalog from textual translation description.\n"
 #~ "\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %"
-#~ "d)\n"
+#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: "
+#~ "%d)\n"
 #~ "  -c, --check                 perform language dependent checks on "
 #~ "strings\n"
 #~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "

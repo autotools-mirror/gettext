@@ -1,31 +1,34 @@
 # Translation of 'gettext-examples' messages to Kirghiz.
-# Copyright (C) 2006 Yoyodyne, Inc.
-# This file is distributed under the same license as the silky package.
+# Copyright (C) 2004 Yoyodyne, Inc. (msgids)
+# This file is distributed under the same license as the gettext package.
 # Ilyas Bakirov <just_ilyas@yahoo.com>, 2007.
+# Ilyas Bakirov <i.bakirov@gmail.com>, 2018.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.16.2-pre5\n"
+"Project-Id-Version: gettext-examples 0.19.4.73\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2007-05-13 22:04+0200\n"
-"PO-Revision-Date: 2007-11-13 16:02+0600\n"
+"POT-Creation-Date: 2019-04-07 16:07+0200\n"
+"PO-Revision-Date: 2018-02-15 18:26+0600\n"
 "Last-Translator: Ilyas Bakirov <just_ilyas@yahoo.com>\n"
 "Language-Team: Kirghiz <i18n-team-ky-kyrgyz@lists.sourceforge.net>\n"
+"Language: ky\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Language: Kyrgyz\n"
-"X-Poedit-Country: KYRGYZSTAN\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"X-Generator: Poedit 2.0.6\n"
 
-#: hello-c/hello.c:30 hello-c-gnome/hello.c:46 hello-c++/hello.cc:39
+#: hello-c/hello.c:30 hello-c-gnome/hello.c:46
+#: hello-c-gnome3/hello.desktop.in.in:5 hello-c++/hello.cc:39
 #: hello-c++-qt/hello.cc:45 hello-c++-kde/hellowindow.cc:42
 #: hello-c++-gnome/hello.cc:50 hello-c++-wxwidgets/hello.cc:68
 #: hello-objc/hello.m:30 hello-objc-gnustep/Hello.m:49
-#: hello-objc-gnome/hello.m:47 hello-sh/hello.sh:14
-#: hello-python/hello.py.in:12 hello-clisp/hello.lisp.in:11
-#: hello-librep/hello.jl.in:12 hello-guile/hello.scm:15
-#: hello-smalltalk/hello.st.in:31 hello-java/Hello.java:14
-#: hello-java-awt/Hello.java:23 hello-java-swing/Hello.java:20
+#: hello-objc-gnome/hello.m:47 hello-sh/hello.sh:14 hello-python/hello.py.in:12
+#: hello-clisp/hello.lisp.in:11 hello-librep/hello.jl.in:12
+#: hello-guile/hello.scm:15 hello-smalltalk/hello.st.in:31
+#: hello-java/Hello.java:14 hello-java-awt/Hello.java:23
+#: hello-java-swing/Hello.java:20 hello-java-qtjambi/Hello.java:27
 #: hello-csharp/hello.cs:14 hello-csharp-forms/hello.cs:29
 #: hello-gawk/hello.awk:11 hello-pascal/hello.hello_world
 #: hello-ycp/hello.ycp:15 hello-tcl/hello.tcl:11 hello-tcl-tk/hello.tcl:13
@@ -38,12 +41,48 @@ msgstr "Салам дүйнө!"
 #: hello-c++-gnome/hello.cc:55 hello-c++-wxwidgets/hello.cc:71
 #: hello-objc/hello.m:31 hello-objc-gnustep/Hello.m:58
 #: hello-objc-gnome/hello.m:52 hello-librep/hello.jl.in:14
-#: hello-gawk/hello.awk:12 hello-pascal/hello.running_as
-#: hello-tcl/hello.tcl:12 hello-tcl-tk/hello.tcl:16
-#: hello-perl/hello-1.pl.in:19 hello-php/hello.php:14
+#: hello-gawk/hello.awk:12 hello-pascal/hello.running_as hello-tcl/hello.tcl:12
+#: hello-tcl-tk/hello.tcl:16 hello-perl/hello-1.pl.in:19 hello-php/hello.php:14
 #, php-format
 msgid "This program is running as process number %d."
 msgstr "Бул программа %d процесс номери катары иштеп жатат."
+
+#: hello-c-gnome3/hello.c:79
+#, c-format
+msgid ""
+"<big>Hello world!</big>\n"
+"This program is running as process number <b>%d</b>."
+msgstr ""
+"<big>Салам дүйнө!</big>\n"
+"Бул программа <b>%d</b> процесс номери катары иштеп жатат."
+
+#: hello-c-gnome3/hello.c:84
+msgid "<big><u>This is another text</u></big>"
+msgstr "<big><u>Дагы бир текст</u></big>"
+
+#: hello-c-gnome3/hello.c:86
+msgid "<big><i>This is yet another text</i></big>"
+msgstr "<big><i>Жана дагы бир текст</i></big>"
+
+#: hello-c-gnome3/hello.desktop.in.in:4
+msgid "Hello"
+msgstr "Салам"
+
+#: hello-c-gnome3/hello.ui:6
+msgid "Example Application"
+msgstr "Мисал программа"
+
+#: hello-c-gnome3/hello.ui:34
+msgid "Update text"
+msgstr "Текстти жаңылоо"
+
+#: hello-c-gnome3/hello.gschema.xml:8
+msgid "Use XML markup"
+msgstr "XML белгени колдонуу"
+
+#: hello-c-gnome3/hello.gschema.xml:9
+msgid "Whether to use XML markup in the text."
+msgstr "Текст ичинле XML белги эсепке алынсынбы."
 
 #: hello-c++-qt/hello.cc:52 hello-c++-kde/hellowindow.cc:49
 #: hello-smalltalk/hello.st.in:32 hello-ycp/hello.ycp:19
@@ -75,8 +114,8 @@ msgid "This program is running as process number ~D."
 msgstr "Бул программа ~D процесс номери катары иштеп жатат."
 
 #: hello-java/Hello.java:18 hello-java-awt/Hello.java:28
-#: hello-java-swing/Hello.java:25 hello-csharp/hello.cs:17
-#: hello-csharp-forms/hello.cs:36
+#: hello-java-swing/Hello.java:25 hello-java-qtjambi/Hello.java:34
+#: hello-csharp/hello.cs:17 hello-csharp-forms/hello.cs:36
 #, csharp-format
 msgid "This program is running as process number {0}."
 msgstr "Бул программа {0} процесс номери катары иштеп жатат."

@@ -1,25 +1,22 @@
-# Latvian translation of gettext-examples
-# Copyright (C) 2009 Yoyodyne, Inc. (msgids)
+# Tamil messages for GNU gettext.
+# Copyright (C) 2018 Yoyodyne, Inc. (msgids)
 # This file is distributed under the same license as the gettext package.
-# Arvis Lācis <arvis.lacis@inbox.lv>, 2009.
+# List of contributors follow:
+# Poorajith <gokulkannanst@gmail.com>, 2018.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples-0.17\n"
+"Project-Id-Version: gettext-examples 0.19.4.73\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
 "POT-Creation-Date: 2019-04-07 16:07+0200\n"
-"PO-Revision-Date: 2009-07-28 21:26+0100\n"
-"Last-Translator: Rihards Priedītis <rprieditis@gmail.com>\n"
-"Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
-"Language: lv\n"
+"PO-Revision-Date: 2018-12-10 23:03+0530\n"
+"Last-Translator: Arun Isaac <arunisaac@systemreboot.net>\n"
+"Language-Team: Tamil <tamil@systemreboot.net>\n"
+"Language: ta\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Poedit-Language: Latvian\n"
-"X-Poedit-Country: LATVIA\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
-"2);\n"
 
 #: hello-c/hello.c:30 hello-c-gnome/hello.c:46
 #: hello-c-gnome3/hello.desktop.in.in:5 hello-c++/hello.cc:39
@@ -37,7 +34,7 @@ msgstr ""
 #: hello-perl/hello-1.pl.in:17 hello-perl/hello-2.pl.in:12
 #: hello-php/hello.php:12
 msgid "Hello, world!"
-msgstr "Sveika, pasaule!"
+msgstr "வணக்கம், உலகு!"
 
 #: hello-c/hello.c:31 hello-c-gnome/hello.c:51 hello-c++/hello.cc:40
 #: hello-c++-gnome/hello.cc:55 hello-c++-wxwidgets/hello.cc:71
@@ -47,81 +44,82 @@ msgstr "Sveika, pasaule!"
 #: hello-tcl-tk/hello.tcl:16 hello-perl/hello-1.pl.in:19 hello-php/hello.php:14
 #, php-format
 msgid "This program is running as process number %d."
-msgstr "Šī programma darbojas kā process ar numuru %d."
+msgstr "இந்நிரல் செயலாக்க எண் %d ஆக இயங்கிக்கொண்டிருக்கிறது."
 
 #: hello-c-gnome3/hello.c:79
-#, fuzzy, c-format
-#| msgid "This program is running as process number %d."
+#, c-format
 msgid ""
 "<big>Hello world!</big>\n"
 "This program is running as process number <b>%d</b>."
-msgstr "Šī programma darbojas kā process ar numuru %d."
+msgstr ""
+"<big>வணக்கம் உலகு!</big>\n"
+"இந்நிரல் செயலாக்க எண் <b>%d</b> ஆக இயங்கிக்கொண்டிருக்கிறது."
 
 #: hello-c-gnome3/hello.c:84
 msgid "<big><u>This is another text</u></big>"
-msgstr ""
+msgstr "<big><u>இது மற்றொரு உரை</u></big>\""
 
 #: hello-c-gnome3/hello.c:86
 msgid "<big><i>This is yet another text</i></big>"
-msgstr ""
+msgstr "<big><i>இது மேலும் ஒரு உரை</i></big>"
 
 #: hello-c-gnome3/hello.desktop.in.in:4
 msgid "Hello"
-msgstr ""
+msgstr "வணக்கம்"
 
 #: hello-c-gnome3/hello.ui:6
 msgid "Example Application"
-msgstr ""
+msgstr "எடுத்துக்காட்டு நிரல்"
 
 #: hello-c-gnome3/hello.ui:34
 msgid "Update text"
-msgstr ""
+msgstr "உரையை மாற்று"
 
 #: hello-c-gnome3/hello.gschema.xml:8
 msgid "Use XML markup"
-msgstr ""
+msgstr "XML குறிமொழியைப் பயன்படுத்து"
 
 #: hello-c-gnome3/hello.gschema.xml:9
 msgid "Whether to use XML markup in the text."
-msgstr ""
+msgstr "உரையில் XML குறிமொழியைப் பயன்படுத்துவதா."
 
 #: hello-c++-qt/hello.cc:52 hello-c++-kde/hellowindow.cc:49
 #: hello-smalltalk/hello.st.in:32 hello-ycp/hello.ycp:19
 #, ycp-format
 msgid "This program is running as process number %1."
-msgstr "Šī programma darbojas kā process ar numuru %1."
+msgstr "இந்நிரல் செயலாக்க எண் %1 ஆக இயங்கிக்கொண்டிருக்கிறது."
 
 #: hello-c++-kde/hello.cc:46
 msgid "Hello example"
-msgstr "Sveiki paraugs"
+msgstr "வணக்கம் எடுத்துக்காட்டு"
 
 #: hello-c++-kde/hello.cc:48
 msgid "Hello world example"
-msgstr "Sveika pasaule paraugs"
+msgstr "வணக்கம் உலகு எடுத்துக்காட்டு"
 
 #: hello-sh/hello.sh:17
 #, sh-format
 msgid "This program is running as process number $pid."
-msgstr "Šī programma darbojas kā process ar numuru $pid."
+msgstr "இந்நிரல் செயலாக்க எண் $pid ஆக இயங்கிக்கொண்டிருக்கிறது."
 
 #: hello-python/hello.py.in:13
 #, python-format
 msgid "This program is running as process number %(pid)d."
-msgstr "Šī programma darbojas kā process ar numuru %(pid)d."
+msgstr "இந்நிரல் செயலாக்க எண் %(pid)d ஆக இயங்கிக்கொண்டிருக்கிறது."
 
 #: hello-clisp/hello.lisp.in:13 hello-guile/hello.scm:17
 #, scheme-format
 msgid "This program is running as process number ~D."
-msgstr "Šī programma darbojas kā process ar numuru ~D."
+msgstr "இந்நிரல் செயலாக்க எண் ~D ஆக இயங்கிக்கொண்டிருக்கிறது."
 
 #: hello-java/Hello.java:18 hello-java-awt/Hello.java:28
 #: hello-java-swing/Hello.java:25 hello-java-qtjambi/Hello.java:34
 #: hello-csharp/hello.cs:17 hello-csharp-forms/hello.cs:36
 #, csharp-format
 msgid "This program is running as process number {0}."
-msgstr "Šī programma darbojas kā process ar numuru {0}."
+msgstr "இந்நிரல் செயலாக்க எண் {0} ஆக இயங்கிக்கொண்டிருக்கிறது."
 
 #: hello-perl/hello-2.pl.in:14
 #, perl-brace-format
 msgid "This program is running as process number {pid}."
-msgstr "Šī programma darbojas kā process ar numuru {pid}."
+msgstr "இந்நிரல் செயலாக்க எண் {pid} ஆக இயங்கிக்கொண்டிருக்கிறது."
