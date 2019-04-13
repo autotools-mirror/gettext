@@ -347,8 +347,8 @@ libgnuintl_la_DEPENDENCIES = $(WOE32_LIBADD)
 # Before making a gettext release, you must change this according to the
 # libtool documentation, section "Library interface versions".
 LTV_CURRENT=9
-LTV_REVISION=5
-LTV_AGE=1
+LTV_REVISION=6
+LTV_AGE=2
 
 # How to build libintl.la and libgnuintl.la.
 OTHER_LDFLAGS = \

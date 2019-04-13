@@ -1,5 +1,5 @@
-# po.m4 serial 29 (gettext-0.19.9)
-dnl Copyright (C) 1995-2014, 2016, 2018 Free Software Foundation, Inc.
+# po.m4 serial 30 (gettext-0.20)
+dnl Copyright (C) 1995-2014, 2016, 2018-2019 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -30,7 +30,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
 
   dnl Release version of the gettext macros. This is used to ensure that
   dnl the gettext macros and po/Makefile.in.in are in sync.
-  AC_SUBST([GETTEXT_MACRO_VERSION], [0.19])
+  AC_SUBST([GETTEXT_MACRO_VERSION], [0.20])
 
   dnl Perform the following tests also if --disable-nls has been given,
   dnl because they are needed for "make dist" to work.
@@ -76,7 +76,7 @@ changequote([,])dnl
   AM_PATH_PROG_WITH_TEST(MSGMERGE, msgmerge,
     [$ac_dir/$ac_word --update -q /dev/null /dev/null >&]AS_MESSAGE_LOG_FD[ 2>&1], :)
 
-  dnl Test whether it is GNU msgmerge >= 0.19.9.
+  dnl Test whether it is GNU msgmerge >= 0.20.
   if LC_ALL=C $MSGMERGE --help | grep ' --for-msgfmt ' >/dev/null; then
     MSGMERGE_FOR_MSGFMT_OPTION='--for-msgfmt'
   else

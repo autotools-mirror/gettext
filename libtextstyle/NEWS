@@ -1,3 +1,7 @@
+New in 0.20:
+* New class: noop_styled_ostream_t.
+  New constructor function: noop_styled_ostream_create.
+
 New in 0.8:
 * Fixed a couple of reliability bugs:
   - When a program exits while the terminal was in non-default state, the

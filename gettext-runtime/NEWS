@@ -1,3 +1,14 @@
+Version 0.20 - April 2019
+
+* The interpretation of the language preferences on macOS has been fixed.
+
+* Per-thread locales are now also supported on Solaris 11.4.
+
+* The replacements for the printf()/fprintf()/... functions that are
+  provided through <libintl.h> on native Windows and NetBSD are now POSIX
+  compliant.  There is no conflict any more between these replacements
+  and other possible replacements provided by gnulib or mingw.
+
 Version 0.18.3 - July 2013
 
 * On Mac OS X systems, the setlocale() function now properly

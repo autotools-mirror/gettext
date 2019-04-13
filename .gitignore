@@ -12,6 +12,9 @@
 ## file is not erased by "make mostlyclean".
 
 # Files brought in manually:
+/gettext-runtime/doc/Admin/jdom-1.0.jar
+/gettext-runtime/doc/Admin/Matrix*.class
+/gettext-runtime/doc/Admin/matrix.xml
 /gettext-tools/misc/archive.dir.tar
 
 # Files brought in by gnulib-tool:

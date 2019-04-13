@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/libgettextpo subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2016 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2016, 2019 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -99,7 +99,7 @@ libgettextpo_la_AUXSOURCES = \
 # Libtool's library version information for libgettextpo.
 # See the libtool documentation, section "Library interface versions".
 LTV_CURRENT=5
-LTV_REVISION=4
+LTV_REVISION=5
 LTV_AGE=5
 
 # How to build libgettextpo.la.
