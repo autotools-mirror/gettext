@@ -154,6 +154,9 @@ if test "$MSGMERGE_LIBM" = "?"; then
 fi
 AC_SUBST([MSGMERGE_LIBM])
 
+dnl Test whether msgmerge can make use of OpenMP.
+AC_OPENMP
+
 dnl Checks for header files, functions and declarations.
 gl_INIT
 grgl_INIT

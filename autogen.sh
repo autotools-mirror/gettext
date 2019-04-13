@@ -167,7 +167,7 @@ if ! $skip_gnulib; then
     obstack
     open
     opendir
-    openmp
+    openmp-init
     pipe-filter-ii
     progname
     propername
