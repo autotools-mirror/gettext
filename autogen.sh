@@ -338,6 +338,8 @@ if ! $skip_gnulib; then
   cp gettext-runtime/m4/intl.m4 gettext-tools/gnulib-m4/intl.m4
   # Import build tools.  We use --copy-file to avoid directory creation.
   $GNULIB_TOOL --copy-file tests/init.sh gettext-tools || exit $?
+  $GNULIB_TOOL --copy-file build-aux/x-to-1.in gettext-runtime/man/x-to-1.in || exit $?
+  $GNULIB_TOOL --copy-file build-aux/x-to-1.in gettext-tools/man/x-to-1.in || exit $?
   $GNULIB_TOOL --copy-file build-aux/git-version-gen || exit $?
   $GNULIB_TOOL --copy-file build-aux/gitlog-to-changelog || exit $?
   $GNULIB_TOOL --copy-file build-aux/update-copyright || exit $?

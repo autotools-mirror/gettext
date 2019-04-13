@@ -45,6 +45,7 @@
 /gettext-runtime/libasprintf/verify.h
 /gettext-runtime/libasprintf/xsize.c
 /gettext-runtime/libasprintf/xsize.h
+/gettext-runtime/man/x-to-1.in
 /gettext-tools/doc/relocatable.texi
 /gettext-tools/gnulib-m4/
 /gettext-tools/gnulib-lib/
@@ -273,6 +274,7 @@
 /gettext-tools/libgrep/regexec.c
 /gettext-tools/libgrep/warn-on-use.h
 /gettext-tools/libgrep/wcrtomb.c
+/gettext-tools/man/x-to-1.in
 /gettext-tools/tests/init.sh
 
 # Files brought in by "automake --add-missing --copy":
