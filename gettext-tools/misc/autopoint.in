@@ -440,6 +440,13 @@ for arg in $xargs; do
 done
 IFS="$save_IFS"
 
+if test -z "$omitintl"; then
+  case "$ver" in
+    0.1[0-9] | 0.1[0-9].* ) ;;
+    *) func_fatal_error "AM_GNU_GETTEXT without 'external' argument is no longer supported in version $ver" ;;
+  esac
+fi
+
 # Check in which directory or directories the po/* infrastructure belongs.
 configfiles=`"$func_trace" AC_CONFIG_FILES "$configure_in"`
 # PO directories have a Makefile.in generated from Makefile.in.in.
@@ -635,7 +642,7 @@ esac
 func_destfile ()
 {
   # There are five categories of files:
-  # ABOUT_NLS -> top level directory
+  # ABOUT-NLS -> top level directory
   # config.rpath mkinstalldirs -> $auxdir
   # m4/* -> $m4dir/
   # intl/* -> intl/

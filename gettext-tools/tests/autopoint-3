@@ -39,10 +39,6 @@ ${AUTOMAKE} --add-missing >/dev/null 2>/dev/null \
 
 rm -f configure.ac Makefile.am
 
-: ${LIBTOOLIZE=libtoolize}
-${LIBTOOLIZE} --version >/dev/null 2>/dev/null \
-  || { echo "Skipping test: libtoolize not found"; Exit 77; }
-
 : ${MAKE=make}
 ${MAKE} --version >/dev/null 2>/dev/null \
   || { echo "Skipping test: make not found"; Exit 77; }
@@ -58,12 +54,11 @@ LT_INIT
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_PROG_CC
-AM_GNU_GETTEXT([use-libtool])
+AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([$ARCHIVE_VERSION])
 
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([intl/Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
 EOF
@@ -75,7 +70,7 @@ cat <<\EOF >Makefile.am
 # Makefile configuration - processed by automake.
 
 # The list of subdirectories containing Makefiles.
-SUBDIRS = intl po
+SUBDIRS = po
 
 # The list of programs that are built.
 bin_PROGRAMS = hello
@@ -99,7 +94,7 @@ cp -p "$abs_top_srcdir"/examples/hello-c/hello.c .
 $gettext_datadir/autopoint -f >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
 
-test -d intl || Exit 1
+test ! -d intl || Exit 1
 test -d m4 || Exit 1
 test -d po || Exit 1
 
@@ -108,9 +103,6 @@ test -f po/Makefile.in.in || Exit 1
 
 cp -p po/Makevars.template po/Makevars
 echo hello.c > po/POTFILES.in
-
-${LIBTOOLIZE} -f -i >/dev/null 2>autopoint.err
-test $? = 0 || { cat autopoint.err; Exit 1; }
 
 ${ACLOCAL} -I m4 >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
@@ -125,9 +117,9 @@ test $? = 0 || { cat autopoint.err; Exit 1; }
 ${AUTOMAKE} -a -c >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
 
-# Check if libintl compiles.
+# Check that it all compiles.
 : ${CONFIG_SHELL=${SHELL-/bin/sh}}
-${CONFIG_SHELL} ./configure --with-included-gettext >/dev/null 2>autpoint.err
+${CONFIG_SHELL} ./configure >/dev/null 2>autpoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
 
 ${MAKE} >/dev/null 2>autopoint.err
