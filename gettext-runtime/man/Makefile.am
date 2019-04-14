@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/man subdirectory of GNU gettext
-## Copyright (C) 2001-2003, 2006, 2009, 2013-2014, 2018 Free Software Foundation,
+## Copyright (C) 2001-2003, 2006, 2009, 2013-2014, 2018-2019 Free Software Foundation,
 ## Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
@@ -104,7 +104,7 @@ $(man_MAN1GEN): Makefile
 	if test -f $${srcdir}$@.in; then \
 	  sed -e 's|@''localedir''@|$(localedir)|g' $${srcdir}$@.in > t-$@ && \
 	  mv t-$@ $@; \
-        fi
+	fi
 
 gettext.1: gettext.1.in
 ngettext.1: ngettext.1.in
@@ -139,7 +139,7 @@ $(man_HTML1GEN): Makefile
 	if test -f $${srcdir}$@.in; then \
 	  sed -e 's|@''localedir''@|$(localedir)|g' $${srcdir}$@.in > t-$@ && \
 	  mv t-$@ $@; \
-        fi
+	fi
 
 gettext.1.html: gettext.1.html.in
 ngettext.1.html: ngettext.1.html.in
