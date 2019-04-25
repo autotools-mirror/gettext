@@ -192,6 +192,7 @@ The User's View
 * System Installation::         Questions During Operating System Installation
 * Setting the GUI Locale::      How to Specify the Locale Used by GUI Programs
 * Setting the POSIX Locale::    How to Specify the Locale According to POSIX
+* Working in a Windows console::  Obtaining good output in a Windows console
 * Installing Localizations::    How to Install Additional Translations
 
 Setting the Locale through Environment Variables
@@ -1157,6 +1158,7 @@ by the programs?  This chapter will answer it.
 * System Installation::         Questions During Operating System Installation
 * Setting the GUI Locale::      How to Specify the Locale Used by GUI Programs
 * Setting the POSIX Locale::    How to Specify the Locale According to POSIX
+* Working in a Windows console::  Obtaining good output in a Windows console
 * Installing Localizations::    How to Install Additional Translations
 @end menu
 
@@ -1374,6 +1376,40 @@ Note: The variable @code{LANGUAGE} is ignored if the locale is set to
 @samp{C}.  In other words, you have to first enable localization, by setting
 @code{LANG} (or @code{LC_ALL}) to a value other than @samp{C}, before you can
 use a language priority list through the @code{LANGUAGE} variable.
+
+@node Working in a Windows console
+@section Obtaining good output in a Windows console
+@cindex Windows
+@cindex ANSI encoding
+@cindex OEM encoding
+@vindex OUTPUT_CHARSET@r{, environment variable}
+
+On Windows, consoles such as the one started by the @code{cmd.exe}
+program do input and output in an encoding, called ``OEM code page'',
+that is different from the encoding that text-mode programs usually use,
+called ``ANSI code page''.  (Note: This problem does not exist for
+Cygwin consoles; these consoles do input and output in the UTF-8
+encoding.)  As a workaround, you may request that the programs produce
+output in this ``OEM'' encoding.  To do so, set the environment variable
+@code{OUTPUT_CHARSET} to the ``OEM'' encoding, through a command such as
+@smallexample
+set OUTPUT_CHARSET=CP850
+@end smallexample
+Note: This has an effect only on strings looked up in message catalogs;
+other categories of text are usually not affected by this setting.
+Note also that this environment variable also affects output sent to a
+file or to a pipe; output to a file is most often expected to be in the
+``ANSI'' or in the UTF-8 encoding.
+
+Here are examples of the ``ANSI'' and ``OEM'' code pages:
+
+@multitable @columnfractions .5 .25 .25
+@headitem Territories @tie{} @tab @tie{} ANSI encoding @tie{} @tab @tie{} OEM encoding
+@item Western Europe @tie{} @tab @tie{} CP1252 @tie{} @tab @tie{} CP850
+@item Slavic countries (Latin 2) @tie{} @tab @tie{} CP1250 @tie{} @tab @tie{} CP852
+@item Baltic countries @tie{} @tab @tie{} CP1257 @tie{} @tab @tie{} CP775
+@item Russia @tie{} @tab @tie{} CP1251 @tie{} @tab @tie{} CP866
+@end multitable
 
 @node Installing Localizations
 @section Installing Translations for Particular Programs
