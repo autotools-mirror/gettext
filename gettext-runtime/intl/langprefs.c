@@ -1,5 +1,5 @@
 /* Determine the user's language preferences.
-   Copyright (C) 2004-2007, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2004-2007, 2018-2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -175,7 +175,7 @@ _nl_language_preferences_win32_95 ()
       == NO_ERROR)
     {
       DWORD type;
-      char data[8 + 1];
+      BYTE data[8 + 1];
       DWORD data_size = sizeof (data);
       DWORD ret;
 
@@ -198,8 +198,8 @@ _nl_language_preferences_win32_95 ()
               if (data_size < sizeof (data))
                 data[data_size] = '\0';
               /* Parse it as a hexadecimal number.  */
-              lcid = strtoul (data, &endp, 16);
-              if (endp > data && *endp == '\0')
+              lcid = strtoul ((char *) data, &endp, 16);
+              if (endp > (char *) data && *endp == '\0')
                 return _nl_locale_name_from_win32_LCID (lcid);
             }
         }
