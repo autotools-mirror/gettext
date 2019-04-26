@@ -57,6 +57,7 @@ AM_CPPFLAGS += \
   -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"$(libdir)\" -DNO_XMALLOC \
   -Dset_relocation_prefix=libintl_set_relocation_prefix \
   -Drelocate=libintl_relocate \
+  -Drelocate2=libintl_relocate2 \
   -DDEPENDS_ON_LIBICONV=1
 
 YACC = @INTLBISON@ -y -d
