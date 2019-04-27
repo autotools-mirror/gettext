@@ -1,5 +1,5 @@
 /* Routines for locating data files
-   Copyright (C) 2016 Free Software Foundation, Inc.
+   Copyright (C) 2016, 2019 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2016.
 
@@ -24,9 +24,10 @@ extern "C" {
 #endif
 
 
-/* Find the standard search path for data files.  Returns a NULL
-   terminated list of strings.  If SUB is not NULL, append it to each
-   directory.  */
+/* Find the standard search path for data files.  If SUB is not NULL, append it
+   to each directory.
+   Returns a freshly allocated NULL terminated list of freshly allocated
+   strings.  */
 extern char **get_search_path (const char *sub);
 
 
