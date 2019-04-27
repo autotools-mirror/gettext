@@ -675,6 +675,7 @@ nonintr_close (int fd)
 
   return retval;
 }
+#undef close
 #define close nonintr_close
 
 #endif
