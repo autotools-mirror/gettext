@@ -1020,11 +1020,12 @@ po_revision_date (const char *header)
 }
 
 
+#if HAVE_PWD_H  /* Only Unix, not native Windows.  */
+
 /* Returns the struct passwd entry for the current user.  */
 static struct passwd *
 get_user_pwd ()
 {
-#if HAVE_PWD_H  /* Only Unix, not native Woe32.  */
   const char *username;
   struct passwd *userpasswd;
 
@@ -1059,20 +1060,21 @@ get_user_pwd ()
     return userpasswd;
   if (errno != 0)
     error (EXIT_FAILURE, errno, "getpwuid(%ju)", (uintmax_t) getuid ());
-#endif
 
   return NULL;
 }
+
+#endif
 
 
 /* Return the user's full name.  */
 static const char *
 get_user_fullname ()
 {
+#if HAVE_PWD_H
   struct passwd *pwd;
 
   pwd = get_user_pwd ();
-#if HAVE_PWD_H
   if (pwd != NULL)
     {
       const char *fullname;
