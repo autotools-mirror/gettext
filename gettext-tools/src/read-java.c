@@ -1,5 +1,5 @@
 /* Reading Java ResourceBundles.
-   Copyright (C) 2001-2003, 2006-2008, 2010-2011, 2017 Free Software
+   Copyright (C) 2001-2003, 2006-2008, 2010-2011, 2017, 2019 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -90,7 +90,6 @@ msgdomain_list_ty *
 msgdomain_read_java (const char *resource_name, const char *locale_name)
 {
   const char *class_name = "gnu.gettext.DumpResource";
-  const char *gettextjexedir;
   const char *gettextjar;
   const char *args[3];
   struct locals locals;
