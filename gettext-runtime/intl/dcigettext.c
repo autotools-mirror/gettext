@@ -1,5 +1,5 @@
 /* Implementation of the internal dcigettext function.
-   Copyright (C) 1995-2018 Free Software Foundation, Inc.
+   Copyright (C) 1995-2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -560,9 +560,10 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 #  endif
 # endif
   search.localename = localename;
-# ifdef IN_LIBGLOCALE
+#endif
+#ifdef IN_LIBGLOCALE
   search.encoding = encoding;
-# endif
+#endif
 
   /* Since tfind/tsearch manage a balanced tree, concurrent tfind and
      tsearch calls can be fatal.  */
@@ -588,7 +589,6 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
       __set_errno (saved_errno);
       return retval;
     }
-#endif
 
   /* See whether this is a SUID binary or not.  */
   DETERMINE_SECURE;
