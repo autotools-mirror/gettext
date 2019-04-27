@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2007, 2010 Free Software Foundation, Inc.
+   Copyright (C) 2001-2007, 2010, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -30,8 +30,10 @@
 #include "xmalloca.h"
 #include "xvasprintf.h"
 #include "po-xerror.h"
-#include "basename.h"
-#include "progname.h"
+#if !IN_LIBGETTEXTPO
+# include "basename.h"
+# include "progname.h"
+#endif
 #include "c-strstr.h"
 #include "c-strcase.h"
 #include "gettext.h"
@@ -55,7 +57,7 @@ const char *
 po_charset_canonicalize (const char *charset)
 {
   /* The list of charsets supported by glibc's iconv() and by the portable
-     iconv() across platforms.  Taken from intl/config.charset.  */
+     iconv() across platforms.  Taken from intl/localcharset.h.  */
   static const char *standard_charsets[] =
   {
     ascii, "ANSI_X3.4-1968", "US-ASCII",        /* i = 0..2 */
@@ -548,17 +550,23 @@ Message conversion to user's charset might not work.\n"),
               po_lex_iconv = iconv_open ("UTF-8", po_lex_charset);
               if (po_lex_iconv == (iconv_t)(-1))
                 {
+                  const char *progname;
                   char *warning_message;
                   const char *recommendation;
                   const char *note;
                   char *whole_message;
 
+# if IN_LIBGETTEXTPO
+                  progname = "libgettextpo";
+# else
+                  progname = basename (program_name);
+# endif
+
                   warning_message =
                     xasprintf (_("\
 Charset \"%s\" is not supported. %s relies on iconv(),\n\
 and iconv() does not support \"%s\".\n"),
-                               po_lex_charset, basename (program_name),
-                               po_lex_charset);
+                               po_lex_charset, progname, po_lex_charset);
 
 # if !defined _LIBICONV_VERSION
                   recommendation = _("\
@@ -598,16 +606,23 @@ would fix this problem.\n");
               po_lex_weird_cjk = po_is_charset_weird_cjk (po_lex_charset);
               if (po_is_charset_weird (po_lex_charset) && !po_lex_weird_cjk)
                 {
+                  const char *progname;
                   char *warning_message;
                   const char *recommendation;
                   const char *note;
                   char *whole_message;
 
+# if IN_LIBGETTEXTPO
+                  progname = "libgettextpo";
+# else
+                  progname = basename (program_name);
+# endif
+
                   warning_message =
                     xasprintf (_("\
 Charset \"%s\" is not supported. %s relies on iconv().\n\
 This version was built without iconv().\n"),
-                               po_lex_charset, basename (program_name));
+                               po_lex_charset, progname);
 
                   recommendation = _("\
 Installing GNU libiconv and then reinstalling GNU gettext\n\
