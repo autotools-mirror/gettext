@@ -2118,6 +2118,9 @@ comments) from the current entry, if the user gives the permission."
           '(lambda ()
              (define-key ediff-mode-map "Q" 'po-ediff-quit)))
 
+;; Avoid byte compiler warnings.
+(defvar entry-buffer)
+
 (defun po-ediff-buffers-exit-recursive (b1 b2 oldbuf end)
   "Ediff buffer B1 and B2, pop back to OLDBUF and replace the old variants.
 This function will delete the first two variants in OLDBUF, call
