@@ -114,6 +114,10 @@ test $? = 0 || { cat autopoint.err; Exit 1; }
 ${AUTOCONF} >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
 
+# If ltmain.sh is not present, some installations of Automake fail with an
+# error "configure.ac:3: error: required file './ltmain.sh' not found".
+touch ltmain.sh
+
 ${AUTOMAKE} -a -c >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
 
