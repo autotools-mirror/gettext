@@ -78,11 +78,11 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
-# Test for presence of guile version 1.7 or newer.
+# Test for presence of guile version 2.0 or newer.
 (guile --version) >/dev/null 2>/dev/null \
   || { echo "Skipping test: guile not found"; Exit 77; }
 case `guile --version | sed -e 1q | sed -e 's/^[^0-9]*//'` in
-  0.* | 1.[0-6] | 1.[0-6].* )
+  0.* | 1.* )
     echo "Skipping test: guile version too old"; Exit 77;;
 esac
 
