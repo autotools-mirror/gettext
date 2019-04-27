@@ -177,8 +177,8 @@ end_css_class (ostream_t stream, const char *classname)
 #else
 
 #define is_stylable(stream) false
-#define begin_css_class(stream,classname) /* empty */
-#define end_css_class(stream,classname) /* empty */
+#define begin_css_class(stream,classname) (void)(classname)
+#define end_css_class(stream,classname) (void)(classname)
 
 #endif
 
