@@ -237,6 +237,8 @@ cat_file (const char *src_filename)
     error (EXIT_FAILURE, errno, _("error after reading \"%s\""), src_filename);
 }
 
+#if USEJAVA
+
 /* Exit code of the Java program.  */
 static int java_exitcode;
 
@@ -253,6 +255,8 @@ execute_it (const char *progname,
   /* Exit code 0 means success, 2 means timed out.  */
   return !(java_exitcode == 0 || java_exitcode == 2);
 }
+
+#endif
 
 /* Fetch the URL.  Upon error, use the FILE as fallback.  */
 static void
