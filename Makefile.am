@@ -101,6 +101,7 @@ distcheck-hook:
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/localename-table.c | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/localename-table.c | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/lock.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/glthread/lock.h | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/lock.c | md5sum`" = "`sed -e 1,15d -e 's,glthread/,,g' $(srcdir)/gettext-tools/gnulib-lib/glthread/lock.c | md5sum`"
+	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/threadlib.c | md5sum`" = "`sed -e 1,15d $(srcdir)/gettext-tools/gnulib-lib/glthread/threadlib.c | md5sum`"
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/verify.h | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/verify.h | md5sum`"
 	cmp -s $(srcdir)/gettext-runtime/intl/printf-args.h $(srcdir)/gettext-runtime/libasprintf/printf-args.h
 	cmp -s $(srcdir)/gettext-runtime/intl/printf-args.c $(srcdir)/gettext-runtime/libasprintf/printf-args.c
