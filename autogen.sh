@@ -297,7 +297,6 @@ if ! $skip_gnulib; then
     markup
     minmax
     open
-    progname
     relocatable-lib
     sigpipe
     stdbool
@@ -332,7 +331,7 @@ if ! $skip_gnulib; then
     realloc-posix
   '
   $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
-    --import $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER || exit $?
+    --import --avoid=progname $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER || exit $?
   # Overwrite older versions of .m4 files with the up-to-date version.
   cp gettext-runtime/m4/gettext.m4 gettext-tools/gnulib-m4/gettext.m4
   cp gettext-runtime/m4/intl.m4 gettext-tools/gnulib-m4/intl.m4

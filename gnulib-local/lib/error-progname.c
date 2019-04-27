@@ -1,5 +1,5 @@
 /* Use of program name in error-reporting functions.
-   Copyright (C) 2001-2003, 2006 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -23,7 +23,12 @@
 
 #include <stdio.h>
 
-#include "progname.h"
+#if IN_LIBGETTEXTPO
+# include "getprogname.h"
+# define program_name getprogname ()
+#else
+# include "progname.h"
+#endif
 
 
 /* Indicates whether errors and warnings get prefixed with program_name.
