@@ -3,6 +3,9 @@
 
 # Test Python support: --from-code option and encoding recognition.
 
+# Note: This test fails on Linux with musl libc versions that don't support
+# the EUC-JP encoding in 'iconv'.
+
 cat <<\EOF > xg-py-3a.py
 #!/usr/bin/env python
 # TRANSLATORS: Franè´Æois Pinard is a hero.
