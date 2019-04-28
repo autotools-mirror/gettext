@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples/po subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2007, 2009, 2014, 2018 Free Software Foundation,
+## Copyright (C) 1995-1998, 2000-2007, 2009, 2014, 2018-2019 Free Software Foundation,
 ## Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
@@ -206,10 +206,11 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) $(SMALLPOTS) remove-potcdate.sed
 	  msgid_bugs_address='$(PACKAGE_BUGREPORT)'; \
 	fi; \
 	$(XGETTEXT) --default-domain=$(DOMAIN) \
-	  --add-comments=TRANSLATORS: $(XGETTEXT_OPTIONS) \
+	  --add-comments=TRANSLATORS: \
 	  --copyright-holder='$(COPYRIGHT_HOLDER)' \
 	  --msgid-bugs-address="$$msgid_bugs_address" \
 	  --directory='$(srcdir)' \
+	  $(XGETTEXT_OPTIONS) \
 	  $(SMALLPOTS)
 	test ! -f $(DOMAIN).po || { \
 	  if test -f $(srcdir)/$(DOMAIN).pot; then \

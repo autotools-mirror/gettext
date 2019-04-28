@@ -1,3 +1,5 @@
+Version 0.20 - May 2019
+
 * Support for reproducible builds:
   - msgfmt now eliminates the POT-Creation-Date header field from .mo files.
 
@@ -9,6 +11,8 @@
     for use by msgfmt only.  This option saves processing time, in particular
     by omitting fuzzy matching that is not useful in this situation.
   - The .pot file in a 'po' directory is now erased by "make maintainer-clean".
+  - It is now possible to override xgettext options from the po/Makefile.in.in
+    through options in XGETTEXT_OPTIONS (declared in po/Makevars).
   - The --intl option of the gettextize program (deprecated since 2010) is
     no longer available. Instead of including the intl sources in your package,
     we suggest making the libintl library an optional prerequisite of your

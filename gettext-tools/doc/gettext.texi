@@ -7927,7 +7927,7 @@ Only packages which have multiple @file{po/} directories at different
 locations need to adjust the three first variables defined in
 @file{Makevars}.
 
-As an alternative to the @code{XGETTEXT_OPTIONS} variables, it is also
+As an alternative to the @code{XGETTEXT_OPTIONS} variable, it is also
 possible to specify @code{xgettext} options through the
 @code{AM_XGETTEXT_OPTION} autoconf macro.  See @ref{AM_XGETTEXT_OPTION}.
 
