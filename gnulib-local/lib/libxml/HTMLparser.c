@@ -26,7 +26,7 @@
 #ifdef HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#ifdef HAVE_ZLIB_H
+#ifdef LIBXML_ZLIB_ENABLED
 #include <zlib.h>
 #endif
 
@@ -105,7 +105,7 @@ htmlErrMemory(xmlParserCtxtPtr ctxt, const char *extra)
  *
  * Handle a fatal parser error, i.e. violating Well-Formedness constraints
  */
-static void
+static void LIBXML_ATTR_FORMAT(3,0)
 htmlParseErr(xmlParserCtxtPtr ctxt, xmlParserErrors error,
              const char *msg, const xmlChar *str1, const xmlChar *str2)
 {
@@ -132,7 +132,7 @@ htmlParseErr(xmlParserCtxtPtr ctxt, xmlParserErrors error,
  *
  * Handle a fatal parser error, i.e. violating Well-Formedness constraints
  */
-static void
+static void LIBXML_ATTR_FORMAT(3,0)
 htmlParseErrInt(xmlParserCtxtPtr ctxt, xmlParserErrors error,
              const char *msg, int val)
 {
@@ -303,6 +303,7 @@ htmlNodeInfoPop(htmlParserCtxtPtr ctxt)
 #define UPP(val) (toupper(ctxt->input->cur[(val)]))
 
 #define CUR_PTR ctxt->input->cur
+#define BASE_PTR ctxt->input->base
 
 #define SHRINK if ((ctxt->input->cur - ctxt->input->base > 2 * INPUT_CHUNK) && \
 		   (ctxt->input->end - ctxt->input->cur < 2 * INPUT_CHUNK)) \
@@ -1083,7 +1084,7 @@ static const char * const htmlStartClose[] = {
 "menu",		"p", "head", "ul", NULL,
 "p",		"p", "head", "h1", "h2", "h3", "h4", "h5", "h6", FONTSTYLE, NULL,
 "div",		"p", "head", NULL,
-"noscript",	"p", NULL,
+"noscript",	"script", NULL,
 "center",	"font", "b", "i", "p", "head", NULL,
 "a",		"a", "head", NULL,
 "caption",	"p", NULL,
@@ -2471,6 +2472,10 @@ htmlParseName(htmlParserCtxtPtr ctxt) {
 	       (*in == '_') || (*in == '-') ||
 	       (*in == ':') || (*in == '.'))
 	    in++;
+
+	if (in == ctxt->input->end)
+	    return(NULL);
+
 	if ((*in > 0) && (*in < 0x80)) {
 	    count = in - ctxt->input->cur;
 	    ret = xmlDictLookup(ctxt->dict, ctxt->input->cur, count);
@@ -2488,6 +2493,7 @@ htmlParseNameComplex(xmlParserCtxtPtr ctxt) {
     int len = 0, l;
     int c;
     int count = 0;
+    const xmlChar *base = ctxt->input->base;
 
     /*
      * Handler for more complex cases
@@ -2513,7 +2519,22 @@ htmlParseNameComplex(xmlParserCtxtPtr ctxt) {
 	len += l;
 	NEXTL(l);
 	c = CUR_CHAR(l);
+	if (ctxt->input->base != base) {
+	    /*
+	     * We changed encoding from an unknown encoding
+	     * Input buffer changed location, so we better start again
+	     */
+	    return(htmlParseNameComplex(ctxt));
+	}
     }
+
+    if (ctxt->input->cur - ctxt->input->base < len) {
+        /* Sanity check */
+	htmlParseErr(ctxt, XML_ERR_INTERNAL_ERROR,
+                     "unexpected change of input buffer", NULL, NULL);
+        return (NULL);
+    }
+
     return(xmlDictLookup(ctxt->dict, ctxt->input->cur - len, len));
 }
 
@@ -2765,31 +2786,43 @@ htmlParseAttValue(htmlParserCtxtPtr ctxt) {
 
 static xmlChar *
 htmlParseSystemLiteral(htmlParserCtxtPtr ctxt) {
-    const xmlChar *q;
+    size_t len = 0, startPosition = 0;
     xmlChar *ret = NULL;
 
     if (CUR == '"') {
         NEXT;
-	q = CUR_PTR;
-	while ((IS_CHAR_CH(CUR)) && (CUR != '"'))
+
+        if (CUR_PTR < BASE_PTR)
+            return(ret);
+        startPosition = CUR_PTR - BASE_PTR;
+
+	while ((IS_CHAR_CH(CUR)) && (CUR != '"')) {
 	    NEXT;
+	    len++;
+	}
 	if (!IS_CHAR_CH(CUR)) {
 	    htmlParseErr(ctxt, XML_ERR_LITERAL_NOT_FINISHED,
 			 "Unfinished SystemLiteral\n", NULL, NULL);
 	} else {
-	    ret = xmlStrndup(q, CUR_PTR - q);
+	    ret = xmlStrndup((BASE_PTR+startPosition), len);
 	    NEXT;
         }
     } else if (CUR == '\'') {
         NEXT;
-	q = CUR_PTR;
-	while ((IS_CHAR_CH(CUR)) && (CUR != '\''))
+
+        if (CUR_PTR < BASE_PTR)
+            return(ret);
+        startPosition = CUR_PTR - BASE_PTR;
+
+	while ((IS_CHAR_CH(CUR)) && (CUR != '\'')) {
 	    NEXT;
+	    len++;
+	}
 	if (!IS_CHAR_CH(CUR)) {
 	    htmlParseErr(ctxt, XML_ERR_LITERAL_NOT_FINISHED,
 			 "Unfinished SystemLiteral\n", NULL, NULL);
 	} else {
-	    ret = xmlStrndup(q, CUR_PTR - q);
+	    ret = xmlStrndup((BASE_PTR+startPosition), len);
 	    NEXT;
         }
     } else {
@@ -2813,32 +2846,47 @@ htmlParseSystemLiteral(htmlParserCtxtPtr ctxt) {
 
 static xmlChar *
 htmlParsePubidLiteral(htmlParserCtxtPtr ctxt) {
-    const xmlChar *q;
+    size_t len = 0, startPosition = 0;
     xmlChar *ret = NULL;
     /*
      * Name ::= (Letter | '_') (NameChar)*
      */
     if (CUR == '"') {
         NEXT;
-	q = CUR_PTR;
-	while (IS_PUBIDCHAR_CH(CUR)) NEXT;
+
+        if (CUR_PTR < BASE_PTR)
+            return(ret);
+        startPosition = CUR_PTR - BASE_PTR;
+
+        while (IS_PUBIDCHAR_CH(CUR)) {
+            len++;
+            NEXT;
+        }
+
 	if (CUR != '"') {
 	    htmlParseErr(ctxt, XML_ERR_LITERAL_NOT_FINISHED,
 	                 "Unfinished PubidLiteral\n", NULL, NULL);
 	} else {
-	    ret = xmlStrndup(q, CUR_PTR - q);
+	    ret = xmlStrndup((BASE_PTR + startPosition), len);
 	    NEXT;
 	}
     } else if (CUR == '\'') {
         NEXT;
-	q = CUR_PTR;
-	while ((IS_PUBIDCHAR_CH(CUR)) && (CUR != '\''))
-	    NEXT;
+
+        if (CUR_PTR < BASE_PTR)
+            return(ret);
+        startPosition = CUR_PTR - BASE_PTR;
+
+        while ((IS_PUBIDCHAR_CH(CUR)) && (CUR != '\'')){
+            len++;
+            NEXT;
+        }
+
 	if (CUR != '\'') {
 	    htmlParseErr(ctxt, XML_ERR_LITERAL_NOT_FINISHED,
 	                 "Unfinished PubidLiteral\n", NULL, NULL);
 	} else {
-	    ret = xmlStrndup(q, CUR_PTR - q);
+	    ret = xmlStrndup((BASE_PTR + startPosition), len);
 	    NEXT;
 	}
     } else {
@@ -3588,12 +3636,12 @@ htmlCheckEncodingDirect(htmlParserCtxtPtr ctxt, const xmlChar *encoding) {
 	    processed = ctxt->input->cur - ctxt->input->base;
 	    xmlBufShrink(ctxt->input->buf->buffer, processed);
 	    nbchars = xmlCharEncInput(ctxt->input->buf, 1);
+            xmlBufResetInput(ctxt->input->buf->buffer, ctxt->input);
 	    if (nbchars < 0) {
 		htmlParseErr(ctxt, XML_ERR_INVALID_ENCODING,
 		             "htmlCheckEncoding: encoder error\n",
 			     NULL, NULL);
 	    }
-            xmlBufResetInput(ctxt->input->buf->buffer, ctxt->input);
 	}
     }
 }
@@ -4400,7 +4448,7 @@ static void
 htmlParseElementInternal(htmlParserCtxtPtr ctxt) {
     const xmlChar *name;
     const htmlElemDesc * info;
-    htmlParserNodeInfo node_info = { 0, };
+    htmlParserNodeInfo node_info = { NULL, 0, 0, 0, 0 };
     int failed;
 
     if ((ctxt == NULL) || (ctxt->input == NULL)) {
@@ -4897,6 +4945,7 @@ htmlInitParserCtxt(htmlParserCtxtPtr ctxt)
     ctxt->wellFormed = 1;
     ctxt->replaceEntities = 0;
     ctxt->linenumbers = xmlLineNumbersDefaultValue;
+    ctxt->keepBlanks = xmlKeepBlanksDefaultValue;
     ctxt->html = 1;
     ctxt->vctxt.finishDtd = XML_CTXT_FINISH_DTD_0;
     ctxt->vctxt.userData = ctxt;
@@ -6229,7 +6278,8 @@ htmlCreatePushParserCtxt(htmlSAXHandlerPtr sax, void *user_data,
  */
 
 htmlDocPtr
-htmlSAXParseDoc(xmlChar *cur, const char *encoding, htmlSAXHandlerPtr sax, void *userData) {
+htmlSAXParseDoc(const xmlChar *cur, const char *encoding,
+                htmlSAXHandlerPtr sax, void *userData) {
     htmlDocPtr ret;
     htmlParserCtxtPtr ctxt;
 
@@ -6268,7 +6318,7 @@ htmlSAXParseDoc(xmlChar *cur, const char *encoding, htmlSAXHandlerPtr sax, void 
  */
 
 htmlDocPtr
-htmlParseDoc(xmlChar *cur, const char *encoding) {
+htmlParseDoc(const xmlChar *cur, const char *encoding) {
     return(htmlSAXParseDoc(cur, encoding, NULL, NULL));
 }
 
@@ -6537,7 +6587,7 @@ htmlNodeStatus(const htmlNodePtr node, int legacy) {
  * DICT_FREE:
  * @str:  a string
  *
- * Free a string if it is not owned by the "dict" dictionnary in the
+ * Free a string if it is not owned by the "dict" dictionary in the
  * current scope
  */
 #define DICT_FREE(str)						\
@@ -6624,7 +6674,7 @@ htmlCtxtReset(htmlParserCtxtPtr ctxt)
     xmlInitNodeInfoSeq(&ctxt->node_seq);
 
     if (ctxt->attsDefault != NULL) {
-        xmlHashFree(ctxt->attsDefault, (xmlHashDeallocator) xmlFree);
+        xmlHashFree(ctxt->attsDefault, xmlHashDefaultDeallocator);
         ctxt->attsDefault = NULL;
     }
     if (ctxt->attsSpecial != NULL) {

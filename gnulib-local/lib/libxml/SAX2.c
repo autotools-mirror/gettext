@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <limits.h>
+#include <stddef.h>
 #include <libxml/xmlmemory.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
@@ -55,7 +56,7 @@
  * @ctxt:  an XML validation parser context
  * @msg:   a string to accompany the error message
  */
-static void
+static void LIBXML_ATTR_FORMAT(2,0)
 xmlSAX2ErrMemory(xmlParserCtxtPtr ctxt, const char *msg) {
     xmlStructuredErrorFunc schannel = NULL;
     const char *str1 = "out of memory\n";
@@ -93,7 +94,7 @@ xmlSAX2ErrMemory(xmlParserCtxtPtr ctxt, const char *msg) {
  *
  * Handle a validation error
  */
-static void
+static void LIBXML_ATTR_FORMAT(3,0)
 xmlErrValid(xmlParserCtxtPtr ctxt, xmlParserErrors error,
             const char *msg, const char *str1, const char *str2)
 {
@@ -133,7 +134,7 @@ xmlErrValid(xmlParserCtxtPtr ctxt, xmlParserErrors error,
  *
  * Handle a fatal parser error, i.e. violating Well-Formedness constraints
  */
-static void
+static void LIBXML_ATTR_FORMAT(3,0)
 xmlFatalErrMsg(xmlParserCtxtPtr ctxt, xmlParserErrors error,
                const char *msg, const xmlChar *str1, const xmlChar *str2)
 {
@@ -164,7 +165,7 @@ xmlFatalErrMsg(xmlParserCtxtPtr ctxt, xmlParserErrors error,
  *
  * Handle a parser warning
  */
-static void
+static void LIBXML_ATTR_FORMAT(3,0)
 xmlWarnMsg(xmlParserCtxtPtr ctxt, xmlParserErrors error,
                const char *msg, const xmlChar *str1)
 {
@@ -189,7 +190,7 @@ xmlWarnMsg(xmlParserCtxtPtr ctxt, xmlParserErrors error,
  *
  * Handle a namespace error
  */
-static void
+static void LIBXML_ATTR_FORMAT(3,0)
 xmlNsErrMsg(xmlParserCtxtPtr ctxt, xmlParserErrors error,
             const char *msg, const xmlChar *str1, const xmlChar *str2)
 {
@@ -213,7 +214,7 @@ xmlNsErrMsg(xmlParserCtxtPtr ctxt, xmlParserErrors error,
  *
  * Handle a namespace warning
  */
-static void
+static void LIBXML_ATTR_FORMAT(3,0)
 xmlNsWarnMsg(xmlParserCtxtPtr ctxt, xmlParserErrors error,
              const char *msg, const xmlChar *str1, const xmlChar *str2)
 {
@@ -1181,6 +1182,8 @@ xmlSAX2AttributeInternal(void *ctx, const xmlChar *fullname,
 	        xmlSAX2ErrMemory(ctxt, "xmlSAX2StartElement");
 		if (name != NULL)
 		    xmlFree(name);
+                if (nval != NULL)
+                    xmlFree(nval);
 		return;
 	    }
 	} else {
@@ -1242,6 +1245,8 @@ xmlSAX2AttributeInternal(void *ctx, const xmlChar *fullname,
 	        xmlFree(ns);
 		if (name != NULL)
 		    xmlFree(name);
+                if (nval != NULL)
+                    xmlFree(nval);
 		return;
 	    }
 	} else {
@@ -1311,6 +1316,8 @@ xmlSAX2AttributeInternal(void *ctx, const xmlChar *fullname,
                                              name, namespace->href);
                         ctxt->wellFormed = 0;
                         if (ctxt->recovery == 0) ctxt->disableSAX = 1;
+                        if (name != NULL)
+                            xmlFree(name);
                         goto error;
                     }
                 }
@@ -1658,7 +1665,11 @@ xmlSAX2StartElement(void *ctx, const xmlChar *fullname, const xmlChar **atts)
 #ifdef DEBUG_SAX_TREE
     xmlGenericError(xmlGenericErrorContext, "pushing(%s)\n", name);
 #endif
-    nodePush(ctxt, ret);
+    if (nodePush(ctxt, ret) < 0) {
+        xmlUnlinkNode(ret);
+        xmlFreeNode(ret);
+        return;
+    }
 
     /*
      * Link the child element
@@ -1908,7 +1919,7 @@ skip:
 	    else {
 	        ret->line = 65535;
 		if (ctxt->options & XML_PARSE_BIG_LINES)
-		    ret->psvi = (void *) (long) ctxt->input->line;
+		    ret->psvi = (void *) (ptrdiff_t) ctxt->input->line;
 	    }
 	}
     }
@@ -2250,6 +2261,7 @@ xmlSAX2StartElementNs(void *ctx,
 	ctxt->freeElems = ret->next;
 	ctxt->freeElemsNr--;
 	memset(ret, 0, sizeof(xmlNode));
+        ret->doc = ctxt->myDoc;
 	ret->type = XML_ELEMENT_NODE;
 
 	if (ctxt->dictNames)
@@ -2311,7 +2323,7 @@ xmlSAX2StartElementNs(void *ctx,
 	} else {
             /*
              * any out of memory error would already have been raised
-             * but we can't be garanteed it's the actual error due to the
+             * but we can't be guaranteed it's the actual error due to the
              * API, best is to skip in this case
              */
 	    continue;
@@ -2329,7 +2341,11 @@ xmlSAX2StartElementNs(void *ctx,
     /*
      * We are parsing a new node.
      */
-    nodePush(ctxt, ret);
+    if (nodePush(ctxt, ret) < 0) {
+        xmlUnlinkNode(ret);
+        xmlFreeNode(ret);
+        return;
+    }
 
     /*
      * Link the child element
@@ -2805,7 +2821,8 @@ xmlSAX2CDataBlock(void *ctx, const xmlChar *value, int len)
 	xmlTextConcat(lastChild, value, len);
     } else {
 	ret = xmlNewCDataBlock(ctxt->myDoc, value, len);
-	xmlAddChild(ctxt->node, ret);
+	if (xmlAddChild(ctxt->node, ret) == NULL)
+		xmlFreeNode(ret);
     }
 }
 
