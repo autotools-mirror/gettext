@@ -1365,7 +1365,7 @@ plural_forms ()
       if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
         gettextlibdir = relocate (LIBDIR "/gettext");
 
-      prog = xconcatenated_filename (gettextlibdir, "cldr-plurals", NULL);
+      prog = xconcatenated_filename (gettextlibdir, "cldr-plurals", EXEEXT);
 
       last_dir = xstrdup (gettextcldrdir);
       dirs[0] = "common";
