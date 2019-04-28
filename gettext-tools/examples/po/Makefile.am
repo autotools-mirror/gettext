@@ -98,6 +98,10 @@ SMALLPOTS = \
 # This is a synthetic domain name.
 DOMAIN = gettext-examples
 
+# These options get passed to xgettext.
+XGETTEXT_OPTIONS = \
+  --package-name='GNU gettext'
+
 # This is the copyright holder that gets inserted into the header of the
 # $(DOMAIN).pot file.  Set this to the copyright holder of the surrounding
 # package.  (Note that the msgstr strings, extracted from the package's

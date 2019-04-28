@@ -1,6 +1,6 @@
 # Makefile variables for PO directory in any package using GNU gettext.
 #
-# Copyright (C) 2003-2017 Free Software Foundation, Inc.
+# Copyright (C) 2003-2019 Free Software Foundation, Inc.
 # This file, Makevars, is free software; the Free Software Foundation
 # gives unlimited permission to use, copy, distribute, and modify it.
 
@@ -13,6 +13,7 @@ top_builddir = ..
 
 # These options get passed to xgettext.
 XGETTEXT_OPTIONS = \
+  --package-name='GNU gettext' \
   --keyword=_ --flag=_:1:pass-c-format \
   --keyword=N_ --flag=N_:1:pass-c-format \
   --flag=error:3:c-format --flag=error_at_line:5:c-format
