@@ -289,6 +289,8 @@ In GNOME: @code{gnome-terminal}, @code{tilda}.
 @item
 @code{st} (sets @code{TERM=st-256color}).
 @item
+@code{QTerminal}.
+@item
 On macOS: @code{Terminal}, @code{iTerm2}.
 @end itemize
 
