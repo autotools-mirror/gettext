@@ -881,11 +881,11 @@ project_id (const char *header)
   prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
 
   /* Call the project-id shell script.  */
-  argv[0] = "/bin/sh";
+  argv[0] = BOURNE_SHELL;
   argv[1] = prog;
   argv[2] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, false,
-                          fd);
+  child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
+                          false, fd);
   if (child == -1)
     goto failed;
 
@@ -955,12 +955,12 @@ project_id_version (const char *header)
   prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
 
   /* Call the project-id shell script.  */
-  argv[0] = "/bin/sh";
+  argv[0] = BOURNE_SHELL;
   argv[1] = prog;
   argv[2] = "yes";
   argv[3] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, false,
-                          fd);
+  child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
+                          false, fd);
   if (child == -1)
     goto failed;
 
@@ -1114,15 +1114,15 @@ get_user_email ()
   int exitstatus;
 
   /* Ask the user for his email address.  */
-  argv[0] = "/bin/sh";
+  argv[0] = BOURNE_SHELL;
   argv[1] = (char *) prog;
   argv[2] = (char *) _("\
 The new message catalog should contain your email address, so that users can\n\
 give you feedback about the translations, and so that maintainers can contact\n\
 you in case of unexpected technical problems.\n");
   argv[3] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, false,
-                          fd);
+  child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
+                          false, fd);
   if (child == -1)
     goto failed;
 
@@ -1213,15 +1213,15 @@ language_team_address ()
   int exitstatus;
 
   /* Call the team-address shell script.  */
-  argv[0] = "/bin/sh";
+  argv[0] = BOURNE_SHELL;
   argv[1] = (char *) prog;
   argv[2] = (char *) relocate (PROJECTSDIR);
   argv[3] = (char *) relocate (LIBDIR "/gettext");
   argv[4] = (char *) catalogname;
   argv[5] = (char *) language;
   argv[6] = NULL;
-  child = create_pipe_in (prog, "/bin/sh", argv, DEV_NULL, false, true, false,
-                          fd);
+  child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
+                          false, fd);
   if (child == -1)
     goto failed;
 

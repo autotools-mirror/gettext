@@ -176,6 +176,7 @@ if ! $skip_gnulib; then
     relocatable-prog
     relocatable-script
     setlocale
+    sh-filename
     sh-quote
     sigpipe
     sigprocmask
