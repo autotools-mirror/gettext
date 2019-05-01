@@ -51,6 +51,9 @@
 
 #include <textstyle.h>
 
+/* Get BINDIR.  */
+#include "configmake.h"
+
 #include "closeout.h"
 #include "error.h"
 #include "error-progname.h"
@@ -333,6 +336,48 @@ the output .po file through the --output-file option.\n"),
 
   /* Read input file.  */
   result = read_catalog_file (input_file, input_syntax);
+
+#if defined _WIN32 || defined __CYGWIN__
+  /* The function fill_header invokes, directly or indirectly, some programs
+     that are installed in ${libdir}/gettext:
+       - hostname, invoked indirectly through 'user-email'.
+       - urlget, invoked indirectly through 'team-address'.
+       - cldr-plurals, invoked directly.
+     These programs depend on libintl.  In installations with shared libraries,
+     we need to guarantee that the programs find the DLL, which is installed
+     in ${bindir}, not in ${libdir}/gettext.  The preferred way to do so is to
+     extend $PATH, so that it contains ${bindir}.  */
+  {
+    const char *orig_path;
+    size_t orig_path_len;
+    char separator;
+    const char *bindir;
+    size_t bindir_len;
+    char *augmented_path;
+
+    orig_path = getenv ("PATH");
+    if (orig_path == NULL)
+      orig_path = "";
+    orig_path_len = strlen (orig_path);
+
+    #if defined __CYGWIN__
+    separator = ':';
+    #else /* native Windows */
+    separator = ';';
+    #endif
+
+    bindir = BINDIR;
+    bindir_len = strlen (bindir);
+
+    /* Concatenate bindir, separator, orig_path.  */
+    augmented_path = XNMALLOC (bindir_len + 1 + orig_path_len + 1, char);
+    memcpy (augmented_path, bindir, bindir_len);
+    augmented_path[bindir_len] = separator;
+    memcpy (augmented_path + bindir_len + 1, orig_path, orig_path_len + 1);
+
+    xsetenv ("PATH", augmented_path, 1);
+  }
+#endif
 
   /* Fill the header entry.  */
   result = fill_header (result);
