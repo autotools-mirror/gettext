@@ -437,7 +437,8 @@ You can also design your own styles.  This is described in the next
 section.
 
 @menu
-* Style rules::
+* Style rules::                 How to create a style file
+* Debugging style files::       How to debug a style file
 @end menu
 
 @node Style rules
@@ -513,6 +514,36 @@ This property is supported, limited to the values @code{none} and
 @code{underline}.
 @end table
 
+@node Debugging style files
+@subsection Debugging style files
+
+@cindex Debugging
+If you want to understand why the style rules in a style file produce
+the output that you see, you can do so in three steps:
+
+@enumerate
+@item
+Run the program with the command-line option @code{--color=html},
+redirecting the output to a file.
+@item
+Open the resulting HTML file in a browser.
+@item
+Use the browser's built-in CSS debugging tool.
+@itemize @bullet
+@item
+In Firefox: From the pop-up menu, select "Inspect Element".
+Click somewhere in the DOM tree ("Inspector" tab) and look at the
+CSS declarations in the "Rules" tab.
+@item
+In Chromium: From the pop-up menu, select "Inspect".
+Click somewhere in the DOM tree ("Elements" tab) and look at the
+CSS declarations in the "Styles" tab.
+@end itemize
+@end enumerate
+
+This technique allows you, in particular, to see which CSS declarations
+override which other CSS declarations from other CSS rules.
+
 @node The programmer's view
 @chapter The programmer's perspective
 
@@ -549,6 +580,7 @@ The following sections go into more detail.
 * Link options::
 * Command-line options::
 * The output stream hierarchy::
+* Debugging the styling code::
 * What to document::
 @end menu
 
@@ -1075,6 +1107,22 @@ stream will automatically close the @code{@var{destination}}.
 Note: If @code{@var{pass_ownership}} is @code{false}, the resulting stream
 must be closed before @code{@var{destination}} can be closed.
 @end deftypefn
+
+@node Debugging the styling code
+@section Debugging the text styling support
+
+@cindex Debugging
+If you want to understand which output of your program is associated with
+which CSS classes, the simplest way is as follows:
+
+@enumerate
+@item
+Run the program with the command-line option @code{--color=html},
+redirecting the output to a file.
+@item
+Then inspect this output.  Text regions associated with a CSS class are
+surrounded by @code{<span class="@var{css-class}">}...@code{</span>}.
+@end enumerate
 
 @node What to document
 @section Documenting the text styling support
