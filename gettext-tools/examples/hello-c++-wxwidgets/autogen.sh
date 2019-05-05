@@ -26,7 +26,6 @@ fi
 cp -p ${ACLOCALDIR-$GETTEXT_TOPSRCDIR/gettext-runtime/m4}/nls.m4 m4/nls.m4
 cp -p ${ACLOCALDIR-$GETTEXT_TOPSRCDIR/gettext-runtime/m4}/po.m4 m4/po.m4
 cp -p ${ACLOCALDIR-$GETTEXT_TOPSRCDIR/gettext-runtime/m4}/progtest.m4 m4/progtest.m4
-cp -p ${ACLOCALDIR-$GETTEXT_TOPSRCDIR/gettext-runtime/gnulib-m4}/asm-underscore.m4 m4/asm-underscore.m4
 cp -p ${ACLOCALDIR-$GETTEXT_TOPSRCDIR/gettext-runtime/gnulib-m4}/host-cpu-c-abi.m4 m4/host-cpu-c-abi.m4
 cp -p ${ACLOCALDIR-$GETTEXT_TOPSRCDIR/gettext-runtime/gnulib-m4}/lib-ld.m4 m4/lib-ld.m4
 cp -p ${ACLOCALDIR-$GETTEXT_TOPSRCDIR/gettext-runtime/gnulib-m4}/lib-link.m4 m4/lib-link.m4
