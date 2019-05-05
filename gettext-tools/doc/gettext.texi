@@ -5402,11 +5402,16 @@ The @code{po_file_create} creates an empty PO file representation in
 memory.
 @end deftypefun
 
-@deftypefun po_file_t po_file_read (const char *@var{filename})
+@deftypefun po_file_t po_file_read (const char *@var{filename},@
+            struct po_xerror_handler *@var{handler})
 The @code{po_file_read} function reads a PO file into memory.  The file name
 is given as argument.  The return value is a handle to the PO file's contents,
-valid until @code{po_file_free} is called on it.  In case of error, the return
-value is @code{NULL}, and @code{errno} is set.
+valid until @code{po_file_free} is called on it.  In case of error, the
+functions from @var{handler} are called to signal it.
+
+This function is exported as @samp{po_file_read_v3} at ABI level, but it
+defined as @code{po_file_read} in C code after the inclusion of
+@samp{<gettext-po.h>}.
 @end deftypefun
 
 @deftypefun void po_file_free (po_file_t @var{file})
