@@ -5325,7 +5325,8 @@ is not sufficient, a set of C functions is provided in a library, to make it
 possible to process PO files in your own programs.  When you use this library,
 you don't need to write routines to parse the PO file; instead, you retrieve
 a pointer in memory to each of messages contained in the PO file.  Functions
-for writing PO files are not provided at this time.
+for writing those memory structures to a file after working with them are
+provided too.
 
 The functions are declared in the header file @samp{<gettext-po.h>}, and are
 defined in a library called @samp{libgettextpo}.
@@ -5411,6 +5412,18 @@ functions from @var{handler} are called to signal it.
 
 This function is exported as @samp{po_file_read_v3} at ABI level, but it
 defined as @code{po_file_read} in C code after the inclusion of
+@samp{<gettext-po.h>}.
+@end deftypefun
+
+@deftypefun po_file_t po_file_write (po_file_t @var{file},@
+            const char *@var{filename}, struct po_xerror_handler *@var{handler})
+The @code{po_file_write} function writes the contents of the memory
+structure @var{file} the @var{filename} given.  The return value is
+@var{file} after a successful operation.  In case of error, the
+functions from @var{handler} are called to signal it.
+
+This function is exported as @samp{po_file_write_v2} at ABI level, but
+it defined as @code{po_file_write} in C code after the inclusion of
 @samp{<gettext-po.h>}.
 @end deftypefun
 
