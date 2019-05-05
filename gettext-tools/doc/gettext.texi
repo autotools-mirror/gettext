@@ -5345,6 +5345,11 @@ This is a pointer type that refers to a message of a PO file, including its
 translation.
 @end deftp
 
+@deftypefun po_file_t po_file_create ()
+The @code{po_file_create} creates an empty PO file representation in
+memory.
+@end deftypefun
+
 @deftypefun po_file_t po_file_read (const char *@var{filename})
 The @code{po_file_read} function reads a PO file into memory.  The file name
 is given as argument.  The return value is a handle to the PO file's contents,
