@@ -695,6 +695,8 @@ autom4te.cache/
 /gettext-tools/tests/intl-thread-2-prg.exe
 /gettext-tools/tests/intl-thread-3-prg
 /gettext-tools/tests/intl-thread-3-prg.exe
+/gettext-tools/tests/intl-version-prg
+/gettext-tools/tests/intl-version-prg.exe
 /gettext-tools/tests/sentence-1-prg
 /gettext-tools/tests/sentence-1-prg.exe
 /gettext-tools/tests/testlocale
