@@ -5330,6 +5330,58 @@ for writing PO files are not provided at this time.
 The functions are declared in the header file @samp{<gettext-po.h>}, and are
 defined in a library called @samp{libgettextpo}.
 
+@deftp {Data Type} struct po_xerror_handler
+This structure contains the functions that will be called in case of
+error.  Its pointer is defined as @code{po_xerror_handler_t}.  Contains
+two fields, xerror and xerror2, with the following function ignatures.
+@end deftp
+
+@deftypefun void xerror (int @var{severity}, po_message_t @var{message},@
+            const char *@var{filename}, size_t @var{lineno},@
+            size_t @var{column}, int @var{multiline_p},@
+            const char *@var{message_text})
+
+This function is called to signal a problem of the given @var{severity}.
+It @emph{must not return} if @var{severity} is
+@var{PO_SEVERITY_FATAL_ERROR}.
+
+@var{message_text} is the problem description.  When @var{multiline_p}
+is true, it can contain multiple lines of text, each terminated with a
+newline, otherwise a single line.
+
+@var{message} and/or @var{filename} and @var{lineno} indicate where the
+problem occurred:
+
+@itemize @bullet
+@item
+If @var{filename} is @code{NULL}, @var{filename} and @var{lineno} and
+@var{column} should be ignored.
+
+@item
+If @var{lineno} is @code{(size_t)(-1)}, @var{lineno} and @var{column}
+should be ignored.
+
+@item
+If @var{column} is @code{(size_t)(-1)}, it should be ignored.
+@end itemize
+@end deftypefun
+
+@deftypefun void xerror2 (int @var{severity}, po_message_t @var{message1},@
+            const char *@var{filename1}, size_t @var{lineno1},@
+            size_t @var{column1}, int @var{multiline_p1},@
+            const char *@var{message_text1}, po_message_t @var{message2},@
+            const char *@var{filename2}, size_t @var{lineno2},@
+            size_t @var{column2}, int @var{multiline_p2},@
+            const char *@var{message_text2})
+
+This function is called to signal a problem of the given @var{severity}
+that refers to two messages.  It @emph{must not return} if
+@var{severity} is @var{PO_SEVERITY_FATAL_ERROR}.
+
+It is similar to two calls to xerror.  If possible, an ellipsis can be
+appended to @var{message_text1} and prepended to @var{message_text2}.
+@end deftypefun
+
 @deftp {Data Type} po_file_t
 This is a pointer type that refers to the contents of a PO file, after it has
 been read into memory.
