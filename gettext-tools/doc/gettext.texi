@@ -5331,9 +5331,22 @@ provided too.
 The functions are declared in the header file @samp{<gettext-po.h>}, and are
 defined in a library called @samp{libgettextpo}.
 
+@menu
+* Error Handling::              Error handling functions
+* po_file_t API::               File management
+* po_message_iterator_t API::   Message iteration
+* po_message_t API::            The basic units of the file
+@end menu
+
+@node Error Handling
+@subsection Error Handling
+
+Error management is performed through callbacks provided by the user of
+the library.  They are provided through a parameter with the following
+type:
+
 @deftp {Data Type} struct po_xerror_handler
-This structure contains the functions that will be called in case of
-error.  Its pointer is defined as @code{po_xerror_handler_t}.  Contains
+Its pointer is defined as @code{po_xerror_handler_t}.  Contains
 two fields, xerror and xerror2, with the following function ignatures.
 @end deftp
 
@@ -5383,19 +5396,12 @@ It is similar to two calls to xerror.  If possible, an ellipsis can be
 appended to @var{message_text1} and prepended to @var{message_text2}.
 @end deftypefun
 
+@node po_file_t API
+@subsection po_file_t API
+
 @deftp {Data Type} po_file_t
 This is a pointer type that refers to the contents of a PO file, after it has
 been read into memory.
-@end deftp
-
-@deftp {Data Type} po_message_iterator_t
-This is a pointer type that refers to an iterator that produces a sequence of
-messages.
-@end deftp
-
-@deftp {Data Type} po_message_t
-This is a pointer type that refers to a message of a PO file, including its
-translation.
 @end deftp
 
 @deftypefun po_file_t po_file_create ()
@@ -5440,6 +5446,14 @@ contain no @samp{domain} directive, the return value contains only one domain,
 namely the default domain @code{"messages"}.
 @end deftypefun
 
+@node po_message_iterator_t API
+@subsection po_message_iterator_t API
+
+@deftp {Data Type} po_message_iterator_t
+This is a pointer type that refers to an iterator that produces a sequence of
+messages.
+@end deftp
+
 @deftypefun po_message_iterator_t po_message_iterator (po_file_t @var{file}, const char *@var{domain})
 The @code{po_message_iterator} returns an iterator that will produce the
 messages of @var{file} that belong to the given @var{domain}.  If @var{domain}
@@ -5457,6 +5471,14 @@ The @code{po_next_message} function returns the next message from
 @var{iterator} and advances the iterator.  It returns @code{NULL} when the
 iterator has reached the end of its message list.
 @end deftypefun
+
+@node po_message_t API
+@subsection po_message_t API
+
+@deftp {Data Type} po_message_t
+This is a pointer type that refers to a message of a PO file, including its
+translation.
+@end deftp
 
 The following functions returns details of a @code{po_message_t}.  Recall
 that the results are valid as long as the @var{file} handle is valid.
