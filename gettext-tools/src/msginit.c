@@ -881,16 +881,6 @@ static const char *
 project_id (const char *header)
 {
   const char *old_field;
-  const char *gettextlibdir;
-  char *prog;
-  char *argv[3];
-  pid_t child;
-  int fd[1];
-  FILE *fp;
-  char *line;
-  size_t linesize;
-  size_t linelen;
-  int exitstatus;
 
   /* Return the first part of the Project-Id-Version field if present, assuming
      it was already filled in by xgettext.  */
@@ -919,54 +909,72 @@ project_id (const char *header)
       return old_field;
     }
 
-  gettextlibdir = getenv ("GETTEXTLIBDIR_SRCDIR");
-  if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
-    gettextlibdir = relocate (LIBDIR "/gettext");
+  /* On native Windows, a Bourne shell is generally not available.
+     Avoid error messages such as
+     "msginit.exe: subprocess ... failed: No such file or directory"  */
+#if !(defined _WIN32 && ! defined __CYGWIN__)
+  {
+    const char *gettextlibdir;
+    char *prog;
+    char *argv[3];
+    pid_t child;
+    int fd[1];
+    FILE *fp;
+    char *line;
+    size_t linesize;
+    size_t linelen;
+    int exitstatus;
 
-  prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
+    gettextlibdir = getenv ("GETTEXTLIBDIR_SRCDIR");
+    if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
+      gettextlibdir = relocate (LIBDIR "/gettext");
 
-  /* Call the project-id shell script.  */
-  argv[0] = BOURNE_SHELL;
-  argv[1] = prog;
-  argv[2] = NULL;
-  child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
-                          false, fd);
-  if (child == -1)
-    goto failed;
+    prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
 
-  /* Retrieve its result.  */
-  fp = fdopen (fd[0], "r");
-  if (fp == NULL)
-    {
-      error (0, errno, _("fdopen() failed"));
+    /* Call the project-id shell script.  */
+    argv[0] = BOURNE_SHELL;
+    argv[1] = prog;
+    argv[2] = NULL;
+    child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
+                            false, fd);
+    if (child == -1)
       goto failed;
-    }
 
-  line = NULL; linesize = 0;
-  linelen = getline (&line, &linesize, fp);
-  if (linelen == (size_t)(-1))
-    {
-      error (0, 0, _("%s subprocess I/O error"), prog);
-      fclose (fp);
-      goto failed;
-    }
-  if (linelen > 0 && line[linelen - 1] == '\n')
-    line[linelen - 1] = '\0';
+    /* Retrieve its result.  */
+    fp = fdopen (fd[0], "r");
+    if (fp == NULL)
+      {
+        error (0, errno, _("fdopen() failed"));
+        goto failed;
+      }
 
-  fclose (fp);
+    line = NULL; linesize = 0;
+    linelen = getline (&line, &linesize, fp);
+    if (linelen == (size_t)(-1))
+      {
+        error (0, 0, _("%s subprocess I/O error"), prog);
+        fclose (fp);
+        goto failed;
+      }
+    if (linelen > 0 && line[linelen - 1] == '\n')
+      line[linelen - 1] = '\0';
 
-  /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
-  if (exitstatus != 0)
-    {
-      error (0, 0, _("%s subprocess failed with exit code %d"),
-             prog, exitstatus);
-      goto failed;
-    }
+    fclose (fp);
 
-  return line;
+    /* Remove zombie process from process list, and retrieve exit status.  */
+    exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
+    if (exitstatus != 0)
+      {
+        error (0, 0, _("%s subprocess failed with exit code %d"),
+               prog, exitstatus);
+        goto failed;
+      }
+
+    return line;
+  }
 
 failed:
+#endif
   return "PACKAGE";
 }
 
@@ -976,16 +984,6 @@ static const char *
 project_id_version (const char *header)
 {
   const char *old_field;
-  const char *gettextlibdir;
-  char *prog;
-  char *argv[4];
-  pid_t child;
-  int fd[1];
-  FILE *fp;
-  char *line;
-  size_t linesize;
-  size_t linelen;
-  int exitstatus;
 
   /* Return the old value if present, assuming it was already filled in by
      xgettext.  */
@@ -993,55 +991,73 @@ project_id_version (const char *header)
   if (old_field != NULL && strcmp (old_field, "PACKAGE VERSION") != 0)
     return old_field;
 
-  gettextlibdir = getenv ("GETTEXTLIBDIR_SRCDIR");
-  if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
-    gettextlibdir = relocate (LIBDIR "/gettext");
+  /* On native Windows, a Bourne shell is generally not available.
+     Avoid error messages such as
+     "msginit.exe: subprocess ... failed: No such file or directory"  */
+#if !(defined _WIN32 && ! defined __CYGWIN__)
+  {
+    const char *gettextlibdir;
+    char *prog;
+    char *argv[4];
+    pid_t child;
+    int fd[1];
+    FILE *fp;
+    char *line;
+    size_t linesize;
+    size_t linelen;
+    int exitstatus;
 
-  prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
+    gettextlibdir = getenv ("GETTEXTLIBDIR_SRCDIR");
+    if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
+      gettextlibdir = relocate (LIBDIR "/gettext");
 
-  /* Call the project-id shell script.  */
-  argv[0] = BOURNE_SHELL;
-  argv[1] = prog;
-  argv[2] = "yes";
-  argv[3] = NULL;
-  child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
-                          false, fd);
-  if (child == -1)
-    goto failed;
+    prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
 
-  /* Retrieve its result.  */
-  fp = fdopen (fd[0], "r");
-  if (fp == NULL)
-    {
-      error (0, errno, _("fdopen() failed"));
+    /* Call the project-id shell script.  */
+    argv[0] = BOURNE_SHELL;
+    argv[1] = prog;
+    argv[2] = "yes";
+    argv[3] = NULL;
+    child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
+                            false, fd);
+    if (child == -1)
       goto failed;
-    }
 
-  line = NULL; linesize = 0;
-  linelen = getline (&line, &linesize, fp);
-  if (linelen == (size_t)(-1))
-    {
-      error (0, 0, _("%s subprocess I/O error"), prog);
-      fclose (fp);
-      goto failed;
-    }
-  if (linelen > 0 && line[linelen - 1] == '\n')
-    line[linelen - 1] = '\0';
+    /* Retrieve its result.  */
+    fp = fdopen (fd[0], "r");
+    if (fp == NULL)
+      {
+        error (0, errno, _("fdopen() failed"));
+        goto failed;
+      }
 
-  fclose (fp);
+    line = NULL; linesize = 0;
+    linelen = getline (&line, &linesize, fp);
+    if (linelen == (size_t)(-1))
+      {
+        error (0, 0, _("%s subprocess I/O error"), prog);
+        fclose (fp);
+        goto failed;
+      }
+    if (linelen > 0 && line[linelen - 1] == '\n')
+      line[linelen - 1] = '\0';
 
-  /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
-  if (exitstatus != 0)
-    {
-      error (0, 0, _("%s subprocess failed with exit code %d"),
-             prog, exitstatus);
-      goto failed;
-    }
+    fclose (fp);
 
-  return line;
+    /* Remove zombie process from process list, and retrieve exit status.  */
+    exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
+    if (exitstatus != 0)
+      {
+        error (0, 0, _("%s subprocess failed with exit code %d"),
+               prog, exitstatus);
+        goto failed;
+      }
+
+    return line;
+  }
 
 failed:
+#endif
   return "PACKAGE VERSION";
 }
 
@@ -1148,62 +1164,69 @@ get_user_fullname ()
 static const char *
 get_user_email ()
 {
-  const char *prog = relocate (LIBDIR "/gettext/user-email");
-  char *argv[4];
-  pid_t child;
-  int fd[1];
-  FILE *fp;
-  char *line;
-  size_t linesize;
-  size_t linelen;
-  int exitstatus;
+  /* On native Windows, a Bourne shell is generally not available.
+     Avoid error messages such as
+     "msginit.exe: subprocess ... failed: No such file or directory"  */
+#if !(defined _WIN32 && ! defined __CYGWIN__)
+  {
+    const char *prog = relocate (LIBDIR "/gettext/user-email");
+    char *argv[4];
+    pid_t child;
+    int fd[1];
+    FILE *fp;
+    char *line;
+    size_t linesize;
+    size_t linelen;
+    int exitstatus;
 
-  /* Ask the user for his email address.  */
-  argv[0] = BOURNE_SHELL;
-  argv[1] = (char *) prog;
-  argv[2] = (char *) _("\
+    /* Ask the user for his email address.  */
+    argv[0] = BOURNE_SHELL;
+    argv[1] = (char *) prog;
+    argv[2] = (char *) _("\
 The new message catalog should contain your email address, so that users can\n\
 give you feedback about the translations, and so that maintainers can contact\n\
 you in case of unexpected technical problems.\n");
-  argv[3] = NULL;
-  child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
-                          false, fd);
-  if (child == -1)
-    goto failed;
-
-  /* Retrieve his answer.  */
-  fp = fdopen (fd[0], "r");
-  if (fp == NULL)
-    {
-      error (0, errno, _("fdopen() failed"));
+    argv[3] = NULL;
+    child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
+                            false, fd);
+    if (child == -1)
       goto failed;
-    }
 
-  line = NULL; linesize = 0;
-  linelen = getline (&line, &linesize, fp);
-  if (linelen == (size_t)(-1))
-    {
-      error (0, 0, _("%s subprocess I/O error"), prog);
-      fclose (fp);
-      goto failed;
-    }
-  if (linelen > 0 && line[linelen - 1] == '\n')
-    line[linelen - 1] = '\0';
+    /* Retrieve his answer.  */
+    fp = fdopen (fd[0], "r");
+    if (fp == NULL)
+      {
+        error (0, errno, _("fdopen() failed"));
+        goto failed;
+      }
 
-  fclose (fp);
+    line = NULL; linesize = 0;
+    linelen = getline (&line, &linesize, fp);
+    if (linelen == (size_t)(-1))
+      {
+        error (0, 0, _("%s subprocess I/O error"), prog);
+        fclose (fp);
+        goto failed;
+      }
+    if (linelen > 0 && line[linelen - 1] == '\n')
+      line[linelen - 1] = '\0';
 
-  /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
-  if (exitstatus != 0)
-    {
-      error (0, 0, _("%s subprocess failed with exit code %d"),
-             prog, exitstatus);
-      goto failed;
-    }
+    fclose (fp);
 
-  return line;
+    /* Remove zombie process from process list, and retrieve exit status.  */
+    exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
+    if (exitstatus != 0)
+      {
+        error (0, 0, _("%s subprocess failed with exit code %d"),
+               prog, exitstatus);
+        goto failed;
+      }
+
+    return line;
+  }
 
 failed:
+#endif
   return "EMAIL@ADDRESS";
 }
 
@@ -1247,58 +1270,65 @@ language_team_englishname ()
 static const char *
 language_team_address ()
 {
-  const char *prog = relocate (PROJECTSDIR "/team-address");
-  char *argv[7];
-  pid_t child;
-  int fd[1];
-  FILE *fp;
-  char *line;
-  size_t linesize;
-  size_t linelen;
-  int exitstatus;
+  /* On native Windows, a Bourne shell is generally not available.
+     Avoid error messages such as
+     "msginit.exe: subprocess ... failed: No such file or directory"  */
+#if !(defined _WIN32 && ! defined __CYGWIN__)
+  {
+    const char *prog = relocate (PROJECTSDIR "/team-address");
+    char *argv[7];
+    pid_t child;
+    int fd[1];
+    FILE *fp;
+    char *line;
+    size_t linesize;
+    size_t linelen;
+    int exitstatus;
 
-  /* Call the team-address shell script.  */
-  argv[0] = BOURNE_SHELL;
-  argv[1] = (char *) prog;
-  argv[2] = (char *) relocate (PROJECTSDIR);
-  argv[3] = (char *) relocate (LIBDIR "/gettext");
-  argv[4] = (char *) catalogname;
-  argv[5] = (char *) language;
-  argv[6] = NULL;
-  child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
-                          false, fd);
-  if (child == -1)
-    goto failed;
-
-  /* Retrieve its result.  */
-  fp = fdopen (fd[0], "r");
-  if (fp == NULL)
-    {
-      error (0, errno, _("fdopen() failed"));
+    /* Call the team-address shell script.  */
+    argv[0] = BOURNE_SHELL;
+    argv[1] = (char *) prog;
+    argv[2] = (char *) relocate (PROJECTSDIR);
+    argv[3] = (char *) relocate (LIBDIR "/gettext");
+    argv[4] = (char *) catalogname;
+    argv[5] = (char *) language;
+    argv[6] = NULL;
+    child = create_pipe_in (prog, BOURNE_SHELL, argv, DEV_NULL, false, true,
+                            false, fd);
+    if (child == -1)
       goto failed;
-    }
 
-  line = NULL; linesize = 0;
-  linelen = getline (&line, &linesize, fp);
-  if (linelen == (size_t)(-1))
-    line = "";
-  else if (linelen > 0 && line[linelen - 1] == '\n')
-    line[linelen - 1] = '\0';
+    /* Retrieve its result.  */
+    fp = fdopen (fd[0], "r");
+    if (fp == NULL)
+      {
+        error (0, errno, _("fdopen() failed"));
+        goto failed;
+      }
 
-  fclose (fp);
+    line = NULL; linesize = 0;
+    linelen = getline (&line, &linesize, fp);
+    if (linelen == (size_t)(-1))
+      line = "";
+    else if (linelen > 0 && line[linelen - 1] == '\n')
+      line[linelen - 1] = '\0';
 
-  /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
-  if (exitstatus != 0)
-    {
-      error (0, 0, _("%s subprocess failed with exit code %d"),
-             prog, exitstatus);
-      goto failed;
-    }
+    fclose (fp);
 
-  return line;
+    /* Remove zombie process from process list, and retrieve exit status.  */
+    exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
+    if (exitstatus != 0)
+      {
+        error (0, 0, _("%s subprocess failed with exit code %d"),
+               prog, exitstatus);
+        goto failed;
+      }
+
+    return line;
+  }
 
 failed:
+#endif
   return "";
 }
 
