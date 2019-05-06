@@ -5636,6 +5636,55 @@ comments of a message to the value @var{extracted_comments}, a multiline
 string, ending in a newline, or a non-@code{NULL} empty string.
 @end deftypefun
 
+@deftypefun {int} po_message_is_obsolete (po_message_t @var{message})
+The @code{po_message_is_obsolete} function returns true when the message
+is marked as obsolete.
+@end deftypefun
+
+@deftypefun {void} po_message_set_obsolete (po_message_t @var{message},@
+                   int @var{obsolete})
+The @code{po_message_set_obsolete} function changes the obsolete mark of
+the message.
+@end deftypefun
+
+@deftypefun {int} po_message_is_fuzzy (po_message_t @var{message})
+The @code{po_message_is_fuzzy} function returns true when the message
+is marked as fuzzy.
+@end deftypefun
+
+@deftypefun {void} po_message_set_fuzzy (po_message_t @var{message},@
+                   int @var{fuzzy})
+The @code{po_message_set_fuzzy} function changes the fuzzy mark of
+the message.
+@end deftypefun
+
+@deftypefun {int} po_message_is_format (po_message_t @var{message},@
+                  const char *@var{format_type})
+The @code{po_message_is_format} function returns true when the message
+is marked as being a format string of @var{format_type}.
+@end deftypefun
+
+@deftypefun {void} po_message_set_format (po_message_t @var{message},@
+                   const char *@var{format_type}, int @var{value})
+The @code{po_message_set_fuzzy} function changes the format mark of
+the message for the @var{format_type} provided.
+@end deftypefun
+
+@deftypefun {int} po_message_is_range (po_message_t @var{message},@
+                  int *@var{minp}, int *@var{maxp})
+The @code{po_message_is_range} function returns true when the message
+has a numeric range set, and stores the minimum and maximum value in the
+direction pointed by @var{minp} and @var{maxp} respectively.
+@end deftypefun
+
+@deftypefun {void} po_message_set_range (po_message_t @var{message},@
+                   int @var{min}, int @var{max})
+The @code{po_message_set_range} function changes the numeric range of
+the message. @var{min} and @var{max} must be non-negative, with
+@var{min} < @var{max}.  Use @var{min} and @var{max} with value @code{-1}
+to remove the numeric range of @var{message}
+@end deftypefun
+
 @node PO Header Entry API
 @subsection PO Header Entry API
 
