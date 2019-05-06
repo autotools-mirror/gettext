@@ -5338,39 +5338,55 @@ defined in a library called @samp{libgettextpo}.
 * po_message_t API::            The basic units of the file
 @end menu
 
-Here is an example code how these functions can be used.
+The following example shows code how these functions can be used.  Error
+handling code is omitted, as its implementation is delegated to the user
+provided functions.
 
 @example
+struct po_xerror_handler handler =
+  @{
+    .xerror = @dots{},
+    .xerror2 = @dots{}
+  @};
 const char *filename = @dots{};
-po_file_t file = po_file_read (filename);
+/* Read the file into memory.  */
+po_file_t file = po_file_read (filename, &handler);
 
-if (file == NULL)
-  error (EXIT_FAILURE, errno, "couldn't open the PO file %s", filename);
 @{
   const char * const *domains = po_file_domains (file);
   const char * const *domainp;
 
+  /* Iterate the domains contained in the file.  */
   for (domainp = domains; *domainp; domainp++)
     @{
+      po_message_t *message;
       const char *domain = *domainp;
       po_message_iterator_t iterator = po_message_iterator (file, domain);
 
-      for (;;)
+      /* Iterate each message inside the domain.  */
+      while ((message = po_next_message (iterator)) != NULL)
         @{
-          po_message_t *message = po_next_message (iterator);
+          /* Read data from the message @dots{}  */
+          const char *msgid = po_message_msgid (message);
+          const char *msgstr = po_message_msgstr (message);
 
-          if (message == NULL)
-            break;
-          @{
-            const char *msgid = po_message_msgid (message);
-            const char *msgstr = po_message_msgstr (message);
+          @dots{}
 
-            @dots{}
-          @}
+          /* Modify its contents @dots{}  */
+          if (perform_some_tests (msgid, msgstr))
+            po_message_set_fuzzy (message, 1);
+
+          @dots{}
         @}
+      /* Always release returned po_message_iterator_t.  */
       po_message_iterator_free (iterator);
     @}
+
+  /* Write back the result.  */
+  po_file_t result = po_file_write (file, filename, &handler);
 @}
+
+/* Always release the returned po_file_t.  */
 po_file_free (file);
 @end example
 
