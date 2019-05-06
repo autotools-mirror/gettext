@@ -5338,6 +5338,7 @@ defined in a library called @samp{libgettextpo}.
 * po_message_t API::            The basic units of the file
 * PO Header Entry API::         Meta information of the file
 * po_filepos_t API::            References to the sources
+* Format Type API::             Supported format types
 @end menu
 
 The following example shows code how these functions can be used.  Error
@@ -5746,6 +5747,19 @@ Add a reference to the string from @var{file} starting at
 @var{start_line}, if it is not already present for the message.  The
 value @code{(size_t)(-1)} for @var{start_line} denotes that the line
 number is not available.
+@end deftypefun
+
+@node Format Type API
+@subsection Format Type API
+
+@deftypefun {const char * const *} po_format_list (void)
+Return a @code{NULL} terminated array of the supported format types.
+@end deftypefun
+
+@deftypefun {const char *} po_format_pretty_name (const char *@var{format_type})
+Return the pretty name associated with @var{format_type}.  For example,
+it returns ``C#'' when @var{format_type} is ``csharp_format''.
+Return @code{NULL} if @var{format_type} is not a supported format type.
 @end deftypefun
 
 @node Binaries
