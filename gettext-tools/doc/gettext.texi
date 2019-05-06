@@ -5337,6 +5337,7 @@ defined in a library called @samp{libgettextpo}.
 * po_message_iterator_t API::   Message iteration
 * po_message_t API::            The basic units of the file
 * PO Header Entry API::         Meta information of the file
+* po_filepos_t API::            References to the sources
 @end menu
 
 The following example shows code how these functions can be used.  Error
@@ -5662,6 +5663,37 @@ or @code{NULL}.
 Return a freshly allocated string which contains the entry from
 @var{header} with @var{field} set to @var{value}.  The field is added if
 necessary.
+@end deftypefun
+
+@node po_filepos_t API
+@subsection po_filepos_t API
+
+@deftp {Data Type} po_filepos_t
+This is a pointer type that refers to a string's position within a
+source file.
+@end deftp
+
+The following functions provide an interface to extract and manipulate
+these references.
+
+@deftypefun {po_filepos_t} po_message_filepos (po_message_t @var{message},@
+                           int @var{index})
+Return the file reference in position @var{index} from the message.  If
+@var{index} is out of range, return @code{NULL}.
+@end deftypefun
+
+@deftypefun {void} po_message_remove_filepos (po_message_t @var{message},@
+                   int @var{index})
+Remove the file reference in position @var{index} from the message.  It
+moves all references following @var{index} one position backwards.
+@end deftypefun
+
+@deftypefun {void} po_message_add_filepos (po_message_t @var{message},@
+                   const char *@var{file}, size_t @var{start_line})
+Add a reference to the string from @var{file} starting at
+@var{start_line}, if it is not already present for the message.  The
+value @code{(size_t)(-1)} for @var{start_line} denotes that the line
+number is not available.
 @end deftypefun
 
 @node Binaries
