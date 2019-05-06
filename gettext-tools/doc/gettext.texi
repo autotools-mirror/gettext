@@ -5338,6 +5338,42 @@ defined in a library called @samp{libgettextpo}.
 * po_message_t API::            The basic units of the file
 @end menu
 
+Here is an example code how these functions can be used.
+
+@example
+const char *filename = @dots{};
+po_file_t file = po_file_read (filename);
+
+if (file == NULL)
+  error (EXIT_FAILURE, errno, "couldn't open the PO file %s", filename);
+@{
+  const char * const *domains = po_file_domains (file);
+  const char * const *domainp;
+
+  for (domainp = domains; *domainp; domainp++)
+    @{
+      const char *domain = *domainp;
+      po_message_iterator_t iterator = po_message_iterator (file, domain);
+
+      for (;;)
+        @{
+          po_message_t *message = po_next_message (iterator);
+
+          if (message == NULL)
+            break;
+          @{
+            const char *msgid = po_message_msgid (message);
+            const char *msgstr = po_message_msgstr (message);
+
+            @dots{}
+          @}
+        @}
+      po_message_iterator_free (iterator);
+    @}
+@}
+po_file_free (file);
+@end example
+
 @node Error Handling
 @subsection Error Handling
 
@@ -5505,42 +5541,6 @@ The @code{po_message_msgstr_plural} function returns the
 @code{msgstr[@var{index}]} of a message with plurals, or @code{NULL} when
 the @var{index} is out of range or for a message without plural.
 @end deftypefun
-
-Here is an example code how these functions can be used.
-
-@example
-const char *filename = @dots{};
-po_file_t file = po_file_read (filename);
-
-if (file == NULL)
-  error (EXIT_FAILURE, errno, "couldn't open the PO file %s", filename);
-@{
-  const char * const *domains = po_file_domains (file);
-  const char * const *domainp;
-
-  for (domainp = domains; *domainp; domainp++)
-    @{
-      const char *domain = *domainp;
-      po_message_iterator_t iterator = po_message_iterator (file, domain);
-
-      for (;;)
-        @{
-          po_message_t *message = po_next_message (iterator);
-
-          if (message == NULL)
-            break;
-          @{
-            const char *msgid = po_message_msgid (message);
-            const char *msgstr = po_message_msgstr (message);
-
-            @dots{}
-          @}
-        @}
-      po_message_iterator_free (iterator);
-    @}
-@}
-po_file_free (file);
-@end example
 
 @node Binaries
 @chapter Producing Binary MO Files
