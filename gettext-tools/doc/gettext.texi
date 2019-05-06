@@ -5546,7 +5546,7 @@ that the results are valid as long as the @var{file} handle is valid.
 
 @deftypefun {const char *} po_message_msgctxt (po_message_t @var{message})
 The @code{po_message_msgctxt} function returns the @code{msgctxt}, the
-context of the message.  Return @code{NULL} for a message not restricted
+context of @var{message}.  Return @code{NULL} for a message not restricted
 to a context.
 @end deftypefun
 
@@ -5559,20 +5559,20 @@ the context of the message, to the value provided through
 
 @deftypefun {const char *} po_message_msgid (po_message_t @var{message})
 The @code{po_message_msgid} function returns the @code{msgid} (untranslated
-English string) of a message.  This is guaranteed to be non-@code{NULL}.
+English string) of @var{message}.  This is guaranteed to be non-@code{NULL}.
 @end deftypefun
 
 @deftypefun {void} po_message_set_msgid (po_message_t @var{message},@
                    const char *@var{msgid})
 The @code{po_message_set_msgid} function changes the @code{msgid}
-(untranslated English string) of a message to the value provided through
+(untranslated English string) of @var{message} to the value provided through
 @var{msgid}, a non-@code{NULL} string.
 @end deftypefun
 
 @deftypefun {const char *} po_message_msgid_plural (po_message_t @var{message})
 The @code{po_message_msgid_plural} function returns the @code{msgid_plural}
-(untranslated English plural string) of a message with plurals, or @code{NULL}
-for a message without plural.
+(untranslated English plural string) of @var{message}, a message with plurals,
+or @code{NULL} for a message without plural.
 @end deftypefun
 
 @deftypefun {void} po_message_set_msgid_plural (po_message_t @var{message},@
@@ -5585,77 +5585,80 @@ the value provided through @var{msgid_plural}, or removes the plurals if
 
 @deftypefun {const char *} po_message_msgstr (po_message_t @var{message})
 The @code{po_message_msgstr} function returns the @code{msgstr} (translation)
-of a message.  For an untranslated message, the return value is an empty
+of @var{message}.  For an untranslated message, the return value is an empty
 string.
 @end deftypefun
 
 @deftypefun {void} po_message_set_msgstr (po_message_t @var{message},@
                    const char *@var{msgstr})
 The @code{po_message_set_msgstr} function changes the @code{msgstr}
-(translation) of a message to the value provided through @var{msgstr}, a
+(translation) of @var{message} to the value provided through @var{msgstr}, a
 non-@code{NULL} string.
 @end deftypefun
 
 @deftypefun {const char *} po_message_msgstr_plural (po_message_t @var{message}, int @var{index})
 The @code{po_message_msgstr_plural} function returns the
-@code{msgstr[@var{index}]} of a message with plurals, or @code{NULL} when
-the @var{index} is out of range or for a message without plural.
+@code{msgstr[@var{index}]} of @var{message}, a message with plurals, or
+@code{NULL} when the @var{index} is out of range or for a message without
+plural.
 @end deftypefun
 
 @deftypefun {void} po_message_set_msgstr_plural (po_message_t @var{message},@
                    int @var{index}, const char *@var{msgstr_plural})
 The @code{po_message_set_msgstr_plural} function changes the
-@code{msgstr[@var{index}]} of a message with plurals to the value
-provided through @var{msgstr_plural}.  @var{message} must be a message
-with plurals.  Use @code{NULL} as the value of @var{msgstr_plural} with
+@code{msgstr[@var{index}]} of @var{message}, a message with plurals, to
+the value provided through @var{msgstr_plural}. @var{message} must be a
+message with plurals.
+Use @code{NULL} as the value of @var{msgstr_plural} with
 @var{index} pointing to the last element to reduce the number of plural
 forms.
 @end deftypefun
 
 @deftypefun {const char *} po_message_comments (po_message_t @var{message})
-The @code{po_message_comments} function returns the comments of a message,
+The @code{po_message_comments} function returns the comments of @var{message},
 a multiline string, ending in a newline, or a non-@code{NULL} empty string.
 @end deftypefun
 
 @deftypefun {void} po_message_set_comments (po_message_t @var{message},@
                    const char *@var{comments})
-The @code{po_message_set_comments} function changes the comments of a
-message to the value @var{comments}, a multiline string, ending in a
+The @code{po_message_set_comments} function changes the comments of
+@var{message} to the value @var{comments}, a multiline string, ending in a
 newline, or a non-@code{NULL} empty string.
 @end deftypefun
 
 @deftypefun {const char *} po_message_extracted_comments (po_message_t @var{message})
-The @code{po_message_extracted_comments} function returns the extracted comments of a message,
-a multiline string, ending in a newline, or a non-@code{NULL} empty string.
+The @code{po_message_extracted_comments} function returns the extracted
+comments of @var{message}, a multiline string, ending in a newline, or a
+non-@code{NULL} empty string.
 @end deftypefun
 
 @deftypefun {void} po_message_set_extracted_comments (po_message_t @var{message},@
                    const char *@var{extracted_comments})
 The @code{po_message_set_extracted_comments} function changes the
-comments of a message to the value @var{extracted_comments}, a multiline
+comments of @var{message} to the value @var{extracted_comments}, a multiline
 string, ending in a newline, or a non-@code{NULL} empty string.
 @end deftypefun
 
 @deftypefun {int} po_message_is_obsolete (po_message_t @var{message})
-The @code{po_message_is_obsolete} function returns true when the message
+The @code{po_message_is_obsolete} function returns true when @var{message}
 is marked as obsolete.
 @end deftypefun
 
 @deftypefun {void} po_message_set_obsolete (po_message_t @var{message},@
                    int @var{obsolete})
 The @code{po_message_set_obsolete} function changes the obsolete mark of
-the message.
+@var{message}.
 @end deftypefun
 
 @deftypefun {int} po_message_is_fuzzy (po_message_t @var{message})
-The @code{po_message_is_fuzzy} function returns true when the message
+The @code{po_message_is_fuzzy} function returns true when @var{message}
 is marked as fuzzy.
 @end deftypefun
 
 @deftypefun {void} po_message_set_fuzzy (po_message_t @var{message},@
                    int @var{fuzzy})
 The @code{po_message_set_fuzzy} function changes the fuzzy mark of
-the message.
+@var{message}.
 @end deftypefun
 
 @deftypefun {int} po_message_is_format (po_message_t @var{message},@
