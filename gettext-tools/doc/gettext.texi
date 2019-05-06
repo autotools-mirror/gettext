@@ -5532,6 +5532,13 @@ This is a pointer type that refers to a message of a PO file, including its
 translation.
 @end deftp
 
+@deftypefun {po_message_t} po_message_create (void)
+Return a freshly constructed message.  To finish initializing the
+message, you must set the msgid and msgstr.  It @emph{must} be inserted
+into a file to manage its memory, as there is no @code{po_message_free}
+available to the user of the library.
+@end deftypefun
+
 The following functions returns details of a @code{po_message_t}.  Recall
 that the results are valid as long as the @var{file} handle is valid.
 
