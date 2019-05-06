@@ -5542,6 +5542,12 @@ available to the user of the library.
 The following functions returns details of a @code{po_message_t}.  Recall
 that the results are valid as long as the @var{file} handle is valid.
 
+@deftypefun {const char *} po_message_msgctxt (po_message_t @var{message})
+The @code{po_message_msgctxt} function returns the @code{msgctxt}, the
+context of the message.  Return @code{NULL} for a message not restricted
+to a context.
+@end deftypefun
+
 @deftypefun {const char *} po_message_msgid (po_message_t @var{message})
 The @code{po_message_msgid} function returns the @code{msgid} (untranslated
 English string) of a message.  This is guaranteed to be non-@code{NULL}.
@@ -5563,6 +5569,16 @@ string.
 The @code{po_message_msgstr_plural} function returns the
 @code{msgstr[@var{index}]} of a message with plurals, or @code{NULL} when
 the @var{index} is out of range or for a message without plural.
+@end deftypefun
+
+@deftypefun {const char *} po_message_comments (po_message_t @var{message})
+The @code{po_message_comments} function returns the comments of a message,
+a multiline string, ending in a newline, or a non-@code{NULL} empty string.
+@end deftypefun
+
+@deftypefun {const char *} po_message_extracted_comments (po_message_t @var{message})
+The @code{po_message_extracted_comments} function returns the extracted comments of a message,
+a multiline string, ending in a newline, or a non-@code{NULL} empty string.
 @end deftypefun
 
 @node Binaries
