@@ -88,7 +88,8 @@ main (int argc, char *argv[])
   }
 
   if (color_mode == color_yes
-      || (color_mode == color_tty && isatty (STDOUT_FILENO)))
+      || (color_mode == color_tty && isatty (STDOUT_FILENO))
+      || color_mode == color_html)
     {
       /* Find the style file.  */
       style_file_prepare ("FILTER_STYLE", "FILTER_STYLESDIR", STYLESDIR,
@@ -107,8 +108,11 @@ main (int argc, char *argv[])
 
   /* Create a terminal output stream that uses this style file.  */
   styled_ostream_t stream =
-    styled_ostream_create (STDOUT_FILENO, "(stdout)", TTYCTL_AUTO,
-                           style_file_name);
+    (color_mode == color_html
+     ? html_styled_ostream_create (file_ostream_create (stdout),
+                                   style_file_name)
+     : styled_ostream_create (STDOUT_FILENO, "(stdout)", TTYCTL_AUTO,
+                              style_file_name));
 
   /* Allocate initial storage for the loop.  */
   size_t buflen = 10;
