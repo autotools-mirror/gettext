@@ -5339,6 +5339,7 @@ defined in a library called @samp{libgettextpo}.
 * PO Header Entry API::         Meta information of the file
 * po_filepos_t API::            References to the sources
 * Format Type API::             Supported format types
+* Checking API::                Enforcing constraints
 @end menu
 
 The following example shows code how these functions can be used.  Error
@@ -5804,6 +5805,35 @@ Return a @code{NULL} terminated array of the supported format types.
 Return the pretty name associated with @var{format_type}.  For example,
 it returns ``C#'' when @var{format_type} is ``csharp_format''.
 Return @code{NULL} if @var{format_type} is not a supported format type.
+@end deftypefun
+
+@node Checking API
+@subsection Checking API
+
+@deftypefun {void} po_file_check_all (po_file_t @var{file},@
+                   po_xerror_handler_t @var{handler})
+Test whether the entire @var{file} is valid, like msgfmt does it.  If it
+is invalid, pass the reasons to @var{handler}.
+@end deftypefun
+
+@deftypefun {void} po_message_check_all (po_message_t @var{message},@
+                   po_message_iterator_t @var{iterator},@
+                   po_xerror_handler_t @var{handler})
+Test @var{message}, to be inserted at @var{iterator} in a PO file in memory,
+like msgfmt does it.  If it is invalid, pass the reasons to
+@var{handler}.  @var{iterator} is not modified by this call; it only
+specifies the file and the domain.
+@end deftypefun
+
+@deftypefun {void} po_message_check_format (po_message_t @var{message},@
+                   po_xerror_handler_t @var{handler})
+Test whether the message translation from @var{message} is a valid
+format string if the message is marked as being a format string.  If it
+is invalid, pass the reasons to @var{handler}.
+
+This function is exported as @samp{po_message_check_format_v2} at ABI
+level, but it defined as @code{po_message_check_format} in C code after
+the inclusion of @samp{<gettext-po.h>}.
 @end deftypefun
 
 @node Binaries
