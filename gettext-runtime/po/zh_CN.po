@@ -8,14 +8,14 @@
 # LI Daobing <lidaobing@gmail.com>, 2008.
 # Aron Xu <happyaron.xu@gmail.com>, 2010.
 # Ji ZhengYu <zhengyuji@gmail.com>, 2015.
-# Boyuan Yang <073plan@gmail.com>, 2017.
+# Boyuan Yang <073plan@gmail.com>, 2017, 2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.19.4.73\n"
+"Project-Id-Version: gettext-runtime 0.20-rc1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-04-13 11:21+0200\n"
-"PO-Revision-Date: 2017-11-15 18:21+0800\n"
+"POT-Creation-Date: 2019-05-08 19:24+0200\n"
+"PO-Revision-Date: 2019-04-14 13:29-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -24,7 +24,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 2.0.4\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: gnulib-lib/closeout.c:66
 msgid "write error"
@@ -35,34 +35,29 @@ msgid "Unknown system error"
 msgstr "未知的系统错误"
 
 #: gnulib-lib/getopt.c:278
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous\n"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
-msgstr "%s：选项“%s”是不明确的\n"
+msgstr "%s：选项“%s%s”有歧义\n"
 
 #: gnulib-lib/getopt.c:284
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous; possibilities:"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
-msgstr "%s：选项“%s”是不明确的；可能是:"
+msgstr "%s：选项“%s%s”有歧义；可能是："
 
 #: gnulib-lib/getopt.c:319
-#, fuzzy, c-format
-#| msgid "%s: unrecognized option '%c%s'\n"
+#, c-format
 msgid "%s: unrecognized option '%s%s'\n"
-msgstr "%s：无法识别的选项“%c%s”\n"
+msgstr "%s：无法识别的选项“%s%s”\n"
 
 #: gnulib-lib/getopt.c:345
-#, fuzzy, c-format
-#| msgid "%s: option '%c%s' doesn't allow an argument\n"
+#, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
-msgstr "%s：选项“%c%s”不允许有参数\n"
+msgstr "%s：选项“%s%s”不允许带参数\n"
 
 #: gnulib-lib/getopt.c:360
-#, fuzzy, c-format
-#| msgid "%s: option '--%s' requires an argument\n"
+#, c-format
 msgid "%s: option '%s%s' requires an argument\n"
-msgstr "%s：选项“%s”需要一个参数\n"
+msgstr "%s：选项“%s%s”需要参数\n"
 
 #: gnulib-lib/getopt.c:621
 #, c-format
@@ -80,12 +75,7 @@ msgid "memory exhausted"
 msgstr "内存耗尽"
 
 #: src/envsubst.c:112 src/gettext.c:137 src/ngettext.c:126
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "Copyright (C) %s Free Software Foundation, Inc.\n"
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
@@ -93,8 +83,8 @@ msgid ""
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "版权所有 (C) %s Free Software Foundation, Inc.\n"
-"授权协议 GPLv3+: GNU GPL 版本 3 或之后版本 <http://gnu.org/licenses/gpl.html>\n"
-"这是自由软件: 你有修改和再发布的自由。\n"
+"授权协议 GPLv3+: GNU GPL 版本 3 或之后版本 <https://gnu.org/licenses/gpl.html>\n"
+"这是自由软件: 您有修改和再发布的自由。\n"
 "本软件在法律允许的范围内不提供任何担保。\n"
 
 #: src/envsubst.c:118 src/gettext.c:143 src/ngettext.c:132
@@ -219,27 +209,27 @@ msgstr "显示某原文消息的本地语言翻译。\n"
 #: src/gettext.c:263
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-msgstr ""
+msgstr "  -d, --domain=文本域       从指定<文本域>获取已翻译消息\n"
 
 #: src/gettext.c:265 src/ngettext.c:230
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
-msgstr ""
+msgstr "  -c, --context=上下文      指定 MSGID 的上下文\n"
 
 #: src/gettext.c:267 src/ngettext.c:232
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
-msgstr ""
+msgstr "  -e                        启用对某些转义序列进行展开\n"
 
 #: src/gettext.c:269
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
-msgstr ""
+msgstr "  -n                        去除末尾的换行符\n"
 
 #: src/gettext.c:271 src/ngettext.c:234
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
-msgstr ""
+msgstr "  -E                        （为兼容性而忽略）\n"
 
 #: src/gettext.c:273
 #, c-format
@@ -247,16 +237,15 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
+"  [文本域] MSGID            从指定<文本域>获取对应于 MSGID 的已翻译消息\n"
 
 #: src/gettext.c:279 src/ngettext.c:245
-#, fuzzy, c-format
-#| msgid "  -h, --help                  display this help and exit\n"
+#, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                  显示此帮助并退出\n"
 
 #: src/gettext.c:281 src/ngettext.c:247
-#, fuzzy, c-format
-#| msgid "  -V, --version               output version information and exit\n"
+#, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version               输出版本信息并退出\n"
 
@@ -294,13 +283,13 @@ msgstr "显示某原文消息的本地语言翻译，而翻译的语法和数字
 #: src/ngettext.c:228
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
+msgstr "  -d, --domain=文本域       从指定<文本域>获取已翻译消息\n"
 
 #: src/ngettext.c:236
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
+msgstr "  [文本域]                  从指定<文本域>获取已翻译消息\n"
 
 #: src/ngettext.c:238
 #, c-format
@@ -308,12 +297,13 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
 "(plural)\n"
 msgstr ""
+"  MSGID MSGID-PLURAL        翻译 MSGID (单数形式) / MSGID-PLURAL (复数形式)\n"
 
 #: src/ngettext.c:240
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
-msgstr ""
+msgstr "  COUNT                     基于此值选择单复数形式\n"
 
 #: src/ngettext.c:251
 #, c-format, no-wrap
@@ -329,27 +319,21 @@ msgstr ""
 "消息一览表文件所在的位置。\n"
 "标准的搜索目录为：%s\n"
 
-#, c-format
 #~ msgid "%s: option '--%s' doesn't allow an argument\n"
 #~ msgstr "%s：选项“--%s”不允许有参数\n"
 
-#, c-format
 #~ msgid "%s: unrecognized option '--%s'\n"
 #~ msgstr "%s：无法识别的选项“--%s”\n"
 
-#, c-format
 #~ msgid "%s: option '-W %s' is ambiguous\n"
 #~ msgstr "%s：选项“-W %s”是不明确的\n"
 
-#, c-format
 #~ msgid "%s: option '-W %s' doesn't allow an argument\n"
 #~ msgstr "%s：选项“-W %s”不允许有参数\n"
 
-#, c-format
 #~ msgid "%s: option '-W %s' requires an argument\n"
 #~ msgstr "%s：选项“%s”需要一个参数\n"
 
-#, c-format, no-wrap
 #~ msgid ""
 #~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 #~ "  -e                        enable expansion of some escape sequences\n"
@@ -368,7 +352,6 @@ msgstr ""
 #~ "  -V, --version             显示版本信息并退出\n"
 #~ "  [文本域] MSGID            由<文本域>读取相应于 MSGID 的翻译消息\n"
 
-#, c-format, no-wrap
 #~ msgid ""
 #~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 #~ "  -e                        enable expansion of some escape sequences\n"
@@ -376,8 +359,10 @@ msgstr ""
 #~ "  -h, --help                display this help and exit\n"
 #~ "  -V, --version             display version information and exit\n"
 #~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
-#~ "  COUNT                     choose singular/plural form based on this value\n"
+#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
+#~ "(plural)\n"
+#~ "  COUNT                     choose singular/plural form based on this "
+#~ "value\n"
 #~ msgstr ""
 #~ "  -d, --domain=文本域       由<文本域>读取翻译后的消息。\n"
 #~ "  -e                        允许展开某些转义字符\n"

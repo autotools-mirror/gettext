@@ -1,15 +1,14 @@
 # Portuguese (Portugal) translation of 'gettext-examples' package.
 # Copyright (C) 2018 Yoyodyne, Inc. (msgids)
 # This file is distributed under the same license as the gettext package.
-# Helder Correia <helder.pereira.correia@gmail.com>, 2005.
-# Pedro Albuquerque <palbuquerque73@gmail.com>, 2018.
+# Pedro Albuquerque <palbuquerque73@gmail.com>, 2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.19.4.73\n"
+"Project-Id-Version: gettext-examples-0.20-rc1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-04-07 16:07+0200\n"
-"PO-Revision-Date: 2018-10-04 10:22+0100\n"
+"POT-Creation-Date: 2019-04-28 19:39+0200\n"
+"PO-Revision-Date: 2019-04-15 16:07+0200\n"
 "Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
 "Language: pt\n"

@@ -1,14 +1,14 @@
 # Bulgarian translations for gettext-runtime package.
 # Copyright (C) 2010 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
-# Roumen Petrov <transl@roumenpetrov.info>, 2010,2012,2014,2015.
+# Roumen Petrov <transl@roumenpetrov.info>, 2010,2012,2014,2015,2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.19.4.73\n"
+"Project-Id-Version: GNU gettext-runtime 0.20-rc1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-04-13 11:21+0200\n"
-"PO-Revision-Date: 2015-06-23 22:12+0300\n"
+"POT-Creation-Date: 2019-05-08 19:24+0200\n"
+"PO-Revision-Date: 2019-04-16 21:12+0300\n"
 "Last-Translator: Roumen Petrov <transl@roumenpetrov.info>\n"
 "Language-Team: Bulgarian <dict@ludost.net>\n"
 "Language: bg\n"
@@ -26,34 +26,29 @@ msgid "Unknown system error"
 msgstr "Неизвестна системна грешка"
 
 #: gnulib-lib/getopt.c:278
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous\n"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
-msgstr "%s: двусмислена опция '%s'\n"
+msgstr "%s: двусмислена опция '%s%s'\n"
 
 #: gnulib-lib/getopt.c:284
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous; possibilities:"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
-msgstr "%s: двусмислена опция '%s', възможности:"
+msgstr "%s: двусмислена опция '%s%s', възможности:"
 
 #: gnulib-lib/getopt.c:319
-#, fuzzy, c-format
-#| msgid "%s: unrecognized option '%c%s'\n"
+#, c-format
 msgid "%s: unrecognized option '%s%s'\n"
-msgstr "%s: непозната опция '%c%s'\n"
+msgstr "%s: непозната опция '%s%s'\n"
 
 #: gnulib-lib/getopt.c:345
-#, fuzzy, c-format
-#| msgid "%s: option '%c%s' doesn't allow an argument\n"
+#, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
-msgstr "%s: опцията '%c%s' е без аргумент\n"
+msgstr "%s: опцията '%s%s' е без аргумент\n"
 
 #: gnulib-lib/getopt.c:360
-#, fuzzy, c-format
-#| msgid "%s: option '--%s' requires an argument\n"
+#, c-format
 msgid "%s: option '%s%s' requires an argument\n"
-msgstr "%s: опцията '--%s' изисква аргумент\n"
+msgstr "%s: опцията '%s%s' изисква аргумент\n"
 
 #: gnulib-lib/getopt.c:621
 #, c-format
@@ -71,12 +66,7 @@ msgid "memory exhausted"
 msgstr "паметта е изчерпана"
 
 #: src/envsubst.c:112 src/gettext.c:137 src/ngettext.c:126
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "Copyright (C) %s Free Software Foundation, Inc.\n"
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
@@ -84,7 +74,7 @@ msgid ""
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"Лицензия GPLv3+: GNU GPL версия 3 или следваща <http://gnu.org/licenses/gpl.html>\n"
+"Лицензия GPLv3+: GNU GPL версия 3 или следваща <https://gnu.org/licenses/gpl.html>\n"
 "Това е свободен програмен продукт: свободни сте да го променяте и разпространя-\n"
 "вате.  Не се дават НИКАКВИ ГАРАНЦИИ до степента позволена от закона.\n"
 
@@ -215,27 +205,29 @@ msgstr "Извежда преведено текстово съобщение.\n
 #: src/gettext.c:263
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-msgstr ""
+msgstr "  -d, --domain=ОБЛАСТТЕКСТ  намиране на преведените съобщения от ОБЛАСТТЕКСТ\n"
 
 #: src/gettext.c:265 src/ngettext.c:230
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
-msgstr ""
+msgstr "  -c, --context=ОБКРЪЖЕНИЕ  задава обкръжение за КЛЮЧ\n"
 
 #: src/gettext.c:267 src/ngettext.c:232
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
+"  -e                        разрешава разгъване на някой \"заместващи "
+"последователности\"\n"
 
 #: src/gettext.c:269
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
-msgstr ""
+msgstr "  -n                        потискане на завършващ \"нов ред\"\n"
 
 #: src/gettext.c:271 src/ngettext.c:234
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
-msgstr ""
+msgstr "  -E                        (пренебрегва се; за съвместимост)\n"
 
 #: src/gettext.c:273
 #, c-format
@@ -243,19 +235,18 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
+"  [ОБЛАСТТЕКСТ] КЛЮЧ        намиране на преведените съобщения съответни\n"
+"                            на КЛЮЧ от ОБЛАСТТЕКСТ\n"
 
 #: src/gettext.c:279 src/ngettext.c:245
-#, fuzzy, c-format
-#| msgid "  -h, --help                  display this help and exit\n"
+#, c-format
 msgid "  -h, --help                display this help and exit\n"
-msgstr "  -h, --help                  извеждане на тази помощ и изход\n"
+msgstr "  -h, --help                извеждане на тази помощ и изход\n"
 
 #: src/gettext.c:281 src/ngettext.c:247
-#, fuzzy, c-format
-#| msgid "  -V, --version               output version information and exit\n"
+#, c-format
 msgid "  -V, --version             display version information and exit\n"
-msgstr ""
-"  -V, --version               извеждане на сведение за версия и изход\n"
+msgstr "  -V, --version             извеждане на сведение за версия и изход\n"
 
 #: src/gettext.c:285
 #, c-format, no-wrap
@@ -293,13 +284,15 @@ msgstr "Извежда превода на текстово съобщение, 
 #: src/ngettext.c:228
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
+msgstr "  -d, --domain=ОБЛАСТТЕКСТ  намиране на преведените съобщения от ОБЛАСТТЕКСТ\n"
 
 #: src/ngettext.c:236
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr ""
+"  [ОБЛАСТТЕКСТ]             намиране на преведените съобщения от "
+"ОБЛАСТТЕКСТ\n"
 
 #: src/ngettext.c:238
 #, c-format
@@ -307,12 +300,15 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
 "(plural)\n"
 msgstr ""
+"  КЛЮЧ КЛЮЧ-МН.Ч.           превежда КЛЮЧ (ед.ч.) / КЛЮЧ-МН.Ч (мн.ч.)\n"
 
 #: src/ngettext.c:240
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
+"  БРОЙ                      на базата на тази стойност избира формата за ед/"
+"мн.ч.\n"
 
 #: src/ngettext.c:251
 #, c-format, no-wrap
@@ -328,63 +324,3 @@ msgstr ""
 "обичайната директория, друго местоположение може да се зададе с променливата\n"
 "от обкръжението TEXTDOMAINDIR.\n"
 "Директория за търсене: %s\n"
-
-#, c-format
-#~ msgid "%s: option '--%s' doesn't allow an argument\n"
-#~ msgstr "%s: опцията '--%s' е без аргументи\n"
-
-#, c-format
-#~ msgid "%s: unrecognized option '--%s'\n"
-#~ msgstr "%s: непозната опция '--%s'\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' is ambiguous\n"
-#~ msgstr "%s: двусмислена опция '-W %s'\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' doesn't allow an argument\n"
-#~ msgstr "%s: опцията '-W %s' е без аргументи\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' requires an argument\n"
-#~ msgstr "%s: опцията '-W %s' изисква аргумент\n"
-
-#, c-format, no-wrap
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -n                        suppress trailing newline\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
-#~ "                            to MSGID from TEXTDOMAIN\n"
-#~ msgstr ""
-#~ "  -d, --domain=ОБЛАСТТЕКСТ  намиране на преведените съобщения от ОБЛАСТТЕКСТ\n"
-#~ "  -e                        разрешава разгъване на някой \"заместващи последователности\"\n"
-#~ "  -E                        (пренебрегва се, за съвместимост)\n"
-#~ "  -h, --help                извеждане на тази помощ и изход\n"
-#~ "  -n                        потискане на завършващ \"нов ред\"\n"
-#~ "  -V, --version             извеждане на сведение за версия и изход\n"
-#~ "  [ОБЛАСТТЕКСТ] КЛЮЧ        намиране на преведените съобщения съответни\n"
-#~ "                            на КЛЮЧ от ОБЛАСТТЕКСТ\n"
-
-#, c-format, no-wrap
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
-#~ "  COUNT                     choose singular/plural form based on this value\n"
-#~ msgstr ""
-#~ "  -d, --domain=ОБЛАСТТЕКСТ  намиране на преведените съобщения от ОБЛАСТТЕКСТ\n"
-#~ "  -e                        разрешава разгъване на някой \"заместващи последователности\"\n"
-#~ "  -E                        (пренебрегва се, за съвместимост)\n"
-#~ "  -h, --help                извеждане на тази помощ и изход\n"
-#~ "  -V, --version             извеждане на сведение за версия и изход\n"
-#~ "  [ОБЛАСТТЕКСТ]             намиране на преведените съобщения от ОБЛАСТТЕКСТ\n"
-#~ "  КЛЮЧ КЛЮЧ-МН.Ч.           превежда КЛЮЧ (ед.ч.) / КЛЮЧ-МН.Ч (мн.ч.)\n"
-#~ "  БРОЙ                      на базата на тази стойност избира формата за ед/мн.ч.\n"

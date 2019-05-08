@@ -1,15 +1,19 @@
 # Translation of gettext-examples to Croatian.
-# Copyright © 2012 Yoyodyne, Inc. (msgids)
+# Copyright (C) 2003, 2004, 2014, 2015, 2019 Yoyodyne, Inc. (msgids)
 # This file is distributed under the same license as the gettext package.
+# Permission is granted to freely copy and distribute
+# this file and modified versions, provided that this
+# header is not removed and modified versions are marked
+# as such.
 #
 # Tomislav Krznar <tomislav.krznar@gmail.com>, 2012.
-# Božidar Putanec <bozidarp@yahoo.com>, 2018.
+# Božidar Putanec <bozidarp@yahoo.com>, 2018, 2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.19.4.73\n"
+"Project-Id-Version: gettext-examples-0.20-rc1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-04-07 16:07+0200\n"
-"PO-Revision-Date: 2018-04-11 09:29-0800\n"
+"POT-Creation-Date: 2019-04-28 19:39+0200\n"
+"PO-Revision-Date: 2019-04-15 13:55-0700\n"
 "Last-Translator: Božidar Putanec <bozidarp@yahoo.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "Language: hr\n"
@@ -47,7 +51,7 @@ msgstr "Pozdrav, svijete!"
 #: hello-tcl-tk/hello.tcl:16 hello-perl/hello-1.pl.in:19 hello-php/hello.php:14
 #, php-format
 msgid "This program is running as process number %d."
-msgstr "Ovaj program je pokrenut kao proces broj %d."
+msgstr "Ovaj program se izvršava kao proces broj %d."
 
 #: hello-c-gnome3/hello.c:79
 #, c-format
@@ -56,15 +60,15 @@ msgid ""
 "This program is running as process number <b>%d</b>."
 msgstr ""
 "<big>Pozdrav, svijete!</big>\n"
-"Ovaj program je pokrenut kao proces broj <b>%d</b>."
+"Ovaj program se izvršava kao proces broj <b>%d</b>."
 
 #: hello-c-gnome3/hello.c:84
 msgid "<big><u>This is another text</u></big>"
-msgstr "<big><u>Ovo je jedan drugačiji tekst</u></big>"
+msgstr "<big><u>Ovo je drukčiji tekst</u></big>"
 
 #: hello-c-gnome3/hello.c:86
 msgid "<big><i>This is yet another text</i></big>"
-msgstr "<big><i>A ovo je još jedan drugačiji tekst</i></big>"
+msgstr "<big><i>A ovo je još drukčiji tekst</i></big>"
 
 #: hello-c-gnome3/hello.desktop.in.in:4
 msgid "Hello"
@@ -84,13 +88,13 @@ msgstr "Uporaba XML oznaka"
 
 #: hello-c-gnome3/hello.gschema.xml:9
 msgid "Whether to use XML markup in the text."
-msgstr "Da li upotrijebiti XML oznake u tekstu."
+msgstr "Koristiti li XML oznaku u tekstu."
 
 #: hello-c++-qt/hello.cc:52 hello-c++-kde/hellowindow.cc:49
 #: hello-smalltalk/hello.st.in:32 hello-ycp/hello.ycp:19
 #, ycp-format
 msgid "This program is running as process number %1."
-msgstr "Ovaj program je pokrenut kao proces broj %1."
+msgstr "Ovaj program se izvršava kao proces broj %1."
 
 #: hello-c++-kde/hello.cc:46
 msgid "Hello example"
@@ -103,26 +107,26 @@ msgstr "Primjer pozdrava svijetu"
 #: hello-sh/hello.sh:17
 #, sh-format
 msgid "This program is running as process number $pid."
-msgstr "Ovaj program je pokrenut kao proces broj $pid."
+msgstr "Ovaj program se izvršava kao proces broj $pid."
 
 #: hello-python/hello.py.in:13
 #, python-format
 msgid "This program is running as process number %(pid)d."
-msgstr "Ovaj program je pokrenut kao proces broj %(pid)d."
+msgstr "Ovaj program se izvršava kao proces broj %(pid)d."
 
 #: hello-clisp/hello.lisp.in:13 hello-guile/hello.scm:17
 #, scheme-format
 msgid "This program is running as process number ~D."
-msgstr "Ovaj program je pokrenut kao proces broj ~D."
+msgstr "Ovaj program se izvršava kao proces broj ~D."
 
 #: hello-java/Hello.java:18 hello-java-awt/Hello.java:28
 #: hello-java-swing/Hello.java:25 hello-java-qtjambi/Hello.java:34
 #: hello-csharp/hello.cs:17 hello-csharp-forms/hello.cs:36
 #, csharp-format
 msgid "This program is running as process number {0}."
-msgstr "Ovaj program je pokrenut kao proces broj {0}."
+msgstr "Ovaj program se izvršava kao proces broj {0}."
 
 #: hello-perl/hello-2.pl.in:14
 #, perl-brace-format
 msgid "This program is running as process number {pid}."
-msgstr "Ovaj program je pokrenut kao proces broj {pid}."
+msgstr "Ovaj program se izvršava kao proces broj {pid}."

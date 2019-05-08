@@ -3,11 +3,11 @@
 # This file is distributed under the same license as the gettext package.
 #
 # This translation are merged from Simplified Chinese, here is the contributor list:
+#
+# And the original translators:
 # Funda Wang <fundawang@linux.net.cn>, 2004.
 # Ji ZhengYu <zhengyuji@gmail.com>, 2015.
 # Boyuan Yang <073plan@gmail.com>, 2018.
-#
-# And the original translators:
 # Pofeng Lee <pofeng@linux.org.tw>, 2001-2002.
 # Yuan-Chung Cheng <platin@ms.ccafps.khc.edu.tw>, 1998.
 # Abel Cheung <abelcheung@gmail.com>, 2002, 2005.
@@ -15,19 +15,19 @@
 # pan93412 <pan93412@gmail.com>, 2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.19.8-rc1\n"
+"Project-Id-Version: gettext-tools 0.20-rc1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-04-13 11:21+0200\n"
-"PO-Revision-Date: 2019-01-29 17:14+0800\n"
+"POT-Creation-Date: 2019-05-08 19:25+0200\n"
+"PO-Revision-Date: 2019-04-14 19:56+0800\n"
 "Last-Translator: pan93412 <pan93412@gmail.com>\n"
-"Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
+"Language-Team: Chinese (traditional)<zh-l10n@linux.org.tw>\n"
 "Language: zh_TW\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Lokalize 18.12.1\n"
+"X-Generator: Lokalize 19.03.90\n"
 
 #: gnulib-lib/argmatch.c:134
 #, c-format
@@ -43,22 +43,22 @@ msgstr "%2$s 的參數 %1$s 不明確"
 msgid "Valid arguments are:"
 msgstr "有效的參數為："
 
-#: gnulib-lib/clean-temp.c:325
+#: gnulib-lib/clean-temp.c:322
 #, c-format
 msgid "cannot find a temporary directory, try setting $TMPDIR"
 msgstr "找不到暫存檔目錄，正嘗試設定 $TMPDIR"
 
-#: gnulib-lib/clean-temp.c:339
+#: gnulib-lib/clean-temp.c:336
 #, c-format
 msgid "cannot create a temporary directory using template \"%s\""
 msgstr "無法根據目錄名稱樣式 %s 建立暫存檔目錄"
 
-#: gnulib-lib/clean-temp.c:435
+#: gnulib-lib/clean-temp.c:432
 #, c-format
 msgid "cannot remove temporary file %s"
 msgstr "無法刪除暫存檔 %s"
 
-#: gnulib-lib/clean-temp.c:450
+#: gnulib-lib/clean-temp.c:447
 #, c-format
 msgid "cannot remove temporary directory %s"
 msgstr "無法刪除暫存目錄 %s"
@@ -98,8 +98,8 @@ msgstr "寫入 %s 時發生錯誤"
 msgid "error after reading %s"
 msgstr "完成讀取 %s 後發生錯誤"
 
-#: gnulib-lib/csharpcomp.c:202 gnulib-lib/javaversion.c:78 src/msginit.c:896
-#: src/msginit.c:971 src/msginit.c:1131 src/msginit.c:1230 src/msginit.c:1398
+#: gnulib-lib/csharpcomp.c:202 gnulib-lib/javaversion.c:78 src/msginit.c:947
+#: src/msginit.c:1030 src/msginit.c:1199 src/msginit.c:1305 src/msginit.c:1475
 #: src/read-csharp.c:72 src/read-java.c:71 src/read-resources.c:73
 #: src/read-tcl.c:111 src/write-resources.c:79
 #, c-format
@@ -107,16 +107,14 @@ msgid "fdopen() failed"
 msgstr "fdopen() 失敗"
 
 #: gnulib-lib/csharpcomp.c:443
-#, fuzzy, c-format
-#| msgid "C# compiler not found, try installing pnet"
+#, c-format
 msgid "C# compiler not found, try installing mono"
-msgstr "找不到 C# 編譯器，請安裝 pnet"
+msgstr "找不到 C# 編譯器，請安裝 mono"
 
 #: gnulib-lib/csharpexec.c:255
-#, fuzzy, c-format
-#| msgid "C# virtual machine not found, try installing pnet"
+#, c-format
 msgid "C# virtual machine not found, try installing mono"
-msgstr "找不到 C# 虛擬機，請安裝 pnet"
+msgstr "找不到 C# 虛擬機，請安裝 mono"
 
 #: gnulib-lib/error.c:195
 msgid "Unknown system error"
@@ -130,34 +128,29 @@ msgid "%s subprocess failed"
 msgstr "%s 子行程發生錯誤"
 
 #: gnulib-lib/getopt.c:278
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous\n"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
-msgstr "%s：選項「%s」不明確\n"
+msgstr "%s：選項「%s%s」不明確\n"
 
 #: gnulib-lib/getopt.c:284
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous; possibilities:"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
-msgstr "%s：選項「%s」不明確；可能選項包括："
+msgstr "%s：選項「%s%s」不明確；可能選項包括："
 
 #: gnulib-lib/getopt.c:319
-#, fuzzy, c-format
-#| msgid "%s: unrecognized option '%c%s'\n"
+#, c-format
 msgid "%s: unrecognized option '%s%s'\n"
-msgstr "%s：無法辨識「%c%s」選項\n"
+msgstr "%s：無法辨識「%s%s」選項\n"
 
 #: gnulib-lib/getopt.c:345
-#, fuzzy, c-format
-#| msgid "%s: option '%c%s' doesn't allow an argument\n"
+#, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
-msgstr "%s：選項「%c%s」不可配合參數使用\n"
+msgstr "%s：選項「%s%s」不允許參數\n"
 
 #: gnulib-lib/getopt.c:360
-#, fuzzy, c-format
-#| msgid "%s: option '--%s' requires an argument\n"
+#, c-format
 msgid "%s: option '%s%s' requires an argument\n"
-msgstr "%s：選項「--%s」需要參數\n"
+msgstr "%s：選項「%s%s」需要參數\n"
 
 #: gnulib-lib/getopt.c:621
 #, c-format
@@ -204,8 +197,8 @@ msgstr "找不到 Java 編譯器，請安裝 gcj 或是設定 $JAVAC 環境變�
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr "找不到 Java 虛擬機，請安裝 gij 或是設定 $JAVA 環境變數"
 
-#: gnulib-lib/javaversion.c:86 src/msginit.c:904 src/msginit.c:979
-#: src/msginit.c:1139 src/msginit.c:1406
+#: gnulib-lib/javaversion.c:86 src/msginit.c:955 src/msginit.c:1038
+#: src/msginit.c:1207 src/msginit.c:1483
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "%s 子行程 I/O 錯誤"
@@ -223,7 +216,7 @@ msgid "creation of threads failed"
 msgstr "建立行程失敗"
 
 #: gnulib-lib/pipe-filter-ii.c:345 gnulib-lib/pipe-filter-ii.c:502
-#: src/msgexec.c:425
+#: src/msgexec.c:426
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr "寫入至 %s 子行程時發生錯誤"
@@ -312,7 +305,7 @@ msgstr "%s 子行程取得嚴重錯誤訊號 %d"
 #: src/cldr-plurals.c:61
 #, c-format
 msgid "Could not parse file %s as XML"
-msgstr ""
+msgstr "無法將 %s 解析成 XML 檔案"
 
 #: src/cldr-plurals.c:69
 #, c-format
@@ -332,7 +325,7 @@ msgstr "元素 <%s> 未包含 <%s> 屬性"
 #: src/cldr-plurals.c:188 src/hostname.c:208 src/msgattrib.c:417
 #: src/msgcat.c:362 src/msgcmp.c:208 src/msgcomm.c:354 src/msgconv.c:303
 #: src/msgen.c:300 src/msgexec.c:258 src/msgfilter.c:409 src/msgfmt.c:902
-#: src/msggrep.c:512 src/msginit.c:362 src/msgmerge.c:536 src/msgunfmt.c:423
+#: src/msggrep.c:512 src/msginit.c:407 src/msgmerge.c:536 src/msgunfmt.c:423
 #: src/msguniq.c:322 src/recode-sr-latin.c:142 src/urlget.c:171
 #: src/xgettext.c:1019
 #, c-format
@@ -374,7 +367,7 @@ msgstr "  -c, --cldr                  使用 CLDR 格式顯示出複數規則\n"
 #: src/cldr-plurals.c:213 src/hostname.c:231 src/msgattrib.c:536
 #: src/msgcat.c:470 src/msgcmp.c:259 src/msgcomm.c:456 src/msgconv.c:387
 #: src/msgen.c:383 src/msgexec.c:307 src/msgfilter.c:509 src/msgfmt.c:1068
-#: src/msggrep.c:630 src/msginit.c:426 src/msgmerge.c:666 src/msgunfmt.c:529
+#: src/msggrep.c:630 src/msginit.c:471 src/msgmerge.c:666 src/msgunfmt.c:529
 #: src/msguniq.c:419 src/recode-sr-latin.c:163 src/urlget.c:187
 #: src/xgettext.c:1207
 #, c-format, no-wrap
@@ -384,7 +377,7 @@ msgstr "  -h, --help                  顯示本訊息，然後結束\n"
 #: src/cldr-plurals.c:215 src/hostname.c:233 src/msgattrib.c:538
 #: src/msgcat.c:472 src/msgcmp.c:261 src/msgcomm.c:458 src/msgconv.c:389
 #: src/msgen.c:385 src/msgexec.c:309 src/msgfilter.c:511 src/msgfmt.c:1070
-#: src/msggrep.c:632 src/msginit.c:428 src/msgmerge.c:668 src/msgunfmt.c:531
+#: src/msggrep.c:632 src/msginit.c:473 src/msgmerge.c:668 src/msgunfmt.c:531
 #: src/msguniq.c:421 src/recode-sr-latin.c:166 src/urlget.c:189
 #: src/xgettext.c:1209
 #, c-format, no-wrap
@@ -398,7 +391,7 @@ msgstr "  -V, --version               顯示版本資訊，然後結束\n"
 #: src/cldr-plurals.c:222 src/hostname.c:240 src/msgattrib.c:545
 #: src/msgcat.c:479 src/msgcmp.c:268 src/msgcomm.c:465 src/msgconv.c:396
 #: src/msgen.c:392 src/msgexec.c:316 src/msgfilter.c:518 src/msgfmt.c:1081
-#: src/msggrep.c:639 src/msginit.c:435 src/msgmerge.c:679 src/msgunfmt.c:540
+#: src/msggrep.c:639 src/msginit.c:480 src/msgmerge.c:679 src/msgunfmt.c:540
 #: src/msguniq.c:428 src/recode-sr-latin.c:173 src/urlget.c:198
 #: src/xgettext.c:1216
 msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
@@ -407,15 +400,10 @@ msgstr "請向 <bug-gnu-gettext@gnu.org> 匯報錯誤。\n"
 #: src/cldr-plurals.c:287 src/hostname.c:179 src/msgattrib.c:355
 #: src/msgcat.c:293 src/msgcmp.c:171 src/msgcomm.c:284 src/msgconv.c:244
 #: src/msgen.c:241 src/msgexec.c:185 src/msgfilter.c:288 src/msgfmt.c:444
-#: src/msggrep.c:419 src/msginit.c:268 src/msgmerge.c:372 src/msgunfmt.c:262
+#: src/msggrep.c:419 src/msginit.c:271 src/msgmerge.c:372 src/msgunfmt.c:262
 #: src/msguniq.c:264 src/recode-sr-latin.c:109 src/urlget.c:142
 #: src/xgettext.c:667
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "Copyright (C) %s Free Software Foundation, Inc.\n"
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
@@ -426,12 +414,11 @@ msgstr ""
 "GPLv3+ 授權：GNU GPL 第三版或更新版本 <https://gnu.org/licenses/gpl.html>。\n"
 "此為自由軟體：您能修改與重散布它。\n"
 "在法律允許的範圍內沒有任何擔保。\n"
-"\n"
 
 #: src/cldr-plurals.c:293 src/hostname.c:185 src/msgattrib.c:361
 #: src/msgcat.c:299 src/msgcmp.c:177 src/msgcomm.c:290 src/msgconv.c:250
 #: src/msgen.c:247 src/msgexec.c:191 src/msgfilter.c:294 src/msgfmt.c:450
-#: src/msggrep.c:425 src/msginit.c:274 src/msgmerge.c:378 src/msgunfmt.c:268
+#: src/msggrep.c:425 src/msginit.c:277 src/msgmerge.c:378 src/msgunfmt.c:268
 #: src/msguniq.c:270 src/urlget.c:148 src/xgettext.c:673
 #, c-format
 msgid "Written by %s.\n"
@@ -941,17 +928,17 @@ msgstr "第 %u 條指令最後一個字元不是 1 至 9 之間的整數。"
 #. This is a proper name. See the gettext manual, section Names.
 #: src/hostname.c:185 src/msgattrib.c:361 src/msgcat.c:299 src/msgconv.c:250
 #: src/msgen.c:247 src/msgexec.c:191 src/msgfilter.c:294 src/msggrep.c:425
-#: src/msginit.c:274 src/msguniq.c:270 src/recode-sr-latin.c:120
+#: src/msginit.c:277 src/msguniq.c:270 src/recode-sr-latin.c:120
 #: src/urlget.c:148
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/hostname.c:195 src/msginit.c:284 src/recode-sr-latin.c:129
+#: src/hostname.c:195 src/msginit.c:287 src/recode-sr-latin.c:129
 #, c-format
 msgid "too many arguments"
 msgstr "參數過多"
 
-#: src/hostname.c:212 src/msginit.c:366 src/recode-sr-latin.c:147
+#: src/hostname.c:212 src/msginit.c:411 src/recode-sr-latin.c:147
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "用法：%s [選項]\n"
@@ -988,7 +975,7 @@ msgstr "  -i, --ip-address            主機的 IP 地址\n"
 
 #: src/hostname.c:229 src/msgattrib.c:534 src/msgcat.c:468 src/msgcmp.c:257
 #: src/msgcomm.c:454 src/msgconv.c:385 src/msgen.c:381 src/msgexec.c:305
-#: src/msgfilter.c:507 src/msgfmt.c:1066 src/msggrep.c:628 src/msginit.c:424
+#: src/msgfilter.c:507 src/msgfmt.c:1066 src/msggrep.c:628 src/msginit.c:469
 #: src/msgmerge.c:664 src/msgunfmt.c:527 src/msguniq.c:417
 #: src/recode-sr-latin.c:160 src/urlget.c:185 src/xgettext.c:1205
 #, c-format, no-wrap
@@ -1057,7 +1044,7 @@ msgid "the root element is not \"locatingRules\""
 msgstr "根元素不是「locatingRules」"
 
 #: src/msgattrib.c:376 src/msgconv.c:265 src/msgexec.c:153 src/msgfilter.c:196
-#: src/msggrep.c:440 src/msginit.c:197 src/msguniq.c:285
+#: src/msggrep.c:440 src/msginit.c:200 src/msguniq.c:285
 #, c-format
 msgid "at most one input file allowed"
 msgstr "最多只接受一個輸入檔"
@@ -1086,7 +1073,7 @@ msgstr "根據訊息的屬性過濾翻譯檔裡的條目，並處理這些屬性
 
 #: src/msgattrib.c:430 src/msgcat.c:383 src/msgcmp.c:226 src/msgcomm.c:374
 #: src/msgconv.c:315 src/msgen.c:316 src/msgexec.c:286 src/msgfilter.c:421
-#: src/msggrep.c:526 src/msginit.c:376 src/msgmerge.c:557 src/msgunfmt.c:435
+#: src/msggrep.c:526 src/msginit.c:421 src/msgmerge.c:557 src/msgunfmt.c:435
 #: src/msguniq.c:342
 #, c-format
 msgid ""
@@ -1095,7 +1082,7 @@ msgstr "長選項必須用的參數也必須在短選項使用。\n"
 
 #: src/msgattrib.c:433 src/msgcat.c:386 src/msgcmp.c:229 src/msgcomm.c:377
 #: src/msgconv.c:318 src/msgen.c:319 src/msgexec.c:289 src/msgfilter.c:424
-#: src/msgfmt.c:920 src/msggrep.c:529 src/msginit.c:379 src/msgmerge.c:560
+#: src/msgfmt.c:920 src/msggrep.c:529 src/msginit.c:424 src/msgmerge.c:560
 #: src/msgunfmt.c:449 src/msguniq.c:345 src/xgettext.c:1037
 #, c-format
 msgid "Input file location:\n"
@@ -1123,7 +1110,7 @@ msgstr "如果沒有指定輸入檔或輸入檔是「-」，則由標準輸入�
 
 #: src/msgattrib.c:442 src/msgcat.c:397 src/msgcomm.c:388 src/msgconv.c:327
 #: src/msgen.c:328 src/msgfilter.c:433 src/msgfmt.c:948 src/msggrep.c:538
-#: src/msginit.c:387 src/msgmerge.c:578 src/msgunfmt.c:489 src/msguniq.c:354
+#: src/msginit.c:432 src/msgmerge.c:578 src/msgunfmt.c:489 src/msguniq.c:354
 #: src/xgettext.c:1048
 #, c-format
 msgid "Output file location:\n"
@@ -1255,21 +1242,21 @@ msgstr "      --obsolete              等於 --only-obsolete --clear-obsolete\n"
 
 #: src/msgattrib.c:491 src/msgcat.c:417 src/msgcmp.c:249 src/msgcomm.c:408
 #: src/msgconv.c:342 src/msgen.c:336 src/msgexec.c:298 src/msgfilter.c:462
-#: src/msgfmt.c:1028 src/msggrep.c:585 src/msginit.c:395 src/msgmerge.c:618
+#: src/msgfmt.c:1028 src/msggrep.c:585 src/msginit.c:440 src/msgmerge.c:618
 #: src/msguniq.c:369
 #, c-format
 msgid "Input file syntax:\n"
 msgstr "輸入檔語法：\n"
 
 #: src/msgattrib.c:493 src/msgconv.c:344 src/msgen.c:338 src/msgexec.c:300
-#: src/msgfilter.c:464 src/msggrep.c:587 src/msginit.c:397 src/msguniq.c:371
+#: src/msgfilter.c:464 src/msggrep.c:587 src/msginit.c:442 src/msguniq.c:371
 #, c-format
 msgid ""
 "  -P, --properties-input      input file is in Java .properties syntax\n"
 msgstr "  -P, --properties-input      以 Java .properties 格式處理輸入檔\n"
 
 #: src/msgattrib.c:495 src/msgconv.c:346 src/msgen.c:340 src/msgexec.c:302
-#: src/msgfilter.c:466 src/msggrep.c:589 src/msginit.c:399 src/msguniq.c:373
+#: src/msgfilter.c:466 src/msggrep.c:589 src/msginit.c:444 src/msguniq.c:373
 #, c-format
 msgid ""
 "      --stringtable-input     input file is in NeXTstep/GNUstep .strings "
@@ -1279,14 +1266,14 @@ msgstr ""
 
 #: src/msgattrib.c:498 src/msgcat.c:425 src/msgcomm.c:416 src/msgconv.c:349
 #: src/msgen.c:343 src/msgfilter.c:469 src/msgfmt.c:1056 src/msggrep.c:592
-#: src/msginit.c:402 src/msgmerge.c:626 src/msgunfmt.c:497 src/msguniq.c:376
+#: src/msginit.c:447 src/msgmerge.c:626 src/msgunfmt.c:497 src/msguniq.c:376
 #: src/xgettext.c:1149
 #, c-format
 msgid "Output details:\n"
 msgstr "輸出內容細節：\n"
 
 #: src/msgattrib.c:500 src/msgcat.c:434 src/msgcomm.c:418 src/msgconv.c:351
-#: src/msgen.c:347 src/msgfilter.c:471 src/msggrep.c:594 src/msginit.c:408
+#: src/msgen.c:347 src/msgfilter.c:471 src/msggrep.c:594 src/msginit.c:453
 #: src/msgmerge.c:630 src/msgunfmt.c:499 src/msguniq.c:383 src/xgettext.c:1151
 #, c-format
 msgid ""
@@ -1301,7 +1288,7 @@ msgstr ""
 "『html』。\n"
 
 #: src/msgattrib.c:504 src/msgcat.c:438 src/msgcomm.c:422 src/msgconv.c:355
-#: src/msgen.c:351 src/msgfilter.c:475 src/msggrep.c:598 src/msginit.c:412
+#: src/msgen.c:351 src/msgfilter.c:475 src/msggrep.c:598 src/msginit.c:457
 #: src/msgmerge.c:634 src/msgunfmt.c:503 src/msguniq.c:387 src/xgettext.c:1155
 #, c-format
 msgid "      --style=STYLEFILE       specify CSS style rule file for --color\n"
@@ -1364,14 +1351,14 @@ msgstr ""
 "      --strict                產生的 .po 檔內容跟隨嚴格的 Uniforum 格式\n"
 
 #: src/msgattrib.c:520 src/msgcat.c:454 src/msgcomm.c:438 src/msgconv.c:371
-#: src/msgen.c:367 src/msgfilter.c:493 src/msggrep.c:614 src/msginit.c:414
+#: src/msgen.c:367 src/msgfilter.c:493 src/msggrep.c:614 src/msginit.c:459
 #: src/msgmerge.c:650 src/msgunfmt.c:515 src/msguniq.c:403
 #, c-format
 msgid "  -p, --properties-output     write out a Java .properties file\n"
 msgstr "  -p, --properties-output     產生 Java .properties 檔案\n"
 
 #: src/msgattrib.c:522 src/msgcat.c:456 src/msgcomm.c:440 src/msgconv.c:373
-#: src/msgen.c:369 src/msgfilter.c:495 src/msggrep.c:616 src/msginit.c:416
+#: src/msgen.c:369 src/msgfilter.c:495 src/msggrep.c:616 src/msginit.c:461
 #: src/msgmerge.c:652 src/msgunfmt.c:517 src/msguniq.c:405 src/xgettext.c:1173
 #, c-format
 msgid ""
@@ -1379,14 +1366,14 @@ msgid ""
 msgstr "      --stringtable-output    產生 NeXTstep/GNUstep .strings 檔案\n"
 
 #: src/msgattrib.c:524 src/msgcat.c:458 src/msgcomm.c:442 src/msgconv.c:375
-#: src/msgen.c:371 src/msgfilter.c:497 src/msggrep.c:618 src/msginit.c:418
+#: src/msgen.c:371 src/msgfilter.c:497 src/msggrep.c:618 src/msginit.c:463
 #: src/msgmerge.c:654 src/msgunfmt.c:519 src/msguniq.c:407 src/xgettext.c:1177
 #, c-format
 msgid "  -w, --width=NUMBER          set output page width\n"
 msgstr "  -w, --width=NUMBER          指定輸出檔每行寬度\n"
 
 #: src/msgattrib.c:526 src/msgcat.c:460 src/msgcomm.c:444 src/msgconv.c:377
-#: src/msgen.c:373 src/msgfilter.c:499 src/msggrep.c:620 src/msginit.c:420
+#: src/msgen.c:373 src/msgfilter.c:499 src/msggrep.c:620 src/msginit.c:465
 #: src/msgmerge.c:656 src/msgunfmt.c:521 src/msguniq.c:409 src/xgettext.c:1179
 #, c-format
 msgid ""
@@ -1790,7 +1777,7 @@ msgstr "  --newline                   在輸入末尾新增換行字元\n"
 msgid "  -i, --input=INPUTFILE       input PO file\n"
 msgstr "  -i, --input=INPUTFILE       作為輸入的 PO 檔\n"
 
-#: src/msgexec.c:355
+#: src/msgexec.c:356
 #, c-format
 msgid "write to stdout failed"
 msgstr "寫入至標準輸出時發生錯誤"
@@ -2449,22 +2436,19 @@ msgstr "      --sort-output           排序訊息\n"
 msgid "      --sort-by-file          sort output by file location\n"
 msgstr "      --sort-by-file          根據檔案位置排序\n"
 
-#: src/msginit.c:299
-#, fuzzy, c-format
-#| msgid ""
-#| "You are in a language indifferent environment.  Please set\n"
-#| "your LANG environment variable, as described in the ABOUT-NLS\n"
-#| "file.  This is necessary so you can test your translations.\n"
+#: src/msginit.c:302
+#, c-format
 msgid ""
 "You are in a language indifferent environment.  Please set\n"
 "your LANG environment variable, as described in\n"
 "<%s>.\n"
 "This is necessary so you can test your translations.\n"
 msgstr ""
-"系統環境沒有任何和語言有關的設定。請根據 ABOUT-NLS 檔案所述\n"
-"設定 LANG 環境變數。這是測試翻譯的必要步驟。\n"
+"系統環境沒有任何和語言有關的設定。請根據以下檔案所述\n"
+"來設定 LANG 環境變數。這是測試翻譯的必要步驟：\n"
+"<%s>\n"
 
-#: src/msginit.c:325
+#: src/msginit.c:328
 #, c-format
 msgid ""
 "Output file %s already exists.\n"
@@ -2475,24 +2459,24 @@ msgstr ""
 "請透過 --locale 選項指定語系或透過\n"
 "--output-file 選項指定輸出的 .po 檔。\n"
 
-#: src/msginit.c:351
+#: src/msginit.c:396
 #, c-format
 msgid "Created %s.\n"
 msgstr "已建立 %s。\n"
 
-#: src/msginit.c:371
+#: src/msginit.c:416
 #, c-format, no-wrap
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
 "user's environment.\n"
 msgstr "建立新的 PO 檔，並由使用者環境取得初始化所需的標頭資料。\n"
 
-#: src/msginit.c:381
+#: src/msginit.c:426
 #, c-format
 msgid "  -i, --input=INPUTFILE       input POT file\n"
 msgstr "  -i, --input=輸入檔           輸入的 POT 檔\n"
 
-#: src/msginit.c:383
+#: src/msginit.c:428
 #, c-format
 msgid ""
 "If no input file is given, the current directory is searched for the POT "
@@ -2502,12 +2486,12 @@ msgstr ""
 "如果沒有指定輸入檔，會在目前的目錄搜尋 POT 檔。\n"
 "如果輸入檔是 -，則讀取標準輸入的內容。\n"
 
-#: src/msginit.c:389
+#: src/msginit.c:434
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified PO file\n"
 msgstr "  -o, --output-file=FILE      將輸出的內容寫入指定的 PO 檔\n"
 
-#: src/msginit.c:391
+#: src/msginit.c:436
 #, c-format
 msgid ""
 "If no output file is given, it depends on the --locale option or the user's\n"
@@ -2516,19 +2500,18 @@ msgstr ""
 "如果沒有指定輸出檔，檔名將會取決於 --locale 選項或使用者的語系。\n"
 "如果輸出檔是 -，則會將結果寫至標準輸出。\n"
 
-#: src/msginit.c:404
-#, fuzzy, c-format
-#| msgid "  -l, --locale=LL_CC          set target locale\n"
+#: src/msginit.c:449
+#, c-format
 msgid "  -l, --locale=LL_CC[.ENCODING]  set target locale\n"
-msgstr "  -l, --locale=LL_CC          指定目標檔案語系\n"
+msgstr "  -l, --locale=LL_CC[.編碼方式]    指定目標檔案語系\n"
 
-#: src/msginit.c:406
+#: src/msginit.c:451
 #, c-format
 msgid ""
 "      --no-translator         assume the PO file is automatically generated\n"
 msgstr "      --no-translator         假設 PO 檔是自動產生的\n"
 
-#: src/msginit.c:472
+#: src/msginit.c:517
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2536,12 +2519,12 @@ msgstr ""
 "找到多於一個的 .pot 檔。\n"
 "請透過 --input 選項指定要當作輸入檔的 .pot 檔。\n"
 
-#: src/msginit.c:480 src/msginit.c:485
+#: src/msginit.c:525 src/msginit.c:530
 #, c-format
 msgid "error reading current directory"
 msgstr "讀取目前目錄時發生錯誤"
 
-#: src/msginit.c:493
+#: src/msginit.c:538
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2549,14 +2532,14 @@ msgstr ""
 "在目前目錄中找不到任何 .pot 檔。\n"
 "請透過 --input 選項指定要作為輸入檔的 .pot 檔。\n"
 
-#: src/msginit.c:917 src/msginit.c:992 src/msginit.c:1152 src/msginit.c:1247
-#: src/msginit.c:1426 src/read-csharp.c:83 src/read-java.c:82
+#: src/msginit.c:968 src/msginit.c:1051 src/msginit.c:1220 src/msginit.c:1322
+#: src/msginit.c:1503 src/read-csharp.c:83 src/read-java.c:82
 #: src/read-resources.c:84 src/read-tcl.c:128 src/write-resources.c:106
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "%s 子行程失敗，錯誤碼為 %d"
 
-#: src/msginit.c:1117
+#: src/msginit.c:1185
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -2570,7 +2553,7 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1621
+#: src/msginit.c:1698
 #, c-format
 msgid "English translations for %s package"
 msgstr "%s 套件的正體中文翻譯"
@@ -2604,7 +2587,7 @@ msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "目標的字元集編碼「%s」不是通用的編碼名稱。"
 
 #: src/msgl-cat.c:443 src/msgl-cat.c:449 src/msgl-charset.c:91
-#: src/msgl-charset.c:126 src/po-xerror.c:122 src/po-xerror.c:147
+#: src/msgl-charset.c:126 src/po-xerror.c:127 src/po-xerror.c:152
 #: src/xgettext.c:566 src/xgettext.c:1871
 #, c-format
 msgid "warning: "
@@ -2982,11 +2965,10 @@ msgstr ""
 "除非設定 --suffix 或 SIMPLE_BACKUP_SUFFIX 環境變數，否則備份後置詞總為「~」\n"
 
 #: src/msgmerge.c:610
-#, fuzzy, c-format
-#| msgid "      --boost                 recognize Boost format strings\n"
+#, c-format
 msgid ""
 "      --for-msgfmt            produce output for '%s', not for a translator\n"
-msgstr "      --boost                 識別 Boost 格式字串\n"
+msgstr "      --for-msgfmt            產生對「%s」而非翻譯者的輸出\n"
 
 #: src/msgmerge.c:615
 #, c-format
@@ -3019,8 +3001,8 @@ msgstr ""
 "讀入 %ld 舊翻譯 + %ld 參考條目。合併：%ld，模糊：%ld，缺少：%ld，過時："
 "%ld。\n"
 
-#: src/msgmerge.c:2118 src/urlget.c:294 src/urlget.c:341 src/urlget.c:383
-#: src/urlget.c:425
+#: src/msgmerge.c:2118 src/urlget.c:298 src/urlget.c:345 src/urlget.c:387
+#: src/urlget.c:429
 #, c-format
 msgid " done.\n"
 msgstr " 完成。\n"
@@ -3163,7 +3145,7 @@ msgstr ""
 msgid "<stdin>"
 msgstr "<標準輸入>"
 
-#: src/po-charset.c:489
+#: src/po-charset.c:491
 #, c-format
 msgid ""
 "Charset \"%s\" is not a portable encoding name.\n"
@@ -3172,7 +3154,7 @@ msgstr ""
 "字元集「%s」不是通用的編碼名稱。\n"
 "轉換訊息至使用者字元集的功能將不會運作。\n"
 
-#: src/po-charset.c:557
+#: src/po-charset.c:566
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv(),\n"
@@ -3181,21 +3163,21 @@ msgstr ""
 "不支援字元集「%s」。%s 需要 iconv()，\n"
 "但 iconv() 不支援「%s」。\n"
 
-#: src/po-charset.c:564 src/po-charset.c:612
+#: src/po-charset.c:572 src/po-charset.c:627
 msgid ""
 "Installing GNU libiconv and then reinstalling GNU gettext\n"
 "would fix this problem.\n"
 msgstr "先安裝 GNU libiconv，然後再安裝 GNU gettext，就應該能修正此問題。\n"
 
-#: src/po-charset.c:578 src/po-charset.c:616
+#: src/po-charset.c:586 src/po-charset.c:631
 msgid "Continuing anyway, expect parse errors."
 msgstr "仍會繼續執行，但預期會出現解析發生錯誤。"
 
-#: src/po-charset.c:580
+#: src/po-charset.c:588
 msgid "Continuing anyway."
 msgstr "仍會繼續執行。"
 
-#: src/po-charset.c:607
+#: src/po-charset.c:622
 #, c-format
 msgid ""
 "Charset \"%s\" is not supported. %s relies on iconv().\n"
@@ -3204,7 +3186,7 @@ msgstr ""
 "不支援字元集「%s」。%s 需要 iconv()，\n"
 "但編譯此程式時未編譯 iconv() 支援。\n"
 
-#: src/po-charset.c:644
+#: src/po-charset.c:659
 msgid ""
 "Charset missing in header.\n"
 "Message conversion to user's charset will not work.\n"
@@ -3332,10 +3314,9 @@ msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "檔案 %s 包含不以 NUL 結尾的字串"
 
 #: src/read-mo.c:177
-#, fuzzy, c-format
-#| msgid "file \"%s\" contains a not NUL terminated string"
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated system dependent string"
-msgstr "檔案 %s 包含不以 NUL 結尾的字串"
+msgstr "檔案 %s 包含不以 NUL 結尾的系統依賴字串"
 
 #: src/read-mo.c:183 src/read-mo.c:291
 #, c-format
@@ -3352,10 +3333,9 @@ msgid "warning: invalid \\uxxxx syntax for Unicode character"
 msgstr "警告：Unicode 字元 \\uxxxx 語法無效"
 
 #: src/read-properties.c:429
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: lone surrogate U+%04X"
+#, c-format
 msgid "warning: lone surrogate U+%04X"
-msgstr "%s:%d: 警告：發現到未結束字元 (lone surrogate) U+%04X"
+msgstr "警告：發現到未結束字元 (lone surrogate) U+%04X"
 
 #: src/read-properties.c:499 src/read-properties.c:534
 msgid "warning: invalid Unicode character"
@@ -3449,17 +3429,17 @@ msgstr "寫入標準輸出時發生錯誤"
 msgid "error after reading \"%s\""
 msgstr "讀取「%s」完成後發生錯誤"
 
-#: src/urlget.c:263
+#: src/urlget.c:267
 #, c-format
 msgid "Retrieving %s..."
 msgstr "正在取回 %s…"
 
-#: src/urlget.c:296
+#: src/urlget.c:300
 #, c-format
 msgid " timed out.\n"
 msgstr " 逾時。\n"
 
-#: src/urlget.c:433
+#: src/urlget.c:437
 #, c-format
 msgid " failed.\n"
 msgstr " 失敗。\n"
@@ -3657,24 +3637,21 @@ msgid "%s:%d: warning: invalid Unicode character"
 msgstr "%s:%d: 警告：Unicode 字元無效"
 
 #: src/x-c.c:1344
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string literal"
+#, c-format
 msgid ""
 "%s:%d: warning: a double-quote in the delimiter of a raw string literal is "
 "unsupported"
-msgstr "%s:%d: 警告：字串未結束"
+msgstr "%s:%d: 警告：原始字串不支援分隔符號有雙引號"
 
 #: src/x-c.c:1432
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string literal"
+#, c-format
 msgid "%s:%d: warning: unterminated raw string literal"
-msgstr "%s:%d: 警告：字串未結束"
+msgstr "%s:%d: 警告：原始字串未結束"
 
 #: src/x-c.c:1442
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string literal"
+#, c-format
 msgid "%s:%d: warning: invalid raw string literal syntax"
-msgstr "%s:%d: 警告：字串未結束"
+msgstr "%s:%d: 警告：無效的原始字串語法"
 
 #: src/x-c.c:1617 src/x-csharp.c:1448 src/x-java.c:665 src/x-vala.c:808
 #, c-format
@@ -3826,18 +3803,7 @@ msgid "Choice of input file language:\n"
 msgstr "輸入檔的語言選擇：\n"
 
 #: src/xgettext.c:1061
-#, fuzzy, c-format
-#| msgid ""
-#| "  -L, --language=NAME         recognise the specified language\n"
-#| "                                (C, C++, ObjectiveC, PO, Shell, Python, "
-#| "Lisp,\n"
-#| "                                EmacsLisp, librep, Scheme, Smalltalk, "
-#| "Java,\n"
-#| "                                JavaProperties, C#, awk, YCP, Tcl, Perl, "
-#| "PHP,\n"
-#| "                                GCC-source, NXStringTable, RST, Glade, "
-#| "Lua,\n"
-#| "                                JavaScript, Vala, Desktop)\n"
+#, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
@@ -3848,14 +3814,14 @@ msgid ""
 "                                GCC-source, NXStringTable, RST, RSJ, Glade,\n"
 "                                Lua, JavaScript, Vala, Desktop)\n"
 msgstr ""
-"  -L, --language=NAME         識別指定的語言\n"
+"  -L, --language=名稱          識別指定的語言\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
 "Lisp,\n"
 "                                EmacsLisp, librep, Scheme, Smalltalk, Java,\n"
 "                                JavaProperties, C#, awk, YCP, Tcl, Perl, "
 "PHP,\n"
-"                                GCC-source, NXStringTable, RST, Glade, Lua,\n"
-"                                JavaScript, Vala, Desktop)\n"
+"                                GCC-source, NXStringTable, RST, RSJ, Glade,\n"
+"                                Lua, JavaScript, Vala, Desktop)\n"
 
 #: src/xgettext.c:1068
 #, c-format
@@ -4231,25 +4197,15 @@ msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: 8 位字元「%c」的轉換 (「\\U」) 無效"
 
 #: src/x-python.c:279
-#, fuzzy
-#| msgid ""
-#| "Please specify the source encoding through --from-code or through a "
-#| "comment\n"
-#| "as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgid ""
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in https://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 "請透過 --from-code 或是註解指定來源檔案的編碼，\n"
-"如 http://www.python.org/peps/pep-0263.html 中所規範的那樣。\n"
+"如 https://www.python.org/peps/pep-0263.html 中所規範的那樣。\n"
 
 #: src/x-python.c:325
-#, fuzzy, c-format
-#| msgid ""
-#| "%s:%d: Invalid multibyte sequence.\n"
-#| "Please specify the correct source encoding through --from-code or through "
-#| "a\n"
-#| "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
+#, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
@@ -4257,15 +4213,10 @@ msgid ""
 msgstr ""
 "%s:%d：出現了無效的多位元組序列。\n"
 "請透過 --from-code 指定來源檔案的正確編碼，詳見\n"
-"http://www.python.org/peps/pep-0263.html。\n"
+"https://www.python.org/peps/pep-0263.html。\n"
 
 #: src/x-python.c:342
-#, fuzzy, c-format
-#| msgid ""
-#| "%s:%d: Long incomplete multibyte sequence.\n"
-#| "Please specify the correct source encoding through --from-code or through "
-#| "a\n"
-#| "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
+#, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
@@ -4273,15 +4224,10 @@ msgid ""
 msgstr ""
 "%s:%d：十分長的不完整多位元組序列。\n"
 "請透過 --from-code 指定來源檔案的正確編碼，詳見\n"
-"http://www.python.org/peps/pep-0263.html。\n"
+"https://www.python.org/peps/pep-0263.html。\n"
 
 #: src/x-python.c:355
-#, fuzzy, c-format
-#| msgid ""
-#| "%s:%d: Incomplete multibyte sequence at end of file.\n"
-#| "Please specify the correct source encoding through --from-code or through "
-#| "a\n"
-#| "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
@@ -4289,15 +4235,10 @@ msgid ""
 msgstr ""
 "%s:%d：檔案結尾處出現了不完整的多位元組序列。\n"
 "請透過 --from-code 指定來源檔案的正確編碼，詳見\n"
-"http://www.python.org/peps/pep-0263.html。\n"
+"https://www.python.org/peps/pep-0263.html。\n"
 
 #: src/x-python.c:365
-#, fuzzy, c-format
-#| msgid ""
-#| "%s:%d: Incomplete multibyte sequence at end of line.\n"
-#| "Please specify the correct source encoding through --from-code or through "
-#| "a\n"
-#| "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
@@ -4305,15 +4246,10 @@ msgid ""
 msgstr ""
 "%s:%d：檔案結尾處出現了不完整的多位元組序列。\n"
 "請透過 --from-code 指定來源檔案的正確編碼，詳見\n"
-"http://www.python.org/peps/pep-0263.html。\n"
+"https://www.python.org/peps/pep-0263.html。\n"
 
 #: src/x-python.c:398
-#, fuzzy, c-format
-#| msgid ""
-#| "%s:%d: Invalid multibyte sequence.\n"
-#| "Please specify the source encoding through --from-code or through a "
-#| "comment\n"
-#| "as specified in http://www.python.org/peps/pep-0263.html.\n"
+#, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the source encoding through --from-code or through a comment\n"
@@ -4321,7 +4257,7 @@ msgid ""
 msgstr ""
 "%s:%d：無效的多位元組序列。\n"
 "請透過 --from-code 指定來源檔案的編碼，詳見\n"
-"http://www.python.org/peps/pep-0263.html。\n"
+"https://www.python.org/peps/pep-0263.html。\n"
 
 #: src/x-python.c:654
 #, c-format
@@ -4344,21 +4280,19 @@ msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: 無效的字串表示式"
 
 #: src/x-rst.c:676
-#, fuzzy, c-format
-#| msgid "%s:%d: invalid string definition"
+#, c-format
 msgid "%s:%d: invalid JSON syntax"
-msgstr "%s:%d: 字串定義無效"
+msgstr "%s:%d：JSON 語法無效"
 
 #: src/x-rst.c:683
-#, fuzzy, c-format
-#| msgid "%s:%d: invalid string definition"
+#, c-format
 msgid "%s:%d: invalid RSJ syntax"
-msgstr "%s:%d: 字串定義無效"
+msgstr "%s:%d：RSJ 語法無效"
 
 #: src/x-rst.c:691
 #, c-format
 msgid "%s:%d: invalid RSJ version. Only version 1 is supported."
-msgstr ""
+msgstr "%s:%d：RSJ 版本無效。僅支援第一版。"
 
 #: src/x-sh.c:1101
 #, c-format
@@ -4498,64 +4432,50 @@ msgstr "在註解或處理指令中"
 msgid "document ended unexpectedly: %s"
 msgstr "檔案在非預期的位置結束：%s"
 
-#, c-format
 #~ msgid "%s: option '--%s' doesn't allow an argument\n"
 #~ msgstr "%s：選項 --%s 不可配合參數使用\n"
 
-#, c-format
 #~ msgid "%s: unrecognized option '--%s'\n"
 #~ msgstr "%s：無法辨識「--%s」選項\n"
 
-#, c-format
 #~ msgid "%s: option '-W %s' is ambiguous\n"
 #~ msgstr "%s：選項「-W %s」不明確\n"
 
-#, c-format
 #~ msgid "%s: option '-W %s' doesn't allow an argument\n"
 #~ msgstr "%s：選項「-W %s」不可配合參數使用\n"
 
-#, c-format
 #~ msgid "%s: option '-W %s' requires an argument\n"
 #~ msgstr "%s：選項「-W %s」需要參數\n"
 
-#, c-format
 #~ msgid "warning: PO file header fuzzy\n"
 #~ msgstr "警告：PO 檔的標頭仍然為模糊狀態\n"
 
-#, c-format
 #~ msgid "warning: older versions of msgfmt will give an error on this\n"
 #~ msgstr "警告：較舊版本的 msgfmt 遇到此檔案時會印出錯誤訊息\n"
 
-#, c-format
 #~ msgid "Non-ASCII character at %s%s."
 #~ msgstr "%s%s 處有非 ASCII 字元。"
 
-#, c-format
 #~ msgid "Non-ASCII comment at or before %s%s."
 #~ msgstr "%s%s 處或之前位置有非 ASCII 註解。"
 
-#, c-format
 #~ msgid "Non-ASCII string at %s%s."
 #~ msgstr "%s%s 處有非 ASCII 字串。"
 
-#, c-format
 #~ msgid "%s%s: warning: "
 #~ msgstr "%s%s: 警告："
 
-#, c-format
 #~ msgid ""
 #~ "Although being used in a format string position, the %s is not a valid %s "
 #~ "format string. Reason: %s\n"
 #~ msgstr ""
 #~ "儘管在格式字串的位置使用，但 %s 仍不是有效的 %s 格式字串。原因：%s\n"
 
-#, c-format
 #~ msgid ""
 #~ "Although declared as such, the %s is not a valid %s format string. "
 #~ "Reason: %s\n"
 #~ msgstr "縱使表面上 %s 宣告了是 %s 格式字串，但實際上不是。原因為：%s\n"
 
-#, c-format
 #~ msgid ""
 #~ "'%s' format string with unnamed arguments cannot be properly localized:\n"
 #~ "The translator cannot reorder the arguments.\n"
@@ -4575,19 +4495,15 @@ msgstr "檔案在非預期的位置結束：%s"
 #~ "gettext(\"\") 會回傳檔案標頭的中繼資訊，\n"
 #~ "而非空白字串。\n"
 
-#, c-format
 #~ msgid "ambiguous argument specification for keyword '%.*s'"
 #~ msgstr "關鍵字「%.*s」的參數規範不明確"
 
-#, c-format
 #~ msgid "warning: missing context for keyword '%.*s'"
 #~ msgstr "警告：關鍵字「%.*s」缺少內文"
 
-#, c-format
 #~ msgid "warning: missing context for plural argument of keyword '%.*s'"
 #~ msgstr "警告：關鍵字「%.*s」缺少複數參數內文"
 
-#, c-format
 #~ msgid "context mismatch between singular and plural form"
 #~ msgstr "單數和複數的內文不符"
 

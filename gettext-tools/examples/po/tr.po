@@ -3,13 +3,13 @@
 # Copyright (C) 2017 Yoyodyne, Inc. (msgids)
 # Copyright (C) 2004 Free Software Foundation, Inc.
 # Nilgün Belma Bugüner <nilgun@superonline.com>, 2003,2004
-# Mehmet Kececi <mkececi@mehmetkececi.com>, 2017.
+# Mehmet Kececi <mkececi@mehmetkececi.com>, 2017, 2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.19.4.73\n"
+"Project-Id-Version: gettext-examples 0.20-rc1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-04-07 16:07+0200\n"
-"PO-Revision-Date: 2017-03-26 14:20+0300\n"
+"POT-Creation-Date: 2019-04-28 19:39+0200\n"
+"PO-Revision-Date: 2019-04-14 15:36+0300\n"
 "Last-Translator: Mehmet Kececi <mkececi@mehmetkececi.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
 "Language: tr\n"
@@ -46,7 +46,7 @@ msgstr "Merhaba, Dünya!"
 #: hello-tcl-tk/hello.tcl:16 hello-perl/hello-1.pl.in:19 hello-php/hello.php:14
 #, php-format
 msgid "This program is running as process number %d."
-msgstr "Bu yazılım, %d işlem numarası ile çalışıyor."
+msgstr "Bu yazılım %d işlem numarası ile çalışıyor."
 
 #: hello-c-gnome3/hello.c:79
 #, c-format
@@ -71,7 +71,7 @@ msgstr "Merhaba"
 
 #: hello-c-gnome3/hello.ui:6
 msgid "Example Application"
-msgstr "Örnek uygulama"
+msgstr "Örnek Uygulama"
 
 #: hello-c-gnome3/hello.ui:34
 msgid "Update text"
@@ -89,39 +89,39 @@ msgstr "XML betiğinde kullanılıp kullanılmayacağını belirtir."
 #: hello-smalltalk/hello.st.in:32 hello-ycp/hello.ycp:19
 #, ycp-format
 msgid "This program is running as process number %1."
-msgstr "Bu yazılım, %1 süreç kimliği ile çalışıyor."
+msgstr "Bu yazılım %1 süreç numarası ile çalışıyor."
 
 #: hello-c++-kde/hello.cc:46
 msgid "Hello example"
-msgstr "Hello örneği"
+msgstr "Merhaba örneği"
 
 #: hello-c++-kde/hello.cc:48
 msgid "Hello world example"
-msgstr "Hello world örneği"
+msgstr "Merhaba dünya örneği"
 
 #: hello-sh/hello.sh:17
 #, sh-format
 msgid "This program is running as process number $pid."
-msgstr "Bu yazılım, $pid süreç kimliği ile çalışıyor."
+msgstr "Bu yazılım $pid süreç numarası ile çalışıyor."
 
 #: hello-python/hello.py.in:13
 #, python-format
 msgid "This program is running as process number %(pid)d."
-msgstr "Bu yazılım, %(pid)d süreç kimliği ile çalışıyor."
+msgstr "Bu yazılım %(pid)d süreç numarası ile çalışıyor."
 
 #: hello-clisp/hello.lisp.in:13 hello-guile/hello.scm:17
 #, scheme-format
 msgid "This program is running as process number ~D."
-msgstr "Bu yazılım, ~D süreç kimliği ile çalışıyor."
+msgstr "Bu yazılım ~D süreç numarası ile çalışıyor."
 
 #: hello-java/Hello.java:18 hello-java-awt/Hello.java:28
 #: hello-java-swing/Hello.java:25 hello-java-qtjambi/Hello.java:34
 #: hello-csharp/hello.cs:17 hello-csharp-forms/hello.cs:36
 #, csharp-format
 msgid "This program is running as process number {0}."
-msgstr "Bu yazılım, {0} süreç kimliği ile çalışıyor."
+msgstr "Bu yazılım {0} süreç numarası ile çalışıyor."
 
 #: hello-perl/hello-2.pl.in:14
 #, perl-brace-format
 msgid "This program is running as process number {pid}."
-msgstr "Bu yazılım, {pid} süreç kimliği ile çalışıyor."
+msgstr "Bu program işlem numarası {pid} olarak çalışıyor."

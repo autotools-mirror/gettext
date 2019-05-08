@@ -3,21 +3,21 @@
 # This file is distributed under the same license as the gettext package.
 #
 # Maxim V. Dziumanenko <dziumanenko@gmail.com>, 2004-2007.
-# Yuri Chornoivan <yurchor@ukr.net>, 2011, 2013, 2015.
+# Yuri Chornoivan <yurchor@ukr.net>, 2011, 2013, 2015, 2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.19.4.73\n"
+"Project-Id-Version: gettext-runtime 0.20-rc1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-04-13 11:21+0200\n"
-"PO-Revision-Date: 2015-06-23 20:47+0300\n"
+"POT-Creation-Date: 2019-05-08 19:24+0200\n"
+"PO-Revision-Date: 2019-04-14 14:46+0300\n"
 "Last-Translator: Yuri Chornoivan <yurchor@ukr.net>\n"
-"Language-Team: Ukrainian <translation-team-uk@lists.sourceforge.net>\n"
+"Language-Team: Ukrainian <trans-uk@lists.fedoraproject.org>\n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Lokalize 1.5\n"
+"X-Generator: Lokalize 19.03.70\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #: gnulib-lib/closeout.c:66
@@ -29,34 +29,29 @@ msgid "Unknown system error"
 msgstr "Невідома системна помилка"
 
 #: gnulib-lib/getopt.c:278
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous\n"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
-msgstr "%s: параметр «%s» не є однозначним\n"
+msgstr "%s: параметр «%s%s» не є однозначним\n"
 
 #: gnulib-lib/getopt.c:284
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous; possibilities:"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
-msgstr "%s: параметр «%s» не є однозначним. Можливі варіанти:"
+msgstr "%s: параметр «%s%s» не є однозначним. Можливі варіанти:"
 
 #: gnulib-lib/getopt.c:319
-#, fuzzy, c-format
-#| msgid "%s: unrecognized option '%c%s'\n"
+#, c-format
 msgid "%s: unrecognized option '%s%s'\n"
-msgstr "%s: невідомий параметр «%c%s»\n"
+msgstr "%s: невідомий параметр «%s%s»\n"
 
 #: gnulib-lib/getopt.c:345
-#, fuzzy, c-format
-#| msgid "%s: option '%c%s' doesn't allow an argument\n"
+#, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
-msgstr "%s: додавання аргументів до параметра «%c%s» не передбачено\n"
+msgstr "%s: додавання аргументів до параметра «%s%s» не передбачено\n"
 
 #: gnulib-lib/getopt.c:360
-#, fuzzy, c-format
-#| msgid "%s: option '--%s' requires an argument\n"
+#, c-format
 msgid "%s: option '%s%s' requires an argument\n"
-msgstr "%s: до параметра «--%s» слід додати аргумент\n"
+msgstr "%s: до параметра «%s%s» слід додати аргумент\n"
 
 #: gnulib-lib/getopt.c:621
 #, c-format
@@ -74,12 +69,7 @@ msgid "memory exhausted"
 msgstr "пам'ять вичерпано"
 
 #: src/envsubst.c:112 src/gettext.c:137 src/ngettext.c:126
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "Copyright (C) %s Free Software Foundation, Inc.\n"
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
@@ -87,7 +77,7 @@ msgid ""
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "Авторські права належать Free Software Foundation, Inc., %s\n"
-"Умови ліцензування викладено у GPLv3+: GNU GPL версії 3 або новішій, <http://gnuorg/licenses/gpl.html>\n"
+"Умови ліцензування викладено у GPLv3+: GNU GPL версії 3 або новішій, <https://gnuorg/licenses/gpl.html>\n"
 "Це вільне програмне забезпечення: ви можете вільно змінювати і поширювати його.\n"
 "Вам не надається ЖОДНИХ ГАРАНТІЙ, окрім гарантій передбачених законодавством.\n"
 
@@ -216,27 +206,29 @@ msgstr "Відображає переклад текстового повідо�
 #: src/gettext.c:263
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-msgstr ""
+msgstr "  -d, --domain=TEXTDOMAIN   отримати перекладені повідомлення з текстового домену TEXTDOMAIN\n"
 
 #: src/gettext.c:265 src/ngettext.c:230
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
-msgstr ""
+msgstr "  -c, --context=КОНТЕКСТ    вказати контекст для MSGID\n"
 
 #: src/gettext.c:267 src/ngettext.c:232
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
+"  -e                        увімкнути розгортання деяких послідовностей "
+"екранування\n"
 
 #: src/gettext.c:269
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
-msgstr ""
+msgstr "  -n                        придушити кінцевий символ нового рядка\n"
 
 #: src/gettext.c:271 src/ngettext.c:234
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
-msgstr ""
+msgstr "  -E                        (буде проігноровано, для сумісності)\n"
 
 #: src/gettext.c:273
 #, c-format
@@ -244,18 +236,18 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
+"  [TEXTDOMAIN] MSGID        отримати перекладене повідомлення відповідно до\n"
+"                            MSGID з текстового домену TEXTDOMAIN\n"
 
 #: src/gettext.c:279 src/ngettext.c:245
-#, fuzzy, c-format
-#| msgid "  -h, --help                  display this help and exit\n"
+#, c-format
 msgid "  -h, --help                display this help and exit\n"
-msgstr "  -h, --help                  вивести довідку та завершити роботу\n"
+msgstr "  -h, --help                вивести довідку та завершити роботу\n"
 
 #: src/gettext.c:281 src/ngettext.c:247
-#, fuzzy, c-format
-#| msgid "  -V, --version               output version information and exit\n"
+#, c-format
 msgid "  -V, --version             display version information and exit\n"
-msgstr "  -V, --version               вивести інформацію про версію та вийти\n"
+msgstr "  -V, --version             вивести інформацію про версію та вийти\n"
 
 #: src/gettext.c:285
 #, c-format, no-wrap
@@ -295,13 +287,15 @@ msgstr ""
 #: src/ngettext.c:228
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
+msgstr "  -d, --domain=TEXTDOMAIN   отримати перекладене повідомлення з текстового домену TEXTDOMAIN\n"
 
 #: src/ngettext.c:236
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr ""
+"  [TEXTDOMAIN]              отримати перекладене повідомлення з текстового "
+"домену TEXTDOMAIN\n"
 
 #: src/ngettext.c:238
 #, c-format
@@ -309,12 +303,15 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
 "(plural)\n"
 msgstr ""
+"  MSGID MSGID-PLURAL        перекласти MSGID (однина) / MSGID-PLURAL "
+"(множина)\n"
 
 #: src/ngettext.c:240
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
+"  КІЛЬКІСТЬ                 вибрати однину/множину на основі цього значення\n"
 
 #: src/ngettext.c:251
 #, c-format, no-wrap
@@ -331,27 +328,21 @@ msgstr ""
 "змінної середовища TEXTDOMAINDIR.\n"
 "Стандартний каталог пошуку: %s\n"
 
-#, c-format
 #~ msgid "%s: option '--%s' doesn't allow an argument\n"
 #~ msgstr "%s: додавання аргументів до параметра «--%s» не передбачено\n"
 
-#, c-format
 #~ msgid "%s: unrecognized option '--%s'\n"
 #~ msgstr "%s: невідомий параметр «--%s»\n"
 
-#, c-format
 #~ msgid "%s: option '-W %s' is ambiguous\n"
 #~ msgstr "%s: параметр «-W %s» не є однозначним\n"
 
-#, c-format
 #~ msgid "%s: option '-W %s' doesn't allow an argument\n"
 #~ msgstr "%s: додавання аргументів до параметра «-W %s» не передбачено\n"
 
-#, c-format
 #~ msgid "%s: option '-W %s' requires an argument\n"
 #~ msgstr "%s: до параметра «-W %s» слід додати аргумент\n"
 
-#, c-format, no-wrap
 #~ msgid ""
 #~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 #~ "  -e                        enable expansion of some escape sequences\n"
@@ -364,14 +355,17 @@ msgstr ""
 #~ msgstr ""
 #~ "  -d, --domain=ДОМЕН_ТЕКСТУ використовувати перекладені повідомлення з\n"
 #~ "                            домену ДОМЕН_ТЕКСТУ\n"
-#~ "  -e                        дозволити використання деяких escape-послідовностей\n"
-#~ "  -E                        (ігнорується, використовується для сумісності)\n"
+#~ "  -e                        дозволити використання деяких escape-"
+#~ "послідовностей\n"
+#~ "  -E                        (ігнорується, використовується для "
+#~ "сумісності)\n"
 #~ "  -h, --help                показати цю довідку та вийти\n"
-#~ "  -n                        не виводити наприкінці символ переведення рядка\n"
+#~ "  -n                        не виводити наприкінці символ переведення "
+#~ "рядка\n"
 #~ "  -V, --version             відобразити інформацію про версію та вийти\n"
-#~ "  [ДОМЕН_ТЕКСТУ] MSGID      знайти переклад повідомлення MSGID у ДОМЕН_ТЕКСТУ\n"
+#~ "  [ДОМЕН_ТЕКСТУ] MSGID      знайти переклад повідомлення MSGID у "
+#~ "ДОМЕН_ТЕКСТУ\n"
 
-#, c-format, no-wrap
 #~ msgid ""
 #~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 #~ "  -e                        enable expansion of some escape sequences\n"
@@ -379,18 +373,25 @@ msgstr ""
 #~ "  -h, --help                display this help and exit\n"
 #~ "  -V, --version             display version information and exit\n"
 #~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
-#~ "  COUNT                     choose singular/plural form based on this value\n"
+#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
+#~ "(plural)\n"
+#~ "  COUNT                     choose singular/plural form based on this "
+#~ "value\n"
 #~ msgstr ""
 #~ "  -d, --domain=ДОМЕН_ТЕКСТУ використовувати перекладені повідомлення з\n"
 #~ "                            вказаного домену ДОМЕН_ТЕКСТУ\n"
-#~ "  -e                        дозволити використання деяких escape-послідовностей\n"
-#~ "  -E                        (ігнорується, використовується для сумісності)\n"
+#~ "  -e                        дозволити використання деяких escape-"
+#~ "послідовностей\n"
+#~ "  -E                        (ігнорується, використовується для "
+#~ "сумісності)\n"
 #~ "  -h, --help                показати цю довідку та вийти\n"
 #~ "  -V, --version             відобразити інформацію про версію та вийти\n"
-#~ "  [ДОМЕН_ТЕКСТУ]            знайти переклад у вказаному домені ДОМЕН_ТЕКСТУ\n"
-#~ "  MSGID MSGID-PLURAL        перекласти MSGID (однина) / MSGID-PLURAL (множина)\n"
-#~ "  ЧИСЛО                     вибрати однину/множину на основі цього значення\n"
+#~ "  [ДОМЕН_ТЕКСТУ]            знайти переклад у вказаному домені "
+#~ "ДОМЕН_ТЕКСТУ\n"
+#~ "  MSGID MSGID-PLURAL        перекласти MSGID (однина) / MSGID-PLURAL "
+#~ "(множина)\n"
+#~ "  ЧИСЛО                     вибрати однину/множину на основі цього "
+#~ "значення\n"
 
 #~ msgid "%s: illegal option -- %c\n"
 #~ msgstr "%s: неправильний параметр -- %c\n"

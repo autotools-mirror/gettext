@@ -1,14 +1,14 @@
 # Bulgarian translations for gettext-examples package.
 # Copyright (C) 2010 Yoyodyne, Inc. (msgids)
 # This file is distributed under the same license as the gettext package.
-# Roumen Petrov <transl@roumenpetrov.info>, 2010,2014,2015.
+# Roumen Petrov <transl@roumenpetrov.info>, 2010,2014,2015,2019.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-examples 0.19.4.73\n"
+"Project-Id-Version: GNU gettext-examples 0.20-rc1\n"
 "Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-04-07 16:07+0200\n"
-"PO-Revision-Date: 2015-06-24 08:27+0300\n"
+"POT-Creation-Date: 2019-04-28 19:39+0200\n"
+"PO-Revision-Date: 2019-04-16 21:01+0300\n"
 "Last-Translator: Roumen Petrov <transl@roumenpetrov.info>\n"
 "Language-Team: Bulgarian <dict@ludost.net>\n"
 "Language: bg\n"
@@ -80,7 +80,7 @@ msgstr "Използване на XML markup"
 
 #: hello-c-gnome3/hello.gschema.xml:9
 msgid "Whether to use XML markup in the text."
-msgstr "Дали да се използва XML markup за текста."
+msgstr "Дали да се използва XML markup за текст."
 
 #: hello-c++-qt/hello.cc:52 hello-c++-kde/hellowindow.cc:49
 #: hello-smalltalk/hello.st.in:32 hello-ycp/hello.ycp:19
@@ -122,9 +122,3 @@ msgstr "Програмата е пусната под процес номер {0
 #, perl-brace-format
 msgid "This program is running as process number {pid}."
 msgstr "Програмата е пусната под процес номер {pid}."
-
-#~ msgid "Set label sensitive"
-#~ msgstr "Задава чувствителност на надписа."
-
-#~ msgid "Whether to set the label sensitive."
-#~ msgstr "Определя дали надписа да е чувствителен."
