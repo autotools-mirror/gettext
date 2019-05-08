@@ -16,6 +16,9 @@ We assume that the following environment variables are set:
 
 ** Run these commands, in this order:
 
+    # Forcing a specific version number, without having to set a git tag.
+    echo $CURRENT_VERSION > .tarball-version
+
     ./autogen.sh
     ./configure
     make
@@ -47,11 +50,20 @@ We assume that the following environment variables are set:
     coordinator@translationproject.org
     platform-testers@gnu.org
 
+** Finally:
+
+    rm -f .tarball-version
+
 * Making an official release
 
 ** Create a branch for release
 
     git checkout -b release-$CURRENT_VERSION
+
+  or
+
+    # Forcing a specific version number, without having to set a git tag.
+    echo $CURRENT_VERSION > .tarball-version
 
 ** Update files:
 
@@ -59,7 +71,7 @@ We assume that the following environment variables are set:
 
     Update with information from the Translation Project, by running
     run.sh in gettext-runtime/doc/Admin/.  Copy resulting matrix.texi
-    into gettext-runtime/doc/.
+    into gettext-runtime/doc/.  Update the STATUS date in nls.texi.
 
   - gettext-runtime/intl/locale.alias
 
@@ -67,11 +79,10 @@ We assume that the following environment variables are set:
 
   - gettext-runtime/intl/localcharset.h
   - gettext-runtime/intl/localcharset.c
-  - gettext-runtime/intl/config.charset
 
     Update with libcharset inside libiconv.  Check that
-    gnulib/lib/{localcharset.h,localcharset.c,config.charset} agree
-    with it, except for copyright header changes.
+    gnulib/lib/{localcharset.h,localcharset.c} agree with it, except
+    for copyright header changes.
 
   - gettext-runtime/po/Makefile.in.in
 
@@ -85,44 +96,65 @@ We assume that the following environment variables are set:
 
     Update LIBINTL_VERSION.
 
+  - libtextstyle/version.sh
+
+    Update VERSION_NUMBER and RELEASE_DATE.
+
   - gettext-tools/libgettextpo/gettext-po.in.h
 
     Update LIBGETTEXTPO_VERSION.
 
-  - gettext-runtime/intl/Makefile.in
+  - gettext-runtime/intl/Makefile.am
+  - libtextstyle/lib/Makefile.am
   - gettext-tools/libgettextpo/Makefile.am
 
     Update -version-info arguments, according to libtool versioning
     (info "(libtool) Updating version info").
 
       * increment LTV_REVISION,
-      * if any functions/classes have been added, removed or changed, increment
-        LTV_CURRENT and set LTV_REVISION to 0,
-      * if any functions/classes have been added, increment LTV_AGE,
+      * if any interfaces (functions/variables/classes) have been added,
+        removed or changed, increment LTV_CURRENT and set LTV_REVISION to 0,
+      * if any interfaces (functions/variables/classes) have been added,
+        increment LTV_AGE,
       * if backwards compatibility has been broken, set LTV_AGE to 0.
 
-  - gettext-tools/misc/po-mode.el
+  - gettext-tools/emacs/po-mode.el
 
     Update po-mode-version-string, if there is any change.
 
-  - gettext-tools/examples/hello-c/m4/Makefile.am
-    gettext-tools/examples/hello-c-gnome/m4/Makefile.am
-    gettext-tools/examples/hello-c-gnome3/m4/Makefile.am
-    gettext-tools/examples/hello-c++/m4/Makefile.am
-    gettext-tools/examples/hello-c++-kde/m4/Makefile.am
-    gettext-tools/examples/hello-c++-gnome/m4/Makefile.am
-    gettext-tools/examples/hello-objc/m4/Makefile.am
-    gettext-tools/examples/hello-objc-gnome/m4/Makefile.am
+  - gettext-runtime/src/envsubst.c
+    gettext-runtime/src/gettext.c
+    gettext-runtime/src/gettext.sh.in
+    gettext-runtime/src/ngettext.c
+    gettext-tools/misc/autopoint.in
+    gettext-tools/misc/convert-archive.in
+    gettext-tools/misc/gettextize.in
+    gettext-tools/src/cldr-plurals.c
+    gettext-tools/src/hostname.c
+    gettext-tools/src/msgattrib.c
+    gettext-tools/src/msgcat.c
+    gettext-tools/src/msgcmp.c
+    gettext-tools/src/msgcomm.c
+    gettext-tools/src/msgconv.c
+    gettext-tools/src/msgen.c
+    gettext-tools/src/msgexec.c
+    gettext-tools/src/msgfilter.c
+    gettext-tools/src/msgfmt.c
+    gettext-tools/src/msggrep.c
+    gettext-tools/src/msginit.c
+    gettext-tools/src/msgmerge.c
+    gettext-tools/src/msgunfmt.c
+    gettext-tools/src/msguniq.c
+    gettext-tools/src/recode-sr-latin.c
+    gettext-tools/src/urlget.c
+    gettext-tools/src/xgettext.c
 
-    Update list of .m4 files (brought in by autopoint).
-
-    Then check the build infrastructure of the examples by running
-      $ cd gettext-tools/examples
-      $ ,/check-examples
+    Update copyright years of the --version output of all programs.
 
   - NEWS
   - gettext-runtime/libasprintf/NEWS
   - gettext-runtime/NEWS
+  - libtextstyle/NEWS
 
     Add news entries if any.
 
@@ -136,14 +168,37 @@ We assume that the following environment variables are set:
 
     Update the 'case' statement around line 371 to include the latest release.
 
-** Once you get enough translation updates, update translations:
+** If you got any translation updates, update translations:
 
     rsync -Lrtvz translationproject.org::tp/latest/gettext-runtime/ \
-          gettext-runtime/po
+          gettext-runtime/po/new
+  Optionally merge:
+    cd gettext-runtime/po
+    make update-po
+    cd new
+    for f in *.po; do msgmerge --update --lang=${f%.po} --previous $f ../gettext-runtime.pot; done
+    mv *.po ../
+    cd ..; rm -rf new
+
     rsync -Lrtvz translationproject.org::tp/latest/gettext-tools/ \
-          gettext-tools/po
+          gettext-tools/po/new
+  Optionally merge:
+    cd gettext-tools/po
+    make update-po
+    cd new
+    for f in *.po; do msgmerge --update --lang=${f%.po} --previous $f ../gettext-tools.pot; done
+    mv *.po ../
+    cd ..; rm -rf new
+
     rsync -Lrtvz translationproject.org::tp/latest/gettext-examples/ \
-          gettext-tools/examples/po
+          gettext-tools/examples/po/new
+  Optionally merge:
+    cd gettext-tools/examples/po
+    make update-po
+    cd new
+    for f in *.po; do msgmerge --update --lang=${f%.po} --previous $f ../gettext-examples.pot; done
+    mv *.po ../
+    cd ..; rm -rf new
 
   Adjust LINGUAS files if any of the languages has been added or
   removed since the last release.  Commit the changes.
@@ -153,16 +208,56 @@ We assume that the following environment variables are set:
     git clean -xdff
     git checkout .
 
-    git commit --allow-empty -m "Release $CURRENT_VERSION"
-    git tag -u $GPG_KEY_ID $CURRENT_VERSION
+    # Forcing a specific version number, without having to set a git tag.
+    echo $CURRENT_VERSION > .tarball-version
 
     ./autogen.sh
-    ./configure
+    ./configure --disable-shared
     make distcheck-hook
     make
-    make dist
+    make distcheck
+
+  Make 'autopoint' work in the new release:
+
     (cd gettext-tools/misc
      ./add-to-archive ../../gettext-$CURRENT_VERSION.tar.gz)
+
+  Update the examples:
+
+    Update the AM_GNU_GETTEXT_VERSION argument in the gettext-tools/examples/hello-*/configure.ac
+    and gettext-tools/examples/hello-c++-kde/configure.in.in.
+
+    gettext-tools/examples/hello-c/m4/Makefile.am
+    gettext-tools/examples/hello-c/autoclean.sh
+    gettext-tools/examples/hello-c-gnome/m4/Makefile.am
+    gettext-tools/examples/hello-c-gnome/autoclean.sh
+    gettext-tools/examples/hello-c-gnome3/m4/Makefile.am
+    gettext-tools/examples/hello-c-gnome3/autoclean.sh
+    gettext-tools/examples/hello-c++/m4/Makefile.am
+    gettext-tools/examples/hello-c++/autoclean.sh
+    gettext-tools/examples/hello-c++-kde/m4/Makefile.am
+    gettext-tools/examples/hello-c++-kde/autoclean.sh
+    gettext-tools/examples/hello-c++-gnome/m4/Makefile.am
+    gettext-tools/examples/hello-c++-gnome/autoclean.sh
+    gettext-tools/examples/hello-objc/m4/Makefile.am
+    gettext-tools/examples/hello-objc/autoclean.sh
+    gettext-tools/examples/hello-objc-gnome/m4/Makefile.am
+    gettext-tools/examples/hello-objc-gnome/autoclean.sh
+
+    Update list of .m4 files (brought in by autopoint).
+
+    Install the gettext package, so as to overwrite or override the locally
+    installed 'autopoint' with the newest version:
+      $ type autopoint
+      autopoint is SOME_PREFIX/bin/autopoint
+      $ make -k distclean
+      $ ./configure --prefix=SOME_PREFIX && make && make install
+
+    Then check the build infrastructure of the examples by running
+      $ cd gettext-tools/examples
+      $ ./check-examples
+
+  Finally really make the release tarball:
 
     # To prevent auto-updating '.version' file by GNUmakefile due to
     # regenerated PO files, specify Makefile manually.
@@ -173,10 +268,29 @@ We assume that the following environment variables are set:
     gzip -d -c < gettext-$CURRENT_VERSION-*.tar.gz | xz -c -e > gettext-$CURRENT_VERSION-*.tar.xz
     gzip -d -c < gettext-$CURRENT_VERSION-*.tar.gz | lzip -c -9 > gettext-$CURRENT_VERSION-*.tar.lz
 
+  Add a git tag:
+
+    git commit --allow-empty -m "Release $CURRENT_VERSION"
+    git tag -u $GPG_KEY_ID v$CURRENT_VERSION
+
 ** Upload tarballs:
 
     gnulib/build-aux/gnupload --to ftp.gnu.org:gettext \
                               gettext-$CURRENT_VERSION.tar.{gz,xz,lz}
+
+** Upload autopoint archive to alpha.gnu.org:
+
+  This is needed to compile git master after the release (as
+  autogen.sh fetches the archive).
+
+    xz -c -e < gettext-tools/misc/archive.dir.tar > archive.dir-$CURRENT_VERSION.tar.xz
+    gnulib/build-aux/gnupload \
+      --to alpha.gnu.org:gettext \
+      --symlink-regex archive.dir-$CURRENT_VERSION.tar.xz
+
+** Finally:
+
+    rm -f .tarball-version
 
 ** Merge release-$CURRENT_VERSION branch to master and push the changes to the
    remote repository:
@@ -185,17 +299,6 @@ We assume that the following environment variables are set:
     git merge release-$CURRENT_VERSION
     git push origin master
     git push origin release-$CURRENT_VERSION
-
-** Upload autopoint archive to alpha.gnu.org:
-
-  This is needed to compile git master after the release (as
-  autogen.sh fetches the archive).
-
-    xz gettext-tools/misc/archive.dir.tar
-    cp gettext-tools/misc/archive.dir.tar.xz archive.dir-$CURRENT_VERSION.tar.xz
-    gnulib/build-aux/gnupload \
-      --to alpha.gnu.org:gettext \
-      --symlink-regex archive.dir-$CURRENT_VERSION.tar.xz
 
 ** Update the homepage on www.gnu.org:
 
@@ -216,6 +319,12 @@ We assume that the following environment variables are set:
     cp build-aux/texinfo.tex gettext-runtime/libasprintf
     (cd gettext-runtime/libasprintf
      LC_ALL=C ./gendocs.sh --email bug-gnu-gettext autosprintf "GNU autosprintf")
+
+    cp gnulib/build-aux/gendocs.sh libtextstyle/doc
+    cp gnulib/doc/gendocs_template libtextstyle/doc
+    cp build-aux/texinfo.tex libtextstyle/doc
+    (cd libtextstyle/doc
+     LC_ALL=C ./gendocs.sh --email bug-gnu-gettext libtextstyle "GNU libtextstyle")
 
   FIXME: Add a script to automate this process.
 
