@@ -253,8 +253,8 @@ gstreamer          | []  []             []     []    [] []            |
 gtick              | ()              [] []           [] []      []    |
 gtkam              | ()              [] []           [] []            |
 gtkspell           | []  []          [] []     []    [] []  []  []    |
-guix               | []                                 []            |
-guix-manual        | []                                 []            |
+guix               | []                 []              []            |
+guix-manual        | []                 []              []            |
 guix-packages      |                                                  |
 gutenprint         | []                 []           [] []            |
 hello              | []  []          [] []  []       [] []      []    |
@@ -339,18 +339,18 @@ vmm                | []                              []               |
 vorbis-tools       | []              [] []              []            |
 wastesedge         |                                    []            |
 wcd                | []              [] []           [] []  []        |
-wcd-man            | []                                               |
+wcd-man            | []                                 []            |
 wdiff              | []              [] []  []       [] []      []    |
 wget               | []              [] []  []       [] []      []    |
-wget2              |                                                  |
+wget2              | []                                               |
 wyslij-po          | []              [] []           [] []            |
 xboard             | []                 []              []            |
 xdg-user-dirs      | []  []          [] []  [] [] [] [] []  []  [] [] |
 xkeyboard-config   | []              [] []           [] []  []        |
-xz                 | []                                 []            |
+xz                 | []              []                 []            |
                    +--------------------------------------------------+
                      de  el en en_GB eo es  et eu fa fi fr  fur ga gd
-                     139 29  1   6   89 124 20  9  5 94 154 25  36  2
+                     140 29  1   6   90 126 20  9  5 94 155 25  36  2
 @end group
 
 @group
@@ -400,13 +400,13 @@ gcal               |                                                 |
 gcc                |                                                 |
 gdbm               |                                                 |
 gettext-examples   | []          [] []       []    [] []             |
-gettext-runtime    | []          [] []       []    [] []          [] |
+gettext-runtime    | []          [] []             [] []          [] |
 gettext-tools      |                         []    [] []          [] |
 gjay               | []                                              |
 glunarclock        | []          [] []       []    []                |
 gnubiff            |                []       []    ()                |
 gnubik             | []          []                []                |
-gnucash            |    () () ()    ()             () []       () () |
+gnucash            |    () () () () ()             () []       () () |
 gnuchess           |                                                 |
 gnucobol           |                                                 |
 gnulib             |                []             [] []             |
@@ -527,7 +527,7 @@ xkeyboard-config   | []          [] []       []                   [] |
 xz                 |                               []             [] |
                    +-------------------------------------------------+
                      gl gu he hi hr hu hy ia id is it ja ka kk kn ko
-                     41  2  6  1 63 71  2  4 68  8 76 49  0  2  2 20
+                     41  2  6  1 63 71  2  4 67  8 76 49  0  2  2 20
 @end group
 
 @group
@@ -577,7 +577,7 @@ gcal               |                                                  |
 gcc                |                                                  |
 gdbm               |                                                  |
 gettext-examples   |    []       []             [] [] []    []        |
-gettext-runtime    |                                  []    []  []    |
+gettext-runtime    |                                  []    []        |
 gettext-tools      |                                                  |
 gjay               |                                                  |
 glunarclock        |             []                         []        |
@@ -704,7 +704,7 @@ xkeyboard-config   |                                        []        |
 xz                 |                                                  |
                    +--------------------------------------------------+
                      ku ky lg lt lv mk ml mn mr ms mt nb ne nl  nn or
-                      3  7  0 10 18  2  1  3  1 11  2 44  1 116  5  1
+                      3  7  0 10 18  2  1  3  1 11  2 44  1 116  4  1
 @end group
 
 @group
@@ -760,7 +760,7 @@ gjay               |                                      []  []     |
 glunarclock        |    []         []   []       [] []    []  []     |
 gnubiff            |                                      []  []     |
 gnubik             |    []         []               []    []  []     |
-gnucash            |    ()     ()  ()   () ()             []         |
+gnucash            |    ()     ()  ()      ()             []         |
 gnuchess           |               []                     []  []     |
 gnucobol           |                                          []     |
 gnulib             |    []         []      []       []    []  []     |
@@ -834,7 +834,7 @@ popt               |    []     []  []      []       []    []  []     |
 procps-ng          |    []         []                         []     |
 procps-ng-man      |    []         []                         []     |
 psmisc             |    []         []      []             []  []     |
-pspp               |    []                 []                        |
+pspp               |    []                 []       []               |
 pushover           |                                      []  []     |
 pwdutils           |    []                                []  []     |
 pyspread           |               []                                |
@@ -858,7 +858,7 @@ sudoers            |    []     []  []               []    []  []     |
 sysstat            |    []     []  []      []    []           []     |
 tar                |    []     []  []      []       []    []  []     |
 texinfo            |    []     []  []      []                 []     |
-texinfo_document   |    []     []  []                                |
+texinfo_document   |    []     []  []                         []     |
 tigervnc           |               []      []             []  []     |
 tin                |                       []                        |
 tin-man            |                                                 |
@@ -881,7 +881,7 @@ xkeyboard-config   |    []     []  []      []                 []     |
 xz                 |    []         []                         []     |
                    +-------------------------------------------------+
                      pa pl  ps pt pt_BR ro ru rw sk sl sq sr  sv  sw
-                      3 111  1 36  120  25 87  0 35 39  5 111 130  1
+                      3 111  1 36  120  25 87  0 35 40  5 111 131  1
 @end group
 
 @group
@@ -931,7 +931,7 @@ gcal               |             []                   []               |  8
 gcc                |                                                   |  5
 gdbm               |                []     []                          | 13
 gettext-examples   | []          [] []     []         []    []    []   | 41
-gettext-runtime    |             [] []     []         []    []    []   | 36
+gettext-runtime    |             [] []     []         []          []   | 33
 gettext-tools      |             [] []     []         []          []   | 25
 gjay               |          []           []         []               | 10
 glunarclock        |                       []  []     []          []   | 28
@@ -940,7 +940,7 @@ gnubik             |                []     []         []               | 21
 gnucash            | () ()       [] []  () ()                     ()   | 10
 gnuchess           |                []     []         []               | 13
 gnucobol           |                                                   |  2
-gnulib             |                []     []         []               | 21
+gnulib             |                []     []         []          []   | 22
 gnunet             |                                                   |  1
 gnunet-gtk         |                                                   |  2
 gnutls             |                []     []         []               | 16
@@ -961,8 +961,8 @@ gstreamer          |             [] []     []         []          []   | 32
 gtick              |                []     []         []               | 21
 gtkam              |                []     []         []               | 24
 gtkspell           | []       [] [] []     []  []     []    []    []   | 50
-guix               |                                                   |  4
-guix-manual        |                                                   |  2
+guix               |                                                   |  5
+guix-manual        |                                                   |  3
 guix-packages      |                                                   |  0
 gutenprint         |             [] []     []         []               | 17
 hello              | []       [] [] []     []         []          []   | 32
@@ -1010,8 +1010,8 @@ pnmixer            |                []     []         ()               | 12
 popt               | []       [] [] []     []         []          []   | 37
 procps-ng          |                []     []                          |  7
 procps-ng-man      |                []                                 |  6
-psmisc             |                []     []                     []   | 18
-pspp               |             [] []                []               | 15
+psmisc             |                []     []         []          []   | 19
+pspp               |             [] []                []               | 16
 pushover           |                                                   |  7
 pwdutils           |                       []                          |  9
 pyspread           |                []                                 |  6
@@ -1024,7 +1024,7 @@ sarg               |                                                   |  6
 savane             |                                                   |  2
 sed                |             [] []     []         []          []   | 35
 sharutils          |                []     []         []               | 13
-shepherd           | []             []                []               |  9
+shepherd           | []             []                                 |  8
 shishi             |                       []         []               |  8
 skribilo           |                []                                 |  9
 solfege            |             []        []         []               | 21
@@ -1035,7 +1035,7 @@ sudoers            |                []     []         []          []   | 24
 sysstat            |             [] []                []               | 16
 tar                |             [] []     []         []          []   | 32
 texinfo            |             [] []     []                          | 20
-texinfo_document   |                []                                 | 14
+texinfo_document   |                []                                 | 15
 tigervnc           |             [] []     []         []          []   | 22
 tin                |             []                   []          []   |  8
 tin-man            |                                                   |  1
@@ -1047,17 +1047,17 @@ vmm                |                                                   |  5
 vorbis-tools       |                       []                          | 14
 wastesedge         |             []                                    |  7
 wcd                |                []     []         []               | 13
-wcd-man            |                []                                 |  4
+wcd-man            |                []                                 |  5
 wdiff              |                []     []         []          []   | 25
 wget               |             [] []     []         []          []   | 26
-wget2              |                []                                 |  3
+wget2              |                []                                 |  4
 wyslij-po          |                []     []         []               | 19
 xboard             |             [] []                []               | 11
 xdg-user-dirs      | [] []    [] [] []     []         []    []    []   | 69
 xkeyboard-config   |             [] []     []                          | 24
-xz                 |                []     []         []               | 11
+xz                 |                []     []         []          []   | 13
                    +---------------------------------------------------+
   87 teams           ta te tg th tr uk  ur vi  wa wo zh_CN zh_HK zh_TW
- 169 domains          8  1  0 14 59 119  1 119  5  1  97     5    43    2861
+ 169 domains          8  1  0 14 59 119  1 119  5  1  97     4    45    2867
 @end group
 @end example

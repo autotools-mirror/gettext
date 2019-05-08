@@ -12,7 +12,7 @@ as a file named @code{ABOUT-NLS}.
 @strong{ NOTE: } This documentation section is outdated.  It it included
 here for historical purposes only.
 
-@set STATUS April 2019
+@set STATUS May 2019
 
 Free software is going international!  The Free Translation Project is
 a way to get maintainers of free software, translators, and users all
