@@ -74,23 +74,15 @@ distcheck-hook:
 	cmp -s $(srcdir)/gettext-runtime/m4/fcntl-o.m4 $(srcdir)/gettext-tools/gnulib-m4/fcntl-o.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/flexmember.m4 $(srcdir)/gettext-tools/gnulib-m4/flexmember.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/gettext.m4 $(srcdir)/gettext-tools/gnulib-m4/gettext.m4
-	cmp -s $(srcdir)/gettext-runtime/m4/glibc2.m4 $(srcdir)/gettext-tools/gnulib-m4/glibc2.m4
-	cmp -s $(srcdir)/gettext-runtime/m4/glibc21.m4 $(srcdir)/gettext-tools/gnulib-m4/glibc21.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/iconv.m4 $(srcdir)/gettext-tools/gnulib-m4/iconv.m4
-	cmp -s $(srcdir)/gettext-runtime/m4/intdiv0.m4 $(srcdir)/gettext-tools/gnulib-m4/intdiv0.m4
-	cmp -s $(srcdir)/gettext-runtime/m4/intl.m4 $(srcdir)/gettext-tools/gnulib-m4/intl.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/intlmacosx.m4 $(srcdir)/gettext-tools/gnulib-m4/intlmacosx.m4
-	cmp -s $(srcdir)/gettext-runtime/m4/intmax.m4 $(srcdir)/gettext-tools/gnulib-m4/intmax.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/inttypes-pri.m4 $(srcdir)/gettext-tools/gnulib-m4/inttypes-pri.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/inttypes_h.m4 $(srcdir)/gettext-tools/gnulib-m4/inttypes_h.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/nls.m4 $(srcdir)/gettext-tools/gnulib-m4/nls.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/po.m4 $(srcdir)/gettext-tools/gnulib-m4/po.m4
-	cmp -s $(srcdir)/gettext-runtime/m4/printf-posix.m4 $(srcdir)/gettext-tools/gnulib-m4/printf-posix.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/progtest.m4 $(srcdir)/gettext-tools/gnulib-m4/progtest.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/size_max.m4 $(srcdir)/gettext-tools/gnulib-m4/size_max.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/stdint_h.m4 $(srcdir)/gettext-tools/gnulib-m4/stdint_h.m4
-	cmp -s $(srcdir)/gettext-runtime/m4/uintmax_t.m4 $(srcdir)/gettext-tools/gnulib-m4/uintmax_t.m4
-	cmp -s $(srcdir)/gettext-runtime/m4/visibility.m4 $(srcdir)/gettext-tools/gnulib-m4/visibility.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/xsize.m4 $(srcdir)/gettext-tools/gnulib-m4/xsize.m4
 	cmp -s $(srcdir)/gettext-runtime/libasprintf/gnulib-m4/intmax_t.m4 $(srcdir)/gettext-tools/gnulib-m4/intmax_t.m4
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/flexmember.h | md5sum`" = "`sed 1,19d $(srcdir)/gettext-tools/gnulib-lib/flexmember.h | md5sum`"

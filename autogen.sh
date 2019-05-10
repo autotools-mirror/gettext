@@ -336,7 +336,6 @@ if ! $skip_gnulib; then
     --import --avoid=progname $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER || exit $?
   # Overwrite older versions of .m4 files with the up-to-date version.
   cp gettext-runtime/m4/gettext.m4 gettext-tools/gnulib-m4/gettext.m4
-  cp gettext-runtime/m4/intl.m4 gettext-tools/gnulib-m4/intl.m4
   # Import build tools.  We use --copy-file to avoid directory creation.
   $GNULIB_TOOL --copy-file tests/init.sh gettext-tools || exit $?
   $GNULIB_TOOL --copy-file build-aux/x-to-1.in gettext-runtime/man/x-to-1.in || exit $?
@@ -437,10 +436,10 @@ cp -p gettext-runtime/po/en@quot.header gettext-tools/po/en@quot.header
 cp -p gettext-runtime/po/en@boldquot.header gettext-tools/po/en@boldquot.header
 cp -p gettext-runtime/po/insert-header.sin gettext-tools/po/insert-header.sin
 cp -p gettext-runtime/po/remove-potcdate.sin gettext-tools/po/remove-potcdate.sin
-# Those two files might be newer than Gnulib's.
+# This file might be newer than Gnulib's.
 sed_extract_serial='s/^#.* serial \([^ ]*\).*/\1/p
 1q'
-for file in intl.m4 po.m4; do
+for file in po.m4; do
   existing_serial=`sed -n -e "$sed_extract_serial" < "gettext-tools/gnulib-m4/$file"`
   gettext_serial=`sed -n -e "$sed_extract_serial" < "gettext-runtime/m4/$file"`
   if test -n "$existing_serial" && test -n "$gettext_serial" \
