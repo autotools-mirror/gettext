@@ -657,6 +657,7 @@ RELOCATABLE_BUILD_DIR = ../gnulib-lib
 RELOCATABLE_CONFIG_H_DIR = ..
 RELOCATABLE_STRIP = :
 
+
 # Version information according to Woe32 conventions.
 if WOE32
 WOE32_LDADD = gettext.res
@@ -666,3 +667,10 @@ MOSTLYCLEANFILES += gettext.res
 else
 WOE32_LDADD =
 endif
+
+
+# This Makefile contains rules which don't work with parallel make,
+# namely those which build textstyle.h, po-gram-gen.c, cldr-plural.c.
+# See <https://lists.gnu.org/archive/html/bug-make/2019-05/msg00011.html>.
+# So, turn off parallel execution in this Makefile.
+.NOTPARALLEL:
