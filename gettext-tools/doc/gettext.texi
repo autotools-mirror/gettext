@@ -2021,11 +2021,16 @@ Split at paragraphs.
 Use format strings instead of string concatenation.
 
 @item
+Use placeholders in format strings instead of embedded URLs.
+
+@item
 Avoid unusual markup and unusual control characters.
 @end itemize
 
 @noindent
 Let's look at some examples of these guidelines.
+
+@subheading Decent English style
 
 @cindex style
 Translatable strings should be in good English style.  If slang language
@@ -2053,6 +2058,8 @@ of the objects"?
 @cindex ambiguities
 In both cases, adding more words to the message will help both the
 translator and the English speaking user.
+
+@subheading Entire sentences
 
 @cindex sentences
 Translatable strings should be entire sentences.  It is often not possible
@@ -2123,6 +2130,8 @@ in other places as well, you will do a favour to the translator by not
 merging the two.  (Identical messages occurring in several places are
 combined by xgettext, so the translator has to handle them once only.)
 
+@subheading Split at paragraphs
+
 @cindex paragraphs
 Translatable strings should be limited to one paragraph; don't let a
 single message be longer than ten lines.  The reason is that when the
@@ -2140,6 +2149,8 @@ you can also attempt to split the documented options into groups,
 such as the input options, the output options, and the informative
 output options.  This will help every user to find the option he is
 looking for.
+
+@subheading No string concatenation
 
 @cindex string concatenation
 @cindex concatenation of strings
@@ -2240,6 +2251,39 @@ into a statement involving a format string:
 Console.WriteLine(
     String.Format("Replace @{0@} with @{1@}?", object1, object2));
 @end example
+
+@subheading No embedded URLs
+
+It is good to not embed URLs in translatable strings, for several reasons:
+@itemize @bullet
+@item
+It avoids possible mistakes during copy and paste.
+@item
+Translators cannot translate the URLs or, by mistake, use the URLs from
+other packages that are present in their compendium.
+@item
+When the URLs change, translators don't need to revisit the translation
+of the string.
+@end itemize
+
+The same holds for email addresses.
+
+So, you would change
+
+@example
+fputs (_("GNU GPL version 3 <https://gnu.org/licenses/gpl.html>\n"),
+       stream);
+@end example
+
+@noindent
+to
+
+@example
+fprintf (stream, _("GNU GPL version 3 <%s>\n"),
+         "https://gnu.org/licenses/gpl.html");
+@end example
+
+@subheading No unusual markup
 
 @cindex markup
 @cindex control characters
