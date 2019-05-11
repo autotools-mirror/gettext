@@ -38,7 +38,8 @@ to the TO format.
 FROMFILE is the original file, defaulting to archive.\$FROM.tar.gz.
 TOFILE is the destination file, defaulting to archive.\$TO.tar.gz.
 
-Report bugs to <bug-gnu-gettext@gnu.org>."
+Report bugs in the bug tracker at <https://savannah.gnu.org/projects/gettext>
+or by email to <bug-gettext@gnu.org>."
 }
 
 # func_version

@@ -197,7 +197,8 @@ Options:
       --symlink        make symbolic links instead of copying files
   -n, --dry-run        print modifications but don't perform them
 
-Report bugs to <bug-gnu-gettext@gnu.org>."
+Report bugs in the bug tracker at <https://savannah.gnu.org/projects/gettext>
+or by email to <bug-gettext@gnu.org>."
 }
 
 # func_version

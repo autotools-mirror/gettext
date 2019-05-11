@@ -19,7 +19,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.63])
 AC_INIT([gettext-tools],
 	m4_esyscmd([../build-aux/git-version-gen ../.tarball-version]),
-	[bug-gnu-gettext@gnu.org])
+	[bug-gettext@gnu.org])
 AC_CONFIG_SRCDIR([src/msgfmt.c])
 AC_CONFIG_AUX_DIR([../build-aux])
 AM_INIT_AUTOMAKE([1.11.1 silent-rules parallel-tests])

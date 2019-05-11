@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-2010, 2012-2015, 2018 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2010, 2012-2015, 2018-2019 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.63])
 AC_INIT([gettext-runtime],
 	m4_esyscmd([../build-aux/git-version-gen ../.tarball-version]),
-	[bug-gnu-gettext@gnu.org])
+	[bug-gettext@gnu.org])
 AC_CONFIG_SRCDIR([intl/dcigettext.c])
 AC_CONFIG_AUX_DIR([../build-aux])
 AM_INIT_AUTOMAKE([1.11.1 silent-rules parallel-tests])

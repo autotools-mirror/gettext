@@ -22,8 +22,9 @@ The primary FTP site for its distribution is
            https://ftp.gnu.org/pub/gnu/gettext/
 
 
-Send comments and bug reports to
-                bug-gnu-gettext@gnu.org
+Report bugs
+  - in the bug tracker at <https://savannah.gnu.org/projects/gettext>
+  - or by email to <bug-gettext@gnu.org>.
 
 
 The configure script provides a non-standard option.  It is also

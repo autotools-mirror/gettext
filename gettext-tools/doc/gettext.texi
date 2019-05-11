@@ -549,14 +549,13 @@ is meant to be useful for people using computers, whatever their sex,
 race, religion or nationality!
 
 @cindex bug report address
-Please send suggestions and corrections to:
-
-@example
-@group
-@r{Internet address:}
-    bug-gnu-gettext@@gnu.org
-@end group
-@end example
+Please submit suggestions and corrections
+@itemize @bullet
+@item
+either in the bug tracker at @url{https://savannah.gnu.org/projects/gettext}
+@item
+or by email to @code{bug-gettext@@gnu.org}.
+@end itemize
 
 @noindent
 Please include the manual's edition number and update date in your messages.
@@ -6362,7 +6361,7 @@ The following rules are known at this point.  The language with families
 are listed.  But this does not necessarily mean the information can be
 generalized for the whole family (as can be easily seen in the table
 below).@footnote{Additions are welcome.  Send appropriate information to
-@email{bug-gnu-gettext@@gnu.org} and @email{bug-glibc-manual@@gnu.org}.
+@email{bug-gettext@@gnu.org} and @email{bug-glibc-manual@@gnu.org}.
 The Unicode CLDR Project (@uref{http://cldr.unicode.org}) provides a
 comprehensive set of plural forms in a different format.  The
 @code{msginit} program has preliminary support for the format so you can

@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-tools/examples directory of GNU gettext
-dnl Copyright (C) 2006, 2009, 2014 Free Software Foundation, Inc.
+dnl Copyright (C) 2006, 2009, 2014, 2019 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@ dnl Process this file with autoconf to produce a configure script.
 AC_PREREQ([2.57])
 AC_INIT([gettext-examples],
 	m4_esyscmd([../../build-aux/git-version-gen ../../.tarball-version]),
-	[bug-gnu-gettext@gnu.org])
+	[bug-gettext@gnu.org])
 AC_CONFIG_SRCDIR([installpaths.in])
 AC_CONFIG_AUX_DIR([../../build-aux])
 AM_INIT_AUTOMAKE([silent-rules])

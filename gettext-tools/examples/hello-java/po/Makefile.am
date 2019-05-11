@@ -44,7 +44,7 @@ PACKAGE_GNU = no
 # It can be your email address, or a mailing list address where translators
 # can write to without being subscribed, or the URL of a web page through
 # which the translators can contact you.
-MSGID_BUGS_ADDRESS = bug-gnu-gettext@gnu.org
+MSGID_BUGS_ADDRESS = bug-gettext@gnu.org
 
 # These options get passed to msgmerge.
 # Useful options are in particular:
