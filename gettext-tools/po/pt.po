@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools-0.20-rc1\n"
-"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-05-08 19:25+0200\n"
+"Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
+"POT-Creation-Date: 2019-05-12 16:11+0200\n"
 "PO-Revision-Date: 2019-04-15 17:29+0100\n"
 "Last-Translator: Pedro Albuquerque <palbuquerque73@gmail.com>\n"
 "Language-Team: Portuguese <translation-team-pt@lists.sourceforge.net>\n"
@@ -88,8 +88,8 @@ msgstr "erro ao escrever %s"
 msgid "error after reading %s"
 msgstr "erro após ler %s"
 
-#: gnulib-lib/csharpcomp.c:202 gnulib-lib/javaversion.c:78 src/msginit.c:947
-#: src/msginit.c:1030 src/msginit.c:1199 src/msginit.c:1305 src/msginit.c:1475
+#: gnulib-lib/csharpcomp.c:202 gnulib-lib/javaversion.c:78 src/msginit.c:951
+#: src/msginit.c:1034 src/msginit.c:1203 src/msginit.c:1309 src/msginit.c:1479
 #: src/read-csharp.c:72 src/read-java.c:71 src/read-resources.c:73
 #: src/read-tcl.c:111 src/write-resources.c:79
 #, c-format
@@ -188,8 +188,8 @@ msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr ""
 "Máquina virtual Java não encontrada, tente instalar gij ou defina $JAVA"
 
-#: gnulib-lib/javaversion.c:86 src/msginit.c:955 src/msginit.c:1038
-#: src/msginit.c:1207 src/msginit.c:1483
+#: gnulib-lib/javaversion.c:86 src/msginit.c:959 src/msginit.c:1042
+#: src/msginit.c:1211 src/msginit.c:1487
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "erro E/S no sub-processo %s"
@@ -207,7 +207,7 @@ msgid "creation of threads failed"
 msgstr "falha ao criar tópicos"
 
 #: gnulib-lib/pipe-filter-ii.c:345 gnulib-lib/pipe-filter-ii.c:502
-#: src/msgexec.c:426
+#: src/msgexec.c:430
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr "falha ao escrever no sub-processo %s"
@@ -376,31 +376,38 @@ msgstr "  -h, --help                  mostra esta mensagem e sai\n"
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               mostra informação de versão e sai\n"
 
-#. TRANSLATORS: The placeholder indicates the bug-reporting address
-#. for this package.  Please add _another line_ saying
+#. TRANSLATORS: The first placeholder is the web address of the Savannah
+#. project of this package.  The second placeholder is the bug-reporting
+#. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/cldr-plurals.c:222 src/hostname.c:240 src/msgattrib.c:545
-#: src/msgcat.c:479 src/msgcmp.c:268 src/msgcomm.c:465 src/msgconv.c:396
-#: src/msgen.c:392 src/msgexec.c:316 src/msgfilter.c:518 src/msgfmt.c:1081
-#: src/msggrep.c:639 src/msginit.c:480 src/msgmerge.c:679 src/msgunfmt.c:540
-#: src/msguniq.c:428 src/recode-sr-latin.c:173 src/urlget.c:198
-#: src/xgettext.c:1216
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+#: src/cldr-plurals.c:223 src/hostname.c:241 src/msgattrib.c:546
+#: src/msgcat.c:480 src/msgcmp.c:269 src/msgcomm.c:466 src/msgconv.c:397
+#: src/msgen.c:393 src/msgexec.c:317 src/msgfilter.c:519 src/msgfmt.c:1082
+#: src/msggrep.c:640 src/msginit.c:481 src/msgmerge.c:680 src/msgunfmt.c:541
+#: src/msguniq.c:429 src/recode-sr-latin.c:174 src/urlget.c:199
+#: src/xgettext.c:1217
+#, c-format
+msgid ""
+"Report bugs in the bug tracker at <%s>\n"
+"or by email to <%s>.\n"
 msgstr ""
-"Reportar erros a <bug-gnu-gettext@gnu.org>.\n"
-"Reportar erros de tradução a <translation-team-pt@lists.sourceforge.net>\n"
 
-#: src/cldr-plurals.c:287 src/hostname.c:179 src/msgattrib.c:355
+#: src/cldr-plurals.c:291 src/hostname.c:179 src/msgattrib.c:355
 #: src/msgcat.c:293 src/msgcmp.c:171 src/msgcomm.c:284 src/msgconv.c:244
 #: src/msgen.c:241 src/msgexec.c:185 src/msgfilter.c:288 src/msgfmt.c:444
 #: src/msggrep.c:419 src/msginit.c:271 src/msgmerge.c:372 src/msgunfmt.c:262
 #: src/msguniq.c:264 src/recode-sr-latin.c:109 src/urlget.c:142
 #: src/xgettext.c:667
-#, c-format, no-wrap
+#, fuzzy, c-format, no-wrap
+#| msgid ""
+#| "Copyright (C) %s Free Software Foundation, Inc.\n"
+#| "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+#| "This is free software: you are free to change and redistribute it.\n"
+#| "There is NO WARRANTY, to the extent permitted by law.\n"
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+"License GPLv3+: GNU GPL version 3 or later <%s>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
@@ -409,7 +416,7 @@ msgstr ""
 "Este software é grátis: pode alterá-lo e redistribuí-lo.\n"
 "Não há QUALQUER GARANTIA, até ao limite da Lei.\n"
 
-#: src/cldr-plurals.c:293 src/hostname.c:185 src/msgattrib.c:361
+#: src/cldr-plurals.c:297 src/hostname.c:185 src/msgattrib.c:361
 #: src/msgcat.c:299 src/msgcmp.c:177 src/msgcomm.c:290 src/msgconv.c:250
 #: src/msgen.c:247 src/msgexec.c:191 src/msgfilter.c:294 src/msgfmt.c:450
 #: src/msggrep.c:425 src/msginit.c:277 src/msgmerge.c:378 src/msgunfmt.c:268
@@ -419,34 +426,34 @@ msgid "Written by %s.\n"
 msgstr "Escrito por %s\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/cldr-plurals.c:293
+#: src/cldr-plurals.c:297
 msgid "Daiki Ueno"
 msgstr "Daiki Ueno"
 
-#: src/cldr-plurals.c:313
+#: src/cldr-plurals.c:317
 #, c-format
 msgid "%s cannot be read"
 msgstr "impossível ler \"%s\""
 
-#: src/cldr-plurals.c:319
+#: src/cldr-plurals.c:323
 #, c-format
 msgid "cannot extract rules for %s"
 msgstr "impossível extrair regras para %s"
 
-#: src/cldr-plurals.c:329
+#: src/cldr-plurals.c:333
 #, c-format
 msgid "cannot parse CLDR rule"
 msgstr "impossível analisar regra CLDR"
 
-#: src/cldr-plurals.c:364
+#: src/cldr-plurals.c:368
 #, c-format
 msgid "extra operand %s"
 msgstr "operando extra %s"
 
 #: src/file-list.c:53 src/msggrep.c:248 src/open-catalog.c:122
-#: src/read-mo.c:269 src/read-tcl.c:126 src/urlget.c:215
-#: src/write-desktop.c:173 src/xgettext.c:1705 src/xgettext.c:1718
-#: src/xgettext.c:1728
+#: src/read-mo.c:269 src/read-tcl.c:126 src/urlget.c:219
+#: src/write-desktop.c:173 src/xgettext.c:1709 src/xgettext.c:1722
+#: src/xgettext.c:1732
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "erro ao abrir \"%s\" para leitura"
@@ -1047,7 +1054,7 @@ msgstr "  -i, --ip-address            endereços para o nome de servidor\n"
 msgid "Informative output:\n"
 msgstr "Saída informativa:\n"
 
-#: src/hostname.c:256 src/hostname.c:262 src/hostname.c:269
+#: src/hostname.c:260 src/hostname.c:266 src/hostname.c:273
 #, c-format
 msgid "could not get host name"
 msgstr "impossível obter o nome de servidor"
@@ -1698,37 +1705,37 @@ msgstr "      --use-fuzzy             considera entradas aproximadas\n"
 msgid "      --use-untranslated      consider untranslated entries\n"
 msgstr "      --use-untranslated      considera entradas não traduzidas\n"
 
-#: src/msgcmp.c:324
+#: src/msgcmp.c:329
 #, c-format
 msgid "this message is untranslated"
 msgstr "esta mensagem não está traduzida"
 
-#: src/msgcmp.c:330
+#: src/msgcmp.c:335
 #, c-format
 msgid "this message needs to be reviewed by the translator"
 msgstr "esta mensagem precisa de ser revista pelo tradutor"
 
-#: src/msgcmp.c:369 src/msgmerge.c:1576
+#: src/msgcmp.c:374 src/msgmerge.c:1580
 #, c-format
 msgid "this message is used but not defined..."
 msgstr "esta mensagem é usada mas não definida..."
 
-#: src/msgcmp.c:372 src/msgmerge.c:1579
+#: src/msgcmp.c:377 src/msgmerge.c:1583
 #, c-format
 msgid "...but this definition is similar"
 msgstr "...mas esta definição é semelhante"
 
-#: src/msgcmp.c:377 src/msgmerge.c:1608
+#: src/msgcmp.c:382 src/msgmerge.c:1612
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "esta mensagem é usada mas não definida em %s"
 
-#: src/msgcmp.c:546
+#: src/msgcmp.c:551
 #, c-format
 msgid "warning: this message is not used"
 msgstr "atenção: esta mensagem não é usada"
 
-#: src/msgcmp.c:553 src/msgfmt.c:775 src/msgfmt.c:1604 src/xgettext.c:992
+#: src/msgcmp.c:558 src/msgfmt.c:775 src/msgfmt.c:1609 src/xgettext.c:992
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
@@ -1901,7 +1908,7 @@ msgstr "  --newline                   adiciona newline no fim da entrada\n"
 msgid "  -i, --input=INPUTFILE       input PO file\n"
 msgstr "  -i, --input=INPUTFILE       ficheiro de entrada PO\n"
 
-#: src/msgexec.c:356
+#: src/msgexec.c:360
 #, c-format
 msgid "write to stdout failed"
 msgstr "falha ao escrever na saída padrão"
@@ -2000,7 +2007,7 @@ msgstr ""
 "      --keep-header           mantém a entrada de cabeçalho sem modificação, "
 "não a filtra\n"
 
-#: src/msgfilter.c:665
+#: src/msgfilter.c:669
 #, c-format
 msgid "filter output is not terminated with a newline"
 msgstr "saída do filtro não termina com newline"
@@ -2430,54 +2437,54 @@ msgstr "      --statistics            mostra estatísticas da tradução\n"
 msgid "  -v, --verbose               increase verbosity level\n"
 msgstr "  -v, --verbose               aumenta a verbosidade\n"
 
-#: src/msgfmt.c:1185
+#: src/msgfmt.c:1190
 #, c-format
 msgid "warning: PO file header missing or invalid\n"
 msgstr "aviso: cabeçalho do ficheiro PO em falta ou inválido\n"
 
-#: src/msgfmt.c:1187
+#: src/msgfmt.c:1192
 #, c-format
 msgid "warning: charset conversion will not work\n"
 msgstr "aviso: a conversão do conjunto de caracteres não vai funcionar\n"
 
-#: src/msgfmt.c:1211
+#: src/msgfmt.c:1216
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "nome de domínio \"%s\" inadequado como nome de ficheiro"
 
-#: src/msgfmt.c:1216
+#: src/msgfmt.c:1221
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr ""
 "nome de domínio \"%s\" inadequado como nome de ficheiro: será usado um "
 "prefixo"
 
-#: src/msgfmt.c:1230
+#: src/msgfmt.c:1235
 #, c-format
 msgid "'domain %s' directive ignored"
 msgstr "directiva \"domínio %s\" ignorada"
 
-#: src/msgfmt.c:1290
+#: src/msgfmt.c:1295
 #, c-format
 msgid "empty 'msgstr' entry ignored"
 msgstr "entrada \"msgstr\" vazia ignorada"
 
-#: src/msgfmt.c:1291
+#: src/msgfmt.c:1296
 #, c-format
 msgid "fuzzy 'msgstr' entry ignored"
 msgstr "entrada \"msgstr\" aproximada ignorada"
 
-#: src/msgfmt.c:1339
+#: src/msgfmt.c:1344
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: aviso: o ficheiro fonte contém traduções aproximadas"
 
-#: src/msgfmt.c:1455
+#: src/msgfmt.c:1460
 #, c-format
 msgid "%s does not exist"
 msgstr "%s não existe"
 
-#: src/msgfmt.c:1462
+#: src/msgfmt.c:1467
 #, c-format
 msgid "%s exists but cannot read"
 msgstr "%s existe mas não está legível"
@@ -2689,7 +2696,7 @@ msgstr ""
 "      --no-translator         assume que o ficheiro PO é automaticamente "
 "gerado\n"
 
-#: src/msginit.c:517
+#: src/msginit.c:521
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2697,12 +2704,12 @@ msgstr ""
 "Encontrados vários ficheiros POT.\n"
 "Por favor, especifique o ficheiro de entrada POT via opção --input.\n"
 
-#: src/msginit.c:525 src/msginit.c:530
+#: src/msginit.c:529 src/msginit.c:534
 #, c-format
 msgid "error reading current directory"
 msgstr "erro ao ler a pasta actual"
 
-#: src/msginit.c:538
+#: src/msginit.c:542
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2710,14 +2717,14 @@ msgstr ""
 "Sem ficheiros POT na pasta actual.\n"
 "Por favor, especifique o ficheiro de entrada POT via opção --input.\n"
 
-#: src/msginit.c:968 src/msginit.c:1051 src/msginit.c:1220 src/msginit.c:1322
-#: src/msginit.c:1503 src/read-csharp.c:83 src/read-java.c:82
+#: src/msginit.c:972 src/msginit.c:1055 src/msginit.c:1224 src/msginit.c:1326
+#: src/msginit.c:1507 src/read-csharp.c:83 src/read-java.c:82
 #: src/read-resources.c:84 src/read-tcl.c:128 src/write-resources.c:106
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr "sub-processo %s falhou com código de saída %d"
 
-#: src/msginit.c:1185
+#: src/msginit.c:1189
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -2734,7 +2741,7 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1698
+#: src/msginit.c:1702
 #, c-format
 msgid "English translations for %s package"
 msgstr "Tradução portuguesa (Portugal) para o pacote %s"
@@ -2776,7 +2783,7 @@ msgstr ""
 
 #: src/msgl-cat.c:443 src/msgl-cat.c:449 src/msgl-charset.c:91
 #: src/msgl-charset.c:126 src/po-xerror.c:127 src/po-xerror.c:152
-#: src/xgettext.c:566 src/xgettext.c:1871
+#: src/xgettext.c:566 src/xgettext.c:1875
 #, c-format
 msgid "warning: "
 msgstr "aviso: "
@@ -3038,7 +3045,7 @@ msgid "input file doesn't contain a header entry with a charset specification"
 msgstr ""
 "ficheiro de entrada sem especificação de conjunto de caracteres no cabeçalho"
 
-#: src/msgl-iconv.c:302 src/recode-sr-latin.c:288 src/recode-sr-latin.c:292
+#: src/msgl-iconv.c:302 src/recode-sr-latin.c:293 src/recode-sr-latin.c:297
 #: src/xgettext.c:787 src/x-python.c:599
 #, c-format
 msgid ""
@@ -3057,7 +3064,7 @@ msgstr ""
 "Conversão de \"%s\" para \"%s\" introduz duplicados: algumas msgids "
 "diferentes tornam-se iguais."
 
-#: src/msgl-iconv.c:334 src/recode-sr-latin.c:300 src/xgettext.c:793
+#: src/msgl-iconv.c:334 src/recode-sr-latin.c:305 src/xgettext.c:793
 #: src/x-python.c:605
 #, c-format
 msgid ""
@@ -3201,17 +3208,17 @@ msgstr ""
 msgid "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr "  -q, --quiet, --silent       suprime indicadores de progresso\n"
 
-#: src/msgmerge.c:1685
+#: src/msgmerge.c:1689
 #, c-format
 msgid "this message should define plural forms"
 msgstr "esta mensagem deve definir formas plurais"
 
-#: src/msgmerge.c:1706
+#: src/msgmerge.c:1710
 #, c-format
 msgid "this message should not define plural forms"
 msgstr "esta mensagem não deve definir formas plurais"
 
-#: src/msgmerge.c:2110
+#: src/msgmerge.c:2114
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
@@ -3220,8 +3227,8 @@ msgstr ""
 "%sLidas %ld antigas + %ld referências, unidas %ld, aproximadas %ld, faltam "
 "%ld, obsoletas %ld.\n"
 
-#: src/msgmerge.c:2118 src/urlget.c:298 src/urlget.c:345 src/urlget.c:387
-#: src/urlget.c:429
+#: src/msgmerge.c:2122 src/urlget.c:302 src/urlget.c:349 src/urlget.c:391
+#: src/urlget.c:433
 #, c-format
 msgid " done.\n"
 msgstr " concluído.\n"
@@ -3504,7 +3511,7 @@ msgstr "fim-de-linha dentro da cadeia"
 msgid "context separator <EOT> within string"
 msgstr "separador de contexto <EOT> dentro da cadeia"
 
-#: src/read-catalog.c:325 src/xgettext.c:1228
+#: src/read-catalog.c:325 src/xgettext.c:1232
 #, c-format
 msgid "this file may not contain domain directives"
 msgstr "este ficheiro não pode conter directivas de domínio"
@@ -3621,12 +3628,12 @@ msgstr ""
 "O texto de entrada é lido da entrada padrão. O texto convertido é imprimido na\n"
 "saída padrão.\n"
 
-#: src/recode-sr-latin.c:335
+#: src/recode-sr-latin.c:340
 #, c-format
 msgid "input is not valid in \"%s\" encoding"
 msgstr "entrada inválida na codificação \"%s\""
 
-#: src/recode-sr-latin.c:363
+#: src/recode-sr-latin.c:368
 #, c-format
 msgid "error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "erro ao converter da codificação \"%s\" para codificação \"%s\""
@@ -3648,32 +3655,32 @@ msgid ""
 "the locally accessible FILE is used instead.\n"
 msgstr "Obtém e imprime o conteúdo de um URL. Se o URL não puder ser acedido, será usado o ficheiro localmente acessível.\n"
 
-#: src/urlget.c:227
+#: src/urlget.c:231
 #, c-format
 msgid "error reading \"%s\""
 msgstr "erro ao ler \"%s\""
 
-#: src/urlget.c:233
+#: src/urlget.c:237
 #, c-format
 msgid "error writing stdout"
 msgstr "erro ao escrever na saída padrão"
 
-#: src/urlget.c:237
+#: src/urlget.c:241
 #, c-format
 msgid "error after reading \"%s\""
 msgstr "erro após ler \"%s\""
 
-#: src/urlget.c:267
+#: src/urlget.c:271
 #, c-format
 msgid "Retrieving %s..."
 msgstr "A obter %s..."
 
-#: src/urlget.c:300
+#: src/urlget.c:304
 #, c-format
 msgid " timed out.\n"
 msgstr " expirou.\n"
 
-#: src/urlget.c:437
+#: src/urlget.c:441
 #, c-format
 msgid " failed.\n"
 msgstr " falhou.\n"
@@ -4335,7 +4342,7 @@ msgstr ""
 "valores\n"
 "                                msgstr\n"
 
-#: src/xgettext.c:1597
+#: src/xgettext.c:1601
 #, c-format
 msgid ""
 "A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: "
@@ -4344,11 +4351,11 @@ msgstr ""
 "Um argumento --flag não tem a sintaxe <palavra-chave>:<argnum>:"
 "[pass-]<bandeira>: %s"
 
-#: src/xgettext.c:1695
+#: src/xgettext.c:1699
 msgid "standard input"
 msgstr "entrada padrão"
 
-#: src/xgettext.c:1872
+#: src/xgettext.c:1876
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -4360,7 +4367,7 @@ msgstr ""
 "especifique aí a variável MSGID_BUGS_ADDRESS; senão,\n"
 "especifique uma opção de comando --msgid-bugs-address.\n"
 
-#: src/xgettext.c:2088
+#: src/xgettext.c:2092
 #, c-format
 msgid "language '%s' unknown"
 msgstr "linguagem \"%s\" desconhecida"
@@ -4702,6 +4709,11 @@ msgstr "dentro de um comentário ou instrução de processamento"
 #, c-format
 msgid "document ended unexpectedly: %s"
 msgstr "o documento terminou inesperadamente: %s"
+
+#~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+#~ msgstr ""
+#~ "Reportar erros a <bug-gnu-gettext@gnu.org>.\n"
+#~ "Reportar erros de tradução a <translation-team-pt@lists.sourceforge.net>\n"
 
 #~ msgid "%s: option '--%s' doesn't allow an argument\n"
 #~ msgstr "%s: opção \"--%s\" não permite argumentos\n"

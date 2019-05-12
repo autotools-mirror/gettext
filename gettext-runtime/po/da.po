@@ -10,8 +10,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.19.4-rc1\n"
-"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-05-08 19:24+0200\n"
+"Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
+"POT-Creation-Date: 2019-05-12 16:10+0200\n"
 "PO-Revision-Date: 2015-04-26 01:45+0200\n"
 "Last-Translator: Keld Simonsen <keld@keldix.com>\n"
 "Language-Team: Danish <dansk@dansk-gruppen.dk>\n"
@@ -85,7 +85,7 @@ msgstr "ikke mere ledig hukommelse"
 #| "There is NO WARRANTY, to the extent permitted by law.\n"
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+"License GPLv3+: GNU GPL version 3 or later <%s>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
@@ -180,20 +180,24 @@ msgstr ""
 "Når --variables bruges, ignores inddata, og uddata består af\n"
 "miljøvariablene der optræder i SKAL-FORMAT, én per linje.\n"
 
-#. TRANSLATORS: The placeholder indicates the bug-reporting address
-#. for this package.  Please add _another line_ saying
+#. TRANSLATORS: The first placeholder is the web address of the Savannah
+#. project of this package.  The second placeholder is the bug-reporting
+#. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:224 src/gettext.c:300 src/ngettext.c:263
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "Rapportér fejl på engelsk til <bug-gnu-gettext@gnu.org>.\n"
+#: src/envsubst.c:225 src/gettext.c:301 src/ngettext.c:264
+#, c-format
+msgid ""
+"Report bugs in the bug tracker at <%s>\n"
+"or by email to <%s>.\n"
+msgstr ""
 
-#: src/envsubst.c:448
+#: src/envsubst.c:453
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "fejl ved læsning af '%s'"
 
-#: src/envsubst.c:448
+#: src/envsubst.c:453
 msgid "standard input"
 msgstr "standard-inddata"
 
@@ -349,6 +353,9 @@ msgstr ""
 #, c-format
 #~ msgid "%s: option '-W %s' requires an argument\n"
 #~ msgstr "%s: tilvalget `%s' kræver et argument\n"
+
+#~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+#~ msgstr "Rapportér fejl på engelsk til <bug-gnu-gettext@gnu.org>.\n"
 
 #, c-format, no-wrap
 #~ msgid ""

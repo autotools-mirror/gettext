@@ -13,8 +13,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20-rc1\n"
-"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-05-08 19:24+0200\n"
+"Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
+"POT-Creation-Date: 2019-05-12 16:10+0200\n"
 "PO-Revision-Date: 2019-04-14 13:29-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
@@ -75,10 +75,15 @@ msgid "memory exhausted"
 msgstr "内存耗尽"
 
 #: src/envsubst.c:112 src/gettext.c:137 src/ngettext.c:126
-#, c-format, no-wrap
+#, fuzzy, c-format, no-wrap
+#| msgid ""
+#| "Copyright (C) %s Free Software Foundation, Inc.\n"
+#| "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+#| "This is free software: you are free to change and redistribute it.\n"
+#| "There is NO WARRANTY, to the extent permitted by law.\n"
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+"License GPLv3+: GNU GPL version 3 or later <%s>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
@@ -170,20 +175,24 @@ msgstr ""
 "若使用了 --variables，则会忽略标准输入，而输出由 SHELL格式 引用的环境变量组成，\n"
 "每行出现一个环境变量。\n"
 
-#. TRANSLATORS: The placeholder indicates the bug-reporting address
-#. for this package.  Please add _another line_ saying
+#. TRANSLATORS: The first placeholder is the web address of the Savannah
+#. project of this package.  The second placeholder is the bug-reporting
+#. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:224 src/gettext.c:300 src/ngettext.c:263
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "将错误报告至 <bug-gnu-gettext@gnu.org>。\n"
+#: src/envsubst.c:225 src/gettext.c:301 src/ngettext.c:264
+#, c-format
+msgid ""
+"Report bugs in the bug tracker at <%s>\n"
+"or by email to <%s>.\n"
+msgstr ""
 
-#: src/envsubst.c:448
+#: src/envsubst.c:453
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "读取“%s”时出错"
 
-#: src/envsubst.c:448
+#: src/envsubst.c:453
 msgid "standard input"
 msgstr "标准输入"
 
@@ -318,6 +327,9 @@ msgstr ""
 "假如消息一览表文件不在正常的目录下，可以用环境变量 TEXTDOMAINDIR 指定\n"
 "消息一览表文件所在的位置。\n"
 "标准的搜索目录为：%s\n"
+
+#~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+#~ msgstr "将错误报告至 <bug-gnu-gettext@gnu.org>。\n"
 
 #~ msgid "%s: option '--%s' doesn't allow an argument\n"
 #~ msgstr "%s：选项“--%s”不允许有参数\n"

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-runtime 0.20-rc1\n"
-"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-05-08 19:24+0200\n"
+"Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
+"POT-Creation-Date: 2019-05-12 16:10+0200\n"
 "PO-Revision-Date: 2019-04-16 21:12+0300\n"
 "Last-Translator: Roumen Petrov <transl@roumenpetrov.info>\n"
 "Language-Team: Bulgarian <dict@ludost.net>\n"
@@ -66,10 +66,15 @@ msgid "memory exhausted"
 msgstr "паметта е изчерпана"
 
 #: src/envsubst.c:112 src/gettext.c:137 src/ngettext.c:126
-#, c-format, no-wrap
+#, fuzzy, c-format, no-wrap
+#| msgid ""
+#| "Copyright (C) %s Free Software Foundation, Inc.\n"
+#| "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+#| "This is free software: you are free to change and redistribute it.\n"
+#| "There is NO WARRANTY, to the extent permitted by law.\n"
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+"License GPLv3+: GNU GPL version 3 or later <%s>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
@@ -164,22 +169,24 @@ msgstr ""
 "Ако се използва --variables, стандартния изход се пренебрегва и изведеното се\n"
 "състои от променливите на обкръжението указани от ОБВИВКА-ФОРМА, по една на ред.\n"
 
-#. TRANSLATORS: The placeholder indicates the bug-reporting address
-#. for this package.  Please add _another line_ saying
+#. TRANSLATORS: The first placeholder is the web address of the Savannah
+#. project of this package.  The second placeholder is the bug-reporting
+#. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:224 src/gettext.c:300 src/ngettext.c:263
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+#: src/envsubst.c:225 src/gettext.c:301 src/ngettext.c:264
+#, c-format
+msgid ""
+"Report bugs in the bug tracker at <%s>\n"
+"or by email to <%s>.\n"
 msgstr ""
-"Подавайте доклади за грешки на <bug-gnu-gettext@gnu.org>,\n"
-"а за грешки в превода на <dict@fsa-bg.org>.\n"
 
-#: src/envsubst.c:448
+#: src/envsubst.c:453
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "грешка при четене \"%s\""
 
-#: src/envsubst.c:448
+#: src/envsubst.c:453
 msgid "standard input"
 msgstr "стандартен вход"
 
@@ -324,3 +331,8 @@ msgstr ""
 "обичайната директория, друго местоположение може да се зададе с променливата\n"
 "от обкръжението TEXTDOMAINDIR.\n"
 "Директория за търсене: %s\n"
+
+#~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+#~ msgstr ""
+#~ "Подавайте доклади за грешки на <bug-gnu-gettext@gnu.org>,\n"
+#~ "а за грешки в превода на <dict@fsa-bg.org>.\n"

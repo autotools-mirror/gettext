@@ -8,8 +8,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-runtime 0.20-rc1\n"
-"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-05-08 19:24+0200\n"
+"Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
+"POT-Creation-Date: 2019-05-12 16:10+0200\n"
 "PO-Revision-Date: 2019-04-18 07:08+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@googlegroups.com>\n"
@@ -69,10 +69,15 @@ msgid "memory exhausted"
 msgstr "메모리가 바닥났습니다"
 
 #: src/envsubst.c:112 src/gettext.c:137 src/ngettext.c:126
-#, c-format, no-wrap
+#, fuzzy, c-format, no-wrap
+#| msgid ""
+#| "Copyright (C) %s Free Software Foundation, Inc.\n"
+#| "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+#| "This is free software: you are free to change and redistribute it.\n"
+#| "There is NO WARRANTY, to the extent permitted by law.\n"
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
+"License GPLv3+: GNU GPL version 3 or later <%s>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
@@ -165,20 +170,24 @@ msgstr ""
 "--variables 옵션을 사용하면, 표준 입력을 무시하고, <쉘-형식>에 참조된 환경 변수를\n"
 "한 줄에 하나씩 출력합니다.\n"
 
-#. TRANSLATORS: The placeholder indicates the bug-reporting address
-#. for this package.  Please add _another line_ saying
+#. TRANSLATORS: The first placeholder is the web address of the Savannah
+#. project of this package.  The second placeholder is the bug-reporting
+#. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:224 src/gettext.c:300 src/ngettext.c:263
-msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-msgstr "<bug-gnu-gettext@gnu.org>로 문제점을 알려 주십시오.\n"
+#: src/envsubst.c:225 src/gettext.c:301 src/ngettext.c:264
+#, c-format
+msgid ""
+"Report bugs in the bug tracker at <%s>\n"
+"or by email to <%s>.\n"
+msgstr ""
 
-#: src/envsubst.c:448
+#: src/envsubst.c:453
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "\"%s\"을(를) 읽는 동안 오류 발생"
 
-#: src/envsubst.c:448
+#: src/envsubst.c:453
 msgid "standard input"
 msgstr "표준 입력"
 
@@ -320,3 +329,6 @@ msgstr ""
 "TEXTDOMAINDIR로 다른 위치를 지정할 수 있습니다.\n"
 "\n"
 "표준 탐색 디렉터리: %s\n"
+
+#~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+#~ msgstr "<bug-gnu-gettext@gnu.org>로 문제점을 알려 주십시오.\n"
