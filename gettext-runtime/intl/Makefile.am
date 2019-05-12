@@ -349,7 +349,7 @@ libgnuintl_la_DEPENDENCIES = $(WOE32_LIBADD)
 # libtool documentation, section "Library interface versions".
 LTV_CURRENT=9
 LTV_REVISION=6
-LTV_AGE=2
+LTV_AGE=1
 
 # How to build libintl.la and libgnuintl.la.
 OTHER_LDFLAGS = \
