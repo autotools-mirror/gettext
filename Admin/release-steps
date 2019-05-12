@@ -110,13 +110,16 @@ We assume that the following environment variables are set:
 
     Update -version-info arguments, according to libtool versioning
     (info "(libtool) Updating version info").
+    Preferrably using the gnulib/build-aux/libtool-next-version program.
+    Or manually, using these rules:
 
       * increment LTV_REVISION,
-      * if any interfaces (functions/variables/classes) have been added,
-        removed or changed, increment LTV_CURRENT and set LTV_REVISION to 0,
-      * if any interfaces (functions/variables/classes) have been added,
-        increment LTV_AGE,
-      * if backwards compatibility has been broken, set LTV_AGE to 0.
+      * if any interfaces (functions/variables/classes) have been removed
+        or changed [i.e. backwards compatibility has been broken],
+        increment LTV_CURRENT, set LTV_REVISION to 0, set LTV_AGE to 0.
+      * otherwise:
+        * if any interfaces (functions/variables/classes) have been added,
+          increment LTV_CURRENT, set LTV_REVISION to 0, increment LTV_AGE.
 
   - gettext-tools/emacs/po-mode.el
 
@@ -268,10 +271,10 @@ We assume that the following environment variables are set:
     gzip -d -c < gettext-$CURRENT_VERSION-*.tar.gz | xz -c -e > gettext-$CURRENT_VERSION-*.tar.xz
     gzip -d -c < gettext-$CURRENT_VERSION-*.tar.gz | lzip -c -9 > gettext-$CURRENT_VERSION-*.tar.lz
 
-  Add a git tag:
+  Add a git tag (an annotated tag, not a lightweight tag):
 
     git commit --allow-empty -m "Release $CURRENT_VERSION"
-    git tag -u $GPG_KEY_ID v$CURRENT_VERSION
+    git tag -a -m "Release $CURRENT_VERSION" v$CURRENT_VERSION
 
 ** Upload tarballs:
 
