@@ -126,7 +126,7 @@ AM_CONDITIONAL([USE_INCLUDED_LIBINTL], [test $USE_INCLUDED_LIBINTL = yes])
 AM_CONDITIONAL([BUILD_INCLUDED_LIBINTL], [test $BUILD_INCLUDED_LIBINTL = yes])
 AM_CONDITIONAL([PACKAGE_IS_GETTEXT_TOOLS], [true])
 AM_CONDITIONAL([PRELOADABLE_LIBINTL],
-  [test $USE_INCLUDED_LIBINTL = no && test $GLIBC2 = yes])
+  [test $USE_INCLUDED_LIBINTL = no && test $GLIBC2 = yes && test "$enable_shared" = yes])
 
 dnl This line internationalizes the bison generated parsers.
 BISON_I18N
