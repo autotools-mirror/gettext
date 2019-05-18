@@ -5653,7 +5653,7 @@ user can happily live with it.  But programmers hate it (at least I and
 some others do@dots{})
 
 But we must not forget one point: after all the trouble with transferring
-the rights on Unix(tm) they at last came to X/Open, the very same who
+the rights on Unix they at last came to X/Open, the very same who
 published this specification.  This leads me to making the prediction
 that this interface will be in future Unix standards (e.g.@: Spec1170) and
 therefore part of all Unix implementation (implementations, which are
