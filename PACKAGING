@@ -42,7 +42,7 @@ The 'libtextstyle' binary package can be installed by doing
 The 'gettext-tools' binary package can be installed by doing
 
       cd gettext-tools
-      ./configure --with-installed-libtextstyle
+      ./configure --with-installed-libtextstyle --with-installed-csharp-dll
       make
       make install
 

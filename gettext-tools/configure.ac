@@ -147,6 +147,20 @@ fi
 AM_CONDITIONAL([USE_INSTALLED_LIBTEXTSTYLE],
   [test "$gt_use_installed_libtextstyle" != no])
 
+dnl This option allows to build gettext-tools without (re)building GNU.Gettext.dll.
+AC_ARG_WITH([installed-csharp-dll],
+  [AS_HELP_STRING([--with-installed-csharp-dll],
+     [Use an already installed C# DLL.])],
+  [gt_use_installed_csharp_dll=$withval],
+  [gt_use_installed_csharp_dll=no])
+if test "$gt_use_installed_csharp_dll" = no; then
+  test -f ../gettext-runtime/intl-csharp/Makefile || {
+    AC_MSG_ERROR([When building the gettext-tools package without building the entire gettext package, you need to pass the --with-installed-csharp-dll option to configure.])
+  }
+fi
+AM_CONDITIONAL([USE_INSTALLED_CSHARP_DLL],
+  [test "$gt_use_installed_csharp_dll" != no])
+
 dnl This line internationalizes the bison generated parsers.
 BISON_I18N
 
