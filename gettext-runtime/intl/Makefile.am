@@ -52,6 +52,15 @@ AM_CPPFLAGS = \
   -DLOCALEDIR=\"$(localedir)\" -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
   -DLIBDIR=\"$(libdir)\" -DBUILDING_LIBINTL -DBUILDING_DLL -DIN_LIBINTL
 
+if WOE32
+# On mingw, disable the declarations of *printf functions as aliases to the
+# corresponding __mingw_*printf functions, because
+# - these functions are useless for i18n purposes (not POSIX/XSI compliant),
+# - they pull in a dependency to the libgcc_s_sjlj DLL (through the symbols
+#   __udivdi3, __umoddi3).
+AM_CPPFLAGS += -D__USE_MINGW_ANSI_STDIO=0
+endif
+
 # Parametrization of the 'relocatable-lib-lgpl' module.
 AM_CPPFLAGS += \
   -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"$(libdir)\" -DNO_XMALLOC \

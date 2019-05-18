@@ -26,6 +26,15 @@ RM = rm -f
 
 DEFS = -DIN_LIBASPRINTF @DEFS@
 
+if WOE32
+# On mingw, disable the declarations of *printf functions as aliases to the
+# corresponding __mingw_*printf functions, because
+# - these functions are useless for i18n purposes (not POSIX/XSI compliant),
+# - they pull in a dependency to the libgcc_s_sjlj DLL (through the symbols
+#   __udivdi3, __umoddi3).
+DEFS += -D__USE_MINGW_ANSI_STDIO=0
+endif
+
 
 # Library include file.
 
