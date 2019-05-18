@@ -62,6 +62,9 @@ AC_EXEEXT
 dnl For a 64-bit build on AIX, AC_PROG_RANLIB is not sufficient.
 gl_PROG_AR_RANLIB
 
+dnl Set preferences for the gnulib module 'threadlib'.
+gl_AVOID_WINPTHREAD
+
 dnl Make sure we see all GNU and Solaris extensions.
 gl_EARLY
 AM_PROG_CC_C_O
