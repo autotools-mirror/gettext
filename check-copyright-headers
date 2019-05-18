@@ -58,12 +58,11 @@
 # The latter categories are not valuable enough to warrant sueing
 # infringers.
 #
-# Not all files files qualify for a copyright header.  Namely, since
-# copyright applies to the expression of an idea (think roughly of the
-# program as an art work), it makes no sense to attach a copyright header
-# to a file which different programmers would write in the same way.
-# This includes tiny files, as well as files that contain only machine-
-# generated data.
+# Not all files qualify for a copyright header.  Namely, since copyright
+# applies to the expression of an idea (think roughly of the program as
+# an art work), it makes no sense to attach a copyright header to a file
+# which different programmers would write in the same way.  This includes
+# tiny files, as well as files that contain only machine-generated data.
 
 # Usage: check-copyright-headers UNPACKED-GETTEXT-TARBALL
 
