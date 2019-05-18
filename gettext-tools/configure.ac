@@ -124,6 +124,22 @@ AM_CONDITIONAL([PACKAGE_IS_GETTEXT_TOOLS], [true])
 AM_CONDITIONAL([PRELOADABLE_LIBINTL],
   [test $USE_INCLUDED_LIBINTL = no && test $GLIBC2 = yes && test "$enable_shared" = yes])
 
+dnl This option allows to build gettext-tools without (re)building libtextstyle.
+AC_ARG_WITH([installed-libtextstyle],
+  [AS_HELP_STRING([--with-installed-libtextstyle],
+     [Use an already installed libtextstyle.])],
+  [gt_use_installed_libtextstyle=$withval],
+  [gt_use_installed_libtextstyle=no])
+if test "$gt_use_installed_libtextstyle" != no; then
+  gl_LIBTEXTSTYLE
+else
+  test -f ../libtextstyle/Makefile || {
+    AC_MSG_ERROR([When building the gettext-tools package without building the entire gettext package, you need to pass the --with-installed-libtextstyle option to configure.])
+  }
+fi
+AM_CONDITIONAL([USE_INSTALLED_LIBTEXTSTYLE],
+  [test "$gt_use_installed_libtextstyle" != no])
+
 dnl This line internationalizes the bison generated parsers.
 BISON_I18N
 
