@@ -616,8 +616,13 @@ all-csharp-no:
 msgfmt.net.exe: msgfmt.cs
 	$(CSHARPCOMP) $(CSHARPCOMPFLAGS) -o $@ $(srcdir)/msgfmt.cs
 
+if USE_INSTALLED_CSHARP_DLL
+CSHARP_DLL_DIR = $(libdir)
+else
+CSHARP_DLL_DIR = ../../gettext-runtime/intl-csharp
+endif
 msgunfmt.net.exe: msgunfmt.cs
-	$(CSHARPCOMP) $(CSHARPCOMPFLAGS) -o $@ -L ../../gettext-runtime/intl-csharp -l GNU.Gettext $(srcdir)/msgunfmt.cs
+	$(CSHARPCOMP) $(CSHARPCOMPFLAGS) -o $@ -L '$(CSHARP_DLL_DIR)' -l GNU.Gettext $(srcdir)/msgunfmt.cs
 
 install-exec-local: install-exec-csharp-@BUILDCSHARP@
 install-exec-csharp-yes: all-csharp-yes
