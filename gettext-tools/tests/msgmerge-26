@@ -73,7 +73,37 @@ msgstr "Papaya"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test26.ok mm-test26.out
-result=$?
+${DIFF} mm-test26.ok mm-test26.out || Exit 1
 
-exit $result
+# Test with a PO file that has no translated messages.
+
+cat <<\EOF > mm-test26a.in1
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+
+msgid "Hello world"
+msgstr "Hallo Welt"
+EOF
+
+cat <<\EOF > mm-test26a.in2
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=ASCII\n"
+
+msgid "Hello, world!"
+msgstr ""
+EOF
+
+: ${MSGMERGE=msgmerge}
+${MSGMERGE} --for-msgfmt -o mm-test26a.tmp mm-test26a.in1 mm-test26a.in2 \
+    || Exit 1
+LC_ALL=C tr -d '\r' < mm-test26a.tmp > mm-test26a.out || Exit 1
+
+cat <<\EOF > mm-test26a.ok
+msgid ""
+msgstr "Content-Type: text/plain; charset=UTF-8\n"
+EOF
+
+: ${DIFF=diff}
+${DIFF} mm-test26a.ok mm-test26a.out || Exit 1

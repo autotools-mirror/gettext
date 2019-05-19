@@ -520,8 +520,8 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   else
     {
       /* Write the merged message list out.  */
-      msgdomain_list_print (result, output_file, output_syntax, force_po,
-                            false);
+      msgdomain_list_print (result, output_file, output_syntax,
+                            for_msgfmt || force_po, false);
     }
 
   exit (EXIT_SUCCESS);
