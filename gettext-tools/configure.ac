@@ -141,7 +141,7 @@ if test "$gt_use_installed_libtextstyle" != no; then
   gl_LIBTEXTSTYLE
 else
   test -f ../libtextstyle/Makefile || {
-    AC_MSG_ERROR([When building the gettext-tools package without building the entire gettext package, you need to pass the --with-installed-libtextstyle option to configure.])
+    AC_MSG_WARN([When building the gettext-tools package without building the entire gettext package, you need to pass the --with-installed-libtextstyle option to configure.])
   }
 fi
 AM_CONDITIONAL([USE_INSTALLED_LIBTEXTSTYLE],
@@ -155,7 +155,7 @@ AC_ARG_WITH([installed-csharp-dll],
   [gt_use_installed_csharp_dll=no])
 if test "$gt_use_installed_csharp_dll" = no; then
   test -f ../gettext-runtime/intl-csharp/Makefile || {
-    AC_MSG_ERROR([When building the gettext-tools package without building the entire gettext package, you need to pass the --with-installed-csharp-dll option to configure.])
+    AC_MSG_WARN([When building the gettext-tools package without building the entire gettext package, you need to pass the --with-installed-csharp-dll option to configure.])
   }
 fi
 AM_CONDITIONAL([USE_INSTALLED_CSHARP_DLL],
