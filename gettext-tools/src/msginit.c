@@ -577,6 +577,7 @@ catalogname_for_locale (const char *locale)
     "bem_ZM",   /* Bemba        Zambia */
     "bg_BG",    /* Bulgarian    Bulgaria */
     "bho_IN",   /* Bhojpuri     India */
+    "bi_VU",    /* Bislama      Vanuatu */
     "bik_PH",   /* Bikol        Philippines */
     "bin_NG",   /* Bini         Nigeria */
     "bm_ML",    /* Bambara      Mali */
@@ -655,6 +656,7 @@ catalogname_for_locale (const char *locale)
     "kok_IN",   /* Konkani      India */
     "kr_NG",    /* Kanuri       Nigeria */
     "kru_IN",   /* Kurukh       India */
+    "ky_KG",    /* Kyrgyz       Kyrgyzstan */
     "lg_UG",    /* Ganda        Uganda */
     "li_BE",    /* Limburgish   Belgium */
     "lo_LA",    /* Laotian      Laos */
@@ -669,6 +671,7 @@ catalogname_for_locale (const char *locale)
     "mak_ID",   /* Makasar      Indonesia */
     "man_ML",   /* Mandingo     Mali */
     "men_SL",   /* Mende        Sierra Leone */
+    "mfe_MU",   /* Mauritian Creole     Mauritius */
     "mg_MG",    /* Malagasy     Madagascar */
     "mi_NZ",    /* Maori        New Zealand */
     "min_ID",   /* Minangkabau  Indonesia */
@@ -693,6 +696,7 @@ catalogname_for_locale (const char *locale)
     "no_NO",    /* Norwegian    Norway */
     "nr_ZA",    /* South Ndebele        South Africa */
     "nso_ZA",   /* Northern Sotho       South Africa */
+    "ny_MW",    /* Chichewa     Malawi */
     "nym_TZ",   /* Nyamwezi     Tanzania */
     "nyn_UG",   /* Nyankole     Uganda */
     "oc_FR",    /* Occitan      France */
@@ -711,6 +715,7 @@ catalogname_for_locale (const char *locale)
     "rn_BI",    /* Kirundi      Burundi */
     "ro_RO",    /* Romanian     Romania */
     "ru_RU",    /* Russian      Russia */
+    "rw_RW",    /* Kinyarwanda  Rwanda */
     "sa_IN",    /* Sanskrit     India */
     "sah_RU",   /* Yakut        Russia */
     "sas_ID",   /* Sasak        Indonesia */
@@ -741,6 +746,7 @@ catalogname_for_locale (const char *locale)
     "tk_TM",    /* Turkmen      Turkmenistan */
     "tl_PH",    /* Tagalog      Philippines */
     "to_TO",    /* Tonga        Tonga */
+    "tpi_PG",   /* Tok Pisin    Papua New Guinea */
     "tr_TR",    /* Turkish      Turkey */
     "tum_MW",   /* Tumbuka      Malawi */
     "ug_CN",    /* Uighur       China */
