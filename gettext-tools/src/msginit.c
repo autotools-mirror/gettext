@@ -672,7 +672,7 @@ catalogname_for_locale (const char *locale)
     "mg_MG",    /* Malagasy     Madagascar */
     "mi_NZ",    /* Maori        New Zealand */
     "min_ID",   /* Minangkabau  Indonesia */
-    "mk_MK",    /* Macedonian   Macedonia */
+    "mk_MK",    /* Macedonian   North Macedonia */
     "ml_IN",    /* Malayalam    India */
     "mn_MN",    /* Mongolian    Mongolia */
     "mni_IN",   /* Manipuri     India */
