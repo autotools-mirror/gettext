@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: ni; c-basic-offset: 8 -*- */
+/* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 8 -*- */
 
 /*
  * This file is part of The Croco Library
@@ -42,13 +42,13 @@
  *Dumps (serializes) one css declaration to a file.
  */
 static void
-dump (CRDeclaration * a_this, FILE * a_fp, glong a_indent)
+dump (CRDeclaration const * a_this, FILE * a_fp, glong a_indent)
 {
         guchar *str = NULL;
 
         g_return_if_fail (a_this);
 
-        str = cr_declaration_to_string (a_this, a_indent);
+        str = (guchar *) cr_declaration_to_string (a_this, a_indent);
         if (str) {
                 fprintf (a_fp, "%s", str);
                 g_free (str);
@@ -65,6 +65,10 @@ dump (CRDeclaration * a_this, FILE * a_fp, glong a_indent)
  *
  *Returns the newly built instance of #CRDeclaration, or NULL in
  *case of error.
+ *
+ *The returned CRDeclaration takes ownership of @a_property and @a_value.
+ *(E.g. cr_declaration_destroy on this CRDeclaration will also free
+ *@a_property and @a_value.)
  */
 CRDeclaration *
 cr_declaration_new (CRStatement * a_statement,
@@ -126,7 +130,7 @@ cr_declaration_parse_from_buf (CRStatement * a_statement,
                 g_return_val_if_fail (a_statement->type == RULESET_STMT,
                                       NULL);
 
-        parser = cr_parser_new_from_buf ((guchar*)a_str, strlen (a_str), a_enc, FALSE);
+        parser = cr_parser_new_from_buf ((guchar*)a_str, strlen ((const char *) a_str), a_enc, FALSE);
         g_return_val_if_fail (parser, NULL);
 
         status = cr_parser_try_to_skip_spaces_and_comments (parser);
@@ -190,7 +194,7 @@ cr_declaration_parse_list_from_buf (const guchar * a_str,
 
         g_return_val_if_fail (a_str, NULL);
 
-        parser = cr_parser_new_from_buf ((guchar*)a_str, strlen (a_str), a_enc, FALSE);
+        parser = cr_parser_new_from_buf ((guchar*)a_str, strlen ((const char *) a_str), a_enc, FALSE);
         g_return_val_if_fail (parser, NULL);
         status = cr_parser_get_tknzr (parser, &tokenizer);
         if (status != CR_OK || !tokenizer) {
@@ -448,10 +452,10 @@ cr_declaration_append2 (CRDeclaration * a_this,
  *Dumps a declaration list to a file.
  */
 void
-cr_declaration_dump (CRDeclaration * a_this, FILE * a_fp, glong a_indent,
+cr_declaration_dump (CRDeclaration const * a_this, FILE * a_fp, glong a_indent,
                      gboolean a_one_per_line)
 {
-        CRDeclaration *cur = NULL;
+        CRDeclaration const *cur = NULL;
 
         g_return_if_fail (a_this);
 
@@ -475,7 +479,7 @@ cr_declaration_dump (CRDeclaration * a_this, FILE * a_fp, glong a_indent,
  *Dumps the first declaration of the declaration list to a file.
  */
 void
-cr_declaration_dump_one (CRDeclaration * a_this, FILE * a_fp, glong a_indent)
+cr_declaration_dump_one (CRDeclaration const * a_this, FILE * a_fp, glong a_indent)
 {
         g_return_if_fail (a_this);
 
@@ -493,11 +497,11 @@ cr_declaration_dump_one (CRDeclaration * a_this, FILE * a_fp, glong a_indent)
  *free the string using g_free().
  */
 gchar *
-cr_declaration_to_string (CRDeclaration * a_this, gulong a_indent)
+cr_declaration_to_string (CRDeclaration const * a_this, gulong a_indent)
 {
         GString *stringue = NULL;
 
-        guchar *str = NULL,
+        gchar *str = NULL,
                 *result = NULL;
 
         g_return_val_if_fail (a_this, NULL);
@@ -562,9 +566,9 @@ cr_declaration_to_string (CRDeclaration * a_this, gulong a_indent)
  *Serializes the declaration list into a string
  */
 guchar *
-cr_declaration_list_to_string (CRDeclaration * a_this, gulong a_indent)
+cr_declaration_list_to_string (CRDeclaration const * a_this, gulong a_indent)
 {
-        CRDeclaration *cur = NULL;
+        CRDeclaration const *cur = NULL;
         GString *stringue = NULL;
         guchar *str = NULL,
                 *result = NULL;
@@ -574,7 +578,7 @@ cr_declaration_list_to_string (CRDeclaration * a_this, gulong a_indent)
         stringue = g_string_new (NULL);
 
         for (cur = a_this; cur; cur = cur->next) {
-                str = cr_declaration_to_string (cur, a_indent);
+                str = (guchar *) cr_declaration_to_string (cur, a_indent);
                 if (str) {
                         g_string_append_printf (stringue, "%s;", str);
                         g_free (str);
@@ -582,7 +586,7 @@ cr_declaration_list_to_string (CRDeclaration * a_this, gulong a_indent)
                         break;
         }
         if (stringue && stringue->str) {
-                result = stringue->str;
+                result = (guchar *) stringue->str;
                 g_string_free (stringue, FALSE);
         }
 
@@ -593,17 +597,17 @@ cr_declaration_list_to_string (CRDeclaration * a_this, gulong a_indent)
  * cr_declaration_list_to_string2:
  *@a_this: the current instance of #CRDeclaration.
  *@a_indent: the number of indentation white char
- @a_one_decl_per_line: whether to output one doc per line or not.
+ *@a_one_decl_per_line: whether to output one doc per line or not.
  *to put before the actual serialisation.
  *
  *Serializes the declaration list into a string
  *Returns the serialized form the declararation.
  */
 guchar *
-cr_declaration_list_to_string2 (CRDeclaration * a_this,
+cr_declaration_list_to_string2 (CRDeclaration const * a_this,
                                 gulong a_indent, gboolean a_one_decl_per_line)
 {
-        CRDeclaration *cur = NULL;
+        CRDeclaration const *cur = NULL;
         GString *stringue = NULL;
         guchar *str = NULL,
                 *result = NULL;
@@ -613,7 +617,7 @@ cr_declaration_list_to_string2 (CRDeclaration * a_this,
         stringue = g_string_new (NULL);
 
         for (cur = a_this; cur; cur = cur->next) {
-                str = cr_declaration_to_string (cur, a_indent);
+                str = (guchar *) cr_declaration_to_string (cur, a_indent);
                 if (str) {
                         if (a_one_decl_per_line == TRUE) {
                                 if (cur->next)
@@ -621,21 +625,21 @@ cr_declaration_list_to_string2 (CRDeclaration * a_this,
                                                                 "%s;\n", str);
                                 else
                                         g_string_append (stringue,
-                                                         str);
+                                                         (const gchar *) str);
                         } else {
                                 if (cur->next)
                                         g_string_append_printf (stringue,
                                                                 "%s;", str);
                                 else
                                         g_string_append (stringue,
-                                                         str);
+                                                         (const gchar *) str);
                         }
                         g_free (str);
                 } else
                         break;
         }
         if (stringue && stringue->str) {
-                result = stringue->str;
+                result = (guchar *) stringue->str;
                 g_string_free (stringue, FALSE);
         }
 
@@ -648,9 +652,9 @@ cr_declaration_list_to_string2 (CRDeclaration * a_this,
  *Return the number of properties in the declaration
  */
 gint
-cr_declaration_nr_props (CRDeclaration * a_this)
+cr_declaration_nr_props (CRDeclaration const * a_this)
 {
-        CRDeclaration *cur = NULL;
+        CRDeclaration const *cur = NULL;
         int nr = 0;
 
         g_return_val_if_fail (a_this, -1);
@@ -707,7 +711,7 @@ cr_declaration_get_by_prop_name (CRDeclaration * a_this,
 		    && cur->property->stryng
 		    && cur->property->stryng->str) {
 			if (!strcmp (cur->property->stryng->str, 
-				     a_prop)) {
+				     (const char *) a_prop)) {
 				return cur;
 			}
 		}
@@ -731,14 +735,13 @@ cr_declaration_ref (CRDeclaration * a_this)
 
 /**
  * cr_declaration_unref:
- *@param a_this the current instance of #CRDeclaration.
- *@return TRUE if the current instance of #CRDeclaration has been destroyed
- *(ref count reached zero), FALSE otherwise.
+ *@a_this: the current instance of #CRDeclaration.
  *
  *Decrements the ref count of the current instance of #CRDeclaration.
  *If the ref count reaches zero, the current instance of #CRDeclaration
  *if destroyed.
- *Returns TRUE if the object got destroyed, FALSE otherwise.
+ *Returns TRUE if @a_this was destroyed (ref count reached zero),
+ *FALSE otherwise.
  */
 gboolean
 cr_declaration_unref (CRDeclaration * a_this)
@@ -770,54 +773,29 @@ cr_declaration_destroy (CRDeclaration * a_this)
         g_return_if_fail (a_this);
 
         /*
-         *Go get the tail of the list.
-         *Meanwhile, free each property/value pair contained in the list.
+         * Go to the last element of the list.
          */
-        for (cur = a_this; cur && cur->next; cur = cur->next) {
-                if (cur->property) {
-                        cr_string_destroy (cur->property);
-                        cur->property = NULL;
-                }
+        for (cur = a_this; cur->next; cur = cur->next)
+                g_assert (cur->next->prev == cur);
 
-                if (cur->value) {
-                        cr_term_destroy (cur->value);
-                        cur->value = NULL;
-                }
-        }
-
-        if (cur) {
-                if (cur->property) {
-                        cr_string_destroy (cur->property);
-                        cur->property = NULL;
-                }
-
-                if (cur->value) {
-                        cr_term_destroy (cur->value);
-                        cur->value = NULL;
-                }
-        }
-
-        /*in case the list contains only one element */
-        if (cur && !cur->prev) {
-                g_free (cur);
-                return;
-        }
-
-        /*walk backward the list and free each "next" element */
-        for (cur = cur->prev; cur && cur->prev; cur = cur->prev) {
-                if (cur->next) {
-                        g_free (cur->next);
-                        cur->next = NULL;
-                }
-        }
-
-        if (!cur)
-                return;
-
-        if (cur->next) {
+        /*
+         * Walk backward the list and free each "next" element.
+         * Meanwhile, free each property/value pair contained in the list.
+         */
+        for (; cur; cur = cur->prev) {
                 g_free (cur->next);
                 cur->next = NULL;
+
+                if (cur->property) {
+                        cr_string_destroy (cur->property);
+                        cur->property = NULL;
+                }
+
+                if (cur->value) {
+                        cr_term_destroy (cur->value);
+                        cur->value = NULL;
+                }
         }
 
-        g_free (cur);
+        g_free (a_this);
 }

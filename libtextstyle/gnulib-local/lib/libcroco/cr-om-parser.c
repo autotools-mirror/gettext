@@ -143,7 +143,7 @@ static enum CRStatus
 cr_om_parser_init_default_sac_handler (CROMParser * a_this)
 {
         CRDocHandler *sac_handler = NULL;
-        gboolean free_hdlr_if_error = FALSE;
+        gboolean created_handler = FALSE;
         enum CRStatus status = CR_OK;
 
         g_return_val_if_fail (a_this && PRIVATE (a_this)
@@ -156,7 +156,7 @@ cr_om_parser_init_default_sac_handler (CROMParser * a_this)
 
         if (!sac_handler) {
                 sac_handler = cr_doc_handler_new ();
-                free_hdlr_if_error = TRUE;
+                created_handler = TRUE;
         }
 
         /*
@@ -178,15 +178,10 @@ cr_om_parser_init_default_sac_handler (CROMParser * a_this)
         sac_handler->end_media = end_media;
         sac_handler->import_style = import_style;
 
-        status = cr_parser_set_sac_handler (PRIVATE (a_this)->parser,
-                                            sac_handler);
-        if (status == CR_OK) {
-                return CR_OK;
-        }
-
-        if (sac_handler && free_hdlr_if_error == TRUE) {
-                cr_doc_handler_destroy (sac_handler);
-                sac_handler = NULL;
+        if (created_handler) {
+                status = cr_parser_set_sac_handler (PRIVATE (a_this)->parser,
+                                                    sac_handler);
+                cr_doc_handler_unref (sac_handler);
         }
 
         return status;
@@ -392,10 +387,16 @@ end_page (CRDocHandler * a_this,
         ParsingContext **ctxtptr = NULL;
         CRStatement *stmt = NULL;
 
+        (void) a_page;
+        (void) a_pseudo_page;
+
         g_return_if_fail (a_this);
+
 	ctxtptr = &ctxt;
         status = cr_doc_handler_get_ctxt (a_this, (gpointer *) ctxtptr);
+
         g_return_if_fail (status == CR_OK && ctxt);
+
         g_return_if_fail (ctxt->cur_stmt
                           && ctxt->cur_stmt->type == AT_PAGE_RULE_STMT
                           && ctxt->stylesheet);
@@ -455,10 +456,15 @@ end_media (CRDocHandler * a_this, GList * a_media_list)
         ParsingContext **ctxtptr = NULL;
         CRStatement *stmts = NULL;
 
+        (void) a_media_list;
+
         g_return_if_fail (a_this);
+
 	ctxtptr = &ctxt;
         status = cr_doc_handler_get_ctxt (a_this, (gpointer *) ctxtptr);
+
         g_return_if_fail (status == CR_OK && ctxt);
+
         g_return_if_fail (ctxt
                           && ctxt->cur_media_stmt
                           && ctxt->cur_media_stmt->type == AT_MEDIA_RULE_STMT
@@ -466,6 +472,7 @@ end_media (CRDocHandler * a_this, GList * a_media_list)
 
         stmts = cr_statement_append (ctxt->stylesheet->statements,
                                      ctxt->cur_media_stmt);
+
         if (!stmts) {
                 cr_statement_destroy (ctxt->cur_media_stmt);
                 ctxt->cur_media_stmt = NULL;
@@ -494,17 +501,25 @@ import_style (CRDocHandler * a_this,
         ParsingContext **ctxtptr = NULL;
         GList *media_list = NULL ;
 
+        (void) a_uri_default_ns;
+
         g_return_if_fail (a_this);
+
 	ctxtptr = &ctxt;
         status = cr_doc_handler_get_ctxt (a_this, (gpointer *) ctxtptr);
+
         g_return_if_fail (status == CR_OK && ctxt);
+
         g_return_if_fail (ctxt->stylesheet);
 
         uri = cr_string_dup (a_uri) ;
+
         if (a_media_list)
                 media_list = cr_utils_dup_glist_of_cr_string (a_media_list) ;
+
         stmt = cr_statement_new_at_import_rule
                 (ctxt->stylesheet, uri, media_list, NULL);
+
         if (!stmt)
                 goto error;
 
@@ -567,10 +582,15 @@ end_selector (CRDocHandler * a_this, CRSelector * a_selector_list)
         ParsingContext *ctxt = NULL;
         ParsingContext **ctxtptr = NULL;
 
+        (void) a_selector_list;
+
         g_return_if_fail (a_this);
+
 	ctxtptr = &ctxt;
         status = cr_doc_handler_get_ctxt (a_this, (gpointer *) ctxtptr);
+
         g_return_if_fail (status == CR_OK && ctxt);
+
         g_return_if_fail (ctxt->cur_stmt && ctxt->stylesheet);
 
         if (ctxt->cur_stmt) {
@@ -610,6 +630,7 @@ end_selector (CRDocHandler * a_this, CRSelector * a_selector_list)
                 }
 
         }
+
         a_selector_list = NULL; /*keep compiler happy */
 }
 
@@ -795,7 +816,7 @@ cr_om_parser_new (CRInput * a_input)
         PRIVATE (result)->parser = cr_parser_new_from_input (a_input);
 
         if (!PRIVATE (result)->parser) {
-                cr_utils_trace_info ("parsing instanciation failed");
+                cr_utils_trace_info ("parsing instantiation failed");
                 goto error;
         }
 

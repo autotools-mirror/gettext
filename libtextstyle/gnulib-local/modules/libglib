@@ -8,9 +8,11 @@ lib/glib/ghash.c
 lib/glib/ghash.in.h
 lib/glib/glist.c
 lib/glib/glist.in.h
+lib/glib/gmacros.in.h
 lib/glib/gmessages.c
 lib/glib/gprimes.c
 lib/glib/gprimes.in.h
+lib/glib/gprintfint.in.h
 lib/glib/gstrfuncs.c
 lib/glib/gstrfuncs.in.h
 lib/glib/gstring.c
@@ -19,6 +21,7 @@ lib/glib/gtypes.in.h
 m4/libglib.m4
 
 Depends-on:
+snprintf-posix
 strerror
 vasprintf
 xalloc
@@ -80,10 +83,24 @@ glib/glist.h: glib/glist.in.h
 	} > $@-t
 	mv -f $@-t $@
 
+glib/gmacros.h: glib/gmacros.in.h
+	test -d glib || $(MKDIR_P) glib
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/glib/gmacros.in.h; \
+	} > $@-t
+	mv -f $@-t $@
+
 glib/gprimes.h: glib/gprimes.in.h
 	test -d glib || $(MKDIR_P) glib
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
 	  cat $(srcdir)/glib/gprimes.in.h; \
+	} > $@-t
+	mv -f $@-t $@
+
+glib/gprintfint.h: glib/gprintfint.in.h
+	test -d glib || $(MKDIR_P) glib
+	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
+	  cat $(srcdir)/glib/gprintfint.in.h; \
 	} > $@-t
 	mv -f $@-t $@
 
@@ -113,7 +130,9 @@ MOSTLYCLEANFILES += \
   glibconfig.h \
   glib/ghash.h \
   glib/glist.h \
+  glib/gmacros.h \
   glib/gprimes.h \
+  glib/gprintfint.h \
   glib/gstrfuncs.h \
   glib/gstring.h \
   glib/gtypes.h

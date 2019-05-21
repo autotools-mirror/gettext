@@ -106,9 +106,9 @@ cr_attr_sel_prepend_attr_sel (CRAttrSel * a_this,
  * Returns the serialized attribute selector.
  */
 guchar *
-cr_attr_sel_to_string (CRAttrSel * a_this)
+cr_attr_sel_to_string (CRAttrSel const * a_this)
 {
-        CRAttrSel *cur = NULL;
+        CRAttrSel const *cur = NULL;
         guchar *result = NULL;
         GString *str_buf = NULL;
 
@@ -124,10 +124,10 @@ cr_attr_sel_to_string (CRAttrSel * a_this)
                 if (cur->name) {
                         guchar *name = NULL;
 
-                        name = g_strndup (cur->name->stryng->str, 
+                        name = (guchar *) g_strndup (cur->name->stryng->str, 
                                           cur->name->stryng->len);
                         if (name) {
-                                g_string_append (str_buf, name);
+                                g_string_append (str_buf, (const gchar *) name);
                                 g_free (name);
                                 name = NULL;
                         }
@@ -136,7 +136,7 @@ cr_attr_sel_to_string (CRAttrSel * a_this)
                 if (cur->value) {
                         guchar *value = NULL;
 
-                        value = g_strndup (cur->value->stryng->str, 
+                        value = (guchar *) g_strndup (cur->value->stryng->str, 
                                            cur->value->stryng->len);
                         if (value) {
                                 switch (cur->match_way) {
@@ -169,7 +169,7 @@ cr_attr_sel_to_string (CRAttrSel * a_this)
         }
 
         if (str_buf) {
-                result = str_buf->str;
+                result = (guchar *) str_buf->str;
                 g_string_free (str_buf, FALSE);
         }
 
@@ -185,7 +185,7 @@ cr_attr_sel_to_string (CRAttrSel * a_this)
  * Dumps the current instance of #CRAttrSel to a file.
  */
 void
-cr_attr_sel_dump (CRAttrSel * a_this, FILE * a_fp)
+cr_attr_sel_dump (CRAttrSel const * a_this, FILE * a_fp)
 {
         guchar *tmp_str = NULL;
 

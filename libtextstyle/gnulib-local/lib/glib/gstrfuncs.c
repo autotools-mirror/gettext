@@ -52,8 +52,10 @@
 #include "glib.h"
 #if 0
 #include "gprintf.h"
+#endif
 #include "gprintfint.h"
 
+#if 0
 #include "galias.h"
 
 #ifdef G_OS_WIN32
@@ -493,6 +495,7 @@ g_ascii_strtod (const gchar *nptr,
   return val;
 }
 
+#endif
 
 /**
  * g_ascii_dtostr:
@@ -612,6 +615,16 @@ g_ascii_formatd (gchar       *buffer,
   return buffer;
 }
 
+#define ISSPACE(c)		((c) == ' ' || (c) == '\f' || (c) == '\n' || \
+				 (c) == '\r' || (c) == '\t' || (c) == '\v')
+#define ISUPPER(c)		((c) >= 'A' && (c) <= 'Z')
+#define ISLOWER(c)		((c) >= 'a' && (c) <= 'z')
+#define ISALPHA(c)		(ISUPPER (c) || ISLOWER (c))
+#define	TOUPPER(c)		(ISLOWER (c) ? (c) - 'a' + 'A' : (c))
+#define	TOLOWER(c)		(ISUPPER (c) ? (c) - 'A' + 'a' : (c))
+
+#if 0
+
 static guint64
 g_parse_long_long (const gchar *nptr,
 		   gchar      **endptr,
@@ -623,13 +636,6 @@ g_parse_long_long (const gchar *nptr,
    *
    * Copyright (C) 1991-1992, 1994-2002 Free Software Foundation, Inc.
    */
-#define ISSPACE(c)		((c) == ' ' || (c) == '\f' || (c) == '\n' || \
-				 (c) == '\r' || (c) == '\t' || (c) == '\v')
-#define ISUPPER(c)		((c) >= 'A' && (c) <= 'Z')
-#define ISLOWER(c)		((c) >= 'a' && (c) <= 'z')
-#define ISALPHA(c)		(ISUPPER (c) || ISLOWER (c))
-#define	TOUPPER(c)		(ISLOWER (c) ? (c) - 'a' + 'A' : (c))
-#define	TOLOWER(c)		(ISUPPER (c) ? (c) - 'A' + 'a' : (c))
   gboolean overflow;
   guint64 cutoff;
   guint64 cutlim;
@@ -1823,6 +1829,8 @@ g_ascii_xdigit_value (gchar c)
   return g_ascii_digit_value (c);
 }
 
+#endif
+
 /**
  * g_ascii_strcasecmp:
  * @s1: string to compare with @s2.
@@ -1865,6 +1873,8 @@ g_ascii_strcasecmp (const gchar *s1,
 
   return (((gint)(guchar) *s1) - ((gint)(guchar) *s2));
 }
+
+#if 0
 
 /**
  * g_ascii_strncasecmp:

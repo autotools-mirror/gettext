@@ -28,10 +28,10 @@
 #include <string.h>
 
 static enum CRStatus
-cr_font_family_to_string_real (CRFontFamily * a_this,
+cr_font_family_to_string_real (CRFontFamily const * a_this,
                                gboolean a_walk_list, GString ** a_string)
 {
-        guchar *name = NULL;
+        guchar const *name = NULL;
         enum CRStatus result = CR_OK;
 
         if (!*a_string) {
@@ -47,31 +47,31 @@ cr_font_family_to_string_real (CRFontFamily * a_this,
 
         switch (a_this->type) {
         case FONT_FAMILY_SANS_SERIF:
-                name = (guchar *) "sans-serif";
+                name = (guchar const *) "sans-serif";
                 break;
 
         case FONT_FAMILY_SERIF:
-                name = (guchar *) "sans-serif";
+                name = (guchar const *) "sans-serif";
                 break;
 
         case FONT_FAMILY_CURSIVE:
-                name = (guchar *) "cursive";
+                name = (guchar const *) "cursive";
                 break;
 
         case FONT_FAMILY_FANTASY:
-                name = (guchar *) "fantasy";
+                name = (guchar const *) "fantasy";
                 break;
 
         case FONT_FAMILY_MONOSPACE:
-                name = (guchar *) "monospace";
+                name = (guchar const *) "monospace";
                 break;
 
         case FONT_FAMILY_NON_GENERIC:
-                name = (guchar *) a_this->name;
+                name = (guchar const *) a_this->name;
                 break;
 
         default:
-                name = (guchar *) NULL;
+                name = NULL;
                 break;
         }
 
@@ -79,7 +79,7 @@ cr_font_family_to_string_real (CRFontFamily * a_this,
                 if (a_this->prev) {
                         g_string_append_printf (*a_string, ", %s", name);
                 } else {
-                        g_string_append (*a_string, name);
+                        g_string_append (*a_string, (const gchar *) name);
                 }
         }
         if (a_walk_list == TRUE && a_this->next) {
@@ -93,32 +93,32 @@ static const gchar *
 cr_predefined_absolute_font_size_to_string (enum CRPredefinedAbsoluteFontSize
                                             a_code)
 {
-        gchar *str = NULL;
+        gchar const *str = NULL;
 
         switch (a_code) {
         case FONT_SIZE_XX_SMALL:
-                str = (gchar *) "xx-small";
+                str = "xx-small";
                 break;
         case FONT_SIZE_X_SMALL:
-                str = (gchar *) "x-small";
+                str = "x-small";
                 break;
         case FONT_SIZE_SMALL:
-                str = (gchar *) "small";
+                str = "small";
                 break;
         case FONT_SIZE_MEDIUM:
-                str = (gchar *) "medium";
+                str = "medium";
                 break;
         case FONT_SIZE_LARGE:
-                str = (gchar *) "large";
+                str = "large";
                 break;
         case FONT_SIZE_X_LARGE:
-                str = (gchar *) "x-large";
+                str = "x-large";
                 break;
         case FONT_SIZE_XX_LARGE:
-                str = (gchar *) "xx-large";
+                str = "xx-large";
                 break;
         default:
-                str = (gchar *) "unknown absolute font size value";
+                str = "unknown absolute font size value";
         }
         return str;
 }
@@ -126,17 +126,17 @@ cr_predefined_absolute_font_size_to_string (enum CRPredefinedAbsoluteFontSize
 static const gchar *
 cr_relative_font_size_to_string (enum CRRelativeFontSize a_code)
 {
-        gchar *str = NULL;
+        gchar const *str = NULL;
 
         switch (a_code) {
         case FONT_SIZE_LARGER:
-                str = (gchar *) "larger";
+                str = "larger";
                 break;
         case FONT_SIZE_SMALLER:
-                str = (gchar *) "smaller";
+                str = "smaller";
                 break;
         default:
-                str = (gchar *) "unknown relative font size value";
+                str = "unknown relative font size value";
                 break;
         }
         return str;
@@ -145,7 +145,7 @@ cr_relative_font_size_to_string (enum CRRelativeFontSize a_code)
 /**
  * cr_font_family_new:
  * @a_type: the type of font family to create.
- * @a_name: the name of the font family:
+ * @a_name: the name of the font family.
  *
  * create a font family.
  *
@@ -180,7 +180,7 @@ cr_font_family_new (enum CRFontFamilyType a_type, guchar * a_name)
  * g_free().
  */
 guchar *
-cr_font_family_to_string (CRFontFamily * a_this,
+cr_font_family_to_string (CRFontFamily const * a_this,
                           gboolean a_walk_font_family_list)
 {
         enum CRStatus status = CR_OK;
@@ -188,7 +188,7 @@ cr_font_family_to_string (CRFontFamily * a_this,
         GString *stringue = NULL;
 
         if (!a_this) {
-                result = g_strdup ("NULL");
+                result = (guchar *) g_strdup ("NULL");
                 g_return_val_if_fail (result, NULL);
                 return result;
         }
@@ -197,7 +197,7 @@ cr_font_family_to_string (CRFontFamily * a_this,
                                                 &stringue);
 
         if (status == CR_OK && stringue) {
-                result = stringue->str;
+                result = (guchar *) stringue->str;
                 g_string_free (stringue, FALSE);
                 stringue = NULL;
 
@@ -286,7 +286,7 @@ cr_font_family_prepend (CRFontFamily * a_this,
         a_family_to_prepend->next = a_this;
         a_this->prev = a_family_to_prepend;
 
-        return CR_OK;
+        return a_family_to_prepend;
 }
 
 /**
@@ -384,7 +384,7 @@ cr_font_size_clear (CRFontSize * a_this)
  * Returns CR_OK upon successful completion, an error code otherwise.
  */
 enum CRStatus
-cr_font_size_copy (CRFontSize * a_dst, CRFontSize * a_src)
+cr_font_size_copy (CRFontSize * a_dst, CRFontSize const * a_src)
 {
         g_return_val_if_fail (a_dst && a_src, CR_BAD_PARAM_ERROR);
 
@@ -421,8 +421,8 @@ cr_font_size_set_predefined_absolute_font_size (CRFontSize *a_this,
                                                 enum CRPredefinedAbsoluteFontSize a_predefined)
 {
         g_return_val_if_fail (a_this, CR_BAD_PARAM_ERROR) ;
-        g_return_val_if_fail (a_predefined >= PREDEFINED_ABSOLUTE_FONT_SIZE
-                              && a_predefined < NB_FONT_SIZE_TYPE,
+        g_return_val_if_fail (a_predefined >= FONT_SIZE_XX_SMALL
+                              && a_predefined < NB_PREDEFINED_ABSOLUTE_FONT_SIZES,
                               CR_BAD_PARAM_ERROR) ;
 
         a_this->type = PREDEFINED_ABSOLUTE_FONT_SIZE ;
@@ -500,7 +500,7 @@ cr_font_size_set_to_inherit (CRFontSize *a_this)
  * Returns TRUE if the current instance is set to 'inherit'. 
  */
 gboolean
-cr_font_size_is_set_to_inherit (CRFontSize *a_this)
+cr_font_size_is_set_to_inherit (CRFontSize const *a_this)
 {
         g_return_val_if_fail (a_this, FALSE) ;
 
@@ -515,7 +515,7 @@ cr_font_size_is_set_to_inherit (CRFontSize *a_this)
  * has to bee freed using g_free().
  */
 gchar *
-cr_font_size_to_string (CRFontSize * a_this)
+cr_font_size_to_string (CRFontSize const * a_this)
 {
         gchar *str = NULL;
 
@@ -530,7 +530,7 @@ cr_font_size_to_string (CRFontSize * a_this)
                                 (a_this->value.predefined));
                 break;
         case ABSOLUTE_FONT_SIZE:
-                str = cr_num_to_string (&a_this->value.absolute);
+                str = (gchar *) cr_num_to_string (&a_this->value.absolute);
                 break;
         case RELATIVE_FONT_SIZE:
                 str = g_strdup (cr_relative_font_size_to_string
@@ -674,7 +674,7 @@ cr_font_size_is_predefined_absolute_font_size
  * Returns the serialized form of #CRFontSizeAdjust
  */
 gchar *
-cr_font_size_adjust_to_string (CRFontSizeAdjust * a_this)
+cr_font_size_adjust_to_string (CRFontSizeAdjust const * a_this)
 {
         gchar *str = NULL;
 
@@ -690,9 +690,9 @@ cr_font_size_adjust_to_string (CRFontSizeAdjust * a_this)
                 break;
         case FONT_SIZE_ADJUST_NUMBER:
                 if (a_this->num)
-                        str = cr_num_to_string (a_this->num);
+                        str = (gchar *) cr_num_to_string (a_this->num);
                 else
-                        str = g_strdup ("unknow font-size-adjust property value"); /* Should raise an error no?*/
+                        str = g_strdup ("unknown font-size-adjust property value"); /* Should raise an error no?*/
                 break;
         case FONT_SIZE_ADJUST_INHERIT:
                 str = g_strdup ("inherit");
@@ -702,7 +702,7 @@ cr_font_size_adjust_to_string (CRFontSizeAdjust * a_this)
 
 /**
  * cr_font_style_to_string:
- * @a_code the current instance of #CRFontStyle
+ * @a_code: the current instance of #CRFontStyle .
  *
  * Returns the serialized #CRFontStyle. The caller must free the returned
  * string using g_free().
@@ -767,12 +767,15 @@ cr_font_variant_to_string (enum CRFontVariant a_code)
 enum CRFontWeight
 cr_font_weight_get_bolder (enum CRFontWeight a_weight)
 {
-        if (a_weight >= NB_FONT_WEIGHTS) {
+        if (a_weight == FONT_WEIGHT_INHERIT) {
+                cr_utils_trace_info ("can't return a bolder weight for FONT_WEIGHT_INHERIT") ;
+                return a_weight;
+        } else if (a_weight >= FONT_WEIGHT_900) {
                 return FONT_WEIGHT_900 ;
         } else if (a_weight < FONT_WEIGHT_NORMAL) {
                 return FONT_WEIGHT_NORMAL ;
         } else if (a_weight == FONT_WEIGHT_BOLDER
-                   || a_weight == FONT_WEIGHT_BOLDER) {
+                   || a_weight == FONT_WEIGHT_LIGHTER) {
                 cr_utils_trace_info ("FONT_WEIGHT_BOLDER or FONT_WEIGHT_LIGHTER should not appear here") ;
                 return FONT_WEIGHT_NORMAL ;
         } else {

@@ -430,9 +430,8 @@ cr_utils_read_char_from_utf8_buf (const guchar * a_in,
                                   gulong a_in_len,
                                   guint32 * a_out, gulong * a_consumed)
 {
-        gulong in_len = 0,
-                in_index = 0,
-                nb_bytes_2_decode = 0;
+        gulong in_index = 0,
+               nb_bytes_2_decode = 0;
         enum CRStatus status = CR_OK;
 
         /*
@@ -448,8 +447,6 @@ cr_utils_read_char_from_utf8_buf (const guchar * a_in,
                 status = CR_OK;
                 goto end;
         }
-
-        in_len = a_in_len;
 
         if (*a_in <= 0x7F) {
                 /*
@@ -902,14 +899,9 @@ cr_utils_ucs1_to_utf8 (const guchar * a_in,
 
         if (*a_in_len == 0) {
                 *a_out_len = 0 ;
-                return CR_OK ;
+                return status;
         }
         g_return_val_if_fail (a_out, CR_BAD_PARAM_ERROR) ;
-
-        if (*a_in_len < 1) {
-                status = CR_OK;
-                goto end;
-        }
 
         in_len = *a_in_len;
         out_len = *a_out_len;
@@ -931,11 +923,10 @@ cr_utils_ucs1_to_utf8 (const guchar * a_in,
                 }
         }                       /*end for */
 
-      end:
         *a_in_len = in_index;
         *a_out_len = out_index;
 
-        return CR_OK;
+        return status;
 }
 
 /**
@@ -952,8 +943,7 @@ cr_utils_ucs1_str_to_utf8 (const guchar * a_in,
                            gulong * a_in_len,
                            guchar ** a_out, gulong * a_out_len)
 {
-        gulong in_len = 0,
-                out_len = 0;
+        gulong out_len = 0;
         enum CRStatus status = CR_OK;
 
         g_return_val_if_fail (a_in && a_in_len && a_out
@@ -969,8 +959,6 @@ cr_utils_ucs1_str_to_utf8 (const guchar * a_in,
                                                 &out_len);
 
         g_return_val_if_fail (status == CR_OK, status);
-
-        in_len = *a_in_len;
 
         *a_out = g_malloc0 (out_len);
 
@@ -1024,7 +1012,6 @@ cr_utils_utf8_to_ucs1 (const guchar * a_in,
                               && a_out && a_out_len, CR_BAD_PARAM_ERROR);
 
         if (*a_in_len < 1) {
-                status = CR_OK;
                 goto end;
         }
 
@@ -1103,7 +1090,6 @@ cr_utils_utf8_to_ucs1 (const guchar * a_in,
                  *(if any) to get the current character.
                  */
                 if (in_index + nb_bytes_2_decode - 1 >= in_len) {
-                        status = CR_OK;
                         goto end;
                 }
 
@@ -1137,7 +1123,7 @@ cr_utils_utf8_to_ucs1 (const guchar * a_in,
         *a_out_len = out_index;
         *a_in_len = in_index;
 
-        return CR_OK;
+        return status;
 }
 
 /**
@@ -1293,19 +1279,6 @@ cr_utils_dump_n_chars2 (guchar a_char, GString * a_string, glong a_nb)
         }
 }
 
-gdouble
-cr_utils_n_to_0_dot_n (glong a_n, glong decimal_places)
-{
-        gdouble result = a_n;
-
-        while (decimal_places > 0) {
-                result = result / 10;
-                decimal_places--;
-        }
-
-        return result;
-}
-
 /**
  *Duplicates a list of GString instances.
  *@return the duplicated list of GString instances or NULL if
@@ -1313,10 +1286,10 @@ cr_utils_n_to_0_dot_n (glong a_n, glong decimal_places)
  *@param a_list_of_strings the list of strings to be duplicated.
  */
 GList *
-cr_utils_dup_glist_of_string (GList * a_list_of_strings)
+cr_utils_dup_glist_of_string (GList const * a_list_of_strings)
 {
-        GList *cur = NULL,
-                *result = NULL;
+        GList const *cur = NULL;
+        GList *result = NULL;
 
         g_return_val_if_fail (a_list_of_strings, NULL);
 
@@ -1339,16 +1312,17 @@ cr_utils_dup_glist_of_string (GList * a_list_of_strings)
  *happened.
  */
 GList *
-cr_utils_dup_glist_of_cr_string (GList * a_list_of_strings)
+cr_utils_dup_glist_of_cr_string (GList const * a_list_of_strings)
 {
-        GList *cur = NULL, *result = NULL;
+        GList const *cur = NULL;
+        GList *result = NULL;
 
         g_return_val_if_fail (a_list_of_strings, NULL);
 
         for (cur = a_list_of_strings; cur; cur = cur->next) {
                 CRString *str = NULL;
 
-                str = cr_string_dup ((CRString *) cur->data) ;
+                str = cr_string_dup ((CRString const *) cur->data) ;
                 if (str)
                         result = g_list_append (result, str);
         }

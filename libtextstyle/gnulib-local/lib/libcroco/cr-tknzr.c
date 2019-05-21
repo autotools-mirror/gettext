@@ -196,7 +196,7 @@ CHECK_PARSING_STATUS (status, TRUE) ;
  */
 #define SKIP_CHARS(a_tknzr, a_nb_chars) \
 { \
-glong nb_chars = a_nb_chars ; \
+gulong nb_chars = a_nb_chars ; \
 status = cr_input_consume_chars \
      (PRIVATE (a_tknzr)->input,0, &nb_chars) ; \
 CHECK_PARSING_STATUS (status, TRUE) ; \
@@ -300,7 +300,6 @@ cr_tknzr_parse_w (CRTknzr * a_this,
 
                 status = cr_tknzr_peek_char (a_this, &cur_char);
                 if (status == CR_END_OF_INPUT_ERROR) {
-                        status = CR_OK;
                         break;
                 } else if (status != CR_OK) {
                         goto error;
@@ -409,7 +408,7 @@ cr_tknzr_try_to_skip_spaces (CRTknzr * a_this)
         }
 
         if (cr_utils_is_white_space (cur_char) == TRUE) {
-                glong nb_chars = -1; /*consume all spaces */
+                gulong nb_chars = -1; /*consume all spaces */
 
                 status = cr_input_consume_white_spaces
                         (PRIVATE (a_this)->input, &nb_chars);
@@ -449,38 +448,49 @@ cr_tknzr_parse_comment (CRTknzr * a_this,
         READ_NEXT_CHAR (a_this, &cur_char);
         ENSURE_PARSING_COND (cur_char == '*');
         comment = cr_string_new ();
-        for (;;) {
+        for (;;) { /* [^*]* */
+                PEEK_NEXT_CHAR (a_this, &next_char);
+                if (next_char == '*')
+                        break;
                 READ_NEXT_CHAR (a_this, &cur_char);
-
-                /*make sure there are no nested comments */
-                if (cur_char == '/') {
-                        READ_NEXT_CHAR (a_this, &cur_char);
-                        ENSURE_PARSING_COND (cur_char != '*');
-                        g_string_append_c (comment->stryng, '/');
-                        g_string_append_unichar (comment->stryng, 
-                                                 cur_char);
-                        continue;
-                }
-
-                /*Detect the end of the comments region */
-                if (cur_char == '*') {
-                        PEEK_NEXT_CHAR (a_this, &next_char);
-
-                        if (next_char == '/') {
-                                /*
-                                 *end of comments region
-                                 *Now, call the right SAC callback.
-                                 */
-                                SKIP_CHARS (a_this, 1) ;
-                                status = CR_OK;
-                                break;
-                        } else {
-                                g_string_append_c (comment->stryng, 
-                                                   '*');
-                        }
-                }
                 g_string_append_unichar (comment->stryng, cur_char);
         }
+        /* Stop condition: next_char == '*' */
+        for (;;) { /* \*+ */
+                READ_NEXT_CHAR(a_this, &cur_char);
+                ENSURE_PARSING_COND (cur_char == '*');
+                g_string_append_unichar (comment->stryng, cur_char);
+                PEEK_NEXT_CHAR (a_this, &next_char);
+                if (next_char != '*')
+                        break;
+        }
+        /* Stop condition: next_char != '*' */
+        for (;;) { /* ([^/][^*]*\*+)* */
+                if (next_char == '/')
+                        break;
+                READ_NEXT_CHAR(a_this, &cur_char);
+                g_string_append_unichar (comment->stryng, cur_char);
+                for (;;) { /* [^*]* */
+                        PEEK_NEXT_CHAR (a_this, &next_char);
+                        if (next_char == '*')
+                                break;
+                        READ_NEXT_CHAR (a_this, &cur_char);
+                        g_string_append_unichar (comment->stryng, cur_char);
+                }
+                /* Stop condition: next_char = '*', no need to verify, because peek and read exit to error anyway */
+                for (;;) { /* \*+ */
+                        READ_NEXT_CHAR(a_this, &cur_char);
+                        ENSURE_PARSING_COND (cur_char == '*');
+                        g_string_append_unichar (comment->stryng, cur_char);
+                        PEEK_NEXT_CHAR (a_this, &next_char);
+                        if (next_char != '*')
+                                break;
+                }
+                /* Continue condition: next_char != '*' */
+        }
+        /* Stop condition: next_char == '\/' */
+        READ_NEXT_CHAR(a_this, &cur_char);
+        g_string_append_unichar (comment->stryng, cur_char);
 
         if (status == CR_OK) {
                 cr_parsing_location_copy (&comment->location, 
@@ -514,7 +524,7 @@ cr_tknzr_parse_comment (CRTknzr * a_this,
  *Error code can be either CR_PARSING_ERROR if the string 
  *parsed just doesn't
  *respect the production or another error if a 
- *lower level error occured.
+ *lower level error occurred.
  */
 static enum CRStatus
 cr_tknzr_parse_unicode_escape (CRTknzr * a_this, 
@@ -563,39 +573,16 @@ cr_tknzr_parse_unicode_escape (CRTknzr * a_this,
                         cur_char_val = 10 + (cur_char - 'A');
                 }
 
-                unicode = unicode * 10 + cur_char_val;
+                unicode = unicode * 16 + cur_char_val;
 
                 PEEK_NEXT_CHAR (a_this, &cur_char);
         }
 
-        if (occur == 5) {
-                /*
-                 *the unicode escape is 6 digit length
-                 */
-
-                /*
-                 *parse one space that may 
-                 *appear just after the unicode
-                 *escape.
-                 */
-                cr_tknzr_parse_w (a_this, &tmp_char_ptr1, 
-                                  &tmp_char_ptr2, NULL);
-                status = CR_OK;
-        } else {
-                /*
-                 *The unicode escape is less than
-                 *6 digit length. The character
-                 *that comes right after the escape
-                 *must be a white space.
-                 */
-                status = cr_tknzr_parse_w (a_this, &tmp_char_ptr1,
-                                           &tmp_char_ptr2, NULL);
-        }
-
-        if (status == CR_OK) {
-                *a_unicode = unicode;
-                return CR_OK;
-        }
+        /* Eat a whitespace if possible. */
+        cr_tknzr_parse_w (a_this, &tmp_char_ptr1, 
+                          &tmp_char_ptr2, NULL);
+        *a_unicode = unicode;
+        return CR_OK;
 
       error:
         /*
@@ -1293,6 +1280,11 @@ cr_tknzr_parse_rgb (CRTknzr * a_this, CRRgb ** a_rgb)
         status = cr_tknzr_parse_num (a_this, &num);
         ENSURE_PARSING_COND ((status == CR_OK) && (num != NULL));
 
+        if (num->val > G_MAXLONG) {
+                status = CR_PARSING_ERROR;
+                goto error;
+        }
+
         red = num->val;
         cr_num_destroy (num);
         num = NULL;
@@ -1311,6 +1303,11 @@ cr_tknzr_parse_rgb (CRTknzr * a_this, CRRgb ** a_rgb)
                 cr_tknzr_try_to_skip_spaces (a_this);
                 status = cr_tknzr_parse_num (a_this, &num);
                 ENSURE_PARSING_COND ((status == CR_OK) && (num != NULL));
+
+                if (num->val > G_MAXLONG) {
+                        status = CR_PARSING_ERROR;
+                        goto error;
+                }
 
                 PEEK_BYTE (a_this, 1, &next_bytes[0]);
                 if (next_bytes[0] == '%') {
@@ -1478,6 +1475,12 @@ cr_tknzr_parse_important (CRTknzr * a_this,
  *@param a_num out parameter. The parsed number.
  *@return CR_OK upon successfull completion, 
  *an error code otherwise.
+ *
+ *The CSS specification says that numbers may be
+ *preceeded by '+' or '-' to indicate the sign.
+ *Technically, the "num" construction as defined
+ *by the tokenizer doesn't allow this, but we parse
+ *it here for simplicity.
  */
 static enum CRStatus
 cr_tknzr_parse_num (CRTknzr * a_this, 
@@ -1485,28 +1488,38 @@ cr_tknzr_parse_num (CRTknzr * a_this,
 {
         enum CRStatus status = CR_PARSING_ERROR;
         enum CRNumType val_type = NUM_GENERIC;
-        gboolean parsing_dec = FALSE,
-                parsed = FALSE;
+        gboolean parsing_dec,  /* true iff seen decimal point. */
+                parsed; /* true iff the substring seen so far is a valid CSS
+                           number, i.e. `[0-9]+|[0-9]*\.[0-9]+'. */
         guint32 cur_char = 0,
-                int_part = 0,
-                dec_part = 0,
-                next_char = 0,
-                decimal_places = 0;
+                next_char = 0;
+        gdouble numerator, denominator = 1;
         CRInputPos init_pos;
         CRParsingLocation location = {0} ;
+        int sign = 1;
 
         g_return_val_if_fail (a_this && PRIVATE (a_this)
                               && PRIVATE (a_this)->input, 
                               CR_BAD_PARAM_ERROR);
 
         RECORD_INITIAL_POS (a_this, &init_pos);
-        READ_NEXT_CHAR (a_this, &cur_char);        
-        if (IS_NUM (cur_char) == TRUE) {
-                int_part = int_part * 10 + (cur_char - '0');
+        READ_NEXT_CHAR (a_this, &cur_char);
 
+        if (cur_char == '+' || cur_char == '-') {
+                if (cur_char == '-') {
+                        sign = -1;
+                }
+                READ_NEXT_CHAR (a_this, &cur_char);
+        }
+
+        if (IS_NUM (cur_char)) {
+                numerator = (cur_char - '0');
+                parsing_dec = FALSE;
                 parsed = TRUE;
         } else if (cur_char == '.') {
+                numerator = 0;
                 parsing_dec = TRUE;
+                parsed = FALSE;
         } else {
                 status = CR_PARSING_ERROR;
                 goto error;
@@ -1521,30 +1534,29 @@ cr_tknzr_parse_num (CRTknzr * a_this,
                         break;
                 }
                 if (next_char == '.') {
-                        if (parsing_dec == TRUE) {
+                        if (parsing_dec) {
                                 status = CR_PARSING_ERROR;
                                 goto error;
                         }
 
                         READ_NEXT_CHAR (a_this, &cur_char);
                         parsing_dec = TRUE;
-                        parsed = TRUE;
-                } else if (IS_NUM (next_char) == TRUE) {
+                        parsed = FALSE;  /* In CSS, there must be at least
+                                            one digit after `.'. */
+                } else if (IS_NUM (next_char)) {
                         READ_NEXT_CHAR (a_this, &cur_char);
                         parsed = TRUE;
 
-                        if (parsing_dec == FALSE) {
-                                int_part = int_part * 10 + (cur_char - '0');
-                        } else {
-                                decimal_places++;
-                                dec_part = dec_part * 10 + (cur_char - '0');
+                        numerator = numerator * 10 + (cur_char - '0');
+                        if (parsing_dec) {
+                                denominator *= 10;
                         }
                 } else {
                         break;
                 }
         }
 
-        if (parsed == FALSE) {
+        if (!parsed) {
                 status = CR_PARSING_ERROR;
         }
 
@@ -1552,10 +1564,7 @@ cr_tknzr_parse_num (CRTknzr * a_this,
          *Now, set the output param values.
          */
         if (status == CR_OK) {
-                gdouble val = 0.0;
-
-                val = int_part;
-                val += cr_utils_n_to_0_dot_n (dec_part, decimal_places);
+                gdouble val = (numerator / denominator) * sign;
                 if (*a_num == NULL) {
                         *a_num = cr_num_new_with_val (val, val_type);
 
@@ -1640,7 +1649,7 @@ cr_tknzr_new_from_uri (const guchar * a_file_uri,
         CRTknzr *result = NULL;
         CRInput *input = NULL;
 
-        input = cr_input_new_from_uri (a_file_uri, a_enc);
+        input = cr_input_new_from_uri ((const gchar *) a_file_uri, a_enc);
         g_return_val_if_fail (input != NULL, NULL);
 
         result = cr_tknzr_new (input);
@@ -1902,6 +1911,8 @@ cr_tknzr_seek_index (CRTknzr * a_this, enum CRSeekPos a_origin, gint a_pos)
 enum CRStatus
 cr_tknzr_consume_chars (CRTknzr * a_this, guint32 a_char, glong * a_nb_char)
 {
+	gulong consumed = *(gulong *) a_nb_char;
+	enum CRStatus status;
         g_return_val_if_fail (a_this && PRIVATE (a_this)
                               && PRIVATE (a_this)->input, CR_BAD_PARAM_ERROR);
 
@@ -1912,8 +1923,10 @@ cr_tknzr_consume_chars (CRTknzr * a_this, guint32 a_char, glong * a_nb_char)
                 PRIVATE (a_this)->token_cache = NULL;
         }
 
-        return cr_input_consume_chars (PRIVATE (a_this)->input,
-                                       a_char, a_nb_char);
+        status = cr_input_consume_chars (PRIVATE (a_this)->input,
+                                         a_char, &consumed);
+	*a_nb_char = (glong) consumed;
+	return status;
 }
 
 enum CRStatus
@@ -2101,30 +2114,20 @@ cr_tknzr_get_next_token (CRTknzr * a_this, CRToken ** a_tk)
                 if (BYTE (input, 2, NULL) == 'r'
                     && BYTE (input, 3, NULL) == 'l'
                     && BYTE (input, 4, NULL) == '(') {
-                        CRString *str = NULL;
+                        CRString *str2 = NULL;
 
-                        status = cr_tknzr_parse_uri (a_this, &str);
+                        status = cr_tknzr_parse_uri (a_this, &str2);
                         if (status == CR_OK) {
-                                status = cr_token_set_uri (token, str);
+                                status = cr_token_set_uri (token, str2);
                                 CHECK_PARSING_STATUS (status, TRUE);
-                                if (str) {
+                                if (str2) {
                                         cr_parsing_location_copy (&token->location,
-                                                                  &str->location) ;
+                                                                  &str2->location) ;
                                 }
                                 goto done;
                         }
-                } else {
-                        status = cr_tknzr_parse_ident (a_this, &str);
-                        if (status == CR_OK && str) {
-                                status = cr_token_set_ident (token, str);
-                                CHECK_PARSING_STATUS (status, TRUE);
-                                if (str) {
-                                        cr_parsing_location_copy (&token->location, 
-                                                                  &str->location) ;
-                                }
-                                goto done;
-                        }
-                }
+                } 
+                goto fallback;
                 break;
 
         case 'r':
@@ -2143,28 +2146,18 @@ cr_tknzr_get_next_token (CRTknzr * a_this, CRToken ** a_tk)
                                 goto done;
                         }
 
-                } else {
-                        status = cr_tknzr_parse_ident (a_this, &str);
-                        if (status == CR_OK) {
-                                status = cr_token_set_ident (token, str);
-                                CHECK_PARSING_STATUS (status, TRUE);
-                                if (str) {
-                                        cr_parsing_location_copy (&token->location, 
-                                                                  &str->location) ;
-                                }
-                                str = NULL;
-                                goto done;
-                        }
                 }
+                goto fallback;
                 break;
 
         case '<':
-                if (BYTE (input, 2, NULL) == '-'
-                    && BYTE (input, 3, NULL) == '-') {
+                if (BYTE (input, 2, NULL) == '!'
+                    && BYTE (input, 3, NULL) == '-'
+                    && BYTE (input, 4, NULL) == '-') {
                         SKIP_CHARS (a_this, 1);
                         cr_tknzr_get_parsing_location (a_this, 
                                                        &location) ;
-                        SKIP_CHARS (a_this, 2);
+                        SKIP_CHARS (a_this, 3);
                         status = cr_token_set_cdo (token);
                         CHECK_PARSING_STATUS (status, TRUE);
                         cr_parsing_location_copy (&token->location, 
@@ -2196,6 +2189,8 @@ cr_tknzr_get_next_token (CRTknzr * a_this, CRToken ** a_tk)
                                                                   &str->location) ;
                                 }
                                 goto done;
+                        } else {
+                                goto parse_number;
                         }
                 }
                 break;
@@ -2389,6 +2384,9 @@ cr_tknzr_get_next_token (CRTknzr * a_this, CRToken ** a_tk)
         case '8':
         case '9':
         case '.':
+        case '+':
+        /* '-' case is handled separately above for --> comments */
+        parse_number:
                 {
                         CRNum *num = NULL;
 
@@ -2397,7 +2395,7 @@ cr_tknzr_get_next_token (CRTknzr * a_this, CRToken ** a_tk)
                                 next_bytes[0] = BYTE (input, 1, NULL);
                                 next_bytes[1] = BYTE (input, 2, NULL);
                                 next_bytes[2] = BYTE (input, 3, NULL);
-                                next_bytes[3] = BYTE (input, 3, NULL);
+                                next_bytes[3] = BYTE (input, 4, NULL);
 
                                 if (next_bytes[0] == 'e'
                                     && next_bytes[1] == 'm') {
@@ -2545,6 +2543,7 @@ cr_tknzr_get_next_token (CRTknzr * a_this, CRToken ** a_tk)
                 break;
 
         default:
+        fallback:
                 /*process the fallback cases here */
 
                 if (next_char == '\\'

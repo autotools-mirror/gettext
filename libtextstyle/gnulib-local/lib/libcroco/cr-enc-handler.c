@@ -21,7 +21,7 @@
  */
 
 /*
- *$Id: cr-enc-handler.c,v 1.8 2005/05/10 19:48:56 dodji Exp $
+ *$Id$
  */
 
 /**
@@ -90,8 +90,7 @@ cr_enc_handler_get_instance (enum CREncoding a_enc)
 
         for (i = 0; gv_default_enc_handlers[i].encoding; i++) {
                 if (gv_default_enc_handlers[i].encoding == a_enc) {
-                        return (CREncHandler *)
-                                & gv_default_enc_handlers[i].encoding;
+                        return (CREncHandler *) & gv_default_enc_handlers[i];
                 }
         }
 
@@ -119,11 +118,10 @@ cr_enc_handler_resolve_enc_alias (const guchar * a_alias_name,
 
         g_return_val_if_fail (a_alias_name != NULL, CR_BAD_PARAM_ERROR);
 
-        alias_name_up = g_strdup (a_alias_name);
-        g_ascii_strup (alias_name_up, -1);
+        alias_name_up = (guchar *) g_ascii_strup ((const gchar *) a_alias_name, -1);
 
         for (i = 0; gv_default_aliases[i].name; i++) {
-                if (!strcmp (gv_default_aliases[i].name, alias_name_up)) {
+                if (!strcmp (gv_default_aliases[i].name, (const gchar *) alias_name_up)) {
                         *a_enc = gv_default_aliases[i].encoding;
                         status = CR_OK;
                         break;

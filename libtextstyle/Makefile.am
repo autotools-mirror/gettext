@@ -37,9 +37,11 @@ EXTRA_DIST = \
   gnulib-local/lib/glib/ghash.in.h \
   gnulib-local/lib/glib/glist.c \
   gnulib-local/lib/glib/glist.in.h \
+  gnulib-local/lib/glib/gmacros.in.h \
   gnulib-local/lib/glib/gmessages.c \
   gnulib-local/lib/glib/gprimes.c \
   gnulib-local/lib/glib/gprimes.in.h \
+  gnulib-local/lib/glib/gprintfint.in.h \
   gnulib-local/lib/glib/gstrfuncs.c \
   gnulib-local/lib/glib/gstrfuncs.in.h \
   gnulib-local/lib/glib/gstring.c \

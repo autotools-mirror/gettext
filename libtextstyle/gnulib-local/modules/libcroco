@@ -1,5 +1,5 @@
 Description:
-Substitute for libcroco version 0.6.1.
+Substitute for libcroco version 0.6.13.
 
 Files:
 lib/libcroco/cr-additional-sel.c

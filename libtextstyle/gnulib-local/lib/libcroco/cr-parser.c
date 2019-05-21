@@ -198,9 +198,9 @@ if ((a_status) != CR_OK) \
  */
 #define PEEK_NEXT_CHAR(a_this, a_to_char) \
 {\
-enum CRStatus status ; \
-status = cr_tknzr_peek_char  (PRIVATE (a_this)->tknzr, a_to_char) ; \
-CHECK_PARSING_STATUS (status, TRUE) \
+enum CRStatus pnc_status ; \
+pnc_status = cr_tknzr_peek_char  (PRIVATE (a_this)->tknzr, a_to_char) ; \
+CHECK_PARSING_STATUS (pnc_status, TRUE) \
 }
 
 /**
@@ -445,7 +445,7 @@ cr_parser_error_set_msg (CRParserError * a_this, const guchar * a_msg)
                 g_free (a_this->msg);
         }
 
-        a_this->msg = g_strdup (a_msg);
+        a_this->msg = (guchar *) g_strdup ((const gchar *) a_msg);
 }
 
 /**
@@ -734,7 +734,7 @@ cr_parser_parse_stylesheet_core (CRParser * a_this)
 
  error:
         cr_parser_push_error
-                (a_this, "could not recognize next production", CR_ERROR);
+                (a_this, (const guchar *) "could not recognize next production", CR_ERROR);
 
         cr_parser_dump_err_stack (a_this, TRUE);
 
@@ -2704,7 +2704,7 @@ cr_parser_parse_stylesheet (CRParser * a_this)
         }
 
         cr_parser_push_error
-                (a_this, "could not recognize next production", CR_ERROR);
+                (a_this, (const guchar *) "could not recognize next production", CR_ERROR);
 
         if (PRIVATE (a_this)->sac_handler
             && PRIVATE (a_this)->sac_handler->unrecoverable_error) {
@@ -2746,7 +2746,7 @@ cr_parser_parse_stylesheet (CRParser * a_this)
  *coming the input stream given in parameter.
  *
  *Returns the newly created instance of #CRParser,
- *or NULL if an error occured.
+ *or NULL if an error occurred.
  */
 CRParser *
 cr_parser_new (CRTknzr * a_tknzr)
@@ -2953,7 +2953,7 @@ cr_parser_set_use_core_grammar (CRParser * a_this,
  * Returns CR_OK upon succesful completion, an error code otherwise.
  */
 enum CRStatus
-cr_parser_get_use_core_grammar (CRParser * a_this,
+cr_parser_get_use_core_grammar (CRParser const * a_this,
                                 gboolean * a_use_core_grammar)
 {
         g_return_val_if_fail (a_this && PRIVATE (a_this), CR_BAD_PARAM_ERROR);
@@ -3190,7 +3190,7 @@ cr_parser_parse_declaration (CRParser * a_this,
 
         CHECK_PARSING_STATUS_ERR
                 (a_this, status, FALSE,
-                 "while parsing declaration: next property is malformed",
+                 (const guchar *) "while parsing declaration: next property is malformed",
                  CR_SYNTAX_ERROR);
 
         READ_NEXT_CHAR (a_this, &cur_char);
@@ -3199,7 +3199,7 @@ cr_parser_parse_declaration (CRParser * a_this,
                 status = CR_PARSING_ERROR;
                 cr_parser_push_error
                         (a_this,
-                         "while parsing declaration: this char must be ':'",
+                         (const guchar *) "while parsing declaration: this char must be ':'",
                          CR_SYNTAX_ERROR);
                 goto error;
         }
@@ -3210,7 +3210,7 @@ cr_parser_parse_declaration (CRParser * a_this,
 
         CHECK_PARSING_STATUS_ERR
                 (a_this, status, FALSE,
-                 "while parsing declaration: next expression is malformed",
+                 (const guchar *) "while parsing declaration: next expression is malformed",
                  CR_SYNTAX_ERROR);
 
         cr_parser_try_to_skip_spaces_and_comments (a_this);
@@ -3337,6 +3337,7 @@ cr_parser_parse_ruleset (CRParser * a_this)
         CRSelector *selector = NULL;
         gboolean start_selector = FALSE,
                 is_important = FALSE;
+        CRParsingLocation end_parsing_location;
 
         g_return_val_if_fail (a_this, CR_BAD_PARAM_ERROR);
 
@@ -3349,7 +3350,7 @@ cr_parser_parse_ruleset (CRParser * a_this)
 
         ENSURE_PARSING_COND_ERR
                 (a_this, cur_char == '{',
-                 "while parsing rulset: current char should be '{'",
+                 (const guchar *) "while parsing rulset: current char should be '{'",
                  CR_SYNTAX_ERROR);
 
         if (PRIVATE (a_this)->sac_handler
@@ -3413,7 +3414,7 @@ cr_parser_parse_ruleset (CRParser * a_this)
         }
         CHECK_PARSING_STATUS_ERR
                 (a_this, status, FALSE,
-                 "while parsing ruleset: next construction should be a declaration",
+                 (const guchar *) "while parsing ruleset: next construction should be a declaration",
                  CR_SYNTAX_ERROR);
 
         for (;;) {
@@ -3451,12 +3452,14 @@ cr_parser_parse_ruleset (CRParser * a_this)
 
  end_of_ruleset:
         cr_parser_try_to_skip_spaces_and_comments (a_this);
+        cr_parser_get_parsing_location (a_this, &end_parsing_location);
         READ_NEXT_CHAR (a_this, &cur_char);
         ENSURE_PARSING_COND_ERR
                 (a_this, cur_char == '}',
-                 "while parsing rulset: current char must be a '}'",
+                 (const guchar *) "while parsing rulset: current char must be a '}'",
                  CR_SYNTAX_ERROR);
 
+        selector->location = end_parsing_location;
         if (PRIVATE (a_this)->sac_handler
             && PRIVATE (a_this)->sac_handler->end_selector) {
                 PRIVATE (a_this)->sac_handler->end_selector
@@ -3533,7 +3536,7 @@ cr_parser_parse_ruleset (CRParser * a_this)
  *in appendix D.1:
  *
  *import ::=
- *@import [STRING|URI] S* [ medium [ ',' S* medium]* ]? ';' S*
+ *\@import [STRING|URI] S* [ medium [ ',' S* medium]* ]? ';' S*
  *
  *Returns CR_OK upon sucessfull completion, an error code otherwise.
  */
@@ -3690,11 +3693,11 @@ cr_parser_parse_import (CRParser * a_this,
  *Parses a 'media' declaration as specified in the css2 spec at
  *appendix D.1:
  *
- *media ::= @media S* medium [ ',' S* medium ]* '{' S* ruleset* '}' S*
+ *media ::= \@media S* medium [ ',' S* medium ]* '{' S* ruleset* '}' S*
  *
  *Note that this function calls the required sac handlers during the parsing
  *to notify media productions. See #CRDocHandler to know the callback called
- *during @media parsing.
+ *during \@media parsing.
  *
  *Returns CR_OK upon successfull completion, an error code otherwise.
  */
@@ -3858,7 +3861,7 @@ cr_parser_parse_media (CRParser * a_this)
  * cr_parser_parse_page:
  *@a_this: the "this pointer" of the current instance of #CRParser.
  *
- *Parses '@page' rule as specified in the css2 spec in appendix D.1:
+ *Parses '\@page' rule as specified in the css2 spec in appendix D.1:
  *page ::= PAGE_SYM S* IDENT? pseudo_page? S* 
  *'{' S* declaration [ ';' S* declaration ]* '}' S*
  *
@@ -4200,7 +4203,7 @@ cr_parser_parse_charset (CRParser * a_this, CRString ** a_value,
  * cr_parser_parse_font_face:
  *@a_this: the current instance of #CRParser.
  *
- *Parses the "@font-face" rule specified in the css1 spec in
+ *Parses the "\@font-face" rule specified in the css1 spec in
  *appendix D.1:
  *
  *font_face ::= FONT_FACE_SYM S* 
@@ -4439,7 +4442,7 @@ cr_parser_get_tknzr (CRParser * a_this, CRTknzr ** a_tknzr)
  *otherwise.
  */
 enum CRStatus 
-cr_parser_get_parsing_location (CRParser *a_this, 
+cr_parser_get_parsing_location (CRParser const *a_this,
                                 CRParsingLocation *a_loc)
 {
         g_return_val_if_fail (a_this 

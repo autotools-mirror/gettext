@@ -55,6 +55,7 @@ cr_simple_sel_new (void)
  *
  *@a_this: the this pointer of the current instance of #CRSimpleSel.
  *@a_sel: the simple selector to append.
+ *
  *Returns: the new list upon successfull completion, an error code otherwise.
  */
 CRSimpleSel *
@@ -100,19 +101,19 @@ cr_simple_sel_prepend_simple_sel (CRSimpleSel * a_this, CRSimpleSel * a_sel)
 }
 
 guchar *
-cr_simple_sel_to_string (CRSimpleSel * a_this)
+cr_simple_sel_to_string (CRSimpleSel const * a_this)
 {
         GString *str_buf = NULL;
         guchar *result = NULL;
 
-        CRSimpleSel *cur = NULL;
+        CRSimpleSel const *cur = NULL;
 
         g_return_val_if_fail (a_this, NULL);
 
         str_buf = g_string_new (NULL);
         for (cur = a_this; cur; cur = cur->next) {
                 if (cur->name) {
-                        guchar *str = g_strndup (cur->name->stryng->str,
+                        guchar *str = (guchar *) g_strndup (cur->name->stryng->str,
                                                  cur->name->stryng->len);
 
                         if (str) {
@@ -133,7 +134,7 @@ cr_simple_sel_to_string (CRSimpleSel * a_this)
                                         break;
                                 }
 
-                                g_string_append (str_buf, str);
+                                g_string_append (str_buf, (const gchar *) str);
                                 g_free (str);
                                 str = NULL;
                         }
@@ -144,7 +145,7 @@ cr_simple_sel_to_string (CRSimpleSel * a_this)
 
                         tmp_str = cr_additional_sel_to_string (cur->add_sel);
                         if (tmp_str) {
-                                g_string_append (str_buf, tmp_str);
+                                g_string_append (str_buf, (const gchar *) tmp_str);
                                 g_free (tmp_str);
                                 tmp_str = NULL;
                         }
@@ -152,7 +153,7 @@ cr_simple_sel_to_string (CRSimpleSel * a_this)
         }
 
         if (str_buf) {
-                result = str_buf->str;
+                result = (guchar *) str_buf->str;
                 g_string_free (str_buf, FALSE);
                 str_buf = NULL;
         }
@@ -162,7 +163,7 @@ cr_simple_sel_to_string (CRSimpleSel * a_this)
 
 
 guchar *
-cr_simple_sel_one_to_string (CRSimpleSel * a_this)
+cr_simple_sel_one_to_string (CRSimpleSel const * a_this)
 {
         GString *str_buf = NULL;
         guchar *result = NULL;
@@ -171,7 +172,7 @@ cr_simple_sel_one_to_string (CRSimpleSel * a_this)
 
         str_buf = g_string_new (NULL);
         if (a_this->name) {
-                guchar *str = g_strndup (a_this->name->stryng->str,
+                guchar *str = (guchar *) g_strndup (a_this->name->stryng->str,
                                          a_this->name->stryng->len);
 
                 if (str) {
@@ -194,7 +195,7 @@ cr_simple_sel_one_to_string (CRSimpleSel * a_this)
         }
 
         if (str_buf) {
-                result = str_buf->str;
+                result = (guchar *) str_buf->str;
                 g_string_free (str_buf, FALSE);
                 str_buf = NULL;
         }
@@ -214,7 +215,7 @@ cr_simple_sel_one_to_string (CRSimpleSel * a_this)
  *otherwise.
  */
 enum CRStatus
-cr_simple_sel_dump (CRSimpleSel * a_this, FILE * a_fp)
+cr_simple_sel_dump (CRSimpleSel const * a_this, FILE * a_fp)
 {
         guchar *tmp_str = NULL;
 
@@ -245,8 +246,8 @@ cr_simple_sel_dump (CRSimpleSel * a_this, FILE * a_fp)
 enum CRStatus
 cr_simple_sel_compute_specificity (CRSimpleSel * a_this)
 {
-        CRAdditionalSel *cur_add_sel = NULL;
-        CRSimpleSel *cur_sel = NULL;
+        CRAdditionalSel const *cur_add_sel = NULL;
+        CRSimpleSel const *cur_sel = NULL;
         gulong a = 0,
                 b = 0,
                 c = 0;
@@ -254,7 +255,7 @@ cr_simple_sel_compute_specificity (CRSimpleSel * a_this)
         g_return_val_if_fail (a_this, CR_BAD_PARAM_ERROR);
 
         for (cur_sel = a_this; cur_sel; cur_sel = cur_sel->next) {
-                if (cur_sel->type_mask | TYPE_SELECTOR) {
+                if (cur_sel->type_mask & TYPE_SELECTOR) {
                         c++;    /*hmmh, is this a new language ? */
                 } else if (!cur_sel->name 
                            || !cur_sel->name->stryng
