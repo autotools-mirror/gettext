@@ -235,14 +235,11 @@ void
 cr_utils_dump_n_chars2 (guchar a_char, 
                         GString *a_string,
                         glong a_nb) ;
-gdouble
-cr_utils_n_to_0_dot_n (glong a_n, glong decimal_places) ;
+GList *
+cr_utils_dup_glist_of_string (GList const *a_list) ;
 
 GList *
-cr_utils_dup_glist_of_string (GList *a_list) ;
-
-GList *
-cr_utils_dup_glist_of_cr_string (GList * a_list_of_strings) ;
+cr_utils_dup_glist_of_cr_string (GList const * a_list_of_strings) ;
 
 G_END_DECLS
 

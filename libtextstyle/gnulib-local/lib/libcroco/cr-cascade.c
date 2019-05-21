@@ -23,7 +23,7 @@
  */
 
 /*
- *$Id: cr-cascade.c,v 1.7 2005/05/10 19:48:56 dodji Exp $
+ *$Id$
  */
 
 #include <config.h>
@@ -77,6 +77,7 @@ cr_cascade_new (CRStyleSheet * a_author_sheet,
         PRIVATE (result) = g_try_malloc (sizeof (CRCascadePriv));
         if (!PRIVATE (result)) {
                 cr_utils_trace_info ("Out of memory");
+                g_free (result);
                 return NULL;
         }
         memset (PRIVATE (result), 0, sizeof (CRCascadePriv));

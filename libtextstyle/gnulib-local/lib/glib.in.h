@@ -55,8 +55,8 @@
 #include <glib/gkeyfile.h>
 #endif
 #include <glib/glist.h>
-#if 0
 #include <glib/gmacros.h>
+#if 0
 #include <glib/gmain.h>
 #include <glib/gmappedfile.h>
 #include <glib/gmarkup.h>

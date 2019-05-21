@@ -1,4 +1,4 @@
-# libglib.m4 serial 4
+# libglib.m4 serial 5
 dnl Copyright (C) 2006-2007, 2019 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -112,7 +112,9 @@ error this glib.h includes a glibconfig.h from a glib version 1.x
     LIBGLIB_H="$LIBGLIB_H glibconfig.h"
     LIBGLIB_H="$LIBGLIB_H glib/ghash.h"
     LIBGLIB_H="$LIBGLIB_H glib/glist.h"
+    LIBGLIB_H="$LIBGLIB_H glib/gmacros.h"
     LIBGLIB_H="$LIBGLIB_H glib/gprimes.h"
+    LIBGLIB_H="$LIBGLIB_H glib/gprintfint.h"
     LIBGLIB_H="$LIBGLIB_H glib/gstrfuncs.h"
     LIBGLIB_H="$LIBGLIB_H glib/gstring.h"
     LIBGLIB_H="$LIBGLIB_H glib/gtypes.h"

@@ -72,7 +72,7 @@ cr_prop_list_allocate (void)
  *Appends a property list to the current one.
  *
  *Returns the resulting prop list, or NULL if an error
- *occured
+ *occurred
  */
 CRPropList *
 cr_prop_list_append (CRPropList * a_this, CRPropList * a_to_append)
@@ -101,6 +101,7 @@ cr_prop_list_append (CRPropList * a_this, CRPropList * a_to_append)
  *@a_this: the current instance of #CRPropList
  *@a_prop: the property to consider
  *@a_decl: the declaration to consider
+ *
  *Returns the resulting property list, or NULL in case
  *of an error.
  */
@@ -158,7 +159,7 @@ cr_prop_list_prepend (CRPropList * a_this, CRPropList * a_to_prepend)
  *
  *Prepends a propertie to a list of properties 
  *
- * Returns the new property list.
+ *Returns the new property list.
  */
 CRPropList *
 cr_prop_list_prepend2 (CRPropList * a_this,
@@ -207,7 +208,7 @@ cr_prop_list_set_prop (CRPropList * a_this, CRString * a_prop)
  *otherwise.
  */
 enum CRStatus
-cr_prop_list_get_prop (CRPropList * a_this, CRString ** a_prop)
+cr_prop_list_get_prop (CRPropList const * a_this, CRString ** a_prop)
 {
         g_return_val_if_fail (a_this && PRIVATE (a_this)
                               && a_prop, CR_BAD_PARAM_ERROR);
@@ -220,6 +221,7 @@ cr_prop_list_get_prop (CRPropList * a_this, CRString ** a_prop)
  * cr_prop_list_set_decl:
  * @a_this: the current instance of #CRPropList
  * @a_decl: the new property value.
+ *
  * Returns CR_OK upon successful completion, an error code otherwise.
  */
 enum CRStatus
@@ -236,10 +238,11 @@ cr_prop_list_set_decl (CRPropList * a_this, CRDeclaration * a_decl)
  * cr_prop_list_get_decl:
  * @a_this: the current instance of #CRPropList
  * @a_decl: out parameter. The property value
+ *
  * Returns CR_OK upon successful completion.
  */
 enum CRStatus
-cr_prop_list_get_decl (CRPropList * a_this, CRDeclaration ** a_decl)
+cr_prop_list_get_decl (CRPropList const * a_this, CRDeclaration ** a_decl)
 {
         g_return_val_if_fail (a_this && PRIVATE (a_this)
                               && a_decl, CR_BAD_PARAM_ERROR);
@@ -371,7 +374,7 @@ cr_prop_list_unlink (CRPropList * a_this, CRPropList * a_pair)
 }
 
 /**
- * cr_prop_list_detroy:
+ * cr_prop_list_destroy:
  * @a_this: the current instance of #CRPropList
  */
 void

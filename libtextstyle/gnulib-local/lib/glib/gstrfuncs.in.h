@@ -142,6 +142,7 @@ guint64		      g_ascii_strtoull (const gchar *nptr,
 gint64		      g_ascii_strtoll  (const gchar *nptr,
 					gchar      **endptr,
 					guint        base);
+#endif
 /* 29 bytes should enough for all possible values that
  * g_ascii_dtostr can produce.
  * Then add 10 for good measure */
@@ -154,15 +155,18 @@ gchar *               g_ascii_formatd  (gchar        *buffer,
 					const gchar  *format,
 					gdouble       d);
 
+#if 0
 /* removes leading spaces */
 gchar*                g_strchug        (gchar        *string);
 /* removes trailing spaces */
 gchar*                g_strchomp       (gchar        *string);
 /* removes leading & trailing spaces */
 #define g_strstrip( string )	g_strchomp (g_strchug (string))
+#endif
 
 gint                  g_ascii_strcasecmp  (const gchar *s1,
 					   const gchar *s2);
+#if 0
 gint                  g_ascii_strncasecmp (const gchar *s1,
 					   const gchar *s2,
 					   gsize        n);

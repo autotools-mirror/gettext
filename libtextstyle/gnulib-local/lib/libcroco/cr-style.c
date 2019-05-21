@@ -93,7 +93,7 @@ enum CRPropertyID {
 typedef struct _CRPropertyDesc CRPropertyDesc;
 
 struct _CRPropertyDesc {
-        const guchar *name;
+        const gchar *name;
         enum CRPropertyID prop_id;
 };
 
@@ -320,7 +320,7 @@ set_prop_font_weight_from_value (CRStyle * a_style, CRTerm * a_value);
 static const gchar *
 num_prop_code_to_string (enum CRNumProp a_code)
 {
-        gint len = sizeof (gv_num_props_dump_infos) /
+        guint len = sizeof (gv_num_props_dump_infos) /
                 sizeof (struct CRNumPropEnumDumpInfo);
         if (a_code >= len) {
                 cr_utils_trace_info ("A field has been added "
@@ -343,7 +343,7 @@ num_prop_code_to_string (enum CRNumProp a_code)
 static const gchar *
 rgb_prop_code_to_string (enum CRRgbProp a_code)
 {
-        gint len = sizeof (gv_rgb_props_dump_infos) /
+        guint len = sizeof (gv_rgb_props_dump_infos) /
                 sizeof (struct CRRgbPropEnumDumpInfo);
 
         if (a_code >= len) {
@@ -367,7 +367,7 @@ rgb_prop_code_to_string (enum CRRgbProp a_code)
 static const gchar *
 border_style_prop_code_to_string (enum CRBorderStyleProp a_code)
 {
-        gint len = sizeof (gv_border_style_props_dump_infos) /
+        guint len = sizeof (gv_border_style_props_dump_infos) /
                 sizeof (struct CRBorderStylePropEnumDumpInfo);
 
         if (a_code >= len) {
@@ -466,7 +466,7 @@ set_prop_padding_x_from_value (CRStyle * a_style,
                 if (a_value->content.str
                     && a_value->content.str->stryng
 		    && a_value->content.str->stryng->str
-                    && !strncmp ((guchar *) "inherit",
+                    && !strncmp ((const char *) "inherit",
                                  a_value->content.str->stryng->str,
                                  sizeof ("inherit")-1)) {
 			status = cr_num_set (num_val, 0.0, NUM_INHERIT);
@@ -805,7 +805,7 @@ set_prop_margin_x_from_value (CRStyle * a_style, CRTerm * a_value,
 }
 
 struct CRPropDisplayValPair {
-        const guchar *prop_name;
+        const gchar *prop_name;
         enum CRDisplayType type;
 };
 
@@ -866,7 +866,7 @@ set_prop_display_from_value (CRStyle * a_style, CRTerm * a_value)
 }
 
 struct CRPropPositionValPair {
-        const guchar *name;
+        const gchar *name;
         enum CRPositionType type;
 };
 
@@ -914,7 +914,7 @@ set_prop_position_from_value (CRStyle * a_style, CRTerm * a_value)
                 break;
         }
 
-        return CR_OK;
+        return status;
 }
 
 static enum CRStatus
@@ -985,7 +985,7 @@ set_prop_float (CRStyle * a_style, CRTerm * a_value)
             || !a_value->content.str
             || !a_value->content.str->stryng
             || !a_value->content.str->stryng->str) { 
-                /*unknow type, the float type is set to it's default value */
+                /*unknown type, the float type is set to it's default value */
                 return CR_OK;
         }
 
@@ -1121,11 +1121,11 @@ set_prop_border_x_color_from_value (CRStyle * a_style, CRTerm * a_value,
                     && a_value->content.str->stryng->str) {
                         status = cr_rgb_set_from_name
                                 (rgb_color, 
-                                 a_value->content.str->stryng->str);
+                                 (const guchar *) a_value->content.str->stryng->str);
 
                 }
                 if (status != CR_OK) {
-                        cr_rgb_set_from_name (rgb_color, "black");
+                        cr_rgb_set_from_name (rgb_color, (const guchar *) "black");
                 }
         } else if (a_value->type == TERM_RGB) {
                 if (a_value->content.rgb) {
@@ -1359,7 +1359,7 @@ set_prop_font_family_from_value (CRStyle * a_style, CRTerm * a_value)
                                     && cur_term->content.str->stryng->str) {
                                         cur_ff = cr_font_family_new
                                                 (FONT_FAMILY_NON_GENERIC,
-                                                 cur_term->content.str->stryng->str);
+                                                 (guchar *) cur_term->content.str->stryng->str);
                                 }
                         }
                         break;
@@ -1530,7 +1530,7 @@ set_prop_font_size_from_value (CRStyle * a_style, CRTerm * a_value)
 			a_style->font_size.sv.type = INHERITED_FONT_SIZE;
 
                 } else {
-                        cr_utils_trace_info ("Unknow value of font-size") ;
+                        cr_utils_trace_info ("Unknown value of font-size") ;
                         status = init_style_font_size_field (a_style);
                         return CR_UNKNOWN_PROP_VAL_ERROR;
                 }
@@ -1677,7 +1677,7 @@ set_prop_white_space_from_value (CRStyle * a_style, CRTerm * a_value)
 				a_style->white_space = WHITE_SPACE_NORMAL;
 			} else if (!strcmp (a_value->content.str->stryng->str, 
                                             "pre")) {
-				a_style->font_weight = WHITE_SPACE_PRE;
+				a_style->white_space = WHITE_SPACE_PRE;
 			} else if (!strcmp (a_value->content.str->stryng->str,
                                             "nowrap")) {
 				a_style->white_space = WHITE_SPACE_NOWRAP;
@@ -2025,7 +2025,7 @@ cr_style_set_style_from_decl (CRStyle * a_this, CRDeclaration * a_decl)
                               CR_BAD_PARAM_ERROR);
 
         prop_id = cr_style_get_prop_id
-                (a_decl->property->stryng->str);
+                ((const guchar *) a_decl->property->stryng->str);
 
         value = a_decl->value;
         switch (prop_id) {
@@ -2638,7 +2638,7 @@ cr_style_white_space_type_to_string (enum CRWhiteSpaceType a_code,
 		str = (gchar *) "inherited";
 		break;
 	default:
-		str = (gchar *) "unknow white space property value";
+		str = (gchar *) "unknown white space property value";
 		break;
 	}
 	cr_utils_dump_n_chars2 (' ', a_str, a_nb_indent);
@@ -2747,7 +2747,7 @@ cr_style_to_string (CRStyle * a_this, GString ** a_str, guint a_nb_indent)
 
         cr_utils_dump_n_chars2 (' ', str, indent);
         g_string_append (str, "font-family: ");
-        tmp_str = cr_font_family_to_string (a_this->font_family, TRUE);
+        tmp_str = (gchar *) cr_font_family_to_string (a_this->font_family, TRUE);
         if (tmp_str) {
                 g_string_append (str, tmp_str);
                 g_free (tmp_str);

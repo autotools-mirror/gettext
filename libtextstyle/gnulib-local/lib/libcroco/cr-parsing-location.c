@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: ni; c-basic-offset: 8 -*- */
+/* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 8 -*- */
 
 /*
  * This file is part of The Croco Library
@@ -83,7 +83,7 @@ cr_parsing_location_init (CRParsingLocation *a_this)
  */
 enum CRStatus 
 cr_parsing_location_copy (CRParsingLocation *a_to,
-			  CRParsingLocation *a_from)
+			  CRParsingLocation const *a_from)
 {
 	g_return_val_if_fail (a_to && a_from, CR_BAD_PARAM_ERROR) ;
 
@@ -100,7 +100,7 @@ cr_parsing_location_copy (CRParsingLocation *a_to,
  *Returns the serialized string or NULL in case of an error.
  */
 gchar * 
-cr_parsing_location_to_string (CRParsingLocation *a_this,
+cr_parsing_location_to_string (CRParsingLocation const *a_this,
 			       enum CRParsingLocationSerialisationMask a_mask)
 {
 	GString *result = NULL ;
@@ -142,7 +142,7 @@ cr_parsing_location_to_string (CRParsingLocation *a_this,
  * @a_fp: the file pointer to dump the parsing location to.
  */
 void
-cr_parsing_location_dump (CRParsingLocation *a_this,
+cr_parsing_location_dump (CRParsingLocation const *a_this,
 			  enum CRParsingLocationSerialisationMask a_mask,
 			  FILE *a_fp)
 {

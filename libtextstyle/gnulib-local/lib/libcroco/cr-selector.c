@@ -1,4 +1,4 @@
-/* -*- Mode: C; indent-tabs-mode: ni; c-basic-offset: 8 -*- */
+/* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 8 -*- */
 
 /*
  * This file is part of The Croco Library
@@ -58,7 +58,7 @@ cr_selector_parse_from_buf (const guchar * a_char_buf, enum CREncoding a_enc)
 
         g_return_val_if_fail (a_char_buf, NULL);
 
-        parser = cr_parser_new_from_buf ((guchar*)a_char_buf, strlen (a_char_buf),
+        parser = cr_parser_new_from_buf ((guchar*)a_char_buf, strlen ((const char *) a_char_buf),
                                          a_enc, FALSE);
         g_return_val_if_fail (parser, NULL);
 
@@ -139,7 +139,7 @@ cr_selector_append_simple_sel (CRSelector * a_this,
 }
 
 guchar *
-cr_selector_to_string (CRSelector * a_this)
+cr_selector_to_string (CRSelector const * a_this)
 {
         guchar *result = NULL;
         GString *str_buf = NULL;
@@ -148,7 +148,7 @@ cr_selector_to_string (CRSelector * a_this)
         g_return_val_if_fail (str_buf, NULL);
 
         if (a_this) {
-                CRSelector *cur = NULL;
+                CRSelector const *cur = NULL;
 
                 for (cur = a_this; cur; cur = cur->next) {
                         if (cur->simple_sel) {
@@ -162,7 +162,7 @@ cr_selector_to_string (CRSelector * a_this)
                                                 g_string_append (str_buf, 
 								 ", ");
 
-                                        g_string_append (str_buf, tmp_str);
+                                        g_string_append (str_buf, (const gchar *) tmp_str);
 
                                         g_free (tmp_str);
                                         tmp_str = NULL;
@@ -172,7 +172,7 @@ cr_selector_to_string (CRSelector * a_this)
         }
 
         if (str_buf) {
-                result = str_buf->str;
+                result = (guchar *) str_buf->str;
                 g_string_free (str_buf, FALSE);
                 str_buf = NULL;
         }
@@ -189,7 +189,7 @@ cr_selector_to_string (CRSelector * a_this)
  *Serializes the current instance of #CRSelector to a file.
  */
 void
-cr_selector_dump (CRSelector * a_this, FILE * a_fp)
+cr_selector_dump (CRSelector const * a_this, FILE * a_fp)
 {
         guchar *tmp_buf = NULL;
 

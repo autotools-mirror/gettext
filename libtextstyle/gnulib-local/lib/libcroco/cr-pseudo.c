@@ -48,11 +48,12 @@ cr_pseudo_new (void)
 /**
  * cr_pseudo_to_string:
  * @a_this: the current instance of #CRPseud.
+ *
  * Returns the serialized pseudo. Caller must free the returned
  * string using g_free().
  */
 guchar *
-cr_pseudo_to_string (CRPseudo * a_this)
+cr_pseudo_to_string (CRPseudo const * a_this)
 {
         guchar *result = NULL;
         GString *str_buf = NULL;
@@ -68,11 +69,11 @@ cr_pseudo_to_string (CRPseudo * a_this)
                         goto error;
                 }
 
-                name = g_strndup (a_this->name->stryng->str, 
+                name = (guchar *) g_strndup (a_this->name->stryng->str, 
                                   a_this->name->stryng->len);
 
                 if (name) {
-                        g_string_append (str_buf, name);
+                        g_string_append (str_buf, (const gchar *) name);
                         g_free (name);
                         name = NULL;
                 }
@@ -83,11 +84,11 @@ cr_pseudo_to_string (CRPseudo * a_this)
                 if (a_this->name == NULL)
                         goto error;
 
-                name = g_strndup (a_this->name->stryng->str, 
+                name = (guchar *) g_strndup (a_this->name->stryng->str, 
                                   a_this->name->stryng->len);
 
                 if (a_this->extra) {
-                        arg = g_strndup (a_this->extra->stryng->str,
+                        arg = (guchar *) g_strndup (a_this->extra->stryng->str,
                                          a_this->extra->stryng->len);
                 }
 
@@ -97,7 +98,7 @@ cr_pseudo_to_string (CRPseudo * a_this)
                         name = NULL;
 
                         if (arg) {
-                                g_string_append (str_buf, arg);
+                                g_string_append (str_buf, (const gchar *) arg);
                                 g_free (arg);
                                 arg = NULL;
                         }
@@ -107,7 +108,7 @@ cr_pseudo_to_string (CRPseudo * a_this)
         }
 
         if (str_buf) {
-                result = str_buf->str;
+                result = (guchar *) str_buf->str;
                 g_string_free (str_buf, FALSE);
                 str_buf = NULL;
         }
@@ -128,7 +129,7 @@ cr_pseudo_to_string (CRPseudo * a_this)
  *
  */
 void
-cr_pseudo_dump (CRPseudo * a_this, FILE * a_fp)
+cr_pseudo_dump (CRPseudo const * a_this, FILE * a_fp)
 {
         guchar *tmp_str = NULL;
 

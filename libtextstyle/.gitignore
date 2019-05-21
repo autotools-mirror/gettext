@@ -55,6 +55,9 @@
 /lib/float+.h
 /lib/float.c
 /lib/float.in.h
+/lib/fpucw.h
+/lib/frexp.c
+/lib/frexpl.c
 /lib/fstat.c
 /lib/fsync.c
 /lib/full-write.c
@@ -119,6 +122,10 @@
 /lib/pathmax.h
 /lib/printf-args.c
 /lib/printf-args.h
+/lib/printf-frexp.c
+/lib/printf-frexp.h
+/lib/printf-frexpl.c
+/lib/printf-frexpl.h
 /lib/printf-parse.c
 /lib/printf-parse.h
 /lib/raise.c
@@ -391,7 +398,9 @@ core
 /lib/float.h-t
 /lib/glib/ghash.h
 /lib/glib/glist.h
+/lib/glib/gmacros.h
 /lib/glib/gprimes.h
+/lib/glib/gprintfint.h
 /lib/glib/gstrfuncs.h
 /lib/glib/gstring.h
 /lib/glib/gtypes.h
