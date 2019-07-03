@@ -102,6 +102,13 @@ esac
 AM_CONDITIONAL([WOE32], [test $special_makefile_rules = woe32])
 AM_CONDITIONAL([OS2], [test $special_makefile_rules = os2])
 
+dnl Some code is only meant to be compiled on native Windows.
+case "$host_os" in
+  mingw*) is_windows_native=yes ;;
+  *) is_windows_native=no ;;
+esac
+AM_CONDITIONAL([WINDOWS_NATIVE], [test $is_windows_native = yes])
+
 dnl On Cygwin 1.7.10-1 or later, error_* variables are defined in the
 dnl Cygwin DLL.  To avoid any conflict with gettext DLLs, always link
 dnl to gnulib's error.c.  See GETTEXTLIB_EXPORTS_FLAGS setting below.

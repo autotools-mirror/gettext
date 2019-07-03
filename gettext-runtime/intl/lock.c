@@ -1,5 +1,5 @@
 /* Locking in multithreaded situations.
-   Copyright (C) 2005-2008, 2012, 2017 Free Software Foundation, Inc.
+   Copyright (C) 2005-2008, 2012, 2017, 2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -793,52 +793,6 @@ glthread_once_singlethreaded (gl_once_t *once_control)
 
 #if USE_WINDOWS_THREADS
 
-/* -------------------------- gl_lock_t datatype -------------------------- */
-
-void
-glthread_lock_init_func (gl_lock_t *lock)
-{
-  InitializeCriticalSection (&lock->lock);
-  lock->guard.done = 1;
-}
-
-int
-glthread_lock_lock_func (gl_lock_t *lock)
-{
-  if (!lock->guard.done)
-    {
-      if (InterlockedIncrement (&lock->guard.started) == 0)
-        /* This thread is the first one to need this lock.  Initialize it.  */
-        glthread_lock_init (lock);
-      else
-        /* Yield the CPU while waiting for another thread to finish
-           initializing this lock.  */
-        while (!lock->guard.done)
-          Sleep (0);
-    }
-  EnterCriticalSection (&lock->lock);
-  return 0;
-}
-
-int
-glthread_lock_unlock_func (gl_lock_t *lock)
-{
-  if (!lock->guard.done)
-    return EINVAL;
-  LeaveCriticalSection (&lock->lock);
-  return 0;
-}
-
-int
-glthread_lock_destroy_func (gl_lock_t *lock)
-{
-  if (!lock->guard.done)
-    return EINVAL;
-  DeleteCriticalSection (&lock->lock);
-  lock->guard.done = 0;
-  return 0;
-}
-
 /* ------------------------- gl_rwlock_t datatype ------------------------- */
 
 /* In this file, the waitqueues are implemented as circular arrays.  */
@@ -951,10 +905,14 @@ glthread_rwlock_rdlock_func (gl_rwlock_t *lock)
         /* This thread is the first one to need this lock.  Initialize it.  */
         glthread_rwlock_init (lock);
       else
-        /* Yield the CPU while waiting for another thread to finish
-           initializing this lock.  */
-        while (!lock->guard.done)
-          Sleep (0);
+        {
+          /* Don't let lock->guard.started grow and wrap around.  */
+          InterlockedDecrement (&lock->guard.started);
+          /* Yield the CPU while waiting for another thread to finish
+             initializing this lock.  */
+          while (!lock->guard.done)
+            Sleep (0);
+        }
     }
   EnterCriticalSection (&lock->lock);
   /* Test whether only readers are currently running, and whether the runcount
@@ -1007,10 +965,14 @@ glthread_rwlock_wrlock_func (gl_rwlock_t *lock)
         /* This thread is the first one to need this lock.  Initialize it.  */
         glthread_rwlock_init (lock);
       else
-        /* Yield the CPU while waiting for another thread to finish
-           initializing this lock.  */
-        while (!lock->guard.done)
-          Sleep (0);
+        {
+          /* Don't let lock->guard.started grow and wrap around.  */
+          InterlockedDecrement (&lock->guard.started);
+          /* Yield the CPU while waiting for another thread to finish
+             initializing this lock.  */
+          while (!lock->guard.done)
+            Sleep (0);
+        }
     }
   EnterCriticalSection (&lock->lock);
   /* Test whether no readers or writers are currently running.  */
@@ -1109,111 +1071,6 @@ glthread_rwlock_destroy_func (gl_rwlock_t *lock)
     free (lock->waiting_writers.array);
   lock->guard.done = 0;
   return 0;
-}
-
-/* --------------------- gl_recursive_lock_t datatype --------------------- */
-
-void
-glthread_recursive_lock_init_func (gl_recursive_lock_t *lock)
-{
-  lock->owner = 0;
-  lock->depth = 0;
-  InitializeCriticalSection (&lock->lock);
-  lock->guard.done = 1;
-}
-
-int
-glthread_recursive_lock_lock_func (gl_recursive_lock_t *lock)
-{
-  if (!lock->guard.done)
-    {
-      if (InterlockedIncrement (&lock->guard.started) == 0)
-        /* This thread is the first one to need this lock.  Initialize it.  */
-        glthread_recursive_lock_init (lock);
-      else
-        /* Yield the CPU while waiting for another thread to finish
-           initializing this lock.  */
-        while (!lock->guard.done)
-          Sleep (0);
-    }
-  {
-    DWORD self = GetCurrentThreadId ();
-    if (lock->owner != self)
-      {
-        EnterCriticalSection (&lock->lock);
-        lock->owner = self;
-      }
-    if (++(lock->depth) == 0) /* wraparound? */
-      {
-        lock->depth--;
-        return EAGAIN;
-      }
-  }
-  return 0;
-}
-
-int
-glthread_recursive_lock_unlock_func (gl_recursive_lock_t *lock)
-{
-  if (lock->owner != GetCurrentThreadId ())
-    return EPERM;
-  if (lock->depth == 0)
-    return EINVAL;
-  if (--(lock->depth) == 0)
-    {
-      lock->owner = 0;
-      LeaveCriticalSection (&lock->lock);
-    }
-  return 0;
-}
-
-int
-glthread_recursive_lock_destroy_func (gl_recursive_lock_t *lock)
-{
-  if (lock->owner != 0)
-    return EBUSY;
-  DeleteCriticalSection (&lock->lock);
-  lock->guard.done = 0;
-  return 0;
-}
-
-/* -------------------------- gl_once_t datatype -------------------------- */
-
-void
-glthread_once_func (gl_once_t *once_control, void (*initfunction) (void))
-{
-  if (once_control->inited <= 0)
-    {
-      if (InterlockedIncrement (&once_control->started) == 0)
-        {
-          /* This thread is the first one to come to this once_control.  */
-          InitializeCriticalSection (&once_control->lock);
-          EnterCriticalSection (&once_control->lock);
-          once_control->inited = 0;
-          initfunction ();
-          once_control->inited = 1;
-          LeaveCriticalSection (&once_control->lock);
-        }
-      else
-        {
-          /* Undo last operation.  */
-          InterlockedDecrement (&once_control->started);
-          /* Some other thread has already started the initialization.
-             Yield the CPU while waiting for the other thread to finish
-             initializing and taking the lock.  */
-          while (once_control->inited < 0)
-            Sleep (0);
-          if (once_control->inited <= 0)
-            {
-              /* Take the lock.  This blocks until the other thread has
-                 finished calling the initfunction.  */
-              EnterCriticalSection (&once_control->lock);
-              LeaveCriticalSection (&once_control->lock);
-              if (!(once_control->inited > 0))
-                abort ();
-            }
-        }
-    }
 }
 
 #endif
