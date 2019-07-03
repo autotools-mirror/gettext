@@ -247,6 +247,9 @@ if ! $skip_gnulib; then
     verify
     wchar
     wctype-h
+    windows-mutex
+    windows-once
+    windows-recmutex
   '
   GNULIB_MODULES_TOOLS_OTHER='
     gettext-tools-misc

@@ -87,6 +87,13 @@ case "$host_os" in
 esac
 AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
 
+dnl Some code is only meant to be compiled on native Windows.
+case "$host_os" in
+  mingw*) is_windows_native=yes ;;
+  *) is_windows_native=no ;;
+esac
+AM_CONDITIONAL([WINDOWS_NATIVE], [test $is_windows_native = yes])
+
 dnl Checks for libraries.
 
 dnl These are the only lines required to internationalize the package.

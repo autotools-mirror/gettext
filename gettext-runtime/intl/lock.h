@@ -1,5 +1,5 @@
 /* Locking in multithreaded situations.
-   Copyright (C) 2005-2008, 2015-2018 Free Software Foundation, Inc.
+   Copyright (C) 2005-2008, 2015-2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -81,6 +81,16 @@
 #include <errno.h>
 #include <stdlib.h>
 
+#if !defined c11_threads_in_use
+# if HAVE_THREADS_H && (USE_POSIX_THREADS_WEAK || USE_PTH_THREADS_WEAK || USE_SOLARIS_THREADS_WEAK)
+#  include <threads.h>
+#  pragma weak thrd_exit
+#  define c11_threads_in_use() (thrd_exit != NULL)
+# else
+#  define c11_threads_in_use() 0
+# endif
+#endif
+
 /* ========================================================================= */
 
 #if USE_POSIX_THREADS
@@ -156,7 +166,8 @@ extern int glthread_in_use (void);
          pthread_rwlockattr_init
      */
 #   pragma weak pthread_mutexattr_gettype
-#   define pthread_in_use() (pthread_mutexattr_gettype != NULL)
+#   define pthread_in_use() \
+      (pthread_mutexattr_gettype != NULL || c11_threads_in_use ())
 #  endif
 
 # else
@@ -421,7 +432,7 @@ extern "C" {
 #  pragma weak pth_cond_notify
 
 #  pragma weak pth_cancel
-#  define pth_in_use() (pth_cancel != NULL)
+#  define pth_in_use() (pth_cancel != NULL || c11_threads_in_use ())
 
 # else
 
@@ -572,7 +583,7 @@ extern "C" {
 #  pragma weak thr_self
 
 #  pragma weak thr_suspend
-#  define thread_in_use() (thr_suspend != NULL)
+#  define thread_in_use() (thr_suspend != NULL || c11_threads_in_use ())
 
 # else
 
@@ -679,6 +690,11 @@ extern int glthread_once_singlethreaded (gl_once_t *once_control);
 # define WIN32_LEAN_AND_MEAN  /* avoid including junk */
 # include <windows.h>
 
+# include "windows-spinlock.h"
+# include "windows-mutex.h"
+# include "windows-recmutex.h"
+# include "windows-once.h"
+
 # ifdef __cplusplus
 extern "C" {
 # endif
@@ -694,34 +710,23 @@ extern "C" {
 /* There is no way to statically initialize a CRITICAL_SECTION.  It needs
    to be done lazily, once only.  For this we need spinlocks.  */
 
-typedef struct { volatile int done; volatile long started; } gl_spinlock_t;
-
 /* -------------------------- gl_lock_t datatype -------------------------- */
 
-typedef struct
-        {
-          gl_spinlock_t guard; /* protects the initialization */
-          CRITICAL_SECTION lock;
-        }
-        gl_lock_t;
+typedef glwthread_mutex_t gl_lock_t;
 # define gl_lock_define(STORAGECLASS, NAME) \
     STORAGECLASS gl_lock_t NAME;
 # define gl_lock_define_initialized(STORAGECLASS, NAME) \
     STORAGECLASS gl_lock_t NAME = gl_lock_initializer;
 # define gl_lock_initializer \
-    { { 0, -1 } }
+    GLWTHREAD_MUTEX_INIT
 # define glthread_lock_init(LOCK) \
-    (glthread_lock_init_func (LOCK), 0)
+    (glwthread_mutex_init (LOCK), 0)
 # define glthread_lock_lock(LOCK) \
-    glthread_lock_lock_func (LOCK)
+    glwthread_mutex_lock (LOCK)
 # define glthread_lock_unlock(LOCK) \
-    glthread_lock_unlock_func (LOCK)
+    glwthread_mutex_unlock (LOCK)
 # define glthread_lock_destroy(LOCK) \
-    glthread_lock_destroy_func (LOCK)
-extern void glthread_lock_init_func (gl_lock_t *lock);
-extern int glthread_lock_lock_func (gl_lock_t *lock);
-extern int glthread_lock_unlock_func (gl_lock_t *lock);
-extern int glthread_lock_destroy_func (gl_lock_t *lock);
+    glwthread_mutex_destroy (LOCK)
 
 /* ------------------------- gl_rwlock_t datatype ------------------------- */
 
@@ -739,7 +744,7 @@ typedef struct
         gl_carray_waitqueue_t;
 typedef struct
         {
-          gl_spinlock_t guard; /* protects the initialization */
+          glwthread_spinlock_t guard; /* protects the initialization */
           CRITICAL_SECTION lock; /* protects the remaining fields */
           gl_carray_waitqueue_t waiting_readers; /* waiting readers */
           gl_carray_waitqueue_t waiting_writers; /* waiting writers */
@@ -751,7 +756,7 @@ typedef struct
 # define gl_rwlock_define_initialized(STORAGECLASS, NAME) \
     STORAGECLASS gl_rwlock_t NAME = gl_rwlock_initializer;
 # define gl_rwlock_initializer \
-    { { 0, -1 } }
+    { GLWTHREAD_SPINLOCK_INIT }
 # define glthread_rwlock_init(LOCK) \
     (glthread_rwlock_init_func (LOCK), 0)
 # define glthread_rwlock_rdlock(LOCK) \
@@ -770,51 +775,29 @@ extern int glthread_rwlock_destroy_func (gl_rwlock_t *lock);
 
 /* --------------------- gl_recursive_lock_t datatype --------------------- */
 
-/* The native Windows documentation says that CRITICAL_SECTION already
-   implements a recursive lock.  But we need not rely on it: It's easy to
-   implement a recursive lock without this assumption.  */
-
-typedef struct
-        {
-          gl_spinlock_t guard; /* protects the initialization */
-          DWORD owner;
-          unsigned long depth;
-          CRITICAL_SECTION lock;
-        }
-        gl_recursive_lock_t;
+typedef glwthread_recmutex_t gl_recursive_lock_t;
 # define gl_recursive_lock_define(STORAGECLASS, NAME) \
     STORAGECLASS gl_recursive_lock_t NAME;
 # define gl_recursive_lock_define_initialized(STORAGECLASS, NAME) \
     STORAGECLASS gl_recursive_lock_t NAME = gl_recursive_lock_initializer;
 # define gl_recursive_lock_initializer \
-    { { 0, -1 }, 0, 0 }
+    GLWTHREAD_RECMUTEX_INIT
 # define glthread_recursive_lock_init(LOCK) \
-    (glthread_recursive_lock_init_func (LOCK), 0)
+    (glwthread_recmutex_init (LOCK), 0)
 # define glthread_recursive_lock_lock(LOCK) \
-    glthread_recursive_lock_lock_func (LOCK)
+    glwthread_recmutex_lock (LOCK)
 # define glthread_recursive_lock_unlock(LOCK) \
-    glthread_recursive_lock_unlock_func (LOCK)
+    glwthread_recmutex_unlock (LOCK)
 # define glthread_recursive_lock_destroy(LOCK) \
-    glthread_recursive_lock_destroy_func (LOCK)
-extern void glthread_recursive_lock_init_func (gl_recursive_lock_t *lock);
-extern int glthread_recursive_lock_lock_func (gl_recursive_lock_t *lock);
-extern int glthread_recursive_lock_unlock_func (gl_recursive_lock_t *lock);
-extern int glthread_recursive_lock_destroy_func (gl_recursive_lock_t *lock);
+    glwthread_recmutex_destroy (LOCK)
 
 /* -------------------------- gl_once_t datatype -------------------------- */
 
-typedef struct
-        {
-          volatile int inited;
-          volatile long started;
-          CRITICAL_SECTION lock;
-        }
-        gl_once_t;
+typedef glwthread_once_t gl_once_t;
 # define gl_once_define(STORAGECLASS, NAME) \
-    STORAGECLASS gl_once_t NAME = { -1, -1 };
+    STORAGECLASS gl_once_t NAME = GLWTHREAD_ONCE_INIT;
 # define glthread_once(ONCE_CONTROL, INITFUNCTION) \
-    (glthread_once_func (ONCE_CONTROL, INITFUNCTION), 0)
-extern void glthread_once_func (gl_once_t *once_control, void (*initfunction) (void));
+    (glwthread_once (ONCE_CONTROL, INITFUNCTION), 0)
 
 # ifdef __cplusplus
 }
