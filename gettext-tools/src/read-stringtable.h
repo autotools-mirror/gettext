@@ -1,5 +1,5 @@
 /* Reading NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003, 2006 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,19 @@
 
 #include "read-catalog-abstract.h"
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* Describes a .strings file parser.  */
 extern DLL_VARIABLE const struct catalog_input_format input_format_stringtable;
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _READ_STRINGTABLE_H */
