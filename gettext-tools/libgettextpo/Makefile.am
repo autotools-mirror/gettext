@@ -175,8 +175,8 @@ config.h: $(BUILT_SOURCES)
 	          ;; \
 	      esac; \
 	    done; \
-	  } 5>&1 \
-	    | sed -e 's,.* ,,' | LC_ALL=C sort | LC_ALL=C uniq \
+	  } 5>&1 1>&2 \
+	    | sed -e 's,.* ,,' | grep -v '@' | LC_ALL=C sort | LC_ALL=C uniq \
 	    | sed -e 's,^obstack_free$$,__obstack_free,' \
 	    | sed -e 's,^\(.*\)$$,#define \1 libgettextpo_\1,' > config.h-t && \
 	  if test -f config.h; then \
