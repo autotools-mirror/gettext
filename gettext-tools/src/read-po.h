@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -20,7 +20,19 @@
 
 #include "read-catalog-abstract.h"
 
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
 /* Describes a .po / .pot file parser.  */
 extern DLL_VARIABLE const struct catalog_input_format input_format_po;
+
+
+#ifdef __cplusplus
+}
+#endif
+
 
 #endif /* _READ_PO_H */
