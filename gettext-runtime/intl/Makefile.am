@@ -383,6 +383,14 @@ libintl_la_DEPENDENCIES    = $(WOE32_LIBADD)
 libgnuintl_la_LIBADD       = $(WOE32_LIBADD)
 libgnuintl_la_DEPENDENCIES = $(WOE32_LIBADD)
 
+# langprefs.c (_nl_language_preferences_win32_95) uses functions from
+# advapi32.dll.
+if WINDOWS_NATIVE
+INTL_WINDOWS_LIBS = -ladvapi32
+else
+INTL_WINDOWS_LIBS =
+endif
+
 # Libtool's library version information for libintl.
 # Before making a gettext release, you must change this according to the
 # libtool documentation, section "Library interface versions".
@@ -392,7 +400,8 @@ LTV_AGE=1
 
 # How to build libintl.la and libgnuintl.la.
 OTHER_LDFLAGS = \
-  @LTLIBICONV@ @INTL_MACOSX_LIBS@ @LTLIBTHREAD@ -no-undefined \
+  @LTLIBICONV@ @INTL_MACOSX_LIBS@ $(INTL_WINDOWS_LIBS) @LTLIBTHREAD@ \
+  -no-undefined \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir)
 libintl_la_LDFLAGS    = $(AM_LDFLAGS) $(OTHER_LDFLAGS)
