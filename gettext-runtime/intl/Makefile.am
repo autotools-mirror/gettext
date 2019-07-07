@@ -399,9 +399,11 @@ LTV_REVISION=6
 LTV_AGE=1
 
 # How to build libintl.la and libgnuintl.la.
+# Limit the exported symbols: Don't export glwthread* (from gnulib modules).
 OTHER_LDFLAGS = \
   @LTLIBICONV@ @INTL_MACOSX_LIBS@ $(INTL_WINDOWS_LIBS) @LTLIBTHREAD@ \
   -no-undefined \
+  -export-symbols-regex '^([^g]|g[^l]|gl[^w]|glw[^t]|glwt[^h]|glwth[^r]|glwthr[^e]|glwthre[^a]|glwthrea[^d]).*' \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir)
 libintl_la_LDFLAGS    = $(AM_LDFLAGS) $(OTHER_LDFLAGS)
