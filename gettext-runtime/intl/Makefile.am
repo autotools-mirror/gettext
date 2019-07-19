@@ -69,7 +69,7 @@ AM_CPPFLAGS += \
   -Drelocate2=libintl_relocate2 \
   -DDEPENDS_ON_LIBICONV=1
 
-YACC = @INTLBISON@ -y -d
+YACC = @INTLBISON@ -d
 BISONFLAGS = --name-prefix=__gettext
 
 # Tell the ELF linker which symbols to export.
