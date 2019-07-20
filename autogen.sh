@@ -250,6 +250,7 @@ if ! $skip_gnulib; then
     windows-mutex
     windows-once
     windows-recmutex
+    windows-rwlock
   '
   GNULIB_MODULES_TOOLS_OTHER='
     gettext-tools-misc

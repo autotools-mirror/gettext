@@ -90,7 +90,7 @@ EXTRA_DIST += \
   plural-exp.h \
   eval-plural.h \
   localcharset.h \
-  lock.h windows-spinlock.h windows-mutex.h windows-recmutex.h windows-once.h \
+  lock.h windows-mutex.h windows-rwlock.h windows-recmutex.h windows-once.h windows-initguard.h \
   relocatable.h \
   flexmember.h \
   localename-table.in.h \
@@ -138,6 +138,7 @@ LIBINTLSOURCES = \
 if WINDOWS_NATIVE
 LIBINTLSOURCES += \
   windows-mutex.c \
+  windows-rwlock.c \
   windows-recmutex.c \
   windows-once.c
 endif
@@ -290,6 +291,8 @@ intl-compat.lo: $(srcdir)/intl-compat.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/intl-compat.c
 windows-mutex.lo: $(srcdir)/windows-mutex.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/windows-mutex.c
+windows-rwlock.lo: $(srcdir)/windows-rwlock.c
+	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/windows-rwlock.c
 windows-recmutex.lo: $(srcdir)/windows-recmutex.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/windows-recmutex.c
 windows-once.lo: $(srcdir)/windows-once.c
@@ -303,39 +306,40 @@ if USE_INCLUDED_LIBINTL
 PLURAL_DEPS += libintl.h
 endif
 
-bindtextdom.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
-dcgettext.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
-dgettext.lo:         ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
-gettext.lo:          ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
-finddomain.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
+bindtextdom.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
+dcgettext.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
+dgettext.lo:         ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
+gettext.lo:          ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
+finddomain.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
 hash-string.lo:      ../config.h $(srcdir)/hash-string.h
-loadmsgcat.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/hash-string.h $(srcdir)/plural-exp.h
-localealias.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/relocatable.h
-textdomain.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
+loadmsgcat.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/hash-string.h $(srcdir)/plural-exp.h
+localealias.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/relocatable.h
+textdomain.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
 l10nflist.lo:        ../config.h $(srcdir)/loadinfo.h
 explodename.lo:      ../config.h $(srcdir)/loadinfo.h
-dcigettext.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/localcharset.h $(srcdir)/plural-exp.h $(srcdir)/hash-string.h $(srcdir)/tsearch.h $(srcdir)/tsearch.c $(srcdir)/eval-plural.h
-dcngettext.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
-dngettext.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
-ngettext.lo:         ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
+dcigettext.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/localcharset.h $(srcdir)/plural-exp.h $(srcdir)/hash-string.h $(srcdir)/tsearch.h $(srcdir)/tsearch.c $(srcdir)/eval-plural.h
+dcngettext.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
+dngettext.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
+ngettext.lo:         ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
 plural.lo:           ../config.h $(srcdir)/plural-exp.h $(PLURAL_DEPS)
 plural-exp.lo:       ../config.h $(srcdir)/plural-exp.h
 localcharset.lo:     ../config.h $(srcdir)/localcharset.h
 threadlib.lo:        ../config.h
-lock.lo:             ../config.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
+lock.lo:             ../config.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
 relocatable.lo:      ../config.h $(srcdir)/relocatable.h
 langprefs.lo:        ../config.h
-localename.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/flexmember.h localename-table.h
-localename-table.lo: ../config.h localename-table.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
-log.lo:              ../config.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
+localename.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/flexmember.h localename-table.h
+localename-table.lo: ../config.h localename-table.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
+log.lo:              ../config.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
 printf.lo:           ../config.h $(srcdir)/printf-args.c $(srcdir)/printf-args.h $(srcdir)/printf-parse.c $(srcdir)/printf-parse.h $(srcdir)/wprintf-parse.h $(srcdir)/xsize.h $(srcdir)/vasnprintf.c $(srcdir)/vasnprintf.h $(srcdir)/vasnwprintf.h $(srcdir)/verify.h
-setlocale.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
+setlocale.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
 version.lo:          ../config.h libgnuintl.h
 xsize.lo:            ../config.h $(srcdir)/xsize.h
 osdep.lo:            ../config.h $(srcdir)/intl-exports.c $(srcdir)/os2compat.c
-intl-compat.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-spinlock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h
-windows-mutex.lo:    ../config.h $(srcdir)/windows-mutex.h $(srcdir)/windows-spinlock.h
-windows-recmutex.lo: ../config.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-spinlock.h
+intl-compat.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
+windows-mutex.lo:    ../config.h $(srcdir)/windows-mutex.h $(srcdir)/windows-initguard.h
+windows-rwlock.lo:   ../config.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-initguard.h
+windows-recmutex.lo: ../config.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-initguard.h
 windows-once.lo:     ../config.h $(srcdir)/windows-once.h
 
 # Version information according to Woe32 conventions.
