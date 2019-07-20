@@ -95,13 +95,15 @@ distcheck-hook:
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/lock.c | md5sum`" = "`sed -e 1,15d -e 's,glthread/,,g' $(srcdir)/gettext-tools/gnulib-lib/glthread/lock.c | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/threadlib.c | md5sum`" = "`sed -e 1,15d $(srcdir)/gettext-tools/gnulib-lib/glthread/threadlib.c | md5sum`"
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/verify.h | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/verify.h | md5sum`"
+	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-initguard.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-initguard.h | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-mutex.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-mutex.h | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-mutex.c | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-mutex.c | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-once.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-once.h | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-once.c | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-once.c | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-recmutex.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-recmutex.h | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-recmutex.c | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-recmutex.c | md5sum`"
-	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-spinlock.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-spinlock.h | md5sum`"
+	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-rwlock.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-rwlock.h | md5sum`"
+	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-rwlock.c | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-rwlock.c | md5sum`"
 	cmp -s $(srcdir)/gettext-runtime/intl/printf-args.h $(srcdir)/gettext-runtime/libasprintf/printf-args.h
 	cmp -s $(srcdir)/gettext-runtime/intl/printf-args.c $(srcdir)/gettext-runtime/libasprintf/printf-args.c
 	cmp -s $(srcdir)/gettext-runtime/intl/printf-parse.h $(srcdir)/gettext-runtime/libasprintf/printf-parse.h

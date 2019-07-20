@@ -239,13 +239,15 @@
 /gettext-tools/libgettextpo/wctype-h.c
 /gettext-tools/libgettextpo/wctype.in.h
 /gettext-tools/libgettextpo/wcwidth.c
+/gettext-tools/libgettextpo/windows-initguard.h
 /gettext-tools/libgettextpo/windows-mutex.c
 /gettext-tools/libgettextpo/windows-mutex.h
 /gettext-tools/libgettextpo/windows-once.c
 /gettext-tools/libgettextpo/windows-once.h
 /gettext-tools/libgettextpo/windows-recmutex.c
 /gettext-tools/libgettextpo/windows-recmutex.h
-/gettext-tools/libgettextpo/windows-spinlock.h
+/gettext-tools/libgettextpo/windows-rwlock.c
+/gettext-tools/libgettextpo/windows-rwlock.h
 /gettext-tools/libgettextpo/windows-tls.c
 /gettext-tools/libgettextpo/windows-tls.h
 /gettext-tools/libgettextpo/xalloc-oversized.h
