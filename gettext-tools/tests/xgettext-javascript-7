@@ -17,6 +17,10 @@ var s7 = _(tag`A template literal with a tag`);
 var s8 = `a${`b${`c`+d}`}e`;
 var s9 = _("a normal string");
 var s10 = `abc${foo({},_('should be extracted'))}xyz`;
+var f1 = function () {
+  return _("first normal string") + `${foo}` + _("second normal string");
+};
+var s11 = _("another normal string");
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -64,6 +68,15 @@ msgid "a normal string"
 msgstr ""
 
 msgid "should be extracted"
+msgstr ""
+
+msgid "first normal string"
+msgstr ""
+
+msgid "second normal string"
+msgstr ""
+
+msgid "another normal string"
 msgstr ""
 EOF
 
