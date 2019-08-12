@@ -13,6 +13,7 @@ stdlib
 xalloc-oversized
 
 configure.ac:
+AC_REQUIRE([AC_C_INLINE])
 
 Makefile.am:
 lib_SOURCES += xalloc.h xmalloc.c xstrdup.c

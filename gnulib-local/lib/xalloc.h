@@ -58,6 +58,22 @@ template <typename T>
 extern "C" {
 #endif
 
+/* If P is null, allocate a block of at least *PN bytes; otherwise,
+   reallocate P so that it contains more than *PN bytes.  *PN must be
+   nonzero unless P is null.  Set *PN to the new block's size, and
+   return the pointer to the new block.  *PN is never set to zero, and
+   the returned pointer is never null.  */
+extern void *x2realloc (void *ptr, size_t *pn);
+#ifdef __cplusplus
+}
+template <typename T>
+  inline T * x2realloc (T * ptr, size_t *pn)
+  {
+    return (T *) x2realloc ((void *) ptr, pn);
+  }
+extern "C" {
+#endif
+
 /* This function is always triggered when memory is exhausted.  It is
    in charge of honoring the three previous items.  This is the
    function to call when one wants the program to die because of a
