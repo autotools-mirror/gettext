@@ -10,6 +10,7 @@ Depends-on:
 error
 gettext-h
 stdlib
+xalloc-oversized
 
 configure.ac:
 
