@@ -23,7 +23,9 @@
 #include <assert.h>
 #include <errno.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdlib.h>
+#include <sys/time.h>
 #include <string.h>
 #include <unistd.h>
 #if HAVE_TCDRAIN
@@ -36,8 +38,11 @@
 
 #include "error.h"
 #include "full-write.h"
+#include "get_ppid_of.h"
+#include "get_progname_of.h"
 #include "terminfo.h"
 #include "xalloc.h"
+#include "xgethostname.h"
 #include "xsize.h"
 #if HAVE_WINDOWS_CONSOLES
 /* Get _get_osfhandle().  */
@@ -935,6 +940,33 @@ rgb_to_color_xtermrgb (int r, int g, int b)
 }
 
 
+/* ============================== hyperlink_t ============================== */
+
+/* A hyperlink is a heap-allocated structure that can be assigned to a run
+   of characters.  */
+typedef struct
+{
+  /* URL.
+     Should better be <= 2083 bytes long (because of Microsoft Internet
+     Explorer).  */
+  char *ref;
+  /* Id.
+     Used when the same hyperlink persists across newlines.
+     Should better be <= 256 bytes long (because of VTE and iTerm2).  */
+  char *id;
+  /* Same as id, if non-NULL.  Or some generated id.  */
+  char *real_id;
+} hyperlink_t;
+
+static inline void
+free_hyperlink (hyperlink_t *hyperlink)
+{
+  free (hyperlink->ref);
+  free (hyperlink->real_id);
+  free (hyperlink);
+}
+
+
 /* ============================= attributes_t ============================= */
 
 /* ANSI C and ISO C99 6.7.2.1.(4) forbid use of bit fields for types other
@@ -955,6 +987,8 @@ typedef struct
   BITFIELD_TYPE(term_weight_t,    unsigned int) weight    : 1;
   BITFIELD_TYPE(term_posture_t,   unsigned int) posture   : 1;
   BITFIELD_TYPE(term_underline_t, unsigned int) underline : 1;
+  /* Hyperlink, or NULL for none.  */
+  hyperlink_t *hyperlink;
 } attributes_t;
 
 /* Compare two sets of attributes for equality.  */
@@ -965,7 +999,8 @@ equal_attributes (attributes_t attr1, attributes_t attr2)
           && attr1.bgcolor == attr2.bgcolor
           && attr1.weight == attr2.weight
           && attr1.posture == attr2.posture
-          && attr1.underline == attr2.underline);
+          && attr1.underline == attr2.underline
+          && attr1.hyperlink == attr2.hyperlink);
 }
 
 
@@ -1029,13 +1064,23 @@ fields:
   bool volatile supports_weight;
   bool volatile supports_posture;
   bool volatile supports_underline;
+  bool volatile supports_hyperlink;
   /* Inferred values for the exit handler and the signal handlers.  */
   const char * volatile restore_colors;
   const char * volatile restore_weight;
   const char * volatile restore_posture;
   const char * volatile restore_underline;
+  const char * volatile restore_hyperlink;
   /* Signal handling and tty control.  */
   struct term_style_control_data control_data;
+  /* State for producing hyperlink ids.  */
+  uint32_t hostname_hash;
+  uint64_t start_time;
+  uint32_t id_serial;
+  /* Set of hyperlink_t that are currently in use.  */
+  hyperlink_t **hyperlinks_array;
+  size_t hyperlinks_count;
+  size_t hyperlinks_allocated;
   /* Variable state, representing past output.  */
   #if HAVE_WINDOWS_CONSOLES
   WORD volatile default_console_attributes;
@@ -1049,6 +1094,8 @@ fields:
                                                 atomically accessible.  */
   term_color_t volatile active_attr_bgcolor; /* Same as active_attr.bgcolor,
                                                 atomically accessible.  */
+  hyperlink_t *volatile active_attr_hyperlink; /* Same as active_attr.hyperlink,
+                                                  atomically accessible.  */
   /* Variable state, representing future output.  */
   char *buffer;                      /* Buffer for the current line.  */
   attributes_t *attrbuffer;          /* Buffer for the simplified attributes;
@@ -1091,7 +1138,42 @@ simplify_attributes (term_ostream_t stream, attributes_t attr)
     attr.posture = POSTURE_DEFAULT;
   if (!stream->supports_underline)
     attr.underline = UNDERLINE_DEFAULT;
+  if (!stream->supports_hyperlink)
+    attr.hyperlink = NULL;
   return attr;
+}
+
+/* Generate an id for a hyperlink.  */
+static char *
+generate_hyperlink_id (term_ostream_t stream)
+{
+  /* A UUID would be optimal, but is overkill here.  An id of 128 bits
+     (32 hexadecimal digits) should be sufficient.  */
+  static const char hexdigits[16] =
+    {
+      '0', '1', '2', '3', '4', '5', '6', '7',
+      '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'
+    };
+  char *id = (char *) xmalloc (128 / 4 + 1);
+  uint32_t words[4] =
+    {
+      stream->hostname_hash,
+      (uint32_t) (stream->start_time >> 32),
+      (uint32_t) stream->start_time,
+      stream->id_serial
+    };
+  char *p = id;
+  unsigned int i;
+  for (i = 0; i < 4; i++)
+    {
+      uint32_t word = words[i];
+      unsigned int j;
+      for (j = 0; j < 32 / 4; j++)
+        *p++ = hexdigits[(word >> (32 - 4 * (j + 1))) & 0x0f];
+    }
+  *p = '\0';
+  stream->id_serial++;
+  return id;
 }
 
 /* Stream that contains information about how the various out_* functions shall
@@ -1490,6 +1572,26 @@ out_underline_change (term_ostream_t stream, term_underline_t new_underline,
     }
 }
 
+/* Output escape seqeuences to switch the hyperlink to NEW_HYPERLINK.  */
+static _GL_ASYNC_SAFE void
+out_hyperlink_change (term_ostream_t stream, hyperlink_t *new_hyperlink,
+                      bool async_safe)
+{
+  int (*out_ch) (int) = (async_safe ? out_char_unchecked : out_char);
+  assert (stream->supports_hyperlink);
+  if (new_hyperlink != NULL)
+    {
+      assert (new_hyperlink->real_id != NULL);
+      tputs ("\033]8;id=",           1, out_ch);
+      tputs (new_hyperlink->real_id, 1, out_ch);
+      tputs (";",                    1, out_ch);
+      tputs (new_hyperlink->ref,     1, out_ch);
+      tputs ("\033\\",               1, out_ch);
+    }
+  else
+    tputs ("\033]8;;\033\\", 1, out_ch);
+}
+
 /* Output escape sequences to switch from STREAM->ACTIVE_ATTR to NEW_ATTR,
    and update STREAM->ACTIVE_ATTR.  */
 static void
@@ -1503,6 +1605,7 @@ out_attr_change (term_ostream_t stream, attributes_t new_attr)
   stream->active_attr = new_attr;
   stream->active_attr_color = new_attr.color;
   stream->active_attr_bgcolor = new_attr.bgcolor;
+  stream->active_attr_hyperlink = new_attr.hyperlink;
 
   #if HAVE_WINDOWS_CONSOLES
   if (stream->is_windows_console)
@@ -1629,6 +1732,10 @@ out_attr_change (term_ostream_t stream, attributes_t new_attr)
         {
           out_underline_change (stream, new_attr.underline, false);
         }
+      if (new_attr.hyperlink != old_attr.hyperlink)
+        {
+          out_hyperlink_change (stream, new_attr.hyperlink, false);
+        }
     }
 }
 
@@ -1658,6 +1765,8 @@ restore (term_ostream_t stream)
         tputs (stream->restore_posture, 1, out_char_unchecked);
       if (stream->restore_underline != NULL)
         tputs (stream->restore_underline, 1, out_char_unchecked);
+      if (stream->restore_hyperlink != NULL)
+        tputs (stream->restore_hyperlink, 1, out_char_unchecked);
     }
 }
 
@@ -1687,6 +1796,8 @@ async_restore (term_ostream_t stream)
         tputs (stream->restore_posture, 1, out_char_unchecked);
       if (stream->restore_underline != NULL)
         tputs (stream->restore_underline, 1, out_char_unchecked);
+      if (stream->restore_hyperlink != NULL)
+        tputs (stream->restore_hyperlink, 1, out_char_unchecked);
     }
 }
 
@@ -1710,6 +1821,7 @@ async_set_attributes_from_default (term_ostream_t stream)
          Use the atomically loadable values instead.  */
       new_attr.color = stream->active_attr_color;
       new_attr.bgcolor = stream->active_attr_bgcolor;
+      new_attr.hyperlink = stream->active_attr_hyperlink;
 
       /* For out_char_unchecked to work.  */
       out_stream = stream;
@@ -1725,6 +1837,8 @@ async_set_attributes_from_default (term_ostream_t stream)
         out_posture_change (stream, new_attr.posture, true);
       if (new_attr.underline != UNDERLINE_DEFAULT)
         out_underline_change (stream, new_attr.underline, true);
+      if (new_attr.hyperlink != NULL)
+        out_hyperlink_change (stream, new_attr.hyperlink, true);
     }
 }
 
@@ -1823,6 +1937,36 @@ output_buffer (term_ostream_t stream, attributes_t goal_attr)
   /* When we can deactivate the non-default attributes mode, do so.  */
   if (equal_attributes (goal_attr, stream->default_attr))
     deactivate_term_non_default_mode (&controller, stream);
+
+  /* Free the hyperlink_t objects that are no longer referenced by the
+     stream->attrbuffer.  */
+  {
+    size_t count = stream->hyperlinks_count;
+    size_t j = 0;
+    size_t i;
+    for (i = 0; i < count; i++)
+      {
+        /* Here 0 <= j <= i.  */
+        hyperlink_t *hyperlink = stream->hyperlinks_array[i];
+        /* stream->default_attr.hyperlink is always == NULL.
+           stream->simp_attr.hyperlink is either == NULL
+                                              or == stream->curr_attr.hyperlink.
+           We can therefore ignore both.  */
+        if (hyperlink == stream->curr_attr.hyperlink
+            || hyperlink == stream->active_attr.hyperlink)
+          {
+            /* The hyperlink is still in use.  */
+            stream->hyperlinks_array[j] = hyperlink;
+            j++;
+          }
+        else
+          {
+            /* The hyperlink is not in use any more.  */
+            free_hyperlink (hyperlink);
+          }
+      }
+    stream->hyperlinks_count = j;
+  }
 }
 
 /* Implementation of ostream_t methods.  */
@@ -1952,6 +2096,14 @@ term_ostream::free (term_ostream_t stream)
     free (stream->exit_underline_mode);
   if (stream->exit_attribute_mode != NULL)
     free (stream->exit_attribute_mode);
+  if (stream->hyperlinks_array != NULL)
+    {
+      size_t count = stream->hyperlinks_count;
+      size_t i;
+      for (i = 0; i < count; i++)
+        free_hyperlink (stream->hyperlinks_array[i]);
+      free (stream->hyperlinks_array);
+    }
   free (stream->buffer);
   free (stream);
 }
@@ -2023,6 +2175,67 @@ term_ostream::set_underline (term_ostream_t stream, term_underline_t underline)
   stream->simp_attr = simplify_attributes (stream, stream->curr_attr);
 }
 
+static const char *
+term_ostream::get_hyperlink_ref (term_ostream_t stream)
+{
+  hyperlink_t *hyperlink = stream->curr_attr.hyperlink;
+  return (hyperlink != NULL ? hyperlink->ref : NULL);
+}
+
+static const char *
+term_ostream::get_hyperlink_id (term_ostream_t stream)
+{
+  hyperlink_t *hyperlink = stream->curr_attr.hyperlink;
+  return (hyperlink != NULL ? hyperlink->id : NULL);
+}
+
+static void
+term_ostream::set_hyperlink (term_ostream_t stream,
+                             const char *ref, const char *id)
+{
+  if (ref == NULL)
+    stream->curr_attr.hyperlink = NULL;
+  else
+    {
+      /* Create a new hyperlink_t object.  */
+      hyperlink_t *hyperlink = XMALLOC (hyperlink_t);
+
+      hyperlink->ref = xstrdup (ref);
+      if (id != NULL)
+        {
+          hyperlink->id = xstrdup (id);
+          hyperlink->real_id = hyperlink->id;
+        }
+      else
+        {
+          hyperlink->id = NULL;
+          if (stream->supports_hyperlink)
+            {
+              /* Generate an id always, since we don't know at this point
+                 whether the hyperlink will span multiple lines.  */
+              hyperlink->real_id = generate_hyperlink_id (stream);
+            }
+          else
+            hyperlink->real_id = NULL;
+        }
+
+      /* Store it.  */
+      if (stream->hyperlinks_count == stream->hyperlinks_allocated)
+        {
+          stream->hyperlinks_allocated = 2 * stream->hyperlinks_allocated + 10;
+          stream->hyperlinks_array =
+            (hyperlink_t **)
+            xrealloc (stream->hyperlinks_array,
+                      stream->hyperlinks_allocated * sizeof (hyperlink_t *));
+        }
+      stream->hyperlinks_array[stream->hyperlinks_count++] = hyperlink;
+
+      /* Install it.  */
+      stream->curr_attr.hyperlink = hyperlink;
+    }
+  stream->simp_attr = simplify_attributes (stream, stream->curr_attr);
+}
+
 static void
 term_ostream::flush_to_current_style (term_ostream_t stream)
 {
@@ -2041,6 +2254,111 @@ xstrdup0 (const char *str)
     return NULL;
 #endif
   return xstrdup (str);
+}
+
+/* Returns the base name of the terminal emulator program, possibly truncated,
+   as a freshly allocated string, or NULL if it cannot be determined.
+   Note: This function is a hack.  It does not work across ssh, and it may fail
+   in some local situations as well.  */
+static inline char *
+get_terminal_emulator_progname (void)
+{
+  #if HAVE_GETSID
+  /* Get the process id of the session leader.
+     When running in a terminal emulator, it's the shell process that was
+     spawned by the terminal emulator.  When running in a console, it's the
+     'login' process.
+     On some operating systems (Linux, *BSD, AIX), the same result could also
+     be obtained through
+       pid_t p;
+       if (ioctl (1, TIOCGSID, &p) >= 0) ...
+   */
+  pid_t session_leader_pid = getsid (0);
+  if (session_leader_pid != (pid_t)(-1))
+    {
+      /* Get the process id of the terminal emulator.
+         When running in a console, it's the process id of the 'init'
+         process.  */
+      pid_t terminal_emulator_pid = get_ppid_of (session_leader_pid);
+      if (terminal_emulator_pid != 0)
+        {
+          /* Retrieve the base name of the program name of this process.  */
+          return get_progname_of (terminal_emulator_pid);
+        }
+    }
+  #endif
+  return NULL;
+}
+
+/* Returns true if we should enable hyperlinks.
+   term is the value of the TERM environment variable.  */
+static inline bool
+should_enable_hyperlinks (const char *term)
+{
+  if (getenv ("NO_TERM_HYPERLINKS") != NULL)
+    /* The user has disabled hyperlinks.  */
+    return false;
+
+  /* Dispatch based on $TERM.  */
+  if (term != NULL)
+    {
+      /* rxvt-based terminal emulators:
+           Program           | TERM         | Supports hyperlinks?
+           ------------------+--------------+-------------------------------------
+           rxvt 2.7.10       | rxvt         | hangs after "cat hyperlink-demo.txt"
+           mrxvt 0.5.3       | rxvt         | no
+           rxvt-unicode 9.22 | rxvt-unicode | no
+       */
+      if (strcmp (term, "rxvt") == 0)
+        return false;
+
+      /* Emacs-based terminal emulators:
+           Program             | TERM        | Supports hyperlinks?
+           --------------------+-------------+---------------------
+           emacs-terminal 26.1 | eterm-color | produces garbage
+       */
+      if (strncmp (term, "eterm", 5) == 0)
+        return false;
+
+      /* xterm-compatible terminal emulators:
+           Program          | TERM           | Supports hyperlinks?
+           -----------------+----------------+---------------------------
+           guake 0.8.8      | xterm          | produces garbage
+           lilyterm 0.9.9.2 | xterm          | produces garbage
+           lterm 1.5.1      | xterm          | produces garbage
+           lxterminal 0.3.2 | xterm          | produces garbage
+           termit 2.9.6     | xterm          | produces garbage
+           konsole 18.12.3  | xterm-256color | produces extra backslashes
+           yakuake 3.0.5    | xterm-256color | produces extra backslashes
+           other            |                | yes or no, no severe bugs
+
+         TODO: Revisit this table periodically.
+       */
+      if (strncmp (term, "xterm", 5) == 0)
+        {
+          char *progname = get_terminal_emulator_progname ();
+          if (progname != NULL)
+            {
+              bool known_buggy =
+                strncmp (progname, "python", 6) == 0 /* guake */
+                || strcmp (progname, "lilyterm") == 0
+                || strcmp (progname, "lterm") == 0
+                || strcmp (progname, "lxterminal") == 0
+                || strcmp (progname, "termit") == 0
+                || strcmp (progname, "konsole") == 0
+                || strcmp (progname, "yakuake") == 0;
+              free (progname);
+              /* Enable hyperlinks except for programs that are known buggy.  */
+              return !known_buggy;
+            }
+        }
+    }
+
+  /* In case of doubt, enable hyperlinks.  So this code does not need to change
+     as more and more terminal emulators support hyperlinks.
+     If there are adverse effects, the user can disable hyperlinks by setting
+     NO_TERM_HYPERLINKS.  */
+  return true;
 }
 
 term_ostream_t
@@ -2155,10 +2473,12 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
       stream->supports_weight = false;
       stream->supports_posture = false;
       stream->supports_underline = true;
+      stream->supports_hyperlink = false;
       stream->restore_colors = NULL;
       stream->restore_weight = NULL;
       stream->restore_posture = NULL;
       stream->restore_underline = NULL;
+      stream->restore_hyperlink = NULL;
     }
   else
   #endif
@@ -2332,6 +2652,8 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
         (stream->enter_underline_mode != NULL
          && (stream->exit_underline_mode != NULL
              || stream->exit_attribute_mode != NULL));
+      /* TODO: Use a terminfo capability, once ncurses implements it.  */
+      stream->supports_hyperlink = should_enable_hyperlinks (term);
 
       /* Infer the restore strings.  */
       stream->restore_colors =
@@ -2352,7 +2674,39 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
             ? stream->exit_underline_mode
             : stream->exit_attribute_mode)
          : NULL);
+      stream->restore_hyperlink =
+        (stream->supports_hyperlink
+         ? "\033]8;;\033\\"
+         : NULL);
     }
+
+  /* Initialize the hyperlink id generator.  */
+  if (stream->supports_hyperlink)
+    {
+      char *hostname = xgethostname ();
+      { /* Compute a hash code, like in gnulib/lib/hash-pjw.c.  */
+        uint32_t h = 0;
+        const char *p;
+        for (p = hostname; *p; p++)
+          h = (unsigned char) *p + ((h << 9) | (h >> (32 - 9)));
+        stream->hostname_hash = h;
+      }
+      free (hostname);
+
+      {
+        struct timeval tv;
+        gettimeofday (&tv, NULL);
+        stream->start_time =
+          (uint64_t) tv.tv_sec * (uint64_t) 1000000 + (uint64_t) tv.tv_usec;
+      }
+
+      stream->id_serial = 0;
+    }
+
+  /* Initialize the set of hyperlink_t.  */
+  stream->hyperlinks_array = NULL;
+  stream->hyperlinks_count = 0;
+  stream->hyperlinks_allocated = 0;
 
   /* Initialize the buffer.  */
   stream->allocated = 120;
@@ -2370,6 +2724,7 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
     assumed_default.weight = WEIGHT_DEFAULT;
     assumed_default.posture = POSTURE_DEFAULT;
     assumed_default.underline = UNDERLINE_DEFAULT;
+    assumed_default.hyperlink = NULL;
 
     simplified_default = simplify_attributes (stream, assumed_default);
 

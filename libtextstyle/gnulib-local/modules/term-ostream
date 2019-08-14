@@ -14,8 +14,13 @@ stdlib
 full-write
 fsync
 gettext-h
+gettimeofday
+get_ppid_of
+get_progname_of
+stdint
 terminfo-h
 xalloc
+xgethostname
 xsize
 msvc-nothrow
 

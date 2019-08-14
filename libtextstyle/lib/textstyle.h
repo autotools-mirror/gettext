@@ -226,6 +226,9 @@ extern term_posture_t term_ostream_get_posture (term_ostream_t first_arg);
 extern void term_ostream_set_posture (term_ostream_t first_arg, term_posture_t posture);
 extern term_underline_t term_ostream_get_underline (term_ostream_t first_arg);
 extern void term_ostream_set_underline (term_ostream_t first_arg, term_underline_t underline);
+extern const char *term_ostream_get_hyperlink_ref (term_ostream_t first_arg);
+extern const char *term_ostream_get_hyperlink_id (term_ostream_t first_arg);
+extern void term_ostream_set_hyperlink (term_ostream_t first_arg, const char *ref, const char *id);
 /* Like term_ostream_flush (first_arg, FLUSH_THIS_STREAM), except that it
    leaves the terminal with the current text attributes enabled, instead of
    with the default text attributes.

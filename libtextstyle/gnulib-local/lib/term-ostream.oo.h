@@ -88,6 +88,12 @@ methods:
   void             set_underline (term_ostream_t stream,
                                   term_underline_t underline);
 
+  /* Get/set the hyperlink attribute and its id.  */
+  const char * get_hyperlink_ref (term_ostream_t stream);
+  const char * get_hyperlink_id (term_ostream_t stream);
+  void         set_hyperlink (term_ostream_t stream,
+                              const char *ref, const char *id);
+
   /* Like term_ostream_flush (first_arg, FLUSH_THIS_STREAM), except that it
      leaves the terminal with the current text attributes enabled, instead of
      with the default text attributes.
