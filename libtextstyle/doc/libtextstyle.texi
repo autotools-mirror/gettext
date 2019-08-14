@@ -244,6 +244,7 @@ scroll around in the styled output.  For example:
 @menu
 * The TERM variable::
 * The NO_COLOR variable::
+* The NO_TERM_HYPERLINKS variable::
 * Emacs::
 * The --color option::
 * The --style option::
@@ -370,6 +371,24 @@ styling.
 
 This environment variable can be overridden by passing the command-line option
 @samp{--color=always} (see @ref{The --color option}).
+
+@node The NO_TERM_HYPERLINKS variable
+@section The environment variable @code{NO_TERM_HYPERLINKS}
+
+@vindex NO_TERM_HYPERLINKS@r{, environment variable}
+The environment variable @code{NO_TERM_HYPERLINKS} can be used to suppress
+hyperlinks in the textual output.  When this environment variable is set
+(to any value), @code{libtextstyle}-enabled programs will not emit
+hyperlinks.  This may be useful for terminal emulators which produce
+garbage output when they receive the escape sequence for a hyperlink.
+Currently (as of 2019), this affects some versions of
+@c                    https://qa.debian.org/popcon.php
+@code{konsole},    @c 11%
+@code{emacs},      @c 7%
+@code{lxterminal}, @c 6%
+@code{guake},      @c 1.3%
+@code{yakuake},    @c 1.1%
+@code{rxvt}.       @c 0.9%
 
 @node Emacs
 @section Emacs as a terminal emulator
@@ -639,6 +658,42 @@ classes.  The CSS class in effect when an output operation is performed
 determines, through the style file, the text attributes associated with
 that piece of text.
 
+@menu
+* Hyperlinks::
+@end menu
+
+@node Hyperlinks
+@subsection Hyperlinks
+
+Text output may contain hyperlinks.  These hyperlinks are encoded through
+an escape sequence, specified at
+@url{https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda,
+Hyperlinks in terminal emulators}.  Currently (as of 2019), they are
+displayed only in @code{gnome-terminal} version 3.26 or above.  More
+terminal emulators will support hyperlinks in the future.  Terminal
+emulators which don't support hyperlinks ignore it, except for a few
+terminal emulators, for which users may need to disable the hyperlinks
+(see @ref{The NO_TERM_HYPERLINKS variable}) if the heuristic built into
+@code{libtextstyle} does not already disable them.
+
+To emit a hyperlink, use code like this:
+
+@smallexample
+  styled_ostream_t stream = ...
+  ...
+  /* Start a hyperlink.  */
+  styled_ostream_set_hyperlink (stream, url, NULL);
+  ...
+  /* Emit the anchor text.  This can be styled text.  */
+  ostream_write_str (stream, "Click here!");
+  ...
+  /* End the current hyperlink.  */
+  styled_ostream_set_hyperlink (stream, NULL, NULL);
+@end smallexample
+
+The anchor text can be styled.  But the hyperlinks themselves cannot be
+styled; they behave as implemented by the terminal emulator.
+
 @node Include files
 @section Include files
 
@@ -824,6 +879,38 @@ Ends a run of text belonging to @code{@var{classname}}.  The
 @code{styled_ostream_end_use_class} calls must match properly.
 @end deftypefn
 
+@deftypefn Function {const char *} styled_ostream_get_hyperlink_ref (styled_ostream_t@tie{}@var{stream})
+Returns the referred URL of the currently set hyperlink, or @code{NULL}
+if no hyperlink attribute is currently set.
+
+Note: The returned string is only valid up to the next invocation of
+@code{styled_ostream_set_hyperlink}.
+@end deftypefn
+
+@deftypefn Function {const char *} styled_ostream_get_hyperlink_id (styled_ostream_t@tie{}@var{stream})
+Returns the id of the currently set hyperlink, or @code{NULL} if no
+hyperlink attribute is currently set.
+
+Note: The returned string is only valid up to the next invocation of
+@code{styled_ostream_set_hyperlink}.
+@end deftypefn
+
+@deftypefn Function void styled_ostream_set_hyperlink (styled_ostream_t@tie{}@var{stream}, const@tie{}char@tie{}*@var{ref}, const@tie{}char@tie{}*@var{id})
+Sets or removes a hyperlink attribute.
+
+To set a hyperlink attribute, pass a non-@code{NULL} @var{ref}.
+@var{ref} is an URL; it should be at most 2083 bytes long.  Non-ASCII
+characters should be URI-escaped (using the %nn syntax).  @var{id} is
+an optional identifier.  On terminal output, multiple hyperlinks with
+the same @var{id} will be highlighted together.  If specified, @var{id}
+should be at most 250 bytes long.
+
+To remove a hyperlink attribute, pass @code{NULL} for @var{ref} and @var{id}.
+
+Hyperlinks don't nest.  That is, a hyperlink attribute is enabled only
+up to the next invocation of @code{styled_ostream_set_hyperlink}.
+@end deftypefn
+
 @deftypefn Function void styled_ostream_flush_to_current_style (styled_ostream_t@tie{}@var{stream})
 This function acts like @code{ostream_flush (@var{stream}, FLUSH_THIS_STREAM)},
 except that it leaves the destination with the current text style enabled,
@@ -936,6 +1023,38 @@ Gets/sets the font posture.
 Gets/sets the text underline decoration.
 @end deftypefn
 
+@deftypefn Function {const char *} term_ostream_get_hyperlink_ref (term_ostream_t@tie{}@var{stream})
+Returns the referred URL of the currently set hyperlink, or @code{NULL}
+if no hyperlink attribute is currently set.
+
+Note: The returned string is only valid up to the next invocation of
+@code{term_ostream_set_hyperlink}.
+@end deftypefn
+
+@deftypefn Function {const char *} term_ostream_get_hyperlink_id (term_ostream_t@tie{}@var{stream})
+Returns the id of the currently set hyperlink, or @code{NULL} if no
+hyperlink attribute is currently set.
+
+Note: The returned string is only valid up to the next invocation of
+@code{term_ostream_set_hyperlink}.
+@end deftypefn
+
+@deftypefn Function void term_ostream_set_hyperlink (term_ostream_t@tie{}@var{stream}, const@tie{}char@tie{}*@var{ref}, const@tie{}char@tie{}*@var{id})
+Sets or removes a hyperlink attribute.
+
+To set a hyperlink attribute, pass a non-@code{NULL} @var{ref}.
+@var{ref} is an URL; it should be at most 2083 bytes long.  Non-ASCII
+characters should be URI-escaped (using the %nn syntax).  @var{id} is
+an optional identifier.  Multiple hyperlinks with the same @var{id}
+will be highlighted together.  If specified, @var{id} should be at most
+250 bytes long.
+
+To remove a hyperlink attribute, pass @code{NULL} for @var{ref} and @var{id}.
+
+Hyperlinks don't nest.  That is, a hyperlink attribute is enabled only
+up to the next invocation of @code{styled_ostream_set_hyperlink}.
+@end deftypefn
+
 @deftypefn Function void term_ostream_flush_to_current_style (term_ostream_t@tie{}@var{stream})
 This function acts like @code{ostream_flush (@var{stream}, FLUSH_THIS_STREAM)},
 except that it leaves the terminal with the current text attributes enabled,
@@ -980,6 +1099,27 @@ Ends a @code{<span class="@var{classname}">} element.
 
 The @code{html_ostream_begin_span} / @code{html_ostream_end_span} calls
 must match properly.
+@end deftypefn
+
+@deftypefn Function {const char *} html_ostream_get_hyperlink_ref (html_ostream_t@tie{}@var{stream})
+Returns the referred URL of the currently set hyperlink, or @code{NULL}
+if no hyperlink attribute is currently set.
+
+Note: The returned string is only valid up to the next invocation of
+@code{html_ostream_set_hyperlink_ref}.
+@end deftypefn
+
+@deftypefn Function void html_ostream_set_hyperlink_ref (html_ostream_t@tie{}@var{stream}, const@tie{}char@tie{}*@var{ref})
+Sets or removes a hyperlink attribute.
+
+To set a hyperlink attribute, pass a non-@code{NULL} @var{ref}.
+@var{ref} is an URL; it should be at most 2083 bytes long.  Non-ASCII
+characters should be URI-escaped (using the %nn syntax).
+
+To remove a hyperlink attribute, pass @code{NULL} for @var{ref}.
+
+Hyperlinks don't nest.  That is, a hyperlink attribute is enabled only
+up to the next invocation of @code{html_ostream_set_hyperlink_ref}.
 @end deftypefn
 
 @deftypefn Function void html_ostream_flush_to_current_style (html_ostream_t@tie{}@var{stream})
