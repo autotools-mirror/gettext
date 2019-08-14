@@ -595,6 +595,25 @@ term_styled_ostream::end_use_class (term_styled_ostream_t stream,
   stream->curr_attr = (attributes_t *) found;
 }
 
+static const char *
+term_styled_ostream::get_hyperlink_ref (term_styled_ostream_t stream)
+{
+  return term_ostream_get_hyperlink_ref (stream->destination);
+}
+
+static const char *
+term_styled_ostream::get_hyperlink_id (term_styled_ostream_t stream)
+{
+  return term_ostream_get_hyperlink_id (stream->destination);
+}
+
+static void
+term_styled_ostream::set_hyperlink (term_styled_ostream_t stream,
+                                    const char *ref, const char *id)
+{
+  term_ostream_set_hyperlink (stream->destination, ref, id);
+}
+
 static void
 term_styled_ostream::flush_to_current_style (term_styled_ostream_t stream)
 {

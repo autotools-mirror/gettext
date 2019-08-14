@@ -47,6 +47,8 @@ fields:
   ostream_t destination;
   /* A HTML aware wrapper around the destination stream.  */
   html_ostream_t html_destination;
+  /* The current hyperlink id.  */
+  char *hyperlink_id;
 };
 
 /* Implementation of ostream_t methods.  */
@@ -70,6 +72,7 @@ html_styled_ostream::free (html_styled_ostream_t stream)
   html_ostream_free (stream->html_destination);
   ostream_write_str (stream->destination, "</body>\n");
   ostream_write_str (stream->destination, "</html>\n");
+  free (stream->hyperlink_id);
   free (stream);
 }
 
@@ -89,6 +92,29 @@ html_styled_ostream::end_use_class (html_styled_ostream_t stream,
   html_ostream_end_span (stream->html_destination, classname);
 }
 
+static const char *
+html_styled_ostream::get_hyperlink_ref (html_styled_ostream_t stream)
+{
+  return html_ostream_get_hyperlink_ref (stream->html_destination);
+}
+
+static const char *
+html_styled_ostream::get_hyperlink_id (html_styled_ostream_t stream)
+{
+  return stream->hyperlink_id;
+}
+
+static void
+html_styled_ostream::set_hyperlink (html_styled_ostream_t stream,
+                                    const char *ref, const char *id)
+{
+  char *id_copy = (id != NULL ? xstrdup (id) : NULL);
+
+  html_ostream_set_hyperlink_ref (stream->html_destination, ref);
+  free (stream->hyperlink_id);
+  stream->hyperlink_id = id_copy;
+}
+
 static void
 html_styled_ostream::flush_to_current_style (html_styled_ostream_t stream)
 {
@@ -106,6 +132,7 @@ html_styled_ostream_create (ostream_t destination, const char *css_filename)
   stream->base.base.vtable = &html_styled_ostream_vtable;
   stream->destination = destination;
   stream->html_destination = html_ostream_create (destination);
+  stream->hyperlink_id = NULL;
 
   ostream_write_str (stream->destination, "<?xml version=\"1.0\"?>\n");
   /* HTML 4.01 or XHTML 1.0?

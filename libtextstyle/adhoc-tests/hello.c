@@ -85,9 +85,13 @@ main (int argc, char *argv[])
 
   ostream_write_str (stream, "Dr. ");
   styled_ostream_begin_use_class (stream, "boy-name");
+  /* Start a hyperlink.  */
+  styled_ostream_set_hyperlink (stream, "https://en.wikipedia.org/wiki/Linus_Pauling", NULL);
   ostream_write_str (stream, "Linus");
   styled_ostream_end_use_class (stream, "boy-name");
   ostream_write_str (stream, " Pauling");
+  /* End the current hyperlink.  */
+  styled_ostream_set_hyperlink (stream, NULL, NULL);
 
   /* Terminate the name.  */
   styled_ostream_end_use_class (stream, "name");

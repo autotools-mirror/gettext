@@ -29,6 +29,9 @@ fields:
   /* The destination stream.  */
   ostream_t destination;
   bool own_destination;
+  /* The current hyperlink ref and id.  */
+  char *hyperlink_ref;
+  char *hyperlink_id;
 };
 
 /* Implementation of ostream_t methods.  */
@@ -52,6 +55,8 @@ noop_styled_ostream::free (noop_styled_ostream_t stream)
 {
   if (stream->own_destination)
     ostream_free (stream->destination);
+  free (stream->hyperlink_ref);
+  free (stream->hyperlink_id);
   free (stream);
 }
 
@@ -67,6 +72,31 @@ static void
 noop_styled_ostream::end_use_class (noop_styled_ostream_t stream,
                                     const char *classname)
 {
+}
+
+static const char *
+noop_styled_ostream::get_hyperlink_ref (noop_styled_ostream_t stream)
+{
+  return stream->hyperlink_ref;
+}
+
+static const char *
+noop_styled_ostream::get_hyperlink_id (noop_styled_ostream_t stream)
+{
+  return stream->hyperlink_id;
+}
+
+static void
+noop_styled_ostream::set_hyperlink (noop_styled_ostream_t stream,
+                                    const char *ref, const char *id)
+{
+  char *ref_copy = (ref != NULL ? xstrdup (ref) : NULL);
+  char *id_copy = (id != NULL ? xstrdup (id) : NULL);
+
+  free (stream->hyperlink_ref);
+  stream->hyperlink_ref = ref_copy;
+  free (stream->hyperlink_id);
+  stream->hyperlink_id = id_copy;
 }
 
 static void
@@ -86,6 +116,8 @@ noop_styled_ostream_create (ostream_t destination, bool pass_ownership)
   stream->base.base.vtable = &noop_styled_ostream_vtable;
   stream->destination = destination;
   stream->own_destination = pass_ownership;
+  stream->hyperlink_ref = NULL;
+  stream->hyperlink_id = NULL;
 
   return stream;
 }

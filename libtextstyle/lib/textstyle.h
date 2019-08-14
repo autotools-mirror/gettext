@@ -93,6 +93,9 @@ extern void styled_ostream_flush (styled_ostream_t first_arg, ostream_flush_scop
 extern void styled_ostream_free (styled_ostream_t first_arg);
 extern void styled_ostream_begin_use_class (styled_ostream_t first_arg, const char *classname);
 extern void styled_ostream_end_use_class (styled_ostream_t first_arg, const char *classname);
+extern const char *styled_ostream_get_hyperlink_ref (styled_ostream_t first_arg);
+extern const char *styled_ostream_get_hyperlink_id (styled_ostream_t first_arg);
+extern void styled_ostream_set_hyperlink (styled_ostream_t first_arg, const char *ref, const char *id);
 /* Like styled_ostream_flush (first_arg, FLUSH_THIS_STREAM), except that it
    leaves the destination with the current text style enabled, instead
    of with the default text style.
@@ -404,6 +407,9 @@ extern void term_styled_ostream_flush (term_styled_ostream_t first_arg, ostream_
 extern void term_styled_ostream_free (term_styled_ostream_t first_arg);
 extern void term_styled_ostream_begin_use_class (term_styled_ostream_t first_arg, const char *classname);
 extern void term_styled_ostream_end_use_class (term_styled_ostream_t first_arg, const char *classname);
+extern const char *term_styled_ostream_get_hyperlink_ref (term_styled_ostream_t first_arg);
+extern const char *term_styled_ostream_get_hyperlink_id (term_styled_ostream_t first_arg);
+extern void term_styled_ostream_set_hyperlink (term_styled_ostream_t first_arg, const char *ref, const char *id);
 extern void term_styled_ostream_flush_to_current_style (term_styled_ostream_t first_arg);
 #ifdef __cplusplus
 }
@@ -444,6 +450,9 @@ extern void html_styled_ostream_flush (html_styled_ostream_t first_arg, ostream_
 extern void html_styled_ostream_free (html_styled_ostream_t first_arg);
 extern void html_styled_ostream_begin_use_class (html_styled_ostream_t first_arg, const char *classname);
 extern void html_styled_ostream_end_use_class (html_styled_ostream_t first_arg, const char *classname);
+extern const char *html_styled_ostream_get_hyperlink_ref (html_styled_ostream_t first_arg);
+extern const char *html_styled_ostream_get_hyperlink_id (html_styled_ostream_t first_arg);
+extern void html_styled_ostream_set_hyperlink (html_styled_ostream_t first_arg, const char *ref, const char *id);
 extern void html_styled_ostream_flush_to_current_style (html_styled_ostream_t first_arg);
 #ifdef __cplusplus
 }
@@ -481,6 +490,9 @@ extern void noop_styled_ostream_flush (noop_styled_ostream_t first_arg, ostream_
 extern void noop_styled_ostream_free (noop_styled_ostream_t first_arg);
 extern void noop_styled_ostream_begin_use_class (noop_styled_ostream_t first_arg, const char *classname);
 extern void noop_styled_ostream_end_use_class (noop_styled_ostream_t first_arg, const char *classname);
+extern const char *noop_styled_ostream_get_hyperlink_ref (noop_styled_ostream_t first_arg);
+extern const char *noop_styled_ostream_get_hyperlink_id (noop_styled_ostream_t first_arg);
+extern void noop_styled_ostream_set_hyperlink (noop_styled_ostream_t first_arg, const char *ref, const char *id);
 extern void noop_styled_ostream_flush_to_current_style (noop_styled_ostream_t first_arg);
 #ifdef __cplusplus
 }
