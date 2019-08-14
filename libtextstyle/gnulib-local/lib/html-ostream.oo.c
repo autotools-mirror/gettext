@@ -35,6 +35,8 @@ struct html_ostream : struct ostream
 fields:
   /* The destination stream.  */
   ostream_t destination;
+  /* The current hyperlink ref.  */
+  char *hyperlink_ref;
   /* The stack of active CSS classes.  */
   gl_list_t /* <char *> */ class_stack;
   /* Current and last size of the active portion of this stack.  Always
@@ -46,6 +48,49 @@ fields:
   char buf[BUFSIZE];
   size_t buflen;
 };
+
+/* Emit an HTML attribute value.
+   quote is either '"' or '\''.  */
+static void
+write_attribute_value (html_ostream_t stream, const char *value, char quote)
+{
+  /* Need to escape the '<', '>', '&', quote characters.  */
+  ostream_t destination = stream->destination;
+  const char *p = value;
+
+  for (;;)
+    {
+      const char *q = p;
+
+      while (*q != '\0' && *q != '<' && *q != '>' && *q != '&' && *q != quote)
+        q++;
+      if (p < q)
+        ostream_write_mem (destination, p, q - p);
+      if (*q == '\0')
+        break;
+      switch (*q)
+        {
+        case '<':
+          ostream_write_str (destination, "&lt;");
+          break;
+        case '>':
+          ostream_write_str (destination, "&gt;");
+          break;
+        case '&':
+          ostream_write_str (destination, "&amp;");
+          break;
+        case '"':
+          ostream_write_str (destination, "&quot;");
+          break;
+        case '\'':
+          ostream_write_str (destination, "&apos;");
+          break;
+        default:
+          abort ();
+        }
+      p = q + 1;
+    }
+}
 
 /* Implementation of ostream_t methods.  */
 
@@ -261,6 +306,12 @@ html_ostream::free (html_ostream_t stream)
 {
   stream->curr_class_stack_size = 0;
   emit_pending_spans (stream, true);
+  if (stream->hyperlink_ref != NULL)
+    {
+      /* Close the current <a> element.  */
+      ostream_write_str (stream->destination, "</a>");
+      free (stream->hyperlink_ref);
+    }
   verify_invariants (stream);
   gl_list_free (stream->class_stack);
   free (stream);
@@ -312,6 +363,50 @@ html_ostream::end_span (html_ostream_t stream, const char *classname)
   abort ();
 }
 
+static const char *
+html_ostream::get_hyperlink_ref (html_ostream_t stream)
+{
+  return stream->hyperlink_ref;
+}
+
+static void
+html_ostream::set_hyperlink_ref (html_ostream_t stream, const char *ref)
+{
+  char *ref_copy = (ref != NULL ? xstrdup (ref) : NULL);
+
+  verify_invariants (stream);
+  if (stream->hyperlink_ref != NULL)
+    {
+      /* Close the open <span> tags, and prepare for reopening the same <span>
+         tags.  */
+      size_t prev_class_stack_size = stream->curr_class_stack_size;
+      stream->curr_class_stack_size = 0;
+      emit_pending_spans (stream, false);
+      stream->curr_class_stack_size = prev_class_stack_size;
+      /* Close the current <a> element.  */
+      ostream_write_str (stream->destination, "</a>");
+      shrink_class_stack (stream);
+
+      free (stream->hyperlink_ref);
+    }
+  stream->hyperlink_ref = ref_copy;
+  if (stream->hyperlink_ref != NULL)
+    {
+      /* Close the open <span> tags, and prepare for reopening the same <span>
+         tags.  */
+      size_t prev_class_stack_size = stream->curr_class_stack_size;
+      stream->curr_class_stack_size = 0;
+      emit_pending_spans (stream, false);
+      stream->curr_class_stack_size = prev_class_stack_size;
+      /* Open an <a> element.  */
+      ostream_write_str (stream->destination, "<a href=\"");
+      write_attribute_value (stream, stream->hyperlink_ref, '"');
+      ostream_write_str (stream->destination, "\">");
+      shrink_class_stack (stream);
+    }
+  verify_invariants (stream);
+}
+
 static void
 html_ostream::flush_to_current_style (html_ostream_t stream)
 {
@@ -332,6 +427,7 @@ html_ostream_create (ostream_t destination)
 
   stream->base.vtable = &html_ostream_vtable;
   stream->destination = destination;
+  stream->hyperlink_ref = NULL;
   stream->class_stack =
     gl_list_create_empty (GL_ARRAY_LIST, NULL, NULL, NULL, true);
   stream->curr_class_stack_size = 0;

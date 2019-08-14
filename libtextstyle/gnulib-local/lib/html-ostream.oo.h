@@ -34,6 +34,10 @@ methods:
      The begin_span / end_span calls must match properly.  */
   void end_span (html_ostream_t stream, const char *classname);
 
+  /* Get/set the hyperlink attribute.  */
+  const char * get_hyperlink_ref (html_ostream_t stream);
+  void set_hyperlink_ref (html_ostream_t stream, const char *ref);
+
   /* Like html_ostream_flush (first_arg, FLUSH_THIS_STREAM), except that it
      leaves the destination with the current text style enabled, instead
      of with the default text style.
