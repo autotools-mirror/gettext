@@ -140,7 +140,9 @@ main (int argc, char *argv[])
     }
 
   if (color_mode == color_yes
-      || (color_mode == color_tty && isatty (STDOUT_FILENO))
+      || (color_mode == color_tty
+          && isatty (STDOUT_FILENO)
+          && getenv ("NO_COLOR") == NULL)
       || color_mode == color_html)
     {
       /* Find the style file.  */

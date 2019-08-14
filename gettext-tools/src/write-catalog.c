@@ -210,7 +210,9 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 #if ENABLE_COLOR
   if (output_syntax->supports_color
       && (color_mode == color_yes
-          || (color_mode == color_tty && to_stdout && isatty (STDOUT_FILENO))))
+          || (color_mode == color_tty && to_stdout
+              && isatty (STDOUT_FILENO)
+              && getenv ("NO_COLOR") == NULL)))
     {
       int fd;
       ostream_t stream;

@@ -243,6 +243,7 @@ scroll around in the styled output.  For example:
 
 @menu
 * The TERM variable::
+* The NO_COLOR variable::
 * Emacs::
 * The --color option::
 * The --style option::
@@ -356,6 +357,19 @@ On NetBSD 8 consoles, @code{TERM=netbsd6} produces better results than the
 default @code{TERM=vt100}.
 
 On Windows consoles, no @code{TERM} setting is needed.
+
+@node The NO_COLOR variable
+@section The environment variable @code{NO_COLOR}
+
+@vindex NO_COLOR@r{, environment variable}
+@c The name of this environment variable is specified by https://no-color.org/.
+The environment variable @code{NO_COLOR} can be used to suppress styling
+in the textual output.  When this environment variable is set (to any value),
+@code{libtextstyle}-enabled programs will not emit colors and other text
+styling.
+
+This environment variable can be overridden by passing the command-line option
+@samp{--color=always} (see @ref{The --color option}).
 
 @node Emacs
 @section Emacs as a terminal emulator

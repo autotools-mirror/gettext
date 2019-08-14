@@ -1,3 +1,7 @@
+New in 0.21:
+* The example programs support the NO_COLOR environment variable,
+  as specified in https://no-color.org/.
+
 New in 0.20:
 * New class: noop_styled_ostream_t.
   New constructor function: noop_styled_ostream_create.
