@@ -1,3 +1,10 @@
+Version 0.21 - August 2019
+
+* Programming languages support:
+  - Desktop Entry:
+    The value of the 'Icon' property is no longer extracted into the POT file
+    by xgettext.  The documentation explains how to localize icons.
+
 Version 0.20.1 - May 2019
 
 * Important bug fix:
