@@ -807,12 +807,29 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
         phase2_ungetc (c2);
     }
 
-  if (looking_for == CLOSING_BACKQUOTE && c == CLOSING_BACKQUOTE)
+  if (c == CLOSING_BACKQUOTE)
     {
-      saw_closing_backquote ();
-      wp->type = t_backquote;
-      last_non_comment_line = line_number;
-      return;
+      if (looking_for == CLOSING_BACKQUOTE)
+        {
+          saw_closing_backquote ();
+          wp->type = t_backquote;
+          last_non_comment_line = line_number;
+          return;
+        }
+      else if (looking_for == ')')
+        {
+          /* The input is invalid syntax, such as `a<(`
+             Push back the closing backquote and pretend that we have seen a
+             closing parenthesis.  */
+          phase2_ungetc (c);
+          wp->type = t_paren;
+          last_non_comment_line = line_number;
+          return;
+        }
+      else
+        /* We shouldn't be reading a CLOSING_BACKQUOTE when
+           looking_for == '\0'.  */
+        abort ();
     }
 
   if (looking_for == ')' && c == ')')
