@@ -599,7 +599,7 @@ phase2_getc ()
       /* The count of backslashes is > 0 and < expected_count, therefore the
          result depends on c, the first character after the backslashes.
          Note: The formulas below don't necessarily have a logic; they were
-         empirically determined such that 1. the xgettext-30 test succeeds,
+         empirically determined such that 1. the xgettext-sh-1 test succeeds,
          2. the behaviour for count == 0 would correspond to the one without
          any baskslash.  */
       if (c == '\'')
@@ -611,7 +611,9 @@ phase2_getc ()
             }
           else
             return ((open_doublequote
-                     || (open_singlequote && open_singlequote_terminator != c))
+                     || (open_singlequote
+                         ? open_singlequote_terminator != c
+                         : count == (expected_count >> 1)))
                     ? QUOTED (c)
                     : c);
         }

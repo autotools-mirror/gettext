@@ -308,6 +308,10 @@ echo "`echo "\`gettext 'depth_2_11_squote_6_\\\\\\$var'\`"`"
 echo "`echo "\`gettext 'depth_2_11_squote_7_\\\\\\\$var'\`"`"
 echo "`echo "\`gettext 'depth_2_11_squote_8_\\\\\\\\$var'\`"`"
 
+# Test backslash before single-quote.
+
+echo \'
+
 # Test backslash before semicolon.
 
 ngettext  depth_0_none_0_semi ;
