@@ -39,6 +39,7 @@ noinst_HEADERS = notinline.h
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I$(top_builddir) -I$(top_srcdir) \
+  -Iglib \
   -DIN_LIBTEXTSTYLE
 
 # Parameterization of the 'libxml' module:
