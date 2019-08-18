@@ -208,6 +208,28 @@ Each time you want to update the source, do not only "git pull".  Instead do
   git pull && ./gitsub.sh pull
   ./autogen.sh
 
+The first time you build the Git checkout:
+  ./configure ... --prefix=PREFIX
+  make
+you are likely to encounter a build error in the gettext-tools/examples/po
+subdirectory, such as:
+  autopoint: *** The AM_GNU_GETTEXT_VERSION declaration in your configure.ac
+                 file requires the infrastructure from gettext-0.20 but this
+                 version is older. Please upgrade to gettext-0.20 or newer.
+  autopoint: *** Stop.
+The fix is
+  * either to build and install the latest GNU gettext release first, then
+    continue building the Git checkout:
+      make
+  * or to just install what you have built
+      make install      (fails)
+    then make sure that the installed binaries are in your PATH:
+      PATH=PREFIX/bin:$PATH
+    then continue building:
+      make              (should succeed now)
+      make check
+      make install      (should succeed now as well)
+
 
 Submitting patches
 ==================
