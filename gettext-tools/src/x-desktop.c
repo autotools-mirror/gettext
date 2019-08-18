@@ -1,5 +1,5 @@
 /* xgettext Desktop Entry backend.
-   Copyright (C) 2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2014, 2018-2019 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2014.
 
@@ -51,11 +51,13 @@
 /* The syntax of a Desktop Entry file is defined at
    https://standards.freedesktop.org/desktop-entry-spec/latest/index.html
 
-   Basically, values with 'localestring' type can be translated.
+   Basically, values with 'localestring' type can be localized.
+   However, the values of 'Icon', while being localizable, are not supported
+   by xgettext.  See the documentation for more info.
 
    The type of a value is determined by looking at the key associated
    with it.  The list of available keys are listed on:
-   https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s05.html  */
+   https://standards.freedesktop.org/desktop-entry-spec/latest/ar01s04.html  */
 
 static hash_table keywords;
 static bool default_keywords = true;

@@ -1,5 +1,5 @@
 /* Reading Desktop Entry files.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014-2018 Free
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014-2019 Free
    Software Foundation, Inc.
    This file was written by Daiki Ueno <ueno@gnu.org>.
 
@@ -640,6 +640,8 @@ desktop_add_default_keywords (hash_table *keywords)
   desktop_add_keyword (keywords, "Name", false);
   desktop_add_keyword (keywords, "GenericName", false);
   desktop_add_keyword (keywords, "Comment", false);
+#if 0 /* Icon values are localizable, but not supported by xgettext.  */
   desktop_add_keyword (keywords, "Icon", false);
+#endif
   desktop_add_keyword (keywords, "Keywords", true);
 }

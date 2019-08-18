@@ -52,7 +52,7 @@ TESTS = gettext-1 gettext-2 \
 	msgfmt-15 msgfmt-16 msgfmt-17 msgfmt-18 msgfmt-19 \
 	msgfmt-properties-1 \
 	msgfmt-qt-1 msgfmt-qt-2 \
-	msgfmt-desktop-1 msgfmt-desktop-2 \
+	msgfmt-desktop-1 msgfmt-desktop-2 msgfmt-desktop-3 \
 	msgfmt-xml-1 msgfmt-xml-2 \
 	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 msggrep-6 msggrep-7 \
 	msggrep-8 msggrep-9 msggrep-10 msggrep-11 \
@@ -122,7 +122,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-javascript-7 \
 	xgettext-vala-1 xgettext-vala-2 \
 	xgettext-gsettings-1 \
-	xgettext-desktop-1 \
+	xgettext-desktop-1 xgettext-desktop-2 \
 	xgettext-its-1 xgettext-its-2 \
 	format-awk-1 format-awk-2 \
 	format-boost-1 format-boost-2 \

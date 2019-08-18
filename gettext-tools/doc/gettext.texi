@@ -12730,6 +12730,60 @@ desktop entry file.
 
 For more information, see the example @code{hello-c-gnome3}.
 
+@menu
+* Icons::                       Handling icons
+@end menu
+
+@node Icons
+@subsubsection How to handle icons in Desktop Entry files
+
+Icons are generally locale dependent, for the following reasons:
+
+@itemize @bullet
+@item
+Icons may contain signs that are considered rude in some cultures.  For
+example, the high-five sign, in some cultures, is perceived as an
+unfriendly ``stop'' sign.
+@item
+Icons may contain metaphors that are culture specific.  For example, a
+mailbox in the U.S. looks different than mailboxes all around the world.
+@item
+Icons may need to be mirrored for right-to-left locales.
+@item
+Icons may contain text strings (a bad practice, but anyway).
+@end itemize
+
+However, icons are not covered by GNU gettext localization, because
+@itemize @bullet
+@item
+Icons cannot be easily embedded in PO files,
+@item
+The need to localize an icon is rare, and the ability to do so in a PO
+file would introduce translator mistakes.
+@c https://lists.freedesktop.org/archives/xdg/2019-June/014168.html
+@end itemize
+
+Desktop Entry files may contain an @samp{Icon} property, and this
+property is localizable.  If a translator wishes to localize an icon,
+she should do so by bypassing the normal workflow with PO files:
+@enumerate
+@item
+The translator contacts the package developers directly, sending them
+the icon appropriate for her locale, with a request to change the
+template file.
+@item
+The package developers add the icon file to their repository, and a
+line
+@smallexample
+Icon[@var{locale}]=@var{icon_file_name}
+@end smallexample
+@noindent
+to the template file.
+@end enumerate
+@noindent
+This line remains in place when this template file is merged with the
+translators' PO files, through @code{msgfmt}.
+
 @node XML
 @subsection XML files
 

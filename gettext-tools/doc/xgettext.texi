@@ -345,7 +345,7 @@ For Vala: @code{_}, @code{Q_}, @code{N_}, @code{NC_}, @code{dgettext:2},
 
 @item
 For Desktop: @code{Name}, @code{GenericName}, @code{Comment},
-@code{Icon}, @code{Keywords}.
+@code{Keywords}.
 @end itemize
 
 To disable the default keyword specifications, the option @samp{-k} or
