@@ -35,6 +35,7 @@
 #include "xalloc.h"
 #include "propername.h"
 #include "xsetenv.h"
+#include "../../gettext-runtime/src/escapes.h"
 
 /* Make sure we use the included libintl, not the system's one. */
 #undef _LIBINTL_H
@@ -42,9 +43,9 @@
 
 #define _(str) gettext (str)
 
-/* If true, add newline after last string.  This makes only sense in
+/* If false, add newline after last string.  This makes only sense in
    the 'echo' emulation mode.  */
-static bool add_newline;
+static bool inhibit_added_newline;
 
 /* If true, expand escape sequences in strings before looking in the
    message catalog.  */
@@ -67,7 +68,6 @@ static void usage (int status)
      __attribute__ ((noreturn))
 #endif
 ;
-static const char *expand_escape (const char *str);
 
 int
 main (int argc, char *argv[])
@@ -82,7 +82,7 @@ main (int argc, char *argv[])
   bool environ_changed = false;
   const char *domain = getenv ("TEXTDOMAIN");
   const char *domaindir = getenv ("TEXTDOMAINDIR");
-  add_newline = true;
+  inhibit_added_newline = false;
   do_expand = false;
 
   /* Set program name for message texts.  */
@@ -118,7 +118,7 @@ main (int argc, char *argv[])
       do_help = true;
       break;
     case 'n':
-      add_newline = false;
+      inhibit_added_newline = true;
       break;
     case 's':
       do_shell = true;
@@ -193,7 +193,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
       /* Expand escape sequences if enabled.  */
       if (do_expand)
-        msgid = expand_escape (msgid);
+        msgid = expand_escapes (msgid, &inhibit_added_newline);
 
       /* If no domain name is given we don't translate.  */
       if (domain == NULL || domain[0] == '\0')
@@ -230,7 +230,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
               /* Expand escape sequences if enabled.  */
               if (do_expand)
-                msgid = expand_escape (msgid);
+                msgid = expand_escapes (msgid, &inhibit_added_newline);
 
               /* Write out the result.  */
               fputs (domain == NULL ? msgid : dgettext (domain, msgid),
@@ -244,7 +244,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
         }
 
       /* If not otherwise told: add trailing newline.  */
-      if (add_newline)
+      if (!inhibit_added_newline)
         fputc ('\n', stdout);
     }
 
@@ -307,110 +307,4 @@ or by email to <%s>.\n"),
     }
 
   exit (status);
-}
-
-
-/* Expand some escape sequences found in the argument string.  */
-static const char *
-expand_escape (const char *str)
-{
-  char *retval, *rp;
-  const char *cp = str;
-
-  /* Find the location of the first escape sequence.
-     If the string contains no escape sequences, return it right away.  */
-  for (;;)
-    {
-      while (cp[0] != '\0' && cp[0] != '\\')
-        ++cp;
-      if (cp[0] == '\0')
-        return str;
-      /* Found a backslash.  */
-      if (cp[1] == '\0')
-        return str;
-      if (strchr ("abcfnrtv\\01234567", cp[1]) != NULL)
-        break;
-      ++cp;
-    }
-
-  retval = XNMALLOC (strlen (str), char);
-
-  rp = retval + (cp - str);
-  memcpy (retval, str, cp - str);
-
-  do
-    {
-      /* Here cp[0] == '\\'.  */
-      switch (*++cp)
-        {
-        case 'a':               /* alert */
-          *rp++ = '\a';
-          ++cp;
-          break;
-        case 'b':               /* backspace */
-          *rp++ = '\b';
-          ++cp;
-          break;
-        case 'c':               /* suppress trailing newline */
-          add_newline = false;
-          ++cp;
-          break;
-        case 'f':               /* form feed */
-          *rp++ = '\f';
-          ++cp;
-          break;
-        case 'n':               /* new line */
-          *rp++ = '\n';
-          ++cp;
-          break;
-        case 'r':               /* carriage return */
-          *rp++ = '\r';
-          ++cp;
-          break;
-        case 't':               /* horizontal tab */
-          *rp++ = '\t';
-          ++cp;
-          break;
-        case 'v':               /* vertical tab */
-          *rp++ = '\v';
-          ++cp;
-          break;
-        case '\\':
-          *rp++ = '\\';
-          ++cp;
-          break;
-        case '0': case '1': case '2': case '3':
-        case '4': case '5': case '6': case '7':
-          {
-            int ch = *cp++ - '0';
-
-            if (*cp >= '0' && *cp <= '7')
-              {
-                ch *= 8;
-                ch += *cp++ - '0';
-
-                if (*cp >= '0' && *cp <= '7')
-                  {
-                    ch *= 8;
-                    ch += *cp++ - '0';
-                  }
-              }
-            *rp++ = ch;
-          }
-          break;
-        default:
-          *rp++ = '\\';
-          break;
-        }
-
-      /* Find the next escape sequence.  */
-      while (cp[0] != '\0' && cp[0] != '\\')
-        *rp++ = *cp++;
-    }
-  while (cp[0] != '\0');
-
-  /* Terminate the resulting string.  */
-  *rp = '\0';
-
-  return retval;
 }

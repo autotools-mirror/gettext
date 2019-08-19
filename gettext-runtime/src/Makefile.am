@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2007, 2009 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2007, 2009, 2019 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -34,8 +34,8 @@ AM_CPPFLAGS = \
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 # Source dependencies.
-gettext_SOURCES = gettext.c
-ngettext_SOURCES = ngettext.c
+gettext_SOURCES = gettext.c escapes.h
+ngettext_SOURCES = ngettext.c escapes.h
 envsubst_SOURCES = envsubst.c
 
 # Link dependencies.

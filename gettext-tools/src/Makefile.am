@@ -188,9 +188,26 @@ xgettext_SOURCES += \
   xg-mixed-string.c \
   xg-arglist-context.c xg-arglist-callshape.c xg-arglist-parser.c \
   xg-message.c \
-  x-c.c x-po.c x-sh.c x-python.c x-lisp.c x-elisp.c x-librep.c x-scheme.c \
-  x-smalltalk.c x-java.c x-csharp.c x-awk.c x-ycp.c x-tcl.c x-perl.c x-php.c \
-  x-rst.c x-lua.c x-javascript.c x-vala.c \
+  x-c.c \
+  x-po.c \
+  x-sh.c ../../gettext-runtime/src/escapes.h \
+  x-python.c \
+  x-lisp.c \
+  x-elisp.c \
+  x-librep.c \
+  x-scheme.c \
+  x-smalltalk.c \
+  x-java.c \
+  x-csharp.c \
+  x-awk.c \
+  x-ycp.c \
+  x-tcl.c \
+  x-perl.c \
+  x-php.c \
+  x-rst.c \
+  x-lua.c \
+  x-javascript.c \
+  x-vala.c \
   x-desktop.c
 if !WOE32DLL
 msgattrib_SOURCES = msgattrib.c

@@ -234,7 +234,9 @@ LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
 LDADD_yes = ../intl/libintl.la @LTLIBTHREAD@
 LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
 check_PROGRAMS = tstgettext tstngettext testlocale intl-1-prg intl-3-prg intl-4-prg intl-5-prg intl-setlocale-1-prg intl-setlocale-2-prg intl-thread-1-prg intl-thread-2-prg intl-thread-3-prg intl-version-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
-tstgettext_SOURCES = tstgettext.c setlocale.c
+tstgettext_SOURCES = \
+  tstgettext.c ../../gettext-runtime/src/escapes.h \
+  setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
 tstgettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 tstngettext_SOURCES = tstngettext.c setlocale.c
