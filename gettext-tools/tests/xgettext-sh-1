@@ -4,6 +4,20 @@
 # Test of Shell support.
 
 cat <<\EOF > xg-sh-1.sh
+# Test escape sequences expansion.
+
+gettext -e 'escape_0_\n'
+gettext -e 'escape_1_\a'
+gettext -e 'escape_2_\b'
+gettext -e 'escape_3_\f'
+gettext -e 'escape_4_\r'
+gettext -e 'escape_5_\t'
+gettext -e 'escape_6_\v'
+gettext -e 'escape_7_\\\\z'
+gettext -e 'escape_10_\40'
+gettext -e 'escape_11_\044'
+gettext -e 'escape_12_\140'
+
 # Test backslash before normal alphabetic character.
 
 gettext  depth_0_none_0_x
@@ -472,6 +486,39 @@ ${XGETTEXT} --omit-header --no-location --keyword=ngettext:1 \
 LC_ALL=C tr -d '\r' < xg-sh-1.tmp.po > xg-sh-1.po || Exit 1
 
 cat <<\EOF > xg-sh-1.ok
+msgid "escape_0_\n"
+msgstr ""
+
+msgid "escape_1_\a"
+msgstr ""
+
+msgid "escape_2_\b"
+msgstr ""
+
+msgid "escape_3_\f"
+msgstr ""
+
+msgid "escape_4_\r"
+msgstr ""
+
+msgid "escape_5_\t"
+msgstr ""
+
+msgid "escape_6_\v"
+msgstr ""
+
+msgid "escape_7_\\\\z"
+msgstr ""
+
+msgid "escape_10_ "
+msgstr ""
+
+msgid "escape_11_$"
+msgstr ""
+
+msgid "escape_12_`"
+msgstr ""
+
 msgid "depth_0_none_0_x"
 msgstr ""
 
