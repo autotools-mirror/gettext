@@ -1,6 +1,10 @@
 Version 0.20.2 - April 2020
 
 * Programming languages support:
+  - Shell:
+    The programs 'gettext', 'ngettext', when invoked with option -e, now
+    expand '\\' and octal escape sequences, instead of swallowing them.
+    (Bug present since the beginning.)
   - Desktop Entry:
     The value of the 'Icon' property is no longer extracted into the POT file
     by xgettext.  The documentation explains how to localize icons.
