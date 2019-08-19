@@ -317,6 +317,8 @@ expand_escape (const char *str)
   char *retval, *rp;
   const char *cp = str;
 
+  /* Find the location of the first escape sequence.
+     If the string contains no escape sequences, return it right away.  */
   for (;;)
     {
       while (cp[0] != '\0' && cp[0] != '\\')
@@ -374,7 +376,7 @@ expand_escape (const char *str)
           ++cp;
           break;
         case '\\':
-          *rp = '\\';
+          *rp++ = '\\';
           ++cp;
           break;
         case '0': case '1': case '2': case '3':
@@ -393,21 +395,22 @@ expand_escape (const char *str)
                     ch += *cp++ - '0';
                   }
               }
-            *rp = ch;
+            *rp++ = ch;
           }
           break;
         default:
-          *rp = '\\';
+          *rp++ = '\\';
           break;
         }
 
+      /* Find the next escape sequence.  */
       while (cp[0] != '\0' && cp[0] != '\\')
         *rp++ = *cp++;
     }
   while (cp[0] != '\0');
 
-  /* Terminate string.  */
+  /* Terminate the resulting string.  */
   *rp = '\0';
 
-  return (const char *) retval;
+  return retval;
 }
