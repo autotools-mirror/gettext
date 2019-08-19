@@ -51,8 +51,8 @@ Display this help and exit.
 
 @item -n
 @opindex -n@r{, @code{gettext} option}
-Suppress trailing newline.  By default, @code{gettext} adds a newline to
-the output.
+This option has only an effect if the @code{-s} option is given.  It
+suppresses the additional newline at the end.
 
 @item -V
 @itemx --version
@@ -72,4 +72,7 @@ environment variable @code{TEXTDOMAINDIR}.
 
 When used with the @code{-s} option the program behaves like the @samp{echo}
 command.  But it does not simply copy its arguments to stdout.  Instead those
-messages found in the selected catalog are translated.
+messages found in the selected catalog are translated.  Also, a newline is
+added at the end, unless either the option @code{-n} is specified or the
+option @code{-e} is specified and some of the argument strings contains a
+@samp{\c} escape sequence.
