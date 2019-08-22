@@ -14,6 +14,15 @@ print(_([[I like brackets.]]))
 print(_([===[Brackets are awesome!]===]))
 print(_([===[==[Even nested brackets]==]===]))
 print(_([===[Or even unmached number of '=' signs]==]===]))
+print(_([=[
+First newline in long bracket is ignored.]=]))
+print(_([=[
+
+Second newline in long bracket is extracted.]=]))
+print(_([=[
+Newlines inside a long bracket string
+and at the end are not special.
+]=]))
 print(_(hmm["nope"]))
 print({_"yep"})
 print(_["nope"])
@@ -58,6 +67,19 @@ msgid "==[Even nested brackets]=="
 msgstr ""
 
 msgid "Or even unmached number of '=' signs]=="
+msgstr ""
+
+msgid "First newline in long bracket is ignored."
+msgstr ""
+
+msgid ""
+"\n"
+"Second newline in long bracket is extracted."
+msgstr ""
+
+msgid ""
+"Newlines inside a long bracket string\n"
+"and at the end are not special.\n"
 msgstr ""
 
 msgid "yep"

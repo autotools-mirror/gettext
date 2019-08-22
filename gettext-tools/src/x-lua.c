@@ -1,5 +1,5 @@
 /* xgettext Lua backend.
-   Copyright (C) 2012-2013, 2016, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2012-2013, 2016, 2018-2019 Free Software Foundation, Inc.
 
    This file was written by Ľubomír Remák <lubomirr@lubomirr.eu>, 2012.
 
@@ -46,8 +46,9 @@
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
-/* The Lua syntax is defined in the Lua manual section 9,
+/* The Lua syntax is defined in the Lua manual sections 3.1 and 9,
    which can be found at
+   https://www.lua.org/manual/5.2/manual.html#3.1
    https://www.lua.org/manual/5.2/manual.html#9  */
 
 /* If true extract all strings.  */
@@ -599,6 +600,16 @@ phase3_get (token_ty *tp)
               /* We need unprocessed characters from phase 1.  */
               c = phase1_getc ();
 
+              if (c == EOF || c == c_start || c == '\n')
+                {
+                  /* End of string.  */
+                  string_end ();
+                  tp->string = xstrdup (string_buf);
+                  tp->comment = add_reference (savable_comment);
+                  tp->type = token_type_string;
+                  return;
+                }
+
               /* We got '\', this is probably an escape sequence.  */
               if (c == '\\')
                 {
@@ -696,15 +707,6 @@ phase3_get (token_ty *tp)
                         string_add (c);
                     }
                 }
-              else if (c == c_start || c == EOF || c == '\n')
-                {
-                  /* End of string.  */
-                  string_end ();
-                  tp->string = xstrdup (string_buf);
-                  tp->comment = add_reference (savable_comment);
-                  tp->type = token_type_string;
-                  return;
-                }
               else
                 string_add (c);
             }
@@ -738,12 +740,26 @@ phase3_get (token_ty *tp)
                 continue;
             }
 
+          /* Found an opening long bracket.  */
           string_start ();
+
+          /* See if it is immediately followed by a newline.  */
+          c = phase1_getc ();
+          if (c != '\n')
+            phase1_ungetc (c);
 
           for (;;)
             {
               c = phase1_getc ();
 
+              if (c == EOF)
+                {
+                  string_end ();
+                  tp->string = xstrdup (string_buf);
+                  tp->comment = add_reference (savable_comment);
+                  tp->type = token_type_string;
+                  return;
+                }
               if (c == ']')
                 {
                   c = phase1_getc ();
@@ -785,18 +801,7 @@ phase3_get (token_ty *tp)
                     }
                 }
               else
-                {
-                  if (c == EOF)
-                    {
-                      string_end ();
-                      tp->string = xstrdup (string_buf);
-                      tp->comment = add_reference (savable_comment);
-                      tp->type = token_type_string;
-                      return;
-                    }
-                  else
-                    string_add (c);
-                }
+                string_add (c);
             }
           break;
 
