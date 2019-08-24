@@ -357,7 +357,7 @@ fi
 # Fetch config.guess, config.sub.
 if test -n "$GNULIB_TOOL"; then
   for file in config.guess config.sub; do
-    $GNULIB_TOOL --copy-file build-aux/$file; chmod a+x build-aux/$file || exit $?
+    $GNULIB_TOOL --copy-file build-aux/$file && chmod a+x build-aux/$file || exit $?
   done
 else
   for file in config.guess config.sub; do
