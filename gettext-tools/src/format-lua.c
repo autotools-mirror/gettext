@@ -1,5 +1,5 @@
 /* Lua format strings.
-   Copyright (C) 2012-2013, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2012-2013, 2018-2019 Free Software Foundation, Inc.
    Written by Ľubomír Remák <lubomirr@lubomirr.eu>, 2012.
 
    This program is free software: you can redistribute it and/or modify
@@ -341,7 +341,7 @@ main ()
 /*
  * For Emacs M-x compile
  * Local Variables:
- * compile-command: "/bin/sh ../libtool --tag=CC --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../gnulib-lib -I../intl -DHAVE_CONFIG_H -DTEST format-lua.c ../gnulib-lib/libgettextlib.la"
+ * compile-command: "/bin/sh ../libtool --tag=CC --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../gnulib-lib -I../../gettext-runtime/intl -DHAVE_CONFIG_H -DTEST format-lua.c ../gnulib-lib/libgettextlib.la"
  * End:
  */
 

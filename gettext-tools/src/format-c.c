@@ -1,5 +1,5 @@
 /* C format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009-2010 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -369,7 +369,7 @@ main ()
 /*
  * For Emacs M-x compile
  * Local Variables:
- * compile-command: "/bin/sh ../libtool --tag=CC --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../gnulib-lib -I../intl -DHAVE_CONFIG_H -DTEST format-c.c ../gnulib-lib/libgettextlib.la"
+ * compile-command: "/bin/sh ../libtool --tag=CC --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../gnulib-lib -I../../gettext-runtime/intl -DHAVE_CONFIG_H -DTEST format-c.c ../gnulib-lib/libgettextlib.la"
  * End:
  */
 

@@ -1,5 +1,5 @@
 /* Python brace format strings.
-   Copyright (C) 2004, 2006-2007, 2013-2014, 2016 Free Software Foundation,
+   Copyright (C) 2004, 2006-2007, 2013-2014, 2016, 2019 Free Software Foundation,
    Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2013.
 
@@ -543,7 +543,7 @@ main ()
 /*
  * For Emacs M-x compile
  * Local Variables:
- * compile-command: "/bin/sh ../libtool --tag=CC --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../gnulib-lib -I../intl -DHAVE_CONFIG_H -DTEST format-python-brace.c ../gnulib-lib/libgettextlib.la"
+ * compile-command: "/bin/sh ../libtool --tag=CC --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../gnulib-lib -I../../gettext-runtime/intl -DHAVE_CONFIG_H -DTEST format-python-brace.c ../gnulib-lib/libgettextlib.la"
  * End:
  */
 
