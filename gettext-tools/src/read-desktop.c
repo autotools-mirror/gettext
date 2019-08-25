@@ -263,7 +263,7 @@ desktop_lex (token_ty *tp)
                   }
                 /* Group names may contain all ASCII characters
                    except for '[' and ']' and control characters.  */
-                if (!(c_isascii (c) && c != '[') && !c_iscntrl (c))
+                if (!(c_isascii (c) && c != '[' && !c_iscntrl (c)))
                   break;
                 APPEND (c);
               }
