@@ -347,7 +347,7 @@ main (int argc, char *argv[])
 
   /* Set initial value of variables.  */
   default_domain = MESSAGE_DOMAIN_DEFAULT;
-  xgettext_global_source_encoding = po_charset_ascii;
+  xgettext_global_source_encoding = NULL;
   init_flag_table_c ();
   init_flag_table_objc ();
   init_flag_table_gcc_internal ();
@@ -768,7 +768,8 @@ xgettext cannot work without keywords to look for"));
 
   /* Allocate converter from xgettext_global_source_encoding to UTF-8 (except
      from ASCII or UTF-8, when this conversion is a no-op).  */
-  if (xgettext_global_source_encoding != po_charset_ascii
+  if (xgettext_global_source_encoding != NULL
+      && xgettext_global_source_encoding != po_charset_ascii
       && xgettext_global_source_encoding != po_charset_utf8)
     {
 #if HAVE_ICONV
@@ -965,7 +966,8 @@ xgettext cannot work without keywords to look for"));
 
   /* Free the allocated converter.  */
 #if HAVE_ICONV
-  if (xgettext_global_source_encoding != po_charset_ascii
+  if (xgettext_global_source_encoding != NULL
+      && xgettext_global_source_encoding != po_charset_ascii
       && xgettext_global_source_encoding != po_charset_utf8)
     iconv_close (xgettext_global_source_iconv);
 #endif
@@ -1764,7 +1766,9 @@ extract_from_file (const char *file_name, extractor_ty extractor,
 
   /* Set the default for the source file encoding.  May be overridden by
      the extractor function.  */
-  xgettext_current_source_encoding = xgettext_global_source_encoding;
+  xgettext_current_source_encoding =
+    (xgettext_global_source_encoding != NULL ? xgettext_global_source_encoding :
+     po_charset_ascii);
 #if HAVE_ICONV
   xgettext_current_source_iconv = xgettext_global_source_iconv;
 #endif

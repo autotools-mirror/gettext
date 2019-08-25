@@ -8,6 +8,9 @@ Version 0.20.2 - April 2020
     o xgettext now recognizes 'gettext' program invocations with the '-e'
       option, such as
         gettext -e 'some\nstring\n'
+  - Python:
+    xgettext now assumes a Python source file is in UTF-8 encoding by default,
+    as stated in PEP 3120.
   - Desktop Entry:
     The value of the 'Icon' property is no longer extracted into the POT file
     by xgettext.  The documentation explains how to localize icons.

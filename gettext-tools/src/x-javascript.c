@@ -1719,7 +1719,9 @@ extract_javascript (FILE *f,
   xml_element_depth = 0;
   inside_embedded_js_in_xml = false;
 
-  xgettext_current_file_source_encoding = xgettext_global_source_encoding;
+  xgettext_current_file_source_encoding =
+    (xgettext_global_source_encoding != NULL ? xgettext_global_source_encoding :
+     po_charset_ascii);
 #if HAVE_ICONV
   xgettext_current_file_source_iconv = xgettext_global_source_iconv;
 #endif

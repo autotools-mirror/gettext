@@ -35,7 +35,9 @@
 #define _(str) gettext (str)
 
 
-/* Canonicalized encoding name for all input files.  */
+/* Canonicalized encoding name for all input files.
+   It can be NULL when the --from-code option has not been specified.  In this
+   case, the default (ASCII or UTF-8) depends on the programming language.  */
 const char *xgettext_global_source_encoding;
 
 #if HAVE_ICONV
