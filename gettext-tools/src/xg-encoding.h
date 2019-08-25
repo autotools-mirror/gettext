@@ -1,5 +1,5 @@
 /* Keeping track of the encoding of strings to be extracted.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -49,7 +49,9 @@ extern char *non_ascii_error_message (lexical_context_ty lcontext,
                                       size_t line_number);
 
 
-/* Canonicalized encoding name for all input files.  */
+/* Canonicalized encoding name for all input files.
+   It can be NULL when the --from-code option has not been specified.  In this
+   case, the default (ASCII or UTF-8) depends on the programming language.  */
 extern const char *xgettext_global_source_encoding;
 
 #if HAVE_ICONV
