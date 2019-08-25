@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2010, 2012-2013, 2015 Free Software Foundation, Inc.
+   Copyright (C) 2001-2010, 2012-2013, 2015, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -106,6 +106,7 @@ extern DLL_VARIABLE struct formatstring_parser formatstring_librep;
 extern DLL_VARIABLE struct formatstring_parser formatstring_scheme;
 extern DLL_VARIABLE struct formatstring_parser formatstring_smalltalk;
 extern DLL_VARIABLE struct formatstring_parser formatstring_java;
+extern DLL_VARIABLE struct formatstring_parser formatstring_java_printf;
 extern DLL_VARIABLE struct formatstring_parser formatstring_csharp;
 extern DLL_VARIABLE struct formatstring_parser formatstring_awk;
 extern DLL_VARIABLE struct formatstring_parser formatstring_pascal;

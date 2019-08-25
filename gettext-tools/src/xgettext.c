@@ -1503,6 +1503,11 @@ xgettext_record_flag (const char *optionstring)
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
+                  case format_java_printf:
+                    flag_context_list_table_insert (&flag_table_java, 1,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
                   case format_csharp:
                     flag_context_list_table_insert (&flag_table_csharp, 0,
                                                     name_start, name_end,

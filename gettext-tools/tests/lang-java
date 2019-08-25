@@ -52,6 +52,8 @@ cat <<\EOF >> Program.java
     System.out.println(MessageFormat.format(GettextResource.gettext(catalog,"{0} is replaced by {1}."), new Object[] { "FF", "EUR" }));
     System.out.println(MessageFormat.format(GettextResource.npgettext(catalog,"++","a piece of cake","{0,number} pieces of cake",n), new Object[] { new Integer(n) }));
     System.out.println(MessageFormat.format(GettextResource.pgettext(catalog,"++","{0} is replaced by {1}."), new Object[] { "FF", "EUR" }));
+    System.out.println(String.format(GettextResource.ngettext(catalog,"She has one child","She has %d children",n), n));
+    System.out.println(String.format(GettextResource.gettext(catalog,"%d left-wing deputees and %d right-wing deputees"), 75, 64));
   }
 }
 EOF
@@ -88,6 +90,16 @@ msgstr[1] ""
 #, java-format
 msgctxt "++"
 msgid "{0} is replaced by {1}."
+msgstr ""
+
+#, java-printf-format
+msgid "She has one child"
+msgid_plural "She has %d children"
+msgstr[0] ""
+msgstr[1] ""
+
+#, java-printf-format
+msgid "%d left-wing deputees and %d right-wing deputees"
 msgstr ""
 EOF
 
@@ -128,6 +140,16 @@ msgstr[1] "{0,number} morceaux de gateau succulent"
 msgctxt "++"
 msgid "{0} is replaced by {1}."
 msgstr "Le nouveau {1} remplace le vieux {0}."
+
+#, java-printf-format
+msgid "She has one child"
+msgid_plural "She has %d children"
+msgstr[0] "Elle a un enfant"
+msgstr[1] "Elle a %d enfants"
+
+#, java-printf-format
+msgid "%d left-wing deputees and %d right-wing deputees"
+msgstr "%2$d députés de droite et %d députés de gauche"
 EOF
 
 : ${MSGMERGE=msgmerge}
@@ -175,6 +197,8 @@ cat <<\EOF > prog.ok
 EUR remplace FF.
 2 morceaux de gateau succulent
 Le nouveau EUR remplace le vieux FF.
+Elle a 2 enfants
+64 députés de droite et 75 députés de gauche
 EOF
 cat <<\EOF > prog.oku
 Â«Votre commande, s'il vous plaitÂ», dit le garÃ§on.
@@ -182,6 +206,8 @@ cat <<\EOF > prog.oku
 EUR remplace FF.
 2 morceaux de gateau succulent
 Le nouveau EUR remplace le vieux FF.
+Elle a 2 enfants
+64 dÃ©putÃ©s de droite et 75 dÃ©putÃ©s de gauche
 EOF
 
 : ${LOCALE_FR=fr_FR}

@@ -124,20 +124,35 @@ void
 init_flag_table_java ()
 {
   xgettext_record_flag ("GettextResource.gettext:2:pass-java-format");
+  xgettext_record_flag ("GettextResource.gettext:2:pass-java-printf-format");
   xgettext_record_flag ("GettextResource.ngettext:2:pass-java-format");
+  xgettext_record_flag ("GettextResource.ngettext:2:pass-java-printf-format");
   xgettext_record_flag ("GettextResource.ngettext:3:pass-java-format");
+  xgettext_record_flag ("GettextResource.ngettext:3:pass-java-printf-format");
   xgettext_record_flag ("GettextResource.pgettext:3:pass-java-format");
+  xgettext_record_flag ("GettextResource.pgettext:3:pass-java-printf-format");
   xgettext_record_flag ("GettextResource.npgettext:3:pass-java-format");
+  xgettext_record_flag ("GettextResource.npgettext:3:pass-java-printf-format");
   xgettext_record_flag ("GettextResource.npgettext:4:pass-java-format");
+  xgettext_record_flag ("GettextResource.npgettext:4:pass-java-printf-format");
   xgettext_record_flag ("gettext:1:pass-java-format");
+  xgettext_record_flag ("gettext:1:pass-java-printf-format");
   xgettext_record_flag ("ngettext:1:pass-java-format");
+  xgettext_record_flag ("ngettext:1:pass-java-printf-format");
   xgettext_record_flag ("ngettext:2:pass-java-format");
+  xgettext_record_flag ("ngettext:2:pass-java-printf-format");
   xgettext_record_flag ("pgettext:2:pass-java-format");
+  xgettext_record_flag ("pgettext:2:pass-java-printf-format");
   xgettext_record_flag ("npgettext:2:pass-java-format");
+  xgettext_record_flag ("npgettext:2:pass-java-printf-format");
   xgettext_record_flag ("npgettext:3:pass-java-format");
+  xgettext_record_flag ("npgettext:3:pass-java-printf-format");
   xgettext_record_flag ("getString:1:pass-java-format");
+  xgettext_record_flag ("getString:1:pass-java-printf-format");
   xgettext_record_flag ("MessageFormat:1:java-format");
   xgettext_record_flag ("MessageFormat.format:1:java-format");
+  xgettext_record_flag ("String.format:1:java-printf-format");
+  xgettext_record_flag ("printf:1:java-printf-format"); /* PrintStream.printf */
 }
 
 

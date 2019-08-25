@@ -132,6 +132,7 @@ TESTS = gettext-1 gettext-2 \
 	format-gcc-internal-1 format-gcc-internal-2 \
 	format-gfc-internal-1 format-gfc-internal-2 \
 	format-java-1 format-java-2 \
+	format-java-printf-1 format-java-printf-2 \
 	format-kde-1 format-kde-2 \
 	format-kde-kuit-1 format-kde-kuit-2 \
 	format-librep-1 format-librep-2 \

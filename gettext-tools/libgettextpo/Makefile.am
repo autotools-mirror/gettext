@@ -73,6 +73,7 @@ libgettextpo_la_AUXSOURCES = \
   ../src/format-librep.c \
   ../src/format-scheme.c \
   ../src/format-java.c \
+  ../src/format-java-printf.c \
   ../src/format-javascript.c \
   ../src/format-csharp.c \
   ../src/format-awk.c \

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012-2013, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2010, 2012-2013, 2015-2016, 2019 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -45,6 +45,7 @@ const char *const format_language[NFORMATS] =
   /* format_scheme */           "scheme",
   /* format_smalltalk */        "smalltalk",
   /* format_java */             "java",
+  /* format_java_printf */      "java-printf",
   /* format_csharp */           "csharp",
   /* format_awk */              "awk",
   /* format_pascal */           "object-pascal",
@@ -76,7 +77,8 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_librep */           "librep",
   /* format_scheme */           "Scheme",
   /* format_smalltalk */        "Smalltalk",
-  /* format_java */             "Java",
+  /* format_java */             "Java MessageFormat",
+  /* format_java_printf */      "Java printf",
   /* format_csharp */           "C#",
   /* format_awk */              "awk",
   /* format_pascal */           "Object Pascal",

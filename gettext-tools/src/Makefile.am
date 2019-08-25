@@ -129,6 +129,7 @@ FORMAT_SOURCE += \
   format-librep.c \
   format-scheme.c \
   format-java.c \
+  format-java-printf.c \
   format-csharp.c \
   format-awk.c \
   format-pascal.c \

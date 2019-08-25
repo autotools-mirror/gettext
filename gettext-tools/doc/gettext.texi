@@ -1615,7 +1615,13 @@ Likewise for Smalltalk, see @ref{smalltalk-format}.
 @kwindex java-format@r{ flag}
 @itemx no-java-format
 @kwindex no-java-format@r{ flag}
-Likewise for Java, see @ref{java-format}.
+Likewise for Java @code{MessageFormat} format strings, see @ref{java-format}.
+
+@item java-printf-format
+@kwindex java-printf-format@r{ flag}
+@itemx no-java-printf-format
+@kwindex no-java-printf-format@r{ flag}
+Likewise for Java @code{printf} format strings, see @ref{java-format}.
 
 @item csharp-format
 @kwindex csharp-format@r{ flag}
@@ -9203,11 +9209,20 @@ or a nonzero digit (@samp{1} to @samp{9}).
 @node java-format
 @subsection Java Format Strings
 
+There are two kinds of format strings in Java: those acceptable to the
+@code{MessageFormat.format} function, labelled as @samp{java-format},
+and those acceptable to the @code{String.format} and
+@code{PrintStream.printf} functions, labelled as @samp{java-printf-format}.
+
 Java format strings are described in the JDK documentation for class
 @code{java.text.MessageFormat},
-@uref{http://java.sun.com/j2se/1.4/docs/api/java/text/MessageFormat.html}.
+@uref{https://docs.oracle.com/javase/7/docs/api/java/text/MessageFormat.html}.
 See also the ICU documentation
-@uref{http://oss.software.ibm.com/icu/apiref/classMessageFormat.html}.
+@uref{http://icu-project.org/apiref/icu4j/com/ibm/icu/text/MessageFormat.html}.
+
+Java @code{printf} format strings are described in the JDK documentation
+for class @code{java.util.Formatter},
+@uref{https://docs.oracle.com/javase/7/docs/api/java/util/Formatter.html}.
 
 @node csharp-format
 @subsection C# Format Strings
@@ -10319,6 +10334,7 @@ automatic
 
 @item Formatting with positions
 @code{MessageFormat.format "@{1,number@} @{0,number@}"}
+or @code{String.format "%2$d %1$d"}
 
 @item Portability
 fully portable

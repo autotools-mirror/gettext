@@ -1,4 +1,4 @@
-/* Java format strings.
+/* Java MessageFormat format strings.
    Copyright (C) 2001-2004, 2006-2007, 2009, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -34,7 +34,8 @@
 
 #define _(str) gettext (str)
 
-/* Java format strings are described in java/text/MessageFormat.html.
+/* Java MessageFormat format strings are described in
+   java/text/MessageFormat.html.
    See also the ICU documentation class_MessageFormat.html.
 
    messageFormatPattern := string ( "{" messageFormatElement "}" string )*

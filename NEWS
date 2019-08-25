@@ -8,6 +8,9 @@ Version 0.21 - August 2019
     o xgettext now recognizes 'gettext' program invocations with the '-e'
       option, such as
         gettext -e 'some\nstring\n'
+  - Java:
+    xgettext now recognizes format strings in the Formatter syntax.  They
+    are marked as 'java-printf-format' in POT and PO files.
   - Desktop Entry:
     The value of the 'Icon' property is no longer extracted into the POT file
     by xgettext.  The documentation explains how to localize icons.

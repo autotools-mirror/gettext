@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012-2013, 2015-2016 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2010, 2012-2013, 2015-2016, 2019 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -54,6 +54,7 @@ enum format_type
   format_scheme,
   format_smalltalk,
   format_java,
+  format_java_printf,
   format_csharp,
   format_awk,
   format_pascal,
@@ -72,7 +73,7 @@ enum format_type
   format_lua,
   format_javascript
 };
-#define NFORMATS 28     /* Number of format_type enum values.  */
+#define NFORMATS 29     /* Number of format_type enum values.  */
 extern DLL_VARIABLE const char *const format_language[NFORMATS];
 extern DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 
