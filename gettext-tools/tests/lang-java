@@ -5,9 +5,6 @@
 # Assumes an fr_FR locale is installed.
 # Assumes the following packages are installed: java.
 
-# Note: This test fails when using gcj from GCC 3.1 and GCC 3.2, due to a bug
-# (libgcj/6576). It is fixed in GCC 3.3.
-
 # Test whether we can build and test Java programs.
 test "${JAVA_CHOICE}" != no || {
   echo "Skipping test: configured with --disable-java"
