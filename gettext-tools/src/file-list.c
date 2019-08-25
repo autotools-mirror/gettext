@@ -1,5 +1,5 @@
 /* Reading file lists.
-   Copyright (C) 1995-1998, 2000-2002, 2007 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2002, 2007, 2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -74,10 +74,9 @@ read_names_from_file (const char *file_name)
         line_buf[--len] = '\0';
 
       /* Test if we have to ignore the line.  */
-      if (*line_buf == '\0' || *line_buf == '#')
-        continue;
-
-      string_list_append_unique (result, line_buf);
+      if (!(*line_buf == '\0' || *line_buf == '#'))
+        /* Include the line in the result.  */
+        string_list_append_unique (result, line_buf);
     }
 
   /* Free buffer allocated through getline.  */

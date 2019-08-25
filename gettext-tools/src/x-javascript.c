@@ -1000,56 +1000,54 @@ phase5_scan_xml_markup (token_ty *tp)
             }
         }
 
-      if (start[j] != '\0')
-        continue;
+      if (start[j] == '\0')
+        /* Skip until the end marker.  */
+        for (;;)
+          {
+            int c;
 
-      /* Skip until the end marker.  */
-      for (;;)
-        {
-          int c;
+            for (j = 0; end[j] != '\0'; j++)
+              {
+                assert (phase2_pushback_length + 1 < SIZEOF (phase2_pushback));
+                c = phase2_getc ();
+                if (c == UEOF)
+                  goto eof;
+                if (c != end[j])
+                  {
+                    /* Don't push the first character back so the next
+                       iteration start from the second character.  */
+                    if (j > 0)
+                      {
+                        int k = j;
 
-          for (j = 0; end[j] != '\0'; j++)
-            {
-              assert (phase2_pushback_length + 1 < SIZEOF (phase2_pushback));
-              c = phase2_getc ();
-              if (c == UEOF)
-                goto eof;
-              if (c != end[j])
-                {
-                  /* Don't push the first character back so the next
-                     iteration start from the second character.  */
-                  if (j > 0)
-                    {
-                      int k = j;
+                        phase2_ungetc (c);
+                        k--;
 
-                      phase2_ungetc (c);
-                      k--;
+                        for (; k > 0; k--)
+                          phase2_ungetc (end[k]);
+                      }
+                    break;
+                  }
+              }
 
-                      for (; k > 0; k--)
-                        phase2_ungetc (end[k]);
-                    }
-                  break;
-                }
-            }
-
-          if (end[j] != '\0')
-            continue;
-
-          c = phase2_getc ();
-          if (c == UEOF)
-            goto eof;
-          if (c != '>')
-            {
-              error_with_progname = false;
-              error (0, 0,
-                     _("%s:%d: warning: %s is not allowed"),
-                     logical_file_name, line_number,
-                     end);
-              error_with_progname = true;
-              return false;
-            }
-          return true;
-        }
+            if (end[j] == '\0')
+              {
+                c = phase2_getc ();
+                if (c == UEOF)
+                  goto eof;
+                if (c != '>')
+                  {
+                    error_with_progname = false;
+                    error (0, 0,
+                           _("%s:%d: warning: %s is not allowed"),
+                           logical_file_name, line_number,
+                           end);
+                    error_with_progname = true;
+                    return false;
+                  }
+                return true;
+              }
+          }
     }
   return false;
 

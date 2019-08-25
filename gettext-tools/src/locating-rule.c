@@ -1,5 +1,5 @@
 /* XML resource locating rules
-   Copyright (C) 2015 Free Software Foundation, Inc.
+   Copyright (C) 2015, 2019 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -331,34 +331,35 @@ locating_rule_list_add_from_file (struct locating_rule_list_ty *rules,
             {
               missing_attribute (node, "pattern");
               xmlFreeDoc (doc);
-              continue;
             }
-
-          memset (&rule, 0, sizeof (struct locating_rule_ty));
-          rule.pattern = get_attribute (node, "pattern");
-          if (xmlHasProp (node, BAD_CAST "name"))
-            rule.name = get_attribute (node, "name");
-          if (xmlHasProp (node, BAD_CAST "target"))
-            rule.target = get_attribute (node, "target");
           else
             {
-              xmlNode *n;
-
-              for (n = node->children; n; n = n->next)
+              memset (&rule, 0, sizeof (struct locating_rule_ty));
+              rule.pattern = get_attribute (node, "pattern");
+              if (xmlHasProp (node, BAD_CAST "name"))
+                rule.name = get_attribute (node, "name");
+              if (xmlHasProp (node, BAD_CAST "target"))
+                rule.target = get_attribute (node, "target");
+              else
                 {
-                  if (xmlStrEqual (n->name, BAD_CAST "documentRule"))
-                    document_locating_rule_list_add (&rule.doc_rules, n);
+                  xmlNode *n;
+
+                  for (n = node->children; n; n = n->next)
+                    {
+                      if (xmlStrEqual (n->name, BAD_CAST "documentRule"))
+                        document_locating_rule_list_add (&rule.doc_rules, n);
+                    }
                 }
+              if (rules->nitems == rules->nitems_max)
+                {
+                  rules->nitems_max = 2 * rules->nitems_max + 1;
+                  rules->items =
+                    xrealloc (rules->items,
+                              sizeof (struct locating_rule_ty) * rules->nitems_max);
+                }
+              memcpy (&rules->items[rules->nitems++], &rule,
+                      sizeof (struct locating_rule_ty));
             }
-          if (rules->nitems == rules->nitems_max)
-            {
-              rules->nitems_max = 2 * rules->nitems_max + 1;
-              rules->items =
-                xrealloc (rules->items,
-                          sizeof (struct locating_rule_ty) * rules->nitems_max);
-            }
-          memcpy (&rules->items[rules->nitems++], &rule,
-                  sizeof (struct locating_rule_ty));
         }
     }
 

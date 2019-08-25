@@ -308,42 +308,42 @@ phase2_getc ()
                         break;
 
                       /* Ignore leading spaces and tabs.  */
-                      if (buflen == 0 && (c == ' ' || c == '\t'))
-                        continue;
-
-                      comment_add (c);
-
-                      switch (c)
+                      if (!(buflen == 0 && (c == ' ' || c == '\t')))
                         {
-                        case ']':
-                          if (!right_bracket)
+                          comment_add (c);
+
+                          switch (c)
                             {
-                              right_bracket = true;
-                              esigns2 = 0;
-                            }
-                          else
-                            {
-                              if (esigns2 == esigns)
+                            case ']':
+                              if (!right_bracket)
                                 {
-                                  comment_line_end (2 + esigns);
-                                  end = true;
+                                  right_bracket = true;
+                                  esigns2 = 0;
                                 }
+                              else
+                                {
+                                  if (esigns2 == esigns)
+                                    {
+                                      comment_line_end (2 + esigns);
+                                      end = true;
+                                    }
+                                }
+                              break;
+
+                            case '=':
+                              if (right_bracket)
+                                esigns2++;
+                              break;
+
+                            case '\n':
+                              comment_line_end (1);
+                              comment_start ();
+                              lineno = line_number;
+                              /* Intentionally not breaking.  */
+
+                            default:
+                              right_bracket = false;
                             }
-                          break;
-
-                        case '=':
-                          if (right_bracket)
-                            esigns2++;
-                          break;
-
-                        case '\n':
-                          comment_line_end (1);
-                          comment_start ();
-                          lineno = line_number;
-                          /* Intentionally not breaking.  */
-
-                        default:
-                          right_bracket = false;
                         }
                     }
                   last_comment_line = lineno;

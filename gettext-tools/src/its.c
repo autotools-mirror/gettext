@@ -1,5 +1,5 @@
 /* Internationalization Tag Set (ITS) handling
-   Copyright (C) 2015, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2015, 2018-2019 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -1427,17 +1427,17 @@ its_rule_list_add_from_doc (struct its_rule_list_ty *rules,
       struct its_rule_ty *rule;
 
       rule = its_rule_parse (doc, node);
-      if (!rule)
-        continue;
-
-      if (rules->nitems == rules->nitems_max)
+      if (rule != NULL)
         {
-          rules->nitems_max = 2 * rules->nitems_max + 1;
-          rules->items =
-            xrealloc (rules->items,
-                      sizeof (struct its_rule_ty *) * rules->nitems_max);
+          if (rules->nitems == rules->nitems_max)
+            {
+              rules->nitems_max = 2 * rules->nitems_max + 1;
+              rules->items =
+                xrealloc (rules->items,
+                          sizeof (struct its_rule_ty *) * rules->nitems_max);
+            }
+          rules->items[rules->nitems++] = rule;
         }
-      rules->items[rules->nitems++] = rule;
     }
 
   return true;

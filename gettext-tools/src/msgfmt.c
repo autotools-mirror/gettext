@@ -1488,10 +1488,9 @@ get_languages (string_list_ty *languages, const char *directory)
         line_buf[--len] = '\0';
 
       /* Test if we have to ignore the line.  */
-      if (*line_buf == '\0' || *line_buf == '#')
-        continue;
-
-      add_languages (languages, desired_languages, line_buf, len);
+      if (!(*line_buf == '\0' || *line_buf == '#'))
+        /* Include the line among the languages.  */
+        add_languages (languages, desired_languages, line_buf, len);
     }
 
   free (line_buf);

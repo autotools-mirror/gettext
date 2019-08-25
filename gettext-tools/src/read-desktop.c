@@ -252,24 +252,20 @@ desktop_lex (token_ty *tp)
             for (;;)
               {
                 c = phase2_getc ();
-                switch (c)
+                if (c == EOF || c == ']')
+                  break;
+                if (c == '\n')
                   {
-                  default:
-                    /* Group names may contain all ASCII characters
-                       except for '[' and ']' and control characters.  */
-                    if (!(c_isascii (c) && c != '[') && !c_iscntrl (c))
-                      break;
-                    APPEND (c);
-                    continue;
-                  case '\n':
                     po_xerror (PO_SEVERITY_WARNING, NULL,
                                real_file_name, gram_pos.line_number, 0, false,
                                _("unterminated group name"));
                     break;
-                  case EOF: case ']':
-                    break;
                   }
-                break;
+                /* Group names may contain all ASCII characters
+                   except for '[' and ']' and control characters.  */
+                if (!(c_isascii (c) && c != '[') && !c_iscntrl (c))
+                  break;
+                APPEND (c);
               }
             /* Skip until newline.  */
             while (c != '\n' && c != EOF)
@@ -296,15 +292,9 @@ desktop_lex (token_ty *tp)
             for (;;)
               {
                 c = phase2_getc ();
-                switch (c)
-                  {
-                  default:
-                    APPEND (c);
-                    continue;
-                  case EOF: case '\n':
-                    break;
-                  }
-                break;
+                if (c == EOF || c == '\n')
+                  break;
+                APPEND (c);
               }
             APPEND (0);
             tp->type = token_type_comment;
@@ -360,15 +350,9 @@ desktop_lex (token_ty *tp)
                     for (;;)
                       {
                         int c2 = phase2_getc ();
-                        switch (c2)
-                          {
-                          default:
-                            APPEND (c2);
-                            continue;
-                          case EOF: case ']':
-                            break;
-                          }
-                        break;
+                        if (c2 == EOF || c2 == ']')
+                          break;
+                        APPEND (c2);
                       }
                     break;
 
@@ -386,9 +370,9 @@ desktop_lex (token_ty *tp)
                 c = phase2_getc ();
                 switch (c)
                   {
+                  case ' ':
+                    continue;
                   default:
-                    if (c == ' ')
-                      continue;
                     phase2_ungetc (c);
                     break;
                   case EOF: case '\n':
@@ -419,9 +403,9 @@ desktop_lex (token_ty *tp)
                 c = phase2_getc ();
                 switch (c)
                   {
+                  case ' ':
+                    continue;
                   default:
-                    if (c == ' ')
-                      continue;
                     phase2_ungetc (c);
                     break;
                   case EOF:
