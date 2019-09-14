@@ -31,9 +31,6 @@ noinst_LTLIBRARIES =
 
 # Extra files to be installed.
 
-gettextsrcdir = $(datadir)/gettext
-gettextsrc_DATA = gettext.h
-
 # Where to install javaversion.class.
 pkgdatadir = $(datadir)/gettext
 pkgdata_DATA =

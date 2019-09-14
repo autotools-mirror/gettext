@@ -178,4 +178,9 @@ modules/xalloc-die \
 modules/xerror \
 modules/xgetcwd
 
+# Extra files to be installed.
+
+gettextsrcdir = $(datadir)/gettext
+gettextsrc_DATA = lib/gettext.h
+
 maintainer-update-po:
