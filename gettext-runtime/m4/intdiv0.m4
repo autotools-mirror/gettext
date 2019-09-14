@@ -1,4 +1,4 @@
-# intdiv0.m4 serial 6 (gettext-0.18.2)
+# intdiv0.m4 serial 7 (gettext-0.21)
 dnl Copyright (C) 2002, 2007-2008, 2010-2019 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -31,8 +31,11 @@ changequote([,])dnl
       if test -z "$gt_cv_int_divbyzero_sigfpe"; then
         AC_RUN_IFELSE(
           [AC_LANG_SOURCE([[
-#include <stdlib.h>
+#include <stdlib.h> /* for exit() */
 #include <signal.h>
+#if !(defined _WIN32 && !defined __CYGWIN__)
+#include <unistd.h> /* for _exit() */
+#endif
 
 static void
 sigfpe_handler (int sig)
