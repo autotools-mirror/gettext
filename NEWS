@@ -1,4 +1,4 @@
-Version 0.21 - August 2019
+Version 0.21 - September 2019
 
 * Programming languages support:
   - Shell:
@@ -17,6 +17,11 @@ Version 0.21 - August 2019
   - Desktop Entry:
     The value of the 'Icon' property is no longer extracted into the POT file
     by xgettext.  The documentation explains how to localize icons.
+
+* Runtime behaviour:
+  - The interpretation of the language preferences on macOS has been improved,
+    especially in the case where a system locale does not exist for the
+    combination of the selected primary language and the selected territory.
 
 Version 0.20.1 - May 2019
 
