@@ -2,6 +2,8 @@ Version 0.21 - September 2019
 
 * Programming languages support:
   - Shell:
+    o xgettext now recognizes and ignores 'env' invocations and environment
+      variable assignments in front of commands.
     o The programs 'gettext', 'ngettext', when invoked with option -e, now
       expand '\\' and octal escape sequences, instead of swallowing them.
       (Bug present since the beginning.)

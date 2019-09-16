@@ -434,6 +434,7 @@ saw_closing_singlequote ()
 enum word_type
 {
   t_string,     /* constant string */
+  t_assignment, /* variable assignment */
   t_other,      /* other string */
   t_separator,  /* command separator: semicolon or newline */
   t_redirect,   /* redirection: one of < > >| << <<- >> <> <& >& */
@@ -746,6 +747,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 {
   int c;
   bool all_unquoted_digits;
+  bool all_unquoted_name_characters;
 
   do
     {
@@ -852,7 +854,14 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
   wp->token = XMALLOC (struct token);
   init_token (wp->token);
   wp->line_number_at_start = line_number;
+  /* True while all characters in the token seen so far are digits.  */
   all_unquoted_digits = true;
+  /* True while all characters in the token seen so far form a "name":
+     all characters are unquoted underscores, digits, or alphabetics from the
+     portable character set, and the first character is not a digit.  Cf.
+     <https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_235>
+   */
+  all_unquoted_name_characters = true;
 
   for (;; c = phase2_getc ())
     {
@@ -886,6 +895,17 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
         }
 
       all_unquoted_digits = all_unquoted_digits && (c >= '0' && c <= '9');
+
+      if (all_unquoted_name_characters && wp->token->charcount > 0 && c == '=')
+        {
+          wp->type = t_assignment;
+          continue;
+        }
+
+      all_unquoted_name_characters =
+         all_unquoted_name_characters
+         && ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_'
+             || (wp->token->charcount > 0 && c >= '0' && c <= '9'));
 
       if (c == '$')
         {
@@ -1305,24 +1325,39 @@ read_command (int looking_for, flag_context_ty outer_context)
             {
               /* This is the function position.  */
               arg = 0;
-              if (inner.type == t_string)
+              if (inner.type == t_assignment)
+                {
+                  /* An assignment just set an environment variable.
+                     Ignore it.  */
+                }
+              else if (inner.type == t_string)
                 {
                   char *function_name = string_of_word (&inner);
-                  void *keyword_value;
 
-                  if (hash_find_entry (&keywords,
-                                       function_name, strlen (function_name),
-                                       &keyword_value)
-                      == 0)
-                    shapes = (const struct callshapes *) keyword_value;
+                  if (strcmp (function_name, "env") == 0)
+                    {
+                      /* The 'env' command just introduces more assignments.
+                         Ignore it.  */
+                    }
+                  else
+                    {
+                      void *keyword_value;
 
-                  argparser = arglist_parser_alloc (mlp, shapes);
+                      if (hash_find_entry (&keywords,
+                                           function_name,
+                                           strlen (function_name),
+                                           &keyword_value)
+                          == 0)
+                        shapes = (const struct callshapes *) keyword_value;
 
-                  context_iter =
-                    flag_context_list_iterator (
-                      flag_context_list_table_lookup (
-                        flag_context_list_table,
-                        function_name, strlen (function_name)));
+                      argparser = arglist_parser_alloc (mlp, shapes);
+
+                      context_iter =
+                        flag_context_list_iterator (
+                          flag_context_list_table_lookup (
+                            flag_context_list_table,
+                            function_name, strlen (function_name)));
+                    }
 
                   free (function_name);
                 }
