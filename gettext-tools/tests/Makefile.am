@@ -77,7 +77,7 @@ TESTS = gettext-1 gettext-2 \
 	recode-sr-latin-1 recode-sr-latin-2 \
 	xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 xgettext-10 xgettext-11 xgettext-12 \
-	xgettext-13 xgettext-14 \
+	xgettext-13 xgettext-14 xgettext-15 \
 	xgettext-appdata-1 \
 	xgettext-awk-1 xgettext-awk-2 \
 	xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 xgettext-c-6 \

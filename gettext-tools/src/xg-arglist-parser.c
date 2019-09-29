@@ -1,6 +1,6 @@
 /* Resolving ambiguity of argument lists: Progressive parsing of an
    argument list, keeping track of all possibilities.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -503,6 +503,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
             }
 
           mp = remember_a_message (ap->mlp, best_msgctxt, best_msgid, true,
+                                   best_msgid_plural != NULL,
                                    msgid_context,
                                    &best_cp->msgid_pos,
                                    NULL, best_cp->msgid_comment,

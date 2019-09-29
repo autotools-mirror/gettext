@@ -1,5 +1,5 @@
 /* Extracting a message.  Accumulating the message list.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -37,6 +37,8 @@ extern "C" {
    MSGID must be a malloc()ed string; its ownership is passed to the callee.
    IS_UTF8 must be true if MSGCTXT and MSGID have already been converted to
    UTF-8.
+   PLURALP must be true if and only if a call to remember_a_message_plural will
+   follow.
    POS->file_name must be allocated with indefinite extent.
    EXTRACTED_COMMENT is a comment that needs to be copied into the POT file,
    or NULL.
@@ -49,6 +51,7 @@ extern message_ty *remember_a_message (message_list_ty *mlp,
                                        char *msgctxt,
                                        char *msgid,
                                        bool is_utf8,
+                                       bool pluralp,
                                        flag_context_ty context,
                                        lex_pos_ty *pos,
                                        const char *extracted_comment,

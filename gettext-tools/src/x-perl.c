@@ -1590,8 +1590,8 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
                         pos.file_name = logical_file_name;
 
                         remember_a_message (mlp, NULL, xstrdup (t1->string),
-                                            true, context, &pos, NULL,
-                                            savable_comment, true);
+                                            true, false, context, &pos,
+                                            NULL, savable_comment, true);
                         free_token (t2);
                         free_token (t1);
                       }
@@ -2018,8 +2018,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
               buffer[bufpos] = '\0';
               token.string = xstrdup (buffer);
               extract_quotelike_pass3 (&token, EXIT_FAILURE);
-              remember_a_message (mlp, NULL, token.string, true, context, &pos,
-                                  NULL, savable_comment, true);
+              remember_a_message (mlp, NULL, token.string, true, false, context,
+                                  &pos, NULL, savable_comment, true);
               /* FALLTHROUGH */
             default:
               context = null_context;
@@ -3304,8 +3304,8 @@ extract_balanced (message_list_ty *mlp,
 
               pos.file_name = logical_file_name;
               pos.line_number = tp->line_number;
-              remember_a_message (mlp, NULL, string, true, inner_context, &pos,
-                                  NULL, tp->comment, true);
+              remember_a_message (mlp, NULL, string, true, false, inner_context,
+                                  &pos, NULL, tp->comment, true);
             }
           else if (!skip_until_comma)
             {

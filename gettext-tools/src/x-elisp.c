@@ -904,8 +904,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
                 pos.file_name = logical_file_name;
                 pos.line_number = op->line_number_at_start;
                 remember_a_message (mlp, NULL, string_of_object (op), false,
-                                    null_context, &pos, NULL, savable_comment,
-                                    false);
+                                    false, null_context, &pos,
+                                    NULL, savable_comment, false);
               }
             last_non_comment_line = line_number;
             return;

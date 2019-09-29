@@ -1151,8 +1151,9 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
             pos.line_number = token.line_number;
 
             if (extract_all)
-              remember_a_message (mlp, NULL, token.string, false, inner_context,
-                                  &pos, NULL, token.comment, false);
+              remember_a_message (mlp, NULL, token.string, false, false,
+                                  inner_context, &pos,
+                                  NULL, token.comment, false);
             else
               {
                 mixed_string_ty *ms =

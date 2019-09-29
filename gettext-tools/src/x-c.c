@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-1998, 2000-2009, 2012-2015, 2018 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2009, 2012-2015, 2018-2019 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -2297,8 +2297,9 @@ extract_parenthesized (message_list_ty *mlp,
               {
                 char *string = mixed_string_contents (token.mixed_string);
                 mixed_string_free (token.mixed_string);
-                remember_a_message (mlp, NULL, string, true, inner_context,
-                                    &token.pos, NULL, token.comment, false);
+                remember_a_message (mlp, NULL, string, true, false,
+                                    inner_context, &token.pos,
+                                    NULL, token.comment, false);
               }
             else
               arglist_parser_remember (argparser, arg, token.mixed_string,

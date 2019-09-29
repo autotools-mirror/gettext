@@ -1,5 +1,5 @@
 /* Extracting a message.  Accumulating the message list.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -136,7 +136,8 @@ and a mapping instead of a tuple for the arguments.\n"),
 
 message_ty *
 remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
-                    bool is_utf8, flag_context_ty context, lex_pos_ty *pos,
+                    bool is_utf8, bool pluralp, flag_context_ty context,
+                    lex_pos_ty *pos,
                     const char *extracted_comment,
                     refcounted_string_list_ty *comment, bool comment_is_utf8)
 {
@@ -202,6 +203,43 @@ meta information, not the empty string.\n")));
   mp = message_list_search (mlp, msgctxt, msgid);
   if (mp != NULL)
     {
+      if (pluralp != (mp->msgid_plural != NULL))
+        {
+          lex_pos_ty pos1;
+          lex_pos_ty pos2;
+          char buffer1[21];
+          char buffer2[21];
+
+          if (pluralp)
+            {
+              pos1 = mp->pos;
+              pos2 = *pos;
+            }
+          else
+            {
+              pos1 = *pos;
+              pos2 = mp->pos;
+            }
+
+          if (pos1.line_number == (size_t)(-1))
+            buffer1[0] = '\0';
+          else
+            sprintf (buffer1, ":%ld", (long) pos1.line_number);
+          if (pos2.line_number == (size_t)(-1))
+            buffer2[0] = '\0';
+          else
+            sprintf (buffer2, ":%ld", (long) pos2.line_number);
+          multiline_warning (xstrdup (_("warning: ")),
+                             xasprintf ("%s\n%s\n%s\n%s\n",
+                                        xasprintf (_("msgid '%s' is used without plural and with plural."),
+                                                   msgid),
+                                        xasprintf (_("%s%s: Here is the occurrence without plural."),
+                                                   pos1.file_name, buffer1),
+                                        xasprintf (_("%s%s: Here is the occurrence with plural."),
+                                                   pos2.file_name, buffer2),
+                                        xstrdup (_("Workaround: If the msgid is a sentence, change the wording of the sentence; otherwise, use contexts for disambiguation."))));
+        }
+
       if (msgctxt != NULL)
         free (msgctxt);
       free (msgid);

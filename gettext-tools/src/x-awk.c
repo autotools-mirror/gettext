@@ -1,5 +1,5 @@
 /* xgettext awk backend.
-   Copyright (C) 2002-2003, 2005-2009, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009, 2018-2019 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -789,8 +789,9 @@ extract_parenthesized (message_list_ty *mlp,
             pos.line_number = token.line_number;
 
             if (extract_all)
-              remember_a_message (mlp, NULL, token.string, false, inner_context,
-                                  &pos, NULL, savable_comment, false);
+              remember_a_message (mlp, NULL, token.string, false, false,
+                                  inner_context, &pos,
+                                  NULL, savable_comment, false);
             else
               {
                 mixed_string_ty *ms =
@@ -814,8 +815,9 @@ extract_parenthesized (message_list_ty *mlp,
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 
-            remember_a_message (mlp, NULL, token.string, false, inner_context,
-                                &pos, NULL, savable_comment, false);
+            remember_a_message (mlp, NULL, token.string, false, false,
+                                inner_context, &pos,
+                                NULL, savable_comment, false);
           }
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;

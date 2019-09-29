@@ -1661,8 +1661,9 @@ extract_balanced (message_list_ty *mlp,
               {
                 char *string = mixed_string_contents (token.mixed_string);
                 mixed_string_free (token.mixed_string);
-                remember_a_message (mlp, NULL, string, true, inner_context,
-                                    &pos, NULL, token.comment, true);
+                remember_a_message (mlp, NULL, string, true, false,
+                                    inner_context, &pos,
+                                    NULL, token.comment, true);
               }
             else
               arglist_parser_remember (argparser, arg, token.mixed_string,
