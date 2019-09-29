@@ -1323,7 +1323,7 @@ phase5_get (token_ty *tp)
                   break;
 
                 case lc_xml_close_tag:
-                  if (xml_element_depth-- > 0)
+                  if (--xml_element_depth > 0)
                     lexical_context = lc_xml_content;
                   else
                     lexical_context = lc_outside;
@@ -1348,7 +1348,7 @@ phase5_get (token_ty *tp)
                   c = phase2_getc ();
                   if (c == '>')
                     {
-                      if (xml_element_depth-- > 0)
+                      if (--xml_element_depth > 0)
                         lexical_context = lc_xml_content;
                       else
                         lexical_context = lc_outside;
