@@ -21,6 +21,9 @@ var f1 = function () {
   return _("first normal string") + `${foo}` + _("second normal string");
 };
 var s11 = _("another normal string");
+var s12 = { property: `A template literal with ${n} substitution` };
+var s13 = _("yet another normal string");
+
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -77,6 +80,9 @@ msgid "second normal string"
 msgstr ""
 
 msgid "another normal string"
+msgstr ""
+
+msgid "yet another normal string"
 msgstr ""
 EOF
 
