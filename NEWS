@@ -26,6 +26,10 @@ Version 0.21 - September 2019
     especially in the case where a system locale does not exist for the
     combination of the selected primary language and the selected territory.
 
+* Libtextstyle:
+  - Added support for emitting hyperlinks.
+  - The example programs support the NO_COLOR environment variable,
+
 Version 0.20.1 - May 2019
 
 * Important bug fix:
