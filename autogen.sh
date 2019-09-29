@@ -198,6 +198,7 @@ if ! $skip_gnulib; then
     sys_time
     trim
     unictype/ctype-space
+    unictype/syntax-java-whitespace
     unilbrk/ulc-width-linebreaks
     uniname/uniname
     unistd

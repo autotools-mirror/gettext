@@ -44,6 +44,7 @@
 #include "hash.h"
 #include "po-charset.h"
 #include "unistr.h"
+#include "unictype.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)
@@ -52,8 +53,8 @@
 
 
 /* The Java syntax is defined in the
-     Java Language Specification, Second Edition,
-     (available from http://java.sun.com/),
+     Java Language Specification
+     (available from https://docs.oracle.com/javase/specs/),
      chapter 3 "Lexical Structure".  */
 
 
@@ -568,7 +569,7 @@ enum token_type_ty
   token_type_rbrace,            /* } */
   token_type_comma,             /* , */
   token_type_dot,               /* . */
-  token_type_string_literal,    /* "abc" */
+  token_type_string_literal,    /* "abc", """text block""" */
   token_type_number,            /* 1.23 */
   token_type_symbol,            /* identifier, keyword, null */
   token_type_plus,              /* + */
@@ -689,6 +690,340 @@ accumulate_escaped (struct mixed_string_buffer *literal, int delimiter)
         c = do_getc_escaped ();
       mixed_string_buffer_append (literal, c);
     }
+}
+
+
+/* Strip the common indentation of the non-blank lines of the given string and
+   remove all trailing whitespace of all lines.
+   Like the Java method String.stripIndent does.
+   <https://docs.oracle.com/en/java/javase/13/docs/api/java.base/java/lang/String.html#stripIndent()>  */
+static void
+strip_indent (mixed_string_ty *ms)
+{
+  size_t nsegments = ms->nsegments;
+  size_t minimum_indentation = SIZE_MAX;
+  {
+    size_t curr_line_indentation = 0;
+    bool curr_line_blank = true;
+    size_t i;
+
+    for (i = 0; i < nsegments; i++)
+      {
+        struct mixed_string_segment *segment = ms->segments[i];
+
+        if (segment->type == utf8_encoded
+            || (segment->type == source_encoded
+                && xgettext_current_source_encoding == po_charset_utf8))
+          {
+            /* Consider Unicode whitespace characters.  */
+            size_t seglength = segment->length;
+            size_t j;
+
+            for (j = 0; j < seglength; )
+              {
+                ucs4_t uc;
+                int bytes =
+                  u8_mbtouc (&uc, (const uint8_t *) &segment->contents[j],
+                             seglength - j);
+                j += bytes;
+                if (uc == 0x000a)
+                  {
+                    /* Newline.  */
+                    if (!curr_line_blank)
+                      if (minimum_indentation > curr_line_indentation)
+                        minimum_indentation = curr_line_indentation;
+                    curr_line_indentation = 0;
+                    curr_line_blank = true;
+                  }
+                else if (uc_is_java_whitespace (uc))
+                  {
+                    /* Whitespace character.  */
+                    if (curr_line_blank)
+                      /* Every whitespace character counts as 1, even the TAB
+                         character.  */
+                      curr_line_indentation++;
+                  }
+                else
+                  {
+                    /* Other character.  */
+                    curr_line_blank = false;
+                  }
+              }
+          }
+        else
+          {
+            /* When the encoding is not UTF-8, consider only ASCII whitespace
+               characters.  */
+            size_t seglength = segment->length;
+            size_t j;
+
+            for (j = 0; j < seglength; j++)
+              {
+                char c = segment->contents[j];
+                if (c == '\n')
+                  {
+                    /* Newline.  */
+                    if (!curr_line_blank)
+                      if (minimum_indentation > curr_line_indentation)
+                        minimum_indentation = curr_line_indentation;
+                    curr_line_indentation = 0;
+                    curr_line_blank = true;
+                  }
+                else if (c == ' '
+                         || (c >= 0x09 && c <= 0x0d)
+                         || (c >= 0x1c && c <= 0x1f))
+                  {
+                    /* Whitespace character.  */
+                    if (curr_line_blank)
+                      /* Every whitespace character counts as 1, even the TAB
+                         character.  */
+                      curr_line_indentation++;
+                  }
+                else
+                  {
+                    /* Other character.  */
+                    curr_line_blank = false;
+                  }
+              }
+          }
+      }
+    /* The indentation of the last line matters even if is blank.  */
+    if (minimum_indentation > curr_line_indentation)
+      minimum_indentation = curr_line_indentation;
+  }
+
+  /* The same loop as above, but this time remove the leading
+     minimum_indentation whitespace characters and all trailing whitespace
+     characters from every line.  */
+  {
+    size_t start_of_curr_line_i = 0;
+    size_t start_of_curr_line_j = 0;
+    size_t start_of_trailing_whitespace_i = 0;
+    size_t start_of_trailing_whitespace_j = 0;
+    size_t whitespace_to_remove = minimum_indentation;
+    size_t i;
+
+    for (i = 0; i < nsegments; i++)
+      {
+        struct mixed_string_segment *segment = ms->segments[i];
+        /* Perform a sliding copy from segment->contents[from_j] to
+           segment->contents[to_j].  0 <= to_j <= from_j.  */
+        size_t to_j;
+
+        if (segment->type == utf8_encoded
+            || (segment->type == source_encoded
+                && xgettext_current_source_encoding == po_charset_utf8))
+          {
+            /* Consider Unicode whitespace characters.  */
+            size_t seglength = segment->length;
+            size_t from_j;
+
+            for (to_j = from_j = 0; from_j < seglength; )
+              {
+                ucs4_t uc;
+                int bytes =
+                  u8_mbtouc (&uc, (const uint8_t *) &segment->contents[from_j],
+                             seglength - from_j);
+                if (uc == 0x000a)
+                  {
+                    /* Newline.  */
+                    if (whitespace_to_remove > 0)
+                      {
+                        /* It was a blank line with fewer than minimum_indentation
+                           whitespace characters.  Remove all this whitespace.  */
+                        if (start_of_curr_line_i < i)
+                          {
+                            size_t k;
+                            ms->segments[start_of_curr_line_i]->length = start_of_curr_line_j;
+                            for (k = start_of_curr_line_i + 1; k < i; k++)
+                              ms->segments[k]->length = 0;
+                            to_j = 0;
+                          }
+                        else
+                          to_j = start_of_curr_line_j;
+                      }
+                    else
+                      {
+                        /* Remove the trailing whitespace characters from the
+                           current line.  */
+                        if (start_of_trailing_whitespace_i < i)
+                          {
+                            size_t k;
+                            ms->segments[start_of_trailing_whitespace_i]->length = start_of_trailing_whitespace_j;
+                            for (k = start_of_trailing_whitespace_i + 1; k < i; k++)
+                              ms->segments[k]->length = 0;
+                            to_j = 0;
+                          }
+                        else
+                          to_j = start_of_trailing_whitespace_j;
+                      }
+                  }
+                if (to_j < from_j)
+                  memmove (&segment->contents[to_j], &segment->contents[from_j], bytes);
+                from_j += bytes;
+                to_j += bytes;
+                if (uc == 0x000a)
+                  {
+                    /* Newline.  */
+                    start_of_curr_line_i = i;
+                    start_of_curr_line_j = to_j;
+                    start_of_trailing_whitespace_i = i;
+                    start_of_trailing_whitespace_j = to_j;
+                    whitespace_to_remove = minimum_indentation;
+                  }
+                else if (uc_is_java_whitespace (uc))
+                  {
+                    /* Whitespace character.  */
+                    if (whitespace_to_remove > 0
+                        && --whitespace_to_remove == 0)
+                      {
+                        /* Remove the leading minimum_indentation whitespace
+                           characters from the current line.  */
+                        if (start_of_curr_line_i < i)
+                          {
+                            size_t k;
+                            ms->segments[start_of_curr_line_i]->length = start_of_curr_line_j;
+                            for (k = start_of_curr_line_i + 1; k < i; k++)
+                              ms->segments[k]->length = 0;
+                            to_j = 0;
+                          }
+                        else
+                          to_j = start_of_curr_line_j;
+                      }
+                  }
+                else
+                  {
+                    /* Other character.  */
+                    if (whitespace_to_remove > 0)
+                      abort ();
+                    start_of_trailing_whitespace_i = i;
+                    start_of_trailing_whitespace_j = to_j;
+                  }
+              }
+          }
+        else
+          {
+            /* When the encoding is not UTF-8, consider only ASCII whitespace
+               characters.  */
+            size_t seglength = segment->length;
+            size_t from_j;
+
+            for (to_j = from_j = 0; from_j < seglength; )
+              {
+                char c = segment->contents[from_j++];
+                if (c == '\n')
+                  {
+                    /* Newline.  */
+                    if (whitespace_to_remove > 0)
+                      {
+                        /* It was a blank line with fewer than minimum_indentation
+                           whitespace characters.  Remove all this whitespace.  */
+                        if (start_of_curr_line_i < i)
+                          {
+                            size_t k;
+                            ms->segments[start_of_curr_line_i]->length = start_of_curr_line_j;
+                            for (k = start_of_curr_line_i + 1; k < i; k++)
+                              ms->segments[k]->length = 0;
+                            to_j = 0;
+                          }
+                        else
+                          to_j = start_of_curr_line_j;
+                      }
+                    else
+                      {
+                        /* Remove the trailing whitespace characters from the
+                           current line.  */
+                        if (start_of_trailing_whitespace_i < i)
+                          {
+                            size_t k;
+                            ms->segments[start_of_trailing_whitespace_i]->length = start_of_trailing_whitespace_j;
+                            for (k = start_of_trailing_whitespace_i + 1; k < i; k++)
+                              ms->segments[k]->length = 0;
+                            to_j = 0;
+                          }
+                        else
+                          to_j = start_of_trailing_whitespace_j;
+                      }
+                  }
+                segment->contents[to_j++] = c;
+                if (c == '\n')
+                  {
+                    /* Newline.  */
+                    start_of_curr_line_i = i;
+                    start_of_curr_line_j = to_j;
+                    start_of_trailing_whitespace_i = i;
+                    start_of_trailing_whitespace_j = to_j;
+                    whitespace_to_remove = minimum_indentation;
+                  }
+                else if (c == ' '
+                         || (c >= 0x09 && c <= 0x0d)
+                         || (c >= 0x1c && c <= 0x1f))
+                  {
+                    /* Whitespace character.  */
+                    if (whitespace_to_remove > 0
+                        && --whitespace_to_remove == 0)
+                      {
+                        /* Remove the leading minimum_indentation whitespace
+                           characters from the current line.  */
+                        if (start_of_curr_line_i < i)
+                          {
+                            size_t k;
+                            ms->segments[start_of_curr_line_i]->length = start_of_curr_line_j;
+                            for (k = start_of_curr_line_i + 1; k < i; k++)
+                              ms->segments[k]->length = 0;
+                            to_j = 0;
+                          }
+                        else
+                          to_j = start_of_curr_line_j;
+                      }
+                  }
+                else
+                  {
+                    /* Other character.  */
+                    if (whitespace_to_remove > 0)
+                      abort ();
+                    start_of_trailing_whitespace_i = i;
+                    start_of_trailing_whitespace_j = to_j;
+                  }
+              }
+          }
+        if (i + 1 == nsegments)
+          {
+            /* Handle the last line.  */
+            if (whitespace_to_remove > 0)
+              {
+                /* It was a blank line with fewer than minimum_indentation
+                   whitespace characters.  Remove all this whitespace.  */
+                if (start_of_curr_line_i < i)
+                  {
+                    size_t k;
+                    ms->segments[start_of_curr_line_i]->length = start_of_curr_line_j;
+                    for (k = start_of_curr_line_i + 1; k < i; k++)
+                      ms->segments[k]->length = 0;
+                    to_j = 0;
+                  }
+                else
+                  to_j = start_of_curr_line_j;
+              }
+            else
+              {
+                /* Remove the trailing whitespace characters from the
+                   current line.  */
+                if (start_of_trailing_whitespace_i < i)
+                  {
+                    size_t k;
+                    ms->segments[start_of_trailing_whitespace_i]->length = start_of_trailing_whitespace_j;
+                    for (k = start_of_trailing_whitespace_i + 1; k < i; k++)
+                      ms->segments[k]->length = 0;
+                    to_j = 0;
+                  }
+                else
+                  to_j = start_of_trailing_whitespace_j;
+              }
+          }
+        segment->length = to_j;
+      }
+  }
 }
 
 
@@ -849,6 +1184,94 @@ phase5_get (token_ty *tp)
           }
 
         case '"':
+          {
+            int c2 = phase3_getc ();
+            if (c2 == '"')
+              {
+                int c3 = phase3_getc ();
+                if (c3 == '"')
+                  {
+                    /* Text block.  Specification:
+                       <https://docs.oracle.com/javase/specs/jls/se13/preview/text-blocks.html>  */
+                    struct mixed_string_buffer block;
+                    unsigned int consecutive_unescaped_doublequotes;
+                    mixed_string_ty *block_content;
+
+                    /* Parse the part up to and including the first newline.  */
+                    for (;;)
+                      {
+                        int ic = phase3_getc ();
+                        if (ic == P2_EOF)
+                          {
+                            error_with_progname = false;
+                            error (0, 0, _("%s:%d: warning: unterminated text block"),
+                                   logical_file_name, line_number);
+                            error_with_progname = true;
+                            tp->type = token_type_other;
+                            return;
+                          }
+                        if (RED (ic) == ' ' || RED (ic) == '\t' || RED (ic) == '\f')
+                          ;
+                        else if (RED (ic) == '\n')
+                          break;
+                        else
+                          {
+                            error_with_progname = false;
+                            error (0, 0, _("%s:%d: warning: invalid syntax in text block"),
+                                   logical_file_name, line_number);
+                            error_with_progname = true;
+                            tp->type = token_type_other;
+                            return;
+                          }
+                      }
+
+                    /* Parse the part after the first newline.  */
+                    mixed_string_buffer_init (&block, lc_string,
+                                              logical_file_name, line_number);
+                    consecutive_unescaped_doublequotes = 0;
+                    for (;;)
+                      {
+                        int ic = phase3_getc ();
+                        if (RED (ic) == '"')
+                          {
+                            consecutive_unescaped_doublequotes++;
+                            if (consecutive_unescaped_doublequotes == 3)
+                              break;
+                          }
+                        else
+                          {
+                            while (consecutive_unescaped_doublequotes > 0)
+                              {
+                                mixed_string_buffer_append (&block, '"');
+                                consecutive_unescaped_doublequotes--;
+                              }
+                            if (ic == P2_EOF)
+                              {
+                                error_with_progname = false;
+                                error (0, 0, _("%s:%d: warning: unterminated text block"),
+                                       logical_file_name, block.line_number);
+                                error_with_progname = true;
+                                break;
+                              }
+                            if (RED (ic) == '\\')
+                              ic = do_getc_escaped ();
+                            mixed_string_buffer_append (&block, ic);
+                          }
+                      }
+                    block_content = mixed_string_buffer_result (&block);
+
+                    /* Remove the common indentation from the content.  */
+                    strip_indent (block_content);
+
+                    tp->mixed_string = block_content;
+                    tp->comment = add_reference (savable_comment);
+                    tp->type = token_type_string_literal;
+                    return;
+                  }
+                phase3_ungetc (c3);
+              }
+            phase3_ungetc (c2);
+          }
           /* String literal.  */
           {
             struct mixed_string_buffer literal;

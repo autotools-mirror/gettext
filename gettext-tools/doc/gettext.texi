@@ -10305,7 +10305,7 @@ default-jdk
 @code{java}
 
 @item String syntax
-"abc"
+"abc", """text block"""
 
 @item gettext shorthand
 _("abc")
