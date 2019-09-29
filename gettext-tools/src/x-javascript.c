@@ -1181,10 +1181,10 @@ phase5_get (token_ty *tp)
         case '"': case '\'':
           /* Strings.  */
           {
-            int quote_char;
+            int quote_char = c;
+            lexical_context_ty saved_lexical_context = lexical_context;
             struct mixed_string_buffer msb;
 
-            quote_char = c;
             lexical_context = lc_string;
             /* Start accumulating the string.  */
             mixed_string_buffer_init (&msb, lexical_context,
@@ -1211,7 +1211,7 @@ phase5_get (token_ty *tp)
               }
             tp->mixed_string = mixed_string_buffer_result (&msb);
             tp->comment = add_reference (savable_comment);
-            lexical_context = lc_outside;
+            lexical_context = saved_lexical_context;
             tp->type = last_token_type = token_type_string;
             return;
           }
@@ -1349,7 +1349,12 @@ phase5_get (token_ty *tp)
                 {
                   c = phase2_getc ();
                   if (c == '>')
-                    lexical_context = lc_outside;
+                    {
+                      if (xml_element_depth-- > 0)
+                        lexical_context = lc_xml_content;
+                      else
+                        lexical_context = lc_outside;
+                    }
                   else
                     phase2_ungetc (c);
                 }

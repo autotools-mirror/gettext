@@ -4,6 +4,24 @@
 # Test of JavaScript E4X support.
 
 cat <<\EOF > xg-js-6.js
+class Foo extends React.Component {
+    render() {
+        return (
+            <div className="aClass" />
+        );
+    }
+}
+class Bar extends React.Component {
+    render() {
+        return (
+            <div>
+                <span className="someClass" />
+                { gettext('Expected translation string #0') }
+            </div>
+        );
+    }
+}
+
 var x1 = <x1></x1>;
 var s1 = _("Expected translation string #1");
 var s2 = "foo";
@@ -53,6 +71,9 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+msgid "Expected translation string #0"
+msgstr ""
 
 msgid "Expected translation string #1"
 msgstr ""
