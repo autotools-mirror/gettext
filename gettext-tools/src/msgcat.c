@@ -350,7 +350,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* Write the PO file.  */
   msgdomain_list_print (result, output_file, output_syntax, force_po, false);
 
-  exit (EXIT_SUCCESS);
+  exit (error_message_count > 0 ? EXIT_FAILURE : EXIT_SUCCESS);
 }
 
 

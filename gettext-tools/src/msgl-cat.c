@@ -297,7 +297,18 @@ catenate_msgdomain_list (string_list_ty *file_list,
               size_t i;
 
               tmp = message_list_search (total_mlp, mp->msgctxt, mp->msgid);
-              if (tmp == NULL)
+              if (tmp != NULL)
+                {
+                  if ((tmp->msgid_plural != NULL) != (mp->msgid_plural != NULL))
+                    {
+                      char *errormsg =
+                        xasprintf (_("msgid '%s' is used without plural and with plural."),
+                                   mp->msgid);
+                      multiline_error (xstrdup (""),
+                                       xasprintf ("%s\n", errormsg));
+                    }
+                }
+              else
                 {
                   tmp = message_alloc (mp->msgctxt, mp->msgid, mp->msgid_plural,
                                        NULL, 0, &mp->pos);
