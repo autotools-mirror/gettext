@@ -1,4 +1,4 @@
-# libxml.m4 serial 8
+# libxml.m4 serial 9
 dnl Copyright (C) 2006, 2008, 2011, 2013, 2016, 2019 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -202,7 +202,7 @@ AC_DEFUN([gl_LIBXML],
       # include <arpa/nameser.h>
       #endif
     ])
-    AC_CHECK_FUNCS([dlopen getaddrinfo localtime shlload stat strftime])
+    AC_CHECK_FUNCS([getaddrinfo localtime stat strftime])
     dnl This relies on the va_copy replacement from the stdarg module.
     AC_DEFINE([VA_COPY], [va_copy],
       [Define to a working va_copy macro or replacement.])
