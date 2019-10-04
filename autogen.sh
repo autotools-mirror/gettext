@@ -419,7 +419,9 @@ cd "$dir0"
 
 echo "$0: generating files in libtextstyle..."
 cd libtextstyle
-./autogen.sh $skip_gnulib_option || exit $?
+(if ! $skip_gnulib; then export GNULIB_SRCDIR; fi
+ ./autogen.sh $skip_gnulib_option
+) || exit $?
 cd "$dir0"
 
 echo "$0: generating configure in gettext-tools/examples..."
