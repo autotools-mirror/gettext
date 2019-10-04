@@ -44,6 +44,7 @@ done
 TEXINFO_VERSION=6.5
 
 if test $skip_gnulib = false; then
+  mkdir -p build-aux
   # texinfo.tex
   # The most recent snapshot of it is available in the gnulib repository.
   # But this is a snapshot, with all possible dangers.
