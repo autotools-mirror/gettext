@@ -153,7 +153,7 @@ are skipped. To this effect, you need to install also:
 
   * The GNOME/Mozilla JavaScript interpreter
     + Homepage: https://wiki.gnome.org/Projects/Gjs
-    + Ubuntu package: gjs
+    + Ubuntu packages: gjs gir1.2-gtk-3.0
 
   * The GNOME Vala compiler
     + Homepage: https://wiki.gnome.org/Projects/Vala
