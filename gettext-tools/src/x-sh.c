@@ -1327,8 +1327,10 @@ read_command (int looking_for, flag_context_ty outer_context)
               arg = 0;
               if (inner.type == t_assignment)
                 {
-                  /* An assignment just set an environment variable.
+                  /* An assignment just sets an environment variable.
                      Ignore it.  */
+                  /* Don't increment arg in this round.  */
+                  matters_for_argparser = false;
                 }
               else if (inner.type == t_string)
                 {
@@ -1338,6 +1340,8 @@ read_command (int looking_for, flag_context_ty outer_context)
                     {
                       /* The 'env' command just introduces more assignments.
                          Ignore it.  */
+                      /* Don't increment arg in this round.  */
+                      matters_for_argparser = false;
                     }
                   else
                     {
