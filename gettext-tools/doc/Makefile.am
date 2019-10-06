@@ -85,11 +85,11 @@ $(srcdir)/stamp-vti: $(info_TEXINFOS) $(gettext_TEXINFOS) $(top_srcdir)/../.vers
 	echo "@set EDITION $(VERSION)"; \
 	echo "@set VERSION $(VERSION)"; \
 	echo "@set ARCHIVE-VERSION $(ARCHIVE_VERSION)") > vti.tmp
-	cmp -s vti.tmp version.texi \
-	  || (echo "Updating version.texi"; \
-	      cp vti.tmp version.texi)
+	cmp -s vti.tmp $(srcdir)/version.texi \
+	  || (echo "Updating $(srcdir)/version.texi"; \
+	      cp vti.tmp $(srcdir)/version.texi)
 	rm -f vti.tmp
-	cp version.texi $@
+	cp $(srcdir)/version.texi $@
 
 # We distribute only the split HTML documentation.
 # The user can generate the others, via
