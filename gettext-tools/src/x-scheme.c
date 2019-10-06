@@ -721,8 +721,8 @@ read_object (struct object *op, flag_context_ty outer_context)
 
         case '(':
           {
-             int arg = 0;               /* Current argument number.  */
-             flag_context_list_iterator_ty context_iter;
+            int arg = 0;                /* Current argument number.  */
+            flag_context_list_iterator_ty context_iter;
             const struct callshapes *shapes = NULL;
             struct arglist_parser *argparser = NULL;
 
