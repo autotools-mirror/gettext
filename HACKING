@@ -208,6 +208,15 @@ Each time you want to update the source, do not only "git pull".  Instead do
   ./autogen.sh
 
 
+Continuous integration
+======================
+
+The package is built automatically, at regular intervals.  You find the latest
+build results here:
+  https://gitlab.com/gnu-gettext/ci-distcheck/pipelines
+  https://gitlab.com/gnu-gettext/ci-distcheck/-/jobs?scope=finished
+
+
 Submitting patches
 ==================
 
