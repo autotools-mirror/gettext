@@ -8983,16 +8983,50 @@ Remember that gettext will act as a no-op if the @code{LC_MESSAGES} and
 A programmer should have a way to extract translatable strings from a
 program into a PO file.  The GNU @code{xgettext} program is being
 extended to support very different programming languages.  Please
-contact the GNU @code{gettext} maintainers to help them doing this.  If
-the string extractor is best integrated into your language's parser, GNU
-@code{xgettext} can function as a front end to your string extractor.
+contact the GNU @code{gettext} maintainers to help them doing this.
+The GNU @code{gettext} maintainers will need from you a formal
+description of the lexical structure of source files.  It should
+answer the questions:
+@itemize @bullet
+@item
+What does a token look like?
+@item
+What does a string literal look like? What escape characters exist
+inside a string?
+@item
+What escape characters exist outside of strings?  If Unicode escapes
+are supported, are they applied before or after tokenization?
+@item
+What is the syntax for function calls?  How are consecutive arguments
+in the same function call separated?
+@item
+What is the syntax for comments?
+@end itemize
+@noindent Based on this description, the GNU @code{gettext} maintainers
+can add support to @code{xgettext}.
+
+If the string extractor is best integrated into your language's parser,
+GNU @code{xgettext} can function as a front end to your string extractor.
 
 @item
-The language's library should have a string formatting facility where
-the arguments of a format string are denoted by a positional number or a
-name.  This is needed because for some languages and some messages with
-more than one substitutable argument, the translation will need to
-output the substituted arguments in different order.  @xref{c-format Flag}.
+The language's library should have a string formatting facility.
+Additionally:
+@enumerate
+@item
+There must be a way, in the format string, to denote the arguments by a
+positional number or a name.  This is needed because for some languages
+and some messages with more than one substitutable argument, the
+translation will need to output the substituted arguments in different
+order.  @xref{c-format Flag}.
+@item
+The syntax of format strings must be documented in a way that translators
+can understand.  The GNU @code{gettext} manual will be extended to
+include a pointer to this documentation.
+@end enumerate
+Based on this, the GNU @code{gettext} maintainers can add a format string
+equivalence checker to @code{msgfmt}, so that translators get told
+immediately when they have made a mistake during the translation of a
+format string.
 
 @item
 If the language has more than one implementation, and not all of the
