@@ -25,7 +25,7 @@ AUTOMAKE_OPTIONS += 1.11 color-tests
 AM_CPPFLAGS += -I../intl
 
 
-# Remove .deps directories creates by 'configure'.
+# Remove .deps directories created by 'configure'.
 # I would say that this left-over is an Automake 1.16.1 bug.
 distclean-local:
 	rm -rf $(DEPDIR) */$(DEPDIR)
