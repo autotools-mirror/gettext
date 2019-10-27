@@ -1,5 +1,5 @@
 /* Output stream that accumulates the output in memory.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -28,7 +28,7 @@ methods:
   /* Return a pointer to the output accumulated so far and its size:
      Store them in *BUFP and *BUFLENP.
      Note: These two return values become invalid when more output is done to
-     the stream.  */
+     the stream or when the stream is freed.  */
   void contents (memory_ostream_t stream, const void **bufp, size_t *buflenp);
 };
 
