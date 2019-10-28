@@ -853,6 +853,14 @@ Writes a sequence of bytes to a stream.
 Writes a string's contents to a stream.
 @end deftypefn
 
+@deftypefn Function ptrdiff_t ostream_printf (ostream_t@tie{}@var{stream}, const@tie{}char@tie{}*@var{format}, ...)
+@deftypefnx Function ptrdiff_t ostream_vprintf (ostream_t@tie{}@var{stream}, const@tie{}char@tie{}*@var{format}, va_list args)
+Writes formatted output to a stream.
+
+These functions return the size of formatted output, or a negative value
+in case of an error.
+@end deftypefn
+
 @deftypefn Function void ostream_flush (ostream_t@tie{}@var{stream}, ostream_flush_scope_t@tie{}@var{scope})
 Brings buffered data to its destination.
 @end deftypefn
@@ -918,7 +926,7 @@ instead of with the default text style.
 
 After calling this function, you can output strings without newlines(!) to the
 underlying stream, and they will be rendered like strings passed to
-@code{ostream_write_mem} or @code{ostream_write_str}.
+@code{ostream_write_mem}, @code{ostream_write_str}, or @code{ostream_printf}.
 @end deftypefn
 
 @node ostream subclasses without styling
@@ -1062,7 +1070,7 @@ instead of with the default text attributes.
 
 After calling this function, you can output strings without newlines(!) to the
 underlying file descriptor, and they will be rendered like strings passed to
-@code{ostream_write_mem} or @code{ostream_write_str}.
+@code{ostream_write_mem}, @code{ostream_write_str}, or @code{ostream_printf}.
 @end deftypefn
 
 @node The html_ostream class
@@ -1129,7 +1137,7 @@ instead of with the default text style.
 
 After calling this function, you can output strings without newlines(!) to the
 underlying stream, and they will be rendered like strings passed to
-@code{ostream_write_mem} or @code{ostream_write_str}.
+@code{ostream_write_mem}, @code{ostream_write_str}, or @code{ostream_printf}.
 @end deftypefn
 
 @node The memory_ostream class

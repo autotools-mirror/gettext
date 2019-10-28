@@ -87,6 +87,7 @@ if test $skip_gnulib = false; then
       term-styled-ostream
     filename
     isatty
+    vasprintf-posix
     xalloc
     xconcat-filename
 

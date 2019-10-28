@@ -19,6 +19,7 @@
 #ifndef _TEXTSTYLE_H
 #define _TEXTSTYLE_H
 
+#include <stdarg.h>
 #include <stddef.h>
 #include <stdio.h>
 #include <textstyle/stdbool.h>
@@ -70,6 +71,21 @@ extern "C" {
 /* Write a string's contents to a stream.  */
 extern void ostream_write_str (ostream_t stream, const char *string);
 
+/* Writes formatted output to a stream.
+   Returns the size of formatted output, or a negative value in case of an
+   error.  */
+extern ptrdiff_t ostream_printf (ostream_t stream, const char *format, ...)
+#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3
+  __attribute__ ((__format__ (__printf__, 2, 3)))
+#endif
+  ;
+extern ptrdiff_t ostream_vprintf (ostream_t stream,
+                                  const char *format, va_list args)
+#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3
+  __attribute__ ((__format__ (__printf__, 2, 0)))
+#endif
+  ;
+
 #ifdef __cplusplus
 }
 #endif
@@ -101,7 +117,7 @@ extern void styled_ostream_set_hyperlink (styled_ostream_t first_arg, const char
    of with the default text style.
    After calling this function, you can output strings without newlines(!)
    to the underlying stream, and they will be rendered like strings passed
-   to 'ostream_write_mem' or 'ostream_write_str'.  */
+   to 'ostream_write_mem', 'ostream_write_str', or 'ostream_write_printf'.  */
 extern void styled_ostream_flush_to_current_style (styled_ostream_t stream);
 #ifdef __cplusplus
 }
@@ -237,7 +253,8 @@ extern void term_ostream_set_hyperlink (term_ostream_t first_arg, const char *re
    with the default text attributes.
    After calling this function, you can output strings without newlines(!)
    to the underlying file descriptor, and they will be rendered like strings
-   passed to 'ostream_write_mem' or 'ostream_write_str'.  */
+   passed to 'ostream_write_mem', 'ostream_write_str', or
+   'ostream_write_printf'.  */
 extern void term_ostream_flush_to_current_style (term_ostream_t first_arg);
 #ifdef __cplusplus
 }
@@ -368,7 +385,7 @@ extern void html_ostream_set_hyperlink_ref (html_ostream_t first_arg, const char
    of with the default text style.
    After calling this function, you can output strings without newlines(!)
    to the underlying stream, and they will be rendered like strings passed
-   to 'ostream_write_mem' or 'ostream_write_str'.  */
+   to 'ostream_write_mem', 'ostream_write_str', or 'ostream_write_printf'.  */
 extern void html_ostream_flush_to_current_style (html_ostream_t stream);
 #ifdef __cplusplus
 }

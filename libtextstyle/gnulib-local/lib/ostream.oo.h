@@ -18,6 +18,7 @@
 #ifndef _OSTREAM_H
 #define _OSTREAM_H
 
+#include <stdarg.h>
 #include <stddef.h>
 #include <string.h>
 
@@ -64,6 +65,21 @@ extern "C" {
 
 /* Write a string's contents to a stream.  */
 extern void ostream_write_str (ostream_t stream, const char *string);
+
+/* Writes formatted output to a stream.
+   Returns the size of formatted output, or a negative value in case of an
+   error.  */
+extern ptrdiff_t ostream_printf (ostream_t stream, const char *format, ...)
+#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3
+  __attribute__ ((__format__ (__printf__, 2, 3)))
+#endif
+  ;
+extern ptrdiff_t ostream_vprintf (ostream_t stream,
+                                  const char *format, va_list args)
+#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3
+  __attribute__ ((__format__ (__printf__, 2, 0)))
+#endif
+  ;
 
 #if HAVE_INLINE
 

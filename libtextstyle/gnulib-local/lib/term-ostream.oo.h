@@ -99,7 +99,8 @@ methods:
      with the default text attributes.
      After calling this function, you can output strings without newlines(!)
      to the underlying file descriptor, and they will be rendered like strings
-     passed to 'ostream_write_mem' or 'ostream_write_str'.  */
+     passed to 'ostream_write_mem', 'ostream_write_str', or
+     'ostream_write_printf'.  */
   void flush_to_current_style (term_ostream_t stream);
 };
 

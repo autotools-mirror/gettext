@@ -50,7 +50,7 @@ methods:
      of with the default text style.
      After calling this function, you can output strings without newlines(!)
      to the underlying stream, and they will be rendered like strings passed
-     to 'ostream_write_mem' or 'ostream_write_str'.  */
+     to 'ostream_write_mem', 'ostream_write_str', or 'ostream_write_printf'.  */
   void flush_to_current_style (styled_ostream_t stream);
 };
 

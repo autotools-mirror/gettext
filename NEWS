@@ -28,6 +28,7 @@ Version 0.21 - September 2019
 
 * Libtextstyle:
   - Added support for emitting hyperlinks.
+  - New API for doing formatted output.
   - The example programs support the NO_COLOR environment variable,
 
 Version 0.20.1 - May 2019

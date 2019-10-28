@@ -1,5 +1,5 @@
 /* Abstract output stream data type.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -20,6 +20,8 @@
 /* Specification.  */
 #include "ostream.h"
 
+#include <stdio.h>
+
 struct ostream
 {
 fields:
@@ -34,3 +36,36 @@ ostream_write_str (ostream_t stream, const char *string)
 }
 
 #endif
+
+ptrdiff_t
+ostream_printf (ostream_t stream, const char *format, ...)
+{
+  va_list args;
+  char *temp_string;
+  ptrdiff_t ret;
+
+  va_start (args, format);
+  ret = vasprintf (&temp_string, format, args);
+  va_end (args);
+  if (ret >= 0)
+    {
+      if (ret > 0)
+        ostream_write_str (stream, temp_string);
+      free (temp_string);
+    }
+  return ret;
+}
+
+ptrdiff_t
+ostream_vprintf (ostream_t stream, const char *format, va_list args)
+{
+  char *temp_string;
+  ptrdiff_t ret = vasprintf (&temp_string, format, args);
+  if (ret >= 0)
+    {
+      if (ret > 0)
+        ostream_write_str (stream, temp_string);
+      free (temp_string);
+    }
+  return ret;
+}

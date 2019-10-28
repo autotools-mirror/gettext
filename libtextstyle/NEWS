@@ -10,6 +10,8 @@ New in 0.21:
   term_ostream_t            term_ostream_get_hyperlink_id
   html_ostream_t            html_ostream_set_hyperlink_ref
   html_ostream_t            html_ostream_get_hyperlink_ref
+* New API for doing formatted output:
+  functions ostream_printf, ostream_vprintf.
 * The example programs support the NO_COLOR environment variable,
   as specified in https://no-color.org/.
 
