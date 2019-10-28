@@ -144,6 +144,7 @@ EXTRA_DIST = \
   gnulib-local/modules/libglib \
   gnulib-local/modules/libxml.diff \
   gnulib-local/modules/memory-ostream \
+  gnulib-local/modules/memory-ostream-tests \
   gnulib-local/modules/moo \
   gnulib-local/modules/moo-tests \
   gnulib-local/modules/noop-styled-ostream \
@@ -156,6 +157,7 @@ EXTRA_DIST = \
   gnulib-local/modules/term-ostream \
   gnulib-local/modules/term-ostream-tests \
   gnulib-local/modules/term-styled-ostream \
+  gnulib-local/tests/test-memory-ostream.c \
   gnulib-local/tests/test-moo-aroot.oo.c \
   gnulib-local/tests/test-moo-aroot.oo.h \
   gnulib-local/tests/test-moo-assign.c \

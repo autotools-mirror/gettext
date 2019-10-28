@@ -91,6 +91,7 @@ if test $skip_gnulib = false; then
     xalloc
     xconcat-filename
 
+    memory-ostream-tests
     term-ostream-tests
   '
   $GNULIB_TOOL --lib=libtextstyle --source-base=lib --m4-base=gnulib-m4 --tests-base=tests \
