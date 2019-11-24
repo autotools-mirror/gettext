@@ -1,6 +1,13 @@
-/*
- * list.c: lists handling implementation
+/* libxml2 - Library for parsing XML documents
+ * Copyright (C) 2006-2019 Free Software Foundation, Inc.
  *
+ * This file is not part of the GNU gettext program, but is used with
+ * GNU gettext.
+ *
+ * The original copyright notice is as follows:
+ */
+
+/*
  * Copyright (C) 2000 Gary Pennington and Daniel Veillard.
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -13,6 +20,10 @@
  * CONTRIBUTORS ACCEPT NO RESPONSIBILITY IN ANY CONCEIVABLE MANNER.
  *
  * Author: Gary.Pennington@uk.sun.com
+ */
+
+/*
+ * list.c: lists handling implementation
  */
 
 #define IN_LIBXML
