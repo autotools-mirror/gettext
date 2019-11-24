@@ -1,4 +1,13 @@
 /* GLIB - Library of useful routines for C programming
+ * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ *
+ * This file is not part of the GNU gettext program, but is used with
+ * GNU gettext.
+ *
+ * The original copyright notice is as follows:
+ */
+
+/* GLIB - Library of useful routines for C programming
  * Copyright (C) 1995-1997  Peter Mattis, Spencer Kimball and Josh MacDonald
  *
  * This library is free software; you can redistribute it and/or
