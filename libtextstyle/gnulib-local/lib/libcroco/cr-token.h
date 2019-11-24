@@ -1,7 +1,18 @@
 /* -*- Mode: C; indent-tabs-mode:nil; c-basic-offset: 8-*- */
 
+/* libcroco - Library for parsing and applying CSS
+ * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ *
+ * This file is not part of the GNU gettext program, but is used with
+ * GNU gettext.
+ *
+ * The original copyright notice is as follows:
+ */
+
 /*
  * This file is part of The Croco Library
+ *
+ * Copyright (C) 2003-2004 Dodji Seketeli.  All Rights Reserved.
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of version 2.1 of the GNU Lesser General Public
@@ -18,7 +29,6 @@
  * USA
  * 
  * Author: Dodji Seketeli
- * See COPYRIGHTS file for copyright information.
  */
 
 #ifndef __CR_TOKEN_H__
