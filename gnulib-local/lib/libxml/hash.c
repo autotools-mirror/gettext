@@ -1,8 +1,13 @@
+/* libxml2 - Library for parsing XML documents
+ * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ *
+ * This file is not part of the GNU gettext program, but is used with
+ * GNU gettext.
+ *
+ * The original copyright notice is as follows:
+ */
+
 /*
- * hash.c: chained hash tables
- *
- * Reference: Your favorite introductory book on algorithms
- *
  * Copyright (C) 2000,2012 Bjorn Reese and Daniel Veillard.
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -15,6 +20,12 @@
  * CONTRIBUTORS ACCEPT NO RESPONSIBILITY IN ANY CONCEIVABLE MANNER.
  *
  * Author: breese@users.sourceforge.net
+ */
+
+/*
+ * hash.c: chained hash tables
+ *
+ * Reference: Your favorite introductory book on algorithms
  */
 
 #define IN_LIBXML

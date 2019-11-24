@@ -1,7 +1,13 @@
-/*
- * dict.c: dictionary of reusable strings, just used to avoid allocation
- *         and freeing operations.
+/* libxml2 - Library for parsing XML documents
+ * Copyright (C) 2006-2019 Free Software Foundation, Inc.
  *
+ * This file is not part of the GNU gettext program, but is used with
+ * GNU gettext.
+ *
+ * The original copyright notice is as follows:
+ */
+
+/*
  * Copyright (C) 2003-2012 Daniel Veillard.
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -14,6 +20,11 @@
  * CONTRIBUTORS ACCEPT NO RESPONSIBILITY IN ANY CONCEIVABLE MANNER.
  *
  * Author: daniel@veillard.com
+ */
+
+/*
+ * dict.c: dictionary of reusable strings, just used to avoid allocation
+ *         and freeing operations.
  */
 
 #define IN_LIBXML
