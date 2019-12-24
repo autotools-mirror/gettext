@@ -1,5 +1,5 @@
 /* Handle list of needed message catalogs
-   Copyright (C) 1995-2016 Free Software Foundation, Inc.
+   Copyright (C) 1995-2019 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.org>, 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -50,6 +50,9 @@
 /* List of already loaded domains.  */
 static struct loaded_l10nfile *_nl_loaded_domains;
 
+/* Lock that protects the access to _NL_LOADED_DOMAINS.  */
+gl_rwlock_define_initialized (static, lock);
+
 
 /* Return a data structure describing the message catalog described by
    the DOMAINNAME and CATEGORY parameters with respect to the currently
@@ -83,7 +86,6 @@ _nl_find_domain (const char *dirname, char *locale,
    */
 
   /* We need to protect modifying the _NL_LOADED_DOMAINS data.  */
-  gl_rwlock_define_initialized (static, lock);
   gl_rwlock_rdlock (lock);
 
   /* If we have already tested for this locale entry there has to
