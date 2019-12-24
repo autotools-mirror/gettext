@@ -234,6 +234,7 @@ if ! $skip_gnulib; then
     mbrtowc
     mbsinit
     multiarch
+    setlocale-null
     snippet/arg-nonnull
     snippet/c++defs
     snippet/warn-on-use

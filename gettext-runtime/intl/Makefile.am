@@ -83,8 +83,10 @@ EXTRA_DIST += \
   localcharset.h \
   lock.h windows-mutex.h windows-rwlock.h windows-recmutex.h windows-once.h windows-initguard.h \
   relocatable.h \
+  arg-nonnull.h \
   flexmember.h \
   localename-table.in.h \
+  setlocale_null.h \
   tsearch.h tsearch.c \
   verify.h \
   xsize.h \
@@ -122,6 +124,8 @@ LIBINTLSOURCES = \
   log.c \
   printf.c \
   setlocale.c \
+  setlocale-lock.c \
+  setlocale_null.c \
   version.c \
   xsize.c \
   osdep.c \
@@ -272,6 +276,10 @@ printf.lo: $(srcdir)/printf.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/printf.c
 setlocale.lo: $(srcdir)/setlocale.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/setlocale.c
+setlocale-lock.lo: $(srcdir)/setlocale-lock.c
+	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/setlocale-lock.c
+setlocale_null.lo: $(srcdir)/setlocale_null.c
+	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/setlocale_null.c
 version.lo: $(srcdir)/version.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/version.c
 xsize.lo: $(srcdir)/xsize.c
@@ -319,11 +327,13 @@ threadlib.lo:        ../config.h
 lock.lo:             ../config.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
 relocatable.lo:      ../config.h $(srcdir)/relocatable.h
 langprefs.lo:        ../config.h
-localename.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/flexmember.h localename-table.h
+localename.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/flexmember.h $(srcdir)/setlocale_null.h $(srcdir)/arg-nonnull.h localename-table.h
 localename-table.lo: ../config.h localename-table.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
 log.lo:              ../config.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
 printf.lo:           ../config.h $(srcdir)/printf-args.c $(srcdir)/printf-args.h $(srcdir)/printf-parse.c $(srcdir)/printf-parse.h $(srcdir)/wprintf-parse.h $(srcdir)/xsize.h $(srcdir)/vasnprintf.c $(srcdir)/vasnprintf.h $(srcdir)/vasnwprintf.h $(srcdir)/verify.h
 setlocale.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
+setlocale-lock.lo:   ../config.h $(srcdir)/windows-initguard.h
+setlocale_null.lo:   ../config.h $(srcdir)/setlocale_null.h $(srcdir)/arg-nonnull.h
 version.lo:          ../config.h libgnuintl.h
 xsize.lo:            ../config.h $(srcdir)/xsize.h
 osdep.lo:            ../config.h $(srcdir)/intl-exports.c $(srcdir)/os2compat.c

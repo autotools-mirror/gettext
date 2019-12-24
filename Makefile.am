@@ -85,6 +85,7 @@ distcheck-hook:
 	cmp -s $(srcdir)/gettext-runtime/m4/stdint_h.m4 $(srcdir)/gettext-tools/gnulib-m4/stdint_h.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/xsize.m4 $(srcdir)/gettext-tools/gnulib-m4/xsize.m4
 	cmp -s $(srcdir)/gettext-runtime/libasprintf/gnulib-m4/intmax_t.m4 $(srcdir)/gettext-tools/gnulib-m4/intmax_t.m4
+	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/arg-nonnull.h | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/arg-nonnull.h | md5sum`"
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/flexmember.h | md5sum`" = "`sed 1,19d $(srcdir)/gettext-tools/gnulib-lib/flexmember.h | md5sum`"
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/localcharset.h | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/localcharset.h | md5sum`"
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/localcharset.c | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/localcharset.c | md5sum`"
@@ -93,6 +94,9 @@ distcheck-hook:
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/localename-table.c | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/localename-table.c | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/lock.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/glthread/lock.h | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/lock.c | md5sum`" = "`sed -e 1,15d -e 's,glthread/,,g' $(srcdir)/gettext-tools/gnulib-lib/glthread/lock.c | md5sum`"
+	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/setlocale-lock.c | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/setlocale-lock.c | md5sum`"
+	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/setlocale_null.h | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/setlocale_null.h | md5sum`"
+	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/setlocale_null.c | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/setlocale_null.c | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/threadlib.c | md5sum`" = "`sed -e 1,15d $(srcdir)/gettext-tools/gnulib-lib/glthread/threadlib.c | md5sum`"
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/verify.h | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/verify.h | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-initguard.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-initguard.h | md5sum`"
