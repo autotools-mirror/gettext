@@ -1,5 +1,5 @@
 /* Expression parsing and evaluation for plural form selection.
-   Copyright (C) 2000-2016 Free Software Foundation, Inc.
+   Copyright (C) 2000-2016, 2019 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 2000.
 
    This program is free software: you can redistribute it and/or modify
@@ -107,7 +107,8 @@ struct parse_args
 
 #if (defined __GNUC__ && !(defined __APPLE_CC_ && __APPLE_CC__ > 1) \
      && !defined __cplusplus)                                       \
-    || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L)    \
+    || (defined __STDC_VERSION__ && __STDC_VERSION__ >= 199901L     \
+        && !defined __HP_cc)                                        \
     || (defined __SUNPRO_C && 0x560 <= __SUNPRO_C                   \
         && !(defined __STDC__ && __STDC__ == 1))
 # define HAVE_STRUCT_INITIALIZER 1

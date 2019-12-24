@@ -1116,7 +1116,7 @@ typedef xmlDefAttrs *xmlDefAttrsPtr;
 struct _xmlDefAttrs {
     int nbAttrs;	/* number of defaulted attributes on that element */
     int maxAttrs;       /* the size of the array */
-#if __STDC_VERSION__ >= 199901L
+#if __STDC_VERSION__ >= 199901L && !defined __HP_cc
     /* Using a C99 flexible array member avoids UBSan errors. */
     const xmlChar *values[]; /* array of localname/prefix/values/external */
 #else
