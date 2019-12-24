@@ -1,5 +1,5 @@
 /* Load needed message catalogs.
-   Copyright (C) 1995-2017 Free Software Foundation, Inc.
+   Copyright (C) 1995-2019 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -786,6 +786,9 @@ get_sysdep_segment_value (const char *name)
   return NULL;
 }
 
+/* Lock that protects the various 'struct loaded_l10nfile' objects.  */
+__libc_lock_define_initialized_recursive (static, lock);
+
 /* Load the message catalogs specified by FILENAME.  If it is no valid
    message catalog do nothing.  */
 void
@@ -806,7 +809,6 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
   int revision;
   const char *nullentry;
   size_t nullentrylen;
-  __libc_lock_define_initialized_recursive (static, lock);
 
   __libc_lock_lock_recursive (lock);
   if (domain_file->decided != 0)

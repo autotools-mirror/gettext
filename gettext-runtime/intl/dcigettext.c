@@ -875,6 +875,13 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 }
 
 
+/* This lock primarily protects the memory management variables freemem,
+   freemem_size.  It also protects write accesses to convd->conv_tab.
+   It's not worth using a separate lock (such as domain->conversions_lock)
+   for this purpose, because when modifying convd->conv_tab, we also need
+   to lock freemem, freemem_size for most of the time.  */
+__libc_lock_define_initialized (static, lock)
+
 /* Look up the translation of msgid within DOMAIN_FILE and DOMAINBINDING.
    Return it if found.  Return NULL if not found or in case of a conversion
    failure (problem in the particular message catalog).  Return (char *) -1
@@ -1220,14 +1227,6 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	     are represented by consecutive NUL terminated strings.  We
 	     handle this case by converting RESULTLEN bytes, including
 	     NULs.  */
-
-	  /* This lock primarily protects the memory management variables
-	     freemem, freemem_size.  It also protects write accesses to
-	     convd->conv_tab.  It's not worth using a separate lock (such
-	     as domain->conversions_lock) for this purpose, because when
-	     modifying convd->conv_tab, we also need to lock freemem,
-	     freemem_size for most of the time.  */
-	  __libc_lock_define_initialized (static, lock)
 
 	  if (__builtin_expect (convd->conv_tab == NULL, 0))
 	    {
