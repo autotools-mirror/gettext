@@ -1331,7 +1331,7 @@ EOF
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --add-comments -o xg-gl-1.tmp xg-gl-1-widgets.glade || Exit 1
-grep -v 'POT-Creation-Date' < xg-gl-1.tmp > xg-gl-1.pot || Exit 1
+func_filter_POT_Creation_Date xg-gl-1.tmp xg-gl-1.pot
 
 cat <<EOF > xg-gl-1.ok
 # SOME DESCRIPTIVE TITLE.

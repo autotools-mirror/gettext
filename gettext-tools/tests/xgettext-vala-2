@@ -7,8 +7,7 @@
 
 ${XGETTEXT} --from-code=ISO-8859-1 --add-comments --no-location --no-wrap \
             -o xg-vala-2.tmp "$wabs_srcdir"/xg-vala-2.vala || Exit 1
-grep -v 'POT-Creation-Date' < xg-vala-2.tmp > xg-vala-2.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-vala-2.tmq > xg-vala-2.po || Exit 1
+func_filter_POT_Creation_Date xg-vala-2.tmp xg-vala-2.po
 
 cat <<\EOF > xg-vala-2.ok
 # SOME DESCRIPTIVE TITLE.

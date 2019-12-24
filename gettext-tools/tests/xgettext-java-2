@@ -57,9 +57,7 @@ EOF
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --from-code=ISO-8859-1 -c -o xg-j-2.tmp xg-j-2.java 2>/dev/null || Exit 1
-# Don't simplify this to "grep ... < xg-j-2.tmp", otherwise OpenBSD 4.0 grep
-# only outputs "Binary file (standard input) matches".
-cat xg-j-2.tmp | grep -v 'POT-Creation-Date' | LC_ALL=C tr -d '\r' > xg-j-2.pot
+func_filter_POT_Creation_Date xg-j-2.tmp xg-j-2.pot
 
 cat <<\EOF > xg-j-2.ok
 # SOME DESCRIPTIVE TITLE.

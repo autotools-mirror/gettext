@@ -33,8 +33,7 @@ iconv -f UTF-8 -t EUC-JP < xg-c-escape-1.in.c > xg-c-escape-1.c \
 
 ${XGETTEXT} --from-code=EUC-JP --add-comments --no-location --no-wrap \
             -o xg-c-escape-1.tmp xg-c-escape-1.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-escape-1.tmp > xg-c-escape-1.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-escape-1.tmq > xg-c-escape-1.po || Exit 1
+func_filter_POT_Creation_Date xg-c-escape-1.tmp xg-c-escape-1.po
 
 cat <<\EOF > xg-c-escape-1.ok
 # SOME DESCRIPTIVE TITLE.

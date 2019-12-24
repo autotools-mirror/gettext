@@ -7,8 +7,7 @@
 
 ${XGETTEXT} --from-code=ISO-8859-1 --add-comments --no-location --no-wrap \
             -o xg-c-comment-6.tmp "$wabs_srcdir"/xg-c-comment-6.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-comment-6.tmp > xg-c-comment-6.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-comment-6.tmq > xg-c-comment-6.po || Exit 1
+func_filter_POT_Creation_Date xg-c-comment-6.tmp xg-c-comment-6.po
 
 cat <<\EOF > xg-c-comment-6.ok
 # SOME DESCRIPTIVE TITLE.

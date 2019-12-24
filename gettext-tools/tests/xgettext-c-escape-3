@@ -7,8 +7,7 @@
 
 ${XGETTEXT} --no-location --no-wrap \
             -o xg-c-escape-3.tmp "$wabs_srcdir"/xg-c-escape-3.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-escape-3.tmp > xg-c-escape-3.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-escape-3.tmq > xg-c-escape-3.po || Exit 1
+func_filter_POT_Creation_Date xg-c-escape-3.tmp xg-c-escape-3.po
 
 cat <<\EOF > xg-c-escape-3.ok
 # SOME DESCRIPTIVE TITLE.

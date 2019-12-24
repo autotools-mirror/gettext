@@ -80,8 +80,7 @@ EOF
 
 ${XGETTEXT} --add-comments --no-location --no-wrap \
             -o xg-c-c++-1.tmp xg-c-c++-1.cc || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-c++-1.tmp > xg-c-c++-1.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-c++-1.tmq > xg-c-c++-1.po || Exit 1
+func_filter_POT_Creation_Date xg-c-c++-1.tmp xg-c-c++-1.po
 
 cat <<\EOF > xg-c-c++-1.ok
 # SOME DESCRIPTIVE TITLE.
@@ -135,8 +134,7 @@ EOF
 
 ${XGETTEXT} --add-comments --no-location --no-wrap \
             -o xg-c-c++-1c.tmp xg-c-c++-1.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-c++-1c.tmp > xg-c-c++-1c.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-c++-1c.tmq > xg-c-c++-1c.po || Exit 1
+func_filter_POT_Creation_Date xg-c-c++-1c.tmp xg-c-c++-1c.po
 
 cat <<\EOF > xg-c-c++-1c.ok
 # SOME DESCRIPTIVE TITLE.

@@ -54,7 +54,7 @@ Keywords=Keyword1;Keyword2;Key\;word3;
 EOF
 
 ${XGETTEXT} --add-comments -o xg-de-1.tmp xg.desktop || Exit 1
-grep -v 'POT-Creation-Date' < xg-de-1.tmp > xg-desktop.pot || Exit 1
+func_filter_POT_Creation_Date xg-de-1.tmp xg-desktop.pot
 
 cat <<\EOF > xg-desktop.ok
 # SOME DESCRIPTIVE TITLE.
