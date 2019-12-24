@@ -34,6 +34,7 @@
 #include <string.h>
 
 #include "flexmember.h"
+#include "setlocale_null.h"
 
 /* We cannot support uselocale() on platforms where the locale_t type is fake.
    See intl-thread-locale.m4 for details.  */
@@ -1150,6 +1151,10 @@ extern char * getlocalename_l(int, locale_t);
 # define LOCALE_NAME_MAX_LENGTH 85
 # endif
 #endif
+
+/* We want to use the system's setlocale() function here, not the gnulib
+   override.  */
+#undef setlocale
 
 
 #if HAVE_CFPREFERENCESCOPYAPPVALUE
@@ -2725,7 +2730,7 @@ get_locale_t_name (int category, locale_t locale)
   if (locale == LC_GLOBAL_LOCALE)
     {
       /* Query the global locale.  */
-      const char *name = setlocale (category, NULL);
+      const char *name = setlocale_null (category);
       if (name != NULL)
         return struniq (name);
       else
@@ -3187,6 +3192,8 @@ gl_locale_name_thread_unsafe (int category, const char *categoryname)
             return "";
           }
 #   endif
+#  elif defined _AIX && HAVE_NAMELESS_LOCALES
+        return get_locale_t_name (category, thread_locale);
 #  elif defined __CYGWIN__
         /* Cygwin < 2.6 lacks uselocale and thread-local locales altogether.
            Cygwin <= 2.6.1 lacks NL_LOCALE_NAME, requiring peeking inside
@@ -3241,20 +3248,15 @@ gl_locale_name_posix (int category, const char *categoryname)
 #if defined WINDOWS_NATIVE
   if (LC_MIN <= category && category <= LC_MAX)
     {
-      const char *locname = setlocale (category, NULL);
-      LCID lcid;
-
-      /* If CATEGORY is LC_ALL, the result might be a semi-colon
-        separated list of locales.  We need only one, so we take the
-        one corresponding to LC_CTYPE, as the most important for
-        character translations.  */
-      if (category == LC_ALL && strchr (locname, ';'))
-        locname = setlocale (LC_CTYPE, NULL);
+      const char *locname =
+        /* setlocale_null (category) is identical to setlocale (category, NULL)
+           on this platform.  */
+        setlocale (category, NULL);
 
       /* Convert locale name to LCID.  We don't want to use
          LocaleNameToLCID because (a) it is only available since Vista,
          and (b) it doesn't accept locale names returned by 'setlocale'.  */
-      lcid = get_lcid (locname);
+      LCID lcid = get_lcid (locname);
 
       if (lcid > 0)
         return gl_locale_name_from_win32_LCID (lcid);
@@ -3266,7 +3268,7 @@ gl_locale_name_posix (int category, const char *categoryname)
     /* Use the POSIX methods of looking to 'LC_ALL', 'LC_xxx', and 'LANG'.
        On some systems this can be done by the 'setlocale' function itself.  */
 #if defined HAVE_LC_MESSAGES && defined HAVE_LOCALE_NULL
-    locname = setlocale (category, NULL);
+    locname = setlocale_null (category);
 #else
     /* On other systems we ignore what setlocale reports and instead look at the
        environment variables directly.  This is necessary

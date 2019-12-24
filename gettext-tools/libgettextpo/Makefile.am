@@ -40,7 +40,7 @@ AM_CPPFLAGS = \
   -I../src -I$(top_srcdir)/src \
   -I../intl -I$(top_srcdir)/../gettext-runtime/intl
 
-DEFS = -DIN_LIBGETTEXTPO=1 @DEFS@
+DEFS = -DIN_LIBGETTEXTPO=1 -DOMIT_SETLOCALE_LOCK=1 @DEFS@
 
 # libgettextpo contains the public API for PO files.
 libgettextpo_la_SOURCES = \
