@@ -149,16 +149,24 @@ HEADERS_WITH_EXTERNS = \
 # '-export-symbols', but we don't use this option, because it may prevent us
 # from building some of the unit tests.
 $(srcdir)/libtextstyle.sym.in : $(HEADERS_WITH_EXTERNS)
-	for f in $(HEADERS_WITH_EXTERNS); do \
-	  if test -f $$f; then \
-	    cat $$f; \
+	if \
+	  for f in $(HEADERS_WITH_EXTERNS); do \
+	    if test -f $$f; then \
+	      cat $$f; \
+	    else \
+	      cat $(srcdir)/$$f; \
+	    fi; \
+	  done \
+	  | $(srcdir)/declared.sh > $@-t1; \
+	then \
+	  LC_ALL=C sort < $@-t1 | LC_ALL=C uniq > $@-t2 && mv $@-t2 $@; \
+	else \
+	  if test -f $@; then \
+	    echo "Continuing with existing libtextstyle.sym.in."; \
 	  else \
-	    cat $(srcdir)/$$f; \
+	    exit 1; \
 	  fi; \
-	done \
-	  | $(srcdir)/declared.sh | LC_ALL=C sort | LC_ALL=C uniq \
-	  > $@-t
-	mv $@-t $@
+	fi
 # We distribute it because declared.sh relies on GNU sed.
 # The GNU Coding Standards say in
 # <https://www.gnu.org/prep/standards/html_node/Makefile-Basics.html>:
@@ -168,7 +176,7 @@ $(srcdir)/libtextstyle.sym.in : $(HEADERS_WITH_EXTERNS)
 #    So Makefile rules to update them should put the updated files in the
 #    source directory."
 # Therefore we put this file in the source directory, not the build directory.
-MOSTLYCLEANFILES     += libtextstyle.sym.in-t
+MOSTLYCLEANFILES     += libtextstyle.sym.in-t1 libtextstyle.sym.in-t2
 MAINTAINERCLEANFILES += libtextstyle.sym.in
 EXTRA_DIST           += libtextstyle.sym.in declared.sh
 
