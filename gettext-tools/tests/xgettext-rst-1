@@ -16,9 +16,7 @@ EOF
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o xg-rst-1.tmp xg-rst-1.rst || Exit 1
-# Don't simplify this to "grep ... < xg-rst-1.tmp", otherwise OpenBSD 4.0 grep
-# only outputs "Binary file (standard input) matches".
-cat xg-rst-1.tmp | grep -v 'POT-Creation-Date' | LC_ALL=C tr -d '\r' > xg-rst-1.po
+func_filter_POT_Creation_Date xg-rst-1.tmp xg-rst-1.po
 
 cat <<\EOF > xg-rst-1.ok
 # SOME DESCRIPTIVE TITLE.

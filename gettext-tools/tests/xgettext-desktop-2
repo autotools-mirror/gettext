@@ -18,7 +18,7 @@ Keywords=Utility;
 EOF
 
 ${XGETTEXT} --add-comments -o xg-de-2.tmp hello.desktop || Exit 1
-grep -v 'POT-Creation-Date' < xg-de-2.tmp > hello-desktop.pot || Exit 1
+func_filter_POT_Creation_Date xg-de-2.tmp hello-desktop.pot
 
 cat <<\EOF > hello-desktop.ok
 # SOME DESCRIPTIVE TITLE.

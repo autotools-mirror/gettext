@@ -11,8 +11,7 @@ EOF
 
 ${XGETTEXT} --from-code=UTF-8 --no-location -kN_ \
             -o xg-c-escape-2.tmp xg-c-escape-2.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-escape-2.tmp > xg-c-escape-2.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-escape-2.tmq > xg-c-escape-2.po || Exit 1
+func_filter_POT_Creation_Date xg-c-escape-2.tmp xg-c-escape-2.po
 
 cat <<\EOF > xg-c-escape-2.ok
 # SOME DESCRIPTIVE TITLE.

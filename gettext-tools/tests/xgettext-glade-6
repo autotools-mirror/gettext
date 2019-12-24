@@ -33,7 +33,7 @@ EOF
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o xg-gl-6.tmp xg-gl-6.ui || Exit 1
-grep -v 'POT-Creation-Date' < xg-gl-6.tmp > xg-gl-6.pot || Exit 1
+func_filter_POT_Creation_Date xg-gl-6.tmp xg-gl-6.pot
 
 cat <<EOF > xg-gl-6.ok
 # SOME DESCRIPTIVE TITLE.
@@ -71,7 +71,7 @@ test $result = 0 || {
 
 # Check with --extract-all option.
 ${XGETTEXT} -a -o xg-gl-6.tmp xg-gl-6.ui || Exit 1
-grep -v 'POT-Creation-Date' < xg-gl-6.tmp > xg-gl-6.pot || Exit 1
+func_filter_POT_Creation_Date xg-gl-6.tmp xg-gl-6.pot
 
 # Must be ignored.
 ${DIFF} xg-gl-6.ok xg-gl-6.pot

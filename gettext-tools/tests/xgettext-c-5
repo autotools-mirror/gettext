@@ -11,8 +11,7 @@ EOF
 
 ${XGETTEXT} --from-code=ISO-8859-1 --no-location \
             -o xg-c-5.tmp xg-c-5.c || Exit 1
-grep -v 'POT-Creation-Date' < xg-c-5.tmp > xg-c-5.tmq || Exit 1
-LC_ALL=C tr -d '\r' < xg-c-5.tmq > xg-c-5.po || Exit 1
+func_filter_POT_Creation_Date xg-c-5.tmp xg-c-5.po
 
 cat <<\EOF > xg-c-5.ok
 # SOME DESCRIPTIVE TITLE.
