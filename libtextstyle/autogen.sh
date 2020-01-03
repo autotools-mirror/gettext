@@ -8,7 +8,7 @@
 # If not used from a released tarball, it also requires
 #   - the GNULIB_SRCDIR environment variable pointing to a gnulib checkout.
 
-# Copyright (C) 2003-2019 Free Software Foundation, Inc.
+# Copyright (C) 2003-2020 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -87,6 +87,7 @@ if test $skip_gnulib = false; then
       term-styled-ostream
     filename
     isatty
+    largefile
     vasprintf-posix
     xalloc
     xconcat-filename
