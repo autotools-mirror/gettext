@@ -146,6 +146,7 @@
 /gettext-tools/libgettextpo/iconv_open.c
 /gettext-tools/libgettextpo/iconveh.h
 /gettext-tools/libgettextpo/intprops.h
+/gettext-tools/libgettextpo/inttypes.in.h
 /gettext-tools/libgettextpo/itold.c
 /gettext-tools/libgettextpo/libunistring.valgrind
 /gettext-tools/libgettextpo/limits.in.h
@@ -781,6 +782,7 @@ core
 /gettext-tools/libgettextpo/fcntl.h
 /gettext-tools/libgettextpo/float.h
 /gettext-tools/libgettextpo/iconv.h
+/gettext-tools/libgettextpo/inttypes.h
 /gettext-tools/libgettextpo/limits.h
 /gettext-tools/libgettextpo/locale.h
 /gettext-tools/libgettextpo/signal.h

@@ -88,6 +88,7 @@
 /lib/iconv-ostream.oo.c
 /lib/iconv-ostream.oo.h
 /lib/intprops.h
+/lib/inttypes.in.h
 /lib/isatty.c
 /lib/isinf.c
 /lib/isnan.c
@@ -416,6 +417,8 @@ core
 /lib/glib.h-t
 /lib/glibconfig.h
 /lib/glibconfig.h-t
+/lib/inttypes.h
+/lib/inttypes.h-t
 /lib/libtextstyle.sym
 /lib/libtextstyle.sym-t
 /lib/libtextstyle.sym.in-t
