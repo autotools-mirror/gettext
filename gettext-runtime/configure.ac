@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-2010, 2012-2015, 2018-2019 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2010, 2012-2015, 2018-2020 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -110,21 +110,6 @@ gl_INIT
 AC_TYPE_SIZE_T
 AC_CHECK_FUNCS([setlocale])
 
-dnl Put some default definitions into config.h.
-AH_BOTTOM([
-/* On Windows, variables that may be in a DLL must be marked specially.  */
-#if (defined _MSC_VER && defined _DLL) && !defined IN_RELOCWRAPPER
-# define DLL_VARIABLE __declspec (dllimport)
-#else
-# define DLL_VARIABLE
-#endif
-
-/* Extra OS/2 (emx+gcc) defines.  */
-#if defined __EMX__ && !defined __KLIBC__
-# include "intl/os2compat.h"
-#endif
-])
-
 dnl Compilation on mingw and Cygwin needs special Makefile rules, because
 dnl 1. when we install a shared library, we must arrange to export
 dnl    auxiliary pointer variables for every exported variable,
@@ -153,6 +138,21 @@ if test "$USER_LABEL_PREFIX" = _; then
   INTL_EXPORTS_FLAGS="-DUSER_LABEL_PREFIX_UNDERSCORE $INTL_EXPORTS_FLAGS"
 fi
 AC_SUBST([INTL_EXPORTS_FLAGS])
+
+dnl Put some default definitions into config.h.
+AH_BOTTOM([
+/* On Windows, variables that may be in a DLL must be marked specially.  */
+#if (defined _MSC_VER && defined _DLL) && !defined IN_RELOCWRAPPER
+# define DLL_VARIABLE __declspec (dllimport)
+#else
+# define DLL_VARIABLE
+#endif
+
+/* Extra OS/2 (emx+gcc) defines.  */
+#if defined __EMX__ && !defined __KLIBC__
+# include "intl/os2compat.h"
+#endif
+])
 
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
