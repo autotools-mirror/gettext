@@ -27,6 +27,10 @@
    Note: On platforms where _nl_locale_name_posix invokes setlocale_null, this
    override *must* be called 'setlocale'.  */
 #undef setlocale
+/* Avoid a link error on MSVC.  */
+#if defined _WIN32 && !defined __CYGWIN__
+# define setlocale fake_setlocale
+#endif
 
 /* Return string representation of locale CATEGORY.  */
 static const char *

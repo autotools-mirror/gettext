@@ -36,6 +36,9 @@
    and Windows.  This test relies on the fake setlocale function in
    setlocale.c.  */
 #undef setlocale
+#if defined _WIN32 && !defined __CYGWIN__
+# define setlocale fake_setlocale
+#endif
 
 int
 main (int argc, char *argv[])
