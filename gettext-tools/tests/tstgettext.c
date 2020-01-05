@@ -41,6 +41,11 @@
 #undef _LIBINTL_H
 #include "libgnuintl.h"
 
+#if defined _WIN32 && !defined __CYGWIN__
+# undef setlocale
+# define setlocale fake_setlocale
+#endif
+
 #define _(str) gettext (str)
 
 /* If false, add newline after last string.  This makes only sense in
