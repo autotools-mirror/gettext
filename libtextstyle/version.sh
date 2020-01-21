@@ -1,3 +1,3 @@
 # Version number and release date.
-VERSION_NUMBER=0.20
-RELEASE_DATE=2019-05-08      # in "date +%Y-%m-%d" format
+VERSION_NUMBER=0.20.5
+RELEASE_DATE=2020-01-21      # in "date +%Y-%m-%d" format

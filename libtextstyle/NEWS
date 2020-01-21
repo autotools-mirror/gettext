@@ -1,4 +1,4 @@
-New in 0.21:
+New in 0.20.5:
 * Added support for emitting hyperlinks.
   New functions:
        TYPE                               FUNCTION
@@ -14,6 +14,7 @@ New in 0.21:
   functions ostream_printf, ostream_vprintf.
 * The example programs support the NO_COLOR environment variable,
   as specified in https://no-color.org/.
+* Fixed a number of bugs (by upgrading libcroco to version 0.6.13).
 
 New in 0.20:
 * New class: noop_styled_ostream_t.
