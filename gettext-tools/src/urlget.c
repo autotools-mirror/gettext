@@ -1,5 +1,5 @@
 /* Get the contents of an URL.
-   Copyright (C) 2001-2003, 2005-2010, 2012, 2017-2019 Free Software
+   Copyright (C) 2001-2003, 2005-2010, 2012, 2017-2020 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -330,15 +330,16 @@ fetch (const char *url, const char *file)
 
     if (wget_present)
       {
-        char *argv[8];
+        char *argv[10];
         int exitstatus;
 
         argv[0] = "wget";
-        argv[1] = "-q";
-        argv[2] = "-O"; argv[3] = "-";
-        argv[4] = "-T"; argv[5] = "30";
-        argv[6] = (char *) url;
-        argv[7] = NULL;
+        argv[1] = "--quiet";
+        argv[2] = "--output-document"; argv[3] = "-";
+        argv[4] = "--timeout"; argv[5] = "30";
+        argv[6] = "--user-agent"; argv[7] = "urlget";
+        argv[8] = (char *) url;
+        argv[9] = NULL;
         exitstatus = execute ("wget", "wget", argv, true, false, false, false,
                               true, false, NULL);
         if (exitstatus != 127)
@@ -374,13 +375,14 @@ fetch (const char *url, const char *file)
 
     if (lynx_present)
       {
-        char *argv[4];
+        char *argv[5];
         int exitstatus;
 
         argv[0] = "lynx";
-        argv[1] = "-source";
-        argv[2] = (char *) url;
-        argv[3] = NULL;
+        argv[1] = "-useragent=urlget";
+        argv[2] = "-source";
+        argv[3] = (char *) url;
+        argv[4] = NULL;
         exitstatus = execute ("lynx", "lynx", argv, true, false, false, false,
                               true, false, NULL);
         if (exitstatus != 127)
@@ -416,13 +418,14 @@ fetch (const char *url, const char *file)
 
     if (curl_present)
       {
-        char *argv[4];
+        char *argv[6];
         int exitstatus;
 
         argv[0] = "curl";
         argv[1] = "--silent";
-        argv[2] = (char *) url;
-        argv[3] = NULL;
+        argv[2] = "--user-agent"; argv[3] = "urlget";
+        argv[4] = (char *) url;
+        argv[5] = NULL;
         exitstatus = execute ("curl", "curl", argv, true, false, false, false,
                               true, false, NULL);
         if (exitstatus != 127)
