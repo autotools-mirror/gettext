@@ -1,5 +1,5 @@
 /* Implementation of the internal dcigettext function.
-   Copyright (C) 1995-2019 Free Software Foundation, Inc.
+   Copyright (C) 1995-2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -203,26 +203,12 @@ static void *mempcpy (void *dest, const void *src, size_t n);
 # define PATH_MAX _POSIX_PATH_MAX
 #endif
 
-/* Pathname support.
-   ISSLASH(C)           tests whether C is a directory separator character.
-   IS_ABSOLUTE_PATH(P)  tests whether P is an absolute path.  If it is not,
-                        it may be concatenated to a directory pathname.
-   IS_PATH_WITH_DIR(P)  tests whether P contains a directory specification.
- */
-#if defined _WIN32 || defined __CYGWIN__ || defined __EMX__ || defined __DJGPP__
-  /* Win32, Cygwin, OS/2, DOS */
-# define ISSLASH(C) ((C) == '/' || (C) == '\\')
-# define HAS_DEVICE(P) \
-    ((((P)[0] >= 'A' && (P)[0] <= 'Z') || ((P)[0] >= 'a' && (P)[0] <= 'z')) \
-     && (P)[1] == ':')
-# define IS_ABSOLUTE_PATH(P) (ISSLASH ((P)[0]) || HAS_DEVICE (P))
-# define IS_PATH_WITH_DIR(P) \
-    (strchr (P, '/') != NULL || strchr (P, '\\') != NULL || HAS_DEVICE (P))
+#ifdef _LIBC
+# define IS_ABSOLUTE_FILE_NAME(P) ((P)[0] == '/')
+# define IS_RELATIVE_FILE_NAME(P) (! IS_ABSOLUTE_FILE_NAME (P))
+# define IS_FILE_NAME_WITH_DIR(P) (strchr ((P), '/') != NULL)
 #else
-  /* Unix */
-# define ISSLASH(C) ((C) == '/')
-# define IS_ABSOLUTE_PATH(P) ISSLASH ((P)[0])
-# define IS_PATH_WITH_DIR(P) (strchr (P, '/') != NULL)
+# include "filename.h"
 #endif
 
 /* Whether to support different locales in different threads.  */
@@ -620,7 +606,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
     {
       dirname = binding->dirname;
 #endif
-      if (!IS_ABSOLUTE_PATH (dirname))
+      if (IS_RELATIVE_FILE_NAME (dirname))
 	{
 	  /* We have a relative path.  Make it absolute now.  */
 	  size_t dirname_len = strlen (dirname) + 1;
@@ -706,7 +692,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 
 	  /* When this is a SUID binary we must not allow accessing files
 	     outside the dedicated directories.  */
-	  if (ENABLE_SECURE && IS_PATH_WITH_DIR (single_locale))
+	  if (ENABLE_SECURE && IS_FILE_NAME_WITH_DIR (single_locale))
 	    /* Ingore this entry.  */
 	    continue;
 	}

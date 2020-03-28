@@ -1,5 +1,5 @@
 /* XML resource locating rules
-   Copyright (C) 2015 Free Software Foundation, Inc.
+   Copyright (C) 2015, 2020 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -194,18 +194,11 @@ locating_rule_list_locate (struct locating_rule_list_ty *rules,
                            const char *filename,
                            const char *name)
 {
-  const char *target = NULL;
   size_t i;
 
   for (i = 0; i < rules->nitems; i++)
     {
-      if (IS_ABSOLUTE_PATH (filename))
-        {
-          target = locating_rule_match (&rules->items[i], filename, name);
-          if (target != NULL)
-            return target;
-        }
-      else
+      if (IS_RELATIVE_FILE_NAME (filename))
         {
           int j;
 
@@ -213,6 +206,7 @@ locating_rule_list_locate (struct locating_rule_list_ty *rules,
             {
               const char *dir = dir_list_nth (j);
               char *new_filename;
+              const char *target;
 
               if (dir == NULL)
                 break;
@@ -224,6 +218,14 @@ locating_rule_list_locate (struct locating_rule_list_ty *rules,
               if (target != NULL)
                 return target;
             }
+        }
+      else
+        {
+          const char *target =
+            locating_rule_match (&rules->items[i], filename, name);
+
+          if (target != NULL)
+            return target;
         }
     }
 

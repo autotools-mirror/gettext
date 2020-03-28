@@ -1,4 +1,4 @@
-/* Copyright (C) 1995-2016, 2018 Free Software Foundation, Inc.
+/* Copyright (C) 1995-2016, 2018, 2020 Free Software Foundation, Inc.
    Contributed by Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -60,22 +60,11 @@ static char *stpcpy (char *dest, const char *src);
 # endif
 #endif
 
-/* Pathname support.
-   ISSLASH(C)           tests whether C is a directory separator character.
-   IS_ABSOLUTE_PATH(P)  tests whether P is an absolute path.  If it is not,
-                        it may be concatenated to a directory pathname.
- */
-#if defined _WIN32 || defined __CYGWIN__ || defined __EMX__ || defined __DJGPP__
-  /* Win32, Cygwin, OS/2, DOS */
-# define ISSLASH(C) ((C) == '/' || (C) == '\\')
-# define HAS_DEVICE(P) \
-    ((((P)[0] >= 'A' && (P)[0] <= 'Z') || ((P)[0] >= 'a' && (P)[0] <= 'z')) \
-     && (P)[1] == ':')
-# define IS_ABSOLUTE_PATH(P) (ISSLASH ((P)[0]) || HAS_DEVICE (P))
+#ifdef _LIBC
+# define IS_ABSOLUTE_FILE_NAME(P) ((P)[0] == '/')
+# define IS_RELATIVE_FILE_NAME(P) (! IS_ABSOLUTE_FILE_NAME (P))
 #else
-  /* Unix */
-# define ISSLASH(C) ((C) == '/')
-# define IS_ABSOLUTE_PATH(P) ISSLASH ((P)[0])
+# include "filename.h"
 #endif
 
 /* Define function which are usually not available.  */
@@ -183,7 +172,7 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
 
   /* If LANGUAGE contains an absolute directory specification, we ignore
      DIRLIST.  */
-  if (IS_ABSOLUTE_PATH (language))
+  if (!IS_RELATIVE_FILE_NAME (language))
     dirlist_len = 0;
 
   /* Allocate room for the full file name.  */

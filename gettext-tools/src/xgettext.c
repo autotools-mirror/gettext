@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-1998, 2000-2016, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2016, 2018-2020 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -746,11 +746,11 @@ xgettext cannot work without keywords to look for"));
      the special name "-" we write to stdout.  */
   if (output_file)
     {
-      if (IS_ABSOLUTE_PATH (output_file) || strcmp (output_file, "-") == 0)
-        file_name = xstrdup (output_file);
-      else
+      if (IS_RELATIVE_FILE_NAME (output_file) && strcmp (output_file, "-") != 0)
         /* Please do NOT add a .po suffix! */
         file_name = xconcatenated_filename (output_dir, output_file, NULL);
+      else
+        file_name = xstrdup (output_file);
     }
   else if (strcmp (default_domain, "-") == 0)
     file_name = "-";
@@ -1700,16 +1700,7 @@ xgettext_open (const char *fn,
       logical_file_name = xstrdup (new_name);
       fp = stdin;
     }
-  else if (IS_ABSOLUTE_PATH (fn))
-    {
-      new_name = xstrdup (fn);
-      fp = fopen (fn, "r");
-      if (fp == NULL)
-        error (EXIT_FAILURE, errno,
-               _("error while opening \"%s\" for reading"), fn);
-      logical_file_name = xstrdup (new_name);
-    }
-  else
+  else if (IS_RELATIVE_FILE_NAME (fn))
     {
       int j;
 
@@ -1739,6 +1730,15 @@ xgettext_open (const char *fn,
          directory search path, and LOGICAL_FILE_NAME is is set to the
          file name which was searched for.  */
       logical_file_name = xstrdup (fn);
+    }
+  else
+    {
+      new_name = xstrdup (fn);
+      fp = fopen (fn, "r");
+      if (fp == NULL)
+        error (EXIT_FAILURE, errno,
+               _("error while opening \"%s\" for reading"), fn);
+      logical_file_name = xstrdup (new_name);
     }
 
   *logical_file_name_p = logical_file_name;

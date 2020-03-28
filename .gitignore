@@ -148,6 +148,8 @@
 /gettext-tools/libgettextpo/intprops.h
 /gettext-tools/libgettextpo/inttypes.in.h
 /gettext-tools/libgettextpo/itold.c
+/gettext-tools/libgettextpo/lc-charset-dispatch.c
+/gettext-tools/libgettextpo/lc-charset-dispatch.h
 /gettext-tools/libgettextpo/libunistring.valgrind
 /gettext-tools/libgettextpo/limits.in.h
 /gettext-tools/libgettextpo/localcharset.c
@@ -159,9 +161,13 @@
 /gettext-tools/libgettextpo/markup.c
 /gettext-tools/libgettextpo/markup.h
 /gettext-tools/libgettextpo/mbrtowc.c
+/gettext-tools/libgettextpo/mbrtowc-impl.h
+/gettext-tools/libgettextpo/mbrtowc-impl-utf8.h
 /gettext-tools/libgettextpo/mbsinit.c
 /gettext-tools/libgettextpo/mbswidth.c
 /gettext-tools/libgettextpo/mbswidth.h
+/gettext-tools/libgettextpo/mbtowc-lock.c
+/gettext-tools/libgettextpo/mbtowc-lock.h
 /gettext-tools/libgettextpo/memchr.c
 /gettext-tools/libgettextpo/memchr.valgrind
 /gettext-tools/libgettextpo/minmax.h
