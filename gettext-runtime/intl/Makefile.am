@@ -1,6 +1,6 @@
 ## Makefile for the gettext-runtime/intl and gettext-tools/intl subdirectories
 ## of GNU gettext.
-## Copyright (C) 1995-1998, 2000-2007, 2009-2019 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2007, 2009-2020 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -93,6 +93,7 @@ EXTRA_DIST += \
   lock.h windows-mutex.h windows-rwlock.h windows-recmutex.h windows-once.h windows-initguard.h \
   relocatable.h \
   arg-nonnull.h \
+  filename.h \
   flexmember.h \
   localename-table.in.h \
   setlocale_null.h \
@@ -323,9 +324,9 @@ hash-string.lo:      ../config.h $(srcdir)/hash-string.h
 loadmsgcat.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/hash-string.h $(srcdir)/plural-exp.h
 localealias.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/relocatable.h
 textdomain.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-l10nflist.lo:        ../config.h $(srcdir)/loadinfo.h
+l10nflist.lo:        ../config.h $(srcdir)/loadinfo.h $(srcdir)/filename.h
 explodename.lo:      ../config.h $(srcdir)/loadinfo.h
-dcigettext.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/localcharset.h $(srcdir)/plural-exp.h $(srcdir)/hash-string.h $(srcdir)/tsearch.h $(srcdir)/tsearch.c $(srcdir)/eval-plural.h
+dcigettext.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/localcharset.h $(srcdir)/plural-exp.h $(srcdir)/hash-string.h $(srcdir)/tsearch.h $(srcdir)/tsearch.c $(srcdir)/eval-plural.h $(srcdir)/filename.h
 dcngettext.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
 dngettext.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
 ngettext.lo:         ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h

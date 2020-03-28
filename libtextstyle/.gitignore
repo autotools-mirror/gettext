@@ -58,6 +58,7 @@
 /lib/fpucw.h
 /lib/frexp.c
 /lib/frexpl.c
+/lib/fstat.c
 /lib/fsync.c
 /lib/full-write.c
 /lib/full-write.h
@@ -106,6 +107,8 @@
 /lib/localtime-buffer.h
 /lib/log10.c
 /lib/malloc.c
+/lib/malloca.c
+/lib/malloca.h
 /lib/math.c
 /lib/math.in.h
 /lib/memchr.c
@@ -124,6 +127,7 @@
 /lib/obstack.h
 /lib/ostream.oo.c
 /lib/ostream.oo.h
+/lib/pathmax.h
 /lib/printf-args.c
 /lib/printf-args.h
 /lib/printf-frexp.c
@@ -151,6 +155,11 @@
 /lib/snprintf.c
 /lib/sockets.c
 /lib/sockets.h
+/lib/stat.c
+/lib/stat-time.c
+/lib/stat-time.h
+/lib/stat-w32.c
+/lib/stat-w32.h
 /lib/stdalign.in.h
 /lib/stdarg.in.h
 /lib/stdbool.in.h
@@ -169,6 +178,7 @@
 /lib/sys-limits.h
 /lib/sys_socket.c
 /lib/sys_socket.in.h
+/lib/sys_stat.in.h
 /lib/sys_time.in.h
 /lib/sys_types.in.h
 /lib/sys_uio.in.h
@@ -494,6 +504,8 @@ core
 /lib/string.h-t
 /lib/sys/socket.h
 /lib/sys/socket.h-t
+/lib/sys/stat.h
+/lib/sys/stat.h-t
 /lib/sys/time.h
 /lib/sys/time.h-t
 /lib/sys/types.h

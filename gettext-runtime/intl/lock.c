@@ -1,5 +1,5 @@
 /* Locking in multithreaded situations.
-   Copyright (C) 2005-2008, 2012, 2017, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2005-2008, 2012, 2017, 2019-2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -717,6 +717,26 @@ glthread_once_singlethreaded (pthread_once_t *once_control)
   else
     return 0;
 }
+
+# if !(PTHREAD_IN_USE_DETECTION_HARD || USE_POSIX_THREADS_WEAK)
+
+int
+glthread_once_multithreaded (pthread_once_t *once_control,
+                             void (*init_function) (void))
+{
+  int err = pthread_once (once_control, init_function);
+  if (err == ENOSYS)
+    {
+      /* This happens on FreeBSD 11: The pthread_once function in libc returns
+         ENOSYS.  */
+      if (glthread_once_singlethreaded (once_control))
+        init_function ();
+      return 0;
+    }
+  return err;
+}
+
+# endif
 
 #endif
 

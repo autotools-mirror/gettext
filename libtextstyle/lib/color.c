@@ -1,5 +1,5 @@
 /* Color and styling handling.
-   Copyright (C) 2006-2008, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -388,7 +388,7 @@ print_color_test ()
 static const char *
 style_file_lookup (const char *file_name, const char *stylesdir_after_install)
 {
-  if (!IS_PATH_WITH_DIR (file_name))
+  if (!IS_FILE_NAME_WITH_DIR (file_name))
     {
       /* It's a file name without a directory specification.
          If it does not exist in the current directory...  */
