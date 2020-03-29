@@ -10293,7 +10293,7 @@ default-jdk
 "abc"
 
 @item gettext shorthand
-_("abc")
+i18n("abc")
 
 @item gettext/ngettext functions
 @code{GettextResource.gettext}, @code{GettextResource.ngettext},
@@ -10315,7 +10315,7 @@ automatic
 ---, uses a Java specific message catalog format
 
 @item Extractor
-@code{xgettext -k_}
+@code{xgettext -ki18n}
 
 @item Formatting with positions
 @code{MessageFormat.format "@{1,number@} @{0,number@}"}
@@ -10406,7 +10406,7 @@ holding the @code{ResourceBundle} instance and the shorthand:
 @smallexample
 private static ResourceBundle myResources =
   ResourceBundle.getBundle("domain-name");
-public static String _(String s) @{
+public static String i18n(String s) @{
   return myResources.getString(s);
 @}
 @end smallexample
@@ -10414,14 +10414,14 @@ public static String _(String s) @{
 All classes containing internationalized strings then contain
 
 @smallexample
-import static Util._;
+import static Util.i18n;
 @end smallexample
 
 @noindent
 and the shorthand is used like this:
 
 @smallexample
-System.out.println(_("Operation completed."));
+System.out.println(i18n("Operation completed."));
 @end smallexample
 
 @item
@@ -10437,14 +10437,14 @@ All classes containing internationalized strings then contain
 
 @smallexample
 private static ResourceBundle res = Util.myResources;
-private static String _(String s) @{ return res.getString(s); @}
+private static String i18n(String s) @{ return res.getString(s); @}
 @end smallexample
 
 @noindent
 and the shorthand is used like this:
 
 @smallexample
-System.out.println(_("Operation completed."));
+System.out.println(i18n("Operation completed."));
 @end smallexample
 
 @item
@@ -10455,7 +10455,7 @@ definition of the resource bundle and of the shorthand:
 public class S @{
   public static ResourceBundle myResources =
     ResourceBundle.getBundle("domain-name");
-  public static String _(String s) @{
+  public static String i18n(String s) @{
     return myResources.getString(s);
   @}
 @}
@@ -10465,7 +10465,7 @@ public class S @{
 and the shorthand is used like this:
 
 @smallexample
-System.out.println(S._("Operation completed."));
+System.out.println(S.i18n("Operation completed."));
 @end smallexample
 @end itemize
 
