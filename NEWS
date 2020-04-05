@@ -1,4 +1,7 @@
-Version 0.21 - December 2019
+Version 0.20.2 - April 2020
+
+* Improvements for maintainers:
+  - A dependency bug in po/Makefile.in.in has been fixed.
 
 * Programming languages support:
   - Shell:
