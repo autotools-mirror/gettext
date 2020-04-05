@@ -107,7 +107,8 @@ SUFFIXES = .po .gmo .sed .sin .nop .po-create .po-update
 # the .pot file. This eliminates the need to update the .po files when the
 # .pot file has changed, which would be troublesome if the .po files are put
 # under version control.
-.po.gmo: $(srcdir)/$(DOMAIN).pot
+$(GMOFILES): $(srcdir)/$(DOMAIN).pot
+.po.gmo:
 	@lang=`echo $* | sed -e 's,.*/,,'`; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
 	echo "$${cdcmd}rm -f $${lang}.gmo && $(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $${lang}.po $(DOMAIN).pot && $(GMSGFMT) -c --statistics --verbose -o $${lang}.gmo $${lang}.1po && rm -f $${lang}.1po"; \

@@ -1,5 +1,8 @@
 Version 0.20.2 - April 2020
 
+* Improvements for maintainers:
+  - A dependency bug in po/Makefile.in.in has been fixed.
+
 * Programming languages support:
   - Shell:
     o The programs 'gettext', 'ngettext', when invoked with option -e, now
