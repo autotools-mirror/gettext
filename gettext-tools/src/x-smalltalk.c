@@ -1,5 +1,5 @@
 /* xgettext Smalltalk backend.
-   Copyright (C) 2002-2003, 2005-2009, 2011, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009, 2011, 2018-2020 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -516,6 +516,9 @@ extract_smalltalk (FILE *f,
 
   last_comment_line = -1;
   last_non_comment_line = -1;
+
+  phase2_pushback_length = 0;
+  phase3_pushback_length = 0;
 
   /* Eat tokens until eof is seen.  */
   {

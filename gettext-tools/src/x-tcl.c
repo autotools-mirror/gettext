@@ -1,5 +1,5 @@
 /* xgettext Tcl backend.
-   Copyright (C) 2002-2003, 2005-2009, 2013, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009, 2013, 2018-2020 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -985,6 +985,9 @@ extract_tcl (FILE *f,
   real_file_name = real_filename;
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
+
+  phase1_pushback_length = 0;
+  phase2_pushback_length = 0;
 
   /* Initially, no brace is open.  */
   brace_depth = 1000000;

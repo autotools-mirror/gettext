@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2010, 2013, 2016, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2002-2010, 2013, 2016, 2018-2020 Free Software Foundation, Inc.
 
    This file was written by Guido Flohr <guido@imperia.net>, 2002-2010.
 
@@ -218,15 +218,14 @@ static FILE *fp;
 
 /* The current line buffer.  */
 static char *linebuf;
+/* The size of the input buffer.  */
+static size_t linebuf_size;
 
 /* The size of the current line.  */
 static int linesize;
 
 /* The position in the current line.  */
 static int linepos;
-
-/* The size of the input buffer.  */
-static size_t linebuf_size;
 
 /* Number of lines eaten for here documents.  */
 static int eaten_here;
@@ -3553,23 +3552,24 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   logical_file_name = xstrdup (logical_filename);
   line_number = 0;
 
-  last_comment_line = -1;
-  last_non_comment_line = -1;
-
-  flag_context_list_table = flag_table;
-
-  init_keywords ();
-
-  token_stack.items = NULL;
-  token_stack.nitems = 0;
-  token_stack.nitems_max = 0;
   linesize = 0;
   linepos = 0;
   eaten_here = 0;
   end_of_file = false;
 
+  last_comment_line = -1;
+  last_non_comment_line = -1;
+
+  flag_context_list_table = flag_table;
+
   /* Safe assumption.  */
   last_token_type = token_type_semicolon;
+
+  token_stack.items = NULL;
+  token_stack.nitems = 0;
+  token_stack.nitems_max = 0;
+
+  init_keywords ();
 
   /* Eat tokens until eof is seen.  When extract_balanced returns
      due to an unbalanced closing brace, just restart it.  */

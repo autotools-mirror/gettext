@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002-2003, 2005-2011, 2013-2014, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2011, 2013-2014, 2018-2020 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -695,7 +695,7 @@ try_to_extract_coding (const char *comment)
 
 /* Tracking whether the current line is a continuation line or contains a
    non-blank character.  */
-static bool continuation_or_nonblank_line = false;
+static bool continuation_or_nonblank_line;
 
 
 /* Phase 3: Outside strings, replace backslash-newline with nothing and a
@@ -1693,7 +1693,11 @@ extract_python (FILE *f,
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
 
+  phase1_pushback_length = 0;
+
   lexical_context = lc_outside;
+
+  phase2_pushback_length = 0;
 
   last_comment_line = -1;
   last_non_comment_line = -1;
@@ -1715,6 +1719,8 @@ extract_python (FILE *f,
   continuation_or_nonblank_line = false;
 
   open_pbb = 0;
+
+  phase5_pushback_length = 0;
 
   flag_context_list_table = flag_table;
 

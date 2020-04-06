@@ -1,5 +1,5 @@
 /* xgettext C# backend.
-   Copyright (C) 2003-2009, 2011, 2014, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2003-2009, 2011, 2014, 2018-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -2056,11 +2056,22 @@ extract_csharp (FILE *f,
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
 
+  phase1_pushback_length = 0;
+
   lexical_context = lc_outside;
 
+  phase2_pushback_length = 0;
+
   logical_line_number = 1;
+
+  phase3_pushback_length = 0;
+
   last_comment_line = -1;
   last_non_comment_line = -1;
+
+  phase5_pushback_length = 0;
+  phase6_pushback_length = 0;
+  phase7_pushback_length = 0;
 
   flag_context_list_table = flag_table;
 

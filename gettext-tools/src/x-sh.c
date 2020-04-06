@@ -1,5 +1,5 @@
 /* xgettext sh backend.
-   Copyright (C) 2003, 2005-2009, 2014, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2009, 2014, 2018-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -1516,6 +1516,8 @@ extract_sh (FILE *f,
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
 
+  phase1_pushback_length = 0;
+
   last_comment_line = -1;
   last_non_comment_line = -1;
 
@@ -1523,6 +1525,8 @@ extract_sh (FILE *f,
   open_doublequotes_mask = 0;
   open_doublequote = false;
   open_singlequote = false;
+
+  phase2_pushback_length = 0;
 
   flag_context_list_table = flag_table;
 

@@ -1,5 +1,5 @@
 /* xgettext YCP backend.
-   Copyright (C) 2001-2003, 2005-2009, 2011, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009, 2011, 2018-2020 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -804,6 +804,10 @@ extract_ycp (FILE *f,
 
   last_comment_line = -1;
   last_non_comment_line = -1;
+
+  phase2_pushback_length = 0;
+  phase5_pushback_length = 0;
+  phase8_pushback_length = 0;
 
   flag_context_list_table = flag_table;
 

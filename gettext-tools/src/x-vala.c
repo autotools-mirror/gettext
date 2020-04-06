@@ -1,5 +1,5 @@
 /* xgettext Vala backend.
-   Copyright (C) 2013-2014, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2013-2014, 2018-2020 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2013.
 
@@ -591,7 +591,7 @@ static token_ty phase3_pushback[2];
 static int phase3_pushback_length;
 
 
-static token_type_ty last_token_type = token_type_other;
+static token_type_ty last_token_type;
 
 static void
 phase3_scan_regex ()
@@ -1392,8 +1392,13 @@ extract_vala (FILE *f,
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
 
+  phase1_pushback_length = 0;
+
   last_comment_line = -1;
   last_non_comment_line = -1;
+
+  phase3_pushback_length = 0;
+  last_token_type = token_type_other;
 
   flag_context_list_table = flag_table;
 

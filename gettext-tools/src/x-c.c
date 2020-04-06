@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-1998, 2000-2009, 2012-2015, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2009, 2012-2015, 2018-2020 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -2344,9 +2344,16 @@ extract_whole_file (FILE *f,
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
 
-  newline_count = 0;
+  phase1_pushback_length = 0;
+  phase2_pushback_length = 0;
+  phase3_pushback_length = 0;
+
   last_comment_line = -1;
   last_non_comment_line = -1;
+  newline_count = 0;
+
+  phase5_pushback_length = 0;
+  phase6_pushback_length = 0;
 
   flag_context_list_table = flag_table;
 

@@ -1,5 +1,5 @@
 /* xgettext JavaScript backend.
-   Copyright (C) 2002-2003, 2005-2009, 2013-2014, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009, 2013-2014, 2018-2020 Free Software Foundation, Inc.
 
    This file was written by Andreas Stricker <andy@knitter.ch>, 2010
    It's based on x-python from Bruno Haible.
@@ -512,7 +512,7 @@ static iconv_t xgettext_current_file_source_iconv;
 
 /* Tracking whether the current line is a continuation line or contains a
    non-blank character.  */
-static bool continuation_or_nonblank_line = false;
+static bool continuation_or_nonblank_line;
 
 
 /* Phase 3: Outside strings, replace backslash-newline with nothing and a
@@ -892,7 +892,7 @@ phase7_getuc (int quote_char)
 static token_ty phase5_pushback[2];
 static int phase5_pushback_length;
 
-static token_type_ty last_token_type = token_type_other;
+static token_type_ty last_token_type;
 
 static void
 phase5_scan_regexp (void)
@@ -1713,15 +1713,14 @@ extract_javascript (FILE *f,
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
 
+  phase1_pushback_length = 0;
+
   lexical_context = lc_outside;
+
+  phase2_pushback_length = 0;
 
   last_comment_line = -1;
   last_non_comment_line = -1;
-
-  template_literal_depth = 0;
-  new_brace_depth_level ();
-  xml_element_depth = 0;
-  inside_embedded_js_in_xml = false;
 
   xgettext_current_file_source_encoding =
     (xgettext_global_source_encoding != NULL ? xgettext_global_source_encoding :
@@ -1736,6 +1735,14 @@ extract_javascript (FILE *f,
 #endif
 
   continuation_or_nonblank_line = false;
+
+  phase5_pushback_length = 0;
+  last_token_type = token_type_other;
+
+  template_literal_depth = 0;
+  new_brace_depth_level ();
+  xml_element_depth = 0;
+  inside_embedded_js_in_xml = false;
 
   flag_context_list_table = flag_table;
 

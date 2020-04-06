@@ -1,5 +1,5 @@
 /* xgettext Lua backend.
-   Copyright (C) 2012-2013, 2016, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2012-2013, 2016, 2018-2020 Free Software Foundation, Inc.
 
    This file was written by Ľubomír Remák <lubomirr@lubomirr.eu>, 2012.
 
@@ -138,7 +138,7 @@ static FILE *fp;
 static unsigned char phase1_pushback[2];
 static int phase1_pushback_length;
 
-static int first_character = 1;
+static bool first_character;
 
 static int
 phase1_getc ()
@@ -153,7 +153,7 @@ phase1_getc ()
 
       if (first_character)
         {
-          first_character = 0;
+          first_character = false;
 
           /* Ignore shebang line.  No pushback required in this case.  */
           if (c == '#')
@@ -1213,8 +1213,16 @@ extract_lua (FILE *f,
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
 
+  phase1_pushback_length = 0;
+  first_character = true;
+
   last_comment_line = -1;
   last_non_comment_line = -1;
+
+  phase3_pushback_length = 0;
+
+  phase4_last = token_type_eof;
+  phase4_pushback_length = 0;
 
   flag_context_list_table = flag_table;
 
