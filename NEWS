@@ -20,6 +20,8 @@ Version 0.20.2 - April 2020
     o xgettext now recognizes format strings in the Formatter syntax.  They
       are marked as 'java-printf-format' in POT and PO files.
     o xgettext now recognizes text blocks as string literals.
+  - JavaScript:
+    xgettext parses JSX expressions more reliably.
   - Desktop Entry:
     The value of the 'Icon' property is no longer extracted into the POT file
     by xgettext.  The documentation explains how to localize icons.

@@ -1,7 +1,7 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test of JavaScript E4X support.
+# Test of JavaScript JSX support.
 
 cat <<\EOF > xg-js-6.js
 class Foo extends React.Component {
@@ -44,6 +44,10 @@ var x8 = <x8><x9>{_("<x8>{Expected translation string #7}</x8>")}</x9></x8>
 var x9 = <x10 attr='{_("Unexpected translation string #6")}'><x11>data</x11></x10>;
 var s9 = _("Expected translation string #8");
 </foo>;
+function foo() {
+  return <a>{ 'b' }</a>;
+}
+var s10 = _("Expected translation string #9");
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -95,6 +99,9 @@ msgid "<x8>{Expected translation string #7}</x8>"
 msgstr ""
 
 msgid "Expected translation string #8"
+msgstr ""
+
+msgid "Expected translation string #9"
 msgstr ""
 EOF
 
