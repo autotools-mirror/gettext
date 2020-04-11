@@ -431,7 +431,8 @@ core
 /lib/inttypes.h-t
 /lib/libtextstyle.sym
 /lib/libtextstyle.sym-t
-/lib/libtextstyle.sym.in-t
+/lib/libtextstyle.sym.in-t1
+/lib/libtextstyle.sym.in-t2
 /libxml/DOCBparser.h
 /libxml/HTMLparser.h
 /libxml/HTMLtree.h
