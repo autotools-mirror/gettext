@@ -1,5 +1,5 @@
 /* Handle list of needed message catalogs
-   Copyright (C) 1995-2019 Free Software Foundation, Inc.
+   Copyright (C) 1995-2020 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.org>, 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -55,8 +55,8 @@ gl_rwlock_define_initialized (static, lock);
 
 
 /* Return a data structure describing the message catalog described by
-   the DOMAINNAME and CATEGORY parameters with respect to the currently
-   established bindings.  */
+   the DIRNAME, LOCALE, and DOMAINNAME parameters with respect to the
+   currently established bindings.  */
 struct loaded_l10nfile *
 internal_function
 _nl_find_domain (const char *dirname, char *locale,

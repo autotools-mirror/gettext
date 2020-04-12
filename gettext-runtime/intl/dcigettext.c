@@ -1500,8 +1500,9 @@ category_to_name (int category)
 }
 #endif
 
-/* Guess value of current locale from value of the environment variables
-   or system-dependent defaults.  */
+/* Lookup or infer the value of specified category in the current locale.
+   This uses values of the environment variables LC_ALL, LC_*, LANG, LANGUAGE,
+   and/or system-dependent defaults.  */
 static const char *
 internal_function
 #ifdef IN_LIBGLOCALE

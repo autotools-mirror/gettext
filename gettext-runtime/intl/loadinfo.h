@@ -1,4 +1,4 @@
-/* Copyright (C) 1996-2016, 2018 Free Software Foundation, Inc.
+/* Copyright (C) 1996-2020 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
    Contributed by Ulrich Drepper <drepper@cygnus.com>, 1996.
 
@@ -84,6 +84,8 @@ extern const char *_nl_normalize_codeset (const char *codeset,
    files of the same kind, sorted in decreasing order of ->filename.
    DIRLIST and DIRLIST_LEN are an argz list of directories in which to
    look, containing at least one directory (i.e. DIRLIST_LEN > 0).
+   Outside glibc, only one directory is used, i.e.
+   DIRLIST_LEN == strlen (DIRLIST) + 1.
    MASK, LANGUAGE, TERRITORY, CODESET, NORMALIZED_CODESET, MODIFIER
    are the pieces of the locale name, as produced by _nl_explode_name().
    FILENAME is the filename suffix.

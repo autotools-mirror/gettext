@@ -106,6 +106,106 @@ EXTRA_DIST += \
   intl-exports.c os2compat.h os2compat.c \
   libgnuintl.in.h
 
+# Overview of the code
+# --------------------
+#
+# The following files implement public API, declared in libgnuintl.in.h:
+#   version.c:          libintl_version
+#   gettext.c:          libintl_gettext
+#   dgettext.c:         libintl_dgettext
+#   dcgettext.c:        libintl_dcgettext
+#   ngettext.c:         libintl_ngettext
+#   dngettext.c:        libintl_dngettext
+#   dcngettext.c:       libintl_dcngettext
+#   textdomain.c:       libintl_textdomain
+#   bindtextdom.c:      libintl_bindtextdomain
+#                       libintl_bind_textdomain_codeset
+#   printf.c:           libintl_fprintf
+#                       libintl_vfprintf
+#                       libintl_printf
+#                       libintl_vprintf
+#                       libintl_sprintf
+#                       libintl_vsprintf
+#                       libintl_snprintf
+#                       libintl_vsnprintf
+#                       libintl_asprintf
+#                       libintl_vasprintf
+#                       libintl_fwprintf
+#                       libintl_vfwprintf
+#                       libintl_wprintf
+#                       libintl_vwprintf
+#                       libintl_swprintf
+#                       libintl_vswprintf
+#   localename.c:       libintl_newlocale
+#                       libintl_duplocale
+#                       libintl_freelocale
+#   setlocale.c:        libintl_newlocale
+#                       libintl_setlocale
+#   relocatable.c:      libintl_set_relocation_prefix
+#
+# The following files implement private API.
+#   gettextP.h:     dcigettext.c:       libintl_dcigettext
+#                                       _nl_find_msg
+#                                       libintl_nl_default_dirname
+#                                       libintl_nl_domain_bindings
+#                                       libintl_nl_default_default_domain
+#                                       libintl_nl_current_default_domain
+#                   localename.c:       _nl_locale_name_canonicalize
+#                                       _nl_locale_name_from_win32_LANGID
+#                                       _nl_locale_name_from_win32_LCID
+#                                       _nl_locale_name_thread_unsafe
+#                                       _nl_locale_name_thread
+#                                       _nl_locale_name_posix
+#                                       _nl_locale_name_environ
+#                                       _nl_locale_name_default
+#                                       _nl_locale_name
+#                   langprefs.c:        _nl_language_preferences_default
+#                   finddomain.c:       _nl_find_domain
+#                   loadmsgcat.c:       _nl_load_domain
+#                                       _nl_msg_cat_cntr
+#   loadinfo.h:     l10nflist.c:        _nl_make_l10nflist
+#                                       _nl_normalize_codeset
+#                   localealias.c:      _nl_expand_alias
+#                   explodename.c:      _nl_explode_name
+#   plural-exp.h:   plural.y:           libintl_gettext_free_exp
+#                                       libintl_gettextparse
+#                   plural-exp.c:       libintl_gettext_germanic_plural
+#                                       libintl_gettext_extract_plural
+#                   eval-plural.h:      plural_eval
+#
+# Other files:
+#   gmo.h:          Describes the GNU MO file format.
+#   hash-string.h:  hash-string.c:      libintl_hash_string
+#
+# Some other files are borrowed from gnulib, some with small modifications.
+#
+# Overview of invocation hierarchy
+# --------------------------------
+#
+# The main general translation lookup function is libintl_dcigettext.
+# libintl_dcigettext
+#   \-> guess_category_value
+#         \-> _nl_locale_name_thread_unsafe
+#         \-> _nl_locale_name_posix
+#         \-> _nl_locale_name_default
+#         \-> _nl_language_preferences_default
+#   \-> _nl_find_domain
+#         \-> _nl_make_l10nflist
+#         \-> _nl_load_domain
+#         \-> _nl_expand_alias
+#         \-> _nl_explode_name
+#               \-> _nl_normalize_codeset
+#   \-> _nl_find_msg
+#         \-> _nl_load_domain
+#         \-> get_output_charset
+#   \-> plural_lookup
+#         \-> plural_eval
+#
+# _nl_load_domain loads a MO file into memory.
+# _nl_load_domain
+#   \-> _nl_find_msg (for the header entry only)
+#   \-> libintl_gettext_extract_plural
+
 LIBINTLSOURCES = \
   bindtextdom.c \
   dcgettext.c \
