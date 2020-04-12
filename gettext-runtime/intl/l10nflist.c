@@ -27,7 +27,7 @@
 
 #include <string.h>
 
-#if defined _LIBC || defined HAVE_ARGZ_H
+#if defined _LIBC
 # include <argz.h>
 #endif
 #include <ctype.h>
@@ -66,77 +66,6 @@ static char *stpcpy (char *dest, const char *src);
 #else
 # include "filename.h"
 #endif
-
-/* Define function which are usually not available.  */
-
-#if defined HAVE_ARGZ_COUNT
-# undef __argz_count
-# define __argz_count argz_count
-#else
-/* Returns the number of strings in ARGZ.  */
-static size_t
-argz_count__ (const char *argz, size_t len)
-{
-  size_t count = 0;
-  while (len > 0)
-    {
-      size_t part_len = strlen (argz);
-      argz += part_len + 1;
-      len -= part_len + 1;
-      count++;
-    }
-  return count;
-}
-# undef __argz_count
-# define __argz_count(argz, len) argz_count__ (argz, len)
-#endif	/* !_LIBC && !HAVE_ARGZ_COUNT */
-
-#if defined HAVE_ARGZ_STRINGIFY
-# undef __argz_stringify
-# define __argz_stringify argz_stringify
-#else
-/* Make '\0' separated arg vector ARGZ printable by converting all the '\0's
-   except the last into the character SEP.  */
-static void
-argz_stringify__ (char *argz, size_t len, int sep)
-{
-  while (len > 0)
-    {
-      size_t part_len = strlen (argz);
-      argz += part_len;
-      len -= part_len + 1;
-      if (len > 0)
-	*argz++ = sep;
-    }
-}
-# undef __argz_stringify
-# define __argz_stringify(argz, len, sep) argz_stringify__ (argz, len, sep)
-#endif	/* !_LIBC && !HAVE_ARGZ_STRINGIFY */
-
-#ifdef _LIBC
-#elif defined HAVE_ARGZ_NEXT
-# undef __argz_next
-# define __argz_next argz_next
-#else
-static char *
-argz_next__ (char *argz, size_t argz_len, const char *entry)
-{
-  if (entry)
-    {
-      if (entry < argz + argz_len)
-        entry = strchr (entry, '\0') + 1;
-
-      return entry >= argz + argz_len ? NULL : (char *) entry;
-    }
-  else
-    if (argz_len > 0)
-      return argz;
-    else
-      return 0;
-}
-# undef __argz_next
-# define __argz_next(argz, len, entry) argz_next__ (argz, len, entry)
-#endif	/* !_LIBC && !HAVE_ARGZ_NEXT */
 
 /* Return number of bits set in X.  */
 #ifndef ARCH_POP
@@ -196,7 +125,9 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
   if (dirlist_len > 0)
     {
       memcpy (cp, dirlist, dirlist_len);
+#ifdef _LIBC
       __argz_stringify (cp, dirlist_len, PATH_SEPARATOR);
+#endif
       cp += dirlist_len;
       cp[-1] = '/';
     }
@@ -253,7 +184,11 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
       return retval;
     }
 
+#ifdef _LIBC
   dirlist_count = (dirlist_len > 0 ? __argz_count (dirlist, dirlist_len) : 1);
+#else
+  dirlist_count = 1;
+#endif
 
   /* Allocate a new loaded_l10nfile.  */
   retval =
@@ -298,6 +233,7 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
     if ((cnt & ~mask) == 0
 	&& !((cnt & XPG_CODESET) != 0 && (cnt & XPG_NORM_CODESET) != 0))
       {
+#ifdef _LIBC
 	if (dirlist_count > 1)
 	  {
 	    /* Iterate over all elements of the DIRLIST.  */
@@ -312,6 +248,7 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
 				      1);
 	  }
 	else
+#endif
 	  retval->successor[entries++]
 	    = _nl_make_l10nflist (l10nfile_list, dirlist, dirlist_len,
 				  cnt, language, territory, codeset,
