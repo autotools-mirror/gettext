@@ -1,5 +1,9 @@
 Version 0.20.2 - April 2020
 
+* The interpretation of the language preferences on macOS has been improved,
+  especially in the case where a system locale does not exist for the
+  combination of the selected primary language and the selected territory.
+
 * Fixed a multithread-safety bug on Cygwin and native Windows.
 
 Version 0.20 - April 2019
