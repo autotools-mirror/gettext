@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 2002-2019 Free Software Foundation, Inc.
+# Copyright (C) 2002-2020 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -207,7 +207,7 @@ func_version ()
 {
   echo "$progname (GNU $package) $version"
   echo "Uses a versions archive in @ARCHIVE_FORMAT@ format."
-  echo "Copyright (C) 2002-2019 Free Software Foundation, Inc.
+  echo "Copyright (C) 2002-2020 Free Software Foundation, Inc.
 License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law."
@@ -380,7 +380,7 @@ case "$ver" in
   0.17 | \
   0.18 | 0.18.1 | 0.18.2 | 0.18.3 | \
   0.19 | 0.19.1 | 0.19.2 | 0.19.3 | 0.19.4 | 0.19.5 | 0.19.6 | 0.19.7 | 0.19.8 | \
-  0.20 )
+  0.20 | 0.20.2 )
     ;;
   *)
     func_fatal_error "The AM_GNU_GETTEXT_VERSION declaration in your $configure_in

@@ -495,7 +495,7 @@ endif
 # Before making a gettext release, you must change this according to the
 # libtool documentation, section "Library interface versions".
 LTV_CURRENT=9
-LTV_REVISION=6
+LTV_REVISION=7
 LTV_AGE=1
 
 # How to build libintl.la and libgnuintl.la.
