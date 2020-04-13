@@ -1,10 +1,6 @@
 # German translations for GNU gettext-runtime package.
 # Copyright © 1995, 1996, 1997, 2001, 2002, 2003, 2004, 2005, 2006, 2009, 2012, 2013 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
-# Karl Eichwalder <ke@suse.de>, 2001, 2002, 2003, 2004, 2005, 2006, 2009.
-# Ulrich Drepper <drepper@gnu.org>, 1995-1997.
-# Jakob Kramer <jakob.kramer@gmx.de>, 2012, 2013.
-# Philipp Thomas <pth@suse.com>, 2015.
 #
 # Wörterbuch:
 # message catalog     - Katalog (mit Meldungen)
@@ -75,13 +71,18 @@
 # . .po-Datei vs. PO-Datei; .mp, .pot
 # . KBabel checken
 #
+# Karl Eichwalder <ke@suse.de>, 2001, 2002, 2003, 2004, 2005, 2006, 2009.
+# Ulrich Drepper <drepper@gnu.org>, 1995-1997.
+# Jakob Kramer <jakob.kramer@gmx.de>, 2012, 2013.
+# Philipp Thomas <pth@suse.com>, 2015.
+# Mario Blättermann <mario.blaettermann@gmail.com>, 2019.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.19.4.73\n"
+"Project-Id-Version: gettext-runtime 0.20-rc1\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2019-05-12 16:10+0200\n"
-"PO-Revision-Date: 2015-06-25 12:17+0200\n"
-"Last-Translator: Philipp Thomas <pth@suse.de>\n"
+"POT-Creation-Date: 2020-04-13 15:53+0200\n"
+"PO-Revision-Date: 2019-05-31 19:01+0200\n"
+"Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -89,6 +90,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Lokalize 19.04.1\n"
 
 #: gnulib-lib/closeout.c:66
 msgid "write error"
@@ -99,34 +101,29 @@ msgid "Unknown system error"
 msgstr "Unbekannter Systemfehler"
 
 #: gnulib-lib/getopt.c:278
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous\n"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
-msgstr "%s: Option „%s“ ist mehrdeutig\n"
+msgstr "%s: Option „%s%s“ ist mehrdeutig\n"
 
 #: gnulib-lib/getopt.c:284
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous; possibilities:"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
-msgstr "%s: Option »%s« ist mehrdeutig; Möglichkeiten:"
+msgstr "%s: Option »%s%s« ist mehrdeutig; Möglichkeiten:"
 
 #: gnulib-lib/getopt.c:319
-#, fuzzy, c-format
-#| msgid "%s: unrecognized option '%c%s'\n"
+#, c-format
 msgid "%s: unrecognized option '%s%s'\n"
-msgstr "%s: unbekannte Option »%c%s«\n"
+msgstr "%s: unbekannte Option »%s%s«\n"
 
 #: gnulib-lib/getopt.c:345
-#, fuzzy, c-format
-#| msgid "%s: option '%c%s' doesn't allow an argument\n"
+#, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
-msgstr "%s: Option »%c%s« erwartet kein Argument\n"
+msgstr "%s: Option »%s%s« erwartet kein Argument\n"
 
 #: gnulib-lib/getopt.c:360
-#, fuzzy, c-format
-#| msgid "%s: option '--%s' requires an argument\n"
+#, c-format
 msgid "%s: option '%s%s' requires an argument\n"
-msgstr "%s: Option »--%s« erwartet ein Argument\n"
+msgstr "%s: Option »%s%s« erwartet ein Argument\n"
 
 #: gnulib-lib/getopt.c:621
 #, c-format
@@ -141,13 +138,13 @@ msgstr "%s: Option erwartet ein Argument -- »%c«\n"
 #: gnulib-lib/xmalloc.c:38
 #, c-format
 msgid "memory exhausted"
-msgstr "virtueller Speicher aufgebraucht"
+msgstr "Speicher ausgeschöpft"
 
 #: src/envsubst.c:112 src/gettext.c:137 src/ngettext.c:126
 #, fuzzy, c-format, no-wrap
 #| msgid ""
 #| "Copyright (C) %s Free Software Foundation, Inc.\n"
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
+#| "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
 #| "This is free software: you are free to change and redistribute it.\n"
 #| "There is NO WARRANTY, to the extent permitted by law.\n"
 msgid ""
@@ -157,8 +154,7 @@ msgid ""
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "Copyright © %s Free Software Foundation, Inc.\n"
-"Lizenz GPLv3: GNU GPL Version 3 oder später <http://gnu.org/licenses/gpl.html>\n"
-"\n"
+"Lizenz GPLv3: GNU GPL Version 3 oder neuer <https://gnu.org/licenses/gpl.html>\n"
 "Dies ist freie Software; es steht Ihnen frei, sie zu verändern und\n"
 "weiterzugeben.\n"
 "Es gibt KEINE GARANTIE, soweit als vom Gesetz erlaubt.\n"
@@ -235,7 +231,7 @@ msgid ""
 msgstr ""
 "Im normalen Betriebsmodus wird die Standardeingabe zur Standardausgabe kopiert.\n"
 "Dabei werden Referenzen auf Umgebungsvariablen in der Formatform $VARIABLE oder\n"
-"${VARIABLE} durch die entsprechenden Werte ersetzt.  Wenn ein SHELL-FORMAT\n"
+"${VARIABLE} durch die entsprechenden Werte ersetzt. Wenn ein SHELL-FORMAT\n"
 "angegeben ist, werden nur die Umgebungsvariablen, die im SHELL-FORMAT\n"
 "referenziert, substituiert; andernfalls werden alle Referenzen auf\n"
 "Umgebungsvariablen bei der Standardausgabe substituiert.\n"
@@ -283,7 +279,7 @@ msgid ""
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
 "Aufruf: %s [OPTION] [[TEXTBEREICH] SCHLÜSSEL]\n"
-"oder:   %s [OPTION] -s [SCHLÜSSEL]...\n"
+"oder:   %s [OPTION] -s [SCHLÜSSEL]…\n"
 
 # CHECKIT
 #: src/gettext.c:259
@@ -294,27 +290,28 @@ msgstr "Übersetzung einer textuellen Meldung in einer nativen Sprache anzeigen.
 #: src/gettext.c:263
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-msgstr ""
+msgstr "  -d, --domain=TEXTDOMAIN   Übersetzte Meldungen aus TEXTDOMAIN holen\n"
 
 #: src/gettext.c:265 src/ngettext.c:230
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
-msgstr ""
+msgstr "  -c, --context=KONTEXT     Kontext für SCHLÜSSEL angeben\n"
 
 #: src/gettext.c:267 src/ngettext.c:232
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
+"  -e                        Expansion einiger Escape-Sequenzen aktivieren\n"
 
 #: src/gettext.c:269
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
-msgstr ""
+msgstr "  -n                        angehängten Zeilenumbruch unterdrücken\n"
 
 #: src/gettext.c:271 src/ngettext.c:234
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
-msgstr ""
+msgstr "  -E                        (zwecks Kompatibilität; wird ignoriert)\n"
 
 #: src/gettext.c:273
 #, c-format
@@ -322,18 +319,18 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
+"  [TEXTDOMAIN] SCHLÜSSEL    Übersetzte Meldung entsprechend des\n"
+"                            SCHLÜSSELs aus TEXTDOMAIN holen\n"
 
 #: src/gettext.c:279 src/ngettext.c:245
-#, fuzzy, c-format
-#| msgid "  -h, --help                  display this help and exit\n"
+#, c-format
 msgid "  -h, --help                display this help and exit\n"
-msgstr "  -h, --help                   diese Hilfe anzeigen und beenden\n"
+msgstr "  -h, --help                diese Hilfe anzeigen und beenden\n"
 
 #: src/gettext.c:281 src/ngettext.c:247
-#, fuzzy, c-format
-#| msgid "  -V, --version               output version information and exit\n"
+#, c-format
 msgid "  -V, --version             display version information and exit\n"
-msgstr "  -V, --version                Versionsnummer anzeigen und beenden\n"
+msgstr "  -V, --version             Versionsnummer anzeigen und beenden\n"
 
 #: src/gettext.c:285
 #, c-format, no-wrap
@@ -348,12 +345,12 @@ msgid ""
 "Standard search directory: %s\n"
 msgstr ""
 "Wenn der Parameter TEXTBEREICH nicht angegeben wurde, wird der Bereich durch\n"
-"die Umgebungsvariable TEXTDOMAIN bestimmt.  Wenn der Katalog dieses Bereiches\n"
+"die Umgebungsvariable TEXTDOMAIN bestimmt. Wenn der Katalog dieses Bereiches\n"
 "sich nicht im Standardverzeichnis des Systems befindet, kann durch die\n"
 "Umgebungsvariable TEXTDOMAINDIR ein anderes Verzeichnis angegeben werden.\n"
 "\n"
 "Wenn die Option »-s« angegeben ist, verhält sich das Programm wie der Befehl\n"
-"»echo«.  Aber anstatt alle Argumente einfach auszugeben, werden diese\n"
+"»echo«. Aber anstatt alle Argumente einfach auszugeben, werden diese\n"
 "übersetzt, falls sie im angegebenen Katalog (Textbereich) vorhanden sind.\n"
 "\n"
 "Standardverzeichnis: %s\n"
@@ -376,13 +373,13 @@ msgstr ""
 #: src/ngettext.c:228
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
+msgstr "  -d, --domain=TEXTDOMAIN   übersetzte Meldung aus TEXTDOMAIN holen\n"
 
 #: src/ngettext.c:236
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
+msgstr "  [TEXTDOMAIN]              übersetzte Meldung aus TEXTDOMAIN holen\n"
 
 #: src/ngettext.c:238
 #, c-format
@@ -390,12 +387,17 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
 "(plural)\n"
 msgstr ""
+"  SCHLÜSSEL SCHLÜSSEL-PLURAL\n"
+"                            SCHLÜSSEL (Singular) / SCHLÜSSEL-PLURAL\n"
+"                            (Plural) übersetzen\n"
 
 #: src/ngettext.c:240
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
+"  ZAHL                      Singular-/Pluralform basierend auf\n"
+"                              diesem Wert wählen\n"
 
 #: src/ngettext.c:251
 #, c-format, no-wrap
@@ -407,31 +409,11 @@ msgid ""
 "Standard search directory: %s\n"
 msgstr ""
 "Wenn der Parameter BEREICH nicht angegeben wurde, wird der Bereich durch die\n"
-"Umgebungsvariable TEXTDOMAIN bestimmt.  Wenn der Katalog dieses Bereiches\n"
+"Umgebungsvariable TEXTDOMAIN bestimmt. Wenn der Katalog dieses Bereiches\n"
 "sich nicht im Standardverzeichnis des Systems befindet, kann durch die\n"
 "Umgebungsvariable TEXTDOMAINDIR ein anderes Verzeichnis angegeben werden.\n"
 "\n"
 "Standardverzeichnis: %s\n"
-
-#, c-format
-#~ msgid "%s: option '--%s' doesn't allow an argument\n"
-#~ msgstr "%s: Option »--%s« erwartet kein Argument\n"
-
-#, c-format
-#~ msgid "%s: unrecognized option '--%s'\n"
-#~ msgstr "%s: unbekannte Option »--%s«\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' is ambiguous\n"
-#~ msgstr "%s: Option »-W %s« ist mehrdeutig\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' doesn't allow an argument\n"
-#~ msgstr "%s: Option »-W %s« erwartet kein Argument\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' requires an argument\n"
-#~ msgstr "%s: Option »-W %s« erwartet ein Argument\n"
 
 #~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 #~ msgstr ""
@@ -439,48 +421,3 @@ msgstr ""
 #~ "\n"
 #~ "Für die deutsche Übersetzung sind die Übersetzer der Mailingliste\n"
 #~ "<translation-team-de@lists.sourceforge.net> zuständig.\n"
-
-#, c-format, no-wrap
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -n                        suppress trailing newline\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
-#~ "                            to MSGID from TEXTDOMAIN\n"
-#~ msgstr ""
-#~ "  -d, --domain=TEXTBEREICH   Übersetzungen aus TEXTBEREICH anfordern\n"
-#~ "  -e                         einige Escape-Sequenzen expandieren\n"
-#~ "  -E                         (aus Kompatibilitätsgründen ignoriert)\n"
-#~ "  -h, --help                 diese Hilfe anzeigen und beenden\n"
-#~ "  -n                         kein abschließendes Zeilenendezeichen ausgeben\n"
-#~ "  -V, --version              Versionsnummer anzeigen und beenden\n"
-#~ "  [TEXTBEREICH] SCHLÜSSEL    die Übersetzung zu SCHLÜSSEL aus TEXTBEREICH\n"
-#~ "                               anfordern\n"
-
-#, c-format, no-wrap
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
-#~ "  COUNT                     choose singular/plural form based on this value\n"
-#~ msgstr ""
-#~ "  -d, --domain=TEXTBEREICH     Übersetzungen aus TEXTBEREICH holen\n"
-#~ "  -e                           einige Escape-Sequenzen expandieren\n"
-#~ "  -E                           (aus Kompatibilitätsgründen ignoriert)\n"
-#~ "  -h, --help                   diese Hilfe anzeigen und beenden\n"
-#~ "  -V, --version                Versionsnummer anzeigen und beenden\n"
-#~ "  [TEXTBEREICH]                die Übersetzung aus dem TEXTBEREICH holen\n"
-#~ "  SCHLÜSSEL SCHLÜSSEL-PLURAL   SCHLÜSSEL (Singular) / SCHLÜSSEL-PLURAL (Plural)\n"
-#~ "                                 übersetzen\n"
-#~ "  ZAHL                         Singular-/Pluralform anhand des Wertes ZAHL\n"
-#~ "                                 wählen\n"
-
-#~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: unzulässige Option -- %c\n"
