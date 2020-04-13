@@ -167,6 +167,7 @@
 /lib/term-styled-ostream.oo.c
 /lib/term-styled-ostream.oo.h
 /lib/terminfo.h
+/lib/time.in.h
 /lib/tparm.c
 /lib/tputs.c
 /lib/unistd.c
@@ -184,6 +185,7 @@
 /lib/wchar.in.h
 /lib/write.c
 /lib/xalloc.h
+/lib/xalloc-oversized.h
 /lib/xasprintf.c
 /lib/xconcat-filename.c
 /lib/xmalloc.c
@@ -476,6 +478,8 @@ core
 /lib/sys/types.h
 /lib/sys/types.h-t
 /lib/textstyle/stdbool.h-t
+/lib/time.h
+/lib/time.h-t
 /lib/unistd.h
 /lib/unistd.h-t
 /lib/unistr.h
