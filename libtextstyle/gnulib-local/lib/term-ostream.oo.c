@@ -1,5 +1,5 @@
 /* Output stream for attributed text, producing ANSI escape sequences.
-   Copyright (C) 2006-2008, 2017, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008, 2017, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -2105,6 +2105,7 @@ term_ostream::free (term_ostream_t stream)
       free (stream->hyperlinks_array);
     }
   free (stream->buffer);
+  free (stream->attrbuffer);
   free (stream);
 }
 
