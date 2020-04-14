@@ -268,8 +268,8 @@ We assume that the following environment variables are set:
 
   If necessary, produce variants with higher compression (takes 7 minutes):
 
-    gzip -d -c < gettext-$CURRENT_VERSION-*.tar.gz | xz -c -e > gettext-$CURRENT_VERSION-*.tar.xz
-    gzip -d -c < gettext-$CURRENT_VERSION-*.tar.gz | lzip -c -9 > gettext-$CURRENT_VERSION-*.tar.lz
+    gzip -d -c < gettext-$CURRENT_VERSION.tar.gz | xz -c -e > gettext-$CURRENT_VERSION.tar.xz
+    gzip -d -c < gettext-$CURRENT_VERSION.tar.gz | lzip -c -9 > gettext-$CURRENT_VERSION.tar.lz
 
   Add a git tag (an annotated tag, not a lightweight tag):
 
