@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples/po subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2007, 2009, 2014, 2018-2019 Free Software Foundation,
+## Copyright (C) 1995-1998, 2000-2007, 2009, 2014, 2018-2020 Free Software Foundation,
 ## Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
@@ -234,9 +234,12 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) $(SMALLPOTS) remove-potcdate.sed
 
 # Make sure that xsmallpot.sh and mmsmallpo.sh uses the programs (autopoint,
 # xgettext, msgmerge, msgattrib...) built from source here.
+# The environment variable 'gettext_datadir' is used by autopoint.
+# The environment variable 'GETTEXTDATADIR' is used by xgettext.
 USE_BUILT_PROGS = \
   PATH="`pwd`/../../src:`pwd`/../../misc:$$PATH"; \
-  gettext_datadir="`pwd`/../../misc"; export gettext_datadir;
+  gettext_datadir="`pwd`/../../misc"; export gettext_datadir; \
+  GETTEXTDATADIR="`cd '$(srcdir)/../..' && pwd`"; export GETTEXTDATADIR;
 
 hello-c.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c
