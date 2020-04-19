@@ -1,5 +1,5 @@
 /* Formatted output to strings, using POSIX/XSI format strings with positions.
-   Copyright (C) 2003, 2006-2007, 2009-2011, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006-2007, 2009-2011, 2018, 2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -67,6 +67,11 @@ char *alloca ();
 #endif
 
 #define STATIC static
+
+/* You can enable this for debugging on Windows.  But not in a release!  */
+#if 0
+# define ENABLE_WCHAR_FALLBACK 1
+#endif
 
 /* This needs to be consistent with libgnuintl.in.h.  */
 #if defined __NetBSD__ || defined __BEOS__ || defined __CYGWIN__ || defined __MINGW32__
