@@ -63,6 +63,9 @@
 struct loaded_l10nfile
 {
   const char *filename;
+#if defined _WIN32 && !defined __CYGWIN__
+  const wchar_t *wfilename;
+#endif
   int decided;
 
   const void *data;
@@ -82,13 +85,22 @@ extern const char *_nl_normalize_codeset (const char *codeset,
 /* Lookup a locale dependent file.
    *L10NFILE_LIST denotes a pool of lookup results of locale dependent
    files of the same kind, sorted in decreasing order of ->filename.
+
    DIRLIST and DIRLIST_LEN are an argz list of directories in which to
-   look, containing at least one directory (i.e. DIRLIST_LEN > 0).
+   look.
+   Likewise, on native Windows, WDIRLIST and WDIRLIST_LEN are wide-char
+   list of directories in which to look. Only one of DIRLIST, WDIRLIST
+   is non-NULL.
+   DIRLIST and WDIRLIST contain at least one directory, i.e.
+   DIRLIST_LEN + WDIRLIST_LEN > 0.
    Outside glibc, only one directory is used, i.e.
-   DIRLIST_LEN == strlen (DIRLIST) + 1.
+   DIRLIST_LEN == strlen (DIRLIST) + 1, WDIRLIST_LEN == 0, or
+   DIRLIST_LEN == 0, WDIRLIST_LEN == wcslen (WDIRLIST) + 1.
+
    MASK, LANGUAGE, TERRITORY, CODESET, NORMALIZED_CODESET, MODIFIER
    are the pieces of the locale name, as produced by _nl_explode_name().
    FILENAME is the filename suffix.
+
    The return value is the lookup result, either found in *L10NFILE_LIST,
    or - if DO_ALLOCATE is nonzero - freshly allocated, or possibly NULL.
    If the return value is non-NULL, it is added to *L10NFILE_LIST, and
@@ -97,7 +109,11 @@ extern const char *_nl_normalize_codeset (const char *codeset,
    results from which this lookup result inherits.  */
 extern struct loaded_l10nfile *
 _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
-		    const char *dirlist, size_t dirlist_len, int mask,
+		    const char *dirlist, size_t dirlist_len,
+#if defined _WIN32 && !defined __CYGWIN__
+		    const wchar_t *wdirlist, size_t wdirlist_len,
+#endif
+		    int mask,
 		    const char *language, const char *territory,
 		    const char *codeset, const char *normalized_codeset,
 		    const char *modifier,

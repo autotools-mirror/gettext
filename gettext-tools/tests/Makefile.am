@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/tests subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2010, 2012-2016, 2018-2019 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2010, 2012-2016, 2018-2020 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -21,7 +21,7 @@ EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
 
 TESTS = gettext-1 gettext-2 \
-	intl-1 intl-2 intl-3 intl-4 intl-5 \
+	intl-1 intl-2 intl-3 intl-4 intl-5 intl-6 \
 	intl-setlocale-1 intl-setlocale-2 \
 	intl-thread-1 intl-thread-2 intl-thread-3 \
 	intl-version \
@@ -234,7 +234,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
 LDADD_yes = ../intl/libintl.la @LTLIBTHREAD@
 LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
-check_PROGRAMS = tstgettext tstngettext testlocale intl-1-prg intl-3-prg intl-4-prg intl-5-prg intl-setlocale-1-prg intl-setlocale-2-prg intl-thread-1-prg intl-thread-2-prg intl-thread-3-prg intl-version-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
+check_PROGRAMS = tstgettext tstngettext testlocale intl-1-prg intl-3-prg intl-4-prg intl-5-prg intl-6-prg intl-setlocale-1-prg intl-setlocale-2-prg intl-thread-1-prg intl-thread-2-prg intl-thread-3-prg intl-version-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
 tstgettext_SOURCES = \
   tstgettext.c ../../gettext-runtime/src/escapes.h \
   setlocale.c
@@ -252,6 +252,8 @@ intl_4_prg_SOURCES = intl-4-prg.c
 intl_4_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 intl_5_prg_SOURCES = intl-5-prg.c
 intl_5_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
+intl_6_prg_SOURCES = intl-6-prg.c
+intl_6_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 intl_setlocale_1_prg_SOURCES = intl-setlocale-1-prg.c
 intl_setlocale_1_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 intl_setlocale_2_prg_SOURCES = intl-setlocale-2-prg.c

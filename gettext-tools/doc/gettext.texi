@@ -5894,6 +5894,15 @@ achieved when the program executes a @code{chdir} command.  Relative
 paths should always be avoided to avoid dependencies and
 unreliabilities.
 
+@example
+wchar_t *wbindtextdomain (const char *domain_name,
+                          const wchar_t *dir_name);
+@end example
+
+This function is provided only on native Windows platforms.  It is like
+@code{bindtextdomain}, except that the @var{dir_name} parameter is a
+wide string (in UTF-16 encoding, as usual on Windows).
+
 @node Locating Catalogs
 @subsection Locating Message Catalog Files
 @cindex message catalog files location
@@ -8295,6 +8304,9 @@ bindtextdomain (@var{PACKAGE}, LOCALEDIR);
 textdomain (@var{PACKAGE});
 @end example
 
+On native Windows platforms, the @code{main} function may call
+@code{wbindtextdomain} instead of @code{bindtextdomain}.
+
 To make LOCALEDIR known to the program, add the following lines to
 @file{Makefile.in}:
 
@@ -8971,6 +8983,7 @@ making the @code{textdomain} function available from within the
 language, or by introducing a magic variable called @code{TEXTDOMAIN}.
 Similarly, you should allow the programmer to designate where to search
 for message catalogs, by providing access to the @code{bindtextdomain}
+function or --- on native Windows platforms --- to the @code{wbindtextdomain}
 function.
 
 @item
@@ -9545,7 +9558,7 @@ For C: @code{c}, @code{h}.
 @code{textdomain} function
 
 @item bindtextdomain
-@code{bindtextdomain} function
+@code{bindtextdomain} and @code{wbindtextdomain} functions
 
 @item setlocale
 Programmer must call @code{setlocale (LC_ALL, "")}

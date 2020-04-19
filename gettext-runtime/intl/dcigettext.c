@@ -480,6 +480,9 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   const char *categoryname;
   const char *categoryvalue;
   const char *dirname;
+#if defined _WIN32 && !defined __CYGWIN__
+  const wchar_t *wdirname;
+#endif
   char *xdomainname;
   char *single_locale;
   char *retval;
@@ -585,6 +588,9 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
      and _nl_load_domain and _nl_find_domain just pass it through.  */
   binding = NULL;
   dirname = bindtextdomain (domainname, NULL);
+# if defined _WIN32 && !defined __CYGWIN__
+  wdirname = wbindtextdomain (domainname, NULL);
+# endif
 #else
   for (binding = _nl_domain_bindings; binding != NULL; binding = binding->next)
     {
@@ -601,11 +607,79 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
     }
 
   if (binding == NULL)
-    dirname = _nl_default_dirname;
+    {
+      dirname = _nl_default_dirname;
+# if defined _WIN32 && !defined __CYGWIN__
+      wdirname = NULL;
+# endif
+    }
   else
     {
       dirname = binding->dirname;
+# if defined _WIN32 && !defined __CYGWIN__
+      wdirname = binding->wdirname;
+# endif
 #endif
+#if defined _WIN32 && !defined __CYGWIN__
+      if (wdirname != NULL
+	  ? IS_RELATIVE_FILE_NAME (wdirname)
+	  : IS_RELATIVE_FILE_NAME (dirname))
+	{
+	  /* We have a relative path.  Make it absolute now.  */
+	  size_t wdirname_len;
+	  size_t path_max;
+	  wchar_t *resolved_wdirname;
+	  wchar_t *ret;
+	  wchar_t *p;
+
+	  if (wdirname != NULL)
+	    wdirname_len = wcslen (wdirname);
+	  else
+	    {
+	      wdirname_len = mbstowcs (NULL, dirname, 0);
+
+	      if (wdirname_len == (size_t)(-1))
+		/* dirname contains invalid multibyte characters.  Don't signal
+		   an error but simply return the default string.  */
+		goto return_untranslated;
+	    }
+	  wdirname_len++;
+
+	  path_max = (unsigned int) PATH_MAX;
+	  path_max += 2;		/* The getcwd docs say to do this.  */
+
+	  for (;;)
+	    {
+	      resolved_wdirname =
+		(wchar_t *)
+		alloca ((path_max + wdirname_len) * sizeof (wchar_t));
+	      ADD_BLOCK (block_list, resolved_wdirname);
+
+	      __set_errno (0);
+	      ret = _wgetcwd (resolved_wdirname, path_max);
+	      if (ret != NULL || errno != ERANGE)
+		break;
+
+	      path_max += path_max / 2;
+	      path_max += PATH_INCR;
+	    }
+
+	  if (ret == NULL)
+	    /* We cannot get the current working directory.  Don't signal an
+	       error but simply return the default string.  */
+	    goto return_untranslated;
+
+	  p = wcschr (resolved_wdirname, L'\0');
+	  *p++ = L'/';
+	  if (wdirname != NULL)
+	    wcscpy (p, wdirname);
+	  else
+	    mbstowcs (p, dirname, wdirname_len);
+
+	  wdirname = resolved_wdirname;
+	  dirname = NULL;
+	}
+#else
       if (IS_RELATIVE_FILE_NAME (dirname))
 	{
 	  /* We have a relative path.  Make it absolute now.  */
@@ -639,6 +713,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	  stpcpy (stpcpy (strchr (resolved_dirname, '\0'), "/"), dirname);
 	  dirname = resolved_dirname;
 	}
+#endif
 #ifndef IN_LIBGLOCALE
     }
 #endif
@@ -705,7 +780,11 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 
       /* Find structure describing the message catalog matching the
 	 DOMAINNAME and CATEGORY.  */
-      domain = _nl_find_domain (dirname, single_locale, xdomainname, binding);
+      domain = _nl_find_domain (dirname,
+#if defined _WIN32 && !defined __CYGWIN__
+				wdirname,
+#endif
+				single_locale, xdomainname, binding);
 
       if (domain != NULL)
 	{

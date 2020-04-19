@@ -1,5 +1,5 @@
 /* Header describing internals of libintl library.
-   Copyright (C) 1995-2016 Free Software Foundation, Inc.
+   Copyright (C) 1995-2020 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -212,6 +212,9 @@ struct binding
 {
   struct binding *next;
   char *dirname;
+#if defined _WIN32 && !defined __CYGWIN__
+  wchar_t *wdirname;
+#endif
   char *codeset;
   char domainname[ZERO];
 };
@@ -256,7 +259,11 @@ extern const char *_nl_locale_name_default (void);
 				       const char *categoryname); */
 #endif
 
-struct loaded_l10nfile *_nl_find_domain (const char *__dirname, char *__locale,
+struct loaded_l10nfile *_nl_find_domain (const char *__dirname,
+#if defined _WIN32 && !defined __CYGWIN__
+					 const wchar_t *__wdirname,
+#endif
+					 char *__locale,
 					 const char *__domainname,
 					 struct binding *__domainbinding)
      internal_function;

@@ -11,6 +11,13 @@ Version 0.21 - April 2020
   - JavaScript:
     xgettext parses JSX expressions more reliably.
 
+* Runtime behaviour:
+  - On native Windows platforms, the directory that contains the message
+    catalogs may now contain arbitrary Unicode characters. To make use of
+    this feature, use the new function 'wbindtextdomain' instead of
+    'bindtextdomain'. It allows to pass a directory name in wchar_t[] encoding.
+    Note: 'wbindtextdomain' exists only on native Windows platforms.
+
 * Libtextstyle:
   - Added support for emitting hyperlinks.
   - New API for doing formatted output.

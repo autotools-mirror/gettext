@@ -1,5 +1,5 @@
 /* Load needed message catalogs.
-   Copyright (C) 1995-2019 Free Software Foundation, Inc.
+   Copyright (C) 1995-2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -836,12 +836,23 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
      might be NULL.  This can happen when according to the given
      specification the locale file name is different for XPG and CEN
      syntax.  */
-  if (domain_file->filename == NULL)
-    goto out;
-
-  /* Try to open the addressed file.  */
-  fd = open (domain_file->filename, O_RDONLY | O_BINARY);
-  if (fd == -1)
+  if (domain_file->filename != NULL)
+    {
+      /* Try to open the addressed file.  */
+      fd = open (domain_file->filename, O_RDONLY | O_BINARY);
+      if (fd == -1)
+        goto out;
+    }
+#if defined _WIN32 && !defined __CYGWIN__
+  else if (domain_file->wfilename != NULL)
+    {
+      /* Try to open the addressed file.  */
+      fd = _wopen (domain_file->wfilename, O_RDONLY | O_BINARY);
+      if (fd == -1)
+        goto out;
+    }
+#endif
+  else
     goto out;
 
   /* We must know about the size of the file.  */

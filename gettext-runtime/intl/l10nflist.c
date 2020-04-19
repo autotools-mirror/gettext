@@ -1,4 +1,4 @@
-/* Copyright (C) 1995-2016, 2018, 2020 Free Software Foundation, Inc.
+/* Copyright (C) 1995-2020 Free Software Foundation, Inc.
    Contributed by Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -33,6 +33,9 @@
 #include <ctype.h>
 #include <sys/types.h>
 #include <stdlib.h>
+#if defined _WIN32 && !defined __CYGWIN__
+# include <wchar.h>
+#endif
 
 #include "loadinfo.h"
 
@@ -86,23 +89,33 @@ pop (int x)
 struct loaded_l10nfile *
 _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
 		    const char *dirlist, size_t dirlist_len,
+#if defined _WIN32 && !defined __CYGWIN__
+		    const wchar_t *wdirlist, size_t wdirlist_len,
+#endif
 		    int mask, const char *language, const char *territory,
 		    const char *codeset, const char *normalized_codeset,
 		    const char *modifier,
 		    const char *filename, int do_allocate)
 {
   char *abs_filename;
+#if defined _WIN32 && !defined __CYGWIN__
+  wchar_t *abs_wfilename;
+#endif
   struct loaded_l10nfile **lastp;
   struct loaded_l10nfile *retval;
-  char *cp;
   size_t dirlist_count;
   size_t entries;
   int cnt;
 
   /* If LANGUAGE contains an absolute directory specification, we ignore
-     DIRLIST.  */
+     DIRLIST and WDIRLIST.  */
   if (!IS_RELATIVE_FILE_NAME (language))
-    dirlist_len = 0;
+    {
+      dirlist_len = 0;
+#if defined _WIN32 && !defined __CYGWIN__
+      wdirlist_len = 0;
+#endif
+    }
 
   /* Allocate room for the full file name.  */
   abs_filename = (char *) malloc (dirlist_len
@@ -121,50 +134,105 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
     return NULL;
 
   /* Construct file name.  */
-  cp = abs_filename;
-  if (dirlist_len > 0)
-    {
-      memcpy (cp, dirlist, dirlist_len);
+  {
+    char *cp;
+
+    cp = abs_filename;
+    if (dirlist_len > 0)
+      {
+	memcpy (cp, dirlist, dirlist_len);
 #ifdef _LIBC
-      __argz_stringify (cp, dirlist_len, PATH_SEPARATOR);
+	__argz_stringify (cp, dirlist_len, PATH_SEPARATOR);
 #endif
-      cp += dirlist_len;
-      cp[-1] = '/';
-    }
+	cp += dirlist_len;
+	cp[-1] = '/';
+      }
 
-  cp = stpcpy (cp, language);
+    cp = stpcpy (cp, language);
 
-  if ((mask & XPG_TERRITORY) != 0)
-    {
-      *cp++ = '_';
-      cp = stpcpy (cp, territory);
-    }
-  if ((mask & XPG_CODESET) != 0)
-    {
-      *cp++ = '.';
-      cp = stpcpy (cp, codeset);
-    }
-  if ((mask & XPG_NORM_CODESET) != 0)
-    {
-      *cp++ = '.';
-      cp = stpcpy (cp, normalized_codeset);
-    }
-  if ((mask & XPG_MODIFIER) != 0)
-    {
-      *cp++ = '@';
-      cp = stpcpy (cp, modifier);
-    }
+    if ((mask & XPG_TERRITORY) != 0)
+      {
+	*cp++ = '_';
+	cp = stpcpy (cp, territory);
+      }
+    if ((mask & XPG_CODESET) != 0)
+      {
+	*cp++ = '.';
+	cp = stpcpy (cp, codeset);
+      }
+    if ((mask & XPG_NORM_CODESET) != 0)
+      {
+	*cp++ = '.';
+	cp = stpcpy (cp, normalized_codeset);
+      }
+    if ((mask & XPG_MODIFIER) != 0)
+      {
+	*cp++ = '@';
+	cp = stpcpy (cp, modifier);
+      }
 
-  *cp++ = '/';
-  stpcpy (cp, filename);
+    *cp++ = '/';
+    stpcpy (cp, filename);
+  }
+
+#if defined _WIN32 && !defined __CYGWIN__
+  /* Construct wide-char file name.  */
+  if (wdirlist_len > 0)
+    {
+      /* Since dirlist_len == 0, just concatenate wdirlist and abs_filename.  */
+      /* An upper bound for wcslen (mbstowcs (abs_filename)).  */
+      size_t abs_filename_bound = mbstowcs (NULL, abs_filename, 0);
+      if (abs_filename_bound == (size_t)-1)
+	{
+	  free (abs_filename);
+	  return NULL;
+	}
+
+      /* Allocate and fill abs_wfilename.  */
+      abs_wfilename =
+	(wchar_t *)
+	malloc ((wdirlist_len + abs_filename_bound + 1) * sizeof (wchar_t));
+      if (abs_wfilename == NULL)
+	{
+	  free (abs_filename);
+	  return NULL;
+	}
+      wmemcpy (abs_wfilename, wdirlist, wdirlist_len - 1);
+      abs_wfilename[wdirlist_len - 1] = L'/';
+      if (mbstowcs (abs_wfilename + wdirlist_len, abs_filename,
+		    abs_filename_bound + 1)
+	  > abs_filename_bound)
+	{
+	  free (abs_filename);
+	  free (abs_wfilename);
+	  return NULL;
+	}
+
+      free (abs_filename);
+      abs_filename = NULL;
+    }
+  else
+    abs_wfilename = NULL;
+#endif
 
   /* Look in list of already loaded domains whether it is already
      available.  */
   lastp = l10nfile_list;
   for (retval = *l10nfile_list; retval != NULL; retval = retval->next)
-    if (retval->filename != NULL)
+    if (retval->filename != NULL
+#if defined _WIN32 && !defined __CYGWIN__
+        || retval->wfilename != NULL
+#endif
+       )
       {
-	int compare = strcmp (retval->filename, abs_filename);
+	int compare =
+#if defined _WIN32 && !defined __CYGWIN__
+	  abs_wfilename != NULL
+	  ? retval->wfilename != NULL && wcscmp (retval->wfilename, abs_wfilename)
+	  : retval->filename != NULL && strcmp (retval->filename, abs_filename);
+#else
+	  strcmp (retval->filename, abs_filename);
+#endif
 	if (compare == 0)
 	  /* We found it!  */
 	  break;
@@ -181,6 +249,9 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
   if (retval != NULL || do_allocate == 0)
     {
       free (abs_filename);
+#if defined _WIN32 && !defined __CYGWIN__
+      free (abs_wfilename);
+#endif
       return retval;
     }
 
@@ -199,10 +270,16 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
   if (retval == NULL)
     {
       free (abs_filename);
+#if defined _WIN32 && !defined __CYGWIN__
+      free (abs_wfilename);
+#endif
       return NULL;
     }
 
   retval->filename = abs_filename;
+#if defined _WIN32 && !defined __CYGWIN__
+  retval->wfilename = abs_wfilename;
+#endif
 
   /* We set retval->data to NULL here; it is filled in later.
      Setting retval->decided to 1 here means that retval does not
@@ -250,7 +327,11 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
 	else
 #endif
 	  retval->successor[entries++]
-	    = _nl_make_l10nflist (l10nfile_list, dirlist, dirlist_len,
+	    = _nl_make_l10nflist (l10nfile_list,
+				  dirlist, dirlist_len,
+#if defined _WIN32 && !defined __CYGWIN__
+				  wdirlist, wdirlist_len,
+#endif
 				  cnt, language, territory, codeset,
 				  normalized_codeset, modifier, filename, 1);
       }
