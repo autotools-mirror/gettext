@@ -1,5 +1,5 @@
 /* ngettext - retrieve plural form strings from message catalog and print them.
-   Copyright (C) 1995-1997, 2000-2007, 2012, 2018-2019 Free Software
+   Copyright (C) 1995-1997, 2000-2007, 2012, 2018-2020 Free Software
    Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -41,6 +41,7 @@
 #if defined _WIN32 && !defined __CYGWIN__
 # undef setlocale
 # define setlocale fake_setlocale
+extern char *setlocale (int category, SETLOCALE_CONST char *locale);
 #endif
 
 #define _(str) gettext (str)
