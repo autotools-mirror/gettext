@@ -8,12 +8,12 @@ AC_CONFIG_SRCDIR([hello.pas])
 AM_INIT_AUTOMAKE([1.11])
 
 dnl Check for availability of the Free Pascal Compiler.
-AC_PATH_PROGS(PPC, ppc386 ppcx64)
+AC_PATH_PROGS([PPC], [ppc386 ppcx64])
 if test -z "$PPC"; then
   echo "*** Essential program ppc386 or ppcx64 not found" 1>&2
   exit 1
 fi
-AC_SUBST(PPC)
+AC_SUBST([PPC])
 
 dnl The installed program must know where to find its message catalogs.
 dnl Unfortunately, prefix gets only finally determined at the end of configure.
@@ -27,7 +27,7 @@ prefix="$final_prefix"
 eval "datarootdir=\"${datarootdir}\""
 eval "localedir=\"${datadir}/locale\""
 prefix="$save_prefix"
-AC_SUBST(localedir)
+AC_SUBST([localedir])
 
 dnl Support for the po directory.
 AM_PO_SUBDIRS

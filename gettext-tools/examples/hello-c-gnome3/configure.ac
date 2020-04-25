@@ -24,12 +24,12 @@ dnl
 dnl Here, in gettext-tools/examples, we do the checks manually for
 dnl simplicity.
 
-AC_PATH_PROG(GLIB_COMPILE_RESOURCES, [glib-compile-resources])
+AC_PATH_PROG([GLIB_COMPILE_RESOURCES], [glib-compile-resources])
 AS_IF([test -z "$GLIB_COMPILE_RESOURCES"], [
   AC_MSG_ERROR([can't find glib-compile-resources])
 ])
 
-AC_PATH_PROG(GLIB_COMPILE_SCHEMAS, [glib-compile-schemas])
+AC_PATH_PROG([GLIB_COMPILE_SCHEMAS], [glib-compile-schemas])
 AS_IF([test -z "$GLIB_COMPILE_SCHEMAS"], [
   AC_MSG_ERROR([can't find glib-compile-schemas])
 ])
@@ -45,10 +45,10 @@ AS_IF(["$PKG_CONFIG" --exists "$GTK"], , [
 ])
 
 GTK_CFLAGS=`"$PKG_CONFIG" --cflags "$GTK"`
-AC_SUBST(GTK_CFLAGS)
+AC_SUBST([GTK_CFLAGS])
 
 GTK_LIBS=`"$PKG_CONFIG" --libs "$GTK"`
-AC_SUBST(GTK_LIBS)
+AC_SUBST([GTK_LIBS])
 
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([m4/Makefile])

@@ -19,7 +19,7 @@ prefix="$final_prefix"
 eval "datarootdir=\"${datarootdir}\""
 eval "localedir=\"${datadir}/locale\""
 prefix="$save_prefix"
-AC_SUBST(localedir)
+AC_SUBST([localedir])
 
 dnl Support for the po directory.
 AM_PO_SUBDIRS

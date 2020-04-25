@@ -14,7 +14,7 @@ if test -n "$HAVE_CSHARPCOMP"; then
 else
   BUILDCSHARP=no
 fi
-AC_SUBST(BUILDCSHARP)
+AC_SUBST([BUILDCSHARP])
 
 dnl Check whether we can execute C# programs.
 gt_CSHARPEXEC([csharpexec-test.exe], [$srcdir/m4])
@@ -23,7 +23,7 @@ if test -n "$HAVE_CSHARPEXEC" && test $BUILDCSHARP = yes; then
 else
   TESTCSHARP=no
 fi
-AC_SUBST(TESTCSHARP)
+AC_SUBST([TESTCSHARP])
 
 dnl Checks for needed libraries.
 AM_PATH_PROG_WITH_TEST([GETTEXT_WITH_GNU_GETTEXT_DLL], [gettext],

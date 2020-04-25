@@ -16,7 +16,7 @@ test -f /usr/lib/YaST2/bin/y2base || {
 dnl The installed program must know where to find its message catalogs.
 dnl Unfortunately, YaST hard codes the message catalog directory.
 localedir=/usr/share/YaST2/locale
-AC_SUBST(localedir)
+AC_SUBST([localedir])
 
 dnl Support for the po directory.
 AM_PO_SUBDIRS

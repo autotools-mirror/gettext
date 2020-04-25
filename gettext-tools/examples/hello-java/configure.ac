@@ -11,19 +11,19 @@ dnl Check whether we can execute Java programs.
 gt_JAVAEXEC
 dnl Check whether we can build Java programs.
 gt_JAVACOMP([1.5])
-AC_CHECK_PROG(JAR, jar, jar)
+AC_CHECK_PROG([JAR], [jar], [jar])
 if test -n "$HAVE_JAVACOMP" && test -n "$JAR"; then
   BUILDJAVA=yes
 else
   BUILDJAVA=no
 fi
-AC_SUBST(BUILDJAVA)
+AC_SUBST([BUILDJAVA])
 if test -n "$HAVE_JAVAEXEC" && test "$BUILDJAVA" = yes; then
   TESTJAVA=yes
 else
   TESTJAVA=no
 fi
-AC_SUBST(TESTJAVA)
+AC_SUBST([TESTJAVA])
 
 dnl Checks for compiler output filename suffixes.
 AC_OBJEXT

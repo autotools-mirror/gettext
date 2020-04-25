@@ -8,12 +8,12 @@ AC_CONFIG_SRCDIR([hello.tcl])
 AM_INIT_AUTOMAKE([1.11])
 
 dnl Check for availability of the Tcl interpreter.
-AC_PATH_PROG(TCLSH, tclsh)
+AC_PATH_PROG([TCLSH], [tclsh])
 if test -z "$TCLSH"; then
   echo "*** Essential program tclsh not found" 1>&2
   exit 1
 fi
-AC_SUBST(TCLSH)
+AC_SUBST([TCLSH])
 
 dnl The installed program must know where to find its message catalogs.
 dnl Unfortunately, prefix gets only finally determined at the end of configure.
@@ -32,7 +32,7 @@ pkgdatadir="${datadir}/${PACKAGE}"
 datadir="$save_datadir"
 datarootdir="$save_datarootdir"
 prefix="$save_prefix"
-AC_SUBST(pkgdatadir)
+AC_SUBST([pkgdatadir])
 
 dnl Support for the po directory.
 AM_PO_SUBDIRS

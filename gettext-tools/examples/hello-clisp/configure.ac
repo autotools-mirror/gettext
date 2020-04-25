@@ -8,12 +8,12 @@ AC_CONFIG_SRCDIR([hello.lisp.in])
 AM_INIT_AUTOMAKE([1.11])
 
 dnl Check for availability of the Lisp system.
-AC_PATH_PROG(CLISP, clisp)
+AC_PATH_PROG([CLISP], [clisp])
 if test -z "$CLISP"; then
   echo "*** Essential program clisp not found" 1>&2
   exit 1
 fi
-AC_SUBST(CLISP)
+AC_SUBST([CLISP])
 
 dnl The installed program must know where to find its message catalogs.
 dnl Unfortunately, prefix gets only finally determined at the end of configure.
@@ -27,7 +27,7 @@ prefix="$final_prefix"
 eval "datarootdir=\"${datarootdir}\""
 eval "localedir=\"${datadir}/locale\""
 prefix="$save_prefix"
-AC_SUBST(localedir)
+AC_SUBST([localedir])
 
 dnl Support for the po directory.
 AM_PO_SUBDIRS
