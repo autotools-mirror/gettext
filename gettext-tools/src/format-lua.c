@@ -1,5 +1,5 @@
 /* Lua format strings.
-   Copyright (C) 2012-2013, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2012-2013, 2018-2020 Free Software Foundation, Inc.
    Written by Ľubomír Remák <lubomirr@lubomirr.eu>, 2012.
 
    This program is free software: you can redistribute it and/or modify
@@ -69,7 +69,6 @@ struct spec
 {
   unsigned int directives;
   unsigned int format_args_count;
-  unsigned int allocated;
   enum format_arg_type *format_args;
 };
 
@@ -89,12 +88,13 @@ format_parse (const char *format, bool translated, char *fdi,
   const char *format_start = format;
   const char *fatstr = format;
   struct spec *result = NULL;
+  unsigned int format_args_allocated;
+
   result = XMALLOC (struct spec);
   result->directives = 0;
-  result->allocated = 0;
   result->format_args_count = 0;
   result->format_args = NULL;
-
+  format_args_allocated = 0;
 
   for (; *fatstr != '\0';)
     {
@@ -165,12 +165,12 @@ format_parse (const char *format, bool translated, char *fdi,
                   goto fmt_error;
                 }
 
-              if (result->format_args_count == result->allocated)
+              if (result->format_args_count == format_args_allocated)
                 {
-                  result->allocated = 2 * result->allocated + 10;
+                  format_args_allocated = 2 * format_args_allocated + 10;
                   result->format_args =
                     xrealloc (result->format_args,
-                              result->allocated *
+                              format_args_allocated *
                               sizeof (enum format_arg_type));
                 }
               result->format_args[result->format_args_count++] = type;

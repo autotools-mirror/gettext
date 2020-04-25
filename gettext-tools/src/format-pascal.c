@@ -1,5 +1,5 @@
 /* Object Pascal format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2018-2019 Free Software
+   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2018-2020 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -85,7 +85,6 @@ struct spec
 {
   unsigned int directives;
   unsigned int numbered_arg_count;
-  unsigned int allocated;
   struct numbered_arg *numbered;
 };
 
@@ -112,8 +111,8 @@ format_parse (const char *format, bool translated, char *fdi,
   const char *const format_start = format;
   unsigned int directives;
   unsigned int numbered_arg_count;
-  unsigned int allocated;
   struct numbered_arg *numbered;
+  unsigned int numbered_allocated;
   unsigned int unnumbered_arg_count;
   struct spec *result;
 
@@ -126,8 +125,8 @@ format_parse (const char *format, bool translated, char *fdi,
 
   directives = 0;
   numbered_arg_count = 0;
-  allocated = 0;
   numbered = NULL;
+  numbered_allocated = 0;
   unnumbered_arg_count = 0;
 
   for (; *format != '\0';)
@@ -185,10 +184,10 @@ format_parse (const char *format, bool translated, char *fdi,
             else if (*format == '*')
               {
                 /* Unnumbered argument of type FAT_INTEGER.   */
-                if (allocated == numbered_arg_count)
+                if (numbered_allocated == numbered_arg_count)
                   {
-                    allocated = 2 * allocated + 1;
-                    numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+                    numbered_allocated = 2 * numbered_allocated + 1;
+                    numbered = (struct numbered_arg *) xrealloc (numbered, numbered_allocated * sizeof (struct numbered_arg));
                   }
                 numbered[numbered_arg_count].number = unnumbered_arg_count;
                 numbered[numbered_arg_count].type = FAT_INTEGER;
@@ -212,10 +211,10 @@ format_parse (const char *format, bool translated, char *fdi,
                 else if (*format == '*')
                   {
                     /* Unnumbered argument of type FAT_INTEGER.   */
-                    if (allocated == unnumbered_arg_count)
+                    if (numbered_allocated == unnumbered_arg_count)
                       {
-                        allocated = 2 * allocated + 1;
-                        numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+                        numbered_allocated = 2 * numbered_allocated + 1;
+                        numbered = (struct numbered_arg *) xrealloc (numbered, numbered_allocated * sizeof (struct numbered_arg));
                       }
                     numbered[numbered_arg_count].number = unnumbered_arg_count;
                     numbered[numbered_arg_count].type = FAT_INTEGER;
@@ -257,10 +256,10 @@ format_parse (const char *format, bool translated, char *fdi,
                 goto bad_format;
               }
 
-            if (allocated == numbered_arg_count)
+            if (numbered_allocated == numbered_arg_count)
               {
-                allocated = 2 * allocated + 1;
-                numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
+                numbered_allocated = 2 * numbered_allocated + 1;
+                numbered = (struct numbered_arg *) xrealloc (numbered, numbered_allocated * sizeof (struct numbered_arg));
               }
             switch (main_arg)
               {
@@ -339,7 +338,6 @@ format_parse (const char *format, bool translated, char *fdi,
   result = XMALLOC (struct spec);
   result->directives = directives;
   result->numbered_arg_count = numbered_arg_count;
-  result->allocated = allocated;
   result->numbered = numbered;
   return result;
 

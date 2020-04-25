@@ -1,5 +1,5 @@
 /* Parsing C format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2018 Free Software
+   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2018, 2020 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -142,7 +142,6 @@ struct spec
 {
   unsigned int directives;
   unsigned int unnumbered_arg_count;
-  unsigned int allocated;
   struct unnumbered_arg *unnumbered;
   bool unlikely_intentional;
   unsigned int sysdep_directives_count;
@@ -185,16 +184,17 @@ format_parse_entrails (const char *format, bool translated,
   struct spec spec;
   unsigned int numbered_arg_count;
   struct numbered_arg *numbered;
+  unsigned int allocated;
 
   spec.directives = 0;
-  numbered_arg_count = 0;
   spec.unnumbered_arg_count = 0;
-  spec.allocated = 0;
-  numbered = NULL;
   spec.unnumbered = NULL;
   spec.unlikely_intentional = false;
   spec.sysdep_directives_count = 0;
   spec.sysdep_directives = NULL;
+  numbered_arg_count = 0;
+  numbered = NULL;
+  allocated = 0;
 
   for (; *format != '\0';)
     if (*format++ == '%')
@@ -302,10 +302,10 @@ format_parse_entrails (const char *format, bool translated,
                     goto bad_format;
                   }
 
-                if (spec.allocated == numbered_arg_count)
+                if (allocated == numbered_arg_count)
                   {
-                    spec.allocated = 2 * spec.allocated + 1;
-                    numbered = (struct numbered_arg *) xrealloc (numbered, spec.allocated * sizeof (struct numbered_arg));
+                    allocated = 2 * allocated + 1;
+                    numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
                     IF_OOM (numbered, goto bad_format;)
                   }
                 numbered[numbered_arg_count].number = width_number;
@@ -324,10 +324,10 @@ format_parse_entrails (const char *format, bool translated,
                     goto bad_format;
                   }
 
-                if (spec.allocated == spec.unnumbered_arg_count)
+                if (allocated == spec.unnumbered_arg_count)
                   {
-                    spec.allocated = 2 * spec.allocated + 1;
-                    spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, spec.allocated * sizeof (struct unnumbered_arg));
+                    allocated = 2 * allocated + 1;
+                    spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, allocated * sizeof (struct unnumbered_arg));
                     IF_OOM (spec.unnumbered, goto bad_format;)
                   }
                 spec.unnumbered[spec.unnumbered_arg_count].type = FAT_INTEGER;
@@ -388,10 +388,10 @@ format_parse_entrails (const char *format, bool translated,
                         goto bad_format;
                       }
 
-                    if (spec.allocated == numbered_arg_count)
+                    if (allocated == numbered_arg_count)
                       {
-                        spec.allocated = 2 * spec.allocated + 1;
-                        numbered = (struct numbered_arg *) xrealloc (numbered, spec.allocated * sizeof (struct numbered_arg));
+                        allocated = 2 * allocated + 1;
+                        numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
                         IF_OOM (numbered, goto bad_format;)
                       }
                     numbered[numbered_arg_count].number = precision_number;
@@ -410,10 +410,10 @@ format_parse_entrails (const char *format, bool translated,
                         goto bad_format;
                       }
 
-                    if (spec.allocated == spec.unnumbered_arg_count)
+                    if (allocated == spec.unnumbered_arg_count)
                       {
-                        spec.allocated = 2 * spec.allocated + 1;
-                        spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, spec.allocated * sizeof (struct unnumbered_arg));
+                        allocated = 2 * allocated + 1;
+                        spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, allocated * sizeof (struct unnumbered_arg));
                         IF_OOM (spec.unnumbered, goto bad_format;)
                       }
                     spec.unnumbered[spec.unnumbered_arg_count].type = FAT_INTEGER;
@@ -731,10 +731,10 @@ format_parse_entrails (const char *format, bool translated,
                     goto bad_format;
                   }
 
-                if (spec.allocated == numbered_arg_count)
+                if (allocated == numbered_arg_count)
                   {
-                    spec.allocated = 2 * spec.allocated + 1;
-                    numbered = (struct numbered_arg *) xrealloc (numbered, spec.allocated * sizeof (struct numbered_arg));
+                    allocated = 2 * allocated + 1;
+                    numbered = (struct numbered_arg *) xrealloc (numbered, allocated * sizeof (struct numbered_arg));
                     IF_OOM (numbered, goto bad_format;)
                   }
                 numbered[numbered_arg_count].number = number;
@@ -753,10 +753,10 @@ format_parse_entrails (const char *format, bool translated,
                     goto bad_format;
                   }
 
-                if (spec.allocated == spec.unnumbered_arg_count)
+                if (allocated == spec.unnumbered_arg_count)
                   {
-                    spec.allocated = 2 * spec.allocated + 1;
-                    spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, spec.allocated * sizeof (struct unnumbered_arg));
+                    allocated = 2 * allocated + 1;
+                    spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, allocated * sizeof (struct unnumbered_arg));
                     IF_OOM (spec.unnumbered, goto bad_format;)
                   }
                 spec.unnumbered[spec.unnumbered_arg_count].type = type;
@@ -832,8 +832,8 @@ format_parse_entrails (const char *format, bool translated,
       /* So now the numbered arguments array is equivalent to a sequence
          of unnumbered arguments.  */
       spec.unnumbered_arg_count = numbered_arg_count;
-      spec.allocated = spec.unnumbered_arg_count;
-      spec.unnumbered = XNMALLOC (spec.allocated, struct unnumbered_arg);
+      allocated = spec.unnumbered_arg_count;
+      spec.unnumbered = XNMALLOC (allocated, struct unnumbered_arg);
       IF_OOM (spec.unnumbered, goto bad_format;)
       for (i = 0; i < spec.unnumbered_arg_count; i++)
         spec.unnumbered[i].type = numbered[i].type;

@@ -1,5 +1,5 @@
 /* Python format strings.
-   Copyright (C) 2001-2004, 2006-2009, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2009, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -92,7 +92,6 @@ struct spec
   unsigned int directives;
   unsigned int named_arg_count;
   unsigned int unnamed_arg_count;
-  unsigned int allocated;
   struct named_arg *named;
   struct unnamed_arg *unnamed;
 };
@@ -120,14 +119,15 @@ format_parse (const char *format, bool translated, char *fdi,
 {
   const char *const format_start = format;
   struct spec spec;
+  unsigned int allocated;
   struct spec *result;
 
   spec.directives = 0;
   spec.named_arg_count = 0;
   spec.unnamed_arg_count = 0;
-  spec.allocated = 0;
   spec.named = NULL;
   spec.unnamed = NULL;
+  allocated = 0;
 
   for (; *format != '\0';)
     if (*format++ == '%')
@@ -191,10 +191,10 @@ format_parse (const char *format, bool translated, char *fdi,
                 goto bad_format;
               }
 
-            if (spec.allocated == spec.unnamed_arg_count)
+            if (allocated == spec.unnamed_arg_count)
               {
-                spec.allocated = 2 * spec.allocated + 1;
-                spec.unnamed = (struct unnamed_arg *) xrealloc (spec.unnamed, spec.allocated * sizeof (struct unnamed_arg));
+                allocated = 2 * allocated + 1;
+                spec.unnamed = (struct unnamed_arg *) xrealloc (spec.unnamed, allocated * sizeof (struct unnamed_arg));
               }
             spec.unnamed[spec.unnamed_arg_count].type = FAT_INTEGER;
             spec.unnamed_arg_count++;
@@ -220,10 +220,10 @@ format_parse (const char *format, bool translated, char *fdi,
                     goto bad_format;
                   }
 
-                if (spec.allocated == spec.unnamed_arg_count)
+                if (allocated == spec.unnamed_arg_count)
                   {
-                    spec.allocated = 2 * spec.allocated + 1;
-                    spec.unnamed = (struct unnamed_arg *) xrealloc (spec.unnamed, spec.allocated * sizeof (struct unnamed_arg));
+                    allocated = 2 * allocated + 1;
+                    spec.unnamed = (struct unnamed_arg *) xrealloc (spec.unnamed, allocated * sizeof (struct unnamed_arg));
                   }
                 spec.unnamed[spec.unnamed_arg_count].type = FAT_INTEGER;
                 spec.unnamed_arg_count++;
@@ -288,10 +288,10 @@ format_parse (const char *format, bool translated, char *fdi,
                 goto bad_format;
               }
 
-            if (spec.allocated == spec.named_arg_count)
+            if (allocated == spec.named_arg_count)
               {
-                spec.allocated = 2 * spec.allocated + 1;
-                spec.named = (struct named_arg *) xrealloc (spec.named, spec.allocated * sizeof (struct named_arg));
+                allocated = 2 * allocated + 1;
+                spec.named = (struct named_arg *) xrealloc (spec.named, allocated * sizeof (struct named_arg));
               }
             spec.named[spec.named_arg_count].name = name;
             spec.named[spec.named_arg_count].type = type;
@@ -309,10 +309,10 @@ format_parse (const char *format, bool translated, char *fdi,
                 goto bad_format;
               }
 
-            if (spec.allocated == spec.unnamed_arg_count)
+            if (allocated == spec.unnamed_arg_count)
               {
-                spec.allocated = 2 * spec.allocated + 1;
-                spec.unnamed = (struct unnamed_arg *) xrealloc (spec.unnamed, spec.allocated * sizeof (struct unnamed_arg));
+                allocated = 2 * allocated + 1;
+                spec.unnamed = (struct unnamed_arg *) xrealloc (spec.unnamed, allocated * sizeof (struct unnamed_arg));
               }
             spec.unnamed[spec.unnamed_arg_count].type = type;
             spec.unnamed_arg_count++;

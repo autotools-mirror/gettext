@@ -1,5 +1,5 @@
 /* Tcl format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2007, 2009, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -76,7 +76,6 @@ struct spec
 {
   unsigned int directives;
   unsigned int numbered_arg_count;
-  unsigned int allocated;
   struct numbered_arg *numbered;
 };
 
@@ -102,6 +101,7 @@ format_parse (const char *format, bool translated, char *fdi,
 {
   const char *const format_start = format;
   struct spec spec;
+  unsigned int numbered_allocated;
   struct spec *result;
   bool seen_numbered_arg;
   bool seen_unnumbered_arg;
@@ -109,8 +109,8 @@ format_parse (const char *format, bool translated, char *fdi,
 
   spec.directives = 0;
   spec.numbered_arg_count = 0;
-  spec.allocated = 0;
   spec.numbered = NULL;
+  numbered_allocated = 0;
   seen_numbered_arg = false;
   seen_unnumbered_arg = false;
   number = 1;
@@ -186,10 +186,10 @@ format_parse (const char *format, bool translated, char *fdi,
               {
                 format++;
 
-                if (spec.allocated == spec.numbered_arg_count)
+                if (numbered_allocated == spec.numbered_arg_count)
                   {
-                    spec.allocated = 2 * spec.allocated + 1;
-                    spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, spec.allocated * sizeof (struct numbered_arg));
+                    numbered_allocated = 2 * numbered_allocated + 1;
+                    spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
                   }
                 spec.numbered[spec.numbered_arg_count].number = number;
                 spec.numbered[spec.numbered_arg_count].type = FAT_INTEGER;
@@ -211,10 +211,10 @@ format_parse (const char *format, bool translated, char *fdi,
                   {
                     format++;
 
-                    if (spec.allocated == spec.numbered_arg_count)
+                    if (numbered_allocated == spec.numbered_arg_count)
                       {
-                        spec.allocated = 2 * spec.allocated + 1;
-                        spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, spec.allocated * sizeof (struct numbered_arg));
+                        numbered_allocated = 2 * numbered_allocated + 1;
+                        spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
                       }
                     spec.numbered[spec.numbered_arg_count].number = number;
                     spec.numbered[spec.numbered_arg_count].type = FAT_INTEGER;
@@ -267,10 +267,10 @@ format_parse (const char *format, bool translated, char *fdi,
                 goto bad_format;
               }
 
-            if (spec.allocated == spec.numbered_arg_count)
+            if (numbered_allocated == spec.numbered_arg_count)
               {
-                spec.allocated = 2 * spec.allocated + 1;
-                spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, spec.allocated * sizeof (struct numbered_arg));
+                numbered_allocated = 2 * numbered_allocated + 1;
+                spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
               }
             spec.numbered[spec.numbered_arg_count].number = number;
             spec.numbered[spec.numbered_arg_count].type = type;
