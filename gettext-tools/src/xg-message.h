@@ -1,5 +1,5 @@
 /* Extracting a message.  Accumulating the message list.
-   Copyright (C) 2001-2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -75,6 +75,21 @@ extern void remember_a_message_plural (message_ty *mp,
                                        lex_pos_ty *pos,
                                        refcounted_string_list_ty *comment,
                                        bool comment_is_utf8);
+
+/* The following functions are used by remember_a_message.
+   Most extractors don't need to invoke them explicitly.  */
+
+/* Eliminates the 'undecided' values in mp->is_format.  */
+extern void decide_is_format (message_ty *mp);
+
+/* Adds a range restriction to mp->range.  */
+extern void intersect_range (message_ty *mp, const struct argument_range *range);
+
+/* Eliminates the 'undecided' value in mp->do_wrap.  */
+extern void decide_do_wrap (message_ty *mp);
+
+/* Eliminates the 'undecided' values in mp->syntax_check.  */
+extern void decide_syntax_check (message_ty *mp);
 
 
 #ifdef __cplusplus
