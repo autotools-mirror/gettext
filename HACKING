@@ -142,6 +142,13 @@ are skipped. To this effect, you need to install also:
     + Homepage: http://www.php.net/
     + Ubuntu package: php
 
+  * Ruby
+    + Homepage: https://www.ruby-lang.org/en/
+    + Ubuntu package: ruby
+  * The ruby-gettext package
+    + Homepage: https://ruby-gettext.github.io/
+    + Ubuntu package: ruby-gettext
+
   * lua
     + Homepage: https://www.lua.org/
     + Ubuntu package: lua5.2 or lua5.1

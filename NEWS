@@ -10,6 +10,10 @@ Version 0.21 - April 2020
     o xgettext now recognizes text blocks as string literals.
   - JavaScript:
     xgettext parses JSX expressions more reliably.
+  - Ruby:
+    o xgettext now supports Ruby.
+    o 'msgfmt -c' now verifies the syntax of translations of Ruby format
+      strings.
 
 * Runtime behaviour:
   - On native Windows platforms, the directory that contains the message

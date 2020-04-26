@@ -362,6 +362,9 @@ msgl-check.c
 | x-php.h
 | x-php.c
 |               String extractor for PHP.
+| x-ruby.h
+| x-ruby.c
+|               String extractor for Ruby.
 | x-rst.h
 | x-rst.c
 |               String extractor from .rst files, for Object Pascal.

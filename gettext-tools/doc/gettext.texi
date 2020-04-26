@@ -79,7 +79,7 @@ This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
 @copying
-Copyright (C) 1995-1998, 2001-2019 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2020 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -114,7 +114,7 @@ A copy of the license is included in @ref{GNU GPL}.
 @page
 @vskip 0pt plus 1filll
 @c @insertcopying
-Copyright (C) 1995-1998, 2001-2019 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2020 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -436,6 +436,7 @@ Individual Programming Languages
 * Tcl::                         Tcl - Tk's scripting language
 * Perl::                        Perl
 * PHP::                         PHP Hypertext Preprocessor
+* Ruby::                        Ruby
 * Pike::                        Pike
 * GCC-source::                  GNU Compiler Collection sources
 * Lua::                         Lua
@@ -9548,6 +9549,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * Tcl::                         Tcl - Tk's scripting language
 * Perl::                        Perl
 * PHP::                         PHP Hypertext Preprocessor
+* Ruby::                        Ruby
 * Pike::                        Pike
 * GCC-source::                  GNU Compiler Collection sources
 * Lua::                         Lua
@@ -12044,6 +12046,62 @@ On platforms without gettext, the functions are not available.
 @end table
 
 An example is available in the @file{examples} directory: @code{hello-php}.
+
+@node Ruby
+@subsection Ruby
+@cindex Ruby
+
+@table @asis
+@item RPMs
+ruby, ruby-gettext
+
+@item Ubuntu packages
+ruby, ruby-gettext
+
+@item File extension
+@code{rb}
+
+@item String syntax
+@code{"abc"}, @code{'abc'}, @code{%q/abc/} etc.,
+@code{%q(abc)}, @code{%q[abc]}, @code{%q@{abc@}}
+
+@item gettext shorthand
+@code{_("abc")}
+
+@item gettext/ngettext functions
+@code{gettext}, @code{ngettext}
+
+@item textdomain
+---
+
+@item bindtextdomain
+@code{bindtextdomain} function
+
+@item setlocale
+---
+
+@item Prerequisite
+@code{require 'gettext'}
+@code{include GetText}
+
+@item Use or emulate GNU gettext
+emulate
+
+@item Extractor
+@code{xgettext}
+
+@item Formatting with positions
+@code{sprintf("%2$d %1$d", x, y)}
+@*@code{"%@{new@} replaces %@{old@}" % @{:old => oldvalue, :new => newvalue@}}
+
+@item Portability
+fully portable
+
+@item po-mode marking
+---
+@end table
+
+@c An example is available in the @file{examples} directory: @code{hello-ruby}.
 
 @node Pike
 @subsection Pike

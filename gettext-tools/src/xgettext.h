@@ -1,5 +1,5 @@
 /* xgettext common functions.
-   Copyright (C) 2001-2003, 2005-2006, 2008-2009, 2011, 2013-2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2006, 2008-2009, 2011, 2013-2014, 2018, 2020 Free Software Foundation, Inc.
    Written by Peter Miller <millerp@canb.auug.org.au>
    and Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -49,6 +49,9 @@ extern const char *msgstr_suffix;
 /* If true, omit the header entry.
    If false, keep the header entry present in the input.  */
 extern int xgettext_omit_header;
+
+/* Be more verbose.  */
+extern int verbose;
 
 extern enum is_syntax_check default_syntax_check[NSYNTAXCHECKS];
 

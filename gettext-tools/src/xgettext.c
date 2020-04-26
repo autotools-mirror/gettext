@@ -106,6 +106,7 @@
 #include "x-tcl.h"
 #include "x-perl.h"
 #include "x-php.h"
+#include "x-ruby.h"
 #include "x-stringtable.h"
 #include "x-rst.h"
 #include "x-glade.h"
@@ -166,6 +167,9 @@ static catalog_output_format_ty output_syntax = &output_format_po;
 /* If nonzero omit header with information about this run.  */
 int xgettext_omit_header;
 
+/* Be more verbose.  */
+int verbose = 0;
+
 /* Table of flag_context_list_ty tables.  */
 static flag_context_list_table_ty flag_table_c;
 static flag_context_list_table_ty flag_table_cxx_qt;
@@ -186,6 +190,7 @@ static flag_context_list_table_ty flag_table_ycp;
 static flag_context_list_table_ty flag_table_tcl;
 static flag_context_list_table_ty flag_table_perl;
 static flag_context_list_table_ty flag_table_php;
+static flag_context_list_table_ty flag_table_ruby;
 static flag_context_list_table_ty flag_table_lua;
 static flag_context_list_table_ty flag_table_javascript;
 static flag_context_list_table_ty flag_table_vala;
@@ -210,7 +215,7 @@ static locating_rule_list_ty *its_locating_rules;
   "  <its:translateRule selector=\"/*\" translate=\"no\"/>" \
   "</its:rules>"
 
-/* If nonzero add comments used by itstool. */
+/* If nonzero add comments used by itstool.  */
 static bool add_itstool_comments = false;
 
 /* Long options.  */
@@ -263,6 +268,7 @@ static const struct option long_options[] =
   { "stringtable-output", no_argument, NULL, CHAR_MAX + 7 },
   { "style", required_argument, NULL, CHAR_MAX + 15 },
   { "trigraphs", no_argument, NULL, 'T' },
+  { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
   { "width", required_argument, NULL, 'w' },
   { NULL, 0, NULL, 0 }
@@ -373,12 +379,13 @@ main (int argc, char *argv[])
   init_flag_table_tcl ();
   init_flag_table_perl ();
   init_flag_table_php ();
+  init_flag_table_ruby ();
   init_flag_table_lua ();
   init_flag_table_javascript ();
   init_flag_table_vala ();
 
   while ((optchar = getopt_long (argc, argv,
-                                 "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTVw:W:x:",
+                                 "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTvVw:W:x:",
                                  long_options, NULL)) != EOF)
     switch (optchar)
       {
@@ -399,6 +406,7 @@ main (int argc, char *argv[])
         x_tcl_extract_all ();
         x_perl_extract_all ();
         x_php_extract_all ();
+        x_ruby_extract_all ();
         x_lua_extract_all ();
         x_javascript_extract_all ();
         x_vala_extract_all ();
@@ -478,6 +486,7 @@ main (int argc, char *argv[])
         x_tcl_keyword (optarg);
         x_perl_keyword (optarg);
         x_php_keyword (optarg);
+        x_ruby_keyword (optarg);
         x_lua_keyword (optarg);
         x_javascript_keyword (optarg);
         x_vala_keyword (optarg);
@@ -539,6 +548,10 @@ main (int argc, char *argv[])
 
       case 'T':
         x_c_trigraphs ();
+        break;
+
+      case 'v':
+        verbose++;
         break;
 
       case 'V':
@@ -1073,8 +1086,8 @@ Choice of input file language:\n"));
                                 (C, C++, ObjectiveC, PO, Shell, Python, Lisp,\n\
                                 EmacsLisp, librep, Scheme, Smalltalk, Java,\n\
                                 JavaProperties, C#, awk, YCP, Tcl, Perl, PHP,\n\
-                                GCC-source, NXStringTable, RST, RSJ, Glade,\n\
-                                Lua, JavaScript, Vala, Desktop)\n"));
+                                Ruby, GCC-source, NXStringTable, RST, RSJ,\n\
+                                Glade, Lua, JavaScript, Vala, Desktop)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -1218,6 +1231,8 @@ Informative output:\n"));
   -h, --help                  display this help and exit\n"));
       printf (_("\
   -V, --version               output version information and exit\n"));
+      printf (_("\
+  -v, --verbose               increase verbosity level\n"));
       printf ("\n");
       /* TRANSLATORS: The first placeholder is the web address of the Savannah
          project of this package.  The second placeholder is the bug-reporting
@@ -1552,6 +1567,11 @@ xgettext_record_flag (const char *optionstring)
                     break;
                   case format_php:
                     flag_context_list_table_insert (&flag_table_php, 0,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_ruby:
+                    flag_context_list_table_insert (&flag_table_ruby, 0,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
@@ -2126,6 +2146,7 @@ language_to_extractor (const char *name)
     SCANNERS_TCL
     SCANNERS_PERL
     SCANNERS_PHP
+    SCANNERS_RUBY
     SCANNERS_STRINGTABLE
     SCANNERS_RST
     SCANNERS_GLADE
@@ -2217,6 +2238,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_TCL
     EXTENSIONS_PERL
     EXTENSIONS_PHP
+    EXTENSIONS_RUBY
     EXTENSIONS_STRINGTABLE
     EXTENSIONS_RST
     EXTENSIONS_GLADE

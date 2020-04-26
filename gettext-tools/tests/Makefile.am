@@ -108,6 +108,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-rst-1 xgettext-rst-2 \
 	xgettext-python-1 xgettext-python-2 xgettext-python-3 \
 	xgettext-python-4 \
+	xgettext-ruby-1 \
 	xgettext-scheme-1 xgettext-scheme-2 xgettext-scheme-3 \
 	xgettext-scheme-4 \
 	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 xgettext-sh-4 xgettext-sh-5 \
@@ -146,6 +147,7 @@ TESTS = gettext-1 gettext-2 \
 	format-perl-mixed-1 format-perl-mixed-2 \
 	format-qt-1 format-qt-2 \
 	format-qt-plural-1 format-qt-plural-2 \
+	format-ruby-1 format-ruby-2 \
 	format-scheme-1 format-scheme-2 \
 	format-sh-1 format-sh-2 \
 	format-tcl-1 format-tcl-2 \
