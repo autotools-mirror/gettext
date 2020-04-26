@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1998, 2000-2004, 2006, 2009 Free Software
+   Copyright (C) 1995, 1998, 2000-2004, 2006, 2009, 2020 Free Software
    Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -234,4 +234,24 @@ string_list_member (const string_list_ty *slp, const char *s)
     if (strcmp (slp->item[j], s) == 0)
       return true;
   return false;
+}
+
+
+/* Remove s from the list of strings.  Return the removed string or NULL.  */
+const char *
+string_list_remove (string_list_ty *slp, const char *s)
+{
+  size_t j;
+
+  for (j = 0; j < slp->nitems; ++j)
+    if (strcmp (slp->item[j], s) == 0)
+      {
+        const char *found = slp->item[j];
+        slp->nitems--;
+        if (slp->nitems > j)
+          memmove (&slp->item[j + 1], &slp->item[j],
+                   (slp->nitems - j) * sizeof (const char *));
+        return found;
+      }
+  return NULL;
 }
