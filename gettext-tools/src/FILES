@@ -232,6 +232,7 @@ format-tcl.c           Format string handling for Tcl.
 format-perl.c          Format string handling for Perl.
 format-perl-brace.c    Format string handling for Perl, braced syntax.
 format-php.c           Format string handling for PHP.
+format-ruby.c          Format string handling for Ruby.
 format-gcc-internal.c  Format string handling GCC internal.
 format-gfc-internal.c  Format string handling GFC internal.
 format-qt.c            Format string handling for Qt.

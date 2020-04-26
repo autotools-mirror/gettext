@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2010, 2012-2013, 2015, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2010, 2012-2013, 2015, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -115,6 +115,7 @@ extern DLL_VARIABLE struct formatstring_parser formatstring_tcl;
 extern DLL_VARIABLE struct formatstring_parser formatstring_perl;
 extern DLL_VARIABLE struct formatstring_parser formatstring_perl_brace;
 extern DLL_VARIABLE struct formatstring_parser formatstring_php;
+extern DLL_VARIABLE struct formatstring_parser formatstring_ruby;
 extern DLL_VARIABLE struct formatstring_parser formatstring_gcc_internal;
 extern DLL_VARIABLE struct formatstring_parser formatstring_gfc_internal;
 extern DLL_VARIABLE struct formatstring_parser formatstring_qt;

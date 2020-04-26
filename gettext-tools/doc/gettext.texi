@@ -405,6 +405,7 @@ The Translator's View
 * tcl-format::                  Tcl Format Strings
 * perl-format::                 Perl Format Strings
 * php-format::                  PHP Format Strings
+* ruby-format::                 Ruby Format Strings
 * gcc-internal-format::         GCC internal Format Strings
 * gfc-internal-format::         GFC internal Format Strings
 * qt-format::                   Qt Format Strings
@@ -1670,6 +1671,12 @@ Likewise for Perl brace, see @ref{perl-format}.
 @itemx no-php-format
 @kwindex no-php-format@r{ flag}
 Likewise for PHP, see @ref{php-format}.
+
+@item ruby-format
+@kwindex ruby-format@r{ flag}
+@itemx no-ruby-format
+@kwindex no-ruby-format@r{ flag}
+Likewise for Ruby, see @ref{ruby-format}.
 
 @item gcc-internal-format
 @kwindex gcc-internal-format@r{ flag}
@@ -9113,6 +9120,7 @@ strings.
 * tcl-format::                  Tcl Format Strings
 * perl-format::                 Perl Format Strings
 * php-format::                  PHP Format Strings
+* ruby-format::                 Ruby Format Strings
 * gcc-internal-format::         GCC internal Format Strings
 * gfc-internal-format::         GFC internal Format Strings
 * qt-format::                   Qt Format Strings
@@ -9309,7 +9317,7 @@ Tcl format strings are described in the @file{format.n} manual page,
 @node perl-format
 @subsection Perl Format Strings
 
-There are two kinds format strings in Perl: those acceptable to the
+There are two kinds of format strings in Perl: those acceptable to the
 Perl built-in function @code{printf}, labelled as @samp{perl-format},
 and those acceptable to the @code{libintl-perl} function @code{__x},
 labelled as @samp{perl-brace-format}.
@@ -9329,6 +9337,25 @@ of simple identifiers.
 PHP format strings are described in the documentation of the PHP function
 @code{sprintf}, in @file{phpdoc/manual/function.sprintf.html} or
 @uref{http://www.php.net/manual/en/function.sprintf.php}.
+
+@node ruby-format
+@subsection Ruby Format Strings
+
+Ruby format strings are described in the documentation of the Ruby
+functions @code{format} and @code{sprintf}, in
+@uref{https://ruby-doc.org/core-2.7.1/Kernel.html#method-i-sprintf}.
+
+There are two kinds of format strings in Ruby:
+@itemize @bullet
+@item
+Those that take a list of arguments without names.  They support
+argument reordering by use of the @code{%@var{n}$} syntax.  Note
+that if one argument uses this syntax, all must use this syntax.
+@item
+Those that take a hash table, containing named arguments.  The
+syntax is @code{%<@var{name}>}.  Note that @code{%@{@var{name}@}} is
+equivalent to @code{%<@var{name}>s}.
+@end itemize
 
 @node gcc-internal-format
 @subsection GCC internal Format Strings

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012-2013, 2015-2016, 2019 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2010, 2012-2013, 2015-2016, 2019-2020 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -54,6 +54,7 @@ const char *const format_language[NFORMATS] =
   /* format_perl */             "perl",
   /* format_perl_brace */       "perl-brace",
   /* format_php */              "php",
+  /* format_ruby */             "ruby",
   /* format_gcc_internal */     "gcc-internal",
   /* format_gfc_internal */     "gfc-internal",
   /* format_qt */               "qt",
@@ -87,6 +88,7 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_perl */             "Perl",
   /* format_perl_brace */       "Perl brace",
   /* format_php */              "PHP",
+  /* format_ruby */             "Ruby",
   /* format_gcc_internal */     "GCC internal",
   /* format_gfc_internal */     "GFC internal",
   /* format_qt */               "Qt",
