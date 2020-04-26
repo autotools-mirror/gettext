@@ -1,5 +1,5 @@
-/* xgettext PO and JavaProperties backends.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014, 2018 Free Software Foundation, Inc.
+/* xgettext PO, JavaProperties, and NXStringTable backends.
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014, 2018, 2020 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
