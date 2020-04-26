@@ -1,5 +1,5 @@
 /* xgettext glade backend.
-   Copyright (C) 2002-2003, 2006, 2013-2015, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2006, 2013-2015, 2018, 2020 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -36,7 +36,7 @@ extern "C" {
   { "ui",        NULL    },                                          \
 
 #define SCANNERS_GLADE \
-  { "glade",            NULL, NULL, NULL, NULL },                    \
+  { "glade",            NULL, NULL, NULL, NULL, NULL },              \
 
 
 #ifdef __cplusplus

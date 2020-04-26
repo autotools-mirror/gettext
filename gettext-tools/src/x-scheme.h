@@ -1,5 +1,5 @@
 /* xgettext Scheme backend.
-   Copyright (C) 2004, 2006, 2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2004, 2006, 2014, 2018, 2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2004.
 
    This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ extern "C" {
   { "scm",       "Scheme"     },                                        \
 
 #define SCANNERS_SCHEME \
-  { "Scheme",           extract_scheme,                                   \
+  { "Scheme",           extract_scheme, NULL,                             \
                         &flag_table_scheme, &formatstring_scheme, NULL }, \
 
 /* Scan a Scheme file and add its translatable strings to mdlp.  */

@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2003, 2006, 2010, 2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2006, 2010, 2014, 2018, 2020 Free Software Foundation, Inc.
    Written by Guido Flohr <guido@imperia.net>, 2002-2003
 
    This program is free software: you can redistribute it and/or modify
@@ -35,7 +35,7 @@ extern "C" {
   { "cgi",   "perl"   },                                                \
 
 #define SCANNERS_PERL \
-  { "perl",             extract_perl,                                   \
+  { "perl",             extract_perl, NULL,                             \
             &flag_table_perl, &formatstring_perl, &formatstring_perl_brace }, \
 
 /* Scan a Perl file and add its translatable strings to mdlp.  */

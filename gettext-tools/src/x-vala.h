@@ -1,5 +1,5 @@
 /* xgettext Vala backend.
-   Copyright (C) 2002-2003, 2006, 2013-2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2006, 2013-2014, 2018, 2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,7 +30,7 @@ extern "C" {
   { "vala",        "Vala"   },                                        \
 
 #define SCANNERS_VALA \
-  { "Vala",       extract_vala,                                       \
+  { "Vala",       extract_vala, NULL,                                 \
                   &flag_table_vala, &formatstring_c, NULL },          \
 
 /* Scan a Vala file and add its translatable strings to mdlp.  */

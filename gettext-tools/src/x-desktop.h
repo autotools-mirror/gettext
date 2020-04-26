@@ -1,5 +1,5 @@
 /* xgettext Desktop Entry backend.
-   Copyright (C) 2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2014, 2018, 2020 Free Software Foundation, Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2014.
 
    This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ extern "C" {
   { "desktop", "Desktop" }, \
 
 #define SCANNERS_DESKTOP \
-  { "Desktop", extract_desktop, NULL, NULL, NULL }, \
+  { "Desktop", extract_desktop, NULL, NULL, NULL, NULL }, \
 
 /* Scan a Desktop Entry file and add its translatable strings to mdlp.  */
 extern void extract_desktop (FILE *fp, const char *real_filename,

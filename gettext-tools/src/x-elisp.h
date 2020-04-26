@@ -1,5 +1,5 @@
 /* xgettext Emacs Lisp backend.
-   Copyright (C) 2002-2003, 2006, 2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2006, 2014, 2018, 2020 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ extern "C" {
   { "el",        "EmacsLisp"     },                                     \
 
 #define SCANNERS_ELISP \
-  { "EmacsLisp",        extract_elisp,                                  \
+  { "EmacsLisp",        extract_elisp, NULL,                            \
                         &flag_table_elisp, &formatstring_elisp, NULL }, \
 
 /* Scan an Emacs Lisp file and add its translatable strings to mdlp.  */

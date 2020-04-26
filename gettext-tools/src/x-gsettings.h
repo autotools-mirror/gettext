@@ -1,5 +1,5 @@
 /* xgettext GSettings schema file backend.
-   Copyright (C) 2002-2003, 2006, 2013-2015, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2006, 2013-2015, 2018, 2020 Free Software Foundation, Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2013.
 
    This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@ extern "C" {
   { "gschema.xml", NULL }, \
 
 #define SCANNERS_GSETTINGS \
-  { "gsettings", NULL, NULL, NULL, NULL },      \
+  { "gsettings", NULL, NULL, NULL, NULL, NULL }, \
 
 
 #ifdef __cplusplus

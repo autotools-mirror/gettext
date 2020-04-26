@@ -1,5 +1,5 @@
 /* xgettext awk backend.
-   Copyright (C) 2002-2003, 2006, 2014-2015, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2006, 2014-2015, 2018, 2020 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@ extern "C" {
   { "twjr",   "awk"   },                                                \
 
 #define SCANNERS_AWK \
-  { "awk",              extract_awk,                                    \
+  { "awk",              extract_awk, NULL,                              \
                         &flag_table_awk, &formatstring_awk, NULL },     \
 
 /* Scan an awk file and add its translatable strings to mdlp.  */

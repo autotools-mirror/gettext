@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002-2003, 2006, 2013-2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2006, 2013-2014, 2018, 2020 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@ extern "C" {
   { "py",        "Python"   },                                          \
 
 #define SCANNERS_PYTHON \
-  { "Python",           extract_python,                                   \
+  { "Python",           extract_python, NULL,                           \
                         &flag_table_python, &formatstring_python, &formatstring_python_brace }, \
 
 /* Scan a Python file and add its translatable strings to mdlp.  */

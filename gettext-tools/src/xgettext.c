@@ -269,18 +269,26 @@ static const struct option long_options[] =
 };
 
 
-/* The extractors must all be functions returning void and taking three
-   arguments designating the input stream and one message domain list argument
-   in which to add the messages.  */
-typedef void (*extractor_func) (FILE *fp, const char *real_filename,
-                                const char *logical_filename,
-                                flag_context_list_table_ty *flag_table,
-                                msgdomain_list_ty *mdlp);
+/* The extractors must all be functions returning void and taking as arguments
+   - the file name or file stream,
+   - the flag table,
+   - a message domain list argument in which to add the messages.
+   An extract_from_stream_func is preferred, because it supports extracting from
+   stdin.  */
+typedef void (*extract_from_stream_func) (FILE *fp, const char *real_filename,
+                                          const char *logical_filename,
+                                          flag_context_list_table_ty *flag_table,
+                                          msgdomain_list_ty *mdlp);
+typedef void (*extract_from_file_func) (const char *real_filename,
+                                        const char *logical_filename,
+                                        flag_context_list_table_ty *flag_table,
+                                        msgdomain_list_ty *mdlp);
 
 typedef struct extractor_ty extractor_ty;
 struct extractor_ty
 {
-  extractor_func func;
+  extract_from_stream_func extract_from_stream;
+  extract_from_file_func extract_from_file;
   flag_context_list_table_ty *flag_table;
   struct formatstring_parser *formatstring_parser1;
   struct formatstring_parser *formatstring_parser2;
@@ -829,7 +837,7 @@ xgettext cannot work without keywords to look for"));
 
       filename = file_list->item[i];
 
-      if (extractor.func)
+      if (extractor.extract_from_stream || extractor.extract_from_file)
         this_file_extractor = extractor;
       else if (explicit_its_filename != NULL)
         {
@@ -1692,6 +1700,65 @@ savable_comment_to_xgettext_comment (refcounted_string_list_ty *rslp)
 }
 
 
+/* xgettext_find_file and xgettext_open look up a file, taking into account
+   the --directory options.
+   xgettext_find_file merely returns the file name.  This function is useful
+   for parsers implemented as separate programs.
+   xgettext_open returns the open file stream.  This function is useful for
+   built-in parsers.  */
+
+static void
+xgettext_find_file (const char *fn,
+                    char **logical_file_name_p, char **real_file_name_p)
+{
+  char *new_name;
+  char *logical_file_name;
+  struct stat statbuf;
+
+  /* We cannot handle "-" here.  "/dev/fd/0" is not portable, and it cannot
+     be opened multiple times.  */
+  if (IS_RELATIVE_FILE_NAME (fn))
+    {
+      int j;
+
+      for (j = 0; ; ++j)
+        {
+          const char *dir = dir_list_nth (j);
+
+          if (dir == NULL)
+            error (EXIT_FAILURE, ENOENT,
+                   _("error while opening \"%s\" for reading"), fn);
+
+          new_name = xconcatenated_filename (dir, fn, NULL);
+
+          if (stat (new_name, &statbuf) == 0)
+            break;
+
+          if (errno != ENOENT)
+            error (EXIT_FAILURE, errno,
+                   _("error while opening \"%s\" for reading"), new_name);
+          free (new_name);
+        }
+
+      /* Note that the NEW_NAME variable contains the actual file name
+         and the logical file name is what is reported by xgettext.  In
+         this case NEW_NAME is set to the file which was found along the
+         directory search path, and LOGICAL_FILE_NAME is is set to the
+         file name which was searched for.  */
+      logical_file_name = xstrdup (fn);
+    }
+  else
+    {
+      new_name = xstrdup (fn);
+      if (stat (fn, &statbuf) != 0)
+        error (EXIT_FAILURE, errno,
+               _("error while opening \"%s\" for reading"), fn);
+      logical_file_name = xstrdup (new_name);
+    }
+
+  *logical_file_name_p = logical_file_name;
+  *real_file_name_p = new_name;
+}
 
 static FILE *
 xgettext_open (const char *fn,
@@ -1767,25 +1834,37 @@ extract_from_file (const char *file_name, extractor_ty extractor,
 {
   char *logical_file_name;
   char *real_file_name;
-  FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
-
-  /* Set the default for the source file encoding.  May be overridden by
-     the extractor function.  */
-  xgettext_current_source_encoding =
-    (xgettext_global_source_encoding != NULL ? xgettext_global_source_encoding :
-     po_charset_ascii);
-#if HAVE_ICONV
-  xgettext_current_source_iconv = xgettext_global_source_iconv;
-#endif
 
   current_formatstring_parser1 = extractor.formatstring_parser1;
   current_formatstring_parser2 = extractor.formatstring_parser2;
   current_formatstring_parser3 = extractor.formatstring_parser3;
-  extractor.func (fp, real_file_name, logical_file_name, extractor.flag_table,
-                  mdlp);
 
-  if (fp != stdin)
-    fclose (fp);
+  if (extractor.extract_from_stream)
+    {
+      FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
+
+      /* Set the default for the source file encoding.  May be overridden by
+         the extractor function.  */
+      xgettext_current_source_encoding =
+        (xgettext_global_source_encoding != NULL ? xgettext_global_source_encoding :
+         po_charset_ascii);
+#if HAVE_ICONV
+      xgettext_current_source_iconv = xgettext_global_source_iconv;
+#endif
+
+      extractor.extract_from_stream (fp, real_file_name, logical_file_name,
+                                     extractor.flag_table, mdlp);
+
+      if (fp != stdin)
+        fclose (fp);
+    }
+  else
+    {
+      xgettext_find_file (file_name, &logical_file_name, &real_file_name);
+
+      extractor.extract_from_file (real_file_name, logical_file_name,
+                                   extractor.flag_table, mdlp);
+    }
   free (logical_file_name);
   free (real_file_name);
 }
@@ -2020,7 +2099,8 @@ language_to_extractor (const char *name)
   struct table_ty
   {
     const char *name;
-    extractor_func func;
+    extract_from_stream_func extract_from_stream;
+    extract_from_file_func extract_from_file;
     flag_context_list_table_ty *flag_table;
     struct formatstring_parser *formatstring_parser1;
     struct formatstring_parser *formatstring_parser2;
@@ -2066,7 +2146,8 @@ language_to_extractor (const char *name)
       {
         extractor_ty result;
 
-        result.func = tp->func;
+        result.extract_from_stream = tp->extract_from_stream;
+        result.extract_from_file = tp->extract_from_file;
         result.flag_table = tp->flag_table;
         result.formatstring_parser1 = tp->formatstring_parser1;
         result.formatstring_parser2 = tp->formatstring_parser2;
