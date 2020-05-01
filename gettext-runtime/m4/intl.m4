@@ -1,4 +1,4 @@
-# intl.m4 serial 41 (gettext-0.21)
+# intl.m4 serial 42 (gettext-0.21)
 dnl Copyright (C) 1995-2014, 2016-2020 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -251,14 +251,14 @@ AC_DEFUN([gt_INTL_SUBDIR_CORE],
 
   dnl intl/plural.c is generated from intl/plural.y. It requires bison,
   dnl because plural.y uses bison specific features. It requires at least
-  dnl bison-2.7 for %define api.pure.
+  dnl bison-3.0 for %precedence.
   dnl bison is only needed for the maintainer (who touches plural.y). But in
   dnl order to avoid separate Makefiles or --enable-maintainer-mode, we put
   dnl the rule in general Makefile. Now, some people carelessly touch the
   dnl files or have a broken "make" program, hence the plural.c rule will
   dnl sometimes fire. To avoid an error, defines BISON to ":" if it is not
   dnl present or too old.
-  gl_PROG_BISON([INTLBISON], [2.7], [1.* | 2.[0-6] | 2.[0-6].*])
+  gl_PROG_BISON([INTLBISON], [3.0], [1.* | 2.*])
 ])
 
 dnl Copies _GL_UNUSED and _GL_ATTRIBUTE_PURE definitions from
