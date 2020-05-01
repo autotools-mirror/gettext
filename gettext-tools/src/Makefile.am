@@ -92,6 +92,7 @@ LDADD = ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) @LTLIBINTL@ $(WOE32_LDA
 OTHERPROGDEPENDENCIES = ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 
 SED = sed
+BISON = @TOOLS_BISON@
 YACC = @YACC@ -d
 JAR = @JAR@
 JAVACOMP = $(SHELL) ../javacomp.sh
@@ -522,10 +523,12 @@ po-gram-gen.c po-gram-gen.h: po-gram-gen.y
 	                              y.tab.h po-gram-gen.h \
 	                              y.output po-gram-gen.output \
 	                              -- $(YACC) $(YFLAGS) $(AM_YFLAGS) \
-	&& sed -e 's|".*/po-gram-gen.y"|"po-gram-gen.y"|' < po-gram-gen.c > po-gram-gen.c-tmp \
-	&& rm -f po-gram-gen.c \
-	&& mv po-gram-gen.c-tmp $(srcdir)/po-gram-gen.c \
-	&& { test '$(srcdir)' = . || mv po-gram-gen.h $(srcdir)/po-gram-gen.h; }
+	&& test ':' = '$(BISON)' || { \
+	  sed -e 's|".*/po-gram-gen.y"|"po-gram-gen.y"|' < po-gram-gen.c > po-gram-gen.c-tmp \
+	  && rm -f po-gram-gen.c \
+	  && mv po-gram-gen.c-tmp $(srcdir)/po-gram-gen.c \
+	  && { test '$(srcdir)' = . || mv po-gram-gen.h $(srcdir)/po-gram-gen.h; }; \
+	}
 BUILT_SOURCES += po-gram-gen.c po-gram-gen.h
 MOSTLYCLEANFILES += po-gram-gen.c-tmp
 MAINTAINERCLEANFILES += po-gram-gen.c po-gram-gen.h
@@ -549,10 +552,12 @@ cldr-plural.c cldr-plural.h: cldr-plural.y
 	                              y.tab.h cldr-plural.h \
 	                              y.output cldr-plural.output \
 	                              -- $(YACC) $(YFLAGS) $(AM_YFLAGS) \
-	&& sed -e 's|".*/cldr-plural.y"|"cldr-plural.y"|' < cldr-plural.c > cldr-plural.c-tmp \
-	&& rm -f cldr-plural.c \
-	&& mv cldr-plural.c-tmp $(srcdir)/cldr-plural.c \
-	&& { test '$(srcdir)' = . || mv cldr-plural.h $(srcdir)/cldr-plural.h; }
+	&& test ':' = '$(BISON)' || { \
+	  sed -e 's|".*/cldr-plural.y"|"cldr-plural.y"|' < cldr-plural.c > cldr-plural.c-tmp \
+	  && rm -f cldr-plural.c \
+	  && mv cldr-plural.c-tmp $(srcdir)/cldr-plural.c \
+	  && { test '$(srcdir)' = . || mv cldr-plural.h $(srcdir)/cldr-plural.h; }; \
+	}
 BUILT_SOURCES += cldr-plural.c cldr-plural.h
 MOSTLYCLEANFILES += cldr-plural.c-tmp
 MAINTAINERCLEANFILES += cldr-plural.c cldr-plural.h
