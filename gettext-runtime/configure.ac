@@ -31,7 +31,6 @@ test "$docdir" != '${datarootdir}/doc/${PACKAGE_TARNAME}' || docdir='${datarootd
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL
-AC_PROG_YACC
 
 gt_JAVA_CHOICE
 

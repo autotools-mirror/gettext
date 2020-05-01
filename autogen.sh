@@ -94,6 +94,7 @@ if ! $skip_gnulib; then
   GNULIB_MODULES_RUNTIME_OTHER='
     gettext-runtime-misc
     ansi-c++-opt
+    bison
     csharpcomp-script
     java
     javacomp-script
