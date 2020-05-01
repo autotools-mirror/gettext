@@ -1,5 +1,5 @@
 /* Unicode CLDR plural rule parser and converter
-   Copyright (C) 2015 Free Software Foundation, Inc.
+   Copyright (C) 2015, 2020 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -119,6 +119,8 @@ new_range (struct cldr_plural_operand_ty *start,
   return result;
 }
 %}
+
+%require "3.0"
 
 %parse-param {struct cldr_plural_parse_args *arg}
 %lex-param {struct cldr_plural_parse_args *arg}
