@@ -17,6 +17,10 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
+/* Remap parser interface names, so we can have multiple Bison
+   generated parsers in the same program.  */
+%define api.prefix {po_gram_}
+
 %{
 #ifdef HAVE_CONFIG_H
 # include "config.h"
@@ -39,53 +43,6 @@
 #include "read-catalog-abstract.h"
 
 #define _(str) gettext (str)
-
-/* Remap normal yacc parser interface names (yyparse, yylex, yyerror, etc),
-   as well as gratuitiously global symbol names, so we can have multiple
-   yacc generated parsers in the same program.  Note that these are only
-   the variables produced by yacc.  If other parser generators (bison,
-   byacc, etc) produce additional global names that conflict at link time,
-   then those parser generators need to be fixed instead of adding those
-   names to this list. */
-
-#define yymaxdepth po_gram_maxdepth
-#define yyparse po_gram_parse
-#define yylex   po_gram_lex
-#define yyerror po_gram_error
-#define yylval  po_gram_lval
-#define yychar  po_gram_char
-#define yydebug po_gram_debug
-#define yypact  po_gram_pact
-#define yyr1    po_gram_r1
-#define yyr2    po_gram_r2
-#define yydef   po_gram_def
-#define yychk   po_gram_chk
-#define yypgo   po_gram_pgo
-#define yyact   po_gram_act
-#define yyexca  po_gram_exca
-#define yyerrflag po_gram_errflag
-#define yynerrs po_gram_nerrs
-#define yyps    po_gram_ps
-#define yypv    po_gram_pv
-#define yys     po_gram_s
-#define yy_yys  po_gram_yys
-#define yystate po_gram_state
-#define yytmp   po_gram_tmp
-#define yyv     po_gram_v
-#define yy_yyv  po_gram_yyv
-#define yyval   po_gram_val
-#define yylloc  po_gram_lloc
-#define yyreds  po_gram_reds          /* With YYDEBUG defined */
-#define yytoks  po_gram_toks          /* With YYDEBUG defined */
-#define yylhs   po_gram_yylhs
-#define yylen   po_gram_yylen
-#define yydefred po_gram_yydefred
-#define yydgoto po_gram_yydgoto
-#define yysindex po_gram_yysindex
-#define yyrindex po_gram_yyrindex
-#define yygindex po_gram_yygindex
-#define yytable  po_gram_yytable
-#define yycheck  po_gram_yycheck
 
 static long plural_counter;
 
