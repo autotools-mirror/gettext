@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1996, 1998, 2000-2001, 2003, 2005-2006, 2012-2013, 2016
+   Copyright (C) 1995-1996, 1998, 2000-2001, 2003, 2005-2006, 2012-2013, 2016, 2020
    Free Software Foundation, Inc.
 
    This file was written by Peter Miller <pmiller@agso.gov.au>
@@ -16,10 +16,6 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
-
-/* Remap parser interface names, so we can have multiple Bison
-   generated parsers in the same program.  */
-%define api.prefix {po_gram_}
 
 %{
 #ifdef HAVE_CONFIG_H
@@ -80,6 +76,12 @@ do_callback_message (char *msgctxt,
     free ((value).ctxt);
 
 %}
+
+%require "3.0"
+
+/* Remap parser interface names, so we can have multiple Bison
+   generated parsers in the same program.  */
+%define api.prefix {po_gram_}
 
 %token COMMENT
 %token DOMAIN
