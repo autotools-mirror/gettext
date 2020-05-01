@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (C) 2003-2019 Free Software Foundation, Inc.
+# Copyright (C) 2003-2020 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -121,6 +121,7 @@ if ! $skip_gnulib; then
     backupfile
     basename
     binary-io
+    bison
     bison-i18n
     byteswap
     c-ctype

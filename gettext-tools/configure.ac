@@ -31,7 +31,6 @@ test "$docdir" != '${datarootdir}/doc/${PACKAGE_TARNAME}' || docdir='${datarootd
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL
-AC_PROG_YACC
 
 gt_JAVA_CHOICE
 
@@ -161,6 +160,10 @@ fi
 AM_CONDITIONAL([USE_INSTALLED_CSHARP_DLL],
   [test "$gt_use_installed_csharp_dll" != no])
 
+dnl Check for bison and set YACC. (cldr-plural.y requires bison >= 3.0.)
+gl_PROG_BISON([TOOLS_BISON], [3.0], [1.* | 2.*])
+: ${YACC="${TOOLS_BISON} -o y.tab.c"}
+gl_BISON
 dnl This line internationalizes the bison generated parsers.
 BISON_I18N
 
