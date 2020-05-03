@@ -1,4 +1,4 @@
-# intl.m4 serial 42 (gettext-0.21)
+# intl.m4 serial 43 (gettext-0.21)
 dnl Copyright (C) 1995-2014, 2016-2020 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -258,7 +258,7 @@ AC_DEFUN([gt_INTL_SUBDIR_CORE],
   dnl files or have a broken "make" program, hence the plural.c rule will
   dnl sometimes fire. To avoid an error, defines BISON to ":" if it is not
   dnl present or too old.
-  gl_PROG_BISON([INTLBISON], [3.0], [1.* | 2.*])
+  gl_PROG_BISON([INTLBISON], [3.0])
 ])
 
 dnl Copies _GL_UNUSED and _GL_ATTRIBUTE_PURE definitions from
