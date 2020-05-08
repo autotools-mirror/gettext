@@ -6,14 +6,14 @@
   Depends-on:
   fnmatch-h
 ! alloca          [test $HAVE_FNMATCH = 0 || test $REPLACE_FNMATCH = 1]
+  attribute       [test $HAVE_FNMATCH = 0 || test $REPLACE_FNMATCH = 1]
   builtin-expect  [test $HAVE_FNMATCH = 0 || test $REPLACE_FNMATCH = 1]
   flexmember      [test $HAVE_FNMATCH = 0 || test $REPLACE_FNMATCH = 1]
-  stdbool         [test $HAVE_FNMATCH = 0 || test $REPLACE_FNMATCH = 1]
 --- 9,15 ----
   
   Depends-on:
   fnmatch-h
 ! alloca-opt      [test $HAVE_FNMATCH = 0 || test $REPLACE_FNMATCH = 1]
+  attribute       [test $HAVE_FNMATCH = 0 || test $REPLACE_FNMATCH = 1]
   builtin-expect  [test $HAVE_FNMATCH = 0 || test $REPLACE_FNMATCH = 1]
   flexmember      [test $HAVE_FNMATCH = 0 || test $REPLACE_FNMATCH = 1]
-  stdbool         [test $HAVE_FNMATCH = 0 || test $REPLACE_FNMATCH = 1]

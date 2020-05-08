@@ -22,6 +22,7 @@
 /lib/arg-nonnull.h
 /lib/asnprintf.c
 /lib/asprintf.c
+/lib/attribute.h
 /lib/basename-lgpl.c
 /lib/binary-io.c
 /lib/binary-io.h

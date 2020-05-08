@@ -70,6 +70,7 @@
 /gettext-tools/libgettextpo/arg-nonnull.h
 /gettext-tools/libgettextpo/asnprintf.c
 /gettext-tools/libgettextpo/asprintf.c
+/gettext-tools/libgettextpo/attribute.h
 /gettext-tools/libgettextpo/basename-lgpl.c
 /gettext-tools/libgettextpo/basename.c
 /gettext-tools/libgettextpo/basename.h
