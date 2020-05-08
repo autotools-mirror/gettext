@@ -94,6 +94,7 @@ EXTRA_DIST += \
   lock.h windows-mutex.h windows-rwlock.h windows-recmutex.h windows-once.h windows-initguard.h \
   relocatable.h \
   arg-nonnull.h \
+  attribute.h \
   filename.h \
   flexmember.h \
   localename-table.in.h \

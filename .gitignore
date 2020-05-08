@@ -39,10 +39,12 @@
 /gettext-runtime/gnulib-lib/
 /gettext-runtime/gnulib-m4/
 /gettext-runtime/doc/relocatable.texi
+/gettext-runtime/intl/attribute.h
 /gettext-runtime/libasprintf/gnulib-m4/
 /gettext-runtime/libasprintf/Makefile.gnulib
 /gettext-runtime/libasprintf/alloca.c
 /gettext-runtime/libasprintf/alloca.in.h
+/gettext-runtime/libasprintf/attribute.h
 /gettext-runtime/libasprintf/errno.in.h
 /gettext-runtime/libasprintf/size_max.h
 /gettext-runtime/libasprintf/verify.h
