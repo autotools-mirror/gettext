@@ -516,21 +516,31 @@ endif
 #     has been moved from the build directory to the source directory. This
 #     leads to error if 'lcov' is used later.
 # Therefore we override this rule.
+#
+# Also, the ylwrap script is not usable when both a .c and a .h file are to be
+# generated from the .y file. The reason is that this script does nothing in a
+# situation where the .h file is older than the .y file and the .y file is older
+# than the .c file. (This is intentional, see the comment "Do not overwrite
+# unchanged header files to avoid useless recompilations.") The effect is that
+# during "make dist", a tarball is created where the .h file is older than the
+# .y file. This has two negative consequences:
+#   - For a user who builds an unmodified tarball, bison will be invoked.
+#   - During "make distcheck" the rule
+#       FILE.c FILE.h: FILE.y
+#     always fires and, since $(srcdir) is read-only, the commands which update
+#     (or at least touch) $(srcdir)/FILE.c and $(srcdir)/FILE.h fail.
+# Therefore we don't use ylwrap.
 
 po-gram-gen.c po-gram-gen.h: po-gram-gen.y
-	$(AM_V_GEN)$(SHELL) $(YLWRAP) $(srcdir)/po-gram-gen.y \
-	                              y.tab.c po-gram-gen.c \
-	                              y.tab.h po-gram-gen.h \
-	                              y.output po-gram-gen.output \
-	                              -- $(YACC) $(YFLAGS) $(AM_YFLAGS) \
+	$(AM_V_YACC)$(BISON) -d $(YFLAGS) $(AM_YFLAGS) $(srcdir)/po-gram-gen.y \
 	&& test ':' = '$(BISON)' || { \
-	  sed -e 's|".*/po-gram-gen.y"|"po-gram-gen.y"|' < po-gram-gen.c > po-gram-gen.c-tmp \
-	  && rm -f po-gram-gen.c \
+	  sed -e 's|".*/po-gram-gen.y"|"po-gram-gen.y"|' < po-gram-gen.tab.c > po-gram-gen.c-tmp \
+	  && rm -f po-gram-gen.tab.c \
 	  && mv po-gram-gen.c-tmp $(srcdir)/po-gram-gen.c \
-	  && { test '$(srcdir)' = . || mv po-gram-gen.h $(srcdir)/po-gram-gen.h; }; \
+	  && mv po-gram-gen.tab.h $(srcdir)/po-gram-gen.h; \
 	}
 BUILT_SOURCES += po-gram-gen.c po-gram-gen.h
-MOSTLYCLEANFILES += po-gram-gen.c-tmp
+MOSTLYCLEANFILES += po-gram-gen.tab.c po-gram-gen.tab.h po-gram-gen.c-tmp
 MAINTAINERCLEANFILES += po-gram-gen.c po-gram-gen.h
 EXTRA_DIST += po-gram-gen.c po-gram-gen.h
 
@@ -547,19 +557,15 @@ EXTRA_DIST += po-gram-gen2.h
 po-lex.o po-lex.lo: po-gram-gen2.h
 
 cldr-plural.c cldr-plural.h: cldr-plural.y
-	$(AM_V_GEN)$(SHELL) $(YLWRAP) $(srcdir)/cldr-plural.y \
-	                              y.tab.c cldr-plural.c \
-	                              y.tab.h cldr-plural.h \
-	                              y.output cldr-plural.output \
-	                              -- $(YACC) $(YFLAGS) $(AM_YFLAGS) \
+	$(AM_V_YACC)$(BISON) -d $(YFLAGS) $(AM_YFLAGS) $(srcdir)/cldr-plural.y \
 	&& test ':' = '$(BISON)' || { \
-	  sed -e 's|".*/cldr-plural.y"|"cldr-plural.y"|' < cldr-plural.c > cldr-plural.c-tmp \
-	  && rm -f cldr-plural.c \
+	  sed -e 's|".*/cldr-plural.y"|"cldr-plural.y"|' < cldr-plural.tab.c > cldr-plural.c-tmp \
+	  && rm -f cldr-plural.tab.c \
 	  && mv cldr-plural.c-tmp $(srcdir)/cldr-plural.c \
-	  && { test '$(srcdir)' = . || mv cldr-plural.h $(srcdir)/cldr-plural.h; }; \
+	  && mv cldr-plural.tab.h $(srcdir)/cldr-plural.h; \
 	}
 BUILT_SOURCES += cldr-plural.c cldr-plural.h
-MOSTLYCLEANFILES += cldr-plural.c-tmp
+MOSTLYCLEANFILES += cldr-plural.tab.c cldr-plural.tab.h cldr-plural.c-tmp
 MAINTAINERCLEANFILES += cldr-plural.c cldr-plural.h
 EXTRA_DIST += cldr-plural.c cldr-plural.h
 

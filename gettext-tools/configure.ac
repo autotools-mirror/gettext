@@ -160,9 +160,8 @@ fi
 AM_CONDITIONAL([USE_INSTALLED_CSHARP_DLL],
   [test "$gt_use_installed_csharp_dll" != no])
 
-dnl Check for bison and set YACC. (cldr-plural.y requires bison >= 3.0.)
+dnl Check for bison. (cldr-plural.y requires bison >= 3.0.)
 gl_PROG_BISON([TOOLS_BISON], [3.0])
-: ${YACC="${TOOLS_BISON} -o y.tab.c"}
 gl_BISON
 dnl This line internationalizes the bison generated parsers.
 BISON_I18N
