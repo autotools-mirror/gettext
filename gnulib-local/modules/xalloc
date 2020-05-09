@@ -9,6 +9,7 @@ lib/xstrdup.c
 Depends-on:
 error
 gettext-h
+noreturn
 stdlib
 xalloc-oversized
 

@@ -124,6 +124,7 @@
 /lib/msvc-nothrow.h
 /lib/noop-styled-ostream.oo.c
 /lib/noop-styled-ostream.oo.h
+/lib/noreturn.h
 /lib/obstack.c
 /lib/obstack.h
 /lib/ostream.oo.c

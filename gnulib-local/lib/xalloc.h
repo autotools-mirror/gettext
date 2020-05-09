@@ -1,5 +1,5 @@
 /* malloc with out of memory checking.
-   Copyright (C) 2001-2004, 2006, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -20,6 +20,7 @@
 
 #include <stddef.h>
 
+#include "noreturn.h"
 #include "xalloc-oversized.h"
 
 
@@ -78,11 +79,7 @@ extern "C" {
    in charge of honoring the three previous items.  This is the
    function to call when one wants the program to die because of a
    memory allocation failure.  */
-extern void xalloc_die (void)
-#if (__GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 5)) && !__STRICT_ANSI__
-     __attribute__ ((__noreturn__))
-#endif
-     ;
+_GL_NORETURN_FUNC extern void xalloc_die (void);
 
 /* In the following macros, T must be an elementary or structure/union or
    typedef'ed type, or a pointer to such a type.  To apply one of the

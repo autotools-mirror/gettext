@@ -178,6 +178,7 @@
 /gettext-tools/libgettextpo/msvc-inval.h
 /gettext-tools/libgettextpo/msvc-nothrow.c
 /gettext-tools/libgettextpo/msvc-nothrow.h
+/gettext-tools/libgettextpo/noreturn.h
 /gettext-tools/libgettextpo/obstack.c
 /gettext-tools/libgettextpo/obstack.h
 /gettext-tools/libgettextpo/open.c
