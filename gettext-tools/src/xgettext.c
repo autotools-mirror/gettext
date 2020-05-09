@@ -41,6 +41,7 @@
 
 #include <textstyle.h>
 
+#include "noreturn.h"
 #include "rc-str-list.h"
 #include "xg-encoding.h"
 #include "xg-arglist-context.h"
@@ -303,11 +304,7 @@ struct extractor_ty
 
 
 /* Forward declaration of local functions.  */
-static void usage (int status)
-#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ > 4) || __GNUC__ > 2)
-        __attribute__ ((noreturn))
-#endif
-;
+_GL_NORETURN_FUNC static void usage (int status);
 static void read_exclusion_file (char *file_name);
 static void extract_from_file (const char *file_name, extractor_ty extractor,
                                msgdomain_list_ty *mdlp);

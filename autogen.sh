@@ -78,6 +78,7 @@ if ! $skip_gnulib; then
     gettext-h
     havelib
     memmove
+    noreturn
     progname
     propername
     relocatable-prog
@@ -169,6 +170,7 @@ if ! $skip_gnulib; then
     memset
     minmax
     mkdir
+    noreturn
     obstack
     open
     opendir

@@ -28,6 +28,7 @@
 #include <unistd.h>
 #include <locale.h>
 
+#include "noreturn.h"
 #include "closeout.h"
 #include "error.h"
 #include "progname.h"
@@ -53,11 +54,7 @@ static const struct option long_options[] =
 };
 
 /* Forward declaration of local functions.  */
-static void usage (int status)
-#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
-     __attribute__ ((noreturn))
-#endif
-;
+_GL_NORETURN_FUNC static void usage (int status);
 static void print_variables (const char *string);
 static void note_variables (const char *string);
 static void subst_from_stdin (void);

@@ -30,6 +30,7 @@
 #include <locale.h>
 #include <unistd.h>
 
+#include "noreturn.h"
 #include "closeout.h"
 #include "error.h"
 #include "error-progname.h"
@@ -81,11 +82,7 @@ static const struct option long_options[] =
 
 
 /* Forward declaration of local functions.  */
-static void usage (int status)
-#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
-     __attribute__ ((noreturn))
-#endif
-;
+_GL_NORETURN_FUNC static void usage (int status);
 static void fetch (const char *url, const char *file);
 
 

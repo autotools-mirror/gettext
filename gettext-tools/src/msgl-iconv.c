@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2003, 2005-2009, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -32,6 +32,7 @@
 # include <iconv.h>
 #endif
 
+#include "noreturn.h"
 #include "progname.h"
 #include "basename.h"
 #include "message.h"
@@ -51,11 +52,7 @@
 
 #if HAVE_ICONV
 
-static void conversion_error (const struct conversion_context* context)
-#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || __GNUC__ > 2)
-     __attribute__ ((noreturn))
-#endif
-;
+_GL_NORETURN_FUNC static void conversion_error (const struct conversion_context* context);
 static void
 conversion_error (const struct conversion_context* context)
 {
