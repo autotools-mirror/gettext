@@ -39,7 +39,12 @@ We assume that the following environment variables are set:
 
   Rename it e.g. gettext-ss.tar.xz
 
-** Test the snapshot tarball.  If it seems good, then upload to
+** Verify that
+      gettext-runtime/po/POTFILES.in
+      gettext-tools/po/POTFILES.in
+  are complete.
+
+  Test the snapshot tarball.  If it seems good, then upload to
   alpha.gnu.org:
 
     gnulib/build-aux/gnupload --to alpha.gnu.org:gettext \

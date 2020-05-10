@@ -1,5 +1,5 @@
 # List of files which contain translatable strings.
-# Copyright (C) 1995, 1998, 2001-2006, 2011, 2016 Free Software Foundation,
+# Copyright (C) 1995, 1998, 2001-2006, 2011, 2016, 2020 Free Software Foundation,
 # Inc.
 # This file is free software, distributed under GNU GPL v3+.
 
@@ -21,6 +21,7 @@ gnulib-lib/javacomp.c
 gnulib-lib/javaexec.c
 gnulib-lib/javaversion.c
 gnulib-lib/obstack.c
+gnulib-lib/pipe-filter-aux.c
 gnulib-lib/pipe-filter-ii.c
 gnulib-lib/quotearg.c
 gnulib-lib/set-acl.c
@@ -44,6 +45,7 @@ src/format-gcc-internal.c
 src/format-gfc-internal.c
 src/format-invalid.h
 src/format-java.c
+src/format-java-printf.c
 src/format-javascript.c
 src/format-kde.c
 src/format-kde-kuit.c
@@ -58,6 +60,7 @@ src/format-python-brace.c
 src/format-python.c
 src/format-qt.c
 src/format-qt-plural.c
+src/format-ruby.c
 src/format-scheme.c
 src/format-sh.c
 src/format-tcl.c
@@ -114,7 +117,11 @@ src/x-c.c
 src/x-csharp.c
 src/x-desktop.c
 src/x-elisp.c
+src/xg-arglist-parser.c
+src/xg-encoding.c
 src/xgettext.c
+src/xg-message.c
+src/xg-mixed-string.c
 src/x-java.c
 src/x-javascript.c
 src/x-librep.c
@@ -125,6 +132,7 @@ src/x-php.c
 src/x-po.c
 src/x-python.c
 src/x-rst.c
+src/x-ruby.c
 src/x-scheme.c
 src/x-sh.c
 src/x-smalltalk.c
@@ -132,5 +140,8 @@ src/x-tcl.c
 src/x-vala.c
 src/x-ycp.c
 src/user-email.sh.in
+libgettextpo/error.c
 libgettextpo/gettext-po.c
 libgettextpo/markup.c
+libgettextpo/obstack.c
+libgettextpo/xmalloc.c
