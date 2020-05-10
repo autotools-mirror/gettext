@@ -89,33 +89,33 @@
 #define _(str) gettext (str)
 
 
-#include "x-c.h"
 #include "x-po.h"
-#include "x-sh.h"
+#include "x-properties.h"
+#include "x-stringtable.h"
+#include "x-c.h"
 #include "x-python.h"
+#include "x-java.h"
+#include "x-csharp.h"
+#include "x-javascript.h"
+#include "x-scheme.h"
 #include "x-lisp.h"
 #include "x-elisp.h"
 #include "x-librep.h"
-#include "x-scheme.h"
-#include "x-smalltalk.h"
-#include "x-java.h"
-#include "x-properties.h"
-#include "x-csharp.h"
-#include "x-appdata.h"
+#include "x-ruby.h"
+#include "x-sh.h"
 #include "x-awk.h"
-#include "x-ycp.h"
+#include "x-lua.h"
+#include "x-smalltalk.h"
+#include "x-vala.h"
 #include "x-tcl.h"
 #include "x-perl.h"
 #include "x-php.h"
-#include "x-ruby.h"
-#include "x-stringtable.h"
+#include "x-ycp.h"
 #include "x-rst.h"
-#include "x-glade.h"
-#include "x-lua.h"
-#include "x-javascript.h"
-#include "x-vala.h"
-#include "x-gsettings.h"
 #include "x-desktop.h"
+#include "x-glade.h"
+#include "x-gsettings.h"
+#include "x-appdata.h"
 
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
@@ -178,23 +178,23 @@ static flag_context_list_table_ty flag_table_cxx_kde;
 static flag_context_list_table_ty flag_table_cxx_boost;
 static flag_context_list_table_ty flag_table_objc;
 static flag_context_list_table_ty flag_table_gcc_internal;
-static flag_context_list_table_ty flag_table_sh;
 static flag_context_list_table_ty flag_table_python;
+static flag_context_list_table_ty flag_table_java;
+static flag_context_list_table_ty flag_table_csharp;
+static flag_context_list_table_ty flag_table_javascript;
+static flag_context_list_table_ty flag_table_scheme;
 static flag_context_list_table_ty flag_table_lisp;
 static flag_context_list_table_ty flag_table_elisp;
 static flag_context_list_table_ty flag_table_librep;
-static flag_context_list_table_ty flag_table_scheme;
-static flag_context_list_table_ty flag_table_java;
-static flag_context_list_table_ty flag_table_csharp;
+static flag_context_list_table_ty flag_table_ruby;
+static flag_context_list_table_ty flag_table_sh;
 static flag_context_list_table_ty flag_table_awk;
-static flag_context_list_table_ty flag_table_ycp;
+static flag_context_list_table_ty flag_table_lua;
+static flag_context_list_table_ty flag_table_vala;
 static flag_context_list_table_ty flag_table_tcl;
 static flag_context_list_table_ty flag_table_perl;
 static flag_context_list_table_ty flag_table_php;
-static flag_context_list_table_ty flag_table_ruby;
-static flag_context_list_table_ty flag_table_lua;
-static flag_context_list_table_ty flag_table_javascript;
-static flag_context_list_table_ty flag_table_vala;
+static flag_context_list_table_ty flag_table_ycp;
 
 /* If true, recognize Qt format strings.  */
 static bool recognize_format_qt;
@@ -361,25 +361,25 @@ main (int argc, char *argv[])
   xgettext_global_source_encoding = NULL;
   init_flag_table_c ();
   init_flag_table_objc ();
-  init_flag_table_gcc_internal ();
   init_flag_table_kde ();
-  init_flag_table_sh ();
   init_flag_table_python ();
+  init_flag_table_java ();
+  init_flag_table_csharp ();
+  init_flag_table_javascript ();
+  init_flag_table_scheme ();
   init_flag_table_lisp ();
   init_flag_table_elisp ();
   init_flag_table_librep ();
-  init_flag_table_scheme ();
-  init_flag_table_java ();
-  init_flag_table_csharp ();
+  init_flag_table_ruby ();
+  init_flag_table_sh ();
   init_flag_table_awk ();
-  init_flag_table_ycp ();
+  init_flag_table_lua ();
+  init_flag_table_vala ();
   init_flag_table_tcl ();
   init_flag_table_perl ();
   init_flag_table_php ();
-  init_flag_table_ruby ();
-  init_flag_table_lua ();
-  init_flag_table_javascript ();
-  init_flag_table_vala ();
+  init_flag_table_gcc_internal ();
+  init_flag_table_ycp ();
 
   while ((optchar = getopt_long (argc, argv,
                                  "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTvVw:W:x:",
@@ -1490,11 +1490,6 @@ xgettext_record_flag (const char *optionstring)
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
-                  case format_sh:
-                    flag_context_list_table_insert (&flag_table_sh, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    break;
                   case format_python:
                     flag_context_list_table_insert (&flag_table_python, 0,
                                                     name_start, name_end,
@@ -1502,6 +1497,31 @@ xgettext_record_flag (const char *optionstring)
                     break;
                   case format_python_brace:
                     flag_context_list_table_insert (&flag_table_python, 0,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_java:
+                    flag_context_list_table_insert (&flag_table_java, 0,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_java_printf:
+                    flag_context_list_table_insert (&flag_table_java, 1,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_csharp:
+                    flag_context_list_table_insert (&flag_table_csharp, 0,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_javascript:
+                    flag_context_list_table_insert (&flag_table_javascript, 0,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_scheme:
+                    flag_context_list_table_insert (&flag_table_scheme, 0,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
@@ -1520,25 +1540,13 @@ xgettext_record_flag (const char *optionstring)
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
-                  case format_scheme:
-                    flag_context_list_table_insert (&flag_table_scheme, 0,
+                  case format_ruby:
+                    flag_context_list_table_insert (&flag_table_ruby, 0,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
-                  case format_smalltalk:
-                    break;
-                  case format_java:
-                    flag_context_list_table_insert (&flag_table_java, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    break;
-                  case format_java_printf:
-                    flag_context_list_table_insert (&flag_table_java, 1,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    break;
-                  case format_csharp:
-                    flag_context_list_table_insert (&flag_table_csharp, 0,
+                  case format_sh:
+                    flag_context_list_table_insert (&flag_table_sh, 0,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
@@ -1547,47 +1555,14 @@ xgettext_record_flag (const char *optionstring)
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
+                  case format_lua:
+                    flag_context_list_table_insert (&flag_table_lua, 0,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
                   case format_pascal:
                     break;
-                  case format_ycp:
-                    flag_context_list_table_insert (&flag_table_ycp, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    break;
-                  case format_tcl:
-                    flag_context_list_table_insert (&flag_table_tcl, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    break;
-                  case format_perl:
-                    flag_context_list_table_insert (&flag_table_perl, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    break;
-                  case format_perl_brace:
-                    flag_context_list_table_insert (&flag_table_perl, 1,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    break;
-                  case format_php:
-                    flag_context_list_table_insert (&flag_table_php, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    break;
-                  case format_ruby:
-                    flag_context_list_table_insert (&flag_table_ruby, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    break;
-                  case format_gcc_internal:
-                    flag_context_list_table_insert (&flag_table_gcc_internal, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    break;
-                  case format_gfc_internal:
-                    flag_context_list_table_insert (&flag_table_gcc_internal, 1,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
+                  case format_smalltalk:
                     break;
                   case format_qt:
                     flag_context_list_table_insert (&flag_table_cxx_qt, 1,
@@ -1614,13 +1589,38 @@ xgettext_record_flag (const char *optionstring)
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
-                  case format_lua:
-                    flag_context_list_table_insert (&flag_table_lua, 0,
+                  case format_tcl:
+                    flag_context_list_table_insert (&flag_table_tcl, 0,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
-                  case format_javascript:
-                    flag_context_list_table_insert (&flag_table_javascript, 0,
+                  case format_perl:
+                    flag_context_list_table_insert (&flag_table_perl, 0,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_perl_brace:
+                    flag_context_list_table_insert (&flag_table_perl, 1,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_php:
+                    flag_context_list_table_insert (&flag_table_php, 0,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_gcc_internal:
+                    flag_context_list_table_insert (&flag_table_gcc_internal, 0,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_gfc_internal:
+                    flag_context_list_table_insert (&flag_table_gcc_internal, 1,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_ycp:
+                    flag_context_list_table_insert (&flag_table_ycp, 0,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
@@ -2133,32 +2133,32 @@ language_to_extractor (const char *name)
 
   static table_ty table[] =
   {
-    SCANNERS_C
     SCANNERS_PO
-    SCANNERS_SH
+    SCANNERS_PROPERTIES
+    SCANNERS_STRINGTABLE
+    SCANNERS_C
     SCANNERS_PYTHON
+    SCANNERS_JAVA
+    SCANNERS_CSHARP
+    SCANNERS_JAVASCRIPT
+    SCANNERS_SCHEME
     SCANNERS_LISP
     SCANNERS_ELISP
     SCANNERS_LIBREP
-    SCANNERS_SCHEME
-    SCANNERS_SMALLTALK
-    SCANNERS_JAVA
-    SCANNERS_PROPERTIES
-    SCANNERS_CSHARP
+    SCANNERS_RUBY
+    SCANNERS_SH
     SCANNERS_AWK
-    SCANNERS_YCP
+    SCANNERS_LUA
+    SCANNERS_SMALLTALK
+    SCANNERS_VALA
     SCANNERS_TCL
     SCANNERS_PERL
     SCANNERS_PHP
-    SCANNERS_RUBY
-    SCANNERS_STRINGTABLE
+    SCANNERS_YCP
     SCANNERS_RST
-    SCANNERS_GLADE
-    SCANNERS_LUA
-    SCANNERS_JAVASCRIPT
-    SCANNERS_VALA
-    SCANNERS_GSETTINGS
     SCANNERS_DESKTOP
+    SCANNERS_GLADE
+    SCANNERS_GSETTINGS
     SCANNERS_APPDATA
     /* Here may follow more languages and their scanners: pike, etc...
        Make sure new scanners honor the --exclude-file option.  */
@@ -2225,32 +2225,32 @@ extension_to_language (const char *extension)
 
   static table_ty table[] =
   {
-    EXTENSIONS_C
     EXTENSIONS_PO
-    EXTENSIONS_SH
+    EXTENSIONS_PROPERTIES
+    EXTENSIONS_STRINGTABLE
+    EXTENSIONS_C
     EXTENSIONS_PYTHON
+    EXTENSIONS_JAVA
+    EXTENSIONS_CSHARP
+    EXTENSIONS_JAVASCRIPT
+    EXTENSIONS_SCHEME
     EXTENSIONS_LISP
     EXTENSIONS_ELISP
     EXTENSIONS_LIBREP
-    EXTENSIONS_SCHEME
-    EXTENSIONS_SMALLTALK
-    EXTENSIONS_JAVA
-    EXTENSIONS_PROPERTIES
-    EXTENSIONS_CSHARP
+    EXTENSIONS_RUBY
+    EXTENSIONS_SH
     EXTENSIONS_AWK
-    EXTENSIONS_YCP
+    EXTENSIONS_LUA
+    EXTENSIONS_SMALLTALK
+    EXTENSIONS_VALA
     EXTENSIONS_TCL
     EXTENSIONS_PERL
     EXTENSIONS_PHP
-    EXTENSIONS_RUBY
-    EXTENSIONS_STRINGTABLE
+    EXTENSIONS_YCP
     EXTENSIONS_RST
-    EXTENSIONS_GLADE
-    EXTENSIONS_LUA
-    EXTENSIONS_JAVASCRIPT
-    EXTENSIONS_VALA
-    EXTENSIONS_GSETTINGS
     EXTENSIONS_DESKTOP
+    EXTENSIONS_GLADE
+    EXTENSIONS_GSETTINGS
     EXTENSIONS_APPDATA
     /* Here may follow more file extensions... */
   };

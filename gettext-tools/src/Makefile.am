@@ -35,32 +35,52 @@ noinst_PROGRAMS = hostname urlget cldr-plurals
 
 lib_LTLIBRARIES = libgettextsrc.la
 
-noinst_HEADERS = pos.h message.h po-error.h po-xerror.h po-gram.h po-charset.h \
-po-lex.h open-catalog.h read-catalog-abstract.h read-catalog.h \
-read-po.h read-properties.h read-stringtable.h \
-str-list.h \
-write-catalog.h write-po.h write-properties.h write-stringtable.h \
-dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h cldr-plural.h \
-cldr-plural-exp.h locating-rule.h its.h search-path.h \
-msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h msgl-header.h \
-msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
-plural-count.h plural-eval.h plural-distrib.h \
-read-mo.h write-mo.h \
-read-java.h write-java.h \
-read-csharp.h write-csharp.h \
-read-resources.h write-resources.h \
-read-tcl.h write-tcl.h \
-write-qt.h \
-read-desktop.h write-desktop.h \
-write-xml.h \
-po-time.h plural-table.h lang-table.h format.h filters.h \
-xgettext.h \
-rc-str-list.h xg-pos.h xg-encoding.h xg-mixed-string.h xg-arglist-context.h \
-xg-arglist-callshape.h xg-arglist-parser.h xg-message.h \
-x-c.h x-po.h x-sh.h x-python.h x-lisp.h x-elisp.h x-librep.h \
-x-scheme.h x-smalltalk.h x-java.h x-properties.h x-csharp.h x-awk.h x-ycp.h \
-x-tcl.h x-perl.h x-php.h x-ruby.h x-stringtable.h x-rst.h x-glade.h x-lua.h \
-x-javascript.h x-vala.h x-gsettings.h x-desktop.h x-appdata.h
+noinst_HEADERS = \
+  pos.h message.h po-error.h po-xerror.h po-gram.h po-charset.h \
+  po-lex.h open-catalog.h read-catalog-abstract.h read-catalog.h \
+  read-po.h read-properties.h read-stringtable.h \
+  str-list.h \
+  write-catalog.h write-po.h write-properties.h write-stringtable.h \
+  dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h cldr-plural.h \
+  cldr-plural-exp.h locating-rule.h its.h search-path.h \
+  msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h msgl-header.h \
+  msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
+  plural-count.h plural-eval.h plural-distrib.h \
+  read-mo.h write-mo.h \
+  read-java.h write-java.h \
+  read-csharp.h write-csharp.h \
+  read-resources.h write-resources.h \
+  read-tcl.h write-tcl.h \
+  write-qt.h \
+  read-desktop.h write-desktop.h \
+  write-xml.h \
+  po-time.h plural-table.h lang-table.h format.h filters.h \
+  xgettext.h \
+  rc-str-list.h xg-pos.h xg-encoding.h xg-mixed-string.h xg-arglist-context.h \
+  xg-arglist-callshape.h xg-arglist-parser.h xg-message.h \
+  x-po.h x-properties.h x-stringtable.h \
+  x-c.h \
+  x-python.h \
+  x-java.h \
+  x-csharp.h \
+  x-javascript.h \
+  x-scheme.h \
+  x-lisp.h \
+  x-elisp.h \
+  x-librep.h \
+  x-ruby.h \
+  x-sh.h \
+  x-awk.h \
+  x-lua.h \
+  x-smalltalk.h \
+  x-vala.h \
+  x-tcl.h \
+  x-perl.h \
+  x-php.h \
+  x-ycp.h \
+  x-rst.h \
+  x-desktop.h \
+  x-glade.h x-gsettings.h x-appdata.h
 
 EXTRA_DIST += FILES project-id
 
@@ -122,33 +142,33 @@ endif
 FORMAT_SOURCE += \
   format-invalid.h \
   format-c.c format-c-parse.h \
-  format-sh.c \
   format-python.c \
   format-python-brace.c \
-  format-lisp.c \
-  format-elisp.c \
-  format-librep.c \
-  format-scheme.c \
   format-java.c \
   format-java-printf.c \
   format-csharp.c \
-  format-awk.c \
-  format-pascal.c \
-  format-ycp.c \
-  format-tcl.c \
-  format-perl.c \
-  format-perl-brace.c \
-  format-php.c \
+  format-javascript.c \
+  format-scheme.c \
+  format-lisp.c \
+  format-elisp.c \
+  format-librep.c \
   format-ruby.c \
-  format-gcc-internal.c \
-  format-gfc-internal.c \
+  format-sh.c \
+  format-awk.c \
+  format-lua.c \
+  format-pascal.c \
+  format-smalltalk.c \
   format-qt.c \
   format-qt-plural.c \
   format-kde.c \
   format-kde-kuit.c \
   format-boost.c \
-  format-lua.c \
-  format-javascript.c
+  format-tcl.c \
+  format-perl.c \
+  format-perl-brace.c \
+  format-php.c \
+  format-gcc-internal.c \
+  format-gfc-internal.c
 
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
@@ -191,27 +211,27 @@ xgettext_SOURCES += \
   xg-mixed-string.c \
   xg-arglist-context.c xg-arglist-callshape.c xg-arglist-parser.c \
   xg-message.c \
-  x-c.c \
   x-po.c \
-  x-sh.c ../../gettext-runtime/src/escapes.h \
+  x-c.c \
   x-python.c \
+  x-java.c \
+  x-csharp.c \
+  x-javascript.c \
+  x-scheme.c \
   x-lisp.c \
   x-elisp.c \
   x-librep.c \
-  x-scheme.c \
-  x-smalltalk.c \
-  x-java.c \
-  x-csharp.c \
+  x-ruby.c \
+  x-sh.c ../../gettext-runtime/src/escapes.h \
   x-awk.c \
-  x-ycp.c \
+  x-lua.c \
+  x-smalltalk.c \
+  x-vala.c \
   x-tcl.c \
   x-perl.c \
   x-php.c \
-  x-ruby.c \
+  x-ycp.c \
   x-rst.c \
-  x-lua.c \
-  x-javascript.c \
-  x-vala.c \
   x-desktop.c
 if !WOE32DLL
 msgattrib_SOURCES = msgattrib.c

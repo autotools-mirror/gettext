@@ -63,8 +63,8 @@ src/format-qt-plural.c
 src/format-ruby.c
 src/format-scheme.c
 src/format-sh.c
+src/format-smalltalk.c
 src/format-tcl.c
-src/format-ycp.c
 src/hostname.c
 src/its.c
 src/locating-rule.c

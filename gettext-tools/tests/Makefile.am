@@ -91,13 +91,20 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-csharp-1 xgettext-csharp-2 xgettext-csharp-3 \
 	xgettext-csharp-4 xgettext-csharp-5 xgettext-csharp-6 \
 	xgettext-csharp-7 xgettext-csharp-8 \
+	xgettext-desktop-1 xgettext-desktop-2 \
 	xgettext-elisp-1 xgettext-elisp-2 \
 	xgettext-glade-1 xgettext-glade-2 xgettext-glade-3 xgettext-glade-4 \
 	xgettext-glade-5 xgettext-glade-6 xgettext-glade-7 \
+	xgettext-gsettings-1 \
+	xgettext-its-1 xgettext-its-2 \
 	xgettext-java-1 xgettext-java-2 xgettext-java-3 xgettext-java-4 \
 	xgettext-java-5 xgettext-java-6 xgettext-java-7 \
+	xgettext-javascript-1 xgettext-javascript-2 xgettext-javascript-3 \
+	xgettext-javascript-4 xgettext-javascript-5 xgettext-javascript-6 \
+	xgettext-javascript-7 \
 	xgettext-librep-1 xgettext-librep-2 \
 	xgettext-lisp-1 xgettext-lisp-2 \
+	xgettext-lua-1 xgettext-lua-2 \
 	xgettext-objc-1 xgettext-objc-2 \
 	xgettext-perl-1 xgettext-perl-2 xgettext-perl-3 xgettext-perl-4 \
 	xgettext-perl-5 xgettext-perl-6 xgettext-perl-7 xgettext-perl-8 \
@@ -116,15 +123,8 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-smalltalk-1 xgettext-smalltalk-2 \
 	xgettext-stringtable-1 \
 	xgettext-tcl-1 xgettext-tcl-2 xgettext-tcl-3 xgettext-tcl-4 \
-	xgettext-ycp-1 xgettext-ycp-2 xgettext-ycp-3 xgettext-ycp-4 \
-	xgettext-lua-1 xgettext-lua-2 \
-	xgettext-javascript-1 xgettext-javascript-2 xgettext-javascript-3 \
-	xgettext-javascript-4 xgettext-javascript-5 xgettext-javascript-6 \
-	xgettext-javascript-7 \
 	xgettext-vala-1 xgettext-vala-2 \
-	xgettext-gsettings-1 \
-	xgettext-desktop-1 xgettext-desktop-2 \
-	xgettext-its-1 xgettext-its-2 \
+	xgettext-ycp-1 xgettext-ycp-2 xgettext-ycp-3 xgettext-ycp-4 \
 	format-awk-1 format-awk-2 \
 	format-boost-1 format-boost-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 \
@@ -134,10 +134,12 @@ TESTS = gettext-1 gettext-2 \
 	format-gfc-internal-1 format-gfc-internal-2 \
 	format-java-1 format-java-2 \
 	format-java-printf-1 format-java-printf-2 \
+	format-javascript-1 format-javascript-2 \
 	format-kde-1 format-kde-2 \
 	format-kde-kuit-1 format-kde-kuit-2 \
 	format-librep-1 format-librep-2 \
 	format-lisp-1 format-lisp-2 \
+	format-lua-1 format-lua-2 \
 	format-php-1 format-php-2 \
 	format-python-1 format-python-2 \
 	format-python-brace-1 format-python-brace-2 \
@@ -152,15 +154,26 @@ TESTS = gettext-1 gettext-2 \
 	format-sh-1 format-sh-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
-	format-lua-1 format-lua-2 \
-	format-javascript-1 format-javascript-2 \
 	plural-1 plural-2 \
 	gettextpo-1 sentence-1 \
-	lang-c lang-c++ lang-objc lang-sh lang-bash lang-python-1 \
-	lang-python-2 lang-clisp lang-elisp lang-librep lang-guile \
-	lang-smalltalk lang-java lang-csharp lang-gawk lang-pascal \
-	lang-ycp lang-tcl lang-perl-1 lang-perl-2 lang-php lang-po lang-rst \
-	lang-lua lang-javascript lang-vala \
+	lang-po \
+	lang-c lang-c++ lang-objc \
+	lang-python-1 lang-python-2 \
+	lang-java \
+	lang-csharp \
+	lang-javascript \
+	lang-guile lang-clisp lang-elisp lang-librep \
+	lang-sh lang-bash \
+	lang-gawk \
+	lang-lua \
+	lang-pascal \
+	lang-smalltalk \
+	lang-vala \
+	lang-tcl \
+	lang-perl-1 lang-perl-2 \
+	lang-php \
+	lang-ycp \
+	lang-rst \
 	autopoint-1 autopoint-2 autopoint-3 cldr-plurals-1
 
 EXTRA_DIST += init.sh init.cfg $(TESTS) \

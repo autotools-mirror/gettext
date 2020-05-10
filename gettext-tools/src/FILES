@@ -215,32 +215,33 @@ format.h        Declarations of the language dependent format string handlers.
 format-invalid.h  Declarations of some error messages for invalid strings.
 format-c.c             Format string handling for C.
 format-c-parse.h         Format string handling for C, parsing routine.
-format-sh.c            Format string handling for Shell.
 format-python.c        Format string handling for Python.
 format-python-brace.c  Format string handling for Python, braced syntax.
-format-lisp.c          Format string handling for Common Lisp.
-format-elisp.c         Format string handling for Emacs Lisp.
-format-librep.c        Format string handling for librep.
-format-scheme.c        Format string handling for Scheme.
 format-java.c          Format string handling for Java.
 format-java-printf.c   Format string handling for Java, printf syntax.
 format-csharp.c        Format string handling for C#.
+format-javascript.c    Format string handling for JavaScript.
+format-scheme.c        Format string handling for Scheme.
+format-lisp.c          Format string handling for Common Lisp.
+format-elisp.c         Format string handling for Emacs Lisp.
+format-librep.c        Format string handling for librep.
+format-ruby.c          Format string handling for Ruby.
+format-sh.c            Format string handling for Shell.
 format-awk.c           Format string handling for awk.
+format-lua.c           Format string handling for Lua.
 format-pascal.c        Format string handling for Object Pascal.
-format-ycp.c           Format string handling for YCP.
+format-smalltalk.c     Format string handling for Smalltalk and YCP.
+format-qt.c            Format string handling for Qt.
+format-qt-plural.c     Format string handling for Qt plural forms.
+format-kde.c           Format string handling for KDE.
+format-kde-kuit.c      Format string handling for KDE User Interface Text.
+format-boost.c         Format string handling for Boost.
 format-tcl.c           Format string handling for Tcl.
 format-perl.c          Format string handling for Perl.
 format-perl-brace.c    Format string handling for Perl, braced syntax.
 format-php.c           Format string handling for PHP.
-format-ruby.c          Format string handling for Ruby.
 format-gcc-internal.c  Format string handling GCC internal.
 format-gfc-internal.c  Format string handling GFC internal.
-format-qt.c            Format string handling for Qt.
-format-qt-plural.c     Format string handling for Qt plural forms.
-format-kde.c           Format string handling for KDE.
-format-boost.c         Format string handling for Boost.
-format-lua.c           Format string handling for Lua.
-format-javascript.c    Format string handling for JavaScript.
 format.c        Table of the language dependent format string handlers.
 
 plural-exp.c
@@ -311,21 +312,30 @@ msgl-check.c
 | xg-message.h
 | xg-message.c
 |               Extracting a message.  Accumulating the message list.
-| x-c.h
-| x-c.c
-|               String extractor for C.
 | x-po.h
 | x-properties.h
 | x-stringtable.h
 | x-po.c
 |               String extractor from PO files and Java .properties and
 |               NeXTstep/GNUstep .strings files.
-| x-sh.h
-| x-sh.c
-|               String extractor for Shell.
+| x-c.h
+| x-c.c
+|               String extractor for C.
 | x-python.h
 | x-python.c
 |               String extractor for Python.
+| x-java.h
+| x-java.c
+|               String extractor for Java.
+| x-csharp.h
+| x-csharp.c
+|               String extractor for C#.
+| x-javascript.h
+| x-javascript.c
+|               String extractor for JavaScript.
+| x-scheme.h
+| x-scheme.c
+|               String extractor for Scheme.
 | x-lisp.h
 | x-lisp.c
 |               String extractor for Common Lisp.
@@ -335,24 +345,24 @@ msgl-check.c
 | x-librep.h
 | x-librep.c
 |               String extractor for librep.
-| x-scheme.h
-| x-scheme.c
-|               String extractor for Scheme.
-| x-smalltalk.h
-| x-smalltalk.c
-|               String extractor for Smalltalk.
-| x-java.h
-| x-java.c
-|               String extractor for Java.
-| x-csharp.h
-| x-csharp.c
-|               String extractor for C#.
+| x-ruby.h
+| x-ruby.c
+|               String extractor for Ruby.
+| x-sh.h
+| x-sh.c
+|               String extractor for Shell.
 | x-awk.h
 | x-awk.c
 |               String extractor for awk.
-| x-ycp.h
-| x-ycp.c
-|               String extractor for YCP.
+| x-lua.h
+| x-lua.c
+|               String extractor for Lua.
+| x-smalltalk.h
+| x-smalltalk.c
+|               String extractor for Smalltalk.
+| x-vala.h
+| x-vala.c
+|               String extractor for Vala.
 | x-tcl.h
 | x-tcl.c
 |               String extractor for Tcl.
@@ -362,30 +372,21 @@ msgl-check.c
 | x-php.h
 | x-php.c
 |               String extractor for PHP.
-| x-ruby.h
-| x-ruby.c
-|               String extractor for Ruby.
+| x-ycp.h
+| x-ycp.c
+|               String extractor for YCP.
 | x-rst.h
 | x-rst.c
 |               String extractor from .rst files, for Object Pascal.
-| x-glade.h
-| x-glade.c
-|               String extractor from .glade files, GNOME GUI descriptions.
-| x-lua.h
-| x-lua.c
-|               String extractor for Lua.
-| x-javascript.h
-| x-javascript.c
-|               String extractor for JavaScript.
-| x-vala.h
-| x-vala.c
-|               String extractor for Vala.
-| x-gsettings.h
-| x-gsettings.c
-|               String extractor for GSettings schema file.
 | x-desktop.h
 | x-desktop.c
 |               String extractor from Desktop Entry file.
+| x-glade.h
+| x-glade.c
+|               String extractor from .glade files, GNOME GUI descriptions.
+| x-gsettings.h
+| x-gsettings.c
+|               String extractor for GSettings schema file.
 | x-appdata.h
 | x-appdata.c
 |               String extractor for AppData files.

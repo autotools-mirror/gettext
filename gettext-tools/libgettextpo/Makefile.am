@@ -65,33 +65,33 @@ libgettextpo_la_AUXSOURCES = \
   ../src/read-catalog.c \
   ../src/plural-table.c \
   ../src/format-c.c \
-  ../src/format-sh.c \
   ../src/format-python.c \
   ../src/format-python-brace.c \
+  ../src/format-java.c \
+  ../src/format-java-printf.c \
+  ../src/format-csharp.c \
+  ../src/format-javascript.c \
+  ../src/format-scheme.c \
   ../src/format-lisp.c \
   ../src/format-elisp.c \
   ../src/format-librep.c \
-  ../src/format-scheme.c \
-  ../src/format-java.c \
-  ../src/format-java-printf.c \
-  ../src/format-javascript.c \
-  ../src/format-csharp.c \
-  ../src/format-awk.c \
-  ../src/format-pascal.c \
-  ../src/format-ycp.c \
-  ../src/format-tcl.c \
-  ../src/format-perl.c \
-  ../src/format-perl-brace.c \
-  ../src/format-php.c \
   ../src/format-ruby.c \
-  ../src/format-gcc-internal.c \
-  ../src/format-gfc-internal.c \
+  ../src/format-sh.c \
+  ../src/format-awk.c \
+  ../src/format-lua.c \
+  ../src/format-pascal.c \
+  ../src/format-smalltalk.c \
   ../src/format-qt.c \
   ../src/format-qt-plural.c \
   ../src/format-kde.c \
   ../src/format-kde-kuit.c \
   ../src/format-boost.c \
-  ../src/format-lua.c \
+  ../src/format-tcl.c \
+  ../src/format-perl.c \
+  ../src/format-perl-brace.c \
+  ../src/format-php.c \
+  ../src/format-gcc-internal.c \
+  ../src/format-gfc-internal.c \
   ../src/format.c \
   ../src/plural-exp.c \
   ../src/plural-eval.c \
