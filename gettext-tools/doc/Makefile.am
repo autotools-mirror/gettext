@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/doc subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2007, 2009, 2013-2015, 2018-2019 Free
+## Copyright (C) 1995-1997, 2001-2007, 2009, 2013-2015, 2018-2020 Free
 ## Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
@@ -39,16 +39,59 @@ MAKEINFOFLAGS = $(TEXINCLUDES) --no-split
 info_TEXINFOS = gettext.texi
 # List of texinfo sources @included by gettext.texi, excluding version.texi.
 gettext_TEXINFOS = \
-  xgettext.texi msginit.texi msgmerge.texi msgcat.texi msgconv.texi \
-  msggrep.texi msgfilter.texi msguniq.texi msgcomm.texi msgcmp.texi \
-  msgattrib.texi msgen.texi msgexec.texi msgfmt.texi msgunfmt.texi \
-  gettextize.texi autopoint.texi iso-639.texi iso-639-2.texi iso-3166.texi \
-  gpl.texi lgpl.texi fdl.texi \
-  $(top_srcdir)/../gettext-runtime/doc/rt-gettext.texi \
-  $(top_srcdir)/../gettext-runtime/doc/rt-ngettext.texi \
-  $(top_srcdir)/../gettext-runtime/doc/rt-envsubst.texi \
+  xgettext.texi \
+  msginit.texi \
+  msgmerge.texi \
+  msgcat.texi \
+  msgconv.texi \
+  msggrep.texi \
+  msgfilter.texi \
+  msguniq.texi \
+  msgcomm.texi \
+  msgcmp.texi \
+  msgattrib.texi \
+  msgen.texi \
+  msgexec.texi \
+  msgfmt.texi \
+  msgunfmt.texi \
+  gettextize.texi \
+  autopoint.texi \
+  lang-c.texi \
+  lang-python.texi \
+  lang-java.texi \
+  lang-csharp.texi \
+  lang-javascript.texi \
+  lang-scheme.texi \
+  lang-lisp.texi \
+  lang-clisp-c.texi \
+  lang-elisp.texi \
+  lang-librep.texi \
+  lang-ruby.texi \
+  lang-sh.texi \
+    $(top_srcdir)/../gettext-runtime/doc/rt-gettext.texi \
+    $(top_srcdir)/../gettext-runtime/doc/rt-ngettext.texi \
+    $(top_srcdir)/../gettext-runtime/doc/rt-envsubst.texi \
+  lang-bash.texi \
+  lang-gawk.texi \
+  lang-lua.texi \
+  lang-pascal.texi \
+  lang-smalltalk.texi \
+  lang-vala.texi \
+  lang-wxwidgets.texi \
+  lang-tcl.texi \
+  lang-perl.texi \
+  lang-php.texi \
+  lang-pike.texi \
+  lang-gcc-source.texi \
+  lang-ycp.texi \
   $(top_srcdir)/../gettext-runtime/doc/nls.texi \
-  $(top_srcdir)/../gettext-runtime/doc/matrix.texi
+    $(top_srcdir)/../gettext-runtime/doc/matrix.texi \
+  iso-639.texi \
+  iso-639-2.texi \
+  iso-3166.texi \
+  gpl.texi \
+  lgpl.texi \
+  fdl.texi
 
 # The FAQ. To be edited with Mozilla.
 # The tutorial. To be edited by hand.
