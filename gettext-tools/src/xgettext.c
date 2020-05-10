@@ -924,14 +924,21 @@ xgettext cannot work without keywords to look for"));
                         xconcatenated_filename (its_dirs[j], its_basename,
                                                 NULL);
                       struct stat statbuf;
-                      bool ok = false;
 
-                      if (stat (its_filename, &statbuf) == 0)
-                        ok = its_rule_list_add_from_file (its_rules,
-                                                          its_filename);
-                      free (its_filename);
-                      if (ok)
-                        break;
+                      if (stat (its_filename, &statbuf) == 0
+                          && its_rule_list_add_from_file (its_rules,
+                                                          its_filename))
+                        {
+                          /* The last element in its_dirs always points to
+                             the fallback directory.  */
+                          if (its_dirs[j + 1] == NULL)
+                            error (0, 0,
+                                   _("warning: a fallback ITS rule file '%s' is used; "
+                                     "it may not be in sync with the upstream"),
+                                   its_filename);
+                          free (its_filename);
+                          break;
+                        }
                     }
                   if (its_dirs[j] == NULL)
                     {
