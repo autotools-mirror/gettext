@@ -1,6 +1,6 @@
 ;;; po-mode.el --- major mode for GNU gettext PO files
 
-;; Copyright (C) 1995-2002, 2005-2008, 2010, 2013-2017, 2019 Free Software
+;; Copyright (C) 1995-2002, 2005-2008, 2010, 2013-2017, 2019-2020 Free Software
 ;; Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>
@@ -63,7 +63,7 @@
 
 ;;; Code:
 
-(defconst po-mode-version-string "2.26" "\
+(defconst po-mode-version-string "2.27" "\
 Version number of this version of po-mode.el.")
 
 ;;; Emacs portability matters - part I.
@@ -908,15 +908,12 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
 ;; Font lock based highlighting code.
 (defconst po-font-lock-keywords
   '(
-    ;; ("^\\(msgctxt \\|msgid \\|msgstr \\)?\"\\|\"$" . font-lock-keyword-face)
-    ;; (regexp-opt
-    ;;  '("msgctxt " "msgid " "msgid_plural " "msgstr " "msgstr[0] " "msgstr[1] "))
-    ("^\\(\\(msg\\(ctxt\\|id\\(_plural\\)?\\|str\\(\\[[0-9]\\]\\)?\\)\\) \\)?\"\\|\"$"
-     . font-lock-keyword-face)
-    ("\\\\.\\|%[*$-.0-9hjltuzL]*[a-zA-Z]" . font-lock-variable-name-face)
     ("^# .*\\|^#[:,]?" . font-lock-comment-face)
     ("^#:\\(.*\\)" 1 font-lock-reference-face)
     ("^#,\\(.*\\)" 1 font-lock-function-name-face)
+    ("^\\(\\(msg\\(ctxt\\|id\\(_plural\\)?\\|str\\(\\[[0-9]\\]\\)?\\)\\) \\)?\"\\|\"$"
+     . font-lock-keyword-face)
+    ("\\\\.\\|%[*$-.0-9hjltuzL]*[a-zA-Z]" . font-lock-variable-name-face)
     )
   "Additional expressions to highlight in PO mode.")
 
