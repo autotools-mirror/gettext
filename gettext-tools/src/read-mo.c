@@ -1,5 +1,5 @@
 /* Reading binary .mo files.
-   Copyright (C) 1995-1998, 2000-2007, 2014-2015, 2017 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2007, 2014-2015, 2017, 2020 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -29,8 +29,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-/* This include file describes the main part of binary .mo format.  */
+/* These two include files describe the binary .mo format.  */
 #include "gmo.h"
+#include "hash-string.h"
 
 #include "error.h"
 #include "xalloc.h"
@@ -306,6 +307,98 @@ read_mo_file (message_list_ty *mlp, const char *filename)
       header.trans_tab_offset = GET_HEADER_FIELD (trans_tab_offset);
       header.hash_tab_size = GET_HEADER_FIELD (hash_tab_size);
       header.hash_tab_offset = GET_HEADER_FIELD (hash_tab_offset);
+
+      /* The following verifications attempt to ensure that 'msgunfmt' complains
+         about a .mo file that may make libintl crash at run time.  */
+
+      /* Verify that the array of messages is sorted.  */
+      {
+        char *prev_msgid = NULL;
+
+        for (i = 0; i < header.nstrings; i++)
+          {
+            char *msgid;
+            size_t msgid_len;
+
+            msgid = get_string (&bf, header.orig_tab_offset + i * 8,
+                                &msgid_len);
+            if (i == 0)
+              prev_msgid = msgid;
+            else
+              {
+                if (!(strcmp (prev_msgid, msgid) < 0))
+                  error (EXIT_FAILURE, 0,
+                         _("file \"%s\" is not in GNU .mo format: The array of messages is not sorted."),
+                         filename);
+              }
+          }
+      }
+
+      /* Verify the hash table.  */
+      if (header.hash_tab_size > 0)
+        {
+          char *seen;
+          unsigned int j;
+
+          /* Verify the hash table's size.  */
+          if (!(header.hash_tab_size > 2))
+            error (EXIT_FAILURE, 0,
+                   _("file \"%s\" is not in GNU .mo format: The hash table size is invalid."),
+                   filename);
+
+          /* Verify that the non-empty hash table entries contain the values
+             1, ..., nstrings, each exactly once.  */
+          seen = (char *) xcalloc (header.nstrings, 1);
+          for (j = 0; j < header.hash_tab_size; j++)
+            {
+              nls_uint32 entry =
+                get_uint32 (&bf, header.hash_tab_offset + j * 4);
+
+              if (entry != 0)
+                {
+                  i = entry - 1;
+                  if (!(i < header.nstrings && seen[i] == 0))
+                    error (EXIT_FAILURE, 0,
+                           _("file \"%s\" is not in GNU .mo format: The hash table contains invalid entries."),
+                           filename);
+                  seen[i] = 1;
+                }
+            }
+          for (i = 0; i < header.nstrings; i++)
+            if (seen[i] == 0)
+              error (EXIT_FAILURE, 0, _("file \"%s\" is not in GNU .mo format: Some messages are not present in the hash table."),
+                     filename);
+          free (seen);
+
+          /* Verify that the hash table lookup algorithm finds the entry for
+             each message.  */
+          for (i = 0; i < header.nstrings; i++)
+            {
+              size_t msgid_len;
+              char *msgid = get_string (&bf, header.orig_tab_offset + i * 8,
+                                        &msgid_len);
+              nls_uint32 hash_val = hash_string (msgid);
+              nls_uint32 idx = hash_val % header.hash_tab_size;
+              nls_uint32 incr = 1 + (hash_val % (header.hash_tab_size - 2));
+              for (;;)
+                {
+                  nls_uint32 entry =
+                    get_uint32 (&bf, header.hash_tab_offset + idx * 4);
+
+                  if (entry == 0)
+                    error (EXIT_FAILURE, 0,
+                           _("file \"%s\" is not in GNU .mo format: Some messages are at a wrong index in the hash table."),
+                           filename);
+                  if (entry == i + 1)
+                    break;
+
+                  if (idx >= header.hash_tab_size - incr)
+                    idx -= header.hash_tab_size - incr;
+                  else
+                    idx += incr;
+                }
+            }
+        }
 
       for (i = 0; i < header.nstrings; i++)
         {

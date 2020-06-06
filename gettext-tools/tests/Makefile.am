@@ -178,7 +178,7 @@ TESTS = gettext-1 gettext-2 \
 
 EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	test.mo overflow-1.mo overflow-2.mo overflow-3.mo overflow-4.mo \
-	overflow-5.mo overflow-6.mo sysdep-without-nul.mo \
+	overflow-5.mo overflow-6.mo overflow-7.mo sysdep-without-nul.mo \
 	xg-c-1.ok.po mex-test2.ok \
 	mm-ko.ascii.pot mm-ko.euc-kr.po mm-ko-comp.euc-kr.po \
 	mm-viet.comp.po mm-viet.pot mm-viet.out \

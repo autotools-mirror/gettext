@@ -199,7 +199,8 @@ endif
 msgmerge_SOURCES += msgl-fsearch.c lang-table.c plural-count.c
 msgunfmt_SOURCES = msgunfmt.c
 msgunfmt_SOURCES += \
-  read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c
+  read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c \
+  ../../gettext-runtime/intl/hash-string.c
 if !WOE32DLL
 xgettext_SOURCES = xgettext.c
 else

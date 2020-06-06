@@ -1,5 +1,5 @@
 /* Writing binary .mo files.
-   Copyright (C) 1995-1998, 2000-2007, 2016 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2007, 2016, 2020 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -554,7 +554,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
       hash_tab = XNMALLOC (hash_tab_size, nls_uint32);
       memset (hash_tab, '\0', hash_tab_size * sizeof (nls_uint32));
 
-      /* Insert all value in the hash table, following the algorithm described
+      /* Insert all values in the hash table, following the algorithm described
          above.  */
       for (j = 0; j < nstrings; j++)
         {
