@@ -1,5 +1,5 @@
 /* Writing Qt .qm files.
-   Copyright (C) 2003, 2005-2007, 2009, 2016 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2007, 2009, 2016, 2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -648,11 +648,11 @@ int
 msgdomain_write_qt (message_list_ty *mlp, const char *canon_encoding,
                     const char *domain_name, const char *file_name)
 {
-  FILE *output_file;
-
   /* If no entry for this domain don't even create the file.  */
   if (mlp->nitems != 0)
     {
+      FILE *output_file;
+
       /* Determine whether mlp has plural entries.  */
       {
         bool has_plural;
@@ -744,15 +744,12 @@ strings, not in the untranslated strings\n")));
             }
         }
 
-      if (output_file != NULL)
-        {
-          write_qm (output_file, mlp);
+      write_qm (output_file, mlp);
 
-          /* Make sure nothing went wrong.  */
-          if (fwriteerror (output_file))
-            error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
-                   file_name);
-        }
+      /* Make sure nothing went wrong.  */
+      if (fwriteerror (output_file))
+        error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
+               file_name);
     }
 
   return 0;

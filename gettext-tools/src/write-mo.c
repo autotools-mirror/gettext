@@ -782,11 +782,11 @@ msgdomain_write_mo (message_list_ty *mlp,
                     const char *domain_name,
                     const char *file_name)
 {
-  FILE *output_file;
-
   /* If no entry for this domain don't even create the file.  */
   if (mlp->nitems != 0)
     {
+      FILE *output_file;
+
       /* Support for "reproducible builds": Delete information that may vary
          between builds in the same conditions.  */
       message_list_delete_header_field (mlp, "POT-Creation-Date:");
@@ -807,15 +807,12 @@ msgdomain_write_mo (message_list_ty *mlp,
             }
         }
 
-      if (output_file != NULL)
-        {
-          write_table (output_file, mlp);
+      write_table (output_file, mlp);
 
-          /* Make sure nothing went wrong.  */
-          if (fwriteerror (output_file))
-            error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
-                   file_name);
-        }
+      /* Make sure nothing went wrong.  */
+      if (fwriteerror (output_file))
+        error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
+               file_name);
     }
 
   return 0;
