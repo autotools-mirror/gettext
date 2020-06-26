@@ -1,5 +1,5 @@
 /* Read-write locks (native Windows implementation).
-   Copyright (C) 2005-2019 Free Software Foundation, Inc.
+   Copyright (C) 2005-2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -24,6 +24,10 @@
 
 #include <errno.h>
 #include <stdlib.h>
+
+/* Don't assume that UNICODE is not defined.  */
+#undef CreateEvent
+#define CreateEvent CreateEventA
 
 /* In this file, the waitqueues are implemented as circular arrays.  */
 #define glwthread_waitqueue_t glwthread_carray_waitqueue_t

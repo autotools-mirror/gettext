@@ -1,5 +1,5 @@
 /* Provide relocatable packages.
-   Copyright (C) 2003-2006, 2008-2019 Free Software Foundation, Inc.
+   Copyright (C) 2003-2006, 2008-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -63,6 +63,12 @@
 #endif
 #if DEPENDS_ON_LIBINTL && ENABLE_NLS
 # include <libintl.h>
+#endif
+
+#if defined _WIN32 && !defined __CYGWIN__
+/* Don't assume that UNICODE is not defined.  */
+# undef GetModuleFileName
+# define GetModuleFileName GetModuleFileNameA
 #endif
 
 /* Faked cheap 'bool'.  */

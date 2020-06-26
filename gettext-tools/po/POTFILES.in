@@ -10,7 +10,6 @@
 gnulib-lib/argmatch.c
 gnulib-lib/clean-temp.c
 gnulib-lib/closeout.c
-gnulib-lib/copy-acl.c
 gnulib-lib/copy-file.c
 gnulib-lib/csharpcomp.c
 gnulib-lib/csharpexec.c
@@ -24,7 +23,6 @@ gnulib-lib/obstack.c
 gnulib-lib/pipe-filter-aux.c
 gnulib-lib/pipe-filter-ii.c
 gnulib-lib/quotearg.c
-gnulib-lib/set-acl.c
 gnulib-lib/spawn-pipe.c
 gnulib-lib/w32spawn.h
 gnulib-lib/wait-process.c

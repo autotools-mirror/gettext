@@ -600,7 +600,7 @@ properties_parse (abstract_catalog_reader_ty *this, FILE *file,
                   const char *real_filename, const char *logical_filename)
 {
   /* Read the file into memory.  */
-  contents = fread_file (file, &contents_length);
+  contents = fread_file (file, 0, &contents_length);
   if (contents == NULL)
     {
       const char *errno_description = strerror (errno);

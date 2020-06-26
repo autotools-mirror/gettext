@@ -32,12 +32,15 @@
 /lib/c-strcase.h
 /lib/c-strcasecmp.c
 /lib/c-strncasecmp.c
+/lib/cloexec.c
+/lib/cloexec.h
 /lib/close.c
 /lib/concat-filename.c
 /lib/concat-filename.h
 /lib/dirname.h
 /lib/dirname-lgpl.c
 /lib/dosname.h
+/lib/dup2.c
 /lib/errno.in.h
 /lib/error.c
 /lib/error.h
@@ -45,6 +48,7 @@
 /lib/exitfail.h
 /lib/fatal-signal.c
 /lib/fatal-signal.h
+/lib/fcntl.c
 /lib/fcntl.in.h
 /lib/fd-hook.c
 /lib/fd-hook.h
@@ -67,6 +71,7 @@
 /lib/get_ppid_of.h
 /lib/get_progname_of.c
 /lib/get_progname_of.h
+/lib/getdtablesize.c
 /lib/gethostname.c
 /lib/getprogname.c
 /lib/getprogname.h
@@ -127,6 +132,7 @@
 /lib/noreturn.h
 /lib/obstack.c
 /lib/obstack.h
+/lib/open.c
 /lib/ostream.oo.c
 /lib/ostream.oo.h
 /lib/pathmax.h
