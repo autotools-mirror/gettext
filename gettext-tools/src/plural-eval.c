@@ -1,5 +1,5 @@
 /* Expression evaluation for plural form selection.
-   Copyright (C) 2000-2003, 2005, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2000-2003, 2005, 2019-2020 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 2000.
 
    This program is free software: you can redistribute it and/or modify
@@ -49,6 +49,9 @@ static _GL_ASYNC_SAFE void
 sigfpe_handler (int sig, siginfo_t *sip, void *scp)
 {
   sigfpe_code = sip->si_code;
+  /* This handler is invoked on the thread that caused the SIGFPE, that is,
+     the thread that is doing plural evaluation.  Therefore it's OK to use
+     siglongjmp.  */
   siglongjmp (sigfpe_exit, 1);
 }
 
@@ -59,6 +62,9 @@ sigfpe_handler (int sig, siginfo_t *sip, void *scp)
 static _GL_ASYNC_SAFE void
 sigfpe_handler (int sig)
 {
+  /* This handler is invoked on the thread that caused the SIGFPE, that is,
+     the thread that is doing plural evaluation.  Therefore it's OK to use
+     siglongjmp.  */
   siglongjmp (sigfpe_exit, 1);
 }
 
