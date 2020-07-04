@@ -157,7 +157,6 @@ m4/alloca.m4 \
 m4/backupfile.m4 \
 m4/java.m4 \
 m4/libxml.m4 \
-m4/unionwait.m4 \
 modules/backupfile \
 modules/basename \
 modules/closeout \
@@ -169,7 +168,6 @@ modules/java \
 modules/libtextstyle-dummy \
 modules/libxml \
 modules/markup \
-modules/wait-process.diff \
 modules/xalloc \
 modules/xalloc-die \
 modules/xerror \
