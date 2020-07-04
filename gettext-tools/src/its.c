@@ -1,5 +1,5 @@
 /* Internationalization Tag Set (ITS) handling
-   Copyright (C) 2015, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2015, 2018-2020 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -27,7 +27,7 @@
 #include <errno.h>
 #include "error.h"
 #include "gettext.h"
-#include "hash.h"
+#include "mem-hash-map.h"
 #include <stdint.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>

@@ -1,6 +1,6 @@
 /* Resolving ambiguity of argument lists: Information given through
    command-line options.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2018, 2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
 #include <stddef.h>
 
 #include "str-list.h"
-#include "hash.h"
+#include "mem-hash-map.h"
 
 #ifdef __cplusplus
 extern "C" {

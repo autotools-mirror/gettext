@@ -38,8 +38,6 @@ lib/getopt-core.h.diff \
 lib/gettext.h \
 lib/gl_array_list.h.diff \
 lib/gl_linkedhash_list.h.diff \
-lib/hash.c \
-lib/hash.h \
 lib/libxml/buf.c \
 lib/libxml/buf.h \
 lib/libxml/c14n.c \
@@ -142,6 +140,8 @@ lib/libxml/xpointer.c \
 lib/libxml/xpointer.in.h \
 lib/markup.c \
 lib/markup.h \
+lib/mem-hash-map.c \
+lib/mem-hash-map.h \
 lib/obstack.h.diff \
 lib/progname.h.diff \
 lib/regex_internal.h.diff \
@@ -163,11 +163,11 @@ modules/closeout \
 modules/error-progname \
 modules/gettext-runtime-misc \
 modules/gettext-tools-misc \
-modules/hash \
 modules/java \
 modules/libtextstyle-dummy \
 modules/libxml \
 modules/markup \
+modules/mem-hash-map \
 modules/xalloc \
 modules/xalloc-die \
 modules/xerror \

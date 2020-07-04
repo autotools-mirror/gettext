@@ -39,7 +39,7 @@
 
 #include "byteswap.h"
 #include "error.h"
-#include "hash.h"
+#include "mem-hash-map.h"
 #include "message.h"
 #include "format.h"
 #include "xsize.h"

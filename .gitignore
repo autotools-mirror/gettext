@@ -135,8 +135,6 @@
 /gettext-tools/libgettextpo/gl_xlist.h
 /gettext-tools/libgettextpo/hard-locale.c
 /gettext-tools/libgettextpo/hard-locale.h
-/gettext-tools/libgettextpo/hash.c
-/gettext-tools/libgettextpo/hash.h
 /gettext-tools/libgettextpo/iconv.c
 /gettext-tools/libgettextpo/iconv.in.h
 /gettext-tools/libgettextpo/iconv_close.c
@@ -171,6 +169,8 @@
 /gettext-tools/libgettextpo/mbswidth.h
 /gettext-tools/libgettextpo/mbtowc-lock.c
 /gettext-tools/libgettextpo/mbtowc-lock.h
+/gettext-tools/libgettextpo/mem-hash-map.c
+/gettext-tools/libgettextpo/mem-hash-map.h
 /gettext-tools/libgettextpo/memchr.c
 /gettext-tools/libgettextpo/memchr.valgrind
 /gettext-tools/libgettextpo/minmax.h

@@ -27,7 +27,7 @@
 #include <string.h>
 
 #include "fstrcmp.h"
-#include "hash.h"
+#include "mem-hash-map.h"
 #include "xalloc.h"
 #include "xmalloca.h"
 

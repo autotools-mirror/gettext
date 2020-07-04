@@ -44,7 +44,7 @@
 #include "error-progname.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
-#include "hash.h"
+#include "mem-hash-map.h"
 #include "po-charset.h"
 #include "gettext.h"
 

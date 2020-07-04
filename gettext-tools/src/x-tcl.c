@@ -42,7 +42,7 @@
 #include "xg-message.h"
 #include "error.h"
 #include "xalloc.h"
-#include "hash.h"
+#include "mem-hash-map.h"
 #include "c-ctype.h"
 #include "po-charset.h"
 #include "unistr.h"

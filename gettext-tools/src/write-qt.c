@@ -39,7 +39,7 @@
 #include "unistr.h"
 #include "xalloc.h"
 #include "obstack.h"
-#include "hash.h"
+#include "mem-hash-map.h"
 #include "binary-io.h"
 #include "fwriteerror.h"
 #include "gettext.h"

@@ -41,7 +41,7 @@
 #include "error.h"
 #include "error-progname.h"
 #include "xalloc.h"
-#include "hash.h"
+#include "mem-hash-map.h"
 #include "po-charset.h"
 #include "unistr.h"
 #include "unictype.h"

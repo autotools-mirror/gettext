@@ -10,7 +10,7 @@ styled-ostream
 term-ostream
 libcroco
 libxml
-hash
+mem-hash-map
 xalloc
 
 configure.ac:

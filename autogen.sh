@@ -154,7 +154,6 @@ if ! $skip_gnulib; then
     getopt-gnu
     gettext
     gettext-h
-    hash
     iconv
     javacomp
     javaexec
@@ -165,6 +164,7 @@ if ! $skip_gnulib; then
     localename
     localtime
     lock
+    mem-hash-map
     memchr
     memmove
     memset
@@ -305,11 +305,11 @@ if ! $skip_gnulib; then
     gcd
     getline
     gettext-h
-    hash
     iconv
     libtextstyle-dummy
     libunistring-optional
     markup
+    mem-hash-map
     minmax
     open
     relocatable-lib

@@ -43,7 +43,7 @@
 #include "filename.h"
 #include <fnmatch.h>
 #include "gettext.h"
-#include "hash.h"
+#include "mem-hash-map.h"
 #include <libxml/parser.h>
 #include <libxml/uri.h>
 #include "xalloc.h"

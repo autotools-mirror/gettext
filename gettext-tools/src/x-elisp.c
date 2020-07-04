@@ -1,5 +1,5 @@
 /* xgettext Emacs Lisp backend.
-   Copyright (C) 2001-2003, 2005-2009, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009, 2018-2020 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001-2002.
 
@@ -39,7 +39,7 @@
 #include "xg-message.h"
 #include "error.h"
 #include "xalloc.h"
-#include "hash.h"
+#include "mem-hash-map.h"
 #include "c-ctype.h"
 #include "gettext.h"
 

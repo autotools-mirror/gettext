@@ -1,6 +1,6 @@
 /* Keeping track of the flags that apply to a string extracted
    in a certain context.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2018, 2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,7 +20,7 @@
 
 #include <stdbool.h>
 
-#include "hash.h"
+#include "mem-hash-map.h"
 #include "message.h"
 
 #ifdef __cplusplus

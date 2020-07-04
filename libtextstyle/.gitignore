@@ -86,8 +86,6 @@
 /lib/glib/
 /lib/glib.in.h
 /lib/glibconfig.in.h
-/lib/hash.c
-/lib/hash.h
 /lib/html-ostream.oo.c
 /lib/html-ostream.oo.h
 /lib/html-styled-ostream.oo.c
@@ -117,6 +115,8 @@
 /lib/malloca.h
 /lib/math.c
 /lib/math.in.h
+/lib/mem-hash-map.c
+/lib/mem-hash-map.h
 /lib/memchr.c
 /lib/memchr.valgrind
 /lib/memory-ostream.oo.c

@@ -21,7 +21,7 @@
 
 #include "str-list.h"
 #include "pos.h"
-#include "hash.h"
+#include "mem-hash-map.h"
 
 #include <stdbool.h>
 
