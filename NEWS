@@ -22,6 +22,10 @@ Version 0.21 - April 2020
     'bindtextdomain'. It allows to pass a directory name in wchar_t[] encoding.
     Note: 'wbindtextdomain' exists only on native Windows platforms.
 
+* Improvements for translators:
+  - When msgfmt writes a MO file, it now does so in such a way that processes
+    that are currently using an older copy of the MO file will not crash.
+
 * Libtextstyle:
   - Added support for emitting hyperlinks.
   - New API for doing formatted output.

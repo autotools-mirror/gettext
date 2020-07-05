@@ -199,6 +199,7 @@ if ! $skip_gnulib; then
     strpbrk
     strtol
     strtoul
+    supersede
     sys_select
     sys_stat
     sys_time

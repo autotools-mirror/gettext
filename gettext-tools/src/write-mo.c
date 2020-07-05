@@ -47,6 +47,7 @@
 #include "xmalloca.h"
 #include "msgl-header.h"
 #include "binary-io.h"
+#include "supersede.h"
 #include "fwriteerror.h"
 #include "gettext.h"
 
@@ -785,34 +786,44 @@ msgdomain_write_mo (message_list_ty *mlp,
   /* If no entry for this domain don't even create the file.  */
   if (mlp->nitems != 0)
     {
-      FILE *output_file;
-
       /* Support for "reproducible builds": Delete information that may vary
          between builds in the same conditions.  */
       message_list_delete_header_field (mlp, "POT-Creation-Date:");
 
       if (strcmp (domain_name, "-") == 0)
         {
-          output_file = stdout;
+          FILE *output_file = stdout;
           SET_BINARY (fileno (output_file));
+
+          write_table (output_file, mlp);
+
+          /* Make sure nothing went wrong.  */
+          if (fwriteerror (output_file))
+            error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
+                   file_name);
         }
       else
         {
-          output_file = fopen (file_name, "wb");
+          /* Supersede, don't overwrite, the output file.  Otherwise, processes
+             that are currently using (via mmap!) the output file could crash
+             (through SIGSEGV or SIGBUS).  */
+          struct supersede_final_action action;
+          FILE *output_file =
+            fopen_supersede (file_name, "wb", true, true, &action);
           if (output_file == NULL)
             {
               error (0, errno, _("error while opening \"%s\" for writing"),
                      file_name);
               return 1;
             }
+
+          write_table (output_file, mlp);
+
+          /* Make sure nothing went wrong.  */
+          if (fwriteerror_supersede (output_file, &action))
+            error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
+                   file_name);
         }
-
-      write_table (output_file, mlp);
-
-      /* Make sure nothing went wrong.  */
-      if (fwriteerror (output_file))
-        error (EXIT_FAILURE, errno, _("error while writing \"%s\" file"),
-               file_name);
     }
 
   return 0;
