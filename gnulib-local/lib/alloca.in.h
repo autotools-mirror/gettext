@@ -1,5 +1,5 @@
 /* Memory allocation on the stack.
-   Copyright (C) 1995, 1999, 2001-2007 Free Software Foundation, Inc.
+   Copyright (C) 1995, 1999, 2001-2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -35,12 +35,32 @@
  */
 
 #ifndef alloca
+  /* Some version of mingw have an <alloca.h> that causes trouble when
+     included after 'alloca' gets defined as a macro.  As a workaround,
+     include this <alloca.h> first and define 'alloca' as a macro afterwards
+     if needed.  */
+# if defined __GNUC__ && (defined _WIN32 && ! defined __CYGWIN__) && @HAVE_ALLOCA_H@
+#  include_next <alloca.h>
+# endif
+#endif
+#ifndef alloca
 # ifdef __GNUC__
-#   define alloca __builtin_alloca
+#  define alloca __builtin_alloca
 # else
 #  ifdef _MSC_VER
 #   include <malloc.h>
 #   define alloca _alloca
+#  elif defined __DECC && defined __VMS
+#   define alloca __ALLOCA
+#  elif defined __TANDEM && defined _TNS_E_TARGET
+#   ifdef  __cplusplus
+extern "C"
+#   endif
+void *_alloca (unsigned short);
+#   pragma intrinsic (_alloca)
+#   define alloca _alloca
+#  elif defined __MVS__
+#   include <stdlib.h>
 #  else
 #   if HAVE_ALLOCA_H
 #    include <alloca.h>

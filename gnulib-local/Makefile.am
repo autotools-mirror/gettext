@@ -155,7 +155,6 @@ lib/xgetcwd.c \
 lib/xgetcwd.h \
 lib/xmalloc.c \
 lib/xstrdup.c \
-m4/alloca.m4 \
 m4/backupfile.m4 \
 m4/java.m4 \
 m4/libxml.m4 \
