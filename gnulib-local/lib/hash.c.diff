@@ -1,0 +1,20 @@
+--- hash.c.orig	2020-07-04 10:21:00.491559357 +0200
++++ hash.c	2020-07-04 10:22:00.536240305 +0200
+@@ -390,6 +390,8 @@
+ 
+ /* Allocation and clean-up.  */
+ 
++#if 0
++
+ /* Return a hash index for a NUL-terminated STRING between 0 and N_BUCKETS-1.
+    This is a convenience routine for constructing other hashing functions.  */
+ 
+@@ -437,6 +439,8 @@
+ 
+ #endif /* not USE_DIFF_HASH */
+ 
++#endif
++
+ /* Return true if CANDIDATE is a prime number.  CANDIDATE should be an odd
+    number at least equal to 11.  */
+ 
