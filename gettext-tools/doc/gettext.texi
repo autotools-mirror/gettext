@@ -7618,7 +7618,7 @@ In a second step, she uses the PO mode to translate precisely this set
 of messages.
 
 @vindex GETTEXT_LOG_UNTRANSLATED@r{, environment variable}
-Here a more details.  The GNU @code{libintl} library (but not the
+Here are more details.  The GNU @code{libintl} library (but not the
 corresponding functions in GNU @code{libc}) supports an environment variable
 @code{GETTEXT_LOG_UNTRANSLATED}.  The GNU @code{libintl} library will
 log into this file the messages for which @code{gettext()} and related
