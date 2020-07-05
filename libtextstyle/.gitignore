@@ -24,6 +24,7 @@
 /lib/asprintf.c
 /lib/attribute.h
 /lib/basename-lgpl.c
+/lib/basename-lgpl.h
 /lib/binary-io.c
 /lib/binary-io.h
 /lib/c++defs.h
@@ -86,6 +87,7 @@
 /lib/glib/
 /lib/glib.in.h
 /lib/glibconfig.in.h
+/lib/glthread/
 /lib/html-ostream.oo.c
 /lib/html-ostream.oo.h
 /lib/html-styled-ostream.oo.c
@@ -214,6 +216,15 @@
 /lib/w32sock.h
 /lib/warn-on-use.h
 /lib/wchar.in.h
+/lib/windows-initguard.h
+/lib/windows-mutex.c
+/lib/windows-mutex.h
+/lib/windows-once.c
+/lib/windows-once.h
+/lib/windows-recmutex.c
+/lib/windows-recmutex.h
+/lib/windows-rwlock.c
+/lib/windows-rwlock.h
 /lib/write.c
 /lib/xalloc-oversized.h
 /lib/xalloc.h

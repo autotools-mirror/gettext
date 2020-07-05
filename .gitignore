@@ -74,6 +74,7 @@
 /gettext-tools/libgettextpo/asprintf.c
 /gettext-tools/libgettextpo/attribute.h
 /gettext-tools/libgettextpo/basename-lgpl.c
+/gettext-tools/libgettextpo/basename-lgpl.h
 /gettext-tools/libgettextpo/basename.c
 /gettext-tools/libgettextpo/basename.h
 /gettext-tools/libgettextpo/c-ctype.c

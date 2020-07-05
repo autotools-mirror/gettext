@@ -26,7 +26,6 @@ lib/backupfile.c \
 lib/backupfile.h \
 lib/basename.c \
 lib/basename.h \
-lib/clean-temp.c.diff \
 lib/closeout.c \
 lib/closeout.h \
 lib/diffseq.h.diff \

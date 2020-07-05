@@ -1,5 +1,5 @@
 /* Writing C# satellite assemblies.
-   Copyright (C) 2003-2010, 2016, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2003-2010, 2016, 2018-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -738,7 +738,7 @@ msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
 
   /* Create the C# file.  */
   register_temp_file (tmpdir, csharp_file_name);
-  csharp_file = fopen_temp (csharp_file_name, "w");
+  csharp_file = fopen_temp (csharp_file_name, "w", false);
   if (csharp_file == NULL)
     {
       error (0, errno, _("failed to create \"%s\""), csharp_file_name);
