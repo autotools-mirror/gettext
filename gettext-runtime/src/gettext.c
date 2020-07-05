@@ -32,7 +32,7 @@
 #include "error.h"
 #include "progname.h"
 #include "relocatable.h"
-#include "basename.h"
+#include "basename-lgpl.h"
 #include "xalloc.h"
 #include "propername.h"
 #include "escapes.h"
@@ -129,7 +129,8 @@ main (int argc, char *argv[])
   /* Version information is requested.  */
   if (do_version)
     {
-      printf ("%s (GNU %s) %s\n", basename (program_name), PACKAGE, VERSION);
+      printf ("%s (GNU %s) %s\n", last_component (program_name),
+              PACKAGE, VERSION);
       /* xgettext: no-wrap */
       printf (_("Copyright (C) %s Free Software Foundation, Inc.\n\
 License GPLv3+: GNU GPL version 3 or later <%s>\n\

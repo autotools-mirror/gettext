@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2007, 2010, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2007, 2010, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@
 #include "xvasprintf.h"
 #include "po-xerror.h"
 #if !IN_LIBGETTEXTPO
-# include "basename.h"
+# include "basename-lgpl.h"
 # include "progname.h"
 #endif
 #include "c-strstr.h"
@@ -559,7 +559,7 @@ Message conversion to user's charset might not work.\n"),
 # if IN_LIBGETTEXTPO
                   progname = "libgettextpo";
 # else
-                  progname = basename (program_name);
+                  progname = last_component (program_name);
 # endif
 
                   warning_message =
@@ -615,7 +615,7 @@ would fix this problem.\n");
 # if IN_LIBGETTEXTPO
                   progname = "libgettextpo";
 # else
-                  progname = basename (program_name);
+                  progname = last_component (program_name);
 # endif
 
                   warning_message =

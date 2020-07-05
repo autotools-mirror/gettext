@@ -44,7 +44,6 @@
 #include "error.h"
 #include "error-progname.h"
 #include "progname.h"
-#include "basename.h"
 #include "xerror.h"
 #include "xvasprintf.h"
 #include "xalloc.h"

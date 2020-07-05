@@ -34,7 +34,7 @@
 
 #include "noreturn.h"
 #include "progname.h"
-#include "basename.h"
+#include "basename-lgpl.h"
 #include "message.h"
 #include "po-charset.h"
 #include "xstriconv.h"
@@ -298,7 +298,7 @@ iconv_message_list_internal (message_list_ty *mlp,
         po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
                    xasprintf (_("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does not support this conversion."),
                               canon_from_code, canon_to_code,
-                              basename (program_name)));
+                              last_component (program_name)));
 
       context.from_code = canon_from_code;
       context.to_code = canon_to_code;
@@ -330,7 +330,7 @@ iconv_message_list_internal (message_list_ty *mlp,
           po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
                      xasprintf (_("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was built without iconv()."),
                                 canon_from_code, canon_to_code,
-                                basename (program_name)));
+                                last_component (program_name)));
 #endif
     }
 

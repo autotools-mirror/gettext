@@ -43,7 +43,7 @@
 #include "error.h"
 #include "error-progname.h"
 #include "progname.h"
-#include "basename.h"
+#include "basename-lgpl.h"
 #include "xerror.h"
 #include "xvasprintf.h"
 #include "xalloc.h"
@@ -623,13 +623,13 @@ set_current_file_source_encoding (const char *canon_encoding)
         error_at_line (EXIT_FAILURE, 0, logical_file_name, line_number - 1,
                        _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does not support this conversion."),
                        xgettext_current_file_source_encoding, po_charset_utf8,
-                       basename (program_name));
+                       last_component (program_name));
       xgettext_current_file_source_iconv = cd;
 #else
       error_at_line (EXIT_FAILURE, 0, logical_file_name, line_number - 1,
                      _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was built without iconv()."),
                      xgettext_current_file_source_encoding, po_charset_utf8,
-                     basename (program_name));
+                     last_component (program_name));
 #endif
     }
 

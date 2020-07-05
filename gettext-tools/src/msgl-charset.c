@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2003, 2005-2007, 2009, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2007, 2009, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -32,7 +32,7 @@
 #include "localcharset.h"
 #include "error.h"
 #include "progname.h"
-#include "basename.h"
+#include "basename-lgpl.h"
 #include "xmalloca.h"
 #include "xerror.h"
 #include "xvasprintf.h"
@@ -94,7 +94,7 @@ Locale charset \"%s\" is different from\n\
 input file charset \"%s\".\n\
 Output of '%s' might be incorrect.\n\
 Possible workarounds are:\n\
-"), locale_code, canon_charset, basename (program_name)));
+"), locale_code, canon_charset, last_component (program_name)));
                         multiline_warning (NULL,
                                            xasprintf (_("\
 - Set LC_ALL to a locale with encoding %s.\n\
@@ -105,7 +105,7 @@ Possible workarounds are:\n\
 - Convert the translation catalog to %s using 'msgconv',\n\
   then apply '%s',\n\
   then convert back to %s using 'msgconv'.\n\
-"), canon_locale_code, basename (program_name), canon_charset));
+"), canon_locale_code, last_component (program_name), canon_charset));
                         if (strcmp (canon_charset, "UTF-8") != 0
                             && (canon_locale_code == NULL
                                 || strcmp (canon_locale_code, "UTF-8") != 0))
@@ -115,7 +115,7 @@ Possible workarounds are:\n\
   convert the translation catalog to %s using 'msgconv',\n\
   then apply '%s',\n\
   then convert back to %s using 'msgconv'.\n\
-"), "UTF-8", "UTF-8", basename (program_name), canon_charset));
+"), "UTF-8", "UTF-8", last_component (program_name), canon_charset));
                         warned = true;
                       }
                   }
@@ -128,5 +128,5 @@ Possible workarounds are:\n\
 Locale charset \"%s\" is not a portable encoding name.\n\
 Output of '%s' might be incorrect.\n\
 A possible workaround is to set LC_ALL=C.\n\
-"), locale_code, basename (program_name)));
+"), locale_code, last_component (program_name)));
 }

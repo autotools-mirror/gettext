@@ -20,7 +20,7 @@
 # include <config.h>
 #endif
 
-#include "basename.h"
+#include "basename-lgpl.h"
 #include "cldr-plural-exp.h"
 #include "closeout.h"
 #include "c-ctype.h"
@@ -286,7 +286,8 @@ main (int argc, char **argv)
   /* Version information requested.  */
   if (do_version)
     {
-      printf ("%s (GNU %s) %s\n", basename (program_name), PACKAGE, VERSION);
+      printf ("%s (GNU %s) %s\n", last_component (program_name),
+              PACKAGE, VERSION);
       /* xgettext: no-wrap */
       printf (_("Copyright (C) %s Free Software Foundation, Inc.\n\
 License GPLv3+: GNU GPL version 3 or later <%s>\n\

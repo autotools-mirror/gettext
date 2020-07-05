@@ -70,7 +70,7 @@ if ! $skip_gnulib; then
   # In gettext-runtime:
   GNULIB_MODULES_RUNTIME_FOR_SRC='
     atexit
-    basename
+    basename-lgpl
     binary-io
     closeout
     error
@@ -123,7 +123,7 @@ if ! $skip_gnulib; then
     alloca-opt
     atexit
     backupfile
-    basename
+    basename-lgpl
     binary-io
     bison
     bison-i18n
@@ -291,7 +291,7 @@ if ! $skip_gnulib; then
   # In gettext-tools/libgettextpo:
   # This is a subset of the GNULIB_MODULES_FOR_SRC.
   GNULIB_MODULES_LIBGETTEXTPO='
-    basename
+    basename-lgpl
     close
     c-ctype
     c-strcase

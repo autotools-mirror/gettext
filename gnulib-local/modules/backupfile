@@ -9,7 +9,7 @@ m4/backupfile.m4
 
 Depends-on:
 argmatch
-basename
+basename-lgpl
 closedir
 opendir
 readdir

@@ -23,7 +23,7 @@
 /* Specification.  */
 #include "locating-rule.h"
 
-#include "basename.h"
+#include "basename-lgpl.h"
 #include "concat-filename.h"
 #include "c-strcase.h"
 
@@ -146,7 +146,7 @@ locating_rule_match (struct locating_rule_ty *rule,
              && memcmp (reduced + strlen (reduced) - 3, ".in", 3) == 0)
         reduced[strlen (reduced) - 3] = '\0';
 
-      err = fnmatch (rule->pattern, basename (reduced), FNM_PATHNAME);
+      err = fnmatch (rule->pattern, last_component (reduced), FNM_PATHNAME);
       free (reduced);
       if (err != 0)
         return NULL;

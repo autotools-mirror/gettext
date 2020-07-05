@@ -1,5 +1,5 @@
 /* backupfile.c -- make Emacs style backup file names
-   Copyright (C) 1990-2003, 2005-2006, 2012 Free Software Foundation, Inc.
+   Copyright (C) 1990-2003, 2005-2006, 2012, 2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@
 
 #include <stdlib.h>
 
-#include "basename.h"
+#include "basename-lgpl.h"
 
 #if HAVE_DIRENT_H
 # define HAVE_DIR 1
@@ -105,7 +105,7 @@ find_backup_file_name (const char *file, enum backup_type backup_type)
       if (backup_type != simple)
         {
           int highest_backup;
-          size_t dir_len = basename (s) - s;
+          size_t dir_len = last_component (s) - s;
 
           strcpy (s + dir_len, ".");
           highest_backup = max_backup_version (file + dir_len, s);

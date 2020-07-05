@@ -24,8 +24,6 @@ lib/alloca.in.h \
 lib/argmatch.h.diff \
 lib/backupfile.c \
 lib/backupfile.h \
-lib/basename.c \
-lib/basename.h \
 lib/closeout.c \
 lib/closeout.h \
 lib/diffseq.h.diff \
@@ -158,7 +156,6 @@ m4/backupfile.m4 \
 m4/java.m4 \
 m4/libxml.m4 \
 modules/backupfile \
-modules/basename \
 modules/closeout \
 modules/error-progname \
 modules/gettext-runtime-misc \

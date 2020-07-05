@@ -1,5 +1,5 @@
 /* Message list concatenation and duplicate handling.
-   Copyright (C) 2001-2003, 2005-2008, 2012, 2015, 2019 Free Software
+   Copyright (C) 2001-2003, 2005-2008, 2012, 2015, 2019-2020 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -43,7 +43,7 @@
 #include "xalloc.h"
 #include "xmalloca.h"
 #include "c-strstr.h"
-#include "basename.h"
+#include "basename-lgpl.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -217,7 +217,7 @@ catenate_msgdomain_list (string_list_ty *file_list,
   identifications = XNMALLOC (nfiles, const char **);
   for (n = 0; n < nfiles; n++)
     {
-      const char *filename = basename (files[n]);
+      const char *filename = last_component (files[n]);
       msgdomain_list_ty *mdlp = mdlps[n];
       size_t k;
 

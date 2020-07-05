@@ -54,7 +54,7 @@
 #include "error-progname.h"
 #include "progname.h"
 #include "relocatable.h"
-#include "basename.h"
+#include "basename-lgpl.h"
 #include "xerror.h"
 #include "xvasprintf.h"
 #include "xalloc.h"
@@ -680,7 +680,8 @@ main (int argc, char *argv[])
   /* Version information requested.  */
   if (do_version)
     {
-      printf ("%s (GNU %s) %s\n", basename (program_name), PACKAGE, VERSION);
+      printf ("%s (GNU %s) %s\n", last_component (program_name),
+              PACKAGE, VERSION);
       /* xgettext: no-wrap */
       printf (_("Copyright (C) %s Free Software Foundation, Inc.\n\
 License GPLv3+: GNU GPL version 3 or later <%s>\n\
@@ -805,13 +806,13 @@ xgettext cannot work without keywords to look for"));
         error (EXIT_FAILURE, 0,
                _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does not support this conversion."),
                xgettext_global_source_encoding, po_charset_utf8,
-               basename (program_name));
+               last_component (program_name));
       xgettext_global_source_iconv = cd;
 #else
       error (EXIT_FAILURE, 0,
              _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was built without iconv()."),
              xgettext_global_source_encoding, po_charset_utf8,
-             basename (program_name));
+             last_component (program_name));
 #endif
     }
 
