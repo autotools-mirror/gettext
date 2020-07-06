@@ -302,7 +302,7 @@ MOSTLYCLEANFILES += libintl.h
 localename-table.h: $(srcdir)/localename-table.in.h $(srcdir)/export.h
 	sed -e 's/extern \([^"]\)/extern LIBINTL_DLL_EXPORTED \1/' \
 	    -e 's/extern,/extern LIBINTL_DLL_EXPORTED,/' \
-	    -e "/#if HAVE_USELOCALE/r $(srcdir)/export.h" \
+	    -e "/#if HAVE_WORKING_USELOCALE/r $(srcdir)/export.h" \
 	  < $(srcdir)/localename-table.in.h \
 	| sed -e 's,@''HAVE_VISIBILITY''@,@HAVE_VISIBILITY@,g' \
 	  > localename-table.h
