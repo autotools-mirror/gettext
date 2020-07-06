@@ -47,7 +47,10 @@
 # ifdef __GNUC__
 #  define alloca __builtin_alloca
 # else
-#  ifdef _MSC_VER
+#  if defined _AIX
+ #pragma alloca
+    /* Alternatively: #define alloca __alloca, works as well.  */
+#  elif defined _MSC_VER
 #   include <malloc.h>
 #   define alloca _alloca
 #  elif defined __DECC && defined __VMS
@@ -62,25 +65,17 @@ void *_alloca (unsigned short);
 #  elif defined __MVS__
 #   include <stdlib.h>
 #  else
-#   if HAVE_ALLOCA_H
-#    include <alloca.h>
-#   else
-#    ifdef _AIX
- #pragma alloca
-#    else
-#     ifdef __hpux /* This section must match that of bison generated files. */
-#      ifdef __cplusplus
+#   ifdef __hpux /* This section must match that of bison generated files. */
+#    ifdef __cplusplus
 extern "C" void *alloca (unsigned int);
-#      else /* not __cplusplus */
+#    else /* not __cplusplus */
 extern void *alloca ();
-#      endif /* not __cplusplus */
-#     else /* not __hpux */
-#      ifndef alloca
+#    endif /* not __cplusplus */
+#   else /* not __hpux */
+#    ifndef alloca
 extern char *alloca ();
-#      endif
-#     endif /* __hpux */
 #    endif
-#   endif
+#   endif /* __hpux */
 #  endif
 # endif
 #endif
