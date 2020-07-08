@@ -105,6 +105,7 @@
 /gettext-tools/libgettextpo/fcntl.in.h
 /gettext-tools/libgettextpo/fd-hook.c
 /gettext-tools/libgettextpo/fd-hook.h
+/gettext-tools/libgettextpo/fdopen.c
 /gettext-tools/libgettextpo/filename.h
 /gettext-tools/libgettextpo/float+.h
 /gettext-tools/libgettextpo/float.c
