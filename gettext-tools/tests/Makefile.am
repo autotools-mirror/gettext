@@ -62,7 +62,7 @@ TESTS = gettext-1 gettext-2 \
 	msgmerge-13 msgmerge-14 msgmerge-15 msgmerge-16 msgmerge-17 \
 	msgmerge-18 msgmerge-19 msgmerge-20 msgmerge-21 msgmerge-22 \
 	msgmerge-23 msgmerge-24 msgmerge-25 msgmerge-26 msgmerge-27 \
-	msgmerge-28 \
+	msgmerge-28 msgmerge-29 \
 	msgmerge-compendium-1 msgmerge-compendium-2 msgmerge-compendium-3 \
 	msgmerge-compendium-4 msgmerge-compendium-5 msgmerge-compendium-6 \
 	msgmerge-properties-1 msgmerge-properties-2 \
