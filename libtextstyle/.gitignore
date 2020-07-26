@@ -109,8 +109,6 @@
 /lib/libcroco/
 /lib/libxml/
 /lib/limits.in.h
-/lib/localtime-buffer.c
-/lib/localtime-buffer.h
 /lib/log10.c
 /lib/malloc.c
 /lib/malloca.c

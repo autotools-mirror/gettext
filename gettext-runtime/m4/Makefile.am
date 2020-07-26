@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/m4 directory of GNU gettext
-## Copyright (C) 2003, 2005-2013, 2017-2019 Free Software Foundation, Inc.
+## Copyright (C) 2003, 2005-2013, 2017-2020 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -29,7 +29,6 @@ intdiv0.m4 \
 intl.m4 \
 intlmacosx.m4 \
 intmax.m4 \
-inttypes-pri.m4 \
 inttypes_h.m4 \
 nls.m4 \
 po.m4 \
