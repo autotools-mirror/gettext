@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples 0.19-rc1\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2020-04-14 03:40+0200\n"
+"POT-Creation-Date: 2020-04-11 22:35+0200\n"
 "PO-Revision-Date: 2014-05-10 16:34+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -52,6 +52,7 @@ msgstr "Este programa estase executando como o proceso número %d."
 
 #: hello-c-gnome3/hello.c:79
 #, fuzzy, c-format
+#| msgid "This program is running as process number %d."
 msgid ""
 "<big>Hello world!</big>\n"
 "This program is running as process number <b>%d</b>."

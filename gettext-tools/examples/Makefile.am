@@ -432,6 +432,7 @@ EXAMPLESPOFILES = \
   mt.po \
   nb.po \
   nl.po \
+  nn.po \
   pl.po \
   pt.po \
   pt_BR.po \

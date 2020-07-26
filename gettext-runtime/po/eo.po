@@ -1,16 +1,16 @@
 # La teksto por la mesaĝoj de la programo "gettext".
-# Copyright (C) 2006, 2007, 2013, 2016, 2019 Free Software Foundation, Inc.
+# Copyright (C) 2006, 2007, 2013, 2016, 2019, 2020 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 # D. Dale Gulledge <dsplat@rochester.rr.com> 2006.
 # Edmund GRIMLEY EVANS <edmundo@rano.org> 2006, 2007.
-# Felipe Castro <fefcas@gmail.com>, 2013, 2016, 2019.
+# Felipe Castro <fefcas@gmail.com>, 2013, 2016, 2019, 2020.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.20-rc1\n"
+"Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2020-04-13 15:53+0200\n"
-"PO-Revision-Date: 2019-04-21 16:13-0300\n"
+"POT-Creation-Date: 2020-07-26 21:56+0200\n"
+"PO-Revision-Date: 2020-05-30 15:55-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 2.0.7\n"
+"X-Generator: Poedit 2.3.1\n"
 
 #: gnulib-lib/closeout.c:66
 msgid "write error"
@@ -68,13 +68,8 @@ msgstr "%s: la modifilo bezonas argumenton -- '%c'\n"
 msgid "memory exhausted"
 msgstr "memoro elĉerpita"
 
-#: src/envsubst.c:112 src/gettext.c:137 src/ngettext.c:126
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "Copyright (C) %s Free Software Foundation, Inc.\n"
-#| "License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:124
+#, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "License GPLv3+: GNU GPL version 3 or later <%s>\n"
@@ -82,71 +77,71 @@ msgid ""
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "Kopirajto © %s Free Software Foundation, Inc.\n"
-"Rajtigilo GPLv3+: GNU GPL, versio 3 aŭ posta <https://gnu.org/licenses/gpl.html>\n"
+"Rajtigilo GPLv3+: GNU GPL, versio 3 aŭ posta <%s>\n"
 "Ĉi tio estas libera programo; vi estas libera ŝanĝi kaj redistribui ĝin.\n"
 "Estas NENIA GARANTIO, ĝis la grado leĝe permesata.\n"
 
-#: src/envsubst.c:118 src/gettext.c:143 src/ngettext.c:132
+#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:130
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Verkita de %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:118
+#: src/envsubst.c:116
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:127 src/gettext.c:161 src/ngettext.c:144
+#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:142
 #, c-format
 msgid "too many arguments"
 msgstr "tro da argumentoj"
 
-#: src/envsubst.c:138 src/gettext.c:171 src/ngettext.c:156
+#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:154
 #, c-format
 msgid "missing arguments"
 msgstr "argumentoj mankas"
 
-#: src/envsubst.c:176 src/gettext.c:248 src/ngettext.c:213
+#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:211
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Provu '%s --help' por pli da informoj.\n"
 
-#: src/envsubst.c:181
+#: src/envsubst.c:179
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Uzado: %s [MODIFILO] [ŜEL-FORMATO]\n"
 
-#: src/envsubst.c:186
+#: src/envsubst.c:184
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Substituas la valorojn de mediaj variabloj.\n"
 
-#: src/envsubst.c:190
+#: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Funkcia reĝimo:\n"
 
-#: src/envsubst.c:193
+#: src/envsubst.c:191
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             eligi la variablojn aperantajn en ŜEL-FORMATO\n"
 
-#: src/envsubst.c:197 src/gettext.c:277 src/ngettext.c:243
+#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:241
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informa eligo:\n"
 
-#: src/envsubst.c:200
+#: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  montri ĉi tiun helpon kaj eligi\n"
 
-#: src/envsubst.c:203
+#: src/envsubst.c:201
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               eligi informon pri la versio kaj eliri\n"
 
-#: src/envsubst.c:207
+#: src/envsubst.c:205
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -163,7 +158,7 @@ msgstr ""
 "substituataj; alia ĉiuj referencoj al mediaj variabloj aperantaj en la\n"
 "normala enigo estas substituataj.\n"
 
-#: src/envsubst.c:216
+#: src/envsubst.c:214
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -178,28 +173,31 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:225 src/gettext.c:301 src/ngettext.c:264
+#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:262
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
 "or by email to <%s>.\n"
 msgstr ""
+"Raportu misojn al la sekvilo ĉe <%s>\n"
+"aŭ per retpoŝto al <%s.\n"
+"Raportu traduk-misojn al <translation-team-eo@lists.sourceforge.net>\n"
 
-#: src/envsubst.c:453
+#: src/envsubst.c:451
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "eraro dum legado de \"%s\""
 
-#: src/envsubst.c:453
+#: src/envsubst.c:451
 msgid "standard input"
 msgstr "normala enigo"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:143 src/ngettext.c:132
+#: src/gettext.c:141 src/ngettext.c:130
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:253
+#: src/gettext.c:251
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -208,38 +206,38 @@ msgstr ""
 "Uzado: %s [MODIFILO] [[TEXTDOMAIN] MSGID]\n"
 "aŭ:    %s [MODIFILO] -s [MSGID]...\n"
 
-#: src/gettext.c:259
+#: src/gettext.c:257
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Montru lokalingvan tradukon de teksta mesaĝo.\n"
 
-#: src/gettext.c:263
+#: src/gettext.c:261
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEKSTDOMAJNO elpreni tradukitajn mesaĵojn el TEKSTDOMAJNO\n"
 
-#: src/gettext.c:265 src/ngettext.c:230
+#: src/gettext.c:263 src/ngettext.c:228
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=KUNTEKSTO   indiki kuntekston por MSGID\n"
 
-#: src/gettext.c:267 src/ngettext.c:232
+#: src/gettext.c:265 src/ngettext.c:230
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
 "  -e                        ebligi disvolvigon de kelkaj eskapaj sekvoj\n"
 
-#: src/gettext.c:269
+#: src/gettext.c:267
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                        forigi vostan novlinion\n"
 
-#: src/gettext.c:271 src/ngettext.c:234
+#: src/gettext.c:269 src/ngettext.c:232
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                        (preteratentite pro retrokongruo)\n"
 
-#: src/gettext.c:273
+#: src/gettext.c:271
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
@@ -248,17 +246,17 @@ msgstr ""
 "  [TEKSTDOMAJNO] MSGID      elpreni tradukitan mesaĝon korespondan\n"
 "                            al MSGID el TEKSTDOMAJNO\n"
 
-#: src/gettext.c:279 src/ngettext.c:245
+#: src/gettext.c:277 src/ngettext.c:243
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                montri ĉi tiun helpon kaj eligi\n"
 
-#: src/gettext.c:281 src/ngettext.c:247
+#: src/gettext.c:279 src/ngettext.c:245
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version             eligi informon pri la versio kaj eliri\n"
 
-#: src/gettext.c:285
+#: src/gettext.c:283
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -278,12 +276,12 @@ msgstr ""
 "anstataŭe, tiuj mesaĝoj trovitaj en la elektita katalogo estas tradukataj.\n"
 "Normala serĉdosierujo: %s\n"
 
-#: src/ngettext.c:218
+#: src/ngettext.c:216
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Uzado: %s [MODIFILO] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 
-#: src/ngettext.c:223
+#: src/ngettext.c:221
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
@@ -292,19 +290,19 @@ msgstr ""
 "Montri lokalingvan tradukon de teksta mesaĝo, kies gramatika formo\n"
 "dependas de nombro.\n"
 
-#: src/ngettext.c:228
+#: src/ngettext.c:226
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEKSTDOMAJNO elpreni tradukitan mesaĝon el TEKSTDOMAJNO\n"
 
-#: src/ngettext.c:236
+#: src/ngettext.c:234
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr ""
 "  [TEKSTDOMAJNO]            elpreni tradukitan mesaĝon el TEKSTDOMAJNO\n"
 
-#: src/ngettext.c:238
+#: src/ngettext.c:236
 #, c-format
 msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
@@ -313,7 +311,7 @@ msgstr ""
 "  MSGID MSGID-PLURAL        traduki MSGID (ununura) / MSGID-PLURAL "
 "(plurala)\n"
 
-#: src/ngettext.c:240
+#: src/ngettext.c:238
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
@@ -321,7 +319,7 @@ msgstr ""
 "  NOMBRO                    elekti ununuran/pluralan formon surbaze de tiu "
 "ĉi valoro\n"
 
-#: src/ngettext.c:251
+#: src/ngettext.c:249
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"

@@ -3,13 +3,13 @@
 # Copyright (C) 2017 Yoyodyne, Inc. (msgids)
 # Copyright (C) 2004 Free Software Foundation, Inc.
 # Nilgün Belma Bugüner <nilgun@superonline.com>, 2003,2004
-# Mehmet Kececi <mkececi@mehmetkececi.com>, 2017, 2019.
+# Mehmet Kececi <mkececi@mehmetkececi.com>, 2017, 2019, 2020.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.20-rc1\n"
+"Project-Id-Version: gettext-examples 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
 "POT-Creation-Date: 2020-04-14 03:40+0200\n"
-"PO-Revision-Date: 2019-04-14 15:36+0300\n"
+"PO-Revision-Date: 2020-04-17 13:10+0300\n"
 "Last-Translator: Mehmet Kececi <mkececi@mehmetkececi.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
 "Language: tr\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Virtaal 0.7.1\n"
+"X-Generator: Poedit 2.3\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #: hello-c/hello.c:30 hello-c-gnome/hello.c:46
@@ -25,25 +25,27 @@ msgstr ""
 #: hello-c++-qt/hello.cc:45 hello-c++-kde/hellowindow.cc:42
 #: hello-c++-gnome/hello.cc:50 hello-c++-wxwidgets/hello.cc:68
 #: hello-objc/hello.m:30 hello-objc-gnustep/Hello.m:49
-#: hello-objc-gnome/hello.m:47 hello-sh/hello.sh:14 hello-python/hello.py.in:12
-#: hello-clisp/hello.lisp.in:11 hello-librep/hello.jl.in:12
-#: hello-guile/hello.scm:15 hello-smalltalk/hello.st.in:31
-#: hello-java/Hello.java:14 hello-java-awt/Hello.java:23
-#: hello-java-swing/Hello.java:20 hello-java-qtjambi/Hello.java:27
-#: hello-csharp/hello.cs:14 hello-csharp-forms/hello.cs:29
-#: hello-gawk/hello.awk:11 hello-pascal/hello.hello_world
-#: hello-ycp/hello.ycp:15 hello-tcl/hello.tcl:11 hello-tcl-tk/hello.tcl:13
+#: hello-objc-gnome/hello.m:47 hello-sh/hello.sh:14
+#: hello-python/hello.py.in:12 hello-clisp/hello.lisp.in:11
+#: hello-librep/hello.jl.in:12 hello-guile/hello.scm:15
+#: hello-smalltalk/hello.st.in:31 hello-java/Hello.java:14
+#: hello-java-awt/Hello.java:23 hello-java-swing/Hello.java:20
+#: hello-java-qtjambi/Hello.java:27 hello-csharp/hello.cs:14
+#: hello-csharp-forms/hello.cs:29 hello-gawk/hello.awk:11
+#: hello-pascal/hello.hello_world hello-ycp/hello.ycp:15
+#: hello-tcl/hello.tcl:11 hello-tcl-tk/hello.tcl:13
 #: hello-perl/hello-1.pl.in:17 hello-perl/hello-2.pl.in:12
 #: hello-php/hello.php:12
 msgid "Hello, world!"
-msgstr "Merhaba, Dünya!"
+msgstr "Merhaba, dünya!"
 
 #: hello-c/hello.c:31 hello-c-gnome/hello.c:51 hello-c++/hello.cc:40
 #: hello-c++-gnome/hello.cc:55 hello-c++-wxwidgets/hello.cc:71
 #: hello-objc/hello.m:31 hello-objc-gnustep/Hello.m:58
 #: hello-objc-gnome/hello.m:52 hello-librep/hello.jl.in:14
-#: hello-gawk/hello.awk:12 hello-pascal/hello.running_as hello-tcl/hello.tcl:12
-#: hello-tcl-tk/hello.tcl:16 hello-perl/hello-1.pl.in:19 hello-php/hello.php:14
+#: hello-gawk/hello.awk:12 hello-pascal/hello.running_as
+#: hello-tcl/hello.tcl:12 hello-tcl-tk/hello.tcl:16
+#: hello-perl/hello-1.pl.in:19 hello-php/hello.php:14
 #, php-format
 msgid "This program is running as process number %d."
 msgstr "Bu yazılım %d işlem numarası ile çalışıyor."
