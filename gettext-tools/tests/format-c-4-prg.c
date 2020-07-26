@@ -48,8 +48,7 @@ extern char *setlocale (int category, SETLOCALE_CONST char *locale);
 #define _(string) gettext (string)
 
 /* Fallback definition.  */
-#if !defined PRId8 || PRI_MACROS_BROKEN
-# undef PRId8
+#if !defined PRId8
 # define PRId8 "d"
 #endif
 
