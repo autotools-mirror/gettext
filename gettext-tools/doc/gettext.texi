@@ -5406,7 +5406,7 @@ Its pointer is defined as @code{po_xerror_handler_t}.  Contains
 two fields, xerror and xerror2, with the following function ignatures.
 @end deftp
 
-@deftypefun void xerror (int @var{severity}, po_message_t @var{message}, const char *@var{filename}, size_t @var{lineno}, size_t @var{column}, int @var{multiline_p}, const char *@var{message_text})
+@deftypefun void xerror (int@tie{}@var{severity}, po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{filename}, size_t@tie{}@var{lineno}, size_t@tie{}@var{column}, int@tie{}@var{multiline_p}, const@tie{}char@tie{}*@var{message_text})
 
 This function is called to signal a problem of the given @var{severity}.
 It @emph{must not return} if @var{severity} is
@@ -5433,7 +5433,7 @@ If @var{column} is @code{(size_t)(-1)}, it should be ignored.
 @end itemize
 @end deftypefun
 
-@deftypefun void xerror2 (int @var{severity}, po_message_t @var{message1}, const char *@var{filename1}, size_t @var{lineno1}, size_t @var{column1}, int @var{multiline_p1}, const char *@var{message_text1}, po_message_t @var{message2}, const char *@var{filename2}, size_t @var{lineno2}, size_t @var{column2}, int @var{multiline_p2}, const char *@var{message_text2})
+@deftypefun void xerror2 (int@tie{}@var{severity}, po_message_t@tie{}@var{message1}, const@tie{}char@tie{}*@var{filename1}, size_t@tie{}@var{lineno1}, size_t@tie{}@var{column1}, int@tie{}@var{multiline_p1}, const@tie{}char@tie{}*@var{message_text1}, po_message_t@tie{}@var{message2}, const@tie{}char@tie{}*@var{filename2}, size_t@tie{}@var{lineno2}, size_t@tie{}@var{column2}, int@tie{}@var{multiline_p2}, const@tie{}char@tie{}*@var{message_text2})
 
 This function is called to signal a problem of the given @var{severity}
 that refers to two messages.  It @emph{must not return} if
@@ -5456,7 +5456,7 @@ The @code{po_file_create} creates an empty PO file representation in
 memory.
 @end deftypefun
 
-@deftypefun po_file_t po_file_read (const char *@var{filename}, struct po_xerror_handler *@var{handler})
+@deftypefun po_file_t po_file_read (const@tie{}char@tie{}*@var{filename}, struct@tie{}po_xerror_handler@tie{}*@var{handler})
 The @code{po_file_read} function reads a PO file into memory.  The file name
 is given as argument.  The return value is a handle to the PO file's contents,
 valid until @code{po_file_free} is called on it.  In case of error, the
@@ -5467,7 +5467,7 @@ defined as @code{po_file_read} in C code after the inclusion of
 @samp{<gettext-po.h>}.
 @end deftypefun
 
-@deftypefun po_file_t po_file_write (po_file_t @var{file}, const char *@var{filename}, struct po_xerror_handler *@var{handler})
+@deftypefun po_file_t po_file_write (po_file_t@tie{}@var{file}, const@tie{}char@tie{}*@var{filename}, struct@tie{}po_xerror_handler@tie{}*@var{handler})
 The @code{po_file_write} function writes the contents of the memory
 structure @var{file} the @var{filename} given.  The return value is
 @var{file} after a successful operation.  In case of error, the
@@ -5478,12 +5478,12 @@ it defined as @code{po_file_write} in C code after the inclusion of
 @samp{<gettext-po.h>}.
 @end deftypefun
 
-@deftypefun void po_file_free (po_file_t @var{file})
+@deftypefun void po_file_free (po_file_t@tie{}@var{file})
 The @code{po_file_free} function frees a PO file's contents from memory,
 including all messages that are only implicitly accessible through iterators.
 @end deftypefun
 
-@deftypefun {const char * const *} po_file_domains (po_file_t @var{file})
+@deftypefun {const char * const *} po_file_domains (po_file_t@tie{}@var{file})
 The @code{po_file_domains} function returns the domains for which the given
 PO file has messages.  The return value is a @code{NULL} terminated array
 which is valid as long as the @var{file} handle is valid.  For PO files which
@@ -5499,19 +5499,19 @@ This is a pointer type that refers to an iterator that produces a sequence of
 messages.
 @end deftp
 
-@deftypefun po_message_iterator_t po_message_iterator (po_file_t @var{file}, const char *@var{domain})
+@deftypefun po_message_iterator_t po_message_iterator (po_file_t@tie{}@var{file}, const@tie{}char@tie{}*@var{domain})
 The @code{po_message_iterator} returns an iterator that will produce the
 messages of @var{file} that belong to the given @var{domain}.  If @var{domain}
 is @code{NULL}, the default domain is used instead.  To list the messages,
 use the function @code{po_next_message} repeatedly.
 @end deftypefun
 
-@deftypefun void po_message_iterator_free (po_message_iterator_t @var{iterator})
+@deftypefun void po_message_iterator_free (po_message_iterator_t@tie{}@var{iterator})
 The @code{po_message_iterator_free} function frees an iterator previously
 allocated through the @code{po_message_iterator} function.
 @end deftypefun
 
-@deftypefun po_message_t po_next_message (po_message_iterator_t @var{iterator})
+@deftypefun po_message_t po_next_message (po_message_iterator_t@tie{}@var{iterator})
 The @code{po_next_message} function returns the next message from
 @var{iterator} and advances the iterator.  It returns @code{NULL} when the
 iterator has reached the end of its message list.
@@ -5535,62 +5535,62 @@ available to the user of the library.
 The following functions access details of a @code{po_message_t}.  Recall
 that the results are valid as long as the @var{file} handle is valid.
 
-@deftypefun {const char *} po_message_msgctxt (po_message_t @var{message})
+@deftypefun {const char *} po_message_msgctxt (po_message_t@tie{}@var{message})
 The @code{po_message_msgctxt} function returns the @code{msgctxt}, the
 context of @var{message}.  Return @code{NULL} for a message not restricted
 to a context.
 @end deftypefun
 
-@deftypefun {void} po_message_set_msgctxt (po_message_t @var{message}, const char *@var{msgctxt})
+@deftypefun {void} po_message_set_msgctxt (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{msgctxt})
 The @code{po_message_set_msgctxt} function changes the @code{msgctxt},
 the context of the message, to the value provided through
 @var{msgctxt}. The value @code{NULL} removes the restriction.
 @end deftypefun
 
-@deftypefun {const char *} po_message_msgid (po_message_t @var{message})
+@deftypefun {const char *} po_message_msgid (po_message_t@tie{}@var{message})
 The @code{po_message_msgid} function returns the @code{msgid} (untranslated
 English string) of @var{message}.  This is guaranteed to be non-@code{NULL}.
 @end deftypefun
 
-@deftypefun {void} po_message_set_msgid (po_message_t @var{message}, const char *@var{msgid})
+@deftypefun {void} po_message_set_msgid (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{msgid})
 The @code{po_message_set_msgid} function changes the @code{msgid}
 (untranslated English string) of @var{message} to the value provided through
 @var{msgid}, a non-@code{NULL} string.
 @end deftypefun
 
-@deftypefun {const char *} po_message_msgid_plural (po_message_t @var{message})
+@deftypefun {const char *} po_message_msgid_plural (po_message_t@tie{}@var{message})
 The @code{po_message_msgid_plural} function returns the @code{msgid_plural}
 (untranslated English plural string) of @var{message}, a message with plurals,
 or @code{NULL} for a message without plural.
 @end deftypefun
 
-@deftypefun {void} po_message_set_msgid_plural (po_message_t @var{message}, const char *@var{msgid_plural})
+@deftypefun {void} po_message_set_msgid_plural (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{msgid_plural})
 The @code{po_message_set_msgid_plural} function changes the
 @code{msgid_plural} (untranslated English plural string) of a message to
 the value provided through @var{msgid_plural}, or removes the plurals if
 @code{NULL} is provided as @var{msgid_plural}.
 @end deftypefun
 
-@deftypefun {const char *} po_message_msgstr (po_message_t @var{message})
+@deftypefun {const char *} po_message_msgstr (po_message_t@tie{}@var{message})
 The @code{po_message_msgstr} function returns the @code{msgstr} (translation)
 of @var{message}.  For an untranslated message, the return value is an empty
 string.
 @end deftypefun
 
-@deftypefun {void} po_message_set_msgstr (po_message_t @var{message}, const char *@var{msgstr})
+@deftypefun {void} po_message_set_msgstr (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{msgstr})
 The @code{po_message_set_msgstr} function changes the @code{msgstr}
 (translation) of @var{message} to the value provided through @var{msgstr}, a
 non-@code{NULL} string.
 @end deftypefun
 
-@deftypefun {const char *} po_message_msgstr_plural (po_message_t @var{message}, int @var{index})
+@deftypefun {const char *} po_message_msgstr_plural (po_message_t@tie{}@var{message}, int@tie{}@var{index})
 The @code{po_message_msgstr_plural} function returns the
 @code{msgstr[@var{index}]} of @var{message}, a message with plurals, or
 @code{NULL} when the @var{index} is out of range or for a message without
 plural.
 @end deftypefun
 
-@deftypefun {void} po_message_set_msgstr_plural (po_message_t @var{message}, int @var{index}, const char *@var{msgstr_plural})
+@deftypefun {void} po_message_set_msgstr_plural (po_message_t@tie{}@var{message}, int@tie{}@var{index}, const@tie{}char@tie{}*@var{msgstr_plural})
 The @code{po_message_set_msgstr_plural} function changes the
 @code{msgstr[@var{index}]} of @var{message}, a message with plurals, to
 the value provided through @var{msgstr_plural}. @var{message} must be a
@@ -5600,63 +5600,63 @@ Use @code{NULL} as the value of @var{msgstr_plural} with
 forms.
 @end deftypefun
 
-@deftypefun {const char *} po_message_comments (po_message_t @var{message})
+@deftypefun {const char *} po_message_comments (po_message_t@tie{}@var{message})
 The @code{po_message_comments} function returns the comments of @var{message},
 a multiline string, ending in a newline, or a non-@code{NULL} empty string.
 @end deftypefun
 
-@deftypefun {void} po_message_set_comments (po_message_t @var{message}, const char *@var{comments})
+@deftypefun {void} po_message_set_comments (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{comments})
 The @code{po_message_set_comments} function changes the comments of
 @var{message} to the value @var{comments}, a multiline string, ending in a
 newline, or a non-@code{NULL} empty string.
 @end deftypefun
 
-@deftypefun {const char *} po_message_extracted_comments (po_message_t @var{message})
+@deftypefun {const char *} po_message_extracted_comments (po_message_t@tie{}@var{message})
 The @code{po_message_extracted_comments} function returns the extracted
 comments of @var{message}, a multiline string, ending in a newline, or a
 non-@code{NULL} empty string.
 @end deftypefun
 
-@deftypefun {void} po_message_set_extracted_comments (po_message_t @var{message}, const char *@var{extracted_comments})
+@deftypefun {void} po_message_set_extracted_comments (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{extracted_comments})
 The @code{po_message_set_extracted_comments} function changes the
 comments of @var{message} to the value @var{extracted_comments}, a multiline
 string, ending in a newline, or a non-@code{NULL} empty string.
 @end deftypefun
 
-@deftypefun {const char *} po_message_prev_msgctxt (po_message_t @var{message})
+@deftypefun {const char *} po_message_prev_msgctxt (po_message_t@tie{}@var{message})
 The @code{po_message_prev_msgctxt} function returns the previous
 @code{msgctxt}, the previous context of @var{message}.  Return
 @code{NULL} for a message that does not have a previous context.
 @end deftypefun
 
-@deftypefun {void} po_message_set_prev_msgctxt (po_message_t @var{message}, const char *@var{prev_msgctxt})
+@deftypefun {void} po_message_set_prev_msgctxt (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{prev_msgctxt})
 The @code{po_message_set_prev_msgctxt} function changes the previous
 @code{msgctxt}, the context of the message, to the value provided
 through @var{prev_msgctxt}.  The value @code{NULL} removes the stored
 previous msgctxt.
 @end deftypefun
 
-@deftypefun {const char *} po_message_prev_msgid (po_message_t @var{message})
+@deftypefun {const char *} po_message_prev_msgid (po_message_t@tie{}@var{message})
 The @code{po_message_prev_msgid} function returns the previous
 @code{msgid} (untranslated English string) of @var{message}, or
 @code{NULL} if there is no previous @code{msgid} stored.
 @end deftypefun
 
-@deftypefun {void} po_message_set_prev_msgid (po_message_t @var{message}, const char *@var{prev_msgid})
+@deftypefun {void} po_message_set_prev_msgid (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{prev_msgid})
 The @code{po_message_set_prev_msgid} function changes the previous
 @code{msgid} (untranslated English string) of @var{message} to the value
 provided through @var{prev_msgid}, or removes the message when it is
 @code{NULL}.
 @end deftypefun
 
-@deftypefun {const char *} po_message_prev_msgid_plural (po_message_t @var{message})
+@deftypefun {const char *} po_message_prev_msgid_plural (po_message_t@tie{}@var{message})
 The @code{po_message_prev_msgid_plural} function returns the previous
 @code{msgid_plural} (untranslated English plural string) of
 @var{message}, a message with plurals, or @code{NULL} for a message
 without plural without any stored previous @code{msgid_plural}.
 @end deftypefun
 
-@deftypefun {void} po_message_set_prev_msgid_plural (po_message_t @var{message}, const char *@var{prev_msgid_plural})
+@deftypefun {void} po_message_set_prev_msgid_plural (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{prev_msgid_plural})
 The @code{po_message_set_prev_msgid_plural} function changes the
 previous @code{msgid_plural} (untranslated English plural string) of a
 message to the value provided through @var{prev_msgid_plural}, or
@@ -5664,43 +5664,43 @@ removes the stored previous @code{msgid_plural} if @code{NULL} is
 provided as @var{prev_msgid_plural}.
 @end deftypefun
 
-@deftypefun {int} po_message_is_obsolete (po_message_t @var{message})
+@deftypefun {int} po_message_is_obsolete (po_message_t@tie{}@var{message})
 The @code{po_message_is_obsolete} function returns true when @var{message}
 is marked as obsolete.
 @end deftypefun
 
-@deftypefun {void} po_message_set_obsolete (po_message_t @var{message}, int @var{obsolete})
+@deftypefun {void} po_message_set_obsolete (po_message_t@tie{}@var{message}, int@tie{}@var{obsolete})
 The @code{po_message_set_obsolete} function changes the obsolete mark of
 @var{message}.
 @end deftypefun
 
-@deftypefun {int} po_message_is_fuzzy (po_message_t @var{message})
+@deftypefun {int} po_message_is_fuzzy (po_message_t@tie{}@var{message})
 The @code{po_message_is_fuzzy} function returns true when @var{message}
 is marked as fuzzy.
 @end deftypefun
 
-@deftypefun {void} po_message_set_fuzzy (po_message_t @var{message}, int @var{fuzzy})
+@deftypefun {void} po_message_set_fuzzy (po_message_t@tie{}@var{message}, int@tie{}@var{fuzzy})
 The @code{po_message_set_fuzzy} function changes the fuzzy mark of
 @var{message}.
 @end deftypefun
 
-@deftypefun {int} po_message_is_format (po_message_t @var{message}, const char *@var{format_type})
+@deftypefun {int} po_message_is_format (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{format_type})
 The @code{po_message_is_format} function returns true when the message
 is marked as being a format string of @var{format_type}.
 @end deftypefun
 
-@deftypefun {void} po_message_set_format (po_message_t @var{message}, const char *@var{format_type}, int @var{value})
+@deftypefun {void} po_message_set_format (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{format_type}, int@tie{}@var{value})
 The @code{po_message_set_fuzzy} function changes the format mark of
 the message for the @var{format_type} provided.
 @end deftypefun
 
-@deftypefun {int} po_message_is_range (po_message_t @var{message}, int *@var{minp}, int *@var{maxp})
+@deftypefun {int} po_message_is_range (po_message_t@tie{}@var{message}, int@tie{}*@var{minp}, int@tie{}*@var{maxp})
 The @code{po_message_is_range} function returns true when the message
 has a numeric range set, and stores the minimum and maximum value in the
 direction pointed by @var{minp} and @var{maxp} respectively.
 @end deftypefun
 
-@deftypefun {void} po_message_set_range (po_message_t @var{message}, int @var{min}, int @var{max})
+@deftypefun {void} po_message_set_range (po_message_t@tie{}@var{message}, int@tie{}@var{min}, int@tie{}@var{max})
 The @code{po_message_set_range} function changes the numeric range of
 the message. @var{min} and @var{max} must be non-negative, with
 @var{min} < @var{max}.  Use @var{min} and @var{max} with value @code{-1}
@@ -5715,19 +5715,19 @@ the header entry (@pxref{Header Entry}) from a file loaded in memory.
 The meta information must be written back into the domain message with
 the empty string as msgid.
 
-@deftypefun {const char *} po_file_domain_header (po_file_t @var{file}, const char *@var{domain})
+@deftypefun {const char *} po_file_domain_header (po_file_t@tie{}@var{file}, const@tie{}char@tie{}*@var{domain})
 Return the header entry of a domain from @var{file}, a PO file loaded in
 memory.  The value @code{NULL} provided as @var{domain} denotes the
 default domain.  Return @code{NULL} if there is no header entry.
 @end deftypefun
 
-@deftypefun {char *} po_header_field (const char *@var{header}, const char *@var{field})
+@deftypefun {char *} po_header_field (const@tie{}char@tie{}*@var{header}, const@tie{}char@tie{}*@var{field})
 Return the value of @var{field} in the @var{header} entry.  The return
 value is either a freshly allocated string, to be freed by the caller,
 or @code{NULL}.
 @end deftypefun
 
-@deftypefun {char *} po_header_set_field (const char *@var{header}, const char *@var{field}, const char *@var{value})
+@deftypefun {char *} po_header_set_field (const@tie{}char@tie{}*@var{header}, const@tie{}char@tie{}*@var{field}, const@tie{}char@tie{}*@var{value})
 Return a freshly allocated string which contains the entry from
 @var{header} with @var{field} set to @var{value}.  The field is added if
 necessary.
@@ -5744,17 +5744,17 @@ source file.
 The following functions provide an interface to extract and manipulate
 these references.
 
-@deftypefun {po_filepos_t} po_message_filepos (po_message_t @var{message}, int @var{index})
+@deftypefun {po_filepos_t} po_message_filepos (po_message_t@tie{}@var{message}, int@tie{}@var{index})
 Return the file reference in position @var{index} from the message.  If
 @var{index} is out of range, return @code{NULL}.
 @end deftypefun
 
-@deftypefun {void} po_message_remove_filepos (po_message_t @var{message}, int @var{index})
+@deftypefun {void} po_message_remove_filepos (po_message_t@tie{}@var{message}, int@tie{}@var{index})
 Remove the file reference in position @var{index} from the message.  It
 moves all references following @var{index} one position backwards.
 @end deftypefun
 
-@deftypefun {void} po_message_add_filepos (po_message_t @var{message}, const char *@var{file}, size_t @var{start_line})
+@deftypefun {void} po_message_add_filepos (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{file}, size_t@tie{}@var{start_line})
 Add a reference to the string from @var{file} starting at
 @var{start_line}, if it is not already present for the message.  The
 value @code{(size_t)(-1)} for @var{start_line} denotes that the line
@@ -5768,7 +5768,7 @@ number is not available.
 Return a @code{NULL} terminated array of the supported format types.
 @end deftypefun
 
-@deftypefun {const char *} po_format_pretty_name (const char *@var{format_type})
+@deftypefun {const char *} po_format_pretty_name (const@tie{}char@tie{}*@var{format_type})
 Return the pretty name associated with @var{format_type}.  For example,
 it returns ``C#'' when @var{format_type} is ``csharp_format''.
 Return @code{NULL} if @var{format_type} is not a supported format type.
@@ -5777,19 +5777,19 @@ Return @code{NULL} if @var{format_type} is not a supported format type.
 @node Checking API
 @subsection Checking API
 
-@deftypefun {void} po_file_check_all (po_file_t @var{file}, po_xerror_handler_t @var{handler})
+@deftypefun {void} po_file_check_all (po_file_t@tie{}@var{file}, po_xerror_handler_t@tie{}@var{handler})
 Test whether the entire @var{file} is valid, like msgfmt does it.  If it
 is invalid, pass the reasons to @var{handler}.
 @end deftypefun
 
-@deftypefun {void} po_message_check_all (po_message_t @var{message}, po_message_iterator_t @var{iterator}, po_xerror_handler_t @var{handler})
+@deftypefun {void} po_message_check_all (po_message_t@tie{}@var{message}, po_message_iterator_t@tie{}@var{iterator}, po_xerror_handler_t@tie{}@var{handler})
 Test @var{message}, to be inserted at @var{iterator} in a PO file in memory,
 like msgfmt does it.  If it is invalid, pass the reasons to
 @var{handler}.  @var{iterator} is not modified by this call; it only
 specifies the file and the domain.
 @end deftypefun
 
-@deftypefun {void} po_message_check_format (po_message_t @var{message}, po_xerror_handler_t @var{handler})
+@deftypefun {void} po_message_check_format (po_message_t@tie{}@var{message}, po_xerror_handler_t@tie{}@var{handler})
 Test whether the message translation from @var{message} is a valid
 format string if the message is marked as being a format string.  If it
 is invalid, pass the reasons to @var{handler}.
@@ -6328,7 +6328,7 @@ translation for @var{msgid}, it returns @var{msgid} unchanged --
 independently of the current output character set.  It is therefore
 recommended that all @var{msgid}s be US-ASCII strings.
 
-@deftypefun {char *} bind_textdomain_codeset (const char *@var{domainname}, const char *@var{codeset})
+@deftypefun {char *} bind_textdomain_codeset (const@tie{}char@tie{}*@var{domainname}, const@tie{}char@tie{}*@var{codeset})
 The @code{bind_textdomain_codeset} function can be used to specify the
 output character set for message catalogs for domain @var{domainname}.
 The @var{codeset} argument must be a valid codeset name which can be used
@@ -6599,7 +6599,7 @@ GNU package and the coding standards for the GNU project require program
 being written in English, this solution nevertheless fulfills its
 purpose.
 
-@deftypefun {char *} ngettext (const char *@var{msgid1}, const char *@var{msgid2}, unsigned long int @var{n})
+@deftypefun {char *} ngettext (const@tie{}char@tie{}*@var{msgid1}, const@tie{}char@tie{}*@var{msgid2}, unsigned@tie{}long@tie{}int@tie{}@var{n})
 The @code{ngettext} function is similar to the @code{gettext} function
 as it finds the message catalogs in the same way.  But it takes two
 extra arguments.  The @var{msgid1} parameter must contain the singular
@@ -6682,14 +6682,14 @@ puts (ngettext ("Delete the selected file?",
 In this case the number @var{n} is only used to choose the plural form.
 @end deftypefun
 
-@deftypefun {char *} dngettext (const char *@var{domain}, const char *@var{msgid1}, const char *@var{msgid2}, unsigned long int @var{n})
+@deftypefun {char *} dngettext (const@tie{}char@tie{}*@var{domain}, const@tie{}char@tie{}*@var{msgid1}, const@tie{}char@tie{}*@var{msgid2}, unsigned@tie{}long@tie{}int@tie{}@var{n})
 The @code{dngettext} is similar to the @code{dgettext} function in the
 way the message catalog is selected.  The difference is that it takes
 two extra parameter to provide the correct plural form.  These two
 parameters are handled in the same way @code{ngettext} handles them.
 @end deftypefun
 
-@deftypefun {char *} dcngettext (const char *@var{domain}, const char *@var{msgid1}, const char *@var{msgid2}, unsigned long int @var{n}, int @var{category})
+@deftypefun {char *} dcngettext (const@tie{}char@tie{}*@var{domain}, const@tie{}char@tie{}*@var{msgid1}, const@tie{}char@tie{}*@var{msgid2}, unsigned@tie{}long@tie{}int@tie{}@var{n}, int@tie{}@var{category})
 The @code{dcngettext} is similar to the @code{dcgettext} function in the
 way the message catalog is selected.  The difference is that it takes
 two extra parameter to provide the correct plural form.  These two
