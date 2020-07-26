@@ -1,4 +1,4 @@
-New in 0.20.5:
+New in 0.21:
 * Added support for emitting hyperlinks.
   New functions:
        TYPE                               FUNCTION

@@ -1,4 +1,4 @@
-Version 0.21 - April 2020
+Version 0.21 - July 2020
 
 * On native Windows platforms, the directory that contains the message
   catalogs may now contain arbitrary Unicode characters. To make use of

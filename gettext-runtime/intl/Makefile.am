@@ -498,9 +498,9 @@ endif
 # Libtool's library version information for libintl.
 # Before making a gettext release, you must change this according to the
 # libtool documentation, section "Library interface versions".
-LTV_CURRENT=9
-LTV_REVISION=7
-LTV_AGE=1
+LTV_CURRENT=10
+LTV_REVISION=0
+LTV_AGE=2
 
 # How to build libintl.la and libgnuintl.la.
 # Limit the exported symbols: Don't export glwthread* (from gnulib modules).
