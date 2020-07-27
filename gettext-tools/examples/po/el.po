@@ -47,7 +47,6 @@ msgstr "Αυτό το πρόγραμμα εκτελείται με αριθμό 
 
 #: hello-c-gnome3/hello.c:79
 #, fuzzy, c-format
-#| msgid "This program is running as process number %d."
 msgid ""
 "<big>Hello world!</big>\n"
 "This program is running as process number <b>%d</b>."
