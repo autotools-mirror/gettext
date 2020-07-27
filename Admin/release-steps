@@ -225,6 +225,9 @@ We assume that the following environment variables are set:
     make
     make distcheck
 
+    This last "make distcheck" is supposed to fail: The tests autopoint-2,
+    autopoint-3 fail.
+
   Make 'autopoint' work in the new release:
 
     (cd gettext-tools/misc
