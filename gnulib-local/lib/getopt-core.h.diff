@@ -1,5 +1,5 @@
---- getopt-core.h	2017-05-15 19:05:30.377063268 +0200
-+++ getopt-core.h.new	2017-05-15 19:10:17.203267905 +0200
+--- getopt-core.h.bak	2020-06-26 21:24:59.890340657 +0200
++++ getopt-core.h	2020-07-28 19:48:27.769014629 +0200
 @@ -20,6 +20,14 @@
  #ifndef _GETOPT_CORE_H
  #define _GETOPT_CORE_H 1
@@ -8,7 +8,7 @@
 +   <stdlib.h> includes <getopt.h>, and <config.h> is not a prerequisite for
 +   using <stdlib.h>, this file can be included without a prior
 +   "#include <config.h>".  */
-+#ifdef HAVE_CONFIG_H
++#if !defined DLL_VARIABLE && defined HAVE_CONFIG_H
 +# include <config.h>
 +#endif
 +
