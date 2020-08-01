@@ -9,6 +9,9 @@
 # People who need this functionality should use a Cygwin environment, not
 # a native Windows environment.
 
+# This test may fail on Cygwin before 'make install', because the PATH set in
+# msginit.c considers the installation directory, not the build directory.
+
 cat <<\EOF > mi-test3.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
