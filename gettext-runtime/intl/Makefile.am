@@ -70,8 +70,9 @@ AM_CPPFLAGS += \
   -DDEPENDS_ON_LIBICONV=1
 
 BISON = @INTLBISON@
-YACC = $(BISON) -d
 BISONFLAGS = --name-prefix=__gettext
+# Just to shut up Automake "error: Yacc source seen but 'YACC' is undefined".
+YACC = $(BISON) -d
 
 # Tell the ELF linker which symbols to export.
 AM_CFLAGS = @CFLAG_VISIBILITY@
@@ -321,19 +322,29 @@ MOSTLYCLEANFILES += localename-table.h
 # script.
 # Additionally, here we need a rule that works even without a VPATH variable.
 # Therefore we override this rule.
+# Note: There is no point in using Bison's --output option, since we need to
+# postprocess the generated files and we don't want that unpostprocessed files
+# remain in place if the user interrupts the build through Ctrl-C.
 
 $(srcdir)/plural.c: $(srcdir)/plural.y
-	$(AM_V_YACC)$(YACC) $(BISONFLAGS) --output plural.c $(srcdir)/plural.y \
+	$(AM_V_YACC)$(BISON) -d $(BISONFLAGS) $(srcdir)/plural.y \
 	&& test ':' = '$(BISON)' || { \
-	  sed -e 's|".*/plural.y"|"plural.y"|' < plural.c > plural.c-tmp \
-	  && rm -f plural.c plural.h \
-	  && mv plural.c-tmp $(srcdir)/plural.c; \
+	  sed -e 's|".*/plural.y"|"plural.y"|' \
+	      -e 's|"plural\.tab\.c"|"plural.c"|' \
+	      -e 's|"plural\.tab\.h"|"plural.h"|' \
+	      < plural.tab.c > plural.c-tmp \
+	  && sed -e 's|".*/plural.y"|"plural.y"|' \
+	         -e 's|"plural\.tab\.h"|"plural.h"|' \
+	         < plural.tab.h > plural.h-tmp \
+	  && rm -f plural.tab.c plural.tab.h \
+	  && mv plural.c-tmp $(srcdir)/plural.c \
+	  && mv plural.h-tmp $(srcdir)/plural.h; \
 	}
 # Don't put plural.c into BUILT_SOURCES. Since plural.c is in the source
 # directory, 'make' does not find it without a VPATH variable.
-MOSTLYCLEANFILES     += plural.c-tmp
-MAINTAINERCLEANFILES += plural.c
-EXTRA_DIST           += plural.c
+MOSTLYCLEANFILES     += plural.tab.c plural.tab.h plural.c-tmp plural.h-tmp
+MAINTAINERCLEANFILES += plural.c plural.h
+EXTRA_DIST           += plural.c plural.h
 
 # Rules for compiling a .c file, that work even without a VPATH variable.
 bindtextdom.lo: $(srcdir)/bindtextdom.c

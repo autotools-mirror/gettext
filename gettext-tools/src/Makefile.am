@@ -113,7 +113,6 @@ OTHERPROGDEPENDENCIES = ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 
 SED = sed
 BISON = @TOOLS_BISON@
-YACC = @YACC@ -d
 JAR = @JAR@
 JAVACOMP = $(SHELL) ../javacomp.sh
 CSHARPCOMP = $(SHELL) ../csharpcomp.sh
@@ -551,24 +550,37 @@ endif
 #     always fires and, since $(srcdir) is read-only, the commands which update
 #     (or at least touch) $(srcdir)/FILE.c and $(srcdir)/FILE.h fail.
 # Therefore we don't use ylwrap.
+#
+# Note: There is no point in using Bison's --output option, since we need to
+# postprocess the generated files and we don't want that unpostprocessed files
+# remain in place if the user interrupts the build through Ctrl-C.
 
 po-gram-gen.c po-gram-gen.h: po-gram-gen.y
 	$(AM_V_YACC)$(BISON) -d $(YFLAGS) $(AM_YFLAGS) $(srcdir)/po-gram-gen.y \
 	&& test ':' = '$(BISON)' || { \
-	  sed -e 's|".*/po-gram-gen.y"|"po-gram-gen.y"|' < po-gram-gen.tab.c > po-gram-gen.c-tmp \
-	  && rm -f po-gram-gen.tab.c \
+	  sed -e 's|".*/po-gram-gen.y"|"po-gram-gen.y"|' \
+	      -e 's|"po-gram-gen\.tab\.c"|"po-gram-gen.c"|' \
+	      -e 's|"po-gram-gen\.tab\.h"|"po-gram-gen.h"|' \
+	      < po-gram-gen.tab.c > po-gram-gen.c-tmp \
+	  && sed -e 's|".*/po-gram-gen.y"|"po-gram-gen.y"|' \
+	         -e 's|"po-gram-gen\.tab\.h"|"po-gram-gen.h"|' \
+	         < po-gram-gen.tab.h > po-gram-gen.h-tmp \
+	  && rm -f po-gram-gen.tab.c po-gram-gen.tab.h \
 	  && mv po-gram-gen.c-tmp $(srcdir)/po-gram-gen.c \
-	  && mv po-gram-gen.tab.h $(srcdir)/po-gram-gen.h; \
+	  && mv po-gram-gen.h-tmp $(srcdir)/po-gram-gen.h; \
 	}
 BUILT_SOURCES += po-gram-gen.c po-gram-gen.h
-MOSTLYCLEANFILES += po-gram-gen.tab.c po-gram-gen.tab.h po-gram-gen.c-tmp
+MOSTLYCLEANFILES += po-gram-gen.tab.c po-gram-gen.tab.h po-gram-gen.c-tmp po-gram-gen.h-tmp
 MAINTAINERCLEANFILES += po-gram-gen.c po-gram-gen.h
 EXTRA_DIST += po-gram-gen.c po-gram-gen.h
+
 
 # po-gram-gen2.h is generated from po-gram-gen.h and is also distributed in the
 # tarballs (just for convenience).
 po-gram-gen2.h: po-gram-gen.h
-	$(SED) -e 's/yy/po_gram_/g' -e 's/extern /extern DLL_VARIABLE /' $(srcdir)/po-gram-gen.h > po-gram-gen2.h-tmp \
+	$(SED) -e 's/yy/po_gram_/g' -e 's/extern /extern DLL_VARIABLE /' \
+	       -e 's|"po-gram-gen\.h"|"po-gram-gen2.h"|' \
+	       < $(srcdir)/po-gram-gen.h > po-gram-gen2.h-tmp \
 	&& mv po-gram-gen2.h-tmp $(srcdir)/po-gram-gen2.h
 BUILT_SOURCES += po-gram-gen2.h
 MOSTLYCLEANFILES += po-gram-gen2.h-tmp
@@ -580,13 +592,19 @@ po-lex.o po-lex.lo: po-gram-gen2.h
 cldr-plural.c cldr-plural.h: cldr-plural.y
 	$(AM_V_YACC)$(BISON) -d $(YFLAGS) $(AM_YFLAGS) $(srcdir)/cldr-plural.y \
 	&& test ':' = '$(BISON)' || { \
-	  sed -e 's|".*/cldr-plural.y"|"cldr-plural.y"|' < cldr-plural.tab.c > cldr-plural.c-tmp \
-	  && rm -f cldr-plural.tab.c \
+	  sed -e 's|".*/cldr-plural.y"|"cldr-plural.y"|' \
+	      -e 's|"cldr-plural\.tab\.c"|"cldr-plural.c"|' \
+	      -e 's|"cldr-plural\.tab\.h"|"cldr-plural.h"|' \
+	      < cldr-plural.tab.c > cldr-plural.c-tmp \
+	  && sed -e 's|".*/cldr-plural.y"|"cldr-plural.y"|' \
+	         -e 's|"cldr-plural\.tab\.h"|"cldr-plural.h"|' \
+	         < cldr-plural.tab.h > cldr-plural.h-tmp \
+	  && rm -f cldr-plural.tab.c cldr-plural.tab.h \
 	  && mv cldr-plural.c-tmp $(srcdir)/cldr-plural.c \
-	  && mv cldr-plural.tab.h $(srcdir)/cldr-plural.h; \
+	  && mv cldr-plural.h-tmp $(srcdir)/cldr-plural.h; \
 	}
 BUILT_SOURCES += cldr-plural.c cldr-plural.h
-MOSTLYCLEANFILES += cldr-plural.tab.c cldr-plural.tab.h cldr-plural.c-tmp
+MOSTLYCLEANFILES += cldr-plural.tab.c cldr-plural.tab.h cldr-plural.c-tmp cldr-plural.h-tmp
 MAINTAINERCLEANFILES += cldr-plural.c cldr-plural.h
 EXTRA_DIST += cldr-plural.c cldr-plural.h
 
