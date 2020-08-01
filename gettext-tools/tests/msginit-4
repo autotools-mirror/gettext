@@ -3,6 +3,9 @@
 
 # Test filling Plural-Forms: with Unicode CLDR
 
+# This test may fail on Cygwin before 'make install', because the PATH set in
+# msginit.c considers the installation directory, not the build directory.
+
 LC_ALL=C "$top_builddir/src/cldr-plurals" ru /dev/null 2>&1 | grep 'extraction is not supported' > /dev/null 2>&1
 test $? = 0 && {
   echo "Skipping test: cldr-plurals was built without XML support"
