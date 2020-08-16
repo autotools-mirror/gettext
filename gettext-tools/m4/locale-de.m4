@@ -1,4 +1,4 @@
-# locale-de.m4 serial 1
+# locale-de.m4 serial 2
 dnl Copyright (C) 2003, 2005-2018 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -11,8 +11,7 @@ AC_DEFUN([gt_LOCALE_DE_UTF8],
 [
   AC_REQUIRE([AM_LANGINFO_CODESET])
   AC_CACHE_CHECK([for a german Unicode locale], [gt_cv_locale_de_utf8], [
-    AC_LANG_CONFTEST([AC_LANG_SOURCE([
-changequote(,)dnl
+    AC_LANG_CONFTEST([AC_LANG_SOURCE([[
 #include <locale.h>
 #include <time.h>
 #if HAVE_LANGINFO_CODESET
@@ -74,8 +73,7 @@ int main () {
 #endif
   return 0;
 }
-changequote([,])dnl
-      ])])
+      ]])])
     if AC_TRY_EVAL([ac_link]) && test -s conftest$ac_exeext; then
       case "$host_os" in
         # Handle native Windows specially, because there setlocale() interprets
