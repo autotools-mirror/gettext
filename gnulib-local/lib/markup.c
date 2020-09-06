@@ -1,5 +1,5 @@
 /* markup.c -- simple XML-like parser
-   Copyright (C) 2015, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2015, 2018, 2020 Free Software Foundation, Inc.
 
    This file is not part of the GNU gettext program, but is used with
    GNU gettext.
@@ -361,7 +361,7 @@ slow_name_validate (markup_parse_context_ty *context, const char *name)
   const char *p = name;
   ucs4_t uc;
 
-  if (u8_check ((uint8_t *) name, strlen (name)) != NULL)
+  if (u8_check ((const uint8_t *) name, strlen (name)) != NULL)
     {
       emit_error (context, _("invalid UTF-8 sequence"));
       return false;
@@ -371,7 +371,7 @@ slow_name_validate (markup_parse_context_ty *context, const char *name)
         || (!IS_COMMON_NAME_END_CHAR (*p)
             && (*p == '_'
                 || *p == ':'
-                || (u8_mbtouc (&uc, (uint8_t *) name, strlen (name)) > 0
+                || (u8_mbtouc (&uc, (const uint8_t *) name, strlen (name)) > 0
                     && uc_is_alpha (uc))))))
     {
       char *error_text = xasprintf (_("'%s' is not a valid name: %c"),
@@ -381,9 +381,9 @@ slow_name_validate (markup_parse_context_ty *context, const char *name)
       return false;
     }
 
-  for (p = (char *) u8_next (&uc, (uint8_t *) name);
+  for (p = (const char *) u8_next (&uc, (const uint8_t *) name);
        p != NULL;
-       p = (char *) u8_next (&uc, (uint8_t *) p))
+       p = (const char *) u8_next (&uc, (const uint8_t *) p))
     {
       /* is_name_char */
       if (!(c_isalnum (*p) ||
