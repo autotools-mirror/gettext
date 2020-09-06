@@ -53,7 +53,7 @@ char *getwd ();
    Return NULL and set errno on error. */
 
 char *
-xgetcwd ()
+xgetcwd (void)
 {
   char *ret;
   unsigned path_max;
