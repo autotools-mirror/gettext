@@ -723,7 +723,7 @@ its_translate_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
   free (prop);
 }
 
-struct its_value_list_ty *
+static struct its_value_list_ty *
 its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
                          xmlNode *node)
 {
@@ -859,7 +859,7 @@ its_localization_note_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
   /* FIXME: locNoteRef and locNoteRefPointer */
 }
 
-struct its_value_list_ty *
+static struct its_value_list_ty *
 its_localization_note_rule_eval (struct its_rule_ty *pop,
                                  struct its_pool_ty *pool,
                                  xmlNode *node)
@@ -1006,7 +1006,7 @@ its_element_within_text_rule_constructor (struct its_rule_ty *pop,
   free (prop);
 }
 
-struct its_value_list_ty *
+static struct its_value_list_ty *
 its_element_within_text_rule_eval (struct its_rule_ty *pop,
                                    struct its_pool_ty *pool,
                                    xmlNode *node)
@@ -1093,7 +1093,7 @@ its_preserve_space_rule_constructor (struct its_rule_ty *pop,
   free (prop);
 }
 
-struct its_value_list_ty *
+static struct its_value_list_ty *
 its_preserve_space_rule_eval (struct its_rule_ty *pop,
                               struct its_pool_ty *pool,
                               xmlNode *node)
@@ -1186,7 +1186,7 @@ its_extension_context_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
     }
 }
 
-struct its_value_list_ty *
+static struct its_value_list_ty *
 its_extension_context_rule_eval (struct its_rule_ty *pop,
                                  struct its_pool_ty *pool,
                                  xmlNode *node)
@@ -1245,7 +1245,7 @@ its_extension_escape_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
   free (prop);
 }
 
-struct its_value_list_ty *
+static struct its_value_list_ty *
 its_extension_escape_rule_eval (struct its_rule_ty *pop,
                                 struct its_pool_ty *pool,
                                 xmlNode *node)
