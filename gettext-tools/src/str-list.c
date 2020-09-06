@@ -82,7 +82,7 @@ string_list_append_unique (string_list_ty *slp, const char *s)
 {
   size_t j;
 
-  /* Do not if the string is already in the list.  */
+  /* Do nothing if the string is already in the list.  */
   for (j = 0; j < slp->nitems; ++j)
     if (strcmp (slp->item[j], s) == 0)
       return;
@@ -98,6 +98,37 @@ string_list_append_unique (string_list_ty *slp, const char *s)
 
   /* Add a copy of the string to the end of the list.  */
   slp->item[slp->nitems++] = xstrdup (s);
+}
+
+/* Likewise with a string descriptor as argument.  */
+void
+string_list_append_unique_desc (string_list_ty *slp,
+                                const char *s, size_t s_len)
+{
+  size_t j;
+
+  /* Do nothing if the string is already in the list.  */
+  for (j = 0; j < slp->nitems; ++j)
+    if (strlen (slp->item[j]) == s_len && memcmp (slp->item[j], s, s_len) == 0)
+      return;
+
+  /* Grow the list.  */
+  if (slp->nitems >= slp->nitems_max)
+    {
+      slp->nitems_max = slp->nitems_max * 2 + 4;
+      slp->item = (const char **) xrealloc (slp->item,
+                                            slp->nitems_max
+                                            * sizeof (slp->item[0]));
+    }
+
+  /* Add a copy of the string to the end of the list.  */
+  {
+    char *copy = XNMALLOC (s_len + 1, char);
+    memcpy (copy, s, s_len);
+    copy[s_len] = '\0';
+
+    slp->item[slp->nitems++] = copy;
+  }
 }
 
 
@@ -232,6 +263,18 @@ string_list_member (const string_list_ty *slp, const char *s)
 
   for (j = 0; j < slp->nitems; ++j)
     if (strcmp (slp->item[j], s) == 0)
+      return true;
+  return false;
+}
+
+/* Likewise with a string descriptor as argument.  */
+bool
+string_list_member_desc (const string_list_ty *slp, const char *s, size_t s_len)
+{
+  size_t j;
+
+  for (j = 0; j < slp->nitems; ++j)
+    if (strlen (slp->item[j]) == s_len && memcmp (slp->item[j], s, s_len) == 0)
       return true;
   return false;
 }

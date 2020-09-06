@@ -1408,12 +1408,12 @@ static void
 add_languages (string_list_ty *languages, string_list_ty *desired_languages,
                const char *line, size_t length)
 {
-  char *start;
+  const char *start;
 
   /* Split the line by whitespace and build the languages list.  */
-  for (start = (char *) line; start - line < length; )
+  for (start = line; start - line < length; )
     {
-      char *p;
+      const char *p;
 
       /* Skip whitespace before the string.  */
       while (*start == ' ' || *start == '\t')
@@ -1423,10 +1423,9 @@ add_languages (string_list_ty *languages, string_list_ty *desired_languages,
       while (*p != '\0' && *p != ' ' && *p != '\t')
         p++;
 
-      *p = '\0';
       if (desired_languages == NULL
-          || string_list_member (desired_languages, start))
-        string_list_append_unique (languages, start);
+          || string_list_member_desc (desired_languages, start, p - start))
+        string_list_append_unique_desc (languages, start, p - start);
       start = p + 1;
     }
 }
