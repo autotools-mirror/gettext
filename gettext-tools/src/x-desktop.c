@@ -163,7 +163,7 @@ extract_desktop_handle_blank (struct desktop_reader_ty *reader,
   savable_comment_reset ();
 }
 
-desktop_reader_class_ty extract_methods =
+static desktop_reader_class_ty extract_methods =
   {
     sizeof (extract_desktop_reader_ty),
     NULL,
