@@ -1639,16 +1639,13 @@ msgfmt_desktop_bulk (const char *directory,
   /* Read all .po files.  */
   nerrors = msgfmt_operand_list_add_from_directory (&operands, directory);
   if (nerrors > 0)
-    {
-      msgfmt_operand_list_destroy (&operands);
-      return 1;
-    }
-
-  /* Write the messages into .desktop file.  */
-  status = msgdomain_write_desktop_bulk (&operands,
-                                         template_file_name,
-                                         keywords,
-                                         file_name);
+    status = 1;
+  else
+    /* Write the messages into .desktop file.  */
+    status = msgdomain_write_desktop_bulk (&operands,
+                                           template_file_name,
+                                           keywords,
+                                           file_name);
 
   msgfmt_operand_list_destroy (&operands);
 
