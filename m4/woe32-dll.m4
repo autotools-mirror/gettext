@@ -1,5 +1,5 @@
-# woe32-dll.m4 serial 4
-dnl Copyright (C) 2005-2006, 2011 Free Software Foundation, Inc.
+# woe32-dll.m4 serial 5
+dnl Copyright (C) 2005-2006, 2011, 2018, 2020 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -31,13 +31,25 @@ AC_DEFUN([gl_WOE32_DLL],
   AC_REQUIRE([AC_CANONICAL_HOST])
   case "$host_os" in
     mingw* | cygwin*)
-      AC_MSG_CHECKING([for auto-import of symbols])
-      AC_CACHE_VAL([gl_cv_ld_autoimport], [
-        gl_save_LDFLAGS="$LDFLAGS"
-        LDFLAGS="$LDFLAGS -Wl,--disable-auto-import"
-        AC_TRY_LINK([], [], [gl_cv_ld_autoimport=yes], [gl_cv_ld_autoimport=no])
-        LDFLAGS="$gl_save_LDFLAGS"])
-      AC_MSG_RESULT([$gl_cv_ld_autoimport])
+      AC_CACHE_CHECK([for auto-import of symbols],
+        [gl_cv_ld_autoimport],
+        [dnl --disable-auto-import is unsupported in MSVC and in MSVC/clang.
+         dnl We need to sort out this case explicitly, because with clang,
+         dnl -Wl,--disable-auto-import does not yield an error, however later
+         dnl libtool turns it into --disable-auto-import, which does produce
+         dnl an error.
+         AC_EGREP_CPP([Known], [
+            #ifdef _MSC_VER
+             Known
+            #endif
+           ],
+           [gl_cv_ld_autoimport=no],
+           [gl_save_LDFLAGS="$LDFLAGS"
+            LDFLAGS="$LDFLAGS -Wl,--disable-auto-import"
+            AC_TRY_LINK([], [], [gl_cv_ld_autoimport=yes], [gl_cv_ld_autoimport=no])
+            LDFLAGS="$gl_save_LDFLAGS"
+           ])
+        ])
       if test $gl_cv_ld_autoimport = yes; then
         LDFLAGS="$LDFLAGS -Wl,--disable-auto-import"
       fi
