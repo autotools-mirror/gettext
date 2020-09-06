@@ -1,5 +1,5 @@
 /* Output stream that produces HTML output.
-   Copyright (C) 2006-2009, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006-2009, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -178,7 +178,7 @@ html_ostream::write_mem (html_ostream_t stream, const void *data, size_t len)
             if (n > 0)
               {
                 memcpy (inbuffer + inbufcount, data, n);
-                data = (char *) data + n;
+                data = (const char *) data + n;
                 inbufcount += n;
                 len -= n;
               }
