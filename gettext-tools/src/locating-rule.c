@@ -423,7 +423,7 @@ locating_rule_list_alloc (void)
   return result;
 }
 
-void
+static void
 locating_rule_list_destroy (struct locating_rule_list_ty *rules)
 {
   while (rules->nitems-- > 0)
