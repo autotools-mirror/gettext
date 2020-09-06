@@ -1,5 +1,5 @@
 dnl Configuration for the toplevel directory of GNU libtextstyle
-dnl Copyright (C) 2009-2019 Free Software Foundation, Inc.
+dnl Copyright (C) 2009-2020 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@ dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.63])
+AC_PREREQ([2.64])
 AC_INIT
 AC_CONFIG_SRCDIR([version.sh])
 AC_CONFIG_AUX_DIR([build-aux])

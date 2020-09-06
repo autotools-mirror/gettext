@@ -197,6 +197,7 @@
 /lib/term-styled-ostream.oo.c
 /lib/term-styled-ostream.oo.h
 /lib/terminfo.h
+/lib/thread-optim.h
 /lib/time.in.h
 /lib/tparm.c
 /lib/tputs.c
