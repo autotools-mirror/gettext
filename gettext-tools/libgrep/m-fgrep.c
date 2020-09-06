@@ -1,5 +1,5 @@
 /* Pattern Matcher for Fixed String search.
-   Copyright (C) 1992, 1998, 2000, 2005-2006, 2010, 2013 Free Software
+   Copyright (C) 1992, 1998, 2000, 2005-2006, 2010, 2013, 2020 Free Software
    Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -156,7 +156,8 @@ static size_t
 Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
           size_t *match_size, bool exact)
 {
-  struct compiled_kwset *ckwset = (struct compiled_kwset *) compiled_pattern;
+  const struct compiled_kwset *ckwset =
+    (const struct compiled_kwset *) compiled_pattern;
   char eol = ckwset->eolbyte;
   register const char *buflim = buf + buf_size;
   register const char *beg;
