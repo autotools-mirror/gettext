@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "message.h"
 #include "rc-str-list.h"
 #include "xgettext.h"
@@ -1223,7 +1224,7 @@ phase5_get (token_ty *tp)
                 return;
               }
           }
-          /* FALLTHROUGH */
+          FALLTHROUGH;
         case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
         case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
         case 'M': case 'N': case 'O': case 'P': case 'Q':

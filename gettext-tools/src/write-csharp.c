@@ -70,6 +70,7 @@
 # define S_IXOTH (S_IXUSR >> 6)
 #endif
 
+#include "attribute.h"
 #include "c-ctype.h"
 #include "relocatable.h"
 #include "error.h"
@@ -402,7 +403,7 @@ write_csharp_expression (FILE *stream, const struct expression *exp, bool as_boo
               fprintf (stream, ")");
               return;
             }
-          /*FALLTHROUGH*/
+          FALLTHROUGH;
         case var:
         case mult:
         case divide:

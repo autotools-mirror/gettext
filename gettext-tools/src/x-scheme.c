@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "message.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -830,7 +831,7 @@ read_object (struct object *op, flag_context_ty outer_context)
             if (c != EOF && c != '@')
               do_ungetc (c);
           }
-          /*FALLTHROUGH*/
+          FALLTHROUGH;
         case '\'':
         case '`':
           {
@@ -1220,7 +1221,7 @@ read_object (struct object *op, flag_context_ty outer_context)
                 while (c >= '0' && c <= '9');
                 /* c should be one of {'a'|'b'|'c'|'e'|'i'|'s'|'u'}.
                    But be tolerant.  */
-                /*FALLTHROUGH*/
+                FALLTHROUGH;
               case '\'': /* boot-9.scm */
               case '.': /* boot-9.scm */
               case ',': /* srfi-10.scm */
@@ -1270,7 +1271,7 @@ read_object (struct object *op, flag_context_ty outer_context)
               }
             seen_underscore_prefix = true;
           }
-          /*FALLTHROUGH*/
+          FALLTHROUGH;
 
         case '"':
           {

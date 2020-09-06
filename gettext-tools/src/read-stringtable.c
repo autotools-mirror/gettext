@@ -1,5 +1,5 @@
 /* Reading NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003, 2005-2007, 2009, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2007, 2009, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "error.h"
 #include "error-progname.h"
 #include "read-catalog-abstract.h"
@@ -639,7 +640,7 @@ phase4_getc ()
                                       && !seen_newline);
                     break;
                   }
-                /* FALLTHROUGH */
+                FALLTHROUGH;
 
               default:
                 last_was_star = false;

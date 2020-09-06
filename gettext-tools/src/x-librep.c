@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "c-ctype.h"
 #include "message.h"
 #include "xgettext.h"
@@ -371,7 +372,7 @@ read_token (struct token *tp, const int *first)
                                 radix = 0;
                               break;
                             }
-                          /*FALLTHROUGH*/
+                          FALLTHROUGH;
                         default:
                           if (exponent && (c == '+' || c == '-'))
                             break;
@@ -752,7 +753,7 @@ read_object (struct object *op, flag_context_ty outer_context)
             if (c != EOF && c != '@')
               do_ungetc (c);
           }
-          /*FALLTHROUGH*/
+          FALLTHROUGH;
         case '\'':
         case '`':
           {
@@ -908,7 +909,7 @@ read_object (struct object *op, flag_context_ty outer_context)
                     }
                   continue;
                 }
-              /*FALLTHROUGH*/
+              FALLTHROUGH;
             case '\'':
             case ':':
               {

@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "message.h"
 #include "rc-str-list.h"
 #include "xgettext.h"
@@ -620,7 +621,7 @@ phase4_getc ()
                   comment_line_end (2);
                   break;
                 }
-              /* FALLTHROUGH */
+              FALLTHROUGH;
 
             default:
               last_was_star = false;
@@ -1496,7 +1497,7 @@ phase6_get (token_ty *tp)
         case UNL:
           if (last_non_comment_line > last_comment_line)
             savable_comment_reset ();
-          /* FALLTHROUGH */
+          FALLTHROUGH;
         case ' ':
         case '\t':
         case '\f':
@@ -1536,7 +1537,7 @@ phase6_get (token_ty *tp)
               tp->type = token_type_dot;
               return;
             }
-          /* FALLTHROUGH */
+          FALLTHROUGH;
 
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9':
@@ -1651,7 +1652,7 @@ phase6_get (token_ty *tp)
               tp->type = token_type_string_literal;
               return;
             }
-          /* FALLTHROUGH, so that @identifier is recognized.  */
+          FALLTHROUGH; /* so that @identifier is recognized.  */
 
         default:
           if (c == '\\')

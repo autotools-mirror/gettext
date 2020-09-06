@@ -1,5 +1,5 @@
 /* Expand escape sequences in a string.
-   Copyright (C) 1995-1997, 2000-2007, 2012, 2018-2019 Free Software
+   Copyright (C) 1995-1997, 2000-2007, 2012, 2018-2020 Free Software
    Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, May 1995.
 
@@ -112,7 +112,7 @@ expand_escapes (const char *str, bool *backslash_c_seen)
                   ++cp;
                   break;
                 }
-              /* FALLTHROUGH */
+              FALLTHROUGH;
             default:
               *rp++ = '\\';
               break;

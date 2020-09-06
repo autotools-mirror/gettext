@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "message.h"
 #include "rc-str-list.h"
 #include "xgettext.h"
@@ -664,7 +665,7 @@ phase1_ungetc (int c)
 
     case '\n':
       --line_number;
-      /* FALLTHROUGH */
+      FALLTHROUGH;
 
     default:
       if (phase1_pushback_length == SIZEOF (phase1_pushback))
@@ -882,7 +883,7 @@ phase4_getc ()
                   comment_line_end (2);
                   break;
                 }
-              /* FALLTHROUGH */
+              FALLTHROUGH;
 
             default:
               last_was_star = false;
@@ -1344,7 +1345,7 @@ phase5_get (token_ty *tp)
                           error (0, 0, _("%s:%d: warning: a double-quote in the delimiter of a raw string literal is unsupported"),
                                  logical_file_name, starting_line_number);
                           error_with_progname = true;
-                          /* FALLTHROUGH */
+                          FALLTHROUGH;
                         default:
                           valid_delimiter_char = false;
                           break;
@@ -1450,7 +1451,7 @@ phase5_get (token_ty *tp)
                   tp->type = token_type_symbol;
                   return;
                 }
-              /* FALLTHROUGH */
+              FALLTHROUGH;
 
             default:
               phase4_ungetc (c);
@@ -1482,7 +1483,7 @@ phase5_get (token_ty *tp)
           c = '.';
           break;
         }
-      /* FALLTHROUGH */
+      FALLTHROUGH;
 
     case '0': case '1': case '2': case '3': case '4':
     case '5': case '6': case '7': case '8': case '9':
@@ -1505,7 +1506,7 @@ phase5_get (token_ty *tp)
             case 'P':
               /* In C99 and C++17, 'p' and 'P' can be used as an exponent
                  marker.  */
-              /* FALLTHROUGH */
+              FALLTHROUGH;
             case 'e':
             case 'E':
               if (bufpos >= bufmax)
@@ -1586,7 +1587,7 @@ phase5_get (token_ty *tp)
                       break;
                     }
                 }
-              /* FALLTHROUGH */
+              FALLTHROUGH;
             default:
               phase4_ungetc (c);
               break;
@@ -1703,7 +1704,7 @@ phase5_get (token_ty *tp)
           tp->comment = add_reference (savable_comment);
           return;
         }
-      /* FALLTHROUGH */
+      FALLTHROUGH;
 
     default:
       /* We could carefully recognize each of the 2 and 3 character
@@ -2145,7 +2146,7 @@ x_c_lex (xgettext_token_ty *tp)
 
         case token_type_objc_special:
           drop_reference (token.comment);
-          /* FALLTHROUGH */
+          FALLTHROUGH;
 
         default:
           last_non_comment_line = newline_count;

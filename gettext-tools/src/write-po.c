@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012, 2014-2015, 2018-2019 Free Software
+   Copyright (C) 1995-1998, 2000-2010, 2012, 2014-2015, 2018-2020 Free Software
    Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -37,6 +37,7 @@
 
 #include <textstyle.h>
 
+#include "attribute.h"
 #include "c-ctype.h"
 #include "po-charset.h"
 #include "format.h"
@@ -79,7 +80,7 @@ make_format_description_string (enum is_format is_format, const char *lang,
           sprintf (result, "possible-%s-format", lang);
           break;
         }
-      /* FALLTHROUGH */
+      FALLTHROUGH;
     case yes_according_to_context:
     case yes:
       sprintf (result, "%s-format", lang);

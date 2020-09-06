@@ -22,6 +22,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#include "attribute.h"
 #include "format.h"
 #include "c-ctype.h"
 #include "xalloc.h"
@@ -417,7 +418,7 @@ format_parse (const char *format, bool translated, char *fdi,
                         type = FAT_ANY;
                         break;
                       }
-                    /*FALLTHROUGH*/
+                    FALLTHROUGH;
                   default:
                     --format;
                     if (*format == '\0')

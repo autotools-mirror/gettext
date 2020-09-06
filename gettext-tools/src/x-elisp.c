@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "message.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -527,7 +528,7 @@ do_getc_escaped (int c, bool in_string)
       if (c != '-')
         /* Invalid input.  But be tolerant.  */
         return c;
-      /*FALLTHROUGH*/
+      FALLTHROUGH;
     case '^':
       c = do_getc ();
       if (c == EOF)
@@ -1188,7 +1189,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
                 }
             }
           c = '.';
-          /*FALLTHROUGH*/
+          FALLTHROUGH;
         default:
         default_label:
           if (c <= ' ') /* FIXME: Assumes ASCII compatible encoding */

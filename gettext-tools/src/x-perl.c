@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "message.h"
 #include "rc-str-list.h"
 #include "xgettext.h"
@@ -984,7 +985,7 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
                   buffer[bufpos++] = '\\';
                   break;
                 }
-              /* FALLTHROUGH */
+              FALLTHROUGH;
             default:
               buffer[bufpos++] = *crs++;
               break;
@@ -1666,7 +1667,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
                  treat incorrectly here, is a syntax error.  */
               phase1_ungetc (c2);
             }
-          /* FALLTHROUGH */
+          FALLTHROUGH;
 
         default:
 #if DEBUG_PERL
@@ -2007,7 +2008,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
               break;
             }
           /* Must be right brace.  */
-          /* FALLTHROUGH */
+          FALLTHROUGH;
         case wait_rbrace:
           switch (c)
             {
@@ -2019,7 +2020,7 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
               extract_quotelike_pass3 (&token, EXIT_FAILURE);
               remember_a_message (mlp, NULL, token.string, true, false, context,
                                   &pos, NULL, savable_comment, true);
-              /* FALLTHROUGH */
+              FALLTHROUGH;
             default:
               context = null_context;
               state = initial;
@@ -2144,7 +2145,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
         case '\n':
           if (last_non_comment_line > last_comment_line)
             savable_comment_reset ();
-          /* FALLTHROUGH */
+          FALLTHROUGH;
         case '\t':
         case ' ':
           /* Ignore whitespace.  */
@@ -2181,7 +2182,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                 return;
               }
           }
-          /* FALLTHROUGH */
+          FALLTHROUGH;
         case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
         case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
         case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
@@ -2615,7 +2616,7 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
               if (c != '/')
                 phase1_ungetc (c);
             }
-          /* FALLTHROUGH */
+          FALLTHROUGH;
 
         default:
           /* We could carefully recognize each of the 2 and 3 character

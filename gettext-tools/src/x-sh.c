@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "message.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -222,7 +223,7 @@ phase1_ungetc (int c)
 
     case '\n':
       --line_number;
-      /* FALLTHROUGH */
+      FALLTHROUGH;
 
     default:
       if (phase1_pushback_length == SIZEOF (phase1_pushback))
@@ -718,7 +719,7 @@ phase2_ungetc (int c)
 
     case '\n':
       --line_number;
-      /* FALLTHROUGH */
+      FALLTHROUGH;
 
     default:
       if (phase2_pushback_length == SIZEOF (phase2_pushback))

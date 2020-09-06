@@ -53,6 +53,7 @@
 # define S_IXUSR 00100
 #endif
 
+#include "attribute.h"
 #include "c-ctype.h"
 #include "error.h"
 #include "xerror.h"
@@ -624,7 +625,7 @@ write_java_expression (FILE *stream, const struct expression *exp, bool as_boole
               fprintf (stream, ")");
               return;
             }
-          /*FALLTHROUGH*/
+          FALLTHROUGH;
         case var:
         case mult:
         case divide:

@@ -70,6 +70,7 @@ if ! $skip_gnulib; then
   # In gettext-runtime:
   GNULIB_MODULES_RUNTIME_FOR_SRC='
     atexit
+    attribute
     basename-lgpl
     binary-io
     closeout
@@ -121,6 +122,7 @@ if ! $skip_gnulib; then
   GNULIB_MODULES_TOOLS_FOR_SRC='
     alloca-opt
     atexit
+    attribute
     backupfile
     basename-lgpl
     binary-io
@@ -301,8 +303,9 @@ if ! $skip_gnulib; then
      done` \
     $GNULIB_MODULES_TOOLS_FOR_LIBGREP || exit $?
   # In gettext-tools/libgettextpo:
-  # This is a subset of the GNULIB_MODULES_FOR_SRC.
+  # This is a subset of the GNULIB_MODULES_TOOLS_FOR_SRC.
   GNULIB_MODULES_LIBGETTEXTPO='
+    attribute
     basename-lgpl
     close
     c-ctype
