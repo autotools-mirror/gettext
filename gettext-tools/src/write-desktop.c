@@ -125,7 +125,7 @@ msgfmt_desktop_handle_blank (struct desktop_reader_ty *reader, const char *s)
   fputc ('\n', msgfmt_reader->output_file);
 }
 
-desktop_reader_class_ty msgfmt_methods =
+static desktop_reader_class_ty msgfmt_methods =
   {
     sizeof (msgfmt_desktop_reader_ty),
     NULL,
