@@ -16,7 +16,7 @@ dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl Process this file with autoconf to produce a configure script.
 
-AC_PREREQ([2.63])
+AC_PREREQ([2.64])
 AC_INIT([gettext-tools],
 	m4_esyscmd([../build-aux/git-version-gen ../.tarball-version]),
 	[bug-gettext@gnu.org])
