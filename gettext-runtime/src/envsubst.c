@@ -343,8 +343,8 @@ string_list_append (string_list_ty *slp, const char *s)
 static int
 cmp_string (const void *pstr1, const void *pstr2)
 {
-  const char *str1 = *(const char **)pstr1;
-  const char *str2 = *(const char **)pstr2;
+  const char *str1 = *(const char * const *)pstr1;
+  const char *str2 = *(const char * const *)pstr2;
 
   return strcmp (str1, str2);
 }
