@@ -26,6 +26,7 @@
 #include <locale.h>
 #include <errno.h>
 
+#include "attribute.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "error.h"
@@ -143,7 +144,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
     case 4:
       domain = argv[optind++];
-      /* FALLTHROUGH */
+      FALLTHROUGH;
 
     case 3:
       break;

@@ -27,6 +27,7 @@
 #include <locale.h>
 #include <errno.h>
 
+#include "attribute.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "error.h"
@@ -118,7 +119,7 @@ main (int argc, char *argv[])
             break;
           }
       }
-      /*FALLTHROUGH*/
+      FALLTHROUGH;
     default:
       usage (EXIT_FAILURE);
     }

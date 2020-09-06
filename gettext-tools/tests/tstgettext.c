@@ -27,6 +27,7 @@
 #include <string.h>
 #include <locale.h>
 
+#include "attribute.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "error.h"
@@ -141,7 +142,7 @@ main (int argc, char *argv[])
             break;
           }
       }
-      /*FALLTHROUGH*/
+      FALLTHROUGH;
     default:
       usage (EXIT_FAILURE);
     }
@@ -184,7 +185,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
           case 2:
             domain = argv[optind++];
-            /* FALLTHROUGH */
+            FALLTHROUGH;
 
           case 1:
             break;

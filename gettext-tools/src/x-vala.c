@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "message.h"
 #include "rc-str-list.h"
 #include "xgettext.h"
@@ -296,7 +297,7 @@ phase2_getc ()
                   comment_line_end (2);
                   break;
                 }
-              /* FALLTHROUGH */
+              FALLTHROUGH;
 
             default:
               last_was_star = false;
@@ -670,7 +671,7 @@ phase3_get (token_ty *tp)
         case '\n':
           if (last_non_comment_line > last_comment_line)
             savable_comment_reset ();
-          /* FALLTHROUGH */
+          FALLTHROUGH;
         case ' ':
         case '\f':
         case '\t':
@@ -748,7 +749,7 @@ phase3_get (token_ty *tp)
               c = '.';
               break;
             }
-          /* FALLTHROUGH */
+          FALLTHROUGH;
 
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9':
@@ -845,7 +846,7 @@ phase3_get (token_ty *tp)
               return;
             }
           template = true;
-          /* FALLTHROUGH */
+          FALLTHROUGH;
         case '"':
           {
             struct mixed_string_buffer msb;

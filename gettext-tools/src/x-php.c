@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "attribute.h"
 #include "message.h"
 #include "rc-str-list.h"
 #include "xgettext.h"
@@ -667,7 +668,7 @@ phase3_getc ()
                         comment_line_end (2);
                         break;
                       }
-                    /* FALLTHROUGH */
+                    FALLTHROUGH;
 
                   default:
                     last_was_star = false;
@@ -802,7 +803,7 @@ phase4_get (token_ty *tp)
         case '\n':
           if (last_non_comment_line > last_comment_line)
             savable_comment_reset ();
-          /* FALLTHROUGH */
+          FALLTHROUGH;
         case ' ':
         case '\t':
         case '\r':

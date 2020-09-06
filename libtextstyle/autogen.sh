@@ -4,7 +4,7 @@
 # also regenerates all aclocal.m4, config.h.in, Makefile.in, configure files
 # with new versions of autoconf or automake.
 #
-# This script requires autoconf-2.63..2.69 and automake-1.11..1.16 in the PATH.
+# This script requires autoconf-2.64..2.69 and automake-1.11..1.16 in the PATH.
 # If not used from a released tarball, it also requires
 #   - the GNULIB_SRCDIR environment variable pointing to a gnulib checkout.
 
@@ -85,6 +85,7 @@ if test $skip_gnulib = false; then
       html-styled-ostream
       noop-styled-ostream
       term-styled-ostream
+    attribute
     filename
     isatty
     largefile

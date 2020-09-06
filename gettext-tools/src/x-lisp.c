@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "message.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -1127,7 +1128,7 @@ read_object (struct object *op, flag_context_ty outer_context)
                 if (c != EOF && c != '@' && c != '.')
                   do_ungetc (c);
               }
-              /*FALLTHROUGH*/
+              FALLTHROUGH;
             case '\'':
             case '`':
               {
@@ -1230,7 +1231,7 @@ read_object (struct object *op, flag_context_ty outer_context)
                   case '(':
                   case '"':
                     do_ungetc (c);
-                    /*FALLTHROUGH*/
+                    FALLTHROUGH;
                   case '\'':
                   case ':':
                   case '.':
