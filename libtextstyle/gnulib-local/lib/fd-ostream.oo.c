@@ -1,5 +1,5 @@
 /* Output stream referring to a file descriptor.
-   Copyright (C) 2006-2007, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -85,7 +85,7 @@ fd_ostream::write_mem (fd_ostream_t stream, const void *data, size_t len)
               if (n > 0)
                 {
                   memcpy (stream->buffer + BUFSIZE - stream->avail, data, n);
-                  data = (char *) data + n;
+                  data = (const char *) data + n;
                   stream->avail -= n;
                   len -= n;
                 }
@@ -114,7 +114,7 @@ fd_ostream::write_mem (fd_ostream_t stream, const void *data, size_t len)
                    - a last chunk, which is copied to the buffer.  */
               size_t n = stream->avail;
               memcpy (stream->buffer + BUFSIZE - stream->avail, data, n);
-              data = (char *) data + n;
+              data = (const char *) data + n;
               len -= n;
               if (full_write (stream->fd, stream->buffer, BUFSIZE) < BUFSIZE)
                 error (EXIT_FAILURE, errno, _("error writing to %s"),
@@ -125,7 +125,7 @@ fd_ostream::write_mem (fd_ostream_t stream, const void *data, size_t len)
                   if (full_write (stream->fd, data, BUFSIZE) < BUFSIZE)
                     error (EXIT_FAILURE, errno, _("error writing to %s"),
                            stream->filename);
-                  data = (char *) data + BUFSIZE;
+                  data = (const char *) data + BUFSIZE;
                   len -= BUFSIZE;
                 }
 
