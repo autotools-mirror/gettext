@@ -106,8 +106,8 @@ struct pre_message
 static int
 compare_id (const void *pval1, const void *pval2)
 {
-  return strcmp (((struct pre_message *) pval1)->str[M_ID].pointer,
-                 ((struct pre_message *) pval2)->str[M_ID].pointer);
+  return strcmp (((const struct pre_message *) pval1)->str[M_ID].pointer,
+                 ((const struct pre_message *) pval2)->str[M_ID].pointer);
 }
 
 
