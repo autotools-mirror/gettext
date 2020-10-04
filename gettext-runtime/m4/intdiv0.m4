@@ -1,4 +1,4 @@
-# intdiv0.m4 serial 7 (gettext-0.20.2)
+# intdiv0.m4 serial 8 (gettext-0.21.1)
 dnl Copyright (C) 2002, 2007-2008, 2010-2020 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -12,7 +12,7 @@ AC_DEFUN([gt_INTDIV0],
   AC_REQUIRE([AC_CANONICAL_HOST])dnl
 
   AC_CACHE_CHECK([whether integer division by zero raises SIGFPE],
-    gt_cv_int_divbyzero_sigfpe,
+    [gt_cv_int_divbyzero_sigfpe],
     [
       gt_cv_int_divbyzero_sigfpe=
 changequote(,)dnl
@@ -82,8 +82,8 @@ changequote([,])dnl
       fi
     ])
   case "$gt_cv_int_divbyzero_sigfpe" in
-    *yes) value=1;;
-    *) value=0;;
+    *yes) value=1 ;;
+    *)    value=0 ;;
   esac
   AC_DEFINE_UNQUOTED([INTDIV0_RAISES_SIGFPE], [$value],
     [Define if integer division by zero raises signal SIGFPE.])
