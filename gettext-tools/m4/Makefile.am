@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/m4 directory of GNU gettext
-## Copyright (C) 2003-2010, 2013, 2017-2019 Free Software Foundation, Inc.
+## Copyright (C) 2003-2010, 2013, 2017-2020 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -44,5 +44,4 @@ EXTRA_DIST = README csharpexec-test.exe \
 exported.m4 \
 hostname.m4 \
 locale-de.m4 \
-setlocale.m4 \
 siginfo.m4

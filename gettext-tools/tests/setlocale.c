@@ -1,5 +1,5 @@
 /* Fake setlocale - platform independent, for testing purposes.
-   Copyright (C) 2001-2002, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2002, 2019-2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -94,7 +94,7 @@ category_to_name (int category)
    actually change the behaviour of locale dependent functions.
    Assumes setenv()/putenv() is not called.  */
 char *
-setlocale (int category, SETLOCALE_CONST char *locale)
+setlocale (int category, const char *locale)
 {
   static char C_string[] = "C";
   static char *current_locale = C_string;
