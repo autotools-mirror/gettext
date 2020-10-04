@@ -1,4 +1,4 @@
-# intl.m4 serial 44 (gettext-0.21)
+# intl.m4 serial 45 (gettext-0.21.1)
 dnl Copyright (C) 1995-2014, 2016-2020 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -88,7 +88,7 @@ AC_DEFUN([AM_INTL_SUBDIR],
 
   case $gt_cv_func_printf_posix in
     *yes) HAVE_POSIX_PRINTF=1 ;;
-    *) HAVE_POSIX_PRINTF=0 ;;
+    *)    HAVE_POSIX_PRINTF=0 ;;
   esac
   AC_SUBST([HAVE_POSIX_PRINTF])
   if test "$ac_cv_func_asprintf" = yes; then

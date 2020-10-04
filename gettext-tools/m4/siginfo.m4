@@ -1,5 +1,5 @@
-# siginfo.m4 serial 1 (gettext-0.11)
-dnl Copyright (C) 2001-2002 Free Software Foundation, Inc.
+# siginfo.m4 serial 2 (gettext-0.21.1)
+dnl Copyright (C) 2001-2002, 2020 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -35,16 +35,19 @@ dnl with or without modifications, as long as this notice is preserved.
 AC_DEFUN([gt_SIGINFO],
 [
   AC_CACHE_CHECK([for signal handlers with siginfo_t], gt_cv_siginfo_t,
-    [AC_TRY_COMPILE([
-#include <signal.h>], [
-struct sigaction action;
-siginfo_t info;
-action.sa_flags = SA_SIGINFO;
-action.sa_sigaction = (void *) 0;
-], gt_cv_siginfo_t=yes, gt_cv_siginfo_t=no)])
+    [AC_COMPILE_IFELSE(
+       [AC_LANG_PROGRAM(
+          [[#include <signal.h>]],
+          [[struct sigaction action;
+            siginfo_t info;
+            action.sa_flags = SA_SIGINFO;
+            action.sa_sigaction = (void *) 0;
+          ]])],
+       [gt_cv_siginfo_t=yes],
+       [gt_cv_siginfo_t=no])])
   if test $gt_cv_siginfo_t = yes; then
-    AC_DEFINE(HAVE_SIGINFO, 1,
-      [Define to 1 if <signal.h> defines the siginfo_t type,
-   and struct sigaction has the sa_sigaction member and the SA_SIGINFO flag.])
+    AC_DEFINE([HAVE_SIGINFO], [1],
+      [Define to 1 if <signal.h> defines the siginfo_t type and
+       struct sigaction has the sa_sigaction member and the SA_SIGINFO flag.])
   fi
 ])
