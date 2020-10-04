@@ -44,7 +44,7 @@
 #if defined _WIN32 && !defined __CYGWIN__
 # undef setlocale
 # define setlocale fake_setlocale
-extern char *setlocale (int category, SETLOCALE_CONST char *locale);
+extern char *setlocale (int category, const char *locale);
 #endif
 
 #define _(str) gettext (str)

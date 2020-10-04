@@ -220,7 +220,6 @@ dnl Checks for library functions.
 AC_CHECK_FUNCS([select])
 AC_FUNC_VFORK
 gt_SIGINFO
-gt_SETLOCALE
 
 AC_C_BIGENDIAN([endianness=1], [endianness=0],
   [echo "AC-C-BIGENDIAN fails to work on your system." | sed -e 's,-,_,g' 1>&2
