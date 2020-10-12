@@ -98,6 +98,7 @@ distcheck-hook:
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/setlocale-lock.c | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/setlocale-lock.c | md5sum`"
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/setlocale_null.h | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/setlocale_null.h | md5sum`"
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/setlocale_null.c | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/setlocale_null.c | md5sum`"
+	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/thread-optim.h | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/thread-optim.h | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/threadlib.c | md5sum`" = "`sed -e 1,15d $(srcdir)/gettext-tools/gnulib-lib/glthread/threadlib.c | md5sum`"
 	test "`sed 1,16d $(srcdir)/gettext-runtime/intl/verify.h | md5sum`" = "`sed 1,16d $(srcdir)/gettext-tools/gnulib-lib/verify.h | md5sum`"
 	test "`sed 1,15d $(srcdir)/gettext-runtime/intl/windows-initguard.h | md5sum`" = "`sed 1,15d $(srcdir)/gettext-tools/gnulib-lib/windows-initguard.h | md5sum`"
