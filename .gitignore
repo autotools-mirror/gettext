@@ -39,7 +39,6 @@
 /gettext-runtime/gnulib-lib/
 /gettext-runtime/gnulib-m4/
 /gettext-runtime/doc/relocatable.texi
-/gettext-runtime/intl/attribute.h
 /gettext-runtime/libasprintf/gnulib-m4/
 /gettext-runtime/libasprintf/Makefile.gnulib
 /gettext-runtime/libasprintf/alloca.c
@@ -296,6 +295,7 @@
 /gettext-tools/libgrep/mbtowc-impl.h
 /gettext-tools/libgrep/mbtowc.c
 /gettext-tools/libgrep/nl_langinfo.c
+/gettext-tools/libgrep/nl_langinfo-lock.c
 /gettext-tools/libgrep/regcomp.c
 /gettext-tools/libgrep/regex.c
 /gettext-tools/libgrep/regex.h
@@ -303,6 +303,7 @@
 /gettext-tools/libgrep/regex_internal.h
 /gettext-tools/libgrep/regexec.c
 /gettext-tools/libgrep/warn-on-use.h
+/gettext-tools/libgrep/windows-initguard.h
 /gettext-tools/libgrep/wcrtomb.c
 /gettext-tools/man/x-to-1.in
 /gettext-tools/tests/init.sh

@@ -100,6 +100,7 @@ EXTRA_DIST += \
   flexmember.h \
   localename-table.in.h \
   setlocale_null.h \
+  thread-optim.h \
   tsearch.h tsearch.c \
   verify.h \
   xsize.h \
