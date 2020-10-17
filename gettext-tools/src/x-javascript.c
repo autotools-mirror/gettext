@@ -56,6 +56,7 @@
 
 #define _(s) gettext(s)
 
+#undef max /* clean up after MSVC's <stdlib.h> */
 #define max(a,b) ((a) > (b) ? (a) : (b))
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
