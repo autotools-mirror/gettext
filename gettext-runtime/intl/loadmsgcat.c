@@ -60,6 +60,8 @@ char *alloca ();
 
 #if defined HAVE_UNISTD_H || defined _LIBC
 # include <unistd.h>
+#elif defined _WIN32 && !defined __CYGWIN__
+# include <io.h>
 #endif
 
 #ifdef _LIBC
@@ -386,6 +388,11 @@ char *alloca ();
 # define mmap(addr, len, prot, flags, fd, offset) \
   __mmap (addr, len, prot, flags, fd, offset)
 # define munmap(addr, len)	__munmap (addr, len)
+#elif defined _WIN32 && !defined __CYGWIN__
+/* On native Windows, don't require linking with '-loldnames'.  */
+# define open _open
+# define read _read
+# define close _close
 #endif
 
 /* For those losing systems which don't have `alloca' we have to add
