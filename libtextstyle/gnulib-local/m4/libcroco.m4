@@ -1,5 +1,5 @@
-# libcroco.m4 serial 3
-dnl Copyright (C) 2006-2007, 2019 Free Software Foundation, Inc.
+# libcroco.m4 serial 4
+dnl Copyright (C) 2006-2007, 2019-2020 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -48,8 +48,9 @@ AC_DEFUN([gl_LIBCROCO],
         dnl one that built the library.
         AC_LIB_LINKFLAGS_BODY([croco-0.6], [glib-2.0])
         LIBS="$gl_save_LIBS $LIBCROCO_0_6"
-        AC_TRY_LINK([#include <libcroco-config.h>],
-          [const char *version = LIBCROCO_VERSION; return !version;],
+        AC_LINK_IFELSE(
+          [AC_LANG_PROGRAM([[#include <libcroco-config.h>]],
+            [[const char *version = LIBCROCO_VERSION; return !version;]])],
           [gl_cv_libcroco=yes
            gl_cv_LIBCROCO="$LIBCROCO_0_6"
            gl_cv_LTLIBCROCO="$LTLIBCROCO_0_6"
@@ -57,8 +58,9 @@ AC_DEFUN([gl_LIBCROCO],
         if test "$gl_cv_libcroco" != yes; then
           gl_save_CPPFLAGS="$CPPFLAGS"
           CPPFLAGS="$CPPFLAGS $INCCROCO_0_6"
-          AC_TRY_LINK([#include <libcroco-config.h>],
-            [const char *version = LIBCROCO_VERSION; return !version;],
+          AC_LINK_IFELSE(
+            [AC_LANG_PROGRAM([[#include <libcroco-config.h>]],
+              [[const char *version = LIBCROCO_VERSION; return !version;]])],
             [gl_cv_libcroco=yes
              gl_cv_LIBCROCO="$LIBCROCO_0_6"
              gl_cv_LTLIBCROCO="$LTLIBCROCO_0_6"
@@ -67,8 +69,9 @@ AC_DEFUN([gl_LIBCROCO],
           if test "$gl_cv_libcroco" != yes; then
             dnl Often the include files are installed in
             dnl /usr/include/libcroco-0.6/libcroco.
-            AC_TRY_LINK([#include <libcroco-0.6/libcroco/libcroco-config.h>],
-              [const char *version = LIBCROCO_VERSION; return !version;],
+            AC_LINK_IFELSE(
+              [AC_LANG_PROGRAM([[#include <libcroco-config.h>]],
+                [[const char *version = LIBCROCO_VERSION; return !version;]])],
               [gl_ABSOLUTE_HEADER([libcroco-0.6/libcroco/libcroco-config.h])
                libcroco_include_dir=`echo "$gl_cv_absolute_libcroco_0_6_libcroco_libcroco_config_h" | sed -e 's,.libcroco-config\.h$,,'`
                if test -d "$libcroco_include_dir"; then
