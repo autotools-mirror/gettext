@@ -1,5 +1,5 @@
-# libglib.m4 serial 5
-dnl Copyright (C) 2006-2007, 2019 Free Software Foundation, Inc.
+# libglib.m4 serial 6
+dnl Copyright (C) 2006-2007, 2019-2020 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -43,12 +43,14 @@ AC_DEFUN([gl_LIBGLIB],
         dnl one that built the library.
         AC_LIB_LINKFLAGS_BODY([glib-2.0])
         LIBS="$gl_save_LIBS $LIBGLIB_2_0"
-        AC_TRY_LINK([#include <glib.h>
-#ifndef G_BEGIN_DECLS
-error this glib.h includes a glibconfig.h from a glib version 1.x
-#endif
-],
-          [g_string_new ("foo");],
+        AC_LINK_IFELSE(
+          [AC_LANG_PROGRAM(
+             [[#include <glib.h>
+               #ifndef G_BEGIN_DECLS
+               error this glib.h includes a glibconfig.h from a glib version 1.x
+               #endif
+             ]],
+             [[g_string_new ("foo");]])],
           [gl_cv_libglib=yes
            gl_cv_LIBGLIB="$LIBGLIB_2_0"
            gl_cv_LTLIBGLIB="$LTLIBGLIB_2_0"
@@ -56,12 +58,14 @@ error this glib.h includes a glibconfig.h from a glib version 1.x
         if test "$gl_cv_libglib" != yes; then
           gl_save_CPPFLAGS="$CPPFLAGS"
           CPPFLAGS="$CPPFLAGS $INCGLIB_2_0"
-          AC_TRY_LINK([#include <glib.h>
-#ifndef G_BEGIN_DECLS
-error this glib.h includes a glibconfig.h from a glib version 1.x
-#endif
-],
-            [g_string_new ("foo");],
+          AC_LINK_IFELSE(
+            [AC_LANG_PROGRAM(
+               [[#include <glib.h>
+                 #ifndef G_BEGIN_DECLS
+                 error this glib.h includes a glibconfig.h from a glib version 1.x
+                 #endif
+               ]],
+               [[g_string_new ("foo");]])],
             [gl_cv_libglib=yes
              gl_cv_LIBGLIB="$LIBGLIB_2_0"
              gl_cv_LTLIBGLIB="$LTLIBGLIB_2_0"
@@ -72,12 +76,14 @@ error this glib.h includes a glibconfig.h from a glib version 1.x
             dnl and /usr/lib/glib-2.0/include.
             if test -n "$LIBGLIB_2_0_PREFIX"; then
               CPPFLAGS="$gl_save_CPPFLAGS -I$LIBGLIB_2_0_PREFIX/include/glib-2.0 -I$LIBGLIB_2_0_PREFIX/$acl_libdirstem/glib-2.0/include"
-              AC_TRY_LINK([#include <glib.h>
-#ifndef G_BEGIN_DECLS
-error this glib.h includes a glibconfig.h from a glib version 1.x
-#endif
-],
-                [g_string_new ("foo");],
+              AC_LINK_IFELSE(
+                [AC_LANG_PROGRAM(
+                   [[#include <glib.h>
+                     #ifndef G_BEGIN_DECLS
+                     error this glib.h includes a glibconfig.h from a glib version 1.x
+                     #endif
+                   ]],
+                   [[g_string_new ("foo");]])],
                 [gl_cv_libglib=yes
                  gl_cv_LIBGLIB="$LIBGLIB_2_0"
                  gl_cv_LTLIBGLIB="$LTLIBGLIB_2_0"
@@ -118,7 +124,7 @@ error this glib.h includes a glibconfig.h from a glib version 1.x
     LIBGLIB_H="$LIBGLIB_H glib/gstrfuncs.h"
     LIBGLIB_H="$LIBGLIB_H glib/gstring.h"
     LIBGLIB_H="$LIBGLIB_H glib/gtypes.h"
-    AC_REQUIRE([AC_GNU_SOURCE])
+    AC_REQUIRE([AC_USE_SYSTEM_EXTENSIONS])
     AC_CHECK_HEADERS([unistd.h])
     dnl Don't bother checking for pthread.h and other multithread facilities.
   else

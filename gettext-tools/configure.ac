@@ -170,24 +170,28 @@ dnl Test whether msgmerge must be linked against libm. This is the case on
 dnl most systems; but BeOS has all <math.h> functions in libc and doesn't have
 dnl a libm.
 MSGMERGE_LIBM=?
-AC_TRY_LINK([
-   #ifndef __NO_MATH_INLINES
-   # define __NO_MATH_INLINES 1 /* for glibc */
-   #endif
-   #include <math.h>
-   double x;],
-  [x = ceil(x); x = sqrt(x);],
-  [MSGMERGE_LIBM=])
-if test "$MSGMERGE_LIBM" = "?"; then
-  save_LIBS="$LIBS" 
-  LIBS="$LIBS -lm"
-  AC_TRY_LINK([
+AC_LINK_IFELSE(
+  [AC_LANG_PROGRAM([[
      #ifndef __NO_MATH_INLINES
      # define __NO_MATH_INLINES 1 /* for glibc */
      #endif
      #include <math.h>
-     double x;],
-    [x = ceil(x); x = sqrt(x);],
+     double x;
+     ]],
+     [[x = ceil(x); x = sqrt(x);]])],
+  [MSGMERGE_LIBM=])
+if test "$MSGMERGE_LIBM" = "?"; then
+  save_LIBS="$LIBS"
+  LIBS="$LIBS -lm"
+  AC_LINK_IFELSE(
+    [AC_LANG_PROGRAM([[
+       #ifndef __NO_MATH_INLINES
+       # define __NO_MATH_INLINES 1 /* for glibc */
+       #endif
+       #include <math.h>
+       double x;
+       ]],
+       [[x = ceil(x); x = sqrt(x);]])],
     [MSGMERGE_LIBM="-lm"])
   LIBS="$save_LIBS"
 fi
@@ -218,7 +222,6 @@ gl_GLIBC21
 
 dnl Checks for library functions.
 AC_CHECK_FUNCS([select])
-AC_FUNC_VFORK
 gt_SIGINFO
 gt_SETLOCALE
 

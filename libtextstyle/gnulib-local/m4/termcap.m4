@@ -1,5 +1,5 @@
-# termcap.m4 serial 7 (gettext-0.18)
-dnl Copyright (C) 2000-2002, 2006-2008 Free Software Foundation, Inc.
+# termcap.m4 serial 8 (gettext-0.21.1)
+dnl Copyright (C) 2000-2002, 2006-2008, 2020 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -66,31 +66,43 @@ AC_DEFUN([gl_TERMCAP_BODY],
 
   AC_CACHE_CHECK([where termcap library functions come from], [gl_cv_termcap], [
     gl_cv_termcap="not found, consider installing GNU ncurses"
-    AC_TRY_LINK([extern
-      #ifdef __cplusplus
-      "C"
-      #endif
-      int tgetent (char *, const char *);
-      ], [return tgetent ((char *) 0, "xterm");], [gl_cv_termcap=libc])
+    AC_LINK_IFELSE(
+      [AC_LANG_PROGRAM(
+         [[extern
+           #ifdef __cplusplus
+           "C"
+           #endif
+           int tgetent (char *, const char *);
+         ]],
+         [[return tgetent ((char *) 0, "xterm");]])],
+      [gl_cv_termcap=libc])
     if test "$gl_cv_termcap" != libc; then
       gl_save_LIBS="$LIBS"
       LIBS="$LIBS $LIBNCURSES"
-      AC_TRY_LINK([extern
-        #ifdef __cplusplus
-        "C"
-        #endif
-        int tgetent (char *, const char *);
-        ], [return tgetent ((char *) 0, "xterm");], [gl_cv_termcap=libncurses])
+      AC_LINK_IFELSE(
+        [AC_LANG_PROGRAM(
+           [[extern
+             #ifdef __cplusplus
+             "C"
+             #endif
+             int tgetent (char *, const char *);
+           ]],
+           [[return tgetent ((char *) 0, "xterm");]])],
+        [gl_cv_termcap=libncurses])
       LIBS="$gl_save_LIBS"
       if test "$gl_cv_termcap" != libncurses; then
         gl_save_LIBS="$LIBS"
         LIBS="$LIBS $LIBTERMCAP"
-        AC_TRY_LINK([extern
-          #ifdef __cplusplus
-          "C"
-          #endif
-          int tgetent (char *, const char *);
-          ], [return tgetent ((char *) 0, "xterm");], [gl_cv_termcap=libtermcap])
+        AC_LINK_IFELSE(
+          [AC_LANG_PROGRAM(
+             [[extern
+               #ifdef __cplusplus
+               "C"
+               #endif
+               int tgetent (char *, const char *);
+             ]],
+             [[return tgetent ((char *) 0, "xterm");]])],
+          [gl_cv_termcap=libtermcap])
         LIBS="$gl_save_LIBS"
       fi
     fi
@@ -126,28 +138,31 @@ AC_DEFUN([gl_TERMCAP_BODY],
     LIBS="$LIBS $LIBTERMCAP"
     gl_save_CPPFLAGS="$CPPFLAGS"
     CPPFLAGS="$CPPFLAGS $INCTERMCAP"
-    AC_TRY_LINK([extern
-      #ifdef __cplusplus
-      "C"
-      #endif
-      int setupterm (const char *, int, int *);
-      extern
-      #ifdef __cplusplus
-      "C"
-      #endif
-      int tigetnum (const char *);
-      extern
-      #ifdef __cplusplus
-      "C"
-      #endif
-      int tigetflag (const char *);
-      extern
-      #ifdef __cplusplus
-      "C"
-      #endif
-      const char * tigetstr (const char *);
-      ], [return setupterm ("xterm", 0, (int *)0)
-                 + tigetnum ("colors") + tigetflag ("hc") + * tigetstr("oc");],
+    AC_LINK_IFELSE(
+      [AC_LANG_PROGRAM(
+         [[extern
+           #ifdef __cplusplus
+           "C"
+           #endif
+           int setupterm (const char *, int, int *);
+           extern
+           #ifdef __cplusplus
+           "C"
+           #endif
+           int tigetnum (const char *);
+           extern
+           #ifdef __cplusplus
+           "C"
+           #endif
+           int tigetflag (const char *);
+           extern
+           #ifdef __cplusplus
+           "C"
+           #endif
+           const char * tigetstr (const char *);
+         ]],
+         [[return setupterm ("xterm", 0, (int *)0)
+                  + tigetnum ("colors") + tigetflag ("hc") + * tigetstr("oc");]])],
       [gl_cv_func_terminfo=yes], [gl_cv_func_terminfo=no])
     CPPFLAGS="$gl_save_CPPFLAGS"
     LIBS="$gl_save_LIBS"
@@ -165,13 +180,16 @@ AC_DEFUN([gl_TERMCAP_BODY],
     LIBS="$LIBS $LIBTERMCAP"
     gl_save_CPPFLAGS="$CPPFLAGS"
     CPPFLAGS="$CPPFLAGS $INCTERMCAP"
-    AC_TRY_LINK([extern
-      #ifdef __cplusplus
-      "C"
-      #endif
-      char * tparam (const char *, void *, int, ...);
-      char buf;
-      ], [return tparam ("\033\133%dm", &buf, 1, 8);],
+    AC_LINK_IFELSE(
+      [AC_LANG_PROGRAM(
+         [[extern
+           #ifdef __cplusplus
+           "C"
+           #endif
+           char * tparam (const char *, void *, int, ...);
+           char buf;
+         ]],
+         [[return tparam ("\033\133%dm", &buf, 1, 8);]])],
       [gl_cv_termcap_tparam=yes], [gl_cv_termcap_tparam=no])
     CPPFLAGS="$gl_save_CPPFLAGS"
     LIBS="$gl_save_LIBS"
@@ -187,12 +205,15 @@ AC_DEFUN([gl_TERMCAP_BODY],
       LIBS="$LIBS $LIBTERMCAP"
       gl_save_CPPFLAGS="$CPPFLAGS"
       CPPFLAGS="$CPPFLAGS $INCTERMCAP"
-      AC_TRY_LINK([extern
-        #ifdef __cplusplus
-        "C"
-        #endif
-        char * tparm (const char *, ...);
-        ], [return tparm ("\033\133%dm", 8);],
+      AC_LINK_IFELSE(
+        [AC_LANG_PROGRAM(
+           [[extern
+             #ifdef __cplusplus
+             "C"
+             #endif
+             char * tparm (const char *, ...);
+           ]],
+           [[return tparm ("\033\133%dm", 8);]])],
         [gl_cv_termcap_tparm=yes], [gl_cv_termcap_tparm=no])
       CPPFLAGS="$gl_save_CPPFLAGS"
       LIBS="$gl_save_LIBS"

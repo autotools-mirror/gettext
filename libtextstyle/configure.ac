@@ -23,7 +23,7 @@ AC_CONFIG_AUX_DIR([build-aux])
 . $srcdir/version.sh
 gl_INIT_PACKAGE([libtextstyle], [$VERSION_NUMBER])
 AM_INIT_AUTOMAKE([1.13 silent-rules])
-AM_CONFIG_HEADER([config.h])
+AC_CONFIG_HEADERS([config.h])
 
 dnl Override automake's tar command used for creating distributions.
 am__tar='${AMTAR} chof - --owner=root --group=root "$$tardir"'
