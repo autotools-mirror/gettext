@@ -45,6 +45,12 @@ gettext (uX"This (is NOT a raw string");
 
 gettext (u8"This is a UTF-8 string");
 
+wgettext (L"This is a wide string");
+
+c16gettext (u"This is a 16-bit wide char string");
+
+c32gettext (U"This is a 32-bit wide char string");
+
 u88"This is not a UTF-8 string";
 
 u"This is a UTF-16 string";
@@ -79,6 +85,7 @@ gettext(\"abc\");
 EOF
 
 ${XGETTEXT} --add-comments --no-location --no-wrap \
+            -kgettext -kwgettext -kc16gettext -kc32gettext \
             -o xg-c-c++-1.tmp xg-c-c++-1.cc || Exit 1
 func_filter_POT_Creation_Date xg-c-c++-1.tmp xg-c-c++-1.po
 
@@ -108,6 +115,15 @@ msgid "This (is NOT a raw string"
 msgstr ""
 
 msgid "This is a UTF-8 string"
+msgstr ""
+
+msgid "This is a wide string"
+msgstr ""
+
+msgid "This is a 16-bit wide char string"
+msgstr ""
+
+msgid "This is a 32-bit wide char string"
 msgstr ""
 
 msgid ""

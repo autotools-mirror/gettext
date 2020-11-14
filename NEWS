@@ -1,3 +1,10 @@
+Version 0.21.1 - December 2020
+
+* Programming languages support:
+  - C, C++: xgettext now supports gettext-like functions that take wide strings
+    (of type 'const wchar_t *', 'const char16_t *', or 'const char32_t *') as
+    arguments.
+
 Version 0.21 - July 2020
 
 * Programming languages support:

@@ -1283,7 +1283,10 @@ phase5_get (token_ty *tp)
                  Note: The programmer who passes an UTF-8 encoded string to
                  gettext() or similar API functions will have to have called
                  bind_textdomain_codeset (DOMAIN, "UTF-8") first.  */
-              if (bufpos == 2 && buffer[0] == 'u' && buffer[1] == '8')
+              if ((bufpos == 1
+                   && (buffer[0] == 'u' || buffer[0] == 'U'
+                       || buffer[0] == 'L'))
+                  || (bufpos == 2 && buffer[0] == 'u' && buffer[1] == '8'))
                 goto string_literal;
               /* Recognize C++11 raw string literals.
                  See ISO C++ 11 section 2.14.5 [lex.string].
@@ -1302,8 +1305,14 @@ phase5_get (token_ty *tp)
                   && buffer[bufpos - 1] == 'R')
                 {
                   /* Only R and u8R raw strings can be used as gettext()
-                     arguments, for type reasons.  */
-                  const bool relevant = (bufpos != 2);
+                     arguments, for type reasons.  But the programmer may have
+                     defined
+                       - a c16gettext function that takes a 'const char16_t *'
+                         argument, or
+                       - a c32gettext function that takes a 'const char32_t *'
+                         argument, or
+                       - a wgettext function that takes a 'const wchar_t *'
+                         argument.  */
                   int starting_line_number = line_number;
                   bufpos = 0;
                   /* Start the buffer with a closing parenthesis.  This makes the
@@ -1369,10 +1378,8 @@ phase5_get (token_ty *tp)
                       int state;
 
                       /* Start accumulating the string.  */
-                      if (relevant)
-                        mixed_string_buffer_init (&msb, lc_string,
-                                                  logical_file_name,
-                                                  line_number);
+                      mixed_string_buffer_init (&msb, lc_string,
+                                                logical_file_name, line_number);
                       state = 0;
 
                       for (;;)
@@ -1380,8 +1387,7 @@ phase5_get (token_ty *tp)
                           c = phase3_getc ();
 
                           /* Keep line_number in sync.  */
-                          if (relevant)
-                            msb.line_number = line_number;
+                          msb.line_number = line_number;
 
                           if (c == EOF)
                             break;
@@ -1394,14 +1400,9 @@ phase5_get (token_ty *tp)
                               else /* state == bufpos && c == '"' */
                                 {
                                   /* Finished parsing the string.  */
-                                  if (relevant)
-                                    {
-                                      tp->type = token_type_string_literal;
-                                      tp->mixed_string = mixed_string_buffer_result (&msb);
-                                      tp->comment = add_reference (savable_comment);
-                                    }
-                                  else
-                                    tp->type = token_type_symbol;
+                                  tp->type = token_type_string_literal;
+                                  tp->mixed_string = mixed_string_buffer_result (&msb);
+                                  tp->comment = add_reference (savable_comment);
                                   return;
                                 }
                             }
@@ -1411,17 +1412,15 @@ phase5_get (token_ty *tp)
 
                               /* None of the bytes buffer[0]...buffer[state-1]
                                  can be ')'.  */
-                              if (relevant)
-                                for (i = 0; i < state; i++)
-                                  mixed_string_buffer_append_char (&msb, buffer[i]);
+                              for (i = 0; i < state; i++)
+                                mixed_string_buffer_append_char (&msb, buffer[i]);
 
                               /* But c may be ')'.  */
                               if (c == ')')
                                 state = 1;
                               else
                                 {
-                                  if (relevant)
-                                    mixed_string_buffer_append_char (&msb, c);
+                                  mixed_string_buffer_append_char (&msb, c);
                                   state = 0;
                                 }
                             }

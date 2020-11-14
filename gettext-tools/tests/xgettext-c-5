@@ -7,9 +7,16 @@
 
 cat <<\EOF > xg-c-5.c
 gettext("Choose a " u8"rosé wine à la carte");
+/* Some people may define a gettext-like function that takes a 'const wchar_t *' argument. */
+wgettext(L"Pulp " L"Fiction");
+/* Or a gettext-like function that takes a 'const char16_t *' argument. */
+c16gettext (u"Rain " u"Man");
+/* Or a gettext-like function that takes a 'const char32_t *' argument. */
+c32gettext (U"Jurassic " U"Park");
 EOF
 
 ${XGETTEXT} --from-code=ISO-8859-1 --no-location \
+            -kgettext -kwgettext -kc16gettext -kc32gettext \
             -o xg-c-5.tmp xg-c-5.c || Exit 1
 func_filter_POT_Creation_Date xg-c-5.tmp xg-c-5.po
 
@@ -33,6 +40,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 msgid "Choose a rosÃ© wine Ã  la carte"
+msgstr ""
+
+msgid "Pulp Fiction"
+msgstr ""
+
+msgid "Rain Man"
+msgstr ""
+
+msgid "Jurassic Park"
 msgstr ""
 EOF
 
