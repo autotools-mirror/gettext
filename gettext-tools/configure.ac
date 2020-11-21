@@ -290,12 +290,6 @@ dnl gl_ERROR, inside gl_INIT.
 if test "$ac_cv_lib_error_at_line" = no; then
   GETTEXTLIB_EXPORTS_FLAGS="-DGNULIB_DEFINED_ERROR $GETTEXTLIB_EXPORTS_FLAGS"
 fi
-
-dnl 64-bit mingw does not prepend an underscore to C symbols.
-dnl USER_LABEL_PREFIX is set by gl_ASM_SYMBOL_PREFIX, inside gl_INIT.
-if test "$USER_LABEL_PREFIX" = _; then
-  GETTEXTLIB_EXPORTS_FLAGS="-DUSER_LABEL_PREFIX_UNDERSCORE $GETTEXTLIB_EXPORTS_FLAGS"
-fi
 AC_SUBST([GETTEXTLIB_EXPORTS_FLAGS])
 
 dnl Tell the source files that the error facility is replaced by

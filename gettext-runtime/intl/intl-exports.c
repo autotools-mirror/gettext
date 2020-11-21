@@ -1,5 +1,5 @@
 /* List of exported symbols of libintl on Cygwin.
-   Copyright (C) 2006, 2012-2013 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2012-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -16,10 +16,10 @@
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
  /* IMP(x) is a symbol that contains the address of x.  */
-#if USER_LABEL_PREFIX_UNDERSCORE
-# define IMP(x) _imp__##x
-#else
+#if defined _WIN64 || defined _LP64
 # define IMP(x) __imp_##x
+#else
+# define IMP(x) _imp__##x
 #endif
 
  /* Ensure that the variable x is exported from the library, and that a
