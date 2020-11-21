@@ -130,14 +130,6 @@ if test $is_woe32dll = yes; then
     [Define when --enable-shared is used on mingw or Cygwin.])
 fi
 
-INTL_EXPORTS_FLAGS=
-dnl 64-bit mingw does not prepend an underscore to C symbols.
-dnl USER_LABEL_PREFIX is set by gl_ASM_SYMBOL_PREFIX, inside gl_INIT.
-if test "$USER_LABEL_PREFIX" = _; then
-  INTL_EXPORTS_FLAGS="-DUSER_LABEL_PREFIX_UNDERSCORE $INTL_EXPORTS_FLAGS"
-fi
-AC_SUBST([INTL_EXPORTS_FLAGS])
-
 dnl Put some default definitions into config.h.
 AH_BOTTOM([
 /* On Windows, variables that may be in a DLL must be marked specially.
