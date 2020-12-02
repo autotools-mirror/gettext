@@ -126,7 +126,7 @@ extract_ruby (const char *real_filename, const char *logical_filename,
           free (command);
         }
 
-      child = create_pipe_in (progname, progname, argv,
+      child = create_pipe_in (progname, progname, argv, NULL,
                               DEV_NULL, false, true, true, fd);
 
       fp = fdopen (fd[0], "r");

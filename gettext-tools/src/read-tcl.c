@@ -1,5 +1,5 @@
 /* Reading tcl/msgcat .msg files.
-   Copyright (C) 2002-2003, 2005-2008, 2010-2011, 2018 Free Software
+   Copyright (C) 2002-2003, 2005-2008, 2010-2011, 2018, 2020 Free Software
    Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
@@ -103,8 +103,8 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
     }
 
   /* Open a pipe to the Tcl interpreter.  */
-  child = create_pipe_in ("tclsh", "tclsh", argv, DEV_NULL, false, true, true,
-                          fd);
+  child = create_pipe_in ("tclsh", "tclsh", argv, NULL,
+                          DEV_NULL, false, true, true, fd);
 
   fp = fdopen (fd[0], "r");
   if (fp == NULL)

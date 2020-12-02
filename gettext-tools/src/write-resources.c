@@ -1,5 +1,5 @@
 /* Writing C# .resources files.
-   Copyright (C) 2003-2005, 2007-2009, 2010-2011, 2016 Free Software
+   Copyright (C) 2003-2005, 2007-2009, 2010-2011, 2016, 2020 Free Software
    Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
@@ -71,8 +71,8 @@ execute_writing_input (const char *progname,
   int exitstatus;
 
   /* Open a pipe to the C# execution engine.  */
-  child = create_pipe_out (progname, prog_path, prog_argv, NULL, false,
-                           true, true, fd);
+  child = create_pipe_out (progname, prog_path, prog_argv, NULL,
+                           NULL, false, true, true, fd);
 
   fp = fdopen (fd[0], "wb");
   if (fp == NULL)
