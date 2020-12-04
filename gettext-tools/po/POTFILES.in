@@ -20,11 +20,11 @@ gnulib-lib/javacomp.c
 gnulib-lib/javaexec.c
 gnulib-lib/javaversion.c
 gnulib-lib/obstack.c
+gnulib-lib/os2-spawn.c
 gnulib-lib/pipe-filter-aux.c
 gnulib-lib/pipe-filter-ii.c
 gnulib-lib/quotearg.c
 gnulib-lib/spawn-pipe.c
-gnulib-lib/w32spawn.h
 gnulib-lib/wait-process.c
 gnulib-lib/xmalloc.c
 gnulib-lib/xsetenv.c
