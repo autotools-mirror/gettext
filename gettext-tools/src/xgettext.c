@@ -286,7 +286,8 @@ typedef void (*extract_from_stream_func) (FILE *fp, const char *real_filename,
                                           const char *logical_filename,
                                           flag_context_list_table_ty *flag_table,
                                           msgdomain_list_ty *mdlp);
-typedef void (*extract_from_file_func) (const char *real_filename,
+typedef void (*extract_from_file_func) (const char *found_in_dir,
+                                        const char *real_filename,
                                         const char *logical_filename,
                                         flag_context_list_table_ty *flag_table,
                                         msgdomain_list_ty *mdlp);
@@ -1727,18 +1728,24 @@ savable_comment_to_xgettext_comment (refcounted_string_list_ty *rslp)
 
 /* xgettext_find_file and xgettext_open look up a file, taking into account
    the --directory options.
-   xgettext_find_file merely returns the file name.  This function is useful
-   for parsers implemented as separate programs.
+   xgettext_find_file merely returns the file name and the directory in which
+   it was found.  This function is useful for parsers implemented as separate
+   programs.
    xgettext_open returns the open file stream.  This function is useful for
    built-in parsers.  */
 
 static void
 xgettext_find_file (const char *fn,
-                    char **logical_file_name_p, char **real_file_name_p)
+                    char **logical_file_name_p,
+                    const char **found_in_dir_p,
+                    char **real_file_name_p)
 {
   char *new_name;
+  const char *found_in_dir;
   char *logical_file_name;
   struct stat statbuf;
+
+  found_in_dir = NULL;
 
   /* We cannot handle "-" here.  "/dev/fd/0" is not portable, and it cannot
      be opened multiple times.  */
@@ -1757,7 +1764,10 @@ xgettext_find_file (const char *fn,
           new_name = xconcatenated_filename (dir, fn, NULL);
 
           if (stat (new_name, &statbuf) == 0)
-            break;
+            {
+              found_in_dir = dir;
+              break;
+            }
 
           if (errno != ENOENT)
             error (EXIT_FAILURE, errno,
@@ -1782,6 +1792,7 @@ xgettext_find_file (const char *fn,
     }
 
   *logical_file_name_p = logical_file_name;
+  *found_in_dir_p = found_in_dir;
   *real_file_name_p = new_name;
 }
 
@@ -1885,9 +1896,12 @@ extract_from_file (const char *file_name, extractor_ty extractor,
     }
   else
     {
-      xgettext_find_file (file_name, &logical_file_name, &real_file_name);
+      const char *found_in_dir;
+      xgettext_find_file (file_name, &logical_file_name,
+                          &found_in_dir, &real_file_name);
 
-      extractor.extract_from_file (real_file_name, logical_file_name,
+      extractor.extract_from_file (found_in_dir, real_file_name,
+                                   logical_file_name,
                                    extractor.flag_table, mdlp);
     }
   free (logical_file_name);

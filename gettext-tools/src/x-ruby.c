@@ -76,7 +76,8 @@ init_flag_table_ruby (void)
 /* ========================= Extracting strings.  ========================== */
 
 void
-extract_ruby (const char *real_filename, const char *logical_filename,
+extract_ruby (const char *found_in_dir, const char *real_filename,
+              const char *logical_filename,
               flag_context_list_table_ty *flag_table,
               msgdomain_list_ty *mdlp)
 {
@@ -115,7 +116,7 @@ extract_ruby (const char *real_filename, const char *logical_filename,
             argv[i++] = xasprintf ("--add-comments=%s", comment_tag);
         }
 
-      argv[i++] = (char *) real_filename;
+      argv[i++] = (char *) logical_filename;
 
       argv[i] = NULL;
 
@@ -126,7 +127,7 @@ extract_ruby (const char *real_filename, const char *logical_filename,
           free (command);
         }
 
-      child = create_pipe_in (progname, progname, argv, NULL,
+      child = create_pipe_in (progname, progname, argv, found_in_dir,
                               DEV_NULL, false, true, true, fd);
 
       fp = fdopen (fd[0], "r");
