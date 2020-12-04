@@ -34,7 +34,7 @@ extern "C" {
   { "Ruby",             NULL, extract_ruby,                             \
                         &flag_table_ruby, &formatstring_ruby, NULL },   \
 
-extern void extract_ruby (const char *real_filename,
+extern void extract_ruby (const char *found_in_dir, const char *real_filename,
                           const char *logical_filename,
                           flag_context_list_table_ty *flag_table,
                           msgdomain_list_ty *mdlp);
