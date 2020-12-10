@@ -5,6 +5,12 @@ Version 0.21.1 - December 2020
     (of type 'const wchar_t *', 'const char16_t *', or 'const char32_t *') as
     arguments.
 
+* Runtime behaviour:
+  - On AIX, locale names with a script or with an uppercase language are now
+    supported.
+    For example, sr_Cyrl_RS.UTF-8 is treated like sr_RS.UTF-8@cyrillic, and
+    EN_US.UTF-8 is treated like en_US.UTF-8.
+
 Version 0.21 - July 2020
 
 * Programming languages support:
