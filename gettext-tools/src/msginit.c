@@ -924,7 +924,7 @@ project_id (const char *header)
   {
     const char *gettextlibdir;
     char *prog;
-    char *argv[3];
+    const char *argv[3];
     pid_t child;
     int fd[1];
     FILE *fp;
@@ -1006,7 +1006,7 @@ project_id_version (const char *header)
   {
     const char *gettextlibdir;
     char *prog;
-    char *argv[4];
+    const char *argv[4];
     pid_t child;
     int fd[1];
     FILE *fp;
@@ -1178,7 +1178,7 @@ get_user_email ()
 #if !(defined _WIN32 && ! defined __CYGWIN__)
   {
     const char *prog = relocate (LIBDIR "/gettext/user-email");
-    char *argv[4];
+    const char *argv[4];
     pid_t child;
     int fd[1];
     FILE *fp;
@@ -1189,8 +1189,8 @@ get_user_email ()
 
     /* Ask the user for his email address.  */
     argv[0] = BOURNE_SHELL;
-    argv[1] = (char *) prog;
-    argv[2] = (char *) _("\
+    argv[1] = prog;
+    argv[2] = _("\
 The new message catalog should contain your email address, so that users can\n\
 give you feedback about the translations, and so that maintainers can contact\n\
 you in case of unexpected technical problems.\n");
@@ -1284,7 +1284,7 @@ language_team_address ()
 #if !(defined _WIN32 && ! defined __CYGWIN__)
   {
     const char *prog = relocate (PROJECTSDIR "/team-address");
-    char *argv[7];
+    const char *argv[7];
     pid_t child;
     int fd[1];
     FILE *fp;
@@ -1295,11 +1295,11 @@ language_team_address ()
 
     /* Call the team-address shell script.  */
     argv[0] = BOURNE_SHELL;
-    argv[1] = (char *) prog;
-    argv[2] = (char *) relocate (PROJECTSDIR);
-    argv[3] = (char *) relocate (LIBDIR "/gettext");
-    argv[4] = (char *) catalogname;
-    argv[5] = (char *) language;
+    argv[1] = prog;
+    argv[2] = relocate (PROJECTSDIR);
+    argv[3] = relocate (LIBDIR "/gettext");
+    argv[4] = catalogname;
+    argv[5] = language;
     argv[6] = NULL;
     child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL,
                             DEV_NULL, false, true, false, fd);
@@ -1435,7 +1435,7 @@ plural_forms ()
     {
       const char *gettextlibdir;
       char *dirs[3], *last_dir;
-      char *argv[4];
+      const char *argv[4];
       pid_t child;
       int fd[1];
       FILE *fp;
@@ -1466,7 +1466,7 @@ plural_forms ()
          because on Cygwin in a build with --enable-shared, the libtool
          wrapper of cldr-plurals.exe apparently needs this.  */
       argv[0] = prog;
-      argv[1] = (char *) language;
+      argv[1] = language;
       argv[2] = last_dir;
       argv[3] = NULL;
       child = create_pipe_in (prog, prog, argv, NULL,

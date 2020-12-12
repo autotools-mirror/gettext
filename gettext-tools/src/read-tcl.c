@@ -56,7 +56,7 @@ msgdomain_read_tcl (const char *locale_name, const char *directory)
   char *frobbed_locale_name;
   char *p;
   char *file_name;
-  char *argv[4];
+  const char *argv[4];
   pid_t child;
   int fd[1];
   FILE *fp;
