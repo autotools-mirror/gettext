@@ -55,7 +55,8 @@ struct locals
 
 static bool
 execute_and_read_po_output (const char *progname,
-                            const char *prog_path, char **prog_argv,
+                            const char *prog_path,
+                            const char * const *prog_argv,
                             void *private_data)
 {
   struct locals *l = (struct locals *) private_data;

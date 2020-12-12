@@ -69,7 +69,7 @@ static const char *sub_name;
 static const char *sub_path;
 
 /* Argument list for the subprogram.  */
-static char **sub_argv;
+static const char **sub_argv;
 static int sub_argc;
 
 static bool newline;
@@ -201,7 +201,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
   /* Build argument list for the program.  */
   sub_argc = argc - optind;
-  sub_argv = XNMALLOC (sub_argc + 1, char *);
+  sub_argv = XNMALLOC (sub_argc + 1, const char *);
   for (i = 0; i < sub_argc; i++)
     sub_argv[i] = argv[optind + i];
   sub_argv[i] = NULL;
@@ -236,7 +236,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       sub_path = find_in_path (sub_name);
 
       /* Finish argument list for the program.  */
-      sub_argv[0] = (char *) sub_path;
+      sub_argv[0] = sub_path;
     }
 
   exitcode = 0; /* = EXIT_SUCCESS */

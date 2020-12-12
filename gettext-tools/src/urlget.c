@@ -246,7 +246,7 @@ static int java_exitcode;
 
 static bool
 execute_it (const char *progname,
-            const char *prog_path, char **prog_argv,
+            const char *prog_path, const char * const *prog_argv,
             void *private_data)
 {
   (void) private_data;
@@ -314,7 +314,7 @@ fetch (const char *url, const char *file)
     if (!wget_tested)
       {
         /* Test for presence of wget: "wget --version > /dev/null"  */
-        char *argv[3];
+        const char *argv[3];
         int exitstatus;
 
         argv[0] = "wget";
@@ -328,7 +328,7 @@ fetch (const char *url, const char *file)
 
     if (wget_present)
       {
-        char *argv[10];
+        const char *argv[10];
         int exitstatus;
 
         argv[0] = "wget";
@@ -336,7 +336,7 @@ fetch (const char *url, const char *file)
         argv[2] = "--output-document"; argv[3] = "-";
         argv[4] = "--timeout"; argv[5] = "30";
         argv[6] = "--user-agent"; argv[7] = "urlget";
-        argv[8] = (char *) url;
+        argv[8] = url;
         argv[9] = NULL;
         exitstatus = execute ("wget", "wget", argv, NULL,
                               true, false, false, false, true, false, NULL);
@@ -359,7 +359,7 @@ fetch (const char *url, const char *file)
     if (!lynx_tested)
       {
         /* Test for presence of lynx: "lynx --version > /dev/null"  */
-        char *argv[3];
+        const char *argv[3];
         int exitstatus;
 
         argv[0] = "lynx";
@@ -373,13 +373,13 @@ fetch (const char *url, const char *file)
 
     if (lynx_present)
       {
-        char *argv[5];
+        const char *argv[5];
         int exitstatus;
 
         argv[0] = "lynx";
         argv[1] = "-useragent=urlget";
         argv[2] = "-source";
-        argv[3] = (char *) url;
+        argv[3] = url;
         argv[4] = NULL;
         exitstatus = execute ("lynx", "lynx", argv, NULL,
                               true, false, false, false, true, false, NULL);
@@ -402,7 +402,7 @@ fetch (const char *url, const char *file)
     if (!curl_tested)
       {
         /* Test for presence of curl: "curl --version > /dev/null"  */
-        char *argv[3];
+        const char *argv[3];
         int exitstatus;
 
         argv[0] = "curl";
@@ -416,13 +416,13 @@ fetch (const char *url, const char *file)
 
     if (curl_present)
       {
-        char *argv[6];
+        const char *argv[6];
         int exitstatus;
 
         argv[0] = "curl";
         argv[1] = "--silent";
         argv[2] = "--user-agent"; argv[3] = "urlget";
-        argv[4] = (char *) url;
+        argv[4] = url;
         argv[5] = NULL;
         exitstatus = execute ("curl", "curl", argv, NULL,
                               true, false, false, false, true, false, NULL);

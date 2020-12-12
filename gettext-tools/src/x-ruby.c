@@ -94,7 +94,7 @@ extract_ruby (const char *real_filename, const char *logical_filename,
   mdlp2 = msgdomain_list_alloc (true);
   for (pass = 0; pass < 2; pass++)
     {
-      char *argv[4];
+      const char *argv[4];
       unsigned int i;
       pid_t child;
       int fd[1];
@@ -102,20 +102,20 @@ extract_ruby (const char *real_filename, const char *logical_filename,
       int exitstatus;
 
       /* Prepare arguments.  */
-      argv[0] = (char *) progname;
+      argv[0] = progname;
       i = 1;
 
       if (pass > 0)
-        argv[i++] = (char *) "--add-comments=xgettext:";
+        argv[i++] = "--add-comments=xgettext:";
       else
         {
           if (add_all_comments)
-            argv[i++] = (char *) "--add-comments";
+            argv[i++] = "--add-comments";
           else if (comment_tag != NULL)
             argv[i++] = xasprintf ("--add-comments=%s", comment_tag);
         }
 
-      argv[i++] = (char *) real_filename;
+      argv[i++] = real_filename;
 
       argv[i] = NULL;
 
