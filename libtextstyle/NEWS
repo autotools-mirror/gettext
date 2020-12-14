@@ -1,3 +1,17 @@
+New in 0.21.1:
+* Added type test functions:
+       TYPE                             FUNCTION
+  styled_ostream_t          is_instance_of_styled_ostream
+  file_ostream_t            is_instance_of_file_ostream
+  fd_ostream_t              is_instance_of_fd_ostream
+  term_ostream_t            is_instance_of_term_ostream
+  memory_ostream_t          is_instance_of_memory_ostream
+  iconv_ostream_t           is_instance_of_iconv_ostream
+  html_ostream_t            is_instance_of_html_ostream
+  term_styled_ostream_t     is_instance_of_term_styled_ostream
+  html_styled_ostream_t     is_instance_of_html_styled_ostream
+  noop_styled_ostream_t     is_instance_of_noop_styled_ostream
+
 New in 0.21:
 * Added support for emitting hyperlinks.
   New functions:

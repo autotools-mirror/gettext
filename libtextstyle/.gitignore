@@ -239,6 +239,7 @@
 /lib/xvasprintf.h
 /tests/
 !/tests/Makefile.am
+!/tests/test-instanceof.c
 
 # Files brought in by "automake --add-missing --copy":
 /build-aux/compile

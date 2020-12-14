@@ -1,5 +1,5 @@
 /* Public API of the libtextstyle library.
-   Copyright (C) 2006-2007, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2019-2020 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -123,6 +123,19 @@ extern void styled_ostream_flush_to_current_style (styled_ostream_t stream);
 }
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+
+/* Test whether a given output stream is a styled_ostream.  */
+extern bool is_instance_of_styled_ostream (ostream_t stream);
+
+
+#ifdef __cplusplus
+}
+#endif
+
 /* -------------------------- From file-ostream.h -------------------------- */
 
 /* file_ostream_t is a subtype of ostream_t.  */
@@ -147,6 +160,10 @@ extern "C" {
 /* Create an output stream referring to FP.
    Note that the resulting stream must be closed before FP can be closed.  */
 extern file_ostream_t file_ostream_create (FILE *fp);
+
+
+/* Test whether a given output stream is a file_ostream.  */
+extern bool is_instance_of_file_ostream (ostream_t stream);
 
 
 #ifdef __cplusplus
@@ -179,6 +196,10 @@ extern "C" {
    Note that the resulting stream must be closed before FD can be closed.  */
 extern fd_ostream_t fd_ostream_create (int fd, const char *filename,
                                        bool buffered);
+
+
+/* Test whether a given output stream is a fd_ostream.  */
+extern bool is_instance_of_fd_ostream (ostream_t stream);
 
 
 #ifdef __cplusplus
@@ -294,6 +315,10 @@ extern term_ostream_t
        term_ostream_create (int fd, const char *filename, ttyctl_t tty_control);
 
 
+/* Test whether a given output stream is a term_ostream.  */
+extern bool is_instance_of_term_ostream (ostream_t stream);
+
+
 #ifdef __cplusplus
 }
 #endif
@@ -322,6 +347,10 @@ extern "C" {
 
 /* Create an output stream that accumulates the output in a memory buffer.  */
 extern memory_ostream_t memory_ostream_create (void);
+
+
+/* Test whether a given output stream is a memory_ostream.  */
+extern bool is_instance_of_memory_ostream (ostream_t stream);
 
 
 #ifdef __cplusplus
@@ -356,6 +385,10 @@ extern "C" {
 extern iconv_ostream_t iconv_ostream_create (const char *from_encoding,
                                              const char *to_encoding,
                                              ostream_t destination);
+
+
+/* Test whether a given output stream is an iconv_ostream.  */
+extern bool is_instance_of_iconv_ostream (ostream_t stream);
 
 
 #ifdef __cplusplus
@@ -406,6 +439,10 @@ extern "C" {
 extern html_ostream_t html_ostream_create (ostream_t destination);
 
 
+/* Test whether a given output stream is a html_ostream.  */
+extern bool is_instance_of_html_ostream (ostream_t stream);
+
+
 #ifdef __cplusplus
 }
 #endif
@@ -449,6 +486,10 @@ extern term_styled_ostream_t
                                    const char *css_filename);
 
 
+/* Test whether a given output stream is a term_styled_ostream.  */
+extern bool is_instance_of_term_styled_ostream (ostream_t stream);
+
+
 #ifdef __cplusplus
 }
 #endif
@@ -487,6 +528,10 @@ extern "C" {
 extern html_styled_ostream_t
        html_styled_ostream_create (ostream_t destination,
                                    const char *css_filename);
+
+
+/* Test whether a given output stream is a html_styled_ostream.  */
+extern bool is_instance_of_html_styled_ostream (ostream_t stream);
 
 
 #ifdef __cplusplus
@@ -528,6 +573,10 @@ extern "C" {
    before DESTINATION can be closed.  */
 extern noop_styled_ostream_t
        noop_styled_ostream_create (ostream_t destination, bool pass_ownership);
+
+
+/* Test whether a given output stream is a noop_styled_ostream.  */
+extern bool is_instance_of_noop_styled_ostream (ostream_t stream);
 
 
 #ifdef __cplusplus

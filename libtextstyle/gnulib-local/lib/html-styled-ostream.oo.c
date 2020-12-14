@@ -1,5 +1,5 @@
 /* Output stream for CSS styled text, producing HTML output.
-   Copyright (C) 2006-2007, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -189,4 +189,12 @@ html_styled_ostream_create (ostream_t destination, const char *css_filename)
   ostream_write_str (stream->destination, "<body>\n");
 
   return stream;
+}
+
+/* Instanceof test.  */
+
+bool
+is_instance_of_html_styled_ostream (ostream_t stream)
+{
+  return IS_INSTANCE (stream, ostream, html_styled_ostream);
 }

@@ -1,5 +1,5 @@
 /* Output stream that accumulates the output in memory.
-   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,7 @@
 #ifndef _MEMORY_OSTREAM_H
 #define _MEMORY_OSTREAM_H
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #include "ostream.h"
@@ -39,6 +40,10 @@ extern "C" {
 
 /* Create an output stream that accumulates the output in a memory buffer.  */
 extern memory_ostream_t memory_ostream_create (void);
+
+
+/* Test whether a given output stream is a memory_ostream.  */
+extern bool is_instance_of_memory_ostream (ostream_t stream);
 
 
 #ifdef __cplusplus

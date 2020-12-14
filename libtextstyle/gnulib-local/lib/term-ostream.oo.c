@@ -2740,3 +2740,11 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
 
   return stream;
 }
+
+/* Instanceof test.  */
+
+bool
+is_instance_of_term_ostream (ostream_t stream)
+{
+  return IS_INSTANCE (stream, ostream, term_ostream);
+}

@@ -199,3 +199,11 @@ fd_ostream_create (int fd, const char *filename, bool buffered)
 
   return stream;
 }
+
+/* Instanceof test.  */
+
+bool
+is_instance_of_fd_ostream (ostream_t stream)
+{
+  return IS_INSTANCE (stream, ostream, fd_ostream);
+}

@@ -1,5 +1,5 @@
 /* Output stream referring to an stdio FILE.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,7 @@
 #ifndef _FILE_OSTREAM_H
 #define _FILE_OSTREAM_H
 
+#include <stdbool.h>
 #include <stdio.h>
 
 #include "ostream.h"
@@ -37,6 +38,10 @@ extern "C" {
 /* Create an output stream referring to FP.
    Note that the resulting stream must be closed before FP can be closed.  */
 extern file_ostream_t file_ostream_create (FILE *fp);
+
+
+/* Test whether a given output stream is a file_ostream.  */
+extern bool is_instance_of_file_ostream (ostream_t stream);
 
 
 #ifdef __cplusplus

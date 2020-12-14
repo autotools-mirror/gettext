@@ -1,5 +1,5 @@
 /* Output stream referring to an stdio FILE.
-   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -105,4 +105,12 @@ file_ostream_create (FILE *fp)
   stream->fp = fp;
 
   return stream;
+}
+
+/* Instanceof test.  */
+
+bool
+is_instance_of_file_ostream (ostream_t stream)
+{
+  return IS_INSTANCE (stream, ostream, file_ostream);
 }

@@ -1,5 +1,5 @@
 /* Abstract output stream for CSS styled text.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -25,3 +25,11 @@ struct styled_ostream : struct ostream
 {
 fields:
 };
+
+/* Instanceof test.  */
+
+bool
+is_instance_of_styled_ostream (ostream_t stream)
+{
+  return IS_INSTANCE (stream, ostream, styled_ostream);
+}

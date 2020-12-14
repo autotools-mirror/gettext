@@ -36,7 +36,7 @@
 This manual provides documentation for the GNU @code{libtextstyle} library.
 
 @copying
-Copyright (C) 2018-2019 Free Software Foundation, Inc.
+Copyright (C) 2018-2020 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -68,7 +68,7 @@ A copy of the license is at @url{https://www.gnu.org/licenses/gpl.html}.
 @page
 @vskip 0pt plus 1filll
 @c @insertcopying
-Copyright (C) 2018-2019 Free Software Foundation, Inc.
+Copyright (C) 2018-2020 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -824,7 +824,9 @@ Every @samp{some_ostream_t} object can be converted to an
 @item
 The opposite conversion, from @samp{ostream_t} to @samp{some_ostream_t},
 can also be performed, provided that the object is actually an instance
-of @samp{some_ostream_t}.
+of @samp{some_ostream_t}.  You can test whether an object is an instance
+of @samp{some_ostream_t} by invoking the method
+@samp{bool is_instance_of_some_ostream (ostream_t stream)}.
 @item
 Every method @samp{ostream_@var{foobar}} exists also as a method
 @samp{some_ostream_@var{foobar}} with compatible argument types and a

@@ -1,5 +1,5 @@
 /* Output stream referring to a file descriptor.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -39,6 +39,10 @@ extern "C" {
    Note that the resulting stream must be closed before FD can be closed.  */
 extern fd_ostream_t fd_ostream_create (int fd, const char *filename,
                                        bool buffered);
+
+
+/* Test whether a given output stream is a fd_ostream.  */
+extern bool is_instance_of_fd_ostream (ostream_t stream);
 
 
 #ifdef __cplusplus

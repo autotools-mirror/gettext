@@ -1,5 +1,5 @@
 /* Output stream for attributed text, producing ANSI escape sequences.
-   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -17,6 +17,8 @@
 
 #ifndef _TERM_OSTREAM_H
 #define _TERM_OSTREAM_H
+
+#include <stdbool.h>
 
 #include "ostream.h"
 
@@ -121,6 +123,10 @@ extern "C" {
    Note that the resulting stream must be closed before FD can be closed.  */
 extern term_ostream_t
        term_ostream_create (int fd, const char *filename, ttyctl_t tty_control);
+
+
+/* Test whether a given output stream is a term_ostream.  */
+extern bool is_instance_of_term_ostream (ostream_t stream);
 
 
 #ifdef __cplusplus

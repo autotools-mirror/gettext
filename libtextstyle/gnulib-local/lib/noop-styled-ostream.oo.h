@@ -1,5 +1,5 @@
 /* Output stream with no-op styling.
-   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2019.
 
    This program is free software: you can redistribute it and/or modify
@@ -42,6 +42,10 @@ extern "C" {
    before DESTINATION can be closed.  */
 extern noop_styled_ostream_t
        noop_styled_ostream_create (ostream_t destination, bool pass_ownership);
+
+
+/* Test whether a given output stream is a noop_styled_ostream.  */
+extern bool is_instance_of_noop_styled_ostream (ostream_t stream);
 
 
 #ifdef __cplusplus

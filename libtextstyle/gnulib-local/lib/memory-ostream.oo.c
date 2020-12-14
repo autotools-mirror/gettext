@@ -1,5 +1,5 @@
 /* Output stream that accumulates the output in memory.
-   Copyright (C) 2006-2007, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2019-2020 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -98,4 +98,12 @@ memory_ostream_create (void)
   stream->buflen = 0;
 
   return stream;
+}
+
+/* Instanceof test.  */
+
+bool
+is_instance_of_memory_ostream (ostream_t stream)
+{
+  return IS_INSTANCE (stream, ostream, memory_ostream);
 }

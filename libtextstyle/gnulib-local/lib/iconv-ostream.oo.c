@@ -222,6 +222,14 @@ iconv_ostream_create (const char *from_encoding, const char *to_encoding,
   return stream;
 }
 
+/* Instanceof test.  */
+
+bool
+is_instance_of_iconv_ostream (ostream_t stream)
+{
+  return IS_INSTANCE (stream, ostream, iconv_ostream);
+}
+
 #else
 
 static void
@@ -240,6 +248,14 @@ static void
 iconv_ostream::free (iconv_ostream_t stream)
 {
   abort ();
+}
+
+/* Instanceof test.  */
+
+bool
+is_instance_of_iconv_ostream (ostream_t stream)
+{
+  return false;
 }
 
 #endif /* HAVE_ICONV */

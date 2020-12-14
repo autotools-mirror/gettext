@@ -436,3 +436,11 @@ html_ostream_create (ostream_t destination)
 
   return stream;
 }
+
+/* Instanceof test.  */
+
+bool
+is_instance_of_html_ostream (ostream_t stream)
+{
+  return IS_INSTANCE (stream, ostream, html_ostream);
+}
