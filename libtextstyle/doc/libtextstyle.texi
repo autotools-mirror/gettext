@@ -827,6 +827,16 @@ can also be performed, provided that the object is actually an instance
 of @samp{some_ostream_t}.  You can test whether an object is an instance
 of @samp{some_ostream_t} by invoking the method
 @samp{bool is_instance_of_some_ostream (ostream_t stream)}.
+@findex is_instance_of_styled_ostream
+@findex is_instance_of_file_ostream
+@findex is_instance_of_fd_ostream
+@findex is_instance_of_term_ostream
+@findex is_instance_of_memory_ostream
+@findex is_instance_of_iconv_ostream
+@findex is_instance_of_html_ostream
+@findex is_instance_of_term_styled_ostream
+@findex is_instance_of_html_styled_ostream
+@findex is_instance_of_noop_styled_ostream
 @item
 Every method @samp{ostream_@var{foobar}} exists also as a method
 @samp{some_ostream_@var{foobar}} with compatible argument types and a
