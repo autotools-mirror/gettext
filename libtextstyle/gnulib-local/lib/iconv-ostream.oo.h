@@ -29,6 +29,10 @@
 struct iconv_ostream : struct ostream
 {
 methods:
+  /* Accessors.  */
+  const char * get_from_encoding (iconv_ostream_t stream);
+  const char * get_to_encoding (iconv_ostream_t stream);
+  ostream_t    get_destination (iconv_ostream_t stream);
 };
 
 

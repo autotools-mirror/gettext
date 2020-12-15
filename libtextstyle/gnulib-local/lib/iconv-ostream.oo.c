@@ -222,6 +222,26 @@ iconv_ostream_create (const char *from_encoding, const char *to_encoding,
   return stream;
 }
 
+/* Accessors.  */
+
+static const char *
+iconv_ostream::get_from_encoding (iconv_ostream_t stream)
+{
+  return stream->from_encoding;
+}
+
+static const char *
+iconv_ostream::get_to_encoding (iconv_ostream_t stream)
+{
+  return stream->to_encoding;
+}
+
+static ostream_t
+iconv_ostream::get_destination (iconv_ostream_t stream)
+{
+  return stream->destination;
+}
+
 /* Instanceof test.  */
 
 bool
@@ -246,6 +266,26 @@ iconv_ostream::flush (iconv_ostream_t stream)
 
 static void
 iconv_ostream::free (iconv_ostream_t stream)
+{
+  abort ();
+}
+
+/* Accessors.  */
+
+static const char *
+iconv_ostream::get_from_encoding (iconv_ostream_t stream)
+{
+  abort ();
+}
+
+static const char *
+iconv_ostream::get_to_encoding (iconv_ostream_t stream)
+{
+  abort ();
+}
+
+static ostream_t
+iconv_ostream::get_destination (iconv_ostream_t stream)
 {
   abort ();
 }

@@ -60,6 +60,10 @@ typedef enum
   UNDERLINE_DEFAULT = UNDERLINE_OFF
 } term_underline_t;
 
+/* Get ttyctl_t.  */
+#define term_style_user_data term_ostream_representation
+#include "term-style-control.h"
+
 struct term_ostream : struct ostream
 {
 methods:
@@ -104,11 +108,13 @@ methods:
      passed to 'ostream_write_mem', 'ostream_write_str', or
      'ostream_write_printf'.  */
   void flush_to_current_style (term_ostream_t stream);
-};
 
-/* Get ttyctl_t.  */
-#define term_style_user_data term_ostream_representation
-#include "term-style-control.h"
+  /* Accessors.  */
+  int          get_descriptor (term_ostream_t stream);
+  const char * get_filename (term_ostream_t stream);
+  ttyctl_t     get_tty_control (term_ostream_t stream);
+  ttyctl_t     get_effective_tty_control (term_ostream_t stream);
+};
 
 
 #ifdef __cplusplus

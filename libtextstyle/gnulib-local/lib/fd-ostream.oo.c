@@ -200,6 +200,26 @@ fd_ostream_create (int fd, const char *filename, bool buffered)
   return stream;
 }
 
+/* Accessors.  */
+
+static int
+fd_ostream::get_descriptor (fd_ostream_t stream)
+{
+  return stream->fd;
+}
+
+static const char *
+fd_ostream::get_filename (fd_ostream_t stream)
+{
+  return stream->filename;
+}
+
+static bool
+fd_ostream::is_buffered (fd_ostream_t stream)
+{
+  return stream->buffer != NULL;
+}
+
 /* Instanceof test.  */
 
 bool

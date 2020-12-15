@@ -27,6 +27,8 @@
 struct file_ostream : struct ostream
 {
 methods:
+  /* Accessors.  */
+  FILE * get_stdio_stream (file_ostream_t stream);
 };
 
 

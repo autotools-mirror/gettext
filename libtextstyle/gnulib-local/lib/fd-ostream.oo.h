@@ -26,6 +26,10 @@
 struct fd_ostream : struct ostream
 {
 methods:
+  /* Accessors.  */
+  int          get_descriptor (fd_ostream_t stream);
+  const char * get_filename (fd_ostream_t stream);
+  bool         is_buffered (fd_ostream_t stream);
 };
 
 

@@ -848,6 +848,7 @@ compatible return type.
 * The styled_ostream class::
 * ostream subclasses without styling::
 * styled_ostream subclasses::
+* Accessors::
 @end menu
 
 @node The ostream class
@@ -899,7 +900,7 @@ Ends a run of text belonging to @code{@var{classname}}.  The
 @code{styled_ostream_end_use_class} calls must match properly.
 @end deftypefn
 
-@deftypefn Function {const char *} styled_ostream_get_hyperlink_ref (styled_ostream_t@tie{}@var{stream})
+@deftypefn Function {const@tie{}char@tie{}*} styled_ostream_get_hyperlink_ref (styled_ostream_t@tie{}@var{stream})
 Returns the referred URL of the currently set hyperlink, or @code{NULL}
 if no hyperlink attribute is currently set.
 
@@ -907,7 +908,7 @@ Note: The returned string is only valid up to the next invocation of
 @code{styled_ostream_set_hyperlink}.
 @end deftypefn
 
-@deftypefn Function {const char *} styled_ostream_get_hyperlink_id (styled_ostream_t@tie{}@var{stream})
+@deftypefn Function {const@tie{}char@tie{}*} styled_ostream_get_hyperlink_id (styled_ostream_t@tie{}@var{stream})
 Returns the id of the currently set hyperlink, or @code{NULL} if no
 hyperlink attribute is currently set.
 
@@ -1043,7 +1044,7 @@ Gets/sets the font posture.
 Gets/sets the text underline decoration.
 @end deftypefn
 
-@deftypefn Function {const char *} term_ostream_get_hyperlink_ref (term_ostream_t@tie{}@var{stream})
+@deftypefn Function {const@tie{}char@tie{}*} term_ostream_get_hyperlink_ref (term_ostream_t@tie{}@var{stream})
 Returns the referred URL of the currently set hyperlink, or @code{NULL}
 if no hyperlink attribute is currently set.
 
@@ -1051,7 +1052,7 @@ Note: The returned string is only valid up to the next invocation of
 @code{term_ostream_set_hyperlink}.
 @end deftypefn
 
-@deftypefn Function {const char *} term_ostream_get_hyperlink_id (term_ostream_t@tie{}@var{stream})
+@deftypefn Function {const@tie{}char@tie{}*} term_ostream_get_hyperlink_id (term_ostream_t@tie{}@var{stream})
 Returns the id of the currently set hyperlink, or @code{NULL} if no
 hyperlink attribute is currently set.
 
@@ -1121,7 +1122,7 @@ The @code{html_ostream_begin_span} / @code{html_ostream_end_span} calls
 must match properly.
 @end deftypefn
 
-@deftypefn Function {const char *} html_ostream_get_hyperlink_ref (html_ostream_t@tie{}@var{stream})
+@deftypefn Function {const@tie{}char@tie{}*} html_ostream_get_hyperlink_ref (html_ostream_t@tie{}@var{stream})
 Returns the referred URL of the currently set hyperlink, or @code{NULL}
 if no hyperlink attribute is currently set.
 
@@ -1280,6 +1281,80 @@ stream will automatically close the @code{@var{destination}}.
 
 Note: If @code{@var{pass_ownership}} is @code{false}, the resulting stream
 must be closed before @code{@var{destination}} can be closed.
+@end deftypefn
+
+@node Accessors
+@subsection Accessor functions
+
+The various concrete stream classes have methods that allow you to retrieve
+the arguments passed to the respective constructor function.
+
+Note: While these methods allow you to retrieve the underlying destination
+stream of various kinds of stream, it is not recommended to operate on both
+the stream and its underlying destination stream at the same time.  Doing
+so can lead to undesired interactions between the two streams.
+
+The @code{file_ostream} class has this accessor method:
+
+@deftypefn Function {FILE@tie{}*} file_ostream_get_stdio_stream (file_ostream_t@tie{}@var{stream})
+@end deftypefn
+
+The @code{fd_ostream} class has these accessor methods:
+
+@deftypefn Function int fd_ostream_get_descriptor (fd_ostream_t@tie{}@var{stream})
+@end deftypefn
+@deftypefn Function {const@tie{}char@tie{}*} fd_ostream_get_filename (fd_ostream_t@tie{}@var{stream})
+@end deftypefn
+@deftypefn Function bool fd_ostream_is_buffered (fd_ostream_t@tie{}@var{stream})
+@end deftypefn
+
+The @code{term_ostream} class has these accessor methods:
+
+@deftypefn Function int term_ostream_get_descriptor (term_ostream_t@tie{}@var{stream})
+@end deftypefn
+@deftypefn Function {const@tie{}char@tie{}*} term_ostream_get_filename (term_ostream_t@tie{}@var{stream})
+@end deftypefn
+@deftypefn Function ttyctl_t term_ostream_get_tty_control (term_ostream_t@tie{}@var{stream})
+@end deftypefn
+@deftypefn Function ttyctl_t term_ostream_get_effective_tty_control (term_ostream_t@tie{}@var{stream})
+Returns the effective tty control of the stream (not @code{TTYCTL_AUTO}).
+@end deftypefn
+
+The @code{iconv_ostream} class has these accessor methods:
+
+@deftypefn Function {const@tie{}char@tie{}*} iconv_ostream_get_from_encoding (iconv_ostream_t@tie{}@var{stream})
+@end deftypefn
+@deftypefn Function {const@tie{}char@tie{}*} iconv_ostream_get_to_encoding (iconv_ostream_t@tie{}@var{stream})
+@end deftypefn
+@deftypefn Function ostream_t iconv_ostream_get_destination (iconv_ostream_t@tie{}@var{stream})
+@end deftypefn
+
+The @code{html_ostream} class has this accessor method:
+
+@deftypefn Function ostream_t html_ostream_get_destination (html_ostream_t@tie{}@var{stream})
+@end deftypefn
+
+The @code{term_styled_ostream} class has these accessor methods:
+
+@deftypefn Function term_ostream_t term_styled_ostream_get_destination (term_styled_ostream_t@tie{}@var{stream})
+@end deftypefn
+@deftypefn Function {const@tie{}char@tie{}*} term_styled_ostream_get_css_filename (term_styled_ostream_t@tie{}@var{stream})
+@end deftypefn
+
+The @code{html_styled_ostream} class has these accessor methods:
+
+@deftypefn Function ostream_t html_styled_ostream_get_destination (html_styled_ostream_t@tie{}@var{stream})
+@end deftypefn
+@deftypefn Function html_ostream_t html_styled_ostream_get_html_destination (html_styled_ostream_t@tie{}@var{stream})
+@end deftypefn
+@deftypefn Function {const@tie{}char@tie{}*} html_styled_ostream_get_css_filename (html_styled_ostream_t@tie{}@var{stream})
+@end deftypefn
+
+The @code{noop_styled_ostream} class has these accessor methods:
+
+@deftypefn Function ostream_t noop_styled_ostream_get_destination (noop_styled_ostream_t@tie{}@var{stream})
+@end deftypefn
+@deftypefn Function bool noop_styled_ostream_is_owning_destination (noop_styled_ostream_t@tie{}@var{stream})
 @end deftypefn
 
 @node Debugging the styling code

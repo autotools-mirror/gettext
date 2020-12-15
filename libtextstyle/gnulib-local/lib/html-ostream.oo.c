@@ -437,6 +437,14 @@ html_ostream_create (ostream_t destination)
   return stream;
 }
 
+/* Accessors.  */
+
+static ostream_t
+html_ostream::get_destination (html_ostream_t stream)
+{
+  return stream->destination;
+}
+
 /* Instanceof test.  */
 
 bool

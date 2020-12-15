@@ -64,6 +64,8 @@ struct term_styled_ostream : struct styled_ostream
 fields:
   /* The destination stream.  */
   term_ostream_t destination;
+  /* The CSS filename.  */
+  char *css_filename;
   /* The CSS document.  */
   CRCascade *css_document;
   /* The CSS matching engine.  */
@@ -104,6 +106,7 @@ term_styled_ostream::flush (term_styled_ostream_t stream, ostream_flush_scope_t 
 static void
 term_styled_ostream::free (term_styled_ostream_t stream)
 {
+  free (stream->css_filename);
   term_ostream_free (stream->destination);
   cr_cascade_destroy (stream->css_document);
   cr_sel_eng_destroy (stream->css_engine);
@@ -645,11 +648,13 @@ term_styled_ostream_create (int fd, const char *filename, ttyctl_t tty_control,
 
   stream->base.base.vtable = &term_styled_ostream_vtable;
   stream->destination = term_ostream_create (fd, filename, tty_control);
+  stream->css_filename = xstrdup (css_filename);
 
   if (cr_om_parser_simply_parse_file ((const guchar *) css_filename,
                                       CR_UTF_8, /* CR_AUTO is not supported */
                                       &css_file_contents) != CR_OK)
     {
+      free (stream->css_filename);
       term_ostream_free (stream->destination);
       free (stream);
       return NULL;
@@ -666,6 +671,20 @@ term_styled_ostream_create (int fd, const char *filename, ttyctl_t tty_control,
   match_and_cache (stream);
 
   return stream;
+}
+
+/* Accessors.  */
+
+static term_ostream_t
+term_styled_ostream::get_destination (term_styled_ostream_t stream)
+{
+  return stream->destination;
+}
+
+static const char *
+term_styled_ostream::get_css_filename (term_styled_ostream_t stream)
+{
+  return stream->css_filename;
 }
 
 /* Instanceof test.  */

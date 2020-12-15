@@ -27,6 +27,9 @@
 struct term_styled_ostream : struct styled_ostream
 {
 methods:
+  /* Accessors.  */
+  term_ostream_t get_destination (term_styled_ostream_t stream);
+  const char *   get_css_filename (term_styled_ostream_t stream);
 };
 
 

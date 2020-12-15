@@ -21,11 +21,16 @@
 #include <stdbool.h>
 
 #include "styled-ostream.h"
+#include "html-ostream.h"
 
 
 struct html_styled_ostream : struct styled_ostream
 {
 methods:
+  /* Accessors.  */
+  ostream_t      get_destination (html_styled_ostream_t stream);
+  html_ostream_t get_html_destination (html_styled_ostream_t stream);
+  const char *   get_css_filename (html_styled_ostream_t stream);
 };
 
 

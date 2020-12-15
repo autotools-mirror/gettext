@@ -24,9 +24,15 @@ AUTOMAKE_OPTIONS += 1.13 subdir-objects color-tests
 # Ensure that ../lib/config.h is seen before ../config.h.
 DEFAULT_INCLUDES = -I. -I$(srcdir) -I$(top_builddir)/lib -I$(top_builddir)
 
-TESTS += test-instanceof
-check_PROGRAMS += test-instanceof
-EXTRA_DIST += test-instanceof.c
+TESTS += \
+  test-instanceof \
+  test-accessors
+check_PROGRAMS += \
+  test-instanceof \
+  test-accessors
+EXTRA_DIST += \
+  test-instanceof.c \
+  test-accessors.c
 AM_CPPFLAGS += -DSRCDIR=\"$(srcdir)/\"
 
 

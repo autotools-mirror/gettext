@@ -1041,6 +1041,7 @@ fields:
   bool volatile is_windows_console;
   #endif
   char *filename;
+  ttyctl_t tty_control;
   /* Values from the terminal type's terminfo/termcap description.
      See terminfo(5) for details.  */
                                          /* terminfo  termcap */
@@ -2422,6 +2423,7 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
   }
   #endif
   stream->filename = xstrdup (filename);
+  stream->tty_control = tty_control;
 
   /* Defaults.  */
   stream->max_colors = -1;
@@ -2739,6 +2741,32 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
   activate_term_style_controller (&controller, stream, fd, tty_control);
 
   return stream;
+}
+
+/* Accessors.  */
+
+static int
+term_ostream::get_descriptor (term_ostream_t stream)
+{
+  return stream->fd;
+}
+
+static const char *
+term_ostream::get_filename (term_ostream_t stream)
+{
+  return stream->filename;
+}
+
+static ttyctl_t
+term_ostream::get_tty_control (term_ostream_t stream)
+{
+  return stream->tty_control;
+}
+
+static ttyctl_t
+term_ostream::get_effective_tty_control (term_ostream_t stream)
+{
+  return stream->control_data.tty_control;
 }
 
 /* Instanceof test.  */

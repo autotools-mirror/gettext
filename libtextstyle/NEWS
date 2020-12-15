@@ -11,6 +11,27 @@ New in 0.21.1:
   term_styled_ostream_t     is_instance_of_term_styled_ostream
   html_styled_ostream_t     is_instance_of_html_styled_ostream
   noop_styled_ostream_t     is_instance_of_noop_styled_ostream
+* Added accessor functions:
+       TYPE                             FUNCTION
+  file_ostream_t            file_ostream_get_stdio_stream
+  fd_ostream_t              fd_ostream_get_descriptor
+  fd_ostream_t              fd_ostream_get_filename
+  fd_ostream_t              fd_ostream_is_buffered
+  term_ostream_t            term_ostream_get_descriptor
+  term_ostream_t            term_ostream_get_filename
+  term_ostream_t            term_ostream_get_tty_control
+  term_ostream_t            term_ostream_get_effective_tty_control
+  iconv_ostream_t           iconv_ostream_get_from_encoding
+  iconv_ostream_t           iconv_ostream_get_to_encoding
+  iconv_ostream_t           iconv_ostream_get_destination
+  html_ostream_t            html_ostream_get_destination
+  term_styled_ostream_t     term_styled_ostream_get_destination
+  term_styled_ostream_t     term_styled_ostream_get_css_filename
+  html_styled_ostream_t     html_styled_ostream_get_destination
+  html_styled_ostream_t     html_styled_ostream_get_html_destination
+  html_styled_ostream_t     html_styled_ostream_get_css_filename
+  noop_styled_ostream_t     noop_styled_ostream_get_destination
+  noop_styled_ostream_t     noop_styled_ostream_is_owning_destination
 
 New in 0.21:
 * Added support for emitting hyperlinks.

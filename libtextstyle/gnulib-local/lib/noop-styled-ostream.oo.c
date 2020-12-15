@@ -122,6 +122,20 @@ noop_styled_ostream_create (ostream_t destination, bool pass_ownership)
   return stream;
 }
 
+/* Accessors.  */
+
+static ostream_t
+noop_styled_ostream::get_destination (noop_styled_ostream_t stream)
+{
+  return stream->destination;
+}
+
+static bool
+noop_styled_ostream::is_owning_destination (noop_styled_ostream_t stream)
+{
+  return stream->own_destination;
+}
+
 /* Instanceof test.  */
 
 bool

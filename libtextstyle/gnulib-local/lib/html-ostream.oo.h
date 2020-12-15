@@ -47,6 +47,9 @@ methods:
      to the underlying stream, and they will be rendered like strings passed
      to 'ostream_write_mem', 'ostream_write_str', or 'ostream_write_printf'.  */
   void flush_to_current_style (html_ostream_t stream);
+
+  /* Accessors.  */
+  ostream_t get_destination (html_ostream_t stream);
 };
 
 

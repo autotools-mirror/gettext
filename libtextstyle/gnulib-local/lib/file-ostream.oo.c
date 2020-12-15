@@ -107,6 +107,14 @@ file_ostream_create (FILE *fp)
   return stream;
 }
 
+/* Accessors.  */
+
+static FILE *
+file_ostream::get_stdio_stream (file_ostream_t stream)
+{
+  return stream->fp;
+}
+
 /* Instanceof test.  */
 
 bool

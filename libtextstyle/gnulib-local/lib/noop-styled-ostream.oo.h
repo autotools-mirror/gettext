@@ -26,6 +26,9 @@
 struct noop_styled_ostream : struct styled_ostream
 {
 methods:
+  /* Accessors.  */
+  ostream_t get_destination (noop_styled_ostream_t stream);
+  bool      is_owning_destination (noop_styled_ostream_t stream);
 };
 
 
