@@ -110,6 +110,7 @@
 /gettext-tools/libgettextpo/float.c
 /gettext-tools/libgettextpo/float.in.h
 /gettext-tools/libgettextpo/fopen.c
+/gettext-tools/libgettextpo/free.c
 /gettext-tools/libgettextpo/fstat.c
 /gettext-tools/libgettextpo/fstrcmp.c
 /gettext-tools/libgettextpo/fstrcmp.h

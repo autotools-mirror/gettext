@@ -147,6 +147,7 @@ if ! $skip_gnulib; then
     findprog
     fnmatch
     fopen
+    free-posix
     fstrcmp
     full-write
     fwriteerror
@@ -303,6 +304,7 @@ if ! $skip_gnulib; then
     error-progname
     filename
     fopen
+    free-posix
     fstrcmp
     fwriteerror
     gcd

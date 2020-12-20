@@ -1,5 +1,5 @@
 /* libxml2 - Library for parsing XML documents
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2020 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -40,6 +40,7 @@
 #define __XML_PARSER_H__
 
 #include <stdarg.h>
+#include <stdlib.h>     /* because Gnulib's <stdlib.h> may '#define free ...' */
 
 #include <libxml/xmlversion.h>
 #include <libxml/tree.h>
