@@ -19,6 +19,7 @@
 #define _FORMAT_H
 
 #include <stdbool.h>
+#include <stdlib.h>     /* because Gnulib's <stdlib.h> may '#define free ...' */
 
 #include "pos.h"        /* Get lex_pos_ty.  */
 #include "message.h"    /* Get NFORMATS.  */
