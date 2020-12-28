@@ -23,7 +23,6 @@ fcntl-o.m4 \
 flexmember.m4 \
 gettext.m4 \
 glibc2.m4 \
-glibc21.m4 \
 iconv.m4 \
 intdiv0.m4 \
 intl.m4 \
