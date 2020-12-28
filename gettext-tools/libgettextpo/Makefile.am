@@ -154,6 +154,10 @@ config.h: $(BUILT_SOURCES)
 	  echo '#define GTPO_CONFIG_H'; \
 	  echo; \
 	  echo '#include "../config.h"'; \
+	  : "We use gnulib module 'getcwd-lgpl' here, not module 'getcwd'."; \
+	  echo '#undef GNULIB_GETCWD'; \
+	  : "We don't use gnulib module 'fchdir' here."; \
+	  echo '#undef REPLACE_FCHDIR'; \
 	  : "Turn all gettext() calls into dgettext() calls."; \
 	  echo '#define DEFAULT_TEXT_DOMAIN "gettext-tools"'; \
 	  : "All code is collected in a single library,"; \

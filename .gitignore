@@ -219,6 +219,7 @@
 /gettext-tools/libgettextpo/str-two-way.h
 /gettext-tools/libgettextpo/strchrnul.c
 /gettext-tools/libgettextpo/strchrnul.valgrind
+/gettext-tools/libgettextpo/strdup.c
 /gettext-tools/libgettextpo/streq.h
 /gettext-tools/libgettextpo/strerror-override.c
 /gettext-tools/libgettextpo/strerror-override.h

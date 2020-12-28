@@ -197,6 +197,7 @@ if ! $skip_gnulib; then
     stpncpy
     strchrnul
     strcspn
+    strdup-posix
     strerror
     strpbrk
     strtol
@@ -281,8 +282,11 @@ if ! $skip_gnulib; then
     uniwidth/width-tests
   '
   $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --tests-base=gnulib-tests --makefile-name=Makefile.gnulib --libtool --with-tests --local-dir=gnulib-local --local-symlink \
-    --import --avoid=fdutimensat-tests --avoid=futimens-tests --avoid=utime-tests --avoid=utimens-tests --avoid=utimensat-tests \
-    `for m in $GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS; do echo --avoid=$m; done` $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES $GNULIB_MODULES_TOOLS_OTHER || exit $?
+    --import \
+    --avoid=fdutimensat-tests --avoid=futimens-tests --avoid=utime-tests --avoid=utimens-tests --avoid=utimensat-tests \
+    --avoid=array-list-tests --avoid=linked-list-tests --avoid=linkedhash-list-tests \
+    `for m in $GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS; do echo --avoid=$m; done` \
+    $GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES $GNULIB_MODULES_TOOLS_OTHER || exit $?
   $GNULIB_TOOL --copy-file m4/libtextstyle.m4 gettext-tools/gnulib-m4/libtextstyle.m4 || exit $?
   # In gettext-tools/libgrep:
   GNULIB_MODULES_TOOLS_FOR_LIBGREP='
@@ -290,7 +294,9 @@ if ! $skip_gnulib; then
     regex
   '
   $GNULIB_TOOL --dir=gettext-tools --macro-prefix=grgl --lib=libgrep --source-base=libgrep --m4-base=libgrep/gnulib-m4 --witness-c-macro=IN_GETTEXT_TOOLS_LIBGREP --makefile-name=Makefile.gnulib --local-dir=gnulib-local --local-symlink \
-    --import `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do if test \`$GNULIB_TOOL --extract-applicability $m\` != all; then echo --avoid=$m; fi; done` $GNULIB_MODULES_TOOLS_FOR_LIBGREP || exit $?
+    --import \
+    `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do if test \`$GNULIB_TOOL --extract-applicability $m\` != all; then echo --avoid=$m; fi; done` \
+    $GNULIB_MODULES_TOOLS_FOR_LIBGREP || exit $?
   # In gettext-tools/libgettextpo:
   # This is a subset of the GNULIB_MODULES_TOOLS_FOR_SRC.
   GNULIB_MODULES_LIBGETTEXTPO='
@@ -325,6 +331,7 @@ if ! $skip_gnulib; then
     stpcpy
     stpncpy
     strchrnul
+    strdup-posix
     strerror
     unictype/ctype-space
     unilbrk/ulc-width-linebreaks
