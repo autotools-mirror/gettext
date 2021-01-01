@@ -22,7 +22,7 @@ export gettext_datadir
 # Check if sanity checks are actually working.
 
 # no configure.ac
-$gettext_datadir/autopoint 2>&1 | grep 'Missing configure.in or configure.ac' 2>&1 >/dev/null \
+$gettext_datadir/autopoint 2>&1 | grep 'Missing configure.ac or configure.in' 2>&1 >/dev/null \
     || Exit 1
 
 test ! -d intl || Exit 1
