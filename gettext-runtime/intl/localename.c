@@ -1,5 +1,5 @@
 /* Determine name of the currently selected locale.
-   Copyright (C) 1995-2020 Free Software Foundation, Inc.
+   Copyright (C) 1995-2021 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -37,12 +37,6 @@
 #include "flexmember.h"
 #include "setlocale_null.h"
 #include "thread-optim.h"
-
-/* We cannot support uselocale() on platforms where the locale_t type is fake.
-   See intl-thread-locale.m4 for details.  */
-#if HAVE_WORKING_USELOCALE && !HAVE_FAKE_LOCALES
-# define HAVE_GOOD_USELOCALE 1
-#endif
 
 #if HAVE_GOOD_USELOCALE
 /* Mac OS X 10.5 defines the locale_t type in <xlocale.h>.  */
@@ -2726,7 +2720,7 @@ struniq (const char *string)
 #endif
 
 
-#if HAVE_GOOD_USELOCALE && HAVE_NAMELESS_LOCALES
+#if LOCALENAME_ENHANCE_LOCALE_FUNCS
 
 /* The 'locale_t' object does not contain the names of the locale categories.
    We have to associate them with the object through a hash table.
