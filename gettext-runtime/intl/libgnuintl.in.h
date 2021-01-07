@@ -1,5 +1,5 @@
 /* Message catalogs for internationalization.
-   Copyright (C) 1995-1997, 2000-2016, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2016, 2018-2021 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -459,7 +459,7 @@ extern int vswprintf (wchar_t *, size_t, const wchar_t *, va_list);
 
 
 /* Support for retrieving the name of a locale_t object.  */
-#if @HAVE_NAMELESS_LOCALES@
+#if @ENHANCE_LOCALE_FUNCS@
 
 #ifndef GNULIB_defined_newlocale /* don't override gnulib */
 #undef newlocale

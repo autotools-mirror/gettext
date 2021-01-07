@@ -1,5 +1,5 @@
-# intl.m4 serial 45 (gettext-0.21.1)
-dnl Copyright (C) 1995-2014, 2016-2020 Free Software Foundation, Inc.
+# intl.m4 serial 46 (gettext-0.21.1)
+dnl Copyright (C) 1995-2014, 2016-2021 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -119,12 +119,12 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AM_LANGINFO_CODESET
   gt_LC_MESSAGES
 
-  if test $gt_nameless_locales = yes; then
-    HAVE_NAMELESS_LOCALES=1
+  if test $gt_localename_enhances_locale_funcs = yes; then
+    ENHANCE_LOCALE_FUNCS=1
   else
-    HAVE_NAMELESS_LOCALES=0
+    ENHANCE_LOCALE_FUNCS=0
   fi
-  AC_SUBST([HAVE_NAMELESS_LOCALES])
+  AC_SUBST([ENHANCE_LOCALE_FUNCS])
 
   dnl Compilation on mingw and Cygwin needs special Makefile rules, because
   dnl 1. when we install a shared library, we must arrange to export
