@@ -1,4 +1,4 @@
-# intdiv0.m4 serial 8 (gettext-0.21.1)
+# intdiv0.m4 serial 9 (gettext-0.21.1)
 dnl Copyright (C) 2002, 2007-2008, 2010-2020 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -47,7 +47,7 @@ sigfpe_handler (int sig)
 int x = 1;
 int y = 0;
 int z;
-int nan;
+int inan;
 
 int main ()
 {
@@ -62,7 +62,7 @@ int main ()
 #endif
 
   z = x / y;
-  nan = y / y;
+  inan = y / y;
   exit (2);
 }
 ]])],
