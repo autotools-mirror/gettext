@@ -4,11 +4,11 @@
 # also regenerates all aclocal.m4, config.h.in, Makefile.in, configure files
 # with new versions of autoconf or automake.
 #
-# This script requires autoconf-2.64..2.70 and automake-1.11..1.16 in the PATH.
+# This script requires autoconf-2.64..2.71 and automake-1.11..1.16 in the PATH.
 # If not used from a released tarball, it also requires
 #   - the GNULIB_SRCDIR environment variable pointing to a gnulib checkout.
 
-# Copyright (C) 2003-2020 Free Software Foundation, Inc.
+# Copyright (C) 2003-2021 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
