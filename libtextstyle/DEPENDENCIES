@@ -9,20 +9,25 @@ The following packages should be installed before GNU libtextstyle is installed
     https://www.gnu.org/software/ncurses/
   + Download:
     https://ftp.gnu.org/gnu/ncurses/
+  + Pre-built package name:
+    - On Debian and Debian-based systems: libncurses-dev,
+    - On Red Hat distributions: ncurses-devel.
+    - Other: https://repology.org/project/ncurses/versions
   + If it is installed in a nonstandard directory, pass the option
     --with-ncurses-prefix=DIR or --with-libtermcap-prefix to 'configure'.
 
 * GNU libiconv
-  + Not needed on systems with
-      - glibc 2.2 or newer, or
-      - MacOS X 10.3 or newer, or
-      - NetBSD 3.0 or newer.
+  + Not needed on systems with glibc, on macOS, and NetBSD.
     But recommended on all other systems.
     Needed for the iconv_ostream class.
   + Homepage:
     https://www.gnu.org/software/libiconv/
   + Download:
     https://ftp.gnu.org/gnu/libiconv/
+  + Pre-built package name:
+    - On Debian and Debian-based systems: --,
+    - On Red Hat distributions: --.
+    - Other: https://repology.org/project/libiconv/versions
   + If it is installed in a nonstandard directory, pass the option
     --with-libiconv-prefix=DIR to 'configure'.
 
@@ -38,14 +43,16 @@ needed later, once it is installed (build dependencies, but not runtime
 dependencies):
 
 * A C runtime, compiler, linker, etc.
-  + Mandatory. Either the platform's native 'cc', or GCC 2.95 or newer.
+  + Mandatory.
+    Either the platform's native 'cc', or GCC 3.1 or newer.
   + GCC Homepage:
     https://gcc.gnu.org/
   + Download:
     https://ftp.gnu.org/gnu/gcc/
 
 * A 'make' utility.
-  + Mandatory. Either the platform's native 'make' (for in-tree builds only),
+  + Mandatory.
+    Either the platform's native 'make' (for in-tree builds only),
     or GNU Make 3.79.1 or newer.
   + GNU Make Homepage:
     https://www.gnu.org/software/make/
@@ -53,7 +60,8 @@ dependencies):
     https://ftp.gnu.org/gnu/make/
 
 * A shell
-  + Mandatory. Either the platform's native 'sh', or Bash.
+  + Mandatory.
+    Either the platform's native 'sh', or Bash.
   + Homepage:
     https://www.gnu.org/software/bash/
   + Download:
@@ -64,22 +72,33 @@ dependencies):
     false hostname install kill ln ls md5sum mkdir mkfifo
     mknod mv printenv pwd rm rmdir sleep sort tee test touch
     true uname
-  + Mandatory. Either the platform's native utilities, or GNU coreutils.
+  + Mandatory.
+    Either the platform's native utilities, or GNU coreutils.
   + Homepage:
     https://www.gnu.org/software/coreutils/
   + Download:
     https://ftp.gnu.org/gnu/coreutils/
 
 * The comparison utilities 'cmp' and 'diff'.
-  + Mandatory. Either the platform's native utilities, or GNU diffutils.
+  + Mandatory.
+    Either the platform's native utilities, or GNU diffutils.
   + Homepage:
     https://www.gnu.org/software/diffutils/
   + Download:
     https://ftp.gnu.org/gnu/diffutils/
 
 * Grep.
-  + Mandatory. Either the platform's native grep, or GNU grep.
+  + Mandatory.
+    Either the platform's native grep, or GNU grep.
   + Homepage:
     https://www.gnu.org/software/grep/
   + Download:
     https://ftp.gnu.org/gnu/grep/
+
+* Awk.
+  + Mandatory.
+    Either the platform's native awk, mawk, or nawk, or GNU awk.
+  + Homepage:
+    https://www.gnu.org/software/gawk/
+  + Download:
+    https://ftp.gnu.org/gnu/gawk/
