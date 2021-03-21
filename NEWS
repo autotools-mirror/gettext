@@ -1,4 +1,4 @@
-Version 0.21.1 - December 2020
+Version 0.21.1 - April 2021
 
 * Programming languages support:
   - C, C++: xgettext now supports gettext-like functions that take wide strings
@@ -10,6 +10,9 @@ Version 0.21.1 - December 2020
     supported.
     For example, sr_Cyrl_RS.UTF-8 is treated like sr_RS.UTF-8@cyrillic, and
     EN_US.UTF-8 is treated like en_US.UTF-8.
+
+* Portability:
+  - Building on macOS 11/arm64 is now supported.
 
 Version 0.21 - July 2020
 
