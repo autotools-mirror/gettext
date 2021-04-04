@@ -1,5 +1,5 @@
 /* Message list concatenation and duplicate handling.
-   Copyright (C) 2001-2003, 2005-2008, 2012, 2015, 2019-2020 Free Software
+   Copyright (C) 2001-2003, 2005-2008, 2012, 2015, 2019-2021 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -38,6 +38,7 @@
 #include "read-catalog.h"
 #include "po-charset.h"
 #include "msgl-ascii.h"
+#include "msgl-ofn.h"
 #include "msgl-equal.h"
 #include "msgl-iconv.h"
 #include "xalloc.h"
@@ -393,6 +394,16 @@ catenate_msgdomain_list (string_list_ty *file_list,
         total_mdlp->encoding = mdlps[0]->encoding;
     }
 
+  /* Determine whether we need a target encoding that contains the control
+     characters needed for escaping file names with spaces.  */
+  bool has_filenames_with_spaces = false;
+  for (n = 0; n < nfiles; n++)
+    {
+      has_filenames_with_spaces =
+        has_filenames_with_spaces
+        || msgdomain_list_has_filenames_with_spaces (mdlps[n]);
+    }
+
   /* Determine the target encoding for the remaining messages.  */
   if (to_code != NULL)
     {
@@ -402,11 +413,20 @@ catenate_msgdomain_list (string_list_ty *file_list,
         error (EXIT_FAILURE, 0,
                _("target charset \"%s\" is not a portable encoding name."),
                to_code);
+      /* Test whether the control characters required for escaping file names
+         with spaces are present in the target encoding.  */
+      if (has_filenames_with_spaces
+          && !(canon_to_code == po_charset_utf8
+               || strcmp (canon_to_code, "GB18030") == 0))
+        error (EXIT_FAILURE, 0,
+               _("Cannot write the control characters that protect file names with spaces in the %s encoding"),
+               canon_to_code);
     }
   else
     {
       /* No target encoding was specified.  Test whether the messages are
-         all in a single encoding.  If so, conversion is not needed.  */
+         all in a single encoding.  If so and if !has_filenames_with_spaces,
+         conversion is not needed.  */
       const char *first = NULL;
       const char *second = NULL;
       bool with_ASCII = false;
@@ -465,6 +485,22 @@ To select a different output encoding, use the --to-code option.\n\
 "), first, second));
           canon_to_code = po_charset_utf8;
         }
+      else if (has_filenames_with_spaces)
+        {
+          /* A conversion is needed.  Warn the user since he hasn't asked
+             for it and might be surprised.  */
+          if (first != NULL
+              && (first == po_charset_utf8 || strcmp (first, "GB18030") == 0))
+            canon_to_code = first;
+          else
+            canon_to_code = po_charset_utf8;
+          multiline_warning (xasprintf (_("warning: ")),
+                             xasprintf (_("\
+Input files contain messages referenced in file names with spaces.\n\
+Converting the output to %s.\n\
+"),
+                                        canon_to_code));
+        }
       else if (first != NULL && with_ASCII && all_ASCII_compatible)
         {
           /* The conversion is a no-op conversion.  Don't warn the user,
@@ -479,7 +515,7 @@ To select a different output encoding, use the --to-code option.\n\
         }
     }
 
-  /* Now convert the remaining messages to to_code.  */
+  /* Now convert the remaining messages to canon_to_code.  */
   if (canon_to_code != NULL)
     for (n = 0; n < nfiles; n++)
       {
