@@ -1504,6 +1504,11 @@ a translation.
 
 All comments, of either kind, are optional.
 
+References to the program's source code, in lines that start with @code{#:},
+are of the form @code{@var{file_name}:@var{line_number}} or just
+@var{file_name}.  If the @var{file_name} contains spaces. it is enclosed
+within Unicode characters U+2068 and U+2069.
+
 @kwindex msgid
 @kwindex msgstr
 After white space and comments, entries show two strings, namely

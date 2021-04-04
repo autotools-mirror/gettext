@@ -1,5 +1,10 @@
 Version 0.21.1 - April 2021
 
+* PO file format:
+  - When a #: line contains references to file names that contain spaces,
+    these file names are surrounded by Unicode characters U+2068 and U+2069.
+    This makes it possible to parse such references correctly.
+
 * Programming languages support:
   - C, C++: xgettext now supports gettext-like functions that take wide strings
     (of type 'const wchar_t *', 'const char16_t *', or 'const char32_t *') as
