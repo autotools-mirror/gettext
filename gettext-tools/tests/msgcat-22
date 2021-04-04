@@ -3,6 +3,9 @@
 
 # Test file locations with file names that contain spaces.
 
+# Note: This test fails on Linux with musl libc versions that don't support
+# the GB18030 encoding in 'iconv'.
+
 cat <<\EOF > mcat-test22.po
 msgid ""
 msgstr ""
