@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2003, 2005-2009, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009, 2019-2021 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -40,6 +40,7 @@
 #include "xstriconv.h"
 #include "xstriconveh.h"
 #include "msgl-ascii.h"
+#include "msgl-ofn.h"
 #include "xalloc.h"
 #include "xmalloca.h"
 #include "c-strstr.h"
@@ -362,6 +363,15 @@ iconv_msgdomain_list (msgdomain_list_ty *mdlp,
     po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
                xasprintf (_("target charset \"%s\" is not a portable encoding name."),
                           to_code));
+
+  /* Test whether the control characters required for escaping file names with
+     spaces are present in the target encoding.  */
+  if (msgdomain_list_has_filenames_with_spaces (mdlp)
+      && !(canon_to_code == po_charset_utf8
+           || strcmp (canon_to_code, "GB18030") == 0))
+    po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+               xasprintf (_("Cannot write the control characters that protect file names with spaces in the %s encoding"),
+                          canon_to_code));
 
   for (k = 0; k < mdlp->nitems; k++)
     iconv_message_list_internal (mdlp->item[k]->messages,

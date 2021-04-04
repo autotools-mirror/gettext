@@ -1,5 +1,5 @@
 /* List of exported symbols of libgettextsrc on Cygwin.
-   Copyright (C) 2006-2007, 2009-2011, 2013-2015, 2019 Free Software Foundation,
+   Copyright (C) 2006-2007, 2009-2011, 2013-2015, 2019, 2021 Free Software Foundation,
    Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
@@ -77,6 +77,8 @@ VARIABLE(po_error)
 VARIABLE(po_error_at_line)
 VARIABLE(po_gram_lval)
 VARIABLE(po_lex_charset)
+VARIABLE(po_lex_isolate_start)
+VARIABLE(po_lex_isolate_end)
 #if HAVE_ICONV
 VARIABLE(po_lex_iconv)
 #endif

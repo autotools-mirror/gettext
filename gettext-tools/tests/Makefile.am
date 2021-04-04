@@ -42,6 +42,7 @@ TESTS = gettext-1 gettext-2 \
 	msgcomm-20 msgcomm-21 msgcomm-22 msgcomm-23 msgcomm-24 msgcomm-25 \
 	msgcomm-26 msgcomm-27 msgcomm-28 \
 	msgconv-1 msgconv-2 msgconv-3 msgconv-4 msgconv-5 msgconv-6 msgconv-7 \
+	msgconv-8 \
 	msgen-1 msgen-2 msgen-3 msgen-4 \
 	msgexec-1 msgexec-2 msgexec-3 msgexec-4 msgexec-5 msgexec-6 \
 	msgfilter-1 msgfilter-2 msgfilter-3 msgfilter-4 msgfilter-5 \

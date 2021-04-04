@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2007, 2010, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2007, 2010, 2019-2021 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -436,6 +436,13 @@ po_charset_character_iterator (const char *canon_charset)
 /* The PO file's encoding, as specified in the header entry.  */
 const char *po_lex_charset;
 
+/* Representation of U+2068 FIRST STRONG ISOLATE (FSI) in the PO file's
+   encoding, or NULL if not available.  */
+const char *po_lex_isolate_start;
+/* Representation of U+2069 POP DIRECTIONAL ISOLATE (PDI) in the PO file's
+   encoding, or NULL if not available.  */
+const char *po_lex_isolate_end;
+
 #if HAVE_ICONV
 /* Converter from the PO file's encoding to UTF-8.  */
 iconv_t po_lex_iconv;
@@ -448,6 +455,8 @@ void
 po_lex_charset_init ()
 {
   po_lex_charset = NULL;
+  po_lex_isolate_start = NULL;
+  po_lex_isolate_end = NULL;
 #if HAVE_ICONV
   po_lex_iconv = (iconv_t)(-1);
 #endif
@@ -503,6 +512,24 @@ Message conversion to user's charset might not work.\n"),
           const char *envval;
 
           po_lex_charset = canon_charset;
+
+          if (strcmp (canon_charset, "UTF-8") == 0)
+            {
+              po_lex_isolate_start = "\xE2\x81\xA8";
+              po_lex_isolate_end = "\xE2\x81\xA9";
+            }
+          else if (strcmp (canon_charset, "GB18030") == 0)
+            {
+              po_lex_isolate_start = "\x81\x36\xAC\x34";
+              po_lex_isolate_end = "\x81\x36\xAC\x35";
+            }
+          else
+            {
+              /* The other encodings don't contain U+2068, U+2069.  */
+              po_lex_isolate_start = NULL;
+              po_lex_isolate_end = NULL;
+            }
+
 #if HAVE_ICONV
           if (po_lex_iconv != (iconv_t)(-1))
             iconv_close (po_lex_iconv);
@@ -666,6 +693,8 @@ void
 po_lex_charset_close ()
 {
   po_lex_charset = NULL;
+  po_lex_isolate_start = NULL;
+  po_lex_isolate_end = NULL;
 #if HAVE_ICONV
   if (po_lex_iconv != (iconv_t)(-1))
     {
