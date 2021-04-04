@@ -1,5 +1,5 @@
 ## Makefile for the gnulib-local directory of GNU gettext
-## Copyright (C) 2006-2008, 2010-2012, 2014-2020 Free Software Foundation, Inc.
+## Copyright (C) 2006-2008, 2010-2012, 2014-2021 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -26,7 +26,6 @@ lib/backupfile.c \
 lib/backupfile.h \
 lib/closeout.c \
 lib/closeout.h \
-lib/diffseq.h.diff \
 lib/error.h.diff \
 lib/error-progname.c \
 lib/error-progname.h \
