@@ -225,6 +225,7 @@
 /lib/windows-rwlock.c
 /lib/windows-rwlock.h
 /lib/write.c
+/lib/xalloc-die.c
 /lib/xalloc-oversized.h
 /lib/xalloc.h
 /lib/xasprintf.c

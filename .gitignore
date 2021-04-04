@@ -267,6 +267,7 @@
 /gettext-tools/libgettextpo/windows-rwlock.h
 /gettext-tools/libgettextpo/windows-tls.c
 /gettext-tools/libgettextpo/windows-tls.h
+/gettext-tools/libgettextpo/xalloc-die.c
 /gettext-tools/libgettextpo/xalloc-oversized.h
 /gettext-tools/libgettextpo/xalloc.h
 /gettext-tools/libgettextpo/xasprintf.c
