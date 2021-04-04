@@ -24,6 +24,7 @@ lang-table.c
                 Language names according to ISO 639.
 
 pos.h
+pos.c
                 Source file positions.
 
 message.h
@@ -35,6 +36,10 @@ message.c
 msgl-ascii.h
 msgl-ascii.c
                 Message list test for ASCII character set.
+
+msgl-ofn.h
+msgl-ofn.c
+                Message list test for ordinary file names.
 
 po-error.h
 po-error.c

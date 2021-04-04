@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-1998, 2000-2016, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2016, 2018-2021 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -68,9 +68,11 @@
 #include "read-catalog-abstract.h"
 #include "read-po.h"
 #include "message.h"
+#include "pos.h"
 #include "po-charset.h"
 #include "msgl-iconv.h"
 #include "msgl-ascii.h"
+#include "msgl-ofn.h"
 #include "msgl-check.h"
 #include "po-time.h"
 #include "write-catalog.h"
@@ -2111,18 +2113,14 @@ finalize_header (msgdomain_list_ty *mdlp)
      All messages have already been converted to UTF-8 in remember_a_message
      and remember_a_message_plural.  */
   {
-    bool has_nonascii = false;
-    size_t i;
+    bool has_nonascii = ! is_ascii_msgdomain_list (mdlp);
+    bool has_filenames_with_spaces =
+      msgdomain_list_has_filenames_with_spaces (mdlp);
 
-    for (i = 0; i < mdlp->nitems; i++)
-      {
-        message_list_ty *mlp = mdlp->item[i]->messages;
-
-        if (!is_ascii_message_list (mlp))
-          has_nonascii = true;
-      }
-
-    if (has_nonascii || output_syntax->requires_utf8)
+    if (has_nonascii
+        || (has_filenames_with_spaces
+            && output_syntax->requires_utf8_for_filenames_with_spaces)
+        || output_syntax->requires_utf8)
       {
         message_list_ty *mlp = mdlp->item[0]->messages;
 

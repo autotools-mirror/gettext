@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/libgettextpo subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2016, 2019-2020 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2016, 2019-2021 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -51,6 +51,7 @@ libgettextpo_la_AUXSOURCES = \
   ../src/str-list.c \
   ../src/dir-list.c \
   ../src/message.c \
+  ../src/pos.c \
   ../src/msgl-ascii.c \
   ../src/po-error.c \
   ../src/po-xerror.c \

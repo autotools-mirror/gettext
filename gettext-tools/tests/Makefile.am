@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/tests subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2010, 2012-2016, 2018-2020 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2010, 2012-2016, 2018-2021 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -77,7 +77,7 @@ TESTS = gettext-1 gettext-2 \
 	recode-sr-latin-1 recode-sr-latin-2 \
 	xgettext-2 xgettext-3 xgettext-4 xgettext-5 xgettext-6 \
 	xgettext-7 xgettext-8 xgettext-9 xgettext-10 xgettext-11 xgettext-12 \
-	xgettext-13 xgettext-14 xgettext-15 xgettext-16 \
+	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
 	xgettext-appdata-1 \
 	xgettext-awk-1 xgettext-awk-2 \
 	xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 xgettext-c-6 \

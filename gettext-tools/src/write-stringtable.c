@@ -1,5 +1,5 @@
 /* Writing NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003, 2006-2008, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006-2008, 2019, 2021 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -326,6 +326,7 @@ const struct catalog_output_format output_format_stringtable =
 {
   msgdomain_list_print_stringtable,     /* print */
   true,                                 /* requires_utf8 */
+  false,                                /* requires_utf8_for_filenames_with_spaces */
   false,                                /* supports_color */
   false,                                /* supports_multiple_domains */
   false,                                /* supports_contexts */

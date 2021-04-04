@@ -1,5 +1,5 @@
-/* Source file positions.
-   Copyright (C) 1995-1998, 2000-2001, 2021 Free Software Foundation, Inc.
+/* Message list test for ordinary file names.
+   Copyright (C) 2021 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,26 +14,33 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-#ifndef _POS_H
-#define _POS_H
+/* Written by Bruno Haible <bruno@clisp.org>, 2021.  */
 
-/* Get size_t.  */
-#include <stddef.h>
+#ifndef _MSGL_OFN_H
+#define _MSGL_OFN_H
 
-/* Get bool.  */
+#include "message.h"
+
 #include <stdbool.h>
 
-/* Position of a message within a source file.
-   Used for error reporting purposes.  */
-typedef struct lex_pos_ty lex_pos_ty;
-struct lex_pos_ty
-{
-  char *file_name;
-  size_t line_number;
-};
 
-/* Determines whether the file name in the position has spaces.
-   Such spaces need special protection in PO files and .properties files.  */
-extern bool pos_filename_has_spaces (const struct lex_pos_ty *pos);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#endif /* _POS_H */
+/* Tests whether some of the file names in the message locations has spaces.  */
+
+extern bool
+       message_has_filenames_with_spaces (message_ty *mp);
+extern bool
+       message_list_has_filenames_with_spaces (message_list_ty *mlp);
+extern bool
+       msgdomain_list_has_filenames_with_spaces (msgdomain_list_ty *mdlp);
+
+
+#ifdef __cplusplus
+}
+#endif
+
+
+#endif /* _MSGL_OFN_H */

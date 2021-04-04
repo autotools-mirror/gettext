@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003, 2006, 2008, 2014, 2018-2019 Free Software
+   Copyright (C) 1995-1998, 2000-2003, 2006, 2008, 2014, 2018-2019, 2021 Free Software
    Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -56,7 +56,8 @@ extern void
        message_print_comment_dot (const message_ty *mp, ostream_t stream);
 extern void
        message_print_comment_filepos (const message_ty *mp, ostream_t stream,
-                                      bool uniforum, size_t page_width);
+                                      const char *charset, bool uniforum,
+                                      size_t page_width);
 extern void
        message_print_comment_flags (const message_ty *mp, ostream_t stream,
                                     bool debug);

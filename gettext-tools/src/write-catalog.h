@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003, 2006, 2008, 2019 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2006, 2008, 2019, 2021 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -38,6 +38,10 @@ struct catalog_output_format
   /* Whether the print function requires the MDLP to be encoded in UTF-8
      encoding.  */
   bool requires_utf8;
+
+  /* Whether the print function uses Unicode control characters to protect
+     against filenames with spaces.  */
+  bool requires_utf8_for_filenames_with_spaces;
 
   /* Whether the print function supports styled output.  */
   bool supports_color;

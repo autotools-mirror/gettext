@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2020 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2021 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -43,8 +43,8 @@ noinst_HEADERS = \
   write-catalog.h write-po.h write-properties.h write-stringtable.h \
   dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h cldr-plural.h \
   cldr-plural-exp.h locating-rule.h its.h search-path.h \
-  msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-cat.h msgl-header.h \
-  msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
+  msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-ofn.h msgl-cat.h \
+  msgl-header.h msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
   plural-count.h plural-eval.h plural-distrib.h \
   read-mo.h write-mo.h \
   read-java.h write-java.h \
@@ -127,7 +127,7 @@ CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 # (read-catalog-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> open-catalog.c -> dir-list.c -> str-list.c.
 # (read-catalog-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> po-charset.c.
 # (read-catalog-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> message.c -> str-list.c.
-COMMON_SOURCE = message.c po-error.c po-xerror.c \
+COMMON_SOURCE = message.c pos.c po-error.c po-xerror.c \
 read-catalog-abstract.c po-lex.c po-gram-gen.y po-charset.c \
 read-po.c read-properties.c read-stringtable.c open-catalog.c \
 dir-list.c str-list.c
@@ -171,13 +171,27 @@ FORMAT_SOURCE += \
 
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
-$(COMMON_SOURCE) read-catalog.c \
-write-catalog.c write-properties.c write-stringtable.c write-po.c \
-msgl-ascii.c msgl-iconv.c msgl-equal.c msgl-cat.c msgl-header.c msgl-english.c \
-msgl-check.c file-list.c msgl-charset.c po-time.c plural-exp.c plural-eval.c \
-plural-table.c quote.h sentence.h sentence.c \
-$(FORMAT_SOURCE) \
-read-desktop.c locating-rule.c its.c search-path.c
+  $(COMMON_SOURCE) \
+  read-catalog.c \
+  write-catalog.c write-properties.c write-stringtable.c write-po.c \
+  msgl-ascii.c \
+  msgl-ofn.c \
+  msgl-iconv.c \
+  msgl-equal.c \
+  msgl-cat.c \
+  msgl-header.c \
+  msgl-english.c \
+  msgl-check.c \
+  file-list.c \
+  msgl-charset.c \
+  po-time.c \
+  plural-exp.c plural-eval.c plural-table.c \
+  quote.h \
+  sentence.h sentence.c \
+  $(FORMAT_SOURCE) \
+  read-desktop.c \
+  locating-rule.c its.c \
+  search-path.c
 
 # msggrep needs pattern matching.
 LIBGREP = ../libgrep/libgrep.a

@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012, 2014-2015, 2018-2020 Free Software
+   Copyright (C) 1995-1998, 2000-2010, 2012, 2014-2015, 2018-2021 Free Software
    Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -43,6 +43,7 @@
 #include "format.h"
 #include "unilbrk.h"
 #include "msgl-ascii.h"
+#include "pos.h"
 #include "write-catalog.h"
 #include "xalloc.h"
 #include "xmalloca.h"
@@ -311,7 +312,8 @@ static enum filepos_comment_type filepos_comment_type = filepos_comment_full;
 
 void
 message_print_comment_filepos (const message_ty *mp, ostream_t stream,
-                               bool uniforum, size_t page_width)
+                               const char *charset, bool uniforum,
+                               size_t page_width)
 {
   if (filepos_comment_type != filepos_comment_none
       && mp->filepos_count != 0)
@@ -377,8 +379,11 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
         }
       else
         {
+          const char *canon_charset;
           size_t column;
           size_t j;
+
+          canon_charset = po_charset_canonicalize (charset);
 
           ostream_write_str (stream, "#:");
           column = 2;
@@ -387,7 +392,7 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
               lex_pos_ty *pp;
               char buffer[21];
               const char *cp;
-              size_t len;
+              size_t width;
 
               pp = &filepos[j];
               cp = pp->file_name;
@@ -400,18 +405,41 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
                 buffer[0] = '\0';
               else
                 sprintf (buffer, ":%ld", (long) pp->line_number);
-              len = strlen (cp) + strlen (buffer) + 1;
-              if (column > 2 && column + len > page_width)
+              /* File names are usually entirely ASCII.  Therefore strlen is
+                 sufficient to determine their printed width.  */
+              width = strlen (cp) + strlen (buffer) + 1;
+              if (column > 2 && column + width > page_width)
                 {
                   ostream_write_str (stream, "\n#:");
                   column = 2;
                 }
               ostream_write_str (stream, " ");
               begin_css_class (stream, class_reference);
-              ostream_write_str (stream, cp);
+              if (pos_filename_has_spaces (pp))
+                {
+                  /* Enclose the file name within U+2068 and U+2069 characters,
+                     so that it can be parsed unambiguously.  */
+                  if (canon_charset == po_charset_utf8)
+                    {
+                      ostream_write_str (stream, "\xE2\x81\xA8"); /* U+2068 */
+                      ostream_write_str (stream, cp);
+                      ostream_write_str (stream, "\xE2\x81\xA9"); /* U+2069 */
+                    }
+                  else if (canon_charset != NULL
+                           && strcmp (canon_charset, "GB18030") == 0)
+                    {
+                      ostream_write_str (stream, "\x81\x36\xAC\x34"); /* U+2068 */
+                      ostream_write_str (stream, cp);
+                      ostream_write_str (stream, "\x81\x36\xAC\x35"); /* U+2069 */
+                    }
+                  else
+                    abort ();
+                }
+              else
+                ostream_write_str (stream, cp);
               ostream_write_str (stream, buffer);
               end_css_class (stream, class_reference);
-              column += len;
+              column += width;
             }
           ostream_write_str (stream, "\n");
         }
@@ -1300,7 +1328,7 @@ message_print (const message_ty *mp, ostream_t stream,
   /* Print the file position comments.  This will help a human who is
      trying to navigate the sources.  There is no problem of getting
      repeated positions, because duplicates are checked for.  */
-  message_print_comment_filepos (mp, stream, uniforum, page_width);
+  message_print_comment_filepos (mp, stream, charset, uniforum, page_width);
 
   /* Print flag information in special comment.  */
   message_print_comment_flags (mp, stream, debug);
@@ -1418,7 +1446,7 @@ message_print_obsolete (const message_ty *mp, ostream_t stream,
   message_print_comment_dot (mp, stream);
 
   /* Print the file position comments (normally empty).  */
-  message_print_comment_filepos (mp, stream, uniforum, page_width);
+  message_print_comment_filepos (mp, stream, charset, uniforum, page_width);
 
   /* Print flag information in special comment.
      Preserve only
@@ -1654,6 +1682,7 @@ const struct catalog_output_format output_format_po =
 {
   msgdomain_list_print_po,              /* print */
   false,                                /* requires_utf8 */
+  true,                                 /* requires_utf8_for_filenames_with_spaces */
   true,                                 /* supports_color */
   true,                                 /* supports_multiple_domains */
   true,                                 /* supports_contexts */
