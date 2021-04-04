@@ -1,5 +1,5 @@
 /* Miscellaneous public API.
-   Copyright (C) 2019 Free Software Foundation, Inc.
+   Copyright (C) 2019, 2021 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2019.
 
    This program is free software: you can redistribute it and/or modify
@@ -25,8 +25,6 @@
 #include "fd-ostream.h"
 #include "exitfail.h"
 
-extern int xmalloc_exit_failure;
-
 
 styled_ostream_t
 styled_ostream_create (int fd, const char *filename, ttyctl_t tty_control,
@@ -47,5 +45,4 @@ void
 libtextstyle_set_failure_exit_code (int exit_code)
 {
   exit_failure = exit_code;
-  xmalloc_exit_failure = exit_code;
 }

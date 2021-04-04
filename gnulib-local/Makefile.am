@@ -145,13 +145,10 @@ lib/obstack.h.diff \
 lib/progname.h.diff \
 lib/regex_internal.h.diff \
 lib/unistd.in.h.diff \
-lib/xalloc.h \
 lib/xerror.c \
 lib/xerror.h \
 lib/xgetcwd.c \
 lib/xgetcwd.h \
-lib/xmalloc.c \
-lib/xstrdup.c \
 m4/backupfile.m4 \
 m4/java.m4 \
 m4/libxml.m4 \
@@ -165,8 +162,6 @@ modules/libtextstyle-dummy \
 modules/libxml \
 modules/markup \
 modules/mem-hash-map \
-modules/xalloc \
-modules/xalloc-die \
 modules/xerror \
 modules/xgetcwd
 

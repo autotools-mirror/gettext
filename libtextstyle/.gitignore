@@ -33,6 +33,7 @@
 /lib/c-strcase.h
 /lib/c-strcasecmp.c
 /lib/c-strncasecmp.c
+/lib/calloc.c
 /lib/cloexec.c
 /lib/cloexec.h
 /lib/close.c
@@ -93,6 +94,8 @@
 /lib/html-ostream.oo.h
 /lib/html-styled-ostream.oo.c
 /lib/html-styled-ostream.oo.h
+/lib/ialloc.c
+/lib/ialloc.h
 /lib/iconv-ostream.oo.c
 /lib/iconv-ostream.oo.h
 /lib/idx.h
@@ -148,6 +151,8 @@
 /lib/printf-parse.h
 /lib/raise.c
 /lib/read.c
+/lib/realloc.c
+/lib/reallocarray.c
 /lib/safe-read.c
 /lib/safe-read.h
 /lib/safe-write.c
@@ -227,6 +232,7 @@
 /lib/windows-rwlock.c
 /lib/windows-rwlock.h
 /lib/write.c
+/lib/xalloc-die.c
 /lib/xalloc-oversized.h
 /lib/xalloc.h
 /lib/xasprintf.c

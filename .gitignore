@@ -83,6 +83,7 @@
 /gettext-tools/libgettextpo/c-strstr.c
 /gettext-tools/libgettextpo/c-strstr.h
 /gettext-tools/libgettextpo/c++defs.h
+/gettext-tools/libgettextpo/calloc.c
 /gettext-tools/libgettextpo/cloexec.c
 /gettext-tools/libgettextpo/cloexec.h
 /gettext-tools/libgettextpo/close.c
@@ -135,6 +136,8 @@
 /gettext-tools/libgettextpo/gl_xlist.h
 /gettext-tools/libgettextpo/hard-locale.c
 /gettext-tools/libgettextpo/hard-locale.h
+/gettext-tools/libgettextpo/ialloc.c
+/gettext-tools/libgettextpo/ialloc.h
 /gettext-tools/libgettextpo/iconv.c
 /gettext-tools/libgettextpo/iconv.in.h
 /gettext-tools/libgettextpo/iconv_close.c
@@ -194,6 +197,7 @@
 /gettext-tools/libgettextpo/rawmemchr.c
 /gettext-tools/libgettextpo/rawmemchr.valgrind
 /gettext-tools/libgettextpo/realloc.c
+/gettext-tools/libgettextpo/reallocarray.c
 /gettext-tools/libgettextpo/relocatable.c
 /gettext-tools/libgettextpo/relocatable.h
 /gettext-tools/libgettextpo/relocatable.valgrind
@@ -268,6 +272,7 @@
 /gettext-tools/libgettextpo/windows-rwlock.h
 /gettext-tools/libgettextpo/windows-tls.c
 /gettext-tools/libgettextpo/windows-tls.h
+/gettext-tools/libgettextpo/xalloc-die.c
 /gettext-tools/libgettextpo/xalloc-oversized.h
 /gettext-tools/libgettextpo/xalloc.h
 /gettext-tools/libgettextpo/xasprintf.c
