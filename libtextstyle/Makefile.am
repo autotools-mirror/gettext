@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU libtextstyle
-## Copyright (C) 1995-2019 Free Software Foundation, Inc.
+## Copyright (C) 1995-2021 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -190,6 +190,7 @@ EXTRA_DIST = \
   gnulib-local/tests/test-term-ostream-xterm-solaris10.out \
   gnulib-local/tests/test-term-ostream-xterm-xf86-v32.out \
   build-aux/moopp \
+  build-aux/join-v-1 \
   build-aux/texi2html \
   build-aux/run-test \
   build-aux/test-driver.diff \

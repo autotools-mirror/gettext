@@ -1,5 +1,5 @@
 ## Makefile for the lib subdirectory of GNU libtextstyle.
-## Copyright (C) 2009-2020 Free Software Foundation, Inc.
+## Copyright (C) 2009-2021 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -237,7 +237,7 @@ config.h: $(BUILT_SOURCES) libtextstyle.sym
 	      done; \
 	    } 5>&1 1>&2 \
 	      | sed -e 's,.* ,,' | grep -v '@' | LC_ALL=C sort | LC_ALL=C uniq \
-	      | LC_ALL=C join -v 1 - libtextstyle.sym \
+	      | $(top_srcdir)/build-aux/join-v-1 - libtextstyle.sym \
 	      | sed -e 's,^\(.*\)$$,#define \1 libtextstyle_\1,' > config.h-t; \
 	  } 6>&1 && \
 	  if test -f config.h; then \
