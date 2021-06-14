@@ -1,5 +1,5 @@
 dnl Configuration for the GNU libasprintf library
-dnl Copyright (C) 2002-2012, 2016, 2018-2020 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2012, 2016, 2018-2021 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -95,6 +95,22 @@ dnl is defined as a weak alias of snprintf; we prefer to use the latter).
 AC_CHECK_DECLS([_snprintf], , , [#include <stdio.h>])
 gt_PRINTF_POSIX
 
+dnl Hide undesired symbols from the global namespace, by prefixing them with
+dnl "libasprintf_".
+AH_VERBATIM([0noexport], [
+#define asnprintf        libasprintf_asnprintf
+#define rpl_asnprintf    libasprintf_asnprintf
+#define rpl_memchr       libasprintf_memchr
+#define printf_fetchargs libasprintf_printf_fetchargs
+#define printf_parse     libasprintf_printf_parse
+#define vasnprintf       libasprintf_vasnprintf
+#define rpl_vasnprintf   libasprintf_vasnprintf
+#define xmax             libasprintf_xmax
+#define xsum             libasprintf_xsum
+#define xsum3            libasprintf_xsum3
+#define xsum4            libasprintf_xsum4
+])
+
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
 AC_PATH_PROG([DVIPS], [dvips], [$ac_aux_dir_abs/missing dvips])
@@ -102,5 +118,6 @@ AC_PATH_PROG([TEXI2PDF], [texi2pdf], [$ac_aux_dir_abs/missing texi2pdf])
 AC_PATH_PROG([PERL], [perl], [$ac_aux_dir_abs/missing perl])
 
 AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([gnulib-lib/Makefile])
 
 AC_OUTPUT

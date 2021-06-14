@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
-## Copyright (C) 2002-2007, 2009-2011, 2013, 2016, 2018-2019 Free Software Foundation, Inc.
+## Copyright (C) 2002-2007, 2009-2011, 2013, 2016, 2018-2019, 2021 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -18,11 +18,17 @@
 
 AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
 ACLOCAL_AMFLAGS = -I ../../m4 -I ../m4 -I gnulib-m4
+
+SUBDIRS = gnulib-lib
+
 EXTRA_DIST =
 BUILT_SOURCES =
 MOSTLYCLEANFILES =
 
 RM = rm -f
+
+
+AM_CPPFLAGS = -Ignulib-lib -I$(srcdir)/gnulib-lib
 
 DEFS = -DIN_LIBASPRINTF @DEFS@
 
@@ -57,19 +63,21 @@ lib_LTLIBRARIES = libasprintf.la
 noinst_LTLIBRARIES =
 
 libasprintf_la_SOURCES = \
-  xsize.h xsize.c \
   lib-asprintf.h lib-asprintf.c \
   autosprintf.h autosprintf.cc
 
 # Sources used only on platforms lacking vasprintf().
 lib_asprintf_EXTRASOURCES = \
-  verify.h \
-  printf-args.h printf-args.c \
-  printf-parse.h printf-parse.c \
-  vasnprintf.h vasnprintf.c asnprintf.c \
+  asnprintf.c \
   vasprintf.h vasprintf.c asprintf.c
 lib-asprintf.lo: $(lib_asprintf_EXTRASOURCES)
 EXTRA_DIST += $(lib_asprintf_EXTRASOURCES)
+
+
+# Limit the set of exported symbols, on those platforms where libtool supports it.
+# Currently this excludes the symbols from gnulib modules, that we have mapped
+# to symbols prefixed with 'libasprintf_' through config.h.
+LIBASPRINTF_EXPORTED_SYMBOLS_REGEX = '^[^l]|^l[^i]|^li[^b]|^lib[^a]|^liba[^s]|^libas[^p]|^libasp[^r]|^libaspr[^i]|^libaspri[^n]|^libasprin[^t]|^libasprint[^f]|^libasprintf[^_]'
 
 
 # Version information according to Woe32 conventions.
@@ -103,14 +111,11 @@ libasprintf_la_DEPENDENCIES = $(WOE32_LIBADD)
 # How to build libasprintf.
 # With libtool 1.5.14, on some platforms, like BeOS, "libtool --tag=CXX" fails
 # to create a shared library, however "libtool --tag=CC" succeeds.
-libasprintf_la_LDFLAGS = @LTNOUNDEF@
-libasprintf.la: $(libasprintf_la_OBJECTS) $(libasprintf_la_DEPENDENCIES)
-	$(AM_V_GEN)$(CXXLINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS) || \
-	$(LINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) $(LIBS)
+libasprintf_la_LDFLAGS = @LTNOUNDEF@ -export-symbols-regex $(LIBASPRINTF_EXPORTED_SYMBOLS_REGEX)
+libasprintf.la: $(libasprintf_la_OBJECTS) $(libasprintf_la_DEPENDENCIES) gnulib-lib/libgnu.la
+	$(AM_V_GEN)$(CXXLINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) gnulib-lib/libgnu.la $(LIBS) || \
+	$(LINK) -rpath $(libdir) $(libasprintf_la_LDFLAGS) $(libasprintf_la_OBJECTS) $(libasprintf_la_LIBADD) gnulib-lib/libgnu.la $(LIBS)
 
-
-# A small set of gnulib modules is needed here as well.
-include Makefile.gnulib
 
 # Allow users to use "gnulib-tool --update".
 EXTRA_DIST += gnulib-m4/gnulib-cache.m4

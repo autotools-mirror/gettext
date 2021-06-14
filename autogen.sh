@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (C) 2003-2020 Free Software Foundation, Inc.
+# Copyright (C) 2003-2021 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -106,18 +106,10 @@ if ! $skip_gnulib; then
   # In gettext-runtime/libasprintf:
   GNULIB_MODULES_LIBASPRINTF='
     alloca
-    attribute
-    errno
-    verify
-    xsize
+    vasnprintf
   '
-  GNULIB_MODULES_LIBASPRINTF_OTHER='
-  '
-  $GNULIB_TOOL --dir=gettext-runtime/libasprintf --source-base=. --m4-base=gnulib-m4 --lgpl=2 --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
-    --import $GNULIB_MODULES_LIBASPRINTF $GNULIB_MODULES_LIBASPRINTF_OTHER || exit $?
-  $GNULIB_TOOL --copy-file m4/intmax_t.m4 gettext-runtime/libasprintf/gnulib-m4/intmax_t.m4 || exit $?
-  $GNULIB_TOOL --copy-file m4/wchar_t.m4 gettext-runtime/libasprintf/gnulib-m4/wchar_t.m4 || exit $?
-  $GNULIB_TOOL --copy-file m4/wint_t.m4 gettext-runtime/libasprintf/gnulib-m4/wint_t.m4 || exit $?
+  $GNULIB_TOOL --dir=gettext-runtime/libasprintf --source-base=gnulib-lib --m4-base=gnulib-m4 --lgpl=2 --libtool --local-dir=gnulib-local --local-symlink \
+    --import $GNULIB_MODULES_LIBASPRINTF || exit $?
   # In gettext-tools:
   GNULIB_MODULES_TOOLS_FOR_SRC='
     alloca-opt

@@ -1,5 +1,5 @@
 /* Library functions for class autosprintf.
-   Copyright (C) 2002-2003, 2006, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2006, 2018-2019, 2021 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -18,18 +18,6 @@
 #include <config.h>
 
 #if !(HAVE_VASPRINTF && HAVE_POSIX_PRINTF)
-
-#define STATIC static
-
-/* Define auxiliary functions declared in "printf-args.h".  */
-#include "printf-args.c"
-
-/* Define auxiliary functions declared in "printf-parse.h".  */
-#include "printf-parse.c"
-
-/* Define functions declared in "vasnprintf.h".  */
-#include "vasnprintf.c"
-#include "asnprintf.c"
 
 /* Define to the same symbols as in lib-asprintf.h.  */
 #define asprintf libasprintf_asprintf

@@ -39,16 +39,8 @@
 /gettext-runtime/gnulib-lib/
 /gettext-runtime/gnulib-m4/
 /gettext-runtime/doc/relocatable.texi
+/gettext-runtime/libasprintf/gnulib-lib/
 /gettext-runtime/libasprintf/gnulib-m4/
-/gettext-runtime/libasprintf/Makefile.gnulib
-/gettext-runtime/libasprintf/alloca.c
-/gettext-runtime/libasprintf/alloca.in.h
-/gettext-runtime/libasprintf/attribute.h
-/gettext-runtime/libasprintf/errno.in.h
-/gettext-runtime/libasprintf/size_max.h
-/gettext-runtime/libasprintf/verify.h
-/gettext-runtime/libasprintf/xsize.c
-/gettext-runtime/libasprintf/xsize.h
 /gettext-runtime/man/x-to-1.in
 /gettext-tools/doc/relocatable.texi
 /gettext-tools/gnulib-m4/
@@ -608,7 +600,6 @@ autom4te.cache/
 /gettext-runtime/intl-csharp/GNU.Gettext.dll.mdb
 /gettext-runtime/intl-java/**/*.class
 /gettext-runtime/intl-java/libintl.jar
-/gettext-runtime/libasprintf/libgnu.la
 /gettext-runtime/libasprintf/libasprintf.la
 /gettext-runtime/man/gettext.1
 /gettext-runtime/man/gettext.1.html
@@ -768,8 +759,6 @@ core
 /gettext-runtime/intl/libgnuintl.la
 /gettext-runtime/intl/localename-table.h
 /gettext-runtime/libasprintf/autosprintf.h
-/gettext-runtime/libasprintf/alloca.h
-/gettext-runtime/libasprintf/errno.h
 /gettext-runtime/po/??@*.insert-header
 /gettext-runtime/po/remove-potcdate.sed
 /gettext-runtime/src/gettext.res
