@@ -95,7 +95,7 @@ AM_CPPFLAGS = \
   -I.. -I$(top_srcdir) \
   -I$(top_srcdir)/libgrep \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
-  -I../intl -I$(top_srcdir)/../gettext-runtime/intl
+  -I../../gettext-runtime/intl -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = \
   -DLOCALEDIR=\"$(localedir)\" -DBISON_LOCALEDIR=\"$(BISON_LOCALEDIR)\" \
   -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \

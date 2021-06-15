@@ -26,26 +26,6 @@ DISTCLEANFILES =
 MAINTAINERCLEANFILES =
 SUFFIXES =
 
-# The VPATH variable allows builds with $builddir != $srcdir, assuming a
-# 'make' program that supports VPATH (such as GNU make). The VPATH definition
-# is removed by autoconf automatically when "$(srcdir)" = ".".
-# In this directory, the VPATH handling is particular:
-# 1. The .c -> .lo rule carefully uses $(srcdir), so that VPATH can be omitted.
-# 2. If PACKAGE = gettext-tools, VPATH _must_ be omitted, because otherwise
-#    'make' does the wrong thing if GNU gettext was configured with
-#    "./configure --srcdir=`pwd`", namely it gets confused by the .lo and .la
-#    files it finds in srcdir = ../../gettext-runtime/intl.
-origsrcdir = @srcdir@
-# In gettext-tools/intl/, distribute the right Makefile.in.
-dist-hook:
-if PACKAGE_IS_GETTEXT_TOOLS
-	for file in Makefile.am Makefile.in; do \
-	  cp -p $(origsrcdir)/$$file $(distdir)/$$file || exit 1; \
-	done
-else
-	@:
-endif
-
 # -DBUILDING_LIBINTL: Change expansion of LIBINTL_DLL_EXPORTED macro.
 # -DBUILDING_DLL: Change expansion of RELOCATABLE_DLL_EXPORTED macro.
 AM_CPPFLAGS = \
@@ -626,18 +606,6 @@ uninstall-aliasfile: ref-del.sed
 	  fi; \
 	  rm -f $$temp; \
 	fi
-
-endif
-
-
-# We don't install the source code any more.
-
-if PACKAGE_IS_GETTEXT_TOOLS
-
-install-data-local: uninstall-sources
-uninstall-local: uninstall-sources
-uninstall-sources:
-	rm -rf $(DESTDIR)$(datadir)/gettext/intl
 
 endif
 

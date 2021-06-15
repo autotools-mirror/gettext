@@ -38,7 +38,7 @@ AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I.. -I$(top_srcdir) \
   -I../src -I$(top_srcdir)/src \
-  -I../intl -I$(top_srcdir)/../gettext-runtime/intl
+  -I../../gettext-runtime/intl -I$(top_srcdir)/../gettext-runtime/intl
 
 DEFS = -DIN_LIBGETTEXTPO=1 -DOMIT_SETLOCALE_LOCK=1 @DEFS@
 

@@ -65,17 +65,17 @@ EOF
 # Put the -I flags before ${CXXFLAGS} ${CPPFLAGS}, to make sure that libintl.h
 # is found in the build directory, regardless of -I options present in
 # ${CXXFLAGS} or ${CPPFLAGS}.
-${CXX} -I../.. -I../../../gettext-runtime/libasprintf -I"$abs_top_srcdir"/gnulib-lib -I../../intl ${CXXFLAGS} ${CPPFLAGS} -c prog.cc \
+${CXX} -I../.. -I../../../gettext-runtime/libasprintf -I"$abs_top_srcdir"/gnulib-lib -I../../../gettext-runtime/intl ${CXXFLAGS} ${CPPFLAGS} -c prog.cc \
   || Exit 1
 # Remove the -Wl,--disable-auto-import option here that is added by
 # woe32-dll.m4. Cygwin 1.7.2 does not support it in C++ mode: It gives
 # a link error about 'std::cout'.
 : ${CONFIG_SHELL=${SHELL-/bin/sh}}
 ${CONFIG_SHELL} "$top_builddir"/libtool --quiet --tag=CXX --mode=link \
-                ${CXX} ${CXXFLAGS} `echo "X ${LDFLAGS} " | sed -e 's/^X//' -e 's/ -Wl,--disable-auto-import / /'` -o prog prog.${OBJEXT} \
-                ../../../gettext-runtime/libasprintf/libasprintf.la \
-                ../../gnulib-lib/libgettextlib.la ${LTLIBINTL} \
-		|| Exit 1
+  ${CXX} ${CXXFLAGS} `echo "X ${LDFLAGS} " | sed -e 's/^X//' -e 's/ -Wl,--disable-auto-import / /'` -o prog prog.${OBJEXT} \
+         ../../../gettext-runtime/libasprintf/libasprintf.la \
+         ../../gnulib-lib/libgettextlib.la ${LTLIBINTL} \
+  || Exit 1
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o prog.tmp --omit-header --no-location -k_ prog.cc || Exit 1

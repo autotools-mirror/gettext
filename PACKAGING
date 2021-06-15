@@ -39,7 +39,8 @@ The 'libtextstyle' binary package can be installed by doing
       make
       make install
 
-The 'gettext-tools' binary package can be installed by doing
+The 'gettext-tools' binary package can be installed by building
+'gettext-runtime' first, and then
 
       cd gettext-tools
       ./configure --with-installed-libtextstyle --with-installed-csharp-dll

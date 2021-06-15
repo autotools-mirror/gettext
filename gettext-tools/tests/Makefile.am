@@ -244,13 +244,13 @@ xg-c-1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 AM_CPPFLAGS = \
   -I.. \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
-  -I../intl
+  -I../../gettext-runtime/intl
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 # INTL_MACOSX_LIBS is needed because the programs depend on libintl.la
 # but libtool doesn't put -Wl,-framework options into .la files.
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
-LDADD_yes = ../intl/libintl.la @LTLIBTHREAD@
-LDADD_no = ../intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
+LDADD_yes = ../../gettext-runtime/intl/libintl.la @LTLIBTHREAD@
+LDADD_no = ../../gettext-runtime/intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
 check_PROGRAMS = tstgettext tstngettext testlocale intl-1-prg intl-3-prg intl-4-prg intl-5-prg intl-6-prg intl-setlocale-1-prg intl-setlocale-2-prg intl-thread-1-prg intl-thread-2-prg intl-thread-3-prg intl-version-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
 tstgettext_SOURCES = \
   tstgettext.c ../../gettext-runtime/src/escapes.h \

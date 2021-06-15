@@ -316,7 +316,6 @@
 # Other files brought in by autogen.sh:
 /build-aux/config.guess
 /build-aux/config.sub
-/gettext-tools/intl/
 # Dummy ChangeLogs:
 /ChangeLog
 /gettext-runtime/ChangeLog

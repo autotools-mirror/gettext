@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-tools directory of GNU gettext
-dnl Copyright (C) 1995-2020 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2021 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -122,11 +122,10 @@ dnl Checks for libraries.
 
 dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
-AM_GNU_GETTEXT([use-libtool], [need-ngettext])
-dnl Conditionals for the intl/ directory.
+AM_GNU_GETTEXT([use-libtool], [need-ngettext], [\${top_builddir}/../gettext-runtime/intl])
+dnl Conditionals for referencing the ../gettext-runtime/intl/ directory.
 AM_CONDITIONAL([USE_INCLUDED_LIBINTL], [test $USE_INCLUDED_LIBINTL = yes])
 AM_CONDITIONAL([BUILD_INCLUDED_LIBINTL], [test $BUILD_INCLUDED_LIBINTL = yes])
-AM_CONDITIONAL([PACKAGE_IS_GETTEXT_TOOLS], [true])
 AM_CONDITIONAL([PRELOADABLE_LIBINTL],
   [test $USE_INCLUDED_LIBINTL = no && test $GLIBC2 = yes && test "$enable_shared" = yes])
 
@@ -335,7 +334,7 @@ AH_BOTTOM([
 
 /* Extra OS/2 (emx+gcc) defines.  */
 #if defined __EMX__ && !defined __KLIBC__
-# include "intl/os2compat.h"
+# include "../gettext-runtime/intl/os2compat.h"
 #endif
 ])
 
@@ -543,15 +542,6 @@ AC_CONFIG_SUBDIRS([examples])
 AC_CONFIG_FILES([Makefile])
 
 AC_CONFIG_FILES([doc/Makefile])
-
-AC_CONFIG_FILES([intl/Makefile], [
-  # Change srcdir variable so that it points to ../gettext-runtime/intl.
-  sed -e 's|^srcdir =.*$|srcdir = $(top_srcdir)/../gettext-runtime/intl|' \
-      -e 's|^VPATH =.*$||' \
-      -e 's|^DISTFILES =.*|DISTFILES =|' \
-    < intl/Makefile > intl/Makefile.tmp
-  mv intl/Makefile.tmp intl/Makefile
-  ])
 
 AC_CONFIG_FILES([its/Makefile])
 

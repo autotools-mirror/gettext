@@ -1,5 +1,5 @@
 ## Makefile for libgrep directory in GNU gettext package.
-## Copyright (C) 2005-2007, 2009-2010, 2014 Free Software Foundation, Inc.
+## Copyright (C) 2005-2007, 2009-2010, 2014, 2021 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@ MAINTAINERCLEANFILES =
 
 noinst_LIBRARIES =
 
-AM_CPPFLAGS = -I.. -I../gnulib-lib -I$(top_srcdir)/gnulib-lib -I../intl
+AM_CPPFLAGS = -I.. -I../gnulib-lib -I$(top_srcdir)/gnulib-lib -I../../gettext-runtime/intl
 
 # Rules generated and collected by gnulib-tool, for building libgrep.a.
 include Makefile.gnulib

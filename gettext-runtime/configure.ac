@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-2010, 2012-2015, 2018-2020 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2010, 2012-2015, 2018-2021 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -101,7 +101,6 @@ AM_GNU_GETTEXT([use-libtool], [need-ngettext])
 dnl Conditionals for the intl/ directory.
 AM_CONDITIONAL([USE_INCLUDED_LIBINTL], [test $USE_INCLUDED_LIBINTL = yes])
 AM_CONDITIONAL([BUILD_INCLUDED_LIBINTL], [test $BUILD_INCLUDED_LIBINTL = yes])
-AM_CONDITIONAL([PACKAGE_IS_GETTEXT_TOOLS], [false])
 AM_CONDITIONAL([PRELOADABLE_LIBINTL], [false])
 
 dnl Checks for header files, functions and declarations.

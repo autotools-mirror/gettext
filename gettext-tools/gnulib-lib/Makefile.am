@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/gnulib-lib subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2006, 2009, 2016, 2019 Free Software
+## Copyright (C) 1995-1998, 2000-2006, 2009, 2016, 2019, 2021 Free Software
 ## Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
@@ -38,7 +38,7 @@ pkgdata_DATA =
 AM_CPPFLAGS =
 
 # Hmm... is this still necessary?
-AM_CPPFLAGS += -I$(top_builddir)/intl -I$(top_srcdir)/intl
+AM_CPPFLAGS += -I$(top_builddir)/../gettext-runtime/intl -I$(top_srcdir)/../gettext-runtime/intl
 # Needed so that config.h and woe32dll/export.h are found.
 AM_CPPFLAGS += -I$(top_builddir) -I$(top_srcdir)
 
