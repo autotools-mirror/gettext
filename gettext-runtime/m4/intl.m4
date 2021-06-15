@@ -1,4 +1,4 @@
-# intl.m4 serial 46 (gettext-0.21.1)
+# intl.m4 serial 47 (gettext-0.21.1)
 dnl Copyright (C) 1995-2014, 2016-2021 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -39,7 +39,12 @@ AC_DEFUN([AM_INTL_SUBDIR],
   AC_REQUIRE([gl_GLIBC21])dnl
   AC_REQUIRE([gl_XSIZE])dnl
   AC_REQUIRE([gl_FCNTL_O_FLAGS])dnl
+
+  dnl Make sure LOCALENAME_ENHANCE_LOCALE_FUNCS gets initialized to 0 before,
+  dnl not after, it has been set to 1 by gt_INTL_THREAD_LOCALE_NAME.
+  AC_REQUIRE([gl_LOCALE_H_DEFAULTS])
   AC_REQUIRE([gt_INTL_THREAD_LOCALE_NAME])
+
   AC_REQUIRE([gt_INTL_MACOSX])dnl
   AC_REQUIRE([gl_EXTERN_INLINE])dnl
   AC_REQUIRE([gt_GL_ATTRIBUTE])dnl
