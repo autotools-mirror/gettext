@@ -3,6 +3,9 @@
 
 # Test the autopoint program, with Automake.
 
+# Note: This tests fails on Alpine Linux, because the 'gzip' binary on this
+# system does not support the '--best' option.
+
 : ${AUTOCONF=autoconf}
 ${AUTOCONF} --version >/dev/null 2>/dev/null \
   || { echo "Skipping test: autoconf not found"; Exit 77; }
