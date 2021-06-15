@@ -23,7 +23,12 @@ test $? -le 1 \
 
 : ${VALAC=valac}
 ${VALAC} --Xcc=-DGETTEXT_PACKAGE=\"prog\" prog.vala 2>prog.err \
-  || { cat prog.err 1>&2; Exit 1; }
+  || { if grep "fatal error: 'glib\.h' file not found" < prog.err > /dev/null; then
+         echo "Skipping test: valac installation incomplete"; Exit 77
+       else
+         cat prog.err 1>&2; Exit 1
+       fi
+     }
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o prog.tmp --omit-header --no-location prog.vala || Exit 1
