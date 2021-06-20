@@ -343,6 +343,9 @@
 /gettext-runtime/config.h.in
 /gettext-runtime/Makefile.in
 /gettext-runtime/doc/Makefile.in
+/gettext-runtime/intl/aclocal.m4
+/gettext-runtime/intl/configure
+/gettext-runtime/intl/config.h.in
 /gettext-runtime/intl/Makefile.in
 /gettext-runtime/intl-csharp/Makefile.in
 /gettext-runtime/intl-java/Makefile.in
@@ -508,6 +511,8 @@ autom4te.cache/
 /config.status
 /gettext-runtime/config.log
 /gettext-runtime/config.status
+/gettext-runtime/intl/config.log
+/gettext-runtime/intl/config.status
 /gettext-runtime/libasprintf/config.log
 /gettext-runtime/libasprintf/config.status
 /gettext-tools/config.log
@@ -524,6 +529,9 @@ autom4te.cache/
 /gettext-runtime/stamp-h1
 /gettext-runtime/doc/Makefile
 /gettext-runtime/intl/Makefile
+/gettext-runtime/intl/config.h
+/gettext-runtime/intl/libtool
+/gettext-runtime/intl/stamp-h1
 /gettext-runtime/intl-csharp/Makefile
 /gettext-runtime/intl-java/Makefile
 /gettext-runtime/libasprintf/Makefile

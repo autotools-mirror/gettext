@@ -96,13 +96,14 @@ if ! $skip_gnulib; then
   GNULIB_MODULES_RUNTIME_OTHER='
     gettext-runtime-misc
     ansi-c++-opt
-    bison
     csharpcomp-script
     java
     javacomp-script
   '
   $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
     --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER || exit $?
+  # In gettext-runtime/intl:
+  $GNULIB_TOOL --copy-file m4/bison.m4 gettext-runtime/gnulib-m4/bison.m4 || exit $?
   # In gettext-runtime/libasprintf:
   GNULIB_MODULES_LIBASPRINTF='
     alloca
@@ -410,7 +411,25 @@ fi
 (cd build-aux && rm -f ar-lib compile depcomp install-sh mdate-sh missing test-driver ylwrap)
 
 # Generate configure script in each subdirectories.
+# The aclocal and autoconf invocations need to be done bottom-up
+# (subdirs first), so that 'configure --help' shows also the options
+# that matter for the subdirs.
+# The automake invocations need to be done top-down (subdirs last), however,
+# because otherwise the invocation of automake in gettext-runtime/ overwrites
+# gettext-runtime/intl/Makefile.in with one that lists the wrong *.m4 files
+# and thus produces an endless recursion when invoked through 'make'. Seen
+# with automake 1.16.3.
 dir0=`pwd`
+
+echo "$0: generating configure in gettext-runtime/intl..."
+cd gettext-runtime/intl
+aclocal -I ../../m4 -I ../m4 -I ../gnulib-m4 \
+  && autoconf \
+  && autoheader && touch config.h.in \
+  && touch ChangeLog \
+  && rm -rf autom4te.cache \
+  || exit $?
+cd "$dir0"
 
 echo "$0: generating configure in gettext-runtime/libasprintf..."
 cd gettext-runtime/libasprintf
@@ -418,7 +437,6 @@ aclocal -I ../../m4 -I ../m4 -I gnulib-m4 \
   && autoconf \
   && autoheader && touch config.h.in \
   && touch ChangeLog \
-  && automake --add-missing --copy \
   && rm -rf autom4te.cache \
   || exit $?
 cd "$dir0"
@@ -428,8 +446,7 @@ cd gettext-runtime
 aclocal -I m4 -I ../m4 -I gnulib-m4 \
   && autoconf \
   && autoheader && touch config.h.in \
-  && touch ChangeLog intl/ChangeLog \
-  && automake --add-missing --copy \
+  && touch ChangeLog \
   && rm -rf autom4te.cache \
   || exit $?
 cd "$dir0"
@@ -446,7 +463,6 @@ cd gettext-tools/examples
 aclocal -I ../../gettext-runtime/m4 -I ../../m4 \
   && autoconf \
   && touch ChangeLog \
-  && automake --add-missing --copy \
   && rm -rf autom4te.cache \
   || exit $?
 cd "$dir0"
@@ -481,16 +497,57 @@ aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m
   && autoconf \
   && autoheader && touch config.h.in \
   && touch ChangeLog \
-  && automake --add-missing --copy \
   && rm -rf autom4te.cache \
   || exit $?
 cd "$dir0"
 
+echo "$0: generating configure at the top-level..."
 aclocal -I m4 \
   && autoconf \
   && touch ChangeLog \
   && automake --add-missing --copy \
-  && rm -rf autom4te.cache gettext-runtime/autom4te.cache gettext-tools/autom4te.cache \
+  && rm -rf autom4te.cache \
+            gettext-runtime/autom4te.cache \
+            gettext-runtime/intl/autom4te.cache \
+            gettext-runtime/libasprintf/autom4te.cache \
+            libtextstyle/autom4te.cache \
+            gettext-tools/autom4te.cache \
+            gettext-tools/examples/autom4te.cache \
   || exit $?
+
+echo "$0: generating Makefile.in in gettext-tools..."
+cd gettext-tools
+automake --add-missing --copy \
+  && rm -rf autom4te.cache \
+  || exit $?
+cd "$dir0"
+
+echo "$0: generating Makefile.in in gettext-tools/examples..."
+cd gettext-tools/examples
+automake --add-missing --copy \
+  && rm -rf autom4te.cache \
+  || exit $?
+cd "$dir0"
+
+echo "$0: generating Makefile.in in gettext-runtime..."
+cd gettext-runtime
+automake --add-missing --copy \
+  && rm -rf autom4te.cache \
+  || exit $?
+cd "$dir0"
+
+echo "$0: generating Makefile.in in gettext-runtime/libasprintf..."
+cd gettext-runtime/libasprintf
+automake --add-missing --copy \
+  && rm -rf autom4te.cache \
+  || exit $?
+cd "$dir0"
+
+echo "$0: generating Makefile.in in gettext-runtime/intl..."
+cd gettext-runtime/intl
+automake --add-missing --copy \
+  && rm -rf autom4te.cache \
+  || exit $?
+cd "$dir0"
 
 echo "$0: done.  Now you can run './configure'."

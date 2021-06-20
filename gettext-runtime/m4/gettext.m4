@@ -1,5 +1,5 @@
-# gettext.m4 serial 72 (gettext-0.21.1)
-dnl Copyright (C) 1995-2014, 2016, 2018-2020 Free Software Foundation, Inc.
+# gettext.m4 serial 73 (gettext-0.21.1)
+dnl Copyright (C) 1995-2014, 2016, 2018-2021 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -20,11 +20,13 @@ dnl   Bruno Haible <haible@clisp.cons.org>, 2000-2006, 2008-2010.
 dnl Macro to add for using GNU gettext.
 
 dnl Usage: AM_GNU_GETTEXT([INTLSYMBOL], [NEEDSYMBOL], [INTLDIR]).
-dnl INTLSYMBOL must be one of 'external', 'use-libtool'.
-dnl    INTLSYMBOL should be 'external' for packages other than GNU gettext, and
-dnl    'use-libtool' for the packages 'gettext-runtime' and 'gettext-tools'.
-dnl    If INTLSYMBOL is 'use-libtool', then a libtool library
-dnl    $(top_builddir)/intl/libintl.la will be created (shared and/or static,
+dnl INTLSYMBOL must be one of 'external', 'use-libtool', 'here'.
+dnl    INTLSYMBOL should be 'external' for packages other than GNU gettext.
+dnl    It should be 'use-libtool' for the packages 'gettext-runtime' and
+dnl    'gettext-tools'.
+dnl    It should be 'here' for the package 'gettext-runtime/intl'.
+dnl    If INTLSYMBOL is 'here', then a libtool library
+dnl    $(top_builddir)/libintl.la will be created (shared and/or static,
 dnl    depending on --{enable,disable}-{shared,static} and on the presence of
 dnl    AM-DISABLE-SHARED).
 dnl If NEEDSYMBOL is specified and is 'need-ngettext', then GNU gettext
@@ -55,22 +57,24 @@ dnl
 AC_DEFUN([AM_GNU_GETTEXT],
 [
   dnl Argument checking.
-  m4_if([$1], [], , [m4_if([$1], [external], , [m4_if([$1], [use-libtool], ,
+  m4_if([$1], [], , [m4_if([$1], [external], , [m4_if([$1], [use-libtool], , [m4_if([$1], [here], ,
     [errprint([ERROR: invalid first argument to AM_GNU_GETTEXT
-])])])])
+])])])])])
   m4_if(m4_if([$1], [], [old])[]m4_if([$1], [no-libtool], [old]), [old],
     [errprint([ERROR: Use of AM_GNU_GETTEXT without [external] argument is no longer supported.
 ])])
   m4_if([$2], [], , [m4_if([$2], [need-ngettext], , [m4_if([$2], [need-formatstring-macros], ,
     [errprint([ERROR: invalid second argument to AM_GNU_GETTEXT
 ])])])])
-  define([gt_included_intl],
-    m4_if([$1], [external], [no], [yes]))
+  define([gt_building_libintl_here],
+    m4_if([$1], [here], [yes], [no]))
+  define([gt_building_libintl_in_same_build_tree],
+    m4_if([$1], [use-libtool], [yes], [m4_if([$1], [here], [yes], [no])]))
   gt_NEEDS_INIT
   AM_GNU_GETTEXT_NEED([$2])
 
   AC_REQUIRE([AM_PO_SUBDIRS])dnl
-  m4_if(gt_included_intl, yes, [
+  m4_if(gt_building_libintl_here, yes, [
     AC_REQUIRE([AM_INTL_SUBDIR])dnl
   ])
 
@@ -82,13 +86,13 @@ AC_DEFUN([AM_GNU_GETTEXT],
   dnl Ideally we would do this search only after the
   dnl      if test "$USE_NLS" = "yes"; then
   dnl        if { eval "gt_val=\$$gt_func_gnugettext_libc"; test "$gt_val" != "yes"; }; then
-  dnl tests. But if configure.in invokes AM_ICONV after AM_GNU_GETTEXT
+  dnl tests. But if configure.ac invokes AM_ICONV after AM_GNU_GETTEXT
   dnl the configure script would need to contain the same shell code
   dnl again, outside any 'if'. There are two solutions:
   dnl - Invoke AM_ICONV_LINKFLAGS_BODY here, outside any 'if'.
   dnl - Control the expansions in more detail using AC_PROVIDE_IFELSE.
   dnl Since AC_PROVIDE_IFELSE is not documented, we avoid it.
-  m4_if(gt_included_intl, yes, , [
+  m4_if(gt_building_libintl_in_same_build_tree, yes, , [
     AC_REQUIRE([AM_ICONV_LINKFLAGS_BODY])
   ])
 
@@ -98,7 +102,7 @@ AC_DEFUN([AM_GNU_GETTEXT],
   dnl Set USE_NLS.
   AC_REQUIRE([AM_NLS])
 
-  m4_if(gt_included_intl, yes, [
+  m4_if(gt_building_libintl_in_same_build_tree, yes, [
     BUILD_INCLUDED_LIBINTL=no
     USE_INCLUDED_LIBINTL=no
   ])
@@ -118,7 +122,7 @@ AC_DEFUN([AM_GNU_GETTEXT],
   dnl If we use NLS figure out what method
   if test "$USE_NLS" = "yes"; then
     gt_use_preinstalled_gnugettext=no
-    m4_if(gt_included_intl, yes, [
+    m4_if(gt_building_libintl_in_same_build_tree, yes, [
       AC_MSG_CHECKING([whether included gettext is requested])
       AC_ARG_WITH([included-gettext],
         [  --with-included-gettext use the GNU gettext library included here],
@@ -174,7 +178,7 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
 
         if { eval "gt_val=\$$gt_func_gnugettext_libc"; test "$gt_val" != "yes"; }; then
           dnl Sometimes libintl requires libiconv, so first search for libiconv.
-          m4_if(gt_included_intl, yes, , [
+          m4_if(gt_building_libintl_in_same_build_tree, yes, , [
             AM_ICONV_LINK
           ])
           dnl Search for libintl and define LIBINTL, LTLIBINTL and INCINTL
@@ -252,7 +256,8 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
         if { eval "gt_val=\$$gt_func_gnugettext_libc"; test "$gt_val" = "yes"; } \
            || { { eval "gt_val=\$$gt_func_gnugettext_libintl"; test "$gt_val" = "yes"; } \
                 && test "$PACKAGE" != gettext-runtime \
-                && test "$PACKAGE" != gettext-tools; }; then
+                && test "$PACKAGE" != gettext-tools \
+                && test "$PACKAGE" != libintl; }; then
           gt_use_preinstalled_gnugettext=yes
         else
           dnl Reset the values set by searching for libintl.
@@ -261,7 +266,7 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
           INCINTL=
         fi
 
-    m4_if(gt_included_intl, yes, [
+    m4_if(gt_building_libintl_in_same_build_tree, yes, [
         if test "$gt_use_preinstalled_gnugettext" != "yes"; then
           dnl GNU gettext is not found in the C library.
           dnl Fall back on included GNU gettext library.
@@ -341,7 +346,7 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
     POSUB=po
   fi
 
-  m4_if(gt_included_intl, yes, [
+  m4_if(gt_building_libintl_in_same_build_tree, yes, [
     dnl In GNU gettext we have to set BUILD_INCLUDED_LIBINTL to 'yes'
     dnl because some of the testsuite requires it.
     BUILD_INCLUDED_LIBINTL=yes
@@ -352,9 +357,11 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
     AC_SUBST([CATOBJEXT])
   ])
 
-  dnl For backward compatibility. Some Makefiles may be using this.
-  INTLLIBS="$LIBINTL"
-  AC_SUBST([INTLLIBS])
+  m4_if(gt_building_libintl_in_same_build_tree, yes, [], [
+    dnl For backward compatibility. Some Makefiles may be using this.
+    INTLLIBS="$LIBINTL"
+    AC_SUBST([INTLLIBS])
+  ])
 
   dnl Make all documented variables known to autoconf.
   AC_SUBST([LIBINTL])

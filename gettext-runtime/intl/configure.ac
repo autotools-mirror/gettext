@@ -17,39 +17,17 @@ dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.64])
-AC_INIT([gettext-runtime],
-	m4_esyscmd([../build-aux/git-version-gen ../.tarball-version]),
+AC_INIT([libintl],
+	m4_esyscmd([../../build-aux/git-version-gen ../../.tarball-version]),
 	[bug-gettext@gnu.org])
-AC_CONFIG_SRCDIR([intl/dcigettext.c])
-AC_CONFIG_AUX_DIR([../build-aux])
-AM_INIT_AUTOMAKE([1.11.1 silent-rules parallel-tests])
+AC_CONFIG_SRCDIR([dcigettext.c])
+AC_CONFIG_AUX_DIR([../../build-aux])
+AM_INIT_AUTOMAKE([silent-rules])
 AC_CONFIG_HEADERS([config.h])
-
-dnl Installation directories.
-test "$docdir" != '${datarootdir}/doc/${PACKAGE_TARNAME}' || docdir='${datarootdir}/doc/gettext'
 
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL
-
-gt_JAVA_CHOICE
-
-gt_JAVACOMP([1.5], [1.6])
-AC_CHECK_PROG([JAR], [jar], [jar])
-if test -n "$HAVE_JAVACOMP" && test -n "$JAR" && test "$JAVA_CHOICE" != no; then
-  BUILDJAVA=yes
-else
-  BUILDJAVA=no
-fi
-AC_SUBST([BUILDJAVA])
-
-gt_CSHARPCOMP
-if test -n "$HAVE_CSHARPCOMP" && test "$CSHARP_CHOICE" != no; then
-  BUILDCSHARP=yes
-else
-  BUILDCSHARP=no
-fi
-AC_SUBST([BUILDCSHARP])
 
 dnl Check for host type.
 AC_CANONICAL_HOST
@@ -65,7 +43,7 @@ dnl Set preferences for the gnulib module 'threadlib'.
 gl_AVOID_WINPTHREAD
 
 dnl Make sure we see all GNU and Solaris extensions.
-gl_EARLY
+gl_USE_SYSTEM_EXTENSIONS
 AM_PROG_CC_C_O
 
 dnl Check for build configuration.
@@ -85,10 +63,6 @@ case "$host_os" in
   *) is_woe32=no ;;
 esac
 AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
-if test $is_woe32 = yes; then
-  dnl Check for a program that compiles Windows resource files.
-  AC_CHECK_TOOL([WINDRES], [windres])
-fi
 
 dnl Some code is only meant to be compiled on native Windows.
 case "$host_os" in
@@ -101,12 +75,17 @@ dnl Checks for libraries.
 
 dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
-AM_GNU_GETTEXT([use-libtool], [need-ngettext], [\${top_builddir}/intl])
+AM_GNU_GETTEXT([here], [need-ngettext])
+dnl Conditionals for the intl/ directory.
+AM_CONDITIONAL([USE_INCLUDED_LIBINTL], [test $USE_INCLUDED_LIBINTL = yes])
+AM_CONDITIONAL([BUILD_INCLUDED_LIBINTL], [test $BUILD_INCLUDED_LIBINTL = yes])
+AM_CONDITIONAL([PRELOADABLE_LIBINTL],
+  [test $USE_INCLUDED_LIBINTL = no && test $GLIBC2 = yes && test "$enable_shared" = yes])
 
-dnl Checks for header files, functions and declarations.
-gl_INIT
-AC_TYPE_SIZE_T
-AC_CHECK_FUNCS([setlocale])
+dnl Get common Gnulib macros.
+gl_COMMON
+dnl Get definitions for relocatable.c.
+gl_RELOCATABLE_LIBRARY
 
 dnl Compilation on mingw and Cygwin needs special Makefile rules, because
 dnl 1. when we install a shared library, we must arrange to export
@@ -140,71 +119,10 @@ AH_BOTTOM([
 
 /* Extra OS/2 (emx+gcc) defines.  */
 #if defined __EMX__ && !defined __KLIBC__
-# include "intl/os2compat.h"
+# include "os2compat.h"
 #endif
 ])
 
-dnl Check for tools needed for formatting the documentation.
-ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
-AC_PATH_PROG([PERL], [perl], [$ac_aux_dir_abs/missing perl])
-
-dnl Check for tools needed for formatting man pages.
-CROSS_COMPILING=$cross_compiling
-AC_SUBST([CROSS_COMPILING])
-
-dnl Checks for optional programs for the tests/lang-* tests.
-gl_PROG_ANSI_CXX([CXX], [ANSICXX])
-
-dnl Checks for special libraries for the tests/test-lock test.
-dnl On some systems, sched_yield is in librt, rather than in libpthread.
-LIBSCHED=
-if test $gl_threads_api = posix; then
-  dnl Solaris has sched_yield in librt, not in libpthread or libc.
-  AC_CHECK_LIB([rt], [sched_yield], [LIBSCHED=-lrt],
-    [dnl Solaris 2.5.1, 2.6 has sched_yield in libposix4, not librt.
-     AC_CHECK_LIB([posix4], [sched_yield], [LIBSCHED=-lposix4])])
-fi
-AC_SUBST([LIBSCHED])
-
-dnl Determine whether to build libasprintf.
-AC_ARG_ENABLE([libasprintf],
-  [  --disable-libasprintf   do not build libasprintf],
-  [if test "$enableval" != no; then
-     SUBDIR_libasprintf=libasprintf
-   else
-     SUBDIR_libasprintf=
-   fi
-  ], [SUBDIR_libasprintf=libasprintf])
-if test "$CXX" = "no"; then
-  SUBDIR_libasprintf=
-fi
-AM_CONDITIONAL([ENABLE_LIBASPRINTF], [test -n "$SUBDIR_libasprintf"])
-
-AC_CONFIG_SUBDIRS([intl])
-
-AC_CONFIG_SUBDIRS([libasprintf])
-
 AC_CONFIG_FILES([Makefile])
-
-AC_CONFIG_FILES([doc/Makefile])
-
-AC_CONFIG_FILES([intl-java/Makefile])
-
-AC_CONFIG_FILES([intl-csharp/Makefile])
-
-AC_CONFIG_FILES([gnulib-lib/Makefile])
-
-AC_CONFIG_FILES([src/Makefile])
-AC_CONFIG_FILES([src/gettext.sh], [chmod a+x src/gettext.sh])
-
-AC_CONFIG_FILES([po/Makefile.in])
-
-AC_CONFIG_FILES([man/Makefile],
-                [FIX_MAKEFILE_DISTRIB])
-AC_CONFIG_FILES([man/x-to-1])
-
-AC_CONFIG_FILES([m4/Makefile])
-
-AC_CONFIG_FILES([tests/Makefile])
 
 AC_OUTPUT

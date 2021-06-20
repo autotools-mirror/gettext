@@ -97,11 +97,20 @@ LT_LANG([Windows Resource])
 dnl On mingw and Cygwin, we can activate special Makefile rules which add
 dnl version information to the shared libraries and executables.
 case "$host_os" in
-  mingw* | cygwin*) special_makefile_rules=woe32 ;;
+  mingw* | cygwin*) is_woe32=yes ;;
+  *) is_woe32=no ;;
+esac
+AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
+if test $is_woe32 = yes; then
+  dnl Check for a program that compiles Windows resource files.
+  AC_CHECK_TOOL([WINDRES], [windres])
+fi
+
+dnl Some other special Makefile rules exist for OS/2.
+case "$host_os" in
   os2*) special_makefile_rules=os2 ;;
   *) special_makefile_rules=none ;;
 esac
-AM_CONDITIONAL([WOE32], [test $special_makefile_rules = woe32])
 AM_CONDITIONAL([OS2], [test $special_makefile_rules = os2])
 
 dnl Some code is only meant to be compiled on native Windows.
@@ -332,6 +341,16 @@ AH_BOTTOM([
 # include "../gettext-runtime/intl/os2compat.h"
 #endif
 ])
+dnl Rename some macros and functions used for locking.
+dnl Needed for compiling ../gettext-runtime/intl/localealias.c.
+AH_BOTTOM([
+#define __libc_lock_t                   gl_lock_t
+#define __libc_lock_define              gl_lock_define
+#define __libc_lock_define_initialized  gl_lock_define_initialized
+#define __libc_lock_init                gl_lock_init
+#define __libc_lock_lock                gl_lock_lock
+#define __libc_lock_unlock              gl_lock_unlock
+])
 
 dnl Check for nm output filter that yields the exported symbols.
 gt_GLOBAL_SYMBOL_PIPE
@@ -498,6 +517,9 @@ AC_PATH_PROG([PERL], [perl], [$ac_aux_dir_abs/missing perl])
 dnl Check for tools needed for formatting man pages.
 CROSS_COMPILING=$cross_compiling
 AC_SUBST([CROSS_COMPILING])
+
+dnl Checks for configuration that some tests/ depend on.
+gt_GLIBC2
 
 dnl Checks for optional programs for the tests/lang-*, tests/recode-* tests.
 gl_PROG_ANSI_CXX([CXX], [ANSICXX])

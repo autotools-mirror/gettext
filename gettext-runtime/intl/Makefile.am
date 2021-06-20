@@ -18,6 +18,10 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.10 gnu no-dependencies
+ACLOCAL_AMFLAGS = -I ../../m4 -I ../m4 -I ../gnulib-m4
+
+SUBDIRS = .
+
 EXTRA_DIST =
 BUILT_SOURCES =
 MOSTLYCLEANFILES = core *.stackdump
