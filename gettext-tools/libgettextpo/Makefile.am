@@ -107,11 +107,14 @@ LTV_AGE=5
 # How to build libgettextpo.la.
 # Don't make it depend on libgettextsrc.la or libgettextlib.la, since they
 # define an uncontrolled amount of symbols.
+# Limit the exported symbols: Don't export libgettextpo_*, except do export
+# libgettextpo_version.
 libgettextpo_la_LIBADD = libgnu.la $(WOE32_LIBADD) $(LTLIBUNISTRING)
 libgettextpo_la_LDFLAGS = \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir) \
-  @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
+  @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined \
+  -export-symbols-regex '^([^l]|l[^i]|li[^b]|lib[^g]|libg[^e]|libge[^t]|libget[^t]|libgett[^e]|libgette[^x]|libgettex[^t]|libgettext[^p]|libgettextp[^o]|libgettextpo[^_]|libgettextpo_version).*'
 
 # Tell the mingw or Cygwin linker which symbols to export.
 if WOE32DLL
