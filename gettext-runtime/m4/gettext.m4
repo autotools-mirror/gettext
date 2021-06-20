@@ -1,4 +1,4 @@
-# gettext.m4 serial 74 (gettext-0.21.1)
+# gettext.m4 serial 75 (gettext-0.21.1)
 dnl Copyright (C) 1995-2014, 2016, 2018-2021 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -98,7 +98,6 @@ AC_DEFUN([AM_GNU_GETTEXT],
   AC_REQUIRE([AM_NLS])
 
   m4_if(gt_building_libintl_in_same_build_tree, yes, [
-    BUILD_INCLUDED_LIBINTL=no
     USE_INCLUDED_LIBINTL=no
   ])
   LIBINTL=
@@ -271,7 +270,6 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
 
       if test "$nls_cv_use_gnu_gettext" = "yes"; then
         dnl Mark actions used to generate GNU NLS library.
-        BUILD_INCLUDED_LIBINTL=yes
         USE_INCLUDED_LIBINTL=yes
         LIBINTL="m4_if([$3],[],\${top_builddir}/intl,[$3])/libintl.la $LIBICONV $LIBTHREAD"
         LTLIBINTL="m4_if([$3],[],\${top_builddir}/intl,[$3])/libintl.la $LTLIBICONV $LTLIBTHREAD"
@@ -342,12 +340,7 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
   fi
 
   m4_if(gt_building_libintl_in_same_build_tree, yes, [
-    dnl In GNU gettext we have to set BUILD_INCLUDED_LIBINTL to 'yes'
-    dnl because some of the testsuite requires it.
-    BUILD_INCLUDED_LIBINTL=yes
-
     dnl Make all variables we use known to autoconf.
-    AC_SUBST([BUILD_INCLUDED_LIBINTL])
     AC_SUBST([USE_INCLUDED_LIBINTL])
     AC_SUBST([CATOBJEXT])
   ])

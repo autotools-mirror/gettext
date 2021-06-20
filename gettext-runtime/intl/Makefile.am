@@ -208,10 +208,8 @@ nodist_include_HEADERS = libintl.h
 noinst_LTLIBRARIES = libintl.la
 libintl_la_SOURCES = $(LIBINTLSOURCES)
 else
-if BUILD_INCLUDED_LIBINTL
 noinst_LTLIBRARIES = libgnuintl.la
 libgnuintl_la_SOURCES = $(LIBINTLSOURCES)
-endif
 endif
 
 # export.h is an auxiliary file used in constructing the .h files.

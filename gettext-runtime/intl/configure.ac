@@ -85,7 +85,6 @@ dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
 AM_GNU_GETTEXT([here], [need-ngettext])
 dnl Conditionals for the intl/ directory.
 AM_CONDITIONAL([USE_INCLUDED_LIBINTL], [test $USE_INCLUDED_LIBINTL = yes])
-AM_CONDITIONAL([BUILD_INCLUDED_LIBINTL], [test $BUILD_INCLUDED_LIBINTL = yes])
 AM_CONDITIONAL([PRELOADABLE_LIBINTL],
   [test $USE_INCLUDED_LIBINTL = no && test $GLIBC2 = yes && test "$enable_shared" = yes])
 
