@@ -5,6 +5,29 @@
 # Assumes an fr_FR locale is installed.
 # Assumes the following packages are installed: vala.
 
+# Test for presence of valac.
+(valac --version) >/dev/null 2>/dev/null
+test $? -le 1 \
+  || { echo "Skipping test: valac not found"; Exit 77; }
+
+# Test whether valac can compile a trivial program.
+cat <<\EOF > prog.vala
+int main (string[] args) {
+    return 0;
+}
+EOF
+: ${VALAC=valac}
+${VALAC} prog.vala 2>prog.err \
+  || { if grep "fatal error: 'glib\.h' file not found" < prog.err > /dev/null; then
+         echo "Skipping test: valac installation incomplete"
+         Exit 77
+       else
+         cat prog.err 1>&2
+         echo "Skipping test: valac installation does not work"
+         Exit 77
+       fi
+     }
+
 cat <<\EOF > prog.vala
 int main (string[] args) {
     Intl.setlocale (LocaleCategory.ALL, "");
@@ -16,19 +39,9 @@ int main (string[] args) {
 }
 EOF
 
-# Test for presence of valac.
-(valac --version) >/dev/null 2>/dev/null
-test $? -le 1 \
-  || { echo "Skipping test: valac not found"; Exit 77; }
-
 : ${VALAC=valac}
 ${VALAC} --Xcc=-DGETTEXT_PACKAGE=\"prog\" prog.vala 2>prog.err \
-  || { if grep "fatal error: 'glib\.h' file not found" < prog.err > /dev/null; then
-         echo "Skipping test: valac installation incomplete"; Exit 77
-       else
-         cat prog.err 1>&2; Exit 1
-       fi
-     }
+  || { cat prog.err 1>&2; Exit 1; }
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o prog.tmp --omit-header --no-location prog.vala || Exit 1
