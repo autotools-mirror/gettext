@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-2010, 2012-2015, 2018-2021 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2016, 2018-2021 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -66,6 +66,10 @@ case "$host_os" in
   *) is_woe32=no ;;
 esac
 AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
+if test $is_woe32 = yes; then
+  dnl Check for a program that compiles Windows resource files.
+  AC_CHECK_TOOL([WINDRES], [windres])
+fi
 
 dnl Some code is only meant to be compiled on native Windows.
 case "$host_os" in
@@ -88,6 +92,60 @@ AM_CONDITIONAL([PRELOADABLE_LIBINTL],
 dnl Checks for header files, functions and declarations.
 gl_INIT
 
+gt_INTL_SUBDIR_CORE
+
+gt_PRINTF_POSIX
+case $gt_cv_func_printf_posix in
+  *yes) HAVE_POSIX_PRINTF=1 ;;
+  *)    HAVE_POSIX_PRINTF=0 ;;
+esac
+AC_SUBST([HAVE_POSIX_PRINTF])
+
+AC_CHECK_FUNCS_ONCE([asprintf])
+if test "$ac_cv_func_asprintf" = yes; then
+  HAVE_ASPRINTF=1
+else
+  HAVE_ASPRINTF=0
+fi
+AC_SUBST([HAVE_ASPRINTF])
+
+AC_CHECK_FUNCS_ONCE([snprintf])
+if test "$ac_cv_func_snprintf" = yes; then
+  HAVE_SNPRINTF=1
+else
+  HAVE_SNPRINTF=0
+fi
+AC_SUBST([HAVE_SNPRINTF])
+
+AC_CHECK_FUNCS_ONCE([wprintf])
+if test "$ac_cv_func_wprintf" = yes; then
+  HAVE_WPRINTF=1
+else
+  HAVE_WPRINTF=0
+fi
+AC_SUBST([HAVE_WPRINTF])
+
+AC_CHECK_FUNCS_ONCE([newlocale])
+if test "$ac_cv_func_newlocale" = yes; then
+  HAVE_NEWLOCALE=1
+else
+  HAVE_NEWLOCALE=0
+fi
+AC_SUBST([HAVE_NEWLOCALE])
+
+AC_CHECK_HEADERS([features.h])
+
+dnl Use the _snprintf function only if it is declared (because on NetBSD it
+dnl is defined as a weak alias of snprintf; we prefer to use the latter).
+AC_CHECK_DECLS([_snprintf, _snwprintf], , , [#include <stdio.h>])
+
+if test $gt_localename_enhances_locale_funcs = yes; then
+  ENHANCE_LOCALE_FUNCS=1
+else
+  ENHANCE_LOCALE_FUNCS=0
+fi
+AC_SUBST([ENHANCE_LOCALE_FUNCS])
+
 dnl Compilation on mingw and Cygwin needs special Makefile rules, because
 dnl 1. when we install a shared library, we must arrange to export
 dnl    auxiliary pointer variables for every exported variable,
@@ -103,6 +161,8 @@ if test "$enable_shared" = yes; then
 else
   is_woe32dll=no
 fi
+WOE32DLL=$is_woe32dll
+AC_SUBST([WOE32DLL])
 AM_CONDITIONAL([WOE32DLL], [test $is_woe32dll = yes])
 if test $is_woe32dll = yes; then
   AC_DEFINE([WOE32DLL], [1],

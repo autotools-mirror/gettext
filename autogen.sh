@@ -109,7 +109,9 @@ if ! $skip_gnulib; then
     bison
     filename
     havelib
+    lib-symbol-visibility
     localcharset
+    localename
     lock
     relocatable-lib-lgpl
     tsearch

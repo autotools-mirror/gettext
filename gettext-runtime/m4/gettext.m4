@@ -1,4 +1,4 @@
-# gettext.m4 serial 73 (gettext-0.21.1)
+# gettext.m4 serial 74 (gettext-0.21.1)
 dnl Copyright (C) 1995-2014, 2016, 2018-2021 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -66,17 +66,12 @@ AC_DEFUN([AM_GNU_GETTEXT],
   m4_if([$2], [], , [m4_if([$2], [need-ngettext], , [m4_if([$2], [need-formatstring-macros], ,
     [errprint([ERROR: invalid second argument to AM_GNU_GETTEXT
 ])])])])
-  define([gt_building_libintl_here],
-    m4_if([$1], [here], [yes], [no]))
   define([gt_building_libintl_in_same_build_tree],
     m4_if([$1], [use-libtool], [yes], [m4_if([$1], [here], [yes], [no])]))
   gt_NEEDS_INIT
   AM_GNU_GETTEXT_NEED([$2])
 
   AC_REQUIRE([AM_PO_SUBDIRS])dnl
-  m4_if(gt_building_libintl_here, yes, [
-    AC_REQUIRE([AM_INTL_SUBDIR])dnl
-  ])
 
   dnl Prerequisites of AC_LIB_LINKFLAGS_BODY.
   AC_REQUIRE([AC_LIB_PREPARE_PREFIX])
