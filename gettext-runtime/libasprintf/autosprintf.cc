@@ -1,5 +1,5 @@
 /* Class autosprintf - formatted output to an ostream.
-   Copyright (C) 2002, 2013, 2015, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2002, 2013, 2015, 2018, 2021 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -15,12 +15,7 @@
    You should have received a copy of the GNU Lesser General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-/* Tell glibc's <stdio.h> to provide a prototype for vasprintf().
-   This must come before <config.h> because <config.h> may include
-   <features.h>, and once <features.h> has been included, it's too late.  */
-#ifndef _GNU_SOURCE
-# define _GNU_SOURCE    1
-#endif
+#include <config.h>
 
 /* Specification.  */
 #include "autosprintf.h"
