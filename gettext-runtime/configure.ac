@@ -101,7 +101,8 @@ AM_GNU_GETTEXT([use-libtool], [need-ngettext])
 dnl Conditionals for the intl/ directory.
 AM_CONDITIONAL([USE_INCLUDED_LIBINTL], [test $USE_INCLUDED_LIBINTL = yes])
 AM_CONDITIONAL([BUILD_INCLUDED_LIBINTL], [test $BUILD_INCLUDED_LIBINTL = yes])
-AM_CONDITIONAL([PRELOADABLE_LIBINTL], [false])
+AM_CONDITIONAL([PRELOADABLE_LIBINTL],
+  [test $USE_INCLUDED_LIBINTL = no && test $GLIBC2 = yes && test "$enable_shared" = yes])
 
 dnl Checks for header files, functions and declarations.
 gl_INIT

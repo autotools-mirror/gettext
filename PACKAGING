@@ -126,7 +126,8 @@ is according to the following file list.
       $prefix/lib/libgettextlib*
       $prefix/lib/libgettextsrc*
       $prefix/lib/libgettextpo*
-      $prefix/lib/preloadable_libintl.so  (only installed on glibc systems)
+      $prefix/lib/preloadable_libintl.so  (only installed on glibc systems;
+                                           actually installed by gettext-runtime's "make install")
       $prefix/lib/gettext/*
       $prefix/share/locale/*/LC_MESSAGES/gettext-tools.mo
       $prefix/share/gettext/config.rpath

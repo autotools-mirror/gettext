@@ -123,11 +123,6 @@ dnl Checks for libraries.
 dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
 AM_GNU_GETTEXT([use-libtool], [need-ngettext], [\${top_builddir}/../gettext-runtime/intl])
-dnl Conditionals for referencing the ../gettext-runtime/intl/ directory.
-AM_CONDITIONAL([USE_INCLUDED_LIBINTL], [test $USE_INCLUDED_LIBINTL = yes])
-AM_CONDITIONAL([BUILD_INCLUDED_LIBINTL], [test $BUILD_INCLUDED_LIBINTL = yes])
-AM_CONDITIONAL([PRELOADABLE_LIBINTL],
-  [test $USE_INCLUDED_LIBINTL = no && test $GLIBC2 = yes && test "$enable_shared" = yes])
 
 dnl This option allows to build gettext-tools without (re)building libtextstyle.
 AC_ARG_WITH([installed-libtextstyle],
