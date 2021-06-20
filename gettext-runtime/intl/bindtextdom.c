@@ -133,16 +133,7 @@ set_binding_values (const char *domainname,
 		  if (strcmp (dirname, _nl_default_dirname) == 0)
 		    result = (char *) _nl_default_dirname;
 		  else
-		    {
-#if defined _LIBC || defined HAVE_STRDUP
-		      result = strdup (dirname);
-#else
-		      size_t len = strlen (dirname) + 1;
-		      result = (char *) malloc (len);
-		      if (__builtin_expect (result != NULL, 1))
-			memcpy (result, dirname, len);
-#endif
-		    }
+		    result = strdup (dirname);
 
 		  if (__builtin_expect (result != NULL, 1))
 		    {
@@ -212,15 +203,7 @@ set_binding_values (const char *domainname,
 	      char *result = binding->codeset;
 	      if (result == NULL || strcmp (codeset, result) != 0)
 		{
-#if defined _LIBC || defined HAVE_STRDUP
 		  result = strdup (codeset);
-#else
-		  size_t len = strlen (codeset) + 1;
-		  result = (char *) malloc (len);
-		  if (__builtin_expect (result != NULL, 1))
-		    memcpy (result, codeset, len);
-#endif
-
 		  if (__builtin_expect (result != NULL, 1))
 		    {
 		      free (binding->codeset);
@@ -281,18 +264,9 @@ set_binding_values (const char *domainname,
 		dirname = _nl_default_dirname;
 	      else
 		{
-		  char *result;
-#if defined _LIBC || defined HAVE_STRDUP
-		  result = strdup (dirname);
+		  char *result = strdup (dirname);
 		  if (__builtin_expect (result == NULL, 0))
 		    goto failed_dirname;
-#else
-		  size_t len = strlen (dirname) + 1;
-		  result = (char *) malloc (len);
-		  if (__builtin_expect (result == NULL, 0))
-		    goto failed_dirname;
-		  memcpy (result, dirname, len);
-#endif
 		  dirname = result;
 		}
 	    }
@@ -335,19 +309,9 @@ set_binding_values (const char *domainname,
 
 	  if (codeset != NULL)
 	    {
-	      char *result;
-
-#if defined _LIBC || defined HAVE_STRDUP
-	      result = strdup (codeset);
+	      char *result = strdup (codeset);
 	      if (__builtin_expect (result == NULL, 0))
 		goto failed_codeset;
-#else
-	      size_t len = strlen (codeset) + 1;
-	      result = (char *) malloc (len);
-	      if (__builtin_expect (result == NULL, 0))
-		goto failed_codeset;
-	      memcpy (result, codeset, len);
-#endif
 	      codeset = result;
 	    }
 	  *codesetp = codeset;

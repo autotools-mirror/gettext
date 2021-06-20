@@ -87,18 +87,10 @@ TEXTDOMAIN (const char *domainname)
     new_domain = old_domain;
   else
     {
-      /* If the following malloc fails `_nl_current_default_domain'
+      /* If the following strdup fails '_nl_current_default_domain'
 	 will be NULL.  This value will be returned and so signals we
-	 are out of core.  */
-#if defined _LIBC || defined HAVE_STRDUP
+	 are out of memory.  */
       new_domain = strdup (domainname);
-#else
-      size_t len = strlen (domainname) + 1;
-      new_domain = (char *) malloc (len);
-      if (new_domain != NULL)
-	memcpy (new_domain, domainname, len);
-#endif
-
       if (new_domain != NULL)
 	_nl_current_default_domain = new_domain;
     }
