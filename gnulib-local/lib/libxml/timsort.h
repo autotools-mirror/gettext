@@ -1,5 +1,5 @@
 /* libxml2 - Library for parsing XML documents
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2021 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -157,7 +157,7 @@ static int clzll(uint64_t x) {
 #endif
 #endif
 
-static __inline int compute_minrun(const uint64_t size) {
+static inline int compute_minrun(const uint64_t size) {
   const int top_bit = 64 - CLZ(size);
   const int shift = MAX(top_bit, 6) - 6;
   const int minrun = size >> shift;
@@ -205,7 +205,7 @@ void TIM_SORT(SORT_TYPE *dst, const size_t size);
 
 
 /* Function used to do a binary search for binary insertion sort */
-static __inline size_t BINARY_INSERTION_FIND(SORT_TYPE *dst, const SORT_TYPE x,
+static inline size_t BINARY_INSERTION_FIND(SORT_TYPE *dst, const SORT_TYPE x,
     const size_t size) {
   size_t l, c, r;
   SORT_TYPE cx;
@@ -286,7 +286,7 @@ void BINARY_INSERTION_SORT(SORT_TYPE *dst, const size_t size) {
 
 /* timsort implementation, based on timsort.txt */
 
-static __inline void REVERSE_ELEMENTS(SORT_TYPE *dst, size_t start, size_t end) {
+static inline void REVERSE_ELEMENTS(SORT_TYPE *dst, size_t start, size_t end) {
   while (1) {
     if (start >= end) {
       return;
@@ -515,13 +515,13 @@ static int TIM_SORT_COLLAPSE(SORT_TYPE *dst, TIM_SORT_RUN_T *stack, int stack_cu
   return stack_curr;
 }
 
-static __inline int PUSH_NEXT(SORT_TYPE *dst,
-                              const size_t size,
-                              TEMP_STORAGE_T *store,
-                              const size_t minrun,
-                              TIM_SORT_RUN_T *run_stack,
-                              size_t *stack_curr,
-                              size_t *curr) {
+static inline int PUSH_NEXT(SORT_TYPE *dst,
+                            const size_t size,
+                            TEMP_STORAGE_T *store,
+                            const size_t minrun,
+                            TIM_SORT_RUN_T *run_stack,
+                            size_t *stack_curr,
+                            size_t *curr) {
   size_t len = COUNT_RUN(dst, *curr, size);
   size_t run = minrun;
 
