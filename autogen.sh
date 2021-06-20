@@ -304,7 +304,14 @@ if ! $skip_gnulib; then
   '
   $GNULIB_TOOL --dir=gettext-tools --macro-prefix=grgl --lib=libgrep --source-base=libgrep --m4-base=libgrep/gnulib-m4 --witness-c-macro=IN_GETTEXT_TOOLS_LIBGREP --makefile-name=Makefile.gnulib --local-dir=gnulib-local --local-symlink \
     --import \
-    `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do if test \`$GNULIB_TOOL --extract-applicability $m\` != all; then echo --avoid=$m; fi; done` \
+    `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do \
+       if test \`$GNULIB_TOOL --extract-applicability $m\` != all; then \
+         case $m in \
+           locale | stdbool | stddef | stdint | stdlib | unistd | wchar | wctype-h) ;; \
+           *) echo --avoid=$m ;; \
+         esac; \
+       fi; \
+     done` \
     $GNULIB_MODULES_TOOLS_FOR_LIBGREP || exit $?
   # In gettext-tools/libgettextpo:
   # This is a subset of the GNULIB_MODULES_TOOLS_FOR_SRC.
