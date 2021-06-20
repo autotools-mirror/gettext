@@ -146,8 +146,7 @@ HEADERS_WITH_EXTERNS = \
 # List of declared exported symbols.
 # We extract it from the header files that get installed.
 # This file has the same format as the one expected by the libtool option
-# '-export-symbols', but we don't use this option, because it may prevent us
-# from building some of the unit tests.
+# '-export-symbols'.
 $(srcdir)/libtextstyle.sym.in : $(HEADERS_WITH_EXTERNS)
 	if \
 	  for f in $(HEADERS_WITH_EXTERNS); do \
