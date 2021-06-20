@@ -481,7 +481,6 @@ aclocal -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m
   && autoconf \
   && autoheader && touch config.h.in \
   && touch ChangeLog \
-  && { test -d intl || mkdir intl; } \
   && automake --add-missing --copy \
   && rm -rf autom4te.cache \
   || exit $?
