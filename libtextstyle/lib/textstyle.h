@@ -1,5 +1,5 @@
 /* Public API of the libtextstyle library.
-   Copyright (C) 2006-2007, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2019-2021 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -614,9 +614,11 @@ extern void libtextstyle_set_failure_exit_code (int exit_code);
 extern "C" {
 # endif
 
+# if !((defined isatty && defined _GL_UNISTD_H) || defined GNULIB_overrides_isatty) /* don't override gnulib */
 extern int libtextstyle_isatty (int fd);
-# undef isatty
-# define isatty libtextstyle_isatty
+#  undef isatty
+#  define isatty libtextstyle_isatty
+# endif
 
 # ifdef __cplusplus
 }
