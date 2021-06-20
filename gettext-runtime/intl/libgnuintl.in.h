@@ -355,18 +355,18 @@ extern char *bind_textdomain_codeset (const char *__domainname,
 # include <varargs.h>
 #endif
 
-#if !(defined fprintf && defined _GL_STDIO_H) /* don't override gnulib */
+#if !((defined fprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_fprintf) /* don't override gnulib */
 #undef fprintf
 #define fprintf libintl_fprintf
 extern int fprintf (FILE *, const char *, ...);
 #endif
-#if !(defined vfprintf && defined _GL_STDIO_H) /* don't override gnulib */
+#if !((defined vfprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vfprintf) /* don't override gnulib */
 #undef vfprintf
 #define vfprintf libintl_vfprintf
 extern int vfprintf (FILE *, const char *, va_list);
 #endif
 
-#if !(defined printf && defined _GL_STDIO_H) /* don't override gnulib */
+#if !((defined printf && defined _GL_STDIO_H) || defined GNULIB_overrides_printf) /* don't override gnulib */
 #undef printf
 #if defined __NetBSD__ || defined __BEOS__ || defined __CYGWIN__ || defined __MINGW32__
 /* Don't break __attribute__((format(printf,M,N))).
@@ -383,18 +383,18 @@ extern int vfprintf (FILE *, const char *, va_list);
 #define printf libintl_printf
 extern int printf (const char *, ...);
 #endif
-#if !(defined vprintf && defined _GL_STDIO_H) /* don't override gnulib */
+#if !((defined vprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vprintf) /* don't override gnulib */
 #undef vprintf
 #define vprintf libintl_vprintf
 extern int vprintf (const char *, va_list);
 #endif
 
-#if !(defined sprintf && defined _GL_STDIO_H) /* don't override gnulib */
+#if !((defined sprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_sprintf) /* don't override gnulib */
 #undef sprintf
 #define sprintf libintl_sprintf
 extern int sprintf (char *, const char *, ...);
 #endif
-#if !(defined vsprintf && defined _GL_STDIO_H) /* don't override gnulib */
+#if !((defined vsprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vsprintf) /* don't override gnulib */
 #undef vsprintf
 #define vsprintf libintl_vsprintf
 extern int vsprintf (char *, const char *, va_list);
@@ -402,12 +402,12 @@ extern int vsprintf (char *, const char *, va_list);
 
 #if @HAVE_SNPRINTF@
 
-#if !(defined snprintf && defined _GL_STDIO_H) /* don't override gnulib */
+#if !((defined snprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_snprintf) /* don't override gnulib */
 #undef snprintf
 #define snprintf libintl_snprintf
 extern int snprintf (char *, size_t, const char *, ...);
 #endif
-#if !(defined vsnprintf && defined _GL_STDIO_H) /* don't override gnulib */
+#if !((defined vsnprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vsnprintf) /* don't override gnulib */
 #undef vsnprintf
 #define vsnprintf libintl_vsnprintf
 extern int vsnprintf (char *, size_t, const char *, va_list);
@@ -417,12 +417,12 @@ extern int vsnprintf (char *, size_t, const char *, va_list);
 
 #if @HAVE_ASPRINTF@
 
-#if !(defined asprintf && defined _GL_STDIO_H) /* don't override gnulib */
+#if !((defined asprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_asprintf) /* don't override gnulib */
 #undef asprintf
 #define asprintf libintl_asprintf
 extern int asprintf (char **, const char *, ...);
 #endif
-#if !(defined vasprintf && defined _GL_STDIO_H) /* don't override gnulib */
+#if !((defined vasprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vasprintf) /* don't override gnulib */
 #undef vasprintf
 #define vasprintf libintl_vasprintf
 extern int vasprintf (char **, const char *, va_list);
