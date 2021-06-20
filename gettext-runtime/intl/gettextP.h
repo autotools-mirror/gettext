@@ -1,5 +1,5 @@
 /* Header describing internals of libintl library.
-   Copyright (C) 1995-2020 Free Software Foundation, Inc.
+   Copyright (C) 1995-2021 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -33,7 +33,7 @@
 # include <bits/libc-lock.h>
 # define gl_rwlock_define __libc_rwlock_define
 #else
-# include "lock.h"
+# include "glthread/lock.h"
 #endif
 
 #ifdef _LIBC
@@ -234,29 +234,11 @@ extern LIBINTL_DLL_EXPORTED int _nl_msg_cat_cntr;
 
 #ifndef _LIBC
 extern const char *_nl_language_preferences_default (void);
-# define gl_locale_name_canonicalize _nl_locale_name_canonicalize
 extern void _nl_locale_name_canonicalize (char *name);
-# define gl_locale_name_from_win32_LANGID _nl_locale_name_from_win32_LANGID
 /* extern const char *_nl_locale_name_from_win32_LANGID (LANGID langid); */
-# define gl_locale_name_from_win32_LCID _nl_locale_name_from_win32_LCID
 /* extern const char *_nl_locale_name_from_win32_LCID (LCID lcid); */
-# define gl_locale_name_thread_unsafe _nl_locale_name_thread_unsafe
 extern const char *_nl_locale_name_thread_unsafe (int category,
 						  const char *categoryname);
-# define gl_locale_name_thread _nl_locale_name_thread
-/* extern const char *_nl_locale_name_thread (int category,
-					      const char *categoryname); */
-# define gl_locale_name_posix _nl_locale_name_posix
-extern const char *_nl_locale_name_posix (int category,
-					  const char *categoryname);
-# define gl_locale_name_environ _nl_locale_name_environ
-extern const char *_nl_locale_name_environ (int category,
-					    const char *categoryname);
-# define gl_locale_name_default _nl_locale_name_default
-extern const char *_nl_locale_name_default (void);
-# define gl_locale_name _nl_locale_name
-/* extern const char *_nl_locale_name (int category,
-				       const char *categoryname); */
 #endif
 
 struct loaded_l10nfile *_nl_find_domain (const char *__dirname,

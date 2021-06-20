@@ -1,5 +1,5 @@
 /* Implementation of the internal dcigettext function.
-   Copyright (C) 1995-2020 Free Software Foundation, Inc.
+   Copyright (C) 1995-2021 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -87,6 +87,7 @@ extern int errno;
 
 #if !defined _LIBC
 # include "localcharset.h"
+# include "localename.h"
 #endif
 
 #include "gettextP.h"
@@ -109,7 +110,7 @@ extern int errno;
 # define gl_rwlock_wrlock __libc_rwlock_wrlock
 # define gl_rwlock_unlock __libc_rwlock_unlock
 #else
-# include "lock.h"
+# include "glthread/lock.h"
 #endif
 
 /* Alignment of types.  */
@@ -155,18 +156,7 @@ static void *mempcpy (void *dest, const void *src, size_t n);
 # endif
 #endif
 
-/* Use a replacement if the system does not provide the `tsearch' function
-   family.  */
-#if defined HAVE_TSEARCH || defined _LIBC
-# include <search.h>
-#else
-# define tsearch libintl_tsearch
-# define tfind libintl_tfind
-# define tdelete libintl_tdelete
-# define twalk libintl_twalk
-# include "tsearch.h"
-#endif
-
+#include <search.h>
 #ifdef _LIBC
 # define tsearch __tsearch
 #endif
@@ -1746,10 +1736,6 @@ mempcpy (void *dest, const void *src, size_t n)
 {
   return (void *) ((char *) memcpy (dest, src, n) + n);
 }
-#endif
-
-#if !_LIBC && !HAVE_TSEARCH
-# include "tsearch.c"
 #endif
 
 

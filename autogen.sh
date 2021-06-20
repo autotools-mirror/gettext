@@ -103,7 +103,21 @@ if ! $skip_gnulib; then
   $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
     --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER || exit $?
   # In gettext-runtime/intl:
-  $GNULIB_TOOL --copy-file m4/bison.m4 gettext-runtime/gnulib-m4/bison.m4 || exit $?
+  GNULIB_MODULES_LIBINTL='
+    gettext-runtime-intl-misc
+    attribute
+    bison
+    filename
+    havelib
+    localcharset
+    lock
+    relocatable-lib-lgpl
+    tsearch
+    vasnprintf
+  '
+  GNULIB_SETLOCALE_DEPENDENCIES=`$GNULIB_TOOL --extract-dependencies setlocale | sed -e 's/ .*//'`
+  $GNULIB_TOOL --dir=gettext-runtime/intl --source-base=gnulib-lib --m4-base=gnulib-m4 --lgpl=2 --libtool --local-dir=gnulib-local --local-symlink \
+    --import $GNULIB_MODULES_LIBINTL $GNULIB_SETLOCALE_DEPENDENCIES || exit $?
   # In gettext-runtime/libasprintf:
   GNULIB_MODULES_LIBASPRINTF='
     alloca
@@ -423,7 +437,7 @@ dir0=`pwd`
 
 echo "$0: generating configure in gettext-runtime/intl..."
 cd gettext-runtime/intl
-aclocal -I ../../m4 -I ../m4 -I ../gnulib-m4 \
+aclocal -I ../../m4 -I ../m4 -I gnulib-m4 \
   && autoconf \
   && autoheader && touch config.h.in \
   && touch ChangeLog \

@@ -1,5 +1,5 @@
 /* Load needed message catalogs.
-   Copyright (C) 1995-2020 Free Software Foundation, Inc.
+   Copyright (C) 1995-2021 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -99,7 +99,7 @@ char *alloca ();
 #ifdef _LIBC
 # include <bits/libc-lock.h>
 #else
-# include "lock.h"
+# include "glthread/lock.h"
 #endif
 
 /* Provide fallback values for macros that ought to be defined in <inttypes.h>.

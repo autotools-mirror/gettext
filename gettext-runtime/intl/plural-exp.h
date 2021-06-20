@@ -1,5 +1,5 @@
 /* Expression parsing and evaluation for plural form selection.
-   Copyright (C) 2000-2016, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2000-2016, 2019, 2021 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 2000.
 
    This program is free software: you can redistribute it and/or modify
@@ -94,10 +94,10 @@ struct parse_args
 # define GERMANIC_PLURAL __gettext_germanic_plural
 # define EXTRACT_PLURAL_EXPRESSION __gettext_extract_plural
 #elif defined (IN_LIBINTL)
-# define FREE_EXPRESSION libintl_gettext_free_exp
-# define PLURAL_PARSE libintl_gettextparse
-# define GERMANIC_PLURAL libintl_gettext_germanic_plural
-# define EXTRACT_PLURAL_EXPRESSION libintl_gettext_extract_plural
+# define FREE_EXPRESSION _libintl_gettext_free_exp
+# define PLURAL_PARSE _libintl_gettextparse
+# define GERMANIC_PLURAL _libintl_gettext_germanic_plural
+# define EXTRACT_PLURAL_EXPRESSION _libintl_gettext_extract_plural
 #else
 # define FREE_EXPRESSION free_plural_expression
 # define PLURAL_PARSE parse_plural_expression

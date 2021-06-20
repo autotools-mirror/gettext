@@ -25,7 +25,10 @@
    This matters on MacOS X 10 and Windows.
    See the comments in localename.c, function gl_locale_name_default.  */
 
+/* Specification.  */
 #include <locale.h>
+
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,7 +44,7 @@
 # define DLL_EXPORTED
 #endif
 
-#include "gettextP.h"
+#include "localename.h"
 
 #if HAVE_CFLOCALECOPYPREFERREDLANGUAGES || HAVE_CFPREFERENCESCOPYAPPVALUE
 # if HAVE_CFLOCALECOPYPREFERREDLANGUAGES
@@ -52,7 +55,11 @@
 # include <CoreFoundation/CFPropertyList.h>
 # include <CoreFoundation/CFArray.h>
 # include <CoreFoundation/CFString.h>
+extern void gl_locale_name_canonicalize (char *name);
 #endif
+
+/* Get _nl_msg_cat_cntr declaration.  */
+#include "gettextP.h"
 
 #if (defined __APPLE__ && defined __MACH__) || defined _WIN32 || defined __CYGWIN__
 

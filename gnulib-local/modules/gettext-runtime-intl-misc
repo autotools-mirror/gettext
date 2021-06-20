@@ -1,0 +1,22 @@
+Description:
+
+Files:
+
+Depends-on:
+
+configure.ac:
+
+Makefile.am:
+# Parameterization of the 'relocatable-lib-lgpl' module.
+AM_CPPFLAGS += \
+  -DIN_LIBRARY -DINSTALLDIR=\"$(libdir)\" -DNO_XMALLOC -DBUILDING_DLL \
+  -Dset_relocation_prefix=libintl_set_relocation_prefix \
+  -DDEPENDS_ON_LIBICONV=1
+
+Include:
+
+License:
+LGPLv2+
+
+Maintainer:
+Bruno Haible

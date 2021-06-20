@@ -1,5 +1,5 @@
 /* Handle aliases for locale names.
-   Copyright (C) 1995-2017 Free Software Foundation, Inc.
+   Copyright (C) 1995-2017, 2021 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -86,7 +86,7 @@ char *alloca ();
 #ifdef _LIBC
 # include <bits/libc-lock.h>
 #else
-# include "lock.h"
+# include "glthread/lock.h"
 #endif
 
 #ifndef internal_function

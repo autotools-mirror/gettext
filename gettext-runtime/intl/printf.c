@@ -1,5 +1,5 @@
 /* Formatted output to strings, using POSIX/XSI format strings with positions.
-   Copyright (C) 2003, 2006-2007, 2009-2011, 2018, 2020 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006-2007, 2009-2011, 2018, 2020-2021 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -81,6 +81,8 @@ char *alloca ();
 # define libintl_printf __printf__
 #endif
 
+#if 0 /* not needed */
+
 /* Define auxiliary functions declared in "printf-args.h".  */
 #include "printf-args.c"
 
@@ -88,11 +90,16 @@ char *alloca ();
 #include "printf-parse.c"
 
 /* Define functions declared in "vasnprintf.h".  */
-#define vasnprintf libintl_vasnprintf
+#define vasnprintf _libintl_vasnprintf
 #include "vasnprintf.c"
-#if 0 /* not needed */
-#define asnprintf libintl_asnprintf
+#define asnprintf _libintl_asnprintf
 #include "asnprintf.c"
+
+#else
+
+/* Get the declaration of _libintl_vasnprintf.  */
+#include "vasnprintf.h"
+
 #endif
 
 /* Users don't expect libintl_fprintf to be less POSIX compliant
@@ -112,7 +119,7 @@ libintl_vfprintf (FILE *stream, const char *format, va_list args)
 #endif
     {
       size_t length;
-      char *result = libintl_vasnprintf (NULL, &length, format, args);
+      char *result = _libintl_vasnprintf (NULL, &length, format, args);
       int retval = -1;
       if (result != NULL)
         {
@@ -174,7 +181,7 @@ libintl_vsprintf (char *resultbuf, const char *format, va_list args)
 #endif
     {
       size_t length = (size_t) ~0 / (4 * sizeof (char));
-      char *result = libintl_vasnprintf (resultbuf, &length, format, args);
+      char *result = _libintl_vasnprintf (resultbuf, &length, format, args);
       if (result != resultbuf)
         {
           free (result);
@@ -229,7 +236,7 @@ libintl_vsnprintf (char *resultbuf, size_t length, const char *format, va_list a
 # endif
     {
       size_t maxlength = length;
-      char *result = libintl_vasnprintf (resultbuf, &length, format, args);
+      char *result = _libintl_vasnprintf (resultbuf, &length, format, args);
       if (result == NULL)
         return -1;
       if (result != resultbuf)
@@ -275,7 +282,7 @@ int
 libintl_vasprintf (char **resultp, const char *format, va_list args)
 {
   size_t length;
-  char *result = libintl_vasnprintf (NULL, &length, format, args);
+  char *result = _libintl_vasnprintf (NULL, &length, format, args);
   if (result == NULL)
     return -1;
   if (length > INT_MAX)
@@ -318,10 +325,10 @@ libintl_asprintf (char **resultp, const char *format, ...)
 #include "printf-parse.c"
 
 /* Define functions declared in "vasnprintf.h".  */
-#define vasnwprintf libintl_vasnwprintf
+#define vasnwprintf _libintl_vasnwprintf
 #include "vasnprintf.c"
 #if 0 /* not needed */
-#define asnwprintf libintl_asnwprintf
+#define asnwprintf _libintl_asnwprintf
 #include "asnprintf.c"
 #endif
 
@@ -345,7 +352,7 @@ libintl_vfwprintf (FILE *stream, const wchar_t *format, va_list args)
 # endif
     {
       size_t length;
-      wchar_t *result = libintl_vasnwprintf (NULL, &length, format, args);
+      wchar_t *result = _libintl_vasnwprintf (NULL, &length, format, args);
       int retval = -1;
       if (result != NULL)
         {
@@ -410,7 +417,7 @@ libintl_vswprintf (wchar_t *resultbuf, size_t length, const wchar_t *format, va_
 # endif
     {
       size_t maxlength = length;
-      wchar_t *result = libintl_vasnwprintf (resultbuf, &length, format, args);
+      wchar_t *result = _libintl_vasnwprintf (resultbuf, &length, format, args);
       if (result == NULL)
         return -1;
       if (result != resultbuf)

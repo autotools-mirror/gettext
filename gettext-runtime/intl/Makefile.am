@@ -18,9 +18,9 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.10 gnu no-dependencies
-ACLOCAL_AMFLAGS = -I ../../m4 -I ../m4 -I ../gnulib-m4
+ACLOCAL_AMFLAGS = -I ../../m4 -I ../m4 -I gnulib-m4
 
-SUBDIRS = .
+SUBDIRS = gnulib-lib
 
 EXTRA_DIST =
 BUILT_SOURCES =
@@ -33,8 +33,9 @@ SUFFIXES =
 # -DBUILDING_LIBINTL: Change expansion of LIBINTL_DLL_EXPORTED macro.
 # -DBUILDING_DLL: Change expansion of RELOCATABLE_DLL_EXPORTED macro.
 AM_CPPFLAGS = \
+  -Ignulib-lib -I$(srcdir)/gnulib-lib \
   -DLOCALEDIR=\"$(localedir)\" -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
-  -DLIBDIR=\"$(libdir)\" -DBUILDING_LIBINTL -DBUILDING_DLL -DIN_LIBINTL
+  -DLIBDIR=\"$(libdir)\" -DBUILDING_LIBINTL
 
 if WOE32
 # On mingw, disable the declarations of *printf functions as aliases to the
@@ -44,14 +45,6 @@ if WOE32
 #   __udivdi3, __umoddi3).
 AM_CPPFLAGS += -D__USE_MINGW_ANSI_STDIO=0
 endif
-
-# Parametrization of the 'relocatable-lib-lgpl' module.
-AM_CPPFLAGS += \
-  -DENABLE_RELOCATABLE=1 -DIN_LIBRARY -DINSTALLDIR=\"$(libdir)\" -DNO_XMALLOC \
-  -Dset_relocation_prefix=libintl_set_relocation_prefix \
-  -Drelocate=libintl_relocate \
-  -Drelocate2=libintl_relocate2 \
-  -DDEPENDS_ON_LIBICONV=1
 
 BISON = @INTLBISON@
 BISONFLAGS = --name-prefix=__gettext
@@ -75,22 +68,8 @@ EXTRA_DIST += \
   loadinfo.h \
   plural-exp.h \
   eval-plural.h \
-  localcharset.h \
-  lock.h windows-mutex.h windows-rwlock.h windows-recmutex.h windows-once.h windows-initguard.h \
-  relocatable.h \
-  arg-nonnull.h \
-  attribute.h \
-  filename.h \
-  flexmember.h \
-  localename-table.in.h \
-  setlocale_null.h \
-  thread-optim.h \
-  tsearch.h tsearch.c \
-  verify.h \
-  xsize.h \
-  printf-args.h printf-args.c \
-  printf-parse.h wprintf-parse.h printf-parse.c \
-  vasnprintf.h vasnwprintf.h vasnprintf.c \
+  wprintf-parse.h \
+  vasnprintf.h vasnwprintf.h \
   intl-exports.c os2compat.h os2compat.c \
   libgnuintl.in.h
 
@@ -212,29 +191,13 @@ LIBINTLSOURCES = \
   ngettext.c \
   plural.y \
   plural-exp.c \
-  localcharset.c \
-  threadlib.c \
-  lock.c \
-  relocatable.c \
   langprefs.c \
-  localename.c \
-  localename-table.c \
   log.c \
   printf.c \
   setlocale.c \
-  setlocale-lock.c \
-  setlocale_null.c \
   version.c \
-  xsize.c \
   osdep.c \
   intl-compat.c
-if WINDOWS_NATIVE
-LIBINTLSOURCES += \
-  windows-mutex.c \
-  windows-rwlock.c \
-  windows-recmutex.c \
-  windows-once.c
-endif
 
 # We must not install the libintl.h/libintl.la files if we are on a
 # system which has the GNU gettext() function in its C library or in a
@@ -284,15 +247,6 @@ libintl.h: $(srcdir)/libgnuintl.in.h
 	    -e 's,@''ENHANCE_LOCALE_FUNCS''@,@ENHANCE_LOCALE_FUNCS@,g' \
 	  < $(srcdir)/libgnuintl.in.h > libintl.h
 MOSTLYCLEANFILES += libintl.h
-
-localename-table.h: $(srcdir)/localename-table.in.h $(srcdir)/export.h
-	sed -e 's/extern \([^"]\)/extern LIBINTL_DLL_EXPORTED \1/' \
-	    -e 's/extern,/extern LIBINTL_DLL_EXPORTED,/' \
-	    -e "/#if HAVE_WORKING_USELOCALE/r $(srcdir)/export.h" \
-	  < $(srcdir)/localename-table.in.h \
-	| sed -e 's,@''HAVE_VISIBILITY''@,@HAVE_VISIBILITY@,g' \
-	  > localename-table.h
-MOSTLYCLEANFILES += localename-table.h
 
 # The Automake generated .y.c rule is broken: When executed in a VPATH build,
 #   - The .c file gets generated in the build directory. But since it requires
@@ -366,46 +320,20 @@ plural.lo: $(srcdir)/plural.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/plural.c
 plural-exp.lo: $(srcdir)/plural-exp.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/plural-exp.c
-localcharset.lo: $(srcdir)/localcharset.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/localcharset.c
-threadlib.lo: $(srcdir)/threadlib.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/threadlib.c
-lock.lo: $(srcdir)/lock.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/lock.c
-relocatable.lo: $(srcdir)/relocatable.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/relocatable.c
 langprefs.lo: $(srcdir)/langprefs.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/langprefs.c
-localename.lo: $(srcdir)/localename.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/localename.c
-localename-table.lo: $(srcdir)/localename-table.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/localename-table.c
 log.lo: $(srcdir)/log.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/log.c
 printf.lo: $(srcdir)/printf.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/printf.c
 setlocale.lo: $(srcdir)/setlocale.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/setlocale.c
-setlocale-lock.lo: $(srcdir)/setlocale-lock.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/setlocale-lock.c
-setlocale_null.lo: $(srcdir)/setlocale_null.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/setlocale_null.c
 version.lo: $(srcdir)/version.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/version.c
-xsize.lo: $(srcdir)/xsize.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/xsize.c
 osdep.lo: $(srcdir)/osdep.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/osdep.c
 intl-compat.lo: $(srcdir)/intl-compat.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/intl-compat.c
-windows-mutex.lo: $(srcdir)/windows-mutex.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/windows-mutex.c
-windows-rwlock.lo: $(srcdir)/windows-rwlock.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/windows-rwlock.c
-windows-recmutex.lo: $(srcdir)/windows-recmutex.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/windows-recmutex.c
-windows-once.lo: $(srcdir)/windows-once.c
-	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/windows-once.c
 
 # Dependencies.
 
@@ -415,43 +343,30 @@ if USE_INCLUDED_LIBINTL
 PLURAL_DEPS += libintl.h
 endif
 
-bindtextdom.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-dcgettext.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-dgettext.lo:         ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-gettext.lo:          ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-finddomain.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
+bindtextdom.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
+dcgettext.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
+dgettext.lo:         ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
+gettext.lo:          ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
+finddomain.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
 hash-string.lo:      ../config.h $(srcdir)/hash-string.h
-loadmsgcat.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/hash-string.h $(srcdir)/plural-exp.h
-localealias.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/relocatable.h
-textdomain.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-l10nflist.lo:        ../config.h $(srcdir)/loadinfo.h $(srcdir)/filename.h
+loadmsgcat.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/hash-string.h $(srcdir)/plural-exp.h
+localealias.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
+textdomain.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
+l10nflist.lo:        ../config.h $(srcdir)/loadinfo.h
 explodename.lo:      ../config.h $(srcdir)/loadinfo.h
-dcigettext.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/localcharset.h $(srcdir)/plural-exp.h $(srcdir)/hash-string.h $(srcdir)/tsearch.h $(srcdir)/tsearch.c $(srcdir)/eval-plural.h $(srcdir)/filename.h
-dcngettext.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-dngettext.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-ngettext.lo:         ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
+dcigettext.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/plural-exp.h $(srcdir)/hash-string.h $(srcdir)/eval-plural.h
+dcngettext.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
+dngettext.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
+ngettext.lo:         ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
 plural.lo:           ../config.h $(srcdir)/plural-exp.h $(PLURAL_DEPS)
 plural-exp.lo:       ../config.h $(srcdir)/plural-exp.h
-localcharset.lo:     ../config.h $(srcdir)/localcharset.h
-threadlib.lo:        ../config.h
-lock.lo:             ../config.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-relocatable.lo:      ../config.h $(srcdir)/relocatable.h
 langprefs.lo:        ../config.h
-localename.lo:       ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h $(srcdir)/flexmember.h $(srcdir)/setlocale_null.h $(srcdir)/arg-nonnull.h localename-table.h
-localename-table.lo: ../config.h localename-table.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-log.lo:              ../config.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-printf.lo:           ../config.h $(srcdir)/printf-args.c $(srcdir)/printf-args.h $(srcdir)/printf-parse.c $(srcdir)/printf-parse.h $(srcdir)/wprintf-parse.h $(srcdir)/xsize.h $(srcdir)/vasnprintf.c $(srcdir)/vasnprintf.h $(srcdir)/vasnwprintf.h $(srcdir)/verify.h
-setlocale.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-setlocale-lock.lo:   ../config.h $(srcdir)/windows-initguard.h
-setlocale_null.lo:   ../config.h $(srcdir)/setlocale_null.h $(srcdir)/arg-nonnull.h
+log.lo:              ../config.h
+printf.lo:           ../config.h $(srcdir)/wprintf-parse.h $(srcdir)/vasnprintf.h $(srcdir)/vasnwprintf.h
+setlocale.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
 version.lo:          ../config.h libgnuintl.h
-xsize.lo:            ../config.h $(srcdir)/xsize.h
 osdep.lo:            ../config.h $(srcdir)/intl-exports.c $(srcdir)/os2compat.c
-intl-compat.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h $(srcdir)/lock.h $(srcdir)/windows-mutex.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-once.h $(srcdir)/windows-initguard.h
-windows-mutex.lo:    ../config.h $(srcdir)/windows-mutex.h $(srcdir)/windows-initguard.h
-windows-rwlock.lo:   ../config.h $(srcdir)/windows-rwlock.h $(srcdir)/windows-initguard.h
-windows-recmutex.lo: ../config.h $(srcdir)/windows-recmutex.h $(srcdir)/windows-initguard.h
-windows-once.lo:     ../config.h $(srcdir)/windows-once.h
+intl-compat.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
 
 # Version information according to Woe32 conventions.
 EXTRA_DIST += libintl.rc
@@ -478,10 +393,12 @@ MOSTLYCLEANFILES += libintl.res.lo
 else
 WOE32_LIBADD =
 endif
-libintl_la_LIBADD          = $(WOE32_LIBADD)
-libintl_la_DEPENDENCIES    = $(WOE32_LIBADD)
-libgnuintl_la_LIBADD       = $(WOE32_LIBADD)
-libgnuintl_la_DEPENDENCIES = $(WOE32_LIBADD)
+
+# What object files to include in libintl.la and libgnuintl.la.
+libintl_la_LIBADD          = gnulib-lib/libgnu.la $(WOE32_LIBADD)
+libintl_la_DEPENDENCIES    = gnulib-lib/libgnu.la $(WOE32_LIBADD)
+libgnuintl_la_LIBADD       = gnulib-lib/libgnu.la $(WOE32_LIBADD)
+libgnuintl_la_DEPENDENCIES = gnulib-lib/libgnu.la $(WOE32_LIBADD)
 
 # langprefs.c (_nl_language_preferences_win32_95) uses functions from
 # advapi32.dll.
@@ -499,11 +416,11 @@ LTV_REVISION=0
 LTV_AGE=2
 
 # How to build libintl.la and libgnuintl.la.
-# Limit the exported symbols: Don't export glwthread* (from gnulib modules).
+# Limit the exported symbols: Don't export _libintl_* (from gnulib modules).
 OTHER_LDFLAGS = \
-  @LTLIBICONV@ @INTL_MACOSX_LIBS@ $(INTL_WINDOWS_LIBS) @LTLIBTHREAD@ \
+  @LTLIBICONV@ @INTL_MACOSX_LIBS@ $(INTL_WINDOWS_LIBS) @LIB_SETLOCALE_NULL@ @LTLIBTHREAD@ \
   -no-undefined \
-  -export-symbols-regex '^([^g]|g[^l]|gl[^w]|glw[^t]|glwt[^h]|glwth[^r]|glwthr[^e]|glwthre[^a]|glwthrea[^d]).*' \
+  -export-symbols-regex '^([^_]|_[^l]|_l[^i]|_li[^b]|_lib[^i]|_libi[^n]|_libin[^t]|_libint[^l]|_libintl[^_]).*' \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir)
 libintl_la_LDFLAGS    = $(AM_LDFLAGS) $(OTHER_LDFLAGS)
@@ -612,6 +529,10 @@ uninstall-aliasfile: ref-del.sed
 	fi
 
 endif
+
+
+# Allow users to use "gnulib-tool --update".
+EXTRA_DIST += gnulib-m4/gnulib-cache.m4
 
 
 # Clean up after Solaris cc.
