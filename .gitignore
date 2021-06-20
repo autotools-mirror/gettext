@@ -78,6 +78,7 @@
 /gettext-tools/libgettextpo/c-strstr.c
 /gettext-tools/libgettextpo/c-strstr.h
 /gettext-tools/libgettextpo/c++defs.h
+/gettext-tools/libgettextpo/calloc.c
 /gettext-tools/libgettextpo/cloexec.c
 /gettext-tools/libgettextpo/cloexec.h
 /gettext-tools/libgettextpo/close.c
@@ -130,6 +131,8 @@
 /gettext-tools/libgettextpo/gl_xlist.h
 /gettext-tools/libgettextpo/hard-locale.c
 /gettext-tools/libgettextpo/hard-locale.h
+/gettext-tools/libgettextpo/ialloc.c
+/gettext-tools/libgettextpo/ialloc.h
 /gettext-tools/libgettextpo/iconv.c
 /gettext-tools/libgettextpo/iconv.in.h
 /gettext-tools/libgettextpo/iconv_close.c
@@ -141,6 +144,7 @@
 /gettext-tools/libgettextpo/iconv_open-zos.gperf
 /gettext-tools/libgettextpo/iconv_open.c
 /gettext-tools/libgettextpo/iconveh.h
+/gettext-tools/libgettextpo/idx.h
 /gettext-tools/libgettextpo/intprops.h
 /gettext-tools/libgettextpo/inttypes.in.h
 /gettext-tools/libgettextpo/itold.c
@@ -188,6 +192,7 @@
 /gettext-tools/libgettextpo/rawmemchr.c
 /gettext-tools/libgettextpo/rawmemchr.valgrind
 /gettext-tools/libgettextpo/realloc.c
+/gettext-tools/libgettextpo/reallocarray.c
 /gettext-tools/libgettextpo/relocatable.c
 /gettext-tools/libgettextpo/relocatable.h
 /gettext-tools/libgettextpo/relocatable.valgrind
@@ -280,11 +285,14 @@
 /gettext-tools/libgettextpo/xvasprintf.c
 /gettext-tools/libgettextpo/xvasprintf.h
 /gettext-tools/libgrep/glthread/
+/gettext-tools/libgrep/malloc/
 /gettext-tools/libgrep/gnulib-m4/
 /gettext-tools/libgrep/Makefile.gnulib
+/gettext-tools/libgrep/attribute.h
 /gettext-tools/libgrep/btowc.c
 /gettext-tools/libgrep/c++defs.h
 /gettext-tools/libgrep/cdefs.h
+/gettext-tools/libgrep/dynarray.h
 /gettext-tools/libgrep/intprops.h
 /gettext-tools/libgrep/langinfo.in.h
 /gettext-tools/libgrep/libc-config.h

@@ -1,5 +1,5 @@
 dnl Configuration for the toplevel directory of GNU libtextstyle
-dnl Copyright (C) 2009-2020 Free Software Foundation, Inc.
+dnl Copyright (C) 2009-2021 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -72,8 +72,8 @@ lts_INIT
 
 dnl Arrange that the gnulib-generated <unistd.h> does not declare isatty(). The
 dnl adhoc-tests want to get this declaration from <textstyle.h>, not <unistd.h>.
-GNULIB_ISATTY=0
-GNULIB_MDA_ISATTY=0
+GL_LTS_GNULIB_ISATTY=0
+GL_LTS_GNULIB_MDA_ISATTY=0
 
 dnl Compilation on mingw and Cygwin needs special Makefile rules, because
 dnl 1. when we install a shared library, we must arrange to export

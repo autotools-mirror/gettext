@@ -33,6 +33,7 @@
 /lib/c-strcase.h
 /lib/c-strcasecmp.c
 /lib/c-strncasecmp.c
+/lib/calloc.c
 /lib/cloexec.c
 /lib/cloexec.h
 /lib/close.c
@@ -62,6 +63,7 @@
 /lib/float.c
 /lib/float.in.h
 /lib/fpucw.h
+/lib/free.c
 /lib/frexp.c
 /lib/frexpl.c
 /lib/fstat.c
@@ -92,8 +94,11 @@
 /lib/html-ostream.oo.h
 /lib/html-styled-ostream.oo.c
 /lib/html-styled-ostream.oo.h
+/lib/ialloc.c
+/lib/ialloc.h
 /lib/iconv-ostream.oo.c
 /lib/iconv-ostream.oo.h
+/lib/idx.h
 /lib/intprops.h
 /lib/inttypes.in.h
 /lib/isatty.c
@@ -146,6 +151,8 @@
 /lib/printf-parse.h
 /lib/raise.c
 /lib/read.c
+/lib/realloc.c
+/lib/reallocarray.c
 /lib/safe-read.c
 /lib/safe-read.h
 /lib/safe-write.c

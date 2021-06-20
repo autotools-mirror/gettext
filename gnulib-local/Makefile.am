@@ -136,8 +136,6 @@ lib/libxml/xpath.in.h \
 lib/libxml/xpathInternals.in.h \
 lib/libxml/xpointer.c \
 lib/libxml/xpointer.in.h \
-lib/localename.c.diff \
-lib/localename-table.h.diff \
 lib/markup.c \
 lib/markup.h \
 lib/mem-hash-map.c \
@@ -146,7 +144,6 @@ lib/obstack.h.diff \
 lib/progname.h.diff \
 lib/regex_internal.h.diff \
 lib/unistd.in.h.diff \
-lib/tsearch.c.diff \
 lib/xerror.c \
 lib/xerror.h \
 lib/xgetcwd.c \
@@ -165,7 +162,6 @@ modules/libtextstyle-dummy \
 modules/libxml \
 modules/markup \
 modules/mem-hash-map \
-modules/tsearch.diff \
 modules/xerror \
 modules/xgetcwd
 
