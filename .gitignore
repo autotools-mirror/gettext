@@ -535,16 +535,22 @@ autom4te.cache/
 # (i.e. erased by "make distclean"):
 /config.log
 /config.status
+/config.cache
 /gettext-runtime/config.log
 /gettext-runtime/config.status
+/gettext-runtime/config.cache
 /gettext-runtime/intl/config.log
 /gettext-runtime/intl/config.status
+/gettext-runtime/intl/config.cache
 /gettext-runtime/libasprintf/config.log
 /gettext-runtime/libasprintf/config.status
+/gettext-runtime/libasprintf/config.cache
 /gettext-tools/config.log
 /gettext-tools/config.status
+/gettext-tools/config.cache
 /gettext-tools/examples/config.log
 /gettext-tools/examples/config.status
+/gettext-tools/examples/config.cache
 # Files created by "config.status":
 /Makefile
 /gettext-runtime/Makefile

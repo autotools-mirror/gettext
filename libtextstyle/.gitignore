@@ -366,6 +366,7 @@ autom4te.cache/
 # (i.e. erased by "make distclean"):
 /config.log
 /config.status
+/config.cache
 # Files created by "config.status":
 /Makefile
 /config.h
@@ -567,6 +568,7 @@ core
 /examples/color-filter/build-aux/missing
 /examples/color-filter/config.log
 /examples/color-filter/config.status
+/examples/color-filter/config.cache
 /examples/color-filter/configure
 /examples/color-filter/filter
 /examples/color-hello/Makefile
@@ -580,6 +582,7 @@ core
 /examples/color-hello/build-aux/missing
 /examples/color-hello/config.log
 /examples/color-hello/config.status
+/examples/color-hello/config.cache
 /examples/color-hello/configure
 /examples/color-hello/hello
 
