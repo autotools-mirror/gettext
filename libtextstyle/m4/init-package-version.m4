@@ -1,5 +1,5 @@
-# init-package-version.m4 serial 1 (gettext-0.18)
-dnl Copyright (C) 1992-2009 Free Software Foundation, Inc.
+# init-package-version.m4 serial 2
+dnl Copyright (C) 1992-2021 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -77,7 +77,7 @@ AC_DEFUN([gl_INIT_PACKAGE],
             m4_bpatsubst(m4_dquote(
                 m4_defn([AM_INIT_AUTOMAKE])),
               [AC_PACKAGE_NAME], [gl_INIT_DUMMY])),
-          [AC_PACKAGE_TARNAME], [gl_INIT_DUMMY])),
+          [AC_PACKAGE_TARNAME], [gl_INIT_EMPTY])),
       [AC_PACKAGE_VERSION], [gl_INIT_DUMMY])
     [AC_SUBST([PACKAGE], [$1])
      AC_SUBST([VERSION], [$2])
@@ -85,7 +85,11 @@ AC_DEFUN([gl_INIT_PACKAGE],
   m4_define([AM_INIT_AUTOMAKE],
     m4_defn([gl_RPL_INIT_AUTOMAKE]))
 ])
-m4_define([gl_INIT_DUMMY], [])
+m4_define([gl_INIT_EMPTY], [])
+dnl Automake 1.16.4 no longer accepts an empty value for gl_INIT_DUMMY.
+dnl But a macro that later expands to empty works.
+m4_define([gl_INIT_DUMMY], [gl_INIT_DUMMY2])
+m4_define([gl_INIT_DUMMY2], [])
 AC_DEFUN([gl_RPL_INIT_AUTOMAKE], [
   m4_ifval([$2],
     [m4_fatal([After gl_INIT_PACKAGE, the two-argument form of AM_INIT_AUTOMAKE cannot be used.])])
