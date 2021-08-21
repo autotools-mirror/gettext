@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/man subdirectory of GNU gettext
-## Copyright (C) 2001-2003, 2006-2007, 2013-2015, 2018 Free Software Foundation, Inc.
+## Copyright (C) 2001-2003, 2006-2007, 2013-2015, 2018, 2021 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -120,7 +120,8 @@ recode-sr-latin.1: recode-sr-latin.x ../src/recode-sr-latin.c
 
 $(man_MAN1MISC): help2man $(top_srcdir)/../.version
 	progname=`echo $@ | sed -e 's/\.in$$//' -e 's/\.1$$//'`; \
-	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" \
+	if test "$$progname" = autopoint; then option='--version-option=--version-without-config'; else option=''; fi; \
+	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN) $$option" \
 	  ../misc/$${progname}$(EXEEXT) $(srcdir)/$${progname}.x $@
 
 gettextize.1: gettextize.x ../misc/gettextize.in
