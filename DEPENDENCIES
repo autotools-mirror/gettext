@@ -90,7 +90,7 @@ The following packages should be installed before GNU gettext is installed
   + Download:
     http://www.mono-project.com/download/
   + Pre-built package name:
-    - On Debian and Debian-based systems: mono,
+    - On Debian and Debian-based systems: mono-runtime,
     - On Red Hat distributions: mono.
     - Other: https://repology.org/project/mono/versions
   + If more than one C# is installed, pass the option --enable-csharp=IMPL
