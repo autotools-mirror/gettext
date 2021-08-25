@@ -19,10 +19,22 @@ EOF
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
-  prepare_locale_ in-6/fr in-6/$LOCALE_FR
-  ../intl-6-prg in-6 $LOCALE_FR > in-6.tmp || Exit 1
-  LC_ALL=C tr -d '\r' < in-6.tmp > in-6.out || Exit 1
-  ${DIFF} in-6.ok in-6.out || Exit 1
+  case "$host_os" in
+    cygwin*)
+      # On Cygwin, file names are interpreted according to the character
+      # encoding of the current locale, see
+      # <https://cygwin.com/cygwin-ug-net/setup-locale.html>.
+      # Therefore arbitrary Unicode characters are only supported in UTF-8
+      # locales (including "C.UTF-8") and in the "C" locale. In particular,
+      # they are not supported in the fr_FR.ISO-8859-1 locale.
+      ;;
+    *)
+      prepare_locale_ in-6/fr in-6/$LOCALE_FR
+      ../intl-6-prg in-6 $LOCALE_FR > in-6.tmp || Exit 1
+      LC_ALL=C tr -d '\r' < in-6.tmp > in-6.out || Exit 1
+      ${DIFF} in-6.ok in-6.out || Exit 1
+      ;;
+  esac
 fi
 if test $LOCALE_FR_UTF8 != none; then
   prepare_locale_ in-6/fr in-6/$LOCALE_FR_UTF8
