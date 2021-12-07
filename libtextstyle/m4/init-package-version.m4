@@ -1,4 +1,4 @@
-# init-package-version.m4 serial 2
+# init-package-version.m4 serial 3
 dnl Copyright (C) 1992-2021 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -61,6 +61,28 @@ dnl the same distribution terms as the rest of that program.
 #   . $srcdir/../version.sh
 #   gl_INIT_PACKAGE(PACKAGE, $VERSION_NUMBER)
 #   AM_INIT_AUTOMAKE([OPTIONS])
+#
+# and after changing version.sh, the developer can directly configure and build:
+#
+#   make distclean
+#   ./configure
+#   make
+#
+# Some other packages use another approach:
+#
+#   AC_INIT(PACKAGE,
+#           m4_normalize(m4_esyscmd([. ./version.sh; echo $VERSION_NUMBER])))
+#   AC_CONFIG_SRCDIR(WITNESS)
+#   AM_INIT_AUTOMAKE([OPTIONS])
+#
+# but here, after changing version.sh, the developer must first regenerate the
+# configure file:
+#
+#   make distclean
+#   ./autogen.sh --skip-gnulib
+#   ./configure
+#   make
+#
 
 # gl_INIT_PACKAGE(PACKAGE-NAME, VERSION)
 # --------------------------------------
