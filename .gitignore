@@ -207,6 +207,7 @@
 /gettext-tools/libgettextpo/stat-w32.c
 /gettext-tools/libgettextpo/stat-w32.h
 /gettext-tools/libgettextpo/stat.c
+/gettext-tools/libgettextpo/stdalign.in.h
 /gettext-tools/libgettextpo/stdarg.in.h
 /gettext-tools/libgettextpo/stdbool.in.h
 /gettext-tools/libgettextpo/stddef.in.h

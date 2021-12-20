@@ -237,6 +237,7 @@
 /lib/xalloc.h
 /lib/xasprintf.c
 /lib/xconcat-filename.c
+/lib/xgetaname-impl.h
 /lib/xgethostname.c
 /lib/xgethostname.h
 /lib/xmalloc.c
