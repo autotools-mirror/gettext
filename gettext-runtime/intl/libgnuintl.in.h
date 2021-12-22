@@ -343,6 +343,17 @@ extern char *bind_textdomain_codeset (const char *__domainname,
    or gettext() but for which the format string could be the return value
    of _() or gettext() need to add this #include.  Oh well.  */
 
+/* Note: In C++ mode, it is not sufficient to redefine a symbol at the
+   preprocessor macro level, such as
+     #define sprintf libintl_sprintf
+   Some programs may reference std::sprintf after including <libintl.h>.
+   Therefore we must make sure that std::libintl_sprintf is defined and
+   identical to ::libintl_sprintf.
+   The user can define _INTL_CXX_NO_CLOBBER_STD_NAMESPACE to avoid this.
+   In such cases, they will not benefit from the overrides when using
+   the 'std' namespace, and they will need to do the references to the
+   'std' namespace *before* including <libintl.h> or "gettext.h".  */
+
 #if !@HAVE_POSIX_PRINTF@
 
 # include <stdio.h>
@@ -359,11 +370,17 @@ extern char *bind_textdomain_codeset (const char *__domainname,
 #  undef fprintf
 #  define fprintf libintl_fprintf
 extern int fprintf (FILE *, const char *, ...);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_fprintf; }
+#  endif
 # endif
 # if !((defined vfprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vfprintf) /* don't override gnulib */
 #  undef vfprintf
 #  define vfprintf libintl_vfprintf
 extern int vfprintf (FILE *, const char *, va_list);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_vfprintf; }
+#  endif
 # endif
 
 # if !((defined printf && defined _GL_STDIO_H) || defined GNULIB_overrides_printf) /* don't override gnulib */
@@ -382,22 +399,34 @@ extern int vfprintf (FILE *, const char *, va_list);
 #  endif
 #  define printf libintl_printf
 extern int printf (const char *, ...);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_printf; }
+#  endif
 # endif
 # if !((defined vprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vprintf) /* don't override gnulib */
 #  undef vprintf
 #  define vprintf libintl_vprintf
 extern int vprintf (const char *, va_list);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_vprintf; }
+#  endif
 # endif
 
 # if !((defined sprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_sprintf) /* don't override gnulib */
 #  undef sprintf
 #  define sprintf libintl_sprintf
 extern int sprintf (char *, const char *, ...);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_sprintf; }
+#  endif
 # endif
 # if !((defined vsprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vsprintf) /* don't override gnulib */
 #  undef vsprintf
 #  define vsprintf libintl_vsprintf
 extern int vsprintf (char *, const char *, va_list);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_vsprintf; }
+#  endif
 # endif
 
 # if @HAVE_SNPRINTF@
@@ -406,11 +435,17 @@ extern int vsprintf (char *, const char *, va_list);
 #   undef snprintf
 #   define snprintf libintl_snprintf
 extern int snprintf (char *, size_t, const char *, ...);
+#   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_snprintf; }
+#   endif
 #  endif
 #  if !((defined vsnprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vsnprintf) /* don't override gnulib */
 #   undef vsnprintf
 #   define vsnprintf libintl_vsnprintf
 extern int vsnprintf (char *, size_t, const char *, va_list);
+#   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_vsnprintf; }
+#   endif
 #  endif
 
 # endif
@@ -421,11 +456,17 @@ extern int vsnprintf (char *, size_t, const char *, va_list);
 #   undef asprintf
 #   define asprintf libintl_asprintf
 extern int asprintf (char **, const char *, ...);
+#   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_asprintf; }
+#   endif
 #  endif
 #  if !((defined vasprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vasprintf) /* don't override gnulib */
 #   undef vasprintf
 #   define vasprintf libintl_vasprintf
 extern int vasprintf (char **, const char *, va_list);
+#   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_vasprintf; }
+#   endif
 #  endif
 
 # endif
@@ -435,23 +476,41 @@ extern int vasprintf (char **, const char *, va_list);
 #  undef fwprintf
 #  define fwprintf libintl_fwprintf
 extern int fwprintf (FILE *, const wchar_t *, ...);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_fwprintf; }
+#  endif
 #  undef vfwprintf
 #  define vfwprintf libintl_vfwprintf
 extern int vfwprintf (FILE *, const wchar_t *, va_list);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_vfwprintf; }
+#  endif
 
 #  undef wprintf
 #  define wprintf libintl_wprintf
 extern int wprintf (const wchar_t *, ...);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_wprintf; }
+#  endif
 #  undef vwprintf
 #  define vwprintf libintl_vwprintf
 extern int vwprintf (const wchar_t *, va_list);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_vwprintf; }
+#  endif
 
 #  undef swprintf
 #  define swprintf libintl_swprintf
 extern int swprintf (wchar_t *, size_t, const wchar_t *, ...);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_swprintf; }
+#  endif
 #  undef vswprintf
 #  define vswprintf libintl_vswprintf
 extern int vswprintf (wchar_t *, size_t, const wchar_t *, va_list);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_vswprintf; }
+#  endif
 
 # endif
 
@@ -465,18 +524,27 @@ extern int vswprintf (wchar_t *, size_t, const wchar_t *, va_list);
 #  undef newlocale
 #  define newlocale libintl_newlocale
 extern locale_t newlocale (int, const char *, locale_t);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_newlocale; }
+#  endif
 # endif
 
 # ifndef GNULIB_defined_duplocale /* don't override gnulib */
 #  undef duplocale
 #  define duplocale libintl_duplocale
 extern locale_t duplocale (locale_t);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_duplocale; }
+#  endif
 # endif
 
 # ifndef GNULIB_defined_freelocale /* don't override gnulib */
 #  undef freelocale
 #  define freelocale libintl_freelocale
 extern void freelocale (locale_t);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_freelocale; }
+#  endif
 # endif
 
 #endif
@@ -489,6 +557,9 @@ extern void freelocale (locale_t);
 #  undef setlocale
 #  define setlocale libintl_setlocale
 extern char *setlocale (int, const char *);
+#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_setlocale; }
+#  endif
 # endif
 
 # if @HAVE_NEWLOCALE@
@@ -498,6 +569,9 @@ extern char *setlocale (int, const char *);
 /* Declare newlocale() only if the system headers define the 'locale_t' type. */
 #  if !(defined __CYGWIN__ && !defined LC_ALL_MASK)
 extern locale_t newlocale (int, const char *, locale_t);
+#   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+namespace std { using ::libintl_newlocale; }
+#   endif
 #  endif
 
 # endif
