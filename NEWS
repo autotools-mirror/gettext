@@ -1,4 +1,4 @@
-Version 0.21.1 - April 2021
+Version 0.21.1 - February 2022
 
 * PO file format:
   - When a #: line contains references to file names that contain spaces,
@@ -15,6 +15,8 @@ Version 0.21.1 - April 2021
     supported.
     For example, sr_Cyrl_RS.UTF-8 is treated like sr_RS.UTF-8@cyrillic, and
     EN_US.UTF-8 is treated like en_US.UTF-8.
+
+* The base Unicode standard is now updated to 14.0.0.
 
 * Portability:
   - Building on macOS 11/arm64 is now supported.
