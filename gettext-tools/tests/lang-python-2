@@ -17,11 +17,11 @@ n = int(sys.argv[1])
 gettext.textdomain('prog')
 gettext.bindtextdomain('prog', '.')
 
-print gettext.gettext("'Your command, please?', asked the waiter.")
-print gettext.ngettext("a piece of cake","%(count)d pieces of cake",n) \
-      % { 'count': n }
-print gettext.gettext("%(oldCurrency)s is replaced by %(newCurrency)s.") \
-      % { 'oldCurrency': "FF", 'newCurrency' : "EUR" }
+print(gettext.gettext("'Your command, please?', asked the waiter."))
+print(gettext.ngettext("a piece of cake","%(count)d pieces of cake",n) \
+      % { 'count': n })
+print(gettext.gettext("%(oldCurrency)s is replaced by %(newCurrency)s.") \
+      % { 'oldCurrency': "FF", 'newCurrency' : "EUR" })
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -84,7 +84,7 @@ ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 # Test for presence of python version 2.3 or newer.
 (python -V) >/dev/null 2>/dev/null \
   || { echo "Skipping test: python not found"; Exit 77; }
-case `python -c 'import sys; print sys.hexversion >= 0x20300F0'` in
+case `python -c 'import sys; print(sys.hexversion >= 0x20300F0)'` in
   1 | True) ;;
   *) echo "Skipping test: python version too old"; Exit 77;;
 esac
