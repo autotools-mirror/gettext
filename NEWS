@@ -18,6 +18,9 @@ Version 0.21.1 - February 2022
 
 * The base Unicode standard is now updated to 14.0.0.
 
+* xgettext:
+  The xgettext option '--sorted-output' is now deprecated.
+
 * Portability:
   - Building on macOS 11/arm64 is now supported.
 

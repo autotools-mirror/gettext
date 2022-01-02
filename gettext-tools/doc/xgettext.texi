@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2020 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2022 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @pindex xgettext
@@ -537,8 +537,8 @@ lines which are wider than the output page width will be split.
 @opindex -s@r{, @code{xgettext} option}
 @opindex --sort-output@r{, @code{xgettext} option}
 @cindex sorting output of @code{xgettext}
-Generate sorted output.  Note that using this option makes it much harder
-for the translator to understand each message's context.
+Generate sorted output (deprecated).  Note that using this option makes it
+much harder for the translator to understand each message's context.
 
 @item -F
 @itemx --sort-by-file

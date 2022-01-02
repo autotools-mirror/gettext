@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-1998, 2000-2016, 2018-2021 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2016, 2018-2022 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -742,6 +742,11 @@ xgettext cannot work without keywords to look for"));
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
            "--its", "--language");
 
+  /* Warn when deprecated options are used.  */
+  if (sort_by_msgid)
+    error (EXIT_SUCCESS, 0, _("The option '%s' is deprecated."),
+           "--sort-output");
+
   if (explicit_its_filename == NULL)
     {
       its_dirs = get_search_path ("its");
@@ -1211,7 +1216,7 @@ Output details:\n"));
       --no-wrap               do not break long message lines, longer than\n\
                               the output page width, into several lines\n"));
       printf (_("\
-  -s, --sort-output           generate sorted output\n"));
+  -s, --sort-output           generate sorted output (deprecated)\n"));
       printf (_("\
   -F, --sort-by-file          sort output by file location\n"));
       printf (_("\
