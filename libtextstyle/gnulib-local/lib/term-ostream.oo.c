@@ -2501,7 +2501,7 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
           #if HAVE_TERMINFO
           int err = 1;
 
-          if (setupterm (term, fd, &err) || err == 1)
+          if (setupterm (term, fd, &err) == 0 || err == 1)
             {
               /* Retrieve particular values depending on the terminal type.  */
               stream->max_colors = tigetnum ("colors");
