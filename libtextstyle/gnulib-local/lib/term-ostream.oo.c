@@ -1,5 +1,5 @@
 /* Output stream for attributed text, producing ANSI escape sequences.
-   Copyright (C) 2006-2008, 2017, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008, 2017, 2019-2020, 2022 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -2517,7 +2517,11 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
               stream->exit_attribute_mode = xstrdup0 (tigetstr ("sgr0"));
             }
           #elif HAVE_TERMCAP
-          struct { char buf[1024]; char canary[4]; } termcapbuf;
+          /* The buffer size needed for termcap was 1024 bytes in the past, but
+             nowadays the largest termcap description (bq300-8-pc-w-rv) is 1507
+             bytes long.  <https://tldp.org/LDP/lpg/node91.html> suggests a
+             buffer size of 2048 bytes.  */
+          struct { char buf[2048]; char canary[4]; } termcapbuf;
           int retval;
 
           /* Call tgetent, being defensive against buffer overflow.  */
@@ -2529,7 +2533,10 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
 
           if (retval > 0)
             {
-              struct { char buf[1024]; char canary[4]; } termentrybuf;
+              /* The buffer size needed for a termcap entry was 1024 bytes in
+                 the past, but nowadays the largest one (in bq300-8-pc-w-rv)
+                 is 1034 bytes long.  */
+              struct { char buf[2048]; char canary[4]; } termentrybuf;
               char *termentryptr;
 
               /* Prepare for calling tgetstr, being defensive against buffer
