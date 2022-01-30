@@ -2564,7 +2564,7 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
 
               #ifdef __BEOS__
               /* The BeOS termcap entry for "beterm" is broken: For "AF" and
-                 "AB" it contains balues in terminfo syntax but the system's
+                 "AB" it contains values in terminfo syntax but the system's
                  tparam() function understands only the termcap syntax.  */
               if (stream->set_a_foreground != NULL
                   && strcmp (stream->set_a_foreground, "\033[3%p1%dm") == 0)
