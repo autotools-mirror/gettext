@@ -180,6 +180,8 @@
 /lib/stdbool.in.h
 /lib/stddef.in.h
 /lib/stdint.in.h
+/lib/stdio-read.c
+/lib/stdio-write.c
 /lib/stdio.in.h
 /lib/stdlib.in.h
 /lib/stpcpy.c

@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU libtextstyle
-## Copyright (C) 1995-2021 Free Software Foundation, Inc.
+## Copyright (C) 1995-2022 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -120,20 +120,13 @@ EXTRA_DIST = \
   gnulib-local/lib/ostream.oo.h \
   gnulib-local/lib/styled-ostream.oo.c \
   gnulib-local/lib/styled-ostream.oo.h \
-  gnulib-local/lib/termcap.h \
-  gnulib-local/lib/terminfo.h \
   gnulib-local/lib/term-ostream.oo.c \
   gnulib-local/lib/term-ostream.oo.h \
   gnulib-local/lib/term-styled-ostream.oo.c \
   gnulib-local/lib/term-styled-ostream.oo.h \
-  gnulib-local/lib/tparm.c \
-  gnulib-local/lib/tputs.c \
-  gnulib-local/m4/curses.m4 \
   gnulib-local/m4/libcroco.m4 \
   gnulib-local/m4/libglib.m4 \
   gnulib-local/m4/moo.m4 \
-  gnulib-local/m4/termcap.m4 \
-  gnulib-local/m4/terminfo.m4 \
   gnulib-local/m4/term-ostream.m4 \
   gnulib-local/modules/fd-ostream \
   gnulib-local/modules/file-ostream \
@@ -150,10 +143,6 @@ EXTRA_DIST = \
   gnulib-local/modules/noop-styled-ostream \
   gnulib-local/modules/ostream \
   gnulib-local/modules/styled-ostream \
-  gnulib-local/modules/termcap \
-  gnulib-local/modules/termcap-h \
-  gnulib-local/modules/terminfo \
-  gnulib-local/modules/terminfo-h \
   gnulib-local/modules/term-ostream \
   gnulib-local/modules/term-ostream-tests \
   gnulib-local/modules/term-styled-ostream \
