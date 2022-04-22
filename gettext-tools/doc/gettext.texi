@@ -1176,8 +1176,8 @@ installers only ask for the language once.
 This determines the system-wide default language for all users.  But the
 installers often give the possibility to install extra localizations for
 additional languages.  For example, the localizations of KDE (the K
-Desktop Environment) and OpenOffice.org are often bundled separately,
-as one installable package per language.
+Desktop Environment) and LibreOffice are often bundled separately, as one
+installable package per language.
 
 At this point it is good to consider the intended use of the machine: If
 it is a machine designated for personal use, additional localizations are
