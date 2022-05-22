@@ -62,3 +62,4 @@ DEPENDENCIES - list of prerequisite packages, to be installed before this one
 INSTALL      - general compilation and installation rules
 NEWS         - major changes in the current version
 THANKS       - list of contributors
+JOIN-GNU     - invitation to join the GNU project

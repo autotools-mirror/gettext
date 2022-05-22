@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-2021 Free Software Foundation, Inc.
+## Copyright (C) 1995-2022 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -51,7 +51,8 @@ changelog_etc = \
   gnulib-local/ChangeLog.0
 
 EXTRA_DIST = \
-  $(changelog_etc) DEPENDENCIES PACKAGING HACKING ChangeLog.0 autogen.sh \
+  $(changelog_etc) DEPENDENCIES PACKAGING HACKING JOIN-GNU ChangeLog.0 \
+  autogen.sh \
   check-copyright-headers \
   build-aux/ac-help.sed build-aux/git-version-gen build-aux/texi2html \
   m4/fixautomake.m4 m4/woe32-dll.m4 \
