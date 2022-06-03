@@ -447,7 +447,7 @@ Tunisia.
 @item TO
 Tonga.
 @item TR
-Turkey.
+T@"{u}rkiye.
 @item TT
 Trinidad and Tobago.
 @item TV
