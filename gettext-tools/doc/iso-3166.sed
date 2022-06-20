@@ -1,6 +1,6 @@
 #! /usr/bin/sed -f
 #
-# Copyright (C) 2001, 2003, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2001, 2003, 2006, 2022 Free Software Foundation, Inc.
 # Written by Bruno Haible <bruno@clisp.org>, 2001.
 #
 # This program is free software: you can redistribute it and/or modify
@@ -24,6 +24,7 @@
   s/^..	\(.*\)/\1./
   s/\&/and/g
   s/ô/@^{o}/g
+  s/ü/@"{u}/g
   s/é/e/g
   s/Å/Aa/g
   x
