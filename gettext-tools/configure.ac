@@ -33,15 +33,21 @@ AC_PROG_CC
 AC_PROG_INSTALL
 
 gt_JAVA_CHOICE
-
-gt_JAVAEXEC
-gt_JAVACOMP([1.5])
-AC_CHECK_PROG([JAR], [jar], [jar])
-if test -n "$HAVE_JAVACOMP" && test -n "$JAR" && test "$JAVA_CHOICE" != no; then
-  BUILDJAVA=yes
-else
+AS_IF([test "$JAVA_CHOICE" != no], [
+  gt_JAVAEXEC
+  gt_JAVACOMP([1.5])
+  AC_CHECK_PROG([JAR], [jar], [jar])
+  if test -n "$HAVE_JAVACOMP" && test -n "$JAR" && test "$JAVA_CHOICE" != no; then
+    BUILDJAVA=yes
+  else
+    BUILDJAVA=no
+  fi
+], [
+  gt_JAVAEXEC_DISABLED
+  gt_JAVACOMP_DISABLED
+  JAR=
   BUILDJAVA=no
-fi
+])
 AC_SUBST([BUILDJAVA])
 if test -n "$HAVE_JAVAEXEC" && test $BUILDJAVA = yes; then
   TESTJAVA=yes
