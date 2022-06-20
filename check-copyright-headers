@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (C) 2019 Free Software Foundation, Inc.
+# Copyright (C) 2019-2022 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -116,7 +116,7 @@ func_check_file ()
       return 0 ;;
 
     */AUTHORS | */COPYING* | */DEPENDENCIES | */FILES | */HACKING | \
-    */INSTALL* | */NEWS | */PACKAGING | */README* | */THANKS )
+    */INSTALL* | */JOIN-GNU | */NEWS | */PACKAGING | */README* | */THANKS )
       # These files contain convenience information, not worth sueing for.
       return 0 ;;
 
