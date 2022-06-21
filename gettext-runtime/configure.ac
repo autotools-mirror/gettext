@@ -185,11 +185,16 @@ if test "$CXX" = "no"; then
 fi
 AM_CONDITIONAL([ENABLE_LIBASPRINTF], [test -n "$SUBDIR_libasprintf"])
 
+dnl Determine variables used by uninstalled-config.sh.
+ENABLE_SHARED="$enable_shared"
+AC_SUBST([ENABLE_SHARED])
+
 AC_CONFIG_SUBDIRS([intl])
 
 AC_CONFIG_SUBDIRS([libasprintf])
 
 AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([uninstalled-config.sh])
 
 AC_CONFIG_FILES([doc/Makefile])
 
