@@ -17,6 +17,9 @@ AM_CPPFLAGS += \
   -Dset_relocation_prefix=libintl_set_relocation_prefix \
   -DDEPENDS_ON_LIBICONV=1
 
+# Support building libintl.a with -fPIC (needed by GCC).
+AM_CFLAGS += @PICFLAG@
+
 Include:
 
 License:
