@@ -1,5 +1,5 @@
 /* Formatted output to strings, using POSIX/XSI format strings with positions.
-   Copyright (C) 2003, 2006-2007, 2009-2011, 2018, 2020-2021 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006-2007, 2009-2011, 2018, 2020-2022 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -310,7 +310,7 @@ libintl_asprintf (char **resultp, const char *format, ...)
 
 #endif
 
-#if HAVE_FWPRINTF
+#if HAVE_WPRINTF
 
 #include <wchar.h>
 
