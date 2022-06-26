@@ -1913,6 +1913,10 @@ extract_from_file (const char *file_name, extractor_ty extractor,
     }
   free (logical_file_name);
   free (real_file_name);
+
+  current_formatstring_parser1 = NULL;
+  current_formatstring_parser2 = NULL;
+  current_formatstring_parser3 = NULL;
 }
 
 static message_ty *
