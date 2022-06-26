@@ -561,6 +561,7 @@ autom4te.cache/
 /gettext-runtime/javacomp.sh
 /gettext-runtime/libtool
 /gettext-runtime/stamp-h1
+/gettext-runtime/uninstalled-config.sh
 /gettext-runtime/doc/Makefile
 /gettext-runtime/intl/Makefile
 /gettext-runtime/intl/config.h
