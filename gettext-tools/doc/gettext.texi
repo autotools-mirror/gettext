@@ -1874,6 +1874,11 @@ this comment is most likely generated and managed by specialized GNU
 tools, and might disappear or be replaced unexpectedly when the PO
 file is given to @code{msgmerge}.
 
+For a PO file to be valid, no two entries without @code{msgctxt} may have
+the same @var{untranslated-string} or @var{untranslated-string-singular}.
+Similarly, no two entries may have the same @code{msgctxt} and the same
+@var{untranslated-string} or @var{untranslated-string-singular}.
+
 @node Sources
 @chapter Preparing Program Sources
 @cindex preparing programs for translation
