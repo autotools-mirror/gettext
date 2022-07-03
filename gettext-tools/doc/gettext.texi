@@ -1828,8 +1828,9 @@ not be used anywhere else.
 
 Each of @var{untranslated-string} and @var{translated-string} respects
 the C syntax for a character string, including the surrounding quotes
-and embedded backslashed escape sequences.  When the time comes
-to write multi-line strings, one should not use escaped newlines.
+and embedded backslashed escape sequences, except that universal character
+escape sequences (@code{\u} and @code{\U}) are not allowed.  When the time
+comes to write multi-line strings, one should not use escaped newlines.
 Instead, a closing quote should follow the last character on the
 line to be continued, and an opening quote should resume the string
 at the beginning of the following PO file line.  For example:
