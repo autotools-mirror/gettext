@@ -2952,11 +2952,14 @@ invocation.  However, you usually don't need to export and document this
 initialization function: It is sufficient that all entry points of the
 library call the initialization function if it hasn't been called before.
 The typical idiom used to achieve this is a static boolean variable that
-indicates whether the initialization function has been called. Like this:
+indicates whether the initialization function has been called.  If the
+library is meant to be used in multithreaded applications, this variable
+needs to be marked @code{volatile}, so that its value get propagated
+between threads. Like this:
 
 @example
 @group
-static bool libfoo_initialized;
+static volatile bool libfoo_initialized;
 
 static void
 libfoo_initialize (void)
@@ -2986,6 +2989,10 @@ foo_refcount (struct foo *argument)
 @}
 @end group
 @end example
+
+@noindent
+The more general solution for initialization functions, POSIX
+@code{pthread_once}, is not needed in this case.
 
 @item
 The usual declaration of the @samp{_} macro in each source file was
