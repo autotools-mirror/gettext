@@ -19,6 +19,7 @@ We assume that the following environment variables are set:
     # Forcing a specific version number, without having to set a git tag.
     echo $CURRENT_VERSION > .tarball-version
 
+    ./autopull.sh
     ./autogen.sh
     ./configure
     make
@@ -292,7 +293,7 @@ We assume that the following environment variables are set:
 ** Upload autopoint archive to alpha.gnu.org:
 
   This is needed to compile git master after the release (as
-  autogen.sh fetches the archive).
+  autopull.sh fetches the archive).
 
     xz -c -e < gettext-tools/misc/archive.dir.tar > archive.dir-$CURRENT_VERSION.tar.xz
     gnulib/build-aux/gnupload \

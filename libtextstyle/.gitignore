@@ -261,7 +261,7 @@
 /build-aux/missing
 /build-aux/test-driver
 
-# Other files brought in by autogen.sh:
+# Other files brought in by autopull.sh:
 /INSTALL.windows
 /build-aux/config.guess
 /build-aux/config.sub
@@ -280,6 +280,8 @@
 /m4/ltversion.m4
 /m4/lt~obsolete.m4
 /m4/woe32-dll.m4
+
+# Other files brought in by autogen.sh:
 # Dummy ChangeLogs:
 /ChangeLog
 

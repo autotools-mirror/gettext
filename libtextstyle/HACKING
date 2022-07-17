@@ -93,8 +93,10 @@ Access to the git repository is described at
   https://savannah.gnu.org/git/?group=gettext
 
 After fetching the sources from the repository, go into the 'libtextstyle'
-directory, peek at the comments in autogen.sh, then run "./autogen.sh";
-then you can proceed with "./configure" as usual.
+directory, peek at the comments in autogen.sh, then run
+  ./autopull.sh
+  ./autogen.sh
+Then you can proceed with "./configure" as usual.
 
 
 Submitting patches
