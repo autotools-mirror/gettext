@@ -234,6 +234,7 @@ libgnuintl.h: $(srcdir)/libgnuintl.in.h $(srcdir)/export.h
 	  fi \
 	| sed -e 's/extern \([^"]\)/extern LIBINTL_DLL_EXPORTED \1/' \
 	      -e "/#define _LIBINTL_H/r $(srcdir)/export.h" \
+	| sed -e "/#define _LIBINTL_H/,+15{/#define _LIBINTL_H/!d}" \
 	| sed -e 's,@''HAVE_VISIBILITY''@,@HAVE_VISIBILITY@,g' \
 	  > libgnuintl.h
 MOSTLYCLEANFILES += libgnuintl.h
