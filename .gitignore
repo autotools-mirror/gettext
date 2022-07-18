@@ -341,11 +341,9 @@
 /build-aux/test-driver
 /build-aux/ylwrap
 
-# Other files brought in by autopull.sh:
+# Other files brought in by autogen.sh:
 /build-aux/config.guess
 /build-aux/config.sub
-
-# Other files brought in by autogen.sh:
 # Dummy ChangeLogs:
 /ChangeLog
 /gettext-runtime/ChangeLog

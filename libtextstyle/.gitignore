@@ -262,6 +262,9 @@
 /build-aux/test-driver
 
 # Other files brought in by autopull.sh:
+/build-aux/texinfo.tex
+
+# Other files brought in by autogen.sh:
 /INSTALL.windows
 /build-aux/config.guess
 /build-aux/config.sub
@@ -269,7 +272,6 @@
 /build-aux/run-test
 /build-aux/test-driver.diff
 /build-aux/texi2html
-/build-aux/texinfo.tex
 /lib/declared.sh
 /lib/exported.sh.in
 /m4/exported.m4
@@ -280,8 +282,6 @@
 /m4/ltversion.m4
 /m4/lt~obsolete.m4
 /m4/woe32-dll.m4
-
-# Other files brought in by autogen.sh:
 # Dummy ChangeLogs:
 /ChangeLog
 
