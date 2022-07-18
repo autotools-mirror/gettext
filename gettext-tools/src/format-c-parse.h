@@ -1,6 +1,5 @@
 /* Parsing C format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2018, 2020 Free Software
-   Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2018, 2020, 2022 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -816,7 +815,7 @@ format_parse_entrails (const char *format, bool translated,
         goto bad_format;
     }
 
-  /* Verify that the format strings uses all arguments up to the highest
+  /* Verify that the format string uses all arguments up to the highest
      numbered one.  */
   if (numbered_arg_count > 0)
     {
