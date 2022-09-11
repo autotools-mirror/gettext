@@ -1,5 +1,5 @@
 /* Determine name of the currently selected locale.
-   Copyright (C) 1995-2019 Free Software Foundation, Inc.
+   Copyright (C) 1995-2022 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -28,6 +28,7 @@
 #endif
 
 #include <limits.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <locale.h>
@@ -35,12 +36,7 @@
 
 #include "flexmember.h"
 #include "setlocale_null.h"
-
-/* We cannot support uselocale() on platforms where the locale_t type is fake.
-   See intl-thread-locale.m4 for details.  */
-#if HAVE_WORKING_USELOCALE && !HAVE_FAKE_LOCALES
-# define HAVE_GOOD_USELOCALE 1
-#endif
+#include "thread-optim.h"
 
 #if HAVE_GOOD_USELOCALE
 /* Mac OS X 10.5 defines the locale_t type in <xlocale.h>.  */
@@ -62,7 +58,6 @@ extern char * getlocalename_l(int, locale_t);
 #  endif
 # endif
 # if HAVE_NAMELESS_LOCALES
-#  include <errno.h>
 #  include "localename-table.h"
 # endif
 #endif
@@ -2697,31 +2692,34 @@ struniq (const char *string)
     /* Out of memory.  Return a statically allocated string.  */
     return "C";
   memcpy (new_node->contents, string, size);
-  /* Lock while inserting new_node.  */
-  gl_lock_lock (struniq_lock);
-  /* Check whether another thread already added the string while we were
-     waiting on the lock.  */
-  for (p = struniq_hash_table[slot]; p != NULL; p = p->next)
-    if (strcmp (p->contents, string) == 0)
-      {
-        free (new_node);
-        new_node = p;
-        goto done;
-      }
-  /* Really insert new_node into the hash table.  Fill new_node entirely first,
-     because other threads may be iterating over the linked list.  */
-  new_node->next = struniq_hash_table[slot];
-  struniq_hash_table[slot] = new_node;
- done:
-  /* Unlock after new_node is inserted.  */
-  gl_lock_unlock (struniq_lock);
+  {
+    bool mt = gl_multithreaded ();
+    /* Lock while inserting new_node.  */
+    if (mt) gl_lock_lock (struniq_lock);
+    /* Check whether another thread already added the string while we were
+       waiting on the lock.  */
+    for (p = struniq_hash_table[slot]; p != NULL; p = p->next)
+      if (strcmp (p->contents, string) == 0)
+        {
+          free (new_node);
+          new_node = p;
+          goto done;
+        }
+    /* Really insert new_node into the hash table.  Fill new_node entirely
+       first, because other threads may be iterating over the linked list.  */
+    new_node->next = struniq_hash_table[slot];
+    struniq_hash_table[slot] = new_node;
+   done:
+    /* Unlock after new_node is inserted.  */
+    if (mt) gl_lock_unlock (struniq_lock);
+  }
   return new_node->contents;
 }
 
 #endif
 
 
-#if HAVE_GOOD_USELOCALE && HAVE_NAMELESS_LOCALES
+#if LOCALENAME_ENHANCE_LOCALE_FUNCS
 
 /* The 'locale_t' object does not contain the names of the locale categories.
    We have to associate them with the object through a hash table.
@@ -2931,9 +2929,7 @@ newlocale (int category_mask, const char *name, locale_t base)
   result = newlocale (category_mask, name, base);
   if (result == NULL)
     {
-      int saved_errno = errno;
       free (node);
-      errno = saved_errno;
       return NULL;
     }
 
@@ -2992,9 +2988,7 @@ duplocale (locale_t locale)
   result = duplocale (locale);
   if (result == NULL)
     {
-      int saved_errno = errno;
       free (node);
-      errno = saved_errno;
       return NULL;
     }
 
@@ -3109,7 +3103,7 @@ freelocale (locale_t locale)
 static
 # endif
 const char *
-gl_locale_name_thread_unsafe (int category, const char *categoryname)
+gl_locale_name_thread_unsafe (int category, _GL_UNUSED const char *categoryname)
 {
 # if HAVE_GOOD_USELOCALE
   {
@@ -3224,7 +3218,7 @@ gl_locale_name_thread_unsafe (int category, const char *categoryname)
 #endif
 
 const char *
-gl_locale_name_thread (int category, const char *categoryname)
+gl_locale_name_thread (int category, _GL_UNUSED const char *categoryname)
 {
 #if HAVE_GOOD_USELOCALE
   const char *name = gl_locale_name_thread_unsafe (category, categoryname);
@@ -3248,7 +3242,7 @@ gl_locale_name_thread (int category, const char *categoryname)
 #endif
 
 const char *
-gl_locale_name_posix (int category, const char *categoryname)
+gl_locale_name_posix (int category, _GL_UNUSED const char *categoryname)
 {
 #if defined WINDOWS_NATIVE
   if (LC_MIN <= category && category <= LC_MAX)
@@ -3313,7 +3307,7 @@ gl_locale_name_posix (int category, const char *categoryname)
 }
 
 const char *
-gl_locale_name_environ (int category, const char *categoryname)
+gl_locale_name_environ (_GL_UNUSED int category, const char *categoryname)
 {
   const char *retval;
 

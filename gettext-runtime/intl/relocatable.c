@@ -1,5 +1,5 @@
 /* Provide relocatable packages.
-   Copyright (C) 2003-2006, 2008-2020 Free Software Foundation, Inc.
+   Copyright (C) 2003-2006, 2008-2022 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -323,7 +323,10 @@ static char *shared_library_fullname;
    supports longer file names
    (see <https://cygwin.com/ml/cygwin/2011-01/msg00410.html>).  */
 
-/* Determine the full pathname of the shared library when it is loaded.  */
+/* Determine the full pathname of the shared library when it is loaded.
+
+   Documentation:
+   <https://docs.microsoft.com/en-us/windows/win32/dlls/dllmain>  */
 
 BOOL WINAPI
 DllMain (HINSTANCE module_handle, DWORD event, LPVOID reserved)
@@ -343,7 +346,13 @@ DllMain (HINSTANCE module_handle, DWORD event, LPVOID reserved)
         /* Shouldn't happen.  */
         return FALSE;
 
-      shared_library_fullname = strdup (location);
+      /* Avoid a memory leak when the same DLL get attached, detached,
+         attached, detached, and so on.  This happens e.g. when a spell
+         checker DLL is used repeatedly by a mail program.  */
+      if (!(shared_library_fullname != NULL
+            && strcmp (shared_library_fullname, location) == 0))
+        /* Remember the full pathname of the shared library.  */
+        shared_library_fullname = strdup (location);
     }
 
   return TRUE;

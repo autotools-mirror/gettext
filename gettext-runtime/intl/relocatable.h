@@ -1,5 +1,5 @@
 /* Provide relocatable packages.
-   Copyright (C) 2003, 2005, 2008-2017 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005, 2008-2022 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -17,6 +17,8 @@
 
 #ifndef _RELOCATABLE_H
 #define _RELOCATABLE_H
+
+#include <stdlib.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -83,7 +85,8 @@ extern const char * relocate2 (const char *pathname, char **allocatedp);
    Returns it, freshly allocated.  Returns NULL upon failure.  */
 extern char * compute_curr_prefix (const char *orig_installprefix,
                                    const char *orig_installdir,
-                                   const char *curr_pathname);
+                                   const char *curr_pathname)
+  _GL_ATTRIBUTE_MALLOC _GL_ATTRIBUTE_DEALLOC_FREE;
 
 #else
 
