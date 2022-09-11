@@ -9,6 +9,7 @@
 # Files from the portability library
 gnulib-lib/argmatch.c
 gnulib-lib/clean-temp.c
+gnulib-lib/clean-temp-simple.c
 gnulib-lib/closeout.c
 gnulib-lib/copy-file.c
 gnulib-lib/csharpcomp.c
@@ -20,13 +21,14 @@ gnulib-lib/javacomp.c
 gnulib-lib/javaexec.c
 gnulib-lib/javaversion.c
 gnulib-lib/obstack.c
+gnulib-lib/openat-die.c
+gnulib-lib/os2-spawn.c
 gnulib-lib/pipe-filter-aux.c
 gnulib-lib/pipe-filter-ii.c
 gnulib-lib/quotearg.c
 gnulib-lib/spawn-pipe.c
-gnulib-lib/w32spawn.h
 gnulib-lib/wait-process.c
-gnulib-lib/xmalloc.c
+gnulib-lib/xalloc-die.c
 gnulib-lib/xsetenv.c
 
 # Package source files
@@ -142,4 +144,4 @@ libgettextpo/error.c
 libgettextpo/gettext-po.c
 libgettextpo/markup.c
 libgettextpo/obstack.c
-libgettextpo/xmalloc.c
+libgettextpo/xalloc-die.c
