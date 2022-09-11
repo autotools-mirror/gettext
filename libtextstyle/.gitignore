@@ -62,6 +62,7 @@
 /lib/float.c
 /lib/float.in.h
 /lib/fpucw.h
+/lib/free.c
 /lib/frexp.c
 /lib/frexpl.c
 /lib/fstat.c
@@ -94,6 +95,7 @@
 /lib/html-styled-ostream.oo.h
 /lib/iconv-ostream.oo.c
 /lib/iconv-ostream.oo.h
+/lib/idx.h
 /lib/intprops.h
 /lib/inttypes.in.h
 /lib/isatty.c
@@ -229,6 +231,7 @@
 /lib/xalloc.h
 /lib/xasprintf.c
 /lib/xconcat-filename.c
+/lib/xgetaname-impl.h
 /lib/xgethostname.c
 /lib/xgethostname.h
 /lib/xmalloc.c
