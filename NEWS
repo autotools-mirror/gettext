@@ -1,3 +1,9 @@
+Version 0.21.1 - October 2022
+
+* Portability:
+  - Building on macOS 11/arm64 is now supported.
+  - Building on Linux/powerpc64le with glibc ≥ 2.35 is now supported.
+
 Version 0.21 - July 2020
 
 * Programming languages support:
