@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/libgettextpo subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2016, 2019-2020 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2016, 2019-2022 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -154,6 +154,8 @@ config.h: $(BUILT_SOURCES)
 	  echo '#define GTPO_CONFIG_H'; \
 	  echo; \
 	  echo '#include "../config.h"'; \
+	  : "We don't use gnulib module 'fchdir' here."; \
+	  echo '#undef REPLACE_FCHDIR'; \
 	  : "Turn all gettext() calls into dgettext() calls."; \
 	  echo '#define DEFAULT_TEXT_DOMAIN "gettext-tools"'; \
 	  : "All code is collected in a single library,"; \

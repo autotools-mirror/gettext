@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-tools directory of GNU gettext
-dnl Copyright (C) 1995-2020 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2022 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -210,6 +210,14 @@ gtpo_INIT
 
 dnl Allow libgrep/locale.h to use setlocale_null.h from gnulib-lib/.
 GL_GRGL_GNULIB_SETLOCALE_NULL=1
+
+dnl In libgettextpo/, we don't use the modules putc, fputc, fputs, fwrite,
+dnl fprintf.
+GL_GTPO_GNULIB_PUTC=0
+GL_GTPO_GNULIB_FPUTC=0
+GL_GTPO_GNULIB_FPUTS=0
+GL_GTPO_GNULIB_FWRITE=0
+GL_GTPO_GNULIB_FPRINTF=0
 
 dnl Checks for header files.
 AC_CHECK_HEADERS([pwd.h])
