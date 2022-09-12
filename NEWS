@@ -1,5 +1,7 @@
 Version 0.21.1 - October 2022
 
+* The base Unicode standard is now updated to 14.0.0.
+
 * Portability:
   - Building on macOS 11/arm64 is now supported.
   - Building on Linux/powerpc64le with glibc ≥ 2.35 is now supported.
