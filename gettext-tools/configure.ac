@@ -212,12 +212,13 @@ dnl Allow libgrep/locale.h to use setlocale_null.h from gnulib-lib/.
 GL_GRGL_GNULIB_SETLOCALE_NULL=1
 
 dnl In libgettextpo/, we don't use the modules putc, fputc, fputs, fwrite,
-dnl fprintf.
+dnl fprintf, vfprintf.
 GL_GTPO_GNULIB_PUTC=0
 GL_GTPO_GNULIB_FPUTC=0
 GL_GTPO_GNULIB_FPUTS=0
 GL_GTPO_GNULIB_FWRITE=0
 GL_GTPO_GNULIB_FPRINTF=0
+GL_GTPO_GNULIB_VFPRINTF=0
 
 dnl Checks for header files.
 AC_CHECK_HEADERS([pwd.h])

@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-2010, 2012-2015, 2018-2020 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2010, 2012-2015, 2018-2022 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -141,7 +141,7 @@ AC_SUBST([INTL_EXPORTS_FLAGS])
 dnl Put some default definitions into config.h.
 AH_BOTTOM([
 /* On Windows, variables that may be in a DLL must be marked specially.  */
-#if (defined _MSC_VER && defined _DLL) && !defined IN_RELOCWRAPPER
+#if (defined _MSC_VER && defined WOE32DLL) && !defined IN_RELOCWRAPPER
 # define DLL_VARIABLE __declspec (dllimport)
 #else
 # define DLL_VARIABLE
