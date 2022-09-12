@@ -208,6 +208,9 @@ gl_INIT
 grgl_INIT
 gtpo_INIT
 
+dnl Allow libgrep/locale.h to use setlocale_null.h from gnulib-lib/.
+GL_GRGL_GNULIB_SETLOCALE_NULL=1
+
 dnl Checks for header files.
 AC_CHECK_HEADERS([pwd.h])
 
