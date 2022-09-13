@@ -1,4 +1,4 @@
-Version 0.21.1 - February 2022
+Version 0.21.2 - January 2023
 
 * PO file format:
   - When a #: line contains references to file names that contain spaces,
@@ -10,6 +10,11 @@ Version 0.21.1 - February 2022
     (of type 'const wchar_t *', 'const char16_t *', or 'const char32_t *') as
     arguments.
 
+* xgettext:
+  The xgettext option '--sorted-output' is now deprecated.
+
+Version 0.21.1 - September 2022
+
 * Runtime behaviour:
   - On AIX, locale names with a script or with an uppercase language are now
     supported.
@@ -17,9 +22,6 @@ Version 0.21.1 - February 2022
     EN_US.UTF-8 is treated like en_US.UTF-8.
 
 * The base Unicode standard is now updated to 14.0.0.
-
-* xgettext:
-  The xgettext option '--sorted-output' is now deprecated.
 
 * Portability:
   - Building on macOS 11/arm64 is now supported.
