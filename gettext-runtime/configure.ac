@@ -140,8 +140,10 @@ AC_SUBST([INTL_EXPORTS_FLAGS])
 
 dnl Put some default definitions into config.h.
 AH_BOTTOM([
-/* On Windows, variables that may be in a DLL must be marked specially.  */
-#if (defined _MSC_VER && defined WOE32DLL) && !defined IN_RELOCWRAPPER
+/* On Windows, variables that may be in a DLL must be marked specially.
+   But here, the only such variable is 'exit_failure', and it is always
+   built into a static library, never into a shared library.  */
+#if defined WOE32DLL && !defined IN_RELOCWRAPPER && 0
 # define DLL_VARIABLE __declspec (dllimport)
 #else
 # define DLL_VARIABLE
