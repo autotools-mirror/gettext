@@ -15,7 +15,6 @@ AC_SUBST([GTKMM_CFLAGS])
 GTKMM_LIBS=`gtkmm-config --libs`
 AC_SUBST([GTKMM_LIBS])
 
-AC_CHECK_HEADERS([unistd.h])
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.21])
 
