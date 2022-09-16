@@ -60,7 +60,7 @@ AC_PROG_CC
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([$ARCHIVE_VERSION])
 
-AC_CONFIG_HEADERS([config.h])
+dnl AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
@@ -110,9 +110,11 @@ echo hello.c > po/POTFILES.in
 ${ACLOCAL} -I m4 >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
 
-: ${AUTOHEADER=autoheader}
-${AUTOHEADER} >/dev/null 2>autopoint.err
-test $? = 0 || { cat autopoint.err; Exit 1; }
+if false; then
+  : ${AUTOHEADER=autoheader}
+  ${AUTOHEADER} >/dev/null 2>autopoint.err
+  test $? = 0 || { cat autopoint.err; Exit 1; }
+fi
 
 ${AUTOCONF} >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
