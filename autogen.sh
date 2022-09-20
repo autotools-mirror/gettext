@@ -209,7 +209,6 @@ if ! $skip_gnulib; then
     stpncpy
     strchrnul
     strcspn
-    strdup-posix
     strerror
     strpbrk
     strtol
@@ -350,7 +349,6 @@ if ! $skip_gnulib; then
     stpcpy
     stpncpy
     strchrnul
-    strdup-posix
     strerror
     unictype/ctype-space
     unilbrk/ulc-width-linebreaks
