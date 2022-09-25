@@ -50,6 +50,9 @@ char *alloca ();
 #include <stdlib.h>
 #include <string.h>
 
+/* Specifications of the libintl_*printf functions.  */
+#include "libgnuintl.h"
+
 /* Some systems, like OSF/1 4.0 and Woe32, don't have EOVERFLOW.  */
 #ifndef EOVERFLOW
 # define EOVERFLOW E2BIG
