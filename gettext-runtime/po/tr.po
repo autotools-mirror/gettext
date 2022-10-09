@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2020-07-26 21:56+0200\n"
+"POT-Creation-Date: 2022-10-09 23:02+0200\n"
 "PO-Revision-Date: 2020-04-17 13:07+0300\n"
 "Last-Translator: Mehmet Kececi <mkececi@mehmetkececi.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -63,12 +63,7 @@ msgstr "%s: geçersiz seçenek -- '%c'\n"
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: seçenek bir bağımsız değişken gerektiriyor -- '%c'\n"
 
-#: gnulib-lib/xmalloc.c:38
-#, c-format
-msgid "memory exhausted"
-msgstr "bellek tükendi"
-
-#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:124
+#: src/envsubst.c:110 src/gettext.c:136 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -81,7 +76,7 @@ msgstr ""
 "Bu özgür yazılımdır: değiştirip dağıtma özgürlüğüne sahipsiniz.\n"
 "Yasaların elverdiği ölçüde HİÇBİR GARANTİSİ yoktur.\n"
 
-#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:130
+#: src/envsubst.c:116 src/gettext.c:142 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s tarafından yazıldı.\n"
@@ -91,17 +86,17 @@ msgstr "%s tarafından yazıldı.\n"
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:142
+#: src/envsubst.c:125 src/gettext.c:160 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "çok fazla argüman"
 
-#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:154
+#: src/envsubst.c:136 src/gettext.c:170 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "argümanlar eksik"
 
-#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:211
+#: src/envsubst.c:174 src/gettext.c:247 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Daha fazla bilgi için '%s --help' deneyin.\n"
@@ -126,7 +121,7 @@ msgstr "İşlem kipi:\n"
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             KABUK-BİÇİMİ içindeki değişkenleri çıktılar\n"
 
-#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:241
+#: src/envsubst.c:195 src/gettext.c:276 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Bilgilendirici çıktı:\n"
@@ -173,7 +168,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:262
+#: src/envsubst.c:223 src/gettext.c:300 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -192,11 +187,11 @@ msgid "standard input"
 msgstr "standart girdi"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:141 src/ngettext.c:130
+#: src/gettext.c:142 src/ngettext.c:131
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:251
+#: src/gettext.c:252
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -205,38 +200,38 @@ msgstr ""
 "Kullanımı: %s [SEÇENEK] [[PAKET] MSGID]\n"
 "ya da:     %s [SEÇENEK] -s [MSGID]...\n"
 
-#: src/gettext.c:257
+#: src/gettext.c:258
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Bir iletinin anadile çevirisini gösterir.\n"
 
-#: src/gettext.c:261
+#: src/gettext.c:262
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEXTDOMAIN   tarafından çevrilmiş mesajları al TEXTDOMAIN\n"
 
-#: src/gettext.c:263 src/ngettext.c:228
+#: src/gettext.c:264 src/ngettext.c:229
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=CONTEXT     MSGID bağlamını belirtin\n"
 
-#: src/gettext.c:265 src/ngettext.c:230
+#: src/gettext.c:266 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
 "  -e                        bazı kaçış dizilerinin genişlemesini sağlamak\n"
 
-#: src/gettext.c:267
+#: src/gettext.c:268
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                        izleyen yeni satırı bastır\n"
 
-#: src/gettext.c:269 src/ngettext.c:232
+#: src/gettext.c:270 src/ngettext.c:233
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                        (uyumluluk için göz ardı edildi)\n"
 
-#: src/gettext.c:271
+#: src/gettext.c:272
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
@@ -245,17 +240,17 @@ msgstr ""
 "  [TEXTDOMAIN] MSGID        karşılık gelen çevrilmiş mesajı almak için\n"
 "                            TEXTDOMAIN'ten MSGID'e\n"
 
-#: src/gettext.c:277 src/ngettext.c:243
+#: src/gettext.c:278 src/ngettext.c:244
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                bu yardım iletisini gösterir ve çıkar\n"
 
-#: src/gettext.c:279 src/ngettext.c:245
+#: src/gettext.c:280 src/ngettext.c:246
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version             sürüm bilgilerini gösterir ve çıkar\n"
 
-#: src/gettext.c:283
+#: src/gettext.c:284
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -275,31 +270,31 @@ msgstr ""
 "bulunan mesajlar çevrilir.\n"
 "Standart arama dizini: %s\n"
 
-#: src/ngettext.c:216
+#: src/ngettext.c:217
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Kullanımı: %s [SEÇENEK] [PAKET] MSGID MSGID-PLURAL SAYI\n"
 
-#: src/ngettext.c:221
+#: src/ngettext.c:222
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr "Bir sayıya bağlı olarak ilgili tekil/çoğul ileti çevirisini gösterir.\n"
 
-#: src/ngettext.c:226
+#: src/ngettext.c:227
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEXTDOMAIN   TEXTDOMAIN tarafından tercüme edilmiş mesajı al\n"
 
-#: src/ngettext.c:234
+#: src/ngettext.c:235
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr ""
 "  [TEXTDOMAIN]              TEXTDOMAIN tarafından tercüme edilmiş mesajı al\n"
 
-#: src/ngettext.c:236
+#: src/ngettext.c:237
 #, c-format
 msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
@@ -307,14 +302,14 @@ msgid ""
 msgstr ""
 "  MSGID MSGID-PLURAL        tercüme et MSGID (tekil) / MSGID-PLURAL (çoğul)\n"
 
-#: src/ngettext.c:238
+#: src/ngettext.c:239
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
 "  COUNT                     bu değere dayalı tekil/çoğul formları seç\n"
 
-#: src/ngettext.c:249
+#: src/ngettext.c:250
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -327,6 +322,10 @@ msgstr ""
 "saptanır. İleti kataloğu olması gereken dizinde değilse bulunduğu dizin\n"
 "TEXTDOMAINDIR çevre değişkeni ile belirtilebilir.\n"
 "Standart arama dizini: %s\n"
+
+#, c-format
+#~ msgid "memory exhausted"
+#~ msgstr "bellek tükendi"
 
 #~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 #~ msgstr ""
