@@ -13,7 +13,7 @@ Version 0.21.2 - January 2023
 * xgettext:
   The xgettext option '--sorted-output' is now deprecated.
 
-Version 0.21.1 - September 2022
+Version 0.21.1 - October 2022
 
 * Runtime behaviour:
   - On AIX, locale names with a script or with an uppercase language are now
@@ -25,6 +25,7 @@ Version 0.21.1 - September 2022
 
 * Portability:
   - Building on macOS 11/arm64 is now supported.
+  - Building on Linux/powerpc64le with glibc ≥ 2.35 is now supported.
 
 Version 0.21 - July 2020
 
