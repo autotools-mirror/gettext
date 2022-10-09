@@ -1,6 +1,6 @@
 ## Makefile for the gettext-runtime/intl and gettext-tools/intl subdirectories
 ## of GNU gettext.
-## Copyright (C) 1995-1998, 2000-2007, 2009-2021 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2007, 2009-2022 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -511,9 +511,9 @@ endif
 # Libtool's library version information for libintl.
 # Before making a gettext release, you must change this according to the
 # libtool documentation, section "Library interface versions".
-LTV_CURRENT=10
+LTV_CURRENT=11
 LTV_REVISION=0
-LTV_AGE=2
+LTV_AGE=3
 
 # How to build libintl.la and libgnuintl.la.
 # Limit the exported symbols: Don't export glwthread* (from gnulib modules).

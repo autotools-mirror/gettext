@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-1998, 2000-2016, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2016, 2018-2022 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -689,7 +689,7 @@ License GPLv3+: GNU GPL version 3 or later <%s>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-              "1995-2020", "https://gnu.org/licenses/gpl.html");
+              "1995-2022", "https://gnu.org/licenses/gpl.html");
       printf (_("Written by %s.\n"), proper_name ("Ulrich Drepper"));
       exit (EXIT_SUCCESS);
     }

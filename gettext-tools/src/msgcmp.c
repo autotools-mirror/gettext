@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012, 2016, 2018-2020 Free Software
+   Copyright (C) 1995-1998, 2000-2010, 2012, 2016, 2018-2022 Free Software
    Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -171,7 +171,7 @@ License GPLv3+: GNU GPL version 3 or later <%s>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-              "1995-2020", "https://gnu.org/licenses/gpl.html");
+              "1995-2022", "https://gnu.org/licenses/gpl.html");
       printf (_("Written by %s.\n"), proper_name ("Peter Miller"));
       exit (EXIT_SUCCESS);
     }
