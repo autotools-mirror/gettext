@@ -123,6 +123,7 @@ EXTRA_DIST += \
 #   dcngettext.c:       libintl_dcngettext
 #   textdomain.c:       libintl_textdomain
 #   bindtextdom.c:      libintl_bindtextdomain
+#                       libintl_wbindtextdomain
 #                       libintl_bind_textdomain_codeset
 #   printf.c:           libintl_fprintf
 #                       libintl_vfprintf
