@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples subdirectory of GNU gettext
-## Copyright (C) 2001-2007, 2009-2016, 2018-2020 Free Software Foundation, Inc.
+## Copyright (C) 2001-2007, 2009-2016, 2018-2022 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -426,6 +426,7 @@ EXAMPLESPOFILES = \
   id.po \
   it.po \
   ja.po \
+  ka.po \
   ky.po \
   lv.po \
   ms.po \

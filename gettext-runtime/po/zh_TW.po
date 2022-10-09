@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2020-07-26 21:56+0200\n"
+"POT-Creation-Date: 2022-10-09 23:02+0200\n"
 "PO-Revision-Date: 2020-04-16 23:51+0800\n"
 "Last-Translator: Yi-Jyun Pan <pan93412@gmail.com>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@lists.linux.org.tw>\n"
@@ -66,12 +66,7 @@ msgstr "%s：選項無效 --「%c」\n"
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s：選項需要一個參數 --「%c」\n"
 
-#: gnulib-lib/xmalloc.c:38
-#, c-format
-msgid "memory exhausted"
-msgstr "記憶體耗盡"
-
-#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:124
+#: src/envsubst.c:110 src/gettext.c:136 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -84,7 +79,7 @@ msgstr ""
 "此為自由軟體：您能修改與重散布它。\n"
 "在法律允許的範圍內沒有任何擔保。\n"
 
-#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:130
+#: src/envsubst.c:116 src/gettext.c:142 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "由 %s 編寫。\n"
@@ -94,17 +89,17 @@ msgstr "由 %s 編寫。\n"
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:142
+#: src/envsubst.c:125 src/gettext.c:160 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "參數過多"
 
-#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:154
+#: src/envsubst.c:136 src/gettext.c:170 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "缺少參數"
 
-#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:211
+#: src/envsubst.c:174 src/gettext.c:247 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "輸入「%s --help」取得更多資訊\n"
@@ -129,7 +124,7 @@ msgstr "操作模式：\n"
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             顯示 <SHELL-格式> 中出現過的環境變數\n"
 
-#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:241
+#: src/envsubst.c:195 src/gettext.c:276 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "資訊輸出：\n"
@@ -172,7 +167,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:262
+#: src/envsubst.c:223 src/gettext.c:300 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -191,11 +186,11 @@ msgid "standard input"
 msgstr "標準輸入"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:141 src/ngettext.c:130
+#: src/gettext.c:142 src/ngettext.c:131
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:251
+#: src/gettext.c:252
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -204,37 +199,37 @@ msgstr ""
 "用法：%s [選項] [[文字領域] MSGID]\n"
 "或：  %s [選項] -s [MSGID]...\n"
 
-#: src/gettext.c:257
+#: src/gettext.c:258
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "顯示某個文字訊息的原生語言翻譯。\n"
 
-#: src/gettext.c:261
+#: src/gettext.c:262
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=文字領域     從 <文字領域> 取得已翻譯訊息\n"
 
-#: src/gettext.c:263 src/ngettext.c:228
+#: src/gettext.c:264 src/ngettext.c:229
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=上下文      指定 MSGID 的上下文\n"
 
-#: src/gettext.c:265 src/ngettext.c:230
+#: src/gettext.c:266 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr "  -e                        啟用部份跳脫序列的擴充\n"
 
-#: src/gettext.c:267
+#: src/gettext.c:268
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                        隱藏尾端換行\n"
 
-#: src/gettext.c:269 src/ngettext.c:232
+#: src/gettext.c:270 src/ngettext.c:233
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                        （忽略，僅作相容）\n"
 
-#: src/gettext.c:271
+#: src/gettext.c:272
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
@@ -242,17 +237,17 @@ msgid ""
 msgstr ""
 "  [文字領域] MSGID          從 <文字領域> 取得對應 MSGID 的已翻譯訊息\n"
 
-#: src/gettext.c:277 src/ngettext.c:243
+#: src/gettext.c:278 src/ngettext.c:244
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                顯示此說明訊息後結束\n"
 
-#: src/gettext.c:279 src/ngettext.c:245
+#: src/gettext.c:280 src/ngettext.c:246
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version             顯示版本資訊並結束\n"
 
-#: src/gettext.c:283
+#: src/gettext.c:284
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -270,43 +265,43 @@ msgstr ""
 "而是輸出選取資料檔中的已翻譯訊息。\n"
 "標準搜尋路徑：%s\n"
 
-#: src/ngettext.c:216
+#: src/ngettext.c:217
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "用法：%s [選項] [文字領域] MSGID MSGID-複數 數量\n"
 
-#: src/ngettext.c:221
+#: src/ngettext.c:222
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr "顯示某文字訊息的原生語言翻譯，其文法受單複數影響。\n"
 
-#: src/ngettext.c:226
+#: src/ngettext.c:227
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 msgstr "  -d, --domain=文字領域     從 <文字領域> 取得已翻譯訊息\n"
 
-#: src/ngettext.c:234
+#: src/ngettext.c:235
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr "  [文字領域]                從 <文字領域> 取得已翻譯訊息\n"
 
-#: src/ngettext.c:236
+#: src/ngettext.c:237
 #, c-format
 msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
 "(plural)\n"
 msgstr "  MSGID MSGID-複數          翻譯 MSGID (單數) / MSGID-複數 (複數)\n"
 
-#: src/ngettext.c:238
+#: src/ngettext.c:239
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr "  數量                      基於此值選擇單複數型態\n"
 
-#: src/ngettext.c:249
+#: src/ngettext.c:250
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -318,6 +313,10 @@ msgstr ""
 "若未指定 <文字領域> 參數，將會依 TEXTDOMAIN 環境變數決定 <文字領域> 的值。\n"
 "如果訊息資料檔未在正常目錄中找到，則可使用 TEXTDOMAINDIR 環境變數指定其他路徑。\n"
 "標準搜尋路徑：%s\n"
+
+#, c-format
+#~ msgid "memory exhausted"
+#~ msgstr "記憶體耗盡"
 
 #~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 #~ msgstr "請向 <bug-gnu-gettext@gnu.org> 回報臭蟲。\n"

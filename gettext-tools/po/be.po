@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext 0.11.5\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2020-07-26 21:56+0200\n"
+"POT-Creation-Date: 2022-10-09 23:02+0200\n"
 "PO-Revision-Date: 2002-09-04 18:51+0300\n"
 "Last-Translator: Ales Nyakhaychyk <i18n@infonet.by>\n"
 "Language-Team: Belarusian <i18n@tut.by>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: gnulib-lib/argmatch.c:132
 #, fuzzy, c-format
@@ -34,31 +34,31 @@ msgstr "неадназначны аргумэнт `%s' для `%s'"
 msgid "Valid arguments are:"
 msgstr "Рэчаісныя аргумэнты:"
 
-#: gnulib-lib/clean-temp.c:460
-#, fuzzy, c-format
-#| msgid "cannot create output file \"%s\""
-msgid "cannot remove temporary file %s"
-msgstr "немагчыма стварыць файл вываду \"%s\""
-
-#: gnulib-lib/clean-temp.c:579
+#: gnulib-lib/clean-temp.c:235
 #, c-format
 msgid "cannot find a temporary directory, try setting $TMPDIR"
 msgstr "немагчыма знайсці часовую дырэкторыю, паспрабуйце ўсталяваць $TMPDIR"
 
-#: gnulib-lib/clean-temp.c:594
+#: gnulib-lib/clean-temp.c:250
 #, c-format
 msgid "cannot create a temporary directory using template \"%s\""
 msgstr ""
 "немагчыма стварыць часовую дырэкторыю,\n"
 "выкарыстоўвываючы ўзор \"%s\""
 
-#: gnulib-lib/clean-temp.c:711
+#: gnulib-lib/clean-temp.c:371
 #, fuzzy, c-format
 #| msgid "cannot create a temporary directory using template \"%s\""
 msgid "cannot remove temporary directory %s"
 msgstr ""
 "немагчыма стварыць часовую дырэкторыю,\n"
 "выкарыстоўвываючы ўзор \"%s\""
+
+#: gnulib-lib/clean-temp-simple.c:297
+#, fuzzy, c-format
+#| msgid "cannot create output file \"%s\""
+msgid "cannot remove temporary file %s"
+msgstr "немагчыма стварыць файл вываду \"%s\""
 
 #: gnulib-lib/closeout.c:66
 msgid "write error"
@@ -99,21 +99,21 @@ msgstr "памылка пасля чытаньня \"%s\""
 msgid "preserving permissions for %s"
 msgstr ""
 
-#: gnulib-lib/csharpcomp.c:202 gnulib-lib/javaversion.c:78 src/msginit.c:955
-#: src/msginit.c:1038 src/msginit.c:1207 src/msginit.c:1313 src/msginit.c:1483
-#: src/read-csharp.c:72 src/read-java.c:71 src/read-resources.c:73
-#: src/read-tcl.c:111 src/write-resources.c:79 src/x-ruby.c:134
+#: gnulib-lib/csharpcomp.c:203 gnulib-lib/javaversion.c:78 src/msginit.c:955
+#: src/msginit.c:1038 src/msginit.c:1207 src/msginit.c:1313 src/msginit.c:1482
+#: src/read-csharp.c:73 src/read-java.c:72 src/read-resources.c:74
+#: src/read-tcl.c:111 src/write-resources.c:79 src/x-ruby.c:135
 #, c-format
 msgid "fdopen() failed"
 msgstr "fdopen() памылка"
 
-#: gnulib-lib/csharpcomp.c:443
+#: gnulib-lib/csharpcomp.c:444
 #, fuzzy, c-format
 #| msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgid "C# compiler not found, try installing mono"
 msgstr "Java кампілятар ня знойдзен, паспрабуйце ўсталяваць gcj ці $JAVAC"
 
-#: gnulib-lib/csharpexec.c:255
+#: gnulib-lib/csharpexec.c:259
 #, fuzzy, c-format
 #| msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgid "C# virtual machine not found, try installing mono"
@@ -124,9 +124,8 @@ msgstr ""
 msgid "Unknown system error"
 msgstr "Невядомая сістэмная памылка"
 
-#: gnulib-lib/execute.c:185 gnulib-lib/execute.c:258
-#: gnulib-lib/spawn-pipe.c:235 gnulib-lib/spawn-pipe.c:349
-#: gnulib-lib/wait-process.c:290 gnulib-lib/wait-process.c:364
+#: gnulib-lib/execute.c:348 gnulib-lib/spawn-pipe.c:596
+#: gnulib-lib/wait-process.c:291 gnulib-lib/wait-process.c:365
 #, c-format
 msgid "%s subprocess failed"
 msgstr "%s падпрацэс спынены з-за памылкі"
@@ -184,72 +183,94 @@ msgstr ""
 msgid "invalid target_version argument to compile_java_class"
 msgstr ""
 
-#: gnulib-lib/javacomp.c:579 src/write-csharp.c:744 src/write-java.c:1145
-#: src/write-java.c:1153 src/write-java.c:1181 src/write-java.c:1193
+#: gnulib-lib/javacomp.c:583 src/write-csharp.c:745 src/write-java.c:1146
+#: src/write-java.c:1154 src/write-java.c:1182 src/write-java.c:1194
 #, c-format
 msgid "failed to create \"%s\""
 msgstr "немагчыма стварыць \"%s\""
 
-#: gnulib-lib/javacomp.c:586 src/write-catalog.c:256 src/write-catalog.c:329
-#: src/write-csharp.c:753 src/write-desktop.c:183 src/write-java.c:1161
-#: src/write-java.c:1202 src/write-mo.c:802 src/write-mo.c:824
+#: gnulib-lib/javacomp.c:590 src/write-catalog.c:256 src/write-catalog.c:329
+#: src/write-csharp.c:754 src/write-desktop.c:183 src/write-java.c:1162
+#: src/write-java.c:1203 src/write-mo.c:802 src/write-mo.c:824
 #: src/write-qt.c:751 src/write-tcl.c:228 src/write-xml.c:76
 #, c-format
 msgid "error while writing \"%s\" file"
 msgstr "памылка ў час запісу файла \"%s\""
 
-#: gnulib-lib/javacomp.c:2436
+#: gnulib-lib/javacomp.c:2442
 #, c-format
 msgid "Java compiler not found, try installing gcj or set $JAVAC"
 msgstr "Java кампілятар ня знойдзен, паспрабуйце ўсталяваць gcj ці $JAVAC"
 
-#: gnulib-lib/javaexec.c:417
+#: gnulib-lib/javaexec.c:426
 #, c-format
 msgid "Java virtual machine not found, try installing gij or set $JAVA"
 msgstr ""
 "Віртуальная Java-машына ня знойдзена, паспрабуйце ўсталяваць gij ці $JAVA"
 
 #: gnulib-lib/javaversion.c:86 src/msginit.c:963 src/msginit.c:1046
-#: src/msginit.c:1215 src/msginit.c:1491
+#: src/msginit.c:1215 src/msginit.c:1490
 #, c-format
 msgid "%s subprocess I/O error"
 msgstr "падпрацэс %s, памылка ўводу-вываду"
 
-#: gnulib-lib/obstack.c:338 gnulib-lib/obstack.c:340 gnulib-lib/xmalloc.c:38
+#: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1326 libgettextpo/obstack.c:338
-#: libgettextpo/obstack.c:340 libgettextpo/xmalloc.c:38
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1326 libgettextpo/obstack.c:337
+#: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
 msgstr "памяць вычарпана"
 
-#: gnulib-lib/pipe-filter-ii.c:313
+#: gnulib-lib/openat-die.c:38
+#, fuzzy, c-format
+#| msgid "error reading current directory"
+msgid "unable to record current working directory"
+msgstr "памылка чытаньня бягучай дырэкторыі"
+
+#: gnulib-lib/openat-die.c:57
+#, c-format
+msgid "failed to return to initial working directory"
+msgstr ""
+
+#: gnulib-lib/os2-spawn.c:46
+#, c-format
+msgid "_open_osfhandle failed"
+msgstr ""
+
+#: gnulib-lib/os2-spawn.c:83
+#, fuzzy, c-format
+#| msgid "cannot create output file \"%s\""
+msgid "cannot restore fd %d: dup2 failed"
+msgstr "немагчыма стварыць файл вываду \"%s\""
+
+#: gnulib-lib/pipe-filter-ii.c:314
 #, c-format
 msgid "creation of threads failed"
 msgstr ""
 
-#: gnulib-lib/pipe-filter-ii.c:345 gnulib-lib/pipe-filter-ii.c:502
+#: gnulib-lib/pipe-filter-ii.c:346 gnulib-lib/pipe-filter-ii.c:503
 #: src/msgexec.c:428
 #, c-format
 msgid "write to %s subprocess failed"
 msgstr "памылка запісу ў падпрацэс %s"
 
-#: gnulib-lib/pipe-filter-ii.c:366 gnulib-lib/pipe-filter-ii.c:545
+#: gnulib-lib/pipe-filter-ii.c:367 gnulib-lib/pipe-filter-ii.c:546
 #, c-format
 msgid "read from %s subprocess failed"
 msgstr "памылка чытаньня з падпрацэса %s"
 
-#: gnulib-lib/pipe-filter-ii.c:419
+#: gnulib-lib/pipe-filter-ii.c:420
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
 msgstr "немагчыма ўсталяваць неблакіруючы ўвод-вывад у падпрацэс %s"
 
-#: gnulib-lib/pipe-filter-ii.c:457
+#: gnulib-lib/pipe-filter-ii.c:458
 #, c-format
 msgid "communication with %s subprocess failed"
 msgstr "памылка ўзаемадзеяньня з падпрацэсам %s"
 
-#: gnulib-lib/pipe-filter-ii.c:577
+#: gnulib-lib/pipe-filter-ii.c:578
 #, c-format
 msgid "%s subprocess terminated with exit code %d"
 msgstr "падпрацэс %s завершыўся з кодам выхаду %d"
@@ -283,30 +304,18 @@ msgstr ""
 msgid "'"
 msgstr ""
 
-#: gnulib-lib/spawn-pipe.c:141 gnulib-lib/spawn-pipe.c:144
-#: gnulib-lib/spawn-pipe.c:265 gnulib-lib/spawn-pipe.c:268
+#: gnulib-lib/spawn-pipe.c:216 gnulib-lib/spawn-pipe.c:219
 #, c-format
 msgid "cannot create pipe"
 msgstr "не магчыма стварыць канвеэр"
 
-#: gnulib-lib/w32spawn.h:49
-#, c-format
-msgid "_open_osfhandle failed"
-msgstr ""
-
-#: gnulib-lib/w32spawn.h:90
-#, fuzzy, c-format
-#| msgid "cannot create output file \"%s\""
-msgid "cannot restore fd %d: dup2 failed"
-msgstr "немагчыма стварыць файл вываду \"%s\""
-
-#: gnulib-lib/wait-process.c:231 gnulib-lib/wait-process.c:263
-#: gnulib-lib/wait-process.c:325
+#: gnulib-lib/wait-process.c:232 gnulib-lib/wait-process.c:264
+#: gnulib-lib/wait-process.c:326
 #, c-format
 msgid "%s subprocess"
 msgstr "%s падпрацэс"
 
-#: gnulib-lib/wait-process.c:282 gnulib-lib/wait-process.c:354
+#: gnulib-lib/wait-process.c:283 gnulib-lib/wait-process.c:355
 #, c-format
 msgid "%s subprocess got fatal signal %d"
 msgstr "%s падрацэс атрымаў фатальны сігнал %d"
@@ -336,7 +345,7 @@ msgstr ""
 #: src/msgen.c:298 src/msgexec.c:256 src/msgfilter.c:407 src/msgfmt.c:900
 #: src/msggrep.c:506 src/msginit.c:405 src/msgmerge.c:534 src/msgunfmt.c:421
 #: src/msguniq.c:320 src/recode-sr-latin.c:140 src/urlget.c:169
-#: src/xgettext.c:1047
+#: src/xgettext.c:1048
 #, fuzzy, c-format
 #| msgid "Try `%s --help' for more information.\n"
 msgid "Try '%s --help' for more information.\n"
@@ -358,7 +367,7 @@ msgid ""
 "If no argument is given, it reads CLDR plural rules from the standard input.\n"
 msgstr ""
 
-#: src/cldr-plurals.c:206 src/msgfmt.c:913 src/xgettext.c:1060
+#: src/cldr-plurals.c:206 src/msgfmt.c:913 src/xgettext.c:1061
 #, c-format, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -377,7 +386,7 @@ msgstr ""
 #: src/msgen.c:381 src/msgexec.c:305 src/msgfilter.c:507 src/msgfmt.c:1066
 #: src/msggrep.c:624 src/msginit.c:469 src/msgmerge.c:664 src/msgunfmt.c:527
 #: src/msguniq.c:417 src/recode-sr-latin.c:161 src/urlget.c:185
-#: src/xgettext.c:1235
+#: src/xgettext.c:1236
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr ""
@@ -387,7 +396,7 @@ msgstr ""
 #: src/msgen.c:383 src/msgexec.c:307 src/msgfilter.c:509 src/msgfmt.c:1068
 #: src/msggrep.c:626 src/msginit.c:471 src/msgmerge.c:666 src/msgunfmt.c:529
 #: src/msguniq.c:419 src/recode-sr-latin.c:164 src/urlget.c:187
-#: src/xgettext.c:1237
+#: src/xgettext.c:1238
 #, fuzzy, c-format, no-wrap
 #| msgid ""
 #| "Informative output:\n"
@@ -409,7 +418,7 @@ msgstr ""
 #: src/msgen.c:391 src/msgexec.c:315 src/msgfilter.c:517 src/msgfmt.c:1080
 #: src/msggrep.c:634 src/msginit.c:479 src/msgmerge.c:678 src/msgunfmt.c:539
 #: src/msguniq.c:427 src/recode-sr-latin.c:172 src/urlget.c:197
-#: src/xgettext.c:1247
+#: src/xgettext.c:1248
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -421,7 +430,7 @@ msgstr ""
 #: src/msgen.c:239 src/msgexec.c:183 src/msgfilter.c:286 src/msgfmt.c:442
 #: src/msggrep.c:413 src/msginit.c:269 src/msgmerge.c:370 src/msgunfmt.c:260
 #: src/msguniq.c:262 src/recode-sr-latin.c:107 src/urlget.c:140
-#: src/xgettext.c:686
+#: src/xgettext.c:687
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -434,7 +443,7 @@ msgstr ""
 #: src/msgcat.c:297 src/msgcmp.c:175 src/msgcomm.c:288 src/msgconv.c:248
 #: src/msgen.c:245 src/msgexec.c:189 src/msgfilter.c:292 src/msgfmt.c:448
 #: src/msggrep.c:419 src/msginit.c:275 src/msgmerge.c:376 src/msgunfmt.c:266
-#: src/msguniq.c:268 src/urlget.c:146 src/xgettext.c:692
+#: src/msguniq.c:268 src/urlget.c:146 src/xgettext.c:693
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Аўтар %s.\n"
@@ -466,14 +475,14 @@ msgstr ""
 
 #: src/file-list.c:53 src/msggrep.c:241 src/open-catalog.c:124
 #: src/read-mo.c:270 src/read-tcl.c:126 src/urlget.c:217
-#: src/write-desktop.c:173 src/xgettext.c:1755 src/xgettext.c:1764
-#: src/xgettext.c:1780 src/xgettext.c:1812 src/xgettext.c:1822
-#: src/xgettext.c:1839
+#: src/write-desktop.c:173 src/xgettext.c:1762 src/xgettext.c:1774
+#: src/xgettext.c:1790 src/xgettext.c:1823 src/xgettext.c:1833
+#: src/xgettext.c:1850
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "памылка ў час чытаньня файла \"%s\""
 
-#: src/format-awk.c:509 src/format-boost.c:617 src/format-elisp.c:348
+#: src/format-awk.c:509 src/format-boost.c:618 src/format-elisp.c:348
 #: src/format-gcc-internal.c:627 src/format-java-printf.c:580
 #: src/format-javascript.c:355 src/format-kde.c:223 src/format-librep.c:312
 #: src/format-lua.c:228 src/format-pascal.c:396 src/format-perl.c:582
@@ -487,7 +496,7 @@ msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in '%s'"
 msgstr "спэцыфікацыя фармату для аргумэнта %u, як у '%s', ня йснуе ў 'msgid'"
 
-#: src/format-awk.c:520 src/format-boost.c:628 src/format-elisp.c:359
+#: src/format-awk.c:520 src/format-boost.c:629 src/format-elisp.c:359
 #: src/format-gcc-internal.c:638 src/format-java-printf.c:591
 #: src/format-javascript.c:366 src/format-kde.c:234 src/format-librep.c:323
 #: src/format-lua.c:235 src/format-pascal.c:407 src/format-perl.c:593
@@ -497,7 +506,7 @@ msgstr "спэцыфікацыя фармату для аргумэнта %u, я
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "спэцыфікацыя фармату для аргумэнта %u ня йснуе ў '%s'"
 
-#: src/format-awk.c:540 src/format-boost.c:648 src/format-c.c:146
+#: src/format-awk.c:540 src/format-boost.c:649 src/format-c.c:146
 #: src/format-elisp.c:379 src/format-gcc-internal.c:658
 #: src/format-gfc-internal.c:372 src/format-java-printf.c:611
 #: src/format-javascript.c:389 src/format-librep.c:343 src/format-lua.c:242
@@ -509,7 +518,7 @@ msgstr "спэцыфікацыя фармату для аргумэнта %u н�
 msgid "format specifications in '%s' and '%s' for argument %u are not the same"
 msgstr "спэцыфікатары фармату ў 'msgid' і '%s' для аргумэнта %u неаднолькавыя"
 
-#: src/format-boost.c:449
+#: src/format-boost.c:450
 #, c-format
 msgid "The directive number %u starts with | but does not end with |."
 msgstr ""
@@ -1129,7 +1138,7 @@ msgstr ""
 #: src/msgcomm.c:452 src/msgconv.c:383 src/msgen.c:379 src/msgexec.c:303
 #: src/msgfilter.c:505 src/msgfmt.c:1064 src/msggrep.c:622 src/msginit.c:467
 #: src/msgmerge.c:662 src/msgunfmt.c:525 src/msguniq.c:415
-#: src/recode-sr-latin.c:158 src/urlget.c:183 src/xgettext.c:1233
+#: src/recode-sr-latin.c:158 src/urlget.c:183 src/xgettext.c:1234
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr ""
@@ -1210,8 +1219,8 @@ msgstr "па большай частцы адзін уваходзячы фай�
 #: src/msgen.c:267 src/msgfilter.c:307 src/msgfmt.c:501 src/msgfmt.c:509
 #: src/msgfmt.c:524 src/msgfmt.c:546 src/msggrep.c:440 src/msgmerge.c:401
 #: src/msgmerge.c:406 src/msgmerge.c:411 src/msgmerge.c:416 src/msgmerge.c:437
-#: src/msgunfmt.c:297 src/msguniq.c:289 src/xgettext.c:702 src/xgettext.c:709
-#: src/xgettext.c:712 src/xgettext.c:715 src/xgettext.c:739
+#: src/msgunfmt.c:297 src/msguniq.c:289 src/xgettext.c:703 src/xgettext.c:710
+#: src/xgettext.c:713 src/xgettext.c:716 src/xgettext.c:740
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s і %s узаема выключны"
@@ -1243,7 +1252,7 @@ msgstr ""
 #: src/msgattrib.c:431 src/msgcat.c:384 src/msgcmp.c:227 src/msgcomm.c:375
 #: src/msgconv.c:316 src/msgen.c:317 src/msgexec.c:287 src/msgfilter.c:422
 #: src/msgfmt.c:918 src/msggrep.c:523 src/msginit.c:422 src/msgmerge.c:558
-#: src/msgunfmt.c:447 src/msguniq.c:343 src/xgettext.c:1065
+#: src/msgunfmt.c:447 src/msguniq.c:343 src/xgettext.c:1066
 #, fuzzy, c-format
 #| msgid "no input file given"
 msgid "Input file location:\n"
@@ -1257,7 +1266,7 @@ msgstr ""
 #: src/msgattrib.c:435 src/msgcat.c:390 src/msgcmp.c:233 src/msgcomm.c:381
 #: src/msgconv.c:320 src/msgen.c:321 src/msgexec.c:291 src/msgfilter.c:426
 #: src/msgfmt.c:922 src/msggrep.c:527 src/msgmerge.c:564 src/msguniq.c:347
-#: src/xgettext.c:1071
+#: src/xgettext.c:1072
 #, c-format
 msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
@@ -1279,7 +1288,7 @@ msgstr ""
 #: src/msgattrib.c:440 src/msgcat.c:395 src/msgcomm.c:386 src/msgconv.c:325
 #: src/msgen.c:326 src/msgfilter.c:431 src/msgfmt.c:946 src/msggrep.c:532
 #: src/msginit.c:430 src/msgmerge.c:576 src/msgunfmt.c:487 src/msguniq.c:352
-#: src/xgettext.c:1076
+#: src/xgettext.c:1077
 #, c-format
 msgid "Output file location:\n"
 msgstr ""
@@ -1442,14 +1451,14 @@ msgstr ""
 #: src/msgattrib.c:496 src/msgcat.c:423 src/msgcomm.c:414 src/msgconv.c:347
 #: src/msgen.c:341 src/msgfilter.c:467 src/msgfmt.c:1054 src/msggrep.c:586
 #: src/msginit.c:445 src/msgmerge.c:624 src/msgunfmt.c:495 src/msguniq.c:374
-#: src/xgettext.c:1177
+#: src/xgettext.c:1178
 #, c-format
 msgid "Output details:\n"
 msgstr ""
 
 #: src/msgattrib.c:498 src/msgcat.c:432 src/msgcomm.c:416 src/msgconv.c:349
 #: src/msgen.c:345 src/msgfilter.c:469 src/msggrep.c:588 src/msginit.c:451
-#: src/msgmerge.c:628 src/msgunfmt.c:497 src/msguniq.c:381 src/xgettext.c:1179
+#: src/msgmerge.c:628 src/msgunfmt.c:497 src/msguniq.c:381 src/xgettext.c:1180
 #, c-format
 msgid ""
 "      --color                 use colors and other text attributes always\n"
@@ -1460,14 +1469,14 @@ msgstr ""
 
 #: src/msgattrib.c:502 src/msgcat.c:436 src/msgcomm.c:420 src/msgconv.c:353
 #: src/msgen.c:349 src/msgfilter.c:473 src/msggrep.c:592 src/msginit.c:455
-#: src/msgmerge.c:632 src/msgunfmt.c:501 src/msguniq.c:385 src/xgettext.c:1183
+#: src/msgmerge.c:632 src/msgunfmt.c:501 src/msguniq.c:385 src/xgettext.c:1184
 #, c-format
 msgid "      --style=STYLEFILE       specify CSS style rule file for --color\n"
 msgstr ""
 
 #: src/msgattrib.c:504 src/msgcat.c:438 src/msgcomm.c:422 src/msgconv.c:355
 #: src/msgen.c:351 src/msgmerge.c:634 src/msgunfmt.c:503 src/msguniq.c:387
-#: src/xgettext.c:1185
+#: src/xgettext.c:1186
 #, c-format
 msgid ""
 "  -e, --no-escape             do not use C escapes in output (default)\n"
@@ -1475,7 +1484,7 @@ msgstr ""
 
 #: src/msgattrib.c:506 src/msgcat.c:440 src/msgcomm.c:424 src/msgconv.c:357
 #: src/msgen.c:353 src/msgfilter.c:477 src/msgmerge.c:636 src/msgunfmt.c:505
-#: src/msguniq.c:389 src/xgettext.c:1187
+#: src/msguniq.c:389 src/xgettext.c:1188
 #, c-format
 msgid ""
 "  -E, --escape                use C escapes in output, no extended chars\n"
@@ -1483,32 +1492,32 @@ msgstr ""
 
 #: src/msgattrib.c:508 src/msgcat.c:442 src/msgcomm.c:426 src/msgconv.c:359
 #: src/msgen.c:355 src/msgfilter.c:479 src/msggrep.c:598 src/msgmerge.c:638
-#: src/msgunfmt.c:507 src/msguniq.c:391 src/xgettext.c:1189
+#: src/msgunfmt.c:507 src/msguniq.c:391 src/xgettext.c:1190
 #, c-format
 msgid "      --force-po              write PO file even if empty\n"
 msgstr ""
 
 #: src/msgattrib.c:510 src/msgcat.c:444 src/msgcomm.c:428 src/msguniq.c:393
-#: src/xgettext.c:1191
+#: src/xgettext.c:1192
 #, c-format
 msgid "  -i, --indent                write the .po file using indented style\n"
 msgstr ""
 
 #: src/msgattrib.c:512 src/msgcat.c:446 src/msgcomm.c:430 src/msguniq.c:395
-#: src/xgettext.c:1193
+#: src/xgettext.c:1194
 #, c-format
 msgid "      --no-location           do not write '#: filename:line' lines\n"
 msgstr ""
 
 #: src/msgattrib.c:514 src/msgcat.c:448 src/msgcomm.c:432 src/msguniq.c:397
-#: src/xgettext.c:1195
+#: src/xgettext.c:1196
 #, c-format
 msgid ""
 "  -n, --add-location          generate '#: filename:line' lines (default)\n"
 msgstr ""
 
 #: src/msgattrib.c:516 src/msgcat.c:450 src/msgcomm.c:434 src/msguniq.c:399
-#: src/xgettext.c:1197
+#: src/xgettext.c:1198
 #, c-format
 msgid ""
 "      --strict                write out strict Uniforum conforming .po file\n"
@@ -1523,7 +1532,7 @@ msgstr ""
 
 #: src/msgattrib.c:520 src/msgcat.c:454 src/msgcomm.c:438 src/msgconv.c:371
 #: src/msgen.c:367 src/msgfilter.c:493 src/msggrep.c:610 src/msginit.c:459
-#: src/msgmerge.c:650 src/msgunfmt.c:515 src/msguniq.c:403 src/xgettext.c:1201
+#: src/msgmerge.c:650 src/msgunfmt.c:515 src/msguniq.c:403 src/xgettext.c:1202
 #, c-format
 msgid ""
 "      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"
@@ -1531,14 +1540,14 @@ msgstr ""
 
 #: src/msgattrib.c:522 src/msgcat.c:456 src/msgcomm.c:440 src/msgconv.c:373
 #: src/msgen.c:369 src/msgfilter.c:495 src/msggrep.c:612 src/msginit.c:461
-#: src/msgmerge.c:652 src/msgunfmt.c:517 src/msguniq.c:405 src/xgettext.c:1205
+#: src/msgmerge.c:652 src/msgunfmt.c:517 src/msguniq.c:405 src/xgettext.c:1206
 #, c-format
 msgid "  -w, --width=NUMBER          set output page width\n"
 msgstr ""
 
 #: src/msgattrib.c:524 src/msgcat.c:458 src/msgcomm.c:442 src/msgconv.c:375
 #: src/msgen.c:371 src/msgfilter.c:497 src/msggrep.c:614 src/msginit.c:463
-#: src/msgmerge.c:654 src/msgunfmt.c:519 src/msguniq.c:407 src/xgettext.c:1207
+#: src/msgmerge.c:654 src/msgunfmt.c:519 src/msguniq.c:407 src/xgettext.c:1208
 #, c-format
 msgid ""
 "      --no-wrap               do not break long message lines, longer than\n"
@@ -1547,14 +1556,14 @@ msgstr ""
 
 #: src/msgattrib.c:527 src/msgcat.c:461 src/msgcomm.c:445 src/msgconv.c:378
 #: src/msgen.c:374 src/msgfilter.c:500 src/msgmerge.c:657 src/msgunfmt.c:522
-#: src/msguniq.c:410 src/xgettext.c:1210
+#: src/msguniq.c:410 src/xgettext.c:1211
 #, c-format
 msgid "  -s, --sort-output           generate sorted output\n"
 msgstr ""
 
 #: src/msgattrib.c:529 src/msgcat.c:463 src/msgcomm.c:447 src/msgconv.c:380
 #: src/msgen.c:376 src/msgfilter.c:502 src/msgmerge.c:659 src/msguniq.c:412
-#: src/xgettext.c:1212
+#: src/xgettext.c:1213
 #, c-format
 msgid "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
@@ -1564,7 +1573,7 @@ msgstr ""
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "зададзен немагчымы крытэрый выбару (%d < n < %d)"
 
-#: src/msgcat.c:364 src/msgcomm.c:356 src/xgettext.c:1051
+#: src/msgcat.c:364 src/msgcomm.c:356 src/xgettext.c:1052
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Выкарыстаньне: %s [ВЫБАР] [УВАХОДЗЯЧЫ_ФАЙЛ]...\n"
@@ -1603,18 +1612,18 @@ msgstr ""
 "будуць узяты  з першага PO-файла.\n"
 "Пазіцыі з усіх PO-файлаў будуць аб'яднаны ў кучу\n"
 
-#: src/msgcat.c:386 src/msgcomm.c:377 src/xgettext.c:1067
+#: src/msgcat.c:386 src/msgcomm.c:377 src/xgettext.c:1068
 #, c-format
 msgid "  INPUTFILE ...               input files\n"
 msgstr ""
 
-#: src/msgcat.c:388 src/msgcomm.c:379 src/xgettext.c:1069
+#: src/msgcat.c:388 src/msgcomm.c:379 src/xgettext.c:1070
 #, c-format
 msgid "  -f, --files-from=FILE       get list of input files from FILE\n"
 msgstr ""
 
 #: src/msgcat.c:392 src/msgcomm.c:383 src/msgen.c:323 src/msgfmt.c:924
-#: src/xgettext.c:1073
+#: src/xgettext.c:1074
 #, c-format
 msgid "If input file is -, standard input is read.\n"
 msgstr ""
@@ -1786,7 +1795,7 @@ msgstr "гэта паведамленьне выкарыстоўваецца, а
 msgid "warning: this message is not used"
 msgstr "увага: гэта паведамленьне не выкарыстоўваецца"
 
-#: src/msgcmp.c:556 src/msgfmt.c:773 src/msgfmt.c:1606 src/xgettext.c:1020
+#: src/msgcmp.c:556 src/msgfmt.c:773 src/msgfmt.c:1605 src/xgettext.c:1021
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
@@ -1836,7 +1845,7 @@ msgid ""
 "                              definitions, defaults to 1 if not set\n"
 msgstr ""
 
-#: src/msgcomm.c:449 src/xgettext.c:1214
+#: src/msgcomm.c:449 src/xgettext.c:1215
 #, c-format
 msgid ""
 "      --omit-header           don't write header with 'msgid \"\"' entry\n"
@@ -1889,7 +1898,7 @@ msgstr ""
 msgid "      --strict                strict Uniforum output style\n"
 msgstr ""
 
-#: src/msgen.c:256 src/msgfmt.c:461 src/xgettext.c:732
+#: src/msgen.c:256 src/msgfmt.c:461 src/xgettext.c:733
 #, c-format
 msgid "no input file given"
 msgstr "невызначан уваходзячы файл"
@@ -2082,7 +2091,7 @@ msgid "invalid endianness: %s"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgfmt.c:448 src/msgunfmt.c:266 src/xgettext.c:692
+#: src/msgfmt.c:448 src/msgunfmt.c:266 src/xgettext.c:693
 msgid "Ulrich Drepper"
 msgstr ""
 
@@ -2196,7 +2205,7 @@ msgstr "Стварае дваічны каталёг паведамленьня�
 msgid "  filename.po ...             input files\n"
 msgstr ""
 
-#: src/msgfmt.c:927 src/msgmerge.c:570 src/msgunfmt.c:436 src/xgettext.c:1109
+#: src/msgfmt.c:927 src/msgmerge.c:570 src/msgunfmt.c:436 src/xgettext.c:1110
 #, c-format
 msgid "Operation mode:\n"
 msgstr ""
@@ -2254,7 +2263,7 @@ msgstr ""
 msgid "      --strict                enable strict Uniforum mode\n"
 msgstr ""
 
-#: src/msgfmt.c:952 src/xgettext.c:1084
+#: src/msgfmt.c:952 src/xgettext.c:1085
 #, c-format
 msgid "If output file is -, output is written to standard output.\n"
 msgstr ""
@@ -2370,7 +2379,7 @@ msgstr ""
 msgid "  -d DIRECTORY                base directory of .po files\n"
 msgstr ""
 
-#: src/msgfmt.c:1003 src/xgettext.c:1138
+#: src/msgfmt.c:1003 src/xgettext.c:1139
 #, c-format
 msgid ""
 "  -kWORD, --keyword=WORD      look for WORD as an additional keyword\n"
@@ -2400,7 +2409,7 @@ msgstr ""
 msgid "  --template=TEMPLATE         an XML file used as a template\n"
 msgstr ""
 
-#: src/msgfmt.c:1034 src/xgettext.c:1101
+#: src/msgfmt.c:1034 src/xgettext.c:1102
 #, c-format
 msgid "Input file interpretation:\n"
 msgstr ""
@@ -2498,7 +2507,7 @@ msgstr ""
 msgid "      --statistics            print statistics about translations\n"
 msgstr ""
 
-#: src/msgfmt.c:1072 src/msgmerge.c:668 src/msgunfmt.c:531 src/xgettext.c:1239
+#: src/msgfmt.c:1072 src/msgmerge.c:668 src/msgunfmt.c:531 src/xgettext.c:1240
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
 msgstr ""
@@ -2548,24 +2557,24 @@ msgstr "недакладнае уваходжаньне `msgstr' прапушч�
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: увага: ізыходны файл змяшчае недакладны пераклад"
 
-#: src/msgfmt.c:1458
+#: src/msgfmt.c:1457
 #, c-format
 msgid "%s does not exist"
 msgstr ""
 
-#: src/msgfmt.c:1465
+#: src/msgfmt.c:1464
 #, c-format
 msgid "%s exists but cannot read"
 msgstr ""
 
 #: src/msggrep.c:252 src/po-lex.c:655 src/read-desktop.c:127 src/read-mo.c:88
-#: src/read-properties.c:609 src/read-stringtable.c:98 src/x-awk.c:138
-#: src/x-c.c:583 src/x-csharp.c:164 src/x-elisp.c:145 src/x-java.c:200
-#: src/x-javascript.c:180 src/x-librep.c:147 src/x-lisp.c:212 src/x-lua.c:174
-#: src/x-perl.c:256 src/x-perl.c:331 src/x-perl.c:424 src/x-php.c:162
-#: src/x-python.c:177 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:171
-#: src/x-sh.c:164 src/x-smalltalk.c:85 src/x-tcl.c:151 src/x-vala.c:177
-#: src/x-ycp.c:89
+#: src/read-properties.c:609 src/read-stringtable.c:99 src/x-awk.c:139
+#: src/x-c.c:584 src/x-csharp.c:165 src/x-elisp.c:146 src/x-java.c:201
+#: src/x-javascript.c:182 src/x-librep.c:148 src/x-lisp.c:213 src/x-lua.c:174
+#: src/x-perl.c:257 src/x-perl.c:332 src/x-perl.c:425 src/x-php.c:163
+#: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:172
+#: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:152 src/x-vala.c:178
+#: src/x-ycp.c:90
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "памылка ў час чытаньня \"%s\""
@@ -2734,9 +2743,9 @@ msgstr ""
 "Калі ласка задайце .pot файл уводу з дапамогай выбара --input.\n"
 
 #: src/msginit.c:976 src/msginit.c:1059 src/msginit.c:1228 src/msginit.c:1330
-#: src/msginit.c:1511 src/read-csharp.c:83 src/read-java.c:82
-#: src/read-resources.c:84 src/read-tcl.c:128 src/write-resources.c:106
-#: src/x-ruby.c:146
+#: src/msginit.c:1510 src/read-csharp.c:84 src/read-java.c:83
+#: src/read-resources.c:85 src/read-tcl.c:128 src/write-resources.c:106
+#: src/x-ruby.c:147
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr ""
@@ -2753,7 +2762,7 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1706
+#: src/msginit.c:1705
 #, c-format
 msgid "English translations for %s package"
 msgstr "Беларускі пераклад для %s"
@@ -2803,7 +2812,7 @@ msgstr ""
 
 #: src/msgl-cat.c:454 src/msgl-cat.c:460 src/msgl-charset.c:91
 #: src/msgl-charset.c:126 src/po-xerror.c:127 src/po-xerror.c:152
-#: src/xgettext.c:584 src/xgettext.c:1988 src/xg-message.c:335
+#: src/xgettext.c:585 src/xgettext.c:2006 src/xg-message.c:335
 #, c-format
 msgid "warning: "
 msgstr "увага: "
@@ -3062,7 +3071,7 @@ msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "уваходзячы файл не змяшчае загаловачнага запісу аб наборы сімвалаў"
 
 #: src/msgl-iconv.c:299 src/recode-sr-latin.c:291 src/recode-sr-latin.c:295
-#: src/xgettext.c:807 src/x-python.c:624
+#: src/xgettext.c:808 src/x-python.c:626
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
@@ -3076,8 +3085,8 @@ msgid ""
 "msgids become equal."
 msgstr ""
 
-#: src/msgl-iconv.c:331 src/recode-sr-latin.c:303 src/xgettext.c:813
-#: src/x-python.c:630
+#: src/msgl-iconv.c:331 src/recode-sr-latin.c:303 src/xgettext.c:814
+#: src/x-python.c:632
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
@@ -3449,7 +3458,7 @@ msgstr "формы множнага ліку маюць дрэнныі індэ�
 msgid "too many errors, aborting"
 msgstr "вельмі шмат памылак..."
 
-#: src/po-lex.c:437 src/po-lex.c:505 src/write-po.c:812 src/write-po.c:949
+#: src/po-lex.c:437 src/po-lex.c:505 src/write-po.c:813 src/write-po.c:950
 #, c-format
 msgid "invalid multibyte sequence"
 msgstr "нерэчаісная шматсімвальная паслядоўнасць"
@@ -3493,7 +3502,7 @@ msgstr "сімвал канца радка знаходзіцца ўнутры �
 msgid "context separator <EOT> within string"
 msgstr ""
 
-#: src/read-catalog.c:325 src/xgettext.c:1262
+#: src/read-catalog.c:325 src/xgettext.c:1263
 #, c-format
 msgid "this file may not contain domain directives"
 msgstr "гэты файл можа не змяшчаць дырэктыў дамену"
@@ -3602,29 +3611,29 @@ msgstr ""
 msgid "warning: invalid Unicode character"
 msgstr ""
 
-#: src/read-stringtable.c:802
+#: src/read-stringtable.c:803
 #, fuzzy
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid "warning: unterminated string"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/read-stringtable.c:810
+#: src/read-stringtable.c:811
 #, fuzzy
 #| msgid "warning: "
 msgid "warning: syntax error"
 msgstr "увага: "
 
-#: src/read-stringtable.c:871 src/read-stringtable.c:893
+#: src/read-stringtable.c:872 src/read-stringtable.c:894
 #, fuzzy
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid "warning: unterminated key/value pair"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/read-stringtable.c:940
+#: src/read-stringtable.c:941
 msgid "warning: syntax error, expected ';' after string"
 msgstr ""
 
-#: src/read-stringtable.c:948
+#: src/read-stringtable.c:949
 msgid "warning: syntax error, expected '=' or ';' after string"
 msgstr ""
 
@@ -3754,13 +3763,13 @@ msgstr "немагчыма стварыць файл вываду \"%s\""
 msgid "standard output"
 msgstr "стандартны вывад"
 
-#: src/write-csharp.c:708
+#: src/write-csharp.c:709
 #, fuzzy, c-format
 #| msgid "failed to create \"%s\""
 msgid "failed to create directory \"%s\""
 msgstr "немагчыма стварыць \"%s\""
 
-#: src/write-csharp.c:771
+#: src/write-csharp.c:772
 #, fuzzy, c-format
 #| msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgid "compilation of C# class failed, please try --verbose"
@@ -3768,7 +3777,7 @@ msgstr ""
 "памылка кампіляцыі Java кляса, калі ласка паспрабуйце --verbose,\n"
 "ці ўсталяваць пераменную асяроддзя $JAVAC"
 
-#: src/write-csharp.c:773
+#: src/write-csharp.c:774
 #, fuzzy, c-format
 #| msgid "communication with %s subprocess failed"
 msgid "compilation of C# class failed"
@@ -3780,19 +3789,19 @@ msgstr "памылка ўзаемадзеяньня з падпрацэсам %s
 msgid "error while opening \"%s\" for writing"
 msgstr "памылка ў час адкрыцця \"%s\" для запісу"
 
-#: src/write-java.c:1096
+#: src/write-java.c:1097
 #, c-format
 msgid "not a valid Java class name: %s"
 msgstr "нерэчаісная назва Java-класа: %s"
 
-#: src/write-java.c:1216
+#: src/write-java.c:1217
 #, c-format
 msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgstr ""
 "памылка кампіляцыі Java кляса, калі ласка паспрабуйце --verbose,\n"
 "ці ўсталяваць пераменную асяроддзя $JAVAC"
 
-#: src/write-java.c:1219
+#: src/write-java.c:1220
 #, fuzzy, c-format
 #| msgid "compilation of Java class failed, please try --verbose or set $JAVAC"
 msgid "compilation of Java class failed, please try to set $JAVAC"
@@ -3800,13 +3809,13 @@ msgstr ""
 "памылка кампіляцыі Java кляса, калі ласка паспрабуйце --verbose,\n"
 "ці ўсталяваць пераменную асяроддзя $JAVAC"
 
-#: src/write-po.c:821
+#: src/write-po.c:822
 #, fuzzy
 #| msgid "invalid multibyte sequence"
 msgid "incomplete multibyte sequence"
 msgstr "нерэчаісная шматсімвальная паслядоўнасць"
 
-#: src/write-po.c:884
+#: src/write-po.c:885
 #, fuzzy, c-format
 #| msgid ""
 #| "internationalized messages should not contain the `\\%c' escape sequence"
@@ -3815,7 +3824,7 @@ msgid ""
 msgstr ""
 "перакладзеныя паведамленьні не павінны зьмяшчаць \"\\%c\" ESC-пасьлядоўнасьці"
 
-#: src/write-po.c:1334 src/write-po.c:1502
+#: src/write-po.c:1335 src/write-po.c:1503
 #, fuzzy, c-format
 #| msgid ""
 #| "The following msgid contains non-ASCII characters.\n"
@@ -3834,7 +3843,7 @@ msgstr ""
 "выкарыстаньня толькі ASCII сымбаляў у msgid\n"
 "%s\n"
 
-#: src/write-po.c:1346 src/write-po.c:1514
+#: src/write-po.c:1347 src/write-po.c:1515
 #, c-format
 msgid ""
 "The following msgid contains non-ASCII characters.\n"
@@ -3899,25 +3908,25 @@ msgid ""
 "but the Tcl message catalog format doesn't support plural handling\n"
 msgstr ""
 
-#: src/x-awk.c:340 src/x-javascript.c:764 src/x-python.c:891
+#: src/x-awk.c:341 src/x-javascript.c:766 src/x-python.c:893
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid "%s:%d: warning: unterminated string"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-awk.c:591
+#: src/x-awk.c:592
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid "%s:%d: warning: unterminated regular expression"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-c.c:1152 src/x-csharp.c:1329 src/x-python.c:1098 src/x-vala.c:566
+#: src/x-c.c:1153 src/x-csharp.c:1330 src/x-python.c:1100 src/x-vala.c:567
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated character constant"
 msgid "%s:%d: warning: invalid Unicode character"
 msgstr "%s:%d: увага: незавершаная сімвальная канстанта"
 
-#: src/x-c.c:1344
+#: src/x-c.c:1345
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid ""
@@ -3925,85 +3934,85 @@ msgid ""
 "unsupported"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-c.c:1432
+#: src/x-c.c:1433
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid "%s:%d: warning: unterminated raw string literal"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-c.c:1442
+#: src/x-c.c:1443
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid "%s:%d: warning: invalid raw string literal syntax"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-c.c:1617 src/x-csharp.c:1448 src/x-java.c:681 src/x-vala.c:808
+#: src/x-c.c:1618 src/x-csharp.c:1449 src/x-java.c:682 src/x-vala.c:809
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: увага: незавершаная сімвальная канстанта"
 
-#: src/x-c.c:1654 src/x-vala.c:907
+#: src/x-c.c:1655 src/x-vala.c:908
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-csharp.c:225 src/xg-encoding.c:111
+#: src/x-csharp.c:226 src/xg-encoding.c:111
 msgid "Please specify the source encoding through --from-code."
 msgstr ""
 
-#: src/x-csharp.c:269
+#: src/x-csharp.c:270
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
 
-#: src/x-csharp.c:285
+#: src/x-csharp.c:286
 #, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
 
-#: src/x-csharp.c:297
+#: src/x-csharp.c:298
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
 
-#: src/x-csharp.c:306
+#: src/x-csharp.c:307
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
 "Please specify the correct source encoding through --from-code.\n"
 msgstr ""
 
-#: src/x-csharp.c:315 src/x-javascript.c:329 src/x-python.c:353
+#: src/x-csharp.c:316 src/x-javascript.c:331 src/x-python.c:355
 #, fuzzy, c-format
 #| msgid "iconv failure"
 msgid "%s:%d: iconv failure"
 msgstr "памылка iconv"
 
-#: src/x-csharp.c:338
+#: src/x-csharp.c:339
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the source encoding through --from-code.\n"
 msgstr ""
 
-#: src/x-csharp.c:1451 src/x-java.c:684
+#: src/x-csharp.c:1452 src/x-java.c:685
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated character constant"
 msgid "%s:%d: warning: unterminated string constant"
 msgstr "%s:%d: увага: незавершаная сімвальная канстанта"
 
-#: src/x-csharp.c:1953 src/x-java.c:1591
+#: src/x-csharp.c:1954 src/x-java.c:1592
 #, c-format
 msgid "%s:%d: warning: ')' found where '}' was expected"
 msgstr ""
 
-#: src/x-csharp.c:1983 src/x-java.c:1621
+#: src/x-csharp.c:1984 src/x-java.c:1622
 #, c-format
 msgid "%s:%d: warning: '}' found where ')' was expected"
 msgstr ""
@@ -4044,86 +4053,86 @@ msgstr ""
 msgid "Non-ASCII string at %s%s."
 msgstr ""
 
-#: src/xgettext.c:585
+#: src/xgettext.c:586
 #, c-format
 msgid "'%s' is not a valid encoding name.  Using ASCII as fallback.\n"
 msgstr ""
 
-#: src/xgettext.c:655
+#: src/xgettext.c:656
 #, fuzzy, c-format
 #| msgid "language `%s' unknown"
 msgid "syntax check '%s' unknown"
 msgstr "невядомая мова `%s'"
 
-#: src/xgettext.c:664
+#: src/xgettext.c:665
 #, c-format
 msgid "sentence end type '%s' unknown"
 msgstr ""
 
-#: src/xgettext.c:720
+#: src/xgettext.c:721
 #, c-format
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr "--joun-existing не можа быць выкарастаны пры запісы ў stdout"
 
-#: src/xgettext.c:724
+#: src/xgettext.c:725
 #, c-format
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext не можа працаваць без ключавых слоў для пошуку"
 
-#: src/xgettext.c:859
+#: src/xgettext.c:860
 #, c-format
 msgid "warning: ITS rule file '%s' does not exist"
 msgstr ""
 
-#: src/xgettext.c:937
+#: src/xgettext.c:938
 #, c-format
 msgid ""
 "warning: a fallback ITS rule file '%s' is used; it may not be in sync with "
 "the upstream"
 msgstr ""
 
-#: src/xgettext.c:947
+#: src/xgettext.c:948
 #, c-format
 msgid ""
 "warning: ITS rule file '%s' does not exist; check your gettext installation"
 msgstr ""
 
-#: src/xgettext.c:965
+#: src/xgettext.c:966
 #, fuzzy, c-format
 #| msgid "warning: file `%s' extension `%s' is unknown; will try C"
 msgid "warning: file '%s' extension '%s' is unknown; will try C"
 msgstr "увага: файл \"%s\" суфікс \"%s\" невядомы; паспрабуйце C"
 
-#: src/xgettext.c:1055
+#: src/xgettext.c:1056
 #, c-format
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Атрымлівае перакладаемыя радкі з дадзеных уваходзячых файлаў.\n"
 
-#: src/xgettext.c:1078
+#: src/xgettext.c:1079
 #, c-format
 msgid ""
 "  -d, --default-domain=NAME   use NAME.po for output (instead of messages."
 "po)\n"
 msgstr ""
 
-#: src/xgettext.c:1080
+#: src/xgettext.c:1081
 #, c-format
 msgid "  -o, --output=FILE           write output to specified file\n"
 msgstr ""
 
-#: src/xgettext.c:1082
+#: src/xgettext.c:1083
 #, c-format
 msgid ""
 "  -p, --output-dir=DIR        output files will be placed in directory DIR\n"
 msgstr ""
 
-#: src/xgettext.c:1087
+#: src/xgettext.c:1088
 #, fuzzy, c-format
 #| msgid "no input file given"
 msgid "Choice of input file language:\n"
 msgstr "невызначан уваходзячы файл"
 
-#: src/xgettext.c:1089
+#: src/xgettext.c:1090
 #, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
@@ -4136,41 +4145,41 @@ msgid ""
 "                                Glade, Lua, JavaScript, Vala, Desktop)\n"
 msgstr ""
 
-#: src/xgettext.c:1096
+#: src/xgettext.c:1097
 #, c-format
 msgid "  -C, --c++                   shorthand for --language=C++\n"
 msgstr ""
 
-#: src/xgettext.c:1098
+#: src/xgettext.c:1099
 #, c-format
 msgid ""
 "By default the language is guessed depending on the input file name "
 "extension.\n"
 msgstr ""
 
-#: src/xgettext.c:1103
+#: src/xgettext.c:1104
 #, c-format
 msgid ""
 "      --from-code=NAME        encoding of input files\n"
 "                                (except for Python, Tcl, Glade)\n"
 msgstr ""
 
-#: src/xgettext.c:1106
+#: src/xgettext.c:1107
 #, c-format
 msgid "By default the input files are assumed to be in ASCII.\n"
 msgstr ""
 
-#: src/xgettext.c:1111
+#: src/xgettext.c:1112
 #, c-format
 msgid "  -j, --join-existing         join messages with existing file\n"
 msgstr ""
 
-#: src/xgettext.c:1113
+#: src/xgettext.c:1114
 #, c-format
 msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
 msgstr ""
 
-#: src/xgettext.c:1115
+#: src/xgettext.c:1116
 #, c-format
 msgid ""
 "  -cTAG, --add-comments=TAG   place comment blocks starting with TAG and\n"
@@ -4180,7 +4189,7 @@ msgid ""
 "                                in output file\n"
 msgstr ""
 
-#: src/xgettext.c:1120
+#: src/xgettext.c:1121
 #, c-format
 msgid ""
 "      --check=NAME            perform syntax check on messages\n"
@@ -4188,7 +4197,7 @@ msgid ""
 "                                 quote-unicode, bullet-unicode)\n"
 msgstr ""
 
-#: src/xgettext.c:1124
+#: src/xgettext.c:1125
 #, c-format
 msgid ""
 "      --sentence-end=TYPE     type describing the end of sentence\n"
@@ -4196,17 +4205,17 @@ msgid ""
 "                                 or double-space)\n"
 msgstr ""
 
-#: src/xgettext.c:1129
+#: src/xgettext.c:1130
 #, c-format
 msgid "Language specific options:\n"
 msgstr ""
 
-#: src/xgettext.c:1131
+#: src/xgettext.c:1132
 #, c-format
 msgid "  -a, --extract-all           extract all strings\n"
 msgstr ""
 
-#: src/xgettext.c:1133
+#: src/xgettext.c:1134
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -4216,7 +4225,7 @@ msgid ""
 "                                Lua, JavaScript, Vala)\n"
 msgstr ""
 
-#: src/xgettext.c:1141
+#: src/xgettext.c:1142
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -4226,7 +4235,7 @@ msgid ""
 "                                Lua, JavaScript, Vala, Desktop)\n"
 msgstr ""
 
-#: src/xgettext.c:1146
+#: src/xgettext.c:1147
 #, c-format
 msgid ""
 "      --flag=WORD:ARG:FLAG    additional flag for strings inside the "
@@ -4234,7 +4243,7 @@ msgid ""
 "                              number ARG of keyword WORD\n"
 msgstr ""
 
-#: src/xgettext.c:1149
+#: src/xgettext.c:1150
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -4244,90 +4253,90 @@ msgid ""
 "                                Lua, JavaScript, Vala)\n"
 msgstr ""
 
-#: src/xgettext.c:1154
+#: src/xgettext.c:1155
 #, c-format
 msgid "  -T, --trigraphs             understand ANSI C trigraphs for input\n"
 msgstr ""
 
-#: src/xgettext.c:1156
+#: src/xgettext.c:1157
 #, c-format
 msgid "                                (only languages C, C++, ObjectiveC)\n"
 msgstr ""
 
-#: src/xgettext.c:1158
+#: src/xgettext.c:1159
 #, c-format
 msgid "      --its=FILE              apply ITS rules from FILE\n"
 msgstr ""
 
-#: src/xgettext.c:1160
+#: src/xgettext.c:1161
 #, c-format
 msgid "                                (only XML based languages)\n"
 msgstr ""
 
-#: src/xgettext.c:1162
+#: src/xgettext.c:1163
 #, c-format
 msgid "      --qt                    recognize Qt format strings\n"
 msgstr ""
 
-#: src/xgettext.c:1164 src/xgettext.c:1168 src/xgettext.c:1172
+#: src/xgettext.c:1165 src/xgettext.c:1169 src/xgettext.c:1173
 #, c-format
 msgid "                                (only language C++)\n"
 msgstr ""
 
-#: src/xgettext.c:1166
+#: src/xgettext.c:1167
 #, c-format
 msgid "      --kde                   recognize KDE 4 format strings\n"
 msgstr ""
 
-#: src/xgettext.c:1170
+#: src/xgettext.c:1171
 #, c-format
 msgid "      --boost                 recognize Boost format strings\n"
 msgstr ""
 
-#: src/xgettext.c:1174
+#: src/xgettext.c:1175
 #, c-format
 msgid ""
 "      --debug                 more detailed formatstring recognition result\n"
 msgstr ""
 
-#: src/xgettext.c:1199
+#: src/xgettext.c:1200
 #, c-format
 msgid "      --properties-output     write out a Java .properties file\n"
 msgstr ""
 
-#: src/xgettext.c:1203
+#: src/xgettext.c:1204
 #, c-format
 msgid "      --itstool               write out itstool comments\n"
 msgstr ""
 
-#: src/xgettext.c:1216
+#: src/xgettext.c:1217
 #, c-format
 msgid "      --copyright-holder=STRING  set copyright holder in output\n"
 msgstr ""
 
-#: src/xgettext.c:1218
+#: src/xgettext.c:1219
 #, c-format
 msgid ""
 "      --foreign-user          omit FSF copyright in output for foreign user\n"
 msgstr ""
 
-#: src/xgettext.c:1220
+#: src/xgettext.c:1221
 #, c-format
 msgid "      --package-name=PACKAGE  set package name in output\n"
 msgstr ""
 
-#: src/xgettext.c:1222
+#: src/xgettext.c:1223
 #, c-format
 msgid "      --package-version=VERSION  set package version in output\n"
 msgstr ""
 
-#: src/xgettext.c:1224
+#: src/xgettext.c:1225
 #, c-format
 msgid ""
 "      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
 msgstr ""
 
-#: src/xgettext.c:1226
+#: src/xgettext.c:1227
 #, c-format
 msgid ""
 "  -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for "
@@ -4335,7 +4344,7 @@ msgid ""
 "                                values\n"
 msgstr ""
 
-#: src/xgettext.c:1229
+#: src/xgettext.c:1230
 #, c-format
 msgid ""
 "  -M[STRING], --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for "
@@ -4343,18 +4352,18 @@ msgid ""
 "                                values\n"
 msgstr ""
 
-#: src/xgettext.c:1641
+#: src/xgettext.c:1642
 #, c-format
 msgid ""
 "A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: "
 "%s"
 msgstr ""
 
-#: src/xgettext.c:1798
+#: src/xgettext.c:1809
 msgid "standard input"
 msgstr "стандартны ўвод"
 
-#: src/xgettext.c:1989
+#: src/xgettext.c:2007
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -4362,7 +4371,7 @@ msgid ""
 "specify an --msgid-bugs-address command line option.\n"
 msgstr ""
 
-#: src/xgettext.c:2208
+#: src/xgettext.c:2226
 #, fuzzy, c-format
 #| msgid "language `%s' unknown"
 msgid "language '%s' unknown"
@@ -4429,118 +4438,118 @@ msgstr ""
 msgid "%s:%d: warning: lone surrogate U+%04X"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-java.c:1207 src/x-java.c:1251
+#: src/x-java.c:1208 src/x-java.c:1252
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid "%s:%d: warning: unterminated text block"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-java.c:1220
+#: src/x-java.c:1221
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid "%s:%d: warning: invalid syntax in text block"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-javascript.c:239
+#: src/x-javascript.c:241
 msgid "Please specify the source encoding through --from-code\n"
 msgstr ""
 
-#: src/x-javascript.c:283
+#: src/x-javascript.c:285
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code\n"
 msgstr ""
 
-#: src/x-javascript.c:299
+#: src/x-javascript.c:301
 #, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code\n"
 msgstr ""
 
-#: src/x-javascript.c:311
+#: src/x-javascript.c:313
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
 "Please specify the correct source encoding through --from-code\n"
 msgstr ""
 
-#: src/x-javascript.c:320
+#: src/x-javascript.c:322
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
 "Please specify the correct source encoding through --from-code\n"
 msgstr ""
 
-#: src/x-javascript.c:352
+#: src/x-javascript.c:354
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the source encoding through --from-code\n"
 msgstr ""
 
-#: src/x-javascript.c:979
+#: src/x-javascript.c:981
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid "%s:%d: warning: RegExp literal terminated too early"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-javascript.c:1102
+#: src/x-javascript.c:1104
 #, fuzzy, c-format
 #| msgid "warning: this message is not used"
 msgid "%s:%d: warning: %s is not allowed"
 msgstr "увага: гэта паведамленьне не выкарыстоўваецца"
 
-#: src/x-javascript.c:1117
+#: src/x-javascript.c:1119
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid "%s:%d: warning: unterminated XML markup"
 msgstr "%s:%d: увага: незавершаны радок"
 
-#: src/x-perl.c:338
+#: src/x-perl.c:339
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr ""
 
-#: src/x-perl.c:1073
+#: src/x-perl.c:1074
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr ""
 
-#: src/x-perl.c:1194
+#: src/x-perl.c:1195
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr ""
 
-#: src/x-perl.c:1214
+#: src/x-perl.c:1215
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr ""
 
-#: src/x-perl.c:1248
+#: src/x-perl.c:1249
 #, fuzzy, c-format
 #| msgid "%s:%d: invalid string definition"
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: нерэчаіснае вызначэньне радка"
 
-#: src/x-perl.c:1261
+#: src/x-perl.c:1262
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr ""
 
-#: src/x-perl.c:1278
+#: src/x-perl.c:1279
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr ""
 
-#: src/x-python.c:279
+#: src/x-python.c:281
 msgid ""
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in https://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 
-#: src/x-python.c:336
+#: src/x-python.c:338
 #, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
@@ -4548,7 +4557,7 @@ msgid ""
 "comment as specified in https://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 
-#: src/x-python.c:488
+#: src/x-python.c:490
 #, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
@@ -4556,7 +4565,7 @@ msgid ""
 "comment as specified in https://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 
-#: src/x-python.c:497
+#: src/x-python.c:499
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
@@ -4564,7 +4573,7 @@ msgid ""
 "comment as specified in https://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 
-#: src/x-python.c:506
+#: src/x-python.c:508
 #, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
@@ -4572,7 +4581,7 @@ msgid ""
 "comment as specified in https://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 
-#: src/x-python.c:679
+#: src/x-python.c:681
 #, c-format
 msgid "Unknown encoding \"%s\". Proceeding with ASCII instead."
 msgstr ""
@@ -4609,19 +4618,19 @@ msgstr "%s:%d: нерэчаіснае вызначэньне радка"
 msgid "%s:%d: invalid RSJ version. Only version 1 is supported."
 msgstr ""
 
-#: src/x-ruby.c:88
+#: src/x-ruby.c:89
 #, c-format
 msgid "(output from '%s')"
 msgstr ""
 
-#: src/x-sh.c:1141
+#: src/x-sh.c:1142
 #, c-format
 msgid ""
 "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; "
 "use eval_gettext instead"
 msgstr ""
 
-#: src/x-vala.c:616
+#: src/x-vala.c:617
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated string literal"
 msgid "%s:%d: warning: regular expression literal terminated too early"
