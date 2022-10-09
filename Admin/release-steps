@@ -21,7 +21,7 @@ We assume that the following environment variables are set:
 
     ./autopull.sh
     ./autogen.sh
-    ./configure
+    ./configure --disable-shared
     make
     make dist
 
@@ -116,7 +116,8 @@ We assume that the following environment variables are set:
 
     Update -version-info arguments, according to libtool versioning
     (info "(libtool) Updating version info").
-    Preferrably using the gnulib/build-aux/libtool-next-version program.
+    Preferrably using the gnulib/build-aux/libtool-next-version program,
+    on a non-glibc platform (e.g. FreeBSD).
     Or manually, using these rules:
 
       * increment LTV_REVISION,
@@ -179,8 +180,8 @@ We assume that the following environment variables are set:
 
 ** If you got any translation updates, update translations:
 
-    rsync -Lrtvz translationproject.org::tp/latest/gettext-runtime/ \
-          gettext-runtime/po/new
+    wget --mirror --level=1 -nd -nv -A.po -P gettext-runtime/po/new \
+         https://translationproject.org/latest/gettext-runtime/
   Optionally merge:
     cd gettext-runtime/po
     make update-po
@@ -189,8 +190,8 @@ We assume that the following environment variables are set:
     mv *.po ../
     cd ..; rm -rf new
 
-    rsync -Lrtvz translationproject.org::tp/latest/gettext-tools/ \
-          gettext-tools/po/new
+    wget --mirror --level=1 -nd -nv -A.po -P gettext-tools/po/new \
+         https://translationproject.org/latest/gettext-tools/
   Optionally merge:
     cd gettext-tools/po
     make update-po
@@ -199,8 +200,8 @@ We assume that the following environment variables are set:
     mv *.po ../
     cd ..; rm -rf new
 
-    rsync -Lrtvz translationproject.org::tp/latest/gettext-examples/ \
-          gettext-tools/examples/po/new
+    wget --mirror --level=1 -nd -nv -A.po -P gettext-tools/examples/po/new \
+         https://translationproject.org/latest/gettext-examples/
   Optionally merge:
     cd gettext-tools/examples/po
     make update-po
