@@ -195,7 +195,7 @@ static const struct option long_options[] =
   { "help", no_argument, NULL, 'h' },
   { "java", no_argument, NULL, 'j' },
   { "java2", no_argument, NULL, CHAR_MAX + 5 },
-  { "keyword", required_argument, NULL, 'k' },
+  { "keyword", optional_argument, NULL, 'k' },
   { "language", required_argument, NULL, 'L' },
   { "locale", required_argument, NULL, 'l' },
   { "no-hash", no_argument, NULL, CHAR_MAX + 6 },
@@ -268,7 +268,7 @@ main (int argc, char *argv[])
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  while ((opt = getopt_long (argc, argv, "a:cCd:D:fhjl:L:o:Pr:vVx",
+  while ((opt = getopt_long (argc, argv, "a:cCd:D:fhjk::l:L:o:Pr:vVx",
                              long_options, NULL))
          != EOF)
     switch (opt)
@@ -312,16 +312,13 @@ main (int argc, char *argv[])
         java_mode = true;
         break;
       case 'k':
-        if (optarg == NULL)
+        if (optarg == NULL || *optarg == '\0')
           desktop_default_keywords = false;
         else
           {
+            /* Ensure that desktop_keywords is initialized.  */
             if (desktop_keywords.table == NULL)
-              {
-                hash_init (&desktop_keywords, 100);
-                desktop_default_keywords = false;
-              }
-
+              hash_init (&desktop_keywords, 100);
             desktop_add_keyword (&desktop_keywords, optarg, false);
           }
         break;
@@ -639,11 +636,13 @@ There is NO WARRANTY, to the extent permitted by law.\n\
         }
     }
 
-  if (desktop_mode && desktop_default_keywords)
+  if (desktop_mode)
     {
+      /* Ensure that desktop_keywords is initialized.  */
       if (desktop_keywords.table == NULL)
         hash_init (&desktop_keywords, 100);
-      desktop_add_default_keywords (&desktop_keywords);
+      if (desktop_default_keywords)
+        desktop_add_default_keywords (&desktop_keywords);
     }
 
   /* Bulk processing mode for .desktop files.
@@ -654,8 +653,6 @@ There is NO WARRANTY, to the extent permitted by law.\n\
                                          desktop_template_name,
                                          &desktop_keywords,
                                          output_file_name);
-      if (desktop_keywords.table != NULL)
-        hash_destroy (&desktop_keywords);
       exit (exit_status);
     }
 
@@ -822,9 +819,6 @@ There is NO WARRANTY, to the extent permitted by law.\n\
                                        &desktop_keywords,
                                        domain->file_name))
             exit_status = EXIT_FAILURE;
-
-          if (desktop_keywords.table != NULL)
-            hash_destroy (&desktop_keywords);
         }
       else if (xml_mode)
         {
