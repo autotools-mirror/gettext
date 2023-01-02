@@ -1,5 +1,5 @@
 /* GLIB - Library of useful routines for C programming
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2023 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -372,7 +372,11 @@ g_ascii_strtod (const gchar *nptr,
   fail_pos = NULL;
 
   locale_data = localeconv ();
+#if HAVE_STRUCT_LCONV_DECIMAL_POINT
   decimal_point = locale_data->decimal_point;
+#else
+  decimal_point = ".";
+#endif
   decimal_point_len = strlen (decimal_point);
 
   g_assert (decimal_point_len != 0);
@@ -588,7 +592,11 @@ g_ascii_formatd (gchar       *buffer,
   _g_snprintf (buffer, buf_len, format, d);
 
   locale_data = localeconv ();
+#if HAVE_STRUCT_LCONV_DECIMAL_POINT
   decimal_point = locale_data->decimal_point;
+#else
+  decimal_point = ".";
+#endif
   decimal_point_len = strlen (decimal_point);
 
   g_assert (decimal_point_len != 0);

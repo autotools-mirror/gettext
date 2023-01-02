@@ -1,5 +1,5 @@
-# libglib.m4 serial 6
-dnl Copyright (C) 2006-2007, 2019-2020 Free Software Foundation, Inc.
+# libglib.m4 serial 7
+dnl Copyright (C) 2006-2007, 2019-2023 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -127,6 +127,8 @@ AC_DEFUN([gl_LIBGLIB],
     AC_REQUIRE([AC_USE_SYSTEM_EXTENSIONS])
     AC_CHECK_HEADERS([unistd.h])
     dnl Don't bother checking for pthread.h and other multithread facilities.
+    AC_CHECK_MEMBERS([struct lconv.decimal_point], [], [],
+      [[#include <locale.h>]])
   else
     LIBGLIB_H=
   fi
