@@ -305,7 +305,7 @@ if test $REPLACE_MEMCHR = 1; then
   AC_DEFINE([rpl_memchr],       [_libintl_memchr],    [Hidden symbol.])
 fi
 dnl Symbols defined by gnulib module 'tsearch'.
-if test $HAVE_TSEARCH = 0 || test $HAVE_TWALK = 0 || test $REPLACE_TSEARCH = 1; then
+if test $HAVE_TSEARCH = 0 || test $HAVE_TWALK = 0 || test $REPLACE_TSEARCH = 1 || test $REPLACE_TWALK = 1; then
   AC_DEFINE([tsearch],          [_libintl_tsearch],   [Hidden symbol.])
   AC_DEFINE([rpl_tsearch],      [_libintl_tsearch],   [Hidden symbol.])
   AC_DEFINE([tfind],            [_libintl_tfind],     [Hidden symbol.])

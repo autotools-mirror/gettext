@@ -18,9 +18,9 @@ lib_LTLIBRARIES = libgettextlib.la
 # was given.
 # Need @LTLIBINTL@ because many source files use gettext().
 # Need @LTLIBICONV@ because linebreak.c and striconv.c use iconv().
-# Need @LIB_ACL@ because copy-file.c uses acl.h.
+# Need @LIB_ACL@ @QCOPY_ACL_LIB@ because copy-file.c uses acl.h and qcopy_acl.
 # As of 2010-10-04, these are all added by gnulib-tool automatically.
-#lib_LDFLAGS += $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ @LIB_ACL@
+#lib_LDFLAGS += $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ @LIB_ACL@ @QCOPY_ACL_LIB@
 
 lib_LDFLAGS += -release @VERSION@
 

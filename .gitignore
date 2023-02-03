@@ -66,6 +66,7 @@
 /gettext-tools/libgettextpo/arg-nonnull.h
 /gettext-tools/libgettextpo/asnprintf.c
 /gettext-tools/libgettextpo/asprintf.c
+/gettext-tools/libgettextpo/assert.in.h
 /gettext-tools/libgettextpo/attribute.h
 /gettext-tools/libgettextpo/basename-lgpl.c
 /gettext-tools/libgettextpo/basename-lgpl.h
@@ -93,7 +94,7 @@
 /gettext-tools/libgettextpo/error-progname.c
 /gettext-tools/libgettextpo/error-progname.h
 /gettext-tools/libgettextpo/error.c
-/gettext-tools/libgettextpo/error.h
+/gettext-tools/libgettextpo/error.in.h
 /gettext-tools/libgettextpo/exitfail.c
 /gettext-tools/libgettextpo/exitfail.h
 /gettext-tools/libgettextpo/fcntl.c
@@ -145,6 +146,7 @@
 /gettext-tools/libgettextpo/iconv_open.c
 /gettext-tools/libgettextpo/iconveh.h
 /gettext-tools/libgettextpo/idx.h
+/gettext-tools/libgettextpo/intprops-internal.h
 /gettext-tools/libgettextpo/intprops.h
 /gettext-tools/libgettextpo/inttypes.in.h
 /gettext-tools/libgettextpo/itold.c
@@ -210,6 +212,7 @@
 /gettext-tools/libgettextpo/stdalign.in.h
 /gettext-tools/libgettextpo/stdarg.in.h
 /gettext-tools/libgettextpo/stdbool.in.h
+/gettext-tools/libgettextpo/stdckdint.in.h
 /gettext-tools/libgettextpo/stddef.in.h
 /gettext-tools/libgettextpo/stdint.in.h
 /gettext-tools/libgettextpo/stdio-read.c
@@ -297,6 +300,7 @@
 /gettext-tools/libgrep/c++defs.h
 /gettext-tools/libgrep/cdefs.h
 /gettext-tools/libgrep/dynarray.h
+/gettext-tools/libgrep/intprops-internal.h
 /gettext-tools/libgrep/intprops.h
 /gettext-tools/libgrep/inttypes.in.h
 /gettext-tools/libgrep/langinfo.in.h
@@ -826,7 +830,9 @@ core
 /gettext-tools/doc/gettext.vrs
 /gettext-tools/libgettextpo/config.h
 /gettext-tools/libgettextpo/alloca.h
+/gettext-tools/libgettextpo/assert.h
 /gettext-tools/libgettextpo/errno.h
+/gettext-tools/libgettextpo/error.h
 /gettext-tools/libgettextpo/fcntl.h
 /gettext-tools/libgettextpo/float.h
 /gettext-tools/libgettextpo/iconv.h
@@ -836,6 +842,7 @@ core
 /gettext-tools/libgettextpo/signal.h
 /gettext-tools/libgettextpo/stdarg.h
 /gettext-tools/libgettextpo/stdbool.h
+/gettext-tools/libgettextpo/stdckdint.h
 /gettext-tools/libgettextpo/stddef.h
 /gettext-tools/libgettextpo/stdint.h
 /gettext-tools/libgettextpo/stdio.h

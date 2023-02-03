@@ -22,6 +22,7 @@
 /lib/arg-nonnull.h
 /lib/asnprintf.c
 /lib/asprintf.c
+/lib/assert.in.h
 /lib/attribute.h
 /lib/basename-lgpl.c
 /lib/basename-lgpl.h
@@ -45,7 +46,7 @@
 /lib/dup2.c
 /lib/errno.in.h
 /lib/error.c
-/lib/error.h
+/lib/error.in.h
 /lib/exitfail.c
 /lib/exitfail.h
 /lib/fatal-signal.c
@@ -99,6 +100,7 @@
 /lib/iconv-ostream.oo.c
 /lib/iconv-ostream.oo.h
 /lib/idx.h
+/lib/intprops-internal.h
 /lib/intprops.h
 /lib/inttypes.in.h
 /lib/isatty.c
@@ -178,6 +180,7 @@
 /lib/stdalign.in.h
 /lib/stdarg.in.h
 /lib/stdbool.in.h
+/lib/stdckdint.in.h
 /lib/stddef.in.h
 /lib/stdint.in.h
 /lib/stdio-read.c
@@ -440,10 +443,14 @@ core
 /doc/vti.tmp*
 /lib/alloca.h
 /lib/alloca.h-t
+/lib/assert.h
+/lib/assert.h-t
 /lib/config.h
 /lib/config.h-t
 /lib/errno.h
 /lib/errno.h-t
+/lib/error.h
+/lib/error.h-t
 /lib/fcntl.h
 /lib/fcntl.h-t
 /lib/float.h
@@ -527,6 +534,8 @@ core
 /lib/stdarg.h-t
 /lib/stdbool.h
 /lib/stdbool.h-t
+/lib/stdckdint.h
+/lib/stdckdint.h-t
 /lib/stddef.h
 /lib/stddef.h-t
 /lib/stdint.h

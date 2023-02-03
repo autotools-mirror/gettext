@@ -1,5 +1,5 @@
 /* Error handling during reading and writing of PO files.
-   Copyright (C) 2005-2007, 2013, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2005-2007, 2013, 2019, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2005.
 
    This program is free software: you can redistribute it and/or modify
@@ -35,7 +35,6 @@
 #include "xvasprintf.h"
 #include "po-error.h"
 #if IN_LIBGETTEXTPO
-# include "getprogname.h"
 # define program_name getprogname ()
 #else
 # include "progname.h"
