@@ -1,6 +1,6 @@
 ## Makefile for the gettext-runtime/intl and gettext-tools/intl subdirectories
 ## of GNU gettext.
-## Copyright (C) 1995-1998, 2000-2007, 2009-2022 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2007, 2009-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -235,7 +235,7 @@ libgnuintl.h: $(srcdir)/libgnuintl.in.h $(srcdir)/export.h
 	  fi \
 	| sed -e 's/extern \([^"]\)/extern LIBINTL_DLL_EXPORTED \1/' \
 	      -e "/#define _LIBINTL_H/r $(srcdir)/export.h" \
-	| sed -e "/#define _LIBINTL_H/,+15{/#define _LIBINTL_H/!d}" \
+	| sed -e '/#define _LIBINTL_H/,/[*][/]$$/{/#define _LIBINTL_H/!d;}' \
 	| sed -e 's,@''HAVE_VISIBILITY''@,@HAVE_VISIBILITY@,g' \
 	  > libgnuintl.h
 MOSTLYCLEANFILES += libgnuintl.h
