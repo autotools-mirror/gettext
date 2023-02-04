@@ -1,5 +1,5 @@
 /* Extract some translations of a translation catalog.
-   Copyright (C) 2001-2007, 2009-2010, 2012, 2014, 2016, 2018-2022 Free Software
+   Copyright (C) 2001-2007, 2009-2010, 2012, 2014, 2016, 2018-2023 Free Software
    Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -654,29 +654,6 @@ filename_list_match (const string_list_ty *slp, const char *filename)
       return true;
   return false;
 }
-
-
-#ifdef EINTR
-
-/* EINTR handling for close().
-   These functions can return -1/EINTR even though we don't have any
-   signal handlers set up, namely when we get interrupted via SIGSTOP.  */
-
-static inline int
-nonintr_close (int fd)
-{
-  int retval;
-
-  do
-    retval = close (fd);
-  while (retval < 0 && errno == EINTR);
-
-  return retval;
-}
-#undef close
-#define close nonintr_close
-
-#endif
 
 
 /* Process a string STR of size LEN bytes through grep, and return true
