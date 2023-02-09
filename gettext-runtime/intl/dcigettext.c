@@ -1,5 +1,5 @@
 /* Implementation of the internal dcigettext function.
-   Copyright (C) 1995-2021 Free Software Foundation, Inc.
+   Copyright (C) 1995-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -139,13 +139,10 @@ extern int errno;
 # define tfind __tfind
 #else
 # if !defined HAVE_GETCWD
-char *getwd ();
 #  define getcwd(buf, max) getwd (buf)
 # else
 #  if VMS
 #   define getcwd(buf, max) (getcwd) (buf, max, 0)
-#  else
-char *getcwd ();
 #  endif
 # endif
 # ifndef HAVE_STPCPY
