@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-tools directory of GNU gettext
-dnl Copyright (C) 1995-2022 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2023 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -125,13 +125,6 @@ case "$host_os" in
   *) is_windows_native=no ;;
 esac
 AM_CONDITIONAL([WINDOWS_NATIVE], [test $is_windows_native = yes])
-
-dnl On Cygwin 1.7.10-1 or later, error_* variables are defined in the
-dnl Cygwin DLL.  To avoid any conflict with gettext DLLs, always link
-dnl to gnulib's error.c.  See GETTEXTLIB_EXPORTS_FLAGS setting below.
-case "$host_os" in
-  cygwin*) ac_cv_lib_error_at_line=no ;;
-esac
 
 dnl Checks for libraries.
 
