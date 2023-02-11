@@ -216,23 +216,41 @@ dnl "_libintl_" or "_nl_".
 AH_VERBATIM([0noexport], [
 #define asnprintf                  _libintl_asnprintf
 #define rpl_asnprintf              _libintl_asnprintf
+/* Symbols defined by main intl code.  The prefix '_nl_' is used by glibc.
+   For hiding the symbols on AIX and Solaris 10 with compilers that don't
+   support the __visibility__ attribute,  map them to prefix '_libintl_'.  */
+#define _nl_explode_name                 _libintl_explode_name
+#define _nl_find_domain                  _libintl_find_domain
+#define _nl_find_msg                     _libintl_find_msg
+#define _nl_language_preferences_default _libintl_language_preferences_default
+#define _nl_load_domain                  _libintl_load_domain
+#define _nl_log_untranslated             _libintl_log_untranslated
+#define _nl_make_l10nflist               _libintl_make_l10nflist
+#define _nl_normalize_codeset            _libintl_normalize_codeset
+#define _nl_state_lock                   _libintl_state_lock
 /* Symbols defined by gnulib module 'float'.  */
 #define gl_LDBL_MAX                _libintl_LDBL_MAX
 /* Symbols defined by gnulib module 'free-posix'.  */
 #define rpl_free                   _libintl_free
 /* Symbols defined by gnulib module 'localename'.  */
-#define gl_locale_name_canonicalize      _nl_locale_name_canonicalize
-#define gl_locale_name_from_win32_LANGID _nl_locale_name_from_win32_LANGID
-#define gl_locale_name_from_win32_LCID   _nl_locale_name_from_win32_LCID
-#define gl_locale_name_thread_unsafe     _nl_locale_name_thread_unsafe
-#define gl_locale_name_thread            _nl_locale_name_thread
-#define gl_locale_name_posix             _nl_locale_name_posix
-#define gl_locale_name_environ           _nl_locale_name_environ
-#define gl_locale_name_default           _nl_locale_name_default
-#define gl_locale_name                   _nl_locale_name
-#define rpl_newlocale                    _libintl_newlocale
-#define rpl_duplocale                    _libintl_duplocale
-#define rpl_freelocale                   _libintl_freelocale
+#define gl_locale_name_canonicalize       _libintl_locale_name_canonicalize
+#define _nl_locale_name_canonicalize      _libintl_locale_name_canonicalize
+#define gl_locale_name_from_win32_LANGID  _libintl_locale_name_from_win32_LANGID
+#define _nl_locale_name_from_win32_LANGID _libintl_locale_name_from_win32_LANGID
+#define gl_locale_name_from_win32_LCID    _libintl_locale_name_from_win32_LCID
+#define _nl_locale_name_from_win32_LCID   _libintl_locale_name_from_win32_LCID
+#define gl_locale_name_thread_unsafe      _libintl_locale_name_thread_unsafe
+#define _nl_locale_name_thread_unsafe     _libintl_locale_name_thread_unsafe
+#define gl_locale_name_thread             _libintl_locale_name_thread
+#define gl_locale_name_posix              _libintl_locale_name_posix
+#define _nl_locale_name_posix             _libintl_locale_name_posix
+#define gl_locale_name_environ            _libintl_locale_name_environ
+#define gl_locale_name_default            _libintl_locale_name_default
+#define _nl_locale_name_default           _libintl_locale_name_default
+#define gl_locale_name                    _libintl_locale_name
+#define rpl_newlocale                     _libintl_newlocale
+#define rpl_duplocale                     _libintl_duplocale
+#define rpl_freelocale                    _libintl_freelocale
 /* Symbols defined by gnulib module 'lock'.  */
 #define glthread_lock_init                            _libintl_lock_init
 #define glthread_lock_lock                            _libintl_lock_lock
