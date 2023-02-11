@@ -229,11 +229,11 @@ extern LIBINTL_DLL_EXPORTED int _nl_msg_cat_cntr;
 
 #ifndef _LIBC
 extern const char *_nl_language_preferences_default (void);
-extern void _nl_locale_name_canonicalize (char *name);
-/* extern const char *_nl_locale_name_from_win32_LANGID (LANGID langid); */
-/* extern const char *_nl_locale_name_from_win32_LCID (LCID lcid); */
-extern const char *_nl_locale_name_thread_unsafe (int category,
-						  const char *categoryname);
+extern void gl_locale_name_canonicalize (char *name);
+/* extern const char *gl_locale_name_from_win32_LANGID (LANGID langid); */
+/* extern const char *gl_locale_name_from_win32_LCID (LCID lcid); */
+extern const char *gl_locale_name_thread_unsafe (int category,
+						 const char *categoryname);
 #endif
 
 struct loaded_l10nfile *_nl_find_domain (const char *__dirname,

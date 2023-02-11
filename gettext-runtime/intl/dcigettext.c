@@ -525,7 +525,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 #  else
   categoryname = category_to_name (category);
 #   define CATEGORYNAME_INITIALIZED
-  localename = _nl_locale_name_thread_unsafe (category, categoryname);
+  localename = gl_locale_name_thread_unsafe (category, categoryname);
   if (localename == NULL)
     localename = "";
 #  endif
@@ -1606,14 +1606,14 @@ guess_category_value (int category, const char *categoryname)
 # else
   locale_defaulted = 0;
 #  if HAVE_USELOCALE
-  locale = _nl_locale_name_thread_unsafe (category, categoryname);
+  locale = gl_locale_name_thread_unsafe (category, categoryname);
   if (locale == NULL)
 #  endif
     {
-      locale = _nl_locale_name_posix (category, categoryname);
+      locale = gl_locale_name_posix (category, categoryname);
       if (locale == NULL)
 	{
-	  locale = _nl_locale_name_default ();
+	  locale = gl_locale_name_default ();
 	  locale_defaulted = 1;
 	}
     }

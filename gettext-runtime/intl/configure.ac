@@ -234,19 +234,13 @@ AH_VERBATIM([0noexport], [
 #define rpl_free                   _libintl_free
 /* Symbols defined by gnulib module 'localename'.  */
 #define gl_locale_name_canonicalize       _libintl_locale_name_canonicalize
-#define _nl_locale_name_canonicalize      _libintl_locale_name_canonicalize
 #define gl_locale_name_from_win32_LANGID  _libintl_locale_name_from_win32_LANGID
-#define _nl_locale_name_from_win32_LANGID _libintl_locale_name_from_win32_LANGID
 #define gl_locale_name_from_win32_LCID    _libintl_locale_name_from_win32_LCID
-#define _nl_locale_name_from_win32_LCID   _libintl_locale_name_from_win32_LCID
 #define gl_locale_name_thread_unsafe      _libintl_locale_name_thread_unsafe
-#define _nl_locale_name_thread_unsafe     _libintl_locale_name_thread_unsafe
 #define gl_locale_name_thread             _libintl_locale_name_thread
 #define gl_locale_name_posix              _libintl_locale_name_posix
-#define _nl_locale_name_posix             _libintl_locale_name_posix
 #define gl_locale_name_environ            _libintl_locale_name_environ
 #define gl_locale_name_default            _libintl_locale_name_default
-#define _nl_locale_name_default           _libintl_locale_name_default
 #define gl_locale_name                    _libintl_locale_name
 #define rpl_newlocale                     _libintl_newlocale
 #define rpl_duplocale                     _libintl_duplocale

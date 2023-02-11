@@ -1,5 +1,5 @@
 /* Determine the user's language preferences.
-   Copyright (C) 2004-2007, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2004-2007, 2018-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -33,7 +33,7 @@
 # include <CoreFoundation/CFPropertyList.h>
 # include <CoreFoundation/CFArray.h>
 # include <CoreFoundation/CFString.h>
-extern void _nl_locale_name_canonicalize (char *name);
+extern void gl_locale_name_canonicalize (char *name);
 #endif
 
 #if defined _WIN32
@@ -51,9 +51,9 @@ extern void _nl_locale_name_canonicalize (char *name);
 # define STATUS_BUFFER_OVERFLOW 0x80000005
 # endif
 
-extern void _nl_locale_name_canonicalize (char *name);
-extern const char *_nl_locale_name_from_win32_LANGID (LANGID langid);
-extern const char *_nl_locale_name_from_win32_LCID (LCID lcid);
+extern void gl_locale_name_canonicalize (char *name);
+extern const char *gl_locale_name_from_win32_LANGID (LANGID langid);
+extern const char *gl_locale_name_from_win32_LCID (LCID lcid);
 
 /* Get the preferences list through the MUI APIs. This works on Windows Vista
    and newer.  */
@@ -127,7 +127,7 @@ _nl_language_preferences_win32_mui (HMODULE kernel32)
                             /* An unexpected Win32 locale name occurred.  */
                             break;
                           *q = '\0';
-                          _nl_locale_name_canonicalize (q2);
+                          gl_locale_name_canonicalize (q2);
                           q = q2 + strlen (q2);
                           p++;
                         }
@@ -159,7 +159,7 @@ _nl_language_preferences_win32_ME (HMODULE kernel32)
    (GetUserDefaultUILanguage_func)
    GetProcAddress (kernel32, "GetUserDefaultUILanguage");
   if (p_GetUserDefaultUILanguage != NULL)
-    return _nl_locale_name_from_win32_LANGID (p_GetUserDefaultUILanguage ());
+    return gl_locale_name_from_win32_LANGID (p_GetUserDefaultUILanguage ());
   return NULL;
 }
 
@@ -200,7 +200,7 @@ _nl_language_preferences_win32_95 ()
               /* Parse it as a hexadecimal number.  */
               lcid = strtoul ((char *) data, &endp, 16);
               if (endp > (char *) data && *endp == '\0')
-                return _nl_locale_name_from_win32_LCID (lcid);
+                return gl_locale_name_from_win32_LCID (lcid);
             }
         }
     }
@@ -211,7 +211,7 @@ _nl_language_preferences_win32_95 ()
 static BOOL CALLBACK
 ret_first_language (HMODULE h, LPCSTR type, LPCSTR name, WORD lang, LONG_PTR param)
 {
-  *(const char **)param = _nl_locale_name_from_win32_LANGID (lang);
+  *(const char **)param = gl_locale_name_from_win32_LANGID (lang);
   return FALSE;
 }
 static const char *
@@ -274,13 +274,13 @@ _nl_language_preferences_default (void)
                                            kCFStringEncodingASCII))
                   {
                     strcpy (buf2, buf);
-                    _nl_locale_name_canonicalize (buf);
+                    gl_locale_name_canonicalize (buf);
                     size += strlen (buf) + 1;
                     /* Mac OS X 10.12 or newer returns an array of elements of
                        the form "ll-CC" or "ll-Scrp-CC" where ll is a language
                        code, CC is a country code, and Scrp (optional) is a
                        script code.
-                       _nl_locale_name_canonicalize converts this to "ll_CC" or
+                       gl_locale_name_canonicalize converts this to "ll_CC" or
                        "ll_Scrp_CC".
                        Sometimes ll and CC are unrelated, i.e. there is no
                        translation for "ll_CC" but one for "ll".
@@ -294,7 +294,7 @@ _nl_language_preferences_default (void)
                       if (last_minus != NULL)
                         {
                           *last_minus = '\0';
-                          _nl_locale_name_canonicalize (buf2);
+                          gl_locale_name_canonicalize (buf2);
                           size += strlen (buf2) + 1;
                         }
                     }
@@ -329,7 +329,7 @@ _nl_language_preferences_default (void)
                                                    kCFStringEncodingASCII))
                           {
                             strcpy (buf2, buf);
-                            _nl_locale_name_canonicalize (buf);
+                            gl_locale_name_canonicalize (buf);
                             strcpy (p, buf);
                             p += strlen (buf);
                             *p++ = ':';
@@ -338,7 +338,7 @@ _nl_language_preferences_default (void)
                               if (last_minus != NULL)
                                 {
                                   *last_minus = '\0';
-                                  _nl_locale_name_canonicalize (buf2);
+                                  gl_locale_name_canonicalize (buf2);
                                   strcpy (p, buf2);
                                   p += strlen (buf2);
                                   *p++ = ':';
