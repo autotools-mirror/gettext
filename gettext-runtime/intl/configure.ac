@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-2016, 2018-2022 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2016, 2018-2023 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -218,6 +218,8 @@ AH_VERBATIM([0noexport], [
 #define rpl_asnprintf              _libintl_asnprintf
 /* Symbols defined by gnulib module 'float'.  */
 #define gl_LDBL_MAX                _libintl_LDBL_MAX
+/* Symbols defined by gnulib module 'free-posix'.  */
+#define rpl_free                   _libintl_free
 /* Symbols defined by gnulib module 'localename'.  */
 #define gl_locale_name_canonicalize      _nl_locale_name_canonicalize
 #define gl_locale_name_from_win32_LANGID _nl_locale_name_from_win32_LANGID
@@ -228,6 +230,9 @@ AH_VERBATIM([0noexport], [
 #define gl_locale_name_environ           _nl_locale_name_environ
 #define gl_locale_name_default           _nl_locale_name_default
 #define gl_locale_name                   _nl_locale_name
+#define rpl_newlocale                    _libintl_newlocale
+#define rpl_duplocale                    _libintl_duplocale
+#define rpl_freelocale                   _libintl_freelocale
 /* Symbols defined by gnulib module 'lock'.  */
 #define glthread_lock_init                            _libintl_lock_init
 #define glthread_lock_lock                            _libintl_lock_lock
@@ -309,6 +314,24 @@ if test $HAVE_TSEARCH = 0 || test $HAVE_TWALK = 0 || test $REPLACE_TSEARCH = 1; 
   AC_DEFINE([rpl_tdelete],      [_libintl_tdelete],   [Hidden symbol.])
   AC_DEFINE([twalk],            [_libintl_twalk],     [Hidden symbol.])
   AC_DEFINE([rpl_twalk],        [_libintl_twalk],     [Hidden symbol.])
+fi
+dnl Symbols defined by gnulib's stdio-read.c.
+dnl Actually not needed here, since the gnulib module 'nonblocking' is absent.
+if false; then
+  AC_DEFINE([rpl_fgetc],        [_libintl_fgetc],     [Hidden symbol.])
+  AC_DEFINE([rpl_fgets],        [_libintl_fgets],     [Hidden symbol.])
+  AC_DEFINE([rpl_fread],        [_libintl_fread],     [Hidden symbol.])
+  AC_DEFINE([rpl_fscanf],       [_libintl_fscanf],    [Hidden symbol.])
+fi
+dnl Symbols defined by gnulib's stdio-write.c.
+dnl Actually not needed here, since the gnulib modules 'nonblocking' and
+dnl 'sigpipe' are absent.
+if false; then
+  AC_DEFINE([rpl_fputc],        [_libintl_fputc],     [Hidden symbol.])
+  AC_DEFINE([rpl_fputs],        [_libintl_fputs],     [Hidden symbol.])
+  AC_DEFINE([rpl_fwrite],       [_libintl_fwrite],    [Hidden symbol.])
+  AC_DEFINE([rpl_fprintf],      [_libintl_fprintf],   [Hidden symbol.])
+  AC_DEFINE([rpl_vfprintf],     [_libintl_vfprintf],  [Hidden symbol.])
 fi
 
 AC_CONFIG_FILES([Makefile])
