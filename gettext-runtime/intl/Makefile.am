@@ -34,7 +34,7 @@ SUFFIXES =
 # -DBUILDING_DLL: Change expansion of RELOCATABLE_DLL_EXPORTED macro.
 AM_CPPFLAGS = \
   -Ignulib-lib -I$(srcdir)/gnulib-lib \
-  -DLOCALEDIR=\"$(localedir)\" -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
+  -DLOCALEDIR=$(localedir_c_make) -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
   -DLIBDIR=\"$(libdir)\" -DBUILDING_LIBINTL
 
 if WOE32

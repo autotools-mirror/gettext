@@ -8879,7 +8879,7 @@ library (shared or static libraries are both supported).  It also invokes
 @code{AM_PO_SUBDIRS}, thus preparing the @file{po/} directories of the
 package for building.
 
-@code{AM_GNU_GETTEXT} accepts up to three optional arguments.  The general
+@code{AM_GNU_GETTEXT} accepts up to two optional arguments.  The general
 syntax is
 
 @example
@@ -8930,10 +8930,10 @@ path (@code{CPPFLAGS} for the include file search path, @code{LDFLAGS} for
 the library search path).
 
 @item
-Except for glibc, the operating system's native @code{gettext} cannot
-exploit the GNU mo files, doesn't have the necessary locale dependency
-features, and cannot convert messages from the catalog's text encoding
-to the user's locale encoding.
+Except for glibc and the Solaris 11 libc, the operating system's native
+@code{gettext} cannot exploit the GNU mo files, doesn't have the
+necessary locale dependency features, and cannot convert messages from
+the catalog's text encoding to the user's locale encoding.
 
 @item
 GNU @code{libintl}, if installed, is not necessarily already in the
@@ -8948,6 +8948,25 @@ GNU @code{libintl} relies on POSIX/XSI @code{iconv}.  The macro checks for
 linker options needed to use iconv and appends them to the @code{LIBINTL}
 and @code{LTLIBINTL} variables.
 @end itemize
+
+Additionally, the @code{AM_GNU_GETTEXT} macro sets two variables, for
+convenience.  Both are derived from the @code{--localedir} configure
+option.  They are correct even on native Windows, where directories
+frequently contain backslashes.
+@table @code
+@item localedir_c
+This is the value of @code{localedir}, in C syntax.  This variable is
+meant to be substituted into C or C++ code through
+@code{AC_CONFIG_FILES}.
+
+@item localedir_c_make
+This is the value of @code{localedir}, in C syntax, escaped for use in
+a @code{Makefile}.  This variable is meant to be used in Makefiles,
+for example for defining a C macro named @code{LOCALEDIR}:
+@smallexample
+AM_CPPFLAGS = ... -DLOCALEDIR=$(localedir_c_make) ...
+@end smallexample
+@end table
 
 @node AM_GNU_GETTEXT_VERSION
 @subsection AM_GNU_GETTEXT_VERSION in @file{gettext.m4}

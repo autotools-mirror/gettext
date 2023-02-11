@@ -1,5 +1,5 @@
-# gettext.m4 serial 75 (gettext-0.21.2)
-dnl Copyright (C) 1995-2014, 2016, 2018-2022 Free Software Foundation, Inc.
+# gettext.m4 serial 76 (gettext-0.21.2)
+dnl Copyright (C) 1995-2014, 2016, 2018-2023 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -355,6 +355,47 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
   AC_SUBST([LIBINTL])
   AC_SUBST([LTLIBINTL])
   AC_SUBST([POSUB])
+
+  dnl Define localedir_c.
+  AC_REQUIRE([AC_CANONICAL_BUILD])
+  dnl Find the final value of localedir.
+  gt_save_prefix="${prefix}"
+  gt_save_datarootdir="${datarootdir}"
+  gt_save_localedir="${localedir}"
+  dnl Unfortunately, prefix gets only finally determined at the end of
+  dnl configure.
+  if test "X$prefix" = "XNONE"; then
+    prefix="$ac_default_prefix"
+  fi
+  eval datarootdir="$datarootdir"
+  eval localedir="$localedir"
+  gt_final_localedir="$localedir"
+  localedir="${gt_save_localedir}"
+  datarootdir="${gt_save_datarootdir}"
+  prefix="${gt_save_prefix}"
+  dnl Translate it from build syntax to host syntax.
+  case "$build_os" in
+    cygwin*) gt_final_localedir=`cygpath -w "$gt_final_localedir"` ;;
+  esac
+  dnl Convert it to C string syntax.
+  gt_sed_double_backslashes='s/\\/\\\\/g'
+  gt_sed_escape_doublequotes='s/"/\\"/g'
+  localedir_c=`echo "$gt_final_localedir" | sed -e "$gt_sed_double_backslashes" -e "$gt_sed_escape_doublequotes"`
+  localedir_c='"'"$localedir_c"'"'
+  AC_SUBST([localedir_c])
+
+  dnl Define localedir_c_make.
+changequote(,)dnl
+  gt_sed_escape_for_make_1="s,\\([ \"&'();<>\\\\\`|]\\),\\\\\\1,g"
+changequote([,])dnl
+  gt_sed_escape_for_make_2='s,\$,\\$$,g'
+  localedir_c_make=`echo "$localedir_c" | sed -e "$gt_sed_escape_for_make_1" -e "$gt_sed_escape_for_make_2"`
+  dnl Use the substituted localedir variable, when possible, so that the user
+  dnl may adjust localedir a posteriori when there are no special characters.
+  if test "$localedir_c_make" = '\"'"${gt_final_localedir}"'\"'; then
+    localedir_c_make='\"$(localedir)\"'
+  fi
+  AC_SUBST([localedir_c_make])
 ])
 
 

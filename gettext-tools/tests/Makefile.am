@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/tests subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2010, 2012-2016, 2018-2022 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2010, 2012-2016, 2018-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -246,7 +246,7 @@ AM_CPPFLAGS = \
   -I.. \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
   -I../../gettext-runtime/intl
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+DEFS = -DLOCALEDIR=$(localedir_c_make) @DEFS@
 # INTL_MACOSX_LIBS is needed because the programs depend on libintl.la
 # but libtool doesn't put -Wl,-framework options into .la files.
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@

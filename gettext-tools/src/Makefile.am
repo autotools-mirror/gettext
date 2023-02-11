@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2021 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -97,7 +97,7 @@ AM_CPPFLAGS = \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
   -I../../gettext-runtime/intl -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = \
-  -DLOCALEDIR=\"$(localedir)\" -DBISON_LOCALEDIR=\"$(BISON_LOCALEDIR)\" \
+  -DLOCALEDIR=$(localedir_c_make) -DBISON_LOCALEDIR=\"$(BISON_LOCALEDIR)\" \
   -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
   -DUSEJAVA=$(USEJAVA) \
   -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \

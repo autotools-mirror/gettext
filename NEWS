@@ -1,9 +1,15 @@
-Version 0.21.2 - January 2023
+Version 0.21.2 - February 2023
 
 * PO file format:
   - When a #: line contains references to file names that contain spaces,
     these file names are surrounded by Unicode characters U+2068 and U+2069.
     This makes it possible to parse such references correctly.
+
+* Improvements for maintainers:
+  - The AM_GNU_GETTEXT macro now defines two variables localedir_c and
+    localedir_c_make, that can be used in C code or in Makefiles,
+    respectively, for representing the value of the --localedir configure
+    option.
 
 * Programming languages support:
   - C, C++: xgettext now supports gettext-like functions that take wide strings
