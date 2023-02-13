@@ -8696,9 +8696,12 @@ To make LOCALEDIR known to the program, add the following lines to
 datadir = @@datadir@@
 datarootdir= @@datarootdir@@
 localedir = @@localedir@@
-DEFS = -DLOCALEDIR=\"$(localedir)\" @@DEFS@@
+DEFS = -DLOCALEDIR=$(localedir_c_make) @@DEFS@@
 @end example
 
+@noindent
+@code{$(localedir_c_make)} expands to the value of @code{localedir}, in
+C syntax, escaped for use in a @code{Makefile}.
 Note that @code{@@datadir@@} defaults to @samp{$(prefix)/share}, and
 @code{$(localedir)} defaults to @samp{$(prefix)/share/locale}.
 
@@ -8751,18 +8754,18 @@ To make LOCALEDIR known to the program, add the following to
 @file{Makefile.am}:
 
 @example
-<module>_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+<module>_CPPFLAGS = -DLOCALEDIR=$(localedir_c_make)
 @end example
 
 @noindent
 for each specific module or compilation unit, or
 
 @example
-AM_CPPFLAGS = -DLOCALEDIR=\"$(localedir)\"
+AM_CPPFLAGS = -DLOCALEDIR=$(localedir_c_make)
 @end example
 
 for all modules and compilation units together.  Furthermore, if you are
-using an Autoconf version older then 2.60, add this line to define
+using an Autoconf version older than 2.60, add this line to define
 @samp{localedir}:
 
 @example
