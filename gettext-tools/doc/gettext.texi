@@ -8764,13 +8764,7 @@ for each specific module or compilation unit, or
 AM_CPPFLAGS = -DLOCALEDIR=$(localedir_c_make)
 @end example
 
-for all modules and compilation units together.  Furthermore, if you are
-using an Autoconf version older than 2.60, add this line to define
-@samp{localedir}:
-
-@example
-localedir = $(datadir)/locale
-@end example
+for all modules and compilation units together.
 
 @item
 To ensure that the final linking will use @code{@@LIBINTL@@} or
