@@ -154,7 +154,7 @@ AC_ARG_WITH([installed-csharp-dll],
      [Use an already installed C# DLL.])],
   [gt_use_installed_csharp_dll=$withval],
   [gt_use_installed_csharp_dll=no])
-if test "$gt_use_installed_csharp_dll" = no; then
+if test $BUILDCSHARP = yes && test "$gt_use_installed_csharp_dll" = no; then
   test -f ../gettext-runtime/intl-csharp/Makefile || {
     AC_MSG_WARN([When building the gettext-tools package without building the entire gettext package, you need to pass the --with-installed-csharp-dll option to configure.])
   }
