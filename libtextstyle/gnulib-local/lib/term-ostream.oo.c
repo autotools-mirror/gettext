@@ -1,5 +1,5 @@
 /* Output stream for attributed text, producing ANSI escape sequences.
-   Copyright (C) 2006-2008, 2017, 2019-2020, 2022 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008, 2017, 2019-2020, 2022-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -2354,6 +2354,15 @@ should_enable_hyperlinks (const char *term)
               return !known_buggy;
             }
         }
+
+      /* Solaris console.
+           Program                            | TERM      | Supports hyperlinks?
+           -----------------------------------+-----------+---------------------------
+           Solaris kernel's terminal emulator | sun-color | produces garbage
+           SPARC PROM's terminal emulator     | sun       | ?
+       */
+      if (strcmp (term, "sun") == 0 || strcmp (term, "sun-color") == 0)
+        return false;
     }
 
   /* In case of doubt, enable hyperlinks.  So this code does not need to change
