@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/libgettextpo subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2016, 2019-2021 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2016, 2019-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -110,11 +110,11 @@ LTV_AGE=5
 # define an uncontrolled amount of symbols.
 # Limit the exported symbols: Don't export libgettextpo_*, except do export
 # libgettextpo_version.
-libgettextpo_la_LIBADD = libgnu.la $(WOE32_LIBADD) $(LTLIBUNISTRING)
+libgettextpo_la_LIBADD = libgnu.la $(WOE32_LIBADD)
 libgettextpo_la_LDFLAGS = \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
   -rpath $(libdir) \
-  @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined \
+  $(LTLIBUNISTRING) @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined \
   -export-symbols-regex '^([^l]|l[^i]|li[^b]|lib[^g]|libg[^e]|libge[^t]|libget[^t]|libgett[^e]|libgette[^x]|libgettex[^t]|libgettext[^p]|libgettextp[^o]|libgettextpo[^_]|libgettextpo_version).*'
 
 # Tell the mingw or Cygwin linker which symbols to export.
