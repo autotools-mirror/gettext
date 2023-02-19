@@ -44,6 +44,7 @@
 /gettext-runtime/intl/doc/relocatable.texi
 /gettext-runtime/libasprintf/gnulib-lib/
 /gettext-runtime/libasprintf/gnulib-m4/
+/gettext-runtime/m4/build-to-host.m4
 /gettext-runtime/man/x-to-1.in
 /gettext-tools/doc/relocatable.texi
 /gettext-tools/gnulib-m4/

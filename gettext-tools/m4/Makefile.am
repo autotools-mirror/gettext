@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/m4 directory of GNU gettext
-## Copyright (C) 2003-2010, 2013, 2017-2020 Free Software Foundation, Inc.
+## Copyright (C) 2003-2010, 2013, 2017-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@ aclocal_DATA = \
   ../../gettext-runtime/gnulib-m4/lib-ld.m4 \
   ../../gettext-runtime/gnulib-m4/lib-link.m4 \
   ../../gettext-runtime/gnulib-m4/lib-prefix.m4 \
+  ../../gettext-runtime/m4/build-to-host.m4 \
   ../../gettext-runtime/m4/gettext.m4 \
   ../../gettext-runtime/m4/iconv.m4 \
   ../../gettext-runtime/m4/intlmacosx.m4 \

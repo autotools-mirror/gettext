@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-2022 Free Software Foundation, Inc.
+## Copyright (C) 1995-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -72,6 +72,7 @@ distcheck-hook:
 	cmp -s $(srcdir)/gettext-runtime/po/insert-header.sin $(srcdir)/gettext-tools/po/insert-header.sin
 	cmp -s $(srcdir)/gettext-runtime/po/remove-potcdate.sin $(srcdir)/gettext-tools/po/remove-potcdate.sin
 	cmp -s $(srcdir)/gettext-runtime/po/remove-potcdate.sin $(srcdir)/gettext-tools/examples/po/remove-potcdate.sin
+	cmp -s $(srcdir)/gettext-runtime/m4/build-to-host.m4 $(srcdir)/gettext-tools/gnulib-m4/build-to-host.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/fcntl-o.m4 $(srcdir)/gettext-tools/gnulib-m4/fcntl-o.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/flexmember.m4 $(srcdir)/gettext-tools/gnulib-m4/flexmember.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/gettext.m4 $(srcdir)/gettext-tools/gnulib-m4/gettext.m4
