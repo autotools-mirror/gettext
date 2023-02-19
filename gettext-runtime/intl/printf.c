@@ -1,5 +1,5 @@
 /* Formatted output to strings, using POSIX/XSI format strings with positions.
-   Copyright (C) 2003, 2006-2007, 2009-2011, 2018, 2020-2022 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2006-2007, 2009-2011, 2018, 2020-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -327,7 +327,7 @@ libintl_asprintf (char **resultp, const char *format, ...)
 #define PRINTF_PARSE wprintf_parse
 #include "printf-parse.c"
 
-/* Define functions declared in "vasnprintf.h".  */
+/* Define functions declared in "vasnwprintf.h".  */
 #define vasnwprintf _libintl_vasnwprintf
 #include "vasnprintf.c"
 #if 0 /* not needed */
