@@ -40,9 +40,11 @@ examplesbuildaux_DATA = \
   ../gnulib-m4/csharpcomp.m4 ../gnulib-m4/csharpexec.m4 csharpexec-test.exe
 
 # Generate this list with
-# find . -type f -name '*.m4' -printf '%f\n' | sort | tr '\012' @ | sed 's/@$/%/;s/@/ \\@/g' | tr @% '\012\012'
-EXTRA_DIST = README csharpexec-test.exe \
-exported.m4 \
-hostname.m4 \
-locale-de.m4 \
-siginfo.m4
+# find . -type f -name '*.m4' -printf '  %f\n' | sort | tr '\012' @ | sed 's/@$/%/;s/@/ \\@/g' | tr @% '\012\012'
+EXTRA_DIST = \
+  README \
+  csharpexec-test.cs csharpexec-test.exe \
+  exported.m4 \
+  hostname.m4 \
+  locale-de.m4 \
+  siginfo.m4
