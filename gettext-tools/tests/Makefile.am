@@ -103,6 +103,8 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-its-1 xgettext-its-2 \
 	xgettext-java-1 xgettext-java-2 xgettext-java-3 xgettext-java-4 \
 	xgettext-java-5 xgettext-java-6 xgettext-java-7 \
+	xgettext-java-stackovfl-1 xgettext-java-stackovfl-2 \
+	xgettext-java-stackovfl-3 xgettext-java-stackovfl-4 \
 	xgettext-javascript-1 xgettext-javascript-2 xgettext-javascript-3 \
 	xgettext-javascript-4 xgettext-javascript-5 xgettext-javascript-6 \
 	xgettext-javascript-7 \
