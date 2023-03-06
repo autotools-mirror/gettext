@@ -91,6 +91,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-c-format-4 xgettext-c-format-5 \
 	xgettext-c-ctxt-1 xgettext-c-ctxt-2 xgettext-c-ctxt-3 \
 	xgettext-c-c++-1 xgettext-c-c++-2 \
+	xgettext-c-stackovfl-1 xgettext-c-stackovfl-2 \
 	xgettext-csharp-1 xgettext-csharp-2 xgettext-csharp-3 \
 	xgettext-csharp-4 xgettext-csharp-5 xgettext-csharp-6 \
 	xgettext-csharp-7 xgettext-csharp-8 \
