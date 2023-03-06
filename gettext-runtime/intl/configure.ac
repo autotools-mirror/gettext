@@ -196,7 +196,7 @@ AH_BOTTOM([
 ])
 
 dnl Rename some macros and functions used for locking.
-AH_VERBATIM([0locking], [
+AH_VERBATIM([zlocking], [
 #define __libc_lock_t                   gl_lock_t
 #define __libc_lock_define              gl_lock_define
 #define __libc_lock_define_initialized  gl_lock_define_initialized
@@ -213,7 +213,7 @@ AH_VERBATIM([0locking], [
 
 dnl Hide undesired symbols from the global namespace, by prefixing them with
 dnl "_libintl_" or "_nl_".
-AH_VERBATIM([0noexport], [
+AH_VERBATIM([znoexport], [
 #define asnprintf                  _libintl_asnprintf
 #define rpl_asnprintf              _libintl_asnprintf
 /* Symbols defined by main intl code.  The prefix '_nl_' is used by glibc.
@@ -246,6 +246,7 @@ AH_VERBATIM([0noexport], [
 #define rpl_duplocale                     _libintl_duplocale
 #define rpl_freelocale                    _libintl_freelocale
 /* Symbols defined by gnulib module 'lock'.  */
+#if USE_ISOC_THREADS || USE_ISOC_AND_POSIX_THREADS
 #define glthread_lock_init                            _libintl_lock_init
 #define glthread_lock_lock                            _libintl_lock_lock
 #define glthread_lock_unlock                          _libintl_lock_unlock
@@ -259,6 +260,7 @@ AH_VERBATIM([0noexport], [
 #define glthread_recursive_lock_lock                  _libintl_recursive_lock_lock
 #define glthread_recursive_lock_unlock                _libintl_recursive_lock_unlock
 #define glthread_recursive_lock_destroy               _libintl_recursive_lock_destroy
+#endif
 #define glthread_rwlock_init_for_glibc                _libintl_rwlock_init_for_glibc
 #define glthread_rwlock_init_multithreaded            _libintl_rwlock_init_multithreaded
 #define glthread_rwlock_rdlock_multithreaded          _libintl_rwlock_rdlock_multithreaded
