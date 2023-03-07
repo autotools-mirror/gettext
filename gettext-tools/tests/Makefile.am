@@ -100,6 +100,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-desktop-1 xgettext-desktop-2 \
 	xgettext-elisp-1 xgettext-elisp-2 \
 	xgettext-elisp-stackovfl-1 xgettext-elisp-stackovfl-2 \
+	xgettext-elisp-stackovfl-3 xgettext-elisp-stackovfl-4 \
 	xgettext-glade-1 xgettext-glade-2 xgettext-glade-3 xgettext-glade-4 \
 	xgettext-glade-5 xgettext-glade-6 xgettext-glade-7 \
 	xgettext-gsettings-1 \
@@ -209,7 +210,8 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	gettextpo-1.de.po \
 	xgettext-1 \
 	xgettext-c-1 xg-c-comment-6.c xg-c-escape-3.c xg-vala-2.vala \
-	common/supplemental/plurals.xml
+	common/supplemental/plurals.xml \
+	testdata/xg-el-so-3.el testdata/xg-el-so-4.el
 
 XGETTEXT = ../src/xgettext
 

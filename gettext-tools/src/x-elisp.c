@@ -436,7 +436,8 @@ static flag_context_list_table_ty *flag_context_list_table;
 /* Maximum supported nesting depth.  */
 #define MAX_NESTING_DEPTH 1000
 
-/* Current nesting depth.  */
+/* Current nesting depths.  */
+static int escape_nesting_depth;
 static int nesting_depth;
 
 
@@ -445,6 +446,12 @@ static int nesting_depth;
 static int
 do_getc_escaped (int c, bool in_string)
 {
+  if (escape_nesting_depth > MAX_NESTING_DEPTH)
+    {
+      error_with_progname = false;
+      error (EXIT_FAILURE, 0, _("%s:%d: error: too deeply nested escape sequence"),
+             logical_file_name, line_number);
+    }
   switch (c)
     {
     case 'a':
@@ -487,7 +494,9 @@ do_getc_escaped (int c, bool in_string)
           c = do_getc ();
           if (c == EOF)
             return EOF;
+          ++escape_nesting_depth;
           c = do_getc_escaped (c, false);
+          escape_nesting_depth--;
         }
       return c | 0x80;
 
@@ -506,7 +515,9 @@ do_getc_escaped (int c, bool in_string)
           c = do_getc ();
           if (c == EOF)
             return EOF;
+          ++escape_nesting_depth;
           c = do_getc_escaped (c, false);
+          escape_nesting_depth--;
         }
       return (c >= 'a' && c <= 'z' ? c - 'a' + 'A' : c);
 
@@ -527,7 +538,9 @@ do_getc_escaped (int c, bool in_string)
           c = do_getc ();
           if (c == EOF)
             return EOF;
+          ++escape_nesting_depth;
           c = do_getc_escaped (c, false);
+          escape_nesting_depth--;
         }
       return c;
 
@@ -548,7 +561,9 @@ do_getc_escaped (int c, bool in_string)
           c = do_getc ();
           if (c == EOF)
             return EOF;
+          ++escape_nesting_depth;
           c = do_getc_escaped (c, false);
+          escape_nesting_depth--;
         }
       if (c == '?')
         return 0x7F;
@@ -1277,6 +1292,7 @@ extract_elisp (FILE *f,
   last_non_comment_line = -1;
 
   flag_context_list_table = flag_table;
+  escape_nesting_depth = 0;
   nesting_depth = 0;
 
   init_keywords ();
