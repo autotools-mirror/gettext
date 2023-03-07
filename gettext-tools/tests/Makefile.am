@@ -132,6 +132,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-ruby-1 \
 	xgettext-scheme-1 xgettext-scheme-2 xgettext-scheme-3 \
 	xgettext-scheme-4 \
+	xgettext-scheme-stackovfl-1 xgettext-scheme-stackovfl-2 \
 	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 xgettext-sh-4 xgettext-sh-5 \
 	xgettext-sh-6 xgettext-sh-7 \
 	xgettext-smalltalk-1 xgettext-smalltalk-2 \
