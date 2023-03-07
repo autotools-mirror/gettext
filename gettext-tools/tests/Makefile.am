@@ -117,6 +117,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-javascript-stackovfl-5 xgettext-javascript-stackovfl-6 \
 	xgettext-javascript-stackovfl-7 xgettext-javascript-stackovfl-8 \
 	xgettext-librep-1 xgettext-librep-2 \
+	xgettext-librep-stackovfl-1 xgettext-librep-stackovfl-2 \
 	xgettext-lisp-1 xgettext-lisp-2 \
 	xgettext-lisp-stackovfl-1 xgettext-lisp-stackovfl-2 \
 	xgettext-lua-1 xgettext-lua-2 \

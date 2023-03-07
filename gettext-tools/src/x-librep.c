@@ -1,5 +1,5 @@
 /* xgettext librep backend.
-   Copyright (C) 2001-2003, 2005-2009, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009, 2018-2023 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -40,6 +40,7 @@
 #include "xg-arglist-parser.h"
 #include "xg-message.h"
 #include "error.h"
+#include "error-progname.h"
 #include "xalloc.h"
 #include "mem-hash-map.h"
 #include "gettext.h"
@@ -507,8 +508,17 @@ string_of_object (const struct object *op)
   return str;
 }
 
+
 /* Context lookup table.  */
 static flag_context_list_table_ty *flag_context_list_table;
+
+
+/* Maximum supported nesting depth.  */
+#define MAX_NESTING_DEPTH 1000
+
+/* Current nesting depth.  */
+static int nesting_depth;
+
 
 /* Returns the character represented by an escape sequence.  */
 static int
@@ -590,6 +600,12 @@ do_getc_escaped (int c)
 static void
 read_object (struct object *op, flag_context_ty outer_context)
 {
+  if (nesting_depth > MAX_NESTING_DEPTH)
+    {
+      error_with_progname = false;
+      error (EXIT_FAILURE, 0, _("%s:%d: error: too deeply nested objects"),
+             logical_file_name, line_number);
+    }
   for (;;)
     {
       int c;
@@ -633,7 +649,9 @@ read_object (struct object *op, flag_context_ty outer_context)
                                        flag_context_list_iterator_advance (
                                          &context_iter));
 
+                ++nesting_depth;
                 read_object (&inner, inner_context);
+                nesting_depth--;
 
                 /* Recognize end of list.  */
                 if (inner.type == t_close)
@@ -715,7 +733,9 @@ read_object (struct object *op, flag_context_ty outer_context)
               {
                 struct object inner;
 
+                ++nesting_depth;
                 read_object (&inner, null_context);
+                nesting_depth--;
 
                 /* Recognize end of vector.  */
                 if (inner.type == t_close)
@@ -759,7 +779,9 @@ read_object (struct object *op, flag_context_ty outer_context)
           {
             struct object inner;
 
+            ++nesting_depth;
             read_object (&inner, null_context);
+            nesting_depth--;
 
             /* Dots and EOF are not allowed here.  But be tolerant.  */
 
@@ -914,7 +936,9 @@ read_object (struct object *op, flag_context_ty outer_context)
             case ':':
               {
                 struct object inner;
+                ++nesting_depth;
                 read_object (&inner, null_context);
+                nesting_depth--;
                 /* Dots and EOF are not allowed here.
                    But be tolerant.  */
                 free_object (&inner);
@@ -928,7 +952,9 @@ read_object (struct object *op, flag_context_ty outer_context)
               {
                 struct object inner;
                 do_ungetc (c);
+                ++nesting_depth;
                 read_object (&inner, null_context);
+                nesting_depth--;
                 /* Dots and EOF are not allowed here.
                    But be tolerant.  */
                 free_object (&inner);
@@ -1115,6 +1141,7 @@ extract_librep (FILE *f,
   last_non_comment_line = -1;
 
   flag_context_list_table = flag_table;
+  nesting_depth = 0;
 
   init_keywords ();
 
