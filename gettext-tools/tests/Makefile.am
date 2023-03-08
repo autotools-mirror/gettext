@@ -83,6 +83,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-18 \
 	xgettext-appdata-1 \
 	xgettext-awk-1 xgettext-awk-2 \
+	xgettext-awk-stackovfl-1 xgettext-awk-stackovfl-2 \
 	xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 xgettext-c-6 \
 	xgettext-c-comment-1 xgettext-c-comment-2 xgettext-c-comment-3 \
 	xgettext-c-comment-4 xgettext-c-comment-5 xgettext-c-comment-6 \

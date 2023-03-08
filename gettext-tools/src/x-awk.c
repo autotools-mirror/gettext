@@ -1,5 +1,5 @@
 /* xgettext awk backend.
-   Copyright (C) 2002-2003, 2005-2009, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009, 2018-2023 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -667,6 +667,13 @@ x_awk_lex (token_ty *tp)
 static flag_context_list_table_ty *flag_context_list_table;
 
 
+/* Maximum supported nesting depth.  */
+#define MAX_NESTING_DEPTH 1000
+
+/* Current nesting depth.  */
+static int nesting_depth;
+
+
 /* The file is broken into tokens.  Scan the token stream, looking for
    a keyword, followed by a left paren, followed by a string.  When we
    see this sequence, we have something to remember.  We assume we are
@@ -756,6 +763,12 @@ extract_parenthesized (message_list_ty *mlp,
           continue;
 
         case token_type_lparen:
+          if (++nesting_depth > MAX_NESTING_DEPTH)
+            {
+              error_with_progname = false;
+              error (EXIT_FAILURE, 0, _("%s:%d: error: too many open parentheses"),
+                     logical_file_name, line_number);
+            }
           if (extract_parenthesized (mlp, inner_context, next_context_iter,
                                      arglist_parser_alloc (mlp,
                                                            state ? next_shapes : NULL)))
@@ -763,6 +776,7 @@ extract_parenthesized (message_list_ty *mlp,
               arglist_parser_done (argparser, arg);
               return true;
             }
+          nesting_depth--;
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;
           state = 0;
@@ -879,6 +893,7 @@ extract_awk (FILE *f,
   prefer_division_over_regexp = false;
 
   flag_context_list_table = flag_table;
+  nesting_depth = 0;
 
   init_keywords ();
 
