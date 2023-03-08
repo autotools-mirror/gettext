@@ -122,6 +122,8 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-lisp-1 xgettext-lisp-2 \
 	xgettext-lisp-stackovfl-1 xgettext-lisp-stackovfl-2 \
 	xgettext-lua-1 xgettext-lua-2 \
+	xgettext-lua-stackovfl-1 xgettext-lua-stackovfl-2 \
+	xgettext-lua-stackovfl-3 xgettext-lua-stackovfl-4 \
 	xgettext-objc-1 xgettext-objc-2 \
 	xgettext-perl-1 xgettext-perl-2 xgettext-perl-3 xgettext-perl-4 \
 	xgettext-perl-5 xgettext-perl-6 xgettext-perl-7 xgettext-perl-8 \

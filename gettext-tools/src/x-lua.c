@@ -1,5 +1,5 @@
 /* xgettext Lua backend.
-   Copyright (C) 2012-2013, 2016, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 2012-2013, 2016, 2018-2023 Free Software Foundation, Inc.
 
    This file was written by Ľubomír Remák <lubomirr@lubomirr.eu>, 2012.
 
@@ -38,6 +38,7 @@
 #include "xg-arglist-parser.h"
 #include "xg-message.h"
 #include "error.h"
+#include "error-progname.h"
 #include "xalloc.h"
 #include "gettext.h"
 #include "po-charset.h"
@@ -1010,6 +1011,14 @@ x_lua_lex (token_ty *tok)
 static flag_context_list_table_ty *flag_context_list_table;
 
 
+/* Maximum supported nesting depth.  */
+#define MAX_NESTING_DEPTH 1000
+
+/* Current nesting depths.  */
+static int paren_nesting_depth;
+static int bracket_nesting_depth;
+
+
 /* The file is broken into tokens.  Scan the token stream, looking for
    a keyword, followed by a left paren, followed by a string.  When we
    see this sequence, we have something to remember.  We assume we are
@@ -1084,6 +1093,12 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
           continue;
 
         case token_type_lparen:
+          if (++paren_nesting_depth > MAX_NESTING_DEPTH)
+            {
+              error_with_progname = false;
+              error (EXIT_FAILURE, 0, _("%s:%d: error: too many open parentheses"),
+                     logical_file_name, line_number);
+            }
           if (extract_balanced (mlp, token_type_rparen,
                                 inner_context, next_context_iter,
                                 arglist_parser_alloc (mlp,
@@ -1092,6 +1107,7 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
               arglist_parser_done (argparser, arg);
               return true;
             }
+          paren_nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
           break;
@@ -1108,6 +1124,12 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
           continue;
 
         case token_type_lbracket:
+          if (++bracket_nesting_depth > MAX_NESTING_DEPTH)
+            {
+              error_with_progname = false;
+              error (EXIT_FAILURE, 0, _("%s:%d: error: too many open brackets"),
+                     logical_file_name, line_number);
+            }
           if (extract_balanced (mlp, token_type_rbracket,
                                 null_context, null_context_list_iterator,
                                 arglist_parser_alloc (mlp, NULL)))
@@ -1115,6 +1137,7 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
               arglist_parser_done (argparser, arg);
               return true;
             }
+          bracket_nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
           break;
@@ -1225,6 +1248,8 @@ extract_lua (FILE *f,
   phase4_pushback_length = 0;
 
   flag_context_list_table = flag_table;
+  paren_nesting_depth = 0;
+  bracket_nesting_depth = 0;
 
   init_keywords ();
 
