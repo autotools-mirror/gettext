@@ -149,6 +149,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-stringtable-1 \
 	xgettext-tcl-1 xgettext-tcl-2 xgettext-tcl-3 xgettext-tcl-4 \
 	xgettext-vala-1 xgettext-vala-2 \
+	xgettext-vala-stackovfl-1 xgettext-vala-stackovfl-2 \
 	xgettext-ycp-1 xgettext-ycp-2 xgettext-ycp-3 xgettext-ycp-4 \
 	format-awk-1 format-awk-2 \
 	format-boost-1 format-boost-2 \
