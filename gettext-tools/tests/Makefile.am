@@ -139,6 +139,9 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-scheme-stackovfl-1 xgettext-scheme-stackovfl-2 \
 	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 xgettext-sh-4 xgettext-sh-5 \
 	xgettext-sh-6 xgettext-sh-7 \
+	xgettext-sh-stackovfl-1 xgettext-sh-stackovfl-2 \
+	xgettext-sh-stackovfl-3 xgettext-sh-stackovfl-4 \
+	xgettext-sh-stackovfl-5 \
 	xgettext-smalltalk-1 xgettext-smalltalk-2 \
 	xgettext-stringtable-1 \
 	xgettext-tcl-1 xgettext-tcl-2 xgettext-tcl-3 xgettext-tcl-4 \
