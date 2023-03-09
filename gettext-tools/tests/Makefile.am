@@ -130,6 +130,8 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-perl-stackovfl-1 xgettext-perl-stackovfl-2 \
 	xgettext-perl-stackovfl-3 xgettext-perl-stackovfl-4 \
 	xgettext-php-1 xgettext-php-2 xgettext-php-3 xgettext-php-4 \
+	xgettext-php-stackovfl-1 xgettext-php-stackovfl-2 \
+	xgettext-php-stackovfl-3 xgettext-php-stackovfl-4 \
 	xgettext-po-1 xgettext-po-2 \
 	xgettext-properties-1 xgettext-properties-2 xgettext-properties-3 \
 	xgettext-properties-4 \
