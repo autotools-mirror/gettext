@@ -1,5 +1,5 @@
 /* xgettext Tcl backend.
-   Copyright (C) 2002-2003, 2005-2009, 2013, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 2002-2003, 2005-2009, 2013, 2018-2023 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -42,6 +42,7 @@
 #include "xg-arglist-parser.h"
 #include "xg-message.h"
 #include "error.h"
+#include "error-progname.h"
 #include "xalloc.h"
 #include "mem-hash-map.h"
 #include "c-ctype.h"
@@ -462,6 +463,14 @@ string_of_word (const struct word *wp)
 static flag_context_list_table_ty *flag_context_list_table;
 
 
+/* Maximum supported nesting depth.  */
+#define MAX_NESTING_DEPTH 1000
+
+/* Current nesting depths.  */
+static int bracket_nesting_depth;
+static int brace_nesting_depth;
+
+
 /* Read an escape sequence.  The value is an ISO-8859-1 character (in the
    range 0x00..0xff) or a Unicode character (in the range 0x0000..0xffff).  */
 static int
@@ -678,7 +687,14 @@ accumulate_word (struct word *wp, enum terminator looking_for,
         }
       else if (c == '[')
         {
+          if (++bracket_nesting_depth > MAX_NESTING_DEPTH)
+            {
+              error_with_progname = false;
+              error (EXIT_FAILURE, 0, _("%s:%d: error: too many open brackets"),
+                     logical_file_name, line_number);
+            }
           read_command_list (']', context);
+          bracket_nesting_depth--;
           wp->type = t_other;
         }
       else if (c == '\\')
@@ -770,7 +786,14 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
       previous_depth = phase2_push () - 1;
 
       /* Interpret it as a command list.  */
+      if (++brace_nesting_depth > MAX_NESTING_DEPTH)
+        {
+          error_with_progname = false;
+          error (EXIT_FAILURE, 0, _("%s:%d: error: too many open braces"),
+                 logical_file_name, line_number);
+        }
       terminator = read_command_list ('\0', null_context);
+      brace_nesting_depth--;
 
       if (terminator == t_brace)
         phase2_pop (previous_depth);
@@ -997,6 +1020,8 @@ extract_tcl (FILE *f,
   last_non_comment_line = -1;
 
   flag_context_list_table = flag_table;
+  bracket_nesting_depth = 0;
+  brace_nesting_depth = 0;
 
   init_keywords ();
 
