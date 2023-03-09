@@ -1,5 +1,5 @@
 /* xgettext Perl backend.
-   Copyright (C) 2002-2010, 2013, 2016, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 2002-2010, 2013, 2016, 2018-2023 Free Software Foundation, Inc.
 
    This file was written by Guido Flohr <guido@imperia.net>, 2002-2010.
 
@@ -790,6 +790,13 @@ extract_quotelike_pass1_utf8 (int delim)
 
 /* Context lookup table.  */
 static flag_context_list_table_ty *flag_context_list_table;
+
+
+/* Maximum supported nesting depth.  */
+#define MAX_NESTING_DEPTH 1000
+
+/* Current nesting depth.  */
+static int nesting_depth;
 
 
 /* Forward declaration of local functions.  */
@@ -1710,6 +1717,13 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
 
   lex_pos_ty pos;
 
+  if (++nesting_depth > MAX_NESTING_DEPTH)
+    {
+      error_with_progname = false;
+      error (EXIT_FAILURE, 0, _("%s:%d: error: too deeply nested expressions"),
+             logical_file_name, line_number);
+    }
+
   /* States are:
    *
    * initial:      initial
@@ -1767,7 +1781,10 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
             case '\\':
               c = (unsigned char) *string++;
               if (c == '\0')
-                return;
+                {
+                  nesting_depth--;
+                  return;
+                }
               break;
             case '$':
               buffer[bufpos++] = '$';
@@ -2029,6 +2046,9 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
           break;
         }
     }
+
+  nesting_depth--;
+  return;
 }
 
 /* There is an ambiguity about '/' and '?': They can start an operator
@@ -2725,6 +2745,13 @@ token_stack_free (token_stack_ty *stack)
 static token_ty *
 x_perl_lex (message_list_ty *mlp)
 {
+  if (++nesting_depth > MAX_NESTING_DEPTH)
+    {
+      error_with_progname = false;
+      error (EXIT_FAILURE, 0, _("%s:%d: error: too deeply nested expressions"),
+             logical_file_name, line_number);
+    }
+
 #if DEBUG_PERL
   int dummy = token_stack_dump (&token_stack);
 #endif
@@ -2885,6 +2912,7 @@ x_perl_lex (message_list_ty *mlp)
         }
     }
 
+  nesting_depth--;
   return tp;
 }
 
@@ -3059,6 +3087,13 @@ extract_balanced (message_list_ty *mlp,
   ++nesting_level;
 #endif
 
+  if (nesting_depth > MAX_NESTING_DEPTH)
+    {
+      error_with_progname = false;
+      error (EXIT_FAILURE, 0, _("%s:%d: error: too deeply nested expressions"),
+             logical_file_name, line_number);
+    }
+
   for (;;)
     {
       /* The current token.  */
@@ -3131,6 +3166,7 @@ extract_balanced (message_list_ty *mlp,
                best results.  */
             next_comma_delim = true;
 
+          ++nesting_depth;
           if (extract_balanced (mlp, delim, false, next_comma_delim,
                                 inner_context, next_context_iter,
                                 1, next_argparser))
@@ -3138,6 +3174,7 @@ extract_balanced (message_list_ty *mlp,
               arglist_parser_done (argparser, arg);
               return true;
             }
+          nesting_depth--;
 
           next_is_argument = false;
           next_argparser = NULL;
@@ -3215,6 +3252,7 @@ extract_balanced (message_list_ty *mlp,
           if (next_is_argument)
             {
               /* Parse the argument list of a function call.  */
+              ++nesting_depth;
               if (extract_balanced (mlp, token_type_rparen, true, false,
                                     inner_context, next_context_iter,
                                     1, next_argparser))
@@ -3222,12 +3260,14 @@ extract_balanced (message_list_ty *mlp,
                   arglist_parser_done (argparser, arg);
                   return true;
                 }
+              nesting_depth--;
               next_is_argument = false;
               next_argparser = NULL;
             }
           else
             {
               /* Parse a parenthesized expression or comma expression.  */
+              ++nesting_depth;
               if (extract_balanced (mlp, token_type_rparen, true, false,
                                     inner_context, next_context_iter,
                                     arg, arglist_parser_clone (argparser)))
@@ -3238,6 +3278,7 @@ extract_balanced (message_list_ty *mlp,
                   free_token (tp);
                   return true;
                 }
+              nesting_depth--;
               next_is_argument = false;
               if (next_argparser != NULL)
                 free (next_argparser);
@@ -3381,6 +3422,7 @@ extract_balanced (message_list_ty *mlp,
           fprintf (stderr, "%s:%d: type lbrace (%d)\n",
                    logical_file_name, tp->line_number, nesting_level);
 #endif
+          ++nesting_depth;
           if (extract_balanced (mlp, token_type_rbrace, true, false,
                                 null_context, null_context_list_iterator,
                                 1, arglist_parser_alloc (mlp, NULL)))
@@ -3391,6 +3433,7 @@ extract_balanced (message_list_ty *mlp,
               free_token (tp);
               return true;
             }
+          nesting_depth--;
           next_is_argument = false;
           if (next_argparser != NULL)
             free (next_argparser);
@@ -3415,6 +3458,7 @@ extract_balanced (message_list_ty *mlp,
           fprintf (stderr, "%s:%d: type lbracket (%d)\n",
                    logical_file_name, tp->line_number, nesting_level);
 #endif
+          ++nesting_depth;
           if (extract_balanced (mlp, token_type_rbracket, true, false,
                                 null_context, null_context_list_iterator,
                                 1, arglist_parser_alloc (mlp, NULL)))
@@ -3425,6 +3469,7 @@ extract_balanced (message_list_ty *mlp,
               free_token (tp);
               return true;
             }
+          nesting_depth--;
           next_is_argument = false;
           if (next_argparser != NULL)
             free (next_argparser);
@@ -3562,6 +3607,7 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   last_non_comment_line = -1;
 
   flag_context_list_table = flag_table;
+  nesting_depth = 0;
 
   /* Safe assumption.  */
   last_token_type = token_type_semicolon;
