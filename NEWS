@@ -19,6 +19,9 @@ Version 0.21.2 - February 2023
 * xgettext:
   The xgettext option '--sorted-output' is now deprecated.
 
+* Emacs PO mode:
+  Fix an incompatibility with Emacs version 29 or newer.
+
 Version 0.21.1 - October 2022
 
 * Runtime behaviour:
