@@ -17,7 +17,9 @@ Version 0.21.2 - February 2023
     arguments.
 
 * xgettext:
-  The xgettext option '--sorted-output' is now deprecated.
+  - The xgettext option '--sorted-output' is now deprecated.
+  - xgettext input files of type PO that are not all ASCII and not UTF-8
+    encoded are now handled correctly.
 
 * Emacs PO mode:
   Fix an incompatibility with Emacs version 29 or newer.

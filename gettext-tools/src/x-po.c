@@ -1,5 +1,5 @@
 /* xgettext PO, JavaProperties, and NXStringTable backends.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014, 2018, 2020 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014, 2018, 2020, 2023 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -37,6 +37,9 @@
 #include "read-po.h"
 #include "read-properties.h"
 #include "read-stringtable.h"
+#include "msgl-iconv.h"
+#include "msgl-ascii.h"
+#include "po-charset.h"
 #include "po-lex.h"
 #include "gettext.h"
 
@@ -201,9 +204,30 @@ extract (FILE *fp,
                     }
                 }
             }
+
+          if (!input_syntax->produces_utf8)
+            {
+              /* Convert the messages to UTF-8.
+                 finalize_header() expects this.  */
+              message_list_ty *mlp = mdlp->item[0]->messages;
+              iconv_message_list (mlp, NULL, po_charset_utf8, logical_filename);
+            }
         }
 
       free (header_charset);
+    }
+  else
+    {
+      if (!xgettext_omit_header && !input_syntax->produces_utf8)
+        {
+          /* finalize_header() expects the messages to be in UTF-8 encoding.
+             We don't know the encoding here; therefore we have to reject the
+             input if it is not entirely ASCII.  */
+          if (!is_ascii_msgdomain_list (mdlp))
+            error (EXIT_FAILURE, 0,
+                   _("%s: input file doesn't contain a header entry with a charset specification"),
+                   logical_filename);
+        }
     }
 }
 
