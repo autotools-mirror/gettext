@@ -994,7 +994,7 @@ struct token_ty
 static int
 phase7_getc ()
 {
-  int c, n, j;
+  int c, j;
 
   /* Use phase 3, because phase 4 elides comments.  */
   c = phase3_getc ();
@@ -1072,56 +1072,83 @@ phase7_getc ()
         case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
           break;
         }
-      n = 0;
-      for (;;)
-        {
-          switch (c)
-            {
-            default:
-              phase3_ungetc (c);
-              return n;
+      {
+        int n;
+        bool overflow;
 
-            case '0': case '1': case '2': case '3': case '4':
-            case '5': case '6': case '7': case '8': case '9':
-              n = n * 16 + c - '0';
-              break;
+        n = 0;
+        overflow = false;
 
-            case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-              n = n * 16 + 10 + c - 'A';
-              break;
+        for (;;)
+          {
+            switch (c)
+              {
+              default:
+                phase3_ungetc (c);
+                if (overflow)
+                  {
+                    error_with_progname = false;
+                    error (0, 0, _("%s:%d: warning: hexadecimal escape sequence out of range"),
+                           logical_file_name, line_number);
+                    error_with_progname = true;
+                  }
+                return n;
 
-            case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-              n = n * 16 + 10 + c - 'a';
-              break;
-            }
-          c = phase3_getc ();
-        }
-      return n;
+              case '0': case '1': case '2': case '3': case '4':
+              case '5': case '6': case '7': case '8': case '9':
+                if (n < 0x100 / 16)
+                  n = n * 16 + c - '0';
+                else
+                  overflow = true;
+                break;
+
+              case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                if (n < 0x100 / 16)
+                  n = n * 16 + 10 + c - 'A';
+                else
+                  overflow = true;
+                break;
+
+              case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                if (n < 0x100 / 16)
+                  n = n * 16 + 10 + c - 'a';
+                else
+                  overflow = true;
+                break;
+              }
+            c = phase3_getc ();
+          }
+      }
 
     case '0': case '1': case '2': case '3':
     case '4': case '5': case '6': case '7':
-      n = 0;
-      for (j = 0; j < 3; ++j)
-        {
-          n = n * 8 + c - '0';
-          c = phase3_getc ();
-          switch (c)
-            {
-            default:
-              break;
+      {
+        int n;
 
-            case '0': case '1': case '2': case '3':
-            case '4': case '5': case '6': case '7':
-              continue;
-            }
-          break;
-        }
-      phase3_ungetc (c);
-      return n;
+        n = 0;
+        for (j = 0; j < 3; ++j)
+          {
+            n = n * 8 + c - '0';
+            c = phase3_getc ();
+            switch (c)
+              {
+              default:
+                break;
+
+              case '0': case '1': case '2': case '3':
+              case '4': case '5': case '6': case '7':
+                continue;
+              }
+            break;
+          }
+        phase3_ungetc (c);
+        return n;
+      }
 
     case 'U': case 'u':
       {
         unsigned char buf[8];
+        int n;
 
         n = 0;
         for (j = 0; j < (c == 'u' ? 4 : 8); j++)
