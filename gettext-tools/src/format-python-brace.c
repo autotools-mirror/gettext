@@ -1,6 +1,5 @@
 /* Python brace format strings.
-   Copyright (C) 2004, 2006-2007, 2013-2014, 2016, 2019 Free Software Foundation,
-   Inc.
+   Copyright (C) 2004, 2006-2007, 2013-2014, 2016, 2019, 2023 Free Software Foundation, Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2013.
 
    This program is free software: you can redistribute it and/or modify
@@ -60,9 +59,7 @@ struct spec
 };
 
 
-static bool parse_upto (struct spec *spec, const char **formatp,
-                        bool is_toplevel, char terminator,
-                        bool translated, char *fdi, char **invalid_reason);
+/* Forward declaration of local functions.  */
 static void free_named_args (struct spec *spec);
 
 
