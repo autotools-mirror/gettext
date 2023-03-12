@@ -1,5 +1,5 @@
 /* Keeping track of the encoding of strings to be extracted.
-   Copyright (C) 2001-2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,6 +27,7 @@
 #include "msgl-ascii.h"
 #include "msgl-iconv.h"
 #include "po-charset.h"
+#include "unistr.h"
 #include "xalloc.h"
 #include "xerror.h"
 #include "xvasprintf.h"
@@ -90,6 +91,42 @@ non_ascii_error_message (lexical_context_ty lcontext,
   return errmsg;
 }
 
+/* Error message about non-UTF-8 character in a specific lexical context.  */
+static char *
+non_utf8_error_message (lexical_context_ty lcontext,
+                        const char *file_name, size_t line_number)
+{
+  char buffer[21];
+  char *errmsg;
+
+  if (line_number == (size_t)(-1))
+    buffer[0] = '\0';
+  else
+    sprintf (buffer, ":%ld", (long) line_number);
+
+  switch (lcontext)
+    {
+    case lc_outside:
+      errmsg =
+        xasprintf (_("Character at %s%s is not UTF-8 encoded."),
+                   file_name, buffer);
+      break;
+    case lc_comment:
+      errmsg =
+        xasprintf (_("Comment at or before %s%s is not UTF-8 encoded."),
+                   file_name, buffer);
+      break;
+    case lc_string:
+      errmsg =
+        xasprintf (_("String at %s%s is not UTF-8 encoded."),
+                   file_name, buffer);
+      break;
+    default:
+      abort ();
+    }
+  return errmsg;
+}
+
 /* Convert the given string from xgettext_current_source_encoding to
    the output file encoding (i.e. ASCII or UTF-8).
    The resulting string is either the argument string, or freshly allocated.
@@ -112,7 +149,20 @@ from_current_source_encoding (const char *string,
           exit (EXIT_FAILURE);
         }
     }
-  else if (xgettext_current_source_encoding != po_charset_utf8)
+  else if (xgettext_current_source_encoding == po_charset_utf8)
+    {
+      if (u8_check ((uint8_t *) string, strlen (string)) != NULL)
+        {
+          multiline_error (xstrdup (""),
+                           xasprintf ("%s\n%s\n",
+                                      non_utf8_error_message (lcontext,
+                                                              file_name,
+                                                              line_number),
+                                      _("Please specify the source encoding through --from-code.")));
+          exit (EXIT_FAILURE);
+        }
+    }
+  else
     {
 #if HAVE_ICONV
       struct conversion_context context;
