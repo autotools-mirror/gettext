@@ -1,5 +1,5 @@
 /* Scheme format strings.
-   Copyright (C) 2001-2007, 2009, 2014, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2007, 2009, 2014, 2019, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -2147,7 +2147,7 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
       for (i = 0; i < sublist->initial.count; i++)
         tmp.element[i] = sublist->initial.element[i];
       for (j = 0; j < sublist->repeated.count; i++, j++)
-        tmp.element[i] = sublist->initial.element[j];
+        tmp.element[i] = sublist->repeated.element[j];
       tmp.length = sublist->initial.length + sublist->repeated.length;
 
       srcseg = &tmp;
