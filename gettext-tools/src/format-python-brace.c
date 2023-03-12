@@ -128,6 +128,12 @@ parse_numeric_field (struct spec *spec,
   return false;
 }
 
+/* Parses a directive.
+   When this function is invoked, *formatp points to the start of the directive,
+   i.e. to the '{' character.
+   When this function returns true, *formatp points to the first character after
+   the directive, i.e. in most cases to the character after the '}' character.
+ */
 static bool
 parse_directive (struct spec *spec,
                  const char **formatp, bool is_toplevel,
@@ -141,6 +147,7 @@ parse_directive (struct spec *spec,
   c = *++format;
   if (c == '{')
     {
+      /* An escaped '{'.  */
       *formatp = ++format;
       return true;
     }
@@ -191,18 +198,21 @@ parse_directive (struct spec *spec,
               return false;
             }
 
-          c = *format++;
-          if (c != ']')
+          if (*format != ']')
             {
-              *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+              *invalid_reason =
+                xasprintf (_("In the directive number %u, there is an unterminated getitem argument."),
+                           spec->directives);
               FDI_SET (format, FMTDIR_ERROR);
               return false;
             }
+          format++;
         }
       else
         break;
     }
 
+  /* Here c == *format.  */
   if (c == ':')
     {
       if (!is_toplevel)
@@ -214,6 +224,8 @@ parse_directive (struct spec *spec,
           return false;
         }
 
+      format++;
+
       /* Format specifiers.  Although a format specifier can be any
          string in theory, we can only recognize two types of format
          specifiers below, because otherwise we would need to evaluate
@@ -222,7 +234,6 @@ parse_directive (struct spec *spec,
            - A nested format directive expanding to an argument
            - The Standard Format Specifiers, as described in PEP3101,
              not including a nested format directive  */
-      format++;
       if (*format == '{')
         {
           /* Nested format directive.  */
@@ -231,13 +242,6 @@ parse_directive (struct spec *spec,
             {
               /* FDI and INVALID_REASON will be set by a recursive call of
                  parse_directive.  */
-              return false;
-            }
-
-          if (*format != '}')
-            {
-              *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
-              FDI_SET (format, FMTDIR_ERROR);
               return false;
             }
         }
@@ -300,21 +304,14 @@ parse_directive (struct spec *spec,
             default:
               break;
             }
-
-          if (*format != '}')
-            {
-              *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
-              FDI_SET (format, FMTDIR_ERROR);
-              return false;
-            }
         }
-      c = *format;
     }
 
-  if (c != '}')
+  if (*format != '}')
     {
       *invalid_reason =
-        xasprintf (_("In the directive number %u, there is an unterminated format directive."), spec->directives);
+        xasprintf (_("In the directive number %u, there is an unterminated format directive."),
+                   spec->directives);
       FDI_SET (format, FMTDIR_ERROR);
       return false;
     }
