@@ -34,6 +34,9 @@
 
 /* Python brace format strings are defined by PEP3101 together with the
    'format' method of the string class.
+   Documentation:
+     https://peps.python.org/pep-3101/
+     https://docs.python.org/3/library/string.html#formatstrings
    A format string directive here consists of
      - an opening brace '{',
      - an identifier [_A-Za-z][_0-9A-Za-z]*|[0-9]+,
@@ -262,20 +265,30 @@ parse_directive (struct spec *spec,
             format += 2;
           else if (c1 == '<' || c1 == '>' || c1 == '=' || c1 == '^')
             format++;
+
           if (*format == '+' || *format == '-' || *format == ' ')
             format++;
           if (*format == '#')
             format++;
           if (*format == '0')
             format++;
+
+          /* Parse the optional minimumwidth.  */
           while (c_isdigit (*format))
             format++;
+
+          /* Parse the optional .precision.  */
           if (*format == '.')
             {
               format++;
-              while (c_isdigit (*format))
-                format++;
+              if (c_isdigit (*format))
+                do
+                  format++;
+                while (c_isdigit (*format));
+              else
+                format--;
             }
+
           switch (*format)
             {
             case 'b': case 'c': case 'd': case 'o': case 'x': case 'X':
@@ -287,6 +300,7 @@ parse_directive (struct spec *spec,
             default:
               break;
             }
+
           if (*format != '}')
             {
               *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();

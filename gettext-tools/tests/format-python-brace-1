@@ -36,6 +36,8 @@ cat <<\EOF > f-pyb-1.data
 "abc{value:0}"
 # Valid: standard format specifier
 "abc{value:<<-#012.34e}"
+# Invalid: empty precision
+"abc{value:8.}"
 # Invalid: non-standard format specifier
 "abc{value:<c>}"
 # Valid: nested format specifier
