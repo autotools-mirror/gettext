@@ -445,7 +445,7 @@ phase2_ungetc (int c)
 /* Line number defined in terms of phase3.  */
 static int logical_line_number;
 
-static int phase3_pushback[9];
+static int phase3_pushback[10];
 static int phase3_pushback_length;
 
 /* Read the next Unicode UCS-4 character from the input file, mapping
