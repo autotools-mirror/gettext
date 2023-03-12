@@ -215,8 +215,8 @@ phase1_ungetc (int c)
 
 static lexical_context_ty lexical_context;
 
-/* Maximum used, length of "<![CDATA[" tag minus one.  */
-static int phase2_pushback[8];
+/* Maximum used, length of "<![CDATA[" tag.  */
+static int phase2_pushback[9];
 static int phase2_pushback_length;
 
 /* Read the next Unicode UCS-4 character from the input file.  */
