@@ -1019,19 +1019,25 @@ new_brace_depth_level (void)
 static int xml_element_depth;
 static bool inside_embedded_js_in_xml;
 
-static bool
+/* Parses some XML markup.
+   Returns 0 for an XML comment,
+           1 for a CDATA,
+           2 for an XML Processing Instruction,
+   or -1 when none of them was recognized.  */
+static int
 phase5_scan_xml_markup (token_ty *tp)
 {
   struct
-  {
-    const char *start;
-    const char *end;
-  } markers[] =
-      {
-        { "!--", "--" },
-        { "![CDATA[", "]]" },
-        { "?", "?" }
-      };
+    {
+      const char *start;
+      const char *end;
+    }
+  markers[] =
+    {
+      { "!--", "--" },
+      { "![CDATA[", "]]" },
+      { "?", "?" }
+    };
   int i;
 
   for (i = 0; i < SIZEOF (markers); i++)
@@ -1105,13 +1111,13 @@ phase5_scan_xml_markup (token_ty *tp)
                            logical_file_name, line_number,
                            end);
                     error_with_progname = true;
-                    return false;
+                    return -1;
                   }
-                return true;
+                return i;
               }
           }
     }
-  return false;
+  return -1;
 
  eof:
   error_with_progname = false;
@@ -1119,7 +1125,7 @@ phase5_scan_xml_markup (token_ty *tp)
          _("%s:%d: warning: unterminated XML markup"),
          logical_file_name, line_number);
   error_with_progname = true;
-  return false;
+  return -1;
 }
 
 static void
@@ -1350,12 +1356,25 @@ phase5_get (token_ty *tp)
                 || (!inside_embedded_js_in_xml
                     && ! is_after_expression ()))
               {
-                /* Comments, PI, or CDATA.  */
-                if (phase5_scan_xml_markup (tp))
-                  /* BUG: *tp is not filled in here!  */
-                  return;
-                c = phase2_getc ();
+                /* Recognize XML markup: XML comment, CDATA, Processing
+                   Instruction.  */
+                int xml_markup_type = phase5_scan_xml_markup (tp);
+                if (xml_markup_type >= 0)
+                  {
+                    /* Ignore them all, since they are not part of JSX.
+                       But warn about CDATA.  */
+                    if (xml_markup_type == 1)
+                      {
+                        error_with_progname = false;
+                        error (0, 0,
+                               _("%s:%d: warning: ignoring CDATA section"),
+                               logical_file_name, line_number);
+                        error_with_progname = true;
+                      }
+                    continue;
+                  }
 
+                c = phase2_getc ();
                 if (c == '/')
                   {
                     /* Closing tag.  */
