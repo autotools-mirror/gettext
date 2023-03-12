@@ -73,6 +73,7 @@ non_ascii_error_message (lexical_context_ty lcontext,
   switch (lcontext)
     {
     case lc_outside:
+    case lc_xml_content:
       errmsg =
         xasprintf (_("Non-ASCII character at %s%s."), file_name, buffer);
       break;
@@ -84,6 +85,11 @@ non_ascii_error_message (lexical_context_ty lcontext,
     case lc_string:
       errmsg =
         xasprintf (_("Non-ASCII string at %s%s."), file_name, buffer);
+      break;
+    case lc_xml_open_tag:
+    case lc_xml_close_tag:
+      errmsg =
+        xasprintf (_("Non-ASCII XML tag at %s%s."), file_name, buffer);
       break;
     default:
       abort ();
@@ -107,6 +113,7 @@ non_utf8_error_message (lexical_context_ty lcontext,
   switch (lcontext)
     {
     case lc_outside:
+    case lc_xml_content:
       errmsg =
         xasprintf (_("Character at %s%s is not UTF-8 encoded."),
                    file_name, buffer);
@@ -120,6 +127,11 @@ non_utf8_error_message (lexical_context_ty lcontext,
       errmsg =
         xasprintf (_("String at %s%s is not UTF-8 encoded."),
                    file_name, buffer);
+      break;
+    case lc_xml_open_tag:
+    case lc_xml_close_tag:
+      errmsg =
+        xasprintf (_("XML tag at %s%s is not UTF-8 encoded."), file_name, buffer);
       break;
     default:
       abort ();
