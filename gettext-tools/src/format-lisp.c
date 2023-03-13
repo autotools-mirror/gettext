@@ -462,7 +462,7 @@ normalize_outermost_list (struct format_arg_list *list)
         }
       /* Proceed as if the loop period were n, with
          list->repeated.element[0].repcount incremented by repcount0_extra.  */
-      for (m = 2; m <= n / 2; n++)
+      for (m = 2; m <= n / 2; m++)
         if ((n % m) == 0)
           {
             /* m is a divisor of n.  Try to reduce the loop period to n.  */
@@ -489,6 +489,12 @@ normalize_outermost_list (struct format_arg_list *list)
                 break;
               }
           }
+      if (list->repeated.count == 1)
+        {
+          /* The loop has period 1.  Normalize the repcount.  */
+          list->repeated.element[0].repcount = 1;
+          list->repeated.length = 1;
+        }
 
       /* Step 3: Roll as much as possible of the initial segment's tail
          into the loop.  */
@@ -503,6 +509,7 @@ normalize_outermost_list (struct format_arg_list *list)
                  certainly different and doesn't need to be considered.  */
               list->initial.length -=
                 list->initial.element[list->initial.count-1].repcount;
+              free_element (&list->initial.element[list->initial.count-1]);
               list->initial.count--;
             }
         }
