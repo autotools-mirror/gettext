@@ -1997,12 +1997,16 @@ add_type_constraint (struct format_arg_list *list, unsigned int n,
   newconstraint.type = type;
   if (!make_intersected_element (&tmpelement,
                                  &list->initial.element[s], &newconstraint))
-    return add_end_constraint (list, n);
-  free_element (&list->initial.element[s]);
-  list->initial.element[s].type = tmpelement.type;
-  list->initial.element[s].list = tmpelement.list;
+    list = add_end_constraint (list, n);
+  else
+    {
+      free_element (&list->initial.element[s]);
+      list->initial.element[s].type = tmpelement.type;
+      list->initial.element[s].list = tmpelement.list;
+    }
 
-  VERIFY_LIST (list);
+  if (list != NULL)
+    VERIFY_LIST (list);
 
   return list;
 }
@@ -2034,12 +2038,16 @@ add_listtype_constraint (struct format_arg_list *list, unsigned int n,
   newconstraint.list = sublist;
   if (!make_intersected_element (&tmpelement,
                                  &list->initial.element[s], &newconstraint))
-    return add_end_constraint (list, n);
-  free_element (&list->initial.element[s]);
-  list->initial.element[s].type = tmpelement.type;
-  list->initial.element[s].list = tmpelement.list;
+    list = add_end_constraint (list, n);
+  else
+    {
+      free_element (&list->initial.element[s]);
+      list->initial.element[s].type = tmpelement.type;
+      list->initial.element[s].list = tmpelement.list;
+    }
 
-  VERIFY_LIST (list);
+  if (list != NULL)
+    VERIFY_LIST (list);
 
   return list;
 }
