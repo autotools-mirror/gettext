@@ -122,7 +122,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-librep-1 xgettext-librep-2 xgettext-librep-3 \
 	xgettext-librep-stackovfl-1 xgettext-librep-stackovfl-2 \
 	xgettext-lisp-1 xgettext-lisp-2 xgettext-lisp-3 xgettext-lisp-4 \
-	xgettext-lisp-5 \
+	xgettext-lisp-5 xgettext-lisp-6 \
 	xgettext-lisp-stackovfl-1 xgettext-lisp-stackovfl-2 \
 	xgettext-lua-1 xgettext-lua-2 xgettext-lua-3 \
 	xgettext-lua-stackovfl-1 xgettext-lua-stackovfl-2 \

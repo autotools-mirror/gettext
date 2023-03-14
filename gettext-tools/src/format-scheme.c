@@ -779,6 +779,7 @@ rotate_loop (struct format_arg_list *list, unsigned int m)
             }
           free (list->repeated.element);
           list->repeated.element = newelement;
+          list->repeated.count = newcount;
         }
     }
 }
