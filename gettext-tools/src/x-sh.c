@@ -182,7 +182,7 @@ do_ungetc (int c)
 
 /* Remove backslash followed by newline from the input stream.  */
 
-static int phase1_pushback[1];
+static int phase1_pushback[2];
 static int phase1_pushback_length;
 
 static int
