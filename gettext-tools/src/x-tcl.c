@@ -707,13 +707,23 @@ accumulate_word (struct word *wp, enum terminator looking_for,
           uc = do_getc_escaped ();
           assert (uc < 0x10000);
           count = u8_uctomb (utf8buf, uc, 6);
-          assert (count > 0);
-          if (wp->type == t_string)
-            for (i = 0; i < count; i++)
-              {
-                grow_token (wp->token);
-                wp->token->chars[wp->token->charcount++] = utf8buf[i];
-              }
+          if (count < 0)
+            {
+              error_with_progname = false;
+              error (0, 0, _("%s:%d: warning: invalid Unicode character"),
+                     logical_file_name, line_number);
+              error_with_progname = true;
+            }
+          else
+            {
+              assert (count > 0);
+              if (wp->type == t_string)
+                for (i = 0; i < count; i++)
+                  {
+                    grow_token (wp->token);
+                    wp->token->chars[wp->token->charcount++] = utf8buf[i];
+                  }
+            }
         }
       else
         {

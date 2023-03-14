@@ -156,6 +156,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-smalltalk-1 xgettext-smalltalk-2 \
 	xgettext-stringtable-1 \
 	xgettext-tcl-1 xgettext-tcl-2 xgettext-tcl-3 xgettext-tcl-4 \
+	xgettext-tcl-5 \
 	xgettext-tcl-stackovfl-1 xgettext-tcl-stackovfl-2 \
 	xgettext-tcl-stackovfl-3 xgettext-tcl-stackovfl-4 \
 	xgettext-vala-1 xgettext-vala-2 xgettext-vala-3 xgettext-vala-4 \
