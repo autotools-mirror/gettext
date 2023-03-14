@@ -1,6 +1,5 @@
 ## Makefile for the gettext-tools/examples/po subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2007, 2009, 2014, 2018-2020 Free Software Foundation,
-## Inc.
+## Copyright (C) 1995-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -134,9 +133,8 @@ EXTRA_LOCALE_CATEGORIES =
 
 # These options get passed to msgmerge.
 # Useful options are in particular:
-#   --previous            to keep previous msgids of translated messages,
-#   --quiet               to reduce the verbosity.
-MSGMERGE_OPTIONS = --quiet
+#   --previous            to keep previous msgids of translated messages
+MSGMERGE_OPTIONS =
 
 MSGMERGE = msgmerge
 MSGMERGE_UPDATE = @MSGMERGE@ --update
@@ -343,8 +341,8 @@ $(srcdir)/$(DOMAIN).pot:
 $(POFILES): $(srcdir)/$(DOMAIN).pot
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE_UPDATE) $(MSGMERGE_OPTIONS) $${lang}.po $(DOMAIN).pot"; \
-	cd $(srcdir) && $(MSGMERGE_UPDATE) $(MSGMERGE_OPTIONS) $${lang}.po $(DOMAIN).pot
+	echo "$${cdcmd}$(MSGMERGE_UPDATE) --quiet $(MSGMERGE_OPTIONS) $${lang}.po $(DOMAIN).pot"; \
+	cd $(srcdir) && $(MSGMERGE_UPDATE) --quiet $(MSGMERGE_OPTIONS) $${lang}.po $(DOMAIN).pot
 
 
 html ID:
@@ -381,9 +379,9 @@ update-po: Makefile
 	tmpdir=`pwd`; \
 	echo "$$lang:"; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE) $(MSGMERGE_OPTIONS) $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
+	echo "$${cdcmd}$(MSGMERGE) --quiet $(MSGMERGE_OPTIONS) $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
 	(cd $(srcdir) && \
-	 if $(MSGMERGE) $(MSGMERGE_OPTIONS) $$lang.po $(DOMAIN).pot -o $$tmpdir/$$lang.new.po; then \
+	 if $(MSGMERGE) --quiet $(MSGMERGE_OPTIONS) $$lang.po $(DOMAIN).pot -o $$tmpdir/$$lang.new.po; then \
 	   if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
 	     rm -f $$tmpdir/$$lang.new.po; \
 	   else \
