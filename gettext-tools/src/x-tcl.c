@@ -55,7 +55,8 @@
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
-/* The Tcl syntax is defined in the Tcl.n manual page.
+/* The Tcl syntax is defined in the Tcl.n manual page, see
+   https://www.tcl-lang.org/man/tcl8.6/TclCmd/Tcl.htm .
    Summary of Tcl syntax:
    Like sh syntax, except that `...` is replaced with [...]. In detail:
    - In a preprocessing pass, backslash-newline-anywhitespace is replaced
@@ -69,7 +70,7 @@
    - The list of resulting words is split into commands by semicolon and
      newline.
    - '#' at the beginning of a command introduces a comment until end of line.
-   The parser is implemented in tcl8.3.3/generic/tclParse.c.  */
+   The parser is implemented in tcl8.6/generic/tclParse.c.  */
 
 
 /* ====================== Keyword set customization.  ====================== */
@@ -174,7 +175,7 @@ do_ungetc (int c)
 /* An int that becomes a space when casted to 'unsigned char'.  */
 #define BS_NL (UCHAR_MAX + 1 + ' ')
 
-static int phase1_pushback[1];
+static int phase1_pushback[5];
 static int phase1_pushback_length;
 
 static int
@@ -472,7 +473,7 @@ static int brace_nesting_depth;
 
 
 /* Read an escape sequence.  The value is an ISO-8859-1 character (in the
-   range 0x00..0xff) or a Unicode character (in the range 0x0000..0xffff).  */
+   range 0x00..0xff) or a Unicode character (in the range 0x0000..0x10FFFF).  */
 static int
 do_getc_escaped ()
 {
@@ -499,14 +500,17 @@ do_getc_escaped ()
       return '\v';
     case 'x':
       {
-        int n = 0;
+        unsigned int n = 0;
         unsigned int i;
 
-        for (i = 0;; i++)
+        for (i = 0; i < 2; i++)
           {
             c = phase1_getc ();
             if (c == EOF || !c_isxdigit ((unsigned char) c))
-              break;
+              {
+                phase1_ungetc (c);
+                break;
+              }
 
             if (c >= '0' && c <= '9')
               n = (n << 4) + (c - '0');
@@ -515,18 +519,40 @@ do_getc_escaped ()
             else if (c >= 'a' && c <= 'f')
               n = (n << 4) + (c - 'a' + 10);
           }
-        phase1_ungetc (c);
         return (i > 0 ? (unsigned char) n : 'x');
       }
     case 'u':
       {
-        int n = 0;
+        unsigned int n = 0;
         unsigned int i;
 
         for (i = 0; i < 4; i++)
           {
             c = phase1_getc ();
             if (c == EOF || !c_isxdigit ((unsigned char) c))
+              {
+                phase1_ungetc (c);
+                break;
+              }
+
+            if (c >= '0' && c <= '9')
+              n = (n << 4) + (c - '0');
+            else if (c >= 'A' && c <= 'F')
+              n = (n << 4) + (c - 'A' + 10);
+            else if (c >= 'a' && c <= 'f')
+              n = (n << 4) + (c - 'a' + 10);
+          }
+        return (i > 0 ? n : 'u');
+      }
+    case 'U':
+      {
+        unsigned int n = 0;
+        unsigned int i;
+
+        for (i = 0; i < 8; i++)
+          {
+            c = phase1_getc ();
+            if (c == EOF || !c_isxdigit ((unsigned char) c) || n >= 0x11000)
               {
                 phase1_ungetc (c);
                 break;
@@ -569,6 +595,58 @@ do_getc_escaped ()
     default:
       /* Note: If c is non-ASCII, Tcl's behaviour is undefined here.  */
       return (unsigned char) c;
+    }
+}
+
+/* Read an escape sequence for a low surrogate Unicode character.
+   The value is in the range 0xDC00..0xDFFF.
+   Return -1 when none was seen.  */
+static int
+do_getc_escaped_low_surrogate ()
+{
+  int c;
+
+  c = phase1_getc ();
+  switch (c)
+    {
+    case 'u':
+      {
+        unsigned char buf[4];
+        unsigned int n = 0;
+        unsigned int i;
+
+        for (i = 0; i < 4; i++)
+          {
+            c = phase1_getc ();
+            if (c == EOF || !c_isxdigit ((unsigned char) c))
+              {
+                phase1_ungetc (c);
+                while (i > 0)
+                  phase1_ungetc (buf[--i]);
+                phase1_ungetc ('u');
+                return -1;
+              }
+
+            if (c >= '0' && c <= '9')
+              n = (n << 4) + (c - '0');
+            else if (c >= 'A' && c <= 'F')
+              n = (n << 4) + (c - 'A' + 10);
+            else if (c >= 'a' && c <= 'f')
+              n = (n << 4) + (c - 'a' + 10);
+          }
+        if (n >= 0xdc00 && n <= 0xdfff)
+          return n;
+        else
+          {
+            while (i > 0)
+              phase1_ungetc (buf[--i]);
+            phase1_ungetc ('u');
+            return -1;
+          }
+      }
+    default:
+      phase1_ungetc (c);
+      return -1;
     }
 }
 
@@ -699,31 +777,48 @@ accumulate_word (struct word *wp, enum terminator looking_for,
         }
       else if (c == '\\')
         {
-          unsigned int uc;
-          unsigned char utf8buf[6];
-          int count;
-          int i;
-
-          uc = do_getc_escaped ();
-          assert (uc < 0x10000);
-          count = u8_uctomb (utf8buf, uc, 6);
-          if (count < 0)
+          unsigned int uc = do_getc_escaped ();
+          assert (uc < 0x110000);
+          if (uc >= 0xd800 && uc <= 0xdfff)
             {
+              if (uc < 0xdc00)
+                {
+                  /* Saw a high surrogate Unicode character.
+                     Is it followed by a low surrogate Unicode character?  */
+                  c = phase2_getc ();
+                  if (c == '\\')
+                    {
+                      int uc2 = do_getc_escaped_low_surrogate ();
+                      if (uc2 >= 0)
+                        {
+                          /* Saw a low surrogate Unicode character.  */
+                          assert (uc2 >= 0xdc00 && uc2 <= 0xdfff);
+                          uc = 0x10000 + ((uc - 0xd800) << 10) + (uc2 - 0xdc00);
+                          goto saw_unicode_escape;
+                        }
+                    }
+                  phase2_ungetc (c);
+                }
               error_with_progname = false;
               error (0, 0, _("%s:%d: warning: invalid Unicode character"),
                      logical_file_name, line_number);
               error_with_progname = true;
+              goto done_escape;
             }
-          else
-            {
-              assert (count > 0);
-              if (wp->type == t_string)
-                for (i = 0; i < count; i++)
-                  {
-                    grow_token (wp->token);
-                    wp->token->chars[wp->token->charcount++] = utf8buf[i];
-                  }
-            }
+         saw_unicode_escape:
+          {
+            unsigned char utf8buf[6];
+            int count = u8_uctomb (utf8buf, uc, 6);
+            int i;
+            assert (count > 0);
+            if (wp->type == t_string)
+              for (i = 0; i < count; i++)
+                {
+                  grow_token (wp->token);
+                  wp->token->chars[wp->token->charcount++] = utf8buf[i];
+                }
+          }
+         done_escape: ;
         }
       else
         {

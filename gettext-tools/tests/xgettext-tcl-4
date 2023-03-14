@@ -7,11 +7,17 @@ cat <<\EOF > xg-t-4.tcl
 puts [_ "Hello\u200e\u201cWorld\u201d"]
 puts [_ "x\u20y\x20z"]
 puts [_ "\xFF20"]
+puts [_ "\UFF20"]
+puts [_ "\uD83D\udc1c"]
+# Does not work yet in Tcl 8.6:
+# puts [_ "\U0001F41C"]
 EOF
 
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --add-comments --no-location -k_ -o xg-t-4.tmp xg-t-4.tcl 2>xg-t-4.err
-test $? = 0 || { cat xg-t-4.err; Exit 1; }
+result=$?
+cat xg-t-4.err
+test $result = 0 || Exit 1
 func_filter_POT_Creation_Date xg-t-4.tmp xg-t-4.pot
 
 cat <<\EOF > xg-t-4.ok
@@ -39,7 +45,13 @@ msgstr ""
 msgid "x y z"
 msgstr ""
 
-msgid " "
+msgid "ÿ20"
+msgstr ""
+
+msgid "＠"
+msgstr ""
+
+msgid "🐜"
 msgstr ""
 EOF
 

@@ -15,6 +15,8 @@ Version 0.21.2 - February 2023
   - C, C++: xgettext now supports gettext-like functions that take wide strings
     (of type 'const wchar_t *', 'const char16_t *', or 'const char32_t *') as
     arguments.
+  - Tcl: xgettext now supports the \x, \u, and \U escapes as defined in
+    Tcl 8.6.
 
 * xgettext:
   - The xgettext option '--sorted-output' is now deprecated.
