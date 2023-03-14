@@ -121,7 +121,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-javascript-stackovfl-7 xgettext-javascript-stackovfl-8 \
 	xgettext-librep-1 xgettext-librep-2 xgettext-librep-3 \
 	xgettext-librep-stackovfl-1 xgettext-librep-stackovfl-2 \
-	xgettext-lisp-1 xgettext-lisp-2 xgettext-lisp-3 \
+	xgettext-lisp-1 xgettext-lisp-2 xgettext-lisp-3 xgettext-lisp-4 \
 	xgettext-lisp-stackovfl-1 xgettext-lisp-stackovfl-2 \
 	xgettext-lua-1 xgettext-lua-2 xgettext-lua-3 \
 	xgettext-lua-stackovfl-1 xgettext-lua-stackovfl-2 \
@@ -145,7 +145,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-python-stackovfl-3 xgettext-python-stackovfl-4 \
 	xgettext-ruby-1 \
 	xgettext-scheme-1 xgettext-scheme-2 xgettext-scheme-3 \
-	xgettext-scheme-4 xgettext-scheme-5 \
+	xgettext-scheme-4 xgettext-scheme-5 xgettext-scheme-6 \
 	xgettext-scheme-stackovfl-1 xgettext-scheme-stackovfl-2 \
 	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 xgettext-sh-4 xgettext-sh-5 \
 	xgettext-sh-6 xgettext-sh-7 \

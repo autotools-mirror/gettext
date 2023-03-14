@@ -2279,7 +2279,7 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
           list->repeated.allocated = newcount;
           list->repeated.element = XNMALLOC (newcount, struct format_arg);
         }
-      for (i = splitindex, j = 0; i < n; i++, j++)
+      for (i = splitindex, j = 0; j < newcount; i++, j++)
         list->repeated.element[j] = list->initial.element[i];
       list->repeated.count = newcount;
       list->repeated.length = p;
