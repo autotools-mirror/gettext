@@ -2426,7 +2426,8 @@ nocheck_params (struct format_arg_list **listp,
     if (params->type == PT_V)
       {
         int position = params->value;
-        add_req_type_constraint (listp, position, FAT_CHARACTER_INTEGER_NULL);
+        if (position >= 0)
+          add_req_type_constraint (listp, position, FAT_CHARACTER_INTEGER_NULL);
       }
 
   return true;
