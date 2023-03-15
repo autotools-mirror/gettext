@@ -39,7 +39,7 @@ noinst_HEADERS = \
   pos.h message.h po-error.h po-xerror.h po-gram.h po-charset.h \
   po-lex.h open-catalog.h read-catalog-abstract.h read-catalog.h \
   read-po.h read-properties.h read-stringtable.h \
-  str-list.h \
+  str-desc.h str-list.h \
   write-catalog.h write-po.h write-properties.h write-stringtable.h \
   dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h cldr-plural.h \
   cldr-plural-exp.h locating-rule.h its.h search-path.h \
@@ -172,6 +172,7 @@ FORMAT_SOURCE += \
 # libgettextsrc contains all code that is needed by at least two programs.
 libgettextsrc_la_SOURCES = \
   $(COMMON_SOURCE) \
+  str-desc.c \
   read-catalog.c \
   write-catalog.c write-properties.c write-stringtable.c write-po.c \
   msgl-ascii.c \

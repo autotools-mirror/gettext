@@ -32,6 +32,7 @@
 #include "attribute.h"
 #include "message.h"
 #include "rc-str-list.h"
+#include "str-desc.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
@@ -43,6 +44,7 @@
 #include "error.h"
 #include "error-progname.h"
 #include "xalloc.h"
+#include "c-ctype.h"
 #include "po-charset.h"
 #include "unistr.h"
 #include "uniname.h"
@@ -671,7 +673,7 @@ free_token (token_ty *tp)
    of the semantics of the construct.  Return the complete string,
    including the starting and the trailing delimiter, with backslashes
    removed where appropriate.  */
-static char *
+static string_desc_ty
 extract_quotelike_pass1 (int delim)
 {
   /* This function is called recursively.  No way to allocate stuff
@@ -720,17 +722,16 @@ extract_quotelike_pass1 (int delim)
       if (c == counter_delim || c == EOF)
         {
           buffer[bufpos++] = counter_delim; /* will be stripped off later */
-          buffer[bufpos++] = '\0';
 #if DEBUG_PERL
-          fprintf (stderr, "PASS1: %s\n", buffer);
+          fprintf (stderr, "PASS1: %.*s\n", bufpos, buffer);
 #endif
-          return buffer;
+          return string_desc_new_addr (bufpos, buffer);
         }
 
       if (nested && c == delim)
         {
-          char *inner = extract_quotelike_pass1 (delim);
-          size_t len = strlen (inner);
+          string_desc_ty inner = extract_quotelike_pass1 (delim);
+          size_t len = string_desc_length (inner);
 
           /* Ensure room for len + 1 bytes.  */
           if (bufpos + len >= bufmax)
@@ -740,8 +741,8 @@ extract_quotelike_pass1 (int delim)
               while (bufpos + len >= bufmax);
               buffer = xrealloc (buffer, bufmax);
             }
-          strcpy (buffer + bufpos, inner);
-          free (inner);
+          memcpy (buffer + bufpos, string_desc_data (inner), len);
+          string_desc_free (inner);
           bufpos += len;
         }
       else if (c == '\\')
@@ -772,15 +773,15 @@ extract_quotelike_pass1 (int delim)
 
 /* Like extract_quotelike_pass1, but return the complete string in UTF-8
    encoding.  */
-static char *
+static string_desc_ty
 extract_quotelike_pass1_utf8 (int delim)
 {
-  char *string = extract_quotelike_pass1 (delim);
-  char *utf8_string =
-    from_current_source_encoding (string, lc_string, logical_file_name,
-                                  line_number);
-  if (utf8_string != string)
-    free (string);
+  string_desc_ty string = extract_quotelike_pass1 (delim);
+  string_desc_ty utf8_string =
+    string_desc_from_current_source_encoding (string, lc_string,
+                                              logical_file_name, line_number);
+  if (utf8_string.data != string.data)
+    string_desc_free (string);
   return utf8_string;
 }
 
@@ -800,7 +801,7 @@ static int nesting_depth;
 
 
 /* Forward declaration of local functions.  */
-static void interpolate_keywords (message_list_ty *mlp, const char *string,
+static void interpolate_keywords (message_list_ty *mlp, string_desc_ty string,
                                   int lineno);
 static token_ty *x_perl_lex (message_list_ty *mlp);
 static void x_perl_unlex (token_ty *tp);
@@ -876,16 +877,15 @@ extract_oct (const char *string, size_t len, unsigned int *result)
 static void
 extract_quotelike (token_ty *tp, int delim)
 {
-  char *string = extract_quotelike_pass1_utf8 (delim);
-  size_t len = strlen (string);
+  string_desc_ty string = extract_quotelike_pass1_utf8 (delim);
+  size_t len = string_desc_length (string);
 
   tp->type = token_type_string;
   /* Take the string without the delimiters at the start and at the end.  */
   if (!(len >= 2))
     abort ();
-  string[len - 1] = '\0';
-  tp->string = xstrdup (string + 1);
-  free (string);
+  tp->string = string_desc_c (string_desc_substring (string, 1, len - 1));
+  string_desc_free (string);
   tp->comment = add_reference (savable_comment);
 }
 
@@ -897,14 +897,14 @@ static void
 extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
                           bool interpolate)
 {
-  char *string;
+  string_desc_ty string;
 
   tp->type = token_type_regex_op;
 
   string = extract_quotelike_pass1_utf8 (delim);
   if (interpolate)
     interpolate_keywords (mlp, string, line_number);
-  free (string);
+  string_desc_free (string);
 
   if (delim == '(' || delim == '<' || delim == '{' || delim == '[')
     {
@@ -921,7 +921,7 @@ extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
   string = extract_quotelike_pass1_utf8 (delim);
   if (interpolate)
     interpolate_keywords (mlp, string, line_number);
-  free (string);
+  string_desc_free (string);
 }
 
 /* Perform pass 3 of quotelike extraction (interpolation).
@@ -1691,13 +1691,15 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
    variables inside a double-quoted string that may interpolate to
    some keyword hash (reference).  The string is UTF-8 encoded.  */
 static void
-interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
+interpolate_keywords (message_list_ty *mlp, string_desc_ty string, int lineno)
 {
   static char *buffer;
   static int bufmax = 0;
   int bufpos = 0;
   flag_context_ty context;
-  int c;
+  size_t length;
+  size_t index;
+  char c;
   bool maybe_hash_deref = false;
   enum parser_state
     {
@@ -1747,6 +1749,9 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
   state = initial;
   context = null_context;
 
+  length = string_desc_length (string);
+  index = 0;
+
   token.type = token_type_string;
   token.sub_type = string_type_qq;
   token.line_number = line_number;
@@ -1757,10 +1762,11 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
   pos.file_name = logical_file_name;
   pos.line_number = lineno;
 
-  while ((c = (unsigned char) *string++) != '\0')
+  while (index < length)
     {
       void *keyword_value;
 
+      c = string_desc_char_at (string, index++);
       if (state == initial)
         bufpos = 0;
 
@@ -1779,12 +1785,12 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
           switch (c)
             {
             case '\\':
-              c = (unsigned char) *string++;
-              if (c == '\0')
+              if (index == length)
                 {
                   nesting_depth--;
                   return;
                 }
+              c = string_desc_char_at (string, index++);
               break;
             case '$':
               buffer[bufpos++] = '$';
@@ -1807,7 +1813,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
               state = two_dollars;
               break;
             default:
-              if (c == '_' || c == ':' || c == '\'' || c >= 0x80
+              if (!c_isascii ((unsigned char) c)
+                  || c == '_' || c == ':' || c == '\''
                   || (c >= 'A' && c <= 'Z')
                   || (c >= 'a' && c <= 'z')
                   || (c >= '0' && c <= '9'))
@@ -1821,7 +1828,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
             }
           break;
         case two_dollars:
-          if (c == '_' || c == ':' || c == '\'' || c >= 0x80
+          if (!c_isascii ((unsigned char) c)
+              || c == '_' || c == ':' || c == '\''
               || (c >= 'A' && c <= 'Z')
               || (c >= 'a' && c <= 'z')
               || (c >= '0' && c <= '9'))
@@ -1874,7 +1882,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
                 state = initial;
               break;
             default:
-              if (c == '_' || c == ':' || c == '\'' || c >= 0x80
+              if (!c_isascii ((unsigned char) c)
+                  || c == '_' || c == ':' || c == '\''
                   || (c >= 'A' && c <= 'Z')
                   || (c >= 'a' && c <= 'z')
                   || (c >= '0' && c <= '9'))
@@ -1926,7 +1935,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
               state = dquote;
               break;
             default:
-              if (c == '_' || (c >= '0' && c <= '9') || c >= 0x80
+              if (!c_isascii ((unsigned char) c)
+                  || c == '_' || (c >= '0' && c <= '9')
                   || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
                 {
                   pos.line_number = lineno;
@@ -1959,19 +1969,23 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
               state = wait_rbrace;
               break;
             case '\\':
-              if (string[0] == '\"')
-                {
-                  buffer[bufpos++] = string++[0];
-                }
-              else if (string[0])
-                {
-                  buffer[bufpos++] = '\\';
-                  buffer[bufpos++] = string++[0];
-                }
-              else
+              if (index == length)
                 {
                   context = null_context;
                   state = initial;
+                }
+              else
+                {
+                  c = string_desc_char_at (string, index++);
+                  if (c == '\"')
+                    {
+                      buffer[bufpos++] = c;
+                    }
+                  else
+                    {
+                      buffer[bufpos++] = '\\';
+                      buffer[bufpos++] = c;
+                    }
                 }
               break;
             default:
@@ -1986,19 +2000,23 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
               state = wait_rbrace;
               break;
             case '\\':
-              if (string[0] == '\'')
-                {
-                  buffer[bufpos++] = string++[0];
-                }
-              else if (string[0])
-                {
-                  buffer[bufpos++] = '\\';
-                  buffer[bufpos++] = string++[0];
-                }
-              else
+              if (index == length)
                 {
                   context = null_context;
                   state = initial;
+                }
+              else
+                {
+                  c = string_desc_char_at (string, index++);
+                  if (c == '\'')
+                    {
+                      buffer[bufpos++] = c;
+                    }
+                  else
+                    {
+                      buffer[bufpos++] = '\\';
+                      buffer[bufpos++] = c;
+                    }
                 }
               break;
             default:
@@ -2007,7 +2025,8 @@ interpolate_keywords (message_list_ty *mlp, const char *string, int lineno)
             }
           break;
         case barekey:
-          if (c == '_' || (c >= '0' && c <= '9') || c >= 0x80
+          if (!c_isascii ((unsigned char) c)
+              || c == '_' || (c >= '0' && c <= '9')
               || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
             {
               buffer[bufpos++] = c;
@@ -2343,7 +2362,8 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                 }
               extract_quotelike (tp, delim);
               if (delim != '\'')
-                interpolate_keywords (mlp, tp->string, line_number);
+                interpolate_keywords (mlp, string_desc_from_c (tp->string),
+                                      line_number);
               free (tp->string);
               drop_reference (tp->comment);
               tp->type = token_type_regex_op;
@@ -2397,7 +2417,8 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                 case 'x':
                   tp->type = token_type_string;
                   tp->sub_type = string_type_qq;
-                  interpolate_keywords (mlp, tp->string, line_number);
+                  interpolate_keywords (mlp, string_desc_from_c (tp->string),
+                                        line_number);
                   break;
                 case 'r':
                   drop_reference (tp->comment);
@@ -2432,13 +2453,15 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
         case '"':
           extract_quotelike (tp, c);
           tp->sub_type = string_type_qq;
-          interpolate_keywords (mlp, tp->string, line_number);
+          interpolate_keywords (mlp, string_desc_from_c (tp->string),
+                                line_number);
           return;
 
         case '`':
           extract_quotelike (tp, c);
           tp->sub_type = string_type_qq;
-          interpolate_keywords (mlp, tp->string, line_number);
+          interpolate_keywords (mlp, string_desc_from_c (tp->string),
+                                line_number);
           return;
 
         case '\'':
@@ -2535,7 +2558,8 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                   tp->type = token_type_string;
                   tp->sub_type = string_type_qq;
                   tp->line_number = line_number + 1;
-                  interpolate_keywords (mlp, tp->string, tp->line_number);
+                  interpolate_keywords (mlp, string_desc_from_c (tp->string),
+                                        tp->line_number);
                   return;
                 }
               else if ((c >= 'A' && c <= 'Z')
@@ -2577,7 +2601,8 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
                       tp->sub_type = string_type_qq;
                       tp->comment = add_reference (savable_comment);
                       tp->line_number = line_number + 1;
-                      interpolate_keywords (mlp, tp->string, tp->line_number);
+                      interpolate_keywords (mlp, string_desc_from_c (tp->string),
+                                            tp->line_number);
                       return;
                     }
                 }
@@ -2618,7 +2643,8 @@ x_perl_prelex (message_list_ty *mlp, token_ty *tp)
           if (prefer_regexp_over_division (tp->last_type))
             {
               extract_quotelike (tp, c);
-              interpolate_keywords (mlp, tp->string, line_number);
+              interpolate_keywords (mlp, string_desc_from_c (tp->string),
+                                    line_number);
               free (tp->string);
               drop_reference (tp->comment);
               tp->type = token_type_regex_op;

@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2003, 2005-2009, 2019-2021 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2009, 2019-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -35,6 +35,7 @@
 #include "noreturn.h"
 #include "progname.h"
 #include "basename-lgpl.h"
+#include "str-desc.h"
 #include "message.h"
 #include "po-charset.h"
 #include "xstriconv.h"
@@ -88,6 +89,22 @@ convert_string_directly (iconv_t cd, const char *string,
   conversion_error (context);
   /* NOTREACHED */
   return NULL;
+}
+
+string_desc_ty
+convert_string_desc_directly (iconv_t cd, string_desc_ty string,
+                              const struct conversion_context* context)
+{
+  char *result = NULL;
+  size_t resultlen = 0;
+
+  if (xmem_cd_iconv (string_desc_data (string), string_desc_length (string),
+                     cd, &result, &resultlen) == 0)
+    return string_desc_new_addr (resultlen, result);
+
+  conversion_error (context);
+  /* NOTREACHED */
+  return string_desc_new (0);
 }
 
 static char *

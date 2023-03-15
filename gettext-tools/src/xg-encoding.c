@@ -163,7 +163,7 @@ from_current_source_encoding (const char *string,
     }
   else if (xgettext_current_source_encoding == po_charset_utf8)
     {
-      if (u8_check ((uint8_t *) string, strlen (string)) != NULL)
+      if (u8_check ((const uint8_t *) string, strlen (string)) != NULL)
         {
           multiline_error (xstrdup (""),
                            xasprintf ("%s\n%s\n",
@@ -196,4 +196,63 @@ from_current_source_encoding (const char *string,
     }
 
   return (char *) string;
+}
+
+/* Like from_current_source_encoding, for a string that may contain NULs.  */
+string_desc_ty
+string_desc_from_current_source_encoding (string_desc_ty string,
+                                          lexical_context_ty lcontext,
+                                          const char *file_name,
+                                          size_t line_number)
+{
+  if (xgettext_current_source_encoding == po_charset_ascii)
+    {
+      if (!is_ascii_string_desc (string))
+        {
+          multiline_error (xstrdup (""),
+                           xasprintf ("%s\n%s\n",
+                                      non_ascii_error_message (lcontext,
+                                                               file_name,
+                                                               line_number),
+                                      _("Please specify the source encoding through --from-code.")));
+          exit (EXIT_FAILURE);
+        }
+    }
+  else if (xgettext_current_source_encoding == po_charset_utf8)
+    {
+      if (u8_check ((const uint8_t *) string_desc_data (string),
+                    string_desc_length (string))
+          != NULL)
+        {
+          multiline_error (xstrdup (""),
+                           xasprintf ("%s\n%s\n",
+                                      non_utf8_error_message (lcontext,
+                                                              file_name,
+                                                              line_number),
+                                      _("Please specify the source encoding through --from-code.")));
+          exit (EXIT_FAILURE);
+        }
+    }
+  else
+    {
+#if HAVE_ICONV
+      struct conversion_context context;
+
+      context.from_code = xgettext_current_source_encoding;
+      context.to_code = po_charset_utf8;
+      context.from_filename = file_name;
+      context.message = NULL;
+
+      string = convert_string_desc_directly (xgettext_current_source_iconv,
+                                             string, &context);
+#else
+      /* If we don't have iconv(), the only supported values for
+         xgettext_global_source_encoding and thus also for
+         xgettext_current_source_encoding are ASCII and UTF-8.
+         convert_string_desc_directly() should not be called in this case.  */
+      abort ();
+#endif
+    }
+
+  return string;
 }

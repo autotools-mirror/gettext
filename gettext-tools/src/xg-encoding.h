@@ -1,5 +1,5 @@
 /* Keeping track of the encoding of strings to be extracted.
-   Copyright (C) 2001-2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -22,6 +22,8 @@
 #if HAVE_ICONV
 #include <iconv.h>
 #endif
+
+#include "str-desc.h"
 
 
 #ifdef __cplusplus
@@ -78,6 +80,13 @@ extern char *from_current_source_encoding (const char *string,
                                            lexical_context_ty lcontext,
                                            const char *file_name,
                                            size_t line_number);
+
+/* Like from_current_source_encoding, for a string that may contain NULs.  */
+extern string_desc_ty
+       string_desc_from_current_source_encoding (string_desc_ty string,
+                                                 lexical_context_ty lcontext,
+                                                 const char *file_name,
+                                                 size_t line_number);
 
 
 #ifdef __cplusplus
