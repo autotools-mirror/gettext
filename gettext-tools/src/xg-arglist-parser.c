@@ -1,6 +1,6 @@
 /* Resolving ambiguity of argument lists: Progressive parsing of an
    argument list, keeping track of all possibilities.
-   Copyright (C) 2001-2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -130,7 +130,7 @@ arglist_parser_clone (struct arglist_parser *ap)
       ccp->msgctxt_pos = cp->msgctxt_pos;
       ccp->msgid = (cp->msgid != NULL ? mixed_string_clone (cp->msgid) : NULL);
       ccp->msgid_context = cp->msgid_context;
-      ccp->msgid_pos = cp->msgctxt_pos;
+      ccp->msgid_pos = cp->msgid_pos;
       ccp->msgid_comment = add_reference (cp->msgid_comment);
       ccp->msgid_comment_is_utf8 = cp->msgid_comment_is_utf8;
       ccp->msgid_plural =
