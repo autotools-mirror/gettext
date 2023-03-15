@@ -2648,7 +2648,9 @@ the @code{c-format} flag.  This kind of comment should be used when
 @code{xgettext} does not recognize the string as a format string but
 it really is one and it should be tested.  Please note that when the
 comment is in the same line as the @code{gettext} keyword, it must be
-before the string to be translated.
+before the string to be translated.  Also note that a comment such as
+@code{xgettext:c-format} applies only to the first string in the same
+or the next line, not to multiple strings.
 
 This situation happens quite often.  The @code{printf} function is often
 called with strings which do not contain a format specifier.  Of course
