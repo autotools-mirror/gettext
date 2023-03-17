@@ -317,22 +317,25 @@ libintl_asprintf (char **resultp, const char *format, ...)
 
 #include <wchar.h>
 
-#define WIDE_CHAR_VERSION 1
+#if 0 /* not needed */
 
-#include "wprintf-parse.h"
+/* Define auxiliary functions declared in "printf-args.h".  */
+#include "printf-args.c"
+
 /* Define auxiliary functions declared in "wprintf-parse.h".  */
-#define CHAR_T wchar_t
-#define DIRECTIVE wchar_t_directive
-#define DIRECTIVES wchar_t_directives
-#define PRINTF_PARSE wprintf_parse
-#include "printf-parse.c"
+#include "wprintf-parse.c"
 
 /* Define functions declared in "vasnwprintf.h".  */
 #define vasnwprintf _libintl_vasnwprintf
-#include "vasnprintf.c"
-#if 0 /* not needed */
+#include "vasnwprintf.c"
 #define asnwprintf _libintl_asnwprintf
-#include "asnprintf.c"
+#include "asnwprintf.c"
+
+#else
+
+/* Get the declaration of _libintl_vasnwprintf.  */
+#include "vasnwprintf.h"
+
 #endif
 
 # if HAVE_DECL__SNWPRINTF

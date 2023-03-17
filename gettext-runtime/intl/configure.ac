@@ -232,6 +232,10 @@ AH_VERBATIM([znoexport], [
 #define gl_LDBL_MAX                _libintl_LDBL_MAX
 /* Symbols defined by gnulib module 'free-posix'.  */
 #define rpl_free                   _libintl_free
+/* Symbols defined by gnulib module 'isnand-nolibm'.  */
+#define rpl_isnand                 _libintl_isnand
+/* Symbols defined by gnulib module 'isnanl-nolibm'.  */
+#define rpl_isnanl                 _libintl_isnanl
 /* Symbols defined by gnulib module 'localename'.  */
 #define gl_locale_name_canonicalize       _libintl_locale_name_canonicalize
 #define gl_locale_name_from_win32_LANGID  _libintl_locale_name_from_win32_LANGID
@@ -273,18 +277,30 @@ AH_VERBATIM([znoexport], [
 #define glthread_recursive_lock_destroy_multithreaded _libintl_recursive_lock_destroy_multithreaded
 #define glthread_once_singlethreaded                  _libintl_once_singlethreaded
 #define glthread_once_multithreaded                   _libintl_once_multithreaded
+/* Symbols defined by gnulib module 'printf-frexp'.  */
+#define printf_frexp               _libintl_printf_frexp
+/* Symbols defined by gnulib module 'printf-frexpl'.  */
+#define printf_frexpl              _libintl_printf_frexpl
 /* Symbols defined by gnulib module 'relocatable-lib-lgpl'.  */
 #define relocate                   _libintl_relocate
 #define relocate2                  _libintl_relocate2
 /* Symbols defined by gnulib module 'setlocale-null'.  */
 #define setlocale_null             _libintl_setlocale_null
 #define setlocale_null_r           _libintl_setlocale_null_r
+/* Symbols defined by gnulib module 'signbit'.  */
+#define gl_signbitf                _libintl_signbitf
+#define gl_signbitd                _libintl_signbitd
+#define gl_signbitl                _libintl_signbitl
 /* Symbols defined by gnulib module 'threadlib'.  */
 #define glthread_in_use            _libintl_glthread_in_use
 /* Symbols defined by gnulib module 'vasnprintf'.  */
 #define printf_fetchargs           _libintl_printf_fetchargs
 #define printf_parse               _libintl_printf_parse
 #define vasnprintf                 _libintl_vasnprintf
+/* Symbols defined by gnulib module 'vasnwprintf'.  */
+#define asnwprintf                 _libintl_asnwprintf
+#define wprintf_parse              _libintl_wprintf_parse
+#define vasnwprintf                _libintl_vasnwprintf
 /* Symbols defined by gnulib module 'windows-mutex'.  */
 #define glwthread_mutex_init       _libintl_glwthread_mutex_init
 #define glwthread_mutex_lock       _libintl_glwthread_mutex_lock
@@ -313,6 +329,16 @@ AH_VERBATIM([znoexport], [
 #define xsum3                      _libintl_xsum3
 #define xsum4                      _libintl_xsum4
 ])
+dnl Symbols defined by gnulib module 'frexp-nolibm'.
+if test $gl_func_frexp_no_libm != yes; then
+  AC_DEFINE([frexp],            [_libintl_frexp],    [Hidden symbol.])
+  AC_DEFINE([rpl_frexp],        [_libintl_frexp],    [Hidden symbol.])
+fi
+dnl Symbols defined by gnulib module 'frexpl-nolibm'.
+if test $HAVE_DECL_FREXPL = 0 || test $gl_func_frexpl_no_libm = no; then
+  AC_DEFINE([frexpl],           [_libintl_frexpl],    [Hidden symbol.])
+  AC_DEFINE([rpl_frexpl],       [_libintl_frexpl],    [Hidden symbol.])
+fi
 dnl Symbols defined by gnulib module 'memchr'.
 if test $REPLACE_MEMCHR = 1; then
   AC_DEFINE([memchr],           [_libintl_memchr],    [Hidden symbol.])
