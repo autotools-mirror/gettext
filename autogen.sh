@@ -181,7 +181,9 @@ if ! $skip_gnulib; then
     lock
     mem-hash-map
     memchr
+    memmem
     memmove
+    memrchr
     memset
     minmax
     mkdir
@@ -340,6 +342,8 @@ if ! $skip_gnulib; then
     libunistring-optional
     markup
     mem-hash-map
+    memmem
+    memrchr
     minmax
     open
     relocatable-lib
