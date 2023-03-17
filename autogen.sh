@@ -119,7 +119,7 @@ if ! $skip_gnulib; then
     lock
     relocatable-lib-lgpl
     tsearch
-    vasnprintf
+    vasnprintf-posix
     vasnwprintf-posix
   '
   GNULIB_SETLOCALE_DEPENDENCIES=`$GNULIB_TOOL --extract-dependencies setlocale | sed -e 's/ .*//'`
