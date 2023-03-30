@@ -23,7 +23,8 @@
 #include <iconv.h>
 #endif
 
-#include "str-desc.h"
+#include "string-desc.h"
+
 #include "message.h"
 
 
@@ -47,8 +48,8 @@ struct conversion_context
    Assumes that either FROM_CODE or TO_CODE is UTF-8.  */
 extern char *convert_string_directly (iconv_t cd, const char *string,
                                       const struct conversion_context* context);
-extern string_desc_ty
-       convert_string_desc_directly (iconv_t cd, string_desc_ty string,
+extern string_desc_t
+       convert_string_desc_directly (iconv_t cd, string_desc_t string,
                                      const struct conversion_context* context);
 
 #endif

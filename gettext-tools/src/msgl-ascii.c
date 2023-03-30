@@ -39,7 +39,7 @@ is_ascii_string (const char *string)
 }
 
 bool
-is_ascii_string_desc (string_desc_ty string)
+is_ascii_string_desc (string_desc_t string)
 {
   size_t len = string_desc_length (string);
   size_t i;

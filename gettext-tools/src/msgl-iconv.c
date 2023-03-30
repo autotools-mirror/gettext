@@ -35,7 +35,7 @@
 #include "noreturn.h"
 #include "progname.h"
 #include "basename-lgpl.h"
-#include "str-desc.h"
+#include "string-desc.h"
 #include "message.h"
 #include "po-charset.h"
 #include "xstriconv.h"
@@ -91,8 +91,8 @@ convert_string_directly (iconv_t cd, const char *string,
   return NULL;
 }
 
-string_desc_ty
-convert_string_desc_directly (iconv_t cd, string_desc_ty string,
+string_desc_t
+convert_string_desc_directly (iconv_t cd, string_desc_t string,
                               const struct conversion_context* context)
 {
   char *result = NULL;
@@ -104,7 +104,7 @@ convert_string_desc_directly (iconv_t cd, string_desc_ty string,
 
   conversion_error (context);
   /* NOTREACHED */
-  return string_desc_new (0);
+  return string_desc_new_empty ();
 }
 
 static char *

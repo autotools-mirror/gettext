@@ -23,7 +23,7 @@
 #include <iconv.h>
 #endif
 
-#include "str-desc.h"
+#include "string-desc.h"
 
 
 #ifdef __cplusplus
@@ -82,8 +82,8 @@ extern char *from_current_source_encoding (const char *string,
                                            size_t line_number);
 
 /* Like from_current_source_encoding, for a string that may contain NULs.  */
-extern string_desc_ty
-       string_desc_from_current_source_encoding (string_desc_ty string,
+extern string_desc_t
+       string_desc_from_current_source_encoding (string_desc_t string,
                                                  lexical_context_ty lcontext,
                                                  const char *file_name,
                                                  size_t line_number);

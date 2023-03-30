@@ -199,8 +199,8 @@ from_current_source_encoding (const char *string,
 }
 
 /* Like from_current_source_encoding, for a string that may contain NULs.  */
-string_desc_ty
-string_desc_from_current_source_encoding (string_desc_ty string,
+string_desc_t
+string_desc_from_current_source_encoding (string_desc_t string,
                                           lexical_context_ty lcontext,
                                           const char *file_name,
                                           size_t line_number)

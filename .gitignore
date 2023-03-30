@@ -113,6 +113,8 @@
 /gettext-tools/libgettextpo/fstrcmp.c
 /gettext-tools/libgettextpo/fstrcmp.h
 /gettext-tools/libgettextpo/fsync.c
+/gettext-tools/libgettextpo/full-write.c
+/gettext-tools/libgettextpo/full-write.h
 /gettext-tools/libgettextpo/fwriteerror.c
 /gettext-tools/libgettextpo/fwriteerror.h
 /gettext-tools/libgettextpo/gcd.c
@@ -175,6 +177,8 @@
 /gettext-tools/libgettextpo/mem-hash-map.h
 /gettext-tools/libgettextpo/memchr.c
 /gettext-tools/libgettextpo/memchr.valgrind
+/gettext-tools/libgettextpo/memmem.c
+/gettext-tools/libgettextpo/memrchr.c
 /gettext-tools/libgettextpo/minmax.h
 /gettext-tools/libgettextpo/msvc-inval.c
 /gettext-tools/libgettextpo/msvc-inval.h
@@ -199,6 +203,9 @@
 /gettext-tools/libgettextpo/relocatable.c
 /gettext-tools/libgettextpo/relocatable.h
 /gettext-tools/libgettextpo/relocatable.valgrind
+/gettext-tools/libgettextpo/safe-read.c
+/gettext-tools/libgettextpo/safe-write.c
+/gettext-tools/libgettextpo/safe-write.h
 /gettext-tools/libgettextpo/setlocale-lock.c
 /gettext-tools/libgettextpo/setlocale_null.c
 /gettext-tools/libgettextpo/setlocale_null.h
@@ -236,9 +243,13 @@
 /gettext-tools/libgettextpo/striconveh.h
 /gettext-tools/libgettextpo/striconveha.c
 /gettext-tools/libgettextpo/striconveha.h
+/gettext-tools/libgettextpo/string-desc-contains.c
+/gettext-tools/libgettextpo/string-desc.c
+/gettext-tools/libgettextpo/string-desc.h
 /gettext-tools/libgettextpo/string.in.h
 /gettext-tools/libgettextpo/stripslash.c
 /gettext-tools/libgettextpo/strstr.c
+/gettext-tools/libgettextpo/sys-limits.h
 /gettext-tools/libgettextpo/sys_stat.in.h
 /gettext-tools/libgettextpo/sys_types.in.h
 /gettext-tools/libgettextpo/textstyle.in.h
@@ -273,6 +284,7 @@
 /gettext-tools/libgettextpo/windows-rwlock.h
 /gettext-tools/libgettextpo/windows-tls.c
 /gettext-tools/libgettextpo/windows-tls.h
+/gettext-tools/libgettextpo/write.c
 /gettext-tools/libgettextpo/xalloc-die.c
 /gettext-tools/libgettextpo/xalloc-oversized.h
 /gettext-tools/libgettextpo/xalloc.h

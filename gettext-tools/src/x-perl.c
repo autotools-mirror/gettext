@@ -32,7 +32,7 @@
 #include "attribute.h"
 #include "message.h"
 #include "rc-str-list.h"
-#include "str-desc.h"
+#include "string-desc.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
@@ -673,7 +673,7 @@ free_token (token_ty *tp)
    of the semantics of the construct.  Return the complete string,
    including the starting and the trailing delimiter, with backslashes
    removed where appropriate.  */
-static string_desc_ty
+static string_desc_t
 extract_quotelike_pass1 (int delim)
 {
   /* This function is called recursively.  No way to allocate stuff
@@ -730,7 +730,7 @@ extract_quotelike_pass1 (int delim)
 
       if (nested && c == delim)
         {
-          string_desc_ty inner = extract_quotelike_pass1 (delim);
+          string_desc_t inner = extract_quotelike_pass1 (delim);
           size_t len = string_desc_length (inner);
 
           /* Ensure room for len + 1 bytes.  */
@@ -773,14 +773,14 @@ extract_quotelike_pass1 (int delim)
 
 /* Like extract_quotelike_pass1, but return the complete string in UTF-8
    encoding.  */
-static string_desc_ty
+static string_desc_t
 extract_quotelike_pass1_utf8 (int delim)
 {
-  string_desc_ty string = extract_quotelike_pass1 (delim);
-  string_desc_ty utf8_string =
+  string_desc_t string = extract_quotelike_pass1 (delim);
+  string_desc_t utf8_string =
     string_desc_from_current_source_encoding (string, lc_string,
                                               logical_file_name, line_number);
-  if (utf8_string.data != string.data)
+  if (string_desc_data (utf8_string) != string_desc_data (string))
     string_desc_free (string);
   return utf8_string;
 }
@@ -801,7 +801,7 @@ static int nesting_depth;
 
 
 /* Forward declaration of local functions.  */
-static void interpolate_keywords (message_list_ty *mlp, string_desc_ty string,
+static void interpolate_keywords (message_list_ty *mlp, string_desc_t string,
                                   int lineno);
 static token_ty *x_perl_lex (message_list_ty *mlp);
 static void x_perl_unlex (token_ty *tp);
@@ -877,7 +877,7 @@ extract_oct (const char *string, size_t len, unsigned int *result)
 static void
 extract_quotelike (token_ty *tp, int delim)
 {
-  string_desc_ty string = extract_quotelike_pass1_utf8 (delim);
+  string_desc_t string = extract_quotelike_pass1_utf8 (delim);
   size_t len = string_desc_length (string);
 
   tp->type = token_type_string;
@@ -897,7 +897,7 @@ static void
 extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
                           bool interpolate)
 {
-  string_desc_ty string;
+  string_desc_t string;
 
   tp->type = token_type_regex_op;
 
@@ -1691,7 +1691,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
    variables inside a double-quoted string that may interpolate to
    some keyword hash (reference).  The string is UTF-8 encoded.  */
 static void
-interpolate_keywords (message_list_ty *mlp, string_desc_ty string, int lineno)
+interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
 {
   static char *buffer;
   static int bufmax = 0;

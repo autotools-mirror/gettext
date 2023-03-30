@@ -9,10 +9,6 @@ str-list.h
 str-list.c
                 A list-of-immutable-strings type.
 
-str-desc.h
-str-desc.c
-                A string descriptor type, for strings that may contain NULs.
-
 dir-list.h
 dir-list.c
                 Management of the list of directories where PO files are
