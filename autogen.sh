@@ -166,6 +166,7 @@ if ! $skip_gnulib; then
     full-write
     fwriteerror
     gcd
+    getaddrinfo
     getline
     getopt-gnu
     gettext
