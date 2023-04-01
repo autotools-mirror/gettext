@@ -626,6 +626,7 @@ do_getc_escaped_low_surrogate ()
                 phase1_ungetc ('u');
                 return -1;
               }
+            buf[i] = c;
 
             if (c >= '0' && c <= '9')
               n = (n << 4) + (c - '0');
