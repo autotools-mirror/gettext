@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2022 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2023 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @pindex xgettext
@@ -129,8 +129,9 @@ Place comment blocks starting with @var{tag} and preceding keyword lines
 in the output file.  Without a @var{tag}, the option means to put @emph{all}
 comment blocks preceding keyword lines in the output file.
 
-Note that comment blocks supposed to be extracted must be adjacent to
-keyword lines.  For example, in the following C source code:
+Note that comment blocks are only extracted if there is no program code
+between the comment and the string that gets extracted.
+For example, in the following C source code:
 
 @example
 /* This is the first comment.  */
@@ -143,10 +144,17 @@ gettext (
 gettext (
   /* This is the third comment.  */
   "baz");
+
+/* This is the fourth comment.  */
+
+gettext ("I love blank lines in my programs");
 @end example
 
-The second comment line will not be extracted, because there is one
-blank line between the comment line and the keyword.
+@noindent
+the second comment line will not be extracted, because there is a line
+with some tokens between the comment line and the line that contains
+the string.  But the fourth comment is extracted, because between it and
+the line with the string there is merely a blank line.
 
 @item --check[=@var{CHECK}]
 @opindex --check@r{, @code{xgettext} option}
