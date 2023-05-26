@@ -1,6 +1,6 @@
 /* Resolving ambiguity of argument lists: Progressive parsing of an
    argument list, keeping track of all possibilities.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -66,7 +66,7 @@ struct arglist_parser
   size_t keyword_len;           /* the keyword's length */
   bool next_is_msgctxt;         /* true if the next argument is the msgctxt */
   size_t nalternatives;         /* number of partial_call alternatives */
-  struct partial_call alternative[1]; /* partial_call alternatives */
+  struct partial_call alternative[FLEXIBLE_ARRAY_MEMBER]; /* partial_call alternatives */
 };
 
 /* Creates a fresh arglist_parser recognizing calls.

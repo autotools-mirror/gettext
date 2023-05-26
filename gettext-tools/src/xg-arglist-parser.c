@@ -27,6 +27,7 @@
 
 #include "error.h"
 #include "error-progname.h"
+#include "flexmember.h"
 #include "xalloc.h"
 #include "xsize.h"
 
@@ -44,7 +45,7 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
     {
       struct arglist_parser *ap =
         (struct arglist_parser *)
-        xmalloc (offsetof (struct arglist_parser, alternative[0]));
+        xmalloc (FLEXNSIZEOF (struct arglist_parser, alternative, 0));
 
       ap->mlp = mlp;
       ap->keyword = NULL;
@@ -58,9 +59,8 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
     {
       struct arglist_parser *ap =
         (struct arglist_parser *)
-        xmalloc (xsum (sizeof (struct arglist_parser),
-                       xtimes (shapes->nshapes - 1,
-                               sizeof (struct partial_call))));
+        xmalloc (FLEXNSIZEOF (struct arglist_parser, alternative,
+                              shapes->nshapes));
       size_t i;
 
       ap->mlp = mlp;
@@ -104,8 +104,8 @@ arglist_parser_clone (struct arglist_parser *ap)
 {
   struct arglist_parser *copy =
     (struct arglist_parser *)
-    xmalloc (xsum (sizeof (struct arglist_parser) - sizeof (struct partial_call),
-                   xtimes (ap->nalternatives, sizeof (struct partial_call))));
+    xmalloc (FLEXNSIZEOF (struct arglist_parser, alternative,
+                          ap->nalternatives));
   size_t i;
 
   copy->mlp = ap->mlp;

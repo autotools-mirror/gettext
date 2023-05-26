@@ -159,6 +159,7 @@ if ! $skip_gnulib; then
     execute
     filename
     findprog
+    flexmember
     fnmatch
     fopen
     free-posix
