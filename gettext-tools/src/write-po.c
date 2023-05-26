@@ -627,6 +627,12 @@ memcpy_small (void *dst, const void *src, size_t n)
 
 
 /* A version of memset optimized for the case n <= 1.  */
+/* Avoid false GCC warning "‘__builtin_memset’ specified bound
+   18446744073709551614 exceeds maximum object size 9223372036854775807."
+   Cf. <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=109995>.  */
+#if __GNUC__ >= 7
+# pragma GCC diagnostic ignored "-Wstringop-overflow"
+#endif
 static inline void
 memset_small (void *dst, char c, size_t n)
 {
