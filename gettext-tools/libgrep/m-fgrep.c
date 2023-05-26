@@ -149,6 +149,8 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
   char *mb_properties;
   if (MB_CUR_MAX > 1)
     mb_properties = check_multibyte_string (buf, buf_size);
+  else
+    mb_properties = NULL;
 
   for (beg = buf; beg <= buflim; ++beg)
     {
@@ -156,8 +158,7 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
       size_t offset = kwsexec (ckwset->kwset, beg, buflim - beg, &kwsmatch);
       if (offset == (size_t) -1)
         {
-          if (MB_CUR_MAX > 1)
-            free (mb_properties);
+          free (mb_properties);
           return offset;
         }
       if (MB_CUR_MAX > 1 && mb_properties[offset+beg-buf] == 0)
@@ -167,8 +168,7 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
       if (exact)
         {
           *match_size = len;
-          if (MB_CUR_MAX > 1)
-            free (mb_properties);
+          free (mb_properties);
           return beg - buf;
         }
       if (ckwset->match_lines)
@@ -192,8 +192,7 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
                   offset = kwsexec (ckwset->kwset, beg, --len, &kwsmatch);
                   if (offset == (size_t) -1)
                     {
-                      if (MB_CUR_MAX > 1)
-                        free (mb_properties);
+                      free (mb_properties);
                       return offset;
                     }
                   curr = beg + offset;
@@ -207,8 +206,7 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
         goto success;
     }
 
-  if (MB_CUR_MAX > 1)
-    free (mb_properties);
+  free (mb_properties);
   return -1;
 
  success:
@@ -223,8 +221,7 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
     while (buf < beg && beg[-1] != eol)
       --beg;
     *match_size = end - beg;
-    if (MB_CUR_MAX > 1)
-      free (mb_properties);
+    free (mb_properties);
     return beg - buf;
   }
 }
