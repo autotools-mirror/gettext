@@ -258,15 +258,30 @@ MOSTLYCLEANFILES += libintl.h
 #   - The #line numbers in the .c file refer to a nonexistent file once it
 #     has been moved from the build directory to the source directory. This
 #     leads to error if 'lcov' is used later.
-# Additionally, here we assume GNU Bison and therefore don't need the ylwrap
-# script.
-# Additionally, here we need a rule that works even without a VPATH variable.
 # Therefore we override this rule.
+#
+# Also, the ylwrap script is not usable when both a .c and a .h file are to be
+# generated from the .y file. The reason is that this script does nothing in a
+# situation where the .h file is older than the .y file and the .y file is older
+# than the .c file. (This is intentional, see the comment "Do not overwrite
+# unchanged header files to avoid useless recompilations.") The effect is that
+# during "make dist", a tarball is created where the .h file is older than the
+# .y file. This has two negative consequences:
+#   - For a user who builds an unmodified tarball, bison will be invoked.
+#   - During "make distcheck" the rule
+#       FILE.c FILE.h: FILE.y
+#     always fires and, since $(srcdir) is read-only, the commands which update
+#     (or at least touch) $(srcdir)/FILE.c and $(srcdir)/FILE.h fail.
+# Therefore we don't use ylwrap.
+#
 # Note: There is no point in using Bison's --output option, since we need to
 # postprocess the generated files and we don't want that unpostprocessed files
 # remain in place if the user interrupts the build through Ctrl-C.
-
-$(srcdir)/plural.c: $(srcdir)/plural.y
+#
+# Since this is a rule that produces multiple files, we apply the idiom from
+# <https://lists.gnu.org/archive/html/bug-make/2020-09/msg00008.html>, so that
+# it works also in parallel 'make'.
+generate-plural:
 	$(AM_V_YACC)$(BISON) -d $(BISONFLAGS) $(srcdir)/plural.y \
 	&& test ':' = '$(BISON)' || { \
 	  sed -e 's|".*/plural\.y"|"plural.y"|' \
@@ -280,8 +295,14 @@ $(srcdir)/plural.c: $(srcdir)/plural.y
 	  && mv plural.c-tmp $(srcdir)/plural.c \
 	  && mv plural.h-tmp $(srcdir)/plural.h; \
 	}
-# Don't put plural.c into BUILT_SOURCES. Since plural.c is in the source
-# directory, 'make' does not find it without a VPATH variable.
+.PHONY: generate-plural
+# The above rule will generate files with time stamp order
+# plural.y <= plural.c <= plural.h.
+plural.c: plural.y
+	@{ test -f $(srcdir)/plural.c && test ! $(srcdir)/plural.c -ot $(srcdir)/plural.y; } || $(MAKE) generate-plural
+plural.h: plural.c
+	@{ test -f $(srcdir)/plural.h && test ! $(srcdir)/plural.h -ot $(srcdir)/plural.c; } || $(MAKE) generate-plural
+BUILT_SOURCES        += plural.c plural.h
 MOSTLYCLEANFILES     += plural.tab.c plural.tab.h plural.c-tmp plural.h-tmp
 MAINTAINERCLEANFILES += plural.c plural.h
 EXTRA_DIST           += plural.c plural.h
