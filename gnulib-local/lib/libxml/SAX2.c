@@ -1,5 +1,5 @@
 /* libxml2 - Library for parsing XML documents
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2023 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -218,6 +218,7 @@ xmlWarnMsg(xmlParserCtxtPtr ctxt, xmlParserErrors error,
  *
  * Handle a namespace error
  */
+_GL_ATTRIBUTE_MAYBE_UNUSED
 static void LIBXML_ATTR_FORMAT(3,0)
 xmlNsErrMsg(xmlParserCtxtPtr ctxt, xmlParserErrors error,
             const char *msg, const xmlChar *str1, const xmlChar *str2)
@@ -764,7 +765,7 @@ xmlSAX2AttributeDecl(void *ctx, const xmlChar *elem, const xmlChar *fullname,
 	      xmlEnumerationPtr tree)
 {
     xmlParserCtxtPtr ctxt = (xmlParserCtxtPtr) ctx;
-    xmlAttributePtr attr;
+    _GL_ATTRIBUTE_MAYBE_UNUSED xmlAttributePtr attr;
     xmlChar *name = NULL, *prefix = NULL;
 
     if ((ctxt == NULL) || (ctxt->myDoc == NULL))
@@ -831,7 +832,7 @@ xmlSAX2ElementDecl(void *ctx, const xmlChar * name, int type,
             xmlElementContentPtr content)
 {
     xmlParserCtxtPtr ctxt = (xmlParserCtxtPtr) ctx;
-    xmlElementPtr elem = NULL;
+    _GL_ATTRIBUTE_MAYBE_UNUSED xmlElementPtr elem = NULL;
 
     if ((ctxt == NULL) || (ctxt->myDoc == NULL))
         return;
@@ -877,7 +878,7 @@ xmlSAX2NotationDecl(void *ctx, const xmlChar *name,
 	     const xmlChar *publicId, const xmlChar *systemId)
 {
     xmlParserCtxtPtr ctxt = (xmlParserCtxtPtr) ctx;
-    xmlNotationPtr nota = NULL;
+    _GL_ATTRIBUTE_MAYBE_UNUSED xmlNotationPtr nota = NULL;
 
     if ((ctxt == NULL) || (ctxt->myDoc == NULL))
         return;

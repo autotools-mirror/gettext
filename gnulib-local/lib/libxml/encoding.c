@@ -1,5 +1,5 @@
 /* libxml2 - Library for parsing XML documents
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2023 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -2749,7 +2749,8 @@ int
 xmlCharEncCloseFunc(xmlCharEncodingHandler *handler) {
     int ret = 0;
     int tofree = 0;
-    int i, handler_in_list = 0;
+    int i;
+    _GL_ATTRIBUTE_MAYBE_UNUSED int handler_in_list = 0;
 
     if (handler == NULL) return(-1);
     if (handler->name == NULL) return(-1);

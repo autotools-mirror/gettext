@@ -1,5 +1,5 @@
 /* libxml2 - Library for parsing XML documents
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2023 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -9514,25 +9514,25 @@ xmlDOMWrapCloneNode(xmlDOMWrapCtxtPtr ctxt,
 		/*
 		* Attributes (xmlAttr).
 		*/
-		clone = (xmlNodePtr) xmlMalloc(sizeof(xmlAttr));
-		if (clone == NULL) {
+		xmlAttrPtr cloneAttr = (xmlAttrPtr) xmlMalloc(sizeof(xmlAttr));
+		if (cloneAttr == NULL) {
 		    xmlTreeErrMemory("xmlDOMWrapCloneNode(): allocating an attr-node");
 		    goto internal_error;
 		}
-		memset(clone, 0, sizeof(xmlAttr));
+		memset(cloneAttr, 0, sizeof(xmlAttr));
 		/*
 		* Set hierachical links.
 		* TODO: Change this to add to the end of attributes.
 		*/
 		if (resultClone != NULL) {
-		    clone->parent = parentClone;
+		    cloneAttr->parent = parentClone;
 		    if (prevClone) {
-			prevClone->next = clone;
-			clone->prev = prevClone;
+			prevClone->next = (xmlNodePtr) cloneAttr;
+			cloneAttr->prev = (xmlAttrPtr) prevClone;
 		    } else
-			parentClone->properties = (xmlAttrPtr) clone;
+			parentClone->properties = (xmlAttrPtr) cloneAttr;
 		} else
-		    resultClone = clone;
+		    resultClone = (xmlNodePtr) cloneAttr;
 		break;
 	    default:
 		/*
