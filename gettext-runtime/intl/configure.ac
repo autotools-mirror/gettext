@@ -81,7 +81,7 @@ AM_CONDITIONAL([WINDOWS_NATIVE], [test $is_windows_native = yes])
 dnl Support building libintl.a with -fPIC (needed by GCC).
 dnl <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=100096>
 AC_ARG_ENABLE([host-shared],
-  [AS_HELP_STRING([--enable-host-shared], [special hack for GCC])],
+  [AS_HELP_STRING([[--enable-host-shared]], [special hack for GCC])],
   [PICFLAG='-fPIC'],
   [PICFLAG=])
 AC_SUBST([PICFLAG])

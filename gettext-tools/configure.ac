@@ -134,7 +134,7 @@ AM_GNU_GETTEXT([use-libtool], [need-ngettext], [\${top_builddir}/../gettext-runt
 
 dnl This option allows to build gettext-tools without (re)building libtextstyle.
 AC_ARG_WITH([installed-libtextstyle],
-  [AS_HELP_STRING([--with-installed-libtextstyle],
+  [AS_HELP_STRING([[--with-installed-libtextstyle]],
      [Use an already installed libtextstyle.])],
   [gt_use_installed_libtextstyle=$withval],
   [gt_use_installed_libtextstyle=no])
@@ -150,7 +150,7 @@ AM_CONDITIONAL([USE_INSTALLED_LIBTEXTSTYLE],
 
 dnl This option allows to build gettext-tools without (re)building GNU.Gettext.dll.
 AC_ARG_WITH([installed-csharp-dll],
-  [AS_HELP_STRING([--with-installed-csharp-dll],
+  [AS_HELP_STRING([[--with-installed-csharp-dll]],
      [Use an already installed C# DLL.])],
   [gt_use_installed_csharp_dll=$withval],
   [gt_use_installed_csharp_dll=no])
