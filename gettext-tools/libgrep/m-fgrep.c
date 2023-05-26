@@ -1,6 +1,5 @@
 /* Pattern Matcher for Fixed String search.
-   Copyright (C) 1992, 1998, 2000, 2005-2006, 2010, 2013, 2020 Free Software
-   Foundation, Inc.
+   Copyright (C) 1992, 1998, 2000, 2005-2006, 2010, 2013, 2020, 2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,13 +26,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
-
-#if defined HAVE_WCTYPE_H && defined HAVE_WCHAR_H && defined HAVE_MBRTOWC
-/* We can handle multibyte string.  */
-# define MBS_SUPPORT
-# include <wchar.h>
-# include <wctype.h>
-#endif
+#include <wchar.h>
 
 #include "error.h"
 #include "exitfail.h"
@@ -42,15 +35,8 @@
 #include "gettext.h"
 #define _(str) gettext (str)
 
-#if defined (STDC_HEADERS) || (!defined (isascii) && !defined (HAVE_ISASCII))
-# define IN_CTYPE_DOMAIN(c) 1
-#else
-# define IN_CTYPE_DOMAIN(c) isascii(c)
-#endif
-#define ISUPPER(C) (IN_CTYPE_DOMAIN (C) && isupper (C))
-#define TOLOWER(C) (ISUPPER(C) ? tolower(C) : (C))
-#define ISALNUM(C) (IN_CTYPE_DOMAIN (C) && isalnum (C))
-#define IS_WORD_CONSTITUENT(C) (ISALNUM(C) || (C) == '_')
+#define TOLOWER(C) (isupper (C) ? tolower (C) : (C))
+#define IS_WORD_CONSTITUENT(C) (isalnum (C) || (C) == '_')
 
 #define NCHAR (UCHAR_MAX + 1)
 
@@ -119,7 +105,6 @@ Fcompile (const char *pattern, size_t pattern_size,
   return ckwset;
 }
 
-#ifdef MBS_SUPPORT
 /* This function allocate the array which correspond to "buf".
    Then this check multibyte string and mark on the positions which
    are not singlebyte character nor the first byte of a multibyte
@@ -150,7 +135,6 @@ check_multibyte_string (const char *buf, size_t buf_size)
 
   return mb_properties;
 }
-#endif
 
 static size_t
 Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
@@ -162,11 +146,9 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
   register const char *buflim = buf + buf_size;
   register const char *beg;
   register size_t len;
-#ifdef MBS_SUPPORT
   char *mb_properties;
   if (MB_CUR_MAX > 1)
     mb_properties = check_multibyte_string (buf, buf_size);
-#endif /* MBS_SUPPORT */
 
   for (beg = buf; beg <= buflim; ++beg)
     {
@@ -174,25 +156,19 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
       size_t offset = kwsexec (ckwset->kwset, beg, buflim - beg, &kwsmatch);
       if (offset == (size_t) -1)
         {
-#ifdef MBS_SUPPORT
           if (MB_CUR_MAX > 1)
             free (mb_properties);
-#endif /* MBS_SUPPORT */
           return offset;
         }
-#ifdef MBS_SUPPORT
       if (MB_CUR_MAX > 1 && mb_properties[offset+beg-buf] == 0)
         continue; /* It is a part of multibyte character.  */
-#endif /* MBS_SUPPORT */
       beg += offset;
       len = kwsmatch.size[0];
       if (exact)
         {
           *match_size = len;
-#ifdef MBS_SUPPORT
           if (MB_CUR_MAX > 1)
             free (mb_properties);
-#endif /* MBS_SUPPORT */
           return beg - buf;
         }
       if (ckwset->match_lines)
@@ -216,10 +192,8 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
                   offset = kwsexec (ckwset->kwset, beg, --len, &kwsmatch);
                   if (offset == (size_t) -1)
                     {
-#ifdef MBS_SUPPORT
                       if (MB_CUR_MAX > 1)
                         free (mb_properties);
-#endif /* MBS_SUPPORT */
                       return offset;
                     }
                   curr = beg + offset;
@@ -233,10 +207,8 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
         goto success;
     }
 
-#ifdef MBS_SUPPORT
   if (MB_CUR_MAX > 1)
     free (mb_properties);
-#endif /* MBS_SUPPORT */
   return -1;
 
  success:
@@ -251,10 +223,8 @@ Fexecute (const void *compiled_pattern, const char *buf, size_t buf_size,
     while (buf < beg && beg[-1] != eol)
       --beg;
     *match_size = end - beg;
-#ifdef MBS_SUPPORT
     if (MB_CUR_MAX > 1)
       free (mb_properties);
-#endif /* MBS_SUPPORT */
     return beg - buf;
   }
 }
