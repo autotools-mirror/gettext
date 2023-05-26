@@ -214,6 +214,12 @@ _nl_expand_alias (const char *name)
 }
 
 
+/* Silence a bogus GCC warning.
+   <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=109990>  */
+#if __GNUC__ >= 12
+# pragma GCC diagnostic ignored "-Wuse-after-free"
+#endif
+
 static size_t
 internal_function
 read_alias_file (const char *fname, int fname_len)
