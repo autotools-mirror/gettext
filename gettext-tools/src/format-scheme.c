@@ -2321,6 +2321,7 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
 
 /* Possible signatures of format directives.  */
 static const enum format_arg_type I [1] = { FAT_INTEGER_NULL };
+_GL_ATTRIBUTE_MAYBE_UNUSED
 static const enum format_arg_type II [2] = {
   FAT_INTEGER_NULL, FAT_INTEGER_NULL
 };
