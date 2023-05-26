@@ -568,11 +568,11 @@ endif
 po-gram-gen.c po-gram-gen.h: po-gram-gen.y
 	$(AM_V_YACC)$(BISON) -d $(YFLAGS) $(AM_YFLAGS) $(srcdir)/po-gram-gen.y \
 	&& test ':' = '$(BISON)' || { \
-	  sed -e 's|".*/po-gram-gen.y"|"po-gram-gen.y"|' \
+	  sed -e 's|".*/po-gram-gen\.y"|"po-gram-gen.y"|' \
 	      -e 's|"po-gram-gen\.tab\.c"|"po-gram-gen.c"|' \
 	      -e 's|"po-gram-gen\.tab\.h"|"po-gram-gen.h"|' \
 	      < po-gram-gen.tab.c > po-gram-gen.c-tmp \
-	  && sed -e 's|".*/po-gram-gen.y"|"po-gram-gen.y"|' \
+	  && sed -e 's|".*/po-gram-gen\.y"|"po-gram-gen.y"|' \
 	         -e 's|"po-gram-gen\.tab\.h"|"po-gram-gen.h"|' \
 	         < po-gram-gen.tab.h > po-gram-gen.h-tmp \
 	  && rm -f po-gram-gen.tab.c po-gram-gen.tab.h \
@@ -602,11 +602,11 @@ po-lex.o po-lex.lo: po-gram-gen2.h
 cldr-plural.c cldr-plural.h: cldr-plural.y
 	$(AM_V_YACC)$(BISON) -d $(YFLAGS) $(AM_YFLAGS) $(srcdir)/cldr-plural.y \
 	&& test ':' = '$(BISON)' || { \
-	  sed -e 's|".*/cldr-plural.y"|"cldr-plural.y"|' \
+	  sed -e 's|".*/cldr-plural\.y"|"cldr-plural.y"|' \
 	      -e 's|"cldr-plural\.tab\.c"|"cldr-plural.c"|' \
 	      -e 's|"cldr-plural\.tab\.h"|"cldr-plural.h"|' \
 	      < cldr-plural.tab.c > cldr-plural.c-tmp \
-	  && sed -e 's|".*/cldr-plural.y"|"cldr-plural.y"|' \
+	  && sed -e 's|".*/cldr-plural\.y"|"cldr-plural.y"|' \
 	         -e 's|"cldr-plural\.tab\.h"|"cldr-plural.h"|' \
 	         < cldr-plural.tab.h > cldr-plural.h-tmp \
 	  && rm -f cldr-plural.tab.c cldr-plural.tab.h \

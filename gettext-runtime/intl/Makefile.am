@@ -269,11 +269,11 @@ MOSTLYCLEANFILES += libintl.h
 $(srcdir)/plural.c: $(srcdir)/plural.y
 	$(AM_V_YACC)$(BISON) -d $(BISONFLAGS) $(srcdir)/plural.y \
 	&& test ':' = '$(BISON)' || { \
-	  sed -e 's|".*/plural.y"|"plural.y"|' \
+	  sed -e 's|".*/plural\.y"|"plural.y"|' \
 	      -e 's|"plural\.tab\.c"|"plural.c"|' \
 	      -e 's|"plural\.tab\.h"|"plural.h"|' \
 	      < plural.tab.c > plural.c-tmp \
-	  && sed -e 's|".*/plural.y"|"plural.y"|' \
+	  && sed -e 's|".*/plural\.y"|"plural.y"|' \
 	         -e 's|"plural\.tab\.h"|"plural.h"|' \
 	         < plural.tab.h > plural.h-tmp \
 	  && rm -f plural.tab.c plural.tab.h \
