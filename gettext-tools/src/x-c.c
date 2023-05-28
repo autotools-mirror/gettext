@@ -1042,7 +1042,7 @@ phase7_getc ()
     case 'b':
       return '\b';
 
-      /* The \e escape is preculiar to gcc, and assumes an ASCII
+      /* The \e escape is peculiar to gcc, and assumes an ASCII
          character set (or superset).  We don't provide support for it
          here.  */
 
@@ -1611,6 +1611,40 @@ phase5_get (token_ty *tp)
                          supported in this case.  */
                       phase4_ungetc (c1);
                       break;
+                    }
+                }
+              else
+                {
+                  /* In C23, a single-quote between two hexadecimal digits
+                     can be part of a number token.  It's called a "digit
+                     separator".  See ISO C 23 § 6.4.4.1 and § 6.4.4.2.  */
+                  if (bufpos > 0)
+                    {
+                      char prev = buffer[bufpos - 1];
+                      if ((prev >= '0' && prev <= '9')
+                          || (prev >= 'A' && prev <= 'F')
+                          || (prev >= 'a' && prev <= 'f'))
+                        {
+                          int c1 = phase4_getc ();
+                          if ((c1 >= '0' && c1 <= '9')
+                              || (c1 >= 'A' && c1 <= 'F')
+                              || (c1 >= 'a' && c1 <= 'f'))
+                            {
+                              if (bufpos >= bufmax)
+                                {
+                                  bufmax = 2 * bufmax + 10;
+                                  buffer = xrealloc (buffer, bufmax);
+                                }
+                              buffer[bufpos++] = c;
+                              c = c1;
+                              continue;
+                            }
+                          /* The two phase4_getc() calls that returned c and c1
+                             did nothing more than to call phase3_getc(),
+                             without any lookahead.  Therefore 2 pushback
+                             characters are supported in this case.  */
+                          phase4_ungetc (c1);
+                        }
                     }
                 }
               FALLTHROUGH;
