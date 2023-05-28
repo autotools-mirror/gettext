@@ -203,7 +203,10 @@ format_parse_entrails (const char *format, bool translated,
         /* A directive.  */
         unsigned int number = 0;
         format_arg_type_t type;
-        format_arg_type_t size;
+        /* Relevant for the conversion characters d, i, b, o, u, x, X, n.  */
+        format_arg_type_t integer_size;
+        /* Relevant for the conversion characters a, A, e, E, f, F, g, G.  */
+        format_arg_type_t floatingpoint_size;
 
         FDI_SET (format - 1, FMTDIR_START);
         spec.directives++;
@@ -600,50 +603,127 @@ format_parse_entrails (const char *format, bool translated,
         else
           {
             /* Parse size.  */
-            size = 0;
-            for (;; format++)
+            integer_size = 0;
+            floatingpoint_size = 0;
+
+            if (*format == 'h')
               {
-                if (*format == 'h')
+                if (format[1] == 'h')
                   {
-                    if (size & (FAT_SIZE_SHORT | FAT_SIZE_CHAR))
-                      size = FAT_SIZE_CHAR;
-                    else
-                      size = FAT_SIZE_SHORT;
-                  }
-                else if (*format == 'l')
-                  {
-                    if (size & (FAT_SIZE_LONG | FAT_SIZE_LONGLONG))
-                      size = FAT_SIZE_LONGLONG;
-                    else
-                      size = FAT_SIZE_LONG;
-                  }
-                else if (*format == 'L')
-                  size = FAT_SIZE_LONGLONG;
-                else if (*format == 'q')
-                  /* Old BSD 4.4 convention.  */
-                  size = FAT_SIZE_LONGLONG;
-                else if (*format == 'j')
-                  size = FAT_SIZE_INTMAX_T;
-                else if (*format == 'z' || *format == 'Z')
-                  /* 'z' is standardized in ISO C 99, but glibc uses 'Z'
-                     because the warning facility in gcc-2.95.2 understands
-                     only 'Z' (see gcc-2.95.2/gcc/c-common.c:1784).  */
-                  size = FAT_SIZE_SIZE_T;
-                else if (*format == 't')
-                  size = FAT_SIZE_PTRDIFF_T;
-#if defined _WIN32 && ! defined __CYGWIN__
-                else if (SYSDEP_SEGMENTS_PROCESSED
-                         && *format == 'I'
-                         && format[1] == '6'
-                         && format[2] == '4')
-                  {
-                    size = FAT_SIZE_64_T;
+                    integer_size = FAT_SIZE_CHAR;
                     format += 2;
                   }
-#endif
                 else
-                  break;
+                  {
+                    integer_size = FAT_SIZE_SHORT;
+                    format++;
+                  }
               }
+            else if (*format == 'l')
+              {
+                if (format[1] == 'l')
+                  {
+                    integer_size = FAT_SIZE_LONGLONG;
+                    /* For backward compatibility only.  */
+                    floatingpoint_size = FAT_SIZE_LONGLONG;
+                    format += 2;
+                  }
+                else
+                  {
+                    integer_size = FAT_SIZE_LONG;
+                    format++;
+                  }
+              }
+            else if (*format == 'L'
+                     /* Old BSD 4.4 convention.  */
+                     || *format == 'q')
+              {
+                integer_size = FAT_SIZE_LONGLONG;
+                floatingpoint_size = FAT_SIZE_LONGLONG;
+                format++;
+              }
+            else if (*format == 'j')
+              {
+                integer_size = FAT_SIZE_INTMAX_T;
+                format++;
+              }
+            else if (*format == 'z' || *format == 'Z')
+              {
+                /* 'z' is standardized in ISO C 99, but glibc uses 'Z'
+                   because the warning facility in gcc-2.95.2 understands
+                   only 'Z' (see gcc-2.95.2/gcc/c-common.c:1784).  */
+                integer_size = FAT_SIZE_SIZE_T;
+                format++;
+              }
+            else if (*format == 't')
+              {
+                integer_size = FAT_SIZE_PTRDIFF_T;
+                format++;
+              }
+            else if (*format == 'w')
+              {
+                /* wN and wfN are standardized in ISO C 23.  */
+                if (format[1] == 'f')
+                  {
+                    if (format[2] == '8')
+                      {
+                        integer_size = FAT_SIZE_FAST8_T;
+                        format += 3;
+                      }
+                    else if (format[2] == '1' && format[3] == '6')
+                      {
+                        integer_size = FAT_SIZE_FAST16_T;
+                        format += 4;
+                      }
+                    else if (format[2] == '3' && format[3] == '2')
+                      {
+                        integer_size = FAT_SIZE_FAST32_T;
+                        format += 4;
+                      }
+                    else if (format[2] == '6' && format[3] == '4')
+                      {
+                        integer_size = FAT_SIZE_FAST64_T;
+                        format += 4;
+                      }
+                  }
+                else
+                  {
+                    if (format[1] == '8')
+                      {
+                        integer_size = FAT_SIZE_LEAST8_T;
+                        format += 2;
+                      }
+                    else if (format[1] == '1' && format[2] == '6')
+                      {
+                        integer_size = FAT_SIZE_LEAST16_T;
+                        format += 3;
+                      }
+                    else if (format[1] == '3' && format[2] == '2')
+                      {
+                        integer_size = FAT_SIZE_LEAST32_T;
+                        format += 3;
+                      }
+                    else if (format[1] == '6' && format[2] == '4')
+                      {
+                        integer_size = FAT_SIZE_LEAST64_T;
+                        format += 3;
+                      }
+                  }
+              }
+#if defined _WIN32 && ! defined __CYGWIN__
+            else if (SYSDEP_SEGMENTS_PROCESSED
+                     && *format == 'I'
+                     && format[1] == '6'
+                     && format[2] == '4')
+              {
+                integer_size = FAT_SIZE_64_T;
+                format += 3;
+              }
+#endif
+            if (!((integer_size & ~FAT_SIZE_MASK) == 0))
+              abort ();
+            if (!((floatingpoint_size & ~FAT_SIZE_LONGLONG) == 0))
+              abort ();
 
             switch (*format)
               {
@@ -660,32 +740,51 @@ format_parse_entrails (const char *format, bool translated,
                 break;
               case 'c':
                 type = FAT_CHAR;
-                type |= (size & (FAT_SIZE_LONG | FAT_SIZE_LONGLONG)
-                         ? FAT_WIDE : 0);
+                if (integer_size != 0)
+                  {
+                    if (integer_size != FAT_SIZE_LONG)
+                      {
+                        *invalid_reason = INVALID_SIZE_SPECIFIER (spec.directives);
+                        FDI_SET (format, FMTDIR_ERROR);
+                        goto bad_format;
+                      }
+                    type |= FAT_WIDE;
+                  }
                 break;
               case 'C': /* obsolete */
                 type = FAT_CHAR | FAT_WIDE;
                 break;
               case 's':
                 type = FAT_STRING;
-                type |= (size & (FAT_SIZE_LONG | FAT_SIZE_LONGLONG)
-                         ? FAT_WIDE : 0);
+                if (integer_size != 0)
+                  {
+                    if (integer_size != FAT_SIZE_LONG)
+                      {
+                        *invalid_reason = INVALID_SIZE_SPECIFIER (spec.directives);
+                        FDI_SET (format, FMTDIR_ERROR);
+                        goto bad_format;
+                      }
+                    type |= FAT_WIDE;
+                  }
                 break;
               case 'S': /* obsolete */
                 type = FAT_STRING | FAT_WIDE;
                 break;
               case 'i': case 'd':
-                type = FAT_INTEGER;
-                type |= (size & FAT_SIZE_MASK);
+                type = FAT_INTEGER | integer_size;
                 break;
               case 'u': case 'o': case 'x': case 'X': case 'b':
-                type = FAT_INTEGER | FAT_UNSIGNED;
-                type |= (size & FAT_SIZE_MASK);
+                type = FAT_INTEGER | FAT_UNSIGNED | integer_size;
                 break;
               case 'e': case 'E': case 'f': case 'F': case 'g': case 'G':
               case 'a': case 'A':
-                type = FAT_DOUBLE;
-                type |= (size & FAT_SIZE_LONGLONG);
+                if (integer_size != 0 && floatingpoint_size == 0)
+                  {
+                    *invalid_reason = INVALID_SIZE_SPECIFIER (spec.directives);
+                    FDI_SET (format, FMTDIR_ERROR);
+                    goto bad_format;
+                  }
+                type = FAT_DOUBLE | floatingpoint_size;
                 break;
               case '@':
                 if (objc_extensions)
@@ -698,8 +797,7 @@ format_parse_entrails (const char *format, bool translated,
                 type = FAT_POINTER;
                 break;
               case 'n':
-                type = FAT_COUNT_POINTER;
-                type |= (size & FAT_SIZE_MASK);
+                type = FAT_COUNT_POINTER | integer_size;
                 break;
               other:
               default:

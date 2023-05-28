@@ -20,6 +20,9 @@ Version 0.21.2 - May 2023
       ISO C 23, as tokens.
     o xgettext and msgfmt now recognize the format string directive %b
       (for binary integer output, as defined by ISO C 23) in format strings.
+    o xgettext and msgfmt now recognize the argument size specifiers
+      w8, w16, w32, w64, wf8, wf16, wf32, wf64 (as defined by ISO C 23)
+      in format strings.
   - Tcl: xgettext now supports the \x, \u, and \U escapes as defined in
     Tcl 8.6.
 
