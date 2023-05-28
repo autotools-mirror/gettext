@@ -22,6 +22,8 @@ cat <<\EOF > f-c-1.data
 "abc%x"
 # Valid: one integer argument
 "abc%X"
+# Valid: one integer argument
+"abc%b"
 # Valid: one floating-point argument
 "abc%e"
 # Valid: one floating-point argument

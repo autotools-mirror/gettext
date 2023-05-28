@@ -1,5 +1,5 @@
 /* Parsing C format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2018, 2020, 2022 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2018, 2020, 2022-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -16,8 +16,10 @@
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 
-/* C format strings are described in POSIX (IEEE P1003.1 2001), section
-   XSH 3 fprintf().  See also Linux fprintf(3) manual page.
+/* C format strings are described in
+     * POSIX (IEEE P1003.1 2001), section XSH 3 fprintf().
+     * ISO C 23, section 7.23.6.1 fprintf and section 7.31.2.1 fwprintf.
+     * See also Linux fprintf(3) manual page.
    A directive
    - starts with '%' or '%m$' where m is a positive integer,
    - is optionally followed by any of the characters '#', '0', '-', ' ', '+',
@@ -35,7 +37,7 @@
            - 'c', 'C', that need a character argument,
            - 's', 'S', that need a string argument,
            - 'i', 'd', that need a signed integer argument,
-           - 'o', 'u', 'x', 'X', that need an unsigned integer argument,
+           - 'u', 'o', 'x', 'X', 'b', that need an unsigned integer argument,
            - 'e', 'E', 'f', 'F', 'g', 'G', 'a', 'A', that need a floating-point
              argument,
            - 'p', that needs a 'void *' argument,
@@ -676,7 +678,7 @@ format_parse_entrails (const char *format, bool translated,
                 type = FAT_INTEGER;
                 type |= (size & FAT_SIZE_MASK);
                 break;
-              case 'u': case 'o': case 'x': case 'X':
+              case 'u': case 'o': case 'x': case 'X': case 'b':
                 type = FAT_INTEGER | FAT_UNSIGNED;
                 type |= (size & FAT_SIZE_MASK);
                 break;

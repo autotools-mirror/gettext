@@ -18,6 +18,8 @@ Version 0.21.2 - May 2023
       as arguments.
     o xgettext now recognizes numbers with digit separators, as defined by
       ISO C 23, as tokens.
+    o xgettext and msgfmt now recognize the format string directive %b
+      (for binary integer output, as defined by ISO C 23) in format strings.
   - Tcl: xgettext now supports the \x, \u, and \U escapes as defined in
     Tcl 8.6.
 

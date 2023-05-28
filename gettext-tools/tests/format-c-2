@@ -56,6 +56,9 @@ msgstr "xyz%x"
 msgid  "abc%u"
 msgstr "xyz%X"
 # Valid: type compatibility
+msgid  "abc%u"
+msgstr "xyz%b"
+# Valid: type compatibility
 msgid  "abc%e"
 msgstr "xyz%E"
 # Valid: type compatibility
