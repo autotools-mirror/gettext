@@ -9514,25 +9514,27 @@ xmlDOMWrapCloneNode(xmlDOMWrapCtxtPtr ctxt,
 		/*
 		* Attributes (xmlAttr).
 		*/
-		xmlAttrPtr cloneAttr = (xmlAttrPtr) xmlMalloc(sizeof(xmlAttr));
-		if (cloneAttr == NULL) {
-		    xmlTreeErrMemory("xmlDOMWrapCloneNode(): allocating an attr-node");
-		    goto internal_error;
-		}
-		memset(cloneAttr, 0, sizeof(xmlAttr));
-		/*
-		* Set hierachical links.
-		* TODO: Change this to add to the end of attributes.
-		*/
-		if (resultClone != NULL) {
-		    cloneAttr->parent = parentClone;
-		    if (prevClone) {
-			prevClone->next = (xmlNodePtr) cloneAttr;
-			cloneAttr->prev = (xmlAttrPtr) prevClone;
+		{
+		    xmlAttrPtr cloneAttr = (xmlAttrPtr) xmlMalloc(sizeof(xmlAttr));
+		    if (cloneAttr == NULL) {
+			xmlTreeErrMemory("xmlDOMWrapCloneNode(): allocating an attr-node");
+			goto internal_error;
+		    }
+		    memset(cloneAttr, 0, sizeof(xmlAttr));
+		    /*
+		    * Set hierachical links.
+		    * TODO: Change this to add to the end of attributes.
+		    */
+		    if (resultClone != NULL) {
+			cloneAttr->parent = parentClone;
+			if (prevClone) {
+			    prevClone->next = (xmlNodePtr) cloneAttr;
+			    cloneAttr->prev = (xmlAttrPtr) prevClone;
+			} else
+			    parentClone->properties = (xmlAttrPtr) cloneAttr;
 		    } else
-			parentClone->properties = (xmlAttrPtr) cloneAttr;
-		} else
-		    resultClone = (xmlNodePtr) cloneAttr;
+			resultClone = (xmlNodePtr) cloneAttr;
+		}
 		break;
 	    default:
 		/*
