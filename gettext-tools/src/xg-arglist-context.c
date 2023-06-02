@@ -1,6 +1,6 @@
 /* Keeping track of the flags that apply to a string extracted
    in a certain context.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2018, 2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -29,10 +29,20 @@
 
 
 /* Null context.  */
-flag_context_ty null_context = { undecided, false, undecided, false };
+flag_context_ty null_context =
+  {
+    undecided, false,
+    undecided, false,
+    undecided, false
+  };
 
 /* Transparent context.  */
-flag_context_ty passthrough_context = { undecided, true, undecided, true };
+flag_context_ty passthrough_context =
+  {
+    undecided, true,
+    undecided, true,
+    undecided, true
+  };
 
 
 flag_context_ty
@@ -67,7 +77,7 @@ flag_context_list_iterator_ty null_context_list_iterator = { 1, NULL };
 static flag_context_list_ty passthrough_context_circular_list =
   {
     1,
-    { undecided, true, undecided, true },
+    { undecided, true, undecided, true, undecided, true },
     &passthrough_context_circular_list
   };
 flag_context_list_iterator_ty passthrough_context_list_iterator =
