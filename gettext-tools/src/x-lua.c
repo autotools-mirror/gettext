@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "attribute.h"
 #include "message.h"
 #include "rc-str-list.h"
 #include "xgettext.h"
@@ -340,8 +341,7 @@ phase2_getc ()
                               comment_line_end (1);
                               comment_start ();
                               lineno = line_number;
-                              /* Intentionally not breaking.  */
-
+                              FALLTHROUGH;
                             default:
                               right_bracket = false;
                             }
@@ -509,7 +509,7 @@ phase3_get (token_ty *tp)
         case '\n':
           if (last_non_comment_line > last_comment_line)
             savable_comment_reset ();
-          /* Intentionally not breaking.  */
+          FALLTHROUGH;
         case ' ':
         case '\t':
         case '\f':
