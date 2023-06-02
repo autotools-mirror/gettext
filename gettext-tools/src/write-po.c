@@ -54,11 +54,6 @@
 /* Our regular abbreviation.  */
 #define _(str) gettext (str)
 
-#if HAVE_DECL_PUTC_UNLOCKED
-# undef putc
-# define putc putc_unlocked
-#endif
-
 
 /* =================== Putting together a #, flags line. =================== */
 
