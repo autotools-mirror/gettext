@@ -2705,9 +2705,12 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
       char *hostname = xgethostname ();
       { /* Compute a hash code, like in gnulib/lib/hash-pjw.c.  */
         uint32_t h = 0;
-        const char *p;
-        for (p = hostname; *p; p++)
-          h = (unsigned char) *p + ((h << 9) | (h >> (32 - 9)));
+        if (hostname != NULL)
+          {
+            const char *p;
+            for (p = hostname; *p; p++)
+              h = (unsigned char) *p + ((h << 9) | (h >> (32 - 9)));
+          }
         stream->hostname_hash = h;
       }
       free (hostname);
