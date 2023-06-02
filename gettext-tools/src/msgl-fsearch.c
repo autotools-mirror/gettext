@@ -1,5 +1,5 @@
 /* Fast fuzzy searching among messages.
-   Copyright (C) 2006, 2008, 2011, 2013 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2008, 2011, 2013, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -324,14 +324,14 @@ message_fuzzy_index_alloc (const message_list_ty *mlp,
   /* Shrink memory used by the lists of short messages.  */
   for (l = 0; l <= SHORT_MSG_MAX; l++)
     {
-      message_list_ty *mlp = findex->short_messages[l];
+      message_list_ty *smlp = findex->short_messages[l];
 
-      if (mlp->nitems < mlp->nitems_max)
+      if (smlp->nitems < smlp->nitems_max)
         {
-          mlp->nitems_max = mlp->nitems;
-          mlp->item =
+          smlp->nitems_max = smlp->nitems;
+          smlp->item =
             (message_ty **)
-            xrealloc (mlp->item, mlp->nitems_max * sizeof (message_ty *));
+            xrealloc (smlp->item, smlp->nitems_max * sizeof (message_ty *));
         }
     }
 
