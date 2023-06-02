@@ -1,5 +1,5 @@
 /* Color and styling handling.
-   Copyright (C) 2006-2008, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008, 2019-2020, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -94,7 +94,7 @@ print_color_test ()
       { "magenta", -2, 255,   0, 255 },
       { "yellow",  -2, 255, 255,   0 },
       { "white",   -2, 255, 255, 255 },
-      { "default", COLOR_DEFAULT }
+      { "default", COLOR_DEFAULT, /* unused: */ -1, -1, -1 }
     };
   term_ostream_t stream;
   int i, row, col;
