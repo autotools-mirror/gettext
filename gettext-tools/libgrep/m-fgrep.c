@@ -112,9 +112,13 @@ Fcompile (const char *pattern, size_t pattern_size,
 static char*
 check_multibyte_string (const char *buf, size_t buf_size)
 {
-  char *mb_properties = (char *) malloc (buf_size);
+  char *mb_properties;
   mbstate_t cur_state;
   int i;
+
+  mb_properties = (char *) malloc (buf_size);
+  if (mb_properties == NULL)
+    error (exit_failure, 0, _("memory exhausted"));
 
   memset (&cur_state, 0, sizeof (mbstate_t));
   memset (mb_properties, 0, sizeof (char) * buf_size);
