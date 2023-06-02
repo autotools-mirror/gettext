@@ -1,5 +1,5 @@
 /* Implementation of the bindtextdomain(3) function
-   Copyright (C) 1995-2021 Free Software Foundation, Inc.
+   Copyright (C) 1995-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -39,10 +39,7 @@
 # include "glthread/lock.h"
 #endif
 
-/* Some compilers, like SunOS4 cc, don't have offsetof in <stddef.h>.  */
-#ifndef offsetof
-# define offsetof(type,ident) ((size_t)&(((type*)0)->ident))
-#endif
+#include "flexmember.h"
 
 /* @@ end of prolog @@ */
 
@@ -237,7 +234,9 @@ set_binding_values (const char *domainname,
       /* We have to create a new binding.  */
       size_t len = strlen (domainname) + 1;
       struct binding *new_binding =
-	(struct binding *) malloc (offsetof (struct binding, domainname) + len);
+	(struct binding *)
+	malloc (FLEXNSIZEOF (struct binding, domainname, len));
+
 
       if (__builtin_expect (new_binding == NULL, 0))
 	goto failed;

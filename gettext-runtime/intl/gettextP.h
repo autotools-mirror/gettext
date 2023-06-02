@@ -211,7 +211,7 @@ struct binding
   wchar_t *wdirname;
 #endif
   char *codeset;
-  char domainname[ZERO];
+  char domainname[FLEXIBLE_ARRAY_MEMBER];
 };
 
 /* A counter which is incremented each time some previous translations

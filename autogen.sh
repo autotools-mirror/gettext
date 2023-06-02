@@ -112,6 +112,7 @@ if ! $skip_gnulib; then
     attribute
     bison
     filename
+    flexmember
     havelib
     lib-symbol-visibility
     localcharset
