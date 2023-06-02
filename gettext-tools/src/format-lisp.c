@@ -34,9 +34,8 @@
 #define _(str) gettext (str)
 
 
-/* Assertion macros.  Could be defined to empty for speed.  */
+/* Assertion macro.  Could be defined to empty for speed.  */
 #define ASSERT(expr) if (!(expr)) abort ();
-#define VERIFY_LIST(list) verify_list (list)
 
 
 /* Lisp format strings are described in the Common Lisp HyperSpec,
@@ -181,6 +180,7 @@ verify_list (const struct format_arg_list *list)
   ASSERT (total_repcount == list->repeated.length);
 }
 
+/* Assertion macro.  Could be defined to empty for speed.  */
 #define VERIFY_LIST(list) verify_list (list)
 
 
