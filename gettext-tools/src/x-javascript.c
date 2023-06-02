@@ -56,9 +56,6 @@
 
 #define _(s) gettext(s)
 
-#undef max /* clean up after MSVC's <stdlib.h> */
-#define max(a,b) ((a) > (b) ? (a) : (b))
-
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 /* The JavaScript aka ECMA-Script syntax is defined in ECMA-262
@@ -441,7 +438,7 @@ Please specify the source encoding through --from-code\n"),
     }
 }
 
-/* Supports max (9, UNINAME_MAX + 3) pushback characters.  */
+/* Supports 9 pushback characters.  */
 static void
 phase2_ungetc (int c)
 {
