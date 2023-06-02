@@ -21,6 +21,9 @@
 # include <config.h>
 #endif
 
+/* Specification.  */
+#include "gettextP.h"
+
 #include <stdlib.h>
 
 #if HAVE_CFLOCALECOPYPREFERREDLANGUAGES || HAVE_CFPREFERENCESCOPYAPPVALUE
