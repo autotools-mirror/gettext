@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-1998, 2000-2016, 2018-2022 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2016, 2018-2023 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -340,7 +340,7 @@ main (int argc, char *argv[])
   string_list_ty *file_list;
   char *output_file = NULL;
   const char *language = NULL;
-  extractor_ty extractor = { NULL, NULL, NULL, NULL };
+  extractor_ty extractor = { NULL, NULL, NULL, NULL, NULL, NULL };
   int cnt;
   size_t i;
 
@@ -838,7 +838,7 @@ xgettext cannot work without keywords to look for"));
       /* Temporarily reset the directory list to empty, because file_name
          is an output file and therefore should not be searched for.  */
       void *saved_directory_list = dir_list_save_reset ();
-      extractor_ty po_extractor = { extract_po, NULL, NULL, NULL };
+      extractor_ty po_extractor = { extract_po, NULL, NULL, NULL, NULL, NULL };
 
       extract_from_file (file_name, po_extractor, mdlp);
       if (!is_ascii_msgdomain_list (mdlp))
@@ -2229,7 +2229,7 @@ language_to_extractor (const char *name)
   error (EXIT_FAILURE, 0, _("language '%s' unknown"), name);
   /* NOTREACHED */
   {
-    extractor_ty result = { NULL, NULL, NULL, NULL };
+    extractor_ty result = { NULL, NULL, NULL, NULL, NULL, NULL };
     return result;
   }
 }
