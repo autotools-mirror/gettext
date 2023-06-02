@@ -1,5 +1,5 @@
 /* xgettext Desktop Entry backend.
-   Copyright (C) 2014, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 2014, 2018-2020, 2023 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2014.
 
@@ -43,8 +43,6 @@
 #include "c-ctype.h"
 
 #define _(s) gettext(s)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 /* ====================== Keyword set customization.  ====================== */
 
