@@ -147,7 +147,7 @@ void
 arglist_parser_remember (struct arglist_parser *ap,
                          int argnum, mixed_string_ty *string,
                          flag_context_ty context,
-                         char *file_name, size_t line_number,
+                         const char *file_name, size_t line_number,
                          refcounted_string_list_ty *comment,
                          bool comment_is_utf8)
 {
@@ -207,7 +207,7 @@ void
 arglist_parser_remember_msgctxt (struct arglist_parser *ap,
                                  mixed_string_ty *string,
                                  flag_context_ty context,
-                                 char *file_name, size_t line_number)
+                                 const char *file_name, size_t line_number)
 {
   bool stored_string = false;
   size_t nalternatives = ap->nalternatives;

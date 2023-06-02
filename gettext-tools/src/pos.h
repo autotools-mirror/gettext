@@ -1,5 +1,5 @@
 /* Source file positions.
-   Copyright (C) 1995-1998, 2000-2001, 2021 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2001, 2021, 2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 typedef struct lex_pos_ty lex_pos_ty;
 struct lex_pos_ty
 {
-  char *file_name;
+  const char *file_name;
   size_t line_number;
 };
 
