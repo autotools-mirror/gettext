@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
-## Copyright (C) 2002-2007, 2009-2011, 2013, 2016, 2018-2019, 2021 Free Software Foundation, Inc.
+## Copyright (C) 2002-2007, 2009-2011, 2013, 2016, 2018-2019, 2021, 2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -40,6 +40,9 @@ if WOE32
 #   __udivdi3, __umoddi3).
 DEFS += -D__USE_MINGW_ANSI_STDIO=0
 endif
+
+# Enable more warning options in this directory.
+AM_CFLAGS = @WARN_CFLAGS@
 
 
 # Library include file.

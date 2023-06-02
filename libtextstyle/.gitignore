@@ -284,6 +284,7 @@
 /m4/ltsugar.m4
 /m4/ltversion.m4
 /m4/lt~obsolete.m4
+/m4/more-warnings.m4
 /m4/woe32-dll.m4
 # Dummy ChangeLogs:
 /ChangeLog

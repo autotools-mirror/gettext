@@ -105,6 +105,10 @@ DEFS = \
   -DGETTEXTDATADIR=\"$(pkgdatadir)\" \
   -DPROJECTSDIR=\"$(projectsdir)\" \
   -DEXEEXT=\"@EXEEXT@\" @DEFS@
+
+# Enable more warning options in this directory.
+AM_CFLAGS = @WARN_CFLAGS@
+
 # Ensure that <stdint.h> defines SIZE_MAX in C++ mode, like it does in C mode.
 AM_CXXFLAGS = -D__STDC_LIMIT_MACROS
 

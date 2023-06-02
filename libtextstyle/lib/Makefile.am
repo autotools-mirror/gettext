@@ -1,5 +1,5 @@
 ## Makefile for the lib subdirectory of GNU libtextstyle.
-## Copyright (C) 2009-2022 Free Software Foundation, Inc.
+## Copyright (C) 2009-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -55,6 +55,9 @@ if WOE32
 # to the libgcc_s_sjlj DLL (through the symbols __udivdi3, __umoddi3).
 AM_CPPFLAGS += -D__USE_MINGW_ANSI_STDIO=0
 endif
+
+# Enable more warning options in this directory.
+AM_CFLAGS = @WARN_CFLAGS@
 
 # Rules generated and collected by gnulib-tool.
 include Makefile.gnulib
@@ -227,8 +230,8 @@ config.h: $(BUILT_SOURCES) libtextstyle.sym
 	            sf=`echo "$$f" | sed -e 's,\\.[^.]*$$,,'`.c; \
 	            test -f $$sf || sf=$(srcdir)/$$sf; \
 	            of=`echo "$$f" | sed -e 's,^.*/,,' -e 's,\\.[^.]*$$,,'`.$(OBJEXT); \
-	            echo "$(COMPILE) -c $$sf" 1>&6; \
-	            $(COMPILE) -c $$sf || { rm -f config.h; exit 1; }; \
+	            echo "$(COMPILE) $(GL_CFLAG_INHIBIT_WARNINGS) -c $$sf" 1>&6; \
+	            $(COMPILE) $(GL_CFLAG_INHIBIT_WARNINGS) -c $$sf || { rm -f config.h; exit 1; }; \
 	            sh ./exported.sh $$of 1>&5; \
 	            rm -f $$of `echo "$$of" | sed -e 's,\\.$(OBJEXT)$$,.lo,'`; \
 	            ;; \

@@ -54,6 +54,7 @@ libglib_rpl_la_SOURCES = \
   glib/gstrfuncs.c \
   glib/gstring.c
 libglib_rpl_la_CPPFLAGS = $(AM_CPPFLAGS) $(NO_CXX)
+libglib_rpl_la_CFLAGS = @FOREIGN_WARN_CFLAGS@
 
 BUILT_SOURCES += $(LIBGLIB_H)
 

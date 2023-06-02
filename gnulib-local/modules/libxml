@@ -178,6 +178,10 @@ libxml_rpl_la_SOURCES = \
   libxml/xpath.c \
   libxml/xpointer.c
 libxml_rpl_la_CPPFLAGS = $(AM_CPPFLAGS) $(NO_CXX)
+# We need NO_EXPENSIVE_WARN_CFLAGS, because with gcc 13, the compilation of
+# libxml/parser.c requires 1.9 GB of RAM with -fanalyzer, as opposed to
+# 0.09 GB of RAM with -fno-analyzer.
+libxml_rpl_la_CFLAGS = @FOREIGN_WARN_CFLAGS@ @NO_EXPENSIVE_WARN_CFLAGS@
 
 BUILT_SOURCES += $(LIBXML_H)
 

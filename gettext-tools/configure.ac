@@ -92,6 +92,9 @@ gtpo_EARLY
 
 dnl Check for build configuration.
 
+gt_MORE_WARNINGS
+gl_CC_INHIBIT_WARNINGS
+
 gl_WOE32_DLL
 
 LT_INIT([win32-dll])

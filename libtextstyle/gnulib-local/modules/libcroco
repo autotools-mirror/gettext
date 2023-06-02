@@ -117,6 +117,7 @@ libcroco_rpl_la_SOURCES = \
   libcroco/cr-token.c \
   libcroco/cr-utils.c
 libcroco_rpl_la_CPPFLAGS = $(AM_CPPFLAGS) $(NO_CXX)
+libcroco_rpl_la_CFLAGS = @FOREIGN_WARN_CFLAGS@
 
 if GL_COND_LIBTOOL
 lib_LDFLAGS += $(LTLIBCROCO)

@@ -46,13 +46,16 @@ if WOE32
 AM_CPPFLAGS += -D__USE_MINGW_ANSI_STDIO=0
 endif
 
+# Enable more warning options in this directory.
+AM_CFLAGS = @WARN_CFLAGS@
+
 BISON = @INTLBISON@
 BISONFLAGS = --name-prefix=__gettext
 # Just to shut up Automake "error: Yacc source seen but 'YACC' is undefined".
 YACC = $(BISON) -d
 
 # Tell the ELF linker which symbols to export.
-AM_CFLAGS = @CFLAG_VISIBILITY@
+AM_CFLAGS += @CFLAG_VISIBILITY@
 # Tell the mingw or Cygwin linker which symbols to export.
 if WOE32DLL
 AM_LDFLAGS = -Wl,--export-all-symbols

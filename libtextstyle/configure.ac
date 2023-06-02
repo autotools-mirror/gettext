@@ -1,5 +1,5 @@
 dnl Configuration for the toplevel directory of GNU libtextstyle
-dnl Copyright (C) 2009-2021 Free Software Foundation, Inc.
+dnl Copyright (C) 2009-2023 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -49,6 +49,9 @@ AC_OBJEXT
 AC_EXEEXT
 
 dnl Check for build configuration.
+
+gt_MORE_WARNINGS
+gl_CC_INHIBIT_WARNINGS
 
 gl_WOE32_DLL
 

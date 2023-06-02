@@ -102,6 +102,7 @@ if ! $skip_gnulib; then
     csharpcomp-script
     java
     javacomp-script
+    manywarnings
   '
   $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
     --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER || exit $?
@@ -118,6 +119,7 @@ if ! $skip_gnulib; then
     localcharset
     localename
     lock
+    manywarnings
     relocatable-lib-lgpl
     tsearch
     vasnprintf-posix
@@ -129,6 +131,7 @@ if ! $skip_gnulib; then
   # In gettext-runtime/libasprintf:
   GNULIB_MODULES_LIBASPRINTF='
     alloca
+    manywarnings
     vasnprintf
   '
   $GNULIB_TOOL --dir=gettext-runtime/libasprintf --source-base=gnulib-lib --m4-base=gnulib-m4 --lgpl=2 --libtool --local-dir=gnulib-local --local-symlink \
@@ -289,6 +292,7 @@ if ! $skip_gnulib; then
     java
     javacomp-script
     javaexec-script
+    manywarnings
     stdint
   '
   GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS='

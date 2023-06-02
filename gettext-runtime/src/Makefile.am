@@ -33,6 +33,9 @@ AM_CPPFLAGS = \
   -I../gnulib-lib -I$(srcdir)/../gnulib-lib
 DEFS = -DLOCALEDIR=$(localedir_c_make) @DEFS@
 
+# Enable more warning options in this directory.
+AM_CFLAGS = @WARN_CFLAGS@
+
 # Source dependencies.
 gettext_SOURCES = gettext.c escapes.h
 ngettext_SOURCES = ngettext.c escapes.h

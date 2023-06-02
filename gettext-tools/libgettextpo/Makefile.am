@@ -42,6 +42,9 @@ AM_CPPFLAGS = \
 
 DEFS = -DIN_LIBGETTEXTPO=1 -DOMIT_SETLOCALE_LOCK=1 @DEFS@
 
+# Enable more warning options in this directory.
+AM_CFLAGS = @WARN_CFLAGS@
+
 # libgettextpo contains the public API for PO files.
 libgettextpo_la_SOURCES = \
   gettext-po.c \
@@ -177,7 +180,7 @@ config.h: $(BUILT_SOURCES)
 	          sf=`echo "$$f" | sed -e 's,\\.[^.]*$$,,'`.c; \
 	          test -f $$sf || sf=$(srcdir)/$$sf; \
 	          of=`echo "$$f" | sed -e 's,^.*/,,' -e 's,\\.[^.]*$$,,'`.$(OBJEXT); \
-	          $(COMPILE) $(DEFS) -c $$sf || { rm -f config.h; exit 1; }; \
+	          $(COMPILE) $(DEFS) $(GL_CFLAG_INHIBIT_WARNINGS) -c $$sf || { rm -f config.h; exit 1; }; \
 	          sh ./exported.sh $$of 1>&5; \
 	          rm -f $$of `echo "$$of" | sed -e 's,\\.$(OBJEXT)$$,.lo,'`; \
 	          ;; \

@@ -1,5 +1,5 @@
 dnl Configuration for the GNU libasprintf library
-dnl Copyright (C) 2002-2012, 2016, 2018-2021 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2012, 2016, 2018-2023 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -42,6 +42,8 @@ dnl Early checks, assembled by gnulib.
 gl_EARLY
 
 dnl Check for build configuration.
+
+gt_MORE_WARNINGS
 
 gl_WOE32_DLL
 

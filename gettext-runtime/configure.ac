@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-2010, 2012-2015, 2018-2022 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2010, 2012-2015, 2018-2023 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -74,6 +74,8 @@ gl_EARLY
 AM_PROG_CC_C_O
 
 dnl Check for build configuration.
+
+gt_MORE_WARNINGS
 
 gl_WOE32_DLL
 

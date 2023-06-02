@@ -6,7 +6,7 @@
 #
 # This script requires autoconf-2.64..2.71 and automake-1.11..1.16 in the PATH.
 
-# Copyright (C) 2003-2022 Free Software Foundation, Inc.
+# Copyright (C) 2003-2023 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -78,6 +78,7 @@ if test $skip_gnulib = false; then
     filename
     isatty
     largefile
+    manywarnings
     vasprintf-posix
     xalloc
     xconcat-filename
@@ -108,6 +109,7 @@ cp -p ../INSTALL.windows .
 mkdir -p m4
 cp -p ../m4/libtool.m4 m4/
 cp -p ../m4/lt*.m4 m4/
+cp -p ../m4/more-warnings.m4 m4/
 cp -p ../m4/woe32-dll.m4 m4/
 cp -p ../build-aux/ltmain.sh build-aux/
 cp -p ../build-aux/texi2html build-aux/
