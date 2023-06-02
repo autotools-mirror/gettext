@@ -121,7 +121,9 @@ has_significant_format_p (const enum is_format is_format[NFORMATS])
 char *
 make_range_description_string (struct argument_range range)
 {
-  return xasprintf ("range: %d..%d", range.min, range.max);
+  char *result = xasprintf ("range: %d..%d", range.min, range.max);
+  assume (result != NULL);
+  return result;
 }
 
 
