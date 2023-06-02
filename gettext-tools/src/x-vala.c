@@ -388,7 +388,6 @@ free_token (token_ty *tp)
 
 /* Return value of phase7_getc when EOF is reached.  */
 #define P7_EOF (-1)
-#define P7_STRING_END (-2)
 
 /* Replace escape sequences within character strings with their single
    character equivalents.  */
@@ -416,6 +415,9 @@ phase7_getc ()
 
   /* Use phase 1, because phase 2 elides comments.  */
   c = phase1_getc ();
+
+  if (c == EOF)
+    return P7_EOF;
 
   /* Return a magic newline indicator, so that we can distinguish
      between the user requesting a newline in the string (e.g. using
@@ -839,7 +841,7 @@ phase3_get (token_ty *tp)
                   phase7_ungetc ('\n');
                   break;
                 }
-              if (c == EOF || c == P7_QUOTE)
+              if (c == P7_EOF || c == P7_QUOTE)
                 break;
             }
           tp->type = last_token_type = token_type_character_constant;
@@ -940,7 +942,7 @@ phase3_get (token_ty *tp)
                     }
                   if (c == P7_QUOTES)
                     break;
-                  if (c == EOF)
+                  if (c == P7_EOF)
                     break;
                   if (c == P7_QUOTE)
                     c = '\'';
