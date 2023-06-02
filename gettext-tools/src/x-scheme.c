@@ -692,10 +692,10 @@ read_object (struct object *op, flag_context_ty outer_context)
     }
   for (;;)
     {
-      int c = do_getc ();
+      int ch = do_getc ();
       bool seen_underscore_prefix = false;
 
-      switch (c)
+      switch (ch)
         {
         case EOF:
           op->type = t_eof;
@@ -720,7 +720,7 @@ read_object (struct object *op, flag_context_ty outer_context)
             comment_start ();
             for (;;)
               {
-                c = do_getc ();
+                int c = do_getc ();
                 if (c == EOF || c == '\n')
                   break;
                 if (c != ';')
@@ -871,18 +871,18 @@ read_object (struct object *op, flag_context_ty outer_context)
         case '#':
           /* Dispatch macro handling.  */
           {
-            c = do_getc ();
-            if (c == EOF)
+            int dmc = do_getc ();
+            if (dmc == EOF)
               /* Invalid input.  Be tolerant, no error message.  */
               {
                 op->type = t_other;
                 return;
               }
 
-            switch (c)
+            switch (dmc)
               {
               case '(': /* Vector */
-                do_ungetc (c);
+                do_ungetc (dmc);
                 {
                   struct object inner;
                   ++nesting_depth;
@@ -913,7 +913,7 @@ read_object (struct object *op, flag_context_ty outer_context)
               case 'y':
                 {
                   struct token token;
-                  do_ungetc (c);
+                  do_ungetc (dmc);
                   read_token (&token, '#');
                   if ((token.charcount == 2
                        && (token.chars[1] == 'a' || token.chars[1] == 'c'
@@ -939,7 +939,7 @@ read_object (struct object *op, flag_context_ty outer_context)
                                   && token.chars[2] == 'u'
                                   && token.chars[3] == '8'))))
                     {
-                      c = do_getc ();
+                      int c = do_getc ();
                       if (c != EOF)
                         do_ungetc (c);
                       if (c == '(')
@@ -994,7 +994,7 @@ read_object (struct object *op, flag_context_ty outer_context)
               case 'I': case 'i':
                 {
                   struct token token;
-                  do_ungetc (c);
+                  do_ungetc (dmc);
                   read_token (&token, '#');
                   if (is_number (&token))
                     {
@@ -1009,7 +1009,7 @@ read_object (struct object *op, flag_context_ty outer_context)
                       if (token.charcount == 2
                           && (token.chars[1] == 'e' || token.chars[1] == 'i'))
                         {
-                          c = do_getc ();
+                          int c = do_getc ();
                           if (c != EOF)
                             do_ungetc (c);
                           if (c == '(')
@@ -1161,7 +1161,7 @@ read_object (struct object *op, flag_context_ty outer_context)
                 /* Bit vector.  */
                 {
                   struct token token;
-                  read_token (&token, c);
+                  read_token (&token, dmc);
                   /* The token should consists only of '0' and '1', except
                      for the initial '*'.  But be tolerant.  */
                   free_token (&token);
@@ -1179,7 +1179,7 @@ read_object (struct object *op, flag_context_ty outer_context)
 
                   for (;;)
                     {
-                      c = do_getc ();
+                      int c = do_getc ();
 
                       if (c == EOF)
                         break;
@@ -1211,7 +1211,7 @@ read_object (struct object *op, flag_context_ty outer_context)
                 /* Character.  */
                 {
                   struct token token;
-                  c = do_getc ();
+                  int c = do_getc ();
                   if (c != EOF)
                     {
                       read_token (&token, c);
@@ -1242,11 +1242,14 @@ read_object (struct object *op, flag_context_ty outer_context)
                      n ::= DIGIT+
                      x ::= {'a'|'b'|'c'|'e'|'i'|'s'|'u'}
                  */
-                do
-                  c = do_getc ();
-                while (c >= '0' && c <= '9');
-                /* c should be one of {'a'|'b'|'c'|'e'|'i'|'s'|'u'}.
-                   But be tolerant.  */
+                {
+                  int c;
+                  do
+                    c = do_getc ();
+                  while (c >= '0' && c <= '9');
+                  /* c should be one of {'a'|'b'|'c'|'e'|'i'|'s'|'u'}.
+                     But be tolerant.  */
+                }
                 FALLTHROUGH;
               case '\'': /* boot-9.scm */
               case '.': /* boot-9.scm */
@@ -1373,7 +1376,7 @@ read_object (struct object *op, flag_context_ty outer_context)
         case '+': case '-': case '.':
           /* Read a number or symbol token.  */
           op->token = XMALLOC (struct token);
-          read_token (op->token, c);
+          read_token (op->token, ch);
           if (op->token->charcount == 1 && op->token->chars[0] == '.')
             {
               free_token (op->token);
@@ -1399,7 +1402,7 @@ read_object (struct object *op, flag_context_ty outer_context)
         default:
           /* Read a symbol token.  */
           op->token = XMALLOC (struct token);
-          read_token (op->token, c);
+          read_token (op->token, ch);
           op->type = t_symbol;
           last_non_comment_line = line_number;
           return;

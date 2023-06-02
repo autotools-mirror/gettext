@@ -518,19 +518,19 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
             {
               /* Add best_cp->xcomments to mp->comment_dot, unless already
                  present.  */
-              size_t i;
+              size_t j;
 
-              for (i = 0; i < best_cp->xcomments.nitems; i++)
+              for (j = 0; j < best_cp->xcomments.nitems; j++)
                 {
-                  const char *xcomment = best_cp->xcomments.item[i];
+                  const char *xcomment = best_cp->xcomments.item[j];
                   bool found = false;
 
                   if (mp != NULL && mp->comment_dot != NULL)
                     {
-                      size_t j;
+                      size_t k;
 
-                      for (j = 0; j < mp->comment_dot->nitems; j++)
-                        if (strcmp (xcomment, mp->comment_dot->item[j]) == 0)
+                      for (k = 0; k < mp->comment_dot->nitems; k++)
+                        if (strcmp (xcomment, mp->comment_dot->item[k]) == 0)
                           {
                             found = true;
                             break;

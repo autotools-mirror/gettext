@@ -608,11 +608,11 @@ read_object (struct object *op, flag_context_ty outer_context)
     }
   for (;;)
     {
-      int c;
+      int ch;
 
-      c = do_getc ();
+      ch = do_getc ();
 
-      switch (c)
+      switch (ch)
         {
         case EOF:
           op->type = t_eof;
@@ -871,57 +871,159 @@ read_object (struct object *op, flag_context_ty outer_context)
           }
 
         case '?':
-          c = do_getc ();
-          if (c == EOF)
-            /* Invalid input.  Be tolerant, no error message.  */
-            ;
-          else if (c == '\\')
-            {
-              c = do_getc ();
-              if (c == EOF)
-                /* Invalid input.  Be tolerant, no error message.  */
-                ;
-              else
-                {
-                  c = do_getc_escaped (c);
-                  if (c == EOF)
-                    /* Invalid input.  Be tolerant, no error message.  */
-                    ;
-                }
-            }
-          op->type = t_other;
-          last_non_comment_line = line_number;
-          return;
+          {
+            int c = do_getc ();
+            if (c == EOF)
+              /* Invalid input.  Be tolerant, no error message.  */
+              ;
+            else if (c == '\\')
+              {
+                c = do_getc ();
+                if (c == EOF)
+                  /* Invalid input.  Be tolerant, no error message.  */
+                  ;
+                else
+                  {
+                    c = do_getc_escaped (c);
+                    if (c == EOF)
+                      /* Invalid input.  Be tolerant, no error message.  */
+                      ;
+                  }
+              }
+            op->type = t_other;
+            last_non_comment_line = line_number;
+            return;
+          }
 
         case '#':
           /* Dispatch macro handling.  */
-          c = do_getc ();
-          if (c == EOF)
-            /* Invalid input.  Be tolerant, no error message.  */
-            {
-              op->type = t_other;
-              return;
-            }
+          {
+            int dmc = do_getc ();
+            if (dmc == EOF)
+              /* Invalid input.  Be tolerant, no error message.  */
+              {
+                op->type = t_other;
+                return;
+              }
 
-          switch (c)
-            {
-            case '!':
-              if (ftell (fp) == 2)
-                /* Skip comment until !# */
+            switch (dmc)
+              {
+              case '!':
+                if (ftell (fp) == 2)
+                  /* Skip comment until !# */
+                  {
+                    int c;
+
+                    c = do_getc ();
+                    for (;;)
+                      {
+                        if (c == EOF)
+                          break;
+                        if (c == '!')
+                          {
+                            c = do_getc ();
+                            if (c == EOF || c == '#')
+                              break;
+                          }
+                        else
+                          c = do_getc ();
+                      }
+                    if (c == EOF)
+                      {
+                        /* EOF not allowed here.  But be tolerant.  */
+                        op->type = t_eof;
+                        return;
+                      }
+                    continue;
+                  }
+                FALLTHROUGH;
+              case '\'':
+              case ':':
                 {
+                  struct object inner;
+                  ++nesting_depth;
+                  read_object (&inner, null_context);
+                  nesting_depth--;
+                  /* Dots and EOF are not allowed here.
+                     But be tolerant.  */
+                  free_object (&inner);
+                  op->type = t_other;
+                  last_non_comment_line = line_number;
+                  return;
+                }
+
+              case '[':
+              case '(':
+                {
+                  struct object inner;
+                  do_ungetc (dmc);
+                  ++nesting_depth;
+                  read_object (&inner, null_context);
+                  nesting_depth--;
+                  /* Dots and EOF are not allowed here.
+                     But be tolerant.  */
+                  free_object (&inner);
+                  op->type = t_other;
+                  last_non_comment_line = line_number;
+                  return;
+                }
+
+              case '|':
+                {
+                  int depth = 0;
+                  int c;
+
+                  comment_start ();
                   c = do_getc ();
                   for (;;)
                     {
                       if (c == EOF)
                         break;
-                      if (c == '!')
+                      if (c == '|')
                         {
                           c = do_getc ();
-                          if (c == EOF || c == '#')
+                          if (c == EOF)
                             break;
+                          if (c == '#')
+                            {
+                              if (depth == 0)
+                                {
+                                  comment_line_end (0);
+                                  break;
+                                }
+                              depth--;
+                              comment_add ('|');
+                              comment_add ('#');
+                              c = do_getc ();
+                            }
+                          else
+                            comment_add ('|');
+                        }
+                      else if (c == '#')
+                        {
+                          c = do_getc ();
+                          if (c == EOF)
+                            break;
+                          comment_add ('#');
+                          if (c == '|')
+                            {
+                              depth++;
+                              comment_add ('|');
+                              c = do_getc ();
+                            }
                         }
                       else
-                        c = do_getc ();
+                        {
+                          /* We skip all leading white space.  */
+                          if (!(buflen == 0 && (c == ' ' || c == '\t')))
+                            comment_add (c);
+                          if (c == '\n')
+                            {
+                              comment_line_end (1);
+                              comment_start ();
+                            }
+                          c = do_getc ();
+                        }
                     }
                   if (c == EOF)
                     {
@@ -929,149 +1031,57 @@ read_object (struct object *op, flag_context_ty outer_context)
                       op->type = t_eof;
                       return;
                     }
+                  last_comment_line = line_number;
                   continue;
                 }
-              FALLTHROUGH;
-            case '\'':
-            case ':':
-              {
-                struct object inner;
-                ++nesting_depth;
-                read_object (&inner, null_context);
-                nesting_depth--;
-                /* Dots and EOF are not allowed here.
-                   But be tolerant.  */
-                free_object (&inner);
+
+              case '\\':
+                {
+                  struct token token;
+                  int first = '\\';
+                  read_token (&token, &first);
+                  free_token (&token);
+                  op->type = t_other;
+                  last_non_comment_line = line_number;
+                  return;
+                }
+
+              case 'T': case 't':
+              case 'F': case 'f':
                 op->type = t_other;
                 last_non_comment_line = line_number;
                 return;
-              }
 
-            case '[':
-            case '(':
-              {
-                struct object inner;
-                do_ungetc (c);
-                ++nesting_depth;
-                read_object (&inner, null_context);
-                nesting_depth--;
-                /* Dots and EOF are not allowed here.
-                   But be tolerant.  */
-                free_object (&inner);
-                op->type = t_other;
-                last_non_comment_line = line_number;
-                return;
-              }
-
-            case '|':
-              {
-                int depth = 0;
-
-                comment_start ();
-                c = do_getc ();
-                for (;;)
+              case 'B': case 'b':
+              case 'O': case 'o':
+              case 'D': case 'd':
+              case 'X': case 'x':
+              case 'E': case 'e':
+              case 'I': case 'i':
+                {
+                  struct token token;
+                  do_ungetc (dmc);
                   {
-                    if (c == EOF)
-                      break;
-                    if (c == '|')
-                      {
-                        c = do_getc ();
-                        if (c == EOF)
-                          break;
-                        if (c == '#')
-                          {
-                            if (depth == 0)
-                              {
-                                comment_line_end (0);
-                                break;
-                              }
-                            depth--;
-                            comment_add ('|');
-                            comment_add ('#');
-                            c = do_getc ();
-                          }
-                        else
-                          comment_add ('|');
-                      }
-                    else if (c == '#')
-                      {
-                        c = do_getc ();
-                        if (c == EOF)
-                          break;
-                        comment_add ('#');
-                        if (c == '|')
-                          {
-                            depth++;
-                            comment_add ('|');
-                            c = do_getc ();
-                          }
-                      }
-                    else
-                      {
-                        /* We skip all leading white space.  */
-                        if (!(buflen == 0 && (c == ' ' || c == '\t')))
-                          comment_add (c);
-                        if (c == '\n')
-                          {
-                            comment_line_end (1);
-                            comment_start ();
-                          }
-                        c = do_getc ();
-                      }
+                    int c;
+                    c = '#';
+                    read_token (&token, &c);
+                    free_token (&token);
                   }
-                if (c == EOF)
-                  {
-                    /* EOF not allowed here.  But be tolerant.  */
-                    op->type = t_eof;
-                    return;
-                  }
-                last_comment_line = line_number;
-                continue;
-              }
+                  op->type = t_other;
+                  last_non_comment_line = line_number;
+                  return;
+                }
 
-            case '\\':
-              {
-                struct token token;
-                int first = '\\';
-                read_token (&token, &first);
-                free_token (&token);
+              default:
+                /* Invalid input.  Be tolerant, no error message.  */
                 op->type = t_other;
                 last_non_comment_line = line_number;
                 return;
               }
 
-            case 'T': case 't':
-            case 'F': case 'f':
-              op->type = t_other;
-              last_non_comment_line = line_number;
-              return;
-
-            case 'B': case 'b':
-            case 'O': case 'o':
-            case 'D': case 'd':
-            case 'X': case 'x':
-            case 'E': case 'e':
-            case 'I': case 'i':
-              {
-                struct token token;
-                do_ungetc (c);
-                c = '#';
-                read_token (&token, &c);
-                free_token (&token);
-                op->type = t_other;
-                last_non_comment_line = line_number;
-                return;
-              }
-
-            default:
-              /* Invalid input.  Be tolerant, no error message.  */
-              op->type = t_other;
-              last_non_comment_line = line_number;
-              return;
-            }
-
-          /*NOTREACHED*/
-          abort ();
+            /*NOTREACHED*/
+            abort ();
+          }
 
         default:
           /* Read a token.  */
@@ -1079,7 +1089,7 @@ read_object (struct object *op, flag_context_ty outer_context)
             bool symbol;
 
             op->token = XMALLOC (struct token);
-            symbol = read_token (op->token, &c);
+            symbol = read_token (op->token, &ch);
             if (op->token->charcount == 1 && op->token->chars[0] == '.')
               {
                 free_token (op->token);
@@ -1097,27 +1107,29 @@ read_object (struct object *op, flag_context_ty outer_context)
                 return;
               }
             /* Distinguish between "foo" and "foo#bar".  */
-            c = do_getc ();
-            if (c == '#')
-              {
-                struct token second_token;
+            {
+              int c = do_getc ();
+              if (c == '#')
+                {
+                  struct token second_token;
 
-                free_token (op->token);
-                free (op->token);
-                read_token (&second_token, NULL);
-                free_token (&second_token);
-                op->type = t_other;
-                last_non_comment_line = line_number;
-                return;
-              }
-            else
-              {
-                if (c != EOF)
-                  do_ungetc (c);
-                op->type = t_symbol;
-                last_non_comment_line = line_number;
-                return;
-              }
+                  free_token (op->token);
+                  free (op->token);
+                  read_token (&second_token, NULL);
+                  free_token (&second_token);
+                  op->type = t_other;
+                  last_non_comment_line = line_number;
+                  return;
+                }
+              else
+                {
+                  if (c != EOF)
+                    do_ungetc (c);
+                  op->type = t_symbol;
+                  last_non_comment_line = line_number;
+                  return;
+                }
+            }
           }
         }
     }

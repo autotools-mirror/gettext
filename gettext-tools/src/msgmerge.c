@@ -1,6 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012, 2014-2016, 2018-2022 Free Software
-   Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2010, 2012, 2014-2016, 2018-2023 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software: you can redistribute it and/or modify
@@ -970,7 +969,7 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
   const char *prev_msgid;
   const char *prev_msgid_plural;
   message_ty *result;
-  size_t j, i;
+  size_t j;
 
   /* Take the msgid from the reference.  When fuzzy matches are made,
      the definition will not be unique, but the reference will be -
@@ -1020,7 +1019,6 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
       struct obstack pool;
       const char *cp;
       char *newp;
-      size_t len, cnt;
 
       /* Clear all fields.  */
       memset (header_fields, '\0', sizeof (header_fields));
@@ -1033,6 +1031,8 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
         {
           const char *endp = strchr (cp, '\n');
           int terminated = endp != NULL;
+          size_t len;
+          size_t cnt;
 
           if (!terminated)
             {
@@ -1251,14 +1251,19 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
       }
 
       /* Concatenate all the various fields.  */
-      len = 0;
-      for (cnt = 0; cnt < UNKNOWN; ++cnt)
-        if (header_fields[cnt].string != NULL)
-          len += known_fields[cnt].len + header_fields[cnt].len;
-      len += header_fields[UNKNOWN].len;
+      {
+        size_t len;
+        size_t cnt;
 
-      cp = newp = XNMALLOC (len + 1, char);
-      newp[len] = '\0';
+        len = 0;
+        for (cnt = 0; cnt < UNKNOWN; ++cnt)
+          if (header_fields[cnt].string != NULL)
+            len += known_fields[cnt].len + header_fields[cnt].len;
+        len += header_fields[UNKNOWN].len;
+
+        cp = newp = XNMALLOC (len + 1, char);
+        newp[len] = '\0';
+      }
 
 #define IF_FILLED(idx)                                                        \
       if (header_fields[idx].string)                                          \
@@ -1340,26 +1345,30 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
           : def->msgid_plural != NULL))
     result->is_fuzzy = true;
 
-  for (i = 0; i < NFORMATS; i++)
-    {
-      result->is_format[i] = ref->is_format[i];
+  {
+    size_t i;
 
-      /* If the reference message is marked as being a format specifier,
-         but the definition message is not, we check if the resulting
-         message would pass "msgfmt -c".  If yes, then all is fine.  If
-         not, we add a fuzzy marker, because
-         1. the message needs the translator's attention,
-         2. msgmerge must not transform a PO file which passes "msgfmt -c"
-            into a PO file which doesn't.  */
-      if (!result->is_fuzzy
-          && possible_format_p (ref->is_format[i])
-          && !possible_format_p (def->is_format[i])
-          && check_msgid_msgstr_format_i (ref->msgid, ref->msgid_plural,
-                                          msgstr, msgstr_len, i, ref->range,
-                                          distribution, silent_error_logger)
-             > 0)
-        result->is_fuzzy = true;
-    }
+    for (i = 0; i < NFORMATS; i++)
+      {
+        result->is_format[i] = ref->is_format[i];
+
+        /* If the reference message is marked as being a format specifier,
+           but the definition message is not, we check if the resulting
+           message would pass "msgfmt -c".  If yes, then all is fine.  If
+           not, we add a fuzzy marker, because
+           1. the message needs the translator's attention,
+           2. msgmerge must not transform a PO file which passes "msgfmt -c"
+              into a PO file which doesn't.  */
+        if (!result->is_fuzzy
+            && possible_format_p (ref->is_format[i])
+            && !possible_format_p (def->is_format[i])
+            && check_msgid_msgstr_format_i (ref->msgid, ref->msgid_plural,
+                                            msgstr, msgstr_len, i, ref->range,
+                                            distribution, silent_error_logger)
+               > 0)
+          result->is_fuzzy = true;
+      }
+  }
 
   result->range = ref->range;
   /* If the definition message was assuming a certain range, but the reference
@@ -1377,8 +1386,11 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
 
   result->do_wrap = ref->do_wrap;
 
-  for (i = 0; i < NSYNTAXCHECKS; i++)
-    result->do_syntax_check[i] = ref->do_syntax_check[i];
+  {
+    size_t i;
+    for (i = 0; i < NSYNTAXCHECKS; i++)
+      result->do_syntax_check[i] = ref->do_syntax_check[i];
+  }
 
   /* Insert previous msgid, commented out with "#|".
      Do so only when --previous is specified, for backward compatibility.
@@ -1438,211 +1450,216 @@ match_domain (const char *fn1, const char *fn2,
               message_list_ty *resultmlp,
               struct statistics *stats, unsigned int *processed)
 {
-  message_ty *header_entry;
-  unsigned long int nplurals;
-  const struct expression *plural_expr;
-  char *untranslated_plural_msgstr;
-  struct plural_distribution distribution;
-  struct search_result { message_ty *found; bool fuzzy; } *search_results;
-  size_t j;
-
-  header_entry =
-    message_list_search (definitions_current_list (definitions), NULL, "");
-  extract_plural_expression (header_entry ? header_entry->msgstr : NULL,
-                             &plural_expr, &nplurals);
-  untranslated_plural_msgstr = XNMALLOC (nplurals, char);
-  memset (untranslated_plural_msgstr, '\0', nplurals);
-
-  /* Determine the plural distribution of the plural_expr formula.  */
   {
-    /* Disable error output temporarily.  */
-    void (*old_po_xerror) (int, const struct message_ty *, const char *, size_t,
-                           size_t, int, const char *)
-      = po_xerror;
-    po_xerror = silent_xerror;
+    unsigned long int nplurals;
+    char *untranslated_plural_msgstr;
+    struct plural_distribution distribution;
+    struct search_result { message_ty *found; bool fuzzy; } *search_results;
+    size_t j;
 
-    if (check_plural_eval (plural_expr, nplurals, header_entry,
-                           &distribution) > 0)
-      {
-        distribution.expr = NULL;
-        distribution.often = NULL;
-        distribution.often_length = 0;
-        distribution.histogram = NULL;
-      }
-
-    po_xerror = old_po_xerror;
-  }
-
-  /* Most of the time is spent in definitions_search_fuzzy.
-     Perform it in a separate loop that can be parallelized by an OpenMP
-     capable compiler.  */
-  search_results = XNMALLOC (refmlp->nitems, struct search_result);
-  {
-    long int nn = refmlp->nitems;
-    long int jj;
-
-    /* Tell the OpenMP capable compiler to distribute this loop across
-       several threads.  The schedule is dynamic, because for some messages
-       the loop body can be executed very quickly, whereas for others it takes
-       a long time.
-       Note: The Sun Workshop 6.2 C compiler does not allow a space between
-       '#' and 'pragma'.  */
-    #ifdef _OPENMP
-     #pragma omp parallel for schedule(dynamic)
-    #endif
-    for (jj = 0; jj < nn; jj++)
-      {
-        message_ty *refmsg = refmlp->item[jj];
-        message_ty *defmsg;
-
-        /* Because merging can take a while we print something to signal
-           we are not dead.  */
-        if (!quiet && verbosity_level <= 1 && *processed % DOT_FREQUENCY == 0)
-          fputc ('.', stderr);
-        #ifdef _OPENMP
-         #pragma omp atomic
-        #endif
-        (*processed)++;
-
-        /* See if it is in the other file.  */
-        defmsg =
-          definitions_search (definitions, refmsg->msgctxt, refmsg->msgid);
-        if (defmsg != NULL)
-          {
-            search_results[jj].found = defmsg;
-            search_results[jj].fuzzy = false;
-          }
-        else if (!is_header (refmsg)
-                 /* If the message was not defined at all, try to find a very
-                    similar message, it could be a typo, or the suggestion may
-                    help.  */
-                 && use_fuzzy_matching
-                 && ((defmsg =
-                        definitions_search_fuzzy (definitions,
-                                                  refmsg->msgctxt,
-                                                  refmsg->msgid)) != NULL))
-          {
-            search_results[jj].found = defmsg;
-            search_results[jj].fuzzy = true;
-          }
-        else
-          search_results[jj].found = NULL;
-      }
-  }
-
-  for (j = 0; j < refmlp->nitems; j++)
     {
-      message_ty *refmsg = refmlp->item[j];
+      message_ty *header_entry;
+      const struct expression *plural_expr;
 
-      /* See if it is in the other file.
-         This used definitions_search.  */
-      if (search_results[j].found != NULL && !search_results[j].fuzzy)
+      header_entry =
+        message_list_search (definitions_current_list (definitions), NULL, "");
+      extract_plural_expression (header_entry ? header_entry->msgstr : NULL,
+                                 &plural_expr, &nplurals);
+      untranslated_plural_msgstr = XNMALLOC (nplurals, char);
+      memset (untranslated_plural_msgstr, '\0', nplurals);
+
+      /* Determine the plural distribution of the plural_expr formula.  */
+      {
+        /* Disable error output temporarily.  */
+        void (*old_po_xerror) (int, const struct message_ty *, const char *, size_t,
+                               size_t, int, const char *)
+          = po_xerror;
+        po_xerror = silent_xerror;
+
+        if (check_plural_eval (plural_expr, nplurals, header_entry,
+                               &distribution) > 0)
+          {
+            distribution.expr = NULL;
+            distribution.often = NULL;
+            distribution.often_length = 0;
+            distribution.histogram = NULL;
+          }
+
+        po_xerror = old_po_xerror;
+      }
+    }
+
+    /* Most of the time is spent in definitions_search_fuzzy.
+       Perform it in a separate loop that can be parallelized by an OpenMP
+       capable compiler.  */
+    search_results = XNMALLOC (refmlp->nitems, struct search_result);
+    {
+      long int nn = refmlp->nitems;
+      long int jj;
+
+      /* Tell the OpenMP capable compiler to distribute this loop across
+         several threads.  The schedule is dynamic, because for some messages
+         the loop body can be executed very quickly, whereas for others it takes
+         a long time.
+         Note: The Sun Workshop 6.2 C compiler does not allow a space between
+         '#' and 'pragma'.  */
+      #ifdef _OPENMP
+       #pragma omp parallel for schedule(dynamic)
+      #endif
+      for (jj = 0; jj < nn; jj++)
         {
-          message_ty *defmsg = search_results[j].found;
-          /* Merge the reference with the definition: take the #. and
-             #: comments from the reference, take the # comments from
-             the definition, take the msgstr from the definition.  Add
-             this merged entry to the output message list.  */
-          message_ty *mp =
-            message_merge (defmsg, refmsg, false, &distribution);
+          message_ty *refmsg = refmlp->item[jj];
+          message_ty *defmsg;
 
-          /* When producing output for msgfmt, omit messages that are
-             untranslated or fuzzy (except the header entry).  */
-          if (!(for_msgfmt
-                && (mp->msgstr[0] == '\0' /* untranslated? */
-                    || (mp->is_fuzzy && !is_header (mp))))) /* fuzzy? */
+          /* Because merging can take a while we print something to signal
+             we are not dead.  */
+          if (!quiet && verbosity_level <= 1 && *processed % DOT_FREQUENCY == 0)
+            fputc ('.', stderr);
+          #ifdef _OPENMP
+           #pragma omp atomic
+          #endif
+          (*processed)++;
+
+          /* See if it is in the other file.  */
+          defmsg =
+            definitions_search (definitions, refmsg->msgctxt, refmsg->msgid);
+          if (defmsg != NULL)
             {
-              message_list_append (resultmlp, mp);
-
-              /* Remember that this message has been used, when we scan
-                 later to see if anything was omitted.  */
-              defmsg->used = 1;
+              search_results[jj].found = defmsg;
+              search_results[jj].fuzzy = false;
             }
-
-          stats->merged++;
-        }
-      else if (!is_header (refmsg))
-        {
-          /* If the message was not defined at all, try to find a very
-             similar message, it could be a typo, or the suggestion may
-             help.  This search assumed use_fuzzy_matching and used
-             definitions_search_fuzzy.  */
-          if (search_results[j].found != NULL && search_results[j].fuzzy)
+          else if (!is_header (refmsg)
+                   /* If the message was not defined at all, try to find a very
+                      similar message, it could be a typo, or the suggestion may
+                      help.  */
+                   && use_fuzzy_matching
+                   && ((defmsg =
+                          definitions_search_fuzzy (definitions,
+                                                    refmsg->msgctxt,
+                                                    refmsg->msgid)) != NULL))
             {
-              message_ty *defmsg = search_results[j].found;
-              message_ty *mp;
-
-              if (verbosity_level > 1)
-                {
-                  po_gram_error_at_line (&refmsg->pos,
-                                         _("this message is used but not defined..."));
-                  error_message_count--;
-                  po_gram_error_at_line (&defmsg->pos,
-                                         _("...but this definition is similar"));
-                }
-
-              /* Merge the reference with the definition: take the #. and
-                 #: comments from the reference, take the # comments from
-                 the definition, take the msgstr from the definition.  Add
-                 this merged entry to the output message list.  */
-              mp = message_merge (defmsg, refmsg, true, &distribution);
-
-              message_list_append (resultmlp, mp);
-
-              /* Remember that this message has been used, when we scan
-                 later to see if anything was omitted.  */
-              defmsg->used = 1;
-
-              stats->fuzzied++;
-              if (!quiet && verbosity_level <= 1)
-                /* Always print a dot if we handled a fuzzy match.  */
-                fputc ('.', stderr);
+              search_results[jj].found = defmsg;
+              search_results[jj].fuzzy = true;
             }
           else
-            {
-              message_ty *mp;
-              bool is_untranslated;
-              const char *p;
-              const char *pend;
-
-              if (verbosity_level > 1)
-                po_gram_error_at_line (&refmsg->pos,
-                                       _("this message is used but not defined in %s"),
-                                       fn1);
-
-              mp = message_copy (refmsg);
-
-              /* Test if mp is untranslated.  (It most likely is.)  */
-              is_untranslated = true;
-              for (p = mp->msgstr, pend = p + mp->msgstr_len; p < pend; p++)
-                if (*p != '\0')
-                  {
-                    is_untranslated = false;
-                    break;
-                  }
-
-              if (mp->msgid_plural != NULL && is_untranslated)
-                {
-                  /* Change mp->msgstr_len consecutive empty strings into
-                     nplurals consecutive empty strings.  */
-                  if (nplurals > mp->msgstr_len)
-                    mp->msgstr = untranslated_plural_msgstr;
-                  mp->msgstr_len = nplurals;
-                }
-
-              /* When producing output for msgfmt, omit messages that are
-                 untranslated or fuzzy (except the header entry).  */
-              if (!(for_msgfmt && (is_untranslated || mp->is_fuzzy)))
-                {
-                  message_list_append (resultmlp, mp);
-                }
-
-              stats->missing++;
-            }
+            search_results[jj].found = NULL;
         }
     }
 
-  free (search_results);
+    for (j = 0; j < refmlp->nitems; j++)
+      {
+        message_ty *refmsg = refmlp->item[j];
+
+        /* See if it is in the other file.
+           This used definitions_search.  */
+        if (search_results[j].found != NULL && !search_results[j].fuzzy)
+          {
+            message_ty *defmsg = search_results[j].found;
+            /* Merge the reference with the definition: take the #. and
+               #: comments from the reference, take the # comments from
+               the definition, take the msgstr from the definition.  Add
+               this merged entry to the output message list.  */
+            message_ty *mp =
+              message_merge (defmsg, refmsg, false, &distribution);
+
+            /* When producing output for msgfmt, omit messages that are
+               untranslated or fuzzy (except the header entry).  */
+            if (!(for_msgfmt
+                  && (mp->msgstr[0] == '\0' /* untranslated? */
+                      || (mp->is_fuzzy && !is_header (mp))))) /* fuzzy? */
+              {
+                message_list_append (resultmlp, mp);
+
+                /* Remember that this message has been used, when we scan
+                   later to see if anything was omitted.  */
+                defmsg->used = 1;
+              }
+
+            stats->merged++;
+          }
+        else if (!is_header (refmsg))
+          {
+            /* If the message was not defined at all, try to find a very
+               similar message, it could be a typo, or the suggestion may
+               help.  This search assumed use_fuzzy_matching and used
+               definitions_search_fuzzy.  */
+            if (search_results[j].found != NULL && search_results[j].fuzzy)
+              {
+                message_ty *defmsg = search_results[j].found;
+                message_ty *mp;
+
+                if (verbosity_level > 1)
+                  {
+                    po_gram_error_at_line (&refmsg->pos,
+                                           _("this message is used but not defined..."));
+                    error_message_count--;
+                    po_gram_error_at_line (&defmsg->pos,
+                                           _("...but this definition is similar"));
+                  }
+
+                /* Merge the reference with the definition: take the #. and
+                   #: comments from the reference, take the # comments from
+                   the definition, take the msgstr from the definition.  Add
+                   this merged entry to the output message list.  */
+                mp = message_merge (defmsg, refmsg, true, &distribution);
+
+                message_list_append (resultmlp, mp);
+
+                /* Remember that this message has been used, when we scan
+                   later to see if anything was omitted.  */
+                defmsg->used = 1;
+
+                stats->fuzzied++;
+                if (!quiet && verbosity_level <= 1)
+                  /* Always print a dot if we handled a fuzzy match.  */
+                  fputc ('.', stderr);
+              }
+            else
+              {
+                message_ty *mp;
+                bool is_untranslated;
+                const char *p;
+                const char *pend;
+
+                if (verbosity_level > 1)
+                  po_gram_error_at_line (&refmsg->pos,
+                                         _("this message is used but not defined in %s"),
+                                         fn1);
+
+                mp = message_copy (refmsg);
+
+                /* Test if mp is untranslated.  (It most likely is.)  */
+                is_untranslated = true;
+                for (p = mp->msgstr, pend = p + mp->msgstr_len; p < pend; p++)
+                  if (*p != '\0')
+                    {
+                      is_untranslated = false;
+                      break;
+                    }
+
+                if (mp->msgid_plural != NULL && is_untranslated)
+                  {
+                    /* Change mp->msgstr_len consecutive empty strings into
+                       nplurals consecutive empty strings.  */
+                    if (nplurals > mp->msgstr_len)
+                      mp->msgstr = untranslated_plural_msgstr;
+                    mp->msgstr_len = nplurals;
+                  }
+
+                /* When producing output for msgfmt, omit messages that are
+                   untranslated or fuzzy (except the header entry).  */
+                if (!(for_msgfmt && (is_untranslated || mp->is_fuzzy)))
+                  {
+                    message_list_append (resultmlp, mp);
+                  }
+
+                stats->missing++;
+              }
+          }
+      }
+
+    free (search_results);
+  }
 
   /* Now postprocess the problematic merges.  This is needed because we
      want the result to pass the "msgfmt -c -v" check.  */
@@ -1650,6 +1667,7 @@ match_domain (const char *fn1, const char *fn2,
     /* message_merge sets mp->used to 1 or 2, depending on the problem.
        Compute the bitwise OR of all these.  */
     int problematic = 0;
+    size_t j;
 
     for (j = 0; j < resultmlp->nitems; j++)
       problematic |= resultmlp->item[j]->used;
@@ -1720,17 +1738,21 @@ match_domain (const char *fn1, const char *fn2,
   /* Now that mp->is_fuzzy is finalized for all messages, remove the
      "previous msgid" information from all messages that are not fuzzy or
      are untranslated.  */
-  for (j = 0; j < resultmlp->nitems; j++)
-    {
-      message_ty *mp = resultmlp->item[j];
+  {
+    size_t j;
 
-      if (!mp->is_fuzzy || mp->msgstr[0] == '\0')
-        {
-          mp->prev_msgctxt = NULL;
-          mp->prev_msgid = NULL;
-          mp->prev_msgid_plural = NULL;
-        }
-    }
+    for (j = 0; j < resultmlp->nitems; j++)
+      {
+        message_ty *mp = resultmlp->item[j];
+
+        if (!mp->is_fuzzy || mp->msgstr[0] == '\0')
+          {
+            mp->prev_msgctxt = NULL;
+            mp->prev_msgid = NULL;
+            mp->prev_msgid_plural = NULL;
+          }
+      }
+  }
 }
 
 static msgdomain_list_ty *

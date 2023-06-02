@@ -879,21 +879,23 @@ phase3_get (token_ty *tp)
         case '"':
           {
             struct mixed_string_buffer msb;
-            int c2 = phase1_getc ();
+            {
+              int c2 = phase1_getc ();
 
-            if (c2 == '"')
-              {
-                int c3 = phase1_getc ();
-                if (c3 == '"')
-                  verbatim = true;
-                else
-                  {
-                    phase1_ungetc (c3);
-                    phase1_ungetc (c2);
-                  }
-              }
-            else
-              phase2_ungetc (c2);
+              if (c2 == '"')
+                {
+                  int c3 = phase1_getc ();
+                  if (c3 == '"')
+                    verbatim = true;
+                  else
+                    {
+                      phase1_ungetc (c3);
+                      phase1_ungetc (c2);
+                    }
+                }
+              else
+                phase2_ungetc (c2);
+            }
 
             /* Start accumulating the string.  */
             mixed_string_buffer_init (&msb, lc_string,

@@ -1327,7 +1327,6 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
   static char *buffer;
   static int bufmax = 0;
   int bufpos = 0;
-  int c = first;
   size_t varbody_length = 0;
   bool maybe_hash_deref = false;
   bool maybe_hash_value = false;
@@ -1344,111 +1343,115 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
    *    accepting the hash sign (#) will maybe lead to inaccurate
    *    results.  FIXME!
    */
-  while (c == '$' || c == '*' || c == '#' || c == '@' || c == '%')
-    {
-      if (bufpos >= bufmax)
-        {
-          bufmax = 2 * bufmax + 10;
-          buffer = xrealloc (buffer, bufmax);
-        }
-      buffer[bufpos++] = c;
-      c = phase1_getc ();
-    }
+  {
+    int c = first;
 
-  if (c == EOF)
-    {
-      tp->type = token_type_eof;
-      return;
-    }
+    while (c == '$' || c == '*' || c == '#' || c == '@' || c == '%')
+      {
+        if (bufpos >= bufmax)
+          {
+            bufmax = 2 * bufmax + 10;
+            buffer = xrealloc (buffer, bufmax);
+          }
+        buffer[bufpos++] = c;
+        c = phase1_getc ();
+      }
 
-  /* Hash references are treated in a special way, when looking for
-     our keywords.  */
-  if (buffer[0] == '$')
-    {
-      if (bufpos == 1)
-        maybe_hash_value = true;
-      else if (bufpos == 2 && buffer[1] == '$')
-        {
-          if (!(c == '{'
-                || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-                || (c >= '0' && c <= '9')
-                || c == '_' || c == ':' || c == '\'' || c >= 0x80))
-            {
-              /* Special variable $$ for pid.  */
-              if (bufpos >= bufmax)
-                {
-                  bufmax = 2 * bufmax + 10;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-              buffer[bufpos++] = '\0';
-              tp->string = xstrdup (buffer);
+    if (c == EOF)
+      {
+        tp->type = token_type_eof;
+        return;
+      }
+
+    /* Hash references are treated in a special way, when looking for
+       our keywords.  */
+    if (buffer[0] == '$')
+      {
+        if (bufpos == 1)
+          maybe_hash_value = true;
+        else if (bufpos == 2 && buffer[1] == '$')
+          {
+            if (!(c == '{'
+                  || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+                  || (c >= '0' && c <= '9')
+                  || c == '_' || c == ':' || c == '\'' || c >= 0x80))
+              {
+                /* Special variable $$ for pid.  */
+                if (bufpos >= bufmax)
+                  {
+                    bufmax = 2 * bufmax + 10;
+                    buffer = xrealloc (buffer, bufmax);
+                  }
+                buffer[bufpos++] = '\0';
+                tp->string = xstrdup (buffer);
 #if DEBUG_PERL
-              fprintf (stderr, "%s:%d: is PID ($$)\n",
-                       real_file_name, line_number);
+                fprintf (stderr, "%s:%d: is PID ($$)\n",
+                         real_file_name, line_number);
 #endif
 
-              phase1_ungetc (c);
-              return;
-            }
+                phase1_ungetc (c);
+                return;
+              }
 
-          maybe_hash_deref = true;
-          bufpos = 1;
-        }
-    }
+            maybe_hash_deref = true;
+            bufpos = 1;
+          }
+      }
 
-  /*
-   * 2) Get the name of the variable.  The first character is practically
-   *    arbitrary.  Punctuation and numbers automagically put a variable
-   *    in the global namespace but that subtle difference is not interesting
-   *    for us.
-   */
-  if (bufpos >= bufmax)
-    {
-      bufmax = 2 * bufmax + 10;
-      buffer = xrealloc (buffer, bufmax);
-    }
-  if (c == '{')
-    {
-      /* Yuck, we cannot accept ${gettext} as a keyword...  Except for
-       * debugging purposes it is also harmless, that we suppress the
-       * real name of the variable.
-       */
+    /*
+     * 2) Get the name of the variable.  The first character is practically
+     *    arbitrary.  Punctuation and numbers automagically put a variable
+     *    in the global namespace but that subtle difference is not interesting
+     *    for us.
+     */
+    if (bufpos >= bufmax)
+      {
+        bufmax = 2 * bufmax + 10;
+        buffer = xrealloc (buffer, bufmax);
+      }
+    if (c == '{')
+      {
+        /* Yuck, we cannot accept ${gettext} as a keyword...  Except for
+         * debugging purposes it is also harmless, that we suppress the
+         * real name of the variable.
+         */
 #if DEBUG_PERL
-      fprintf (stderr, "%s:%d: braced {variable_name}\n",
-               real_file_name, line_number);
+        fprintf (stderr, "%s:%d: braced {variable_name}\n",
+                 real_file_name, line_number);
 #endif
 
-      if (extract_balanced (mlp, token_type_rbrace, true, false,
-                            null_context, null_context_list_iterator,
-                            1, arglist_parser_alloc (mlp, NULL)))
-        {
-          tp->type = token_type_eof;
-          return;
-        }
-      buffer[bufpos++] = c;
-    }
-  else
-    {
-      while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-             || (c >= '0' && c <= '9')
-             || c == '_' || c == ':' || c == '\'' || c >= 0x80)
-        {
-          ++varbody_length;
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos++] = c;
-          c = phase1_getc ();
-        }
-      phase1_ungetc (c);
-    }
+        if (extract_balanced (mlp, token_type_rbrace, true, false,
+                              null_context, null_context_list_iterator,
+                              1, arglist_parser_alloc (mlp, NULL)))
+          {
+            tp->type = token_type_eof;
+            return;
+          }
+        buffer[bufpos++] = c;
+      }
+    else
+      {
+        while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+               || (c >= '0' && c <= '9')
+               || c == '_' || c == ':' || c == '\'' || c >= 0x80)
+          {
+            ++varbody_length;
+            if (bufpos >= bufmax)
+              {
+                bufmax = 2 * bufmax + 10;
+                buffer = xrealloc (buffer, bufmax);
+              }
+            buffer[bufpos++] = c;
+            c = phase1_getc ();
+          }
+        phase1_ungetc (c);
+      }
+  }
 
   /* Probably some strange Perl variable like $`.  */
   if (varbody_length == 0)
     {
-      c = phase1_getc ();
+      int c = phase1_getc ();
       if (c == EOF || is_whitespace (c))
         phase1_ungetc (c);  /* Loser.  */
       else

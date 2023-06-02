@@ -1231,26 +1231,26 @@ read_object (struct object *op, flag_context_ty outer_context)
             case '#':
               /* Dispatch macro handling.  */
               {
-                int c;
+                int dmc;
 
                 for (;;)
                   {
-                    c = do_getc ();
-                    if (c == EOF)
+                    dmc = do_getc ();
+                    if (dmc == EOF)
                       /* Invalid input.  Be tolerant, no error message.  */
                       {
                         op->type = t_other;
                         return;
                       }
-                    if (!(c >= '0' && c <= '9'))
+                    if (!(dmc >= '0' && dmc <= '9'))
                       break;
                   }
 
-                switch (c)
+                switch (dmc)
                   {
                   case '(':
                   case '"':
-                    do_ungetc (c);
+                    do_ungetc (dmc);
                     FALLTHROUGH;
                   case '\'':
                   case ':':
