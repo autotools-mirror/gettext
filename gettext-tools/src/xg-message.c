@@ -30,6 +30,7 @@
 #include "xalloc.h"
 #include "xerror.h"
 #include "xvasprintf.h"
+#include "verify.h"
 
 #include "xgettext.h"
 
@@ -358,7 +359,10 @@ meta information, not the empty string.\n")));
       /* Construct the msgstr from the prefix and suffix, otherwise use the
          empty string.  */
       if (msgstr_prefix)
-        msgstr = xasprintf ("%s%s%s", msgstr_prefix, msgid, msgstr_suffix);
+        {
+          msgstr = xasprintf ("%s%s%s", msgstr_prefix, msgid, msgstr_suffix);
+          assume (msgstr != NULL);
+        }
       else
         msgstr = "";
 
@@ -585,6 +589,7 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
           msgstr1_malloc =
             xasprintf ("%s%s%s", msgstr_prefix, msgid_plural, msgstr_suffix);
           msgstr1 = msgstr1_malloc;
+          assume (msgstr1 != NULL);
         }
       else
         msgstr1 = "";

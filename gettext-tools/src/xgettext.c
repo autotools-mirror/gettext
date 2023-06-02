@@ -59,6 +59,7 @@
 #include "xvasprintf.h"
 #include "xalloc.h"
 #include "xmalloca.h"
+#include "verify.h"
 #include "c-strstr.h"
 #include "xerror.h"
 #include "filename.h"
@@ -2038,6 +2039,7 @@ Content-Transfer-Encoding: 8bit\n",
                       project_id_version,
                       msgid_bugs_address != NULL ? msgid_bugs_address : "",
                       timestring);
+  assume (msgstr != NULL);
   free (timestring);
   free (project_id_version);
 
