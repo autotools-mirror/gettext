@@ -1,5 +1,5 @@
 /* Extracting a message.  Accumulating the message list.
-   Copyright (C) 2001-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2020, 2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -81,7 +81,7 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
                 /* The string is not a valid format string.  */
                 if (is_format[i] != possible)
                   {
-                    char buffer[21];
+                    char buffer[22];
 
                     error_with_progname = false;
                     if (pos->line_number == (size_t)(-1))
@@ -217,7 +217,7 @@ warn_format_string (enum is_format is_format[NFORMATS], const char *string,
   if (possible_format_p (is_format[format_python])
       && get_python_format_unnamed_arg_count (string) > 1)
     {
-      char buffer[21];
+      char buffer[22];
 
       error_with_progname = false;
       if (pos->line_number == (size_t)(-1))
@@ -286,7 +286,7 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
 
   if (msgctxt == NULL && msgid[0] == '\0' && !xgettext_omit_header)
     {
-      char buffer[21];
+      char buffer[22];
 
       error_with_progname = false;
       if (pos->line_number == (size_t)(-1))
@@ -310,8 +310,8 @@ meta information, not the empty string.\n")));
         {
           lex_pos_ty pos1;
           lex_pos_ty pos2;
-          char buffer1[21];
-          char buffer2[21];
+          char buffer1[22];
+          char buffer2[22];
 
           if (pluralp)
             {

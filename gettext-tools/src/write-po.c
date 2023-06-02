@@ -385,7 +385,7 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
           for (j = 0; j < filepos_count; ++j)
             {
               lex_pos_ty *pp;
-              char buffer[21];
+              char buffer[22];
               const char *cp;
               size_t width;
 

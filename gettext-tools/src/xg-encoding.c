@@ -62,7 +62,7 @@ char *
 non_ascii_error_message (lexical_context_ty lcontext,
                          const char *file_name, size_t line_number)
 {
-  char buffer[21];
+  char buffer[22];
   char *errmsg;
 
   if (line_number == (size_t)(-1))
@@ -102,7 +102,7 @@ static char *
 non_utf8_error_message (lexical_context_ty lcontext,
                         const char *file_name, size_t line_number)
 {
-  char buffer[21];
+  char buffer[22];
   char *errmsg;
 
   if (line_number == (size_t)(-1))
