@@ -249,7 +249,6 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
   enum is_wrap do_wrap;
   enum is_syntax_check do_syntax_check[NSYNTAXCHECKS];
   message_ty *mp;
-  char *msgstr;
   size_t i;
 
   /* See whether we shall exclude this message.  */
@@ -354,6 +353,8 @@ meta information, not the empty string.\n")));
     }
   else
     {
+      const char *msgstr;
+
       /* Construct the msgstr from the prefix and suffix, otherwise use the
          empty string.  */
       if (msgstr_prefix)
@@ -557,10 +558,6 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
                            bool comment_is_utf8)
 {
   char *msgid_plural;
-  char *msgstr1;
-  size_t msgstr1_len;
-  char *msgstr;
-  size_t i;
 
   msgid_plural = string;
 
@@ -572,14 +569,23 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
   /* See if the message is already a plural message.  */
   if (mp->msgid_plural == NULL)
     {
+      char *msgstr1_malloc = NULL;
+      const char *msgstr1;
+      size_t msgstr1_len;
+      char *msgstr;
+      size_t i;
+
       mp->msgid_plural = msgid_plural;
 
       /* Construct the first plural form from the prefix and suffix,
          otherwise use the empty string.  The translator will have to
          provide additional plural forms.  */
       if (msgstr_prefix)
-        msgstr1 =
-          xasprintf ("%s%s%s", msgstr_prefix, msgid_plural, msgstr_suffix);
+        {
+          msgstr1_malloc =
+            xasprintf ("%s%s%s", msgstr_prefix, msgid_plural, msgstr_suffix);
+          msgstr1 = msgstr1_malloc;
+        }
       else
         msgstr1 = "";
       msgstr1_len = strlen (msgstr1) + 1;
@@ -588,8 +594,7 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
       memcpy (msgstr + mp->msgstr_len, msgstr1, msgstr1_len);
       mp->msgstr = msgstr;
       mp->msgstr_len = mp->msgstr_len + msgstr1_len;
-      if (msgstr_prefix)
-        free (msgstr1);
+      free (msgstr1_malloc);
 
       /* Determine whether the context specifies that the msgid_plural is a
          format string.  */

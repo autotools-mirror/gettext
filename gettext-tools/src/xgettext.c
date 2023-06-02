@@ -765,24 +765,27 @@ xgettext cannot work without keywords to look for"));
   else if (msgstr_prefix == NULL && msgstr_suffix != NULL)
     msgstr_prefix = "";
 
-  /* Default output directory is the current directory.  */
-  if (output_dir == NULL)
-    output_dir = ".";
+  {
+    /* Default output directory is the current directory.  */
+    const char *defaulted_output_dir = (output_dir != NULL ? output_dir : ".");
 
-  /* Construct the name of the output file.  If the default domain has
-     the special name "-" we write to stdout.  */
-  if (output_file)
-    {
-      if (IS_RELATIVE_FILE_NAME (output_file) && strcmp (output_file, "-") != 0)
-        /* Please do NOT add a .po suffix! */
-        file_name = xconcatenated_filename (output_dir, output_file, NULL);
-      else
-        file_name = xstrdup (output_file);
-    }
-  else if (strcmp (default_domain, "-") == 0)
-    file_name = "-";
-  else
-    file_name = xconcatenated_filename (output_dir, default_domain, ".po");
+    /* Construct the name of the output file.  If the default domain has
+       the special name "-" we write to stdout.  */
+    if (output_file)
+      {
+        if (IS_RELATIVE_FILE_NAME (output_file) && strcmp (output_file, "-") != 0)
+          /* Please do NOT add a .po suffix! */
+          file_name =
+            xconcatenated_filename (defaulted_output_dir, output_file, NULL);
+        else
+          file_name = xstrdup (output_file);
+      }
+    else if (strcmp (default_domain, "-") == 0)
+      file_name = "-";
+    else
+      file_name =
+        xconcatenated_filename (defaulted_output_dir, default_domain, ".po");
+  }
 
   /* Determine list of files we have to process.  */
   if (files_from != NULL)

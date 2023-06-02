@@ -1,5 +1,5 @@
 /* Initializes a new PO file.
-   Copyright (C) 2001-2022 Free Software Foundation, Inc.
+   Copyright (C) 2001-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -1291,6 +1291,7 @@ language_team_address ()
     char *line;
     size_t linesize;
     size_t linelen;
+    const char *result;
     int exitstatus;
 
     /* Call the team-address shell script.  */
@@ -1317,9 +1318,13 @@ language_team_address ()
     line = NULL; linesize = 0;
     linelen = getline (&line, &linesize, fp);
     if (linelen == (size_t)(-1))
-      line = "";
-    else if (linelen > 0 && line[linelen - 1] == '\n')
-      line[linelen - 1] = '\0';
+      result = "";
+    else
+      {
+        if (linelen > 0 && line[linelen - 1] == '\n')
+          line[linelen - 1] = '\0';
+        result = line;
+      }
 
     fclose (fp);
 
@@ -1332,7 +1337,7 @@ language_team_address ()
         goto failed;
       }
 
-    return line;
+    return result;
   }
 
 failed:
@@ -1434,7 +1439,8 @@ plural_forms ()
   if (gettextcldrdir != NULL && gettextcldrdir[0] != '\0')
     {
       const char *gettextlibdir;
-      char *dirs[3], *last_dir;
+      const char *dirs[3];
+      char *last_dir;
       const char *argv[4];
       pid_t child;
       int fd[1];
