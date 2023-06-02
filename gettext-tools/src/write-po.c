@@ -1,6 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012, 2014-2015, 2018-2021 Free Software
-   Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2010, 2012, 2014-2015, 2018-2021, 2023 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -161,6 +160,7 @@ make_c_width_description_string (enum is_wrap do_wrap)
 #ifdef GETTEXTDATADIR
 
 /* All ostream_t instances are in fact styled_ostream_t instances.  */
+#define is_stylable(stream) true
 
 /* Start a run of text belonging to a given CSS class.  */
 static inline void
