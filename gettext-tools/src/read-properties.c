@@ -1,5 +1,5 @@
 /* Reading Java .properties files.
-   Copyright (C) 2003, 2005-2007, 2009, 2018, 2020 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2007, 2009, 2018, 2020, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -313,7 +313,7 @@ conv_from_java (char *string)
 #define IS_UNICODE(p4_result) ((p4_result) >= 0x10000)
 
 /* Extract the UTF-16 code of a return value that satisfies IS_UNICODE.  */
-#define UTF16_VALUE(p4_result) ((p4_result) - 0x10000)
+#define UTF16_VALUE(p4_result) ((unsigned short) ((p4_result) - 0x10000))
 
 static int
 phase4_getuc ()

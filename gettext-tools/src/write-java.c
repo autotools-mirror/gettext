@@ -1,5 +1,5 @@
 /* Writing Java ResourceBundles.
-   Copyright (C) 2001-2003, 2005-2010, 2014, 2016, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2010, 2014, 2016, 2018-2020, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -468,7 +468,7 @@ static void
 write_lookup_code (FILE *stream, unsigned int hashsize, bool collisions)
 {
   fprintf (stream, "    int hash_val = msgid.hashCode() & 0x7fffffff;\n");
-  fprintf (stream, "    int idx = (hash_val %% %d) << 1;\n", hashsize);
+  fprintf (stream, "    int idx = (hash_val %% %u) << 1;\n", hashsize);
   if (collisions)
     {
       fprintf (stream, "    {\n");
@@ -478,12 +478,12 @@ write_lookup_code (FILE *stream, unsigned int hashsize, bool collisions)
       fprintf (stream, "      if (msgid.equals(found))\n");
       fprintf (stream, "        return table[idx + 1];\n");
       fprintf (stream, "    }\n");
-      fprintf (stream, "    int incr = ((hash_val %% %d) + 1) << 1;\n",
+      fprintf (stream, "    int incr = ((hash_val %% %u) + 1) << 1;\n",
                hashsize - 2);
       fprintf (stream, "    for (;;) {\n");
       fprintf (stream, "      idx += incr;\n");
-      fprintf (stream, "      if (idx >= %d)\n", 2 * hashsize);
-      fprintf (stream, "        idx -= %d;\n", 2 * hashsize);
+      fprintf (stream, "      if (idx >= %u)\n", 2 * hashsize);
+      fprintf (stream, "        idx -= %u;\n", 2 * hashsize);
       fprintf (stream, "      java.lang.Object found = table[idx];\n");
       fprintf (stream, "      if (found == null)\n");
       fprintf (stream, "        return null;\n");
@@ -747,10 +747,10 @@ write_java2_init_statements (FILE *stream, message_list_ty *mlp,
     {
       const struct table_item *ti = &table_items[j];
 
-      fprintf (stream, "    t[%d] = ", 2 * ti->index);
+      fprintf (stream, "    t[%u] = ", 2 * ti->index);
       write_java_msgid (stream, ti->mp);
       fprintf (stream, ";\n");
-      fprintf (stream, "    t[%d] = ", 2 * ti->index + 1);
+      fprintf (stream, "    t[%u] = ", 2 * ti->index + 1);
       write_java_msgstr (stream, ti->mp);
       fprintf (stream, ";\n");
     }
@@ -836,7 +836,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
               }
           }
         fprintf (stream, "  static {\n");
-        fprintf (stream, "    %s[] t = new %s[%d];\n", table_eltype,
+        fprintf (stream, "    %s[] t = new %s[%u];\n", table_eltype,
                  table_eltype, 2 * hashsize);
         if (mlp->nitems > max_items_per_method)
           {
@@ -904,14 +904,14 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
       fprintf (stream, "    return\n");
       fprintf (stream, "      new java.util.Enumeration() {\n");
       fprintf (stream, "        private int idx = 0;\n");
-      fprintf (stream, "        { while (idx < %d && table[idx] == null) idx += 2; }\n",
+      fprintf (stream, "        { while (idx < %u && table[idx] == null) idx += 2; }\n",
                2 * hashsize);
       fprintf (stream, "        public boolean hasMoreElements () {\n");
-      fprintf (stream, "          return (idx < %d);\n", 2 * hashsize);
+      fprintf (stream, "          return (idx < %u);\n", 2 * hashsize);
       fprintf (stream, "        }\n");
       fprintf (stream, "        public java.lang.Object nextElement () {\n");
       fprintf (stream, "          java.lang.Object key = table[idx];\n");
-      fprintf (stream, "          do idx += 2; while (idx < %d && table[idx] == null);\n",
+      fprintf (stream, "          do idx += 2; while (idx < %u && table[idx] == null);\n",
                2 * hashsize);
       fprintf (stream, "          return key;\n");
       fprintf (stream, "        }\n");

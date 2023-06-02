@@ -1,6 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2009, 2013, 2015, 2021 Free Software
-   Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2009, 2013, 2015, 2021, 2023 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -184,8 +183,8 @@ catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
   if (error_message_count > 0)
     po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
                /*real_filename*/ NULL, (size_t)(-1), (size_t)(-1), false,
-               xasprintf (ngettext ("found %d fatal error",
-                                    "found %d fatal errors",
+               xasprintf (ngettext ("found %u fatal error",
+                                    "found %u fatal errors",
                                     error_message_count),
                           error_message_count));
 }

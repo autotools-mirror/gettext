@@ -3607,7 +3607,7 @@ extract_balanced (message_list_ty *mlp,
 
         default:
           fprintf (stderr, "%s:%d: unknown token type %d\n",
-                   real_file_name, tp->line_number, tp->type);
+                   real_file_name, tp->line_number, (int) tp->type);
           abort ();
         }
 
