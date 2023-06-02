@@ -904,10 +904,6 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 #ifndef _LIBC
   if (!ENABLE_SECURE)
     {
-      extern void _nl_log_untranslated (const char *logfilename,
-					const char *domainname,
-					const char *msgid1, const char *msgid2,
-					int plural);
       const char *logfilename = getenv ("GETTEXT_LOG_UNTRANSLATED");
 
       if (logfilename != NULL && logfilename[0] != '\0')

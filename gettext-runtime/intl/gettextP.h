@@ -292,6 +292,11 @@ extern const char _nl_default_default_domain[] attribute_hidden;
 /* Default text domain in which entries for gettext(3) are to be found.  */
 extern const char *_nl_current_default_domain attribute_hidden;
 
+extern void _nl_log_untranslated (const char *logfilename,
+				  const char *domainname,
+				  const char *msgid1, const char *msgid2,
+				  int plural);
+
 /* @@ begin of epilog @@ */
 
 #endif /* gettextP.h  */
