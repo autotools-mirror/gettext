@@ -1,5 +1,5 @@
 /* Reading NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003, 2005-2007, 2009, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2007, 2009, 2019-2020, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -513,7 +513,7 @@ comment_add (int c)
   buffer[buflen++] = c;
 }
 
-static inline void
+static void
 comment_line_end (size_t chars_to_remove, bool test_for_fuzzy_msgstr)
 {
   char *line;

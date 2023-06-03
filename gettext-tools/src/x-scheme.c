@@ -296,7 +296,7 @@ is_integer_syntax (const char *str, int len, int radix)
    If unconstrained is false, only real numbers are accepted; otherwise,
    complex numbers are accepted as well.
    Taken from guile-1.6.4/libguile/numbers.c:scm_istr2flo().  */
-static inline bool
+static bool
 is_other_number_syntax (const char *str, int len, int radix, bool unconstrained)
 {
   const char *p = str;
