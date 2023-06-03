@@ -58,6 +58,7 @@
 #include "error.h"
 #include "xerror.h"
 #include "xvasprintf.h"
+#include "verify.h"
 #include "javacomp.h"
 #include "message.h"
 #include "msgfmt.h"
@@ -1099,7 +1100,10 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
     }
 
   if (locale_name != NULL)
-    class_name = xasprintf ("%s_%s", resource_name, locale_name);
+    {
+      class_name = xasprintf ("%s_%s", resource_name, locale_name);
+      assume (class_name != NULL);
+    }
   else
     class_name = xstrdup (resource_name);
 
