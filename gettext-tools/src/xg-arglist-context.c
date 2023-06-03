@@ -26,6 +26,7 @@
 
 #include "xalloc.h"
 #include "xmalloca.h"
+#include "verify.h"
 
 
 /* Null context.  */
@@ -179,6 +180,9 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
       }
     else
       {
+        /* We don't put NULL entries into the table.  */
+        assume (entry != NULL);
+
         flag_context_list_ty *list = (flag_context_list_ty *)entry;
         flag_context_list_ty **lastp = NULL;
         /* Invariant: list == (lastp != NULL ? *lastp : entry).  */
