@@ -1,6 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003, 2006, 2008, 2014, 2018-2019, 2021 Free Software
-   Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2003, 2006, 2008, 2014, 2018-2019, 2021, 2023 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -24,6 +23,7 @@
 
 #include <textstyle.h>
 
+#include "attribute.h"
 #include "message.h"
 
 
@@ -47,7 +47,8 @@ extern bool
        significant_format_p (enum is_format is_format);
 
 extern char *
-       make_range_description_string (struct argument_range range);
+       make_range_description_string (struct argument_range range)
+       ATTRIBUTE_MALLOC;
 
 /* These functions output parts of a message, as comments.  */
 extern void
