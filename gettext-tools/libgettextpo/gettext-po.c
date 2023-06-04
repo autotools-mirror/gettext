@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files.
-   Copyright (C) 2003-2010, 2014 Free Software Foundation, Inc.
+   Copyright (C) 2003-2010, 2014, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -18,6 +18,8 @@
 #ifdef HAVE_CONFIG_H
 # include <config.h>
 #endif
+/* Avoid side effect of gnulib's error.h on 'struct po_error_handler'.  */
+#define _GL_NO_INLINE_ERROR
 
 /* Specification.  */
 #include "gettext-po.h"

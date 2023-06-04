@@ -1,5 +1,5 @@
 /* Error handling during reading and writing of PO files.
-   Copyright (C) 2004 Free Software Foundation, Inc.
+   Copyright (C) 2004, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2004.
 
    This program is free software: you can redistribute it and/or modify
@@ -19,6 +19,8 @@
 #ifdef HAVE_CONFIG_H
 # include "config.h"
 #endif
+/* Avoid side effect of gnulib's error.h.  */
+#define _GL_NO_INLINE_ERROR
 
 /* Specification.  */
 #include "po-error.h"
