@@ -299,12 +299,16 @@ if test "$ac_cv_lib_error_at_line" = no; then
 fi
 AC_SUBST([GETTEXTLIB_EXPORTS_FLAGS])
 
-dnl Tell the source files that the error facility is replaced by
-dnl gnulib, to make sure to prepend "rpl_" prefix to the error_*
-dnl symbols.
+dnl Tell the source files that the error facility is overridden by gnulib,
+dnl to make sure to prepend "rpl_" prefix to the error_* symbols.
+dnl This is only necessary on Cygwin and on Android.
 if test "$ac_cv_lib_error_at_line" = no; then
-  AC_DEFINE([GNULIB_REPLACE_ERROR], [1],
-    [Define when the error facility is replaced by gnulib.])
+  case "$host_os" in
+    cygwin* | linux*-android*)
+      AC_DEFINE([GNULIB_REPLACE_ERROR], [1],
+        [Define when the error facility is replaced by gnulib.])
+      ;;
+  esac
 fi
 
 dnl Put some default definitions into config.h.

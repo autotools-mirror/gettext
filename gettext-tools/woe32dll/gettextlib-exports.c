@@ -19,9 +19,15 @@
 
 VARIABLE(argmatch_die)
 #if GNULIB_DEFINED_ERROR
+# if GNULIB_REPLACE_ERROR
 VARIABLE(rpl_error_message_count)
 VARIABLE(rpl_error_one_per_line)
 VARIABLE(rpl_error_print_progname)
+# else
+VARIABLE(error_message_count)
+VARIABLE(error_one_per_line)
+VARIABLE(error_print_progname)
+# endif
 #endif
 VARIABLE(error_with_progname)
 VARIABLE(exit_failure)
