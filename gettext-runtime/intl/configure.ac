@@ -234,6 +234,8 @@ AH_VERBATIM([znoexport], [
 #define gl_LDBL_MAX                _libintl_LDBL_MAX
 /* Symbols defined by gnulib module 'free-posix'.  */
 #define rpl_free                   _libintl_free
+/* Symbols defined by gnulib module 'hard-locale'.  */
+#define hard_locale                _libintl_hard_locale
 /* Symbols defined by gnulib module 'isnand-nolibm'.  */
 #define rpl_isnand                 _libintl_isnand
 /* Symbols defined by gnulib module 'isnanl-nolibm'.  */
@@ -299,6 +301,7 @@ AH_VERBATIM([znoexport], [
 #define printf_fetchargs           _libintl_printf_fetchargs
 #define printf_parse               _libintl_printf_parse
 #define vasnprintf                 _libintl_vasnprintf
+#define rpl_vasnprintf             _libintl_vasnprintf
 /* Symbols defined by gnulib module 'vasnwprintf'.  */
 #define asnwprintf                 _libintl_asnwprintf
 #define wprintf_parse              _libintl_wprintf_parse
@@ -340,6 +343,18 @@ dnl Symbols defined by gnulib module 'frexpl-nolibm'.
 if test $HAVE_DECL_FREXPL = 0 || test $gl_func_frexpl_no_libm = no; then
   AC_DEFINE([frexpl],           [_libintl_frexpl],    [Hidden symbol.])
   AC_DEFINE([rpl_frexpl],       [_libintl_frexpl],    [Hidden symbol.])
+fi
+dnl Symbols defined by gnulib module 'mbrtowc'.
+if test $REPLACE_MBRTOWC = 1; then
+  AC_DEFINE([rpl_mbrtowc],      [_libintl_mbrtowc],   [Hidden symbol.])
+elif test $HAVE_MBRTOWC = 0; then
+  AC_DEFINE([mbrtowc],          [_libintl_mbrtowc],   [Hidden symbol.])
+fi
+dnl Symbols defined by gnulib module 'mbsinit'.
+if test $REPLACE_MBSINIT = 1; then
+  AC_DEFINE([rpl_mbsinit],      [_libintl_mbsinit],   [Hidden symbol.])
+elif test $HAVE_MBSINIT = 0; then
+  AC_DEFINE([mbsinit],          [_libintl_mbsinit],   [Hidden symbol.])
 fi
 dnl Symbols defined by gnulib module 'memchr'.
 if test $REPLACE_MEMCHR = 1; then
