@@ -1,5 +1,5 @@
-/* List of exported symbols of libgettextpo on Cygwin.
-   Copyright (C) 2006 Free Software Foundation, Inc.
+/* List of exported symbols of libgettextpo on Cygwin and native Windows.
+   Copyright (C) 2006, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify

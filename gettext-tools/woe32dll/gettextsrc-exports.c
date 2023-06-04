@@ -1,6 +1,5 @@
-/* List of exported symbols of libgettextsrc on Cygwin.
-   Copyright (C) 2006-2007, 2009-2011, 2013-2015, 2019, 2021 Free Software Foundation,
-   Inc.
+/* List of exported symbols of libgettextsrc on Cygwin and native Windows.
+   Copyright (C) 2006-2007, 2009-2011, 2013-2015, 2019, 2021, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify

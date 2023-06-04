@@ -1,5 +1,5 @@
-/* List of exported symbols of libgettextlib on Cygwin.
-   Copyright (C) 2006-2007, 2010, 2012, 2019 Free Software Foundation, Inc.
+/* List of exported symbols of libgettextlib on Cygwin and native Windows.
+   Copyright (C) 2006-2007, 2010, 2012, 2019, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
