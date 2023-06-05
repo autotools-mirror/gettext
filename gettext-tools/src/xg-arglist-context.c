@@ -34,12 +34,14 @@ flag_context_ty null_context =
   {
     undecided, false,
     undecided, false,
+    undecided, false,
     undecided, false
   };
 
 /* Transparent context.  */
 flag_context_ty passthrough_context =
   {
+    undecided, true,
     undecided, true,
     undecided, true,
     undecided, true
@@ -67,6 +69,11 @@ inherited_context (flag_context_ty outer_context,
       result.is_format3 = outer_context.is_format3;
       result.pass_format3 = false;
     }
+  if (result.pass_format4)
+    {
+      result.is_format4 = outer_context.is_format4;
+      result.pass_format4 = false;
+    }
   return result;
 }
 
@@ -78,7 +85,7 @@ flag_context_list_iterator_ty null_context_list_iterator = { 1, NULL };
 static flag_context_list_ty passthrough_context_circular_list =
   {
     1,
-    { undecided, true, undecided, true, undecided, true },
+    { undecided, true, undecided, true, undecided, true, undecided, true },
     &passthrough_context_circular_list
   };
 flag_context_list_iterator_ty passthrough_context_list_iterator =
@@ -172,6 +179,10 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
             list->flags.is_format3 = value;
             list->flags.pass_format3 = pass;
             break;
+          case 3:
+            list->flags.is_format4 = value;
+            list->flags.pass_format4 = pass;
+            break;
           default:
             abort ();
           }
@@ -209,6 +220,10 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
                 list->flags.is_format3 = value;
                 list->flags.pass_format3 = pass;
                 break;
+              case 3:
+                list->flags.is_format4 = value;
+                list->flags.pass_format4 = pass;
+                break;
               default:
                 abort ();
               }
@@ -232,6 +247,10 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
               case 2:
                 list->flags.is_format3 = value;
                 list->flags.pass_format3 = pass;
+                break;
+              case 3:
+                list->flags.is_format4 = value;
+                list->flags.pass_format4 = pass;
                 break;
               default:
                 abort ();
@@ -263,6 +282,10 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
               case 2:
                 list->flags.is_format3 = value;
                 list->flags.pass_format3 = pass;
+                break;
+              case 3:
+                list->flags.is_format4 = value;
+                list->flags.pass_format4 = pass;
                 break;
               default:
                 abort ();

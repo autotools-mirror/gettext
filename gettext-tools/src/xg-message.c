@@ -54,7 +54,8 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
 
   if (context.is_format1 != undecided
       || context.is_format2 != undecided
-      || context.is_format3 != undecided)
+      || context.is_format3 != undecided
+      || context.is_format4 != undecided)
     for (i = 0; i < NFORMATS; i++)
       {
         if (is_format[i] == undecided)
@@ -68,6 +69,9 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
             if (formatstring_parsers[i] == current_formatstring_parser3
                 && context.is_format3 != undecided)
               is_format[i] = (enum is_format) context.is_format3;
+            if (formatstring_parsers[i] == current_formatstring_parser4
+                && context.is_format4 != undecided)
+              is_format[i] = (enum is_format) context.is_format4;
           }
         if (possible_format_p (is_format[i]))
           {
@@ -120,7 +124,8 @@ decide_is_format (message_ty *mp)
       if (mp->is_format[i] == undecided
           && (formatstring_parsers[i] == current_formatstring_parser1
               || formatstring_parsers[i] == current_formatstring_parser2
-              || formatstring_parsers[i] == current_formatstring_parser3)
+              || formatstring_parsers[i] == current_formatstring_parser3
+              || formatstring_parsers[i] == current_formatstring_parser4)
           /* But avoid redundancy: objc-format is stronger than c-format.  */
           && !(i == format_c && possible_format_p (mp->is_format[format_objc]))
           && !(i == format_objc && possible_format_p (mp->is_format[format_c]))
@@ -612,7 +617,8 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
       for (i = 0; i < NFORMATS; i++)
         if ((formatstring_parsers[i] == current_formatstring_parser1
              || formatstring_parsers[i] == current_formatstring_parser2
-             || formatstring_parsers[i] == current_formatstring_parser3)
+             || formatstring_parsers[i] == current_formatstring_parser3
+             || formatstring_parsers[i] == current_formatstring_parser4)
             && (mp->is_format[i] == undecided || mp->is_format[i] == possible)
             /* But avoid redundancy: objc-format is stronger than c-format.  */
             && !(i == format_c

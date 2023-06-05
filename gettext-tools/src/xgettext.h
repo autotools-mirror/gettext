@@ -1,5 +1,5 @@
 /* xgettext common functions.
-   Copyright (C) 2001-2003, 2005-2006, 2008-2009, 2011, 2013-2014, 2018, 2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2006, 2008-2009, 2011, 2013-2014, 2018, 2020, 2023 Free Software Foundation, Inc.
    Written by Peter Miller <millerp@canb.auug.org.au>
    and Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -60,6 +60,7 @@ extern enum is_syntax_check default_syntax_check[NSYNTAXCHECKS];
 extern struct formatstring_parser *current_formatstring_parser1;
 extern struct formatstring_parser *current_formatstring_parser2;
 extern struct formatstring_parser *current_formatstring_parser3;
+extern struct formatstring_parser *current_formatstring_parser4;
 
 
 /* Record a flag in the appropriate backend's table.  */

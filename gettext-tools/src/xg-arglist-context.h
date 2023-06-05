@@ -1,6 +1,6 @@
 /* Keeping track of the flags that apply to a string extracted
    in a certain context.
-   Copyright (C) 2001-2018, 2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2018, 2020, 2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -41,6 +41,9 @@ struct flag_context_ty
   /* Regarding the tertiary formatstring type.  */
   /*enum is_format*/ unsigned int is_format3    : 3;
   /*bool*/           unsigned int pass_format3  : 1;
+  /* Regarding the fourth-ranked formatstring type.  */
+  /*enum is_format*/ unsigned int is_format4    : 3;
+  /*bool*/           unsigned int pass_format4  : 1;
 };
 /* Null context.  */
 extern flag_context_ty null_context;
