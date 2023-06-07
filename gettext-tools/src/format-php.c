@@ -1,5 +1,5 @@
 /* PHP format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2007, 2009, 2019-2020, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -332,7 +332,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       unsigned int n1 = spec1->numbered_arg_count;
       unsigned int n2 = spec2->numbered_arg_count;
 
-      /* Check the argument names are the same.
+      /* Check that the argument numbers are the same.
          Both arrays are sorted.  We search for the first difference.  */
       for (i = 0, j = 0; i < n1 || j < n2; )
         {

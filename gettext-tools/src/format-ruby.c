@@ -1,5 +1,5 @@
 /* Ruby format strings.
-   Copyright (C) 2001-2004, 2006-2009, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2004, 2006-2009, 2019-2020, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2020.
 
    This program is free software: you can redistribute it and/or modify
@@ -170,6 +170,7 @@ format_parse (const char *format, bool translated, char *fdi,
   allocated = 0;
 
   for (; *format != '\0';)
+    /* Invariant: spec.numbered_arg_count == 0 || unnumbered_arg_count == 0.  */
     if (*format++ == '%')
       {
         /* A directive.  */
@@ -884,7 +885,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
           unsigned int n1 = spec1->named_arg_count;
           unsigned int n2 = spec2->named_arg_count;
 
-          /* Check the argument names are the same.
+          /* Check that the argument names are the same.
              Both arrays are sorted.  We search for the first difference.  */
           for (i = 0, j = 0; i < n1 || j < n2; )
             {

@@ -332,7 +332,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       unsigned int n1 = spec1->numbered_arg_count;
       unsigned int n2 = spec2->numbered_arg_count;
 
-      /* Check the argument names are the same.
+      /* Check that the argument numbers are the same.
          Both arrays are sorted.  We search for the first difference.  */
       for (i = 0, j = 0; i < n1 || j < n2; )
         {

@@ -198,6 +198,7 @@ format_parse_entrails (const char *format, bool translated,
   allocated = 0;
 
   for (; *format != '\0';)
+    /* Invariant: spec.unnumbered_arg_count == 0 || numbered_arg_count == 0.  */
     if (*format++ == '%')
       {
         /* A directive.  */
