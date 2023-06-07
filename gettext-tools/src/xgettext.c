@@ -1524,7 +1524,7 @@ xgettext_record_flag (const char *optionstring)
                                                     argnum, value, pass);
                     break;
                   case format_python_brace:
-                    flag_context_list_table_insert (&flag_table_python, 0,
+                    flag_context_list_table_insert (&flag_table_python, 1,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
