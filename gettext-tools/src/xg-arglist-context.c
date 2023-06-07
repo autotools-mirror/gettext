@@ -146,14 +146,42 @@ flag_context_list_table_lookup (flag_context_list_table_ty *flag_table,
 }
 
 
+/* In the FLAGS, set the pair (is_formatX, pass_formatX) with X = INDEX+1
+   to (VALUE, PASS).  */
+static void
+set_flags_for_formatstring_type (flag_context_ty *flags, unsigned int index,
+                                 enum is_format value, bool pass)
+{
+  switch (index)
+    {
+    case 0:
+      flags->is_format1 = value;
+      flags->pass_format1 = pass;
+      break;
+    case 1:
+      flags->is_format2 = value;
+      flags->pass_format2 = pass;
+      break;
+    case 2:
+      flags->is_format3 = value;
+      flags->pass_format3 = pass;
+      break;
+    case 3:
+      flags->is_format4 = value;
+      flags->pass_format4 = pass;
+      break;
+    default:
+      abort ();
+    }
+}
+
+
 void
 flag_context_list_table_add (flag_context_list_table_ty *table,
                              unsigned int index,
                              const char *name_start, const char *name_end,
                              int argnum, enum is_format value, bool pass)
 {
-  /* Insert the pair (VALUE, PASS) at INDEX in the element numbered ARGNUM
-     of the list corresponding to NAME in the TABLE.  */
   if (table->table == NULL)
     hash_init (table, 100);
   {
@@ -165,27 +193,7 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
         flag_context_list_ty *list = XMALLOC (flag_context_list_ty);
         list->argnum = argnum;
         memset (&list->flags, '\0', sizeof (list->flags));
-        switch (index)
-          {
-          case 0:
-            list->flags.is_format1 = value;
-            list->flags.pass_format1 = pass;
-            break;
-          case 1:
-            list->flags.is_format2 = value;
-            list->flags.pass_format2 = pass;
-            break;
-          case 2:
-            list->flags.is_format3 = value;
-            list->flags.pass_format3 = pass;
-            break;
-          case 3:
-            list->flags.is_format4 = value;
-            list->flags.pass_format4 = pass;
-            break;
-          default:
-            abort ();
-          }
+        set_flags_for_formatstring_type (&list->flags, index, value, pass);
         list->next = NULL;
         hash_insert_entry (table, name_start, name_end - name_start, list);
       }
@@ -206,27 +214,7 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
         if (list != NULL && list->argnum == argnum)
           {
             /* Add this flag to the current argument number.  */
-            switch (index)
-              {
-              case 0:
-                list->flags.is_format1 = value;
-                list->flags.pass_format1 = pass;
-                break;
-              case 1:
-                list->flags.is_format2 = value;
-                list->flags.pass_format2 = pass;
-                break;
-              case 2:
-                list->flags.is_format3 = value;
-                list->flags.pass_format3 = pass;
-                break;
-              case 3:
-                list->flags.is_format4 = value;
-                list->flags.pass_format4 = pass;
-                break;
-              default:
-                abort ();
-              }
+            set_flags_for_formatstring_type (&list->flags, index, value, pass);
           }
         else if (lastp != NULL)
           {
@@ -234,27 +222,7 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
             list = XMALLOC (flag_context_list_ty);
             list->argnum = argnum;
             memset (&list->flags, '\0', sizeof (list->flags));
-            switch (index)
-              {
-              case 0:
-                list->flags.is_format1 = value;
-                list->flags.pass_format1 = pass;
-                break;
-              case 1:
-                list->flags.is_format2 = value;
-                list->flags.pass_format2 = pass;
-                break;
-              case 2:
-                list->flags.is_format3 = value;
-                list->flags.pass_format3 = pass;
-                break;
-              case 3:
-                list->flags.is_format4 = value;
-                list->flags.pass_format4 = pass;
-                break;
-              default:
-                abort ();
-              }
+            set_flags_for_formatstring_type (&list->flags, index, value, pass);
             list->next = *lastp;
             *lastp = list;
           }
@@ -269,27 +237,7 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
 
             list->argnum = argnum;
             memset (&list->flags, '\0', sizeof (list->flags));
-            switch (index)
-              {
-              case 0:
-                list->flags.is_format1 = value;
-                list->flags.pass_format1 = pass;
-                break;
-              case 1:
-                list->flags.is_format2 = value;
-                list->flags.pass_format2 = pass;
-                break;
-              case 2:
-                list->flags.is_format3 = value;
-                list->flags.pass_format3 = pass;
-                break;
-              case 3:
-                list->flags.is_format4 = value;
-                list->flags.pass_format4 = pass;
-                break;
-              default:
-                abort ();
-              }
+            set_flags_for_formatstring_type (&list->flags, index, value, pass);
             list->next = copy;
           }
       }

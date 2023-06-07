@@ -87,6 +87,9 @@ typedef hash_table /* char[] -> flag_context_list_ty * */
 extern flag_context_list_ty *
        flag_context_list_table_lookup (flag_context_list_table_ty *flag_table,
                                        const void *key, size_t keylen);
+/* Insert the pair (VALUE, PASS) as (is_formatX, pass_formatX) with X = INDEX+1
+   in the flags of the element numbered ARGNUM of the list corresponding to NAME
+   in the TABLE.  */
 extern void
        flag_context_list_table_add (flag_context_list_table_ty *table,
                                     unsigned int index,
