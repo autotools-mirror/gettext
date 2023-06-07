@@ -90,7 +90,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-c-comment-4 xgettext-c-comment-5 xgettext-c-comment-6 \
 	xgettext-c-escape-1 xgettext-c-escape-2 xgettext-c-escape-3 \
 	xgettext-c-format-1 xgettext-c-format-2 xgettext-c-format-3 \
-	xgettext-c-format-4 xgettext-c-format-5 \
+	xgettext-c-format-4 xgettext-c-format-5 xgettext-c-format-6 \
 	xgettext-c-ctxt-1 xgettext-c-ctxt-2 xgettext-c-ctxt-3 \
 	xgettext-c-c++-1 xgettext-c-c++-2 \
 	xgettext-c-stackovfl-1 xgettext-c-stackovfl-2 \

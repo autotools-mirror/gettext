@@ -1415,7 +1415,9 @@ xgettext_record_flag (const char *optionstring)
     const char *name_end = colon1;
     const char *argnum_start = colon1 + 1;
     const char *argnum_end = colon2;
-    const char *flag = colon2 + 1;
+    const char *flag_start = colon2 + 1;
+    const char *flag_end;
+    const char *backend;
     int argnum;
 
     /* Check the parts' syntax.  */
@@ -1432,29 +1434,38 @@ xgettext_record_flag (const char *optionstring)
     if (argnum <= 0)
       goto err;
 
+    flag_end = strchr (flag_start, '!');
+    if (flag_end != NULL)
+      backend = flag_end + 1;
+    else
+      {
+        flag_end = flag_start + strlen (flag_start);
+        backend = NULL;
+      }
+
     /* Analyze the flag part.  */
     {
       bool pass;
 
       pass = false;
-      if (strlen (flag) >= 5 && memcmp (flag, "pass-", 5) == 0)
+      if (flag_end - flag_start >= 5 && memcmp (flag_start, "pass-", 5) == 0)
         {
           pass = true;
-          flag += 5;
+          flag_start += 5;
         }
 
       /* Unlike po_parse_comment_special(), we don't accept "fuzzy",
          "wrap", or "check" here - it has no sense.  */
-      if (strlen (flag) >= 7
-          && memcmp (flag + strlen (flag) - 7, "-format", 7) == 0)
+      if (flag_end - flag_start >= 7
+          && memcmp (flag_end - 7, "-format", 7) == 0)
         {
           const char *p;
           size_t n;
           enum is_format value;
           size_t type;
 
-          p = flag;
-          n = strlen (flag) - 7;
+          p = flag_start;
+          n = flag_end - flag_start - 7;
 
           if (n >= 3 && memcmp (p, "no-", 3) == 0)
             {
@@ -1494,24 +1505,37 @@ xgettext_record_flag (const char *optionstring)
                 switch (type)
                   {
                   case format_c:
-                    flag_context_list_table_insert (&flag_table_c, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    flag_context_list_table_insert (&flag_table_cxx_qt, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    flag_context_list_table_insert (&flag_table_cxx_kde, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    flag_context_list_table_insert (&flag_table_cxx_boost, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    flag_context_list_table_insert (&flag_table_objc, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    flag_context_list_table_insert (&flag_table_vala, 0,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
+                    if (backend == NULL || strcmp (backend, "C") == 0
+                        || strcmp (backend, "C++") == 0)
+                      {
+                        flag_context_list_table_insert (&flag_table_c, 0,
+                                                        name_start, name_end,
+                                                        argnum, value, pass);
+                      }
+                    if (backend == NULL || strcmp (backend, "C++") == 0)
+                      {
+                        flag_context_list_table_insert (&flag_table_cxx_qt, 0,
+                                                        name_start, name_end,
+                                                        argnum, value, pass);
+                        flag_context_list_table_insert (&flag_table_cxx_kde, 0,
+                                                        name_start, name_end,
+                                                        argnum, value, pass);
+                        flag_context_list_table_insert (&flag_table_cxx_boost, 0,
+                                                        name_start, name_end,
+                                                        argnum, value, pass);
+                      }
+                    if (backend == NULL || strcmp (backend, "ObjectiveC") == 0)
+                      {
+                        flag_context_list_table_insert (&flag_table_objc, 0,
+                                                        name_start, name_end,
+                                                        argnum, value, pass);
+                      }
+                    if (backend == NULL || strcmp (backend, "Vala") == 0)
+                      {
+                        flag_context_list_table_insert (&flag_table_vala, 0,
+                                                        name_start, name_end,
+                                                        argnum, value, pass);
+                      }
                     break;
                   case format_objc:
                     flag_context_list_table_insert (&flag_table_objc, 1,

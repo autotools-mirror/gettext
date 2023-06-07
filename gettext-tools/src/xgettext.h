@@ -63,7 +63,11 @@ extern struct formatstring_parser *current_formatstring_parser3;
 extern struct formatstring_parser *current_formatstring_parser4;
 
 
-/* Record a flag in the appropriate backend's table.  */
+/* Record a flag in the appropriate backend's table.
+   OPTIONSTRING has the syntax WORD:ARG:FLAG (as documented)
+   or                          WORD:ARG:FLAG!BACKEND.
+   The latter syntax is undocumented and only needed for format string types
+   that are used by multiple backends.  */
 extern void xgettext_record_flag (const char *optionstring);
 
 

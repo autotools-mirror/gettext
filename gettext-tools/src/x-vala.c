@@ -128,24 +128,25 @@ init_keywords ()
 void
 init_flag_table_vala ()
 {
-  xgettext_record_flag ("dgettext:2:pass-c-format");
-  xgettext_record_flag ("dcgettext:2:pass-c-format");
-  xgettext_record_flag ("ngettext:1:pass-c-format");
-  xgettext_record_flag ("ngettext:2:pass-c-format");
-  xgettext_record_flag ("dngettext:2:pass-c-format");
-  xgettext_record_flag ("dngettext:3:pass-c-format");
-  xgettext_record_flag ("dpgettext:2:pass-c-format");
-  xgettext_record_flag ("dpgettext2:3:pass-c-format");
-  xgettext_record_flag ("_:1:pass-c-format");
-  xgettext_record_flag ("Q_:1:pass-c-format");
-  xgettext_record_flag ("N_:1:pass-c-format");
-  xgettext_record_flag ("NC_:2:pass-c-format");
-
   /* Vala leaves string formatting to Glib functions and thus the
      format string is exactly same as C.  See also
      vapi/glib-2.0.vapi.  */
-  xgettext_record_flag ("printf:1:c-format");
-  xgettext_record_flag ("vprintf:1:c-format");
+
+  xgettext_record_flag ("dgettext:2:pass-c-format!Vala");
+  xgettext_record_flag ("dcgettext:2:pass-c-format!Vala");
+  xgettext_record_flag ("ngettext:1:pass-c-format!Vala");
+  xgettext_record_flag ("ngettext:2:pass-c-format!Vala");
+  xgettext_record_flag ("dngettext:2:pass-c-format!Vala");
+  xgettext_record_flag ("dngettext:3:pass-c-format!Vala");
+  xgettext_record_flag ("dpgettext:2:pass-c-format!Vala");
+  xgettext_record_flag ("dpgettext2:3:pass-c-format!Vala");
+  xgettext_record_flag ("_:1:pass-c-format!Vala");
+  xgettext_record_flag ("Q_:1:pass-c-format!Vala");
+  xgettext_record_flag ("N_:1:pass-c-format!Vala");
+  xgettext_record_flag ("NC_:2:pass-c-format!Vala");
+
+  xgettext_record_flag ("printf:1:c-format!Vala");
+  xgettext_record_flag ("vprintf:1:c-format!Vala");
 }
 
 
