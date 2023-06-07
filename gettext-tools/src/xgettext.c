@@ -1481,6 +1481,16 @@ xgettext_record_flag (const char *optionstring)
             if (strlen (format_language[type]) == n
                 && memcmp (format_language[type], p, n) == 0)
               {
+                /* This dispatch does the reverse mapping of all the SCANNERS_*
+                   macros defined in the x-*.h files.  For example,
+                   SCANNERS_JAVA contains an entry
+                     { ...,
+                       &flag_table_java,
+                       &formatstring_java, &formatstring_java_printf
+                     }
+                   Therefore here, we have to associate
+                     format_java          with   flag_table_java at index 0,
+                     format_java_printf   with   flag_table_java at index 1.  */
                 switch (type)
                   {
                   case format_c:
@@ -1497,6 +1507,9 @@ xgettext_record_flag (const char *optionstring)
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     flag_context_list_table_insert (&flag_table_objc, 0,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    flag_context_list_table_insert (&flag_table_vala, 0,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
