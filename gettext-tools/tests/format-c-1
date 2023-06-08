@@ -192,12 +192,10 @@ cat <<\EOF > f-c-1.data
 "abc%1"
 # Invalid: flags before number
 "abc%+1$d"
-# Valid: three arguments, two with same number
+# Valid: three arguments, two with same number, no conflict
 "abc%1$4x,%2$c,%1$u"
 # Invalid: argument with conflicting types
 "abc%1$4x,%2$c,%1$s"
-# Valid: no conflict
-"abc%1$4x,%2$c,%1$u"
 # Invalid: mixing of numbered and unnumbered arguments
 "abc%d%2$x"
 # Valid: numbered argument with constant precision
