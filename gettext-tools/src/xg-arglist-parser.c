@@ -411,8 +411,8 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
           if (recognize_qt_formatstrings ()
               && best_cp->msgid_plural == best_cp->msgid)
             {
-              msgid_context.is_format3 = yes_according_to_context;
-              msgid_plural_context.is_format3 = yes_according_to_context;
+              msgid_context.is_format4 = yes_according_to_context;
+              msgid_plural_context.is_format4 = yes_according_to_context;
             }
 
           best_msgctxt =

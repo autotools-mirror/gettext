@@ -23,6 +23,8 @@ Version 0.21.2 - May 2023
     o xgettext and msgfmt now recognize the argument size specifiers
       w8, w16, w32, w64, wf8, wf16, wf32, wf64 (as defined by ISO C 23)
       in format strings.
+    o xgettext and msgfmt now recognize C++ format strings, as defined by
+      ISO C++ 20.  They are marked as 'c++-format' in POT and PO files.
   - Tcl: xgettext now supports the \x, \u, and \U escapes as defined in
     Tcl 8.6.
 

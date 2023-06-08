@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012-2013, 2015-2016, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2010, 2012-2013, 2015-2016, 2019-2020, 2023 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -36,6 +36,7 @@ const char *const format_language[NFORMATS] =
 {
   /* format_c */                "c",
   /* format_objc */             "objc",
+  /* format_cplusplus_brace */  "c++",
   /* format_python */           "python",
   /* format_python_brace */     "python-brace",
   /* format_java */             "java",
@@ -70,6 +71,7 @@ const char *const format_language_pretty[NFORMATS] =
 {
   /* format_c */                "C",
   /* format_objc */             "Objective C",
+  /* format_cplusplus_brace */  "C++",
   /* format_python */           "Python",
   /* format_python_brace */     "Python brace",
   /* format_java */             "Java MessageFormat",

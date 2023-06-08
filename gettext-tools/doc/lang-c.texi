@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2020 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2023 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node C
@@ -52,6 +52,7 @@ Use
 @code{fprintf "%2$d %1$d"}
 @*In C++: @code{autosprintf "%2$d %1$d"}
 (@pxref{Top, , Introduction, autosprintf, GNU autosprintf})
+@*In C++ 20 or newer: @code{std::vformat "@{1@} @{0@}"}
 
 @item Portability
 autoconf (gettext.m4) and #if ENABLE_NLS

@@ -170,6 +170,7 @@ TESTS = gettext-1 gettext-2 \
 	format-awk-1 format-awk-2 \
 	format-boost-1 format-boost-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 \
+	format-c++-brace-1 format-c++-brace-2 \
 	format-csharp-1 format-csharp-2 \
 	format-elisp-1 format-elisp-2 \
 	format-gcc-internal-1 format-gcc-internal-2 \
@@ -199,7 +200,7 @@ TESTS = gettext-1 gettext-2 \
 	plural-1 plural-2 \
 	gettextpo-1 sentence-1 \
 	lang-po \
-	lang-c lang-c++ lang-objc \
+	lang-c lang-c++ lang-c++20 lang-objc \
 	lang-python-1 lang-python-2 \
 	lang-java \
 	lang-csharp \

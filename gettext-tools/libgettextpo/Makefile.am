@@ -69,6 +69,7 @@ libgettextpo_la_AUXSOURCES = \
   ../src/read-catalog.c \
   ../src/plural-table.c \
   ../src/format-c.c \
+  ../src/format-c++-brace.c \
   ../src/format-python.c \
   ../src/format-python-brace.c \
   ../src/format-java.c \

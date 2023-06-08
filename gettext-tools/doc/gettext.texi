@@ -390,6 +390,7 @@ The Translator's View
 
 * c-format::                    C Format Strings
 * objc-format::                 Objective C Format Strings
+* c++-format::                  C++ Format Strings
 * python-format::               Python Format Strings
 * java-format::                 Java Format Strings
 * csharp-format::               C# Format Strings
@@ -1571,6 +1572,12 @@ program does some more tests to check the validity of the translation.
 @kwindex no-objc-format@r{ flag}
 Likewise for Objective C, see @ref{objc-format}.
 
+@item c++-format
+@kwindex c++-format@r{ flag}
+@itemx no-c++-format
+@kwindex no-c++-format@r{ flag}
+Likewise for C++, see @ref{c++-format}.
+
 @item python-format
 @kwindex python-format@r{ flag}
 @itemx no-python-format
@@ -2049,6 +2056,10 @@ Use format strings instead of string concatenation.
 Use placeholders in format strings instead of embedded URLs.
 
 @item
+Use placeholders in format strings instead of programmer-defined format
+string directives.
+
+@item
 Avoid unusual markup and unusual control characters.
 @end itemize
 
@@ -2295,18 +2306,61 @@ The same holds for email addresses.
 
 So, you would change
 
-@example
+@smallexample
 fputs (_("GNU GPL version 3 <https://gnu.org/licenses/gpl.html>\n"),
        stream);
-@end example
+@end smallexample
 
 @noindent
 to
 
-@example
+@smallexample
 fprintf (stream, _("GNU GPL version 3 <%s>\n"),
          "https://gnu.org/licenses/gpl.html");
-@end example
+@end smallexample
+
+@subheading No programmer-defined format string directives
+
+The GNU C Library's @code{<printf.h>} facility and the C++ standard library's @code{<format>} header file make it possible for the programmer to define their own format string directives.  However, such format directives cannot be used in translatable strings, for two reasons:
+@itemize @bullet
+@item
+There is no reference documentation for format strings with such directives, that the translators could consult.  They would therefore have to guess where the directive starts and where it ends.
+@item
+An @samp{msgfmt -c} invocation cannot check whether the translator has produced a compatible translation of the format string.  As a consequence, when a format string contains a programmer-defined directive, the program may crash at runtime when it uses the translated format string.
+@end itemize
+
+To avoid this situation, you need to move the formatting with the custom directive into a format string that does not get translated.
+
+For example, assuming code that makes use of a @code{%r} directive:
+
+@smallexample
+fprintf (stream, _("The contents is: %r"), data);
+@end smallexample
+
+@noindent
+you would rewrite it to:
+
+@smallexample
+char *tmp;
+if (asprintf (&tmp, "%r", data) < 0)
+  error (...);
+fprintf (stream, _("The contents is: %s"), tmp);
+free (tmp);
+@end smallexample
+
+Similarly, in C++, assuming you have defined a custom @code{formatter} for the type of @code{data}, the code
+
+@smallexample
+cout << format (_("The contents is: @{:#$#@}"), data);
+@end smallexample
+
+@noindent
+should be rewritten to:
+
+@smallexample
+string tmp = format ("@{:#$#@}", data);
+cout << format (_("The contents is: @{@}"), tmp);
+@end smallexample
 
 @subheading No unusual markup
 
@@ -2413,6 +2467,19 @@ Note also that long strings can be split across lines, into multiple
 adjacent string tokens.  Automatic string concatenation is performed
 at compile time according to ISO C and ISO C++; @code{xgettext} also
 supports this syntax.
+
+In C++, marking a C++ format string requires a small code change,
+because the first argument to @code{std::format} must be a constant
+expression.
+For example,
+@smallexample
+std::format ("@{@} @{@}!", "Hello", "world")
+@end smallexample
+@noindent
+needs to be changed to
+@smallexample
+std::vformat (gettext ("@{@} @{@}!"), std::make_format_args("Hello", "world"))
+@end smallexample
 
 Later on, the maintenance is relatively easy.  If, as a programmer,
 you add or modify a string, you will have to ask yourself if the
@@ -9498,6 +9565,7 @@ strings.
 @menu
 * c-format::                    C Format Strings
 * objc-format::                 Objective C Format Strings
+* c++-format::                  C++ Format Strings
 * python-format::               Python Format Strings
 * java-format::                 Java Format Strings
 * csharp-format::               C# Format Strings
@@ -9576,6 +9644,17 @@ glibc when NLS is disabled.)
 Objective C format strings are like C format strings.  They support an
 additional format directive: "%@@", which when executed consumes an argument
 of type @code{Object *}.
+
+@node c++-format
+@subsection C++ Format Strings
+
+C++ format strings are described in ISO C++ 20, namely in
+@uref{https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2020/n4861.pdf},
+section 20.20.2 Format string [format.string].
+
+An easier-to-read description is found at
+@uref{https://en.cppreference.com/w/cpp/utility/format/format#Parameters} and
+@uref{https://en.cppreference.com/w/cpp/utility/format/formatter#Standard_format_specification}.
 
 @node python-format
 @subsection Python Format Strings

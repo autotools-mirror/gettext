@@ -1537,6 +1537,20 @@ xgettext_record_flag (const char *optionstring)
                                                         argnum, value, pass);
                       }
                     break;
+                  case format_cplusplus_brace:
+                    flag_context_list_table_insert (&flag_table_c, 1,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    flag_context_list_table_insert (&flag_table_cxx_qt, 1,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    flag_context_list_table_insert (&flag_table_cxx_kde, 1,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    flag_context_list_table_insert (&flag_table_cxx_boost, 1,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
                   case format_objc:
                     flag_context_list_table_insert (&flag_table_objc, 1,
                                                     name_start, name_end,
@@ -1617,27 +1631,27 @@ xgettext_record_flag (const char *optionstring)
                   case format_smalltalk:
                     break;
                   case format_qt:
-                    flag_context_list_table_insert (&flag_table_cxx_qt, 1,
-                                                    name_start, name_end,
-                                                    argnum, value, pass);
-                    break;
-                  case format_qt_plural:
                     flag_context_list_table_insert (&flag_table_cxx_qt, 2,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
-                  case format_kde:
-                    flag_context_list_table_insert (&flag_table_cxx_kde, 1,
+                  case format_qt_plural:
+                    flag_context_list_table_insert (&flag_table_cxx_qt, 3,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
-                  case format_kde_kuit:
+                  case format_kde:
                     flag_context_list_table_insert (&flag_table_cxx_kde, 2,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
+                  case format_kde_kuit:
+                    flag_context_list_table_insert (&flag_table_cxx_kde, 3,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
                   case format_boost:
-                    flag_context_list_table_insert (&flag_table_cxx_boost, 1,
+                    flag_context_list_table_insert (&flag_table_cxx_boost, 2,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
@@ -2030,7 +2044,7 @@ bool
 recognize_qt_formatstrings (void)
 {
   return recognize_format_qt
-         && current_formatstring_parser3 == &formatstring_qt_plural;
+         && current_formatstring_parser4 == &formatstring_qt_plural;
 }
 
 
@@ -2254,21 +2268,21 @@ language_to_extractor (const char *name)
         if (recognize_format_qt && strcmp (tp->name, "C++") == 0)
           {
             result.flag_table = &flag_table_cxx_qt;
-            result.formatstring_parser2 = &formatstring_qt;
-            result.formatstring_parser3 = &formatstring_qt_plural;
+            result.formatstring_parser3 = &formatstring_qt;
+            result.formatstring_parser4 = &formatstring_qt_plural;
           }
         /* Likewise for --kde.  */
         if (recognize_format_kde && strcmp (tp->name, "C++") == 0)
           {
             result.flag_table = &flag_table_cxx_kde;
-            result.formatstring_parser2 = &formatstring_kde;
-            result.formatstring_parser3 = &formatstring_kde_kuit;
+            result.formatstring_parser3 = &formatstring_kde;
+            result.formatstring_parser4 = &formatstring_kde_kuit;
           }
         /* Likewise for --boost.  */
         if (recognize_format_boost && strcmp (tp->name, "C++") == 0)
           {
             result.flag_table = &flag_table_cxx_boost;
-            result.formatstring_parser2 = &formatstring_boost;
+            result.formatstring_parser3 = &formatstring_boost;
           }
 
         return result;

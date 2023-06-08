@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2010, 2012-2013, 2015, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2010, 2012-2013, 2015, 2019-2020, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -98,6 +98,7 @@ struct formatstring_parser
 /* Format string parsers, each defined in its own file.  */
 extern DLL_VARIABLE struct formatstring_parser formatstring_c;
 extern DLL_VARIABLE struct formatstring_parser formatstring_objc;
+extern DLL_VARIABLE struct formatstring_parser formatstring_cplusplus_brace;
 extern DLL_VARIABLE struct formatstring_parser formatstring_python;
 extern DLL_VARIABLE struct formatstring_parser formatstring_python_brace;
 extern DLL_VARIABLE struct formatstring_parser formatstring_java;

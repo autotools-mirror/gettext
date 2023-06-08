@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2010, 2012-2013, 2015, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2010, 2012-2013, 2015, 2019-2020, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -36,6 +36,7 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
 {
   /* format_c */                &formatstring_c,
   /* format_objc */             &formatstring_objc,
+  /* format_cplusplus_brace */  &formatstring_cplusplus_brace,
   /* format_python */           &formatstring_python,
   /* format_python_brace */     &formatstring_python_brace,
   /* format_java */             &formatstring_java,

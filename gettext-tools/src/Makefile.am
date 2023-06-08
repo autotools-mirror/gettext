@@ -145,6 +145,7 @@ endif
 FORMAT_SOURCE += \
   format-invalid.h \
   format-c.c format-c-parse.h \
+  format-c++-brace.c \
   format-python.c \
   format-python-brace.c \
   format-java.c \
