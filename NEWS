@@ -31,6 +31,8 @@ Version 0.21.2 - May 2023
   - xgettext input files of type PO that are not all ASCII and not UTF-8
     encoded are now handled correctly.
 
+* The base Unicode standard is now updated to 15.0.0.
+
 * Emacs PO mode:
   Fix an incompatibility with Emacs version 29 or newer.
 
