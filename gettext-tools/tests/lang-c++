@@ -32,7 +32,6 @@ using namespace std;
 
 #include <libintl.h>
 #include <locale.h>
-#include <stdio.h>
 #include <stdlib.h>
 #include "xsetenv.h"
 #include "autosprintf.h"
