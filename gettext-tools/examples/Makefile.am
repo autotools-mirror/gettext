@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples subdirectory of GNU gettext
-## Copyright (C) 2001-2007, 2009-2016, 2018-2022 Free Software Foundation, Inc.
+## Copyright (C) 2001-2007, 2009-2016, 2018-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -76,6 +76,16 @@ EXAMPLESFILES = \
   hello-c++/m4/Makefile.am \
   hello-c++/po/Makevars \
   hello-c++/po/POTFILES.in \
+  \
+  hello-c++20/INSTALL \
+  hello-c++20/autogen.sh \
+  hello-c++20/autoclean.sh \
+  hello-c++20/hello.cc \
+  hello-c++20/Makefile.am \
+  hello-c++20/configure.ac \
+  hello-c++20/m4/Makefile.am \
+  hello-c++20/po/Makevars \
+  hello-c++20/po/POTFILES.in \
   \
   hello-c++-qt/INSTALL \
   hello-c++-qt/BUGS \
@@ -377,6 +387,7 @@ EXAMPLESDIRS = \
   hello-c-gnome \
   hello-c-gnome3 \
   hello-c++ \
+  hello-c++20 \
   hello-c++-qt \
   hello-c++-kde \
   hello-c++-gnome \

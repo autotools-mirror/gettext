@@ -27,6 +27,7 @@ POTFILES = \
   hello-c-gnome3/hello.gschema.xml \
   hello-c-gnome3/hello.ui \
   hello-c++/hello.cc \
+  hello-c++20/hello.cc \
   hello-c++-qt/hello.cc \
   hello-c++-kde/hello.cc \
   hello-c++-kde/hellowindow.h \
@@ -67,6 +68,7 @@ SMALLPOTS = \
   hello-c-gnome.pot \
   hello-c-gnome3.pot \
   hello-c++.pot \
+  hello-c++20.pot \
   hello-c++-qt.pot \
   hello-c++-kde.pot \
   hello-c++-gnome.pot \
@@ -251,6 +253,9 @@ hello-c-gnome3.pot : $(POTFILES_DEPS)
 hello-c++.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++
 
+hello-c++20.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++20
+
 hello-c++-qt.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-qt
 
@@ -410,6 +415,7 @@ SMALLPOFILES_FOR_lang = \
   $(srcdir)/../hello-c-gnome/po/$$lang.po \
   $(srcdir)/../hello-c-gnome3/po/$$lang.po \
   $(srcdir)/../hello-c++/po/$$lang.po \
+  $(srcdir)/../hello-c++20/po/$$lang.po \
   $(srcdir)/../hello-c++-qt/po/$$lang.po \
   $(srcdir)/../hello-c++-kde/po/$$lang.po \
   $(srcdir)/../hello-c++-gnome/po/$$lang.po \
@@ -448,6 +454,9 @@ $(srcdir)/../hello-c-gnome3/po/$(LL).po: $(srcdir)/hello-c-gnome3.pot $(srcdir)/
 
 $(srcdir)/../hello-c++/po/$(LL).po: $(srcdir)/hello-c++.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++ $(LL)
+
+$(srcdir)/../hello-c++20/po/$(LL).po: $(srcdir)/hello-c++20.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++20 $(LL)
 
 $(srcdir)/../hello-c++-qt/po/$(LL).po: $(srcdir)/hello-c++-qt.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-qt $(LL)
