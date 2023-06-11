@@ -924,7 +924,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
       /* Java 1.1.x uses a different hash function.  If compatibility with
          this Java version is required, the hash table must be built at run time,
          not at compile time.  */
-      fprintf (stream, "  private static final java.util.Hashtable table;\n");
+      fprintf (stream, "  private static final java.util.Hashtable<java.lang.String,java.lang.Object> table;\n");
       {
         /* With the Sun javac compiler, each 'put' call takes 9 to 11 bytes
            of bytecode, therefore for each message, up to 11 bytes are needed.
@@ -945,7 +945,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
                  start_j < mlp->nitems;
                  k++, start_j = end_j, end_j = start_j + max_items_per_method)
               {
-                fprintf (stream, "  static void clinit_part_%u (java.util.Hashtable t) {\n",
+                fprintf (stream, "  static void clinit_part_%u (java.util.Hashtable<java.lang.String,java.lang.Object> t) {\n",
                          k);
                 write_java1_init_statements (stream, mlp,
                                              start_j, MIN (end_j, mlp->nitems));
@@ -953,7 +953,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
               }
           }
         fprintf (stream, "  static {\n");
-        fprintf (stream, "    java.util.Hashtable t = new java.util.Hashtable();\n");
+        fprintf (stream, "    java.util.Hashtable<java.lang.String,java.lang.Object> t = new java.util.Hashtable<java.lang.String,java.lang.Object>();\n");
         if (mlp->nitems > max_items_per_method)
           {
             unsigned int k;
@@ -973,8 +973,8 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
       /* Emit the msgid_plural strings.  Only used by msgunfmt.  */
       if (plurals)
         {
-          fprintf (stream, "  public static final java.util.Hashtable get_msgid_plural_table () {\n");
-          fprintf (stream, "    java.util.Hashtable p = new java.util.Hashtable();\n");
+          fprintf (stream, "  public static final java.util.Hashtable<java.lang.String,java.lang.Object> get_msgid_plural_table () {\n");
+          fprintf (stream, "    java.util.Hashtable<java.lang.String,java.lang.Object> p = new java.util.Hashtable<java.lang.String,java.lang.Object>();\n");
           for (j = 0; j < mlp->nitems; j++)
             if (mlp->item[j]->msgid_plural != NULL)
               {
@@ -1011,7 +1011,7 @@ write_java_code (FILE *stream, const char *class_name, message_list_ty *mlp,
 
       /* Emit the getKeys function.  It is declared abstract in
          ResourceBundle.  */
-      fprintf (stream, "  public java.util.Enumeration getKeys () {\n");
+      fprintf (stream, "  public java.util.Enumeration<java.lang.String> getKeys () {\n");
       fprintf (stream, "    return table.keys();\n");
       fprintf (stream, "  }\n");
     }
