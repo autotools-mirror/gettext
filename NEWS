@@ -1,4 +1,4 @@
-Version 0.21.2 - May 2023
+Version 0.21.2 - June 2023
 
 * PO file format:
   - When a #: line contains references to file names that contain spaces,
@@ -27,6 +27,11 @@ Version 0.21.2 - May 2023
       ISO C++ 20.  They are marked as 'c++-format' in POT and PO files.
       A new example has been added, 'hello-c++20', that illustrates how
       to use these format strings with gettext.
+  - Java:
+    o The build system and tools now also support Java versions newer than
+      Java 11. This is known to work up to Java 20, at least. On the other
+      hand, support for old versions of Java (Java 1.5 and GCJ) has been
+      dropped.
   - Tcl: xgettext now supports the \x, \u, and \U escapes as defined in
     Tcl 8.6.
 
