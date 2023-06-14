@@ -8,6 +8,9 @@ ${XGETTEXT} -o fc4.tmp --omit-header --no-location "$wabs_srcdir"/format-c-4-prg
 LC_ALL=C tr -d '\r' < fc4.tmp > fc4.pot || Exit 1
 
 cat <<EOF > fc4.ok
+msgid "the president"
+msgstr ""
+
 #, c-format
 msgid "father of %<PRId8> child"
 msgid_plural "father of %<PRId8> children"
@@ -19,6 +22,9 @@ EOF
 ${DIFF} fc4.ok fc4.pot || Exit 1
 
 cat <<EOF > fc4-de.po
+msgid "the president"
+msgstr "der Vorsitzende"
+
 #, c-format
 msgid "father of %<PRId8> child"
 msgid_plural "father of %<PRId8> children"

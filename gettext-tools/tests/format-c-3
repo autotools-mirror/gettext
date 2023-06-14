@@ -8,6 +8,9 @@ ${XGETTEXT} -o fc3.tmp --omit-header --no-location "$wabs_srcdir"/format-c-3-prg
 LC_ALL=C tr -d '\r' < fc3.tmp > fc3.pot || Exit 1
 
 cat <<EOF > fc3.ok
+msgid "the president"
+msgstr ""
+
 #, c-format
 msgid "father of %<PRId8> children"
 msgstr ""
@@ -17,6 +20,9 @@ EOF
 ${DIFF} fc3.ok fc3.pot || Exit 1
 
 cat <<EOF > fc3-de.po
+msgid "the president"
+msgstr "der Vorsitzende"
+
 #, c-format
 msgid "father of %<PRId8> children"
 msgstr "Vater von %<PRId8> Kindern"

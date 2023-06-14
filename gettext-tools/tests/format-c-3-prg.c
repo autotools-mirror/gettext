@@ -1,5 +1,5 @@
 /* Test program, used by the format-c-3 test.
-   Copyright (C) 2002, 2009, 2013, 2018, 2020 Free Software Foundation, Inc.
+   Copyright (C) 2002, 2009, 2013, 2018, 2020, 2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -45,8 +45,6 @@
 extern char *setlocale (int category, const char *locale);
 #endif
 
-#define _(string) gettext (string)
-
 /* Fallback definition.  */
 #if !defined PRId8
 # define PRId8 "d"
@@ -70,6 +68,12 @@ main (int argc, char *argv[])
 
   textdomain ("fc3");
   bindtextdomain ("fc3", "fc3-dir");
+
+  if (strcmp (gettext ("the president"), "der Vorsitzende") != 0)
+    {
+      fprintf (stderr, "Simple messages not translated.\n");
+      exit (1);
+    }
 
   s = gettext ("father of %"PRId8" children");
   c1 = "Vater von %"; c2 = " Kindern";
