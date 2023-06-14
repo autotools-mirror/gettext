@@ -25,6 +25,18 @@ cat <<EOF > in-3-2.ok
 Käse
 EOF
 
+if test -n "$USE_SYSTEM_LIBINTL"; then
+  # In the system-tests/ dir:
+  case "$host_os" in
+    *-musl* | midipix*)
+      # On musl libc, bind_textdomain_codeset works only when the codeset
+      # argument is "UTF-8". In other words, on musl libc, the expected output
+      # is always in UTF-8.
+      cp in-3-2.ok in-3-1.ok
+      ;;
+  esac
+fi
+
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
