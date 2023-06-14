@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2019 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2023 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @pindex msgfmt
@@ -375,6 +375,13 @@ a human translator.
 @subsection Output details
 
 @table @samp
+@item --no-convert
+@opindex --no-convert@r{, @code{msgfmt} option}
+Don't convert the messages to UTF-8 encoding.  By default, messages are
+converted to UTF-8 encoding before being stored in a MO file; this helps
+avoiding conversions at run time, since nowadays most locales use the
+UTF-8 encoding.
+
 @item -a @var{number}
 @itemx --alignment=@var{number}
 @opindex -a@r{, @code{msgfmt} option}

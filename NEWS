@@ -35,6 +35,13 @@ Version 0.21.2 - June 2023
   - Tcl: xgettext now supports the \x, \u, and \U escapes as defined in
     Tcl 8.6.
 
+* Portability:
+  - On systems with musl libc, the *gettext() functions in libc now work
+    with MO files generated from PO files with an encoding other than UTF-8.
+    To this effect, the msgfmt program now converts the messages to UTF-8
+    encoding before storing them in a MO file.  You can prevent this by
+    using the msgfmt --no-convert option.
+
 * xgettext:
   - The xgettext option '--sorted-output' is now deprecated.
   - xgettext input files of type PO that are not all ASCII and not UTF-8

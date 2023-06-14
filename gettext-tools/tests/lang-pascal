@@ -83,7 +83,7 @@ test -d fr || mkdir fr
 test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -o fr/LC_MESSAGES/pascalprog.mo fr.po
+${MSGFMT} --no-convert -o fr/LC_MESSAGES/pascalprog.mo fr.po
 
 : ${DIFF=diff}
 cat <<\EOF > pascalprog.ok

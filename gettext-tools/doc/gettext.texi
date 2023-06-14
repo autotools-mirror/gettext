@@ -5995,6 +5995,14 @@ translation are all stored consecutively, separated through a
 @key{NUL} byte.  Here also, the length in the string descriptor
 includes all of them.
 
+@cindex encoding in MO files
+The character encoding of the strings can be any standard ASCII-compatible
+encoding, such as UTF-8, ISO-8859-1, EUC-JP, etc., as long as the
+encoding's name is stated in the header entry (@pxref{Header Entry}).
+Starting with GNU @code{gettext} version 0.22, the MO files produced by
+@code{msgfmt} have them in UTF-8 encoding, unless the @code{msgfmt}
+option @samp{--no-convert} is used.
+
 Nothing prevents a MO file from having embedded @key{NUL}s in strings.
 However, the program interface currently used already presumes
 that strings are @key{NUL} terminated, so embedded @key{NUL}s are

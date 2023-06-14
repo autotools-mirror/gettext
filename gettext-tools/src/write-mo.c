@@ -45,6 +45,8 @@
 #include "xsize.h"
 #include "xalloc.h"
 #include "xmalloca.h"
+#include "po-charset.h"
+#include "msgl-iconv.h"
 #include "msgl-header.h"
 #include "binary-io.h"
 #include "supersede.h"
@@ -65,6 +67,9 @@
 # endif /* GNU CC2  */
 #endif /* roundup  */
 
+
+/* True if no conversion to UTF-8 is desired.  */
+bool no_convert_to_utf8;
 
 /* Alignment of strings in resulting .mo file.  */
 size_t alignment;
@@ -828,11 +833,23 @@ write_table (FILE *output_file, message_list_ty *mlp)
 int
 msgdomain_write_mo (message_list_ty *mlp,
                     const char *domain_name,
-                    const char *file_name)
+                    const char *file_name,
+                    const char *input_file)
 {
   /* If no entry for this domain don't even create the file.  */
   if (mlp->nitems != 0)
     {
+      if (!no_convert_to_utf8)
+        {
+          /* Convert the messages to UTF-8.
+             This is necessary because the *gettext functions in musl libc
+             assume that both the locale encoding and the .mo encoding is UTF-8.
+             It is also helpful for performance on glibc systems, since most
+             locales nowadays have UTF-8 as locale encoding, whereas some PO
+             files still are encoded in EUC-JP or so.  */
+          iconv_message_list (mlp, NULL, po_charset_utf8, input_file);
+        }
+
       /* Support for "reproducible builds": Delete information that may vary
          between builds in the same conditions.  */
       message_list_delete_header_field (mlp, "POT-Creation-Date:");

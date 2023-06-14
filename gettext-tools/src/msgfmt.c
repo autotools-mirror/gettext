@@ -195,6 +195,7 @@ static const struct option long_options[] =
   { "keyword", optional_argument, NULL, 'k' },
   { "language", required_argument, NULL, 'L' },
   { "locale", required_argument, NULL, 'l' },
+  { "no-convert", no_argument, NULL, CHAR_MAX + 17 },
   { "no-hash", no_argument, NULL, CHAR_MAX + 6 },
   { "output-file", required_argument, NULL, 'o' },
   { "properties-input", no_argument, NULL, 'P' },
@@ -421,6 +422,9 @@ main (int argc, char *argv[])
       case CHAR_MAX + 16: /* --template=TEMPLATE */
         desktop_template_name = optarg;
         xml_template_name = optarg;
+        break;
+      case CHAR_MAX + 17: /* --no-convert */
+        no_convert_to_utf8 = true;
         break;
       default:
         usage (EXIT_FAILURE);
@@ -771,6 +775,20 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       }
   }
 
+  /* Compose the input file name(s).
+     This is used for statistics and error messages.  */
+  char *all_input_file_names;
+  {
+    string_list_ty input_file_names;
+
+    string_list_init (&input_file_names);;
+    for (arg_i = optind; arg_i < argc; arg_i++)
+      string_list_append (&input_file_names, argv[arg_i]);
+    all_input_file_names =
+      string_list_join (&input_file_names, ", ", '\0', false);
+    string_list_destroy (&input_file_names);
+  }
+
   /* Now write out all domains.  */
   for (domain = domain_list; domain != NULL; domain = domain->next)
     {
@@ -829,7 +847,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       else
         {
           if (msgdomain_write_mo (domain->mlp, domain->domain_name,
-                                  domain->file_name))
+                                  domain->file_name, all_input_file_names))
             exit_status = EXIT_FAILURE;
         }
 
@@ -843,23 +861,9 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       if (do_statistics + verbose >= 2 && optind < argc)
         {
           /* Print the input file name(s) in front of the statistics line.  */
-          char *all_input_file_names;
-
-          {
-            string_list_ty input_file_names;
-
-            string_list_init (&input_file_names);;
-            for (arg_i = optind; arg_i < argc; arg_i++)
-              string_list_append (&input_file_names, argv[arg_i]);
-            all_input_file_names =
-              string_list_join (&input_file_names, ", ", '\0', false);
-            string_list_destroy (&input_file_names);
-          }
-
           /* TRANSLATORS: The prefix before a statistics message.  The argument
              is a file name or a comma separated list of file names.  */
           fprintf (stderr, _("%s: "), all_input_file_names);
-          free (all_input_file_names);
         }
       fprintf (stderr,
                ngettext ("%d translated message", "%d translated messages",
@@ -1044,6 +1048,8 @@ Input file interpretation:\n"));
       printf ("\n");
       printf (_("\
 Output details:\n"));
+      printf (_("\
+      --no-convert            don't convert the messages to UTF-8 encoding\n"));
       printf (_("\
   -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"), DEFAULT_OUTPUT_ALIGNMENT);
       printf (_("\
