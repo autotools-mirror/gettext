@@ -1,6 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012, 2016, 2018-2022 Free Software
-   Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2010, 2012, 2016, 2018-2023 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software: you can redistribute it and/or modify
@@ -432,7 +431,7 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
             }
         }
     if (was_utf8)
-      def = iconv_msgdomain_list (def, "UTF-8", true, fn1);
+      def = iconv_msgdomain_list (def, po_charset_utf8, true, fn1);
   }
 
   /* Determine canonicalized encoding name of the definitions now, after

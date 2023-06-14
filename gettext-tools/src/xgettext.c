@@ -848,7 +848,7 @@ xgettext cannot work without keywords to look for"));
 
       extract_from_file (file_name, po_extractor, mdlp);
       if (!is_ascii_msgdomain_list (mdlp))
-        mdlp = iconv_msgdomain_list (mdlp, "UTF-8", true, file_name);
+        mdlp = iconv_msgdomain_list (mdlp, po_charset_utf8, true, file_name);
 
       dir_list_restore (saved_directory_list);
     }
