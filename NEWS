@@ -1,4 +1,4 @@
-Version 0.21.2 - June 2023
+Version 0.22 - June 2023
 
 * PO file format:
   - When a #: line contains references to file names that contain spaces,

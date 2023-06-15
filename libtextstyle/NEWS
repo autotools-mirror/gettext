@@ -1,4 +1,4 @@
-New in 0.21.2:
+New in 0.22:
 * Added type test functions:
        TYPE                             FUNCTION
   styled_ostream_t          is_instance_of_styled_ostream
