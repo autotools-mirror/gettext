@@ -3,6 +3,11 @@
 
 # Test 'I' format directive flag.
 
+# Note: As part of the system-tests, this test fails on Linux with musl libc
+# versions, because its *gettext() implementation in libc does not support
+# system dependent strings and our workaround in write-mo.c does not cover
+# this case.
+
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} -o fc5.tmp --omit-header --no-location "$wabs_srcdir"/format-c-5-prg.c || Exit 1
 LC_ALL=C tr -d '\r' < fc5.tmp > fc5.pot || Exit 1
