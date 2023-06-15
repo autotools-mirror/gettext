@@ -1,6 +1,5 @@
 # List of files which contain translatable strings.
-# Copyright (C) 1995, 1998, 2001-2006, 2011, 2016, 2020, 2022 Free Software Foundation,
-# Inc.
+# Copyright (C) 1995, 1998, 2001-2006, 2011, 2020, 2022 Free Software Foundation, Inc.
 # This file is free software, distributed under GNU GPL v3+.
 
 # For updating this file, look at the result of:
@@ -16,6 +15,8 @@ gnulib-lib/csharpcomp.c
 gnulib-lib/csharpexec.c
 gnulib-lib/error.c
 gnulib-lib/execute.c
+gnulib-lib/gai_strerror.c
+gnulib-lib/getaddrinfo.c
 gnulib-lib/getopt.c
 gnulib-lib/javacomp.c
 gnulib-lib/javaexec.c
@@ -23,7 +24,6 @@ gnulib-lib/javaversion.c
 gnulib-lib/obstack.c
 gnulib-lib/openat-die.c
 gnulib-lib/os2-spawn.c
-gnulib-lib/pipe-filter-aux.c
 gnulib-lib/pipe-filter-ii.c
 gnulib-lib/quotearg.c
 gnulib-lib/spawn-pipe.c
@@ -37,6 +37,7 @@ src/file-list.c
 src/format-awk.c
 src/format-boost.c
 src/format.c
+src/format-c++-brace.c
 src/format-c.c
 src/format-c-parse.h
 src/format-csharp.c
