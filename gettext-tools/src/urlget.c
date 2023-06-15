@@ -1,6 +1,5 @@
 /* Get the contents of an URL.
-   Copyright (C) 2001-2003, 2005-2010, 2012, 2017-2022 Free Software
-   Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2010, 2012, 2017-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -142,7 +141,7 @@ License GPLv3+: GNU GPL version 3 or later <%s>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-              "2001-2022", "https://gnu.org/licenses/gpl.html");
+              "2001-2023", "https://gnu.org/licenses/gpl.html");
       printf (_("Written by %s.\n"), proper_name ("Bruno Haible"));
       exit (EXIT_SUCCESS);
     }
