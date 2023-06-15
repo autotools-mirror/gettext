@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.18\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2022-10-09 23:02+0200\n"
+"POT-Creation-Date: 2023-06-15 20:33+0200\n"
 "PO-Revision-Date: 2010-05-24 13:00+0700\n"
 "Last-Translator: Arif E. Nugroho <arif_endro@yahoo.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
@@ -24,7 +24,7 @@ msgstr ""
 msgid "write error"
 msgstr "kesalahan penulisan"
 
-#: gnulib-lib/error.c:195
+#: gnulib-lib/error.c:194
 msgid "Unknown system error"
 msgstr "Kesalahan sistem tak dikenal"
 
@@ -68,7 +68,11 @@ msgstr "%s: pilihan tidak valid -- '%c'\n"
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: pilihan membutuhkan sebuah argumen -- '%c'\n"
 
-#: src/envsubst.c:110 src/gettext.c:136 src/ngettext.c:125
+#: gnulib-lib/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "kehabisan memori"
+
+#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
 #, fuzzy, c-format, no-wrap
 #| msgid ""
 #| "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -86,7 +90,7 @@ msgstr ""
 "Ini adalah piranti lunak bebas: anda bebas untuk mengubah dan meredistribusikannya.\n"
 "TIDAK ADA GARANSI, sampai batas yang diijinkan oleh hukum yang berlaku.\n"
 
-#: src/envsubst.c:116 src/gettext.c:142 src/ngettext.c:131
+#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Ditulis oleh %s.\n"
@@ -96,17 +100,17 @@ msgstr "Ditulis oleh %s.\n"
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:125 src/gettext.c:160 src/ngettext.c:143
+#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "terlalu banyak argumen"
 
-#: src/envsubst.c:136 src/gettext.c:170 src/ngettext.c:155
+#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "Argumen hilang"
 
-#: src/envsubst.c:174 src/gettext.c:247 src/ngettext.c:212
+#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
 #, fuzzy, c-format
 #| msgid "Try `%s --help' for more information.\n"
 msgid "Try '%s --help' for more information.\n"
@@ -132,7 +136,7 @@ msgstr "Mode operasi:\n"
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             hasilkan variabel yang muncul dalam SHELL-FORMAT\n"
 
-#: src/envsubst.c:195 src/gettext.c:276 src/ngettext.c:242
+#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Output informatif:\n"
@@ -179,7 +183,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:300 src/ngettext.c:263
+#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -196,11 +200,11 @@ msgid "standard input"
 msgstr "standard input"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:142 src/ngettext.c:131
+#: src/gettext.c:141 src/ngettext.c:131
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:252
+#: src/gettext.c:251
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -209,56 +213,56 @@ msgstr ""
 "Pemakaian: %s [PILIHAN] [[TEXTDOMAIN] ID-PESAN]\n"
 "atau:    %s [PILIHAN] -s [ID-PESAN]...\n"
 
-#: src/gettext.c:258
+#: src/gettext.c:257
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Tampilkan terjemahan bahasa asli pesan tekstual.\n"
 
-#: src/gettext.c:262
+#: src/gettext.c:261
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr ""
 
-#: src/gettext.c:264 src/ngettext.c:229
+#: src/gettext.c:263 src/ngettext.c:229
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr ""
 
-#: src/gettext.c:266 src/ngettext.c:231
+#: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
 
-#: src/gettext.c:268
+#: src/gettext.c:267
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr ""
 
-#: src/gettext.c:270 src/ngettext.c:233
+#: src/gettext.c:269 src/ngettext.c:233
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr ""
 
-#: src/gettext.c:272
+#: src/gettext.c:271
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
 
-#: src/gettext.c:278 src/ngettext.c:244
+#: src/gettext.c:277 src/ngettext.c:244
 #, fuzzy, c-format
 #| msgid "  -h, --help                  display this help and exit\n"
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                  tampilkan bantuan ini dan keluar\n"
 
-#: src/gettext.c:280 src/ngettext.c:246
+#: src/gettext.c:279 src/ngettext.c:246
 #, fuzzy, c-format
 #| msgid "  -V, --version               output version information and exit\n"
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version               informasi versi dan keluar\n"
 
-#: src/gettext.c:284
+#: src/gettext.c:283
 #, fuzzy, c-format, no-wrap
 #| msgid ""
 #| "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -360,10 +364,6 @@ msgstr ""
 #, c-format
 #~ msgid "%s: option '-W %s' requires an argument\n"
 #~ msgstr "%s: pilihan '-W %s' memerlukan sebuah argumen\n"
-
-#, c-format
-#~ msgid "memory exhausted"
-#~ msgstr "kehabisan memori"
 
 #~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 #~ msgstr "Laporkan kesalahan ke <bug-gnu-gettext@gnu.org>.\n"

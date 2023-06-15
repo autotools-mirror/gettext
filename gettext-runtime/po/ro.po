@@ -21,7 +21,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2022-10-09 23:02+0200\n"
+"POT-Creation-Date: 2023-06-15 20:33+0200\n"
 "PO-Revision-Date: 2022-05-30 00:49+0200\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
@@ -39,7 +39,7 @@ msgstr ""
 msgid "write error"
 msgstr "eroare de scriere"
 
-#: gnulib-lib/error.c:195
+#: gnulib-lib/error.c:194
 msgid "Unknown system error"
 msgstr "Eroare de sistem necunoscută"
 
@@ -78,7 +78,11 @@ msgstr "%s: opțiune nevalidă -- „%c”\n"
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: opțiunea necesită un argument -- „%c”\n"
 
-#: src/envsubst.c:110 src/gettext.c:136 src/ngettext.c:125
+#: gnulib-lib/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "memorie epuizată"
+
+#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -91,7 +95,7 @@ msgstr ""
 "Acesta este un program liber: sunteți liberi să-l modificați și să-l redistribuiți.\n"
 "Nu există NICIO GARANȚIE, în cadrul limitelor legale.\n"
 
-#: src/envsubst.c:116 src/gettext.c:142 src/ngettext.c:131
+#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Scris de %s.\n"
@@ -101,17 +105,17 @@ msgstr "Scris de %s.\n"
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:125 src/gettext.c:160 src/ngettext.c:143
+#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "prea mulți parametri"
 
-#: src/envsubst.c:136 src/gettext.c:170 src/ngettext.c:155
+#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "parametri lipsă"
 
-#: src/envsubst.c:174 src/gettext.c:247 src/ngettext.c:212
+#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Încercați «%s --help» pentru mai multe informații.\n"
@@ -145,7 +149,7 @@ msgstr "Mod de operare:\n"
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             afișează variabilele care apar în FORMAT-SHELL\n"
 
-#: src/envsubst.c:195 src/gettext.c:276 src/ngettext.c:242
+#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Ieșirea informativă:\n"
@@ -191,7 +195,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:300 src/ngettext.c:263
+#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -212,7 +216,7 @@ msgid "standard input"
 msgstr "intrarea standard"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:142 src/ngettext.c:131
+#: src/gettext.c:141 src/ngettext.c:131
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
@@ -220,7 +224,7 @@ msgstr "Ulrich Drepper"
 # acest mesaj, și următoarele, pot să fie
 # vizualizate, rulînd comanda:
 # «gettext --help».
-#: src/gettext.c:252
+#: src/gettext.c:251
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -229,39 +233,39 @@ msgstr ""
 "Utilizare: %s [OPȚIUNE] [[DOMENIU_TEXT] MSGID]\n"
 "sau:    %s [OPȚIUNE] -s [MSGID]...\n"
 
-#: src/gettext.c:258
+#: src/gettext.c:257
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Afișează traducerea în limba maternă a unui mesaj de text.\n"
 
-#: src/gettext.c:262
+#: src/gettext.c:261
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=DOMENIU_TEXT   preia mesajele traduse din DOMENIU_TEXT\n"
 
-#: src/gettext.c:264 src/ngettext.c:229
+#: src/gettext.c:263 src/ngettext.c:229
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=CONTEXT       specifică contextul pentru MSGID\n"
 
-#: src/gettext.c:266 src/ngettext.c:231
+#: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
 "  -e                          activează expansiunea unor caractere de "
 "eludare\n"
 
-#: src/gettext.c:268
+#: src/gettext.c:267
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                          elimină caracterul de linie nouă\n"
 
-#: src/gettext.c:270 src/ngettext.c:233
+#: src/gettext.c:269 src/ngettext.c:233
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                          (ignorată pentru compatibilitate)\n"
 
-#: src/gettext.c:272
+#: src/gettext.c:271
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
@@ -270,18 +274,18 @@ msgstr ""
 "  [DOMENIU_TEXT] MSGID        preia mesajul tradus ce corespunde\n"
 "                              lui MSGID din DOMENIU_TEXT\n"
 
-#: src/gettext.c:278 src/ngettext.c:244
+#: src/gettext.c:277 src/ngettext.c:244
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                  afișează acest mesaj de ajutor și iese\n"
 
-#: src/gettext.c:280 src/ngettext.c:246
+#: src/gettext.c:279 src/ngettext.c:246
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr ""
 "  -V, --version               afișează informații despre versiune și iese\n"
 
-#: src/gettext.c:284
+#: src/gettext.c:283
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -362,7 +366,3 @@ msgstr ""
 "este găsit în directorul obișnuit, o altă locație poate fi specificată în variabila de\n"
 "mediu TEXTDOMAINDIR.\n"
 "Directorul de căutare standard: %s\n"
-
-#, c-format
-#~ msgid "memory exhausted"
-#~ msgstr "memorie epuizată"

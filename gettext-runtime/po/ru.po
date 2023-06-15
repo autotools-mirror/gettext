@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2022-10-09 23:02+0200\n"
+"POT-Creation-Date: 2023-06-15 20:33+0200\n"
 "PO-Revision-Date: 2020-04-16 14:06+0300\n"
 "Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
 "Language-Team: Russian <gnu@d07.ru>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "write error"
 msgstr "ошибка записи"
 
-#: gnulib-lib/error.c:195
+#: gnulib-lib/error.c:194
 msgid "Unknown system error"
 msgstr "Неизвестная системная ошибка"
 
@@ -64,7 +64,11 @@ msgstr "%s: недопустимый параметр — «%c»\n"
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: для параметра требуется аргумент — «%c»\n"
 
-#: src/envsubst.c:110 src/gettext.c:136 src/ngettext.c:125
+#: gnulib-lib/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "память исчерпана"
+
+#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -77,7 +81,7 @@ msgstr ""
 "Это свободное ПО: вы можете продавать и распространять его.\n"
 "Нет НИКАКИХ ГАРАНТИЙ до степени, разрешённой законом.\n"
 
-#: src/envsubst.c:116 src/gettext.c:142 src/ngettext.c:131
+#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Автор программы — %s.\n"
@@ -87,17 +91,17 @@ msgstr "Автор программы — %s.\n"
 msgid "Bruno Haible"
 msgstr "Бруно Хайбл (Bruno Haible)"
 
-#: src/envsubst.c:125 src/gettext.c:160 src/ngettext.c:143
+#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "слишком много аргументов"
 
-#: src/envsubst.c:136 src/gettext.c:170 src/ngettext.c:155
+#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "необходимо задать аргументы"
 
-#: src/envsubst.c:174 src/gettext.c:247 src/ngettext.c:212
+#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "По команде «%s --help» можно получить дополнительную информацию.\n"
@@ -122,7 +126,7 @@ msgstr "Режим работы:\n"
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             вывести переменные, найденные в ФОРМАТЕ-ОБОЛОЧКИ\n"
 
-#: src/envsubst.c:195 src/gettext.c:276 src/ngettext.c:242
+#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Информационный вывод:\n"
@@ -169,7 +173,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:300 src/ngettext.c:263
+#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -188,11 +192,11 @@ msgid "standard input"
 msgstr "стандартный ввод"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:142 src/ngettext.c:131
+#: src/gettext.c:141 src/ngettext.c:131
 msgid "Ulrich Drepper"
 msgstr "Ульрих Дреппер (Ulrich Drepper)"
 
-#: src/gettext.c:252
+#: src/gettext.c:251
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -201,40 +205,40 @@ msgstr ""
 "Использование: %s [ПАРАМЕТР] [[ДОМЕН] MSGID]\n"
 "      или:     %s [ПАРАМЕТР] -s [MSGID]…\n"
 
-#: src/gettext.c:258
+#: src/gettext.c:257
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Отображает перевод текстового сообщения.\n"
 
-#: src/gettext.c:262
+#: src/gettext.c:261
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=ДОМЕН          возвращает переведённые сообщения из ДОМЕНА\n"
 
-#: src/gettext.c:264 src/ngettext.c:229
+#: src/gettext.c:263 src/ngettext.c:229
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=КОНТЕКСТ      задать контекст MSGID\n"
 
-#: src/gettext.c:266 src/ngettext.c:231
+#: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
 "  -e                        включить раскрытие некоторых экранированных\n"
 "                              последовательностей\n"
 
-#: src/gettext.c:268
+#: src/gettext.c:267
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr ""
 "  -n                          не выводить конечный символ новой строки\n"
 
-#: src/gettext.c:270 src/ngettext.c:233
+#: src/gettext.c:269 src/ngettext.c:233
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                          (игнорируется для совместимости)\n"
 
-#: src/gettext.c:272
+#: src/gettext.c:271
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
@@ -243,18 +247,18 @@ msgstr ""
 "  [ДОМЕН] MSGID               возвращает переведённое сообщение,\n"
 "                              соответствующее MSGID из ДОМЕНА\n"
 
-#: src/gettext.c:278 src/ngettext.c:244
+#: src/gettext.c:277 src/ngettext.c:244
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                  напечатать эту справку и выйти\n"
 
-#: src/gettext.c:280 src/ngettext.c:246
+#: src/gettext.c:279 src/ngettext.c:246
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr ""
 "  -V, --version               показать номер версии и завершить работу\n"
 
-#: src/gettext.c:284
+#: src/gettext.c:283
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -332,10 +336,6 @@ msgstr ""
 "найден в стандартном каталоге, можно указать другой каталог с помощью\n"
 "переменной окружения TEXTDOMAINDIR.\n"
 "Стандартный каталог поиска: %s\n"
-
-#, c-format
-#~ msgid "memory exhausted"
-#~ msgstr "память исчерпана"
 
 #~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 #~ msgstr "Об ошибках сообщайте по адресу <bug-gnu-gettext@gnu.org>.\n"

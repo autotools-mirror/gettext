@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2022-10-09 23:02+0200\n"
+"POT-Creation-Date: 2023-06-15 20:33+0200\n"
 "PO-Revision-Date: 2020-04-18 11:03+0300\n"
 "Last-Translator: Roumen Petrov <transl@roumenpetrov.info>\n"
 "Language-Team: Bulgarian <dict@ludost.net>\n"
@@ -22,7 +22,7 @@ msgstr ""
 msgid "write error"
 msgstr "грешка при запис"
 
-#: gnulib-lib/error.c:195
+#: gnulib-lib/error.c:194
 msgid "Unknown system error"
 msgstr "Неизвестна системна грешка"
 
@@ -61,7 +61,11 @@ msgstr "%s: неправилна опция -- '%c'\n"
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: опцията изисква аргумент -- '%c'\n"
 
-#: src/envsubst.c:110 src/gettext.c:136 src/ngettext.c:125
+#: gnulib-lib/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "паметта е изчерпана"
+
+#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -74,7 +78,7 @@ msgstr ""
 "Това е свободен програмен продукт: свободни сте да го променяте и разпространявате.\n"
 "Не се дават НИКАКВИ ГАРАНЦИИ до степента позволена от закона.\n"
 
-#: src/envsubst.c:116 src/gettext.c:142 src/ngettext.c:131
+#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Създадена от %s.\n"
@@ -84,17 +88,17 @@ msgstr "Създадена от %s.\n"
 msgid "Bruno Haible"
 msgstr "Бруно Хаибле"
 
-#: src/envsubst.c:125 src/gettext.c:160 src/ngettext.c:143
+#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "твърде много аргументи"
 
-#: src/envsubst.c:136 src/gettext.c:170 src/ngettext.c:155
+#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "липсващи аргументи"
 
-#: src/envsubst.c:174 src/gettext.c:247 src/ngettext.c:212
+#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "За повече сведения, опитайте '%s --help'.\n"
@@ -119,7 +123,7 @@ msgstr "Режим на работа:\n"
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             извежда променливите намерени в ОБВИВКА-ФОРМА\n"
 
-#: src/envsubst.c:195 src/gettext.c:276 src/ngettext.c:242
+#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Осведомително извеждане:\n"
@@ -165,7 +169,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:300 src/ngettext.c:263
+#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -184,11 +188,11 @@ msgid "standard input"
 msgstr "стандартен вход"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:142 src/ngettext.c:131
+#: src/gettext.c:141 src/ngettext.c:131
 msgid "Ulrich Drepper"
 msgstr "Улрих Дрепер"
 
-#: src/gettext.c:252
+#: src/gettext.c:251
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -197,39 +201,39 @@ msgstr ""
 "Употреба: %s [ОПЦИЯ] [[ОБЛАСТТЕКСТ] КЛЮЧ]\n"
 "или:      %s [ОПЦИЯ] -s [КЛЮЧ]...\n"
 
-#: src/gettext.c:258
+#: src/gettext.c:257
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Извежда преведено текстово съобщение.\n"
 
-#: src/gettext.c:262
+#: src/gettext.c:261
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=ОБЛАСТТЕКСТ  намиране на преведените съобщения от ОБЛАСТТЕКСТ\n"
 
-#: src/gettext.c:264 src/ngettext.c:229
+#: src/gettext.c:263 src/ngettext.c:229
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=ОБКРЪЖЕНИЕ  задава обкръжение за КЛЮЧ\n"
 
-#: src/gettext.c:266 src/ngettext.c:231
+#: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
 "  -e                        разрешава разгъване на някой \"заместващи "
 "последователности\"\n"
 
-#: src/gettext.c:268
+#: src/gettext.c:267
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                        потискане на завършващ \"нов ред\"\n"
 
-#: src/gettext.c:270 src/ngettext.c:233
+#: src/gettext.c:269 src/ngettext.c:233
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                        (пренебрегва се; за съвместимост)\n"
 
-#: src/gettext.c:272
+#: src/gettext.c:271
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
@@ -238,17 +242,17 @@ msgstr ""
 "  [ОБЛАСТТЕКСТ] КЛЮЧ        намиране на преведените съобщения съответни\n"
 "                            на КЛЮЧ от ОБЛАСТТЕКСТ\n"
 
-#: src/gettext.c:278 src/ngettext.c:244
+#: src/gettext.c:277 src/ngettext.c:244
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                извеждане на тази помощ и изход\n"
 
-#: src/gettext.c:280 src/ngettext.c:246
+#: src/gettext.c:279 src/ngettext.c:246
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version             извеждане на сведение за версия и изход\n"
 
-#: src/gettext.c:284
+#: src/gettext.c:283
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -324,7 +328,3 @@ msgstr ""
 "обичайната директория, друго местоположение може да се зададе с променливата\n"
 "от обкръжението TEXTDOMAINDIR.\n"
 "Директория за търсене: %s\n"
-
-#, c-format
-#~ msgid "memory exhausted"
-#~ msgstr "паметта е изчерпана"

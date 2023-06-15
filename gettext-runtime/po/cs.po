@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2022-10-09 23:02+0200\n"
+"POT-Creation-Date: 2023-06-15 20:33+0200\n"
 "PO-Revision-Date: 2021-04-04 11:35+02:00\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -27,7 +27,7 @@ msgid "write error"
 msgstr "chyba při zápisu"
 
 # lib/error.c:91
-#: gnulib-lib/error.c:195
+#: gnulib-lib/error.c:194
 msgid "Unknown system error"
 msgstr "Neznámá systémová chyba"
 
@@ -73,7 +73,12 @@ msgstr "%s: neznámý přepínač – „%c“\n"
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: přepínač vyžaduje argument – „%c“\n"
 
-#: src/envsubst.c:110 src/gettext.c:136 src/ngettext.c:125
+# lib/xmalloc.c:82
+#: gnulib-lib/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "paměť vyčerpána"
+
+#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -88,7 +93,7 @@ msgstr ""
 
 # src/gettextp.c:139 src/msgcmp.c:149 src/msgfmt.c:262 src/msgmerge.c:256
 # src/msgunfmt.c:180 src/xgettext.c:399
-#: src/envsubst.c:116 src/gettext.c:142 src/ngettext.c:131
+#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Napsal %s.\n"
@@ -99,20 +104,20 @@ msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
 # src/gettextp.c:164
-#: src/envsubst.c:125 src/gettext.c:160 src/ngettext.c:143
+#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "příliš mnoho argumentů"
 
 # src/gettextp.c:154
-#: src/envsubst.c:136 src/gettext.c:170 src/ngettext.c:155
+#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "chybí argumenty"
 
 # src/gettextp.c:228 src/msgcmp.c:181 src/msgfmt.c:361 src/msgmerge.c:298
 # src/msgunfmt.c:210 src/xgettext.c:532
-#: src/envsubst.c:174 src/gettext.c:247 src/ngettext.c:212
+#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Více informací získáte příkazem „%s --help“.\n"
@@ -137,7 +142,7 @@ msgstr "Operační režim:\n"
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             vypsat proměnné vyskytující se ve FORMÁTU_SHELLU\n"
 
-#: src/envsubst.c:195 src/gettext.c:276 src/ngettext.c:242
+#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informační výstup:\n"
@@ -184,7 +189,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:300 src/ngettext.c:263
+#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -207,11 +212,11 @@ msgid "standard input"
 msgstr "standardní vstup"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:142 src/ngettext.c:131
+#: src/gettext.c:141 src/ngettext.c:131
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:252
+#: src/gettext.c:251
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -220,38 +225,38 @@ msgstr ""
 "Použití: %s [PŘEPÍNAČE] [[TEXTOVÁ_DOMÉNA] ID_ZPRÁVY]\n"
 "nebo:    %s [PŘEPÍNAČE] -s [ID_ZPRÁVY]…\n"
 
-#: src/gettext.c:258
+#: src/gettext.c:257
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Zobrazí v národním jazyce překlad textové zprávy.\n"
 
-#: src/gettext.c:262
+#: src/gettext.c:261
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEXTOVÁ_DOMÉNA  získá přeložené zprávy z TEXTOVÉ_DOMÉNY\n"
 
-#: src/gettext.c:264 src/ngettext.c:229
+#: src/gettext.c:263 src/ngettext.c:229
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=KONTEXT        určuje kontext ID_ZPRÁVY\n"
 
-#: src/gettext.c:266 src/ngettext.c:231
+#: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
 "  -e                           umožní rozvoj některých posloupností escape\n"
 
-#: src/gettext.c:268
+#: src/gettext.c:267
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                           potlačí nové řádky na konci\n"
 
-#: src/gettext.c:270 src/ngettext.c:233
+#: src/gettext.c:269 src/ngettext.c:233
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                           (ignorován kvůli kompatibilitě)\n"
 
-#: src/gettext.c:272
+#: src/gettext.c:271
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
@@ -260,18 +265,18 @@ msgstr ""
 "  [TEXTOVÁ_DOMÉNA] ID_ZPRÁVY   vypíše přeloženou zprávu odpovídající\n"
 "                               ID_ZPRÁVY z TEXTOVÉ_DOMÉNY\n"
 
-#: src/gettext.c:278 src/ngettext.c:244
+#: src/gettext.c:277 src/ngettext.c:244
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                   zobrazí tuto nápovědu a skončí\n"
 
-#: src/gettext.c:280 src/ngettext.c:246
+#: src/gettext.c:279 src/ngettext.c:246
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version                vypíše údaje o verzi a skončí\n"
 
 # src/gettextp.c:245
-#: src/gettext.c:284
+#: src/gettext.c:283
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -348,11 +353,6 @@ msgstr ""
 "v obvyklém adresáři, hledá se v umístění určeném proměnnou prostředí\n"
 "TEXTDOMAINDIR.\n"
 "Standardně prohledávaný adresář: %s\n"
-
-# lib/xmalloc.c:82
-#, c-format
-#~ msgid "memory exhausted"
-#~ msgstr "paměť vyčerpána"
 
 # lib/getopt.c:652
 #~ msgid "%s: option '--%s' doesn't allow an argument\n"

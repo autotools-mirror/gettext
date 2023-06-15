@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2022-10-09 23:02+0200\n"
+"POT-Creation-Date: 2023-06-15 20:33+0200\n"
 "PO-Revision-Date: 2020-05-30 18:10+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv-list@lists.sourceforge.net>\n"
@@ -25,7 +25,7 @@ msgstr ""
 msgid "write error"
 msgstr "skrivfel"
 
-#: gnulib-lib/error.c:195
+#: gnulib-lib/error.c:194
 msgid "Unknown system error"
 msgstr "Okänt systemfel"
 
@@ -64,7 +64,11 @@ msgstr "%s: ogiltig flagga -- ”%c”\n"
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: flaggan kräver ett argument -- ”%c”\n"
 
-#: src/envsubst.c:110 src/gettext.c:136 src/ngettext.c:125
+#: gnulib-lib/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "minnet slut"
+
+#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -77,7 +81,7 @@ msgstr ""
 "Detta program är fri programvara.  Du kan modifiera och distribuera den.\n"
 "Det finns inte NÅGON SOM HELST GARANTI, till den grad som lagen tillåter.\n"
 
-#: src/envsubst.c:116 src/gettext.c:142 src/ngettext.c:131
+#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Skrivet av %s.\n"
@@ -87,17 +91,17 @@ msgstr "Skrivet av %s.\n"
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:125 src/gettext.c:160 src/ngettext.c:143
+#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "för många argument"
 
-#: src/envsubst.c:136 src/gettext.c:170 src/ngettext.c:155
+#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "argument saknas"
 
-#: src/envsubst.c:174 src/gettext.c:247 src/ngettext.c:212
+#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Försök med ”%s --help” för mer information.\n"
@@ -122,7 +126,7 @@ msgstr "Körläge:\n"
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             skriv ut variabler som förekommer i SKALFORMAT\n"
 
-#: src/envsubst.c:195 src/gettext.c:276 src/ngettext.c:242
+#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informativ utskrift:\n"
@@ -167,7 +171,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:300 src/ngettext.c:263
+#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -188,11 +192,11 @@ msgid "standard input"
 msgstr "standard in"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:142 src/ngettext.c:131
+#: src/gettext.c:141 src/ngettext.c:131
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:252
+#: src/gettext.c:251
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -201,38 +205,38 @@ msgstr ""
 "Användning: %s [FLAGGA] [[TEXTDOMÄN] MEDID]\n"
 "eller       %s [FLAGGA] -s [MEDID]…\n"
 
-#: src/gettext.c:258
+#: src/gettext.c:257
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Visa lokala språkets översättning av textmeddelande.\n"
 
-#: src/gettext.c:262
+#: src/gettext.c:261
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEXTDOMÄN    hämta översatta meddelanden från TEXTDOMÄN\n"
 
-#: src/gettext.c:264 src/ngettext.c:229
+#: src/gettext.c:263 src/ngettext.c:229
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=KONTEXT     ange kontext för MEDID\n"
 
-#: src/gettext.c:266 src/ngettext.c:231
+#: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
 "  -e                        aktivera expansion av några styrsekvenser\n"
 
-#: src/gettext.c:268
+#: src/gettext.c:267
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                        undertryck avslutande nyrad\n"
 
-#: src/gettext.c:270 src/ngettext.c:233
+#: src/gettext.c:269 src/ngettext.c:233
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                        (ignoreras för kompatibilitet)\n"
 
-#: src/gettext.c:272
+#: src/gettext.c:271
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
@@ -241,17 +245,17 @@ msgstr ""
 "  [TEXTDOMÄN] MEDID         hämta ett översatt meddelande motsvarande\n"
 "                            MEDID från TEXTDOMÄN\n"
 
-#: src/gettext.c:278 src/ngettext.c:244
+#: src/gettext.c:277 src/ngettext.c:244
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                visa denna hjälptext och avsluta\n"
 
-#: src/gettext.c:280 src/ngettext.c:246
+#: src/gettext.c:279 src/ngettext.c:246
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version             visa versionsinformation och avsluta\n"
 
-#: src/gettext.c:284
+#: src/gettext.c:283
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -327,7 +331,3 @@ msgstr ""
 "TEXTDOMAIN. Om meddelandekatalogen inte hittas i den normala katalogen så\n"
 "kan en annan katalog anges med miljövariabeln TEXTDOMAINDIR.\n"
 "Normal katalog för meddelandekataloger: %s\n"
-
-#, c-format
-#~ msgid "memory exhausted"
-#~ msgstr "minnet slut"
