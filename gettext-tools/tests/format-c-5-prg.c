@@ -66,7 +66,10 @@ main (int argc, char *argv[])
   en = "father of %d children";
 #if (__GLIBC__ > 2 || (__GLIBC__ == 2 && __GLIBC_MINOR__ >= 2)) && !defined __UCLIBC__
   expected_translation = "Vater von %Id Kindern";
-  expected_result = "Vater von \xdb\xb5 Kindern";
+  if (strncmp (argv[1], "fa", 2) == 0)
+    expected_result = "Vater von \xdb\xb5 Kindern";
+  else
+    expected_result = "Vater von 5 Kindern";
 #else
   expected_translation = "Vater von %d Kindern";
   expected_result = "Vater von 5 Kindern";

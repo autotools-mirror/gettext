@@ -80,11 +80,33 @@ else
     *) Exit 1;;
   esac
 
+  # Some systems (e.g. Solaris 11) don't have a Farsi locale.
+  # Therefore try an Arabic locale as well.
+  test -d ar || mkdir ar
+  test -d ar/LC_MESSAGES || mkdir ar/LC_MESSAGES
+  cp fa/LC_MESSAGES/fc5.mo ar/LC_MESSAGES/fc5.mo
+
+  prepare_locale_ ar ar_EG
+  LANGUAGE= ../fc5 ar_EG
+  case $? in
+    0) skipped=false ;;
+    77) ;;
+    *) Exit 1;;
+  esac
+
+  prepare_locale_ ar ar_EG.UTF-8
+  LANGUAGE= ../fc5 ar_EG.UTF-8
+  case $? in
+    0) skipped=false ;;
+    77) ;;
+    *) Exit 1;;
+  esac
+
   if $skipped; then
     if test -f /usr/bin/localedef; then
-      echo "Skipping test: no Farsi locale is installed"
+      echo "Skipping test: no Farsi or Arabic locale is installed"
     else
-      echo "Skipping test: no Farsi locale is supported"
+      echo "Skipping test: no Farsi or Arabic locale is supported"
     fi
     Exit 77
   fi
