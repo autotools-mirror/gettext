@@ -765,7 +765,10 @@ write_table (FILE *output_file, message_list_ty *mlp)
                 Sorting and Searching, 1973, Addison Wesley]  */
   if (!omit_hash_table)
     {
-      hash_tab_size = next_prime ((nstrings * 4) / 3);
+      /* N is the number of static string pairs (filled in here, below)
+         plus the number of system dependent string pairs (filled at runtime,
+         in loadmsgcat.c).  */
+      hash_tab_size = next_prime (((nstrings + n_sysdep_strings) * 4) / 3);
       /* Ensure M > 2.  */
       if (hash_tab_size <= 2)
         hash_tab_size = 3;
