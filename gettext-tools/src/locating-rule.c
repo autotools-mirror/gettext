@@ -1,5 +1,5 @@
 /* XML resource locating rules
-   Copyright (C) 2015, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2015, 2019-2020, 2023 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -43,7 +43,6 @@
 #include "filename.h"
 #include <fnmatch.h>
 #include "gettext.h"
-#include "mem-hash-map.h"
 #include <libxml/parser.h>
 #include <libxml/uri.h>
 #include "xalloc.h"
