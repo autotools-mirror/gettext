@@ -7,8 +7,8 @@
 #       mm-ko.ascii.pot   mm-ko.euc-kr.po   mm-ko-comp.euc-kr.po
 #       mm-ko.utf-8.pot   mm-ko.utf-8.po    mm-ko-comp.utf-8.po
 
-# Note: This test fails on Linux with musl libc versions that don't support
-# the EUC-KR encoding in 'iconv'.
+# Note: This test fails on Linux with musl libc versions and on Solaris 11
+# (OpenIndiana, OmniOS) that don't support the EUC-KR encoding in 'iconv'.
 
 : ${MSGCONV=msgconv}
 ${MSGCONV} --to-code=UTF-8 -o mm-ko.utf-8.pot "$wabs_srcdir"/mm-ko.ascii.pot
