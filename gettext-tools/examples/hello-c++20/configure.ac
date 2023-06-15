@@ -22,7 +22,7 @@ elif ${CXX} ${CXXFLAGS} -std=gnu++20 ${CPPFLAGS} -c conftest.cc 2>/dev/null; the
 fi
 
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.21.1])
+AM_GNU_GETTEXT_VERSION([0.22])
 
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([m4/Makefile])
