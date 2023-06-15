@@ -43,8 +43,24 @@ ${MSGFMT} -o fc4-dir/fr/LC_MESSAGES/fc4.mo fc4-de.po
 ${MSGUNFMT} -o fc4-de.po.tmp fc4-dir/fr/LC_MESSAGES/fc4.mo || Exit 1
 LC_ALL=C tr -d '\r' < fc4-de.po.tmp > fc4-de.po.un || Exit 1
 
+cat <<EOF > fc4-de.po.red
+msgid "father of %d child"
+msgid_plural "father of %<PRId8> children"
+msgstr[0] "Vater eines Kindes"
+msgstr[1] "Vater von %d Kindern"
+
+msgid "the president"
+msgstr "der Vorsitzende"
+
+#, c-format
+msgid "father of %<PRId8> child"
+msgid_plural "father of %<PRId8> children"
+msgstr[0] "Vater eines Kindes"
+msgstr[1] "Vater von %<PRId8> Kindern"
+EOF
+
 : ${DIFF=diff}
-${DIFF} fc4-de.po fc4-de.po.un || Exit 1
+${DIFF} fc4-de.po.red fc4-de.po.un || Exit 1
 
 if test -z "$USE_SYSTEM_LIBINTL"; then
   # In the tests/ dir: Rely on a fake setlocale, so that we can exercise

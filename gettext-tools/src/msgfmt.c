@@ -197,6 +197,7 @@ static const struct option long_options[] =
   { "locale", required_argument, NULL, 'l' },
   { "no-convert", no_argument, NULL, CHAR_MAX + 17 },
   { "no-hash", no_argument, NULL, CHAR_MAX + 6 },
+  { "no-redundancy", no_argument, NULL, CHAR_MAX + 18 },
   { "output-file", required_argument, NULL, 'o' },
   { "properties-input", no_argument, NULL, 'P' },
   { "qt", no_argument, NULL, CHAR_MAX + 9 },
@@ -425,6 +426,9 @@ main (int argc, char *argv[])
         break;
       case CHAR_MAX + 17: /* --no-convert */
         no_convert_to_utf8 = true;
+        break;
+      case CHAR_MAX + 18: /* --no-redundancy */
+        no_redundancy = true;
         break;
       default:
         usage (EXIT_FAILURE);
@@ -1050,6 +1054,9 @@ Input file interpretation:\n"));
 Output details:\n"));
       printf (_("\
       --no-convert            don't convert the messages to UTF-8 encoding\n"));
+      printf (_("\
+      --no-redundancy         don't pre-expand ISO C 99 <inttypes.h>\n\
+                                format string directive macros\n"));
       printf (_("\
   -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"), DEFAULT_OUTPUT_ALIGNMENT);
       printf (_("\

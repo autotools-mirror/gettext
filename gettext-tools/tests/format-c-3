@@ -39,8 +39,20 @@ ${MSGFMT} -o fc3-dir/fr/LC_MESSAGES/fc3.mo fc3-de.po
 ${MSGUNFMT} -o fc3-de.po.tmp fc3-dir/fr/LC_MESSAGES/fc3.mo || Exit 1
 LC_ALL=C tr -d '\r' < fc3-de.po.tmp > fc3-de.po.un || Exit 1
 
+cat <<EOF > fc3-de.po.red
+msgid "father of %d children"
+msgstr "Vater von %d Kindern"
+
+msgid "the president"
+msgstr "der Vorsitzende"
+
+#, c-format
+msgid "father of %<PRId8> children"
+msgstr "Vater von %<PRId8> Kindern"
+EOF
+
 : ${DIFF=diff}
-${DIFF} fc3-de.po fc3-de.po.un || Exit 1
+${DIFF} fc3-de.po.red fc3-de.po.un || Exit 1
 
 if test -z "$USE_SYSTEM_LIBINTL"; then
   # In the tests/ dir: Rely on a fake setlocale, so that we can exercise

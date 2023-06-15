@@ -41,6 +41,11 @@ Version 0.21.2 - June 2023
     To this effect, the msgfmt program now converts the messages to UTF-8
     encoding before storing them in a MO file.  You can prevent this by
     using the msgfmt --no-convert option.
+  - On systems with musl libc, the *gettext() functions in libc now work
+    with MO files generated from PO files with ISO C 99 <inttypes.h> format
+    string directive macros.  To this effect, the msgfmt program pre-expands
+    strings with such macros.  You can prevent this by using the msgfmt
+    --no-redundancy option.
 
 * xgettext:
   - The xgettext option '--sorted-output' is now deprecated.

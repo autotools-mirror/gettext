@@ -26,6 +26,10 @@
 /* True if no conversion to UTF-8 is desired.  */
 extern bool no_convert_to_utf8;
 
+/* True if the redundant storage of instantiations of system-dependent strings
+   shall be avoided.  */
+extern bool no_redundancy;
+
 /* Alignment of strings in resulting .mo file.  */
 extern size_t alignment;
 

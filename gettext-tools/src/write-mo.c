@@ -67,9 +67,15 @@
 # endif /* GNU CC2  */
 #endif /* roundup  */
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
 
 /* True if no conversion to UTF-8 is desired.  */
 bool no_convert_to_utf8;
+
+/* True if the redundant storage of instantiations of system-dependent strings
+   shall be avoided.  */
+bool no_redundancy;
 
 /* Alignment of strings in resulting .mo file.  */
 size_t alignment;
@@ -147,12 +153,225 @@ struct pre_sysdep_message
   size_t id_plural_len;
 };
 
+
+/* Instantiating system dependent strings.
+   This is a technique to make messages with system dependent strings work with
+   musl libc's gettext() implementation, even though this implementation does
+   not process the system dependent strings.  Namely, we store the actual
+   runtime expansion of the string for this platform — we call this an
+   "instantiation" of the string — in the table of static string pairs.
+   This is redundant, but allows the same MO files to be used on musl libc
+   (without GNU libintl) as on other platforms (with GNU libc or with GNU
+   libintl).
+
+   A survey of the PO files on translationproject.org shows that
+     * Less than 9% of the messages of any PO file are system dependent strings.
+       Therefore the increase of the size of the MO file is small.
+     * None of these PO files uses the 'I' format string flag.
+
+   There are few possible <inttypes.h> flavours.  Each such flavour gives rise
+   to an instantation rule.  We ran this test program on various platforms:
+   =============================================================================
+   #include <inttypes.h>
+   #include <stdio.h>
+   #include <string.h>
+   int main ()
+   {
+     printf ("%s\n", PRIuMAX);
+     printf ("%s\n", PRIdMAX);
+     printf ("%s  %s  %s  %s\n", PRIu8, PRIu16, PRIu32, PRIu64);
+     printf ("%s  %s  %s  %s\n", PRId8, PRId16, PRId32, PRId64);
+     printf ("%s  %s  %s  %s\n", PRIuLEAST8, PRIuLEAST16, PRIuLEAST32, PRIuLEAST64);
+     printf ("%s  %s  %s  %s\n", PRIdLEAST8, PRIdLEAST16, PRIdLEAST32, PRIdLEAST64);
+     printf ("%s  %s  %s  %s\n", PRIuFAST8, PRIuFAST16, PRIuFAST32, PRIuFAST64);
+     printf ("%s  %s  %s  %s\n", PRIdFAST8, PRIdFAST16, PRIdFAST32, PRIdFAST64);
+     printf ("%s\n", PRIuPTR);
+     printf ("%s\n", PRIdPTR);
+     printf ("Summary:\n");
+     printf ("  MAX 8               LEAST8          FAST8           PTR\n");
+     printf ("  |   |   |   |   |   |   |   |   |   |   |   |   |   |\n");
+     printf ("| %-3.*s %-3.*s %-3.*s %-3.*s %-3.*s %-3.*s %-3.*s %-3.*s %-3.*s %-3.*s %-3.*s %-3.*s %-3.*s %-3.*s |\n",
+             (int) strlen (PRIuMAX) - 1, PRIuMAX,
+             (int) strlen (PRIu8) - 1, PRIu8,
+             (int) strlen (PRIu16) - 1, PRIu16,
+             (int) strlen (PRIu32) - 1, PRIu32,
+             (int) strlen (PRIu64) - 1, PRIu64,
+             (int) strlen (PRIuLEAST8) - 1, PRIuLEAST8,
+             (int) strlen (PRIuLEAST16) - 1, PRIuLEAST16,
+             (int) strlen (PRIuLEAST32) - 1, PRIuLEAST32,
+             (int) strlen (PRIuLEAST64) - 1, PRIuLEAST64,
+             (int) strlen (PRIuFAST8) - 1, PRIuFAST8,
+             (int) strlen (PRIuFAST16) - 1, PRIuFAST16,
+             (int) strlen (PRIuFAST32) - 1, PRIuFAST32,
+             (int) strlen (PRIuFAST64) - 1, PRIuFAST64,
+             (int) strlen (PRIuPTR) - 1, PRIuPTR);
+     return 0;
+   }
+   =============================================================================
+   and found the following table.
+
+   <inttypes.h>   MAX 8               LEAST8          FAST8           PTR
+     flavour      |   |   |   |   |   |   |   |   |   |   |   |   |   |
+   ------------ -----------------------------------------------------------
+        0       | ll              ll              ll              ll      |
+        1       | l               l               l               l   l   |
+        2       | ll              ll              ll              ll  l   |
+        3       | ll  hh  h       ll  hh  h       ll  hh  h       ll  l   |
+        4       | ll  hh  h       ll  hh  h       ll  hh          ll      |
+        5       | ll  hh  h       ll  hh  h       ll  hh          ll  ll  |
+        6       | l               l               l       l   l   l   l   |
+        7       | l   hh  h       l   hh  h       l   hh  h       l   l   |
+        8       | l   hh  h       l   hh  h       l   hh          l   l   |
+        9       | l   hh  h       l   hh  h       l   hh  l   l   l   l   |
+       10       | j   hh  h       ll  hh  h       ll  hh  h       ll  l   |
+       11       | j               ll              ll              ll      |
+       12       | j               l               l               l   l   |
+       13       | j               ll              ll              ll  l   |
+       14       | I64             I64             I64             I64     |
+       15       | I64             I64             I64             I64 I64 |
+
+   Which <inttypes.h> flavour for which platforms?
+
+   <inttypes.h>
+     flavour     Platforms
+   ------------  ---------------------------------------------------------------
+        0        glibc 32-bit, musl 32-bit, NetBSD 32-bit
+        1        musl 64-bit, NetBSD 64-bit, Haiku 64-bit
+        2        Haiku 32-bit
+        3        AIX 32-bit
+        4        Solaris 32-bit, Cygwin 32-bit, MSVC 32-bit
+        5        MSVC 64-bit
+        6        glibc 64-bit
+        7        AIX 64-bit
+        8        Solaris 64-bit
+        9        Cygwin 64-bit
+       10        macOS 32-bit and 64-bit
+       11        FreeBSD 32-bit, Android 32-bit
+       12        FreeBSD 64-bit
+       13        OpenBSD 32-bit and 64-bit
+       14        mingw 32-bit
+       15        mingw 64-bit
+ */
+struct sysdep_instantiation_rule
+{
+  const char *prefix_for_MAX;
+  const char *prefix_for_8;      /* also for LEAST8 and FAST8 */
+  const char *prefix_for_16;     /* also for LEAST16 */
+  const char *prefix_for_64;     /* also for LEAST64 and FAST64 */
+  const char *prefix_for_FAST16;
+  const char *prefix_for_FAST32;
+  const char *prefix_for_PTR;
+};
+const struct sysdep_instantiation_rule useful_instantiation_rules[] =
+{
+  /*  0 */ { "ll",  "",   "",  "ll",  "",  "",  ""    },
+  /*  1 */ { "l",   "",   "",  "l",   "",  "",  "l"   },
+#if 0 /* These instantiation rules are not useful.  They would just be bloat.  */
+  /*  2 */ { "ll",  "",   "",  "ll",  "",  "",  "l"   },
+  /*  3 */ { "ll",  "hh", "h", "ll",  "h", "",  "l"   },
+  /*  4 */ { "ll",  "hh", "h", "ll",  "",  "",  ""    },
+  /*  5 */ { "ll",  "hh", "h", "ll",  "",  "",  "ll"  },
+  /*  6 */ { "l",   "",   "",  "l",   "l", "l", "l"   },
+  /*  7 */ { "l",   "hh", "h", "l",   "h", "",  "l"   },
+  /*  8 */ { "l",   "hh", "h", "l",   "",  "",  "l"   },
+  /*  9 */ { "l",   "hh", "h", "l",   "l", "l", "l"   },
+  /* 10 */ { "j",   "hh", "h", "ll",  "h", "",  "l"   },
+  /* 11 */ { "j",   "",   "",  "ll",  "",  "",  ""    },
+  /* 12 */ { "j",   "",   "",  "l",   "",  "",  "l"   },
+  /* 13 */ { "j",   "",   "",  "ll",  "",  "",  "l"   },
+  /* 14 */ { "I64", "",   "",  "I64", "",  "",  ""    },
+  /* 15 */ { "I64", "",   "",  "I64", "",  "",  "I64" },
+#endif
+};
+
+/* Concatenate a prefix and a conversion specifier.  */
+static const char *
+concat_prefix_cs (const char *prefix, char conversion)
+{
+  char *result = XNMALLOC (strlen (prefix) + 2, char);
+  {
+    char *p = result;
+    p = stpcpy (p, prefix);
+    *p++ = conversion;
+    *p = '\0';
+  }
+  return result;
+}
+
+/* Expand a system dependent string segment for a specific instantation.
+   Return NULL if unsupported.  */
+static const char *
+get_sysdep_segment_value (struct pre_sysdep_segment segment,
+                          const struct sysdep_instantiation_rule *instrule)
+{
+  const char *name = segment.pointer;
+  size_t len = segment.length;
+
+  /* Test for an ISO C 99 section 7.8.1 format string directive.
+     Syntax:
+     P R I { d | i | o | u | x | X }
+     { { | LEAST | FAST } { 8 | 16 | 32 | 64 } | MAX | PTR }  */
+  if (len >= 3 && name[0] == 'P' && name[1] == 'R' && name[2] == 'I')
+    {
+      if (len >= 4
+          && (name[3] == 'd' || name[3] == 'i' || name[3] == 'o'
+              || name[3] == 'u' || name[3] == 'x' || name[3] == 'X'))
+        {
+          if (len == 5 && name[4] == '8')
+            return concat_prefix_cs (instrule->prefix_for_8, name[3]);
+          if (len == 6 && name[4] == '1' && name[5] == '6')
+            return concat_prefix_cs (instrule->prefix_for_16, name[3]);
+          if (len == 6 && name[4] == '3' && name[5] == '2')
+            return concat_prefix_cs ("", name[3]);
+          if (len == 6 && name[4] == '6' && name[5] == '4')
+            return concat_prefix_cs (instrule->prefix_for_64, name[3]);
+          if (len >= 9 && name[4] == 'L' && name[5] == 'E' && name[6] == 'A'
+              && name[7] == 'S' && name[8] == 'T')
+            {
+              if (len == 10 && name[9] == '8')
+                return concat_prefix_cs (instrule->prefix_for_8, name[3]);
+              if (len == 11 && name[9] == '1' && name[10] == '6')
+                return concat_prefix_cs (instrule->prefix_for_16, name[3]);
+              if (len == 11 && name[9] == '3' && name[10] == '2')
+                return concat_prefix_cs ("", name[3]);
+              if (len == 11 && name[9] == '6' && name[10] == '4')
+                return concat_prefix_cs (instrule->prefix_for_64, name[3]);
+            }
+          if (len >= 8 && name[4] == 'F' && name[5] == 'A' && name[6] == 'S'
+              && name[7] == 'T')
+            {
+              if (len == 9 && name[8] == '8')
+                return concat_prefix_cs (instrule->prefix_for_8, name[3]);
+              if (len == 10 && name[8] == '1' && name[9] == '6')
+                return concat_prefix_cs (instrule->prefix_for_FAST16, name[3]);
+              if (len == 10 && name[8] == '3' && name[9] == '2')
+                return concat_prefix_cs (instrule->prefix_for_FAST32, name[3]);
+              if (len == 10 && name[8] == '6' && name[9] == '4')
+                return concat_prefix_cs (instrule->prefix_for_64, name[3]);
+            }
+          if (len == 7 && name[4] == 'M' && name[5] == 'A' && name[6] == 'X')
+            return concat_prefix_cs (instrule->prefix_for_MAX, name[3]);
+          if (len == 7 && name[4] == 'P' && name[5] == 'T' && name[6] == 'R')
+            return concat_prefix_cs (instrule->prefix_for_PTR, name[3]);
+        }
+    }
+  /* Note: We cannot support the 'I' format directive flag here.  Because
+       - If we expand the 'I' to "I", the expansion will not work on non-glibc
+         systems (whose *printf() functions don't understand this flag).
+       - If we expand the 'I' to "", the expansion will override the expansion
+         produced at run time (see loadmsgcat.c) and will not produce the
+         locale-specific outdigits as expected.  */
+  return NULL;
+}
+
+
 /* Write the message list to the given open file.  */
 static void
 write_table (FILE *output_file, message_list_ty *mlp)
 {
   char **msgctid_arr;
   size_t nstrings;
+  size_t msg_arr_allocated;
   struct pre_message *msg_arr;
   size_t n_sysdep_strings;
   struct pre_sysdep_message *sysdep_msg_arr;
@@ -177,7 +396,8 @@ write_table (FILE *output_file, message_list_ty *mlp)
      strings.  */
   msgctid_arr = XNMALLOC (mlp->nitems, char *);
   nstrings = 0;
-  msg_arr = XNMALLOC (mlp->nitems, struct pre_message);
+  msg_arr_allocated = mlp->nitems;
+  msg_arr = XNMALLOC (msg_arr_allocated, struct pre_message);
   n_sysdep_strings = 0;
   sysdep_msg_arr = XNMALLOC (mlp->nitems, struct pre_sysdep_message);
   n_sysdep_segments = 0;
@@ -379,6 +599,132 @@ write_table (FILE *output_file, message_list_ty *mlp)
       }
   }
 
+  /* Second pass: Instantiate the system dependent string pairs and add them to
+     the table of static string pairs.  */
+  if (!no_redundancy && n_sysdep_strings > 0)
+    {
+      /* Create a temporary hash table of msg_arr[*].str[M_ID], to guarantee
+         fast lookups.  */
+      hash_table static_msgids;
+
+      hash_init (&static_msgids, 10);
+      {
+        size_t i;
+
+        for (i = 0; i < nstrings; i++)
+          hash_insert_entry (&static_msgids,
+                             msg_arr[i].str[M_ID].pointer,
+                             msg_arr[i].str[M_ID].length,
+                             NULL);
+      }
+
+      size_t ss;
+
+      for (ss = 0; ss < n_sysdep_strings; ss++)
+        {
+          size_t u;
+
+          for (u = 0; u < SIZEOF (useful_instantiation_rules); u++)
+            {
+              const struct sysdep_instantiation_rule *instrule =
+                &useful_instantiation_rules[u];
+              bool supported = true;
+              struct pre_string expansion[2];
+              size_t m;
+
+              for (m = 0; m < 2; m++)
+                {
+                  struct pre_sysdep_string *pre = sysdep_msg_arr[ss].str[m];
+                  unsigned int segmentcount = pre->segmentcount;
+                  size_t expansion_length;
+                  char *expansion_pointer;
+                  unsigned int i;
+
+                  /* Compute the length of the expansion.  */
+                  expansion_length = 0;
+                  i = 0;
+                  do
+                    {
+                      expansion_length += pre->segments[i].segsize;
+
+                      size_t r = pre->segments[i].sysdepref;
+                      if (r == SEGMENTS_END)
+                        break;
+                      const char *segment_expansion =
+                        get_sysdep_segment_value (sysdep_segments[r], instrule);
+                      if (segment_expansion == NULL)
+                        {
+                          supported = false;
+                          break;
+                        }
+                      expansion_length += strlen (segment_expansion);
+                    }
+                  while (i++ < segmentcount);
+                  if (!supported)
+                    break;
+
+                  /* Compute the expansion.  */
+                  expansion_pointer = (char *) xmalloc (expansion_length);
+                  {
+                    char *p = expansion_pointer;
+
+                    i = 0;
+                    do
+                      {
+                        memcpy (p, pre->segments[i].segptr, pre->segments[i].segsize);
+                        p += pre->segments[i].segsize;
+
+                        size_t r = pre->segments[i].sysdepref;
+                        if (r == SEGMENTS_END)
+                          break;
+                        const char *segment_expansion =
+                          get_sysdep_segment_value (sysdep_segments[r], instrule);
+                        if (segment_expansion == NULL)
+                          /* Should already have set supported = false above.  */
+                          abort ();
+                        memcpy (p, segment_expansion, strlen (segment_expansion));
+                        p += strlen (segment_expansion);
+                      }
+                    while (i++ < segmentcount);
+                    if (p != expansion_pointer + expansion_length)
+                      /* The two loops are not in sync.  */
+                      abort ();
+                  }
+
+                  expansion[m].length = expansion_length;
+                  expansion[m].pointer = expansion_pointer;
+                }
+
+              if (supported)
+                {
+                  /* Don't overwrite existing static string pairs.  */
+                  if (hash_insert_entry (&static_msgids,
+                                         expansion[M_ID].pointer,
+                                         expansion[M_ID].length,
+                                         NULL)
+                      != NULL)
+                    {
+                      if (nstrings == msg_arr_allocated)
+                        {
+                          msg_arr_allocated = 2 * msg_arr_allocated + 1;
+                          msg_arr =
+                            (struct pre_message *)
+                            xreallocarray (msg_arr, msg_arr_allocated,
+                                           sizeof (struct pre_message));
+                        }
+                      msg_arr[nstrings].str[M_ID] = expansion[M_ID];
+                      msg_arr[nstrings].str[M_STR] = expansion[M_STR];
+                      msg_arr[nstrings].id_plural = sysdep_msg_arr[ss].id_plural;
+                      msg_arr[nstrings].id_plural_len = sysdep_msg_arr[ss].id_plural_len;
+                      nstrings++;
+                    }
+                }
+            }
+        }
+
+      hash_destroy (&static_msgids);
+    }
+
   /* Sort the table according to original string.  */
   if (nstrings > 0)
     qsort (msg_arr, nstrings, sizeof (struct pre_message), compare_id);
@@ -419,7 +765,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
                 Sorting and Searching, 1973, Addison Wesley]  */
   if (!omit_hash_table)
     {
-      hash_tab_size = next_prime ((mlp->nitems * 4) / 3);
+      hash_tab_size = next_prime ((nstrings * 4) / 3);
       /* Ensure M > 2.  */
       if (hash_tab_size <= 2)
         hash_tab_size = 3;
@@ -427,8 +773,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
   else
     hash_tab_size = 0;
 
-
-  /* Second pass: Fill the structure describing the header.  At the same time,
+  /* Third pass: Fill the structure describing the header.  At the same time,
      compute the sizes and offsets of the non-string parts of the file.  */
 
   /* Magic number.  */
@@ -497,7 +842,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
   end_offset = offset;
 
 
-  /* Third pass: Write the non-string parts of the file.  At the same time,
+  /* Fourth pass: Write the non-string parts of the file.  At the same time,
      compute the offsets of each string, including the proper alignment.  */
 
   /* Write the header out.  */
@@ -734,7 +1079,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
   free (orig_tab);
 
 
-  /* Fourth pass: Write the strings.  */
+  /* Fifth pass: Write the strings.  */
 
   offset = end_offset;
 
