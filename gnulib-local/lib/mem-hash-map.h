@@ -1,4 +1,4 @@
-/* Copyright (C) 1995, 2000-2003, 2005-2006 Free Software Foundation, Inc.
+/* Copyright (C) 1995, 2000-2003, 2005-2006, 2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -36,7 +36,7 @@ hash_table;
 
 /* Initialize a hash table.  INIT_SIZE > 1 is the initial number of available
    entries.
-   Return 0 upon successful completion, -1 upon memory allocation error.  */
+   Return 0 always.  */
 extern int hash_init (hash_table *htab, unsigned long int init_size);
 
 /* Delete a hash table's contents.

@@ -216,8 +216,7 @@ message_fuzzy_index_alloc (const message_list_ty *mlp,
   findex->iterator = po_charset_character_iterator (canon_charset);
 
   /* Setup hash table.  */
-  if (hash_init (&findex->gram4, 10 * count) < 0)
-    xalloc_die ();
+  hash_init (&findex->gram4, 10 * count);
   for (j = 0; j < count; j++)
     {
       message_ty *mp = mlp->item[j];

@@ -1,5 +1,5 @@
 /* hash - implement simple hashing table where the keys are memory blocks.
-   Copyright (C) 1994-1995, 2000-2006, 2018, 2020 Free Software Foundation, Inc.
+   Copyright (C) 1994-1995, 2000-2006, 2018, 2020, 2023 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, October 1994.
 
    This program is free software: you can redistribute it and/or modify
@@ -84,7 +84,7 @@ next_prime (unsigned long int seed)
 
 /* Initialize a hash table.  INIT_SIZE > 1 is the initial number of available
    entries.
-   Return 0 upon successful completion, -1 upon memory allocation error.  */
+   Return 0 always.  */
 int
 hash_init (hash_table *htab, unsigned long int init_size)
 {
