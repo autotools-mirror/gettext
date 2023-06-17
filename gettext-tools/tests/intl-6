@@ -3,6 +3,7 @@
 
 # Test that gettext() does basic translation lookup, even when the directory
 # with the message catalogs contains arbitrary Unicode characters.
+# On native Windows, it uses wbindtextdomain().
 
 test -d in-6 || mkdir in-6
 test -d in-6/fr || mkdir in-6/fr

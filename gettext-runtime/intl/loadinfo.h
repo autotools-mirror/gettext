@@ -1,4 +1,4 @@
-/* Copyright (C) 1996-2020 Free Software Foundation, Inc.
+/* Copyright (C) 1996-2023 Free Software Foundation, Inc.
    This file is part of the GNU C Library.
    Contributed by Ulrich Drepper <drepper@cygnus.com>, 1996.
 
@@ -62,6 +62,9 @@
 
 struct loaded_l10nfile
 {
+  /* The file name of the localization file.
+     It is set at construction time and then never changed.
+     Exactly one of filename, wfilename is non-NULL.  */
   const char *filename;
 #if defined _WIN32 && !defined __CYGWIN__
   const wchar_t *wfilename;
@@ -84,7 +87,11 @@ extern const char *_nl_normalize_codeset (const char *codeset,
 
 /* Lookup a locale dependent file.
    *L10NFILE_LIST denotes a pool of lookup results of locale dependent
-   files of the same kind, sorted in decreasing order of ->filename.
+   files of the same kind.
+   On most platforms, it is sorted in decreasing order of ->filename.
+   On native Windows platforms, the elements with ->filename != NULL
+   are sorted in decreasing order of ->filename, and the elements with
+   ->wfilename != NULL are sorted in decreasing order of ->wfilename.
 
    DIRLIST and DIRLIST_LEN are an argz list of directories in which to
    look.

@@ -21,7 +21,7 @@ EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
 
 TESTS = gettext-1 gettext-2 \
-	intl-1 intl-2 intl-3 intl-4 intl-5 intl-6 \
+	intl-1 intl-2 intl-3 intl-4 intl-5 intl-6 intl-7 \
 	intl-setlocale-1 intl-setlocale-2 \
 	intl-thread-1 intl-thread-2 intl-thread-3 \
 	intl-version \
@@ -294,7 +294,7 @@ DEFS = -DLOCALEDIR=$(localedir_c_make) @DEFS@
 LDADD = $(LDADD_@USE_INCLUDED_LIBINTL@) @INTL_MACOSX_LIBS@
 LDADD_yes = ../../gettext-runtime/intl/libintl.la @LTLIBTHREAD@
 LDADD_no = ../../gettext-runtime/intl/libgnuintl.la @LTLIBTHREAD@ @LTLIBINTL@
-check_PROGRAMS = tstgettext tstngettext testlocale intl-1-prg intl-3-prg intl-4-prg intl-5-prg intl-6-prg intl-setlocale-1-prg intl-setlocale-2-prg intl-thread-1-prg intl-thread-2-prg intl-thread-3-prg intl-version-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
+check_PROGRAMS = tstgettext tstngettext testlocale intl-1-prg intl-3-prg intl-4-prg intl-5-prg intl-6-prg intl-7-prg intl-setlocale-1-prg intl-setlocale-2-prg intl-thread-1-prg intl-thread-2-prg intl-thread-3-prg intl-version-prg cake fc3 fc4 fc5 gettextpo-1-prg sentence-1-prg
 tstgettext_SOURCES = \
   tstgettext.c ../../gettext-runtime/src/escapes.h \
   setlocale.c
@@ -314,6 +314,8 @@ intl_5_prg_SOURCES = intl-5-prg.c
 intl_5_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 intl_6_prg_SOURCES = intl-6-prg.c
 intl_6_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
+intl_7_prg_SOURCES = intl-7-prg.c
+intl_7_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 intl_setlocale_1_prg_SOURCES = intl-setlocale-1-prg.c
 intl_setlocale_1_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
 intl_setlocale_2_prg_SOURCES = intl-setlocale-2-prg.c

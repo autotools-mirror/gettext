@@ -1,4 +1,4 @@
-/* Copyright (C) 1995-2020 Free Software Foundation, Inc.
+/* Copyright (C) 1995-2023 Free Software Foundation, Inc.
    Contributed by Ulrich Drepper <drepper@gnu.ai.mit.edu>, 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -218,31 +218,48 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
   /* Look in list of already loaded domains whether it is already
      available.  */
   lastp = l10nfile_list;
-  for (retval = *l10nfile_list; retval != NULL; retval = retval->next)
-    if (retval->filename != NULL
 #if defined _WIN32 && !defined __CYGWIN__
-        || retval->wfilename != NULL
+  if (abs_wfilename != NULL)
+    {
+      for (retval = *l10nfile_list; retval != NULL; retval = retval->next)
+	{
+	  if (retval->wfilename != NULL)
+	    {
+	      int compare = wcscmp (retval->wfilename, abs_wfilename);
+	      if (compare == 0)
+		/* We found it!  */
+		break;
+	      if (compare < 0)
+		{
+		  /* It's not in the list, and we have found the place where it
+		     needs to be inserted: at *LASTP.  */
+		  retval = NULL;
+		  break;
+		}
+	    }
+	  lastp = &retval->next;
+	}
+    }
+  else
 #endif
-       )
+    for (retval = *l10nfile_list; retval != NULL; retval = retval->next)
       {
-	int compare =
 #if defined _WIN32 && !defined __CYGWIN__
-	  abs_wfilename != NULL
-	  ? retval->wfilename != NULL && wcscmp (retval->wfilename, abs_wfilename)
-	  : retval->filename != NULL && strcmp (retval->filename, abs_filename);
-#else
-	  strcmp (retval->filename, abs_filename);
+	if (retval->filename != NULL)
 #endif
-	if (compare == 0)
-	  /* We found it!  */
-	  break;
-	if (compare < 0)
 	  {
-	    /* It's not in the list.  */
-	    retval = NULL;
-	    break;
+	    int compare = strcmp (retval->filename, abs_filename);
+	    if (compare == 0)
+	      /* We found it!  */
+	      break;
+	    if (compare < 0)
+	      {
+		/* It's not in the list, and we have found the place where it
+		   needs to be inserted: at *LASTP.  */
+		retval = NULL;
+	        break;
+	      }
 	  }
-
 	lastp = &retval->next;
       }
 

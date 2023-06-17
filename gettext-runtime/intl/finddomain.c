@@ -1,5 +1,5 @@
 /* Handle list of needed message catalogs
-   Copyright (C) 1995-2021 Free Software Foundation, Inc.
+   Copyright (C) 1995-2023 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.org>, 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -47,7 +47,11 @@
 #endif
 
 /* @@ end of prolog @@ */
-/* List of already loaded domains.  */
+/* List of already loaded domains.
+   On most platforms, it is sorted in decreasing order of ->filename.
+   On native Windows platforms, the elements with ->filename != NULL
+   are sorted in decreasing order of ->filename, and the elements with
+   ->wfilename != NULL are sorted in decreasing order of ->wfilename.  */
 static struct loaded_l10nfile *_nl_loaded_domains;
 
 /* Lock that protects the access to _NL_LOADED_DOMAINS.  */

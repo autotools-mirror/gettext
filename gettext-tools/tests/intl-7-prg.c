@@ -1,4 +1,4 @@
-/* Test program, used by the intl-6 test.
+/* Test program, used by the intl-7 test.
    Copyright (C) 2000, 2005, 2007, 2013, 2018, 2020, 2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -44,8 +44,9 @@ const wchar_t wunicodedir[] = /* the same string in UTF-16 encoding */
 int
 main (int argc, char *argv[])
 {
-  const char *dir = argv[1];
-  const char *locale = argv[2];
+  const char *lib_dir = argv[1];
+  const char *dir = argv[2];
+  const char *locale = argv[3];
   wchar_t *wdir;
   int ret;
 
@@ -57,7 +58,9 @@ main (int argc, char *argv[])
   if (setlocale (LC_ALL, "") == NULL)
     setlocale (LC_ALL, "C");
 
-  /* Set up translation domain.  */
+  /* Set up translation domains.  */
+
+  bindtextdomain ("tstlib", lib_dir);
 
   wdir = (wchar_t *) malloc ((strlen (dir) + 1) * sizeof (wchar_t));
   mbstowcs (wdir, dir, strlen (dir) + 1);
@@ -74,16 +77,18 @@ main (int argc, char *argv[])
       exit (1);
     }
 
-  textdomain ("tstprog");
-
 #if defined _WIN32 && !defined __CYGWIN__
-  wbindtextdomain ("tstprog", wunicodedir);
+  wbindtextdomain ("tstbar", wunicodedir);
+  wbindtextdomain ("tstfoo", wunicodedir);
 #else
-  bindtextdomain ("tstprog", unicodedir);
+  bindtextdomain ("tstbar", unicodedir);
+  bindtextdomain ("tstfoo", unicodedir);
 #endif
 
-  /* Look up the translation.  */
-  printf ("%s\n", gettext ("cheese"));
+  /* Look up the translations.  */
+  printf ("%s\n", dgettext ("tstlib", "dog"));
+  printf ("%s\n", dgettext ("tstbar", "jam"));
+  printf ("%s\n", dgettext ("tstfoo", "cheese"));
 
   /* Rename the directory back.  */
 #if defined _WIN32 && !defined __CYGWIN__
