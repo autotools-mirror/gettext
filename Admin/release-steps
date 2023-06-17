@@ -12,12 +12,14 @@ We assume that the following environment variables are set:
 
     ./gitsub.sh upgrade
     git add gnulib
-    git commit -m 'Update to newest gnulib'
+    git commit -m 'Update to the newest gnulib' gnulib
 
 ** Run these commands, in this order:
 
     # Forcing a specific version number, without having to set a git tag.
     echo $CURRENT_VERSION > .tarball-version
+    # Forcing a rebuild of the documentation and man pages.
+    rm -f .version
 
     ./autopull.sh
     ./autogen.sh
@@ -70,6 +72,8 @@ We assume that the following environment variables are set:
 
     # Forcing a specific version number, without having to set a git tag.
     echo $CURRENT_VERSION > .tarball-version
+    # Forcing a rebuild of the documentation and man pages.
+    rm -f .version
 
 ** Update files:
 
@@ -82,13 +86,6 @@ We assume that the following environment variables are set:
   - gettext-runtime/intl/locale.alias
 
     Update with glibc's intl/locale.alias.
-
-  - gettext-runtime/intl/localcharset.h
-  - gettext-runtime/intl/localcharset.c
-
-    Update with libcharset inside libiconv.  Check that
-    gnulib/lib/{localcharset.h,localcharset.c} agree with it, except
-    for copyright header changes.
 
   - gettext-runtime/po/Makefile.in.in
 
@@ -220,6 +217,8 @@ We assume that the following environment variables are set:
 
     # Forcing a specific version number, without having to set a git tag.
     echo $CURRENT_VERSION > .tarball-version
+    # Forcing a rebuild of the documentation and man pages.
+    rm -f .version
 
     ./autogen.sh
     ./configure --disable-shared
@@ -248,6 +247,8 @@ We assume that the following environment variables are set:
     gettext-tools/examples/hello-c-gnome3/autoclean.sh
     gettext-tools/examples/hello-c++/m4/Makefile.am
     gettext-tools/examples/hello-c++/autoclean.sh
+    gettext-tools/examples/hello-c++20/m4/Makefile.am
+    gettext-tools/examples/hello-c++20/autoclean.sh
     gettext-tools/examples/hello-c++-kde/m4/Makefile.am
     gettext-tools/examples/hello-c++-kde/autoclean.sh
     gettext-tools/examples/hello-c++-gnome/m4/Makefile.am
