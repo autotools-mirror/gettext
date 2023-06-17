@@ -367,3 +367,10 @@ We assume that the following environment variables are set:
       --gnulib-version=$(cd gnulib && git describe)
 
 * Submit a News entry on https://savannah.gnu.org/projects/gettext/
+
+* In the bug tracker on https://savannah.gnu.org/projects/gettext/, search
+  using the Advanced query form for the bugs with
+    Open/Closed = Closed
+    Status = Fixed
+  and move them to Status = Fix Released, adding a comment
+    The fix is contained in gettext $CURRENT_VERSION.
