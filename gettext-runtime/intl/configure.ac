@@ -104,10 +104,16 @@ gl_INIT
 
 gt_INTL_SUBDIR_CORE
 
-gt_PRINTF_POSIX
-case $gt_cv_func_printf_posix in
-  *yes) HAVE_POSIX_PRINTF=1 ;;
-  *)    HAVE_POSIX_PRINTF=0 ;;
+gl_PRINTF_POSITIONS
+case "$gl_cv_func_printf_positions" in
+  *yes)
+    AC_DEFINE([HAVE_POSIX_PRINTF], [1],
+      [Define if your printf() function supports format strings with positions.])
+    HAVE_POSIX_PRINTF=1
+    ;;
+  *)
+    HAVE_POSIX_PRINTF=0
+    ;;
 esac
 AC_SUBST([HAVE_POSIX_PRINTF])
 

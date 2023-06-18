@@ -95,7 +95,14 @@ AC_CHECK_FUNCS([snprintf vasprintf strnlen wcslen wcsnlen mbrtowc wcrtomb])
 dnl Use the _snprintf function only if it is declared (because on NetBSD it
 dnl is defined as a weak alias of snprintf; we prefer to use the latter).
 AC_CHECK_DECLS([_snprintf], , , [#include <stdio.h>])
-gt_PRINTF_POSIX
+
+gl_PRINTF_POSITIONS
+case "$gl_cv_func_printf_positions" in
+  *yes)
+    AC_DEFINE([HAVE_POSIX_PRINTF], [1],
+      [Define if your printf() function supports format strings with positions.])
+    ;;
+esac
 
 dnl Hide undesired symbols from the global namespace, by prefixing them with
 dnl "libasprintf_".
