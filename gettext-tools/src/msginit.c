@@ -933,9 +933,9 @@ project_id (const char *header)
     size_t linelen;
     int exitstatus;
 
-    gettextlibdir = getenv ("GETTEXTLIBDIR_SRCDIR");
+    gettextlibdir = getenv ("GETTEXTLIBEXECDIR_SRCDIR");
     if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
-      gettextlibdir = relocate (LIBDIR "/gettext");
+      gettextlibdir = relocate (LIBEXECDIR "/gettext");
 
     prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
 
@@ -1015,9 +1015,9 @@ project_id_version (const char *header)
     size_t linelen;
     int exitstatus;
 
-    gettextlibdir = getenv ("GETTEXTLIBDIR_SRCDIR");
+    gettextlibdir = getenv ("GETTEXTLIBEXECDIR_SRCDIR");
     if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
-      gettextlibdir = relocate (LIBDIR "/gettext");
+      gettextlibdir = relocate (LIBEXECDIR "/gettext");
 
     prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
 
@@ -1177,7 +1177,7 @@ get_user_email ()
      "msginit.exe: subprocess ... failed: No such file or directory"  */
 #if !(defined _WIN32 && ! defined __CYGWIN__)
   {
-    const char *prog = relocate (LIBDIR "/gettext/user-email");
+    const char *prog = relocate (LIBEXECDIR "/gettext/user-email");
     const char *argv[4];
     pid_t child;
     int fd[1];
@@ -1298,7 +1298,7 @@ language_team_address ()
     argv[0] = BOURNE_SHELL;
     argv[1] = prog;
     argv[2] = relocate (PROJECTSDIR);
-    argv[3] = relocate (LIBDIR "/gettext");
+    argv[3] = relocate (LIBEXECDIR "/gettext");
     argv[4] = catalogname;
     argv[5] = language;
     argv[6] = NULL;
@@ -1450,9 +1450,9 @@ plural_forms ()
       size_t linelen;
       int exitstatus;
 
-      gettextlibdir = getenv ("GETTEXTLIBDIR_BUILDDIR");
+      gettextlibdir = getenv ("GETTEXTLIBEXECDIR_BUILDDIR");
       if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
-        gettextlibdir = relocate (LIBDIR "/gettext");
+        gettextlibdir = relocate (LIBEXECDIR "/gettext");
 
       prog = xconcatenated_filename (gettextlibdir, "cldr-plurals", EXEEXT);
 

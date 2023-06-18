@@ -89,6 +89,7 @@ jardir = $(datadir)/gettext
 pkgdatadir = $(datadir)/gettext
 projectsdir = $(pkgdatadir)/projects
 pkglibdir = $(libdir)/gettext
+pkglibexecdir = $(libexecdir)/gettext
 
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
@@ -102,6 +103,7 @@ DEFS = \
   -DUSEJAVA=$(USEJAVA) \
   -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
   -DLIBDIR=\"$(libdir)\" \
+  -DLIBEXECDIR=\"$(libexecdir)\" \
   -DGETTEXTDATADIR=\"$(pkgdatadir)\" \
   -DPROJECTSDIR=\"$(projectsdir)\" \
   -DEXEEXT=\"@EXEEXT@\" @DEFS@
@@ -421,9 +423,9 @@ msggrep_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
 msginit_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
 msguniq_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
 recode_sr_latin_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-hostname_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
-urlget_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
-cldr_plurals_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
+hostname_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibexecdir)\"
+urlget_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibexecdir)\"
+cldr_plurals_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibexecdir)\"
 if RELOCATABLE_VIA_LD
 msgcmp_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msgfmt_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
@@ -441,9 +443,9 @@ msggrep_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msginit_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msguniq_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 recode_sr_latin_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
-hostname_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
-urlget_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
-cldr_plurals_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibdir)`
+hostname_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibexecdir)`
+urlget_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibexecdir)`
+cldr_plurals_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibexecdir)`
 endif
 
 # Linking with C++ libraries is needed _only_ on mingw and Cygwin.
@@ -627,22 +629,22 @@ EXTRA_DIST += cldr-plural.c cldr-plural.h
 # Special rules for installation of auxiliary programs.
 
 install-exec-local:
-	$(MKDIR_P) $(DESTDIR)$(pkglibdir)
-	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(pkglibdir)/hostname$(EXEEXT)
-	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) urlget$(EXEEXT) $(DESTDIR)$(pkglibdir)/urlget$(EXEEXT)
-	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) cldr-plurals$(EXEEXT) $(DESTDIR)$(pkglibdir)/cldr-plurals$(EXEEXT)
-	$(INSTALL_SCRIPT) user-email $(DESTDIR)$(pkglibdir)/user-email
-	$(INSTALL_SCRIPT) $(srcdir)/project-id $(DESTDIR)$(pkglibdir)/project-id
+	$(MKDIR_P) $(DESTDIR)$(pkglibexecdir)
+	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(pkglibexecdir)/hostname$(EXEEXT)
+	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) urlget$(EXEEXT) $(DESTDIR)$(pkglibexecdir)/urlget$(EXEEXT)
+	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) cldr-plurals$(EXEEXT) $(DESTDIR)$(pkglibexecdir)/cldr-plurals$(EXEEXT)
+	$(INSTALL_SCRIPT) user-email $(DESTDIR)$(pkglibexecdir)/user-email
+	$(INSTALL_SCRIPT) $(srcdir)/project-id $(DESTDIR)$(pkglibexecdir)/project-id
 
 installdirs-local:
-	$(MKDIR_P) $(DESTDIR)$(pkglibdir)
+	$(MKDIR_P) $(DESTDIR)$(pkglibexecdir)
 
 uninstall-local:
-	$(RM) $(DESTDIR)$(pkglibdir)/hostname$(EXEEXT)
-	$(RM) $(DESTDIR)$(pkglibdir)/urlget$(EXEEXT)
-	$(RM) $(DESTDIR)$(pkglibdir)/cldr-plurals$(EXEEXT)
-	$(RM) $(DESTDIR)$(pkglibdir)/user-email
-	$(RM) $(DESTDIR)$(pkglibdir)/project-id
+	$(RM) $(DESTDIR)$(pkglibexecdir)/hostname$(EXEEXT)
+	$(RM) $(DESTDIR)$(pkglibexecdir)/urlget$(EXEEXT)
+	$(RM) $(DESTDIR)$(pkglibexecdir)/cldr-plurals$(EXEEXT)
+	$(RM) $(DESTDIR)$(pkglibexecdir)/user-email
+	$(RM) $(DESTDIR)$(pkglibexecdir)/project-id
 
 DISTCLEANFILES += user-email
 
