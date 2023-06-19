@@ -1,4 +1,4 @@
-# intl.m4 serial 53 (gettext-0.22)
+# intl.m4 serial 54 (gettext-0.23)
 dnl Copyright (C) 1995-2014, 2016-2023 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -44,7 +44,6 @@ AC_DEFUN([gt_INTL_SUBDIR_CORE],
   AC_REQUIRE([AC_FUNC_ALLOCA])dnl
   AC_REQUIRE([AC_FUNC_MMAP])dnl
   AC_REQUIRE([gt_INTDIV0])dnl
-  AC_REQUIRE([gl_AC_TYPE_UINTMAX_T])dnl
   AC_REQUIRE([gl_LOCK])dnl
 
   AC_LINK_IFELSE(
