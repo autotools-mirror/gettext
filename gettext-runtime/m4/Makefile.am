@@ -26,7 +26,6 @@ iconv.m4 \
 intdiv0.m4 \
 intl.m4 \
 intlmacosx.m4 \
-intmax.m4 \
 inttypes_h.m4 \
 nls.m4 \
 po.m4 \
