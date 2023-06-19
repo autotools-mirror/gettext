@@ -22,7 +22,6 @@ EXTRA_DIST = README \
 build-to-host.m4 \
 gettext.m4 \
 glibc2.m4 \
-intlmacosx.m4 \
 nls.m4 \
 po.m4 \
 progtest.m4
