@@ -20,7 +20,6 @@
 # find . -type f -name '*.m4' -printf '%f\n' | sort | tr '\012' @ | sed 's/@$/%/;s/@/ \\@/g' | tr @% '\012\012'
 EXTRA_DIST = README \
 build-to-host.m4 \
-flexmember.m4 \
 gettext.m4 \
 glibc2.m4 \
 iconv.m4 \
