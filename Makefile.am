@@ -74,7 +74,6 @@ distcheck-hook:
 	cmp -s $(srcdir)/gettext-runtime/po/remove-potcdate.sin $(srcdir)/gettext-tools/examples/po/remove-potcdate.sin
 	cmp -s $(srcdir)/gettext-runtime/m4/build-to-host.m4 $(srcdir)/gettext-tools/gnulib-m4/build-to-host.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/gettext.m4 $(srcdir)/gettext-tools/gnulib-m4/gettext.m4
-	cmp -s $(srcdir)/gettext-runtime/m4/iconv.m4 $(srcdir)/gettext-tools/gnulib-m4/iconv.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/intlmacosx.m4 $(srcdir)/gettext-tools/gnulib-m4/intlmacosx.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/nls.m4 $(srcdir)/gettext-tools/gnulib-m4/nls.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/po.m4 $(srcdir)/gettext-tools/gnulib-m4/po.m4

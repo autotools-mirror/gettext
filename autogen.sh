@@ -115,6 +115,7 @@ if ! $skip_gnulib; then
     filename
     flexmember
     havelib
+    iconv
     lib-symbol-visibility
     localcharset
     localename
