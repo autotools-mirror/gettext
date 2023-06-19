@@ -25,7 +25,6 @@ glibc2.m4 \
 iconv.m4 \
 intdiv0.m4 \
 intlmacosx.m4 \
-inttypes_h.m4 \
 nls.m4 \
 po.m4 \
 progtest.m4
