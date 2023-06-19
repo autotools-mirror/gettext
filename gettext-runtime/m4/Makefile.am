@@ -23,7 +23,6 @@ build-to-host.m4 \
 gettext.m4 \
 glibc2.m4 \
 iconv.m4 \
-intdiv0.m4 \
 intlmacosx.m4 \
 nls.m4 \
 po.m4 \
