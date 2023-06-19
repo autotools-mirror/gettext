@@ -120,7 +120,6 @@ dnl   plural-exp.h plural-exp.c
 dnl   plural.y
 AC_C_INLINE
 AC_TYPE_SIZE_T
-gl_AC_HEADER_STDINT_H
 AC_FUNC_ALLOCA
 AC_FUNC_MMAP
 gt_INTDIV0

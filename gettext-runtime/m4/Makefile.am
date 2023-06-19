@@ -28,5 +28,4 @@ intlmacosx.m4 \
 inttypes_h.m4 \
 nls.m4 \
 po.m4 \
-progtest.m4 \
-stdint_h.m4
+progtest.m4
