@@ -1,6 +1,5 @@
 ## Makefile for the gettext-tools/doc subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2007, 2009, 2013-2015, 2018-2020 Free
-## Software Foundation, Inc.
+## Copyright (C) 1995-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -33,7 +32,11 @@ TEXINCLUDES = -I $(top_srcdir)/../gettext-runtime/doc
 SED = sed
 RM = rm -f
 
-MAKEINFO = env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= @MAKEINFO@
+# The customization variable CHECK_NORMAL_MENU_STRUCTURE is necessary with
+# makeinfo versions ≥ 6.8.
+MAKEINFO = \
+  env LANG= LC_MESSAGES= LC_ALL= LANGUAGE= \
+  @MAKEINFO@ -c CHECK_NORMAL_MENU_STRUCTURE=1
 MAKEINFOFLAGS = $(TEXINCLUDES) --no-split
 
 info_TEXINFOS = gettext.texi
