@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2019 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2023 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @pindex msgmerge
@@ -249,8 +249,8 @@ lines which are wider than the output page width will be split.
 @opindex -s@r{, @code{msgmerge} option}
 @opindex --sort-output@r{, @code{msgmerge} option}
 @cindex sorting @code{msgmerge} output
-Generate sorted output.  Note that using this option makes it much harder
-for the translator to understand each message's context.
+Generate sorted output (deprecated).  Note that using this option makes it
+much harder for the translator to understand each message's context.
 
 @item -F
 @itemx --sort-by-file

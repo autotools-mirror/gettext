@@ -3,6 +3,9 @@ Version 0.23 - July 2023
 * Programming languages support:
   - Glade: xgettext has improved support for GtkBuilder 4.
 
+* msgmerge:
+  - The msgmerge option '--sorted-output' is now deprecated.
+
 Version 0.22 - June 2023
 
 * PO file format:

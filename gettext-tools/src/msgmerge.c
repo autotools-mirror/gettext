@@ -436,6 +436,11 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
            "--sort-output", "--sort-by-file");
 
+  /* Warn when deprecated options are used.  */
+  if (sort_by_msgid)
+    error (EXIT_SUCCESS, 0, _("The option '%s' is deprecated."),
+           "--sort-output");
+
   /* In update mode, --properties-input implies --properties-output.  */
   if (update_mode && input_syntax == &input_format_properties)
     output_syntax = &output_format_properties;
@@ -654,7 +659,7 @@ Output details:\n"));
       --no-wrap               do not break long message lines, longer than\n\
                               the output page width, into several lines\n"));
       printf (_("\
-  -s, --sort-output           generate sorted output\n"));
+  -s, --sort-output           generate sorted output (deprecated)\n"));
       printf (_("\
   -F, --sort-by-file          sort output by file location\n"));
       printf ("\n");
