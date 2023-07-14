@@ -1,3 +1,8 @@
+Version 0.23 - July 2023
+
+* Programming languages support:
+  - Glade: xgettext has improved support for GtkBuilder 4.
+
 Version 0.22 - June 2023
 
 * PO file format:
@@ -465,9 +470,9 @@ Version 0.18.3 - July 2013
     The gnu::autosprintf class now provides an assignment operator.
 
   - Glade:
-    xgettext now supports GtkBuider file format used by Glade 3.
+    xgettext now supports GtkBuilder file format used by Glade 3.
     xgettext now also extracts contexts (msgctxt) from Glade 2 and
-    GtkBuider files.
+    GtkBuilder files.
 
   - JavaScript:
     xgettext now partially supports JavaScript.  Since the current
