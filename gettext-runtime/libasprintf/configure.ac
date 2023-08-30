@@ -53,10 +53,10 @@ dnl Prepares the libtool configuration for handling of Windows resources, and
 dnl sets the RC variable to a program that compiles Windows resource files.
 LT_LANG([Windows Resource])
 
-dnl On mingw and Cygwin, we can activate special Makefile rules which add
-dnl version information to the shared libraries and executables.
+dnl On native Windows and Cygwin, we can activate special Makefile rules which
+dnl add version information to the shared libraries and executables.
 case "$host_os" in
-  mingw* | cygwin*) is_woe32=yes ;;
+  mingw* | windows* | cygwin*) is_woe32=yes ;;
   *) is_woe32=no ;;
 esac
 AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
@@ -64,7 +64,7 @@ AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
 case "$host_os" in
   # On Cygwin, without -no-undefined, a warning is emitted and only a static
   # library is built.
-  beos* | mingw* | cygwin* | os2*) LTNOUNDEF='-no-undefined' ;;
+  beos* | mingw* | windows* | cygwin* | os2*) LTNOUNDEF='-no-undefined' ;;
   *) LTNOUNDEF='' ;;
 esac
 AC_SUBST([LTNOUNDEF])

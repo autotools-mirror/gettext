@@ -85,10 +85,10 @@ dnl Prepares the libtool configuration for handling of Windows resources, and
 dnl sets the RC variable to a program that compiles Windows resource files.
 LT_LANG([Windows Resource])
 
-dnl On mingw and Cygwin, we can activate special Makefile rules which add
-dnl version information to the shared libraries and executables.
+dnl On native Windows and Cygwin, we can activate special Makefile rules which
+dnl add version information to the shared libraries and executables.
 case "$host_os" in
-  mingw* | cygwin*) is_woe32=yes ;;
+  mingw* | windows* | cygwin*) is_woe32=yes ;;
   *) is_woe32=no ;;
 esac
 AM_CONDITIONAL([WOE32], [test $is_woe32 = yes])
@@ -99,7 +99,7 @@ fi
 
 dnl Some code is only meant to be compiled on native Windows.
 case "$host_os" in
-  mingw*) is_windows_native=yes ;;
+  mingw* | windows*) is_windows_native=yes ;;
   *) is_windows_native=no ;;
 esac
 AM_CONDITIONAL([WINDOWS_NATIVE], [test $is_windows_native = yes])
@@ -115,7 +115,8 @@ gl_INIT
 AC_TYPE_SIZE_T
 AC_CHECK_FUNCS([setlocale])
 
-dnl Compilation on mingw and Cygwin needs special Makefile rules, because
+dnl Compilation on native Windows and Cygwin needs special Makefile rules,
+dnl because
 dnl 1. when we install a shared library, we must arrange to export
 dnl    auxiliary pointer variables for every exported variable,
 dnl 2. when we install a shared library and a static library simultaneously,
@@ -124,7 +125,7 @@ dnl    must arrange to define the auxiliary pointer variables for the
 dnl    exported variables _also_ in the static library.
 if test "$enable_shared" = yes; then
   case "$host_os" in
-    mingw* | cygwin*) is_woe32dll=yes ;;
+    mingw* | windows* | cygwin*) is_woe32dll=yes ;;
     *) is_woe32dll=no ;;
   esac
 else
@@ -133,7 +134,7 @@ fi
 AM_CONDITIONAL([WOE32DLL], [test $is_woe32dll = yes])
 if test $is_woe32dll = yes; then
   AC_DEFINE([WOE32DLL], [1],
-    [Define when --enable-shared is used on mingw or Cygwin.])
+    [Define when --enable-shared is used on Windows.])
 fi
 
 dnl Put some default definitions into config.h.
