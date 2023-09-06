@@ -1,6 +1,6 @@
 /* intl-compat.c - Stub functions to call gettext functions from GNU gettext
    Library.
-   Copyright (C) 1995, 2000-2003, 2005 Free Software Foundation, Inc.
+   Copyright (C) 1995, 2000-2003, 2005, 2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -50,7 +50,20 @@
 #if HAVE_VISIBILITY && BUILDING_DLL
 # define DLL_EXPORTED __attribute__((__visibility__("default")))
 #elif defined _MSC_VER && BUILDING_DLL
-# define DLL_EXPORTED __declspec(dllexport)
+/* When building with MSVC, exporting a symbol means that the object file
+   contains a "linker directive" of the form /EXPORT:symbol.  This can be
+   inspected through the "objdump -s --section=.drectve FILE" or
+   "dumpbin /directives FILE" commands.
+   The symbols from this file should be exported if and only if the object
+   file gets included in a DLL.  Libtool, on Windows platforms, defines
+   the C macro DLL_EXPORT (together with PIC) when compiling for a DLL
+   and does not define it when compiling an object file meant to be linked
+   statically into some executable.  */
+# if defined DLL_EXPORT
+#  define DLL_EXPORTED __declspec(dllexport)
+# else
+#  define DLL_EXPORTED
+# endif
 #else
 # define DLL_EXPORTED
 #endif
