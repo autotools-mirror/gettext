@@ -280,10 +280,6 @@ else
   is_woe32dll=no
 fi
 AM_CONDITIONAL([WOE32DLL], [test $is_woe32dll = yes])
-if test $is_woe32dll = yes; then
-  AC_DEFINE([WOE32DLL], [1],
-    [Define when --enable-shared is used on Windows.])
-fi
 
 GETTEXTLIB_EXPORTS_FLAGS=
 dnl woe32dll/gettextlib-exports.c needs to know whether the getopt facility
@@ -339,8 +335,13 @@ AH_BOTTOM([
    wrap the file position (#:) comments.  */
 #define PAGE_WIDTH 79
 
-/* On Windows, variables that may be in a DLL must be marked specially.  */
-#if defined WOE32DLL && !defined IN_RELOCWRAPPER
+/* On Windows, variables that may be in a DLL must be marked specially.
+   The symbols marked with DLL_VARIABLE should be exported if and only if the
+   object file gets included in a DLL.  Libtool, on Windows platforms, defines
+   the C macro DLL_EXPORT (together with PIC) when compiling for a DLL
+   and does not define it when compiling an object file meant to be linked
+   statically into some executable.  */
+#if (defined _WIN32 || defined __CYGWIN__) && defined DLL_EXPORT && !defined IN_RELOCWRAPPER
 # define DLL_VARIABLE __declspec (dllimport)
 #else
 # define DLL_VARIABLE
