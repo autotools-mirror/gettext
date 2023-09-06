@@ -230,7 +230,7 @@ libgnuintl.h: $(srcdir)/libgnuintl.in.h $(srcdir)/export.h
 	    -e 's,@''HAVE_NEWLOCALE''@,@HAVE_NEWLOCALE@,g' \
 	    -e 's,@''ENHANCE_LOCALE_FUNCS''@,@ENHANCE_LOCALE_FUNCS@,g' \
 	  < $(srcdir)/libgnuintl.in.h \
-	| if test '@WOE32DLL@' = yes; then \
+	| if test '@WOE32DLL@' = 1; then \
 	    sed -e 's/extern \([^()]*\);/extern __declspec (dllimport) \1;/'; \
 	  else \
 	    cat; \
@@ -239,6 +239,7 @@ libgnuintl.h: $(srcdir)/libgnuintl.in.h $(srcdir)/export.h
 	      -e "/#define _LIBINTL_H/r $(srcdir)/export.h" \
 	| sed -e '/#define _LIBINTL_H/,/[*][/]$$/{/#define _LIBINTL_H/!d;}' \
 	| sed -e 's,@''HAVE_VISIBILITY''@,@HAVE_VISIBILITY@,g' \
+	| sed -e 's,@''WOE32DLL''@,@WOE32DLL@,g' \
 	  > libgnuintl.h
 MOSTLYCLEANFILES += libgnuintl.h
 

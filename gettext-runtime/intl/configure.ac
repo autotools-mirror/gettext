@@ -229,21 +229,26 @@ if test "$enable_shared" = yes; then
 else
   is_woe32dll=no
 fi
-WOE32DLL=$is_woe32dll
+if test $is_woe32dll = yes; then
+  WOE32DLL=1
+else
+  WOE32DLL=0
+fi
 AC_SUBST([WOE32DLL])
 AM_CONDITIONAL([WOE32DLL], [test $is_woe32dll = yes])
-if test $is_woe32dll = yes; then
-  AC_DEFINE([WOE32DLL], [1],
-    [Define when --enable-shared is used on Windows.])
-fi
 
 dnl Put some default definitions into config.h.
 AH_BOTTOM([
 /* Tweak gnulib code according to the needs of this library.  */
 #define IN_LIBINTL 1
 
-/* On Windows, variables that may be in a DLL must be marked specially.  */
-#if (defined _MSC_VER && defined _DLL) && !defined IN_RELOCWRAPPER
+/* On Windows, variables that may be in a DLL must be marked specially.
+   The symbols marked with DLL_VARIABLE should be exported if and only if the
+   object file gets included in a DLL.  Libtool, on Windows platforms, defines
+   the C macro DLL_EXPORT (together with PIC) when compiling for a DLL
+   and does not define it when compiling an object file meant to be linked
+   statically into some executable.  */
+#if (defined _MSC_VER && defined DLL_EXPORT) && !defined IN_RELOCWRAPPER
 # define DLL_VARIABLE __declspec (dllimport)
 #else
 # define DLL_VARIABLE

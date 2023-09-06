@@ -1,5 +1,5 @@
 /* Control of exported symbols from libintl.
-   Copyright (C) 2005-2022 Free Software Foundation, Inc.
+   Copyright (C) 2005-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -15,11 +15,20 @@
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
 #if @HAVE_VISIBILITY@ && BUILDING_LIBINTL
-#define LIBINTL_DLL_EXPORTED __attribute__((__visibility__("default")))
-#elif (defined _WIN32 && !defined __CYGWIN__) && defined WOE32DLL && BUILDING_LIBINTL
-#define LIBINTL_DLL_EXPORTED __declspec(dllexport)
-#elif (defined _WIN32 && !defined __CYGWIN__) && defined WOE32DLL
-#define LIBINTL_DLL_EXPORTED __declspec(dllimport)
+# define LIBINTL_DLL_EXPORTED __attribute__((__visibility__("default")))
+#elif (defined _WIN32 && !defined __CYGWIN__) && @WOE32DLL@ && BUILDING_LIBINTL
+/* The symbols from this file should be exported if and only if the object
+   file gets included in a DLL.  Libtool, on Windows platforms, defines
+   the C macro DLL_EXPORT (together with PIC) when compiling for a DLL
+   and does not define it when compiling an object file meant to be linked
+   statically into some executable.  */
+# if defined DLL_EXPORT
+#  define LIBINTL_DLL_EXPORTED __declspec(dllexport)
+# else
+#  define LIBINTL_DLL_EXPORTED
+# endif
+#elif (defined _WIN32 && !defined __CYGWIN__) && @WOE32DLL@
+# define LIBINTL_DLL_EXPORTED __declspec(dllimport)
 #else
-#define LIBINTL_DLL_EXPORTED
+# define LIBINTL_DLL_EXPORTED
 #endif
