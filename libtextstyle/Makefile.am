@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU libtextstyle
-## Copyright (C) 1995-2022 Free Software Foundation, Inc.
+## Copyright (C) 1995-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -55,6 +55,7 @@ EXTRA_DIST = \
   gnulib-local/lib/html-styled-ostream.oo.h \
   gnulib-local/lib/iconv-ostream.oo.c \
   gnulib-local/lib/iconv-ostream.oo.h \
+  gnulib-local/lib/isatty.c.diff \
   gnulib-local/lib/libcroco/cr-additional-sel.c \
   gnulib-local/lib/libcroco/cr-additional-sel.h \
   gnulib-local/lib/libcroco/cr-attr-sel.c \
