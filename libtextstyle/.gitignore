@@ -122,6 +122,7 @@
 /lib/malloca.h
 /lib/math.c
 /lib/math.in.h
+/lib/mbszero.c
 /lib/mem-hash-map.c
 /lib/mem-hash-map.h
 /lib/memchr.c
@@ -159,6 +160,7 @@
 /lib/safe-read.h
 /lib/safe-write.c
 /lib/safe-write.h
+/lib/same-inode.c
 /lib/same-inode.h
 /lib/sig-handler.c
 /lib/sig-handler.h
