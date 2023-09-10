@@ -21,7 +21,7 @@ EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
 
 TESTS = gettext-1 gettext-2 \
-	intl-1 intl-2 intl-3 intl-4 intl-5 intl-6 intl-7 \
+	intl-0 intl-1 intl-2 intl-3 intl-4 intl-5 intl-6 intl-7 \
 	intl-setlocale-1 intl-setlocale-2 \
 	intl-thread-1 intl-thread-2 intl-thread-3 \
 	intl-version \

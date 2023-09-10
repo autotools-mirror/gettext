@@ -1,7 +1,12 @@
-Version 0.23 - July 2023
+Version 0.23 - October 2023
 
 * Programming languages support:
   - Glade: xgettext has improved support for GtkBuilder 4.
+
+* Runtime behaviour:
+  - In the C.UTF-8 locale, like in the C locale, the *gettext() functions
+    now return the msgid untranslated. This is relevant for GNU systems,
+    Linux with musl libc, FreeBSD, NetBSD, OpenBSD, Cygwin, and Android.
 
 * msgmerge:
   - The msgmerge option '--sorted-output' is now deprecated.

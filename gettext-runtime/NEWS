@@ -1,3 +1,9 @@
+Version 0.23 - October 2023
+
+* In the C.UTF-8 locale, like in the C locale, the *gettext() functions
+  now return the msgid untranslated. This is relevant for GNU systems,
+  Linux with musl libc, FreeBSD, NetBSD, OpenBSD, Cygwin, and Android.
+
 Version 0.21.1 - October 2022
 
 * On AIX, locale names with a script or with an uppercase language are now
