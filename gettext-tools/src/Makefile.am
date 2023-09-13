@@ -84,7 +84,6 @@ noinst_HEADERS = \
 
 EXTRA_DIST += FILES project-id
 
-aliaspath = $(localedir)
 jardir = $(datadir)/gettext
 pkgdatadir = $(datadir)/gettext
 projectsdir = $(pkgdatadir)/projects
@@ -99,7 +98,6 @@ AM_CPPFLAGS = \
   -I../../gettext-runtime/intl -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = \
   -DLOCALEDIR=$(localedir_c_make) -DBISON_LOCALEDIR=\"$(BISON_LOCALEDIR)\" \
-  -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
   -DUSEJAVA=$(USEJAVA) \
   -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
   -DLIBDIR=\"$(libdir)\" \

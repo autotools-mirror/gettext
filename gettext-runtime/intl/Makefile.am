@@ -35,7 +35,7 @@ SUFFIXES =
 # -DBUILDING_DLL: Change expansion of RELOCATABLE_DLL_EXPORTED macro.
 AM_CPPFLAGS = \
   -Ignulib-lib -I$(srcdir)/gnulib-lib \
-  -DLOCALEDIR=$(localedir_c_make) -DLOCALE_ALIAS_PATH=\"$(aliaspath)\" \
+  -DLOCALEDIR=$(localedir_c_make) \
   -DLIBDIR=\"$(libdir)\" -DBUILDING_LIBINTL
 
 if WOE32
@@ -503,57 +503,6 @@ installdirs-preloadable:
 uninstall-local: uninstall-preloadable
 uninstall-preloadable:
 	rm -f $(DESTDIR)$(libdir)/preloadable_libintl.so
-
-endif
-
-
-# Installation of locale.alias.
-
-EXTRA_DIST += locale.alias ref-add.sin ref-del.sin
-
-if USE_INCLUDED_LIBINTL
-
-all-local: ref-add.sed ref-del.sed
-
-ref-add.sed: $(srcdir)/ref-add.sin
-	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $(srcdir)/ref-add.sin > t-ref-add.sed
-	mv t-ref-add.sed ref-add.sed
-MOSTLYCLEANFILES += ref-add.sed
-
-ref-del.sed: $(srcdir)/ref-del.sin
-	sed -e '/^#/d' -e 's/@''PACKAGE''@/@PACKAGE@/g' $(srcdir)/ref-del.sin > t-ref-del.sed
-	mv t-ref-del.sed ref-del.sed
-MOSTLYCLEANFILES += ref-del.sed
-
-install-data-local: install-data-aliasfile
-install-data-aliasfile: ref-add.sed
-	$(mkdir_p) $(DESTDIR)$(localedir)
-	test -f $(DESTDIR)$(localedir)/locale.alias \
-	  && orig=$(DESTDIR)$(localedir)/locale.alias \
-	  || orig=$(srcdir)/locale.alias; \
-	temp=$(DESTDIR)$(localedir)/t-locale.alias; \
-	dest=$(DESTDIR)$(localedir)/locale.alias; \
-	sed -f ref-add.sed $$orig > $$temp; \
-	$(INSTALL_DATA) $$temp $$dest; \
-	rm -f $$temp
-
-installdirs-local: installdirs-aliasfile
-installdirs-aliasfile:
-	$(mkdir_p) $(DESTDIR)$(localedir)
-
-uninstall-local: uninstall-aliasfile
-uninstall-aliasfile: ref-del.sed
-	if test -f $(DESTDIR)$(localedir)/locale.alias; then \
-	  temp=$(DESTDIR)$(localedir)/t-locale.alias; \
-	  dest=$(DESTDIR)$(localedir)/locale.alias; \
-	  sed -f ref-del.sed $$dest > $$temp; \
-	  if grep '^# Packages using this file: $$' $$temp > /dev/null; then \
-	    rm -f $$dest; \
-	  else \
-	    $(INSTALL_DATA) $$temp $$dest; \
-	  fi; \
-	  rm -f $$temp; \
-	fi
 
 endif
 

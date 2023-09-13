@@ -85,13 +85,6 @@ char *alloca ();
 
 #include "gettextP.h"
 
-#ifdef ENABLE_RELOCATABLE
-# include "relocatable.h"
-#else
-# define relocate(pathname) (pathname)
-# define relocate2(pathname,allocatedp) (*(allocatedp) = NULL, (pathname))
-#endif
-
 /* @@ end of prolog @@ */
 
 #ifdef _LIBC
@@ -148,6 +141,22 @@ char *alloca ();
 #endif
 
 
+/* We do the alias processing only on systems with glibc, because
+     - Its purpose (described above) is to let the user use locale names
+       that are not directly supported by libc, during transition periods.
+     - On systems without glibc, the use of these locale names would be
+       limited to the LC_MESSAGES and LANGUAGE environment variables,
+       because these systems don't use any alias file during setlocale().
+       This makes no sense: It would make the locale handling inconsistent
+       and users would still need to adjust their scripts when a locale
+       name supported by the system has changed.  */
+
+#if defined _LIBC || __GLIBC__ >= 2
+
+# ifndef LOCALE_ALIAS_PATH
+#  define LOCALE_ALIAS_PATH "/usr/share/locale"
+# endif
+
 __libc_lock_define_initialized (static, lock)
 
 
@@ -158,9 +167,9 @@ struct alias_map
 };
 
 
-#ifndef _LIBC
-# define libc_freeres_ptr(decl) decl
-#endif
+# ifndef _LIBC
+#  define libc_freeres_ptr(decl) decl
+# endif
 
 libc_freeres_ptr (static char *string_space);
 static size_t string_space_act;
@@ -177,13 +186,17 @@ static int extend_alias_table (void);
 static int alias_compare (const struct alias_map *map1,
 			  const struct alias_map *map2);
 
+#endif
+
 
 const char *
 _nl_expand_alias (const char *name)
 {
+  const char *result = NULL;
+
+#if defined _LIBC || __GLIBC__ >= 2
   static const char *locale_alias_path;
   struct alias_map *retval;
-  const char *result = NULL;
   size_t added;
 
   __libc_lock_lock (lock);
@@ -234,16 +247,19 @@ _nl_expand_alias (const char *name)
   while (added != 0);
 
   __libc_lock_unlock (lock);
+#endif
 
   return result;
 }
 
 
+#if defined _LIBC || __GLIBC__ >= 2
+
 /* Silence a bogus GCC warning.
    <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=109990>  */
-#if __GNUC__ >= 12
-# pragma GCC diagnostic ignored "-Wuse-after-free"
-#endif
+# if __GNUC__ >= 12
+#  pragma GCC diagnostic ignored "-Wuse-after-free"
+# endif
 
 static size_t
 internal_function
@@ -251,35 +267,28 @@ read_alias_file (const char *fname, int fname_len)
 {
   FILE *fp;
   char *full_fname;
-  char *malloc_full_fname;
   size_t added;
   static const char aliasfile[] = "/locale.alias";
 
   full_fname = (char *) alloca (fname_len + sizeof aliasfile);
-#ifdef HAVE_MEMPCPY
   mempcpy (mempcpy (full_fname, fname, fname_len),
 	   aliasfile, sizeof aliasfile);
-#else
-  memcpy (full_fname, fname, fname_len);
-  memcpy (&full_fname[fname_len], aliasfile, sizeof aliasfile);
-#endif
 
-#ifdef _LIBC
+# ifdef _LIBC
   /* Note the file is opened with cancellation in the I/O functions
      disabled.  */
-  fp = fopen (relocate2 (full_fname, &malloc_full_fname), "rce");
-#else
-  fp = fopen (relocate2 (full_fname, &malloc_full_fname), "r");
-#endif
-  free (malloc_full_fname);
+  fp = fopen (full_fname, "rce");
+# else
+  fp = fopen (full_fname, "r");
+# endif
   freea (full_fname);
   if (fp == NULL)
     return 0;
 
-#ifdef HAVE___FSETLOCKING
+# ifdef HAVE___FSETLOCKING
   /* No threads present.  */
   __fsetlocking (fp, FSETLOCKING_BYCALLER);
-#endif
+# endif
 
   added = 0;
   while (!FEOF (fp))
@@ -340,13 +349,13 @@ read_alias_file (const char *fname, int fname_len)
 	      else if (cp[0] != '\0')
 		*cp++ = '\0';
 
-#ifdef IN_LIBGLOCALE
+# ifdef IN_LIBGLOCALE
 	      /* glibc's locale.alias contains entries for ja_JP and ko_KR
 		 that make it impossible to use a Japanese or Korean UTF-8
 		 locale under the name "ja_JP" or "ko_KR".  Ignore these
 		 entries.  */
 	      if (strchr (alias, '_') == NULL)
-#endif
+# endif
 		{
 		  size_t alias_len;
 		  size_t value_len;
@@ -445,29 +454,7 @@ extend_alias_table (void)
 static int
 alias_compare (const struct alias_map *map1, const struct alias_map *map2)
 {
-#if defined _LIBC || defined HAVE_STRCASECMP
   return strcasecmp (map1->alias, map2->alias);
-#else
-  const unsigned char *p1 = (const unsigned char *) map1->alias;
-  const unsigned char *p2 = (const unsigned char *) map2->alias;
-  unsigned char c1, c2;
-
-  if (p1 == p2)
-    return 0;
-
-  do
-    {
-      /* I know this seems to be odd but the tolower() function in
-	 some systems libc cannot handle nonalpha characters.  */
-      c1 = isupper (*p1) ? tolower (*p1) : *p1;
-      c2 = isupper (*p2) ? tolower (*p2) : *p2;
-      if (c1 == '\0')
-	break;
-      ++p1;
-      ++p2;
-    }
-  while (c1 == c2);
-
-  return c1 - c2;
-#endif
 }
+
+#endif

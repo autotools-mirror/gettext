@@ -74,7 +74,6 @@ is according to the following file list.
       $prefix/share/locale/*/LC_MESSAGES/gettext-runtime.mo
 
       $prefix/lib/libintl.*               (not installed on glibc and Solaris 11 systems)
-      $prefix/share/locale/locale.alias   (not installed on glibc and Solaris 11 systems)
       $prefix/include/libintl.h           (not installed on glibc and Solaris 11 systems)
       $prefix/share/man/man3/*
       $prefix/share/doc/gettext/*.3.html
