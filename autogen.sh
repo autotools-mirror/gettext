@@ -121,7 +121,6 @@ if ! $skip_gnulib; then
     localename
     lock
     manywarnings
-    relocatable-lib-lgpl
     tsearch
     vasnprintf-posix
     vasnwprintf-posix

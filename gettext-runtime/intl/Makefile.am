@@ -32,7 +32,6 @@ MAINTAINERCLEANFILES =
 SUFFIXES =
 
 # -DBUILDING_LIBINTL: Change expansion of LIBINTL_DLL_EXPORTED macro.
-# -DBUILDING_DLL: Change expansion of RELOCATABLE_DLL_EXPORTED macro.
 AM_CPPFLAGS = \
   -Ignulib-lib -I$(srcdir)/gnulib-lib \
   -DLOCALEDIR=$(localedir_c_make) \
@@ -114,7 +113,7 @@ EXTRA_DIST += \
 #                       libintl_freelocale
 #   setlocale.c:        libintl_newlocale
 #                       libintl_setlocale
-#   relocatable.c:      libintl_set_relocation_prefix
+#   compat.c:           libintl_set_relocation_prefix
 #
 # The following files implement private API.
 #   gettextP.h:     dcigettext.c:       libintl_dcigettext
@@ -203,7 +202,8 @@ LIBINTLSOURCES = \
   setlocale.c \
   version.c \
   osdep.c \
-  intl-compat.c
+  intl-compat.c \
+  compat.c
 
 # We must not install the libintl.h/libintl.la files if we are on a
 # system which has the GNU gettext() function in its C library or in a
@@ -361,6 +361,8 @@ osdep.lo: $(srcdir)/osdep.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/osdep.c
 intl-compat.lo: $(srcdir)/intl-compat.c
 	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/intl-compat.c
+compat.lo: $(srcdir)/compat.c
+	$(AM_V_CC)$(LTCOMPILE) -c -o $@ $(srcdir)/compat.c
 
 # Dependencies.
 
@@ -394,6 +396,7 @@ setlocale.lo:        ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo
 version.lo:          ../config.h libgnuintl.h
 osdep.lo:            ../config.h $(srcdir)/intl-exports.c $(srcdir)/os2compat.c
 intl-compat.lo:      ../config.h $(srcdir)/gettextP.h libgnuintl.h $(srcdir)/gmo.h $(srcdir)/loadinfo.h
+compat.lo:           ../config.h libgnuintl.h
 
 # Version information according to Woe32 conventions.
 EXTRA_DIST += libintl.rc

@@ -42,10 +42,6 @@ gl_PROG_AR_RANLIB
 dnl Set preferences for the gnulib module 'threadlib'.
 gl_AVOID_WINPTHREAD
 
-dnl Set preferences for the gnulib module 'relocatable-lib-lgpl':
-dnl Enable relocatability unconditionally.
-enable_relocatable=yes
-
 dnl Early checks, assembled by gnulib.
 gl_EARLY
 
@@ -348,9 +344,6 @@ AH_VERBATIM([znoexport], [
 #define printf_frexp               _libintl_printf_frexp
 /* Symbols defined by gnulib module 'printf-frexpl'.  */
 #define printf_frexpl              _libintl_printf_frexpl
-/* Symbols defined by gnulib module 'relocatable-lib-lgpl'.  */
-#define relocate                   _libintl_relocate
-#define relocate2                  _libintl_relocate2
 /* Symbols defined by gnulib module 'setlocale-null'.  */
 #define setlocale_null             _libintl_setlocale_null
 #define setlocale_null_r           _libintl_setlocale_null_r
