@@ -1,5 +1,5 @@
 /* Handle aliases for locale names.
-   Copyright (C) 1995-2017, 2021 Free Software Foundation, Inc.
+   Copyright (C) 1995-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -13,6 +13,31 @@
 
    You should have received a copy of the GNU Lesser General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Locale aliases can be specified in the file $(localedir)/locale.alias.
+   It consists of lines of the form
+     <alias> <real-locale-name>
+   Lines that start with '#' are comment lines.
+
+   The main purpose of locale aliases is allow a seamless transition when
+   a locale is replaced by another one, and the users still want to use
+   the old locale name in their .profile scripts and elsewhere.
+   This typically happens when
+   (a) The ISO 639 language code of a language changes.  For example,
+       around 2003, the no_NO locale was withdrawn in favour of two
+       separate locales nb_NO and nn_NO.  Users in Norway could have
+       used the alias
+         no_NO.UTF-8 nb_NO.UTF-8
+       or
+         no_NO.UTF-8 nn_NO.UTF-8
+       depending on the language they speak.
+   (b) The ISO 3166 country code of a territory changes.  For example,
+       users in South Sudan saw their ISO 3166 country code change from
+       SD to SS in 2011, and their locale name changed from ar_SD.UTF-8
+       to ar_SS.UTF-8 in 2013 accordingly.  During the transition, they
+       may have used the alias
+         ar_SD.UTF-8 ar_SS.UTF-8
+ */
 
 /* Tell glibc's <string.h> to provide a prototype for mempcpy().
    This must come before <config.h> because <config.h> may include
