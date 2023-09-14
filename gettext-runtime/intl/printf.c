@@ -121,7 +121,9 @@ char *alloca ();
 /* Users don't expect libintl_fprintf to be less POSIX compliant
    than the fprintf implementation provided by gnulib or - on mingw -
    the one provided by mingw libs when __USE_MINGW_ANSI_STDIO is in
-   effect.  */
+   effect.
+   This definition is necessary, so that libgnuintl.h can declare
+   the *printf functions with _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD.  */
 #define USE_REPLACEMENT_CODE_ALWAYS 1
 
 DLL_EXPORTED
