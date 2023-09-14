@@ -152,6 +152,16 @@ extern int libintl_version;
 #define _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD(formatstring_parameter, first_argument) \
   _INTL_ATTRIBUTE_FORMAT ((_INTL_ATTRIBUTE_SPEC_PRINTF_STANDARD, formatstring_parameter, first_argument))
 
+/* _INTL_ARG_NONNULL ((N1, N2,...)) declares that the arguments N1, N2,...
+   must not be NULL.  */
+/* Applies to: functions.  */
+#if (defined __GNUC__ && __GNUC__ + (__GNUC_MINOR__ >= 3) > 3) || defined __clang__
+# define _INTL_ARG_NONNULL(params) __attribute__ ((__nonnull__ params))
+#else
+# define _INTL_ARG_NONNULL(params)
+#endif
+
+
 /* Look up MSGID in the current default message catalog for the current
    LC_MESSAGES locale.  If not found, returns MSGID itself (the default
    text).  */
@@ -405,7 +415,8 @@ extern char *bind_textdomain_codeset (const char *__domainname,
 #  undef fprintf
 #  define fprintf libintl_fprintf
 extern int fprintf (FILE *, const char *, ...)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3);
+  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3)
+  _INTL_ARG_NONNULL ((1, 2));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_fprintf; }
 #  endif
@@ -414,7 +425,8 @@ namespace std { using ::libintl_fprintf; }
 #  undef vfprintf
 #  define vfprintf libintl_vfprintf
 extern int vfprintf (FILE *, const char *, va_list)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0);
+  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+  _INTL_ARG_NONNULL ((1, 2));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vfprintf; }
 #  endif
@@ -436,7 +448,8 @@ namespace std { using ::libintl_vfprintf; }
 #  endif
 #  define printf libintl_printf
 extern int printf (const char *, ...)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 2);
+  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 2)
+  _INTL_ARG_NONNULL ((1));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_printf; }
 #  endif
@@ -445,7 +458,8 @@ namespace std { using ::libintl_printf; }
 #  undef vprintf
 #  define vprintf libintl_vprintf
 extern int vprintf (const char *, va_list)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 0);
+  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 0)
+  _INTL_ARG_NONNULL ((1));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vprintf; }
 #  endif
@@ -455,7 +469,8 @@ namespace std { using ::libintl_vprintf; }
 #  undef sprintf
 #  define sprintf libintl_sprintf
 extern int sprintf (char *, const char *, ...)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3);
+  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3)
+  _INTL_ARG_NONNULL ((1, 2));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_sprintf; }
 #  endif
@@ -464,7 +479,8 @@ namespace std { using ::libintl_sprintf; }
 #  undef vsprintf
 #  define vsprintf libintl_vsprintf
 extern int vsprintf (char *, const char *, va_list)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0);
+  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+  _INTL_ARG_NONNULL ((1, 2));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vsprintf; }
 #  endif
@@ -476,7 +492,8 @@ namespace std { using ::libintl_vsprintf; }
 #   undef snprintf
 #   define snprintf libintl_snprintf
 extern int snprintf (char *, size_t, const char *, ...)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 4);
+  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 4)
+  _INTL_ARG_NONNULL ((3));
 #   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_snprintf; }
 #   endif
@@ -485,7 +502,8 @@ namespace std { using ::libintl_snprintf; }
 #   undef vsnprintf
 #   define vsnprintf libintl_vsnprintf
 extern int vsnprintf (char *, size_t, const char *, va_list)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0);
+  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0)
+  _INTL_ARG_NONNULL ((3));
 #   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vsnprintf; }
 #   endif
@@ -499,7 +517,8 @@ namespace std { using ::libintl_vsnprintf; }
 #   undef asprintf
 #   define asprintf libintl_asprintf
 extern int asprintf (char **, const char *, ...)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3);
+  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3)
+  _INTL_ARG_NONNULL ((1, 2));
 #   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_asprintf; }
 #   endif
@@ -508,7 +527,8 @@ namespace std { using ::libintl_asprintf; }
 #   undef vasprintf
 #   define vasprintf libintl_vasprintf
 extern int vasprintf (char **, const char *, va_list)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0);
+  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+  _INTL_ARG_NONNULL ((1, 2));
 #   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vasprintf; }
 #   endif
@@ -520,39 +540,45 @@ namespace std { using ::libintl_vasprintf; }
 
 #  undef fwprintf
 #  define fwprintf libintl_fwprintf
-extern int fwprintf (FILE *, const wchar_t *, ...);
+extern int fwprintf (FILE *, const wchar_t *, ...)
+  _INTL_ARG_NONNULL ((1, 2));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_fwprintf; }
 #  endif
 #  undef vfwprintf
 #  define vfwprintf libintl_vfwprintf
-extern int vfwprintf (FILE *, const wchar_t *, va_list);
+extern int vfwprintf (FILE *, const wchar_t *, va_list)
+  _INTL_ARG_NONNULL ((1, 2));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vfwprintf; }
 #  endif
 
 #  undef wprintf
 #  define wprintf libintl_wprintf
-extern int wprintf (const wchar_t *, ...);
+extern int wprintf (const wchar_t *, ...)
+  _INTL_ARG_NONNULL ((1));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_wprintf; }
 #  endif
 #  undef vwprintf
 #  define vwprintf libintl_vwprintf
-extern int vwprintf (const wchar_t *, va_list);
+extern int vwprintf (const wchar_t *, va_list)
+  _INTL_ARG_NONNULL ((1));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vwprintf; }
 #  endif
 
 #  undef swprintf
 #  define swprintf libintl_swprintf
-extern int swprintf (wchar_t *, size_t, const wchar_t *, ...);
+extern int swprintf (wchar_t *, size_t, const wchar_t *, ...)
+  _INTL_ARG_NONNULL ((1, 3));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_swprintf; }
 #  endif
 #  undef vswprintf
 #  define vswprintf libintl_vswprintf
-extern int vswprintf (wchar_t *, size_t, const wchar_t *, va_list);
+extern int vswprintf (wchar_t *, size_t, const wchar_t *, va_list)
+  _INTL_ARG_NONNULL ((1, 3));
 #  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vswprintf; }
 #  endif
