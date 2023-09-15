@@ -336,13 +336,19 @@ AH_VERBATIM([znoexport], [
 ])
 dnl Symbols defined by gnulib module 'frexp-nolibm'.
 if test $gl_func_frexp_no_libm != yes; then
-  AC_DEFINE([frexp],            [_libintl_frexp],    [Hidden symbol.])
-  AC_DEFINE([rpl_frexp],        [_libintl_frexp],    [Hidden symbol.])
+  if test $REPLACE_FREXP = 1; then
+    AC_DEFINE([rpl_frexp],      [_libintl_frexp],    [Hidden symbol.])
+  else
+    AC_DEFINE([frexp],          [_libintl_frexp],    [Hidden symbol.])
+  fi
 fi
 dnl Symbols defined by gnulib module 'frexpl-nolibm'.
 if test $HAVE_DECL_FREXPL = 0 || test $gl_func_frexpl_no_libm = no; then
-  AC_DEFINE([frexpl],           [_libintl_frexpl],    [Hidden symbol.])
-  AC_DEFINE([rpl_frexpl],       [_libintl_frexpl],    [Hidden symbol.])
+  if test $REPLACE_FREXPL = 1; then
+    AC_DEFINE([rpl_frexpl],     [_libintl_frexpl],    [Hidden symbol.])
+  else
+    AC_DEFINE([frexpl],         [_libintl_frexpl],    [Hidden symbol.])
+  fi
 fi
 dnl Symbols defined by gnulib module 'mbrtowc'.
 if test $REPLACE_MBRTOWC = 1; then
