@@ -238,6 +238,8 @@ AH_VERBATIM([znoexport], [
 #define hard_locale                _libintl_hard_locale
 /* Symbols defined by gnulib module 'isnand-nolibm'.  */
 #define rpl_isnand                 _libintl_isnand
+/* Symbols defined by gnulib module 'isnanf-nolibm'.  */
+#define rpl_isnanf                 _libintl_isnanf
 /* Symbols defined by gnulib module 'isnanl-nolibm'.  */
 #define rpl_isnanl                 _libintl_isnanl
 /* Symbols defined by gnulib module 'localename'.  */
