@@ -1,5 +1,4 @@
-/* intl-compat.c - Stub functions to call gettext functions from GNU gettext
-   Library.
+/* Redirections from public function names to GNU libintl functions.
    Copyright (C) 1995, 2000-2003, 2005, 2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
@@ -23,15 +22,23 @@
 
 /* @@ end of prolog @@ */
 
+
 /* This file redirects the gettext functions (without prefix) to those
    defined in the included GNU libintl library (with "libintl_" prefix).
-   It is compiled into libintl in order to make the AM_GNU_GETTEXT test
-   of gettext <= 0.11.2 work with the libintl library >= 0.11.3 which
-   has the redirections primarily in the <libintl.h> include file.
-   It is also compiled into libgnuintl so that libgnuintl.so can be used
-   as LD_PRELOADable library on glibc systems, to provide the extra
-   features that the functions in the libc don't have (namely, logging).  */
-
+   It is compiled into libintl for three purposes:
+     * Packages that bind libintl into other programming languages
+       (Python, Perl, PHP, OCaml, Free Pascal Compiler, mailfromd's mail
+       filtering language, and many others) bind to the symbols without
+       prefix and at the linker level, i.e. without '#include <libintl.h>'.
+       Only few packages bind to the symbols with "libintl_" prefix.
+     * On glibc systems, we want that existing and future features of
+       GNU gettext (such as the logging to $GETTEXT_LOG_UNTRANSLATED)
+       become available when the program is linked against -lintl or
+       when libintl.so is used LD_PRELOADable library.
+     * In order to make the AM_GNU_GETTEXT test of gettext <= 0.11.2 work
+       with the libintl library >= 0.11.3 which has the redirections
+       primarily in the <libintl.h> include file.
+ */
 
 #undef gettext
 #undef dgettext
