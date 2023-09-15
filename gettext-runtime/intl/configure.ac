@@ -340,6 +340,8 @@ AH_VERBATIM([znoexport], [
 #define glthread_recursive_lock_destroy_multithreaded _libintl_recursive_lock_destroy_multithreaded
 #define glthread_once_singlethreaded                  _libintl_once_singlethreaded
 #define glthread_once_multithreaded                   _libintl_once_multithreaded
+/* Symbols defined by gnulib module 'mbszero'.  */
+#define mbszero                    _libintl_mbszero
 /* Symbols defined by gnulib module 'printf-frexp'.  */
 #define printf_frexp               _libintl_printf_frexp
 /* Symbols defined by gnulib module 'printf-frexpl'.  */
