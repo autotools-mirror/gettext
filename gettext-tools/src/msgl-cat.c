@@ -1,6 +1,5 @@
 /* Message list concatenation and duplicate handling.
-   Copyright (C) 2001-2003, 2005-2008, 2012, 2015, 2019-2021 Free Software
-   Foundation, Inc.
+   Copyright (C) 2001-2003, 2005-2008, 2012, 2015, 2019-2021, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -164,15 +163,18 @@ catenate_msgdomain_list (string_list_ty *file_list,
                             if (canon_charset == NULL)
                               {
                                 /* Don't give an error for POT files, because
-                                   POT files usually contain only ASCII
+                                   POT files usually contain only ASCII msgids.
+                                   Also don't give an error for disguised POT
+                                   files that actually contain only ASCII
                                    msgids.  */
                                 const char *filename = files[n];
                                 size_t filenamelen = strlen (filename);
 
-                                if (filenamelen >= 4
-                                    && memcmp (filename + filenamelen - 4,
-                                               ".pot", 4) == 0
-                                    && strcmp (charset, "CHARSET") == 0)
+                                if (strcmp (charset, "CHARSET") == 0
+                                    && ((filenamelen >= 4
+                                         && memcmp (filename + filenamelen - 4,
+                                                    ".pot", 4) == 0)
+                                        || is_ascii_message_list (mlp)))
                                   canon_charset = po_charset_ascii;
                                 else
                                   error (EXIT_FAILURE, 0,
