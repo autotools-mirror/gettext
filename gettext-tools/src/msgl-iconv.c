@@ -245,16 +245,19 @@ iconv_message_list_internal (message_list_ty *mlp,
                   {
                     if (!canon_from_code_overridden)
                       {
-                        /* Don't give an error for POT files, because POT
-                           files usually contain only ASCII msgids.  */
+                        /* Don't give an error for POT files, because
+                           POT files usually contain only ASCII msgids.
+                           Also don't give an error for disguised POT
+                           files that actually contain only ASCII msgids.  */
                         const char *filename = from_filename;
                         size_t filenamelen;
 
-                        if (filename != NULL
-                            && (filenamelen = strlen (filename)) >= 4
-                            && memcmp (filename + filenamelen - 4, ".pot", 4)
-                               == 0
-                            && strcmp (charset, "CHARSET") == 0)
+                        if (strcmp (charset, "CHARSET") == 0
+                            && ((filename != NULL
+                                 && (filenamelen = strlen (filename)) >= 4
+                                 && memcmp (filename + filenamelen - 4, ".pot", 4)
+                                    == 0)
+                                || is_ascii_message_list (mlp)))
                           canon_charset = po_charset_ascii;
                         else
                           po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0,
