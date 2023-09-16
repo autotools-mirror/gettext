@@ -241,9 +241,9 @@ AH_BOTTOM([
 /* On Windows, variables that may be in a DLL must be marked specially.
    The symbols marked with DLL_VARIABLE should be exported if and only if the
    object file gets included in a DLL.  Libtool, on Windows platforms, defines
-   the C macro DLL_EXPORT (together with PIC) when compiling for a DLL
-   and does not define it when compiling an object file meant to be linked
-   statically into some executable.  */
+   the C macro DLL_EXPORT (together with PIC) when compiling for a shared
+   library (called DLL under Windows) and does not define it when compiling
+   an object file meant to be linked statically into some executable.  */
 #if (defined _MSC_VER && defined DLL_EXPORT) && !defined IN_RELOCWRAPPER
 # define DLL_VARIABLE __declspec (dllimport)
 #else

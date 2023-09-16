@@ -54,9 +54,9 @@
           to define a -DBUILDING_LIBXYZ flag for the library.
      Example:
          #ifdef BUILDING_LIBICONV
-         #define LIBICONV_DLL_EXPORTED __declspec(dllexport)
+         #define LIBICONV_SHLIB_EXPORTED __declspec(dllexport)
          #else
-         #define LIBICONV_DLL_EXPORTED __declspec(dllimport)
+         #define LIBICONV_SHLIB_EXPORTED __declspec(dllimport)
          #endif
 
      We use this technique for the libintl and the libiconv libraries.

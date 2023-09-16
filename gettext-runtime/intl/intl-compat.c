@@ -51,11 +51,11 @@
 #undef bind_textdomain_codeset
 
 
-/* When building a DLL, we must export some functions.  Note that because
-   the functions are only defined for binary backward compatibility, we
-   don't need to use __declspec(dllimport) in any case.  */
+/* When building a shared library, we must export some functions.
+   Note that because this is a .c file, not a .h file, we don't need to use
+   __declspec(dllimport) in any case.  */
 #if HAVE_VISIBILITY && BUILDING_DLL
-# define DLL_EXPORTED __attribute__((__visibility__("default")))
+# define SHLIB_EXPORTED __attribute__((__visibility__("default")))
 #elif defined _MSC_VER && BUILDING_DLL
 /* When building with MSVC, exporting a symbol means that the object file
    contains a "linker directive" of the form /EXPORT:symbol.  This can be
@@ -63,20 +63,20 @@
    "dumpbin /directives FILE" commands.
    The symbols from this file should be exported if and only if the object
    file gets included in a DLL.  Libtool, on Windows platforms, defines
-   the C macro DLL_EXPORT (together with PIC) when compiling for a DLL
-   and does not define it when compiling an object file meant to be linked
-   statically into some executable.  */
+   the C macro DLL_EXPORT (together with PIC) when compiling for a shared
+   library (called DLL under Windows) and does not define it when compiling
+   an object file meant to be linked statically into some executable.  */
 # if defined DLL_EXPORT
-#  define DLL_EXPORTED __declspec(dllexport)
+#  define SHLIB_EXPORTED __declspec(dllexport)
 # else
-#  define DLL_EXPORTED
+#  define SHLIB_EXPORTED
 # endif
 #else
-# define DLL_EXPORTED
+# define SHLIB_EXPORTED
 #endif
 
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 char *
 gettext (const char *msgid)
 {
@@ -84,7 +84,7 @@ gettext (const char *msgid)
 }
 
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 char *
 dgettext (const char *domainname, const char *msgid)
 {
@@ -92,7 +92,7 @@ dgettext (const char *domainname, const char *msgid)
 }
 
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 char *
 dcgettext (const char *domainname, const char *msgid, int category)
 {
@@ -100,7 +100,7 @@ dcgettext (const char *domainname, const char *msgid, int category)
 }
 
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 char *
 ngettext (const char *msgid1, const char *msgid2, unsigned long int n)
 {
@@ -108,7 +108,7 @@ ngettext (const char *msgid1, const char *msgid2, unsigned long int n)
 }
 
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 char *
 dngettext (const char *domainname,
            const char *msgid1, const char *msgid2, unsigned long int n)
@@ -117,7 +117,7 @@ dngettext (const char *domainname,
 }
 
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 char *
 dcngettext (const char *domainname,
             const char *msgid1, const char *msgid2, unsigned long int n,
@@ -127,7 +127,7 @@ dcngettext (const char *domainname,
 }
 
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 char *
 textdomain (const char *domainname)
 {
@@ -135,7 +135,7 @@ textdomain (const char *domainname)
 }
 
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 char *
 bindtextdomain (const char *domainname, const char *dirname)
 {
@@ -143,7 +143,7 @@ bindtextdomain (const char *domainname, const char *dirname)
 }
 
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 char *
 bind_textdomain_codeset (const char *domainname, const char *codeset)
 {

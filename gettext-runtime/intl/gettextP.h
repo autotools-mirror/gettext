@@ -222,9 +222,9 @@ struct binding
 #endif
 #ifdef IN_LIBGLOCALE
 # include <glocale/config.h>
-extern LIBGLOCALE_DLL_EXPORTED int _nl_msg_cat_cntr;
+extern LIBGLOCALE_SHLIB_EXPORTED int _nl_msg_cat_cntr;
 #else
-extern LIBINTL_DLL_EXPORTED int _nl_msg_cat_cntr;
+extern LIBINTL_SHLIB_EXPORTED int _nl_msg_cat_cntr;
 #endif
 
 #ifndef _LIBC

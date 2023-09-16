@@ -58,11 +58,11 @@ char *alloca ();
 # define EOVERFLOW E2BIG
 #endif
 
-/* When building a DLL, we must export some functions.  Note that because
-   the functions are only defined for binary backward compatibility, we
-   don't need to use __declspec(dllimport) in any case.  */
+/* When building a shared library, we must export some functions.
+   Note that because this is a .c file, not a .h file, we don't need to use
+   __declspec(dllimport) in any case.  */
 #if HAVE_VISIBILITY && BUILDING_DLL
-# define DLL_EXPORTED __attribute__((__visibility__("default")))
+# define SHLIB_EXPORTED __attribute__((__visibility__("default")))
 #elif defined _MSC_VER && BUILDING_DLL
 /* When building with MSVC, exporting a symbol means that the object file
    contains a "linker directive" of the form /EXPORT:symbol.  This can be
@@ -70,16 +70,16 @@ char *alloca ();
    "dumpbin /directives FILE" commands.
    The symbols from this file should be exported if and only if the object
    file gets included in a DLL.  Libtool, on Windows platforms, defines
-   the C macro DLL_EXPORT (together with PIC) when compiling for a DLL
-   and does not define it when compiling an object file meant to be linked
-   statically into some executable.  */
+   the C macro DLL_EXPORT (together with PIC) when compiling for a shared
+   library (called DLL under Windows) and does not define it when compiling
+   an object file meant to be linked statically into some executable.  */
 # if defined DLL_EXPORT
-#  define DLL_EXPORTED __declspec(dllexport)
+#  define SHLIB_EXPORTED __declspec(dllexport)
 # else
-#  define DLL_EXPORTED
+#  define SHLIB_EXPORTED
 # endif
 #else
-# define DLL_EXPORTED
+# define SHLIB_EXPORTED
 #endif
 
 #define STATIC static
@@ -126,7 +126,7 @@ char *alloca ();
    the *printf functions with _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD.  */
 #define USE_REPLACEMENT_CODE_ALWAYS 1
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_vfprintf (FILE *stream, const char *format, va_list args)
 {
@@ -155,7 +155,7 @@ libintl_vfprintf (FILE *stream, const char *format, va_list args)
     }
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_fprintf (FILE *stream, const char *format, ...)
 {
@@ -168,14 +168,14 @@ libintl_fprintf (FILE *stream, const char *format, ...)
   return retval;
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_vprintf (const char *format, va_list args)
 {
   return libintl_vfprintf (stdout, format, args);
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_printf (const char *format, ...)
 {
@@ -188,7 +188,7 @@ libintl_printf (const char *format, ...)
   return retval;
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_vsprintf (char *resultbuf, const char *format, va_list args)
 {
@@ -215,7 +215,7 @@ libintl_vsprintf (char *resultbuf, const char *format, va_list args)
     }
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_sprintf (char *resultbuf, const char *format, ...)
 {
@@ -243,7 +243,7 @@ libintl_sprintf (char *resultbuf, const char *format, ...)
 #  define system_vsnprintf vsnprintf
 # endif
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_vsnprintf (char *resultbuf, size_t length, const char *format, va_list args)
 {
@@ -278,7 +278,7 @@ libintl_vsnprintf (char *resultbuf, size_t length, const char *format, va_list a
     }
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_snprintf (char *resultbuf, size_t length, const char *format, ...)
 {
@@ -295,7 +295,7 @@ libintl_snprintf (char *resultbuf, size_t length, const char *format, ...)
 
 #if HAVE_ASPRINTF
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_vasprintf (char **resultp, const char *format, va_list args)
 {
@@ -313,7 +313,7 @@ libintl_vasprintf (char **resultp, const char *format, va_list args)
   return length;
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_asprintf (char **resultp, const char *format, ...)
 {
@@ -362,7 +362,7 @@ libintl_asprintf (char **resultp, const char *format, ...)
 #  define system_vswprintf vswprintf
 # endif
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_vfwprintf (FILE *stream, const wchar_t *format, va_list args)
 {
@@ -394,7 +394,7 @@ libintl_vfwprintf (FILE *stream, const wchar_t *format, va_list args)
     }
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_fwprintf (FILE *stream, const wchar_t *format, ...)
 {
@@ -407,14 +407,14 @@ libintl_fwprintf (FILE *stream, const wchar_t *format, ...)
   return retval;
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_vwprintf (const wchar_t *format, va_list args)
 {
   return libintl_vfwprintf (stdout, format, args);
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_wprintf (const wchar_t *format, ...)
 {
@@ -427,7 +427,7 @@ libintl_wprintf (const wchar_t *format, ...)
   return retval;
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_vswprintf (wchar_t *resultbuf, size_t length, const wchar_t *format, va_list args)
 {
@@ -468,7 +468,7 @@ libintl_vswprintf (wchar_t *resultbuf, size_t length, const wchar_t *format, va_
     }
 }
 
-DLL_EXPORTED
+SHLIB_EXPORTED
 int
 libintl_swprintf (wchar_t *resultbuf, size_t length, const wchar_t *format, ...)
 {
