@@ -32,12 +32,12 @@ MAINTAINERCLEANFILES =
 SUFFIXES =
 
 # -DBUILDING_LIBINTL: Change expansion of LIBINTL_SHLIB_EXPORTED macro.
-# -DBUILDING_DLL: Change expansion of SHLIB_EXPORTED macro. We're compiling
-#                 a library. Exporting the relevant symbols is desired.
+# -DBUILDING_LIBRARY: Change expansion of SHLIB_EXPORTED macro. We're compiling
+#                     a library. Exporting the relevant symbols is desired.
 AM_CPPFLAGS = \
   -Ignulib-lib -I$(srcdir)/gnulib-lib \
   -DLOCALEDIR=$(localedir_c_make) \
-  -DLIBDIR=\"$(libdir)\" -DBUILDING_LIBINTL -DBUILDING_DLL
+  -DLIBDIR=\"$(libdir)\" -DBUILDING_LIBINTL -DBUILDING_LIBRARY
 
 if WOE32
 # On mingw, disable the declarations of *printf functions as aliases to the

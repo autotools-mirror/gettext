@@ -61,9 +61,9 @@ char *alloca ();
 /* When building a shared library, we must export some functions.
    Note that because this is a .c file, not a .h file, we don't need to use
    __declspec(dllimport) in any case.  */
-#if HAVE_VISIBILITY && BUILDING_DLL
+#if HAVE_VISIBILITY && BUILDING_LIBRARY
 # define SHLIB_EXPORTED __attribute__((__visibility__("default")))
-#elif defined _MSC_VER && BUILDING_DLL
+#elif defined _MSC_VER && BUILDING_LIBRARY
 /* When building with MSVC, exporting a symbol means that the object file
    contains a "linker directive" of the form /EXPORT:symbol.  This can be
    inspected through the "objdump -s --section=.drectve FILE" or
