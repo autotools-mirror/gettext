@@ -21,6 +21,19 @@
 /* Avoid side effect of gnulib's error.h on 'struct po_error_handler'.  */
 #define _GL_NO_INLINE_ERROR
 
+/* Avoid side effect of config.h on 'struct po_error_handler'.  */
+#include "error.h"
+static void (*orig_error) (int status, int errnum,
+                           const char *format, ...)
+  = error;
+
+static void (*orig_error_at_line) (int status, int errnum,
+                                   const char *filename, unsigned int lineno,
+                                   const char *format, ...)
+  = error_at_line;
+#undef error
+#undef error_at_line
+
 /* Specification.  */
 #include "gettext-po.h"
 
@@ -37,7 +50,6 @@
 #include "read-po.h"
 #include "write-catalog.h"
 #include "write-po.h"
-#include "error.h"
 #include "xerror.h"
 #include "po-error.h"
 #include "po-xerror.h"
@@ -174,8 +186,8 @@ po_file_read_v2 (const char *filename, po_error_handler_t handler)
   file->domains = NULL;
 
   /* Restore error handler.  */
-  po_error             = error;
-  po_error_at_line     = error_at_line;
+  po_error             = orig_error;
+  po_error_at_line     = orig_error_at_line;
   po_multiline_warning = multiline_warning;
   po_multiline_error   = multiline_error;
   gram_max_allowed_errors = 20;
