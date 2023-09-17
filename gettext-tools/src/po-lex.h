@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2006, 2012 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2006, 2012, 2023 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -71,7 +71,7 @@ extern void lex_start (FILE *fp, const char *real_filename,
 extern void lex_end (void);
 
 /* Return the next token in the PO file.  The return codes are defined
-   in "po-gram-gen2.h".  Associated data is put in 'po_gram_lval.  */
+   in "po-gram-gen2.h".  Associated data is put in 'po_gram_lval'.  */
 extern int po_gram_lex (void);
 
 /* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
