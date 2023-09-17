@@ -217,6 +217,7 @@ Preparing Program Sources
 Making the PO Template File
 
 * xgettext Invocation::         Invoking the @code{xgettext} Program
+* Combining POTs::              Combining PO Template Files
 
 Creating a New PO File
 
@@ -3103,12 +3104,69 @@ was fuzzy, and the suffix @samp{.pot} wasn't in use at that time.)
 
 @menu
 * xgettext Invocation::         Invoking the @code{xgettext} Program
+* Combining POTs::              Combining PO Template Files
 @end menu
 
 @node xgettext Invocation
 @section Invoking the @code{xgettext} Program
 
 @include xgettext.texi
+
+@node Combining POTs
+@section Combining PO Template Files
+
+When a package contains sources in different programming languages and
+different, incompatible @code{xgettext} command line options are required
+for these different parts of the package, the solution is to create
+intermediate PO template files for each of the parts and then combine (merge)
+them together.
+
+@cindex merging two POT files
+@cindex combining two POT files
+For example, assume you have two source files @file{a.c} and @file{b.py},
+and want to extract their translatable strings in separate steps.
+
+Each of the following command sequences does this.  The output is the same.
+
+@itemize @bullet
+@item
+This command sequence creates intermediate POT files and then combines them.
+@smallexample
+xgettext -o part-c.pot a.c
+xgettext -o part-py.pot b.py
+xgettext -o all.pot part-c.pot part-py.pot
+@end smallexample
+@item
+This command sequence does several @code{xgettext} invocations, with a
+single POT file that accumulates the translatable strings.
+@smallexample
+xgettext -o all.pot a.c
+xgettext -o all.pot --join-existing b.py
+@end smallexample
+@item
+Likewise here, but a @samp{--default-domain} option is used to denote
+the output file rather than a @samp{-o} option.
+@smallexample
+xgettext --default-domain=all a.c
+xgettext --default-domain=all --join-existing b.py
+mv all.po all.pot
+@end smallexample
+@end itemize
+
+One might be tempted to think that @samp{msgcat} can do the same thing,
+through a command sequence such as:
+@smallexample
+xgettext -o part-c.pot a.c
+xgettext -o part-py.pot b.py
+msgcat -o all.pot part-c.pot part-py.pot
+@end smallexample
+@noindent
+But no, this does not work reliably, because sometimes @code{part-c.pot}
+and @code{part-py.pot} will contain different @code{POT-Creation-Date}
+values, and @code{msgcat} then produces an @code{all.pot} file that has
+conflict markers in the header entry.
+This is because @code{msgcat} generally is meant to produce PO files that
+are to be reviewed and edited by a translator; this is not desired here.
 
 @node Creating
 @chapter Creating a New PO File
@@ -4851,6 +4909,7 @@ performed automatically than by hand.  GNU @code{gettext} includes a
 complete set of tools for this purpose.
 
 @cindex merging two PO files
+@cindex combining two PO files
 When merging two packages into a single package, the resulting POT file
 will be the concatenation of the two packages' POT files.  Thus the
 maintainer must concatenate the two existing package translations into
