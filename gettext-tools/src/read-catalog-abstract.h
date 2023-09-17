@@ -1,6 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2003, 2005-2006, 2008-2009, 2012,
-   2015 Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2003, 2005-2006, 2008-2009, 2012, 2015, 2023 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -134,7 +133,8 @@ struct catalog_input_format
 {
   /* Parses the contents of FP, invoking the appropriate callbacks.  */
   void (*parse) (abstract_catalog_reader_ty *pop, FILE *fp,
-                 const char *real_filename, const char *logical_filename);
+                 const char *real_filename, const char *logical_filename,
+                 bool is_pot_role);
 
   /* Whether the parse function always produces messages encoded in UTF-8
      encoding.  */
@@ -155,6 +155,7 @@ extern void
        catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
                              const char *real_filename,
                              const char *logical_filename,
+                             bool is_pot_role,
                              catalog_input_format_ty input_syntax);
 
 /* Call the destructor and deallocate a abstract_catalog_reader_ty (or derived

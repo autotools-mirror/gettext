@@ -1341,7 +1341,7 @@ read_exclusion_file (char *filename)
   abstract_catalog_reader_ty *pop;
 
   pop = catalog_reader_alloc (&exclude_methods);
-  catalog_reader_parse (pop, fp, real_filename, filename, &input_format_po);
+  catalog_reader_parse (pop, fp, real_filename, filename, true, &input_format_po);
   catalog_reader_free (pop);
 
   if (fp != stdin)

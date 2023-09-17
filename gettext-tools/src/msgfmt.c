@@ -1401,7 +1401,7 @@ read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
     }
   po_lex_pass_obsolete_entries (true);
   catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
-                        filename, input_syntax);
+                        filename, false, input_syntax);
   catalog_reader_free ((abstract_catalog_reader_ty *) pop);
 
   if (fp != stdin)

@@ -1,6 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1996, 1998, 2000-2001, 2003, 2005-2006, 2012-2013, 2016, 2020
-   Free Software Foundation, Inc.
+   Copyright (C) 1995-1996, 1998, 2000-2001, 2003, 2005-2006, 2012-2013, 2016, 2020, 2023 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <pmiller@agso.gov.au>
 
@@ -56,7 +55,7 @@ do_callback_message (char *msgctxt,
 {
   /* Test for header entry.  Ignore fuzziness of the header entry.  */
   if (msgctxt == NULL && msgid[0] == '\0' && !obsolete)
-    po_lex_charset_set (msgstr, gram_pos.file_name);
+    po_lex_charset_set (msgstr, gram_pos.file_name, gram_pot_role);
 
   po_callback_message (msgctxt,
                        msgid, msgid_pos, msgid_plural,

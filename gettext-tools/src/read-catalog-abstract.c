@@ -171,13 +171,14 @@ parse_end (abstract_catalog_reader_ty *pop)
 void
 catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
                       const char *real_filename, const char *logical_filename,
+                      bool is_pot_role,
                       catalog_input_format_ty input_syntax)
 {
   error_message_count = 0;
 
   /* Parse the stream's content.  */
   parse_start (pop);
-  input_syntax->parse (pop, fp, real_filename, logical_filename);
+  input_syntax->parse (pop, fp, real_filename, logical_filename, is_pot_role);
   parse_end (pop);
 
   if (error_message_count > 0)

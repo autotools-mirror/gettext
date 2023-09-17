@@ -828,7 +828,8 @@ read_string (lex_pos_ty *pos)
    abstract_catalog_reader_class_ty methods.  */
 static void
 stringtable_parse (abstract_catalog_reader_ty *pop, FILE *file,
-                   const char *real_filename, const char *logical_filename)
+                   const char *real_filename, const char *logical_filename,
+                   bool is_pot_role)
 {
   fp = file;
   real_file_name = real_filename;

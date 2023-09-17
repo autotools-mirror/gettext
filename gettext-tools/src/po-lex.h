@@ -55,6 +55,9 @@ extern "C" {
 extern DLL_VARIABLE lex_pos_ty gram_pos;
 extern DLL_VARIABLE int gram_pos_column;
 
+/* Whether the PO file is in the role of a POT file.  */
+extern DLL_VARIABLE bool gram_pot_role;
+
 /* Number of parse errors within a PO file that cause the program to
    terminate.  Cf. error_message_count, declared in <error.h>.  */
 extern DLL_VARIABLE unsigned int gram_max_allowed_errors;
@@ -65,7 +68,7 @@ extern DLL_VARIABLE bool pass_obsolete_entries;
 
 /* Prepare lexical analysis.  */
 extern void lex_start (FILE *fp, const char *real_filename,
-                       const char *logical_filename);
+                       const char *logical_filename, bool is_pot_role);
 
 /* Terminate lexical analysis.  */
 extern void lex_end (void);

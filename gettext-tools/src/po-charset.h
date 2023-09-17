@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2003, 2006, 2021 Free Software Foundation, Inc.
+   Copyright (C) 2001-2003, 2006, 2021, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -85,9 +85,11 @@ extern DLL_VARIABLE bool po_lex_weird_cjk;
 /* Initialize the PO file's encoding.  */
 extern void po_lex_charset_init (void);
 
-/* Set the PO file's encoding from the header entry.  */
+/* Set the PO file's encoding from the header entry.
+   If is_pot_role is true, "charset=CHARSET" is expected and does not deserve
+   a warning.  */
 extern void po_lex_charset_set (const char *header_entry,
-                                const char *filename);
+                                const char *filename, bool is_pot_role);
 
 /* Finish up with the PO file's encoding.  */
 extern void po_lex_charset_close (void);

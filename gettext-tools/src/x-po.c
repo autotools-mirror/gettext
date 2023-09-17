@@ -165,7 +165,7 @@ extract (FILE *fp,
   pop->mdlp = NULL;
   pop->mlp = mdlp->item[0]->messages;
   catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
-                        logical_filename, input_syntax);
+                        logical_filename, true, input_syntax);
   catalog_reader_free ((abstract_catalog_reader_ty *) pop);
 
   if (header_charset != NULL)

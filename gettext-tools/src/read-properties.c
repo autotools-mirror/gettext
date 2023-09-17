@@ -597,7 +597,8 @@ read_escaped_string (bool in_key)
    abstract_catalog_reader_class_ty methods.  */
 static void
 properties_parse (abstract_catalog_reader_ty *this, FILE *file,
-                  const char *real_filename, const char *logical_filename)
+                  const char *real_filename, const char *logical_filename,
+                  bool is_pot_role)
 {
   /* Read the file into memory.  */
   contents = fread_file (file, 0, &contents_length);

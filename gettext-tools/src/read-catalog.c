@@ -479,7 +479,7 @@ read_catalog_stream (FILE *fp, const char *real_filename,
     pop->mdlp->encoding = po_charset_utf8;
   po_lex_pass_obsolete_entries (true);
   catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
-                        logical_filename, input_syntax);
+                        logical_filename, false, input_syntax);
   mdlp = pop->mdlp;
   catalog_reader_free ((abstract_catalog_reader_ty *) pop);
   return mdlp;

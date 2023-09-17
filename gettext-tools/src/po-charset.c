@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2007, 2010, 2019-2021 Free Software Foundation, Inc.
+   Copyright (C) 2001-2007, 2010, 2019-2021, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -464,7 +464,8 @@ po_lex_charset_init ()
 }
 
 void
-po_lex_charset_set (const char *header_entry, const char *filename)
+po_lex_charset_set (const char *header_entry,
+                    const char *filename, bool is_pot_role)
 {
   /* Verify the validity of CHARSET.  It is necessary
      1. for the correct treatment of multibyte characters containing
@@ -492,9 +493,10 @@ po_lex_charset_set (const char *header_entry, const char *filename)
              only ASCII msgids.  */
           size_t filenamelen = strlen (filename);
 
-          if (!(filenamelen >= 4
-                && memcmp (filename + filenamelen - 4, ".pot", 4) == 0
-                && strcmp (charset, "CHARSET") == 0))
+          if (!(strcmp (charset, "CHARSET") == 0
+                && ((filenamelen >= 4
+                     && memcmp (filename + filenamelen - 4, ".pot", 4) == 0)
+                    || is_pot_role)))
             {
               char *warning_message =
                 xasprintf (_("\
