@@ -128,6 +128,7 @@ is according to the following file list.
       $prefix/lib/preloadable_libintl.so  (only installed on glibc systems;
                                            actually installed by gettext-runtime's "make install")
       $prefix/lib/gettext/*
+      $prefix/libexec/gettext/*
       $prefix/share/locale/*/LC_MESSAGES/gettext-tools.mo
       $prefix/share/gettext/config.rpath
       $prefix/share/gettext/po/*
