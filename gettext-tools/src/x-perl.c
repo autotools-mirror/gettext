@@ -60,6 +60,7 @@
    <https://perldoc.perl.org/perldelta.html#Defined-or-operator>.  */
 
 #define DEBUG_PERL 0
+#define DEBUG_NESTING_DEPTH 0
 
 
 /* ====================== Keyword set customization.  ====================== */
@@ -3196,6 +3197,9 @@ extract_balanced (message_list_ty *mlp,
             next_comma_delim = true;
 
           ++nesting_depth;
+          #if DEBUG_NESTING_DEPTH
+          fprintf (stderr, "extract_balanced %d>> @%d\n", nesting_depth, line_number);
+          #endif
           if (extract_balanced (mlp, delim, false, next_comma_delim,
                                 inner_context, next_context_iter,
                                 1, next_argparser))
@@ -3203,6 +3207,9 @@ extract_balanced (message_list_ty *mlp,
               arglist_parser_done (argparser, arg);
               return true;
             }
+          #if DEBUG_NESTING_DEPTH
+          fprintf (stderr, "extract_balanced %d<< @%d\n", nesting_depth, line_number);
+          #endif
           nesting_depth--;
 
           next_is_argument = false;
@@ -3282,6 +3289,9 @@ extract_balanced (message_list_ty *mlp,
             {
               /* Parse the argument list of a function call.  */
               ++nesting_depth;
+              #if DEBUG_NESTING_DEPTH
+              fprintf (stderr, "extract_balanced %d>> @%d\n", nesting_depth, line_number);
+              #endif
               if (extract_balanced (mlp, token_type_rparen, true, false,
                                     inner_context, next_context_iter,
                                     1, next_argparser))
@@ -3289,6 +3299,9 @@ extract_balanced (message_list_ty *mlp,
                   arglist_parser_done (argparser, arg);
                   return true;
                 }
+              #if DEBUG_NESTING_DEPTH
+              fprintf (stderr, "extract_balanced %d<< @%d\n", nesting_depth, line_number);
+              #endif
               nesting_depth--;
               next_is_argument = false;
               next_argparser = NULL;
@@ -3297,6 +3310,9 @@ extract_balanced (message_list_ty *mlp,
             {
               /* Parse a parenthesized expression or comma expression.  */
               ++nesting_depth;
+              #if DEBUG_NESTING_DEPTH
+              fprintf (stderr, "extract_balanced %d>> @%d\n", nesting_depth, line_number);
+              #endif
               if (extract_balanced (mlp, token_type_rparen, true, false,
                                     inner_context, next_context_iter,
                                     arg, arglist_parser_clone (argparser)))
@@ -3307,6 +3323,9 @@ extract_balanced (message_list_ty *mlp,
                   free_token (tp);
                   return true;
                 }
+              #if DEBUG_NESTING_DEPTH
+              fprintf (stderr, "extract_balanced %d<< @%d\n", nesting_depth, line_number);
+              #endif
               nesting_depth--;
               next_is_argument = false;
               if (next_argparser != NULL)
@@ -3452,6 +3471,9 @@ extract_balanced (message_list_ty *mlp,
                    logical_file_name, tp->line_number, nesting_level);
           #endif
           ++nesting_depth;
+          #if DEBUG_NESTING_DEPTH
+          fprintf (stderr, "extract_balanced %d>> @%d\n", nesting_depth, line_number);
+          #endif
           if (extract_balanced (mlp, token_type_rbrace, true, false,
                                 null_context, null_context_list_iterator,
                                 1, arglist_parser_alloc (mlp, NULL)))
@@ -3462,6 +3484,9 @@ extract_balanced (message_list_ty *mlp,
               free_token (tp);
               return true;
             }
+          #if DEBUG_NESTING_DEPTH
+          fprintf (stderr, "extract_balanced %d<< @%d\n", nesting_depth, line_number);
+          #endif
           nesting_depth--;
           next_is_argument = false;
           if (next_argparser != NULL)
@@ -3488,6 +3513,9 @@ extract_balanced (message_list_ty *mlp,
                    logical_file_name, tp->line_number, nesting_level);
           #endif
           ++nesting_depth;
+          #if DEBUG_NESTING_DEPTH
+          fprintf (stderr, "extract_balanced %d>> @%d\n", nesting_depth, line_number);
+          #endif
           if (extract_balanced (mlp, token_type_rbracket, true, false,
                                 null_context, null_context_list_iterator,
                                 1, arglist_parser_alloc (mlp, NULL)))
@@ -3498,6 +3526,9 @@ extract_balanced (message_list_ty *mlp,
               free_token (tp);
               return true;
             }
+          #if DEBUG_NESTING_DEPTH
+          fprintf (stderr, "extract_balanced %d<< @%d\n", nesting_depth, line_number);
+          #endif
           nesting_depth--;
           next_is_argument = false;
           if (next_argparser != NULL)
