@@ -808,6 +808,7 @@ static token_ty *x_perl_lex (message_list_ty *mlp);
 static void x_perl_unlex (token_ty *tp);
 static bool extract_balanced (message_list_ty *mlp,
                               token_type_ty delim, bool eat_delim,
+                              bool semicolon_delim, bool eat_semicolon_delim,
                               bool comma_delim,
                               flag_context_ty outer_context,
                               flag_context_list_iterator_ty context_iter,
@@ -1421,7 +1422,9 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
                  real_file_name, line_number);
         #endif
 
-        if (extract_balanced (mlp, token_type_rbrace, true, false,
+        if (extract_balanced (mlp,
+                              token_type_rbrace, true,
+                              false, false, false,
                               null_context, null_context_list_iterator,
                               1, arglist_parser_alloc (mlp, NULL)))
           {
@@ -1614,7 +1617,9 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
                 else
                   {
                     x_perl_unlex (t1);
-                    if (extract_balanced (mlp, token_type_rbrace, true, false,
+                    if (extract_balanced (mlp,
+                                          token_type_rbrace, true,
+                                          false, false, false,
                                           null_context, context_iter,
                                           1, arglist_parser_alloc (mlp, &shapes)))
                       return;
@@ -1645,7 +1650,9 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
           fprintf (stderr, "%s:%d: extracting balanced '{' after varname\n",
                    real_file_name, line_number);
           #endif
-          extract_balanced (mlp, token_type_rbrace, true, false,
+          extract_balanced (mlp,
+                            token_type_rbrace, true,
+                            false, false, false,
                             null_context, null_context_list_iterator,
                             1, arglist_parser_alloc (mlp, NULL));
           break;
@@ -1655,7 +1662,9 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
           fprintf (stderr, "%s:%d: extracting balanced '[' after varname\n",
                    real_file_name, line_number);
           #endif
-          extract_balanced (mlp, token_type_rbracket, true, false,
+          extract_balanced (mlp,
+                            token_type_rbracket, true,
+                            false, false, false,
                             null_context, null_context_list_iterator,
                             1, arglist_parser_alloc (mlp, NULL));
           break;
@@ -3077,8 +3086,11 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
    Extracted messages are added to MLP.
 
    DELIM can be either token_type_rbrace, token_type_rbracket,
-   token_type_rparen.  Additionally, if COMMA_DELIM is true, parsing
-   stops at the next comma outside parentheses.
+   token_type_rparen.
+   Additionally, if SEMICOLON_DELIM is true, parsing stops at the next
+   semicolon outside parentheses.
+   Similarly, if COMMA_DELIM is true, parsing stops at the next comma
+   outside parentheses.
 
    ARG is the current argument list position, starts with 1.
    ARGPARSER is the corresponding argument list parser.
@@ -3087,7 +3099,9 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
 
 static bool
 extract_balanced (message_list_ty *mlp,
-                  token_type_ty delim, bool eat_delim, bool comma_delim,
+                  token_type_ty delim, bool eat_delim,
+                  bool semicolon_delim, bool eat_semicolon_delim,
+                  bool comma_delim,
                   flag_context_ty outer_context,
                   flag_context_list_iterator_ty context_iter,
                   int arg, struct arglist_parser *argparser)
@@ -3148,6 +3162,23 @@ extract_balanced (message_list_ty *mlp,
           return false;
         }
 
+      if (semicolon_delim && tp->type == token_type_semicolon)
+        {
+          arglist_parser_done (argparser, arg);
+          if (next_argparser != NULL)
+            free (next_argparser);
+          #if DEBUG_PERL
+          fprintf (stderr, "%s:%d: extract_balanced finished at semicolon (%d)\n",
+                   logical_file_name, tp->line_number, --nesting_level);
+          #endif
+          if (eat_semicolon_delim)
+            free_token (tp);
+          else
+            /* Preserve the semicolon for the caller.  */
+            x_perl_unlex (tp);
+          return false;
+        }
+
       if (comma_delim && tp->type == token_type_comma)
         {
           arglist_parser_done (argparser, arg);
@@ -3200,7 +3231,9 @@ extract_balanced (message_list_ty *mlp,
           #if DEBUG_NESTING_DEPTH
           fprintf (stderr, "extract_balanced %d>> @%d\n", nesting_depth, line_number);
           #endif
-          if (extract_balanced (mlp, delim, false, next_comma_delim,
+          if (extract_balanced (mlp,
+                                delim, false,
+                                true, false, next_comma_delim,
                                 inner_context, next_context_iter,
                                 1, next_argparser))
             {
@@ -3292,7 +3325,9 @@ extract_balanced (message_list_ty *mlp,
               #if DEBUG_NESTING_DEPTH
               fprintf (stderr, "extract_balanced %d>> @%d\n", nesting_depth, line_number);
               #endif
-              if (extract_balanced (mlp, token_type_rparen, true, false,
+              if (extract_balanced (mlp,
+                                    token_type_rparen, true,
+                                    false, false, false,
                                     inner_context, next_context_iter,
                                     1, next_argparser))
                 {
@@ -3313,7 +3348,9 @@ extract_balanced (message_list_ty *mlp,
               #if DEBUG_NESTING_DEPTH
               fprintf (stderr, "extract_balanced %d>> @%d\n", nesting_depth, line_number);
               #endif
-              if (extract_balanced (mlp, token_type_rparen, true, false,
+              if (extract_balanced (mlp,
+                                    token_type_rparen, true,
+                                    false, false, false,
                                     inner_context, next_context_iter,
                                     arg, arglist_parser_clone (argparser)))
                 {
@@ -3474,7 +3511,9 @@ extract_balanced (message_list_ty *mlp,
           #if DEBUG_NESTING_DEPTH
           fprintf (stderr, "extract_balanced %d>> @%d\n", nesting_depth, line_number);
           #endif
-          if (extract_balanced (mlp, token_type_rbrace, true, false,
+          if (extract_balanced (mlp,
+                                token_type_rbrace, true,
+                                false, false, false,
                                 null_context, null_context_list_iterator,
                                 1, arglist_parser_alloc (mlp, NULL)))
             {
@@ -3516,7 +3555,9 @@ extract_balanced (message_list_ty *mlp,
           #if DEBUG_NESTING_DEPTH
           fprintf (stderr, "extract_balanced %d>> @%d\n", nesting_depth, line_number);
           #endif
-          if (extract_balanced (mlp, token_type_rbracket, true, false,
+          if (extract_balanced (mlp,
+                                token_type_rbracket, true,
+                                false, false, false,
                                 null_context, null_context_list_iterator,
                                 1, arglist_parser_alloc (mlp, NULL)))
             {
@@ -3680,7 +3721,9 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
 
   /* Eat tokens until eof is seen.  When extract_balanced returns
      due to an unbalanced closing brace, just restart it.  */
-  while (!extract_balanced (mlp, token_type_rbrace, true, false,
+  while (!extract_balanced (mlp,
+                            token_type_rbrace, true,
+                            false, false, false,
                             null_context, null_context_list_iterator,
                             1, arglist_parser_alloc (mlp, NULL)))
     ;
