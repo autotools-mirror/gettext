@@ -3744,11 +3744,11 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
 
   init_keywords ();
 
-  /* Eat tokens until eof is seen.  When extract_balanced returns
-     due to an unbalanced closing brace, just restart it.  */
+  /* Eat tokens until eof is seen.  When extract_balanced returns due to an
+     unbalanced closing brace or due to a semicolon, just restart it.  */
   while (!extract_balanced (mlp,
                             token_type_rbrace, true,
-                            false, false, false,
+                            true, true, false,
                             null_context, null_context_list_iterator,
                             1, arglist_parser_alloc (mlp, NULL)))
     ;
