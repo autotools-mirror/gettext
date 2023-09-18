@@ -1,14 +1,14 @@
 # Translation of `gettext-tools' messages to Japanese.
-# Copyright (C) 1999, 2002, 2003, 2004, 2005, 2006, 2007, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021 Free Software Foundation, Inc.
+# Copyright (C) 1999, 2002, 2003, 2004, 2005, 2006, 2007, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
-# Masahito Yamaga <ma@yama-ga.com>, 2021.
+# Masahito Yamaga <ma@yama-ga.com>, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.21\n"
+"Project-Id-Version: GNU gettext-tools 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 23:40+0200\n"
-"PO-Revision-Date: 2021-03-31 22:36+0900\n"
+"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"PO-Revision-Date: 2023-06-19 00:31+0900\n"
 "Last-Translator: Masahito Yamaga <ma@yama-ga.com>\n"
 "Language-Team: Japanese <translation-team-ja@lists.sourceforge.net>\n"
 "Language: ja\n"
@@ -113,87 +113,83 @@ msgstr "未知のシステムエラー"
 #: gnulib-lib/wait-process.c:291 gnulib-lib/wait-process.c:365
 #, c-format
 msgid "%s subprocess failed"
-msgstr "%s サブプロセスが失敗しました"
+msgstr "%s サブプロセス失敗"
 
 #: gnulib-lib/gai_strerror.c:57
 msgid "Address family for hostname not supported"
-msgstr ""
+msgstr "ホスト名に対するアドレスファミリーが未サポート"
 
 #: gnulib-lib/gai_strerror.c:58
 msgid "Temporary failure in name resolution"
-msgstr ""
+msgstr "名前解決に一時的な失敗"
 
 #: gnulib-lib/gai_strerror.c:59
 msgid "Bad value for ai_flags"
-msgstr ""
+msgstr "ai_flags に不正な値"
 
 #: gnulib-lib/gai_strerror.c:60
 msgid "Non-recoverable failure in name resolution"
-msgstr ""
+msgstr "名前解決で回復不可能な失敗"
 
 #: gnulib-lib/gai_strerror.c:61
 msgid "ai_family not supported"
-msgstr ""
+msgstr "未サポートの ai_family"
 
 #: gnulib-lib/gai_strerror.c:62
 msgid "Memory allocation failure"
-msgstr ""
+msgstr "メモリ割り当て失敗"
 
 #: gnulib-lib/gai_strerror.c:63
 msgid "No address associated with hostname"
-msgstr ""
+msgstr "ホスト名に関連づけられたアドレスなし"
 
 #: gnulib-lib/gai_strerror.c:64
 msgid "Name or service not known"
-msgstr ""
+msgstr "名前またはサービスが未知"
 
 #: gnulib-lib/gai_strerror.c:65
 msgid "Servname not supported for ai_socktype"
-msgstr ""
+msgstr "Servname が ai_socktype で未サポート"
 
 #: gnulib-lib/gai_strerror.c:66
 msgid "ai_socktype not supported"
-msgstr ""
+msgstr "未サポートの ai_socktype"
 
 #: gnulib-lib/gai_strerror.c:67
-#, fuzzy
-#| msgid "write error"
 msgid "System error"
-msgstr "書き込みエラー"
+msgstr "システムエラー"
 
 #: gnulib-lib/gai_strerror.c:68
 msgid "Argument buffer too small"
-msgstr ""
+msgstr "引数のバッファが小さ過ぎます"
 
 #: gnulib-lib/gai_strerror.c:70
 msgid "Processing request in progress"
-msgstr ""
+msgstr "処理リクエスト中"
 
 #: gnulib-lib/gai_strerror.c:71
 msgid "Request canceled"
-msgstr ""
+msgstr "リクエストはキャンセルされました"
 
 #: gnulib-lib/gai_strerror.c:72
 msgid "Request not canceled"
-msgstr ""
+msgstr "リクエストはキャンセルされませんでした"
 
 #: gnulib-lib/gai_strerror.c:73
 msgid "All requests done"
-msgstr ""
+msgstr "全てのリクエスト完了"
 
 #: gnulib-lib/gai_strerror.c:74
 msgid "Interrupted by a signal"
-msgstr ""
+msgstr "シグナルによる割り込み"
 
 #: gnulib-lib/gai_strerror.c:75
 msgid "Parameter string not correctly encoded"
-msgstr ""
+msgstr "正しくエンコードされていないパラメータ文字列"
 
 #: gnulib-lib/gai_strerror.c:87
-#, fuzzy
-#| msgid "Unknown system error"
 msgid "Unknown error"
-msgstr "未知のシステムエラー"
+msgstr "未知のエラー"
 
 #: gnulib-lib/getopt.c:278
 #, c-format
@@ -236,6 +232,8 @@ msgid ""
 "The java program is too old. Cannot compile Java code for this old version "
 "any more."
 msgstr ""
+"Java のプログラムが古過ぎます. この古いバージョンに対して Java コードをこれ以"
+"上コンパイルすることはできません."
 
 #: gnulib-lib/javacomp.c:147
 #, c-format
@@ -268,40 +266,32 @@ msgid "error while writing \"%s\" file"
 msgstr "\"%s\" ファイルを書き込み中にエラーが発生しました"
 
 #: gnulib-lib/javacomp.c:1134
-#, fuzzy, c-format
-#| msgid "Java compiler not found, try installing gcj or set $JAVAC"
+#, c-format
 msgid "Java compiler not found, try setting $JAVAC"
-msgstr ""
-"Java コンパイラが見つかりません. gcj をインストールするか $JAVAC を設定してみ"
-"てください"
+msgstr "Java コンパイラが見つかりません. $JAVAC を設定してみてください"
 
 #: gnulib-lib/javaexec.c:309
-#, fuzzy, c-format
-#| msgid "Java virtual machine not found, try installing gij or set $JAVA"
+#, c-format
 msgid "Java virtual machine not found, try setting $JAVA"
-msgstr ""
-"Java 仮想マシンが見つかりません. gij をインストールするか $JAVA を設定してく"
-"ださい"
+msgstr "Java 仮想マシンが見つかりません. $JAVA を設定してみてください"
 
 #: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1328 libgettextpo/obstack.c:337
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
 #: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
 msgstr "メモリを使い果たしました"
 
 #: gnulib-lib/openat-die.c:38
-#, fuzzy, c-format
-#| msgid "error reading current directory"
+#, c-format
 msgid "unable to record current working directory"
-msgstr "カレントディレクトリの読み込みエラー"
+msgstr "現在の作業ディレクトリの記録不能"
 
 #: gnulib-lib/openat-die.c:57
-#, fuzzy, c-format
-#| msgid "failed to create directory \"%s\""
+#, c-format
 msgid "failed to return to initial working directory"
-msgstr "ディレクトリ \"%s\" の作成に失敗しました"
+msgstr "初期作業ディレクトリへの復帰に失敗"
 
 #: gnulib-lib/os2-spawn.c:45
 #, c-format
@@ -600,126 +590,93 @@ msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
 msgstr "'%s' は正しい %s 形式の文字列ではなく, '%s' とは違います. 理由: %s"
 
 #: src/format-c++-brace.c:270
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the argument %d is negative."
+#, c-format
 msgid "In the directive number %u, the arg-id is too large."
-msgstr "命令番号 %u では, 引数 %d は負です."
+msgstr "命令番号 %u では, arg-id が大き過ぎます."
 
 #: src/format-c++-brace.c:383 src/format-c++-brace.c:477
-#, fuzzy, c-format
-#| msgid "In the directive number %u, a width is given twice."
+#, c-format
 msgid "In the directive number %u, the width's arg-id is too large."
-msgstr "命令番号 %u では, 幅が2回与えられます."
+msgstr "命令番号 %u では, 幅の arg-id が大き過ぎます."
 
 #: src/format-c++-brace.c:438
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the width's argument number 0 is not a "
-#| "positive integer."
+#, c-format
 msgid ""
 "In the directive number %u, the width's arg-id is not terminated through '}'."
-msgstr "命令番号 %u では, 幅の引数番号 0 は正の整数ではありません."
+msgstr "命令番号 %u では, 幅の arg-id が '}' で終端されていません."
 
 #: src/format-c++-brace.c:532
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision is missing."
+#, c-format
 msgid ""
 "In the directive number %u, the precision's arg-id is not terminated through "
 "'}'."
-msgstr "命令番号 %u では, その精度は見つかりません."
+msgstr "命令番号 %u では, その精度の arg-id が '}' で終端されていません."
 
 #: src/format-c++-brace.c:593
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the character '%c' is not a valid conversion "
-#| "specifier."
+#, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a standard type "
 "specifier."
-msgstr "命令番号 %u では, 文字 '%c' は正しい変換記述子ではありません."
+msgstr "命令番号 %u では, 文字 '%c' は標準型指定子ではありません."
 
 #: src/format-c++-brace.c:594
-#, fuzzy, c-format
-#| msgid ""
-#| "The character that terminates the directive number %u is not a valid "
-#| "conversion specifier."
+#, c-format
 msgid ""
 "The character that terminates the directive number %u is not a standard type "
 "specifier."
-msgstr "命令番号 %u の終端文字は正しい変換記述子ではありません."
+msgstr "命令番号 %u を終端する文字が標準型指定子ではありません."
 
 #: src/format-c++-brace.c:602
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the sign specification is incompatible with the "
 "type specifier '%c'."
-msgstr "命令番号 %u では, サイズ指定は変換指定 '%c' と互換ではありません."
+msgstr "命令番号 %u では, 符号指定が型指定子 '%c' と互換ではありません."
 
 #: src/format-c++-brace.c:610
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '#' option is incompatible with the type "
 "specifier '%c'."
-msgstr "命令番号 %u では, サイズ指定は変換指定 '%c' と互換ではありません."
+msgstr "命令番号 %u では, '#' オプションが型指定子 '%c' と互換ではありません."
 
 #: src/format-c++-brace.c:618
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '0' option is incompatible with the type "
 "specifier '%c'."
-msgstr "命令番号 %u では, サイズ指定は変換指定 '%c' と互換ではありません."
+msgstr "命令番号 %u では, '0' オプションが型指定子 '%c' と互換ではありません."
 
 #: src/format-c++-brace.c:626
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the precision specification is incompatible with "
 "the type specifier '%c'."
-msgstr "命令番号 %u では, サイズ指定は変換指定 '%c' と互換ではありません."
+msgstr "命令番号 %u では, 精度指定が型指定子 '%c' と互換ではありません."
 
 #: src/format-c++-brace.c:634
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the 'L' option is incompatible with the type "
 "specifier '%c'."
-msgstr "命令番号 %u では, サイズ指定は変換指定 '%c' と互換ではありません."
+msgstr "命令番号 %u では, 'L' オプションが型指定子 '%c' と互換ではありません."
 
 #: src/format-c++-brace.c:735
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the substring \"%s\" is not a valid date/time "
-#| "style."
+#, c-format
 msgid ""
 "The directive number %u, with all of its options, is not applicable to any "
 "type."
-msgstr "命令番号 %u では, \"%s\" は正しい日付や時刻の形式ではありません."
+msgstr "命令番号 %u は, そのすべてのオプションが, どの型にも適用できません."
 
 #: src/format-c++-brace.c:747
-#, fuzzy, c-format
-#| msgid "The string ends in the middle of a directive."
+#, c-format
 msgid "The string ends in the middle of the directive number %u."
-msgstr "文字列が命令の途中で終わっています."
+msgstr "文字列が命令番号 %u の途中で終わっています."
 
 #: src/format-c++-brace.c:755
-#, fuzzy, c-format
-#| msgid ""
-#| "The directive number %u ends with an invalid character instead of '}'."
+#, c-format
 msgid "The directive number %u is not terminated through '}'."
-msgstr "命令番号 %u が, '}' の代わりに不正な文字で終わっています."
+msgstr "命令番号 %u が '}' で終端していません."
 
 #: src/format-c++-brace.c:777 src/format-csharp.c:158 src/format-java.c:347
 msgid ""
@@ -738,18 +695,17 @@ msgid ""
 "The format specification for argument %u in '%s' is applicable to the types "
 "%s, but the format specification for argument %u in '%s' is not."
 msgstr ""
+"引数 %u ('%s' 内) に対するフォーマット指定は型 %s に適用可能ですが, 引数 %u "
+"('%s' 内) に対するフォーマット指定はそうではありません."
 
 #: src/format-c++-brace.c:1003
-#, fuzzy, c-format
-#| msgid ""
-#| "a format specification for arguments %u and %u doesn't exist in '%s', "
-#| "only one argument may be ignored"
+#, c-format
 msgid ""
 "The format specification for argument %u in '%s' uses a different "
 "presentation than the format specification for argument %u in '%s'."
 msgstr ""
-"引数 %u と %u に対する形式指定が '%s' に存在せず, 1つの引数だけが無視されてい"
-"るかもしれません"
+"引数 %u ('%s' 内) に対するフォーマット指定は引数 %u ('%s' 内) のフォーマット"
+"指定とは異なる表示を使用しています."
 
 #: src/format-c.c:36
 #, c-format
@@ -766,10 +722,9 @@ msgid "In the directive number %u, the token after '<' is not followed by '>'."
 msgstr "命令番号 %u では, '<' の後のトークンの後に '>' が来ることはありません."
 
 #: src/format-c.c:42
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision specification is invalid."
+#, c-format
 msgid "In the directive number %u, the argument size specifier is invalid."
-msgstr "命令番号 %u では, その精度指定は無効です."
+msgstr "命令番号 %u では, その引数サイズ指定子は無効です."
 
 #: src/format-c.c:45 src/format-gfc-internal.c:289
 #, c-format
@@ -1142,11 +1097,9 @@ msgid "In the directive number %u, '%c' cannot start a getitem argument."
 msgstr "命令番号 %u では, '%c' で getitem の引数をはじめることができません."
 
 #: src/format-python-brace.c:204
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, there is an unterminated format directive."
+#, c-format
 msgid "In the directive number %u, there is an unterminated getitem argument."
-msgstr "命令番号 %u で, 終端文字のないフォーマット命令があります."
+msgstr "命令番号 %u では, 未終端の getitem 引数があります."
 
 #: src/format-python-brace.c:221
 #, c-format
@@ -1396,16 +1349,14 @@ msgid "cannot evaluate XPath location path: %s"
 msgstr "評価できない XPath ロケーションパス: %s"
 
 #: src/locating-rule.c:94
-#, fuzzy, c-format
-#| msgid "cannot extract rules for %s"
+#, c-format
 msgid "cannot find attribute %s on %s"
-msgstr "%s に対するルールを抽出できません"
+msgstr "%s (%s 上) の属性が見つかりません"
 
 #: src/locating-rule.c:113 src/locating-rule.c:328
-#, fuzzy, c-format
-#| msgid "cannot locate ITS rules for %s"
+#, c-format
 msgid "cannot locate root element"
-msgstr "%s に対する ITS ルールの場所がわかりません"
+msgstr "root エレメントの場所がわかりません"
 
 #: src/locating-rule.c:250
 #, c-format
@@ -2644,11 +2595,12 @@ msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr "  -f, --use-fuzzy             fuzzy (あいまい) 項目を出力に使う\n"
 
 #: src/msgfmt.c:1055
-#, fuzzy, c-format
-#| msgid "      --no-obsolete           remove obsolete #~ messages\n"
+#, c-format
 msgid ""
 "      --no-convert            don't convert the messages to UTF-8 encoding\n"
-msgstr "      --no-obsolete           廃れた #~ メッセージを削除\n"
+msgstr ""
+"      --no-convert            メッセージを UTF-8 エンコーディングに変換しな"
+"い\n"
 
 #: src/msgfmt.c:1057
 #, c-format
@@ -2656,6 +2608,9 @@ msgid ""
 "      --no-redundancy         don't pre-expand ISO C 99 <inttypes.h>\n"
 "                                format string directive macros\n"
 msgstr ""
+"      --no-redundancy         ISO C 99 <inttypes.h> フォーマット文字列ディレ"
+"クティブの\n"
+"                                マクロをプレ展開しない\n"
 
 #: src/msgfmt.c:1060
 #, c-format
@@ -2749,7 +2704,7 @@ msgstr "%s は存在しますが読み込めません"
 #: src/read-properties.c:609 src/read-stringtable.c:99 src/x-awk.c:139
 #: src/x-c.c:608 src/x-csharp.c:165 src/x-elisp.c:147 src/x-java.c:201
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
-#: src/x-perl.c:259 src/x-perl.c:334 src/x-perl.c:427 src/x-php.c:164
+#: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
 #: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
 #: src/x-ycp.c:91
@@ -2994,23 +2949,23 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "%s パッケージに対する英訳"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:86 src/msgl-iconv.c:262
+#: src/msgl-cat.c:181 src/msgl-charset.c:86 src/msgl-iconv.c:265
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "現在の文字セット \"%s\" は可搬性のあるエンコーディング名ではありません"
 
-#: src/msgl-cat.c:189 src/msgl-iconv.c:273
+#: src/msgl-cat.c:191 src/msgl-iconv.c:276
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "2つの異なった文字セット \"%s\" と \"%s\" が入力ファイルにあります"
 
-#: src/msgl-cat.c:204
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr "入力ファイル '%s' に文字セットを指定するヘッダ項目がありません"
 
-#: src/msgl-cat.c:208
+#: src/msgl-cat.c:210
 #, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
@@ -3019,25 +2974,27 @@ msgstr ""
 "ドメイン \"%s\" には入力ファイル '%s' 内において文字セットを指定するヘッダ項"
 "目がありません"
 
-#: src/msgl-cat.c:306 src/xg-message.c:342
+#: src/msgl-cat.c:308 src/xg-message.c:342
 #, c-format
 msgid "msgid '%s' is used without plural and with plural."
 msgstr "msgid '%s' は複数形なしと複数形ありで使われます."
 
-#: src/msgl-cat.c:414 src/msgl-iconv.c:381
+#: src/msgl-cat.c:416 src/msgl-iconv.c:384
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr ""
 "対象となる文字セット \"%s\" は可搬性のあるエンコーディング名ではありません"
 
-#: src/msgl-cat.c:422 src/msgl-iconv.c:390
+#: src/msgl-cat.c:424 src/msgl-iconv.c:393
 #, c-format
 msgid ""
 "Cannot write the control characters that protect file names with spaces in "
 "the %s encoding"
 msgstr ""
+"空白を含むファイル名を保護する制御文字を %s エンコーディングで書き込むことが"
+"できません"
 
-#: src/msgl-cat.c:474 src/msgl-cat.c:480 src/msgl-cat.c:497
+#: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
 #: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
 #: src/xg-message.c:340
@@ -3045,7 +3002,7 @@ msgstr ""
 msgid "warning: "
 msgstr "警告: "
 
-#: src/msgl-cat.c:475
+#: src/msgl-cat.c:477
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -3054,7 +3011,7 @@ msgstr ""
 "入力ファイルには異なったエンコーディングのメッセージが含まれています.\n"
 "出力を UTF-8 に変換します.\n"
 
-#: src/msgl-cat.c:481
+#: src/msgl-cat.c:483
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -3068,19 +3025,16 @@ msgstr ""
 "別の出力エンコーディングを選択する場合は --to-code オプションを使ってくださ"
 "い.\n"
 
-#: src/msgl-cat.c:498
-#, fuzzy, c-format
-#| msgid ""
-#| "Input files contain messages in different encodings, UTF-8 among others.\n"
-#| "Converting the output to UTF-8.\n"
+#: src/msgl-cat.c:500
+#, c-format
 msgid ""
 "Input files contain messages referenced in file names with spaces.\n"
 "Converting the output to %s.\n"
 msgstr ""
-"入力ファイルには異なったエンコーディングのメッセージが含まれています.\n"
-"出力を UTF-8 に変換します.\n"
+"入力ファイルには空白を含むフェイル名で参照されるメッセージが含まれています.\n"
+"出力を %s に変換します.\n"
 
-#: src/msgl-cat.c:536
+#: src/msgl-cat.c:538
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -3308,11 +3262,11 @@ msgstr ""
 "%s: \"%s\" エンコーディングから \"%s\" エンコーディングに変換する際にエラーが"
 "発生しました"
 
-#: src/msgl-iconv.c:303
+#: src/msgl-iconv.c:306
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "入力ファイルに文字セットを指定するヘッダ項目がありません"
 
-#: src/msgl-iconv.c:317 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
+#: src/msgl-iconv.c:320 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
 #: src/xgettext.c:820 src/x-python.c:629
 #, c-format
 msgid ""
@@ -3322,7 +3276,7 @@ msgstr ""
 "\"%s\" から \"%s\" に変換できません. %s は iconv() に依存していますが,"
 "iconv() はこの変換を実装していません."
 
-#: src/msgl-iconv.c:345
+#: src/msgl-iconv.c:348
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -3331,7 +3285,7 @@ msgstr ""
 "\"%s\" から \"%s\" への変換が重複, いくつかの異なった msgid が等しくなってい"
 "ます."
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:302 src/xgettext.c:826
+#: src/msgl-iconv.c:352 src/recode-sr-latin.c:302 src/xgettext.c:826
 #: src/x-python.c:635
 #, c-format
 msgid ""
@@ -3632,8 +3586,8 @@ msgid ""
 msgstr ""
 "  -u, --unique                唯一のメッセージのみを表示し, 重複を無視\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:104
-#: libgettextpo/gettext-po.c:152 libgettextpo/gettext-po.c:200
+#: src/open-catalog.c:56 libgettextpo/gettext-po.c:116
+#: libgettextpo/gettext-po.c:164 libgettextpo/gettext-po.c:212
 msgid "<stdin>"
 msgstr "<標準入力>"
 
@@ -4197,12 +4151,12 @@ msgstr "%s:%d: 警告: 正規表現に終端がありません"
 #: src/x-python.c:1602 src/x-vala.c:1322 src/x-ycp.c:698 src/x-ycp.c:773
 #, c-format
 msgid "%s:%d: error: too many open parentheses"
-msgstr ""
+msgstr "%s:%d: エラー: 閉じていない括弧が多過ぎます"
 
 #: src/x-c.c:1117 src/x-vala.c:509
 #, c-format
 msgid "%s:%d: warning: hexadecimal escape sequence out of range"
-msgstr ""
+msgstr "%s:%d: 警告: 範囲外の16進数エスケープシーケンス"
 
 #: src/x-c.c:1206 src/x-csharp.c:1333 src/x-python.c:1103 src/x-tcl.c:804
 #: src/x-vala.c:597
@@ -4308,7 +4262,7 @@ msgstr "%s:%d: 警告: '}' があるべきところに ')' があります"
 #: src/x-tcl.c:898
 #, c-format
 msgid "%s:%d: error: too many open braces"
-msgstr ""
+msgstr "%s:%d: エラー: 閉じていない中括弧が多過ぎます"
 
 #: src/x-csharp.c:2009 src/x-java.c:1644
 #, c-format
@@ -4318,12 +4272,12 @@ msgstr "%s:%d: 警告: ')' があるべきところに '}' があります"
 #: src/x-elisp.c:452
 #, c-format
 msgid "%s:%d: error: too deeply nested escape sequence"
-msgstr ""
+msgstr "%s:%d: エラー: エスケープシーケンスのネストが深過ぎます"
 
 #: src/x-elisp.c:649 src/x-librep.c:606 src/x-lisp.c:949 src/x-scheme.c:690
 #, c-format
 msgid "%s:%d: error: too deeply nested objects"
-msgstr ""
+msgstr "%s:%d: エラー: オブジェクトのネストが深過ぎます"
 
 #: src/xg-arglist-parser.c:388
 #, c-format
@@ -4361,31 +4315,29 @@ msgid "Non-ASCII string at %s%s."
 msgstr "%s%s に非ASCII文字列."
 
 #: src/xg-encoding.c:92
-#, fuzzy, c-format
-#| msgid "Non-ASCII string at %s%s."
+#, c-format
 msgid "Non-ASCII XML tag at %s%s."
-msgstr "%s%s に非ASCII文字列."
+msgstr "%s%s に非ASCII XML タグ."
 
 #: src/xg-encoding.c:118
 #, c-format
 msgid "Character at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "%s%s にある文字は UTF-8 エンコードされていません."
 
 #: src/xg-encoding.c:123
-#, fuzzy, c-format
-#| msgid "Non-ASCII comment at or before %s%s."
+#, c-format
 msgid "Comment at or before %s%s is not UTF-8 encoded."
-msgstr "%s%s 以前に非ASCIIのコメント."
+msgstr "%s%s 以前のコメントは UTF-8 エンコードされていません."
 
 #: src/xg-encoding.c:128
 #, c-format
 msgid "String at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "%s%s にある文字列は UTF-8 エンコードされていません."
 
 #: src/xg-encoding.c:134
 #, c-format
 msgid "XML tag at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "%s%s にある XML タグは UTF-8 エンコードされていません."
 
 #: src/xgettext.c:590
 #, c-format
@@ -4415,7 +4367,7 @@ msgstr "xgettext は検索するキーワードがなければ動きません"
 #: src/xgettext.c:749
 #, c-format
 msgid "The option '%s' is deprecated."
-msgstr ""
+msgstr "オプション '%s' は廃止予定 (非推奨) です."
 
 #: src/xgettext.c:873
 #, c-format
@@ -4688,10 +4640,9 @@ msgid "      --itstool               write out itstool comments\n"
 msgstr "      --itstool               itstool コメントを書き出し\n"
 
 #: src/xgettext.c:1224
-#, fuzzy, c-format
-#| msgid "  -s, --sort-output           generate sorted output\n"
+#, c-format
 msgid "  -s, --sort-output           generate sorted output (deprecated)\n"
-msgstr "  -s, --sort-output           ソートされた出力を生成\n"
+msgstr "  -s, --sort-output           ソートされた出力を生成 (廃止予定)\n"
 
 #: src/xgettext.c:1230
 #, c-format
@@ -4918,70 +4869,66 @@ msgid "%s:%d: warning: unterminated XML markup"
 msgstr "%s:%d: 警告: 終端のない XML マークアップ"
 
 #: src/x-javascript.c:1370
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string"
+#, c-format
 msgid "%s:%d: warning: ignoring CDATA section"
-msgstr "%s:%d: 警告: 文字列に終端がありません"
+msgstr "%s:%d: 警告: CDATA セクションを無視します"
 
 #: src/x-javascript.c:1729 src/x-lua.c:1130 src/x-php.c:1527
 #: src/x-python.c:1642 src/x-tcl.c:772
 #, c-format
 msgid "%s:%d: error: too many open brackets"
-msgstr ""
+msgstr "%s:%d: エラー: 閉じていない角括弧が多過ぎます"
 
 #: src/x-javascript.c:1814
 #, c-format
 msgid "%s:%d: error: too many open XML elements"
-msgstr ""
+msgstr "%s:%d: エラー: 閉じていない XML エレメントが多過ぎます"
 
-#: src/x-perl.c:341
+#: src/x-perl.c:342
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr "%s:%d: EOF の前のどこにも文字列終端 \"%s\" が見つかりません"
 
-#: src/x-perl.c:1081
+#: src/x-perl.c:1084
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: \\x{HEXNUMBER} に右括弧がありません"
 
-#: src/x-perl.c:1202
+#: src/x-perl.c:1205
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: 不正な補間 (\"\\l\") 8bit 文字 \"%c\""
 
-#: src/x-perl.c:1222
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: 不正な補間 (\"\\u\") 8bit 文字 \"%c\""
 
-#: src/x-perl.c:1256
+#: src/x-perl.c:1259
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: \"%c\" に不正な変数補間"
 
-#: src/x-perl.c:1269
+#: src/x-perl.c:1272
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: 不正な補間 (\"\\L\") 8bit 文字 \"%c\""
 
-#: src/x-perl.c:1286
+#: src/x-perl.c:1289
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: 不正な補間 (\"\\U\") 8bit 文字 \"%c\""
 
-#: src/x-perl.c:1728 src/x-perl.c:2780 src/x-perl.c:3122
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated regular expression"
+#: src/x-perl.c:1746 src/x-perl.c:2801 src/x-perl.c:3153
+#, c-format
 msgid "%s:%d: error: too deeply nested expressions"
-msgstr "%s:%d: 警告: 正規表現に終端がありません"
+msgstr "%s:%d: エラー: 表現のネストが深過ぎます"
 
 #: src/x-po.c:228
-#, fuzzy, c-format
-#| msgid ""
-#| "input file doesn't contain a header entry with a charset specification"
+#, c-format
 msgid ""
 "%s: input file doesn't contain a header entry with a charset specification"
-msgstr "入力ファイルに文字セットを指定するヘッダ項目がありません"
+msgstr "%s: 入力ファイルに文字セットを指定するヘッダ項目がありません"
 
 #: src/x-python.c:281
 msgid ""
@@ -5092,14 +5039,14 @@ msgstr ""
 #: src/x-sh.c:1512
 #, c-format
 msgid "%s:%d: error: too deeply nested command list"
-msgstr ""
+msgstr "%s:%d: エラー: コマンドリストのネストが深過ぎます"
 
 #: src/x-vala.c:647
 #, c-format
 msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr "%s:%d: 警告: 正規表現リテラルの終端が早過ぎます"
 
-#: libgettextpo/gettext-po.c:86
+#: libgettextpo/gettext-po.c:98
 msgid "<unnamed>"
 msgstr "<名前なし>"
 

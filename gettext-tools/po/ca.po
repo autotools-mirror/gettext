@@ -1,8 +1,8 @@
 # Catalan messages for GNU gettext-tools.
-# Copyright (C) 2001, 2002, 2003, 2007, 2014, 2015, 2016, 2017 Free Software Foundation, Inc.
+# Copyright (C) 2001, 2002, 2003, 2007, 2014, 2015, 2016, 2017, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 #
-# Ivan Vilata i Balaguer <ivan@selidor.net>, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2013, 2014, 2015, 2016, 2017.
+# Ivan Vilata i Balaguer <ivan@selidor.net>, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2013, 2014, 2015, 2016, 2017, 2023
 #
 # Sóc Ivan, aquestes són les convencions que adopte per a la 0.19-rc1:
 #
@@ -50,10 +50,10 @@
 # options).  Also strings used in multiline error and warning messages.  ivb
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.19.8-rc1\n"
+"Project-Id-Version: gettext-tools 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 23:40+0200\n"
-"PO-Revision-Date: 2017-08-05 23:21+0200\n"
+"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"PO-Revision-Date: 2023-09-01 13:46+0200\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
@@ -154,16 +154,14 @@ msgid "fdopen() failed"
 msgstr "ha fallat fdopen()"
 
 #: gnulib-lib/csharpcomp.c:444
-#, fuzzy, c-format
-#| msgid "C# compiler not found, try installing pnet"
+#, c-format
 msgid "C# compiler not found, try installing mono"
-msgstr "no s’ha trobat cap compil·lador de C#, instal·leu «pnet»"
+msgstr "no s’ha trobat cap compil·lador de C#, instal·leu «mono»"
 
 #: gnulib-lib/csharpexec.c:259
-#, fuzzy, c-format
-#| msgid "C# virtual machine not found, try installing pnet"
+#, c-format
 msgid "C# virtual machine not found, try installing mono"
-msgstr "no s’ha trobat cap màquina virtual de C#, instal·leu «pnet»"
+msgstr "no s’ha trobat cap màquina virtual de C#, instal·leu «mono»"
 
 # Amb el mateix format que els errors de la libc.  ivb
 #: gnulib-lib/error.c:194 libgettextpo/error.c:194
@@ -178,114 +176,104 @@ msgstr "el subprocés «%s» ha fallat"
 
 #: gnulib-lib/gai_strerror.c:57
 msgid "Address family for hostname not supported"
-msgstr ""
+msgstr "El nom d’amfitrió no permet l’ús d’aquesta família d’adreces"
 
 #: gnulib-lib/gai_strerror.c:58
 msgid "Temporary failure in name resolution"
-msgstr ""
+msgstr "Fallada temporal a la resolució de noms"
 
 #: gnulib-lib/gai_strerror.c:59
 msgid "Bad value for ai_flags"
-msgstr ""
+msgstr "El valor de «ai_flags» no és vàlid"
 
 #: gnulib-lib/gai_strerror.c:60
 msgid "Non-recoverable failure in name resolution"
-msgstr ""
+msgstr "Fallada irrecuperable a la resolució de noms"
 
 #: gnulib-lib/gai_strerror.c:61
 msgid "ai_family not supported"
-msgstr ""
+msgstr "No es permet l’ús d’aquest valor de «ai_family»"
 
 #: gnulib-lib/gai_strerror.c:62
 msgid "Memory allocation failure"
-msgstr ""
+msgstr "No s’ha pogut reservar memòria"
 
 #: gnulib-lib/gai_strerror.c:63
 msgid "No address associated with hostname"
-msgstr ""
+msgstr "No hi ha cap adreça associada amb el nom d’amfitrió"
 
 #: gnulib-lib/gai_strerror.c:64
 msgid "Name or service not known"
-msgstr ""
+msgstr "El nom o servei no és conegut"
 
 #: gnulib-lib/gai_strerror.c:65
 msgid "Servname not supported for ai_socktype"
-msgstr ""
+msgstr "El valor de «ai_socktype» no permet l’ús d’aquest servei"
 
 #: gnulib-lib/gai_strerror.c:66
 msgid "ai_socktype not supported"
-msgstr ""
+msgstr "El valor de «ai_socktype» no està permès"
 
 #: gnulib-lib/gai_strerror.c:67
-#, fuzzy
-#| msgid "write error"
 msgid "System error"
-msgstr "error d’escriptura"
+msgstr "Error del sistema"
 
 #: gnulib-lib/gai_strerror.c:68
 msgid "Argument buffer too small"
-msgstr ""
+msgstr "La memòria intermèdia d’arguments és massa menuda"
 
 #: gnulib-lib/gai_strerror.c:70
 msgid "Processing request in progress"
-msgstr ""
+msgstr "S’està processant la petició"
 
 #: gnulib-lib/gai_strerror.c:71
 msgid "Request canceled"
-msgstr ""
+msgstr "La petició ha estat cancel·lada"
 
 #: gnulib-lib/gai_strerror.c:72
 msgid "Request not canceled"
-msgstr ""
+msgstr "La petició no ha estat cancel·lada"
 
 #: gnulib-lib/gai_strerror.c:73
 msgid "All requests done"
-msgstr ""
+msgstr "S’han completat totes les peticions"
 
 #: gnulib-lib/gai_strerror.c:74
 msgid "Interrupted by a signal"
-msgstr ""
+msgstr "Interromput per un senyal"
 
 #: gnulib-lib/gai_strerror.c:75
 msgid "Parameter string not correctly encoded"
-msgstr ""
+msgstr "La cadena paràmetre no té una codificació vàlida"
 
-# Amb el mateix format que els errors de la libc.  ivb
 #: gnulib-lib/gai_strerror.c:87
-#, fuzzy
-#| msgid "Unknown system error"
 msgid "Unknown error"
-msgstr "Error desconegut del sistema"
+msgstr "Error desconegut"
 
 #: gnulib-lib/getopt.c:278
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous\n"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
-msgstr "%s: l’opció «%s» és ambígua\n"
+msgstr "%s: l’opció «%s%s» és ambígua\n"
 
 #: gnulib-lib/getopt.c:284
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous; possibilities:"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
-msgstr "%s: l’opció «%s» és ambígua; possibilitats:"
+msgstr "%s: l’opció «%s%s» és ambígua; possibilitats:"
 
 #: gnulib-lib/getopt.c:319
-#, fuzzy, c-format
-#| msgid "%s: unrecognized option '%c%s'\n"
+#, c-format
 msgid "%s: unrecognized option '%s%s'\n"
-msgstr "%s: l’opció «%c%s» no és reconeguda\n"
+msgstr "%s: l’opció «%s%s» no és reconeguda\n"
 
 #: gnulib-lib/getopt.c:345
-#, fuzzy, c-format
-#| msgid "%s: option '%c%s' doesn't allow an argument\n"
+#, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
-msgstr "%s: l’opció «%c%s» no admet arguments\n"
+msgstr "%s: l’opció «%s%s» no admet arguments\n"
 
 #: gnulib-lib/getopt.c:360
-#, fuzzy, c-format
-#| msgid "%s: option '--%s' requires an argument\n"
+#, c-format
 msgid "%s: option '%s%s' requires an argument\n"
-msgstr "%s: l’opció «--%s» necessita un argument\n"
+msgstr "%s: l’opció «%s%s» necessita un argument\n"
 
 #: gnulib-lib/getopt.c:621
 #, c-format
@@ -303,6 +291,8 @@ msgid ""
 "The java program is too old. Cannot compile Java code for this old version "
 "any more."
 msgstr ""
+"El programa «java» és massa vell.  Ja no es pot compiŀlar codi Java per a "
+"versions tan antigues."
 
 #: gnulib-lib/javacomp.c:147
 #, c-format
@@ -335,40 +325,36 @@ msgid "error while writing \"%s\" file"
 msgstr "error en escriure el fitxer «%s»"
 
 #: gnulib-lib/javacomp.c:1134
-#, fuzzy, c-format
-#| msgid "Java compiler not found, try installing gcj or set $JAVAC"
+#, c-format
 msgid "Java compiler not found, try setting $JAVAC"
 msgstr ""
-"no s’ha trobat cap compil·lador de Java, instal·leu «gcj» o establiu la "
-"variable d’entorn JAVAC"
+"no s’ha trobat cap compil·lador de Java, establiu la variable d’entorn JAVAC"
 
 #: gnulib-lib/javaexec.c:309
-#, fuzzy, c-format
-#| msgid "Java virtual machine not found, try installing gij or set $JAVA"
+#, c-format
 msgid "Java virtual machine not found, try setting $JAVA"
 msgstr ""
-"no s’ha trobat cap màquina virtual de Java, instal·leu «gij» o establiu la "
-"variable d’entorn JAVA"
+"no s’ha trobat cap màquina virtual de Java, establiu la variable d’entorn "
+"JAVA"
 
 #: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1328 libgettextpo/obstack.c:337
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
 #: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
 msgstr "la memòria s’ha exhaurit"
 
+# No empre «desar» perquè ha guanyat la connotació d’«escriure».  ivb
 #: gnulib-lib/openat-die.c:38
-#, fuzzy, c-format
-#| msgid "error reading current directory"
+#, c-format
 msgid "unable to record current working directory"
-msgstr "error en llegir el directori actual"
+msgstr "no s’ha pogut guardar el directori de treball actual"
 
 #: gnulib-lib/openat-die.c:57
-#, fuzzy, c-format
-#| msgid "failed to create directory \"%s\""
+#, c-format
 msgid "failed to return to initial working directory"
-msgstr "no s’ha pogut crear el directori «%s»"
+msgstr "no s’ha pogut tornar al directori de treball inicial"
 
 #: gnulib-lib/os2-spawn.c:45
 #, c-format
@@ -456,10 +442,11 @@ msgstr "subprocés «%s»"
 msgid "%s subprocess got fatal signal %d"
 msgstr "el subprocés «%s» ha rebut el senyal fatal %d"
 
+# No usa quote().  ivb
 #: src/cldr-plurals.c:61
 #, c-format
 msgid "Could not parse file %s as XML"
-msgstr ""
+msgstr "no s’ha pogut interpretar el fitxer «%s» com a XML"
 
 #: src/cldr-plurals.c:69
 #, c-format
@@ -557,6 +544,10 @@ msgid ""
 "Report bugs in the bug tracker at <%s>\n"
 "or by email to <%s>.\n"
 msgstr ""
+"Informeu dels errors al sistema de seguiment <%s>\n"
+"o per correu electrònic a <%s>.\n"
+"\n"
+"Informeu dels error de traducció a <ca@dodds.net>.\n"
 
 #: src/cldr-plurals.c:292 src/hostname.c:191 src/msgattrib.c:352
 #: src/msgcat.c:291 src/msgcmp.c:168 src/msgcomm.c:282 src/msgconv.c:241
@@ -564,12 +555,7 @@ msgstr ""
 #: src/msggrep.c:412 src/msginit.c:269 src/msgmerge.c:369 src/msgunfmt.c:259
 #: src/msguniq.c:261 src/recode-sr-latin.c:106 src/urlget.c:139
 #: src/xgettext.c:691
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "Copyright (C) %s Free Software Foundation, Inc.\n"
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "License GPLv3+: GNU GPL version 3 or later <%s>\n"
@@ -577,7 +563,7 @@ msgid ""
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "Copyright © %s Free Software Foundation, Inc.\n"
-"GPLv3+: llicència GNU GPL ver. 3 o posterior <http://gnu.org/licenses/gpl.html>\n"
+"GPLv3+: llicència GNU GPL ver. 3 o posterior <%s>\n"
 "Aquest és programari lliure: podeu modificar‐lo i redistribuir‐lo si voleu.\n"
 "No hi ha CAP GARANTIA, en la mesura que ho permeta la llei.\n"
 
@@ -679,148 +665,115 @@ msgstr ""
 "«%s» no és una cadena vàlida de format de %s, com la de «%s».  Motiu: %s"
 
 #: src/format-c++-brace.c:270
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the argument %d is negative."
+#, c-format
 msgid "In the directive number %u, the arg-id is too large."
-msgstr "A la directiva número %u, l’argument %d és negatiu."
+msgstr "A la directiva número %u, l’identificador d’argument és massa gran."
 
 #: src/format-c++-brace.c:383 src/format-c++-brace.c:477
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the argument %d is negative."
+#, c-format
 msgid "In the directive number %u, the width's arg-id is too large."
-msgstr "A la directiva número %u, l’argument %d és negatiu."
+msgstr ""
+"A la directiva número %u, l’identificador d’argument de l’amplada és massa "
+"gran."
 
 #: src/format-c++-brace.c:438
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the width's argument number 0 is not a "
-#| "positive integer."
+#, c-format
 msgid ""
 "In the directive number %u, the width's arg-id is not terminated through '}'."
 msgstr ""
-"A la directiva número %u, el número «0» d’argument de l’amplada no és un "
-"enter positiu."
+"A la directiva número %u, l’identificador d’argument de l’amplada no va "
+"seguit de «}»."
 
 #: src/format-c++-brace.c:532
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the precision's argument number 0 is not a "
-#| "positive integer."
+#, c-format
 msgid ""
 "In the directive number %u, the precision's arg-id is not terminated through "
 "'}'."
 msgstr ""
-"A la directiva número %u, el número «0» d’argument de la precisió no és un "
-"enter positiu."
+"A la directiva número %u, l’identificador d’argument de la precisió no va "
+"seguit de «}»."
 
 #: src/format-c++-brace.c:593
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the character '%c' is not a valid conversion "
-#| "specifier."
+#, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a standard type "
 "specifier."
 msgstr ""
-"A la directiva número %u, el caràcter «%c» no és una especificació de "
-"conversió vàlida."
+"A la directiva número %u, el caràcter «%c» no és una especificació de tipus "
+"estàndard."
 
 #: src/format-c++-brace.c:594
-#, fuzzy, c-format
-#| msgid ""
-#| "The character that terminates the directive number %u is not a valid "
-#| "conversion specifier."
+#, c-format
 msgid ""
 "The character that terminates the directive number %u is not a standard type "
 "specifier."
 msgstr ""
 "El caràcter que termina la directiva número %u no és una especificació de "
-"conversió vàlida."
+"tipus estàndard."
 
 #: src/format-c++-brace.c:602
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the sign specification is incompatible with the "
 "type specifier '%c'."
 msgstr ""
-"A la directiva número %u, l’especificació de mida no és compatible amb "
-"l’especificació de conversió «%c»."
+"A la directiva número %u, l’especificació de signe no és compatible amb "
+"l’especificació de tipus «%c»."
 
 #: src/format-c++-brace.c:610
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '#' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"A la directiva número %u, l’especificació de mida no és compatible amb "
-"l’especificació de conversió «%c»."
+"A la directiva número %u, l’opció «#» no és compatible amb l’especificació "
+"de tipus «%c»."
 
 #: src/format-c++-brace.c:618
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '0' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"A la directiva número %u, l’especificació de mida no és compatible amb "
-"l’especificació de conversió «%c»."
+"A la directiva número %u, l’opció «0» no és compatible amb l’especificació "
+"de tipus «%c»."
 
 #: src/format-c++-brace.c:626
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the precision specification is incompatible with "
 "the type specifier '%c'."
 msgstr ""
-"A la directiva número %u, l’especificació de mida no és compatible amb "
-"l’especificació de conversió «%c»."
+"A la directiva número %u, l’especificació de precisió no és compatible amb "
+"l’especificació de tipus «%c»."
 
 #: src/format-c++-brace.c:634
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the 'L' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"A la directiva número %u, l’especificació de mida no és compatible amb "
-"l’especificació de conversió «%c»."
+"A la directiva número %u, l’opció «L» no és compatible amb l’especificació "
+"de tipus «%c»."
 
 #: src/format-c++-brace.c:735
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the substring \"%s\" is not a valid date/time "
-#| "style."
+#, c-format
 msgid ""
 "The directive number %u, with all of its options, is not applicable to any "
 "type."
 msgstr ""
-"A la directiva número %u, la subcadena «%s» no té un estil de data/hora "
-"vàlid."
+"A la directiva número %u, la combinació d’opcions no és compatible amb cap "
+"tipus."
 
 #: src/format-c++-brace.c:747
-#, fuzzy, c-format
-#| msgid "The string ends in the middle of a directive."
+#, c-format
 msgid "The string ends in the middle of the directive number %u."
-msgstr "La cadena acaba emmig d’una directiva."
+msgstr "La cadena acaba emmig de la directiva número %u."
 
 #: src/format-c++-brace.c:755
-#, fuzzy, c-format
-#| msgid ""
-#| "The directive number %u ends with an invalid character instead of '}'."
+#, c-format
 msgid "The directive number %u is not terminated through '}'."
-msgstr "La directiva número %u acaba en un caràcter no vàlid, en lloc de «}»."
+msgstr "La directiva número %u no acaba en «}»."
 
 #: src/format-c++-brace.c:777 src/format-csharp.c:158 src/format-java.c:347
 msgid ""
@@ -835,24 +788,24 @@ msgstr ""
 msgid "The string contains a lone '}' after directive number %u."
 msgstr "La cadena conté un «}» solt després de la directiva número %u."
 
+# Els noms del tipus no estan traduïts.  ivb
 #: src/format-c++-brace.c:991
 #, c-format
 msgid ""
 "The format specification for argument %u in '%s' is applicable to the types "
 "%s, but the format specification for argument %u in '%s' is not."
 msgstr ""
+"L’especificació de format per a l’argument %u en «%s» és aplicable als tipus "
+"«%s», però l’especificació de format per a l’argument %u en «%s» no ho és."
 
 #: src/format-c++-brace.c:1003
-#, fuzzy, c-format
-#| msgid ""
-#| "a format specification for arguments %u and %u doesn't exist in '%s', "
-#| "only one argument may be ignored"
+#, c-format
 msgid ""
 "The format specification for argument %u in '%s' uses a different "
 "presentation than the format specification for argument %u in '%s'."
 msgstr ""
-"no existeix una especificació de format per als arguments %u i %u en «%s», "
-"només es pot descartar un argument"
+"L’especificació de format per a l’argument %u en «%s» empra una presentació "
+"diferent de l’especificació de format per a l’argument %u en «%s»."
 
 #: src/format-c.c:36
 #, c-format
@@ -871,10 +824,10 @@ msgstr ""
 "A la directiva número %u, el component que segueix «<» no està seguit de «>»."
 
 #: src/format-c.c:42
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision specification is invalid."
+#, c-format
 msgid "In the directive number %u, the argument size specifier is invalid."
-msgstr "A la directiva número %u, l’especificació de precisió no és vàlida."
+msgstr ""
+"A la directiva número %u, l’especificació de mida de l’argument no és vàlida."
 
 #: src/format-c.c:45 src/format-gfc-internal.c:289
 #, c-format
@@ -1103,68 +1056,59 @@ msgstr ""
 "les mateixes"
 
 #: src/format-java-printf.c:138
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision specification is invalid."
+#, c-format
 msgid ""
 "In the directive number %u, the reference to the argument of the previous "
 "directive is invalid."
-msgstr "A la directiva número %u, l’especificació de precisió no és vàlida."
+msgstr ""
+"A la directiva número %u, la referència a l’argument de la directiva "
+"anterior no és vàlida."
 
 #: src/format-java-printf.c:141
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision specification is invalid."
+#, c-format
 msgid "In the directive number %u, the precision is missing."
-msgstr "A la directiva número %u, l’especificació de precisió no és vàlida."
+msgstr "A la directiva número %u, manca la precisió."
 
 #: src/format-java-printf.c:144
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the character '%c' is not a valid conversion "
-#| "specifier."
+#, c-format
 msgid ""
 "In the directive number %u, the flag '%c' is invalid for the conversion '%c'."
 msgstr ""
-"A la directiva número %u, el caràcter «%c» no és una especificació de "
-"conversió vàlida."
+"A la directiva número %u, l’indicador «%c» no és vàlid per a la conversió "
+"«%c»."
 
 #: src/format-java-printf.c:147
-#, fuzzy, c-format
-#| msgid "In the directive number %u, a precision is not allowed before '%c'."
+#, c-format
 msgid "In the directive number %u, a width is invalid for the conversion '%c'."
 msgstr ""
-"A la directiva número %u, no es pot especificar la precisió abans de «%c»."
+"A la directiva número %u, no es pot especificar l’amplada amb la conversió "
+"«%c»."
 
 #: src/format-java-printf.c:150
-#, fuzzy, c-format
-#| msgid "In the directive number %u, a precision is not allowed before '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, a precision is invalid for the conversion '%c'."
 msgstr ""
-"A la directiva número %u, no es pot especificar la precisió abans de «%c»."
+"A la directiva número %u, no es pot especificar la precisió amb la conversió "
+"«%c»."
 
 #: src/format-java-printf.c:154
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the character '%c' is not a valid conversion "
-#| "specifier."
+#, c-format
 msgid ""
 "In the directive number %u, for the conversion '%c', the character '%c' is "
 "not a valid conversion suffix."
 msgstr ""
-"A la directiva número %u, el caràcter «%c» no és una especificació de "
-"conversió vàlida."
+"A la directiva número {%1$u}, el caràcter «{%3$c}» no és un sufix vàlid per "
+"a la conversió «{%2$c}»."
 
 #: src/format-java-printf.c:155
-#, fuzzy, c-format
-#| msgid ""
-#| "The character that terminates the directive number %u is not a valid "
-#| "conversion specifier."
+#, c-format
 msgid ""
 "The character that terminates the directive number %u, for the conversion "
 "'%c', is not a valid conversion suffix."
 msgstr ""
-"El caràcter que termina la directiva número %u no és una especificació de "
-"conversió vàlida."
+"El caràcter que termina la directiva número %u no és un sufix vàlid per a la "
+"conversió «%c»."
 
 #: src/format-kde.c:158
 #, c-format
@@ -1306,19 +1250,18 @@ msgstr ""
 "A la directiva número %u, «%c» no pot començar un argument per a «getitem()»."
 
 #: src/format-python-brace.c:204
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, there is an unterminated format directive."
+#, c-format
 msgid "In the directive number %u, there is an unterminated getitem argument."
 msgstr ""
-"A la directiva número %u, hi ha una directiva de format sense terminar."
+"A la directiva número %u, hi ha una directiva per a «getitem()» sense "
+"terminar."
 
 #: src/format-python-brace.c:221
 #, c-format
 msgid ""
 "In the directive number %u, no more nesting is allowed in a format specifier."
 msgstr ""
-"A la directiva número %u, no s’admet més niament en l’especificació de "
+"A la directiva número %u, no s’admet més imbricació en l’especificació de "
 "format."
 
 #: src/format-python-brace.c:260 src/format-python-brace.c:313
@@ -1383,90 +1326,65 @@ msgstr ""
 "«L» o un número d’argument amb un dígit doble"
 
 #: src/format-ruby.c:134
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, too many parameters are given; expected at "
-#| "most %u parameter."
-#| msgid_plural ""
-#| "In the directive number %u, too many parameters are given; expected at "
-#| "most %u parameters."
+#, c-format
 msgid "In the directive number %u, two names are given for the same argument."
 msgstr ""
-"A la directiva número %u, s’han especificat massa paràmetres; se n’esperava "
-"%u com a molt."
+"A la directiva número %u, s’han especificat dos noms per al mateix argument."
 
 #: src/format-ruby.c:137
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, too many parameters are given; expected at "
-#| "most %u parameter."
-#| msgid_plural ""
-#| "In the directive number %u, too many parameters are given; expected at "
-#| "most %u parameters."
+#, c-format
 msgid ""
 "In the directive number %u, two numbers are given for the same argument."
 msgstr ""
-"A la directiva número %u, s’han especificat massa paràmetres; se n’esperava "
-"%u com a molt."
+"A la directiva número %u, s’han especificat dos números per al mateix "
+"argument."
 
 #: src/format-ruby.c:140
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the flags combination is invalid."
+#, c-format
 msgid "In the directive number %u, a flag is given after the width."
-msgstr "A la directiva número %u, la combinació d’indicadors no és vàlida."
+msgstr ""
+"A la directiva número %u, s’ha especificat un indicador després de l’amplada."
 
 #: src/format-ruby.c:143
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the flags combination is invalid."
+#, c-format
 msgid "In the directive number %u, a flag is given after the precision."
-msgstr "A la directiva número %u, la combinació d’indicadors no és vàlida."
+msgstr ""
+"A la directiva número %u, s’ha especificat un indicador després de la "
+"precisió."
 
 #: src/format-ruby.c:146
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the width's argument number 0 is not a "
-#| "positive integer."
+#, c-format
 msgid "In the directive number %u, the width is given after the precision."
 msgstr ""
-"A la directiva número %u, el número «0» d’argument de l’amplada no és un "
-"enter positiu."
+"A la directiva número %u, s’ha especificat l’amplada després de la precisió."
 
 #: src/format-ruby.c:149
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the argument %d is negative."
+#, c-format
 msgid "In the directive number %u, a width is given twice."
-msgstr "A la directiva número %u, l’argument %d és negatiu."
+msgstr "A la directiva número %u, s’ha especificat l’amplada dues voltes."
 
 #: src/format-ruby.c:152
-#, fuzzy, c-format
-#| msgid "In the directive number %u, a precision is not allowed before '%c'."
+#, c-format
 msgid "In the directive number %u, a precision is given twice."
-msgstr ""
-"A la directiva número %u, no es pot especificar la precisió abans de «%c»."
+msgstr "A la directiva número %u, s’ha especificat la precisió dues voltes."
 
 #: src/format-ruby.c:869
-#, fuzzy, c-format
-#| msgid ""
-#| "format specifications in '%s' expect a tuple, those in '%s' expect a "
-#| "mapping"
+#, c-format
 msgid ""
 "format specifications in '%s' expect a hash table, those in '%s' expect "
 "individual arguments"
 msgstr ""
-"les especificacions de format de «%s» necessiten una tupla, les de «%s» un "
-"mapa"
+"les especificacions de format de «%s» necessiten una taula de dispersió, les "
+"de «%s» arguments individuals"
 
 #: src/format-ruby.c:876
-#, fuzzy, c-format
-#| msgid ""
-#| "format specifications in '%s' expect a mapping, those in '%s' expect a "
-#| "tuple"
+#, c-format
 msgid ""
 "format specifications in '%s' expect individual arguments, those in '%s' "
 "expect a hash table"
 msgstr ""
-"les especificacions de format de «%s» necessiten un mapa, les de «%s» una "
-"tupla"
+"les especificacions de format de «%s» necessiten arguments individuals, les "
+"de «%s» una taula de dispersió"
 
 #: src/format-sh.c:78
 msgid "The string refers to a shell variable with a non-ASCII name."
@@ -1617,19 +1535,16 @@ msgstr "no s’ha pogut llegir «%s»: %s"
 msgid "cannot evaluate XPath location path: %s"
 msgstr "no s’ha pogut avaluar el camí d’ubicació d’XPath: %s"
 
-# Condició d’error.  No empra quote().  Nom de locale.  ivb
+# No empra quote() en cap de les 2.  ivb
 #: src/locating-rule.c:94
-#, fuzzy, c-format
-#| msgid "cannot extract rules for %s"
+#, c-format
 msgid "cannot find attribute %s on %s"
-msgstr "no s’han pogut extreure les regles per a «%s»"
+msgstr "no s’ha trobat l’atribut «%s» al node «%s»"
 
-# No empra quote().  És una plantilla.  ivb
 #: src/locating-rule.c:113 src/locating-rule.c:328
-#, fuzzy, c-format
-#| msgid "cannot locate ITS rules for %s"
+#, c-format
 msgid "cannot locate root element"
-msgstr "no s’han pogut trobar les regles  ITS per a la plantilla «%s»"
+msgstr "no s’ha trobat l’element arrel"
 
 # No empren quote().  El segon és un atribut.  ivb
 #: src/locating-rule.c:250
@@ -2649,7 +2564,7 @@ msgstr "«%s» només és vàlida amb «%s», «%s» o «%s»"
 #: src/msgfmt.c:711
 #, c-format
 msgid "cannot locate ITS rules for %s"
-msgstr "no s’han pogut trobar les regles  ITS per a la plantilla «%s»"
+msgstr "no s’han trobat les regles ITS per a la plantilla «%s»"
 
 #. TRANSLATORS: The prefix before a statistics message.  The argument
 #. is a file name or a comma separated list of file names.
@@ -2992,11 +2907,11 @@ msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr "  -f, --use-fuzzy      Empra a l’eixida les entrades difuses.\n"
 
 #: src/msgfmt.c:1055
-#, fuzzy, c-format
-#| msgid "      --no-obsolete           remove obsolete #~ messages\n"
+#, c-format
 msgid ""
 "      --no-convert            don't convert the messages to UTF-8 encoding\n"
-msgstr "      --no-obsolete    Elimina els missatges obsolets («#~»).\n"
+msgstr ""
+"      --no-convert     No converteix els missatges a la codificació UTF-8.\n"
 
 #: src/msgfmt.c:1057
 #, c-format
@@ -3004,6 +2919,9 @@ msgid ""
 "      --no-redundancy         don't pre-expand ISO C 99 <inttypes.h>\n"
 "                                format string directive macros\n"
 msgstr ""
+"      --no-redundancy    No preexpandeix les macros amb directives de "
+"cadena\n"
+"                       de format de «<inttypes.h>» d’ISO C 99.\n"
 
 #: src/msgfmt.c:1060
 #, c-format
@@ -3103,7 +3021,7 @@ msgstr "«%s» existeix però no s’ha pogut llegir"
 #: src/read-properties.c:609 src/read-stringtable.c:99 src/x-awk.c:139
 #: src/x-c.c:608 src/x-csharp.c:165 src/x-elisp.c:147 src/x-java.c:201
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
-#: src/x-perl.c:259 src/x-perl.c:334 src/x-perl.c:427 src/x-php.c:164
+#: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
 #: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
 #: src/x-ycp.c:91
@@ -3231,11 +3149,7 @@ msgstr ""
 
 # Multilínia.  ivb
 #: src/msginit.c:300
-#, fuzzy, c-format
-#| msgid ""
-#| "You are in a language indifferent environment.  Please set\n"
-#| "your LANG environment variable, as described in the ABOUT-NLS\n"
-#| "file.  This is necessary so you can test your translations.\n"
+#, c-format
 msgid ""
 "You are in a language indifferent environment.  Please set\n"
 "your LANG environment variable, as described in\n"
@@ -3243,9 +3157,9 @@ msgid ""
 "This is necessary so you can test your translations.\n"
 msgstr ""
 "El vostre entorn és indiferent a l’idioma.  Per favor, establiu el\n"
-"valor de la vostra variable d’entorn LANG, tal i com es descriu al\n"
-"fitxer «ABOUT-NLS».  Açò és necessari per a que pugueu comprovar les\n"
-"vostres traduccions.\n"
+"valor de la vostra variable d’entorn LANG, tal i com es descriu a\n"
+"<%s>.\n"
+"Açò és necessari per a que pugueu comprovar les vostres traduccions.\n"
 
 # Multilínia.  ivb
 #: src/msginit.c:326
@@ -3311,11 +3225,12 @@ msgstr ""
 
 # Espere que s’entenga…  ivb
 #: src/msginit.c:447
-#, fuzzy, c-format
-#| msgid "  -l, --locale=LL_CC          set target locale\n"
+#, c-format
 msgid "  -l, --locale=LL_CC[.ENCODING]  set target locale\n"
 msgstr ""
-"  -l, --locale=ii_PP    Estableix el locale objectiu (idioma i país).\n"
+"  -l, --locale=ii_PP[.CODIFICACIÓ]\n"
+"                       Estableix el locale objectiu (idioma, país i "
+"codificació).\n"
 
 #: src/msginit.c:449
 #, c-format
@@ -3379,17 +3294,17 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "Traduccions al català del paquet «%s»"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:86 src/msgl-iconv.c:262
+#: src/msgl-cat.c:181 src/msgl-charset.c:86 src/msgl-iconv.c:265
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "el joc de caràcters actual, «%s», no és un nom portable de codificació"
 
-#: src/msgl-cat.c:189 src/msgl-iconv.c:273
+#: src/msgl-cat.c:191 src/msgl-iconv.c:276
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "el fitxer d’entrada conté dos jocs de caràcters distints, «%s» i «%s»"
 
-#: src/msgl-cat.c:204
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
@@ -3397,7 +3312,7 @@ msgstr ""
 "el fitxer d’entrada «%s» no conté una entrada de capçalera amb una "
 "especificació de joc de caràcters"
 
-#: src/msgl-cat.c:208
+#: src/msgl-cat.c:210
 #, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
@@ -3406,25 +3321,29 @@ msgstr ""
 "el domini «%s» del fitxer d’entrada «%s» no conté una entrada de capçalera "
 "amb una especificació de joc de caràcters"
 
-#: src/msgl-cat.c:306 src/xg-message.c:342
+#: src/msgl-cat.c:308 src/xg-message.c:342
 #, c-format
 msgid "msgid '%s' is used without plural and with plural."
 msgstr ""
+"l’identificador de missatge «%s» s’empra tant en singular com en plural"
 
-#: src/msgl-cat.c:414 src/msgl-iconv.c:381
+#: src/msgl-cat.c:416 src/msgl-iconv.c:384
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr ""
 "el joc de caràcters destinació, «%s», no és un nom portable de codificació"
 
-#: src/msgl-cat.c:422 src/msgl-iconv.c:390
+# No usa quote().  ivb
+#: src/msgl-cat.c:424 src/msgl-iconv.c:393
 #, c-format
 msgid ""
 "Cannot write the control characters that protect file names with spaces in "
 "the %s encoding"
 msgstr ""
+"la codificació «%s» no permet escriure els caràcters per a protegir els noms "
+"de fitxer amb espais"
 
-#: src/msgl-cat.c:474 src/msgl-cat.c:480 src/msgl-cat.c:497
+#: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
 #: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
 #: src/xg-message.c:340
@@ -3433,7 +3352,7 @@ msgid "warning: "
 msgstr "avís: "
 
 # Multilínia.  ivb
-#: src/msgl-cat.c:475
+#: src/msgl-cat.c:477
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -3443,7 +3362,7 @@ msgstr ""
 "«UTF-8» entre altres.  Es convertirà l’eixida a «UTF-8».\n"
 
 # Multilínia.  ivb
-#: src/msgl-cat.c:481
+#: src/msgl-cat.c:483
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -3456,21 +3375,18 @@ msgstr ""
 "Es convertirà l’eixida en «UTF-8».  Per a seleccionar una altra\n"
 "codificació, useu l’opció «--to-code».\n"
 
-# Multilínia.  ivb
-#: src/msgl-cat.c:498
-#, fuzzy, c-format
-#| msgid ""
-#| "Input files contain messages in different encodings, UTF-8 among others.\n"
-#| "Converting the output to UTF-8.\n"
+# Multilínia.  Nom de codificació.  ivb
+#: src/msgl-cat.c:500
+#, c-format
 msgid ""
 "Input files contain messages referenced in file names with spaces.\n"
 "Converting the output to %s.\n"
 msgstr ""
-"Els fitxers d’entrada contenen missatges amb codificacions diferents,\n"
-"«UTF-8» entre altres.  Es convertirà l’eixida a «UTF-8».\n"
+"Els fitxers d’entrada contenen missatges referits en fitxers amb noms que\n"
+"contenen espais.  Es convertirà l’eixida a «%s».\n"
 
 # Multilínia.  ivb
-#: src/msgl-cat.c:536
+#: src/msgl-cat.c:538
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -3724,13 +3640,13 @@ msgstr "%s: l’entrada no és vàlida segons la codificació «%s»"
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s: error en convertir de la condificació «%s» a la codificació «%s»"
 
-#: src/msgl-iconv.c:303
+#: src/msgl-iconv.c:306
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr ""
 "el fitxer d’entrada no conté una entrada de capçalera amb una especificació "
 "de joc de caràcters"
 
-#: src/msgl-iconv.c:317 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
+#: src/msgl-iconv.c:320 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
 #: src/xgettext.c:820 src/x-python.c:629
 #, c-format
 msgid ""
@@ -3741,7 +3657,7 @@ msgstr ""
 "permet l’ús d’aquesta conversió."
 
 # Es refereix a quelcom que _ha_ocorregut_.  ivb
-#: src/msgl-iconv.c:345
+#: src/msgl-iconv.c:348
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -3750,7 +3666,7 @@ msgstr ""
 "La conversió de «%s» a «%s» crea duplicats: alguns msgid diferents esdevenen "
 "iguals."
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:302 src/xgettext.c:826
+#: src/msgl-iconv.c:352 src/recode-sr-latin.c:302 src/xgettext.c:826
 #: src/x-python.c:635
 #, c-format
 msgid ""
@@ -3880,12 +3796,13 @@ msgstr ""
 "amb\n"
 "la variable d’entorn SIMPLE_BACKUP_SUFFIX.\n"
 
+# Nom de programa.  ivb
 #: src/msgmerge.c:607
-#, fuzzy, c-format
-#| msgid "      --boost                 recognize Boost format strings\n"
+#, c-format
 msgid ""
 "      --for-msgfmt            produce output for '%s', not for a translator\n"
-msgstr "      --boost          Reconeix les cadenes de format de Boost.\n"
+msgstr ""
+"      --for-msgfmt     Produeix eixida per a «%s», no per a un traductor.\n"
 
 #: src/msgmerge.c:612
 #, c-format
@@ -4085,8 +4002,8 @@ msgstr ""
 "  -u, --unique         Només mostra els missatges únics, descartant els\n"
 "                       duplicats.\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:104
-#: libgettextpo/gettext-po.c:152 libgettextpo/gettext-po.c:200
+#: src/open-catalog.c:56 libgettextpo/gettext-po.c:116
+#: libgettextpo/gettext-po.c:164 libgettextpo/gettext-po.c:212
 msgid "<stdin>"
 msgstr "<entrada estàndard>"
 
@@ -4271,10 +4188,10 @@ msgid "file \"%s\" contains a not NUL terminated string"
 msgstr "el fitxer «%s» conté una cadena no acabada en nul"
 
 #: src/read-mo.c:178
-#, fuzzy, c-format
-#| msgid "file \"%s\" contains a not NUL terminated string"
+#, c-format
 msgid "file \"%s\" contains a not NUL terminated system dependent string"
-msgstr "el fitxer «%s» conté una cadena no acabada en nul"
+msgstr ""
+"el fitxer «%s» conté una cadena dependent del sistema no acabada en nul"
 
 #: src/read-mo.c:184 src/read-mo.c:292
 #, c-format
@@ -4289,25 +4206,28 @@ msgid "file \"%s\" contains a not NUL terminated string, at %s"
 msgstr "el fitxer «%s» conté una cadena no acabada en nul, en «%s»"
 
 #: src/read-mo.c:331
-#, fuzzy, c-format
-#| msgid "file \"%s\" is not in GNU .mo format"
+#, c-format
 msgid ""
 "file \"%s\" is not in GNU .mo format: The array of messages is not sorted."
-msgstr "el fitxer «%s» no és en el format MO de GNU"
+msgstr ""
+"el fitxer «%s» no és en el format MO de GNU: la seqüència de missatges no es "
+"troba ordenada"
 
 #: src/read-mo.c:346
-#, fuzzy, c-format
-#| msgid "file \"%s\" is not in GNU .mo format"
+#, c-format
 msgid "file \"%s\" is not in GNU .mo format: The hash table size is invalid."
-msgstr "el fitxer «%s» no és en el format MO de GNU"
+msgstr ""
+"el fitxer «%s» no és en el format MO de GNU: la mida de la taula de "
+"dispersió no és vàlida"
 
 #: src/read-mo.c:362
-#, fuzzy, c-format
-#| msgid "file \"%s\" is not in GNU .mo format"
+#, c-format
 msgid ""
 "file \"%s\" is not in GNU .mo format: The hash table contains invalid "
 "entries."
-msgstr "el fitxer «%s» no és en el format MO de GNU"
+msgstr ""
+"el fitxer «%s» no és en el format MO de GNU: la taula de dispersió conté "
+"entrades no vàlides"
 
 #: src/read-mo.c:369
 #, c-format
@@ -4315,6 +4235,8 @@ msgid ""
 "file \"%s\" is not in GNU .mo format: Some messages are not present in the "
 "hash table."
 msgstr ""
+"el fitxer «%s» no és en el format MO de GNU: alguns missatges no es troben a "
+"la taula de dispersió"
 
 #: src/read-mo.c:390
 #, c-format
@@ -4322,16 +4244,17 @@ msgid ""
 "file \"%s\" is not in GNU .mo format: Some messages are at a wrong index in "
 "the hash table."
 msgstr ""
+"el fitxer «%s» no és en el format MO de GNU: alguns missatges es troben en "
+"índexs incorrectes de la taula de dispersió"
 
 #: src/read-properties.c:357
 msgid "warning: invalid \\uxxxx syntax for Unicode character"
 msgstr "avís: la sintaxi «\\uxxxx» del caràcter Unicode no és vàlida"
 
 #: src/read-properties.c:429
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: lone surrogate U+%04X"
+#, c-format
 msgid "warning: lone surrogate U+%04X"
-msgstr "%s:%d: avís: el punt de codi surrogat U+%04X està solt"
+msgstr "avís: el punt de codi surrogat U+%04X està solt"
 
 #: src/read-properties.c:499 src/read-properties.c:534
 msgid "warning: invalid Unicode character"
@@ -4558,7 +4481,7 @@ msgid ""
 "%s\n"
 msgstr ""
 "El següent «msgctxt» conté caràcters no‐ASCII.  Açò causarà problemes als\n"
-"traductors que empren una codificació de caràcters diferent a la vostra.\n"
+"traductors que empren una codificació de caràcters diferent de la vostra.\n"
 "Considereu emprar un «msgctxt» purament ASCII en lloc d’aquest.\n"
 "%s\n"
 
@@ -4572,7 +4495,7 @@ msgid ""
 "%s\n"
 msgstr ""
 "El següent «msgid» conté caràcters no‐ASCII.  Açò causarà problemes als\n"
-"traductors que empren una codificació de caràcters diferent a la vostra.\n"
+"traductors que empren una codificació de caràcters diferent de la vostra.\n"
 "Considereu emprar un «msgid» purament ASCII en lloc d’aquest.\n"
 "%s\n"
 
@@ -4667,12 +4590,12 @@ msgstr "%s:%d: avís: l’expressió regular no està terminada"
 #: src/x-python.c:1602 src/x-vala.c:1322 src/x-ycp.c:698 src/x-ycp.c:773
 #, c-format
 msgid "%s:%d: error: too many open parentheses"
-msgstr ""
+msgstr "%s:%d: error: massa parèntesis oberts"
 
 #: src/x-c.c:1117 src/x-vala.c:509
 #, c-format
 msgid "%s:%d: warning: hexadecimal escape sequence out of range"
-msgstr ""
+msgstr "%s:%d: avís: la seqüència d’escapada hexadecimal està fora de rang"
 
 #: src/x-c.c:1206 src/x-csharp.c:1333 src/x-python.c:1103 src/x-tcl.c:804
 #: src/x-vala.c:597
@@ -4680,25 +4603,25 @@ msgstr ""
 msgid "%s:%d: warning: invalid Unicode character"
 msgstr "%s:%d: avís: el caràcter Unicode no és vàlid"
 
+# Per exemple: «R""(…)"".  ivb
 #: src/x-c.c:1407
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string literal"
+#, c-format
 msgid ""
 "%s:%d: warning: a double-quote in the delimiter of a raw string literal is "
 "unsupported"
-msgstr "%s:%d: avís: el literal cadena no està terminat"
+msgstr ""
+"%s:%d: avís: no es permet la cometa («\"») com a delimitador d’un literal "
+"cadena en brut"
 
 #: src/x-c.c:1485
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string literal"
+#, c-format
 msgid "%s:%d: warning: unterminated raw string literal"
-msgstr "%s:%d: avís: el literal cadena no està terminat"
+msgstr "%s:%d: avís: el literal cadena en brut no està terminat"
 
 #: src/x-c.c:1495
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string literal"
+#, c-format
 msgid "%s:%d: warning: invalid raw string literal syntax"
-msgstr "%s:%d: avís: el literal cadena no està terminat"
+msgstr "%s:%d: avís: la sintaxi del literal cadena en brut no és vàlida"
 
 #: src/x-c.c:1704 src/x-csharp.c:1452 src/x-java.c:682 src/x-vala.c:839
 #, c-format
@@ -4787,7 +4710,7 @@ msgstr "%s:%d: avís: s’ha trobat «)» on s’esperava «}»"
 #: src/x-tcl.c:898
 #, c-format
 msgid "%s:%d: error: too many open braces"
-msgstr ""
+msgstr "%s:%d: error: massa claus obertes"
 
 #: src/x-csharp.c:2009 src/x-java.c:1644
 #, c-format
@@ -4798,11 +4721,12 @@ msgstr "%s:%d: avís: s’ha trobat «}» on s’esperava «)»"
 #, c-format
 msgid "%s:%d: error: too deeply nested escape sequence"
 msgstr ""
+"%s:%d: error: la seqüència d’escapada està imbricada a massa profunditat"
 
 #: src/x-elisp.c:649 src/x-librep.c:606 src/x-lisp.c:949 src/x-scheme.c:690
 #, c-format
 msgid "%s:%d: error: too deeply nested objects"
-msgstr ""
+msgstr "%s:%d: error: els objectes estan imbricats a massa profunditat"
 
 #: src/xg-arglist-parser.c:388
 #, c-format
@@ -4845,32 +4769,33 @@ msgstr "Hi ha una cadena no‐ASCII en «%s%s»."
 
 # Cadena amb format «nom_fitxer:línia».  ivb
 #: src/xg-encoding.c:92
-#, fuzzy, c-format
-#| msgid "Non-ASCII string at %s%s."
+#, c-format
 msgid "Non-ASCII XML tag at %s%s."
-msgstr "Hi ha una cadena no‐ASCII en «%s%s»."
+msgstr "Hi ha una etiqueta XML no‐ASCII en «%s%s»."
 
+# Cadena amb format «nom_fitxer:línia».  ivb
 #: src/xg-encoding.c:118
 #, c-format
 msgid "Character at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "El caràcter en «%s%s» no està codificat amb UTF-8."
 
 # Cadena amb format «nom_fitxer:línia».  ivb
 #: src/xg-encoding.c:123
-#, fuzzy, c-format
-#| msgid "Non-ASCII comment at or before %s%s."
+#, c-format
 msgid "Comment at or before %s%s is not UTF-8 encoded."
-msgstr "Hi ha un comentari no‐ASCII en o abans de «%s%s»."
+msgstr "El comentari en o abans de «%s%s» no està codificat amb UTF-8."
 
+# Cadena amb format «nom_fitxer:línia».  ivb
 #: src/xg-encoding.c:128
 #, c-format
 msgid "String at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "La cadena en «%s%s» no està codificada amb UTF-8."
 
+# Cadena amb format «nom_fitxer:línia».  ivb
 #: src/xg-encoding.c:134
 #, c-format
 msgid "XML tag at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "L’etiqueta XML en «%s%s» no està codificada en UTF-8."
 
 #: src/xgettext.c:590
 #, c-format
@@ -4902,7 +4827,7 @@ msgstr "«xgettext» no funciona sense paraules clau que cercar"
 #: src/xgettext.c:749
 #, c-format
 msgid "The option '%s' is deprecated."
-msgstr ""
+msgstr "l’opció «%s» està obsoleta"
 
 #: src/xgettext.c:873
 #, c-format
@@ -4915,6 +4840,8 @@ msgid ""
 "warning: a fallback ITS rule file '%s' is used; it may not be in sync with "
 "the upstream"
 msgstr ""
+"avís: s’empra el fitxer alternatiu «%s» de regles ITS; podria no estar al "
+"dia de l’original"
 
 #: src/xgettext.c:961
 #, c-format
@@ -4966,18 +4893,7 @@ msgid "Choice of input file language:\n"
 msgstr "Selecció del llenguatge del fitxer d’entrada:\n"
 
 #: src/xgettext.c:1103
-#, fuzzy, c-format
-#| msgid ""
-#| "  -L, --language=NAME         recognise the specified language\n"
-#| "                                (C, C++, ObjectiveC, PO, Shell, Python, "
-#| "Lisp,\n"
-#| "                                EmacsLisp, librep, Scheme, Smalltalk, "
-#| "Java,\n"
-#| "                                JavaProperties, C#, awk, YCP, Tcl, Perl, "
-#| "PHP,\n"
-#| "                                GCC-source, NXStringTable, RST, Glade, "
-#| "Lua,\n"
-#| "                                JavaScript, Vala, Desktop)\n"
+#, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
 "                                (C, C++, ObjectiveC, PO, Shell, Python, "
@@ -4993,9 +4909,9 @@ msgstr ""
 "librep,\n"
 "                       Scheme, Smalltalk, Java, JavaProperties, C#, awk, "
 "YCP,\n"
-"                       Tcl, Perl, PHP, GCC-source, NXStringTable, RST, "
-"Glade,\n"
-"                       Lua, JavaScript, Vala, Desktop).\n"
+"                       Tcl, Perl, PHP, Ruby, GCC-source, NXStringTable, "
+"RST,\n"
+"                       RSJ, Glade, Lua, JavaScript, Vala, Desktop).\n"
 
 #: src/xgettext.c:1110
 #, c-format
@@ -5225,10 +5141,9 @@ msgid "      --itstool               write out itstool comments\n"
 msgstr "      --itstool        Escriu comentaris adequats per a «itstool».\n"
 
 #: src/xgettext.c:1224
-#, fuzzy, c-format
-#| msgid "  -s, --sort-output           generate sorted output\n"
+#, c-format
 msgid "  -s, --sort-output           generate sorted output (deprecated)\n"
-msgstr "  -s, --sort-output    Genera una eixida ordenada.\n"
+msgstr "  -s, --sort-output    Genera una eixida ordenada (opció obsoleta).\n"
 
 #: src/xgettext.c:1230
 #, c-format
@@ -5387,18 +5302,20 @@ msgstr ""
 #: src/xg-message.c:344
 #, c-format
 msgid "%s%s: Here is the occurrence without plural."
-msgstr ""
+msgstr "%s:%s: Ací s’empra per al singular."
 
 #: src/xg-message.c:346
 #, c-format
 msgid "%s%s: Here is the occurrence with plural."
-msgstr ""
+msgstr "%s:%s: Ací s’empra per al plural."
 
 #: src/xg-message.c:348
 msgid ""
 "Workaround: If the msgid is a sentence, change the wording of the sentence; "
 "otherwise, use contexts for disambiguation."
 msgstr ""
+"Solució temporal: si l’identificador és una frase, reescriviu‐la; altrament, "
+"empreu contexts diferents per a fer la distinció."
 
 #: src/xg-mixed-string.c:496
 #, c-format
@@ -5406,16 +5323,14 @@ msgid "%s:%d: warning: lone surrogate U+%04X"
 msgstr "%s:%d: avís: el punt de codi surrogat U+%04X està solt"
 
 #: src/x-java.c:1208 src/x-java.c:1252
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string"
+#, c-format
 msgid "%s:%d: warning: unterminated text block"
-msgstr "%s:%d: avís: la cadena no està terminada"
+msgstr "%s:%d: avís: el bloc de text no està terminat"
 
 #: src/x-java.c:1221
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: invalid Unicode character"
+#, c-format
 msgid "%s:%d: warning: invalid syntax in text block"
-msgstr "%s:%d: avís: el caràcter Unicode no és vàlid"
+msgstr "%s:%d: avís: la sintaxi del bloc de text no és vàlida"
 
 #: src/x-javascript.c:238
 msgid "Please specify the source encoding through --from-code\n"
@@ -5490,104 +5405,90 @@ msgid "%s:%d: warning: unterminated XML markup"
 msgstr "%s:%d: avís: l’etiquetatge XML no està terminat"
 
 #: src/x-javascript.c:1370
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string"
+#, c-format
 msgid "%s:%d: warning: ignoring CDATA section"
-msgstr "%s:%d: avís: la cadena no està terminada"
+msgstr "%s:%d: avís: es descarta la secció «CDATA»"
 
 #: src/x-javascript.c:1729 src/x-lua.c:1130 src/x-php.c:1527
 #: src/x-python.c:1642 src/x-tcl.c:772
 #, c-format
 msgid "%s:%d: error: too many open brackets"
-msgstr ""
+msgstr "%s:%d: error: massa claudàtors oberts"
 
 #: src/x-javascript.c:1814
 #, c-format
 msgid "%s:%d: error: too many open XML elements"
-msgstr ""
+msgstr "%s:%d: error: massa elements XML oberts"
 
-#: src/x-perl.c:341
+#: src/x-perl.c:342
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr ""
 "%s:%d: no s’ha trobat el terminador de cadena «%s» abans del final de fitxer"
 
-#: src/x-perl.c:1081
+#: src/x-perl.c:1084
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: manca la clau dreta de «\\x{NÚMERO_HEX}»"
 
 # Sembla que «interpolació» és una expressió pròpia de Perl. ivb
-#: src/x-perl.c:1202
+#: src/x-perl.c:1205
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: la interpolació «\\l» del caràcter de 8 bits «%c» no és vàlida"
 
 # Sembla que «interpolació» és una expressió pròpia de Perl. ivb
-#: src/x-perl.c:1222
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: la interpolació «\\u» del caràcter de 8 bits «%c» no és vàlida"
 
 # Sembla que «interpolació» és una expressió pròpia de Perl. ivb
-#: src/x-perl.c:1256
+#: src/x-perl.c:1259
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: la interpolació de variable amb «%c» no és vàlida"
 
 # Sembla que «interpolació» és una expressió pròpia de Perl. ivb
-#: src/x-perl.c:1269
+#: src/x-perl.c:1272
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: la interpolació «\\L» del caràcter de 8 bits «%c» no és vàlida"
 
 # Sembla que «interpolació» és una expressió pròpia de Perl. ivb
-#: src/x-perl.c:1286
+#: src/x-perl.c:1289
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: la interpolació «\\U» del caràcter de 8 bits «%c» no és vàlida"
 
-#: src/x-perl.c:1728 src/x-perl.c:2780 src/x-perl.c:3122
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated regular expression"
+#: src/x-perl.c:1746 src/x-perl.c:2801 src/x-perl.c:3153
+#, c-format
 msgid "%s:%d: error: too deeply nested expressions"
-msgstr "%s:%d: avís: l’expressió regular no està terminada"
+msgstr "%s:%d: error: les expressions estan imbricades a massa profunditat"
 
 #: src/x-po.c:228
-#, fuzzy, c-format
-#| msgid ""
-#| "input file doesn't contain a header entry with a charset specification"
+#, c-format
 msgid ""
 "%s: input file doesn't contain a header entry with a charset specification"
 msgstr ""
-"el fitxer d’entrada no conté una entrada de capçalera amb una especificació "
-"de joc de caràcters"
+"%s: el fitxer d’entrada no conté una entrada de capçalera amb una "
+"especificació de joc de caràcters"
 
 # Multilínia.  ivb
 # Cadena amb format «nom_fitxer:línia».  ivb
 #: src/x-python.c:281
-#, fuzzy
-#| msgid ""
-#| "Please specify the source encoding through --from-code or through a "
-#| "comment\n"
-#| "as specified in http://www.python.org/peps/pep-0263.html.\n"
 msgid ""
 "Please specify the source encoding through --from-code or through a comment\n"
 "as specified in https://www.python.org/peps/pep-0263.html.\n"
 msgstr ""
 "Per favor, especifiqueu la codificació d’origen correcta amb\n"
 "«--from-code» o mitjançant un comentari com es descriu en\n"
-"http://www.python.org/peps/pep-0263.html.\n"
+"<https://www.python.org/peps/pep-0263.html>.\n"
 
 # Multilínia.  ivb
 # Hau!  ivb
 #: src/x-python.c:341
-#, fuzzy, c-format
-#| msgid ""
-#| "%s:%d: Long incomplete multibyte sequence.\n"
-#| "Please specify the correct source encoding through --from-code or through "
-#| "a\n"
-#| "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
+#, c-format
 msgid ""
 "%s:%d: Long incomplete multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
@@ -5596,16 +5497,11 @@ msgstr ""
 "%s:%d: La seqüència multioctet llarga no és completa.\n"
 "Per favor, especifiqueu la codificació d’origen correcta amb\n"
 "«--from-code» o mitjançant un comentari com es descriu en\n"
-"http://www.python.org/peps/pep-0263.html.\n"
+"<https://www.python.org/peps/pep-0263.html>.\n"
 
 # Multilínia.  ivb
 #: src/x-python.c:493
-#, fuzzy, c-format
-#| msgid ""
-#| "%s:%d: Invalid multibyte sequence.\n"
-#| "Please specify the correct source encoding through --from-code or through "
-#| "a\n"
-#| "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
+#, c-format
 msgid ""
 "%s:%d: Invalid multibyte sequence.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
@@ -5614,16 +5510,11 @@ msgstr ""
 "%s:%d: La seqüència multioctet no és vàlida.\n"
 "Per favor, especifiqueu la codificació d’origen correcta amb\n"
 "«--from-code» o mitjançant un comentari com es descriu en\n"
-"http://www.python.org/peps/pep-0263.html.\n"
+"<https://www.python.org/peps/pep-0263.html>.\n"
 
 # Multilínia.  ivb
 #: src/x-python.c:502
-#, fuzzy, c-format
-#| msgid ""
-#| "%s:%d: Incomplete multibyte sequence at end of file.\n"
-#| "Please specify the correct source encoding through --from-code or through "
-#| "a\n"
-#| "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of file.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
@@ -5632,16 +5523,11 @@ msgstr ""
 "%s:%d: Hi ha una seqüència multioctet incompleta al final del fitxer.\n"
 "Per favor, especifiqueu la codificació d’origen correcta amb\n"
 "«--from-code» o mitjançant un comentari com es descriu en\n"
-"http://www.python.org/peps/pep-0263.html.\n"
+"<https://www.python.org/peps/pep-0263.html>.\n"
 
 # Multilínia.  ivb
 #: src/x-python.c:511
-#, fuzzy, c-format
-#| msgid ""
-#| "%s:%d: Incomplete multibyte sequence at end of line.\n"
-#| "Please specify the correct source encoding through --from-code or through "
-#| "a\n"
-#| "comment as specified in http://www.python.org/peps/pep-0263.html.\n"
+#, c-format
 msgid ""
 "%s:%d: Incomplete multibyte sequence at end of line.\n"
 "Please specify the correct source encoding through --from-code or through a\n"
@@ -5650,7 +5536,7 @@ msgstr ""
 "%s:%d: Hi ha una seqüència multioctet incompleta al final de la línia.\n"
 "Per favor, especifiqueu la codificació d’origen correcta amb\n"
 "«--from-code» o mitjançant un comentari com es descriu en\n"
-"http://www.python.org/peps/pep-0263.html.\n"
+"<https://www.python.org/peps/pep-0263.html>.\n"
 
 # No multilínia.  ivb
 #: src/x-python.c:684
@@ -5674,26 +5560,24 @@ msgid "%s:%d: invalid string expression"
 msgstr "%s:%d: l’expressió de cadena no és vàlida"
 
 #: src/x-rst.c:677
-#, fuzzy, c-format
-#| msgid "%s:%d: invalid string definition"
+#, c-format
 msgid "%s:%d: invalid JSON syntax"
-msgstr "%s:%d: la definició de cadena no és vàlida"
+msgstr "%s:%d: la sintaxi JSON no és vàlida"
 
 #: src/x-rst.c:684
-#, fuzzy, c-format
-#| msgid "%s:%d: invalid string definition"
+#, c-format
 msgid "%s:%d: invalid RSJ syntax"
-msgstr "%s:%d: la definició de cadena no és vàlida"
+msgstr "%s:%d: la sintaxi RSJ no és vàlida"
 
 #: src/x-rst.c:692
 #, c-format
 msgid "%s:%d: invalid RSJ version. Only version 1 is supported."
-msgstr ""
+msgstr "%s:%d: la versió d’RSJ no és vàlida; només se n’admet la versió 1"
 
 #: src/x-ruby.c:89
 #, c-format
 msgid "(output from '%s')"
-msgstr ""
+msgstr "(eixida de «%s»)"
 
 # És una funció d’intèrpret.  ivb
 #: src/x-sh.c:1151
@@ -5702,20 +5586,20 @@ msgid ""
 "%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; "
 "use eval_gettext instead"
 msgstr ""
-"%s:%lu: avís: la sintaxi «$\"…\"» està desaprovada per motius de seguretat; "
+"%s:%lu: avís: la sintaxi «$\"…\"» està obsoleta per motius de seguretat; "
 "useu «eval_gettext» al seu lloc"
 
 #: src/x-sh.c:1512
 #, c-format
 msgid "%s:%d: error: too deeply nested command list"
-msgstr ""
+msgstr "%s:%d: error: la llista d’ordres està imbricada a massa profunditat"
 
 #: src/x-vala.c:647
 #, c-format
 msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr "%s:%d: avís: el literal expressió regular termina massa aviat"
 
-#: libgettextpo/gettext-po.c:86
+#: libgettextpo/gettext-po.c:98
 msgid "<unnamed>"
 msgstr "<sense nom>"
 
@@ -5847,52 +5731,3 @@ msgstr "dins d’un comentari o instrucció de processament"
 #, c-format
 msgid "document ended unexpectedly: %s"
 msgstr "el document ha acabat inesperadament: %s"
-
-#, c-format
-#~ msgid "%s: option '--%s' doesn't allow an argument\n"
-#~ msgstr "%s: l’opció «--%s» no admet arguments\n"
-
-#, c-format
-#~ msgid "%s: unrecognized option '--%s'\n"
-#~ msgstr "%s: l’opció «--%s» no és reconeguda\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' is ambiguous\n"
-#~ msgstr "%s: l’opció «-W %s» és ambígua\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' doesn't allow an argument\n"
-#~ msgstr "%s: l’opció «-W %s» no admet arguments\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' requires an argument\n"
-#~ msgstr "%s: l’opció «-W %s» necessita un argument\n"
-
-# Condició d’error.  Usa quote().  ivb
-#, c-format
-#~ msgid "setting permissions for %s"
-#~ msgstr "en establir els permissos de %s"
-
-#~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-#~ msgstr "Informeu dels errors a <bug-gnu-gettext@gnu.org>.\n"
-
-#, c-format
-#~ msgid "warning: PO file header fuzzy\n"
-#~ msgstr "avís: la capçalera del fitxer PO està marcada com a difusa\n"
-
-#, c-format
-#~ msgid "warning: older versions of msgfmt will give an error on this\n"
-#~ msgstr "avís: les versions antigues de «msgfmt» ho indicaran com un error\n"
-
-# Multilínia.  ivb
-#, c-format
-#~ msgid ""
-#~ "%s:%d: Invalid multibyte sequence.\n"
-#~ "Please specify the source encoding through --from-code or through a "
-#~ "comment\n"
-#~ "as specified in http://www.python.org/peps/pep-0263.html.\n"
-#~ msgstr ""
-#~ "%s:%d: La seqüència multioctet no és vàlida.\n"
-#~ "Per favor, especifiqueu la codificació d’origen correcta amb\n"
-#~ "«--from-code» o mitjançant un comentari com es descriu en\n"
-#~ "http://www.python.org/peps/pep-0263.html.\n"

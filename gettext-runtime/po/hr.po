@@ -11,18 +11,17 @@
 # Božidar Putanec <bozidarp@yahoo.com>, 2018, 2019, 2020, 2022, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.20.2\n"
+"Project-Id-Version: gettext-runtime 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
 "POT-Creation-Date: 2023-06-15 20:33+0200\n"
-"PO-Revision-Date: 2023-05-23 16:19-0700\n"
+"PO-Revision-Date: 2023-06-18 12:54-0700\n"
 "Last-Translator: Božidar Putanec <bozidarp@yahoo.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "Language: hr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "X-Generator: Poedit 3.3.1\n"
 
@@ -248,14 +247,12 @@ msgstr "  -c, --context=KONTEKST    specifikacija konteksta za MSGID\n"
 #: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
-msgstr ""
-"  -e                        omogući ekspanziju nekih kontrolnih nizova\n"
+msgstr "  -e                        omogući ekspanziju nekih kontrolnih nizova\n"
 
 #: src/gettext.c:267
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
-msgstr ""
-"  -n                        ne ostavlja prazni redak na kraju datoteke\n"
+msgstr "  -n                        ne ostavlja prazni redak na kraju datoteke\n"
 
 #: src/gettext.c:269 src/ngettext.c:233
 #, c-format
@@ -280,8 +277,7 @@ msgstr "  -h, --help                pokaže ovu pomoć i iziđe\n"
 #: src/gettext.c:279 src/ngettext.c:246
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
-msgstr ""
-"  -V, --version             informira o inačici ovog programa i iziđe\n"
+msgstr "  -V, --version             informira o inačici ovog programa i iziđe\n"
 
 #: src/gettext.c:283
 #, c-format, no-wrap
@@ -325,23 +321,17 @@ msgstr "  -d, --domain=TEKSTDOMENA  preuzme prevedene poruke iz TEKSTDOMENE\n"
 
 #: src/ngettext.c:235
 #, c-format
-msgid ""
-"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+msgid "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr "  [TEKSTDOMENA]             preuzme prevedene poruke iz TEKSTDOMENE\n"
 
 #: src/ngettext.c:237
 #, c-format
-msgid ""
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
-"(plural)\n"
-msgstr ""
-"  MSGID MSGID-PLURAL        prevede MSGID (singular) / MSGID-PLURAL "
-"(plural)\n"
+msgid "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+msgstr "  MSGID MSGID-PLURAL        prevede MSGID (singular) / MSGID-PLURAL (plural)\n"
 
 #: src/ngettext.c:239
 #, c-format
-msgid ""
-"  COUNT                     choose singular/plural form based on this value\n"
+msgid "  COUNT                     choose singular/plural form based on this value\n"
 msgstr "  BROJ                      odabere formu singular/plural po BROJU\n"
 
 #: src/ngettext.c:250
@@ -418,10 +408,8 @@ msgstr ""
 #~ "  -h, --help                display this help and exit\n"
 #~ "  -V, --version             display version information and exit\n"
 #~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
-#~ "(plural)\n"
-#~ "  COUNT                     choose singular/plural form based on this "
-#~ "value\n"
+#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+#~ "  COUNT                     choose singular/plural form based on this value\n"
 #~ msgstr ""
 #~ "  -d, --domain=TEKSTDOMENA  traži prevedene poruke iz TEKSTDOMENA\n"
 #~ "  -e                        omogući proširenje nekih escape sekvencija\n"
@@ -429,7 +417,5 @@ msgstr ""
 #~ "  -h, --help                pokaže ovu pomoć i iziđe\n"
 #~ "  -V, --version             informira o inačici ovog programa i iziđe\n"
 #~ "  [TEKSTDOMENA]             potraži prevedenu poruku u TEKSTDOMENI\n"
-#~ "  MSGID MSGID-PLURAL        prijevod za MSGID (jednina)/MSGID-PLURAL "
-#~ "(množina)\n"
-#~ "  BROJ                      odabere oblik za jd./mn. na temelju ovog "
-#~ "BROJA\n"
+#~ "  MSGID MSGID-PLURAL        prijevod za MSGID (jednina)/MSGID-PLURAL (množina)\n"
+#~ "  BROJ                      odabere oblik za jd./mn. na temelju ovog BROJA\n"

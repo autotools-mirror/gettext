@@ -1,10 +1,10 @@
 # Mesajele în limba română pentru pachetul gettext-runtime.
-# Copyright (C) 2019 Free Software Foundation, Inc.
+# Copyright © 2019, 2022, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 #
 # Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
 # Daniel Șerbănescu <daniel@serbanescu.dk>, 2019.
-# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2022.
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2022-2023.
 #
 # Cronologia traducerii fișierului „gettext-runtime”:
 # Traducerea inițială, făcută de EH, pentru versiunea gettext-runtime 0.12.1, 2003.
@@ -15,24 +15,25 @@
 # NU și a mesajelor traduse (acestea au rămas neschimbate).
 # Eliminare a mesajelor ce-au dispărut în ultima versiune.
 # Actualizări realizate de Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 15.01.2022.
-# Actualizare a traducerii pentru versiunea 0.20.2 făcută de R-GC, 2022.
+# Actualizare a traducerii pentru versiunea 0.20.2 făcută de R-GC, mai-2022.
+# Actualizare a traducerii pentru versiunea 0.22 făcută de R-GC, iun-2023.
+# Actualizare a traducerii pentru versiunea Y, făcută de X, Z(luna-anul).
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.20.2\n"
+"Project-Id-Version: gettext-runtime 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
 "POT-Creation-Date: 2023-06-15 20:33+0200\n"
-"PO-Revision-Date: 2022-05-30 00:49+0200\n"
+"PO-Revision-Date: 2023-06-18 09:58+0200\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
 "Language: ro\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < "
-"20)) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #: gnulib-lib/closeout.c:66
@@ -92,7 +93,7 @@ msgid ""
 msgstr ""
 "Drepturi de autor © %s Free Software Foundation, Inc.\n"
 "Licență GPLv3+: GNU GPL versiunea 3 sau ulterioară <%s>\n"
-"Acesta este un program liber: sunteți liberi să-l modificați și să-l redistribuiți.\n"
+"Acesta este software liber: sunteți liberi să-l modificați și să-l redistribuiți.\n"
 "Nu există NICIO GARANȚIE, în cadrul limitelor legale.\n"
 
 #: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
@@ -108,12 +109,12 @@ msgstr "Bruno Haible"
 #: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
-msgstr "prea mulți parametri"
+msgstr "prea mulți argumente"
 
 #: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
-msgstr "parametri lipsă"
+msgstr "argumente lipsă"
 
 #: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
 #, c-format
@@ -203,8 +204,7 @@ msgid ""
 msgstr ""
 "Raportați erorile în sistemul de urmărire a erorilor la <%s>\n"
 "sau prin e-mail la <%s>.\n"
-"Raportați erorile de traducere la <translation-team-ro@lists.sourceforge."
-"net>\n"
+"Raportați erorile de traducere la <translation-team-ro@lists.sourceforge.net>\n"
 
 #: src/envsubst.c:451
 #, c-format
@@ -251,9 +251,7 @@ msgstr "  -c, --context=CONTEXT       specifică contextul pentru MSGID\n"
 #: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
-msgstr ""
-"  -e                          activează expansiunea unor caractere de "
-"eludare\n"
+msgstr "  -e                          activează expansiunea unor caractere de eludare\n"
 
 #: src/gettext.c:267
 #, c-format
@@ -282,8 +280,7 @@ msgstr "  -h, --help                  afișează acest mesaj de ajutor și iese\
 #: src/gettext.c:279 src/ngettext.c:246
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
-msgstr ""
-"  -V, --version               afișează informații despre versiune și iese\n"
+msgstr "  -V, --version               afișează informații despre versiune și iese\n"
 
 #: src/gettext.c:283
 #, c-format, no-wrap
@@ -331,26 +328,18 @@ msgstr "  -d, --domain=DOMENIU_TEXT   preia mesajul tradus din DOMENIU_TEXT\n"
 
 #: src/ngettext.c:235
 #, c-format
-msgid ""
-"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+msgid "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr "  [DOMENIU_TEXT]              preia mesajul tradus din DOMENIU_TEXT\n"
 
 #: src/ngettext.c:237
 #, c-format
-msgid ""
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
-"(plural)\n"
-msgstr ""
-"  MSGID MSGID-PLURAL          traduce MSGID (singular) / MSGID-PLURAL "
-"(plural)\n"
+msgid "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+msgstr "  MSGID MSGID-PLURAL          traduce MSGID (singular) / MSGID-PLURAL (plural)\n"
 
 #: src/ngettext.c:239
 #, c-format
-msgid ""
-"  COUNT                     choose singular/plural form based on this value\n"
-msgstr ""
-"  CONTOR                      alege forma de singular/plural pe baza acestei "
-"valori \n"
+msgid "  COUNT                     choose singular/plural form based on this value\n"
+msgstr "  CONTOR                      alege forma de singular/plural pe baza acestei valori \n"
 
 #: src/ngettext.c:250
 #, c-format, no-wrap

@@ -1,10 +1,10 @@
 # Mesajele în limba română pentru pachetul gettext-tools.
-# Copyright (C) 2003 Free Software Foundation, Inc.
+# Copyright © 2003, 2022, 2023 Free Software Foundation, Inc.
 # Acest fișier este distribuit sub aceeași licență ca pachetul gettext-tools.
 # This file is distributed under the same license as the gettext package.
 #
 # Eugen Hoanca <eugenh@urban-grafx.ro>, 2003.
-# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2022.
+# Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 2022 - 2023.
 #
 # Cronologia traducerii fișierului „gettext-tools”:
 # Traducere inițială, făcută de EH, pentru versiunea gettext-tools 0.13-pre1, 2003.
@@ -15,14 +15,16 @@
 # NU și a mesajelor traduse (acestea au rămas neschimbate).
 # Eliminare a mesajelor ce-au dispărut în ultima versiune.
 # Actualizări realizate de Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>, 15.01.2022.
-# Actualizare a traducerii pentru versiunea 0.21 făcută de R-GC, 2022.
+# Actualizare a traducerii pentru versiunea 0.21 făcută de R-GC, mai-2022.
+# Actualizare a traducerii pentru versiunea 0.22 făcută de R-GC, iun-2023.
+# Actualizare a traducerii pentru versiunea Y, făcută de X, Z(luna-anul).
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.21\n"
+"Project-Id-Version: gettext-tools 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 23:40+0200\n"
-"PO-Revision-Date: 2022-05-30 01:06+0200\n"
+"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"PO-Revision-Date: 2023-06-18 13:29+0200\n"
 "Last-Translator: Remus-Gabriel Chelu <remusgabriel.chelu@disroot.org>\n"
 "Language-Team: Romanian <translation-team-ro@lists.sourceforge.net>\n"
 "Language: ro\n"
@@ -32,7 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=((n==1) ? 0 : (n==2) ? 1 : (n==0 || (n%100 "
 "> 0 && n%100 < 20)) ? 2 : 3);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: gnulib-lib/argmatch.c:145
 #, c-format
@@ -135,83 +137,79 @@ msgstr "subprocesul %s a eșuat"
 
 #: gnulib-lib/gai_strerror.c:57
 msgid "Address family for hostname not supported"
-msgstr ""
+msgstr "Familia de adrese pentru numele de gazdă nu este acceptată"
 
 #: gnulib-lib/gai_strerror.c:58
 msgid "Temporary failure in name resolution"
-msgstr ""
+msgstr "Eșec temporar în rezolvarea numelui"
 
 #: gnulib-lib/gai_strerror.c:59
 msgid "Bad value for ai_flags"
-msgstr ""
+msgstr "Valoare greșită pentru ai_flags"
 
 #: gnulib-lib/gai_strerror.c:60
 msgid "Non-recoverable failure in name resolution"
-msgstr ""
+msgstr "Eșec nerecuperabil în rezolvarea numelui"
 
 #: gnulib-lib/gai_strerror.c:61
 msgid "ai_family not supported"
-msgstr ""
+msgstr "ai_family nu este acceptată"
 
 #: gnulib-lib/gai_strerror.c:62
 msgid "Memory allocation failure"
-msgstr ""
+msgstr "Eșec la alocarea memoriei"
 
 #: gnulib-lib/gai_strerror.c:63
 msgid "No address associated with hostname"
-msgstr ""
+msgstr "Nicio adresă asociată cu numele de gazdă"
 
 #: gnulib-lib/gai_strerror.c:64
 msgid "Name or service not known"
-msgstr ""
+msgstr "Numele sau serviciul nu este cunoscut"
 
 #: gnulib-lib/gai_strerror.c:65
 msgid "Servname not supported for ai_socktype"
-msgstr ""
+msgstr "Numele serverului nu este acceptat pentru ai_socktype"
 
 #: gnulib-lib/gai_strerror.c:66
 msgid "ai_socktype not supported"
-msgstr ""
+msgstr "ai_socktype nu este acceptat"
 
 #: gnulib-lib/gai_strerror.c:67
-#, fuzzy
-#| msgid "write error"
 msgid "System error"
-msgstr "eroare de scriere"
+msgstr "Eroare de sistem"
 
 #: gnulib-lib/gai_strerror.c:68
 msgid "Argument buffer too small"
-msgstr ""
+msgstr "Memoria tampon pentru argumente este prea mică"
 
 #: gnulib-lib/gai_strerror.c:70
 msgid "Processing request in progress"
-msgstr ""
+msgstr "Procesarea cererii este în curs"
 
 #: gnulib-lib/gai_strerror.c:71
 msgid "Request canceled"
-msgstr ""
+msgstr "Cererea este anulată"
 
 #: gnulib-lib/gai_strerror.c:72
 msgid "Request not canceled"
-msgstr ""
+msgstr "Cererea nu este anulată"
 
 #: gnulib-lib/gai_strerror.c:73
 msgid "All requests done"
-msgstr ""
+msgstr "Toate cererile au fost procesate"
 
 #: gnulib-lib/gai_strerror.c:74
 msgid "Interrupted by a signal"
-msgstr ""
+msgstr "Întrerupt de un semnal"
 
 #: gnulib-lib/gai_strerror.c:75
 msgid "Parameter string not correctly encoded"
-msgstr ""
+msgstr "Șirul de parametru nu este corect codificat"
 
 #: gnulib-lib/gai_strerror.c:87
-#, fuzzy
-#| msgid "Unknown system error"
 msgid "Unknown error"
-msgstr "Eroare de sistem necunoscută"
+msgstr "Eroare necunoscută"
 
 #: gnulib-lib/getopt.c:278
 #, c-format
@@ -254,6 +252,8 @@ msgid ""
 "The java program is too old. Cannot compile Java code for this old version "
 "any more."
 msgstr ""
+"Programul java este prea vechi. Nu se mai poate compila codul Java pentru "
+"această versiune veche."
 
 #: gnulib-lib/javacomp.c:147
 #, c-format
@@ -286,40 +286,34 @@ msgid "error while writing \"%s\" file"
 msgstr "eroare în timpul scrierii fișierului „%s”"
 
 #: gnulib-lib/javacomp.c:1134
-#, fuzzy, c-format
-#| msgid "Java compiler not found, try installing gcj or set $JAVAC"
+#, c-format
 msgid "Java compiler not found, try setting $JAVAC"
 msgstr ""
-"Nu a fost găsit compilatorul Java, încercați să instalați gcj sau stabiliți "
-"variabila $JAVAC"
+"Nu a fost găsit compilatorul Java, încercați să definiți variabila $JAVAC"
 
 #: gnulib-lib/javaexec.c:309
-#, fuzzy, c-format
-#| msgid "Java virtual machine not found, try installing gij or set $JAVA"
+#, c-format
 msgid "Java virtual machine not found, try setting $JAVA"
 msgstr ""
-"Nu a fost găsită mașina virtuală Java, încercați să instalați gij sau să "
-"stabiliți variabila $JAVA"
+"Nu a fost găsită mașina virtuală Java, încercați să definiți variabila $JAVA"
 
 #: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1328 libgettextpo/obstack.c:337
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
 #: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
 msgstr "memorie epuizată"
 
 #: gnulib-lib/openat-die.c:38
-#, fuzzy, c-format
-#| msgid "error reading current directory"
+#, c-format
 msgid "unable to record current working directory"
-msgstr "eroare la citirea directorului curent"
+msgstr "nu s-a putut înregistra directorul de lucru curent"
 
 #: gnulib-lib/openat-die.c:57
-#, fuzzy, c-format
-#| msgid "failed to create directory \"%s\""
+#, c-format
 msgid "failed to return to initial working directory"
-msgstr "nu s-a putut crea directorul „%s”"
+msgstr "întoarcerea la directorul de lucru inițial a eșuat"
 
 #: gnulib-lib/os2-spawn.c:45
 #, c-format
@@ -620,145 +614,121 @@ msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
 msgstr ""
 "„%s” nu este un șir de format %s valid, spre deosebire de „%s”. Motiv: %s"
 
+# R-GC, scrie:
+# arg-id, l-am tradus ca:
+# „argumentul identificator”
+# ***
+# sper să nu însemne:
+# „identificatorul argumentului”,
+# c-am sfeclit-o :-)
 #: src/format-c++-brace.c:270
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the argument %d is negative."
+#, c-format
 msgid "In the directive number %u, the arg-id is too large."
-msgstr "În directiva numărul %u argumentul %d este negativ."
+msgstr "În directiva cu numărul %u, argumentul identificator este prea lung."
 
 #: src/format-c++-brace.c:383 src/format-c++-brace.c:477
-#, fuzzy, c-format
-#| msgid "In the directive number %u, a width is given twice."
+#, c-format
 msgid "In the directive number %u, the width's arg-id is too large."
-msgstr "În directiva numărul %u, o lățime este dată de două ori."
+msgstr ""
+"În directiva numărul %u, argumentul identificator al lățimii este prea mare."
 
 #: src/format-c++-brace.c:438
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the width's argument number 0 is not a "
-#| "positive integer."
+#, c-format
 msgid ""
 "In the directive number %u, the width's arg-id is not terminated through '}'."
 msgstr ""
-"În directiva cu numărul %u, lățimea argumentului numărul 0 nu este un întreg "
-"pozitiv."
+"În directiva cu numărul %u, argumentul identificator al lățimii nu se "
+"termină cu „}”."
 
 #: src/format-c++-brace.c:532
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision is missing."
+#, c-format
 msgid ""
 "In the directive number %u, the precision's arg-id is not terminated through "
 "'}'."
-msgstr "În directiva cu numărul %u, precizia lipsește."
+msgstr ""
+"În directiva cu numărul %u, argumentul identificator al preciziei nu se "
+"termină cu „}”."
 
 #: src/format-c++-brace.c:593
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the character '%c' is not a valid conversion "
-#| "specifier."
+#, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a standard type "
 "specifier."
 msgstr ""
-"În directiva cu numărul %u, caracterul „%c” nu este un specificator de "
-"conversie valid."
+"În directiva cu numărul %u, caracterul „%c” nu este un specificator de tip "
+"standard."
 
 #: src/format-c++-brace.c:594
-#, fuzzy, c-format
-#| msgid ""
-#| "The character that terminates the directive number %u is not a valid "
-#| "conversion specifier."
+#, c-format
 msgid ""
 "The character that terminates the directive number %u is not a standard type "
 "specifier."
 msgstr ""
 "Caracterul care finalizează directiva numărul %u nu este un specificator de "
-"conversie valid."
+"tip standard."
 
 #: src/format-c++-brace.c:602
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the sign specification is incompatible with the "
 "type specifier '%c'."
 msgstr ""
-"În directiva numărul %u, specificatorul de dimensiune este incompatibil cu "
-"specificatorul de conversie „%c”."
+"În directiva numărul %u, specificația semnului este incompatibilă cu "
+"specificatorul de tip „%c”."
 
 #: src/format-c++-brace.c:610
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '#' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"În directiva numărul %u, specificatorul de dimensiune este incompatibil cu "
-"specificatorul de conversie „%c”."
+"În directiva numărul %u, opțiunea „#” este incompatibilă cu specificatorul "
+"de tip „%c”."
 
 #: src/format-c++-brace.c:618
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '0' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"În directiva numărul %u, specificatorul de dimensiune este incompatibil cu "
-"specificatorul de conversie „%c”."
+"În directiva numărul %u, opțiunea „0” este incompatibilă cu specificatorul "
+"de tip „%c”."
 
 #: src/format-c++-brace.c:626
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the precision specification is incompatible with "
 "the type specifier '%c'."
 msgstr ""
-"În directiva numărul %u, specificatorul de dimensiune este incompatibil cu "
-"specificatorul de conversie „%c”."
+"În directiva numărul %u, specificația de precizie este incompatibilă cu "
+"specificatorul de tip „%c”."
 
 #: src/format-c++-brace.c:634
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the 'L' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"În directiva numărul %u, specificatorul de dimensiune este incompatibil cu "
-"specificatorul de conversie „%c”."
+"În directiva numărul %u, opțiunea „L” este incompatibilă cu specificatorul "
+"de tip „%c”."
 
 #: src/format-c++-brace.c:735
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the substring \"%s\" is not a valid date/time "
-#| "style."
+#, c-format
 msgid ""
 "The directive number %u, with all of its options, is not applicable to any "
 "type."
 msgstr ""
-"În directiva cu numărul %u, subșirul „%s” nu este un stil valid de dată/oră."
+"Directiva cu numărul %u, cu toate opțiunile sale, nu se aplică niciunui tip."
 
 #: src/format-c++-brace.c:747
-#, fuzzy, c-format
-#| msgid "The string ends in the middle of a directive."
+#, c-format
 msgid "The string ends in the middle of the directive number %u."
-msgstr "Șirul se termină în mijlocul unei directivei."
+msgstr "Șirul se termină în mijlocul directivei numărul %u."
 
 #: src/format-c++-brace.c:755
-#, fuzzy, c-format
-#| msgid ""
-#| "The directive number %u ends with an invalid character instead of '}'."
+#, c-format
 msgid "The directive number %u is not terminated through '}'."
-msgstr ""
-"Directiva cu numărul %u se termină cu un caracter nevalid în loc de „}”."
+msgstr "Directiva cu numărul %u nu se termină cu un caracter „}”."
 
 #: src/format-c++-brace.c:777 src/format-csharp.c:158 src/format-java.c:347
 msgid ""
@@ -779,18 +749,18 @@ msgid ""
 "The format specification for argument %u in '%s' is applicable to the types "
 "%s, but the format specification for argument %u in '%s' is not."
 msgstr ""
+"Specificația de format pentru argumentul %u din „%s” este aplicabilă "
+"tipurilor %s, dar specificația de format pentru argumentul %u din „%s” nu "
+"este."
 
 #: src/format-c++-brace.c:1003
-#, fuzzy, c-format
-#| msgid ""
-#| "a format specification for arguments %u and %u doesn't exist in '%s', "
-#| "only one argument may be ignored"
+#, c-format
 msgid ""
 "The format specification for argument %u in '%s' uses a different "
 "presentation than the format specification for argument %u in '%s'."
 msgstr ""
-"o specificație de format pentru argumentele %u și %u nu există în „%s”, doar "
-"un argument poate fi ignorat"
+"Specificația de format pentru argumentul %u din „%s” folosește o prezentare "
+"diferită de specificația de format pentru argumentul %u din „%s”."
 
 #: src/format-c.c:36
 #, c-format
@@ -808,10 +778,11 @@ msgid "In the directive number %u, the token after '<' is not followed by '>'."
 msgstr "În directiva cu numărul %u, simbolul după „<” nu este urmat de „>”."
 
 #: src/format-c.c:42
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision specification is invalid."
+#, c-format
 msgid "In the directive number %u, the argument size specifier is invalid."
-msgstr "În directiva cu numărul %u specificația de precizie nu este validă."
+msgstr ""
+"În directiva cu numărul %u specificația de dimensiune a argumentului nu este "
+"validă."
 
 #: src/format-c.c:45 src/format-gfc-internal.c:289
 #, c-format
@@ -1231,11 +1202,9 @@ msgid "In the directive number %u, '%c' cannot start a getitem argument."
 msgstr "În directiva numărul %u, „%c” nu poate începe un argument getitem."
 
 #: src/format-python-brace.c:204
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, there is an unterminated format directive."
+#, c-format
 msgid "In the directive number %u, there is an unterminated getitem argument."
-msgstr "În directiva numărul %u, există o directivă de format neterminată."
+msgstr "În directiva numărul %u, există un argument getitem neterminat."
 
 #: src/format-python-brace.c:221
 #, c-format
@@ -1346,12 +1315,12 @@ msgstr ""
 #: src/format-ruby.c:140
 #, c-format
 msgid "In the directive number %u, a flag is given after the width."
-msgstr "În directiva numărul %u, de dă un marcaj(flag) după lățime."
+msgstr "În directiva numărul %u, se dă un marcaj(flag) după lățime."
 
 #: src/format-ruby.c:143
 #, c-format
 msgid "In the directive number %u, a flag is given after the precision."
-msgstr "În directiva numărul %u, de dă un marcaj(flag) după precizie."
+msgstr "În directiva numărul %u, se dă un marcaj(flag) după precizie."
 
 #: src/format-ruby.c:146
 #, c-format
@@ -1527,19 +1496,17 @@ msgstr "nu poate citi %s: %s"
 #: src/its.c:1661
 #, c-format
 msgid "cannot evaluate XPath location path: %s"
-msgstr "nu se poate evalua calea locației XPath: %s"
+msgstr "nu se poate evalua ruta locației XPath: %s"
 
 #: src/locating-rule.c:94
-#, fuzzy, c-format
-#| msgid "cannot extract rules for %s"
+#, c-format
 msgid "cannot find attribute %s on %s"
-msgstr "nu se pot extrage reguli pentru %s"
+msgstr "nu poate găsi atributul %s în %s"
 
 #: src/locating-rule.c:113 src/locating-rule.c:328
-#, fuzzy, c-format
-#| msgid "cannot locate ITS rules for %s"
+#, c-format
 msgid "cannot locate root element"
-msgstr "nu se pot localiza regulile ITS pentru %s"
+msgstr "nu poate localiza elementul rădăcină"
 
 #: src/locating-rule.c:250
 #, c-format
@@ -2937,11 +2904,11 @@ msgstr ""
 "aproximative la ieșire\n"
 
 #: src/msgfmt.c:1055
-#, fuzzy, c-format
-#| msgid "      --no-obsolete           remove obsolete #~ messages\n"
+#, c-format
 msgid ""
 "      --no-convert            don't convert the messages to UTF-8 encoding\n"
-msgstr "      --no-obsolete            șterge mesajele învechite #~ \n"
+msgstr ""
+"      --no-convert            nu convertește mesajele la codificarea UTF-8\n"
 
 #: src/msgfmt.c:1057
 #, c-format
@@ -2949,6 +2916,9 @@ msgid ""
 "      --no-redundancy         don't pre-expand ISO C 99 <inttypes.h>\n"
 "                                format string directive macros\n"
 msgstr ""
+"      --no-redundancy         nu pre-expandează macrocomenzile directivei "
+"de\n"
+"                              format de șir ISO C 99 <inttypes.h>\n"
 
 #: src/msgfmt.c:1060
 #, c-format
@@ -3044,7 +3014,7 @@ msgstr "%s există, dar nu se poate citi"
 #: src/read-properties.c:609 src/read-stringtable.c:99 src/x-awk.c:139
 #: src/x-c.c:608 src/x-csharp.c:165 src/x-elisp.c:147 src/x-java.c:201
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
-#: src/x-perl.c:259 src/x-perl.c:334 src/x-perl.c:427 src/x-php.c:164
+#: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
 #: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
 #: src/x-ycp.c:91
@@ -3307,17 +3277,17 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "Traducerea în limba română pentru pachetul %s"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:86 src/msgl-iconv.c:262
+#: src/msgl-cat.c:181 src/msgl-charset.c:86 src/msgl-iconv.c:265
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "setul de caractere prezent „%s” nu este un nume de codificare portabil"
 
-#: src/msgl-cat.c:189 src/msgl-iconv.c:273
+#: src/msgl-cat.c:191 src/msgl-iconv.c:276
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "două seturi de caractere diferite „%s” și „%s” în fișierul de intrare"
 
-#: src/msgl-cat.c:204
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
@@ -3325,7 +3295,7 @@ msgstr ""
 "fișierul de intrare „%s” nu conține în antet o linie cu o specificație "
 "pentru setul de caractere"
 
-#: src/msgl-cat.c:208
+#: src/msgl-cat.c:210
 #, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
@@ -3334,25 +3304,27 @@ msgstr ""
 "domeniul „%s” din fișierul de intrare „%s” nu conține în antet o linie cu o "
 "specificație pentru setul de caractere"
 
-#: src/msgl-cat.c:306 src/xg-message.c:342
+#: src/msgl-cat.c:308 src/xg-message.c:342
 #, c-format
 msgid "msgid '%s' is used without plural and with plural."
 msgstr "msgid „%s” este folosit fără plural și cu plural."
 
-#: src/msgl-cat.c:414 src/msgl-iconv.c:381
+#: src/msgl-cat.c:416 src/msgl-iconv.c:384
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr ""
 "setul de caractere al țintei „%s” nu este un nume de codificare portabil."
 
-#: src/msgl-cat.c:422 src/msgl-iconv.c:390
+#: src/msgl-cat.c:424 src/msgl-iconv.c:393
 #, c-format
 msgid ""
 "Cannot write the control characters that protect file names with spaces in "
 "the %s encoding"
 msgstr ""
+"Nu se pot scrie caracterele de control care protejează numele fișierelor cu "
+"spații în codificarea %s"
 
-#: src/msgl-cat.c:474 src/msgl-cat.c:480 src/msgl-cat.c:497
+#: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
 #: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
 #: src/xg-message.c:340
@@ -3360,7 +3332,7 @@ msgstr ""
 msgid "warning: "
 msgstr "avertisment: "
 
-#: src/msgl-cat.c:475
+#: src/msgl-cat.c:477
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -3370,7 +3342,7 @@ msgstr ""
 "altele.\n"
 "Se convertește ieșirea în UTF-8.\n"
 
-#: src/msgl-cat.c:481
+#: src/msgl-cat.c:483
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -3384,20 +3356,17 @@ msgstr ""
 "Pentru a selecta o altă codificare de ieșire, utilizați opțiunea „--to-"
 "code”.\n"
 
-#: src/msgl-cat.c:498
-#, fuzzy, c-format
-#| msgid ""
-#| "Input files contain messages in different encodings, UTF-8 among others.\n"
-#| "Converting the output to UTF-8.\n"
+#: src/msgl-cat.c:500
+#, c-format
 msgid ""
 "Input files contain messages referenced in file names with spaces.\n"
 "Converting the output to %s.\n"
 msgstr ""
-"Fișierele de intrare conțin mesaje în diverse codificări, UTF-8 printre "
-"altele.\n"
-"Se convertește ieșirea în UTF-8.\n"
+"Fișierele de intrare conțin mesaje la care se face referire în nume de "
+"fișiere cu spații.\n"
+"Se convertește ieșirea în %s.\n"
 
-#: src/msgl-cat.c:536
+#: src/msgl-cat.c:538
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -3635,13 +3604,13 @@ msgstr "%s: intrarea nu este validă în codificarea „%s”"
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s: eroare la conversia de la codificarea „%s” la codificarea „%s”"
 
-#: src/msgl-iconv.c:303
+#: src/msgl-iconv.c:306
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr ""
 "fișierul de intrare nu conține o intrare de antet cu o specificație de set "
 "de caractere"
 
-#: src/msgl-iconv.c:317 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
+#: src/msgl-iconv.c:320 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
 #: src/xgettext.c:820 src/x-python.c:629
 #, c-format
 msgid ""
@@ -3651,7 +3620,7 @@ msgstr ""
 "Nu se poate converti din „%s” în „%s”. %s se bazează pe iconv(), iar iconv() "
 "nu acceptă această conversie."
 
-#: src/msgl-iconv.c:345
+#: src/msgl-iconv.c:348
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -3660,7 +3629,7 @@ msgstr ""
 "Conversia din „%s” în „%s” introduce duplicate: unele msgid-uri diferite "
 "devin identice."
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:302 src/xgettext.c:826
+#: src/msgl-iconv.c:352 src/recode-sr-latin.c:302 src/xgettext.c:826
 #: src/x-python.c:635
 #, c-format
 msgid ""
@@ -3993,8 +3962,8 @@ msgstr ""
 " -u, --unique                  afișează doar mesajele unice, omițând "
 "duplicatele\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:104
-#: libgettextpo/gettext-po.c:152 libgettextpo/gettext-po.c:200
+#: src/open-catalog.c:56 libgettextpo/gettext-po.c:116
+#: libgettextpo/gettext-po.c:164 libgettextpo/gettext-po.c:212
 msgid "<stdin>"
 msgstr "<stdin>"
 
@@ -4579,12 +4548,13 @@ msgstr "%s:%d: avertisment: expresie regulată neterminată"
 #: src/x-python.c:1602 src/x-vala.c:1322 src/x-ycp.c:698 src/x-ycp.c:773
 #, c-format
 msgid "%s:%d: error: too many open parentheses"
-msgstr ""
+msgstr "%s:%d: eroare: prea multe paranteze deschise"
 
 #: src/x-c.c:1117 src/x-vala.c:509
 #, c-format
 msgid "%s:%d: warning: hexadecimal escape sequence out of range"
 msgstr ""
+"%s:%d: avertisment: secvența de eludare hexazecimală în afara intervalului"
 
 #: src/x-c.c:1206 src/x-csharp.c:1333 src/x-python.c:1103 src/x-tcl.c:804
 #: src/x-vala.c:597
@@ -4690,7 +4660,7 @@ msgstr "%s:%d: avertisment: s-a găsit „)” unde se aștepta „}”"
 #: src/x-tcl.c:898
 #, c-format
 msgid "%s:%d: error: too many open braces"
-msgstr ""
+msgstr "%s:%d: eroare: prea multe acolade deschise"
 
 #: src/x-csharp.c:2009 src/x-java.c:1644
 #, c-format
@@ -4700,12 +4670,12 @@ msgstr "%s:%d: avertisment: s-a găsit „}” unde se aștepta „)”"
 #: src/x-elisp.c:452
 #, c-format
 msgid "%s:%d: error: too deeply nested escape sequence"
-msgstr ""
+msgstr "%s:%d: eroare: secvență de eludare imbricată prea profund"
 
 #: src/x-elisp.c:649 src/x-librep.c:606 src/x-lisp.c:949 src/x-scheme.c:690
 #, c-format
 msgid "%s:%d: error: too deeply nested objects"
-msgstr ""
+msgstr "%s:%d: eroare: obiecte imbricate prea adânc"
 
 #: src/xg-arglist-parser.c:388
 #, c-format
@@ -4745,31 +4715,29 @@ msgid "Non-ASCII string at %s%s."
 msgstr "Șir non-ASCII la %s%s."
 
 #: src/xg-encoding.c:92
-#, fuzzy, c-format
-#| msgid "Non-ASCII string at %s%s."
+#, c-format
 msgid "Non-ASCII XML tag at %s%s."
-msgstr "Șir non-ASCII la %s%s."
+msgstr "Etichetă XML non-ASCII la %s%s."
 
 #: src/xg-encoding.c:118
 #, c-format
 msgid "Character at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "Caracterul de la %s%s nu este codificat UTF-8."
 
 #: src/xg-encoding.c:123
-#, fuzzy, c-format
-#| msgid "Non-ASCII comment at or before %s%s."
+#, c-format
 msgid "Comment at or before %s%s is not UTF-8 encoded."
-msgstr "Comentariu non-ASCII la sau înainte de %s%s."
+msgstr "Comentariul la sau înainte de %s%s nu este codificat UTF-8."
 
 #: src/xg-encoding.c:128
 #, c-format
 msgid "String at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "Șirul de la %s%s nu este codificat UTF-8."
 
 #: src/xg-encoding.c:134
 #, c-format
 msgid "XML tag at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "Eticheta XML de la %s%s nu este codificată UTF-8."
 
 #: src/xgettext.c:590
 #, c-format
@@ -4802,7 +4770,7 @@ msgstr "«xgettext» nu poate funcționa fără cuvinte cheie pe care să-le cau
 #: src/xgettext.c:749
 #, c-format
 msgid "The option '%s' is deprecated."
-msgstr ""
+msgstr "Opțiunea „%s” este depreciată."
 
 #: src/xgettext.c:873
 #, c-format
@@ -5102,10 +5070,11 @@ msgid "      --itstool               write out itstool comments\n"
 msgstr "      --itstool                scrie comentarii itstool\n"
 
 #: src/xgettext.c:1224
-#, fuzzy, c-format
-#| msgid "  -s, --sort-output           generate sorted output\n"
+#, c-format
 msgid "  -s, --sort-output           generate sorted output (deprecated)\n"
-msgstr "  -s, --sort-output            generează ieșiri ordonate alfanumeric\n"
+msgstr ""
+"  -s, --sort-output           generează ieșiri ordonate alfanumeric "
+"(învechită)\n"
 
 #: src/xgettext.c:1230
 #, c-format
@@ -5345,73 +5314,69 @@ msgid "%s:%d: warning: unterminated XML markup"
 msgstr "%s:%d: avertisment: marcaj XML neterminat"
 
 #: src/x-javascript.c:1370
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string"
+#, c-format
 msgid "%s:%d: warning: ignoring CDATA section"
-msgstr "%s:%d: avertisment: șir neterminat"
+msgstr "%s:%d: avertisment: se ignoră secțiunea CDATA"
 
 #: src/x-javascript.c:1729 src/x-lua.c:1130 src/x-php.c:1527
 #: src/x-python.c:1642 src/x-tcl.c:772
 #, c-format
 msgid "%s:%d: error: too many open brackets"
-msgstr ""
+msgstr "%s:%d: eroare: prea multe paranteze drepte deschise"
 
 #: src/x-javascript.c:1814
 #, c-format
 msgid "%s:%d: error: too many open XML elements"
-msgstr ""
+msgstr "%s:%d: eroare: prea multe elemente XML deschise"
 
-#: src/x-perl.c:341
+#: src/x-perl.c:342
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr ""
 "%s:%d: nu se poate găsi terminatorul de șir „%s” nicăieri înainte de EOF"
 
-#: src/x-perl.c:1081
+#: src/x-perl.c:1084
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: lipsește acolada din dreapta în \\x{HEXNUMBER}"
 
-#: src/x-perl.c:1202
+#: src/x-perl.c:1205
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: interpolare nevalidă (\"\\l\") a caracterului pe 8biți „%c”"
 
-#: src/x-perl.c:1222
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: interpolare nevalidă (\"\\u\") a caracterului pe 8biți „%c”"
 
-#: src/x-perl.c:1256
+#: src/x-perl.c:1259
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: interpolare nevalidă de variabilă la „%c”"
 
-#: src/x-perl.c:1269
+#: src/x-perl.c:1272
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: interpolare nevalidă (\"\\L\") a caracterului pe 8biți „%c”"
 
-#: src/x-perl.c:1286
+#: src/x-perl.c:1289
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: interpolare nevalidă (\"\\U\") a caracterului pe 8biți „%c”"
 
-#: src/x-perl.c:1728 src/x-perl.c:2780 src/x-perl.c:3122
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated regular expression"
+#: src/x-perl.c:1746 src/x-perl.c:2801 src/x-perl.c:3153
+#, c-format
 msgid "%s:%d: error: too deeply nested expressions"
-msgstr "%s:%d: avertisment: expresie regulată neterminată"
+msgstr "%s:%d: eroare: expresii imbricate prea adânc"
 
 #: src/x-po.c:228
-#, fuzzy, c-format
-#| msgid ""
-#| "input file doesn't contain a header entry with a charset specification"
+#, c-format
 msgid ""
 "%s: input file doesn't contain a header entry with a charset specification"
 msgstr ""
-"fișierul de intrare nu conține o intrare de antet cu o specificație de set "
-"de caractere"
+"%s: fișierul de intrare nu conține o intrare de antet cu o specificație de "
+"set de caractere"
 
 #: src/x-python.c:281
 msgid ""
@@ -5527,7 +5492,7 @@ msgstr ""
 #: src/x-sh.c:1512
 #, c-format
 msgid "%s:%d: error: too deeply nested command list"
-msgstr ""
+msgstr "%s:%d: eroare: listă de comenzi imbricată prea profund"
 
 #: src/x-vala.c:647
 #, c-format
@@ -5535,7 +5500,7 @@ msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr ""
 "%s:%d: avertisment: expresia regulată literală s-a încheiat prea devreme"
 
-#: libgettextpo/gettext-po.c:86
+#: libgettextpo/gettext-po.c:98
 msgid "<unnamed>"
 msgstr "<nenumit>"
 

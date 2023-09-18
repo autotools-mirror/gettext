@@ -1,17 +1,17 @@
 # Swedish messages for gettext-tools
-# Copyright © 1996, 1997, 1998, 2001, 2002, 2003, 2007, 2010, 2013, 2014, 2016, 2019, 2020, 2021 Free Software Foundation, Inc.
+# Copyright © 1996, 1997, 1998, 2001, 2002, 2003, 2007, 2010, 2013, 2014, 2016, 2019, 2020, 2021, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 #
 # Jan Djärv <jan.h.d@swipnet.se>, 1998, 2001, 2002, 2003, 2006, 2007, 2010, 2013, 2014
-# Göran Uddeborg <goeran@uddeborg.se>, 2016, 2019, 2020, 2021.
+# Göran Uddeborg <goeran@uddeborg.se>, 2016, 2019, 2020, 2021, 2023.
 #
-# $Revision: 1.14 $
+# $Revision: 1.16 $
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.21\n"
+"Project-Id-Version: gettext-tools 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 23:40+0200\n"
-"PO-Revision-Date: 2021-06-01 11:31+0200\n"
+"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"PO-Revision-Date: 2023-06-21 22:07+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "Language: sv\n"
@@ -120,83 +120,79 @@ msgstr "%s-barnprocess misslyckades"
 
 #: gnulib-lib/gai_strerror.c:57
 msgid "Address family for hostname not supported"
-msgstr ""
+msgstr "Adressfamiljen för värdnamnet stödjs inte"
 
 #: gnulib-lib/gai_strerror.c:58
 msgid "Temporary failure in name resolution"
-msgstr ""
+msgstr "Tillfälligt fel vid namnuppslagning"
 
 #: gnulib-lib/gai_strerror.c:59
 msgid "Bad value for ai_flags"
-msgstr ""
+msgstr "Felaktigt värde på ai_flags"
 
 #: gnulib-lib/gai_strerror.c:60
 msgid "Non-recoverable failure in name resolution"
-msgstr ""
+msgstr "Misslyckande som ej går att återhämta i namnuppslagningen"
 
 #: gnulib-lib/gai_strerror.c:61
 msgid "ai_family not supported"
-msgstr ""
+msgstr "ai_family stödjs inte"
 
 #: gnulib-lib/gai_strerror.c:62
 msgid "Memory allocation failure"
-msgstr ""
+msgstr "Minnesallokeringsfel"
 
 #: gnulib-lib/gai_strerror.c:63
 msgid "No address associated with hostname"
-msgstr ""
+msgstr "Ingen adress associerad med värdnamnet"
 
 #: gnulib-lib/gai_strerror.c:64
 msgid "Name or service not known"
-msgstr ""
+msgstr "Namnet eller tjänsten är inte känd"
 
 #: gnulib-lib/gai_strerror.c:65
 msgid "Servname not supported for ai_socktype"
-msgstr ""
+msgstr "Servname stödjs inte för ai_socktype"
 
 #: gnulib-lib/gai_strerror.c:66
 msgid "ai_socktype not supported"
-msgstr ""
+msgstr "ai_socktype stödjs inte"
 
 #: gnulib-lib/gai_strerror.c:67
-#, fuzzy
-#| msgid "write error"
 msgid "System error"
-msgstr "skrivfel"
+msgstr "Systemfel"
 
 #: gnulib-lib/gai_strerror.c:68
 msgid "Argument buffer too small"
-msgstr ""
+msgstr "Argumentbufferten är för liten"
 
 #: gnulib-lib/gai_strerror.c:70
 msgid "Processing request in progress"
-msgstr ""
+msgstr "Bearbetning av begäran pågår"
 
 #: gnulib-lib/gai_strerror.c:71
 msgid "Request canceled"
-msgstr ""
+msgstr "Begäran avbruten"
 
 #: gnulib-lib/gai_strerror.c:72
 msgid "Request not canceled"
-msgstr ""
+msgstr "Begäran inte avbruten"
 
 #: gnulib-lib/gai_strerror.c:73
 msgid "All requests done"
-msgstr ""
+msgstr "Alla begäranden gjorda"
 
 #: gnulib-lib/gai_strerror.c:74
 msgid "Interrupted by a signal"
-msgstr ""
+msgstr "Avbruten av en signal"
 
 #: gnulib-lib/gai_strerror.c:75
 msgid "Parameter string not correctly encoded"
-msgstr ""
+msgstr "Parametersträngen är inte rätt kodad"
 
 #: gnulib-lib/gai_strerror.c:87
-#, fuzzy
-#| msgid "Unknown system error"
 msgid "Unknown error"
-msgstr "Okänt systemfel"
+msgstr "Okänt fel"
 
 #: gnulib-lib/getopt.c:278
 #, c-format
@@ -239,6 +235,8 @@ msgid ""
 "The java program is too old. Cannot compile Java code for this old version "
 "any more."
 msgstr ""
+"Javaprogrammet är för gammalt. Kan inte kompilera Javakod för denna gamla "
+"version längre."
 
 #: gnulib-lib/javacomp.c:147
 #, c-format
@@ -271,37 +269,32 @@ msgid "error while writing \"%s\" file"
 msgstr "fel vid skrivning till filen \"%s\""
 
 #: gnulib-lib/javacomp.c:1134
-#, fuzzy, c-format
-#| msgid "Java compiler not found, try installing gcj or set $JAVAC"
+#, c-format
 msgid "Java compiler not found, try setting $JAVAC"
-msgstr "Javakompilator hittades inte, försök installera gcj eller sätt $JAVAC"
+msgstr "Javakompilatorn hittades inte, försök att sätta $JAVAC"
 
 #: gnulib-lib/javaexec.c:309
-#, fuzzy, c-format
-#| msgid "Java virtual machine not found, try installing gij or set $JAVA"
+#, c-format
 msgid "Java virtual machine not found, try setting $JAVA"
-msgstr ""
-"Virtuell Javamaskin hittades inte, försök installera gij eller sätt $JAVA"
+msgstr "Virtuell Javamaskin hittades inte, försök att sätt $JAVA"
 
 #: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1328 libgettextpo/obstack.c:337
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
 #: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
 msgstr "minnet slut"
 
 #: gnulib-lib/openat-die.c:38
-#, fuzzy, c-format
-#| msgid "error reading current directory"
+#, c-format
 msgid "unable to record current working directory"
-msgstr "fel vid läsning av aktuell katalog"
+msgstr "kan inte notera aktuell arbetskatalog"
 
 #: gnulib-lib/openat-die.c:57
-#, fuzzy, c-format
-#| msgid "failed to create directory \"%s\""
+#, c-format
 msgid "failed to return to initial working directory"
-msgstr "misslyckades med att skapa katalogen \"%s\""
+msgstr "misslyckades med att återgå till den ursprungliga arbetskatalogen"
 
 #: gnulib-lib/os2-spawn.c:45
 #, c-format
@@ -601,140 +594,103 @@ msgstr ""
 "Orsak: %s"
 
 #: src/format-c++-brace.c:270
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the argument %d is negative."
+#, c-format
 msgid "In the directive number %u, the arg-id is too large."
-msgstr "I direktiv nummer %u är argument %d negativt."
+msgstr "I direktiv nummer %u är arg-id för stort."
 
 #: src/format-c++-brace.c:383 src/format-c++-brace.c:477
-#, fuzzy, c-format
-#| msgid "In the directive number %u, a width is given twice."
+#, c-format
 msgid "In the directive number %u, the width's arg-id is too large."
-msgstr "I direktiv nummer %u ges en bredd två gånger."
+msgstr "I direktiv nummer %u är breddens arg-id för stort."
 
 #: src/format-c++-brace.c:438
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the width's argument number 0 is not a "
-#| "positive integer."
+#, c-format
 msgid ""
 "In the directive number %u, the width's arg-id is not terminated through '}'."
-msgstr ""
-"I direktiv nummer %u är inte breddens argument nummer 0 ett positivt heltal."
+msgstr "I direktiv nummer %u är inte breddens arg-id avslutad med ”}”."
 
 #: src/format-c++-brace.c:532
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision is missing."
+#, c-format
 msgid ""
 "In the directive number %u, the precision's arg-id is not terminated through "
 "'}'."
-msgstr "I direktiv nummer %u saknas precisionen."
+msgstr "I direktiv nummer %u är inte precisionens arg-id avslutad med ”}”."
 
 #: src/format-c++-brace.c:593
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the character '%c' is not a valid conversion "
-#| "specifier."
+#, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a standard type "
 "specifier."
-msgstr "I direktiv nummer %u är inte tecknet \"%c\" en giltig konvertering."
+msgstr "I direktiv nummer %u är inte tecknet ”%c” en standardtypspecificerare."
 
 #: src/format-c++-brace.c:594
-#, fuzzy, c-format
-#| msgid ""
-#| "The character that terminates the directive number %u is not a valid "
-#| "conversion specifier."
+#, c-format
 msgid ""
 "The character that terminates the directive number %u is not a standard type "
 "specifier."
 msgstr ""
-"Tecknet som avslutar direktiv nummer %u är inte en giltig konvertering."
+"Tecknet som avslutar direktiv nummer %u är inte en en "
+"standardtypspecificerare."
 
 #: src/format-c++-brace.c:602
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the sign specification is incompatible with the "
 "type specifier '%c'."
 msgstr ""
-"I direktiv nummer %u är storleksbestämningen inkompatibel med konverteringen "
-"\"%c\"."
+"I direktiv nummer %u är teckenspecifikationen inkompatibel med "
+"typspecificeraren ”%c”."
 
 #: src/format-c++-brace.c:610
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '#' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"I direktiv nummer %u är storleksbestämningen inkompatibel med konverteringen "
-"\"%c\"."
+"I direktiv nummer %u är flaggan ”#” inkompatibel med typespecificeraren ”%c”."
 
 #: src/format-c++-brace.c:618
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '0' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"I direktiv nummer %u är storleksbestämningen inkompatibel med konverteringen "
-"\"%c\"."
+"I direktiv nummer %u är flaggan ”0” inkompatibel med typspecificeraren ”%c”."
 
 #: src/format-c++-brace.c:626
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the precision specification is incompatible with "
 "the type specifier '%c'."
 msgstr ""
-"I direktiv nummer %u är storleksbestämningen inkompatibel med konverteringen "
-"\"%c\"."
+"I direktiv nummer %u är precisionsspecifikationen inkompatibel med "
+"typspecificeraren ”%c”."
 
 #: src/format-c++-brace.c:634
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the 'L' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"I direktiv nummer %u är storleksbestämningen inkompatibel med konverteringen "
-"\"%c\"."
+"I direktiv nummer %u är flaggan ”L” inkompatibel med typspecificeraren ”%c”."
 
 #: src/format-c++-brace.c:735
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the substring \"%s\" is not a valid date/time "
-#| "style."
+#, c-format
 msgid ""
 "The directive number %u, with all of its options, is not applicable to any "
 "type."
 msgstr ""
-"I direktiv nummer %u är delsträngen \"%s\" inte en giltig datum/tid-stil."
+"Direktiv nummer %u, med alla dess flaggor, är inte tillämpligt på någon typ.c"
 
 #: src/format-c++-brace.c:747
-#, fuzzy, c-format
-#| msgid "The string ends in the middle of a directive."
+#, c-format
 msgid "The string ends in the middle of the directive number %u."
-msgstr "Strängen avslutas mitt i ett direktiv."
+msgstr "Strängen avslutas mitt i direktiv nummer %u."
 
 #: src/format-c++-brace.c:755
-#, fuzzy, c-format
-#| msgid ""
-#| "The directive number %u ends with an invalid character instead of '}'."
+#, c-format
 msgid "The directive number %u is not terminated through '}'."
-msgstr ""
-"Direktiv nummer %u avslutas med ett ogiltigt tecken istället för \"}\"."
+msgstr "Direktiv nummer %u avslutas inte med ”}”."
 
 #: src/format-c++-brace.c:777 src/format-csharp.c:158 src/format-java.c:347
 msgid ""
@@ -754,18 +710,17 @@ msgid ""
 "The format specification for argument %u in '%s' is applicable to the types "
 "%s, but the format specification for argument %u in '%s' is not."
 msgstr ""
+"Formatspecifikationen för argument %u i ”%s” är tillämplig på typerna %s, "
+"men det är inte formatspecifikationen för argument %u i ”%s”."
 
 #: src/format-c++-brace.c:1003
-#, fuzzy, c-format
-#| msgid ""
-#| "a format specification for arguments %u and %u doesn't exist in '%s', "
-#| "only one argument may be ignored"
+#, c-format
 msgid ""
 "The format specification for argument %u in '%s' uses a different "
 "presentation than the format specification for argument %u in '%s'."
 msgstr ""
-"formateringsdirektiv för argument %u och %u finns inte i ”%s”, endast ett "
-"argument kan ignoreras"
+"Formatspecifikationen för argument %u i ”%s” använderen annan presentation "
+"än formatspecifikationen för argument %u i ”%s”."
 
 #: src/format-c.c:36
 #, c-format
@@ -783,10 +738,9 @@ msgid "In the directive number %u, the token after '<' is not followed by '>'."
 msgstr "I direktiv nummer %u följs symbolen efter \"<\" inte av \">\"."
 
 #: src/format-c.c:42
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision specification is invalid."
+#, c-format
 msgid "In the directive number %u, the argument size specifier is invalid."
-msgstr "I direktiv nummer %u: precisionsspecifikationen är ogiltig."
+msgstr "I direktiv nummer %u är argumentstorlesspecificeraren felaktig."
 
 #: src/format-c.c:45 src/format-gfc-internal.c:289
 #, c-format
@@ -1184,11 +1138,9 @@ msgid "In the directive number %u, '%c' cannot start a getitem argument."
 msgstr "I direktiv nummer %u kan inte \"%c\" inleda ett getitem-argument."
 
 #: src/format-python-brace.c:204
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, there is an unterminated format directive."
+#, c-format
 msgid "In the directive number %u, there is an unterminated getitem argument."
-msgstr "I direktiv nummer %u finns ett oavslutat formatdirektiv."
+msgstr "I direktiv nummer %u finns ett oavslutat getitem-argument."
 
 #: src/format-python-brace.c:221
 #, c-format
@@ -1450,16 +1402,14 @@ msgid "cannot evaluate XPath location path: %s"
 msgstr "kan inte evaluera XPath-platssökväg: %s"
 
 #: src/locating-rule.c:94
-#, fuzzy, c-format
-#| msgid "cannot extract rules for %s"
+#, c-format
 msgid "cannot find attribute %s on %s"
-msgstr "kan inte extrahera regler för %s"
+msgstr "kan inte hitta attribut %s på %s"
 
 #: src/locating-rule.c:113 src/locating-rule.c:328
-#, fuzzy, c-format
-#| msgid "cannot locate ITS rules for %s"
+#, c-format
 msgid "cannot locate root element"
-msgstr "kan inte hitta ITS-regler för %s"
+msgstr "kan inte hitta rotelementet"
 
 #: src/locating-rule.c:250
 #, c-format
@@ -2736,11 +2686,12 @@ msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr "  -f, --use-fuzzy             använd luddiga poster i resultatet\n"
 
 #: src/msgfmt.c:1055
-#, fuzzy, c-format
-#| msgid "      --no-obsolete           remove obsolete #~ messages\n"
+#, c-format
 msgid ""
 "      --no-convert            don't convert the messages to UTF-8 encoding\n"
-msgstr "      --no-obsolete           ta bort föråldrade #~ meddelanden\n"
+msgstr ""
+"      --no-convert            konvertera inte meddelandena till UTF-8-"
+"kodning\n"
 
 #: src/msgfmt.c:1057
 #, c-format
@@ -2748,6 +2699,8 @@ msgid ""
 "      --no-redundancy         don't pre-expand ISO C 99 <inttypes.h>\n"
 "                                format string directive macros\n"
 msgstr ""
+"      --no-redundancy         förexpandera inte ISO C 99 <inttypes.h>\n"
+"                                makron för formatsträngsdirektiv\n"
 
 #: src/msgfmt.c:1060
 #, c-format
@@ -2840,7 +2793,7 @@ msgstr "%s finns men kan inte läsas"
 #: src/read-properties.c:609 src/read-stringtable.c:99 src/x-awk.c:139
 #: src/x-c.c:608 src/x-csharp.c:165 src/x-elisp.c:147 src/x-java.c:201
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
-#: src/x-perl.c:259 src/x-perl.c:334 src/x-perl.c:427 src/x-php.c:164
+#: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
 #: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
 #: src/x-ycp.c:91
@@ -3088,23 +3041,23 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "Svenska översättningar för paket %s"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:86 src/msgl-iconv.c:262
+#: src/msgl-cat.c:181 src/msgl-charset.c:86 src/msgl-iconv.c:265
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "nuvarande teckenuppsättning \"%s\" är inte ett portabelt kodningsnamn"
 
-#: src/msgl-cat.c:189 src/msgl-iconv.c:273
+#: src/msgl-cat.c:191 src/msgl-iconv.c:276
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "två olika teckenuppsättningar \"%s\" och \"%s\" i infilen"
 
-#: src/msgl-cat.c:204
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr "infilen \"%s\" saknar en huvudrad som anger teckenuppsättning"
 
-#: src/msgl-cat.c:208
+#: src/msgl-cat.c:210
 #, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
@@ -3112,24 +3065,25 @@ msgid ""
 msgstr ""
 "domän \"%s\" i infil \"%s\" saknar en huvudrad som anger teckenuppsättning"
 
-#: src/msgl-cat.c:306 src/xg-message.c:342
+#: src/msgl-cat.c:308 src/xg-message.c:342
 #, c-format
 msgid "msgid '%s' is used without plural and with plural."
 msgstr "msgid ”%s” används utan plural och med plural."
 
-#: src/msgl-cat.c:414 src/msgl-iconv.c:381
+#: src/msgl-cat.c:416 src/msgl-iconv.c:384
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "målteckenuppsättning \"%s\" är inte ett portabelt kodningsnamn"
 
-#: src/msgl-cat.c:422 src/msgl-iconv.c:390
+#: src/msgl-cat.c:424 src/msgl-iconv.c:393
 #, c-format
 msgid ""
 "Cannot write the control characters that protect file names with spaces in "
 "the %s encoding"
 msgstr ""
+"Kan inte skriva styrtecken som skyddar filnamn med blanktecken i kodningen %s"
 
-#: src/msgl-cat.c:474 src/msgl-cat.c:480 src/msgl-cat.c:497
+#: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
 #: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
 #: src/xg-message.c:340
@@ -3137,7 +3091,7 @@ msgstr ""
 msgid "warning: "
 msgstr "varning: "
 
-#: src/msgl-cat.c:475
+#: src/msgl-cat.c:477
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -3146,7 +3100,7 @@ msgstr ""
 "Infiler har meddelanden med flera kodningar, däribland UTF-8.\n"
 "Konverterar resultatet till UTF-8.\n"
 
-#: src/msgl-cat.c:481
+#: src/msgl-cat.c:483
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -3158,19 +3112,16 @@ msgstr ""
 "Konverterar resultatet till UTF-8.\n"
 "Använd flaggan --to-code för att välja en annan kodning.\n"
 
-#: src/msgl-cat.c:498
-#, fuzzy, c-format
-#| msgid ""
-#| "Input files contain messages in different encodings, UTF-8 among others.\n"
-#| "Converting the output to UTF-8.\n"
+#: src/msgl-cat.c:500
+#, c-format
 msgid ""
 "Input files contain messages referenced in file names with spaces.\n"
 "Converting the output to %s.\n"
 msgstr ""
-"Infiler har meddelanden med flera kodningar, däribland UTF-8.\n"
-"Konverterar resultatet till UTF-8.\n"
+"Infiler innehåller meddelanden refererade i filnamn med mellanslag.\n"
+"Konverterar utdata till %s.\n"
 
-#: src/msgl-cat.c:536
+#: src/msgl-cat.c:538
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -3395,11 +3346,11 @@ msgstr ""
 "%s: fel uppstod vid konvertering från teckenuppsättning \"%s\" till "
 "teckenuppsättning \"%s\""
 
-#: src/msgl-iconv.c:303
+#: src/msgl-iconv.c:306
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "infilen saknar en huvudrad som anger teckenuppsättning"
 
-#: src/msgl-iconv.c:317 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
+#: src/msgl-iconv.c:320 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
 #: src/xgettext.c:820 src/x-python.c:629
 #, c-format
 msgid ""
@@ -3409,7 +3360,7 @@ msgstr ""
 "Kan inte konvertera från ”%s” till ”%s”.  %s beror på iconv(), och iconv() "
 "stödjer inte denna konvertering."
 
-#: src/msgl-iconv.c:345
+#: src/msgl-iconv.c:348
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -3418,7 +3369,7 @@ msgstr ""
 "Konvertering från \"%s\" till \"%s\" ger duplikat: några msgid som skiljer "
 "sig blir lika."
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:302 src/xgettext.c:826
+#: src/msgl-iconv.c:352 src/recode-sr-latin.c:302 src/xgettext.c:826
 #: src/x-python.c:635
 #, c-format
 msgid ""
@@ -3724,8 +3675,8 @@ msgid ""
 msgstr ""
 "  -u, --unique                skriv bara unika meddelanden, duplikat kastas\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:104
-#: libgettextpo/gettext-po.c:152 libgettextpo/gettext-po.c:200
+#: src/open-catalog.c:56 libgettextpo/gettext-po.c:116
+#: libgettextpo/gettext-po.c:164 libgettextpo/gettext-po.c:212
 msgid "<stdin>"
 msgstr "<standard in>"
 
@@ -4285,12 +4236,12 @@ msgstr "%s:%d: varning: oavslutat reguljärt uttryck"
 #: src/x-python.c:1602 src/x-vala.c:1322 src/x-ycp.c:698 src/x-ycp.c:773
 #, c-format
 msgid "%s:%d: error: too many open parentheses"
-msgstr ""
+msgstr "%s:%d: fel: för många startparenteser"
 
 #: src/x-c.c:1117 src/x-vala.c:509
 #, c-format
 msgid "%s:%d: warning: hexadecimal escape sequence out of range"
-msgstr ""
+msgstr "%s:%d: varning: hexadecimal styrsekvens utanför intervallet"
 
 #: src/x-c.c:1206 src/x-csharp.c:1333 src/x-python.c:1103 src/x-tcl.c:804
 #: src/x-vala.c:597
@@ -4396,7 +4347,7 @@ msgstr "%s:%d: varning: \")\" hittades där \"}\" förväntades"
 #: src/x-tcl.c:898
 #, c-format
 msgid "%s:%d: error: too many open braces"
-msgstr ""
+msgstr "%s:%d: fel: för många startklamrar"
 
 #: src/x-csharp.c:2009 src/x-java.c:1644
 #, c-format
@@ -4406,12 +4357,12 @@ msgstr "%s:%d: varning: \"}\" hittades där \")\" förväntades"
 #: src/x-elisp.c:452
 #, c-format
 msgid "%s:%d: error: too deeply nested escape sequence"
-msgstr ""
+msgstr "%s:%d: fel: för djupt nästad styrsekvens"
 
 #: src/x-elisp.c:649 src/x-librep.c:606 src/x-lisp.c:949 src/x-scheme.c:690
 #, c-format
 msgid "%s:%d: error: too deeply nested objects"
-msgstr ""
+msgstr "%s:%d: fel: för djupt nästade objekt"
 
 #: src/xg-arglist-parser.c:388
 #, c-format
@@ -4449,31 +4400,29 @@ msgid "Non-ASCII string at %s%s."
 msgstr "Icke-ASCII-sträng vid %s%s."
 
 #: src/xg-encoding.c:92
-#, fuzzy, c-format
-#| msgid "Non-ASCII string at %s%s."
+#, c-format
 msgid "Non-ASCII XML tag at %s%s."
-msgstr "Icke-ASCII-sträng vid %s%s."
+msgstr "Icke-ASCII-XML-tagg vid %s%s."
 
 #: src/xg-encoding.c:118
 #, c-format
 msgid "Character at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "Tecknet vid %s%s är inte UTF-8-kodat."
 
 #: src/xg-encoding.c:123
-#, fuzzy, c-format
-#| msgid "Non-ASCII comment at or before %s%s."
+#, c-format
 msgid "Comment at or before %s%s is not UTF-8 encoded."
-msgstr "Icke-ASCII-kommentar vid eller före %s%s."
+msgstr "Kommentar vid eller före %s%s är inte UTF-8-kodad."
 
 #: src/xg-encoding.c:128
 #, c-format
 msgid "String at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "Strängen vid %s%s är inte UTF-8-kodad."
 
 #: src/xg-encoding.c:134
 #, c-format
 msgid "XML tag at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "XML-taggen vid %s%s är inte UTF-8-kodad."
 
 #: src/xgettext.c:590
 #, c-format
@@ -4504,7 +4453,7 @@ msgstr "xgettext måste ha nyckelord att söka efter för att fungera"
 #: src/xgettext.c:749
 #, c-format
 msgid "The option '%s' is deprecated."
-msgstr ""
+msgstr "Alternativet ”%s” är föråldrat."
 
 #: src/xgettext.c:873
 #, c-format
@@ -4782,10 +4731,9 @@ msgid "      --itstool               write out itstool comments\n"
 msgstr "      --itstool               skriv ut itstool-kommentarer\n"
 
 #: src/xgettext.c:1224
-#, fuzzy, c-format
-#| msgid "  -s, --sort-output           generate sorted output\n"
+#, c-format
 msgid "  -s, --sort-output           generate sorted output (deprecated)\n"
-msgstr "  -s, --sort-output           sortera resultatet\n"
+msgstr "  -s, --sort-output           generera sorterad utdata (föråldrad)\n"
 
 #: src/xgettext.c:1230
 #, c-format
@@ -5011,70 +4959,66 @@ msgid "%s:%d: warning: unterminated XML markup"
 msgstr "%s:%d: varning: oavslutad XML-tagg."
 
 #: src/x-javascript.c:1370
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string"
+#, c-format
 msgid "%s:%d: warning: ignoring CDATA section"
-msgstr "%s:%d: varning: oavslutad sträng"
+msgstr "%s:%d: varning: ignorerar CDATA-sektionen"
 
 #: src/x-javascript.c:1729 src/x-lua.c:1130 src/x-php.c:1527
 #: src/x-python.c:1642 src/x-tcl.c:772
 #, c-format
 msgid "%s:%d: error: too many open brackets"
-msgstr ""
+msgstr "%s:%d: fel: för många starthakparenteser"
 
 #: src/x-javascript.c:1814
 #, c-format
 msgid "%s:%d: error: too many open XML elements"
-msgstr ""
+msgstr "%s:%d: fel: för många start-XML-element"
 
-#: src/x-perl.c:341
+#: src/x-perl.c:342
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr "%s:%d: hittar inte strängslutet \"%s\" någonstans före filslut"
 
-#: src/x-perl.c:1081
+#: src/x-perl.c:1084
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: höger krullparentes fattas i \\x{HEXNUMMER}"
 
-#: src/x-perl.c:1202
+#: src/x-perl.c:1205
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: ogiltig sekvens (”\\l”) för 8-bitarstecknet ”%c”"
 
-#: src/x-perl.c:1222
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: ogiltig sekvens (”\\u”) för 8-bitarstecknet ”%c”"
 
-#: src/x-perl.c:1256
+#: src/x-perl.c:1259
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: ogiltig variabelinterpolation vid \"%c\""
 
-#: src/x-perl.c:1269
+#: src/x-perl.c:1272
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: ogiltig sekvens (”\\L”) för 8-bitarstecknet ”%c”"
 
-#: src/x-perl.c:1286
+#: src/x-perl.c:1289
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: ogiltig sekvens (”\\U”) för 8-bitarstecknet ”%c”"
 
-#: src/x-perl.c:1728 src/x-perl.c:2780 src/x-perl.c:3122
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated regular expression"
+#: src/x-perl.c:1746 src/x-perl.c:2801 src/x-perl.c:3153
+#, c-format
 msgid "%s:%d: error: too deeply nested expressions"
-msgstr "%s:%d: varning: oavslutat reguljärt uttryck"
+msgstr "%s:%d: fel: för djupt nästade uttryck"
 
 #: src/x-po.c:228
-#, fuzzy, c-format
-#| msgid ""
-#| "input file doesn't contain a header entry with a charset specification"
+#, c-format
 msgid ""
 "%s: input file doesn't contain a header entry with a charset specification"
-msgstr "infilen saknar en huvudrad som anger teckenuppsättning"
+msgstr "%s: infilen saknar en huvudrad som anger teckenuppsättning"
 
 #: src/x-python.c:281
 msgid ""
@@ -5180,14 +5124,14 @@ msgstr ""
 #: src/x-sh.c:1512
 #, c-format
 msgid "%s:%d: error: too deeply nested command list"
-msgstr ""
+msgstr "%s:%d: fel: för djupt nästad kommandolista"
 
 #: src/x-vala.c:647
 #, c-format
 msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr "%s:%d: varning: reguljärt uttryck avslutas för tidigt"
 
-#: libgettextpo/gettext-po.c:86
+#: libgettextpo/gettext-po.c:98
 msgid "<unnamed>"
 msgstr "<utan namn>"
 

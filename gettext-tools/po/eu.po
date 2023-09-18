@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.16\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 23:40+0200\n"
+"POT-Creation-Date: 2023-09-18 22:55+0200\n"
 "PO-Revision-Date: 2007-08-31 11:36+0200\n"
 "Last-Translator: Piarres Beobide <pi@beobide.net>\n"
 "Language-Team: Basque <translation-team-eu@lists.sourceforge.net>\n"
@@ -299,7 +299,7 @@ msgstr ""
 
 #: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1328 libgettextpo/obstack.c:337
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
 #: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
@@ -2792,7 +2792,7 @@ msgstr ""
 #: src/read-properties.c:609 src/read-stringtable.c:99 src/x-awk.c:139
 #: src/x-c.c:608 src/x-csharp.c:165 src/x-elisp.c:147 src/x-java.c:201
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
-#: src/x-perl.c:259 src/x-perl.c:334 src/x-perl.c:427 src/x-php.c:164
+#: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
 #: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
 #: src/x-ycp.c:91
@@ -3010,17 +3010,17 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "%s paketearen Ingelesezko itzulpena"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:86 src/msgl-iconv.c:262
+#: src/msgl-cat.c:181 src/msgl-charset.c:86 src/msgl-iconv.c:265
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "dagoen \"%s\" karaktere jokoa ez da kodeketa izen portable bat"
 
-#: src/msgl-cat.c:189 src/msgl-iconv.c:273
+#: src/msgl-cat.c:191 src/msgl-iconv.c:276
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "bi karaktere joko ezberdin \"%s\" eta \"%s\" sarrera fitxategian"
 
-#: src/msgl-cat.c:204
+#: src/msgl-cat.c:206
 #, fuzzy, c-format
 #| msgid ""
 #| "input file `%s' doesn't contain a header entry with a charset "
@@ -3029,31 +3029,31 @@ msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr "`%s' sarrera fitxategiak ez du karaktere joko ezarpena duen goibururik"
 
-#: src/msgl-cat.c:208
+#: src/msgl-cat.c:210
 #, fuzzy, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
 "charset specification"
 msgstr "s in s t a goiburua honekin a"
 
-#: src/msgl-cat.c:306 src/xg-message.c:342
+#: src/msgl-cat.c:308 src/xg-message.c:342
 #, c-format
 msgid "msgid '%s' is used without plural and with plural."
 msgstr ""
 
-#: src/msgl-cat.c:414 src/msgl-iconv.c:381
+#: src/msgl-cat.c:416 src/msgl-iconv.c:384
 #, fuzzy, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "s da a."
 
-#: src/msgl-cat.c:422 src/msgl-iconv.c:390
+#: src/msgl-cat.c:424 src/msgl-iconv.c:393
 #, c-format
 msgid ""
 "Cannot write the control characters that protect file names with spaces in "
 "the %s encoding"
 msgstr ""
 
-#: src/msgl-cat.c:474 src/msgl-cat.c:480 src/msgl-cat.c:497
+#: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
 #: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
 #: src/xg-message.c:340
@@ -3061,7 +3061,7 @@ msgstr ""
 msgid "warning: "
 msgstr "oharra: "
 
-#: src/msgl-cat.c:475
+#: src/msgl-cat.c:477
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -3071,7 +3071,7 @@ msgstr ""
 "artean.\n"
 "Irteera UTF-8 -ra bihurtzen.\n"
 
-#: src/msgl-cat.c:481
+#: src/msgl-cat.c:483
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -3084,7 +3084,7 @@ msgstr ""
 "Irteera UTF-8 -ra bihurtzen.\n"
 "BEste irteera kodeketa bat hautatzeko, --to-code aukera erabili.\n"
 
-#: src/msgl-cat.c:498
+#: src/msgl-cat.c:500
 #, fuzzy, c-format
 #| msgid ""
 #| "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -3097,7 +3097,7 @@ msgstr ""
 "artean.\n"
 "Irteera UTF-8 -ra bihurtzen.\n"
 
-#: src/msgl-cat.c:536
+#: src/msgl-cat.c:538
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -3331,12 +3331,12 @@ msgstr "%s: sarrera ez da baliozkoa \"%s\" kodeketan"
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s: errorea \"%s\" kodeketatik \"%s\" kodeketara bihurketa egitean"
 
-#: src/msgl-iconv.c:303
+#: src/msgl-iconv.c:306
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr ""
 "sarrera fitxategiak ez du karaktere jokoa ezartzen duen goiburu sarrerarik"
 
-#: src/msgl-iconv.c:317 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
+#: src/msgl-iconv.c:320 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
 #: src/xgettext.c:820 src/x-python.c:629
 #, c-format
 msgid ""
@@ -3346,14 +3346,14 @@ msgstr ""
 "Ezinda \"%s\"-tik \"%s\"-ra bihurketa egin. %s iconv() funtzioan "
 "oinarriturik dago, eta iconv() -ek ez du bihurketa hau onartzen."
 
-#: src/msgl-iconv.c:345
+#: src/msgl-iconv.c:348
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
 "msgids become equal."
 msgstr ""
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:302 src/xgettext.c:826
+#: src/msgl-iconv.c:352 src/recode-sr-latin.c:302 src/xgettext.c:826
 #: src/x-python.c:635
 #, c-format
 msgid ""
@@ -3620,8 +3620,8 @@ msgstr ""
 "  -u, --unique                mezu bakarrak bakarrik inprimatu, "
 "bikoiztutakoak alboratu\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:104
-#: libgettextpo/gettext-po.c:152 libgettextpo/gettext-po.c:200
+#: src/open-catalog.c:56 libgettextpo/gettext-po.c:116
+#: libgettextpo/gettext-po.c:164 libgettextpo/gettext-po.c:212
 msgid "<stdin>"
 msgstr "<irteera-estandarra>"
 
@@ -4928,43 +4928,43 @@ msgstr ""
 msgid "%s:%d: error: too many open XML elements"
 msgstr ""
 
-#: src/x-perl.c:341
+#: src/x-perl.c:342
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr ""
 "%s:%d: ez da kate amaiera aurkitzen \"%s\" fixtategi amaiera aurreko inon"
 
-#: src/x-perl.c:1081
+#: src/x-perl.c:1084
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: eskuin giltza falta da hemen:  \\x{HEXNUMBER}"
 
-#: src/x-perl.c:1202
+#: src/x-perl.c:1205
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: interpolazio baliogabea (\"\\l\") 8bit-eko karakterean\"%c\""
 
-#: src/x-perl.c:1222
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: interpolazio baliogabea (\"\\u\") 8bit-eko karakterean\"%c\""
 
-#: src/x-perl.c:1256
+#: src/x-perl.c:1259
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: aldagai interpolazio baliogabe a \"%c\"-en"
 
-#: src/x-perl.c:1269
+#: src/x-perl.c:1272
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: interpolazio baliogabea (\"\\L\") 8bit-eko karakterean\"%c\""
 
-#: src/x-perl.c:1286
+#: src/x-perl.c:1289
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: interpolazio baliogabea (\"\\U\") 8bit-eko karakterean\"%c\""
 
-#: src/x-perl.c:1728 src/x-perl.c:2780 src/x-perl.c:3122
+#: src/x-perl.c:1746 src/x-perl.c:2801 src/x-perl.c:3153
 #, fuzzy, c-format
 msgid "%s:%d: error: too deeply nested expressions"
 msgstr "s l"
@@ -5078,7 +5078,7 @@ msgstr ""
 msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr "s l katea"
 
-#: libgettextpo/gettext-po.c:86
+#: libgettextpo/gettext-po.c:98
 msgid "<unnamed>"
 msgstr "<izengabea>"
 

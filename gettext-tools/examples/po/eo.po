@@ -2,14 +2,14 @@
 # Copyright (C) 2006, 2016 Yoyodyne, Inc. (msgids)
 # This file is distributed under the same license as the gettext package.
 # Edmund GRIMLEY EVANS <edmundo@rano.org>, 2006.
-# Felipe CASTRO <fefcas@gmail.com>, 2016.
+# Felipe CASTRO <fefcas@gmail.com>, 2016, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.19.4.73\n"
+"Project-Id-Version: gettext-examples 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-09 02:16+0200\n"
-"PO-Revision-Date: 2016-02-22 08:54-0300\n"
+"POT-Creation-Date: 2023-09-18 23:34+0200\n"
+"PO-Revision-Date: 2023-06-23 19:00-0300\n"
 "Last-Translator: Felipe Castro <fefcas@gmail.com>\n"
 "Language-Team: Esperanto <translation-team-eo@lists.sourceforge.net>\n"
 "Language: eo\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: hello-c/hello.c:35 hello-c-gnome/hello.c:51
 #: hello-c-gnome3/hello.desktop.in.in:5 hello-c++/hello.cc:44
@@ -45,7 +46,7 @@ msgstr "Saluton, mondo!"
 #: hello-tcl-tk/hello.tcl:16 hello-perl/hello-1.pl.in:19 hello-php/hello.php:14
 #, php-format
 msgid "This program is running as process number %d."
-msgstr "Ĉi tiu programo rulas kiel procezo kun numero %d."
+msgstr "Ĉi tiu programo rulas kiel procez-numero %d."
 
 #: hello-c-gnome3/hello.c:84
 #, c-format
@@ -54,7 +55,7 @@ msgid ""
 "This program is running as process number <b>%d</b>."
 msgstr ""
 "<big>Saluton mondo!</big>\n"
-"Ĉi tiu programo rulas kiel procezo kun numero <b>%d</b>."
+"Ĉi tiu programo rulas kiel procez-numero <b>%d</b>."
 
 #: hello-c-gnome3/hello.c:89
 msgid "<big><u>This is another text</u></big>"
@@ -85,16 +86,15 @@ msgid "Whether to use XML markup in the text."
 msgstr "Ĉu uzi marklingvon XML en la teksto."
 
 #: hello-c++20/hello.cc:37
-#, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
+#, c++-format
 msgid "This program is running as process number {:d}."
-msgstr "Ĉi tiu programo rulas kiel procezo kun numero {pid}."
+msgstr "Ĉi tiu programo rulas kiel procez-numero {:d}."
 
 #: hello-c++-qt/hello.cc:57 hello-c++-kde/hellowindow.cc:54
 #: hello-smalltalk/hello.st.in:32 hello-ycp/hello.ycp:19
 #, ycp-format
 msgid "This program is running as process number %1."
-msgstr "Ĉi tiu programo rulas kiel procezo kun numero %1."
+msgstr "Ĉi tiu programo rulas kiel procez-numero %1."
 
 #: hello-c++-kde/hello.cc:46
 msgid "Hello example"
@@ -107,26 +107,26 @@ msgstr "Saluton-mondo-ekzemplo"
 #: hello-sh/hello.sh:17
 #, sh-format
 msgid "This program is running as process number $pid."
-msgstr "Ĉi tiu programo rulas kiel procezo kun numero $pid."
+msgstr "Ĉi tiu programo rulas kiel procez-numero $pid."
 
 #: hello-python/hello.py.in:13
 #, python-format
 msgid "This program is running as process number %(pid)d."
-msgstr "Ĉi tiu programo rulas kiel procezo kun numero %(pid)d."
+msgstr "Ĉi tiu programo rulas kiel procez-numero %(pid)d."
 
 #: hello-clisp/hello.lisp.in:13 hello-guile/hello.scm:17
 #, scheme-format
 msgid "This program is running as process number ~D."
-msgstr "Ĉi tiu programo rulas kiel procezo kun numero ~D."
+msgstr "Ĉi tiu programo rulas kiel procez-numero ~D."
 
 #: hello-java/Hello.java:18 hello-java-awt/Hello.java:28
 #: hello-java-swing/Hello.java:25 hello-java-qtjambi/Hello.java:34
 #: hello-csharp/hello.cs:17 hello-csharp-forms/hello.cs:36
 #, csharp-format
 msgid "This program is running as process number {0}."
-msgstr "Ĉi tiu programo rulas kiel procezo kun numero {0}."
+msgstr "Ĉi tiu programo rulas kiel procez-numero {0}."
 
 #: hello-perl/hello-2.pl.in:14
 #, perl-brace-format
 msgid "This program is running as process number {pid}."
-msgstr "Ĉi tiu programo rulas kiel procezo kun numero {pid}."
+msgstr "Ĉi tiu programo rulas kiel procez-numero {pid}."
