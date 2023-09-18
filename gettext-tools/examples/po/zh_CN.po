@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the gettext package.
 # Funda Wang <fundawang@linux.net.cn>, 2003.
 # Ji ZhengYu <zhengyuji@gmail.com>, 2015.
-# Boyuan Yang <073plan@gmail.com>, 2019.
+# Boyuan Yang <073plan@gmail.com>, 2019, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.20-rc1\n"
+"Project-Id-Version: gettext-examples 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-09 02:16+0200\n"
-"PO-Revision-Date: 2019-04-14 13:22-0400\n"
+"POT-Creation-Date: 2023-09-18 23:34+0200\n"
+"PO-Revision-Date: 2023-06-18 11:53-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: hello-c/hello.c:35 hello-c-gnome/hello.c:51
 #: hello-c-gnome3/hello.desktop.in.in:5 hello-c++/hello.cc:44
@@ -87,10 +87,9 @@ msgid "Whether to use XML markup in the text."
 msgstr "是否在文本中使用 XML 标记。"
 
 #: hello-c++20/hello.cc:37
-#, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
+#, c++-format
 msgid "This program is running as process number {:d}."
-msgstr "此程序正以进程号 {pid} 运行。"
+msgstr "此程序正以进程号 {:d} 运行。"
 
 #: hello-c++-qt/hello.cc:57 hello-c++-kde/hellowindow.cc:54
 #: hello-smalltalk/hello.st.in:32 hello-ycp/hello.ycp:19

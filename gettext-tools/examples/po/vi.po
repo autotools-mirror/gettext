@@ -4,14 +4,14 @@
 # Copyright © 2015 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 # Clytie Siddall <clytie@riverland.net.au>, 2005-2010.
-# Trần Ngọc Quân <vnwildman@gmail.com>, 2012, 2013, 2014, 2015.
+# Trần Ngọc Quân <vnwildman@gmail.com>, 2012-2015, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.19.4.73\n"
+"Project-Id-Version: gettext-examples 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-09 02:16+0200\n"
-"PO-Revision-Date: 2015-06-30 08:00+0700\n"
+"POT-Creation-Date: 2023-09-18 23:34+0200\n"
+"PO-Revision-Date: 2023-06-24 09:10+0700\n"
 "Last-Translator: Trần Ngọc Quân <vnwildman@gmail.com>\n"
 "Language-Team: Vietnamese <translation-team-vi@lists.sourceforge.net>\n"
 "Language: vi\n"
@@ -20,8 +20,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Langugae-Team-Website: <http://translationproject.org/team/vi.html>\n"
-"X-Generator: Gtranslator 2.91.7\n"
 
 #: hello-c/hello.c:35 hello-c-gnome/hello.c:51
 #: hello-c-gnome3/hello.desktop.in.in:5 hello-c++/hello.cc:44
@@ -79,7 +77,7 @@ msgstr "Ứng dụng mẫu"
 
 #: hello-c-gnome3/hello.ui:34
 msgid "Update text"
-msgstr "Văn bản cập nhật"
+msgstr "Cập nhật văn bản"
 
 #: hello-c-gnome3/hello.gschema.xml:8
 msgid "Use XML markup"
@@ -90,10 +88,9 @@ msgid "Whether to use XML markup in the text."
 msgstr "Có dùng đánh dấu XML trong văn bản hay không."
 
 #: hello-c++20/hello.cc:37
-#, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
+#, c++-format
 msgid "This program is running as process number {:d}."
-msgstr "Chương trình này đang chạy với mã số tiến trình {pid}."
+msgstr "Chương trình này đang chạy với mã số tiến trình {:d}."
 
 #: hello-c++-qt/hello.cc:57 hello-c++-kde/hellowindow.cc:54
 #: hello-smalltalk/hello.st.in:32 hello-ycp/hello.ycp:19

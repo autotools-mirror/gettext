@@ -5,10 +5,10 @@
 # Božidar Putanec <bozidarp@yahoo.com>, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools-0.21\n"
+"Project-Id-Version: gettext-tools-0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 23:40+0200\n"
-"PO-Revision-Date: 2023-05-25 17:56-0700\n"
+"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"PO-Revision-Date: 2023-06-18 16:17-0700\n"
 "Last-Translator: Božidar Putanec <bozidarp@yahoo.com>\n"
 "Language-Team: Croatian <lokalizacija@linux.hr>\n"
 "Language: hr\n"
@@ -120,83 +120,79 @@ msgstr "potproces %s nije uspio"
 
 #: gnulib-lib/gai_strerror.c:57
 msgid "Address family for hostname not supported"
-msgstr ""
+msgstr "Familija adresa za ime hosta nije podržana"
 
 #: gnulib-lib/gai_strerror.c:58
 msgid "Temporary failure in name resolution"
-msgstr ""
+msgstr "Privremeni neuspjeh u rješavanju imena"
 
 #: gnulib-lib/gai_strerror.c:59
 msgid "Bad value for ai_flags"
-msgstr ""
+msgstr "Loša vrijedonst za ai_flags"
 
 #: gnulib-lib/gai_strerror.c:60
 msgid "Non-recoverable failure in name resolution"
-msgstr ""
+msgstr "Nepopravljiv neuspjeh u rješavanju imena"
 
 #: gnulib-lib/gai_strerror.c:61
 msgid "ai_family not supported"
-msgstr ""
+msgstr "ai_family nije podržan"
 
 #: gnulib-lib/gai_strerror.c:62
 msgid "Memory allocation failure"
-msgstr ""
+msgstr "Neuspjeh pri dodijeli memorije"
 
 #: gnulib-lib/gai_strerror.c:63
 msgid "No address associated with hostname"
-msgstr ""
+msgstr "Nijedna adresa nije povezana s imenom hosta"
 
 #: gnulib-lib/gai_strerror.c:64
 msgid "Name or service not known"
-msgstr ""
+msgstr "Nepoznato ime ili servis"
 
 #: gnulib-lib/gai_strerror.c:65
 msgid "Servname not supported for ai_socktype"
-msgstr ""
+msgstr "Servname nije podržan za ai_socktype"
 
 #: gnulib-lib/gai_strerror.c:66
 msgid "ai_socktype not supported"
-msgstr ""
+msgstr "ai_socktype nije podržan"
 
 #: gnulib-lib/gai_strerror.c:67
-#, fuzzy
-#| msgid "write error"
 msgid "System error"
-msgstr "greška pri pisanju"
+msgstr "Sustavna greška"
 
 #: gnulib-lib/gai_strerror.c:68
 msgid "Argument buffer too small"
-msgstr ""
+msgstr "Premali spremnik za argument"
 
 #: gnulib-lib/gai_strerror.c:70
 msgid "Processing request in progress"
-msgstr ""
+msgstr "Zahtjev je u obradi"
 
 #: gnulib-lib/gai_strerror.c:71
 msgid "Request canceled"
-msgstr ""
+msgstr "Zahtjev je otkazan"
 
 #: gnulib-lib/gai_strerror.c:72
 msgid "Request not canceled"
-msgstr ""
+msgstr "Zahtjev nije otkazan"
 
 #: gnulib-lib/gai_strerror.c:73
 msgid "All requests done"
-msgstr ""
+msgstr "Svi zahtjevi su ispunjeni"
 
 #: gnulib-lib/gai_strerror.c:74
 msgid "Interrupted by a signal"
-msgstr ""
+msgstr "Prekinuto signalom"
 
 #: gnulib-lib/gai_strerror.c:75
 msgid "Parameter string not correctly encoded"
-msgstr ""
+msgstr "String parametra je pogrešno kodiran"
 
 #: gnulib-lib/gai_strerror.c:87
-#, fuzzy
-#| msgid "Unknown system error"
 msgid "Unknown error"
-msgstr "Nepoznata greška sustava"
+msgstr "Nepoznata greška"
 
 #: gnulib-lib/getopt.c:278
 #, c-format
@@ -239,6 +235,8 @@ msgid ""
 "The java program is too old. Cannot compile Java code for this old version "
 "any more."
 msgstr ""
+"Java program je prestar. Kompilacija Java koda za ovu staru verziju nije "
+"više moguća."
 
 #: gnulib-lib/javacomp.c:147
 #, c-format
@@ -271,37 +269,32 @@ msgid "error while writing \"%s\" file"
 msgstr "greška pri pisanju datoteke „%s“"
 
 #: gnulib-lib/javacomp.c:1134
-#, fuzzy, c-format
-#| msgid "Java compiler not found, try installing gcj or set $JAVAC"
+#, c-format
 msgid "Java compiler not found, try setting $JAVAC"
-msgstr "Java kompajler nije nađen; instalirajte ‘gcj’ ili postavite $JAVAC"
+msgstr "Java kompajler nije nađen; pokušajte postaviti $JAVAC"
 
 #: gnulib-lib/javaexec.c:309
-#, fuzzy, c-format
-#| msgid "Java virtual machine not found, try installing gij or set $JAVA"
+#, c-format
 msgid "Java virtual machine not found, try setting $JAVA"
-msgstr ""
-"Java virtualni stroj nije nađen; instalirajte ‘gij’ ili postavite $JAVA"
+msgstr "Java virtualni stroj nije nađen; pokušajte postaviti $JAVA"
 
 #: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1328 libgettextpo/obstack.c:337
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
 #: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
 msgstr "nema dovoljno memorije"
 
 #: gnulib-lib/openat-die.c:38
-#, fuzzy, c-format
-#| msgid "error reading current directory"
+#, c-format
 msgid "unable to record current working directory"
-msgstr "greška pri čitanju trenutnog direktorija"
+msgstr "nije moguće zapisati trenutni radni direktorij"
 
 #: gnulib-lib/openat-die.c:57
-#, fuzzy, c-format
-#| msgid "failed to create directory \"%s\""
+#, c-format
 msgid "failed to return to initial working directory"
-msgstr "nije uspjelo stvoriti direktorij „%s“"
+msgstr "nije se uspjelo vratiti u početni radni direktorij"
 
 #: gnulib-lib/os2-spawn.c:45
 #, c-format
@@ -332,7 +325,7 @@ msgstr "greška pri čitanju iz potprocesa %s"
 #: gnulib-lib/pipe-filter-ii.c:419
 #, c-format
 msgid "cannot set up nonblocking I/O to %s subprocess"
-msgstr "nije moguće postaviti neblokirajući ulaz/izlaz na potproces %s"
+msgstr "nije moguće postaviti ne blokirajući ulaz/izlaz na potproces %s"
 
 #: gnulib-lib/pipe-filter-ii.c:457
 #, c-format
@@ -597,140 +590,106 @@ msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
 msgstr "‘%s’ nije valjani string %s za format, za razliku od ‘%s’. Razlog: %s"
 
 #: src/format-c++-brace.c:270
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the argument %d is negative."
+#, c-format
 msgid "In the directive number %u, the arg-id is too large."
-msgstr "U direktivi broj %u, argument %d je negativan."
+msgstr "U direktivi broj %u, arg-id je prevelik."
 
 #: src/format-c++-brace.c:383 src/format-c++-brace.c:477
-#, fuzzy, c-format
-#| msgid "In the directive number %u, a width is given twice."
+#, c-format
 msgid "In the directive number %u, the width's arg-id is too large."
-msgstr "U direktivi broj %u, širina je navedena dva put."
+msgstr "U direktivi broj %u, arg-id od širine je prevelik."
 
 #: src/format-c++-brace.c:438
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the width's argument number 0 is not a "
-#| "positive integer."
+#, c-format
 msgid ""
 "In the directive number %u, the width's arg-id is not terminated through '}'."
-msgstr ""
-"U direktivi broj %u, argument širine broj 0 nije pozitivni cijeli broj."
+msgstr "U direktivi broj %u, arg-id od širine nije završen s ‘}’."
 
 #: src/format-c++-brace.c:532
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision is missing."
+#, c-format
 msgid ""
 "In the directive number %u, the precision's arg-id is not terminated through "
 "'}'."
-msgstr "U direktivi broj %u nema indikacije preciznosti."
+msgstr "U direktivi broj %u, arg-id od preciznosti nije završen s ‘}’."
 
 #: src/format-c++-brace.c:593
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the character '%c' is not a valid conversion "
-#| "specifier."
+#, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a standard type "
 "specifier."
-msgstr ""
-"U direktivi broj %u, znak ‘%c’ nije valjan za specificiranje konverzije."
+msgstr "U direktivi broj %u, znak ‘%c’ nije standardni tip specifikatora."
 
 #: src/format-c++-brace.c:594
-#, fuzzy, c-format
-#| msgid ""
-#| "The character that terminates the directive number %u is not a valid "
-#| "conversion specifier."
+#, c-format
 msgid ""
 "The character that terminates the directive number %u is not a standard type "
 "specifier."
 msgstr ""
-"Znak koji završava direktiva broj %u nije valjan za specificiranje "
-"konverzije."
+"Znak, kojim završava direktiva broj %u nije standardni tip specifikatora."
 
 #: src/format-c++-brace.c:602
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the sign specification is incompatible with the "
 "type specifier '%c'."
 msgstr ""
-"U direktivi broj %u, specifikacija veličine nije kompatibilna sa "
-"specifikacijom konverzije ‘%c’."
+"U direktivi broj %u, specifikacija znaka nije kompatibilna sa specifikatorom "
+"tipa ‘%c’."
 
 #: src/format-c++-brace.c:610
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '#' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"U direktivi broj %u, specifikacija veličine nije kompatibilna sa "
-"specifikacijom konverzije ‘%c’."
+"U direktivi broj %u, opcija ‘#’ nije kompatibilna sa specifikatorom tipa "
+"‘%c’."
 
 #: src/format-c++-brace.c:618
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '0' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"U direktivi broj %u, specifikacija veličine nije kompatibilna sa "
-"specifikacijom konverzije ‘%c’."
+"U direktivi broj %u, opcija ‘0’ nije kompatibilna sa specifikatorom tipa "
+"‘%c’."
 
 #: src/format-c++-brace.c:626
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the precision specification is incompatible with "
 "the type specifier '%c'."
 msgstr ""
-"U direktivi broj %u, specifikacija veličine nije kompatibilna sa "
-"specifikacijom konverzije ‘%c’."
+"U direktivi broj %u, specifikacija preciznosti nije kompatibilna sa "
+"specifikatorom tipa ‘%c’."
 
 #: src/format-c++-brace.c:634
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the 'L' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"U direktivi broj %u, specifikacija veličine nije kompatibilna sa "
-"specifikacijom konverzije ‘%c’."
+"U direktivi broj %u, opcija ‘L’ nije kompatibilna sa specifikatorom tipa "
+"‘%c’."
 
 #: src/format-c++-brace.c:735
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the substring \"%s\" is not a valid date/time "
-#| "style."
+#, c-format
 msgid ""
 "The directive number %u, with all of its options, is not applicable to any "
 "type."
-msgstr "U direktivi broj %u, podstring „%s“ nije valjan stil za datum/vrijeme."
+msgstr ""
+"Direktiva broj %u, sa svim svojim opcijama nije primjenjiva ni na nijedan "
+"tip."
 
 #: src/format-c++-brace.c:747
-#, fuzzy, c-format
-#| msgid "The string ends in the middle of a directive."
+#, c-format
 msgid "The string ends in the middle of the directive number %u."
-msgstr "String završava u sredini direktive."
+msgstr "String završava u sredini direktive broj %u."
 
 #: src/format-c++-brace.c:755
-#, fuzzy, c-format
-#| msgid ""
-#| "The directive number %u ends with an invalid character instead of '}'."
+#, c-format
 msgid "The directive number %u is not terminated through '}'."
-msgstr "Direktiva broj %u završava s nevaljanim znakom umjesto s '}'."
+msgstr "Direktiva broj %u nije završena sa ’}'."
 
 #: src/format-c++-brace.c:777 src/format-csharp.c:158 src/format-java.c:347
 msgid ""
@@ -750,18 +709,17 @@ msgid ""
 "The format specification for argument %u in '%s' is applicable to the types "
 "%s, but the format specification for argument %u in '%s' is not."
 msgstr ""
+"Specifikacija formata za argument %u u ‘%s’ primjenjiva je na tipove %s, ali "
+"specifikacija formata za argument %u u ‘%s’ nije."
 
 #: src/format-c++-brace.c:1003
-#, fuzzy, c-format
-#| msgid ""
-#| "a format specification for arguments %u and %u doesn't exist in '%s', "
-#| "only one argument may be ignored"
+#, c-format
 msgid ""
 "The format specification for argument %u in '%s' uses a different "
 "presentation than the format specification for argument %u in '%s'."
 msgstr ""
-"specifikacija formata za argumente %u i %u ne postoji u ‘%s’, samo se jedan "
-"argument smije zanemariti"
+"Specifikacija formata za argument %u u ‘%s’ koristi drukčiju prezentaciju od "
+"specifikacije formata za argument %u u ‘%s’."
 
 #: src/format-c.c:36
 #, c-format
@@ -778,10 +736,9 @@ msgid "In the directive number %u, the token after '<' is not followed by '>'."
 msgstr "U direktivi broj %u, token iza ‘<’ nije završen s ‘>’."
 
 #: src/format-c.c:42
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision specification is invalid."
+#, c-format
 msgid "In the directive number %u, the argument size specifier is invalid."
-msgstr "U direktivi broj %u specifikacija preciznosti nije valjana."
+msgstr "U direktivi broj %u specifikator veličine argumenta nije valjan."
 
 #: src/format-c.c:45 src/format-gfc-internal.c:289
 #, c-format
@@ -1115,7 +1072,7 @@ msgstr "Nađen je ‘~%c’ bez odgovarajućeg ‘~%c’."
 #: src/format-lisp.c:2882 src/format-scheme.c:2879
 #, c-format
 msgid "In the directive number %u, both the @ and the : modifiers are given."
-msgstr "U direktivi broj %u, navedeni su oba modifikatora @ i :."
+msgstr "U direktivi broj %u, navedena su oba modifikatora @ i :."
 
 #: src/format-lisp.c:2995 src/format-scheme.c:2992
 #, c-format
@@ -1176,11 +1133,9 @@ msgid "In the directive number %u, '%c' cannot start a getitem argument."
 msgstr "U direktivi broj %u, ‘getitem’ argument ne može započeti sa ‘%c’."
 
 #: src/format-python-brace.c:204
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, there is an unterminated format directive."
+#, c-format
 msgid "In the directive number %u, there is an unterminated getitem argument."
-msgstr "U direktivi broj %u, postoji nezavršeni format direktive."
+msgstr "U direktivi broj %u, postoji nezavršeni argument getitem."
 
 #: src/format-python-brace.c:221
 #, c-format
@@ -1213,7 +1168,7 @@ msgstr "String upućuje na argument poznat kao ‘%s’ na nekompatibilne način
 msgid ""
 "format specifications in '%s' expect a mapping, those in '%s' expect a tuple"
 msgstr ""
-"specifikacije formata u ‘%s’ očekuje mapiranje, a one u ‘%s’ očekuje torku "
+"specifikacije formata u ‘%s’ očekuje mapiranje, a one u ‘%s’ očekuje n-torku "
 "(tuple)"
 
 #: src/format-python.c:437
@@ -1221,7 +1176,7 @@ msgstr ""
 msgid ""
 "format specifications in '%s' expect a tuple, those in '%s' expect a mapping"
 msgstr ""
-"specifikacije formata u ‘%s’ očekuje torku (tuple), a one u ‘%s’ očekuje "
+"specifikacije formata u ‘%s’ očekuje n-torku (tuple), a one u ‘%s’ očekuje "
 "mapiranje"
 
 #: src/format-python.c:460 src/format-ruby.c:899 src/format-sh.c:297
@@ -1330,7 +1285,7 @@ msgstr "String upućuje na varijablu ljuske s praznim imenom."
 msgid ""
 "In the directive number %u, the character '%c' is not a digit between 1 and "
 "9."
-msgstr "In the directive number %u, znak ‘%c’ nije broj između 1 i 9."
+msgstr "U direktivi broj %u, znak ‘%c’ nije broj između 1 i 9."
 
 #: src/format-smalltalk.c:91
 #, c-format
@@ -1444,16 +1399,14 @@ msgid "cannot evaluate XPath location path: %s"
 msgstr "nije moguće utvrditi poziciju staze XPath: %s"
 
 #: src/locating-rule.c:94
-#, fuzzy, c-format
-#| msgid "cannot extract rules for %s"
+#, c-format
 msgid "cannot find attribute %s on %s"
-msgstr "nije moguće izvući pravila za %s"
+msgstr "nije moguće naći atribut %s u %s"
 
 #: src/locating-rule.c:113 src/locating-rule.c:328
-#, fuzzy, c-format
-#| msgid "cannot locate ITS rules for %s"
+#, c-format
 msgid "cannot locate root element"
-msgstr "nije moguće naći pravilo ITS za %s"
+msgstr "nije moguće naći korijenski (root) element"
 
 #: src/locating-rule.c:250
 #, c-format
@@ -1641,9 +1594,8 @@ msgid ""
 "      --previous              when setting 'fuzzy', keep previous msgids\n"
 "                              of translated messages.\n"
 msgstr ""
-"      --previous              pri označavanju s ‘fuzzy’, zadrži prethodne "
-"msgid-ove\n"
-"                                od prevedenih poruka\n"
+"      --previous              pri označavanju s ‘fuzzy’, zadrži prethodne\n"
+"                               msgid-ove od prevedenih poruka.\n"
 
 #: src/msgattrib.c:475
 #, c-format
@@ -2737,11 +2689,10 @@ msgstr ""
 "  -f, --use-fuzzy             koristi netočne (fuzzy) stavke u izlazu\n"
 
 #: src/msgfmt.c:1055
-#, fuzzy, c-format
-#| msgid "      --no-obsolete           remove obsolete #~ messages\n"
+#, c-format
 msgid ""
 "      --no-convert            don't convert the messages to UTF-8 encoding\n"
-msgstr "      --no-obsolete           ukloni zastarjele, #~ poruke\n"
+msgstr "      --no-convert            ne konvertira poruke u UTF-8 kodiranje\n"
 
 #: src/msgfmt.c:1057
 #, c-format
@@ -2749,6 +2700,8 @@ msgid ""
 "      --no-redundancy         don't pre-expand ISO C 99 <inttypes.h>\n"
 "                                format string directive macros\n"
 msgstr ""
+"      --no-redundancy         ne proširi unaprijed makronaredbe za ISO C 99\n"
+"                                <inttypes.h> direktive formata stringova\n"
 
 #: src/msgfmt.c:1060
 #, c-format
@@ -2842,7 +2795,7 @@ msgstr "%s postoji, ali se nije moguće čitati"
 #: src/read-properties.c:609 src/read-stringtable.c:99 src/x-awk.c:139
 #: src/x-c.c:608 src/x-csharp.c:165 src/x-elisp.c:147 src/x-java.c:201
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
-#: src/x-perl.c:259 src/x-perl.c:334 src/x-perl.c:427 src/x-php.c:164
+#: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
 #: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
 #: src/x-ycp.c:91
@@ -3095,24 +3048,24 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "Hrvatski prijevod za paket %s"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:86 src/msgl-iconv.c:262
+#: src/msgl-cat.c:181 src/msgl-charset.c:86 src/msgl-iconv.c:265
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "trenutni naziv skupa znakova „%s“ nije naziv prenosivog kodiranja"
 
-#: src/msgl-cat.c:189 src/msgl-iconv.c:273
+#: src/msgl-cat.c:191 src/msgl-iconv.c:276
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "dva različita skupa znakova „%s“ i „%s“ u ulaznoj datoteci"
 
-#: src/msgl-cat.c:204
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr ""
 "ulazna datoteka '%s' nema u zaglavlju stavke sa specifikacijom skupa znakova"
 
-#: src/msgl-cat.c:208
+#: src/msgl-cat.c:210
 #, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
@@ -3121,24 +3074,26 @@ msgstr ""
 "domena „%s“ u ulaznoj datoteci ‘%s’ nema u zaglavlju stavke sa "
 "specifikacijom skupa znakova"
 
-#: src/msgl-cat.c:306 src/xg-message.c:342
+#: src/msgl-cat.c:308 src/xg-message.c:342
 #, c-format
 msgid "msgid '%s' is used without plural and with plural."
 msgstr "msgid ‘%s’ se istovremeno koristi bez oblika i s oblicima množine."
 
-#: src/msgl-cat.c:414 src/msgl-iconv.c:381
+#: src/msgl-cat.c:416 src/msgl-iconv.c:384
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "ciljani skup znakova „%s“ nije naziv prenosivog kodiranja."
 
-#: src/msgl-cat.c:422 src/msgl-iconv.c:390
+#: src/msgl-cat.c:424 src/msgl-iconv.c:393
 #, c-format
 msgid ""
 "Cannot write the control characters that protect file names with spaces in "
 "the %s encoding"
 msgstr ""
+"Nije moguće napisati kontrolne znakove koji štite imena datoteka s razmacima "
+"u %s kodu"
 
-#: src/msgl-cat.c:474 src/msgl-cat.c:480 src/msgl-cat.c:497
+#: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
 #: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
 #: src/xg-message.c:340
@@ -3146,7 +3101,7 @@ msgstr ""
 msgid "warning: "
 msgstr "upozorenje: "
 
-#: src/msgl-cat.c:475
+#: src/msgl-cat.c:477
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -3156,7 +3111,7 @@ msgstr ""
 "UTF-8.\n"
 "Konvertiramo izlaz u UTF-8.\n"
 
-#: src/msgl-cat.c:481
+#: src/msgl-cat.c:483
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -3169,20 +3124,17 @@ msgstr ""
 "Konvertiramo izlaz u UTF-8.\n"
 "Za drukčije izlazno kodiranje, koristite opciju --to-code.\n"
 
-#: src/msgl-cat.c:498
-#, fuzzy, c-format
-#| msgid ""
-#| "Input files contain messages in different encodings, UTF-8 among others.\n"
-#| "Converting the output to UTF-8.\n"
+#: src/msgl-cat.c:500
+#, c-format
 msgid ""
 "Input files contain messages referenced in file names with spaces.\n"
 "Converting the output to %s.\n"
 msgstr ""
-"Ulazne datoteke sadrže poruke s različitim kodiranjem, između ostalih i "
-"UTF-8.\n"
-"Konvertiramo izlaz u UTF-8.\n"
+"Ulazne datoteke sadrže poruke referencirane u datoteci s imenima s "
+"razmacima.\n"
+"Konvertiramo izlaz u %s.\n"
 
-#: src/msgl-cat.c:536
+#: src/msgl-cat.c:538
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -3414,12 +3366,12 @@ msgstr "%s: ulaz nije valjan za kodiranje „%s“"
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s: greška pri pretvaranju iz kodiranja „%s“ u „%s“ kodiranje"
 
-#: src/msgl-iconv.c:303
+#: src/msgl-iconv.c:306
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr ""
 "ulazna datoteka ne sadrži stavku zaglavlja koja specificira skup znakova"
 
-#: src/msgl-iconv.c:317 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
+#: src/msgl-iconv.c:320 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
 #: src/xgettext.c:820 src/x-python.c:629
 #, c-format
 msgid ""
@@ -3429,7 +3381,7 @@ msgstr ""
 "Nije moguće pretvoriti „%s“ u „%s“. %s treba iconv(), a iconv() ne podržava "
 "ovu konverziju."
 
-#: src/msgl-iconv.c:345
+#: src/msgl-iconv.c:348
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -3438,7 +3390,7 @@ msgstr ""
 "Pretvararanje iz „%s“ u „%s“ stvorilo je duplikate: nekoliko različitih "
 "msgid-ova postali su jednaki."
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:302 src/xgettext.c:826
+#: src/msgl-iconv.c:352 src/recode-sr-latin.c:302 src/xgettext.c:826
 #: src/x-python.c:635
 #, c-format
 msgid ""
@@ -3746,8 +3698,8 @@ msgstr ""
 "  -u, --unique                ispiše samo jedinstvene poruke, odbaci "
 "duplikate\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:104
-#: libgettextpo/gettext-po.c:152 libgettextpo/gettext-po.c:200
+#: src/open-catalog.c:56 libgettextpo/gettext-po.c:116
+#: libgettextpo/gettext-po.c:164 libgettextpo/gettext-po.c:212
 msgid "<stdin>"
 msgstr "<stdin>"
 
@@ -3925,7 +3877,7 @@ msgstr "datoteka „%s“ sadrži string koji nije završen s NULL"
 #, c-format
 msgid "file \"%s\" contains a not NUL terminated system dependent string"
 msgstr ""
-"datateka „%s“ sadrži string ovisan o sustavu, a koji nije završen s NULL"
+"datoteka „%s“ sadrži string ovisan o sustavu, a koji nije završen s NULL"
 
 #: src/read-mo.c:184 src/read-mo.c:292
 #, c-format
@@ -4026,7 +3978,7 @@ msgstr "Danilo Segan"
 #: src/recode-sr-latin.c:149
 #, c-format, no-wrap
 msgid "Recode Serbian text from Cyrillic to Latin script.\n"
-msgstr "Prekodirajte srpski tekst sa ćirilice na latinicu.\n"
+msgstr "Prekodirajte srpski tekst s ćirilice na latinicu.\n"
 
 #: src/recode-sr-latin.c:152
 #, c-format, no-wrap
@@ -4306,12 +4258,13 @@ msgstr "%s:%d: upozorenje: nezavršeni regularni izraz"
 #: src/x-python.c:1602 src/x-vala.c:1322 src/x-ycp.c:698 src/x-ycp.c:773
 #, c-format
 msgid "%s:%d: error: too many open parentheses"
-msgstr ""
+msgstr "%s:%d: greška: previše otvorenih zagrada"
 
 #: src/x-c.c:1117 src/x-vala.c:509
 #, c-format
 msgid "%s:%d: warning: hexadecimal escape sequence out of range"
 msgstr ""
+"%s:%d: upozorenje: maskirani (escaped) heksadecimalni niz je izvan opsega"
 
 #: src/x-c.c:1206 src/x-csharp.c:1333 src/x-python.c:1103 src/x-tcl.c:804
 #: src/x-vala.c:597
@@ -4417,7 +4370,7 @@ msgstr "%s:%d: upozorenje: nađena je ‘)’, očekivana je ‘}’"
 #: src/x-tcl.c:898
 #, c-format
 msgid "%s:%d: error: too many open braces"
-msgstr ""
+msgstr "%s:%d: greška: previše otvorenih vitičastih zagrada"
 
 #: src/x-csharp.c:2009 src/x-java.c:1644
 #, c-format
@@ -4427,12 +4380,12 @@ msgstr "%s:%d: upozorenje: nađena je ‘}’ očekivana je‘)’"
 #: src/x-elisp.c:452
 #, c-format
 msgid "%s:%d: error: too deeply nested escape sequence"
-msgstr ""
+msgstr "%s:%d: greška: preduboko ugniježđeni maskirani (escape) niz"
 
 #: src/x-elisp.c:649 src/x-librep.c:606 src/x-lisp.c:949 src/x-scheme.c:690
 #, c-format
 msgid "%s:%d: error: too deeply nested objects"
-msgstr ""
+msgstr "%s:%d: greška: preduboko ugniježđeni objekti"
 
 #: src/xg-arglist-parser.c:388
 #, c-format
@@ -4470,31 +4423,29 @@ msgid "Non-ASCII string at %s%s."
 msgstr "Non-ASCII string u %s%s."
 
 #: src/xg-encoding.c:92
-#, fuzzy, c-format
-#| msgid "Non-ASCII string at %s%s."
+#, c-format
 msgid "Non-ASCII XML tag at %s%s."
-msgstr "Non-ASCII string u %s%s."
+msgstr "Non-ASCII XML tag u %s%s."
 
 #: src/xg-encoding.c:118
 #, c-format
 msgid "Character at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "Znak pri %s%s nije kodiran u UTF-8."
 
 #: src/xg-encoding.c:123
-#, fuzzy, c-format
-#| msgid "Non-ASCII comment at or before %s%s."
+#, c-format
 msgid "Comment at or before %s%s is not UTF-8 encoded."
-msgstr "Non-ASCII komentar u ili prije %s%s."
+msgstr "Komentar u ili prije %s%s nije kodiran u UTF-8."
 
 #: src/xg-encoding.c:128
 #, c-format
 msgid "String at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "String pri %s%s nije kodiran u UTF-8."
 
 #: src/xg-encoding.c:134
 #, c-format
 msgid "XML tag at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "XML tag pri %s%s nije kodiran u UTF-8."
 
 #: src/xgettext.c:590
 #, c-format
@@ -4524,7 +4475,7 @@ msgstr "xgettext ne može raditi bez ključnih riječi za pretraživanje"
 #: src/xgettext.c:749
 #, c-format
 msgid "The option '%s' is deprecated."
-msgstr ""
+msgstr "Opcija ‘%s’ je zastarjela."
 
 #: src/xgettext.c:873
 #, c-format
@@ -4664,7 +4615,7 @@ msgid ""
 "                                (ellipsis-unicode, space-ellipsis,\n"
 "                                 quote-unicode, bullet-unicode)\n"
 msgstr ""
-"      --check=IME             izvrši provjeru sintakse na porukuma\n"
+"      --check=IME             izvrši provjeru sintakse na porukama\n"
 "                                (ellipsis-unicode, space-ellipsis,\n"
 "                                 quote-unicode, bullet-unicode)\n"
 
@@ -4803,10 +4754,9 @@ msgid "      --itstool               write out itstool comments\n"
 msgstr "      --itstool               ispiše ‘itstool’ komentare\n"
 
 #: src/xgettext.c:1224
-#, fuzzy, c-format
-#| msgid "  -s, --sort-output           generate sorted output\n"
+#, c-format
 msgid "  -s, --sort-output           generate sorted output (deprecated)\n"
-msgstr "  -s, --sort-output           proizvede sortirani izlaz\n"
+msgstr "  -s, --sort-output           proizvede sortirani izlaz (zastarjelo)\n"
 
 #: src/xgettext.c:1230
 #, c-format
@@ -5033,71 +4983,67 @@ msgid "%s:%d: warning: unterminated XML markup"
 msgstr "%s:%d: upozorenje: nezavršeni XML markup"
 
 #: src/x-javascript.c:1370
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string"
+#, c-format
 msgid "%s:%d: warning: ignoring CDATA section"
-msgstr "%s:%d: upozorenje: nezavršeni string"
+msgstr "%s:%d: upozorenje: ignoriramo CDATA sekciju"
 
 #: src/x-javascript.c:1729 src/x-lua.c:1130 src/x-php.c:1527
 #: src/x-python.c:1642 src/x-tcl.c:772
 #, c-format
 msgid "%s:%d: error: too many open brackets"
-msgstr ""
+msgstr "%s:%d: greška: previše otvorenih uglatih zagrada"
 
 #: src/x-javascript.c:1814
 #, c-format
 msgid "%s:%d: error: too many open XML elements"
-msgstr ""
+msgstr "%s:%d: greška: previše otvorenih XML elemenata"
 
-#: src/x-perl.c:341
+#: src/x-perl.c:342
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr "%s:%d: nigdje nije moguće naći terminator stringa „%s“ prije EOF"
 
-#: src/x-perl.c:1081
+#: src/x-perl.c:1084
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: nedostaje desna vitičasta zagrada \\x{HEXNUMBER}"
 
-#: src/x-perl.c:1202
+#: src/x-perl.c:1205
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: nevaljana interpolacija („\\l“) 8 bitnog znaka „%c“"
 
-#: src/x-perl.c:1222
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: nevaljana interpolacija („\\u“) 8 bitnog znaka „%c“"
 
-#: src/x-perl.c:1256
+#: src/x-perl.c:1259
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
-msgstr "%s:%d: nevaljana interpolacija varijable pri „%c“u"
+msgstr "%s:%d: nevaljana interpolacija varijable pri „%c“"
 
-#: src/x-perl.c:1269
+#: src/x-perl.c:1272
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: nevaljana interpolacija („\\L“) 8 bitnog znaka „%c“"
 
-#: src/x-perl.c:1286
+#: src/x-perl.c:1289
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: nevaljana interpolacija („\\U“) 8 bitnog znaka „%c“"
 
-#: src/x-perl.c:1728 src/x-perl.c:2780 src/x-perl.c:3122
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated regular expression"
+#: src/x-perl.c:1746 src/x-perl.c:2801 src/x-perl.c:3153
+#, c-format
 msgid "%s:%d: error: too deeply nested expressions"
-msgstr "%s:%d: upozorenje: nezavršeni regularni izraz"
+msgstr "%s:%d: upozorenje: izraz je preduboko ugniježđen"
 
 #: src/x-po.c:228
-#, fuzzy, c-format
-#| msgid ""
-#| "input file doesn't contain a header entry with a charset specification"
+#, c-format
 msgid ""
 "%s: input file doesn't contain a header entry with a charset specification"
 msgstr ""
-"ulazna datoteka ne sadrži stavku zaglavlja koja specificira skup znakova"
+"%s: ulazna datoteka ne sadrži stavku zaglavlja koja specificira skup znakova"
 
 #: src/x-python.c:281
 msgid ""
@@ -5206,14 +5152,14 @@ msgstr ""
 #: src/x-sh.c:1512
 #, c-format
 msgid "%s:%d: error: too deeply nested command list"
-msgstr ""
+msgstr "%s:%d: greška: preduboko ugniježđeni popis naredbi"
 
 #: src/x-vala.c:647
 #, c-format
 msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr "%s:%d: upozorenje: prerano završen literal regularnog izraza"
 
-#: libgettextpo/gettext-po.c:86
+#: libgettextpo/gettext-po.c:98
 msgid "<unnamed>"
 msgstr "<bezimen>"
 

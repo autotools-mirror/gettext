@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.21\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 23:40+0200\n"
+"POT-Creation-Date: 2023-09-18 22:55+0200\n"
 "PO-Revision-Date: 2021-04-05 02:50+0200\n"
 "Last-Translator: Rafał Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -290,7 +290,7 @@ msgstr ""
 
 #: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1328 libgettextpo/obstack.c:337
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
 #: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
@@ -2905,7 +2905,7 @@ msgstr "%s istnieje, ale nie może zostać przeczytany"
 #: src/read-properties.c:609 src/read-stringtable.c:99 src/x-awk.c:139
 #: src/x-c.c:608 src/x-csharp.c:165 src/x-elisp.c:147 src/x-java.c:201
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
-#: src/x-perl.c:259 src/x-perl.c:334 src/x-perl.c:427 src/x-php.c:164
+#: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
 #: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
 #: src/x-ycp.c:91
@@ -3155,24 +3155,24 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "Polskie tłumaczenia dla pakietu %s"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:86 src/msgl-iconv.c:262
+#: src/msgl-cat.c:181 src/msgl-charset.c:86 src/msgl-iconv.c:265
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "aktualny zestaw znaków „%s” nie jest przenośną nazwą kodowania"
 
-#: src/msgl-cat.c:189 src/msgl-iconv.c:273
+#: src/msgl-cat.c:191 src/msgl-iconv.c:276
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "dwa różne zestawy znaków „%s” oraz „%s” w pliku wejściowym"
 
-#: src/msgl-cat.c:204
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr ""
 "plik wejściowy „%s” nie zawiera wpisu nagłówka ze specyfikacją zestawu znaków"
 
-#: src/msgl-cat.c:208
+#: src/msgl-cat.c:210
 #, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
@@ -3181,24 +3181,24 @@ msgstr ""
 "domena „%s” w pliku wejściowym „%s” nie zawiera wpisu nagłówka ze "
 "specyfikacją zestawu znaków"
 
-#: src/msgl-cat.c:306 src/xg-message.c:342
+#: src/msgl-cat.c:308 src/xg-message.c:342
 #, c-format
 msgid "msgid '%s' is used without plural and with plural."
 msgstr "„%s”i jest użyty zarówno bez liczby mnogiej, jak z liczbą mnogą"
 
-#: src/msgl-cat.c:414 src/msgl-iconv.c:381
+#: src/msgl-cat.c:416 src/msgl-iconv.c:384
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "docelowy zestaw znaków „%s” nie jest przenośną nazwą kodowania."
 
-#: src/msgl-cat.c:422 src/msgl-iconv.c:390
+#: src/msgl-cat.c:424 src/msgl-iconv.c:393
 #, c-format
 msgid ""
 "Cannot write the control characters that protect file names with spaces in "
 "the %s encoding"
 msgstr ""
 
-#: src/msgl-cat.c:474 src/msgl-cat.c:480 src/msgl-cat.c:497
+#: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
 #: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
 #: src/xg-message.c:340
@@ -3206,7 +3206,7 @@ msgstr ""
 msgid "warning: "
 msgstr "uwaga: "
 
-#: src/msgl-cat.c:475
+#: src/msgl-cat.c:477
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -3215,7 +3215,7 @@ msgstr ""
 "Pliki wejściowe zawierają komunikaty w różnych kodowaniach, w tym UTF-8.\n"
 "Konwersja wyjścia do UTF-8.\n"
 
-#: src/msgl-cat.c:481
+#: src/msgl-cat.c:483
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -3227,7 +3227,7 @@ msgstr ""
 "Konwersja wyjścia do UTF-8.\n"
 "Aby wybrać inne kodowanie wyjściowe, należy użyć opcji --to-code.\n"
 
-#: src/msgl-cat.c:498
+#: src/msgl-cat.c:500
 #, fuzzy, c-format
 #| msgid ""
 #| "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -3239,7 +3239,7 @@ msgstr ""
 "Pliki wejściowe zawierają komunikaty w różnych kodowaniach, w tym UTF-8.\n"
 "Konwersja wyjścia do UTF-8.\n"
 
-#: src/msgl-cat.c:536
+#: src/msgl-cat.c:538
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -3471,12 +3471,12 @@ msgstr "%s: dane wejściowe są błędne jeżeli kodowanie to „%s”"
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s: błąd w czasie zamiany kodowania z „%s” na „%s”"
 
-#: src/msgl-iconv.c:303
+#: src/msgl-iconv.c:306
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr ""
 "plik wejściowy nie zawiera wpisu nagłówka ze specyfikacją zestawu znaków"
 
-#: src/msgl-iconv.c:317 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
+#: src/msgl-iconv.c:320 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
 #: src/xgettext.c:820 src/x-python.c:629
 #, c-format
 msgid ""
@@ -3486,7 +3486,7 @@ msgstr ""
 "Nie można przekonwertować z „%s” do „%s”. %s opiera się na iconv(), a "
 "iconv() nie obsługuje tej konwersji."
 
-#: src/msgl-iconv.c:345
+#: src/msgl-iconv.c:348
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -3495,7 +3495,7 @@ msgstr ""
 "Konwersja z „%s” do „%s” wprowadza duplikaty: niektóre różniące się msgid "
 "stają się identyczne."
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:302 src/xgettext.c:826
+#: src/msgl-iconv.c:352 src/recode-sr-latin.c:302 src/xgettext.c:826
 #: src/x-python.c:635
 #, c-format
 msgid ""
@@ -3803,8 +3803,8 @@ msgid ""
 msgstr ""
 "  -u, --unique                wypisanie tylko unikalnych, bez duplikatów\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:104
-#: libgettextpo/gettext-po.c:152 libgettextpo/gettext-po.c:200
+#: src/open-catalog.c:56 libgettextpo/gettext-po.c:116
+#: libgettextpo/gettext-po.c:164 libgettextpo/gettext-po.c:212
 msgid "<stdin>"
 msgstr "<standardowe wejście>"
 
@@ -5112,42 +5112,42 @@ msgstr ""
 msgid "%s:%d: error: too many open XML elements"
 msgstr ""
 
-#: src/x-perl.c:341
+#: src/x-perl.c:342
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr "%s:%d: nie można znaleźć końca napisu „%s” przez końcem pliku"
 
-#: src/x-perl.c:1081
+#: src/x-perl.c:1084
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: brakujący prawy nawias w \\x{LICZBA_SZESNASTKOWA}"
 
-#: src/x-perl.c:1202
+#: src/x-perl.c:1205
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: błędna interpolacja (\"\\l\") 8-bitowego znaku \"%c\""
 
-#: src/x-perl.c:1222
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: błędna interpolacja (\"\\u\") 8-bitowego znaku \"%c\""
 
-#: src/x-perl.c:1256
+#: src/x-perl.c:1259
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: błędna interpolacja zmiennej w \"%c\""
 
-#: src/x-perl.c:1269
+#: src/x-perl.c:1272
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: błędna interpolacja (\"\\L\") 8-bitowego znaku \"%c\""
 
-#: src/x-perl.c:1286
+#: src/x-perl.c:1289
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: błędna interpolacja (\"\\U\") 8-bitowego znaku \"%c\""
 
-#: src/x-perl.c:1728 src/x-perl.c:2780 src/x-perl.c:3122
+#: src/x-perl.c:1746 src/x-perl.c:2801 src/x-perl.c:3153
 #, fuzzy, c-format
 #| msgid "%s:%d: warning: unterminated regular expression"
 msgid "%s:%d: error: too deeply nested expressions"
@@ -5276,7 +5276,7 @@ msgstr ""
 msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr "%s:%d: uwaga: za wcześnie zakończone wyrażenie regularne"
 
-#: libgettextpo/gettext-po.c:86
+#: libgettextpo/gettext-po.c:98
 msgid "<unnamed>"
 msgstr "<nienazwany>"
 

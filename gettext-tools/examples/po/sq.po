@@ -1,14 +1,14 @@
 # Albanian translation of gettext-example.
 # Copyright (C) 2020 Yoyodyne, Inc. (msgids)
 # This file is distributed under the same license as the gettext package.
-# Besnik Bleta <besnik@programeshqip.org>, 2020.
+# Besnik Bleta <besnik@programeshqip.org>, 2020,2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples-0.20-rc1\n"
+"Project-Id-Version: gettext-examples-0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-09 02:16+0200\n"
-"PO-Revision-Date: 2020-04-02 22:35+0300\n"
+"POT-Creation-Date: 2023-09-18 23:34+0200\n"
+"PO-Revision-Date: 2023-06-18 13:05+0300\n"
 "Last-Translator: Besnik Bleta <besnik@programeshqip.org>\n"
 "Language-Team: Albanian <translation-team-sq@lists.sourceforge.net>\n"
 "Language: sq\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 2.2\n"
+"X-Generator: Poedit 2.4.2\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: hello-c/hello.c:35 hello-c-gnome/hello.c:51
@@ -86,10 +86,9 @@ msgid "Whether to use XML markup in the text."
 msgstr "Të përdoret ose jo markup XML te teksti."
 
 #: hello-c++20/hello.cc:37
-#, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
+#, c++-format
 msgid "This program is running as process number {:d}."
-msgstr "Ky program po xhiron si procesi numër {pid}."
+msgstr "Ky program po xhiron si procesi numër {:d}."
 
 #: hello-c++-qt/hello.cc:57 hello-c++-kde/hellowindow.cc:54
 #: hello-smalltalk/hello.st.in:32 hello-ycp/hello.ycp:19

@@ -3,22 +3,22 @@
 # This file is distributed under the same license as the gettext package.
 # Funda Wang <fundawang@linux.net.cn>, 2004.
 # Ji ZhengYu <zhengyuji@gmail.com>, 2015.
-# Boyuan Yang <073plan@gmail.com>, 2018, 2020, 2022.
+# Boyuan Yang <073plan@gmail.com>, 2018, 2020, 2022, 2023.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.21\n"
+"Project-Id-Version: gettext-tools 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 23:40+0200\n"
-"PO-Revision-Date: 2022-01-30 13:04-0500\n"
+"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"PO-Revision-Date: 2023-06-18 12:14-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 2.4.3\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #: gnulib-lib/argmatch.c:145
 #, c-format
@@ -32,7 +32,7 @@ msgstr "%2$s 的参数 %1$s 有歧义"
 
 #: gnulib-lib/argmatch.c:165
 msgid "Valid arguments are:"
-msgstr "有效的参数为: "
+msgstr "有效的参数为："
 
 #: gnulib-lib/clean-temp.c:234
 #, c-format
@@ -119,83 +119,79 @@ msgstr "%s 子进程失败"
 
 #: gnulib-lib/gai_strerror.c:57
 msgid "Address family for hostname not supported"
-msgstr ""
+msgstr "不支持的主机名地址族"
 
 #: gnulib-lib/gai_strerror.c:58
 msgid "Temporary failure in name resolution"
-msgstr ""
+msgstr "域名解析暂时失败"
 
 #: gnulib-lib/gai_strerror.c:59
 msgid "Bad value for ai_flags"
-msgstr ""
+msgstr "错误的 ai_flags 的值"
 
 #: gnulib-lib/gai_strerror.c:60
 msgid "Non-recoverable failure in name resolution"
-msgstr ""
+msgstr "域名解析中出现不可修复的失败"
 
 #: gnulib-lib/gai_strerror.c:61
 msgid "ai_family not supported"
-msgstr ""
+msgstr "不支持 ai_family"
 
 #: gnulib-lib/gai_strerror.c:62
 msgid "Memory allocation failure"
-msgstr ""
+msgstr "内存分配失败"
 
 #: gnulib-lib/gai_strerror.c:63
 msgid "No address associated with hostname"
-msgstr ""
+msgstr "没有与主机名关联的地址"
 
 #: gnulib-lib/gai_strerror.c:64
 msgid "Name or service not known"
-msgstr ""
+msgstr "未知的名称或服务"
 
 #: gnulib-lib/gai_strerror.c:65
 msgid "Servname not supported for ai_socktype"
-msgstr ""
+msgstr "不支持 ai_socktype 的伺服名称"
 
 #: gnulib-lib/gai_strerror.c:66
 msgid "ai_socktype not supported"
-msgstr ""
+msgstr "不支持 ai_socktype"
 
 #: gnulib-lib/gai_strerror.c:67
-#, fuzzy
-#| msgid "write error"
 msgid "System error"
-msgstr "写错误"
+msgstr "系统错误"
 
 #: gnulib-lib/gai_strerror.c:68
 msgid "Argument buffer too small"
-msgstr ""
+msgstr "参数缓冲区太小"
 
 #: gnulib-lib/gai_strerror.c:70
 msgid "Processing request in progress"
-msgstr ""
+msgstr "此项请求已经在处理当中"
 
 #: gnulib-lib/gai_strerror.c:71
 msgid "Request canceled"
-msgstr ""
+msgstr "请求已取消"
 
 #: gnulib-lib/gai_strerror.c:72
 msgid "Request not canceled"
-msgstr ""
+msgstr "请求未取消"
 
 #: gnulib-lib/gai_strerror.c:73
 msgid "All requests done"
-msgstr ""
+msgstr "完成所有请求"
 
 #: gnulib-lib/gai_strerror.c:74
 msgid "Interrupted by a signal"
-msgstr ""
+msgstr "被信号中断"
 
 #: gnulib-lib/gai_strerror.c:75
 msgid "Parameter string not correctly encoded"
-msgstr ""
+msgstr "参数字串无法正确编码"
 
 #: gnulib-lib/gai_strerror.c:87
-#, fuzzy
-#| msgid "Unknown system error"
 msgid "Unknown error"
-msgstr "未知的系统错误"
+msgstr "未知误"
 
 #: gnulib-lib/getopt.c:278
 #, c-format
@@ -237,7 +233,7 @@ msgstr "%s：选项需要参数 -- '%c'\n"
 msgid ""
 "The java program is too old. Cannot compile Java code for this old version "
 "any more."
-msgstr ""
+msgstr "找到的 java 程序过旧。已无法为该旧版本编译 Java 代码。"
 
 #: gnulib-lib/javacomp.c:147
 #, c-format
@@ -270,36 +266,32 @@ msgid "error while writing \"%s\" file"
 msgstr "写入“%s”出错"
 
 #: gnulib-lib/javacomp.c:1134
-#, fuzzy, c-format
-#| msgid "Java compiler not found, try installing gcj or set $JAVAC"
+#, c-format
 msgid "Java compiler not found, try setting $JAVAC"
-msgstr "未找到 Java 编译器，试着安装 gcj 或设置 $JAVAC"
+msgstr "未找到 Java 编译器，请尝试置 $JAVAC"
 
 #: gnulib-lib/javaexec.c:309
-#, fuzzy, c-format
-#| msgid "Java virtual machine not found, try installing gij or set $JAVA"
+#, c-format
 msgid "Java virtual machine not found, try setting $JAVA"
-msgstr "未找到 Java 虚拟机，试着安装 gij 或设置 $JAVA"
+msgstr "未找到 Java 虚拟机，请尝试设置 $JAVA"
 
 #: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1328 libgettextpo/obstack.c:337
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
 #: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
 msgstr "内存耗尽"
 
 #: gnulib-lib/openat-die.c:38
-#, fuzzy, c-format
-#| msgid "error reading current directory"
+#, c-format
 msgid "unable to record current working directory"
-msgstr "读取当前的目录时发生错误"
+msgstr "无法记录当前目录"
 
 #: gnulib-lib/openat-die.c:57
-#, fuzzy, c-format
-#| msgid "failed to create directory \"%s\""
+#, c-format
 msgid "failed to return to initial working directory"
-msgstr "创建目录“%s”失败"
+msgstr "返回初始工作目录失败"
 
 #: gnulib-lib/os2-spawn.c:45
 #, c-format
@@ -594,126 +586,93 @@ msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
 msgstr "不像“%3$s”，“%1$s”不是有效的 %2$s 格式字符串。原因: %4$s"
 
 #: src/format-c++-brace.c:270
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the argument %d is negative."
+#, c-format
 msgid "In the directive number %u, the arg-id is too large."
-msgstr "第 %u 条指令中，参数 %d 为负数。"
+msgstr "第 %u 条指令中，参数 ID 过大。"
 
 #: src/format-c++-brace.c:383 src/format-c++-brace.c:477
-#, fuzzy, c-format
-#| msgid "In the directive number %u, a width is given twice."
+#, c-format
 msgid "In the directive number %u, the width's arg-id is too large."
-msgstr "第 %u 条指令中，宽度信息给定了两次。"
+msgstr "第 %u 条指令中，宽度的参数 ID 过大。"
 
 #: src/format-c++-brace.c:438
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the width's argument number 0 is not a "
-#| "positive integer."
+#, c-format
 msgid ""
 "In the directive number %u, the width's arg-id is not terminated through '}'."
-msgstr "第 %u 条指令中，宽度的第 0 个参数不是正整数。"
+msgstr "第 %u 条指令中，宽度的参数 ID 没有使用“}”结尾。"
 
 #: src/format-c++-brace.c:532
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision is missing."
+#, c-format
 msgid ""
 "In the directive number %u, the precision's arg-id is not terminated through "
 "'}'."
-msgstr "第 %u 条指令中，缺失精度指定。"
+msgstr "第 %u 条指令中，精度的参数 ID 没有使用“}”结尾。"
 
 #: src/format-c++-brace.c:593
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the character '%c' is not a valid conversion "
-#| "specifier."
+#, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a standard type "
 "specifier."
-msgstr "第 %u 条指令中，字符“%c”不是有效的对话指定符。"
+msgstr "第 %u 条指令中，字符“%c”不是有效的标准类型指定符。"
 
 #: src/format-c++-brace.c:594
-#, fuzzy, c-format
-#| msgid ""
-#| "The character that terminates the directive number %u is not a valid "
-#| "conversion specifier."
+#, c-format
 msgid ""
 "The character that terminates the directive number %u is not a standard type "
 "specifier."
-msgstr "终止第 %u 条指令的字符不是有效的转换指示符。"
+msgstr "终止第 %u 条指令的字符不是有效的标准类型指定符。"
 
 #: src/format-c++-brace.c:602
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the sign specification is incompatible with the "
 "type specifier '%c'."
-msgstr "第 %u 条指令中，大小指定符与转换指定符“%c”不兼容。"
+msgstr "第 %u 条指令中，符号指定符与类型指定符“%c”不兼容。"
 
 #: src/format-c++-brace.c:610
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '#' option is incompatible with the type "
 "specifier '%c'."
-msgstr "第 %u 条指令中，大小指定符与转换指定符“%c”不兼容。"
+msgstr "第 %u 条指令中，“#”选项与类型指定符“%c”不兼容。"
 
 #: src/format-c++-brace.c:618
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '0' option is incompatible with the type "
 "specifier '%c'."
-msgstr "第 %u 条指令中，大小指定符与转换指定符“%c”不兼容。"
+msgstr "第 %u 条指令中，“0”选项与类型指定符“%c”不兼容。"
 
 #: src/format-c++-brace.c:626
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the precision specification is incompatible with "
 "the type specifier '%c'."
-msgstr "第 %u 条指令中，大小指定符与转换指定符“%c”不兼容。"
+msgstr "第 %u 条指令中，精度指定符与类型指定符“%c”不兼容。"
 
 #: src/format-c++-brace.c:634
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the 'L' option is incompatible with the type "
 "specifier '%c'."
-msgstr "第 %u 条指令中，大小指定符与转换指定符“%c”不兼容。"
+msgstr "第 %u 条指令中，“L”选项与类型指定符“%c”不兼容。"
 
 #: src/format-c++-brace.c:735
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the substring \"%s\" is not a valid date/time "
-#| "style."
+#, c-format
 msgid ""
 "The directive number %u, with all of its options, is not applicable to any "
 "type."
-msgstr "第 %u 条指令中，子字符串“%s”不是有效的日期/时间风格。"
+msgstr "第 %u 条指令，以及其所有选项，不可应用于任何类型。"
 
 #: src/format-c++-brace.c:747
-#, fuzzy, c-format
-#| msgid "The string ends in the middle of a directive."
+#, c-format
 msgid "The string ends in the middle of the directive number %u."
-msgstr "字符串于指令中间结束。"
+msgstr "字符串在第 %u 条指令中间结束。"
 
 #: src/format-c++-brace.c:755
-#, fuzzy, c-format
-#| msgid ""
-#| "The directive number %u ends with an invalid character instead of '}'."
+#, c-format
 msgid "The directive number %u is not terminated through '}'."
-msgstr "第 %u 条指令以无效的字符而非“}”结束。"
+msgstr "第 %u 条指令没有使用“}”结束。"
 
 #: src/format-c++-brace.c:777 src/format-csharp.c:158 src/format-java.c:347
 msgid ""
@@ -732,16 +691,17 @@ msgid ""
 "The format specification for argument %u in '%s' is applicable to the types "
 "%s, but the format specification for argument %u in '%s' is not."
 msgstr ""
+"第 %u 个参数（在“%s”内）的格式指定符可应用于类型 %s，但第 %u 个参数"
+"（在“%s”内）的格式指定符不可应用。"
 
 #: src/format-c++-brace.c:1003
-#, fuzzy, c-format
-#| msgid ""
-#| "a format specification for arguments %u and %u doesn't exist in '%s', "
-#| "only one argument may be ignored"
+#, c-format
 msgid ""
 "The format specification for argument %u in '%s' uses a different "
 "presentation than the format specification for argument %u in '%s'."
-msgstr "参数%u 和%u 的格式定义在“%s”中不存在，仅可忽略一个参数"
+msgstr ""
+"第 %u 个参数（在“%s”内）的格式指定符相较第 %u 个参数（在“%s”内）的格式指定符"
+"使用了不同的展示方式。"
 
 #: src/format-c.c:36
 #, c-format
@@ -758,10 +718,9 @@ msgid "In the directive number %u, the token after '<' is not followed by '>'."
 msgstr "第 %u 条指令中，没有与“<”匹配的“>”。"
 
 #: src/format-c.c:42
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision specification is invalid."
+#, c-format
 msgid "In the directive number %u, the argument size specifier is invalid."
-msgstr "第 %u 条指令中，精度指定无效。"
+msgstr "第 %u 条指令中，参数大小的指定无效。"
 
 #: src/format-c.c:45 src/format-gfc-internal.c:289
 #, c-format
@@ -1119,11 +1078,9 @@ msgid "In the directive number %u, '%c' cannot start a getitem argument."
 msgstr "第 %u 条指令中，“%c”不可以getitem 参数开始。"
 
 #: src/format-python-brace.c:204
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, there is an unterminated format directive."
+#, c-format
 msgid "In the directive number %u, there is an unterminated getitem argument."
-msgstr "第 %u 条指令中，格式指令中无终止符。"
+msgstr "第 %u 条指令中，存在未终止的 getitem 参数。"
 
 #: src/format-python-brace.c:221
 #, c-format
@@ -1366,16 +1323,14 @@ msgid "cannot evaluate XPath location path: %s"
 msgstr "无法计算 XPath 地址路径：%s"
 
 #: src/locating-rule.c:94
-#, fuzzy, c-format
-#| msgid "cannot extract rules for %s"
+#, c-format
 msgid "cannot find attribute %s on %s"
-msgstr "无法为 %s 提取规则"
+msgstr "无法找到属性 %s（在 %s 上）"
 
 #: src/locating-rule.c:113 src/locating-rule.c:328
-#, fuzzy, c-format
-#| msgid "cannot locate ITS rules for %s"
+#, c-format
 msgid "cannot locate root element"
-msgstr "无法定位 %s 的 ITS 规则"
+msgstr "无法定位根元素"
 
 #: src/locating-rule.c:250
 #, c-format
@@ -2571,11 +2526,10 @@ msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr "  -f, --use-fuzzy             在输出中使用模糊的翻译条目\n"
 
 #: src/msgfmt.c:1055
-#, fuzzy, c-format
-#| msgid "      --no-obsolete           remove obsolete #~ messages\n"
+#, c-format
 msgid ""
 "      --no-convert            don't convert the messages to UTF-8 encoding\n"
-msgstr "      --no-obsolete           移除过时 #~ 的消息\n"
+msgstr "      --no-convert            不要将消息转换为 UTF-8 编码\n"
 
 #: src/msgfmt.c:1057
 #, c-format
@@ -2583,6 +2537,8 @@ msgid ""
 "      --no-redundancy         don't pre-expand ISO C 99 <inttypes.h>\n"
 "                                format string directive macros\n"
 msgstr ""
+"      --no-redundancy         不要预展开 ISO C 99 <inttypes.h>\n"
+"                                格式字符串指示宏\n"
 
 #: src/msgfmt.c:1060
 #, c-format
@@ -2672,7 +2628,7 @@ msgstr "%s 存在但不可读"
 #: src/read-properties.c:609 src/read-stringtable.c:99 src/x-awk.c:139
 #: src/x-c.c:608 src/x-csharp.c:165 src/x-elisp.c:147 src/x-java.c:201
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
-#: src/x-perl.c:259 src/x-perl.c:334 src/x-perl.c:427 src/x-php.c:164
+#: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
 #: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
 #: src/x-ycp.c:91
@@ -2908,47 +2864,47 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "%s 软件包的简体中文翻译"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:86 src/msgl-iconv.c:262
+#: src/msgl-cat.c:181 src/msgl-charset.c:86 src/msgl-iconv.c:265
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "当前的字符集编码“%s”不是通用的编码名称"
 
-#: src/msgl-cat.c:189 src/msgl-iconv.c:273
+#: src/msgl-cat.c:191 src/msgl-iconv.c:276
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "输入文件中出现了两种不同的字符集“%s”和“%s”"
 
-#: src/msgl-cat.c:204
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr "输入文件“%s”不包含指定字符集的文件头项"
 
-#: src/msgl-cat.c:208
+#: src/msgl-cat.c:210
 #, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
 "charset specification"
 msgstr "输入文件“%2$s”的域“%1$s”不包含指定字符集的文件头项"
 
-#: src/msgl-cat.c:306 src/xg-message.c:342
+#: src/msgl-cat.c:308 src/xg-message.c:342
 #, c-format
 msgid "msgid '%s' is used without plural and with plural."
 msgstr "msgid“%s”用于无复数和复数场景。"
 
-#: src/msgl-cat.c:414 src/msgl-iconv.c:381
+#: src/msgl-cat.c:416 src/msgl-iconv.c:384
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "目标字符集编码“%s”不是通用的编码名称。"
 
-#: src/msgl-cat.c:422 src/msgl-iconv.c:390
+#: src/msgl-cat.c:424 src/msgl-iconv.c:393
 #, c-format
 msgid ""
 "Cannot write the control characters that protect file names with spaces in "
 "the %s encoding"
-msgstr ""
+msgstr "无法在 %s 编码下写入控制字符来使用空白保护文件名"
 
-#: src/msgl-cat.c:474 src/msgl-cat.c:480 src/msgl-cat.c:497
+#: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
 #: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
 #: src/xg-message.c:340
@@ -2956,7 +2912,7 @@ msgstr ""
 msgid "warning: "
 msgstr "警告："
 
-#: src/msgl-cat.c:475
+#: src/msgl-cat.c:477
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -2965,7 +2921,7 @@ msgstr ""
 "输入文件所用的编码不同，其中包含 UTF-8。\n"
 "输出将转换为 UTF-8。\n"
 
-#: src/msgl-cat.c:481
+#: src/msgl-cat.c:483
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -2976,19 +2932,16 @@ msgstr ""
 "输入文件包含不同编码的消息，其中包含 %s 和 %s。会将输出的编码转换为 UTF-8。\n"
 "若要选择另一种输出编码，请使用 --to-code 选项。\n"
 
-#: src/msgl-cat.c:498
-#, fuzzy, c-format
-#| msgid ""
-#| "Input files contain messages in different encodings, UTF-8 among others.\n"
-#| "Converting the output to UTF-8.\n"
+#: src/msgl-cat.c:500
+#, c-format
 msgid ""
 "Input files contain messages referenced in file names with spaces.\n"
 "Converting the output to %s.\n"
 msgstr ""
-"输入文件所用的编码不同，其中包含 UTF-8。\n"
-"输出将转换为 UTF-8。\n"
+"输入文件包含引用了带空白的文件名的消息。\n"
+"将转换输出为 %s。\n"
 
-#: src/msgl-cat.c:536
+#: src/msgl-cat.c:538
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -3205,11 +3158,11 @@ msgstr "%s：在“%s”编码中输入无效"
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s：从“%s”编码转换到“%s”编码时出错"
 
-#: src/msgl-iconv.c:303
+#: src/msgl-iconv.c:306
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "输入文件不包含指定字符集的文件头项"
 
-#: src/msgl-iconv.c:317 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
+#: src/msgl-iconv.c:320 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
 #: src/xgettext.c:820 src/x-python.c:629
 #, c-format
 msgid ""
@@ -3217,14 +3170,14 @@ msgid ""
 "not support this conversion."
 msgstr "无法从“%s”转换为“%s”。%s 需要 iconv()，但 iconv() 不支持此种转换方式。"
 
-#: src/msgl-iconv.c:345
+#: src/msgl-iconv.c:348
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
 "msgids become equal."
 msgstr "从“%s”转换为“%s”出现了重复项：某些原本不同的 msgid 变成了相同项。"
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:302 src/xgettext.c:826
+#: src/msgl-iconv.c:352 src/recode-sr-latin.c:302 src/xgettext.c:826
 #: src/x-python.c:635
 #, c-format
 msgid ""
@@ -3505,8 +3458,8 @@ msgid ""
 "duplicates\n"
 msgstr "  -u, --unique                只打印唯一的消息，忽略重复项\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:104
-#: libgettextpo/gettext-po.c:152 libgettextpo/gettext-po.c:200
+#: src/open-catalog.c:56 libgettextpo/gettext-po.c:116
+#: libgettextpo/gettext-po.c:164 libgettextpo/gettext-po.c:212
 msgid "<stdin>"
 msgstr "<stdin>"
 
@@ -3834,12 +3787,12 @@ msgstr "取回 %s..."
 #: src/urlget.c:301
 #, c-format
 msgid " timed out.\n"
-msgstr "超时。\n"
+msgstr " 超时。\n"
 
 #: src/urlget.c:441
 #, c-format
 msgid " failed.\n"
-msgstr "失败。\n"
+msgstr " 失败。\n"
 
 #: src/write-catalog.c:125
 msgid ""
@@ -4036,12 +3989,12 @@ msgstr "%s:%d：警告：未结束的正规表达式"
 #: src/x-python.c:1602 src/x-vala.c:1322 src/x-ycp.c:698 src/x-ycp.c:773
 #, c-format
 msgid "%s:%d: error: too many open parentheses"
-msgstr ""
+msgstr "%s:%d：错误：过多未闭合的左括号"
 
 #: src/x-c.c:1117 src/x-vala.c:509
 #, c-format
 msgid "%s:%d: warning: hexadecimal escape sequence out of range"
-msgstr ""
+msgstr "%s:%d：警告：十六进制转义序列超出范围"
 
 #: src/x-c.c:1206 src/x-csharp.c:1333 src/x-python.c:1103 src/x-tcl.c:804
 #: src/x-vala.c:597
@@ -4145,7 +4098,7 @@ msgstr "%s:%d：警告：预期为“}”却得到了“)”"
 #: src/x-tcl.c:898
 #, c-format
 msgid "%s:%d: error: too many open braces"
-msgstr ""
+msgstr "%s:%d：错误：过多未闭合的左括号"
 
 #: src/x-csharp.c:2009 src/x-java.c:1644
 #, c-format
@@ -4155,12 +4108,12 @@ msgstr "%s:%d：警告：预期为“)”却得到了“}”"
 #: src/x-elisp.c:452
 #, c-format
 msgid "%s:%d: error: too deeply nested escape sequence"
-msgstr ""
+msgstr "%s:%d：错误：嵌套的转义序列过深"
 
 #: src/x-elisp.c:649 src/x-librep.c:606 src/x-lisp.c:949 src/x-scheme.c:690
 #, c-format
 msgid "%s:%d: error: too deeply nested objects"
-msgstr ""
+msgstr "%s:%d：错误：嵌套的对象过深"
 
 #: src/xg-arglist-parser.c:388
 #, c-format
@@ -4198,31 +4151,29 @@ msgid "Non-ASCII string at %s%s."
 msgstr "%s%s 处有非 ASCII 字符串。"
 
 #: src/xg-encoding.c:92
-#, fuzzy, c-format
-#| msgid "Non-ASCII string at %s%s."
+#, c-format
 msgid "Non-ASCII XML tag at %s%s."
-msgstr "%s%s 处有非 ASCII 字符串。"
+msgstr "%s%s 处有非 ASCII XML 标签。"
 
 #: src/xg-encoding.c:118
 #, c-format
 msgid "Character at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "%s%s 处的字符不是 UTF-8 编码。"
 
 #: src/xg-encoding.c:123
-#, fuzzy, c-format
-#| msgid "Non-ASCII comment at or before %s%s."
+#, c-format
 msgid "Comment at or before %s%s is not UTF-8 encoded."
 msgstr "%s%s 处或之前位置有非 ASCII 码注释。"
 
 #: src/xg-encoding.c:128
 #, c-format
 msgid "String at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "%s%s 处的字符串未使用 UTF-8 编码。"
 
 #: src/xg-encoding.c:134
 #, c-format
 msgid "XML tag at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "%s%s 处的 XML 标签未使用 UTF-8 编码。"
 
 #: src/xgettext.c:590
 #, c-format
@@ -4252,7 +4203,7 @@ msgstr "没有指定关键字 xgettext 将无法工作"
 #: src/xgettext.c:749
 #, c-format
 msgid "The option '%s' is deprecated."
-msgstr ""
+msgstr "选项“%s”已弃用。"
 
 #: src/xgettext.c:873
 #, c-format
@@ -4522,10 +4473,9 @@ msgid "      --itstool               write out itstool comments\n"
 msgstr "      --itstool               输出 itstool 注释\n"
 
 #: src/xgettext.c:1224
-#, fuzzy, c-format
-#| msgid "  -s, --sort-output           generate sorted output\n"
+#, c-format
 msgid "  -s, --sort-output           generate sorted output (deprecated)\n"
-msgstr "  -s, --sort-output           输出前排序\n"
+msgstr "  -s, --sort-output           输出前排序（已弃用）\n"
 
 #: src/xgettext.c:1230
 #, c-format
@@ -4742,70 +4692,66 @@ msgid "%s:%d: warning: unterminated XML markup"
 msgstr "%s:%d：警告：未终止的 XML 标记"
 
 #: src/x-javascript.c:1370
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string"
+#, c-format
 msgid "%s:%d: warning: ignoring CDATA section"
-msgstr "%s:%d：警告：未结束的字符串"
+msgstr "%s:%d：警告：将忽略 CDATA 段落"
 
 #: src/x-javascript.c:1729 src/x-lua.c:1130 src/x-php.c:1527
 #: src/x-python.c:1642 src/x-tcl.c:772
 #, c-format
 msgid "%s:%d: error: too many open brackets"
-msgstr ""
+msgstr "%s:%d：错误：未闭合的左花括号过多"
 
 #: src/x-javascript.c:1814
 #, c-format
 msgid "%s:%d: error: too many open XML elements"
-msgstr ""
+msgstr "%s:%d：错误：未闭合的 XML 元素过多"
 
-#: src/x-perl.c:341
+#: src/x-perl.c:342
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr "%s:%d：在文件结束符前的任何位置都找不到字符串结束符“%s”"
 
-#: src/x-perl.c:1081
+#: src/x-perl.c:1084
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d：在 \\x{十六进制数} 处缺少右大括号"
 
-#: src/x-perl.c:1202
+#: src/x-perl.c:1205
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d：8位字符“%c”转义无效(“\\l”)"
 
-#: src/x-perl.c:1222
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d：8位字符“%c”转义无效(“\\u”)"
 
-#: src/x-perl.c:1256
+#: src/x-perl.c:1259
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d：“%c”处有无效的变量转义"
 
-#: src/x-perl.c:1269
+#: src/x-perl.c:1272
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d：8位字符“%c”转义无效(“\\L”)"
 
-#: src/x-perl.c:1286
+#: src/x-perl.c:1289
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d：8位字符“%c”转义无效(“\\U”)"
 
-#: src/x-perl.c:1728 src/x-perl.c:2780 src/x-perl.c:3122
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated regular expression"
+#: src/x-perl.c:1746 src/x-perl.c:2801 src/x-perl.c:3153
+#, c-format
 msgid "%s:%d: error: too deeply nested expressions"
-msgstr "%s:%d：警告：未结束的正规表达式"
+msgstr "%s:%d：错误：嵌套的表达式过深"
 
 #: src/x-po.c:228
-#, fuzzy, c-format
-#| msgid ""
-#| "input file doesn't contain a header entry with a charset specification"
+#, c-format
 msgid ""
 "%s: input file doesn't contain a header entry with a charset specification"
-msgstr "输入文件不包含指定字符集的文件头项"
+msgstr "%s：输入文件不包含指定字符集的文件头项"
 
 #: src/x-python.c:281
 msgid ""
@@ -4909,14 +4855,14 @@ msgstr "%s:%lu：警告：为安全起见，语法 $“...”不被推荐；请�
 #: src/x-sh.c:1512
 #, c-format
 msgid "%s:%d: error: too deeply nested command list"
-msgstr ""
+msgstr "%s:%d：错误：嵌套的命令列表过深"
 
 #: src/x-vala.c:647
 #, c-format
 msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr "%s:%d：警告：正则表达式过早终止"
 
-#: libgettextpo/gettext-po.c:86
+#: libgettextpo/gettext-po.c:98
 msgid "<unnamed>"
 msgstr "<未命名>"
 

@@ -1,15 +1,15 @@
 # Slovak translations for GNU gettext-tools package.
-# Copyright (C) 1999, 2001, 2002, 2003, 2004, 2005, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021 Free Software Foundation, Inc.
+# Copyright (C) 1999, 2001, 2002, 2003, 2004, 2005, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 # Štefan Ondrejička <ondrej@idata.sk>, 1999.
-# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003, 2004, 2005, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021.
+# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003, 2004, 2005, 2008, 2009, 2010, 2012, 2013, 2014, 2015, 2016, 2019, 2020, 2021, 2023.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-tools 0.21\n"
+"Project-Id-Version: GNU gettext-tools 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 23:40+0200\n"
-"PO-Revision-Date: 2021-04-01 13:14+0200\n"
+"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"PO-Revision-Date: 2023-06-19 07:52+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "Language: sk\n"
@@ -118,83 +118,79 @@ msgstr "%s podproces zlyhal"
 
 #: gnulib-lib/gai_strerror.c:57
 msgid "Address family for hostname not supported"
-msgstr ""
+msgstr "Nepodporovaný druh adresy pre hostiteľa"
 
 #: gnulib-lib/gai_strerror.c:58
 msgid "Temporary failure in name resolution"
-msgstr ""
+msgstr "Dočasné zlyhanie pri prevode mena"
 
 #: gnulib-lib/gai_strerror.c:59
 msgid "Bad value for ai_flags"
-msgstr ""
+msgstr "Zlá hodnota pre ai_flags"
 
 #: gnulib-lib/gai_strerror.c:60
 msgid "Non-recoverable failure in name resolution"
-msgstr ""
+msgstr "Nezotaviteľné zlyhanie pri prevode mena"
 
 #: gnulib-lib/gai_strerror.c:61
 msgid "ai_family not supported"
-msgstr ""
+msgstr "Nepodporované ai_family"
 
 #: gnulib-lib/gai_strerror.c:62
 msgid "Memory allocation failure"
-msgstr ""
+msgstr "Zlyhanie alokácie pamäte"
 
 #: gnulib-lib/gai_strerror.c:63
 msgid "No address associated with hostname"
-msgstr ""
+msgstr "Źiadna adresa priradená k hostiteľovi"
 
 #: gnulib-lib/gai_strerror.c:64
 msgid "Name or service not known"
-msgstr ""
+msgstr "Neznámy názov alebo služba"
 
 #: gnulib-lib/gai_strerror.c:65
 msgid "Servname not supported for ai_socktype"
-msgstr ""
+msgstr "Služba nepodporovaná pre  ai_socktype"
 
 #: gnulib-lib/gai_strerror.c:66
 msgid "ai_socktype not supported"
-msgstr ""
+msgstr "Nepodporované ai_socktype"
 
 #: gnulib-lib/gai_strerror.c:67
-#, fuzzy
-#| msgid "write error"
 msgid "System error"
-msgstr "chyba zápisu"
+msgstr "Systémová chyba"
 
 #: gnulib-lib/gai_strerror.c:68
 msgid "Argument buffer too small"
-msgstr ""
+msgstr "Príliš malá vyrovnávacia pamäť parametra"
 
 #: gnulib-lib/gai_strerror.c:70
 msgid "Processing request in progress"
-msgstr ""
+msgstr "Beží spracovávanie požiadaviek"
 
 #: gnulib-lib/gai_strerror.c:71
 msgid "Request canceled"
-msgstr ""
+msgstr "Požiadavka zrušená"
 
 #: gnulib-lib/gai_strerror.c:72
 msgid "Request not canceled"
-msgstr ""
+msgstr "Požiadavka nie je zrušená"
 
 #: gnulib-lib/gai_strerror.c:73
 msgid "All requests done"
-msgstr ""
+msgstr "Všetky požiadavky hotové"
 
 #: gnulib-lib/gai_strerror.c:74
 msgid "Interrupted by a signal"
-msgstr ""
+msgstr "Prerušené signálom"
 
 #: gnulib-lib/gai_strerror.c:75
 msgid "Parameter string not correctly encoded"
-msgstr ""
+msgstr "Nesprávne zakódovaný reťazec parametra"
 
 #: gnulib-lib/gai_strerror.c:87
-#, fuzzy
-#| msgid "Unknown system error"
 msgid "Unknown error"
-msgstr "Neznáma systémová chyba"
+msgstr "Neznáma chyba"
 
 #: gnulib-lib/getopt.c:278
 #, c-format
@@ -237,6 +233,8 @@ msgid ""
 "The java program is too old. Cannot compile Java code for this old version "
 "any more."
 msgstr ""
+"Program java je príliš starý. Už nie je možné kompilovať Java kód pre tak "
+"starú verziu."
 
 #: gnulib-lib/javacomp.c:147
 #, c-format
@@ -269,39 +267,32 @@ msgid "error while writing \"%s\" file"
 msgstr "chyba počas zápisu do súboru \"%s\""
 
 #: gnulib-lib/javacomp.c:1134
-#, fuzzy, c-format
-#| msgid "Java compiler not found, try installing gcj or set $JAVAC"
+#, c-format
 msgid "Java compiler not found, try setting $JAVAC"
-msgstr ""
-"Kompilátor Javy nebol nájdený. Skúste nainštalovať gcj alebo nastavte $JAVAC"
+msgstr "Kompilátor Javy nebol nájdený. Skúste nastaviť $JAVAC"
 
 #: gnulib-lib/javaexec.c:309
-#, fuzzy, c-format
-#| msgid "Java virtual machine not found, try installing gij or set $JAVA"
+#, c-format
 msgid "Java virtual machine not found, try setting $JAVA"
-msgstr ""
-"Virtuálny stroj Javy nebol nájdený. Skúste nainštalovať gij alebo nastavte "
-"$JAVA"
+msgstr "Virtuálny stroj Javy nebol nájdený. Skúste nastaviť $JAVA"
 
 #: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1328 libgettextpo/obstack.c:337
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
 #: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
 msgstr "vyčerpaná pamäť"
 
 #: gnulib-lib/openat-die.c:38
-#, fuzzy, c-format
-#| msgid "error reading current directory"
+#, c-format
 msgid "unable to record current working directory"
-msgstr "chyba pri čítaní adresára"
+msgstr "nepodarilo sa zaznamenať aktuálny pracovný adresár"
 
 #: gnulib-lib/openat-die.c:57
-#, fuzzy, c-format
-#| msgid "failed to create directory \"%s\""
+#, c-format
 msgid "failed to return to initial working directory"
-msgstr "zlyhalo vytvorenie adresára \"%s\""
+msgstr "zlyhal návrat do pôvodného pracovného adresára"
 
 #: gnulib-lib/os2-spawn.c:45
 #, c-format
@@ -601,139 +592,102 @@ msgstr ""
 "'%s' nie je platný formátovací reťazec %s, na rozdiel od '%s'. Dôvod: %s"
 
 #: src/format-c++-brace.c:270
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the argument %d is negative."
+#, c-format
 msgid "In the directive number %u, the arg-id is too large."
-msgstr "V direktíve číslo %u, parameter %d je negatívny."
+msgstr "V direktíve číslo %u arg-id je príliš veľké."
 
 #: src/format-c++-brace.c:383 src/format-c++-brace.c:477
-#, fuzzy, c-format
-#| msgid "In the directive number %u, a width is given twice."
+#, c-format
 msgid "In the directive number %u, the width's arg-id is too large."
-msgstr "V direktíve číslo %u je šírka zadaná dvakrát."
+msgstr "V direktíve číslo %u je arg-id šírky príliš veľké."
 
 #: src/format-c++-brace.c:438
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the width's argument number 0 is not a "
-#| "positive integer."
+#, c-format
 msgid ""
 "In the directive number %u, the width's arg-id is not terminated through '}'."
-msgstr "V direktíve číslo %u, parameter šírky číslo 0 nie je kladné číslo."
+msgstr "V direktíve číslo %u nie je arg-id šírky ukončené pomocou '}'."
 
 #: src/format-c++-brace.c:532
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision is missing."
+#, c-format
 msgid ""
 "In the directive number %u, the precision's arg-id is not terminated through "
 "'}'."
-msgstr "V direktíve číslo %u chýba presnosť."
+msgstr "V direktíve číslo %u nie je arg-id presnosti ukončené pomocou '}'."
 
 #: src/format-c++-brace.c:593
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the character '%c' is not a valid conversion "
-#| "specifier."
+#, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a standard type "
 "specifier."
-msgstr "V direktíve číslo %u, znak '%c' nie je platný špecifikátor konverzie."
+msgstr "V direktíve číslo %u znak '%c' nie je štandardný špecifikátor typu."
 
 #: src/format-c++-brace.c:594
-#, fuzzy, c-format
-#| msgid ""
-#| "The character that terminates the directive number %u is not a valid "
-#| "conversion specifier."
+#, c-format
 msgid ""
 "The character that terminates the directive number %u is not a standard type "
 "specifier."
 msgstr ""
-"Znak, ktorý ukončuje direktívu číslo %u, nie je platný špecifikátor "
-"konverzie."
+"Znak, ktorý ukončuje direktívu číslo %u nie je štandardný špecifikátor typu."
 
 #: src/format-c++-brace.c:602
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the sign specification is incompatible with the "
 "type specifier '%c'."
 msgstr ""
-"V direktíve číslo %u, určenie veľkosti nie je kompatibilné so zadanou "
-"konverziou '%c'."
+"V direktíve číslo %u je určenie veľkosti nekompatibilné so špecifikátorom "
+"typu '%c'."
 
 #: src/format-c++-brace.c:610
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '#' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"V direktíve číslo %u, určenie veľkosti nie je kompatibilné so zadanou "
-"konverziou '%c'."
+"V direktíve číslo %u je voľba '#' nekompatibilná so špecifikátorom typu '%c'."
 
 #: src/format-c++-brace.c:618
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '0' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"V direktíve číslo %u, určenie veľkosti nie je kompatibilné so zadanou "
-"konverziou '%c'."
+"V direktíve číslo %u je voľba '0' nekompatibilná so špecifikátorom typu '%c'."
 
 #: src/format-c++-brace.c:626
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the precision specification is incompatible with "
 "the type specifier '%c'."
 msgstr ""
-"V direktíve číslo %u, určenie veľkosti nie je kompatibilné so zadanou "
-"konverziou '%c'."
+"V direktíve číslo %u je určenie veľkosti nekompatibilné so špecifikátorom "
+"typu '%c'."
 
 #: src/format-c++-brace.c:634
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the 'L' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"V direktíve číslo %u, určenie veľkosti nie je kompatibilné so zadanou "
-"konverziou '%c'."
+"V direktíve číslo %u je voľba 'L' nekompatibilná so špecifikátorom typu '%c'."
 
 #: src/format-c++-brace.c:735
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the substring \"%s\" is not a valid date/time "
-#| "style."
+#, c-format
 msgid ""
 "The directive number %u, with all of its options, is not applicable to any "
 "type."
 msgstr ""
-"V direktíve číslo %u, podreťazec \"%s\" nie je platný typ dátumu a času."
+"Direktíva číslo %u so všetkými jej voľbami nie je použiteľná pre žiadny typ."
 
 #: src/format-c++-brace.c:747
-#, fuzzy, c-format
-#| msgid "The string ends in the middle of a directive."
+#, c-format
 msgid "The string ends in the middle of the directive number %u."
-msgstr "Reťazec končí v strede direktívy."
+msgstr "Reťazec končí v strede direktívy číslo %u."
 
 #: src/format-c++-brace.c:755
-#, fuzzy, c-format
-#| msgid ""
-#| "The directive number %u ends with an invalid character instead of '}'."
+#, c-format
 msgid "The directive number %u is not terminated through '}'."
-msgstr "Direktíva číslo %u končí neplatným znakom namiesto '}'."
+msgstr "Direktíva číslo %u nie je ukončená pomocou '}'."
 
 #: src/format-c++-brace.c:777 src/format-csharp.c:158 src/format-java.c:347
 msgid ""
@@ -753,18 +707,17 @@ msgid ""
 "The format specification for argument %u in '%s' is applicable to the types "
 "%s, but the format specification for argument %u in '%s' is not."
 msgstr ""
+"Formát pre parameter %u v '%s' je použiteľný pre typy %s, ale formát pre "
+"parameter %u v '%s' nie je."
 
 #: src/format-c++-brace.c:1003
-#, fuzzy, c-format
-#| msgid ""
-#| "a format specification for arguments %u and %u doesn't exist in '%s', "
-#| "only one argument may be ignored"
+#, c-format
 msgid ""
 "The format specification for argument %u in '%s' uses a different "
 "presentation than the format specification for argument %u in '%s'."
 msgstr ""
-"formátovacia značka pre parametre %u a %u nie je v '%s'; môže byť ignorovaný "
-"iba jeden parameter"
+"Formát pre parameter %u v '%s' používa inú prezentáciu ako formát pre "
+"parameter %u v '%s'."
 
 #: src/format-c.c:36
 #, c-format
@@ -772,19 +725,18 @@ msgid ""
 "In the directive number %u, the token after '<' is not the name of a format "
 "specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."
 msgstr ""
-"V direktíve číslo %u, token za '<' nie je názov makra špecifikujúceho "
-"formát. Platné názvy makier sú uvedené v ISO C 99 kapitola 7.8.1."
+"V direktíve číslo %u token za '<' nie je názov makra špecifikujúceho formát. "
+"Platné názvy makier sú uvedené v ISO C 99 kapitola 7.8.1."
 
 #: src/format-c.c:39
 #, c-format
 msgid "In the directive number %u, the token after '<' is not followed by '>'."
-msgstr "V direktíve číslo %u, token za '<' nie je nasledovaný znakom '>'."
+msgstr "V direktíve číslo %u token za '<' nie je nasledovaný znakom '>'."
 
 #: src/format-c.c:42
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision specification is invalid."
+#, c-format
 msgid "In the directive number %u, the argument size specifier is invalid."
-msgstr "V direktíve číslo %u je neplatne špecifikovaná presnosť."
+msgstr "V direktíve číslo %u je neplatný špecifikátor veľkosti parametra."
 
 #: src/format-c.c:45 src/format-gfc-internal.c:289
 #, c-format
@@ -801,12 +753,12 @@ msgstr "počet formátovacích značiek v '%s' a '%s' sa nezhoduje"
 #: src/format-csharp.c:85 src/format-java.c:206
 #, c-format
 msgid "In the directive number %u, '{' is not followed by an argument number."
-msgstr "V direktíve číslo %u, '{' nie je nasledované číslom parametra."
+msgstr "V direktíve číslo %u '{' nie je nasledované číslom parametra."
 
 #: src/format-csharp.c:106
 #, c-format
 msgid "In the directive number %u, ',' is not followed by a number."
-msgstr "V direktíve číslo %u, ',' nie je nasledované číslom."
+msgstr "V direktíve číslo %u ',' nie je nasledovaná číslom."
 
 #: src/format-csharp.c:127 src/format-java.c:192
 msgid ""
@@ -894,28 +846,28 @@ msgstr ""
 #, c-format
 msgid ""
 "In the directive number %u, the argument number 0 is not a positive integer."
-msgstr "V direktíve číslo %u, parameter číslo 0 nie je kladné číslo."
+msgstr "V direktíve číslo %u parameter číslo 0 nie je kladné číslo."
 
 #: src/format-invalid.h:30
 #, c-format
 msgid ""
 "In the directive number %u, the width's argument number 0 is not a positive "
 "integer."
-msgstr "V direktíve číslo %u, parameter šírky číslo 0 nie je kladné číslo."
+msgstr "V direktíve číslo %u parameter šírky číslo 0 nie je kladné číslo."
 
 #: src/format-invalid.h:32
 #, c-format
 msgid ""
 "In the directive number %u, the precision's argument number 0 is not a "
 "positive integer."
-msgstr "V direktíve číslo %u, parameter presnosti číslo 0 nie je kladné číslo."
+msgstr "V direktíve číslo %u parameter presnosti číslo 0 nie je kladné číslo."
 
 #: src/format-invalid.h:36
 #, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a valid conversion "
 "specifier."
-msgstr "V direktíve číslo %u, znak '%c' nie je platný špecifikátor konverzie."
+msgstr "V direktíve číslo %u znak '%c' nie je platný špecifikátor konverzie."
 
 #: src/format-invalid.h:37
 #, c-format
@@ -937,18 +889,18 @@ msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid date/time "
 "style."
 msgstr ""
-"V direktíve číslo %u, podreťazec \"%s\" nie je platný typ dátumu a času."
+"V direktíve číslo %u podreťazec \"%s\" nie je platný typ dátumu a času."
 
 #: src/format-java.c:252 src/format-java.c:286 src/format-java.c:315
 #, c-format
 msgid "In the directive number %u, \"%s\" is not followed by a comma."
-msgstr "V direktíve číslo %u, \"%s\" nie je nasledované čiarkou."
+msgstr "V direktíve číslo %u \"%s\" nie je nasledované čiarkou."
 
 #: src/format-java.c:275
 #, c-format
 msgid ""
 "In the directive number %u, the substring \"%s\" is not a valid number style."
-msgstr "V direktíve číslo %u, podreťazec \"%s\" nie je platný typ čísla."
+msgstr "V direktíve číslo %u podreťazec \"%s\" nie je platný typ čísla."
 
 #: src/format-java.c:324
 #, c-format
@@ -956,13 +908,13 @@ msgid ""
 "In the directive number %u, the argument number is not followed by a comma "
 "and one of \"%s\", \"%s\", \"%s\", \"%s\"."
 msgstr ""
-"V direktíve číslo %u, číslo parametra nie je nasledované čiarkou a jedným z "
+"V direktíve číslo %u číslo parametra nie je nasledované čiarkou a jedným z "
 "\"%s\", \"%s\", \"%s\", \"%s\"."
 
 #: src/format-java.c:573
 #, c-format
 msgid "In the directive number %u, a choice contains no number."
-msgstr "V direktíve číslo %u, voľba neobsahuje číslo."
+msgstr "V direktíve číslo %u voľba neobsahuje číslo."
 
 #: src/format-java.c:584
 #, c-format
@@ -970,8 +922,8 @@ msgid ""
 "In the directive number %u, a choice contains a number that is not followed "
 "by '<', '#' or '%s'."
 msgstr ""
-"V direktíve číslo %u, voľba obsahuje číslo, ktoré nie je nasledované '<', "
-"'#' alebo '%s'."
+"V direktíve číslo %u voľba obsahuje číslo, ktoré nie je nasledované '<', '#' "
+"alebo '%s'."
 
 #: src/format-java.c:746
 #, c-format
@@ -1069,8 +1021,8 @@ msgid ""
 "In the directive number %u, parameter %u is of type '%s' but a parameter of "
 "type '%s' is expected."
 msgstr ""
-"V direktíve číslo %u, parameter %u je typu '%s' ale parameter typu '%s' je "
-"očakávaný."
+"V direktíve číslo %u parameter %u je typu '%s' ale očakávaný je parameter "
+"typu '%s'."
 
 #: src/format-lisp.c:2390 src/format-scheme.c:2417
 #, c-format
@@ -1081,24 +1033,24 @@ msgid_plural ""
 "In the directive number %u, too many parameters are given; expected at most "
 "%u parameters."
 msgstr[0] ""
-"V direktíve číslo %u, je zadaných príliš veľa parametrov. Očakávaných "
+"V direktíve číslo %u je zadaných príliš veľa parametrov. Očakávaných je "
 "najviac %u parametrov."
 msgstr[1] ""
-"V direktíve číslo %u, je zadaných príliš veľa parametrov. Očakávaný najviac "
-"%u parameter."
+"V direktíve číslo %u je zadaných príliš veľa parametrov. Očakávaný je "
+"najviac %u parameter."
 msgstr[2] ""
-"V direktíve číslo %u, je zadaných príliš veľa parametrov. Očakávané najviac "
-"%u parametre."
+"V direktíve číslo %u je zadaných príliš veľa parametrov. Očakávané sú "
+"najviac %u parametre."
 
 #: src/format-lisp.c:2515 src/format-scheme.c:2518
 #, c-format
 msgid "In the directive number %u, '%c' is not followed by a digit."
-msgstr "V direktíve číslo %u, '%c' nie je nasledované číslicou."
+msgstr "V direktíve číslo %u '%c' nie je nasledované číslicou."
 
 #: src/format-lisp.c:2755 src/format-scheme.c:2773
 #, c-format
 msgid "In the directive number %u, the argument %d is negative."
-msgstr "V direktíve číslo %u, parameter %d je negatívny."
+msgstr "V direktíve číslo %u parameter %d je negatívny."
 
 #: src/format-lisp.c:2824
 msgid "The string ends in the middle of a ~/.../ directive."
@@ -1114,7 +1066,7 @@ msgstr "Nájdené '~%c' bez zodpovedajúvceho '~%c'."
 #: src/format-lisp.c:2882 src/format-scheme.c:2879
 #, c-format
 msgid "In the directive number %u, both the @ and the : modifiers are given."
-msgstr "V direktíve číslo %u, obidva modifikátory @ a : sú zadané."
+msgstr "V direktíve číslo %u sú zadané obidva modifikátory @ a :."
 
 #: src/format-lisp.c:2995 src/format-scheme.c:2992
 #, c-format
@@ -1122,13 +1074,13 @@ msgid ""
 "In the directive number %u, '~:[' is not followed by two clauses, separated "
 "by '~;'."
 msgstr ""
-"V direktíve číslo %u, '~:[' nie je nasledované dvoma klauzulami oddelenými "
+"V direktíve číslo %u '~:[' nie je nasledované dvoma klauzulami oddelenými "
 "'~;'."
 
 #: src/format-lisp.c:3345 src/format-scheme.c:3282
 #, c-format
 msgid "In the directive number %u, '~;' is used in an invalid position."
-msgstr "V direktíve číslo %u, '~;' je použité na neplatnej pozícii."
+msgstr "V direktíve číslo %u '~;' je použité na neplatnej pozícii."
 
 #: src/format-lisp.c:3451 src/format-scheme.c:3374
 msgid "The string refers to some argument in incompatible ways."
@@ -1157,30 +1109,28 @@ msgid ""
 "In the directive number %u, the size specifier is incompatible with the "
 "conversion specifier '%c'."
 msgstr ""
-"V direktíve číslo %u, určenie veľkosti nie je kompatibilné so zadanou "
-"konverziou '%c'."
+"V direktíve číslo %u je zadaná veľkosť nekompatibilné so zadanou konverziou "
+"'%c'."
 
 #: src/format-python-brace.c:160
 #, c-format
 msgid "In the directive number %u, '%c' cannot start a field name."
-msgstr "V direktíve číslo %u, '%c' nemôže byť na začiatku názvu poľa."
+msgstr "V direktíve číslo %u '%c' nemôže byť na začiatku názvu poľa."
 
 #: src/format-python-brace.c:180
 #, c-format
 msgid "In the directive number %u, '%c' cannot start a getattr argument."
-msgstr "V direktíve číslo %u, '%c' nemôže byť na začiatku parametra getattr."
+msgstr "V direktíve číslo %u '%c' nemôže byť na začiatku parametra getattr."
 
 #: src/format-python-brace.c:195
 #, c-format
 msgid "In the directive number %u, '%c' cannot start a getitem argument."
-msgstr "V direktíve číslo %u, '%c' nemôže byť na začiatku parametra getitem."
+msgstr "V direktíve číslo %u '%c' nemôže byť na začiatku parametra getitem."
 
 #: src/format-python-brace.c:204
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, there is an unterminated format directive."
+#, c-format
 msgid "In the directive number %u, there is an unterminated getitem argument."
-msgstr "V direktíve číslo %u je neukončená formátovacia direktíva."
+msgstr "V direktíve číslo %u je neukončený parameter getitem."
 
 #: src/format-python-brace.c:221
 #, c-format
@@ -1330,7 +1280,7 @@ msgstr "Reťazec sa odkazuje na premennú prostredia s prázdnym názvom."
 msgid ""
 "In the directive number %u, the character '%c' is not a digit between 1 and "
 "9."
-msgstr "V direktíve číslo %u, znak '%c' nie je číslica medzi 1 a 9."
+msgstr "V direktíve číslo %u znak '%c' nie je číslica medzi 1 a 9."
 
 #: src/format-smalltalk.c:91
 #, c-format
@@ -1444,16 +1394,14 @@ msgid "cannot evaluate XPath location path: %s"
 msgstr "nemožno vyhodnotiť cestu umiestnenia XPath: %s"
 
 #: src/locating-rule.c:94
-#, fuzzy, c-format
-#| msgid "cannot extract rules for %s"
+#, c-format
 msgid "cannot find attribute %s on %s"
-msgstr "nemožno extrahovať pravidlá pre %s"
+msgstr "nemožno nájsť vlastnosť %s v %s"
 
 #: src/locating-rule.c:113 src/locating-rule.c:328
-#, fuzzy, c-format
-#| msgid "cannot locate ITS rules for %s"
+#, c-format
 msgid "cannot locate root element"
-msgstr "nemožno nájsť pravidlá ITS pre %s"
+msgstr "nemožno nájsť koreňový elements"
 
 #: src/locating-rule.c:250
 #, c-format
@@ -2341,7 +2289,7 @@ msgid ""
 "      --no-escape             do not use C escapes in output (default)\n"
 msgstr ""
 "      --no-escape             nepoužiť na výstupe riadiace sekvencie\n"
-"                              jazyka C (predvolené)\n"
+"                                jazyka C (predvolené)\n"
 
 #: src/msgfilter.c:481 src/msggrep.c:599
 #, c-format
@@ -2354,7 +2302,7 @@ msgid ""
 "      --keep-header           keep header entry unmodified, don't filter it\n"
 msgstr ""
 "      --keep-header           zachovať položku hlavičky nezmenenú,\n"
-"                              neodfiltrovať ju\n"
+"                                neodfiltrovať ju\n"
 
 #: src/msgfilter.c:667
 #, c-format
@@ -2748,11 +2696,11 @@ msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr "  -f, --use-fuzzy             použiť nepresné preklady vo výstupe\n"
 
 #: src/msgfmt.c:1055
-#, fuzzy, c-format
-#| msgid "      --no-obsolete           remove obsolete #~ messages\n"
+#, c-format
 msgid ""
 "      --no-convert            don't convert the messages to UTF-8 encoding\n"
-msgstr "      --no-obsolete           odstrániť zastarané správy označené #~\n"
+msgstr ""
+"      --no-convert            nekonvertovať správy do kódovania UTF-8\n"
 
 #: src/msgfmt.c:1057
 #, c-format
@@ -2760,6 +2708,8 @@ msgid ""
 "      --no-redundancy         don't pre-expand ISO C 99 <inttypes.h>\n"
 "                                format string directive macros\n"
 msgstr ""
+"      --no-redundancy         nepredrozbaľovať ISO C 99 <inttypes.h>\n"
+"                                formátovacie makrá direktív reťazcov\n"
 
 #: src/msgfmt.c:1060
 #, c-format
@@ -2855,7 +2805,7 @@ msgstr "%s existuje, ale nedá sa čítať"
 #: src/read-properties.c:609 src/read-stringtable.c:99 src/x-awk.c:139
 #: src/x-c.c:608 src/x-csharp.c:165 src/x-elisp.c:147 src/x-java.c:201
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
-#: src/x-perl.c:259 src/x-perl.c:334 src/x-perl.c:427 src/x-php.c:164
+#: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
 #: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
 #: src/x-ycp.c:91
@@ -3112,23 +3062,23 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "Slovenské preklady pre balík %s"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:86 src/msgl-iconv.c:262
+#: src/msgl-cat.c:181 src/msgl-charset.c:86 src/msgl-iconv.c:265
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "aktuálna znaková sada \"%s\" nie je prenositeľné meno kódovania"
 
-#: src/msgl-cat.c:189 src/msgl-iconv.c:273
+#: src/msgl-cat.c:191 src/msgl-iconv.c:276
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "dve rozdielne znakové sady \"%s\" a \"%s\" vo vstupnom súbore"
 
-#: src/msgl-cat.c:204
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr "vstupný súbor '%s' nemá v hlavičke uvedenú znakovú sadu"
 
-#: src/msgl-cat.c:208
+#: src/msgl-cat.c:210
 #, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
@@ -3136,24 +3086,26 @@ msgid ""
 msgstr ""
 "doména \"%s\" vo vstupnom súbore '%s' nemá v hlavičke uvedenú znakovú sadu"
 
-#: src/msgl-cat.c:306 src/xg-message.c:342
+#: src/msgl-cat.c:308 src/xg-message.c:342
 #, c-format
 msgid "msgid '%s' is used without plural and with plural."
 msgstr "msgid '%s' je použité bez plurálu aj s plurálom."
 
-#: src/msgl-cat.c:414 src/msgl-iconv.c:381
+#: src/msgl-cat.c:416 src/msgl-iconv.c:384
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "cieľová znaková sada \"%s\" nie je prenositeľné meno kódovania."
 
-#: src/msgl-cat.c:422 src/msgl-iconv.c:390
+#: src/msgl-cat.c:424 src/msgl-iconv.c:393
 #, c-format
 msgid ""
 "Cannot write the control characters that protect file names with spaces in "
 "the %s encoding"
 msgstr ""
+"Nemožno zapísať riadiace znaky, ktoré chránia názvy súborov s mezderami, v "
+"kódovaní %s"
 
-#: src/msgl-cat.c:474 src/msgl-cat.c:480 src/msgl-cat.c:497
+#: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
 #: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
 #: src/xg-message.c:340
@@ -3161,7 +3113,7 @@ msgstr ""
 msgid "warning: "
 msgstr "upozornenie: "
 
-#: src/msgl-cat.c:475
+#: src/msgl-cat.c:477
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -3171,7 +3123,7 @@ msgstr ""
 "UTF-8.\n"
 "Konvertujem výstup do UTF-8.\n"
 
-#: src/msgl-cat.c:481
+#: src/msgl-cat.c:483
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -3184,20 +3136,16 @@ msgstr ""
 "Konvertujem výstup do UTF-8.\n"
 "Iné výstupné kódovanie si môžete zvoliť pomocou voľby --to-code.\n"
 
-#: src/msgl-cat.c:498
-#, fuzzy, c-format
-#| msgid ""
-#| "Input files contain messages in different encodings, UTF-8 among others.\n"
-#| "Converting the output to UTF-8.\n"
+#: src/msgl-cat.c:500
+#, c-format
 msgid ""
 "Input files contain messages referenced in file names with spaces.\n"
 "Converting the output to %s.\n"
 msgstr ""
-"Vstupné súbory obsahujú správy v rozdielnych kódovaniach, medzi inými aj v "
-"UTF-8.\n"
-"Konvertujem výstup do UTF-8.\n"
+"Vstupné súbory obsahujú správy odkazované v súboroch s medzerami v názve.\n"
+"Konvertujem výstup do %s.\n"
 
-#: src/msgl-cat.c:536
+#: src/msgl-cat.c:538
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -3426,11 +3374,11 @@ msgstr "%s: vstup nie je platný v kódovaní \"%s\""
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s: chyba pri konverzii kódovania z \"%s\" na \"%s\""
 
-#: src/msgl-iconv.c:303
+#: src/msgl-iconv.c:306
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "vstupný súbor nemá v hlavičke uvedenú znakovú sadu"
 
-#: src/msgl-iconv.c:317 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
+#: src/msgl-iconv.c:320 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
 #: src/xgettext.c:820 src/x-python.c:629
 #, c-format
 msgid ""
@@ -3440,7 +3388,7 @@ msgstr ""
 "Nemôžem konvertovať z \"%s\" do \"%s\". %s spolieha na iconv() a iconv() "
 "nepodporuje takúto konverziu."
 
-#: src/msgl-iconv.c:345
+#: src/msgl-iconv.c:348
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -3449,7 +3397,7 @@ msgstr ""
 "Konverzia z \"%s\" do \"%s\" zavedie duplicity: niektoré rozdielne msgid sa "
 "stanú rovnakými."
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:302 src/xgettext.c:826
+#: src/msgl-iconv.c:352 src/recode-sr-latin.c:302 src/xgettext.c:826
 #: src/x-python.c:635
 #, c-format
 msgid ""
@@ -3755,8 +3703,8 @@ msgstr ""
 "  -u, --unique                zobraziť len unikátne správy, potlačiť "
 "duplikáty\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:104
-#: libgettextpo/gettext-po.c:152 libgettextpo/gettext-po.c:200
+#: src/open-catalog.c:56 libgettextpo/gettext-po.c:116
+#: libgettextpo/gettext-po.c:164 libgettextpo/gettext-po.c:212
 msgid "<stdin>"
 msgstr "<štandardný vstup>"
 
@@ -4309,12 +4257,13 @@ msgstr "%s:%d: upozornenie: neukončený regulárny výraz"
 #: src/x-python.c:1602 src/x-vala.c:1322 src/x-ycp.c:698 src/x-ycp.c:773
 #, c-format
 msgid "%s:%d: error: too many open parentheses"
-msgstr ""
+msgstr "%s:%d: chyba: príliš veľa otvorených zátvoriek"
 
 #: src/x-c.c:1117 src/x-vala.c:509
 #, c-format
 msgid "%s:%d: warning: hexadecimal escape sequence out of range"
 msgstr ""
+"%s:%d: upozornenie: riadiaca sekvencia v šestnástkovej sústave mimo rozsah"
 
 #: src/x-c.c:1206 src/x-csharp.c:1333 src/x-python.c:1103 src/x-tcl.c:804
 #: src/x-vala.c:597
@@ -4420,7 +4369,7 @@ msgstr "%s:%d: upozornenie: nájdené ')' tam, kde bolo očakávané '}'"
 #: src/x-tcl.c:898
 #, c-format
 msgid "%s:%d: error: too many open braces"
-msgstr ""
+msgstr "%s:%d: chyba: príliš veľa otvorených zložených zátvoriek"
 
 #: src/x-csharp.c:2009 src/x-java.c:1644
 #, c-format
@@ -4430,12 +4379,12 @@ msgstr "%s:%d: upozornenie: nájdené '}' tam, kde bolo očakávané ')'"
 #: src/x-elisp.c:452
 #, c-format
 msgid "%s:%d: error: too deeply nested escape sequence"
-msgstr ""
+msgstr "%s:%d: chyba: príliš hlboko vnorené riadiace sekvencie"
 
 #: src/x-elisp.c:649 src/x-librep.c:606 src/x-lisp.c:949 src/x-scheme.c:690
 #, c-format
 msgid "%s:%d: error: too deeply nested objects"
-msgstr ""
+msgstr "%s:%d: chyba: príliš hlboko vnorené objekty"
 
 #: src/xg-arglist-parser.c:388
 #, c-format
@@ -4475,31 +4424,29 @@ msgid "Non-ASCII string at %s%s."
 msgstr "Nie ASCII reťazec na %s%s."
 
 #: src/xg-encoding.c:92
-#, fuzzy, c-format
-#| msgid "Non-ASCII string at %s%s."
+#, c-format
 msgid "Non-ASCII XML tag at %s%s."
-msgstr "Nie ASCII reťazec na %s%s."
+msgstr "Nie ASCII XML značka na %s%s."
 
 #: src/xg-encoding.c:118
 #, c-format
 msgid "Character at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "Znak na %s%s nie je v kódovaní UTF-8."
 
 #: src/xg-encoding.c:123
-#, fuzzy, c-format
-#| msgid "Non-ASCII comment at or before %s%s."
+#, c-format
 msgid "Comment at or before %s%s is not UTF-8 encoded."
-msgstr "Nie ASCII komentár na alebo pred %s%s."
+msgstr "Komentár na alebo pred %s%s nie je v kódovaní UTF-8."
 
 #: src/xg-encoding.c:128
 #, c-format
 msgid "String at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "Reťazec na %s%s nie je v kódovaní UTF-8."
 
 #: src/xg-encoding.c:134
 #, c-format
 msgid "XML tag at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "XML značka na %s%s nie je v kódovaní UTF-8."
 
 #: src/xgettext.c:590
 #, c-format
@@ -4530,7 +4477,7 @@ msgstr "xgettext nemôže pracovať bez kľúčových slov, ktoré má hľadať"
 #: src/xgettext.c:749
 #, c-format
 msgid "The option '%s' is deprecated."
-msgstr ""
+msgstr "Voľba '%s' je neodporúčaná."
 
 #: src/xgettext.c:873
 #, c-format
@@ -4815,10 +4762,10 @@ msgid "      --itstool               write out itstool comments\n"
 msgstr "      --itstool               zapísať komentáre itstool\n"
 
 #: src/xgettext.c:1224
-#, fuzzy, c-format
-#| msgid "  -s, --sort-output           generate sorted output\n"
+#, c-format
 msgid "  -s, --sort-output           generate sorted output (deprecated)\n"
-msgstr "  -s, --sort-output           generovať utriedený výstup\n"
+msgstr ""
+"  -s, --sort-output           generovať utriedený výstup (neodporúčané)\n"
 
 #: src/xgettext.c:1230
 #, c-format
@@ -5050,70 +4997,66 @@ msgid "%s:%d: warning: unterminated XML markup"
 msgstr "%s:%d: upozornenie: neukončená značka XML"
 
 #: src/x-javascript.c:1370
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string"
+#, c-format
 msgid "%s:%d: warning: ignoring CDATA section"
-msgstr "%s:%d: upozornenie: neukončený reťazec"
+msgstr "%s:%d: upozornenie: sekcia CDATA je ignorovaná"
 
 #: src/x-javascript.c:1729 src/x-lua.c:1130 src/x-php.c:1527
 #: src/x-python.c:1642 src/x-tcl.c:772
 #, c-format
 msgid "%s:%d: error: too many open brackets"
-msgstr ""
+msgstr "%s:%d: chyba: príliš veľa otváracích zátvoriek"
 
 #: src/x-javascript.c:1814
 #, c-format
 msgid "%s:%d: error: too many open XML elements"
-msgstr ""
+msgstr "%s:%d: chyba: príliš veľa otvorených XML elementov"
 
-#: src/x-perl.c:341
+#: src/x-perl.c:342
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr "%s:%d: nepodarilo sa nájsť ukončenie reťazca \"%s\" pred koncom súboru"
 
-#: src/x-perl.c:1081
+#: src/x-perl.c:1084
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: chýbajúca pravá zátvorka v \\x{ŠESTNÁSTKOVÉČÍSLO}"
 
-#: src/x-perl.c:1202
+#: src/x-perl.c:1205
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: neplatná interpolácia (\"\\l\") 8-bitového znaku \"%c\""
 
-#: src/x-perl.c:1222
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: neplatná interpolácia (\"\\u\") 8-bitového znaku \"%c\""
 
-#: src/x-perl.c:1256
+#: src/x-perl.c:1259
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: neplatná interpolácia premennej na \"%c\""
 
-#: src/x-perl.c:1269
+#: src/x-perl.c:1272
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: neplatná interpolácia (\"\\L\") 8-bitového znaku \"%c\""
 
-#: src/x-perl.c:1286
+#: src/x-perl.c:1289
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: neplatná interpolácia (\"\\U\") 8-bitového znaku \"%c\""
 
-#: src/x-perl.c:1728 src/x-perl.c:2780 src/x-perl.c:3122
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated regular expression"
+#: src/x-perl.c:1746 src/x-perl.c:2801 src/x-perl.c:3153
+#, c-format
 msgid "%s:%d: error: too deeply nested expressions"
-msgstr "%s:%d: upozornenie: neukončený regulárny výraz"
+msgstr "%s:%d: chyba: príliš hlboko vnorené výrazy"
 
 #: src/x-po.c:228
-#, fuzzy, c-format
-#| msgid ""
-#| "input file doesn't contain a header entry with a charset specification"
+#, c-format
 msgid ""
 "%s: input file doesn't contain a header entry with a charset specification"
-msgstr "vstupný súbor nemá v hlavičke uvedenú znakovú sadu"
+msgstr "%s: vstupný súbor nemá v hlavičke uvedenú znakovú sadu"
 
 #: src/x-python.c:281
 msgid ""
@@ -5219,7 +5162,7 @@ msgstr ""
 #: src/x-sh.c:1512
 #, c-format
 msgid "%s:%d: error: too deeply nested command list"
-msgstr ""
+msgstr "%s:%d: chyba: príliš hlboko vnorený zoznam príkazov"
 
 #: src/x-vala.c:647
 #, c-format
@@ -5227,7 +5170,7 @@ msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr ""
 "%s:%d: upozornenie: reťazec regulárneho výrazu je ukončený príliš skoro"
 
-#: libgettextpo/gettext-po.c:86
+#: libgettextpo/gettext-po.c:98
 msgid "<unnamed>"
 msgstr "<nepomenované>"
 

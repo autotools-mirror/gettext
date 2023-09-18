@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the gettext package.
 #
 # Oleg S. Tihonov <ost@tatnipi.ru>, 1998, 2001-2007.
-# Yuri Kozlov <yuray@komyakino.ru>, 2014, 2016, 2020, 2021.
+# Yuri Kozlov <yuray@komyakino.ru>, 2014, 2016, 2020, 2021, 2023.
 # Pavel Maryanov <acid@jack.kiev.ua>, 2014.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.21\n"
+"Project-Id-Version: gettext-tools 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 23:40+0200\n"
-"PO-Revision-Date: 2021-04-01 06:31+0300\n"
+"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"PO-Revision-Date: 2023-07-17 09:48+0300\n"
 "Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
 "Language-Team: Russian <gnu@d07.ru>\n"
 "Language: ru\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Lokalize 20.12.0\n"
+"X-Generator: Lokalize 22.12.3\n"
 
 #: gnulib-lib/argmatch.c:145
 #, c-format
@@ -121,83 +121,79 @@ msgstr "дочерний процесс %s завершился неуспехо
 
 #: gnulib-lib/gai_strerror.c:57
 msgid "Address family for hostname not supported"
-msgstr ""
+msgstr "Семейство адресов не поддерживается для имени узла"
 
 #: gnulib-lib/gai_strerror.c:58
 msgid "Temporary failure in name resolution"
-msgstr ""
+msgstr "Временный сбой при определении имени"
 
 #: gnulib-lib/gai_strerror.c:59
 msgid "Bad value for ai_flags"
-msgstr ""
+msgstr "Неверное значение для ai_flags"
 
 #: gnulib-lib/gai_strerror.c:60
 msgid "Non-recoverable failure in name resolution"
-msgstr ""
+msgstr "Невосстановимая ошибка при определении имени"
 
 #: gnulib-lib/gai_strerror.c:61
 msgid "ai_family not supported"
-msgstr ""
+msgstr "ai_family не поддерживается"
 
 #: gnulib-lib/gai_strerror.c:62
 msgid "Memory allocation failure"
-msgstr ""
+msgstr "Ошибка при выделении памяти"
 
 #: gnulib-lib/gai_strerror.c:63
 msgid "No address associated with hostname"
-msgstr ""
+msgstr "С именем узла не связано ни одного адреса"
 
 #: gnulib-lib/gai_strerror.c:64
 msgid "Name or service not known"
-msgstr ""
+msgstr "Неизвестное имя или служба"
 
 #: gnulib-lib/gai_strerror.c:65
 msgid "Servname not supported for ai_socktype"
-msgstr ""
+msgstr "Servname не поддерживается для ai_socktype"
 
 #: gnulib-lib/gai_strerror.c:66
 msgid "ai_socktype not supported"
-msgstr ""
+msgstr "ai_socktype не поддерживается"
 
 #: gnulib-lib/gai_strerror.c:67
-#, fuzzy
-#| msgid "write error"
 msgid "System error"
-msgstr "ошибка записи"
+msgstr "Системная ошибка"
 
 #: gnulib-lib/gai_strerror.c:68
 msgid "Argument buffer too small"
-msgstr ""
+msgstr "Буфер аргументов слишком мал"
 
 #: gnulib-lib/gai_strerror.c:70
 msgid "Processing request in progress"
-msgstr ""
+msgstr "Выполняется обработка запроса"
 
 #: gnulib-lib/gai_strerror.c:71
 msgid "Request canceled"
-msgstr ""
+msgstr "Запрос отменён"
 
 #: gnulib-lib/gai_strerror.c:72
 msgid "Request not canceled"
-msgstr ""
+msgstr "Запрос не отменён"
 
 #: gnulib-lib/gai_strerror.c:73
 msgid "All requests done"
-msgstr ""
+msgstr "Все запросы выполнены"
 
 #: gnulib-lib/gai_strerror.c:74
 msgid "Interrupted by a signal"
-msgstr ""
+msgstr "Прервано сигналом"
 
 #: gnulib-lib/gai_strerror.c:75
 msgid "Parameter string not correctly encoded"
-msgstr ""
+msgstr "Неправильно закодирована строка параметра"
 
 #: gnulib-lib/gai_strerror.c:87
-#, fuzzy
-#| msgid "Unknown system error"
 msgid "Unknown error"
-msgstr "Неизвестная системная ошибка"
+msgstr "Неизвестная ошибка"
 
 #: gnulib-lib/getopt.c:278
 #, c-format
@@ -240,6 +236,8 @@ msgid ""
 "The java program is too old. Cannot compile Java code for this old version "
 "any more."
 msgstr ""
+"Слишком старая версия программы java. Для этой версии больше нельзя "
+"скомпилировать код Java."
 
 #: gnulib-lib/javacomp.c:147
 #, c-format
@@ -272,39 +270,32 @@ msgid "error while writing \"%s\" file"
 msgstr "ошибка записи файла «%s»"
 
 #: gnulib-lib/javacomp.c:1134
-#, fuzzy, c-format
-#| msgid "Java compiler not found, try installing gcj or set $JAVAC"
+#, c-format
 msgid "Java compiler not found, try setting $JAVAC"
-msgstr ""
-"Не найден компилятор Java, поставьте gcj или установите переменную $JAVAC"
+msgstr "Не найден компилятор Java, попробуйте задать переменную $JAVAC"
 
 #: gnulib-lib/javaexec.c:309
-#, fuzzy, c-format
-#| msgid "Java virtual machine not found, try installing gij or set $JAVA"
+#, c-format
 msgid "Java virtual machine not found, try setting $JAVA"
-msgstr ""
-"Не найдена виртуальная машина Java, поставьте gij или установите переменную "
-"$JAVA"
+msgstr "Не найдена виртуальная машина Java, попробуйте задать переменную $JAVA"
 
 #: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1328 libgettextpo/obstack.c:337
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
 #: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
 msgstr "память исчерпана"
 
 #: gnulib-lib/openat-die.c:38
-#, fuzzy, c-format
-#| msgid "error reading current directory"
+#, c-format
 msgid "unable to record current working directory"
-msgstr "ошибка при чтении текущего каталога"
+msgstr "не удалось запомнить текущий рабочий каталог"
 
 #: gnulib-lib/openat-die.c:57
-#, fuzzy, c-format
-#| msgid "failed to create directory \"%s\""
+#, c-format
 msgid "failed to return to initial working directory"
-msgstr "не удалось создать каталог «%s»"
+msgstr "не удалось вернуться в первоначальный рабочий каталог"
 
 #: gnulib-lib/os2-spawn.c:45
 #, c-format
@@ -604,143 +595,103 @@ msgstr ""
 "%s"
 
 #: src/format-c++-brace.c:270
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the argument %d is negative."
+#, c-format
 msgid "In the directive number %u, the arg-id is too large."
-msgstr "В директиве номер %u аргумент %d отрицателен."
+msgstr "В директиве номер %u указан слишком большой arg-id."
 
 #: src/format-c++-brace.c:383 src/format-c++-brace.c:477
-#, fuzzy, c-format
-#| msgid "In the directive number %u, a width is given twice."
+#, c-format
 msgid "In the directive number %u, the width's arg-id is too large."
-msgstr "В директиве номер %u ширина указана дважды."
+msgstr "В директиве номер %u слишком большая ширина arg-id."
 
 #: src/format-c++-brace.c:438
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the width's argument number 0 is not a "
-#| "positive integer."
+#, c-format
 msgid ""
 "In the directive number %u, the width's arg-id is not terminated through '}'."
-msgstr ""
-"В директиве номер %u ширина аргумента с номером 0 не является положительным "
-"целым числом."
+msgstr "В директиве номер %u ширина arg-id не заканчивается «}»."
 
 #: src/format-c++-brace.c:532
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision is missing."
+#, c-format
 msgid ""
 "In the directive number %u, the precision's arg-id is not terminated through "
 "'}'."
-msgstr "В директиве номер %u не указана точность."
+msgstr "В директиве номер %u точность arg-id не заканчивается «}»."
 
 #: src/format-c++-brace.c:593
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the character '%c' is not a valid conversion "
-#| "specifier."
+#, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a standard type "
 "specifier."
 msgstr ""
-"В директиве номер %u символ «%c» не является верным спецификатором "
-"преобразования."
+"В директиве номер %u символ «%c» не является стандартным спецификатором типа."
 
 #: src/format-c++-brace.c:594
-#, fuzzy, c-format
-#| msgid ""
-#| "The character that terminates the directive number %u is not a valid "
-#| "conversion specifier."
+#, c-format
 msgid ""
 "The character that terminates the directive number %u is not a standard type "
 "specifier."
 msgstr ""
-"Символ, завершающий директиву номер %u не является верным спецификатором "
-"преобразования."
+"Символ, завершающий директиву номер %u, не является стандартным "
+"спецификатором типа."
 
 #: src/format-c++-brace.c:602
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the sign specification is incompatible with the "
 "type specifier '%c'."
 msgstr ""
-"В директиве номер %u спецификатор размера несовместим со спецификатором "
-"преобразования «%c»."
+"В директиве номер %u спецификатор знака несовместим со спецификатором типа "
+"«%c»."
 
 #: src/format-c++-brace.c:610
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '#' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"В директиве номер %u спецификатор размера несовместим со спецификатором "
-"преобразования «%c»."
+"В директиве номер %u вариант «#» несовместим со спецификатором типа «%c»."
 
 #: src/format-c++-brace.c:618
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the '0' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"В директиве номер %u спецификатор размера несовместим со спецификатором "
-"преобразования «%c»."
+"В директиве номер %u вариант «0» несовместим со спецификатором типа «%c»."
 
 #: src/format-c++-brace.c:626
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the precision specification is incompatible with "
 "the type specifier '%c'."
 msgstr ""
-"В директиве номер %u спецификатор размера несовместим со спецификатором "
-"преобразования «%c»."
+"В директиве номер %u спецификатор точности несовместим со спецификатором "
+"типа «%c»."
 
 #: src/format-c++-brace.c:634
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the size specifier is incompatible with the "
-#| "conversion specifier '%c'."
+#, c-format
 msgid ""
 "In the directive number %u, the 'L' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"В директиве номер %u спецификатор размера несовместим со спецификатором "
-"преобразования «%c»."
+"В директиве номер %u вариант «L» несовместим со спецификатором типа «%c»."
 
 #: src/format-c++-brace.c:735
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, the substring \"%s\" is not a valid date/time "
-#| "style."
+#, c-format
 msgid ""
 "The directive number %u, with all of its options, is not applicable to any "
 "type."
-msgstr ""
-"В директиве номер %u подстрока «%s» не является верным стилем даты/времени."
+msgstr "В директиве номер %u все её варианты не применимы к какому-либо типу."
 
 #: src/format-c++-brace.c:747
-#, fuzzy, c-format
-#| msgid "The string ends in the middle of a directive."
+#, c-format
 msgid "The string ends in the middle of the directive number %u."
-msgstr "Строка обрывается посреди директивы."
+msgstr "Строка обрывается посреди директивы номер %u."
 
 #: src/format-c++-brace.c:755
-#, fuzzy, c-format
-#| msgid ""
-#| "The directive number %u ends with an invalid character instead of '}'."
+#, c-format
 msgid "The directive number %u is not terminated through '}'."
-msgstr "Директива номер %u заканчивается на неверный символ, а не на «}»."
+msgstr "Директива номер %u не заканчивается на «}»."
 
 #: src/format-c++-brace.c:777 src/format-csharp.c:158 src/format-java.c:347
 msgid ""
@@ -760,18 +711,17 @@ msgid ""
 "The format specification for argument %u in '%s' is applicable to the types "
 "%s, but the format specification for argument %u in '%s' is not."
 msgstr ""
+"Спецификация формата аргумента %u в «%s» применима к типам %s, но "
+"спецификация формата аргумента %u в «%s» — нет."
 
 #: src/format-c++-brace.c:1003
-#, fuzzy, c-format
-#| msgid ""
-#| "a format specification for arguments %u and %u doesn't exist in '%s', "
-#| "only one argument may be ignored"
+#, c-format
 msgid ""
 "The format specification for argument %u in '%s' uses a different "
 "presentation than the format specification for argument %u in '%s'."
 msgstr ""
-"спецификация формата аргументов %u и %u не существует в «%s», только один "
-"аргумент может быть игнорирован"
+"Спецификация формата аргумента %u в «%s» использует отличающееся "
+"представление от спецификации формата аргумента %u в «%s»."
 
 #: src/format-c.c:36
 #, c-format
@@ -790,10 +740,10 @@ msgstr ""
 "В директиве номер %u после лексемы, стоящей за «<», нет закрывающего «>»."
 
 #: src/format-c.c:42
-#, fuzzy, c-format
-#| msgid "In the directive number %u, the precision specification is invalid."
+#, c-format
 msgid "In the directive number %u, the argument size specifier is invalid."
-msgstr "В директиве номер %u неверная спецификация точности."
+msgstr ""
+"В директиве номер %u указан некорректный аргумент спецификации размера."
 
 #: src/format-c.c:45 src/format-gfc-internal.c:289
 #, c-format
@@ -1197,11 +1147,9 @@ msgid "In the directive number %u, '%c' cannot start a getitem argument."
 msgstr "В директиве номер %u с «%c» не может начинаться аргумент getitem."
 
 #: src/format-python-brace.c:204
-#, fuzzy, c-format
-#| msgid ""
-#| "In the directive number %u, there is an unterminated format directive."
+#, c-format
 msgid "In the directive number %u, there is an unterminated getitem argument."
-msgstr "В директиве номер %u есть незавершённая директива формата."
+msgstr "В директиве номер %u есть незавершённый аргумент getitem."
 
 #: src/format-python-brace.c:221
 #, c-format
@@ -1327,8 +1275,8 @@ msgid ""
 "The string refers to a shell variable with complex shell brace syntax. This "
 "syntax is unsupported here due to security reasons."
 msgstr ""
-"Строка ссылается на переменную оболочки со сложным синтактисом фигурных "
-"скобок.  Этот синтактис не поддерживается в этой программе по соображениям "
+"Строка ссылается на переменную оболочки со сложным синтаксисом фигурных "
+"скобок.  Этот синтаксис не поддерживается в этой программе по соображениям "
 "безопасности."
 
 #: src/format-sh.c:82
@@ -1461,16 +1409,14 @@ msgid "cannot evaluate XPath location path: %s"
 msgstr "невозможно вычислить путь расположения XPath: %s"
 
 #: src/locating-rule.c:94
-#, fuzzy, c-format
-#| msgid "cannot extract rules for %s"
+#, c-format
 msgid "cannot find attribute %s on %s"
-msgstr "невозможно извлечь правила для %s"
+msgstr "невозможно найти атрибут %s для %s"
 
 #: src/locating-rule.c:113 src/locating-rule.c:328
-#, fuzzy, c-format
-#| msgid "cannot locate ITS rules for %s"
+#, c-format
 msgid "cannot locate root element"
-msgstr "невозможно найти правила ITS для %s"
+msgstr "невозможно найти расположение корневого элемента"
 
 #: src/locating-rule.c:250
 #, c-format
@@ -2767,12 +2713,11 @@ msgstr ""
 "  -f, --use-fuzzy             использовать при выводе неточные переводы\n"
 
 #: src/msgfmt.c:1055
-#, fuzzy, c-format
-#| msgid "      --no-obsolete           remove obsolete #~ messages\n"
+#, c-format
 msgid ""
 "      --no-convert            don't convert the messages to UTF-8 encoding\n"
 msgstr ""
-"      --no-obsolete           удалить сообщения, помеченные как «старые»\n"
+"      --no-convert            не преобразовать сообщения в кодировку UTF-8\n"
 
 #: src/msgfmt.c:1057
 #, c-format
@@ -2780,6 +2725,8 @@ msgid ""
 "      --no-redundancy         don't pre-expand ISO C 99 <inttypes.h>\n"
 "                                format string directive macros\n"
 msgstr ""
+"      --no-redundancy         не раскрывать заранее макросы форматирования\n"
+"                              строк ISO C 99 <inttypes.h>\n"
 
 #: src/msgfmt.c:1060
 #, c-format
@@ -2876,7 +2823,7 @@ msgstr "%s существует, но недоступен для чтения"
 #: src/read-properties.c:609 src/read-stringtable.c:99 src/x-awk.c:139
 #: src/x-c.c:608 src/x-csharp.c:165 src/x-elisp.c:147 src/x-java.c:201
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
-#: src/x-perl.c:259 src/x-perl.c:334 src/x-perl.c:427 src/x-php.c:164
+#: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
 #: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
 #: src/x-ycp.c:91
@@ -3139,23 +3086,23 @@ msgstr ""
 msgid "English translations for %s package"
 msgstr "Английские переводы для пакета %s"
 
-#: src/msgl-cat.c:179 src/msgl-charset.c:86 src/msgl-iconv.c:262
+#: src/msgl-cat.c:181 src/msgl-charset.c:86 src/msgl-iconv.c:265
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr "текущая кодировка «%s» не является переносимым именем кодировки"
 
-#: src/msgl-cat.c:189 src/msgl-iconv.c:273
+#: src/msgl-cat.c:191 src/msgl-iconv.c:276
 #, c-format
 msgid "two different charsets \"%s\" and \"%s\" in input file"
 msgstr "во входном файле две разные кодировки «%s» и «%s»"
 
-#: src/msgl-cat.c:204
+#: src/msgl-cat.c:206
 #, c-format
 msgid ""
 "input file '%s' doesn't contain a header entry with a charset specification"
 msgstr "входной файл «%s» не содержит запись заголовка с описанием кодировки"
 
-#: src/msgl-cat.c:208
+#: src/msgl-cat.c:210
 #, c-format
 msgid ""
 "domain \"%s\" in input file '%s' doesn't contain a header entry with a "
@@ -3164,24 +3111,26 @@ msgstr ""
 "домен «%s» во входном файле «%s» не содержит запись заголовка с описанием "
 "кодировки"
 
-#: src/msgl-cat.c:306 src/xg-message.c:342
+#: src/msgl-cat.c:308 src/xg-message.c:342
 #, c-format
 msgid "msgid '%s' is used without plural and with plural."
 msgstr "msgid «%s» используется как в единственной так и множественной форме."
 
-#: src/msgl-cat.c:414 src/msgl-iconv.c:381
+#: src/msgl-cat.c:416 src/msgl-iconv.c:384
 #, c-format
 msgid "target charset \"%s\" is not a portable encoding name."
 msgstr "целевая кодировка «%s» не является переносимым именем кодировки."
 
-#: src/msgl-cat.c:422 src/msgl-iconv.c:390
+#: src/msgl-cat.c:424 src/msgl-iconv.c:393
 #, c-format
 msgid ""
 "Cannot write the control characters that protect file names with spaces in "
 "the %s encoding"
 msgstr ""
+"Невозможно записать управляющие символы, которые защищают имена файлов с "
+"пробелами, в кодировке %s"
 
-#: src/msgl-cat.c:474 src/msgl-cat.c:480 src/msgl-cat.c:497
+#: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
 #: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
 #: src/xg-message.c:340
@@ -3189,7 +3138,7 @@ msgstr ""
 msgid "warning: "
 msgstr "предупреждение: "
 
-#: src/msgl-cat.c:475
+#: src/msgl-cat.c:477
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
@@ -3198,7 +3147,7 @@ msgstr ""
 "Входные файлы содержат сообщения в разных кодировках, в том числе в\n"
 "UTF-8. Вывод преобразуется к UTF-8.\n"
 
-#: src/msgl-cat.c:481
+#: src/msgl-cat.c:483
 #, c-format
 msgid ""
 "Input files contain messages in different encodings, %s and %s among "
@@ -3211,19 +3160,16 @@ msgstr ""
 "Вывод преобразуется к UTF-8.  Чтобы выбрать другую выходную кодировку,\n"
 "используйте параметр --to-code.\n"
 
-#: src/msgl-cat.c:498
-#, fuzzy, c-format
-#| msgid ""
-#| "Input files contain messages in different encodings, UTF-8 among others.\n"
-#| "Converting the output to UTF-8.\n"
+#: src/msgl-cat.c:500
+#, c-format
 msgid ""
 "Input files contain messages referenced in file names with spaces.\n"
 "Converting the output to %s.\n"
 msgstr ""
-"Входные файлы содержат сообщения в разных кодировках, в том числе в\n"
-"UTF-8. Вывод преобразуется к UTF-8.\n"
+"Входные файлы содержат сообщения ссылающиеся на имена файлов с пробелами.\n"
+"Вывод преобразуется в %s.\n"
 
-#: src/msgl-cat.c:536
+#: src/msgl-cat.c:538
 #, c-format
 msgid ""
 "Conversion of file %s from %s encoding to %s encoding\n"
@@ -3452,11 +3398,11 @@ msgstr "%s: неверные данные для кодировки «%s»"
 msgid "%s: error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "%s: ошибка при преобразовании из кодировки «%s» в кодировку «%s»"
 
-#: src/msgl-iconv.c:303
+#: src/msgl-iconv.c:306
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "входной файл не содержит поле заголовка с описанием кодировки"
 
-#: src/msgl-iconv.c:317 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
+#: src/msgl-iconv.c:320 src/recode-sr-latin.c:290 src/recode-sr-latin.c:294
 #: src/xgettext.c:820 src/x-python.c:629
 #, c-format
 msgid ""
@@ -3466,7 +3412,7 @@ msgstr ""
 "Невозможно преобразовать из «%s» в «%s». %s полагается на iconv(), но "
 "iconv() не поддерживает это преобразование."
 
-#: src/msgl-iconv.c:345
+#: src/msgl-iconv.c:348
 #, c-format
 msgid ""
 "Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
@@ -3475,7 +3421,7 @@ msgstr ""
 "Преобразование из «%s» в «%s» порождает дубликаты: некоторые различающиеся "
 "оригиналы сообщений становятся одинаковыми."
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:302 src/xgettext.c:826
+#: src/msgl-iconv.c:352 src/recode-sr-latin.c:302 src/xgettext.c:826
 #: src/x-python.c:635
 #, c-format
 msgid ""
@@ -3789,8 +3735,8 @@ msgstr ""
 "  -u, --unique                печатать только уникальные, пропуская "
 "дубликаты\n"
 
-#: src/open-catalog.c:56 libgettextpo/gettext-po.c:104
-#: libgettextpo/gettext-po.c:152 libgettextpo/gettext-po.c:200
+#: src/open-catalog.c:56 libgettextpo/gettext-po.c:116
+#: libgettextpo/gettext-po.c:164 libgettextpo/gettext-po.c:212
 msgid "<stdin>"
 msgstr "<стандартный ввод>"
 
@@ -4353,12 +4299,14 @@ msgstr "%s:%d: предупреждение: незавершенное регу
 #: src/x-python.c:1602 src/x-vala.c:1322 src/x-ycp.c:698 src/x-ycp.c:773
 #, c-format
 msgid "%s:%d: error: too many open parentheses"
-msgstr ""
+msgstr "%s:%d: ошибка: слишком много открывающихся круглых скобок"
 
 #: src/x-c.c:1117 src/x-vala.c:509
 #, c-format
 msgid "%s:%d: warning: hexadecimal escape sequence out of range"
 msgstr ""
+"%s:%d: предупреждение: шестнадцатеричная экранирующая последовательность за "
+"пределами диапазона"
 
 #: src/x-c.c:1206 src/x-csharp.c:1333 src/x-python.c:1103 src/x-tcl.c:804
 #: src/x-vala.c:597
@@ -4465,7 +4413,7 @@ msgstr "%s:%d: предупреждение: встречена «)», где о
 #: src/x-tcl.c:898
 #, c-format
 msgid "%s:%d: error: too many open braces"
-msgstr ""
+msgstr "%s:%d: ошибка: слишком много открывающихся фигурных скобок"
 
 #: src/x-csharp.c:2009 src/x-java.c:1644
 #, c-format
@@ -4476,11 +4424,12 @@ msgstr "%s:%d: предупреждение: встречена «}», где о
 #, c-format
 msgid "%s:%d: error: too deeply nested escape sequence"
 msgstr ""
+"%s:%d: ошибка: слишком глубоко вложенная экранирующая последовательность"
 
 #: src/x-elisp.c:649 src/x-librep.c:606 src/x-lisp.c:949 src/x-scheme.c:690
 #, c-format
 msgid "%s:%d: error: too deeply nested objects"
-msgstr ""
+msgstr "%s:%d: ошибка: слишком глубоко вложенные объекты"
 
 #: src/xg-arglist-parser.c:388
 #, c-format
@@ -4520,31 +4469,29 @@ msgid "Non-ASCII string at %s%s."
 msgstr "Не ASCII-строка у %s%s."
 
 #: src/xg-encoding.c:92
-#, fuzzy, c-format
-#| msgid "Non-ASCII string at %s%s."
+#, c-format
 msgid "Non-ASCII XML tag at %s%s."
-msgstr "Не ASCII-строка у %s%s."
+msgstr "Тег XML не в кодировке ASCII у %s%s."
 
 #: src/xg-encoding.c:118
 #, c-format
 msgid "Character at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "Символ у %s%s не в кодировке UTF-8."
 
 #: src/xg-encoding.c:123
-#, fuzzy, c-format
-#| msgid "Non-ASCII comment at or before %s%s."
+#, c-format
 msgid "Comment at or before %s%s is not UTF-8 encoded."
-msgstr "Не ASCII-комментарий у или перед %s%s."
+msgstr "Комментарий у или перед %s%s не в кодировке UTF-8."
 
 #: src/xg-encoding.c:128
 #, c-format
 msgid "String at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "Строка у %s%s не в кодировке UTF-8."
 
 #: src/xg-encoding.c:134
 #, c-format
 msgid "XML tag at %s%s is not UTF-8 encoded."
-msgstr ""
+msgstr "Тег XML у %s%s не в кодировке UTF-8."
 
 #: src/xgettext.c:590
 #, c-format
@@ -4576,7 +4523,7 @@ msgstr "xgettext не может работать, не зная искомых 
 #: src/xgettext.c:749
 #, c-format
 msgid "The option '%s' is deprecated."
-msgstr ""
+msgstr "Параметр «%s» устарел."
 
 #: src/xgettext.c:873
 #, c-format
@@ -4851,10 +4798,9 @@ msgid "      --itstool               write out itstool comments\n"
 msgstr "      --itstool               выводить комментарии itstool\n"
 
 #: src/xgettext.c:1224
-#, fuzzy, c-format
-#| msgid "  -s, --sort-output           generate sorted output\n"
+#, c-format
 msgid "  -s, --sort-output           generate sorted output (deprecated)\n"
-msgstr "  -s, --sort-output           сортировать вывод\n"
+msgstr "  -s, --sort-output           сортировать вывод (устарел)\n"
 
 #: src/xgettext.c:1230
 #, c-format
@@ -5089,70 +5035,66 @@ msgid "%s:%d: warning: unterminated XML markup"
 msgstr "%s:%d: предупреждение: незавершенная разметка XML"
 
 #: src/x-javascript.c:1370
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated string"
+#, c-format
 msgid "%s:%d: warning: ignoring CDATA section"
-msgstr "%s:%d: предупреждение: незавершенная строка"
+msgstr "%s:%d: предупреждение: игнорируется раздел CDATA"
 
 #: src/x-javascript.c:1729 src/x-lua.c:1130 src/x-php.c:1527
 #: src/x-python.c:1642 src/x-tcl.c:772
 #, c-format
 msgid "%s:%d: error: too many open brackets"
-msgstr ""
+msgstr "%s:%d: ошибка: слишком много открывающихся скобок"
 
 #: src/x-javascript.c:1814
 #, c-format
 msgid "%s:%d: error: too many open XML elements"
-msgstr ""
+msgstr "%s:%d: ошибка: слишком много открывающих элементов XML"
 
-#: src/x-perl.c:341
+#: src/x-perl.c:342
 #, c-format
 msgid "%s:%d: can't find string terminator \"%s\" anywhere before EOF"
 msgstr "%s:%d: не удалось найти ограничитель строки «%s» вплоть до конца файла"
 
-#: src/x-perl.c:1081
+#: src/x-perl.c:1084
 #, c-format
 msgid "%s:%d: missing right brace on \\x{HEXNUMBER}"
 msgstr "%s:%d: пропущена закрывающая фигурная скобка в \\x{HEXNUMBER}"
 
-#: src/x-perl.c:1202
+#: src/x-perl.c:1205
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""
 msgstr "%s:%d: неверная интерполяция («\\l») восьмибитного символа «%c»"
 
-#: src/x-perl.c:1222
+#: src/x-perl.c:1225
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""
 msgstr "%s:%d: неверная интерполяция («\\u») восьмибитного символа «%c»"
 
-#: src/x-perl.c:1256
+#: src/x-perl.c:1259
 #, c-format
 msgid "%s:%d: invalid variable interpolation at \"%c\""
 msgstr "%s:%d: неверная интерполяция переменной в «%c»"
 
-#: src/x-perl.c:1269
+#: src/x-perl.c:1272
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""
 msgstr "%s:%d: неверная интерполяция («\\L») восьмибитного символа «%c»"
 
-#: src/x-perl.c:1286
+#: src/x-perl.c:1289
 #, c-format
 msgid "%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""
 msgstr "%s:%d: неверная интерполяция («\\U») восьмибитного символа «%c»"
 
-#: src/x-perl.c:1728 src/x-perl.c:2780 src/x-perl.c:3122
-#, fuzzy, c-format
-#| msgid "%s:%d: warning: unterminated regular expression"
+#: src/x-perl.c:1746 src/x-perl.c:2801 src/x-perl.c:3153
+#, c-format
 msgid "%s:%d: error: too deeply nested expressions"
-msgstr "%s:%d: предупреждение: незавершенное регулярное выражение"
+msgstr "%s:%d: предупреждение: слишком глубоко вложенные выражения"
 
 #: src/x-po.c:228
-#, fuzzy, c-format
-#| msgid ""
-#| "input file doesn't contain a header entry with a charset specification"
+#, c-format
 msgid ""
 "%s: input file doesn't contain a header entry with a charset specification"
-msgstr "входной файл не содержит поле заголовка с описанием кодировки"
+msgstr "%s: входной файл не содержит поле заголовка с описанием кодировки"
 
 #: src/x-python.c:281
 msgid ""
@@ -5258,7 +5200,7 @@ msgstr ""
 #: src/x-sh.c:1512
 #, c-format
 msgid "%s:%d: error: too deeply nested command list"
-msgstr ""
+msgstr "%s:%d: ошибка: слишком глубоко вложенный список команд"
 
 #: src/x-vala.c:647
 #, c-format
@@ -5266,7 +5208,7 @@ msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr ""
 "%s:%d: предупреждение: литерал регулярного выражения завершился слишком рано"
 
-#: libgettextpo/gettext-po.c:86
+#: libgettextpo/gettext-po.c:98
 msgid "<unnamed>"
 msgstr "<без имени>"
 

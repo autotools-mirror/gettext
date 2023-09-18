@@ -1,8 +1,8 @@
 # Catalan messages for GNU gettext-runtime.
-# Copyright (C) 2001, 2002, 2003, 2007, 2014, 2015 Free Software Foundation, Inc.
+# Copyright (C) 2001, 2002, 2003, 2007, 2014, 2015, 2023 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 #
-# Ivan Vilata i Balaguer <ivan@selidor.net>, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2013, 2014, 2015.
+# Ivan Vilata i Balaguer <ivan@selidor.net>, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2013, 2014, 2015, 2023.
 #
 # Sóc Ivan, aquestes són les convencions que adopte per a la 0.19-rc1:
 #
@@ -50,10 +50,10 @@
 # options).  Also strings used in multiline error and warning messages.  ivb
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.19.4.73\n"
+"Project-Id-Version: gettext-runtime 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
 "POT-Creation-Date: 2023-06-15 20:33+0200\n"
-"PO-Revision-Date: 2015-06-24 18:49+0200\n"
+"PO-Revision-Date: 2023-07-07 09:02+0200\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
 "Language: ca\n"
@@ -73,34 +73,29 @@ msgid "Unknown system error"
 msgstr "Error desconegut del sistema"
 
 #: gnulib-lib/getopt.c:278
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous\n"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
-msgstr "%s: l’opció «%s» és ambígua\n"
+msgstr "%s: l’opció «%s%s» és ambígua\n"
 
 #: gnulib-lib/getopt.c:284
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous; possibilities:"
+#, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
-msgstr "%s: l’opció «%s» és ambígua; possibilitats:"
+msgstr "%s: l’opció «%s%s» és ambígua; possibilitats:"
 
 #: gnulib-lib/getopt.c:319
-#, fuzzy, c-format
-#| msgid "%s: unrecognized option '%c%s'\n"
+#, c-format
 msgid "%s: unrecognized option '%s%s'\n"
-msgstr "%s: l’opció «%c%s» no és reconeguda\n"
+msgstr "%s: l’opció «%s%s» no és reconeguda\n"
 
 #: gnulib-lib/getopt.c:345
-#, fuzzy, c-format
-#| msgid "%s: option '%c%s' doesn't allow an argument\n"
+#, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
-msgstr "%s: l’opció «%c%s» no admet arguments\n"
+msgstr "%s: l’opció «%s%s» no admet arguments\n"
 
 #: gnulib-lib/getopt.c:360
-#, fuzzy, c-format
-#| msgid "%s: option '--%s' requires an argument\n"
+#, c-format
 msgid "%s: option '%s%s' requires an argument\n"
-msgstr "%s: l’opció «--%s» necessita un argument\n"
+msgstr "%s: l’opció «%s%s» necessita un argument\n"
 
 #: gnulib-lib/getopt.c:621
 #, c-format
@@ -117,12 +112,7 @@ msgid "memory exhausted"
 msgstr "la memòria s’ha exhaurit"
 
 #: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "Copyright (C) %s Free Software Foundation, Inc.\n"
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
 "License GPLv3+: GNU GPL version 3 or later <%s>\n"
@@ -130,7 +120,7 @@ msgid ""
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 "Copyright © %s Free Software Foundation, Inc.\n"
-"GPLv3+: llicència GNU GPL ver. 3 o posterior <http://gnu.org/licenses/gpl.html>\n"
+"GPLv3+: llicència GNU GPL ver. 3 o posterior <%s>\n"
 "Aquest és programari lliure: podeu modificar‐lo i redistribuir‐lo si voleu.\n"
 "No hi ha CAP GARANTIA, en la mesura que ho permeta la llei.\n"
 
@@ -233,6 +223,10 @@ msgid ""
 "Report bugs in the bug tracker at <%s>\n"
 "or by email to <%s>.\n"
 msgstr ""
+"Informeu dels errors al sistema de seguiment <%s>\n"
+"o per correu electrònic a <%s>.\n"
+"\n"
+"Informeu dels error de traducció a <ca@dodds.net>.\n"
 
 #: src/envsubst.c:451
 #, c-format
@@ -267,26 +261,30 @@ msgstr "Mostra la traducció a idioma natiu d’un missatge textual.\n"
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr ""
+"  -d, --domain=DOMINI_TEXTUAL\n"
+"                       Obté del DOMINI_TEXTUAL els missatges traduïts.\n"
 
 #: src/gettext.c:263 src/ngettext.c:229
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr ""
+"  -c, --context=CONTEXT\n"
+"                       Especifica el CONTEXT del missatge amb IDMSG.\n"
 
 #: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
-msgstr ""
+msgstr "  -e                   Habilita l’expansió d’algunes seqüències d’escapada.\n"
 
 #: src/gettext.c:267
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
-msgstr ""
+msgstr "  -n                   Elimina el caràcter de nova línia final.\n"
 
 #: src/gettext.c:269 src/ngettext.c:233
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
-msgstr ""
+msgstr "  -E                   (No es té en compte, s’accepta per compatibilitat).\n"
 
 #: src/gettext.c:271
 #, c-format
@@ -294,16 +292,17 @@ msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
+"  [DOMINI_TEXTUAL] IDMSG\n"
+"                       Obté del DOMINI_TEXTUAL el missatge traduït\n"
+"                       corresponent a l’IDMSG.\n"
 
 #: src/gettext.c:277 src/ngettext.c:244
-#, fuzzy, c-format
-#| msgid "  -h, --help                  display this help and exit\n"
+#, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help           Mostra aquesta ajuda i ix.\n"
 
 #: src/gettext.c:279 src/ngettext.c:246
-#, fuzzy, c-format
-#| msgid "  -V, --version               output version information and exit\n"
+#, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version        Mostra informació sobre la versió i ix.\n"
 
@@ -346,25 +345,25 @@ msgstr ""
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 msgstr ""
+"  -d, --domain=DOMINI_TEXTUAL\n"
+"                       Obté del DOMINI_TEXTUAL els missatges traduïts.\n"
 
 #: src/ngettext.c:235
 #, c-format
-msgid ""
-"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
+msgid "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+msgstr "  [DOMINI_TEXTUAL]     Obté del DOMINI_TEXTUAL el missatge traduït.\n"
 
 #: src/ngettext.c:237
 #, c-format
-msgid ""
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
-"(plural)\n"
-msgstr ""
+msgid "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+msgstr "  IDMSG IDMSG_PLURAL   Tradueix IDMSG (singular) / IDMSG_PLURAL (plural).\n"
 
 #: src/ngettext.c:239
 #, c-format
-msgid ""
-"  COUNT                     choose singular/plural form based on this value\n"
+msgid "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
+"  NOMBRE               Escull la forma singular o la plural basant‐se en\n"
+"                       aquest valor.\n"
 
 #: src/ngettext.c:250
 #, c-format, no-wrap
@@ -380,70 +379,3 @@ msgstr ""
 "troba al directori habitual, es pot especificar una altra ubicació amb la\n"
 "variable d’entorn TEXTDOMAINDIR.\n"
 "Directori estàndard de cerca: %s\n"
-
-#, c-format
-#~ msgid "%s: option '--%s' doesn't allow an argument\n"
-#~ msgstr "%s: l’opció «--%s» no admet arguments\n"
-
-#, c-format
-#~ msgid "%s: unrecognized option '--%s'\n"
-#~ msgstr "%s: l’opció «--%s» no és reconeguda\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' is ambiguous\n"
-#~ msgstr "%s: l’opció «-W %s» és ambígua\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' doesn't allow an argument\n"
-#~ msgstr "%s: l’opció «-W %s» no admet arguments\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' requires an argument\n"
-#~ msgstr "%s: l’opció «-W %s» necessita un argument\n"
-
-#~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-#~ msgstr "Informeu dels errors a <bug-gnu-gettext@gnu.org>.\n"
-
-#, c-format, no-wrap
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -n                        suppress trailing newline\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
-#~ "                            to MSGID from TEXTDOMAIN\n"
-#~ msgstr ""
-#~ "  -d, --domain=DOMINI_TEXTUAL\n"
-#~ "                       Obté del DOMINI_TEXTUAL els missatges traduïts.\n"
-#~ "  -e                   Habilita l’expansió d’algunes seqüències d’escapada.\n"
-#~ "  -E                   (No es té en compte, s’accepta per compatibilitat).\n"
-#~ "  -h, --help           Mostra aquesta ajuda i ix.\n"
-#~ "  -n                   Elimina el caràcter de nova línia final.\n"
-#~ "  -V, --version        Mostra informació sobre la versió i ix.\n"
-#~ "  [DOMINI_TEXTUAL] IDMSG\n"
-#~ "                       Obté del DOMINI_TEXTUAL el missatge traduït\n"
-#~ "                       corresponent a l’IDMSG.\n"
-
-#, c-format, no-wrap
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
-#~ "  COUNT                     choose singular/plural form based on this value\n"
-#~ msgstr ""
-#~ "  -d, --domain=DOMINI_TEXTUAL\n"
-#~ "                       Obté del DOMINI_TEXTUAL els missatges traduïts.\n"
-#~ "  -e                   Habilita l’expansió d’algunes seqüències d’escapada.\n"
-#~ "  -E                   (No es té en compte, s’accepta per compatibilitat.)\n"
-#~ "  -h, --help           Mostra aquesta ajuda i ix.\n"
-#~ "  -V, --version        Mostra informació sobre la versió i ix.\n"
-#~ "  [DOMINI_TEXTUAL]     Obté del DOMINI_TEXTUAL el missatge traduït.\n"
-#~ "  IDMSG IDMSG_PLURAL   Tradueix IDMSG (singular) / IDMSG_PLURAL (plural).\n"
-#~ "  NOMBRE               Escull la forma singular o la plural basant‐se en\n"
-#~ "                       aquest valor.\n"
