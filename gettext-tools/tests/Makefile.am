@@ -134,6 +134,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-perl-9 xgettext-perl-10 \
 	xgettext-perl-stackovfl-1 xgettext-perl-stackovfl-2 \
 	xgettext-perl-stackovfl-3 xgettext-perl-stackovfl-4 \
+	xgettext-perl-stackovfl-5 \
 	xgettext-php-1 xgettext-php-2 xgettext-php-3 xgettext-php-4 \
 	xgettext-php-5 \
 	xgettext-php-stackovfl-1 xgettext-php-stackovfl-2 \
@@ -238,6 +239,7 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	xgettext-c-1 xg-c-comment-6.c xg-c-escape-3.c xg-vala-2.vala \
 	common/supplemental/plurals.xml \
 	testdata/xg-el-so-3.el testdata/xg-el-so-4.el \
+	testdata/xg-pl-so-5.pl \
 	testdata/xg-po-3.po testdata/xg-po-4.po
 
 XGETTEXT = ../src/xgettext
