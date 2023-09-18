@@ -1,3 +1,18 @@
+Version 0.22.1 - September 2023
+
+* Bug fixes:
+  - The libintl shared library now exports again some symbols that were
+    accidentally missing.
+    <https://savannah.gnu.org/bugs/index.php?64323>
+  - xgettext's processing of large Perl files may have led to errors
+    <https://savannah.gnu.org/bugs/index.php?64552>
+  - "xgettext --join-existing" could encounter errors.
+    <https://savannah.gnu.org/bugs/index.php?64490>
+  All these bugs were introduced in version 0.22.
+
+* Portability:
+  - Building on Android is now supported.
+
 Version 0.22 - June 2023
 
 * PO file format:

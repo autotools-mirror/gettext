@@ -1,3 +1,11 @@
+Version 0.22.1 - September 2023
+
+* Bug fix:
+  - The libintl shared library now exports again some symbols that were
+    accidentally missing.
+    <https://savannah.gnu.org/bugs/index.php?64323>
+    This bug was introduced in version 0.22.
+
 Version 0.21.1 - October 2022
 
 * On AIX, locale names with a script or with an uppercase language are now
