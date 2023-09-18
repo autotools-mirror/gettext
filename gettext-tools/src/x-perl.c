@@ -1432,6 +1432,13 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
             return;
           }
         buffer[bufpos++] = c;
+        ++varbody_length;
+        if (bufpos >= bufmax)
+          {
+            bufmax = 2 * bufmax + 10;
+            buffer = xrealloc (buffer, bufmax);
+          }
+        buffer[bufpos++] = '}';
       }
     else
       {
