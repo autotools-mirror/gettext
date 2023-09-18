@@ -106,7 +106,7 @@ libgettextpo_la_AUXSOURCES = \
 # Libtool's library version information for libgettextpo.
 # See the libtool documentation, section "Library interface versions".
 LTV_CURRENT=5
-LTV_REVISION=9
+LTV_REVISION=10
 LTV_AGE=5
 
 # How to build libgettextpo.la.
