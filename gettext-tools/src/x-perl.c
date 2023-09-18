@@ -546,7 +546,7 @@ enum token_type_ty
   token_type_lbracket,          /* [ */
   token_type_rbracket,          /* ] */
   token_type_string,            /* quote-like */
-  token_type_number,            /* starting with a digit o dot */
+  token_type_number,            /* starting with a digit or dot */
   token_type_named_op,          /* if, unless, while, ... */
   token_type_variable,          /* $... */
   token_type_object,            /* A dereferenced variable, maybe a blessed
@@ -557,7 +557,8 @@ enum token_type_ty
   token_type_other,             /* regexp, misc. operator */
   /* The following are not really token types, but variants used by
      the parser.  */
-  token_type_keyword_symbol     /* keyword symbol */
+  token_type_keyword_symbol,    /* keyword symbol */
+  token_type_r_any              /* rparen rbrace rbracket */
 };
 typedef enum token_type_ty token_type_ty;
 
@@ -2163,6 +2164,9 @@ prefer_regexp_over_division (token_type_ty type)
       case token_type_other:
         retval = true;
         break;
+      case token_type_r_any:
+        retval = false;
+        break;
   }
 
   #if DEBUG_PERL
@@ -3093,7 +3097,7 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
    Extracted messages are added to MLP.
 
    DELIM can be either token_type_rbrace, token_type_rbracket,
-   token_type_rparen.
+   token_type_rparen, or token_type_r_any.
    Additionally, if SEMICOLON_DELIM is true, parsing stops at the next
    semicolon outside parentheses.
    Similarly, if COMMA_DELIM is true, parsing stops at the next comma
@@ -3163,7 +3167,11 @@ extract_balanced (message_list_ty *mlp,
                       && tp->sub_type == symbol_type_sub);
         }
 
-      if (delim == tp->type)
+      if (delim == tp->type
+          || (delim == token_type_r_any
+              && (tp->type == token_type_rparen
+                  || tp->type == token_type_rbrace
+                  || tp->type == token_type_rbracket)))
         {
           arglist_parser_done (argparser, arg);
           if (next_argparser != NULL)
@@ -3752,9 +3760,10 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   init_keywords ();
 
   /* Eat tokens until eof is seen.  When extract_balanced returns due to an
-     unbalanced closing brace or due to a semicolon, just restart it.  */
+     unbalanced closing paren / brace / bracket or due to a semicolon, just
+     restart it.  */
   while (!extract_balanced (mlp,
-                            token_type_rbrace, true,
+                            token_type_r_any, true,
                             true, true, false,
                             null_context, null_context_list_iterator,
                             1, arglist_parser_alloc (mlp, NULL)))
