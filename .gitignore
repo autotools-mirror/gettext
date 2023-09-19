@@ -883,6 +883,7 @@ core
 /gettext-tools/libgettextpo/sys/types.h
 /gettext-tools/libgettextpo/textstyle.h
 /gettext-tools/libgettextpo/time.h
+/gettext-tools/libgettextpo/uchar.h
 /gettext-tools/libgettextpo/uniconv.h
 /gettext-tools/libgettextpo/unictype.h
 /gettext-tools/libgettextpo/unilbrk.h
