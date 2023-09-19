@@ -1,4 +1,4 @@
-Version 0.22.1 - September 2023
+Version 0.22.2 - September 2023
 
 * Bug fix:
   - The libintl shared library now exports again some symbols that were
