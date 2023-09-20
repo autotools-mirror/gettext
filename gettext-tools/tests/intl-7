@@ -108,8 +108,8 @@ if test $LOCALE_FR != none; then
       # they are not supported in the fr_FR.ISO-8859-1 locale.
       ;;
     *)
-      prepare_locale_ in-7/fr in-7/$LOCALE_FR
       prepare_locale_ in-7/fr_FR in-7/$LOCALE_FR
+      prepare_locale_ in-7/fr in-7/$LOCALE_FR
       prepare_locale_ "${ldir}"/fr "${ldir}"/$LOCALE_FR
       ../intl-7-prg "${ldir}" in-7 $LOCALE_FR > in-7.tmp || Exit 1
       LC_ALL=C tr -d '\r' < in-7.tmp > in-7.out || Exit 1
@@ -118,8 +118,8 @@ if test $LOCALE_FR != none; then
   esac
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  prepare_locale_ in-7/fr in-7/$LOCALE_FR_UTF8
   prepare_locale_ in-7/fr_FR in-7/$LOCALE_FR_UTF8
+  prepare_locale_ in-7/fr in-7/$LOCALE_FR_UTF8
   prepare_locale_ "${ldir}"/fr "${ldir}"/$LOCALE_FR_UTF8
   ../intl-7-prg "${ldir}" in-7 $LOCALE_FR_UTF8 > in-7.tmp || Exit 1
   LC_ALL=C tr -d '\r' < in-7.tmp > in-7.out || Exit 1
