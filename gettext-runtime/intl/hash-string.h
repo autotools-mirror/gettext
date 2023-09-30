@@ -16,6 +16,10 @@
 
 /* @@ end of prolog @@ */
 
+#ifndef attribute_hidden
+# define attribute_hidden
+#endif
+
 /* We assume to have `unsigned long int' value with at least 32 bits.  */
 #define HASHWORDBITS 32
 
