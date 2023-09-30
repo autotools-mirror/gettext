@@ -140,9 +140,12 @@ _nl_find_domain (const char *dirname,
   alias_value = _nl_expand_alias (locale);
   if (alias_value != NULL)
     {
-      locale = strdup (alias_value);
+      size_t len = strlen (alias_value) + 1;
+      locale = (char *) malloc (len);
       if (locale == NULL)
-	return NULL;
+        return NULL;
+
+      memcpy (locale, alias_value, len);
     }
 
   /* Now we determine the single parts of the locale name.  First
