@@ -114,6 +114,7 @@ if ! $skip_gnulib; then
     bison
     filename
     flexmember
+    getcwd-lgpl
     havelib
     iconv
     lib-symbol-visibility
