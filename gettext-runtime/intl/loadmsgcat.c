@@ -679,7 +679,6 @@ __libc_lock_define_initialized_recursive (static, lock);
 /* Load the message catalogs specified by FILENAME.  If it is no valid
    message catalog do nothing.  */
 void
-internal_function
 _nl_load_domain (struct loaded_l10nfile *domain_file,
 		 struct binding *domainbinding)
 {
@@ -1256,7 +1255,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 
 #ifdef _LIBC
 void
-internal_function __libc_freeres_fn_section
+__libc_freeres_fn_section
 _nl_unload_domain (struct loaded_domain *domain)
 {
   size_t i;

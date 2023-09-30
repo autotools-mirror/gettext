@@ -62,7 +62,6 @@ gl_rwlock_define_initialized (static, lock);
    the DIRNAME or WDIRNAME, LOCALE, and DOMAINNAME parameters with respect
    to the currently established bindings.  */
 struct loaded_l10nfile *
-internal_function
 _nl_find_domain (const char *dirname,
 #if defined _WIN32 && !defined __CYGWIN__
 		 const wchar_t *wdirname,
