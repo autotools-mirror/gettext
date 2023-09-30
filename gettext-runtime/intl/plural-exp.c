@@ -23,7 +23,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "plural-exp.h"
+#include <plural-exp.h>
 
 /* These structs are the constant expression for the germanic plural
    form determination.  It represents the expression  "n != 1".  */
