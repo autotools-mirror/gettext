@@ -163,14 +163,10 @@ struct alias_map
 };
 
 
-# ifndef _LIBC
-#  define libc_freeres_ptr(decl) decl
-# endif
-
-libc_freeres_ptr (static char *string_space);
+static char *string_space;
 static size_t string_space_act;
 static size_t string_space_max;
-libc_freeres_ptr (static struct alias_map *map);
+static struct alias_map *map;
 static size_t nmap;
 static size_t maxmap;
 
@@ -460,6 +456,13 @@ static int
 alias_compare (const struct alias_map *map1, const struct alias_map *map2)
 {
   return strcasecmp (map1->alias, map2->alias);
+}
+
+void
+__libc_localealias_freemem (void)
+{
+  free (string_space);
+  free (map);
 }
 
 #endif
