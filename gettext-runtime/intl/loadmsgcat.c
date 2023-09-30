@@ -993,7 +993,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 				&& static_segments[segsize - 1] == '\0'))
 			    {
 			      /* Invalid.  */
-			      freea (sysdep_segment_values);
+			      free (sysdep_segment_values);
 			      goto invalid;
 			    }
 			}
