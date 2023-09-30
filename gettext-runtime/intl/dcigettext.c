@@ -1481,11 +1481,7 @@ plural_lookup (struct loaded_l10nfile *domain, unsigned long int n,
   p = translation;
   while (index-- > 0)
     {
-#ifdef _LIBC
-      p = __rawmemchr (p, '\0');
-#else
       p = strchr (p, '\0');
-#endif
       /* And skip over the NUL byte.  */
       p++;
 
