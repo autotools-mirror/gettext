@@ -674,10 +674,30 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	       signal an error but simply return the default
 	       string.  */
 	    goto return_untranslated;
+# ifdef _LIBC
 	  int ret = __asprintf (&xdirname, "%s/%s", cwd, dirname);
 	  free (cwd);
 	  if (ret < 0)
 	    goto return_untranslated;
+# else
+	  size_t cwd_len = strlen (cwd);
+	  size_t dirname_len = strlen (dirname) + 1;
+	  char *resolved_dirname = (char *) malloc (cwd_len + 1 + dirname_len);
+	  if (resolved_dirname == NULL)
+	    {
+	      /* Memory allocation failure.  Don't signal an error
+		 but simply return the default string.  */
+	      free (cwd);
+	      goto return_untranslated;
+	    }
+	  memcpy (resolved_dirname, cwd, cwd_len);
+	  resolved_dirname[cwd_len] = '/';
+	  memcpy (resolved_dirname + cwd_len + 1, dirname, dirname_len);
+
+	  free (cwd);
+
+	  xdirname = resolved_dirname;
+# endif
 	  dirname = xdirname;
 	}
 #endif
