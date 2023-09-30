@@ -32,6 +32,11 @@
 # define __gettextparse PLURAL_PARSE
 #endif
 
+/* Later we provide those prototypes.  Without these macros, bison may
+   generate its own prototypes with possible conflicts.  */
+#define YYLEX_IS_DECLARED
+#define YYERROR_IS_DECLARED
+
 %}
 %require "3.0"
 %parse-param {struct parse_args *arg}
