@@ -458,11 +458,13 @@ alias_compare (const struct alias_map *map1, const struct alias_map *map2)
   return strcasecmp (map1->alias, map2->alias);
 }
 
+# ifdef _LIBC
 void
 __libc_localealias_freemem (void)
 {
   free (string_space);
   free (map);
 }
+# endif
 
 #endif
