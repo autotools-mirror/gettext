@@ -1,5 +1,5 @@
 /* Log file output.
-   Copyright (C) 2003, 2005, 2009, 2021, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2003-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -29,7 +29,7 @@
 
 /* Handle multi-threaded applications.  */
 #ifdef _LIBC
-# include <bits/libc-lock.h>
+# include <libc-lock.h>
 #else
 # include "glthread/lock.h"
 #endif
