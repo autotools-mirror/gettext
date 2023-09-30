@@ -61,6 +61,7 @@ extern int errno;
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <wchar.h>
 
 #if defined HAVE_UNISTD_H || defined _LIBC
 # include <unistd.h>
@@ -612,10 +613,6 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	{
 	  /* We have a relative path.  Make it absolute now.  */
 	  size_t wdirname_len;
-	  size_t path_max;
-	  wchar_t *resolved_wdirname;
-	  wchar_t *ret;
-	  wchar_t *p;
 
 	  if (wdirname != NULL)
 	    wdirname_len = wcslen (wdirname);
@@ -624,45 +621,41 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	      wdirname_len = mbstowcs (NULL, dirname, 0);
 
 	      if (wdirname_len == (size_t)(-1))
-		/* dirname contains invalid multibyte characters.  Don't signal
-		   an error but simply return the default string.  */
+		/* dirname contains invalid multibyte characters.  Don't
+		   signal an error but simply return the default string.  */
 		goto return_untranslated;
 	    }
 	  wdirname_len++;
 
-	  path_max = (unsigned int) PATH_MAX;
-	  path_max += 2;		/* The getcwd docs say to do this.  */
-
-	  for (;;)
-	    {
-	      resolved_wdirname =
-		(wchar_t *)
-		alloca ((path_max + wdirname_len) * sizeof (wchar_t));
-	      ADD_BLOCK (block_list, resolved_wdirname);
-
-	      __set_errno (0);
-	      ret = _wgetcwd (resolved_wdirname, path_max);
-	      if (ret != NULL || errno != ERANGE)
-		break;
-
-	      path_max += path_max / 2;
-	      path_max += PATH_INCR;
-	    }
-
-	  if (ret == NULL)
-	    /* We cannot get the current working directory.  Don't signal an
-	       error but simply return the default string.  */
+	  wchar_t *wcwd = wgetcwd (NULL, 0);
+	  if (wcwd == NULL)
+	    /* We cannot get the current working directory.  Don't
+	       signal an error but simply return the default string.  */
 	    goto return_untranslated;
+	  size_t wcwd_len = wcslen (wcwd);
 
-	  p = wcschr (resolved_wdirname, L'\0');
-	  *p++ = L'/';
+	  wchar_t *resolved_wdirname =
+	    (wchar_t *)
+	    malloc ((wcwd_len + 1 + wdirname_len) * sizeof (wchar_t));
+	  if (resolved_wdirname == NULL)
+	    {
+	      /* Memory allocation failure.  Don't signal an error
+		 but simply return the default string.  */
+	      free (wcwd);
+	      goto return_untranslated;
+	    }
+	  wmemcpy (resolved_wdirname, wcwd, wcwd_len);
+	  resolved_wdirname[wcwd_len] = L'/';
 	  if (wdirname != NULL)
-	    wcscpy (p, wdirname);
+	    wmemcpy (resolved_wdirname + wcwd_len + 1, wdirname, wdirname_len);
 	  else
-	    mbstowcs (p, dirname, wdirname_len);
+	    mbstowcs (resolved_wdirname + wcwd_len + 1, dirname, wdirname_len);
+
+	  free (wcwd);
 
 	  wdirname = resolved_wdirname;
 	  dirname = NULL;
+	  xdirname = (char *) resolved_wdirname;
 	}
 #else
       if (IS_RELATIVE_FILE_NAME (dirname))

@@ -125,6 +125,7 @@ if ! $skip_gnulib; then
     tsearch
     vasnprintf-posix
     vasnwprintf-posix
+    wgetcwd-lgpl
   '
   GNULIB_SETLOCALE_DEPENDENCIES=`$GNULIB_TOOL --extract-dependencies setlocale | sed -e 's/ .*//'`
   $GNULIB_TOOL --dir=gettext-runtime/intl --source-base=gnulib-lib --m4-base=gnulib-m4 --lgpl=2 --libtool --local-dir=gnulib-local --local-symlink \
