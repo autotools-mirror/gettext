@@ -200,7 +200,7 @@ TESTS = gettext-1 gettext-2 \
 	format-sh-1 format-sh-2 \
 	format-tcl-1 format-tcl-2 \
 	format-ycp-1 format-ycp-2 \
-	plural-1 plural-2 \
+	plural-1 plural-2 plural-3 \
 	gettextpo-1 sentence-1 \
 	lang-po \
 	lang-c lang-c++ lang-c++20 lang-objc \
