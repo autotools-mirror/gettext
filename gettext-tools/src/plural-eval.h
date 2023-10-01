@@ -1,5 +1,5 @@
 /* Expression evaluation for plural form selection.
-   Copyright (C) 2005-2006, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2005-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2005.
 
    This program is free software: you can redistribute it and/or modify
@@ -19,7 +19,7 @@
 #define _PLURAL_EVAL_H
 
 
-/* Definition of 'struct expression', and
+/* Definition of 'struct expression' and 'struct eval_result', and
    declaration of extract_plural_expression() and plural_eval().  */
 #include "plural-exp.h"
 

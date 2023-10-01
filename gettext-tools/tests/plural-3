@@ -4,10 +4,9 @@
 # Test that ngettext() does not crash when the plural form rule leads to
 # a stack overflow.
 
-# In fact, the stack overflow is caught by the bison parser (plural.c,
-# macro YYMAXDEPTH = 10000). Since the same bison parser is used by
-# glibc, libintl, and 'msgfmt -c', we can observe the behaviour by using
-# the msgfmt option '-c'.
+# In fact, a stack overflow at parsing time is caught by the bison parser
+# (plural.c, macro YYMAXDEPTH = 10000), and a stack overflow at evaluation
+# time is caught as well (eval-plural.h, macro EVAL_MAXDEPTH = 100).
 
 test -d plural-3-dir || mkdir plural-3-dir
 test -d plural-3-dir/ll || mkdir plural-3-dir/ll
@@ -36,17 +35,17 @@ msgstr[1] "y"
 EOF
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -c -o plural-3-dir/ll/LC_MESSAGES/plural.mo plural-3-ll.po || Exit 1
+${MSGFMT} -o plural-3-dir/ll/LC_MESSAGES/plural.mo plural-3-ll.po || Exit 1
 
 LANGUAGE= TEXTDOMAIN=plural TEXTDOMAINDIR=plural-3-dir \
 $NGETTEXT --env LC_ALL=ll X Y 42 > dataout
 test $? = 0 || Exit 1
-test y = "`cat dataout`" || Exit 1
+test x = "`cat dataout`" || Exit 1
 
 LANGUAGE= TEXTDOMAIN=plural TEXTDOMAINDIR=plural-3-dir \
 $NGETTEXT --env LC_ALL=ll --thread X Y 42 > thread-dataout
 test $? = 0 || Exit 1
-test y = "`cat thread-dataout`" || Exit 1
+test x = "`cat thread-dataout`" || Exit 1
 
 # This one is large enough that YYMAXDEPTH is exceeded, i.e. the parser fails.
 

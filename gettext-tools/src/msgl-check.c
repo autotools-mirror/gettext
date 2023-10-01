@@ -1,5 +1,5 @@
 /* Checking of messages in PO files.
-   Copyright (C) 1995-1998, 2000-2008, 2010-2016, 2019 Free Software Foundation, Inc.
+   Copyright (C) 1995-2023 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -75,9 +75,9 @@ plural_expression_histogram (const struct plural_distribution *self,
       count = 0;
       for (n = min; n <= max; n++)
         {
-          unsigned long val = plural_eval (expr, n);
+          struct eval_result res = plural_eval (expr, n);
 
-          if (val == j)
+          if (res.status == PE_OK && res.value == j)
             count++;
         }
 
@@ -123,7 +123,24 @@ check_plural_eval (const struct expression *plural_expr,
 
       for (n = 0; n <= 1000; n++)
         {
-          unsigned long val = plural_eval (plural_expr, n);
+          struct eval_result res = plural_eval (plural_expr, n);
+          if (res.status != PE_OK)
+            {
+              /* End of protection against arithmetic exceptions.  */
+              uninstall_sigfpe_handler ();
+
+              if (res.status == PE_STACKOVF)
+                po_xerror (PO_SEVERITY_ERROR, header, NULL, 0, 0, false,
+                           _("plural expression can produce stack overflow"));
+              else
+                /* Other res.status values should not occur.  */
+                abort ();
+
+              free (array);
+              return 1;
+            }
+
+          unsigned long val = res.value;
 
           if ((long) val < 0)
             {
