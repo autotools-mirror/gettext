@@ -28,6 +28,8 @@ MOSTLYCLEANFILES =
 RM = rm -f
 
 
+# Note that Automake's $(DEFAULT_INCLUDES) already contains
+# -I. -I$(srcdir) -I$(top_builddir).
 AM_CPPFLAGS = -Ignulib-lib -I$(srcdir)/gnulib-lib
 
 DEFS = -DIN_LIBASPRINTF @DEFS@

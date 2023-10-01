@@ -34,12 +34,14 @@ noinst_LTLIBRARIES =
 pkgdatadir = $(datadir)/gettext
 pkgdata_DATA =
 
+# Note that Automake's $(DEFAULT_INCLUDES) already contains
+# -I. -I$(srcdir) -I$(top_builddir).
 AM_CPPFLAGS =
 
 # Needed for the gnulib source code that does '#include "gettext.h"'.
 AM_CPPFLAGS += -I../../gettext-runtime/intl
-# Needed so that config.h and woe32dll/export.h are found.
-AM_CPPFLAGS += -I$(top_builddir) -I$(top_srcdir)
+# Needed so that woe32dll/export.h is found.
+AM_CPPFLAGS += -I$(top_srcdir)
 
 # Parametrization of the 'relocatable' module.
 AM_CPPFLAGS += -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1

@@ -287,8 +287,9 @@ xg-c-1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 	  $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 
 # Auxiliary programs used by the tests.
+# Note that Automake's $(DEFAULT_INCLUDES) already contains
+# -I. -I$(srcdir) -I$(top_builddir).
 AM_CPPFLAGS = \
-  -I.. \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
   -I../../gettext-runtime/intl
 DEFS = -DLOCALEDIR=$(localedir_c_make) @DEFS@

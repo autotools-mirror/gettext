@@ -26,9 +26,9 @@ RM = rm -f
 
 bin_PROGRAMS = gettext ngettext envsubst
 
+# Note that Automake's $(DEFAULT_INCLUDES) already contains
+# -I. -I$(srcdir) -I$(top_builddir).
 AM_CPPFLAGS = \
-  -I. -I$(srcdir) \
-  -I.. \
   -I../intl -I$(srcdir)/../intl \
   -I../gnulib-lib -I$(srcdir)/../gnulib-lib
 DEFS = -DLOCALEDIR=$(localedir_c_make) @DEFS@

@@ -34,10 +34,11 @@ noinst_LTLIBRARIES =
 
 nodist_noinst_HEADERS = config.h
 
+# Note that Automake's $(DEFAULT_INCLUDES) already contains
+# -I. -I$(srcdir) -I$(top_builddir).
 # The option -I$(top_srcdir) is needed so that woe32dll/export.h is found.
 AM_CPPFLAGS = \
-  -I. -I$(srcdir) \
-  -I.. -I$(top_srcdir) \
+  -I$(top_srcdir) \
   -I../src -I$(top_srcdir)/src \
   -I../../gettext-runtime/intl -I$(top_srcdir)/../gettext-runtime/intl
 

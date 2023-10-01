@@ -36,9 +36,9 @@ nobase_nodist_include_HEADERS =
 
 noinst_HEADERS = notinline.h
 
+# Note that Automake's $(DEFAULT_INCLUDES) already contains
+# -I. -I$(srcdir) -I$(top_builddir).
 AM_CPPFLAGS = \
-  -I. -I$(srcdir) \
-  -I$(top_builddir) \
   -Iglib \
   -DIN_LIBTEXTSTYLE
 

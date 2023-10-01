@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/system-tests subdirectory of GNU gettext
-## Copyright (C) 1995-2018 Free Software Foundation, Inc.
+## Copyright (C) 1995-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -55,7 +55,9 @@ LOG_COMPILER = $(SHELL) $(srcdir)/run-test
 
 # It is important that the gnulib-generated *.h files are not visible here,
 # except for config.h.
-AM_CPPFLAGS = -I..
+# Note that Automake's $(DEFAULT_INCLUDES) already contains
+# -I. -I$(srcdir) -I$(top_builddir).
+AM_CPPFLAGS =
 
 # The USE_SYSTEM_LIBINTL flag distinguishes a compilation in the system-tests/
 # directory from a compilation in the tests/ directory.

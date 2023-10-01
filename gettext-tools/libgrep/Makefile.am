@@ -27,7 +27,11 @@ MAINTAINERCLEANFILES =
 
 noinst_LIBRARIES =
 
-AM_CPPFLAGS = -I.. -I../gnulib-lib -I$(top_srcdir)/gnulib-lib -I../../gettext-runtime/intl
+# Note that Automake's $(DEFAULT_INCLUDES) already contains
+# -I. -I$(srcdir) -I$(top_builddir).
+AM_CPPFLAGS = \
+  -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
+  -I../../gettext-runtime/intl
 
 # Enable more warning options in this directory.
 AM_CFLAGS = @WARN_CFLAGS@

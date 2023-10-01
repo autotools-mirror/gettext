@@ -1,5 +1,5 @@
 ## Makefile for the adhoc-tests subdirectory of GNU libtextstyle.
-## Copyright (C) 2019 Free Software Foundation, Inc.
+## Copyright (C) 2019-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -33,9 +33,9 @@ hello_SOURCES = hello.c
 # Define the styles.
 noinst_DATA = hello-default.css
 
+# Note that Automake's $(DEFAULT_INCLUDES) already contains
+# -I. -I$(srcdir) -I$(top_builddir).
 AM_CPPFLAGS = \
-  -I. -I$(srcdir) \
-  -I.. \
   -I../lib -I$(srcdir)/../lib \
   -DSRCDIR=\"$(srcdir)/\"
 
