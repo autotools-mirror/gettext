@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/tests subdirectory of GNU gettext
-## Copyright (C) 2005-2006, 2008-2009, 2014-2015, 2019 Free Software Foundation, Inc.
+## Copyright (C) 2005-2023 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -21,9 +21,9 @@ EXTRA_DIST =
 
 TESTS =
 
-AM_CPPFLAGS = \
-  -I.. \
-  -I$(srcdir)/../intl
+# Note that Automake's $(DEFAULT_INCLUDES) already contains
+# -I. -I$(srcdir) -I$(top_builddir).
+AM_CPPFLAGS =
 
 check_PROGRAMS =
 

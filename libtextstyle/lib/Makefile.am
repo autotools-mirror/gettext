@@ -38,7 +38,7 @@ noinst_HEADERS = notinline.h
 
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
-  -I$(top_builddir) -I$(top_srcdir) \
+  -I$(top_builddir) \
   -Iglib \
   -DIN_LIBTEXTSTYLE
 

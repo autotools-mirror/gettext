@@ -90,6 +90,7 @@ projectsdir = $(pkgdatadir)/projects
 pkglibdir = $(libdir)/gettext
 pkglibexecdir = $(libexecdir)/gettext
 
+# The option -I$(top_srcdir) is needed so that woe32dll/export.h is found.
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I.. -I$(top_srcdir) \

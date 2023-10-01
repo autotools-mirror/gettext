@@ -36,8 +36,8 @@ pkgdata_DATA =
 
 AM_CPPFLAGS =
 
-# Hmm... is this still necessary?
-AM_CPPFLAGS += -I$(top_builddir)/../gettext-runtime/intl -I$(top_srcdir)/../gettext-runtime/intl
+# Needed for the gnulib source code that does '#include "gettext.h"'.
+AM_CPPFLAGS += -I../../gettext-runtime/intl
 # Needed so that config.h and woe32dll/export.h are found.
 AM_CPPFLAGS += -I$(top_builddir) -I$(top_srcdir)
 

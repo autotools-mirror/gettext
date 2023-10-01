@@ -34,6 +34,7 @@ noinst_LTLIBRARIES =
 
 nodist_noinst_HEADERS = config.h
 
+# The option -I$(top_srcdir) is needed so that woe32dll/export.h is found.
 AM_CPPFLAGS = \
   -I. -I$(srcdir) \
   -I.. -I$(top_srcdir) \
