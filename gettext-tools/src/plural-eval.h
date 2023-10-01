@@ -24,44 +24,4 @@
 #include "plural-exp.h"
 
 
-/* Protection against signals during plural evaluation.  */
-
-#include <setjmp.h>
-
-/* Some platforms don't have the sigjmp_buf type in <setjmp.h>.  */
-#if defined _MSC_VER || defined __MINGW32__
-/* Native Woe32 API.  */
-# define sigjmp_buf jmp_buf
-# define sigsetjmp(env,savesigs) setjmp (env)
-# define siglongjmp longjmp
-#endif
-
-/* We use siginfo to get precise information about the signal.
-   But siginfo doesn't work on Irix 6.5 and on Cygwin 2005.  */
-#if HAVE_SIGINFO && !defined (__sgi) && !defined (__CYGWIN__)
-# define USE_SIGINFO 1
-#endif
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Exit point.  Must be set before calling install_sigfpe_handler().  */
-extern sigjmp_buf sigfpe_exit;
-
-#if USE_SIGINFO
-/* Additional information that is set before sigfpe_exit is invoked.  */
-extern int volatile sigfpe_code;
-#endif
-
-/* Protect against signals during plural evaluation.  Must be called around
-   calls to plural_eval().  Must be called in pairs.  */
-extern void install_sigfpe_handler (void);
-extern void uninstall_sigfpe_handler (void);
-
-#ifdef __cplusplus
-}
-#endif
-
-
 #endif /* _PLURAL_EVAL_H */

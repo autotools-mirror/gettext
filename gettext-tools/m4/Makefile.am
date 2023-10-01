@@ -46,5 +46,4 @@ EXTRA_DIST = \
   csharpexec-test.cs csharpexec-test.exe \
   exported.m4 \
   hostname.m4 \
-  locale-de.m4 \
-  siginfo.m4
+  locale-de.m4

@@ -117,16 +117,12 @@ plural_eval_recurse (const struct expression *pexp, unsigned long int n,
 	      case mult:
 		return OK (leftarg.value * rightarg.value);
 	      case divide:
-#if !INTDIV0_RAISES_SIGFPE
 		if (rightarg.value == 0)
-		  raise (SIGFPE);
-#endif
+		  return (struct eval_result) { .status = PE_INTDIV };
 		return OK (leftarg.value / rightarg.value);
 	      case module:
-#if !INTDIV0_RAISES_SIGFPE
 		if (rightarg.value == 0)
-		  raise (SIGFPE);
-#endif
+		  return (struct eval_result) { .status = PE_INTDIV };
 		return OK (leftarg.value % rightarg.value);
 	      case plus:
 		return OK (leftarg.value + rightarg.value);

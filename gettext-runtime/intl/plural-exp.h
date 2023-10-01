@@ -117,6 +117,8 @@ extern void EXTRACT_PLURAL_EXPRESSION (const char *nullentry,
 enum eval_status
 {
   PE_OK,        /* Evaluation succeeded, produced a value */
+  PE_INTDIV,    /* Integer division by zero */
+  PE_INTOVF,    /* Integer overflow */
   PE_STACKOVF,  /* Stack overflow */
   PE_ASSERT     /* Assertion failure */
 };

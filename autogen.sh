@@ -438,7 +438,7 @@ dir0=`pwd`
 
 echo "$0: generating configure in gettext-runtime/intl..."
 cd gettext-runtime/intl
-aclocal -I ../../m4 -I ../m4 -I m4 -I gnulib-m4 \
+aclocal -I ../../m4 -I ../m4 -I gnulib-m4 \
   && autoconf \
   && autoheader && touch config.h.in \
   && touch ChangeLog \

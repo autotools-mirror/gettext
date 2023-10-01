@@ -231,7 +231,6 @@ AC_TYPE_PID_T
 
 dnl Checks for library functions.
 AC_CHECK_FUNCS([select])
-gt_SIGINFO
 
 AC_C_BIGENDIAN([endianness=1], [endianness=0],
   [echo "AC-C-BIGENDIAN fails to work on your system." | sed -e 's,-,_,g' 1>&2
