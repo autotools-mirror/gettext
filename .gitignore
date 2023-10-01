@@ -361,6 +361,9 @@
 /gettext-tools/libgrep/windows-initguard.h
 /gettext-tools/libgrep/wcrtomb.c
 /gettext-tools/man/x-to-1.in
+/gettext-tools/tests/gnulib-m4/
+/gettext-tools/tests/gnulib-lib/
+!/gettext-tools/tests/gnulib-lib/Makefile.am
 /gettext-tools/tests/init.sh
 
 # Files brought in by "automake --add-missing --copy":

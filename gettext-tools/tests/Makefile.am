@@ -17,6 +17,7 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.11 gnits no-dependencies color-tests
+SUBDIRS = gnulib-lib
 EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
 
@@ -290,6 +291,7 @@ xg-c-1.ok.po: $(top_srcdir)/src/xgettext.c $(top_srcdir)/src/msgfmt.c
 # Note that Automake's $(DEFAULT_INCLUDES) already contains
 # -I. -I$(srcdir) -I$(top_builddir).
 AM_CPPFLAGS = \
+  -Ignulib-lib -I$(srcdir)/gnulib-lib \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
   -I../../gettext-runtime/intl
 DEFS = -DLOCALEDIR=$(localedir_c_make) @DEFS@
@@ -362,6 +364,11 @@ gettextpo_1_prg_LDADD = ../libgettextpo/libgettextpo.la $(LDADD)
 sentence_1_prg_SOURCES = sentence-1-prg.c
 sentence_1_prg_CPPFLAGS = $(AM_CPPFLAGS) -I../src -I$(top_srcdir)/src
 sentence_1_prg_LDADD = ../src/libgettextsrc.la $(LDADD)
+
+
+# Allow users to use "gnulib-tool --update".
+EXTRA_DIST += gnulib-m4/gnulib-cache.m4
+
 
 # Clean up after Solaris cc.
 clean-local:

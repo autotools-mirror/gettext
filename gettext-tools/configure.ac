@@ -89,6 +89,7 @@ dnl Make sure we see all GNU and Solaris extensions.
 gl_EARLY
 grgl_EARLY
 gtpo_EARLY
+gttgl_EARLY
 
 dnl Check for build configuration.
 
@@ -212,6 +213,7 @@ dnl Checks for header files, functions and declarations.
 gl_INIT
 grgl_INIT
 gtpo_INIT
+gttgl_INIT
 
 dnl Allow libgrep/locale.h to use setlocale_null.h from gnulib-lib/.
 GL_GRGL_GNULIB_SETLOCALE_NULL=1
@@ -604,6 +606,7 @@ AC_CONFIG_FILES([m4/Makefile])
 
 AC_CONFIG_FILES([tests/Makefile])
 AC_CONFIG_FILES([tests/init-env])
+AC_CONFIG_FILES([tests/gnulib-lib/Makefile])
 
 AC_CONFIG_FILES([system-tests/Makefile])
 
