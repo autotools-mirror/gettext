@@ -305,10 +305,10 @@ tstgettext_SOURCES = \
   tstgettext.c ../../gettext-runtime/src/escapes.h \
   setlocale.c
 tstgettext_CFLAGS = -DINSTALLDIR=\".\"
-tstgettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
+tstgettext_LDADD = gnulib-lib/libtestsgnu.a ../gnulib-lib/libgettextlib.la $(LDADD) $(LIBMULTITHREAD)
 tstngettext_SOURCES = tstngettext.c setlocale.c
 tstngettext_CFLAGS = -DINSTALLDIR=\".\"
-tstngettext_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)
+tstngettext_LDADD = gnulib-lib/libtestsgnu.a ../gnulib-lib/libgettextlib.la $(LDADD) $(LIBMULTITHREAD)
 testlocale_SOURCES = testlocale.c
 intl_1_prg_SOURCES = intl-1-prg.c
 intl_1_prg_LDADD = ../gnulib-lib/libgettextlib.la $(LDADD)

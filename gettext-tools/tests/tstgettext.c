@@ -1,6 +1,5 @@
 /* gettext - retrieve text string from message catalog and print it.
-   Copyright (C) 1995-1997, 2000-2007, 2012, 2018-2020 Free Software
-   Foundation, Inc.
+   Copyright (C) 1995-2023 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, May 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -37,6 +36,7 @@
 #include "xalloc.h"
 #include "propername.h"
 #include "xsetenv.h"
+#include "glthread/thread.h"
 #include "../../gettext-runtime/src/escapes.h"
 
 /* Make sure we use the included libintl, not the system's one. */
@@ -51,14 +51,6 @@ extern char *setlocale (int category, const char *locale);
 
 #define _(str) gettext (str)
 
-/* If false, add newline after last string.  This makes only sense in
-   the 'echo' emulation mode.  */
-static bool inhibit_added_newline;
-
-/* If true, expand escape sequences in strings before looking in the
-   message catalog.  */
-static bool do_expand;
-
 /* Long options.  */
 static const struct option long_options[] =
 {
@@ -66,28 +58,49 @@ static const struct option long_options[] =
   { "env", required_argument, NULL, '=' },
   { "help", no_argument, NULL, 'h' },
   { "shell-script", no_argument, NULL, 's' },
+  { "thread", no_argument, NULL, 't' },
   { "version", no_argument, NULL, 'V' },
   { NULL, 0, NULL, 0 }
 };
 
 /* Forward declaration of local functions.  */
+_GL_NORETURN_FUNC static void *worker_thread (void *arg);
 _GL_NORETURN_FUNC static void usage (int status);
+
+/* Argument passed to the worker_thread.  */
+struct worker_context
+{
+  int argc;
+  char **argv;
+  bool do_shell;
+  const char *domain;
+  const char *domaindir;
+  /* If false, add newline after last string.  This makes only sense in
+     the 'echo' emulation mode.  */
+  bool inhibit_added_newline;
+  /* If true, expand escape sequences in strings before looking in the
+     message catalog.  */
+  bool do_expand;
+};
 
 int
 main (int argc, char *argv[])
 {
   int optchar;
-  const char *msgid;
 
   /* Default values for command line options.  */
   bool do_help = false;
-  bool do_shell = false;
+  bool do_thread = false;
   bool do_version = false;
   bool environ_changed = false;
-  const char *domain = getenv ("TEXTDOMAIN");
-  const char *domaindir = getenv ("TEXTDOMAINDIR");
-  inhibit_added_newline = false;
-  do_expand = false;
+  struct worker_context context;
+  context.argc = argc;
+  context.argv = argv;
+  context.do_shell = false;
+  context.domain = getenv ("TEXTDOMAIN");
+  context.domaindir = getenv ("TEXTDOMAINDIR");
+  context.inhibit_added_newline = false;
+  context.do_expand = false;
 
   /* Set program name for message texts.  */
   set_program_name (argv[0]);
@@ -103,17 +116,17 @@ main (int argc, char *argv[])
   atexit (close_stdout);
 
   /* Parse command line options.  */
-  while ((optchar = getopt_long (argc, argv, "+d:eEhnsV", long_options, NULL))
+  while ((optchar = getopt_long (argc, argv, "+d:eEhnstV", long_options, NULL))
          != EOF)
     switch (optchar)
     {
     case '\0':          /* Long option.  */
       break;
     case 'd':
-      domain = optarg;
+      context.domain = optarg;
       break;
     case 'e':
-      do_expand = true;
+      context.do_expand = true;
       break;
     case 'E':
       /* Ignore.  Just for compatibility.  */
@@ -122,10 +135,13 @@ main (int argc, char *argv[])
       do_help = true;
       break;
     case 'n':
-      inhibit_added_newline = true;
+      context.inhibit_added_newline = true;
       break;
     case 's':
-      do_shell = true;
+      context.do_shell = true;
+      break;
+    case 't':
+      do_thread = true;
       break;
     case 'V':
       do_version = true;
@@ -162,7 +178,7 @@ License GPLv3+: GNU GPL version 3 or later <%s>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-              "1995-1997, 2000-2006", "https://gnu.org/licenses/gpl.html");
+              "1995-2023", "https://gnu.org/licenses/gpl.html");
       printf (_("Written by %s.\n"), proper_name ("Ulrich Drepper"));
       exit (EXIT_SUCCESS);
     }
@@ -171,9 +187,28 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   if (do_help)
     usage (EXIT_SUCCESS);
 
+  if (do_thread)
+    {
+      gl_thread_t thread = gl_thread_create (worker_thread, &context);
+      void *retval;
+      gl_thread_join (thread, &retval);
+    }
+  else
+    worker_thread (&context);
+}
+
+static void *
+worker_thread (void *arg)
+{
+  struct worker_context *context = arg;
+  int argc = context->argc;
+  char **argv = context->argv;
+
+  const char *msgid;
+
   /* We have two major modes: use following Uniforum spec and as
      internationalized 'echo' program.  */
-  if (!do_shell)
+  if (!context->do_shell)
     {
       /* We have to write a single strings translation to stdout.  */
 
@@ -184,7 +219,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
             error (EXIT_FAILURE, 0, _("too many arguments"));
 
           case 2:
-            domain = argv[optind++];
+            context->domain = argv[optind++];
             FALLTHROUGH;
 
           case 1:
@@ -197,22 +232,22 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       msgid = argv[optind++];
 
       /* Expand escape sequences if enabled.  */
-      if (do_expand)
-        msgid = expand_escapes (msgid, &inhibit_added_newline);
+      if (context->do_expand)
+        msgid = expand_escapes (msgid, &context->inhibit_added_newline);
 
       /* If no domain name is given we don't translate.  */
-      if (domain == NULL || domain[0] == '\0')
+      if (context->domain == NULL || context->domain[0] == '\0')
         {
           fputs (msgid, stdout);
         }
       else
         {
           /* Bind domain to appropriate directory.  */
-          if (domaindir != NULL && domaindir[0] != '\0')
-            bindtextdomain (domain, domaindir);
+          if (context->domaindir != NULL && context->domaindir[0] != '\0')
+            bindtextdomain (context->domain, context->domaindir);
 
           /* Write out the result.  */
-          fputs (dgettext (domain, msgid), stdout);
+          fputs (dgettext (context->domain, msgid), stdout);
         }
     }
   else
@@ -221,12 +256,12 @@ There is NO WARRANTY, to the extent permitted by law.\n\
         {
           /* If no domain name is given we print the original string.
              We mark this assigning NULL to domain.  */
-          if (domain == NULL || domain[0] == '\0')
-            domain = NULL;
+          if (context->domain == NULL || context->domain[0] == '\0')
+            context->domain = NULL;
           else
             /* Bind domain to appropriate directory.  */
-            if (domaindir != NULL && domaindir[0] != '\0')
-              bindtextdomain (domain, domaindir);
+            if (context->domaindir != NULL && context->domaindir[0] != '\0')
+              bindtextdomain (context->domain, context->domaindir);
 
           /* We have to simulate 'echo'.  All arguments are strings.  */
           do
@@ -234,11 +269,13 @@ There is NO WARRANTY, to the extent permitted by law.\n\
               msgid = argv[optind++];
 
               /* Expand escape sequences if enabled.  */
-              if (do_expand)
-                msgid = expand_escapes (msgid, &inhibit_added_newline);
+              if (context->do_expand)
+                msgid = expand_escapes (msgid, &context->inhibit_added_newline);
 
               /* Write out the result.  */
-              fputs (domain == NULL ? msgid : dgettext (domain, msgid),
+              fputs (context->domain == NULL
+                     ? msgid
+                     : dgettext (context->domain, msgid),
                      stdout);
 
               /* We separate the arguments by a single ' '.  */
@@ -249,7 +286,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
         }
 
       /* If not otherwise told: add trailing newline.  */
-      if (!inhibit_added_newline)
+      if (!context->inhibit_added_newline)
         fputc ('\n', stdout);
     }
 
