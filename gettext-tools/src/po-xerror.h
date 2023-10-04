@@ -1,5 +1,5 @@
 /* Error handling during reading and writing of PO files.
-   Copyright (C) 2005 Free Software Foundation, Inc.
+   Copyright (C) 2005-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2005.
 
    This program is free software: you can redistribute it and/or modify
@@ -18,11 +18,11 @@
 #ifndef _PO_XERROR_H
 #define _PO_XERROR_H
 
+#include <stddef.h>
+
 #ifdef __cplusplus
 extern "C" {
-#endif 
-
-#include <stddef.h>
+#endif
 
 struct message_ty;
 
