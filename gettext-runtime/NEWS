@@ -1,3 +1,9 @@
+Version 0.22.3 - October 2023
+
+* Portability:
+  - The libintl library now works on macOS 14.  (Older versions of libintl
+    crash on macOS 14, due to an incompatible change in macOS.)
+
 Version 0.22.2 - September 2023
 
 * Bug fix:
