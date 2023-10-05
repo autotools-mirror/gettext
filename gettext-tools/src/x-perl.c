@@ -339,7 +339,7 @@ get_here_document (const char *delimiter)
             {
               error_with_progname = false;
               error (EXIT_SUCCESS, 0,
-                     _("%s:%d: can't find string terminator \"%s\" anywhere before EOF"),
+                     _("%s:%d: warning: can't find string terminator \"%s\" anywhere before EOF"),
                      real_file_name, line_number, delimiter);
               error_with_progname = true;
 
@@ -3715,7 +3715,7 @@ extract_balanced (message_list_ty *mlp,
               break;
 
             default:
-              fprintf (stderr, "%s:%d: unknown token type %d\n",
+              fprintf (stderr, "%s:%d: error: unknown token type %d\n",
                        real_file_name, tp->line_number, (int) tp->type);
               abort ();
             }

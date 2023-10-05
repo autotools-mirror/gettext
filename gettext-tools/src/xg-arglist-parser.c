@@ -385,7 +385,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
           error_at_line (0, 0,
                          best_cp->msgid_pos.file_name,
                          best_cp->msgid_pos.line_number,
-                         _("ambiguous argument specification for keyword '%.*s'"),
+                         _("warning: ambiguous argument specification for keyword '%.*s'"),
                          (int) ap->keyword_len, ap->keyword);
           error_with_progname = true;
         }
@@ -493,7 +493,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                           error_at_line (0, 0,
                                          best_cp->msgid_plural_pos.file_name,
                                          best_cp->msgid_plural_pos.line_number,
-                                         _("context mismatch between singular and plural form"));
+                                         _("warning: context mismatch between singular and plural form"));
                           error_with_progname = true;
                         }
                       free (ctxt);

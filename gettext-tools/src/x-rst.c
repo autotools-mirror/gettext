@@ -1,5 +1,5 @@
 /* xgettext RST/RSJ backend.
-   Copyright (C) 2001-2003, 2005-2009, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2023 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -113,7 +113,7 @@ extract_rst (FILE *f,
           if (c == EOF || c == '\n')
             {
               error_with_progname = false;
-              error (EXIT_FAILURE, 0, _("%s:%d: invalid string definition"),
+              error (EXIT_FAILURE, 0, _("%s:%d: error: invalid string definition"),
                      logical_filename, line_number);
               error_with_progname = true;
             }
@@ -177,7 +177,7 @@ extract_rst (FILE *f,
               if (c == EOF || !c_isdigit (c))
                 {
                   error_with_progname = false;
-                  error (EXIT_FAILURE, 0, _("%s:%d: missing number after #"),
+                  error (EXIT_FAILURE, 0, _("%s:%d: error: missing number after #"),
                          logical_filename, line_number);
                   error_with_progname = true;
                 }
@@ -212,7 +212,7 @@ extract_rst (FILE *f,
           else
             {
               error_with_progname = false;
-              error (EXIT_FAILURE, 0, _("%s:%d: invalid string expression"),
+              error (EXIT_FAILURE, 0, _("%s:%d: error: invalid string expression"),
                      logical_filename, line_number);
               error_with_progname = true;
             }
@@ -674,14 +674,14 @@ extract_rsj (FILE *f,
 
  invalid_json:
   error_with_progname = false;
-  error (EXIT_FAILURE, 0, _("%s:%d: invalid JSON syntax"),
+  error (EXIT_FAILURE, 0, _("%s:%d: error: invalid JSON syntax"),
          logical_filename, line_number);
   error_with_progname = true;
   return;
 
  invalid_rsj:
   error_with_progname = false;
-  error (EXIT_FAILURE, 0, _("%s:%d: invalid RSJ syntax"),
+  error (EXIT_FAILURE, 0, _("%s:%d: error: invalid RSJ syntax"),
          logical_filename, line_number);
   error_with_progname = true;
   return;
@@ -689,7 +689,7 @@ extract_rsj (FILE *f,
  invalid_rsj_version:
   error_with_progname = false;
   error (EXIT_FAILURE, 0,
-         _("%s:%d: invalid RSJ version. Only version 1 is supported."),
+         _("%s:%d: error: invalid RSJ version. Only version 1 is supported."),
          logical_filename, line_number);
   error_with_progname = true;
   return;

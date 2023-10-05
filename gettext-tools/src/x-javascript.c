@@ -328,7 +328,7 @@ Please specify the correct source encoding through --from-code\n"),
                   buf[bufcount++] = (unsigned char) c;
                 }
               else
-                error (EXIT_FAILURE, errno, _("%s:%d: iconv failure"),
+                error (EXIT_FAILURE, errno, _("%s:%d: error: iconv failure"),
                        real_file_name, line_number);
             }
           else
