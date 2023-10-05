@@ -24,7 +24,7 @@
 #include <stdio.h>
 
 #include "c-strstr.h"
-#include "error-progname.h"
+#include "if-error.h"
 #include "format.h"
 #include "read-catalog-abstract.h"
 #include "xalloc.h"
@@ -85,24 +85,13 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
               {
                 /* The string is not a valid format string.  */
                 if (is_format[i] != possible)
-                  {
-                    char buffer[22];
-
-                    error_with_progname = false;
-                    if (pos->line_number == (size_t)(-1))
-                      buffer[0] = '\0';
-                    else
-                      sprintf (buffer, ":%ld", (long) pos->line_number);
-                    multiline_warning (xasprintf (_("%s%s: warning: "),
-                                                  pos->file_name, buffer),
-                                       xasprintf (is_format[i] == yes_according_to_context
-                                                  ? _("Although being used in a format string position, the %s is not a valid %s format string. Reason: %s\n")
-                                                  : _("Although declared as such, the %s is not a valid %s format string. Reason: %s\n"),
-                                                  pretty_msgstr,
-                                                  format_language_pretty[i],
-                                                  invalid_reason));
-                    error_with_progname = true;
-                  }
+                  if_error (IF_SEVERITY_WARNING,
+                            pos->file_name, pos->line_number, (size_t)(-1), true,
+                            is_format[i] == yes_according_to_context
+                            ? _("Although being used in a format string position, the %s is not a valid %s format string. Reason: %s\n")
+                            : _("Although declared as such, the %s is not a valid %s format string. Reason: %s\n"),
+                            pretty_msgstr, format_language_pretty[i],
+                            invalid_reason);
 
                 is_format[i] = impossible;
                 free (invalid_reason);
@@ -222,24 +211,14 @@ warn_format_string (enum is_format is_format[NFORMATS], const char *string,
 {
   if (possible_format_p (is_format[format_python])
       && get_python_format_unnamed_arg_count (string) > 1)
-    {
-      char buffer[22];
-
-      error_with_progname = false;
-      if (pos->line_number == (size_t)(-1))
-        buffer[0] = '\0';
-      else
-        sprintf (buffer, ":%ld", (long) pos->line_number);
-      multiline_warning (xasprintf (_("%s%s: warning: "),
-                                    pos->file_name, buffer),
-                         xasprintf (_("\
+    if_error (IF_SEVERITY_WARNING,
+              pos->file_name, pos->line_number, (size_t)(-1), true,
+              _("\
 '%s' format string with unnamed arguments cannot be properly localized:\n\
 The translator cannot reorder the arguments.\n\
 Please consider using a format string with named arguments,\n\
 and a mapping instead of a tuple for the arguments.\n"),
-                                    pretty_msgstr));
-      error_with_progname = true;
-    }
+              pretty_msgstr);
 }
 
 
@@ -290,22 +269,12 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
     }
 
   if (msgctxt == NULL && msgid[0] == '\0' && !xgettext_omit_header)
-    {
-      char buffer[22];
-
-      error_with_progname = false;
-      if (pos->line_number == (size_t)(-1))
-        buffer[0] = '\0';
-      else
-        sprintf (buffer, ":%ld", (long) pos->line_number);
-      multiline_warning (xasprintf (_("%s%s: warning: "), pos->file_name,
-                                    buffer),
-                         xstrdup (_("\
+    if_error (IF_SEVERITY_WARNING,
+              pos->file_name, pos->line_number, (size_t)(-1), true,
+              _("\
 Empty msgid.  It is reserved by GNU gettext:\n\
 gettext(\"\") returns the header entry with\n\
-meta information, not the empty string.\n")));
-      error_with_progname = true;
-    }
+meta information, not the empty string.\n"));
 
   /* See if we have seen this message before.  */
   mp = message_list_search (mlp, msgctxt, msgid);

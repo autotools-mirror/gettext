@@ -42,7 +42,7 @@
 #include "xg-arglist-parser.h"
 #include "xg-message.h"
 #include "error.h"
-#include "error-progname.h"
+#include "if-error.h"
 #include "xalloc.h"
 #include "mem-hash-map.h"
 #include "c-ctype.h"
@@ -767,11 +767,9 @@ accumulate_word (struct word *wp, enum terminator looking_for,
       else if (c == '[')
         {
           if (++bracket_nesting_depth > MAX_NESTING_DEPTH)
-            {
-              error_with_progname = false;
-              error (EXIT_FAILURE, 0, _("%s:%d: error: too many open brackets"),
-                     logical_file_name, line_number);
-            }
+            if_error (IF_SEVERITY_FATAL_ERROR,
+                      logical_file_name, line_number, (size_t)(-1), false,
+                      _("too many open brackets"));
           read_command_list (']', context);
           bracket_nesting_depth--;
           wp->type = t_other;
@@ -800,10 +798,9 @@ accumulate_word (struct word *wp, enum terminator looking_for,
                     }
                   phase2_ungetc (c);
                 }
-              error_with_progname = false;
-              error (0, 0, _("%s:%d: warning: invalid Unicode character"),
-                     logical_file_name, line_number);
-              error_with_progname = true;
+              if_error (IF_SEVERITY_WARNING,
+                        logical_file_name, line_number, (size_t)(-1), false,
+                        _("invalid Unicode character"));
               goto done_escape;
             }
          saw_unicode_escape:
@@ -893,11 +890,9 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 
       /* Interpret it as a command list.  */
       if (++brace_nesting_depth > MAX_NESTING_DEPTH)
-        {
-          error_with_progname = false;
-          error (EXIT_FAILURE, 0, _("%s:%d: error: too many open braces"),
-                 logical_file_name, line_number);
-        }
+        if_error (IF_SEVERITY_FATAL_ERROR,
+                  logical_file_name, line_number, (size_t)(-1), false,
+                  _("too many open braces"));
       terminator = read_command_list ('\0', null_context);
       brace_nesting_depth--;
 

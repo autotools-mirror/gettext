@@ -39,7 +39,7 @@
 #include "xg-arglist-parser.h"
 #include "xg-message.h"
 #include "error.h"
-#include "error-progname.h"
+#include "if-error.h"
 #include "xalloc.h"
 #include "mem-hash-map.h"
 #include "../../gettext-runtime/src/escapes.h"
@@ -1147,10 +1147,9 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
                                       NULL, savable_comment, false);
                   free_token (&string);
 
-                  error_with_progname = false;
-                  error (0, 0, _("%s:%lu: warning: the syntax $\"...\" is deprecated due to security reasons; use eval_gettext instead"),
-                         pos.file_name, (unsigned long) pos.line_number);
-                  error_with_progname = true;
+                  if_error (IF_SEVERITY_WARNING,
+                            pos.file_name, pos.line_number, (size_t)(-1), false,
+                            _("the syntax $\"...\" is deprecated due to security reasons; use eval_gettext instead"));
 
                   /* The result at runtime is not constant. Therefore we
                      change wp->type.  */
@@ -1507,11 +1506,9 @@ static enum word_type
 read_command_list (int looking_for, flag_context_ty outer_context)
 {
   if (nesting_depth > MAX_NESTING_DEPTH)
-    {
-      error_with_progname = false;
-      error (EXIT_FAILURE, 0, _("%s:%d: error: too deeply nested command list"),
-             logical_file_name, line_number);
-    }
+    if_error (IF_SEVERITY_FATAL_ERROR,
+              logical_file_name, line_number, (size_t)(-1), false,
+              _("too deeply nested command list"));
   for (;;)
     {
       enum word_type terminator;

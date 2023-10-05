@@ -1,6 +1,6 @@
 /* Handling strings that are given partially in the source encoding and
    partially in Unicode.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,7 +27,7 @@
 #include <string.h>
 
 #include "error.h"
-#include "error-progname.h"
+#include "if-error.h"
 #include "flexmember.h"
 #include "msgl-ascii.h"
 #include "po-charset.h"
@@ -492,10 +492,9 @@ mixed_string_buffer_append_lone_surrogate (struct mixed_string_buffer *bp,
             as a 3-byte sequence, the resulting UTF-8 data stream
             would become ill-formed."
      So use U+FFFD instead.  */
-  error_with_progname = false;
-  error (0, 0, _("%s:%d: warning: lone surrogate U+%04X"),
-         logical_file_name, line_number, uc);
-  error_with_progname = true;
+  if_error (IF_SEVERITY_WARNING,
+            logical_file_name, line_number, (size_t)(-1), false,
+            _("lone surrogate U+%04X"), uc);
   mixed_string_buffer_append_to_utf8_buffer (bp, 0xfffd);
 }
 

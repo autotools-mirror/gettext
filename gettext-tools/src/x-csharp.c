@@ -41,7 +41,7 @@
 #include "xg-message.h"
 #include "c-ctype.h"
 #include "error.h"
-#include "error-progname.h"
+#include "if-error.h"
 #include "xalloc.h"
 #include "xerror.h"
 #include "xvasprintf.h"
@@ -1328,12 +1328,9 @@ do_getc_unicode_escaped (bool (*predicate) (int))
         }
 
       if (n >= 0x110000)
-        {
-          error_with_progname = false;
-          error (0, 0, _("%s:%d: warning: invalid Unicode character"),
-                 logical_file_name, line_number);
-          error_with_progname = true;
-        }
+        if_error (IF_SEVERITY_WARNING,
+                  logical_file_name, line_number, (size_t)(-1), false,
+                  _("invalid Unicode character"));
       else if (predicate (n))
         return n;
 
@@ -1447,14 +1444,14 @@ accumulate_escaped (struct mixed_string_buffer *literal, int delimiter)
       if (c == UNL)
         {
           phase3_ungetc (c);
-          error_with_progname = false;
           if (delimiter == '\'')
-            error (0, 0, _("%s:%d: warning: unterminated character constant"),
-                   logical_file_name, line_number);
+            if_error (IF_SEVERITY_WARNING,
+                      logical_file_name, line_number, (size_t)(-1), false,
+                      _("unterminated character constant"));
           else
-            error (0, 0, _("%s:%d: warning: unterminated string constant"),
-                   logical_file_name, line_number);
-          error_with_progname = true;
+            if_error (IF_SEVERITY_WARNING,
+                      logical_file_name, line_number, (size_t)(-1), false,
+                      _("unterminated string constant"));
           break;
         }
       if (c == '\\')
@@ -1941,11 +1938,9 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 
         case token_type_lparen:
           if (++paren_nesting_depth > MAX_NESTING_DEPTH)
-            {
-              error_with_progname = false;
-              error (EXIT_FAILURE, 0, _("%s:%d: error: too many open parentheses"),
-                     logical_file_name, line_number);
-            }
+            if_error (IF_SEVERITY_FATAL_ERROR,
+                      logical_file_name, line_number, (size_t)(-1), false,
+                      _("too many open parentheses"));
           if (extract_parenthesized (mlp, token_type_rparen,
                                      inner_context, next_context_iter,
                                      arglist_parser_alloc (mlp,
@@ -1966,24 +1961,18 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
               return false;
             }
           if (terminator == token_type_rbrace)
-            {
-              error_with_progname = false;
-              error (0, 0,
-                     _("%s:%d: warning: ')' found where '}' was expected"),
-                     logical_file_name, token.line_number);
-              error_with_progname = true;
-            }
+            if_error (IF_SEVERITY_WARNING,
+                      logical_file_name, token.line_number, (size_t)(-1), false,
+                      _("')' found where '}' was expected"));
           next_context_iter = null_context_list_iterator;
           state = 0;
           continue;
 
         case token_type_lbrace:
           if (++brace_nesting_depth > MAX_NESTING_DEPTH)
-            {
-              error_with_progname = false;
-              error (EXIT_FAILURE, 0, _("%s:%d: error: too many open braces"),
-                     logical_file_name, line_number);
-            }
+            if_error (IF_SEVERITY_FATAL_ERROR,
+                      logical_file_name, line_number, (size_t)(-1), false,
+                      _("too many open braces"));
           if (extract_parenthesized (mlp, token_type_rbrace,
                                      null_context, null_context_list_iterator,
                                      arglist_parser_alloc (mlp, NULL)))
@@ -2003,13 +1992,9 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
               return false;
             }
           if (terminator == token_type_rparen)
-            {
-              error_with_progname = false;
-              error (0, 0,
-                     _("%s:%d: warning: '}' found where ')' was expected"),
-                     logical_file_name, token.line_number);
-              error_with_progname = true;
-            }
+            if_error (IF_SEVERITY_WARNING,
+                      logical_file_name, token.line_number, (size_t)(-1), false,
+                      _("'}' found where ')' was expected"));
           next_context_iter = null_context_list_iterator;
           state = 0;
           continue;

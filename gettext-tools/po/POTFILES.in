@@ -67,6 +67,7 @@ src/format-sh.c
 src/format-smalltalk.c
 src/format-tcl.c
 src/hostname.c
+src/if-error.c
 src/its.c
 src/locating-rule.c
 src/msgattrib.c

@@ -42,7 +42,7 @@
 #include "xg-arglist-parser.h"
 #include "xg-message.h"
 #include "error.h"
-#include "error-progname.h"
+#include "if-error.h"
 #include "xalloc.h"
 #include "c-ctype.h"
 #include "po-charset.h"
@@ -337,12 +337,10 @@ get_here_document (const char *delimiter)
             }
           else
             {
-              error_with_progname = false;
-              error (EXIT_SUCCESS, 0,
-                     _("%s:%d: warning: can't find string terminator \"%s\" anywhere before EOF"),
-                     real_file_name, line_number, delimiter);
-              error_with_progname = true;
-
+              if_error (IF_SEVERITY_WARNING,
+                        real_file_name, line_number, (size_t)(-1), false,
+                        _("can't find string terminator \"%s\" anywhere before EOF"),
+                        delimiter);
               break;
             }
         }
@@ -1079,11 +1077,9 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
                     const char *end = strchr (crs, '}');
                     if (end == NULL)
                       {
-                        error_with_progname = false;
-                        error (error_level, 0,
-                               _("%s:%d: missing right brace on \\x{HEXNUMBER}"),
-                               real_file_name, line_number);
-                        error_with_progname = true;
+                        if_error (error_level,
+                                  real_file_name, line_number, (size_t)(-1), false,
+                                  _("missing right brace on \\x{HEXNUMBER}"));
                         ++crs;
                         continue;
                       }
@@ -1200,11 +1196,10 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
                 }
               else if ((unsigned char) *crs >= 0x80)
                 {
-                  error_with_progname = false;
-                  error (error_level, 0,
-                         _("%s:%d: invalid interpolation (\"\\l\") of 8bit character \"%c\""),
-                         real_file_name, line_number, *crs);
-                  error_with_progname = true;
+                  if_error (error_level,
+                            real_file_name, line_number, (size_t)(-1), false,
+                            _("invalid interpolation (\"\\l\") of 8bit character \"%c\""),
+                            *crs);
                 }
               else
                 {
@@ -1220,11 +1215,10 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
                 }
               else if ((unsigned char) *crs >= 0x80)
                 {
-                  error_with_progname = false;
-                  error (error_level, 0,
-                         _("%s:%d: invalid interpolation (\"\\u\") of 8bit character \"%c\""),
-                         real_file_name, line_number, *crs);
-                  error_with_progname = true;
+                  if_error (error_level,
+                            real_file_name, line_number, (size_t)(-1), false,
+                            _("invalid interpolation (\"\\u\") of 8bit character \"%c\""),
+                            *crs);
                 }
               else
                 {
@@ -1254,11 +1248,9 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 
       if (!backslashed && !extract_all && (*crs == '$' || *crs == '@'))
         {
-          error_with_progname = false;
-          error (error_level, 0,
-                 _("%s:%d: invalid variable interpolation at \"%c\""),
-                 real_file_name, line_number, *crs);
-          error_with_progname = true;
+          if_error (error_level,
+                    real_file_name, line_number, (size_t)(-1), false,
+                    _("invalid variable interpolation at \"%c\""), *crs);
           ++crs;
         }
       else if (lowercase)
@@ -1267,11 +1259,10 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
             buffer[bufpos++] = *crs - 'A' + 'a';
           else if ((unsigned char) *crs >= 0x80)
             {
-              error_with_progname = false;
-              error (error_level, 0,
-                     _("%s:%d: invalid interpolation (\"\\L\") of 8bit character \"%c\""),
-                     real_file_name, line_number, *crs);
-              error_with_progname = true;
+              if_error (error_level,
+                        real_file_name, line_number, (size_t)(-1), false,
+                        _("invalid interpolation (\"\\L\") of 8bit character \"%c\""),
+                        *crs);
               buffer[bufpos++] = *crs;
             }
           else
@@ -1284,11 +1275,10 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
             buffer[bufpos++] = *crs - 'a' + 'A';
           else if ((unsigned char) *crs >= 0x80)
             {
-              error_with_progname = false;
-              error (error_level, 0,
-                     _("%s:%d: invalid interpolation (\"\\U\") of 8bit character \"%c\""),
-                     real_file_name, line_number, *crs);
-              error_with_progname = true;
+              if_error (error_level,
+                        real_file_name, line_number, (size_t)(-1), false,
+                        _("invalid interpolation (\"\\U\") of 8bit character \"%c\""),
+                        *crs);
               buffer[bufpos++] = *crs;
             }
           else
@@ -1741,11 +1731,9 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
   lex_pos_ty pos;
 
   if (++nesting_depth > MAX_NESTING_DEPTH)
-    {
-      error_with_progname = false;
-      error (EXIT_FAILURE, 0, _("%s:%d: error: too deeply nested expressions"),
-             logical_file_name, line_number);
-    }
+    if_error (IF_SEVERITY_FATAL_ERROR,
+              logical_file_name, line_number, (size_t)(-1), false,
+              _("too deeply nested expressions"));
 
   /* States are:
    *
@@ -1980,7 +1968,7 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
               /* The resulting string has to be interpolated twice.  */
               buffer[bufpos] = '\0';
               token.string = xstrdup (buffer);
-              extract_quotelike_pass3 (&token, EXIT_FAILURE);
+              extract_quotelike_pass3 (&token, IF_SEVERITY_FATAL_ERROR);
               /* The string can only shrink with interpolation (because
                  we ignore \Q).  */
               if (!(strlen (token.string) <= bufpos))
@@ -2074,7 +2062,7 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
             case '}':
               buffer[bufpos] = '\0';
               token.string = xstrdup (buffer);
-              extract_quotelike_pass3 (&token, EXIT_FAILURE);
+              extract_quotelike_pass3 (&token, IF_SEVERITY_FATAL_ERROR);
               remember_a_message (mlp, NULL, token.string, true, false, context,
                                   &pos, NULL, savable_comment, true);
               FALLTHROUGH;
@@ -2796,11 +2784,9 @@ static token_ty *
 x_perl_lex (message_list_ty *mlp)
 {
   if (++nesting_depth > MAX_NESTING_DEPTH)
-    {
-      error_with_progname = false;
-      error (EXIT_FAILURE, 0, _("%s:%d: error: too deeply nested expressions"),
-             logical_file_name, line_number);
-    }
+    if_error (IF_SEVERITY_FATAL_ERROR,
+              logical_file_name, line_number, (size_t)(-1), false,
+              _("too deeply nested expressions"));
 
   #if DEBUG_PERL
   int dummy = token_stack_dump (&token_stack);
@@ -2916,8 +2902,7 @@ x_perl_lex (message_list_ty *mlp)
           tp->sub_type = string_type_q;
           tp->comment = add_reference (savable_comment);
           #if DEBUG_PERL
-          fprintf (stderr,
-                   "%s:%d: token %s mutated to token_type_string\n",
+          fprintf (stderr, "%s:%d: token %s mutated to token_type_string\n",
                    real_file_name, line_number, token2string (tp));
           #endif
         }
@@ -3148,11 +3133,9 @@ extract_balanced (message_list_ty *mlp,
   #endif
 
   if (nesting_depth > MAX_NESTING_DEPTH)
-    {
-      error_with_progname = false;
-      error (EXIT_FAILURE, 0, _("%s:%d: error: too deeply nested expressions"),
-             logical_file_name, line_number);
-    }
+    if_error (IF_SEVERITY_FATAL_ERROR,
+              logical_file_name, line_number, (size_t)(-1), false,
+              _("too deeply nested expressions"));
 
   for (;;)
     {
@@ -3454,7 +3437,7 @@ extract_balanced (message_list_ty *mlp,
 
               if (extract_all)
                 {
-                  char *string = collect_message (mlp, tp, EXIT_SUCCESS);
+                  char *string = collect_message (mlp, tp, IF_SEVERITY_WARNING);
                   lex_pos_ty pos;
 
                   pos.file_name = logical_file_name;
@@ -3483,7 +3466,7 @@ extract_balanced (message_list_ty *mlp,
 
                   if (must_collect)
                     {
-                      char *string = collect_message (mlp, tp, EXIT_FAILURE);
+                      char *string = collect_message (mlp, tp, IF_SEVERITY_FATAL_ERROR);
                       mixed_string_ty *ms =
                         mixed_string_alloc_utf8 (string, lc_string,
                                                  logical_file_name, tp->line_number);
@@ -3715,8 +3698,10 @@ extract_balanced (message_list_ty *mlp,
               break;
 
             default:
-              fprintf (stderr, "%s:%d: error: unknown token type %d\n",
-                       real_file_name, tp->line_number, (int) tp->type);
+              if_error (IF_SEVERITY_ERROR,
+                        real_file_name, tp->line_number, (size_t)(-1), false,
+                        "unknown token type %d", (int) tp->type);
+              fflush (stderr);
               abort ();
             }
 

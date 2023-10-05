@@ -291,6 +291,9 @@ msgl-check.c
 +-------------- The 'xgettext' program
 | xgettext.h
 |               Declarations used by the backends.
+| if-error.h
+| if-error.c
+|               Error handling during reading of input files.
 | rc-str-list.h
 |               A reference-counted list-of-immutable-strings type.
 | xg-pos.h

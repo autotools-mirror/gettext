@@ -42,7 +42,7 @@
 #include "xg-arglist-parser.h"
 #include "xg-message.h"
 #include "error.h"
-#include "error-progname.h"
+#include "if-error.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "mem-hash-map.h"
@@ -504,12 +504,9 @@ phase7_getc ()
               default:
                 phase1_ungetc (c);
                 if (overflow)
-                  {
-                    error_with_progname = false;
-                    error (0, 0, _("%s:%d: warning: hexadecimal escape sequence out of range"),
-                           logical_file_name, line_number);
-                    error_with_progname = true;
-                  }
+                  if_error (IF_SEVERITY_WARNING,
+                            logical_file_name, line_number, (size_t)(-1), false,
+                            _("hexadecimal escape sequence out of range"));
                 return n;
 
               case '0': case '1': case '2': case '3': case '4':
@@ -593,10 +590,9 @@ phase7_getc ()
         if (n < 0x110000)
           return UNICODE (n);
 
-        error_with_progname = false;
-        error (0, 0, _("%s:%d: warning: invalid Unicode character"),
-               logical_file_name, line_number);
-        error_with_progname = true;
+        if_error (IF_SEVERITY_WARNING,
+                  logical_file_name, line_number, (size_t)(-1), false,
+                  _("invalid Unicode character"));
 
         while (--j >= 0)
           phase1_ungetc (buf[j]);
@@ -642,11 +638,9 @@ phase3_scan_regex ()
           }
         if (c == EOF)
           {
-            error_with_progname = false;
-            error (0, 0,
-                   _("%s:%d: warning: regular expression literal terminated too early"),
-                   logical_file_name, line_number);
-            error_with_progname = true;
+            if_error (IF_SEVERITY_WARNING,
+                      logical_file_name, line_number, (size_t)(-1), false,
+                      _("regular expression literal terminated too early"));
             return;
           }
       }
@@ -835,10 +829,9 @@ phase3_get (token_ty *tp)
               c = phase7_getc ();
               if (c == P7_NEWLINE)
                 {
-                  error_with_progname = false;
-                  error (0, 0, _("%s:%d: warning: unterminated character constant"),
-                         logical_file_name, line_number - 1);
-                  error_with_progname = true;
+                  if_error (IF_SEVERITY_WARNING,
+                            logical_file_name, line_number - 1, (size_t)(-1), false,
+                            _("unterminated character constant"));
                   phase7_ungetc ('\n');
                   break;
                 }
@@ -935,11 +928,9 @@ phase3_get (token_ty *tp)
 
                   if (c == P7_NEWLINE)
                     {
-                      error_with_progname = false;
-                      error (0, 0,
-                             _("%s:%d: warning: unterminated string literal"),
-                             logical_file_name, line_number - 1);
-                      error_with_progname = true;
+                      if_error (IF_SEVERITY_WARNING,
+                                logical_file_name, line_number - 1, (size_t)(-1), false,
+                                _("unterminated string literal"));
                       phase7_ungetc ('\n');
                       break;
                     }
@@ -1317,11 +1308,9 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
 
         case token_type_lparen:
           if (++nesting_depth > MAX_NESTING_DEPTH)
-            {
-              error_with_progname = false;
-              error (EXIT_FAILURE, 0, _("%s:%d: error: too many open parentheses"),
-                     logical_file_name, line_number);
-            }
+            if_error (IF_SEVERITY_FATAL_ERROR,
+                      logical_file_name, line_number, (size_t)(-1), false,
+                      _("too many open parentheses"));
           if (extract_balanced (mlp, token_type_rparen,
                                 inner_context, next_context_iter,
                                 arglist_parser_alloc (mlp,

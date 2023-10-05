@@ -39,7 +39,7 @@
 #include "xg-arglist-parser.h"
 #include "xg-message.h"
 #include "error.h"
-#include "error-progname.h"
+#include "if-error.h"
 #include "xalloc.h"
 #include "gettext.h"
 
@@ -337,10 +337,9 @@ phase7_getc ()
     }
 
   phase1_ungetc (c);
-  error_with_progname = false;
-  error (0, 0, _("%s:%d: warning: unterminated string"), logical_file_name,
-         line_number);
-  error_with_progname = true;
+  if_error (IF_SEVERITY_WARNING,
+            logical_file_name, line_number, (size_t)(-1), false,
+            _("unterminated string"));
   return P7_QUOTES;
 }
 
@@ -588,10 +587,9 @@ x_awk_lex (token_ty *tp)
                   if (c == EOF || c == '\n')
                     {
                       phase1_ungetc (c);
-                      error_with_progname = false;
-                      error (0, 0, _("%s:%d: warning: unterminated regular expression"),
-                             logical_file_name, line_number);
-                      error_with_progname = true;
+                      if_error (IF_SEVERITY_WARNING,
+                                logical_file_name, line_number, (size_t)(-1), false,
+                                _("unterminated regular expression"));
                       break;
                     }
                   else if (c == '[')
@@ -764,11 +762,9 @@ extract_parenthesized (message_list_ty *mlp,
 
         case token_type_lparen:
           if (++nesting_depth > MAX_NESTING_DEPTH)
-            {
-              error_with_progname = false;
-              error (EXIT_FAILURE, 0, _("%s:%d: error: too many open parentheses"),
-                     logical_file_name, line_number);
-            }
+            if_error (IF_SEVERITY_FATAL_ERROR,
+                      logical_file_name, line_number, (size_t)(-1), false,
+                      _("too many open parentheses"));
           if (extract_parenthesized (mlp, inner_context, next_context_iter,
                                      arglist_parser_alloc (mlp,
                                                            state ? next_shapes : NULL)))

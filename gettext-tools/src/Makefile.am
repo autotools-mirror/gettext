@@ -56,6 +56,7 @@ noinst_HEADERS = \
   write-xml.h \
   po-time.h plural-table.h lang-table.h format.h filters.h \
   xgettext.h \
+  if-error.h \
   rc-str-list.h xg-pos.h xg-encoding.h xg-mixed-string.h xg-arglist-context.h \
   xg-arglist-callshape.h xg-arglist-parser.h xg-message.h \
   x-po.h x-properties.h x-stringtable.h \
@@ -227,6 +228,7 @@ else
 xgettext_SOURCES = ../woe32dll/c++xgettext.cc
 endif
 xgettext_SOURCES += \
+  if-error.c \
   xg-pos.c \
   xg-encoding.c \
   xg-mixed-string.c \

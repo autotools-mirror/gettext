@@ -25,8 +25,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "error.h"
-#include "error-progname.h"
+#include "if-error.h"
 #include "flexmember.h"
 #include "xalloc.h"
 #include "xsize.h"
@@ -380,15 +379,12 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
         }
 
       if (ambiguous)
-        {
-          error_with_progname = false;
-          error_at_line (0, 0,
-                         best_cp->msgid_pos.file_name,
-                         best_cp->msgid_pos.line_number,
-                         _("warning: ambiguous argument specification for keyword '%.*s'"),
-                         (int) ap->keyword_len, ap->keyword);
-          error_with_progname = true;
-        }
+        if_error (IF_SEVERITY_WARNING,
+                  best_cp->msgid_pos.file_name,
+                  best_cp->msgid_pos.line_number,
+                  (size_t)(-1), false,
+                  _("ambiguous argument specification for keyword '%.*s'"),
+                  (int) ap->keyword_len, ap->keyword);
 
       if (best_cp != NULL)
         {
@@ -442,15 +438,12 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
               const char *separator = strchr (best_msgid, '|');
 
               if (separator == NULL)
-                {
-                  error_with_progname = false;
-                  error_at_line (0, 0,
-                                 best_cp->msgid_pos.file_name,
-                                 best_cp->msgid_pos.line_number,
-                                 _("warning: missing context for keyword '%.*s'"),
-                                 (int) ap->keyword_len, ap->keyword);
-                  error_with_progname = true;
-                }
+                if_error (IF_SEVERITY_WARNING,
+                          best_cp->msgid_pos.file_name,
+                          best_cp->msgid_pos.line_number,
+                          (size_t)(-1), false,
+                          _("missing context for keyword '%.*s'"),
+                          (int) ap->keyword_len, ap->keyword);
               else
                 {
                   size_t ctxt_len = separator - best_msgid;
@@ -467,15 +460,12 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
               const char *separator = strchr (best_msgid_plural, '|');
 
               if (separator == NULL)
-                {
-                  error_with_progname = false;
-                  error_at_line (0, 0,
-                                 best_cp->msgid_plural_pos.file_name,
-                                 best_cp->msgid_plural_pos.line_number,
-                                 _("warning: missing context for plural argument of keyword '%.*s'"),
-                                 (int) ap->keyword_len, ap->keyword);
-                  error_with_progname = true;
-                }
+                if_error (IF_SEVERITY_WARNING,
+                          best_cp->msgid_plural_pos.file_name,
+                          best_cp->msgid_plural_pos.line_number,
+                          (size_t)(-1), false,
+                          _("missing context for plural argument of keyword '%.*s'"),
+                          (int) ap->keyword_len, ap->keyword);
               else
                 {
                   size_t ctxt_len = separator - best_msgid_plural;
@@ -488,14 +478,11 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                   else
                     {
                       if (strcmp (ctxt, best_msgctxt) != 0)
-                        {
-                          error_with_progname = false;
-                          error_at_line (0, 0,
-                                         best_cp->msgid_plural_pos.file_name,
-                                         best_cp->msgid_plural_pos.line_number,
-                                         _("warning: context mismatch between singular and plural form"));
-                          error_with_progname = true;
-                        }
+                        if_error (IF_SEVERITY_WARNING,
+                                  best_cp->msgid_plural_pos.file_name,
+                                  best_cp->msgid_plural_pos.line_number,
+                                  (size_t)(-1), false,
+                                  _("context mismatch between singular and plural form"));
                       free (ctxt);
                     }
                   best_msgid_plural = xstrdup (separator + 1);
