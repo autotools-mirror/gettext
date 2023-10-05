@@ -250,6 +250,7 @@ if ! $skip_gnulib; then
     xmalloca
     xmemdup0
     xsetenv
+    xstrerror
     xstriconv
     xstriconveh
     xvasprintf
@@ -379,19 +380,26 @@ if ! $skip_gnulib; then
     xstriconv
     xvasprintf
   '
-  # Module 'fdopen' is enabled in gettext-tools/config.status, because
-  # it occurs as dependency of some module ('supersede') in
+  # Module 'fdopen' is enabled in gettext-tools/config.status,
+  # because it occurs as dependency of some module ('supersede') in
   # GNULIB_MODULES_TOOLS_FOR_SRC. Therefore on mingw, libgettextpo/stdio.h
   # contains '#define fdopen rpl_fdopen'. Therefore we need to include
   # fdopen.lo in libgettextpo.la.
-  # Module 'realloc-posix' is enabled in gettext-tools/config.status, because
-  # it occurs as dependency of some module ('read-file') in
+  # Module 'realloc-posix' is enabled in gettext-tools/config.status,
+  # because it occurs as dependency of some module ('read-file') in
   # GNULIB_MODULES_TOOLS_FOR_SRC. Therefore on mingw, libgettextpo/stdlib.h
   # contains '#define realloc rpl_realloc'. Therefore we need to include
   # realloc.lo in libgettextpo.la.
+  # Module 'strerror_r-posix' is enabled in gettext-tools/config.status,
+  # because it occurs as dependency of some module ('xstrerror') in
+  # GNULIB_MODULES_TOOLS_FOR_SRC. Therefore gettext-tools/config.h contains
+  # '#define GNULIB_STRERROR_R_POSIX 1'. Therefore on mingw,
+  # libgettextpo/error.o references strerror_r. Therefore we need to include
+  # strerror_r.lo in libgettextpo.la.
   GNULIB_MODULES_LIBGETTEXTPO_OTHER='
     fdopen
     realloc-posix
+    strerror_r-posix
   '
   $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
     --import --avoid=progname $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER || exit $?

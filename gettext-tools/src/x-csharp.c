@@ -42,6 +42,7 @@
 #include "c-ctype.h"
 #include "error.h"
 #include "if-error.h"
+#include "xstrerror.h"
 #include "xalloc.h"
 #include "xerror.h"
 #include "xvasprintf.h"
@@ -316,8 +317,9 @@ Please specify the correct source encoding through --from-code.\n"),
                   buf[bufcount++] = (unsigned char) c;
                 }
               else
-                error (EXIT_FAILURE, errno, _("%s:%d: error: iconv failure"),
-                       real_file_name, line_number);
+                if_error (IF_SEVERITY_FATAL_ERROR,
+                          real_file_name, line_number, (size_t)(-1), false,
+                          "%s", xstrerror (_("iconv failure"), errno));
             }
           else
             {

@@ -43,6 +43,7 @@
 #include "xg-message.h"
 #include "error.h"
 #include "if-error.h"
+#include "xstrerror.h"
 #include "progname.h"
 #include "basename-lgpl.h"
 #include "xerror.h"
@@ -355,8 +356,9 @@ comment as specified in https://www.python.org/peps/pep-0263.html.\n"),
                   buf[bufcount++] = (unsigned char) c;
                 }
               else
-                error (EXIT_FAILURE, errno, _("%s:%d: error: iconv failure"),
-                       real_file_name, line_number);
+                if_error (IF_SEVERITY_FATAL_ERROR,
+                          real_file_name, line_number, (size_t)(-1), false,
+                          "%s", xstrerror (_("iconv failure"), errno));
             }
           else
             {
