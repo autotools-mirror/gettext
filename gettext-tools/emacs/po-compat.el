@@ -1,6 +1,6 @@
 ;;; po-compat.el --- basic support of PO translation files -*- coding: latin-1; -*-
 
-;; Copyright (C) 1995-2002, 2010, 2016, 2019 Free Software Foundation, Inc.
+;; Copyright (C) 1995-2002, 2010, 2016, 2019, 2023 Free Software Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>,
 ;;          Greg McGary <gkm@magilla.cichlid.com>,
@@ -154,7 +154,7 @@ Return a Mule (DECODING . ENCODING) pair, according to PO file charset.
 Called through file-coding-system-alist, before the file is visited for real."
   (and (eq operation 'insert-file-contents)
        (file-exists-p filename)
-       (po-with-temp-buffer
+       (with-temp-buffer
         (let* ((coding-system-for-read 'no-conversion)
                (charset (or (po-find-charset filename) "ascii"))
                (charset-upper (upcase charset))
