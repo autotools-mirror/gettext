@@ -8,6 +8,10 @@ Version 0.23 - October 2023
     now return the msgid untranslated. This is relevant for GNU systems,
     Linux with musl libc, FreeBSD, NetBSD, OpenBSD, Cygwin, and Android.
 
+* xgettext:
+  - Most of the diagnostics emitted by xgettext are now labelled as
+    "warning" or "error".
+
 * msgmerge:
   - The msgmerge option '--sorted-output' is now deprecated.
 
