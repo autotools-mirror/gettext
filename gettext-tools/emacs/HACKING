@@ -1,0 +1,12 @@
+This directory gets automatically mirrored at
+
+  https://github.com/emacsmirror/po-mode/
+
+where users can enable it by putting this into their Emacs initialization file
+(cf. https://www.emacswiki.org/emacs/InitFile and
+https://github.com/melpa/melpa/blob/master/README.md ):
+
+  (require 'package)
+  (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+
+Therefore, don't make untested changes in this directory!
