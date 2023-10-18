@@ -237,7 +237,7 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) $(SMALLPOTS) remove-potcdate.sed
 # The environment variable 'gettext_datadir' is used by autopoint.
 # The environment variable 'GETTEXTDATADIR' is used by xgettext.
 USE_BUILT_PROGS = \
-  PATH="`pwd`/../../src:`pwd`/../../misc:$$PATH"; \
+  PATH="`pwd`/../../src$(PATH_SEPARATOR)`pwd`/../../misc$(PATH_SEPARATOR)$$PATH"; \
   gettext_datadir="`pwd`/../../misc"; export gettext_datadir; \
   GETTEXTDATADIR="`cd '$(srcdir)/../..' && pwd`"; export GETTEXTDATADIR;
 
