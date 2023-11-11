@@ -49,6 +49,7 @@
 #include "pos.h"
 #include "message.h"
 #include "str-list.h"
+#include "po-gram.h"
 #include "po-gram-gen.h"
 
 #define _(str) gettext(str)
@@ -76,7 +77,7 @@ bool gram_pot_role;
 
 /* VARARGS1 */
 void
-po_gram_error (const char *fmt, ...)
+po_gram_error (struct po_parser_state *ps, const char *fmt, ...)
 {
   va_list ap;
   char *buffer;
@@ -437,7 +438,7 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
                   /* An invalid multibyte sequence was encountered.  */
                   /* Return a single byte.  */
                   if (signal_eilseq)
-                    po_gram_error (_("invalid multibyte sequence"));
+                    po_gram_error (NULL, _("invalid multibyte sequence"));
                   bytes = 1;
                   mbc->uc_valid = false;
                   break;
@@ -465,7 +466,7 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
                       if (ferror (mbf->fp))
                         goto eof;
                       if (signal_eilseq)
-                        po_gram_error (_("incomplete multibyte sequence at end of file"));
+                        po_gram_error (NULL, _("incomplete multibyte sequence at end of file"));
                       bytes = mbf->bufcount;
                       mbc->uc_valid = false;
                       break;
@@ -474,7 +475,7 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
                   if (c == '\n')
                     {
                       if (signal_eilseq)
-                        po_gram_error (_("incomplete multibyte sequence at end of line"));
+                        po_gram_error (NULL, _("incomplete multibyte sequence at end of line"));
                       bytes = mbf->bufcount - 1;
                       mbc->uc_valid = false;
                       break;
@@ -505,7 +506,7 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
                   /* scratchbuf contains an out-of-range Unicode character
                      (> 0x10ffff).  */
                   if (signal_eilseq)
-                    po_gram_error (_("invalid multibyte sequence"));
+                    po_gram_error (NULL, _("invalid multibyte sequence"));
                   mbc->uc_valid = false;
                   break;
                 }
@@ -855,7 +856,7 @@ control_sequence ()
       /* FIXME: \u and \U are not handled.  */
       }
   lex_ungetc (mbc);
-  po_gram_error (_("invalid control sequence"));
+  po_gram_error (NULL, _("invalid control sequence"));
   return ' ';
 }
 

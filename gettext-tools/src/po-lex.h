@@ -85,8 +85,9 @@ extern void po_lex_pass_comments (bool flag);
    Switch this on or off.  */
 extern void po_lex_pass_obsolete_entries (bool flag);
 
-extern void po_gram_error (const char *fmt, ...)
-       __attribute__ ((__format__ (__printf__, 1, 2)));
+struct po_parser_state;
+extern void po_gram_error (struct po_parser_state *ps, const char *fmt, ...)
+       __attribute__ ((__format__ (__printf__, 2, 3)));
 extern void po_gram_error_at_line (const lex_pos_ty *pos, const char *fmt, ...)
        __attribute__ ((__format__ (__printf__, 2, 3)));
 

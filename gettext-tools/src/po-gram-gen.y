@@ -39,8 +39,6 @@
 
 #define _(str) gettext (str)
 
-static long plural_counter;
-
 #define check_obsolete(value1,value2) \
   if ((value1).obsolete != (value2).obsolete) \
     po_gram_error_at_line (&(value2).pos, _("inconsistent use of #~"));
@@ -82,6 +80,8 @@ do_callback_message (char *msgctxt,
 /* Remap parser interface names, so we can have multiple Bison
    generated parsers in the same program.  */
 %define api.prefix {po_gram_}
+
+%parse-param {struct po_parser_state *ps}
 
 %token COMMENT
 %token DOMAIN
@@ -306,7 +306,7 @@ msgid_pluralform
         : MSGID_PLURAL string_list
                 {
                   check_obsolete ($1, $2);
-                  plural_counter = 0;
+                  ps->plural_counter = 0;
                   $$.string = string_list_concat_destroy (&$2.stringlist);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
@@ -350,14 +350,14 @@ pluralform
                   check_obsolete ($1, $3);
                   check_obsolete ($1, $4);
                   check_obsolete ($1, $5);
-                  if ($3.number != plural_counter)
+                  if ($3.number != ps->plural_counter)
                     {
-                      if (plural_counter == 0)
+                      if (ps->plural_counter == 0)
                         po_gram_error_at_line (&$1.pos, _("first plural form has nonzero index"));
                       else
                         po_gram_error_at_line (&$1.pos, _("plural form has wrong index"));
                     }
-                  plural_counter++;
+                  ps->plural_counter++;
                   $$.rhs.msgstr = string_list_concat_destroy (&$5.stringlist);
                   $$.rhs.msgstr_len = strlen ($$.rhs.msgstr) + 1;
                   $$.pos = $1.pos;

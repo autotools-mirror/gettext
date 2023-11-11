@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 2002-2003, 2006 Free Software Foundation, Inc.
+   Copyright (C) 1995-2023 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -23,7 +23,16 @@
 extern "C" {
 #endif
 
-extern int po_gram_parse (void);
+/* Input, output, and local variables of a PO parser instance.  */
+struct po_parser_state
+{
+  /* Input variables.  */
+  /* Output variables.  */
+  /* Local variables.  */
+  long plural_counter;
+};
+
+extern int po_gram_parse (struct po_parser_state *ps);
 
 #ifdef __cplusplus
 }
