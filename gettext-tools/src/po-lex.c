@@ -863,7 +863,7 @@ control_sequence ()
 /* Return the next token in the PO file.  The return codes are defined
    in "po-gram-gen2.h".  Associated data is put in 'po_gram_lval'.  */
 int
-po_gram_lex ()
+po_gram_lex (union PO_GRAM_STYPE *lval)
 {
   static char *buf;
   static size_t bufmax;
@@ -949,9 +949,9 @@ po_gram_lex ()
                   }
                 buf[bufpos] = '\0';
 
-                po_gram_lval.string.string = buf;
-                po_gram_lval.string.pos = gram_pos;
-                po_gram_lval.string.obsolete = po_lex_obsolete;
+                lval->string.string = buf;
+                lval->string.pos = gram_pos;
+                lval->string.obsolete = po_lex_obsolete;
                 po_lex_obsolete = false;
                 signal_eilseq = true;
                 return COMMENT;
@@ -1012,9 +1012,9 @@ po_gram_lex ()
                                      _("context separator <EOT> within string"));
 
             /* FIXME: Treatment of embedded \000 chars is incorrect.  */
-            po_gram_lval.string.string = xstrdup (buf);
-            po_gram_lval.string.pos = gram_pos;
-            po_gram_lval.string.obsolete = po_lex_obsolete;
+            lval->string.string = xstrdup (buf);
+            lval->string.pos = gram_pos;
+            lval->string.obsolete = po_lex_obsolete;
             return (po_lex_previous ? PREV_STRING : STRING);
 
           case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
@@ -1071,14 +1071,14 @@ po_gram_lex ()
               int k = keyword_p (buf);
               if (k == NAME)
                 {
-                  po_gram_lval.string.string = xstrdup (buf);
-                  po_gram_lval.string.pos = gram_pos;
-                  po_gram_lval.string.obsolete = po_lex_obsolete;
+                  lval->string.string = xstrdup (buf);
+                  lval->string.pos = gram_pos;
+                  lval->string.obsolete = po_lex_obsolete;
                 }
               else
                 {
-                  po_gram_lval.pos.pos = gram_pos;
-                  po_gram_lval.pos.obsolete = po_lex_obsolete;
+                  lval->pos.pos = gram_pos;
+                  lval->pos.obsolete = po_lex_obsolete;
                 }
               return k;
             }
@@ -1112,19 +1112,19 @@ po_gram_lex ()
 
             buf[bufpos] = '\0';
 
-            po_gram_lval.number.number = atol (buf);
-            po_gram_lval.number.pos = gram_pos;
-            po_gram_lval.number.obsolete = po_lex_obsolete;
+            lval->number.number = atol (buf);
+            lval->number.pos = gram_pos;
+            lval->number.obsolete = po_lex_obsolete;
             return NUMBER;
 
           case '[':
-            po_gram_lval.pos.pos = gram_pos;
-            po_gram_lval.pos.obsolete = po_lex_obsolete;
+            lval->pos.pos = gram_pos;
+            lval->pos.obsolete = po_lex_obsolete;
             return '[';
 
           case ']':
-            po_gram_lval.pos.pos = gram_pos;
-            po_gram_lval.pos.obsolete = po_lex_obsolete;
+            lval->pos.pos = gram_pos;
+            lval->pos.obsolete = po_lex_obsolete;
             return ']';
 
           default:

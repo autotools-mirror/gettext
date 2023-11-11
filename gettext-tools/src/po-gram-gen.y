@@ -77,6 +77,7 @@ do_callback_message (char *msgctxt,
 %}
 
 %require "3.0"
+%define api.pure full
 
 /* Remap parser interface names, so we can have multiple Bison
    generated parsers in the same program.  */
