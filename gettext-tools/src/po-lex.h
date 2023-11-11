@@ -49,14 +49,12 @@ extern "C" {
 /* Lexical analyzer for reading PO files.  */
 
 
+struct po_parser_state;
+
 /* Global variables from po-lex.c.  */
 
 /* Current position within the PO file.  */
 extern DLL_VARIABLE lex_pos_ty gram_pos;
-extern DLL_VARIABLE int gram_pos_column;
-
-/* Whether the PO file is in the role of a POT file.  */
-extern DLL_VARIABLE bool gram_pot_role;
 
 /* Number of parse errors within a PO file that cause the program to
    terminate.  Cf. error_message_count, declared in <error.h>.  */
@@ -67,8 +65,9 @@ extern DLL_VARIABLE bool pass_obsolete_entries;
 
 
 /* Prepare lexical analysis.  */
-extern void lex_start (FILE *fp, const char *real_filename,
-                       const char *logical_filename, bool is_pot_role);
+extern void lex_start (struct po_parser_state *ps,
+                       FILE *fp, const char *real_filename,
+                       const char *logical_filename);
 
 /* Terminate lexical analysis.  */
 extern void lex_end (void);
@@ -76,7 +75,7 @@ extern void lex_end (void);
 /* Return the next token in the PO file.  The return codes are defined
    in "po-gram-gen.h".  Associated data is put in '*lval'.  */
 union PO_GRAM_STYPE;
-extern int po_gram_lex (union PO_GRAM_STYPE *lval);
+extern int po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps);
 
 /* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
 extern void po_lex_pass_comments (bool flag);
@@ -85,7 +84,6 @@ extern void po_lex_pass_comments (bool flag);
    Switch this on or off.  */
 extern void po_lex_pass_obsolete_entries (bool flag);
 
-struct po_parser_state;
 extern void po_gram_error (struct po_parser_state *ps, const char *fmt, ...)
        __attribute__ ((__format__ (__printf__, 2, 3)));
 extern void po_gram_error_at_line (const lex_pos_ty *pos, const char *fmt, ...)

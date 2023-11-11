@@ -44,7 +44,8 @@
     po_gram_error_at_line (&(value2).pos, _("inconsistent use of #~"));
 
 static inline void
-do_callback_message (char *msgctxt,
+do_callback_message (struct po_parser_state *ps,
+                     char *msgctxt,
                      char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
                      char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
                      char *prev_msgctxt,
@@ -53,7 +54,7 @@ do_callback_message (char *msgctxt,
 {
   /* Test for header entry.  Ignore fuzziness of the header entry.  */
   if (msgctxt == NULL && msgid[0] == '\0' && !obsolete)
-    po_lex_charset_set (msgstr, gram_pos.file_name, gram_pot_role);
+    po_lex_charset_set (msgstr, gram_pos.file_name, ps->gram_pot_role);
 
   po_callback_message (msgctxt,
                        msgid, msgid_pos, msgid_plural,
@@ -82,6 +83,7 @@ do_callback_message (char *msgctxt,
 %define api.prefix {po_gram_}
 
 %parse-param {struct po_parser_state *ps}
+%lex-param {struct po_parser_state *ps}
 
 %token COMMENT
 %token DOMAIN
@@ -160,7 +162,7 @@ message
                   check_obsolete ($1, $3);
                   check_obsolete ($1, $4);
                   if (!$1.obsolete || pass_obsolete_entries)
-                    do_callback_message ($1.ctxt, string2, &$1.pos, NULL,
+                    do_callback_message (ps, $1.ctxt, string2, &$1.pos, NULL,
                                          string4, strlen (string4) + 1, &$3.pos,
                                          $1.prev_ctxt,
                                          $1.prev_id, $1.prev_id_plural,
@@ -180,7 +182,7 @@ message
                   check_obsolete ($1, $3);
                   check_obsolete ($1, $4);
                   if (!$1.obsolete || pass_obsolete_entries)
-                    do_callback_message ($1.ctxt, string2, &$1.pos, $3.string,
+                    do_callback_message (ps, $1.ctxt, string2, &$1.pos, $3.string,
                                          $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos,
                                          $1.prev_ctxt,
                                          $1.prev_id, $1.prev_id_plural,

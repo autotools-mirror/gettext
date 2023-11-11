@@ -38,7 +38,8 @@ po_parse (abstract_catalog_reader_ty *this, FILE *fp,
           bool is_pot_role)
 {
   struct po_parser_state ps;
-  lex_start (fp, real_filename, logical_filename, is_pot_role);
+  ps.gram_pot_role = is_pot_role;
+  lex_start (&ps, fp, real_filename, logical_filename);
   po_gram_parse (&ps);
   lex_end ();
 }

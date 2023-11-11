@@ -54,10 +54,6 @@
 
 #define _(str) gettext(str)
 
-#if HAVE_ICONV
-# include "unistr.h"
-#endif
-
 #if HAVE_DECL_GETC_UNLOCKED
 # undef getc
 # define getc getc_unlocked
@@ -66,14 +62,10 @@
 
 /* Current position within the PO file.  */
 lex_pos_ty gram_pos;
-int gram_pos_column;
-
-/* Whether the PO file is in the role of a POT file.  */
-bool gram_pot_role;
 
 
 /* Error handling during the parsing of a PO file.
-   These functions can access gram_pos and gram_pos_column.  */
+   These functions can access gram_pos and ps->gram_pos_column.  */
 
 /* VARARGS1 */
 void
@@ -87,7 +79,7 @@ po_gram_error (struct po_parser_state *ps, const char *fmt, ...)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (ap);
   po_xerror (PO_SEVERITY_ERROR, NULL, gram_pos.file_name, gram_pos.line_number,
-             gram_pos_column + 1, false, buffer);
+             ps->gram_pos_column + 1, false, buffer);
   free (buffer);
 
   if (error_message_count >= gram_max_allowed_errors)
@@ -124,26 +116,6 @@ po_gram_error_at_line (const lex_pos_ty *pp, const char *fmt, ...)
    3. to avoid skipping backslash-newline in the midst of a multibyte
       character. If XY is a multibyte character,  X \ newline Y  is invalid.
  */
-
-/* Multibyte character data type.  */
-/* Note this depends on po_lex_charset and po_lex_iconv, which get set
-   while the file is being parsed.  */
-
-#define MBCHAR_BUF_SIZE 24
-
-struct mbchar
-{
-  size_t bytes;         /* number of bytes of current character, > 0 */
-#if HAVE_ICONV
-  bool uc_valid;        /* true if uc is a valid Unicode character */
-  ucs4_t uc;            /* if uc_valid: the current character */
-#endif
-  char buf[MBCHAR_BUF_SIZE]; /* room for the bytes */
-};
-
-/* We want to pass multibyte characters by reference automatically,
-   therefore we use an array type.  */
-typedef struct mbchar mbchar_t[1];
 
 /* A version of memcpy optimized for the case n <= 1.  */
 static inline void
@@ -261,7 +233,7 @@ mb_isascii (const mbchar_t mbc)
 #define MB_UNPRINTABLE_WIDTH 1
 
 static int
-mb_width (const mbchar_t mbc)
+mb_width (struct po_parser_state *ps, const mbchar_t mbc)
 {
 #if HAVE_ICONV
   if (mbc->uc_valid)
@@ -277,7 +249,7 @@ mb_width (const mbchar_t mbc)
       if (uc >= 0x0000 && uc <= 0x001F)
         {
           if (uc == 0x0009)
-            return 8 - (gram_pos_column & 7);
+            return 8 - (ps->gram_pos_column & 7);
           return 0;
         }
       if ((uc >= 0x007F && uc <= 0x009F) || (uc >= 0x2028 && uc <= 0x2029))
@@ -296,7 +268,7 @@ mb_width (const mbchar_t mbc)
               mbc->buf[0] <= 0x1F)
             {
               if (mbc->buf[0] == 0x09)
-                return 8 - (gram_pos_column & 7);
+                return 8 - (ps->gram_pos_column & 7);
               return 0;
             }
           if (mbc->buf[0] == 0x7F)
@@ -340,29 +312,6 @@ mb_copy (mbchar_t new_mbc, const mbchar_t old_mbc)
 
 /* Multibyte character input.  */
 
-/* Number of characters that can be pushed back.
-   We need 1 for lex_getc, plus 1 for lex_ungetc.  */
-#define NPUSHBACK 2
-
-/* Data type of a multibyte character input stream.  */
-struct mbfile
-{
-  FILE *fp;
-  bool eof_seen;
-  int have_pushback;
-  unsigned int bufcount;
-  char buf[MBCHAR_BUF_SIZE];
-  struct mbchar pushback[NPUSHBACK];
-};
-
-/* We want to pass multibyte streams by reference automatically,
-   therefore we use an array type.  */
-typedef struct mbfile mbfile_t[1];
-
-/* Whether invalid multibyte sequences in the input shall be signalled
-   or silently tolerated.  */
-static bool signal_eilseq;
-
 static inline void
 mbfile_init (mbfile_t mbf, FILE *stream)
 {
@@ -375,7 +324,7 @@ mbfile_init (mbfile_t mbf, FILE *stream)
 /* Read the next multibyte character from mbf and put it into mbc.
    If a read error occurs, errno is set and ferror (mbf->fp) becomes true.  */
 static void
-mbfile_getc (mbchar_t mbc, mbfile_t mbf)
+mbfile_getc (struct po_parser_state *ps, mbchar_t mbc, mbfile_t mbf)
 {
   size_t bytes;
 
@@ -437,8 +386,8 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
                 {
                   /* An invalid multibyte sequence was encountered.  */
                   /* Return a single byte.  */
-                  if (signal_eilseq)
-                    po_gram_error (NULL, _("invalid multibyte sequence"));
+                  if (ps->signal_eilseq)
+                    po_gram_error (ps, _("invalid multibyte sequence"));
                   bytes = 1;
                   mbc->uc_valid = false;
                   break;
@@ -465,8 +414,8 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
                       mbf->eof_seen = true;
                       if (ferror (mbf->fp))
                         goto eof;
-                      if (signal_eilseq)
-                        po_gram_error (NULL, _("incomplete multibyte sequence at end of file"));
+                      if (ps->signal_eilseq)
+                        po_gram_error (ps, _("incomplete multibyte sequence at end of file"));
                       bytes = mbf->bufcount;
                       mbc->uc_valid = false;
                       break;
@@ -474,8 +423,8 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
                   mbf->buf[mbf->bufcount++] = (unsigned char) c;
                   if (c == '\n')
                     {
-                      if (signal_eilseq)
-                        po_gram_error (NULL, _("incomplete multibyte sequence at end of line"));
+                      if (ps->signal_eilseq)
+                        po_gram_error (ps, _("incomplete multibyte sequence at end of line"));
                       bytes = mbf->bufcount - 1;
                       mbc->uc_valid = false;
                       break;
@@ -505,8 +454,8 @@ mbfile_getc (mbchar_t mbc, mbfile_t mbf)
                 {
                   /* scratchbuf contains an out-of-range Unicode character
                      (> 0x10ffff).  */
-                  if (signal_eilseq)
-                    po_gram_error (NULL, _("invalid multibyte sequence"));
+                  if (ps->signal_eilseq)
+                    po_gram_error (ps, _("invalid multibyte sequence"));
                   mbc->uc_valid = false;
                   break;
                 }
@@ -598,31 +547,27 @@ mbfile_ungetc (const mbchar_t mbc, mbfile_t mbf)
 
 /* Lexer variables.  */
 
-static mbfile_t mbf;
 unsigned int gram_max_allowed_errors = 20;
-static bool po_lex_obsolete;
-static bool po_lex_previous;
 static bool pass_comments = false;
 bool pass_obsolete_entries = false;
 
 
 /* Prepare lexical analysis.  */
 void
-lex_start (FILE *fp, const char *real_filename, const char *logical_filename,
-           bool is_pot_role)
+lex_start (struct po_parser_state *ps,
+           FILE *fp, const char *real_filename, const char *logical_filename)
 {
   /* Ignore the logical_filename, because PO file entries already have
      their file names attached.  But use real_filename for error messages.  */
   gram_pos.file_name = xstrdup (real_filename);
 
-  mbfile_init (mbf, fp);
+  mbfile_init (ps->mbf, fp);
 
   gram_pos.line_number = 1;
-  gram_pos_column = 0;
-  gram_pot_role = is_pot_role;
-  signal_eilseq = true;
-  po_lex_obsolete = false;
-  po_lex_previous = false;
+  ps->gram_pos_column = 0;
+  ps->signal_eilseq = true;
+  ps->po_lex_obsolete = false;
+  ps->po_lex_previous = false;
   po_lex_charset_init ();
 }
 
@@ -630,14 +575,8 @@ lex_start (FILE *fp, const char *real_filename, const char *logical_filename,
 void
 lex_end ()
 {
-  mbf->fp = NULL;
   gram_pos.file_name = NULL;
   gram_pos.line_number = 0;
-  gram_pos_column = 0;
-  gram_pot_role = false;
-  signal_eilseq = false;
-  po_lex_obsolete = false;
-  po_lex_previous = false;
   po_lex_charset_close ();
 }
 
@@ -645,15 +584,15 @@ lex_end ()
 /* Read a single character, dealing with backslash-newline.
    Also keep track of the current line number and column number.  */
 static void
-lex_getc (mbchar_t mbc)
+lex_getc (struct po_parser_state *ps, mbchar_t mbc)
 {
   for (;;)
     {
-      mbfile_getc (mbc, mbf);
+      mbfile_getc (ps, mbc, ps->mbf);
 
       if (mb_iseof (mbc))
         {
-          if (ferror (mbf->fp))
+          if (ferror (ps->mbf->fp))
            bomb:
             {
               const char *errno_description = strerror (errno);
@@ -669,33 +608,33 @@ lex_getc (mbchar_t mbc)
       if (mb_iseq (mbc, '\n'))
         {
           gram_pos.line_number++;
-          gram_pos_column = 0;
+          ps->gram_pos_column = 0;
           break;
         }
 
-      gram_pos_column += mb_width (mbc);
+      ps->gram_pos_column += mb_width (ps, mbc);
 
       if (mb_iseq (mbc, '\\'))
         {
           mbchar_t mbc2;
 
-          mbfile_getc (mbc2, mbf);
+          mbfile_getc (ps, mbc2, ps->mbf);
 
           if (mb_iseof (mbc2))
             {
-              if (ferror (mbf->fp))
+              if (ferror (ps->mbf->fp))
                 goto bomb;
               break;
             }
 
           if (!mb_iseq (mbc2, '\n'))
             {
-              mbfile_ungetc (mbc2, mbf);
+              mbfile_ungetc (mbc2, ps->mbf);
               break;
             }
 
           gram_pos.line_number++;
-          gram_pos_column = 0;
+          ps->gram_pos_column = 0;
         }
       else
         break;
@@ -704,7 +643,7 @@ lex_getc (mbchar_t mbc)
 
 
 static void
-lex_ungetc (const mbchar_t mbc)
+lex_ungetc (struct po_parser_state *ps, const mbchar_t mbc)
 {
   if (!mb_iseof (mbc))
     {
@@ -713,17 +652,17 @@ lex_ungetc (const mbchar_t mbc)
         gram_pos.line_number--;
       else
         /* Decrement the column number.  Also works well enough for tabs.  */
-        gram_pos_column -= mb_width (mbc);
+        ps->gram_pos_column -= mb_width (ps, mbc);
 
-      mbfile_ungetc (mbc, mbf);
+      mbfile_ungetc (mbc, ps->mbf);
     }
 }
 
 
 static int
-keyword_p (const char *s)
+keyword_p (struct po_parser_state *ps, const char *s)
 {
-  if (!po_lex_previous)
+  if (!ps->po_lex_previous)
     {
       if (!strcmp (s, "domain"))
         return DOMAIN;
@@ -752,13 +691,13 @@ keyword_p (const char *s)
 
 
 static int
-control_sequence ()
+control_sequence (struct po_parser_state *ps)
 {
   mbchar_t mbc;
   int val;
   int max;
 
-  lex_getc (mbc);
+  lex_getc (ps, mbc);
   if (mb_len (mbc) == 1)
     switch (mb_ptr (mbc) [0])
       {
@@ -798,7 +737,7 @@ control_sequence ()
             val = val * 8 + (c - '0');
             if (++max == 3)
               break;
-            lex_getc (mbc);
+            lex_getc (ps, mbc);
             if (mb_len (mbc) == 1)
               switch (mb_ptr (mbc) [0])
                 {
@@ -809,13 +748,13 @@ control_sequence ()
                 default:
                   break;
                 }
-            lex_ungetc (mbc);
+            lex_ungetc (ps, mbc);
             break;
           }
         return val;
 
       case 'x':
-        lex_getc (mbc);
+        lex_getc (ps, mbc);
         if (mb_iseof (mbc) || mb_len (mbc) != 1
             || !c_isxdigit (mb_ptr (mbc) [0]))
           break;
@@ -835,7 +774,7 @@ control_sequence ()
               /* Warning: not portable, can't depend on 'a'..'f' ordering */
               val += c - 'a' + 10;
 
-            lex_getc (mbc);
+            lex_getc (ps, mbc);
             if (mb_len (mbc) == 1)
               switch (mb_ptr (mbc) [0])
                 {
@@ -848,15 +787,15 @@ control_sequence ()
                 default:
                   break;
                 }
-            lex_ungetc (mbc);
+            lex_ungetc (ps, mbc);
             break;
           }
         return val;
 
       /* FIXME: \u and \U are not handled.  */
       }
-  lex_ungetc (mbc);
-  po_gram_error (NULL, _("invalid control sequence"));
+  lex_ungetc (ps, mbc);
+  po_gram_error (ps, _("invalid control sequence"));
   return ' ';
 }
 
@@ -864,7 +803,7 @@ control_sequence ()
 /* Return the next token in the PO file.  The return codes are defined
    in "po-gram-gen2.h".  Associated data is put in 'po_gram_lval'.  */
 int
-po_gram_lex (union PO_GRAM_STYPE *lval)
+po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
 {
   static char *buf;
   static size_t bufmax;
@@ -873,7 +812,7 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
 
   for (;;)
     {
-      lex_getc (mbc);
+      lex_getc (ps, mbc);
 
       if (mb_iseof (mbc))
         /* Yacc want this for end of file.  */
@@ -883,8 +822,8 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
         switch (mb_ptr (mbc) [0])
           {
           case '\n':
-            po_lex_obsolete = false;
-            po_lex_previous = false;
+            ps->po_lex_obsolete = false;
+            ps->po_lex_previous = false;
             /* Ignore whitespace, not relevant for the grammar.  */
             break;
 
@@ -897,23 +836,23 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
             break;
 
           case '#':
-            lex_getc (mbc);
+            lex_getc (ps, mbc);
             if (mb_iseq (mbc, '~'))
               /* A pseudo-comment beginning with #~ is found.  This is
                  not a comment.  It is the format for obsolete entries.
                  We simply discard the "#~" prefix.  The following
                  characters are expected to be well formed.  */
               {
-                po_lex_obsolete = true;
+                ps->po_lex_obsolete = true;
                 /* A pseudo-comment beginning with #~| denotes a previous
                    untranslated string in an obsolete entry.  This does not
                    make much sense semantically, and is implemented here
                    for completeness only.  */
-                lex_getc (mbc);
+                lex_getc (ps, mbc);
                 if (mb_iseq (mbc, '|'))
-                  po_lex_previous = true;
+                  ps->po_lex_previous = true;
                 else
-                  lex_ungetc (mbc);
+                  lex_ungetc (ps, mbc);
                 break;
               }
             if (mb_iseq (mbc, '|'))
@@ -922,14 +861,14 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
                  prefix, but change the keywords and string returns
                  accordingly.  */
               {
-                po_lex_previous = true;
+                ps->po_lex_previous = true;
                 break;
               }
 
             /* Accumulate comments into a buffer.  If we have been asked
                to pass comments, generate a COMMENT token, otherwise
                discard it.  */
-            signal_eilseq = false;
+            ps->signal_eilseq = false;
             if (pass_comments)
               {
                 bufpos = 0;
@@ -946,15 +885,15 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
                     memcpy_small (&buf[bufpos], mb_ptr (mbc), mb_len (mbc));
                     bufpos += mb_len (mbc);
 
-                    lex_getc (mbc);
+                    lex_getc (ps, mbc);
                   }
                 buf[bufpos] = '\0';
 
                 lval->string.string = buf;
                 lval->string.pos = gram_pos;
-                lval->string.obsolete = po_lex_obsolete;
-                po_lex_obsolete = false;
-                signal_eilseq = true;
+                lval->string.obsolete = ps->po_lex_obsolete;
+                ps->po_lex_obsolete = false;
+                ps->signal_eilseq = true;
                 return COMMENT;
               }
             else
@@ -963,9 +902,9 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
                    comments while they get not passed to the upper layers
                    is not very efficient.  */
                 while (!mb_iseof (mbc) && !mb_iseq (mbc, '\n'))
-                  lex_getc (mbc);
-                po_lex_obsolete = false;
-                signal_eilseq = true;
+                  lex_getc (ps, mbc);
+                ps->po_lex_obsolete = false;
+                ps->signal_eilseq = true;
               }
             break;
 
@@ -974,7 +913,7 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
             bufpos = 0;
             for (;;)
               {
-                lex_getc (mbc);
+                lex_getc (ps, mbc);
                 while (bufpos + mb_len (mbc) >= bufmax)
                   {
                     bufmax += 100;
@@ -996,7 +935,7 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
                   break;
                 if (mb_iseq (mbc, '\\'))
                   {
-                    buf[bufpos++] = control_sequence ();
+                    buf[bufpos++] = control_sequence (ps);
                     continue;
                   }
 
@@ -1015,8 +954,8 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
             /* FIXME: Treatment of embedded \000 chars is incorrect.  */
             lval->string.string = xstrdup (buf);
             lval->string.pos = gram_pos;
-            lval->string.obsolete = po_lex_obsolete;
-            return (po_lex_previous ? PREV_STRING : STRING);
+            lval->string.obsolete = ps->po_lex_obsolete;
+            return (ps->po_lex_previous ? PREV_STRING : STRING);
 
           case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
           case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
@@ -1039,7 +978,7 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
                     buf = xrealloc (buf, bufmax);
                   }
                 buf[bufpos++] = c;
-                lex_getc (mbc);
+                lex_getc (ps, mbc);
                 if (mb_len (mbc) == 1)
                   switch (mb_ptr (mbc) [0])
                     {
@@ -1064,22 +1003,22 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
                     }
                 break;
               }
-            lex_ungetc (mbc);
+            lex_ungetc (ps, mbc);
 
             buf[bufpos] = '\0';
 
             {
-              int k = keyword_p (buf);
+              int k = keyword_p (ps, buf);
               if (k == NAME)
                 {
                   lval->string.string = xstrdup (buf);
                   lval->string.pos = gram_pos;
-                  lval->string.obsolete = po_lex_obsolete;
+                  lval->string.obsolete = ps->po_lex_obsolete;
                 }
               else
                 {
                   lval->pos.pos = gram_pos;
-                  lval->pos.obsolete = po_lex_obsolete;
+                  lval->pos.obsolete = ps->po_lex_obsolete;
                 }
               return k;
             }
@@ -1096,7 +1035,7 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
                     buf = xrealloc (buf, bufmax + 1);
                   }
                 buf[bufpos++] = c;
-                lex_getc (mbc);
+                lex_getc (ps, mbc);
                 if (mb_len (mbc) == 1)
                   switch (mb_ptr (mbc) [0])
                     {
@@ -1109,23 +1048,23 @@ po_gram_lex (union PO_GRAM_STYPE *lval)
                     }
                 break;
               }
-            lex_ungetc (mbc);
+            lex_ungetc (ps, mbc);
 
             buf[bufpos] = '\0';
 
             lval->number.number = atol (buf);
             lval->number.pos = gram_pos;
-            lval->number.obsolete = po_lex_obsolete;
+            lval->number.obsolete = ps->po_lex_obsolete;
             return NUMBER;
 
           case '[':
             lval->pos.pos = gram_pos;
-            lval->pos.obsolete = po_lex_obsolete;
+            lval->pos.obsolete = ps->po_lex_obsolete;
             return '[';
 
           case ']':
             lval->pos.pos = gram_pos;
-            lval->pos.obsolete = po_lex_obsolete;
+            lval->pos.obsolete = ps->po_lex_obsolete;
             return ']';
 
           default:
