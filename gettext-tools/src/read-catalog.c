@@ -26,7 +26,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "open-catalog.h"
 #include "po-charset.h"
 #include "po-xerror.h"
 #include "xalloc.h"
@@ -483,20 +482,4 @@ read_catalog_stream (FILE *fp, const char *real_filename,
   mdlp = pop->mdlp;
   catalog_reader_free ((abstract_catalog_reader_ty *) pop);
   return mdlp;
-}
-
-
-msgdomain_list_ty *
-read_catalog_file (const char *filename, catalog_input_format_ty input_syntax)
-{
-  char *real_filename;
-  FILE *fp = open_catalog_file (filename, &real_filename, true);
-  msgdomain_list_ty *result;
-
-  result = read_catalog_stream (fp, real_filename, filename, input_syntax);
-
-  if (fp != stdin)
-    fclose (fp);
-
-  return result;
 }

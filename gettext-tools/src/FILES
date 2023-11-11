@@ -110,6 +110,8 @@ po-xerror.c
 |
 | read-catalog.h
 | read-catalog.c
+| read-catalog-file.h
+| read-catalog-file.c
 |               Reading of a PO file, returning a list-of-messages.
 |
 | read-desktop.h

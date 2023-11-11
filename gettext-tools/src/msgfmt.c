@@ -54,7 +54,7 @@
 #include "propername.h"
 #include "message.h"
 #include "open-catalog.h"
-#include "read-catalog.h"
+#include "read-catalog-file.h"
 #include "read-po.h"
 #include "read-properties.h"
 #include "read-stringtable.h"

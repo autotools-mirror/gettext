@@ -42,7 +42,7 @@
 #include "relocatable.h"
 #include "basename-lgpl.h"
 #include "message.h"
-#include "read-catalog.h"
+#include "read-catalog-file.h"
 #include "read-po.h"
 #include "read-properties.h"
 #include "read-stringtable.h"

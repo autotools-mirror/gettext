@@ -34,7 +34,7 @@
 #include "xerror.h"
 #include "xvasprintf.h"
 #include "message.h"
-#include "read-catalog.h"
+#include "read-catalog-file.h"
 #include "po-charset.h"
 #include "msgl-ascii.h"
 #include "msgl-ofn.h"

@@ -1,6 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014-2015 Free
-   Software Foundation, Inc.
+   Copyright (C) 1995-2023 Free Software Foundation, Inc.
    This file was written by Bruno Haible <haible@clisp.cons.org>.
 
    This program is free software: you can redistribute it and/or modify
@@ -176,14 +175,6 @@ extern msgdomain_list_ty *
                             const char *real_filename,
                             const char *logical_filename,
                             catalog_input_format_ty input_syntax);
-
-/* Read the input file with the name INPUT_NAME.  The ending .po is added
-   if necessary.  If INPUT_NAME is not an absolute file name and the file is
-   not found, the list of directories in "dir-list.h" is searched.  Returns
-   a list of messages.  */
-extern msgdomain_list_ty *
-       read_catalog_file (const char *input_name,
-                          catalog_input_format_ty input_syntax);
 
 
 #ifdef __cplusplus
