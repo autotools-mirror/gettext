@@ -1,5 +1,5 @@
 /* Lua format strings.
-   Copyright (C) 2012-2013, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 2012-2023 Free Software Foundation, Inc.
    Written by Ľubomír Remák <lubomirr@lubomirr.eu>, 2012.
 
    This program is free software: you can redistribute it and/or modify
@@ -207,7 +207,7 @@ format_get_number_of_directives (void *descr)
 
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
-              formatstring_error_logger_t error_logger,
+              formatstring_error_logger_t error_logger, void *error_logger_data,
               const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
@@ -225,21 +225,24 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
           if (i >= n1)
             {
               if (error_logger)
-                error_logger (_("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+                error_logger (error_logger_data,
+                              _("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
                               i + 1, pretty_msgstr, pretty_msgid);
               return true;
             }
           else if (i >= n2)
             {
               if (error_logger)
-                error_logger (_("a format specification for argument %u doesn't exist in '%s'"),
+                error_logger (error_logger_data,
+                              _("a format specification for argument %u doesn't exist in '%s'"),
                               i + 1, pretty_msgstr);
               return true;
             }
           else if (spec1->format_args[i] != spec2->format_args[i])
             {
               if (error_logger)
-                error_logger (_("format specifications in '%s' and '%s' for argument %u are not the same"),
+                error_logger (error_logger_data,
+                              _("format specifications in '%s' and '%s' for argument %u are not the same"),
                               pretty_msgid, pretty_msgstr, i + 1);
               return true;
             }

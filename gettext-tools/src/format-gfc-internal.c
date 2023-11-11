@@ -1,5 +1,5 @@
 /* GFC (GNU Fortran Compiler) internal format strings.
-   Copyright (C) 2003-2009, 2019-2020, 2022 Free Software Foundation, Inc.
+   Copyright (C) 2003-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2009.
 
    This program is free software: you can redistribute it and/or modify
@@ -346,7 +346,7 @@ format_get_number_of_directives (void *descr)
 
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
-              formatstring_error_logger_t error_logger,
+              formatstring_error_logger_t error_logger, void *error_logger_data,
               const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
@@ -360,7 +360,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       : spec1->unnumbered_arg_count < spec2->unnumbered_arg_count)
     {
       if (error_logger)
-        error_logger (_("number of format specifications in '%s' and '%s' does not match"),
+        error_logger (error_logger_data,
+                      _("number of format specifications in '%s' and '%s' does not match"),
                       pretty_msgid, pretty_msgstr);
       err = true;
     }
@@ -369,7 +370,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       if (spec1->unnumbered[i].type != spec2->unnumbered[i].type)
         {
           if (error_logger)
-            error_logger (_("format specifications in '%s' and '%s' for argument %u are not the same"),
+            error_logger (error_logger_data,
+                          _("format specifications in '%s' and '%s' for argument %u are not the same"),
                           pretty_msgid, pretty_msgstr, i + 1);
           err = true;
         }
@@ -380,10 +382,12 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       if (error_logger)
         {
           if (spec1->uses_currentloc)
-            error_logger (_("'%s' uses %%C but '%s' doesn't"),
+            error_logger (error_logger_data,
+                          _("'%s' uses %%C but '%s' doesn't"),
                           pretty_msgid, pretty_msgstr);
           else
-            error_logger (_("'%s' does not use %%C but '%s' uses %%C"),
+            error_logger (error_logger_data,
+                          _("'%s' does not use %%C but '%s' uses %%C"),
                           pretty_msgid, pretty_msgstr);
         }
       err = true;

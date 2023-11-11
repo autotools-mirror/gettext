@@ -75,7 +75,7 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
                              size_t i,
                              struct argument_range range,
                              const struct plural_distribution *distribution,
-                             formatstring_error_logger_t error_logger)
+                             formatstring_error_logger_t error_logger, void *error_logger_data)
 {
   int seen_errors = 0;
 
@@ -145,14 +145,16 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
 
               if (parser->check (msgid_descr, msgstr_descr,
                                  strict_checking,
-                                 error_logger, pretty_msgid, pretty_msgstr))
+                                 error_logger, error_logger_data,
+                                 pretty_msgid, pretty_msgstr))
                 seen_errors++;
 
               parser->free (msgstr_descr);
             }
           else
             {
-              error_logger (_("'%s' is not a valid %s format string, unlike '%s'. Reason: %s"),
+              error_logger (error_logger_data,
+                            _("'%s' is not a valid %s format string, unlike '%s'. Reason: %s"),
                             pretty_msgstr, format_language_pretty[i],
                             pretty_msgid, invalid_reason);
               seen_errors++;
@@ -177,7 +179,7 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
                            const enum is_format is_format[NFORMATS],
                            struct argument_range range,
                            const struct plural_distribution *distribution,
-                           formatstring_error_logger_t error_logger)
+                           formatstring_error_logger_t error_logger, void *error_logger_data)
 {
   int seen_errors = 0;
   size_t i;
@@ -194,7 +196,7 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
                                                   msgstr, msgstr_len, i,
                                                   range,
                                                   distribution,
-                                                  error_logger);
+                                                  error_logger, error_logger_data);
 
   return seen_errors;
 }

@@ -946,10 +946,10 @@ definitions_destroy (definitions_ty *definitions)
 /* A silent error logger.  We are only interested in knowing whether errors
    occurred at all.  */
 static void
-silent_error_logger (const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 1, 2)));
+silent_error_logger (void *data, const char *format, ...)
+     __attribute__ ((__format__ (__printf__, 2, 3)));
 static void
-silent_error_logger (const char *format, ...)
+silent_error_logger (void *data, const char *format, ...)
 {
 }
 
@@ -1369,7 +1369,8 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
             && !possible_format_p (def->is_format[i])
             && check_msgid_msgstr_format_i (ref->msgid, ref->msgid_plural,
                                             msgstr, msgstr_len, i, ref->range,
-                                            distribution, silent_error_logger)
+                                            distribution,
+                                            silent_error_logger, NULL)
                > 0)
           result->is_fuzzy = true;
       }

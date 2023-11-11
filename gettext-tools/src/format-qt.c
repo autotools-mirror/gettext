@@ -1,5 +1,5 @@
 /* Qt format strings.
-   Copyright (C) 2003-2004, 2006-2007, 2009, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2003-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -138,7 +138,7 @@ format_get_number_of_directives (void *descr)
 
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
-              formatstring_error_logger_t error_logger,
+              formatstring_error_logger_t error_logger, void *error_logger_data,
               const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
@@ -149,7 +149,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
   if (spec1->simple && !spec2->simple)
     {
       if (error_logger)
-        error_logger (_("'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or a double-digit argument number"),
+        error_logger (error_logger_data,
+                      _("'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or a double-digit argument number"),
                       pretty_msgid, pretty_msgstr);
       err = true;
     }
@@ -167,10 +168,12 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
             if (error_logger)
               {
                 if (arg_used1)
-                  error_logger (_("a format specification for argument %u doesn't exist in '%s'"),
+                  error_logger (error_logger_data,
+                                _("a format specification for argument %u doesn't exist in '%s'"),
                                 i, pretty_msgstr);
                 else
-                  error_logger (_("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+                  error_logger (error_logger_data,
+                                _("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
                                 i, pretty_msgstr, pretty_msgid);
               }
             err = true;

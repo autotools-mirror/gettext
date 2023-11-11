@@ -1327,10 +1327,10 @@ po_message_check_format (po_message_t message, po_xerror_handler_t handler)
 
 /* An error logger based on the po_error function pointer.  */
 static void
-po_error_logger (const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 1, 2)));
+po_error_logger (void *data, const char *format, ...)
+     __attribute__ ((__format__ (__printf__, 2, 3)));
 static void
-po_error_logger (const char *format, ...)
+po_error_logger (void *data, const char *format, ...)
 {
   va_list args;
   char *error_message;
@@ -1359,7 +1359,8 @@ po_message_check_format (po_message_t message, po_error_handler_t handler)
 
   check_msgid_msgstr_format (mp->msgid, mp->msgid_plural,
                              mp->msgstr, mp->msgstr_len,
-                             mp->is_format, mp->range, NULL, po_error_logger);
+                             mp->is_format, mp->range, NULL,
+                             po_error_logger, NULL);
 
   /* Restore error handler.  */
   po_error = orig_error;

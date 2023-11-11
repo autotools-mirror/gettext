@@ -502,17 +502,22 @@ check_plural (message_list_ty *mlp,
 
 
 /* Signal an error when checking format strings.  */
-static const message_ty *curr_mp;
-static lex_pos_ty curr_msgid_pos;
+struct formatstring_error_logger_locals
+{
+  const message_ty *curr_mp;
+  lex_pos_ty curr_msgid_pos;
+};
 static void
-formatstring_error_logger (const char *format, ...)
+formatstring_error_logger (void *data, const char *format, ...)
 #if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 7) || __GNUC__ > 2)
-     __attribute__ ((__format__ (__printf__, 1, 2)))
+     __attribute__ ((__format__ (__printf__, 2, 3)))
 #endif
 ;
 static void
-formatstring_error_logger (const char *format, ...)
+formatstring_error_logger (void *data, const char *format, ...)
 {
+  struct formatstring_error_logger_locals *l =
+    (struct formatstring_error_logger_locals *) data;
   va_list args;
   char *msg;
 
@@ -521,7 +526,8 @@ formatstring_error_logger (const char *format, ...)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (args);
   po_xerror (PO_SEVERITY_ERROR,
-             curr_mp, curr_msgid_pos.file_name, curr_msgid_pos.line_number,
+             l->curr_mp,
+             l->curr_msgid_pos.file_name, l->curr_msgid_pos.line_number,
              (size_t)(-1), false, msg);
   free (msg);
 }
@@ -655,12 +661,13 @@ check_pair (const message_ty *mp,
     /* Test 3: Check whether both formats strings contain the same number
        of format specifications.  */
     {
-      curr_mp = mp;
-      curr_msgid_pos = *msgid_pos;
+      struct formatstring_error_logger_locals locals;
+      locals.curr_mp = mp;
+      locals.curr_msgid_pos = *msgid_pos;
       seen_errors +=
         check_msgid_msgstr_format (msgid, msgid_plural, msgstr, msgstr_len,
                                    is_format, mp->range, distribution,
-                                   formatstring_error_logger);
+                                   formatstring_error_logger, &locals);
     }
 
   if (check_accelerators && msgid_plural == NULL)

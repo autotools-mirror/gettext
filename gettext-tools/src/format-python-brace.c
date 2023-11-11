@@ -449,7 +449,7 @@ format_get_number_of_directives (void *descr)
 
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
-              formatstring_error_logger_t error_logger,
+              formatstring_error_logger_t error_logger, void *error_logger_data,
               const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
@@ -475,7 +475,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
               if (equality)
                 {
                   if (error_logger)
-                    error_logger (_("a format specification for argument '%s' doesn't exist in '%s'"),
+                    error_logger (error_logger_data,
+                                  _("a format specification for argument '%s' doesn't exist in '%s'"),
                                   spec2->named[i].name, pretty_msgid);
                   err = true;
                   break;
@@ -488,7 +489,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
               if (equality)
                 {
                   if (error_logger)
-                    error_logger (_("a format specification for argument '%s' doesn't exist in '%s'"),
+                    error_logger (error_logger_data,
+                                  _("a format specification for argument '%s' doesn't exist in '%s'"),
                                   spec1->named[i].name, pretty_msgstr);
                   err = true;
                   break;

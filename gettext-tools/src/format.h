@@ -53,9 +53,9 @@ enum
     fdi[(ptr) - format_start] |= (flag)/*;*/
 
 /* This type of callback is responsible for showing an error.  */
-typedef void (*formatstring_error_logger_t) (const char *format, ...)
+typedef void (*formatstring_error_logger_t) (void *data, const char *format, ...)
 #if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)
-     __attribute__ ((__format__ (__printf__, 1, 2)))
+     __attribute__ ((__format__ (__printf__, 2, 3)))
 #endif
 ;
 
@@ -92,7 +92,9 @@ struct formatstring_parser
      msgstr_descr may omit some of the arguments of msgid_descr).
      If not, signal an error using error_logger (only if error_logger != NULL)
      and return true.  Otherwise return false.  */
-  bool (*check) (void *msgid_descr, void *msgstr_descr, bool equality, formatstring_error_logger_t error_logger, const char *pretty_msgid, const char *pretty_msgstr);
+  bool (*check) (void *msgid_descr, void *msgstr_descr, bool equality,
+                 formatstring_error_logger_t error_logger, void *error_logger_data,
+                 const char *pretty_msgid, const char *pretty_msgstr);
 };
 
 /* Format string parsers, each defined in its own file.  */
@@ -158,7 +160,7 @@ extern int
                                     size_t i,
                                     struct argument_range range,
                                     const struct plural_distribution *distribution,
-                                    formatstring_error_logger_t error_logger);
+                                    formatstring_error_logger_t error_logger, void *error_logger_data);
 
 /* Check whether both formats strings contain compatible format
    specifications.
@@ -169,7 +171,7 @@ extern int
                                   const enum is_format is_format[NFORMATS],
                                   struct argument_range range,
                                   const struct plural_distribution *distribution,
-                                  formatstring_error_logger_t error_logger);
+                                  formatstring_error_logger_t error_logger, void *error_logger_data);
 
 
 #ifdef __cplusplus

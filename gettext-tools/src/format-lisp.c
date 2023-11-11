@@ -3478,7 +3478,7 @@ format_get_number_of_directives (void *descr)
 
 static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
-              formatstring_error_logger_t error_logger,
+              formatstring_error_logger_t error_logger, void *error_logger_data,
               const char *pretty_msgid, const char *pretty_msgstr)
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
@@ -3490,7 +3490,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       if (!equal_list (spec1->list, spec2->list))
         {
           if (error_logger)
-            error_logger (_("format specifications in '%s' and '%s' are not equivalent"),
+            error_logger (error_logger_data,
+                          _("format specifications in '%s' and '%s' are not equivalent"),
                           pretty_msgid, pretty_msgstr);
           err = true;
         }
@@ -3506,7 +3507,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                 equal_list (intersection, spec2->list))))
         {
           if (error_logger)
-            error_logger (_("format specifications in '%s' are not a subset of those in '%s'"),
+            error_logger (error_logger_data,
+                          _("format specifications in '%s' are not a subset of those in '%s'"),
                           pretty_msgstr, pretty_msgid);
           err = true;
         }
