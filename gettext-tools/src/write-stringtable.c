@@ -1,5 +1,5 @@
 /* Writing NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003, 2006-2008, 2019, 2021 Free Software Foundation, Inc.
+   Copyright (C) 2003-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -216,11 +216,13 @@ write_message (ostream_t stream, const message_ty *mp,
     for (i = 0; i < NFORMATS; i++)
       if (significant_format_p (mp->is_format[i]))
         {
+          char *string;
+
           ostream_write_str (stream, "/* Flag: ");
-          ostream_write_str (stream,
-                             make_format_description_string (mp->is_format[i],
-                                                             format_language[i],
-                                                             debug));
+          string = make_format_description_string (mp->is_format[i],
+                                                   format_language[i], debug);
+          ostream_write_str (stream, string);
+          free (string);
           ostream_write_str (stream, " */\n");
         }
   }

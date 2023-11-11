@@ -40,9 +40,10 @@ enum filepos_comment_type
   };
 
 /* These functions are used to output a #, flags line.  */
-extern const char *
+extern char *
        make_format_description_string (enum is_format is_format,
-                                       const char *lang, bool debug);
+                                       const char *lang, bool debug)
+       ATTRIBUTE_MALLOC;
 extern bool
        significant_format_p (enum is_format is_format);
 

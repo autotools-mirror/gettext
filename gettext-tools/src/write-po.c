@@ -62,33 +62,34 @@
 /* Convert IS_FORMAT in the context of programming language LANG to a flag
    string for use in #, flags.  */
 
-const char *
+char *
 make_format_description_string (enum is_format is_format, const char *lang,
                                 bool debug)
 {
-  static char result[100];
+  char *result;
 
   switch (is_format)
     {
     case possible:
       if (debug)
         {
-          sprintf (result, "possible-%s-format", lang);
+          result = xasprintf ("possible-%s-format", lang);
           break;
         }
       FALLTHROUGH;
     case yes_according_to_context:
     case yes:
-      sprintf (result, "%s-format", lang);
+      result = xasprintf ("%s-format", lang);
       break;
     case no:
-      sprintf (result, "no-%s-format", lang);
+      result = xasprintf ("no-%s-format", lang);
       break;
     default:
       /* The others have already been filtered out by significant_format_p.  */
       abort ();
     }
 
+  assume (result != NULL);
   return result;
 }
 
@@ -486,15 +487,17 @@ message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
       for (i = 0; i < NFORMATS; i++)
         if (significant_format_p (mp->is_format[i]))
           {
+            char *string;
+
             if (!first_flag)
               ostream_write_str (stream, ",");
 
             ostream_write_str (stream, " ");
             begin_css_class (stream, class_flag);
-            ostream_write_str (stream,
-                               make_format_description_string (mp->is_format[i],
-                                                               format_language[i],
-                                                               debug));
+            string = make_format_description_string (mp->is_format[i],
+                                                     format_language[i], debug);
+            ostream_write_str (stream, string);
+            free (string);
             end_css_class (stream, class_flag);
             first_flag = false;
           }
@@ -1482,14 +1485,16 @@ message_print_obsolete (const message_ty *mp, ostream_t stream,
       for (i = 0; i < NFORMATS; i++)
         if (significant_format_p (mp->is_format[i]))
           {
+            char *string;
+
             if (!first_flag)
               ostream_write_str (stream, ",");
 
             ostream_write_str (stream, " ");
-            ostream_write_str (stream,
-                               make_format_description_string (mp->is_format[i],
-                                                               format_language[i],
-                                                               debug));
+            string = make_format_description_string (mp->is_format[i],
+                                                     format_language[i], debug);
+            ostream_write_str (stream, string);
+            free (string);
             first_flag = false;
           }
 
