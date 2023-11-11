@@ -35,15 +35,14 @@
 #endif
 
 /* Emit a multiline warning to stderr, consisting of MESSAGE, with the
-   first line prefixed with PREFIX and the remaining lines prefixed with
-   the same amount of spaces.  Reuse the spaces of the previous call if
-   PREFIX is NULL.  Free the PREFIX and MESSAGE when done.  */
-void
-multiline_warning (char *prefix, char *message)
+   first line prefixed with PREFIX or, if that is NULL, with PREFIX_WIDTH
+   spaces, and the remaining lines prefixed with the same amount of spaces.
+   Free the PREFIX and MESSAGE when done.  Return the amount of spaces.  */
+static size_t
+multiline_internal (char *prefix, size_t prefix_width, char *message)
 {
-  static int width;
+  size_t width;
   const char *cp;
-  int i;
 
   fflush (stdout);
 
@@ -62,13 +61,19 @@ multiline_warning (char *prefix, char *message)
       free (prefix);
       goto after_indent;
     }
+  else
+    width = prefix_width;
 
   for (;;)
     {
       const char *np;
 
-      for (i = width; i > 0; i--)
-        putc (' ', stderr);
+      {
+        size_t i;
+
+        for (i = width; i > 0; i--)
+          putc (' ', stderr);
+      }
 
     after_indent:
       np = strchr (cp, '\n');
@@ -85,16 +90,31 @@ multiline_warning (char *prefix, char *message)
     }
 
   free (message);
+
+  return width;
 }
 
-/* Emit a multiline error to stderr, consisting of MESSAGE, with the
-   first line prefixed with PREFIX and the remaining lines prefixed with
-   the same amount of spaces.  Reuse the spaces of the previous call if
-   PREFIX is NULL.  Free the PREFIX and MESSAGE when done.  */
-void
+size_t
+multiline_warning (char *prefix, char *message)
+{
+  if (prefix == NULL)
+    /* Invalid argument.  */
+    abort ();
+  return multiline_internal (prefix, 0, message);
+}
+
+size_t
 multiline_error (char *prefix, char *message)
 {
-  if (prefix != NULL)
-    ++error_message_count;
-  multiline_warning (prefix, message);
+  if (prefix == NULL)
+    /* Invalid argument.  */
+    abort ();
+  ++error_message_count;
+  return multiline_internal (prefix, 0, message);
+}
+
+void
+multiline_append (size_t prefix_width, char *message)
+{
+  multiline_internal (NULL, prefix_width, message);
 }

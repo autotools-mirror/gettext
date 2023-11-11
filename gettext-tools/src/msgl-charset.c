@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2003, 2005-2007, 2009, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2023 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -88,20 +88,21 @@ compare_po_locale_charsets (const msgdomain_list_ty *mdlp)
                     freea (charset);
                     if (canon_locale_code != canon_charset)
                       {
-                        multiline_warning (xasprintf (_("warning: ")),
-                                           xasprintf (_("\
+                        size_t prefix_width =
+                          multiline_warning (xasprintf (_("warning: ")),
+                                             xasprintf (_("\
 Locale charset \"%s\" is different from\n\
 input file charset \"%s\".\n\
 Output of '%s' might be incorrect.\n\
 Possible workarounds are:\n\
 "), locale_code, canon_charset, last_component (program_name)));
-                        multiline_warning (NULL,
-                                           xasprintf (_("\
+                        multiline_append (prefix_width,
+                                          xasprintf (_("\
 - Set LC_ALL to a locale with encoding %s.\n\
 "), canon_charset));
                         if (canon_locale_code != NULL)
-                          multiline_warning (NULL,
-                                             xasprintf (_("\
+                          multiline_append (prefix_width,
+                                            xasprintf (_("\
 - Convert the translation catalog to %s using 'msgconv',\n\
   then apply '%s',\n\
   then convert back to %s using 'msgconv'.\n\
@@ -109,8 +110,8 @@ Possible workarounds are:\n\
                         if (strcmp (canon_charset, "UTF-8") != 0
                             && (canon_locale_code == NULL
                                 || strcmp (canon_locale_code, "UTF-8") != 0))
-                          multiline_warning (NULL,
-                                             xasprintf (_("\
+                          multiline_append (prefix_width,
+                                            xasprintf (_("\
 - Set LC_ALL to a locale with encoding %s,\n\
   convert the translation catalog to %s using 'msgconv',\n\
   then apply '%s',\n\
