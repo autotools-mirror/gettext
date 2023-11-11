@@ -49,7 +49,7 @@
 #include "pos.h"
 #include "message.h"
 #include "str-list.h"
-#include "po-gram-gen2.h"
+#include "po-gram-gen.h"
 
 #define _(str) gettext(str)
 

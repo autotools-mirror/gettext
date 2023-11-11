@@ -41,7 +41,7 @@ noinst_HEADERS = \
   read-catalog-file.h read-po.h read-properties.h read-stringtable.h \
   str-list.h \
   write-catalog.h write-po.h write-properties.h write-stringtable.h \
-  dir-list.h file-list.h po-gram-gen.h po-gram-gen2.h cldr-plural.h \
+  dir-list.h file-list.h po-gram-gen.h cldr-plural.h \
   cldr-plural-exp.h locating-rule.h its.h search-path.h \
   msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-ofn.h msgl-cat.h \
   msgl-header.h msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
@@ -594,20 +594,6 @@ MOSTLYCLEANFILES += po-gram-gen.tab.c po-gram-gen.tab.h po-gram-gen.c-tmp po-gra
 MAINTAINERCLEANFILES += po-gram-gen.c po-gram-gen.h
 EXTRA_DIST += po-gram-gen.c po-gram-gen.h
 
-
-# po-gram-gen2.h is generated from po-gram-gen.h and is also distributed in the
-# tarballs (just for convenience).
-po-gram-gen2.h: po-gram-gen.h
-	$(SED) -e 's/yy/po_gram_/g' -e 's/extern /extern DLL_VARIABLE /' \
-	       -e 's|"po-gram-gen\.h"|"po-gram-gen2.h"|' \
-	       < $(srcdir)/po-gram-gen.h > po-gram-gen2.h-tmp \
-	&& mv po-gram-gen2.h-tmp $(srcdir)/po-gram-gen2.h
-BUILT_SOURCES += po-gram-gen2.h
-MOSTLYCLEANFILES += po-gram-gen2.h-tmp
-MAINTAINERCLEANFILES += po-gram-gen2.h
-EXTRA_DIST += po-gram-gen2.h
-
-po-lex.o po-lex.lo: po-gram-gen2.h
 
 cldr-plural.c cldr-plural.h: cldr-plural.y
 	$(AM_V_YACC)$(BISON) -d $(YFLAGS) $(AM_YFLAGS) $(srcdir)/cldr-plural.y \

@@ -74,7 +74,7 @@ extern void lex_start (FILE *fp, const char *real_filename,
 extern void lex_end (void);
 
 /* Return the next token in the PO file.  The return codes are defined
-   in "po-gram-gen2.h".  Associated data is put in '*lval'.  */
+   in "po-gram-gen.h".  Associated data is put in '*lval'.  */
 union PO_GRAM_STYPE;
 extern int po_gram_lex (union PO_GRAM_STYPE *lval);
 
