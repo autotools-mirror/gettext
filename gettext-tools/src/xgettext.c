@@ -74,7 +74,7 @@
 #include "msgl-iconv.h"
 #include "msgl-ascii.h"
 #include "msgl-ofn.h"
-#include "msgl-check.h"
+#include "xg-check.h"
 #include "po-time.h"
 #include "write-catalog.h"
 #include "write-po.h"

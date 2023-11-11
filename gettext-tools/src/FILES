@@ -323,6 +323,9 @@ msgl-check.c
 | xg-message.h
 | xg-message.c
 |               Extracting a message.  Accumulating the message list.
+| xg-check.h
+| xg-check.c
+|               Syntax checks on the extracted messages.
 | x-po.h
 | x-properties.h
 | x-stringtable.h

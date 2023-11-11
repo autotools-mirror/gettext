@@ -1,5 +1,5 @@
 # List of files which contain translatable strings.
-# Copyright (C) 1995, 1998, 2001-2006, 2011, 2020, 2022 Free Software Foundation, Inc.
+# Copyright (C) 1995-2023 Free Software Foundation, Inc.
 # This file is free software, distributed under GNU GPL v3+.
 
 # For updating this file, look at the result of:
@@ -120,6 +120,7 @@ src/x-csharp.c
 src/x-desktop.c
 src/x-elisp.c
 src/xg-arglist-parser.c
+src/xg-check.c
 src/xg-encoding.c
 src/xgettext.c
 src/xg-message.c

@@ -58,7 +58,7 @@ noinst_HEADERS = \
   xgettext.h \
   if-error.h \
   rc-str-list.h xg-pos.h xg-encoding.h xg-mixed-string.h xg-arglist-context.h \
-  xg-arglist-callshape.h xg-arglist-parser.h xg-message.h \
+  xg-arglist-callshape.h xg-arglist-parser.h xg-message.h xg-check.h \
   x-po.h x-properties.h x-stringtable.h \
   x-c.h \
   x-python.h \
@@ -234,6 +234,7 @@ xgettext_SOURCES += \
   xg-mixed-string.c \
   xg-arglist-context.c xg-arglist-callshape.c xg-arglist-parser.c \
   xg-message.c \
+  xg-check.c \
   x-po.c \
   x-c.c \
   x-python.c \
