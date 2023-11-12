@@ -326,7 +326,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 /* Parse format-spec.  */
 
                 /* Parse fill-and-align.  */
-                if ((*format != '0' && *format != '{' && *format != '}')
+                if ((*format != '\0' && *format != '{' && *format != '}')
                     && (format[1] == '<' || format[1] == '>'
                         || format[1] == '^'))
                   format += 2;
