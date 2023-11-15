@@ -1,4 +1,4 @@
-# more-warnings.m4 serial 2 (gettext-0.23)
+# more-warnings.m4 serial 3 (gettext-0.23)
 dnl Copyright (C) 2023 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -177,6 +177,20 @@ AS_HELP_STRING([[--disable-more-warnings]], [obey exactly the warning options sp
 
     dnl Cf. -Wshadow, above.
     gl_WARN_ADD([-Wshadow=local])
+
+    dnl With GCC 10 and older, turn off -fanalyzer, because it requires too much
+    dnl memory in the compiler.
+    dnl See <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=97240>. In particular,
+    dnl on AIX 7.3, gcc 10.3 cannot compile regex.c with -fanalyzer:
+    dnl cc1: out of memory allocating 732 bytes after a total of 1072239104 bytes
+    AC_PREPROC_IFELSE([AC_LANG_PROGRAM([[
+      #if __GNUC__ > 10
+      #error "You are lucky"
+      #endif
+      ]])],
+      [
+        gl_WARN_ADD([-fno-analyzer])
+      ])
 
     dnl For production code imported from other packages, disable some other
     dnl warnings. For imported code, I want to minimize difference w.r.t.
