@@ -139,7 +139,7 @@
 /lib/noop-styled-ostream.oo.h
 /lib/noreturn.h
 /lib/obstack.c
-/lib/obstack.h
+/lib/obstack.in.h
 /lib/open.c
 /lib/ostream.oo.c
 /lib/ostream.oo.h
@@ -529,6 +529,8 @@ core
 /lib/limits.h-t
 /lib/math.h
 /lib/math.h-t
+/lib/obstack.h
+/lib/obstack.h-t
 /lib/signal.h
 /lib/signal.h-t
 /lib/stdalign.h

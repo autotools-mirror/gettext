@@ -191,7 +191,7 @@
 /gettext-tools/libgettextpo/msvc-nothrow.h
 /gettext-tools/libgettextpo/noreturn.h
 /gettext-tools/libgettextpo/obstack.c
-/gettext-tools/libgettextpo/obstack.h
+/gettext-tools/libgettextpo/obstack.in.h
 /gettext-tools/libgettextpo/open.c
 /gettext-tools/libgettextpo/pathmax.h
 /gettext-tools/libgettextpo/printf-args.c
@@ -870,6 +870,7 @@ core
 /gettext-tools/libgettextpo/inttypes.h
 /gettext-tools/libgettextpo/limits.h
 /gettext-tools/libgettextpo/locale.h
+/gettext-tools/libgettextpo/obstack.h
 /gettext-tools/libgettextpo/signal.h
 /gettext-tools/libgettextpo/stdarg.h
 /gettext-tools/libgettextpo/stdbool.h
