@@ -10,8 +10,13 @@ configure.ac:
 
 Makefile.am:
 
-# Specify that libgettextlib should installed in $(libdir).
-lib_LTLIBRARIES = libgettextlib.la
+if INSTALL_PRIVATE_LIBRARIES
+# Specify that libgettextlib should be installed in $(libdir).
+lib_LTLIBRARIES += libgettextlib.la
+else
+# Specify that libgettextlib should not be installed.
+noinst_LTLIBRARIES += libgettextlib.la
+endif
 
 # Need $(LTLIBUNISTRING) because ulc_width_linebreaks, uc_width, etc. may be
 # taken from libunistring, when the configure option --with-libunistring-prefix
@@ -30,14 +35,6 @@ lib_SOURCES += ../woe32dll/gettextlib-exports.c
 lib_LDFLAGS += -Wl,--export-all-symbols
 AM_CPPFLAGS += @GETTEXTLIB_EXPORTS_FLAGS@
 endif
-
-# No need to install libgettextlib.a, except on AIX.
-install-exec-local: install-libLTLIBRARIES install-exec-clean
-install-exec-clean:
-	case "@host_os@" in \
-	  aix*) ;; \
-	  *) rm -f $(DESTDIR)$(libdir)/libgettextlib.a ;; \
-	esac
 
 Include:
 
