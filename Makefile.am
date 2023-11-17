@@ -93,6 +93,11 @@ EXTRA_DIST += os2/README.OS2 os2/Makefile os2/backward.def os2/configure.awk
 EXTRA_DIST += INSTALL.windows windows/windres-options windows/gettext.rc
 
 
+# AIX support.
+
+EXTRA_DIST += INSTALL.aix
+
+
 # Versioning based on Git release tags.
 
 EXTRA_DIST += $(top_srcdir)/.version
