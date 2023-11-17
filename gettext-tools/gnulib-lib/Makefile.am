@@ -26,6 +26,7 @@ DISTCLEANFILES =
 MAINTAINERCLEANFILES =
 SUFFIXES =
 
+lib_LTLIBRARIES =
 noinst_LTLIBRARIES =
 
 # Extra files to be installed.

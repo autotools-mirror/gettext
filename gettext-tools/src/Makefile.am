@@ -33,7 +33,13 @@ recode-sr-latin
 
 noinst_PROGRAMS = hostname urlget cldr-plurals
 
+if INSTALL_PRIVATE_LIBRARIES
+# Specify that libgettextsrc should be installed in $(libdir).
 lib_LTLIBRARIES = libgettextsrc.la
+else
+# Specify that libgettextsrc should not be installed.
+noinst_LTLIBRARIES = libgettextsrc.la
+endif
 
 noinst_HEADERS = \
   pos.h message.h po-error.h po-xerror.h po-gram.h po-charset.h \
@@ -355,14 +361,6 @@ if RELOCATABLE_VIA_LD
 # This is needed, because libgettextsrc depends on libgettextlib and libintl.
 libgettextsrc_la_LDFLAGS += `$(RELOCATABLE_LDFLAGS) $(libdir)`
 endif
-
-# No need to install libgettextsrc.a, except on AIX.
-install-exec-hook: install-exec-clean
-install-exec-clean:
-	case "@host_os@" in \
-	  aix*) ;; \
-	  *) $(RM) $(DESTDIR)$(libdir)/libgettextsrc.a ;; \
-	esac
 
 # Compile-time flags for particular source files.
 msgmerge_CFLAGS = $(AM_CFLAGS) $(OPENMP_CFLAGS)
