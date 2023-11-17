@@ -214,7 +214,11 @@ fi
 AC_SUBST([MSGMERGE_LIBM])
 
 dnl Test whether msgmerge can make use of OpenMP.
-AC_OPENMP
+if test "$gl_use_threads" != no; then
+  AC_OPENMP
+else
+  OPENMP_CFLAGS=
+fi
 
 dnl Checks for header files, functions and declarations.
 gl_INIT
