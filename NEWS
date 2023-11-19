@@ -1,4 +1,4 @@
-Version 0.23 - October 2023
+Version 0.23 - December 2023
 
 * Programming languages support:
   - Glade: xgettext has improved support for GtkBuilder 4.
@@ -14,6 +14,12 @@ Version 0.23 - October 2023
 
 * msgmerge:
   - The msgmerge option '--sorted-output' is now deprecated.
+
+Version 0.22.4 - November 2023
+
+* Bug fixes:
+  - AM_GNU_GETTEXT now recognizes a statically built libintl on macOS and AIX.
+  - Build fixes on AIX.
 
 Version 0.22.3 - October 2023
 
