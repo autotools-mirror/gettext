@@ -24,7 +24,4 @@
 
 /* Language dependent format string parser.
    NULL if the language has no notion of format strings.  */
-struct formatstring_parser *current_formatstring_parser1;
-struct formatstring_parser *current_formatstring_parser2;
-struct formatstring_parser *current_formatstring_parser3;
-struct formatstring_parser *current_formatstring_parser4;
+struct formatstring_parser *current_formatstring_parser[NXFORMATS];

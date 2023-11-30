@@ -22,12 +22,23 @@ extern "C" {
 #endif
 
 
+/* Maximum number of format string parsers needed for any particular
+   language.  */
+#define NXFORMATS 4
+
+/* Instead of indices, use these macros, for easier cross-referencing.  */
+/* Primary format string type.  */
+#define XFORMAT_PRIMARY    0
+/* Secondary format string type.  */
+#define XFORMAT_SECONDARY  1
+/* Tertiary format string type.  */
+#define XFORMAT_TERTIARY   2
+/* Fourth-ranked format string type.  */
+#define XFORMAT_FOURTH     3
+
 /* Language dependent format string parser.
    NULL if the language has no notion of format strings.  */
-extern struct formatstring_parser *current_formatstring_parser1;
-extern struct formatstring_parser *current_formatstring_parser2;
-extern struct formatstring_parser *current_formatstring_parser3;
-extern struct formatstring_parser *current_formatstring_parser4;
+extern struct formatstring_parser *current_formatstring_parser[NXFORMATS];
 
 
 #ifdef __cplusplus

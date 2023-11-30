@@ -51,29 +51,20 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
                                flag_context_ty context, const char *string,
                                lex_pos_ty *pos, const char *pretty_msgstr)
 {
-  size_t i;
+  bool some_undecided;
 
-  if (context.is_format1 != undecided
-      || context.is_format2 != undecided
-      || context.is_format3 != undecided
-      || context.is_format4 != undecided)
-    for (i = 0; i < NFORMATS; i++)
+  some_undecided = false;
+  for (size_t fi = 0; fi < NXFORMATS; fi++)
+    some_undecided |= (context.for_formatstring[fi].is_format != undecided);
+
+  if (some_undecided)
+    for (size_t i = 0; i < NFORMATS; i++)
       {
         if (is_format[i] == undecided)
-          {
-            if (formatstring_parsers[i] == current_formatstring_parser1
-                && context.is_format1 != undecided)
-              is_format[i] = (enum is_format) context.is_format1;
-            if (formatstring_parsers[i] == current_formatstring_parser2
-                && context.is_format2 != undecided)
-              is_format[i] = (enum is_format) context.is_format2;
-            if (formatstring_parsers[i] == current_formatstring_parser3
-                && context.is_format3 != undecided)
-              is_format[i] = (enum is_format) context.is_format3;
-            if (formatstring_parsers[i] == current_formatstring_parser4
-                && context.is_format4 != undecided)
-              is_format[i] = (enum is_format) context.is_format4;
-          }
+          for (size_t fi = 0; fi < NXFORMATS; fi++)
+            if (formatstring_parsers[i] == current_formatstring_parser[fi]
+                && context.for_formatstring[fi].is_format != undecided)
+              is_format[i] = (enum is_format) context.for_formatstring[fi].is_format;
         if (possible_format_p (is_format[i]))
           {
             struct formatstring_parser *parser = formatstring_parsers[i];
@@ -102,6 +93,17 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
 }
 
 
+/* Returns true if PARSER is relevant for the current language.  */
+static bool
+is_relevant (struct formatstring_parser *parser)
+{
+  for (size_t fi = 0; fi < NXFORMATS; fi++)
+    if (parser == current_formatstring_parser[fi])
+      return true;
+  return false;
+}
+
+
 void
 decide_is_format (message_ty *mp)
 {
@@ -112,10 +114,7 @@ decide_is_format (message_ty *mp)
   for (i = 0; i < NFORMATS; i++)
     {
       if (mp->is_format[i] == undecided
-          && (formatstring_parsers[i] == current_formatstring_parser1
-              || formatstring_parsers[i] == current_formatstring_parser2
-              || formatstring_parsers[i] == current_formatstring_parser3
-              || formatstring_parsers[i] == current_formatstring_parser4)
+          && is_relevant (formatstring_parsers[i])
           /* But avoid redundancy: objc-format is stronger than c-format.  */
           && !(i == format_c && possible_format_p (mp->is_format[format_objc]))
           && !(i == format_objc && possible_format_p (mp->is_format[format_c]))
@@ -567,10 +566,7 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
          the msgid, whether the msgid is a format string, examine the
          msgid_plural.  This is a heuristic.  */
       for (i = 0; i < NFORMATS; i++)
-        if ((formatstring_parsers[i] == current_formatstring_parser1
-             || formatstring_parsers[i] == current_formatstring_parser2
-             || formatstring_parsers[i] == current_formatstring_parser3
-             || formatstring_parsers[i] == current_formatstring_parser4)
+        if (is_relevant (formatstring_parsers[i])
             && (mp->is_format[i] == undecided || mp->is_format[i] == possible)
             /* But avoid redundancy: objc-format is stronger than c-format.  */
             && !(i == format_c

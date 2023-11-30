@@ -302,10 +302,7 @@ struct extractor_ty
   extract_from_stream_func extract_from_stream;
   extract_from_file_func extract_from_file;
   flag_context_list_table_ty *flag_table;
-  struct formatstring_parser *formatstring_parser1;
-  struct formatstring_parser *formatstring_parser2;
-  struct formatstring_parser *formatstring_parser3;
-  struct formatstring_parser *formatstring_parser4;
+  struct formatstring_parser *formatstring_parser[NXFORMATS];
 };
 
 
@@ -343,7 +340,7 @@ main (int argc, char *argv[])
   string_list_ty *file_list;
   char *output_file = NULL;
   const char *language = NULL;
-  extractor_ty extractor = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+  extractor_ty extractor = { NULL, NULL, NULL, { NULL, NULL, NULL, NULL } };
   int cnt;
   size_t i;
 
@@ -845,7 +842,7 @@ xgettext cannot work without keywords to look for"));
          is an output file and therefore should not be searched for.  */
       void *saved_directory_list = dir_list_save_reset ();
       extractor_ty po_extractor =
-        { extract_po, NULL, NULL, NULL, NULL, NULL, NULL };
+        { extract_po, NULL, NULL, { NULL, NULL, NULL, NULL } };
 
       extract_from_file (file_name, po_extractor, mdlp);
       if (!is_ascii_msgdomain_list (mdlp))
@@ -1352,7 +1349,7 @@ read_exclusion_file (char *filename)
 
 static void
 flag_context_list_table_insert (flag_context_list_table_ty *table,
-                                unsigned int index,
+                                size_t fi,
                                 const char *name_start, const char *name_end,
                                 int argnum, enum is_format value, bool pass)
 {
@@ -1380,7 +1377,7 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
         name_start += 2;
     }
 
-  flag_context_list_table_add (table, index, name_start, name_end,
+  flag_context_list_table_add (table, fi, name_start, name_end,
                                argnum, value, pass);
 
   if (allocated_name != NULL)
@@ -1501,129 +1498,129 @@ xgettext_record_flag (const char *optionstring)
                        &formatstring_java, &formatstring_java_printf
                      }
                    Therefore here, we have to associate
-                     format_java          with   flag_table_java at index 0,
-                     format_java_printf   with   flag_table_java at index 1.  */
+                     format_java          with   flag_table_java at index XFORMAT_PRIMARY,
+                     format_java_printf   with   flag_table_java at index XFORMAT_SECONDARY.  */
                 switch (type)
                   {
                   case format_c:
                     if (backend == NULL || strcmp (backend, "C") == 0
                         || strcmp (backend, "C++") == 0)
                       {
-                        flag_context_list_table_insert (&flag_table_c, 0,
+                        flag_context_list_table_insert (&flag_table_c, XFORMAT_PRIMARY,
                                                         name_start, name_end,
                                                         argnum, value, pass);
                       }
                     if (backend == NULL || strcmp (backend, "C++") == 0)
                       {
-                        flag_context_list_table_insert (&flag_table_cxx_qt, 0,
+                        flag_context_list_table_insert (&flag_table_cxx_qt, XFORMAT_PRIMARY,
                                                         name_start, name_end,
                                                         argnum, value, pass);
-                        flag_context_list_table_insert (&flag_table_cxx_kde, 0,
+                        flag_context_list_table_insert (&flag_table_cxx_kde, XFORMAT_PRIMARY,
                                                         name_start, name_end,
                                                         argnum, value, pass);
-                        flag_context_list_table_insert (&flag_table_cxx_boost, 0,
+                        flag_context_list_table_insert (&flag_table_cxx_boost, XFORMAT_PRIMARY,
                                                         name_start, name_end,
                                                         argnum, value, pass);
                       }
                     if (backend == NULL || strcmp (backend, "ObjectiveC") == 0)
                       {
-                        flag_context_list_table_insert (&flag_table_objc, 0,
+                        flag_context_list_table_insert (&flag_table_objc, XFORMAT_PRIMARY,
                                                         name_start, name_end,
                                                         argnum, value, pass);
                       }
                     if (backend == NULL || strcmp (backend, "Vala") == 0)
                       {
-                        flag_context_list_table_insert (&flag_table_vala, 0,
+                        flag_context_list_table_insert (&flag_table_vala, XFORMAT_PRIMARY,
                                                         name_start, name_end,
                                                         argnum, value, pass);
                       }
                     break;
                   case format_cplusplus_brace:
-                    flag_context_list_table_insert (&flag_table_c, 1,
+                    flag_context_list_table_insert (&flag_table_c, XFORMAT_SECONDARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
-                    flag_context_list_table_insert (&flag_table_cxx_qt, 1,
+                    flag_context_list_table_insert (&flag_table_cxx_qt, XFORMAT_SECONDARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
-                    flag_context_list_table_insert (&flag_table_cxx_kde, 1,
+                    flag_context_list_table_insert (&flag_table_cxx_kde, XFORMAT_SECONDARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
-                    flag_context_list_table_insert (&flag_table_cxx_boost, 1,
+                    flag_context_list_table_insert (&flag_table_cxx_boost, XFORMAT_SECONDARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_objc:
-                    flag_context_list_table_insert (&flag_table_objc, 1,
+                    flag_context_list_table_insert (&flag_table_objc, XFORMAT_SECONDARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_python:
-                    flag_context_list_table_insert (&flag_table_python, 0,
+                    flag_context_list_table_insert (&flag_table_python, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_python_brace:
-                    flag_context_list_table_insert (&flag_table_python, 1,
+                    flag_context_list_table_insert (&flag_table_python, XFORMAT_SECONDARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_java:
-                    flag_context_list_table_insert (&flag_table_java, 0,
+                    flag_context_list_table_insert (&flag_table_java, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_java_printf:
-                    flag_context_list_table_insert (&flag_table_java, 1,
+                    flag_context_list_table_insert (&flag_table_java, XFORMAT_SECONDARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_csharp:
-                    flag_context_list_table_insert (&flag_table_csharp, 0,
+                    flag_context_list_table_insert (&flag_table_csharp, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_javascript:
-                    flag_context_list_table_insert (&flag_table_javascript, 0,
+                    flag_context_list_table_insert (&flag_table_javascript, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_scheme:
-                    flag_context_list_table_insert (&flag_table_scheme, 0,
+                    flag_context_list_table_insert (&flag_table_scheme, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_lisp:
-                    flag_context_list_table_insert (&flag_table_lisp, 0,
+                    flag_context_list_table_insert (&flag_table_lisp, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_elisp:
-                    flag_context_list_table_insert (&flag_table_elisp, 0,
+                    flag_context_list_table_insert (&flag_table_elisp, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_librep:
-                    flag_context_list_table_insert (&flag_table_librep, 0,
+                    flag_context_list_table_insert (&flag_table_librep, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_ruby:
-                    flag_context_list_table_insert (&flag_table_ruby, 0,
+                    flag_context_list_table_insert (&flag_table_ruby, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_sh:
-                    flag_context_list_table_insert (&flag_table_sh, 0,
+                    flag_context_list_table_insert (&flag_table_sh, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_awk:
-                    flag_context_list_table_insert (&flag_table_awk, 0,
+                    flag_context_list_table_insert (&flag_table_awk, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_lua:
-                    flag_context_list_table_insert (&flag_table_lua, 0,
+                    flag_context_list_table_insert (&flag_table_lua, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
@@ -1632,62 +1629,62 @@ xgettext_record_flag (const char *optionstring)
                   case format_smalltalk:
                     break;
                   case format_qt:
-                    flag_context_list_table_insert (&flag_table_cxx_qt, 2,
+                    flag_context_list_table_insert (&flag_table_cxx_qt, XFORMAT_TERTIARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_qt_plural:
-                    flag_context_list_table_insert (&flag_table_cxx_qt, 3,
+                    flag_context_list_table_insert (&flag_table_cxx_qt, XFORMAT_FOURTH,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_kde:
-                    flag_context_list_table_insert (&flag_table_cxx_kde, 2,
+                    flag_context_list_table_insert (&flag_table_cxx_kde, XFORMAT_TERTIARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_kde_kuit:
-                    flag_context_list_table_insert (&flag_table_cxx_kde, 3,
+                    flag_context_list_table_insert (&flag_table_cxx_kde, XFORMAT_FOURTH,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_boost:
-                    flag_context_list_table_insert (&flag_table_cxx_boost, 2,
+                    flag_context_list_table_insert (&flag_table_cxx_boost, XFORMAT_TERTIARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_tcl:
-                    flag_context_list_table_insert (&flag_table_tcl, 0,
+                    flag_context_list_table_insert (&flag_table_tcl, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_perl:
-                    flag_context_list_table_insert (&flag_table_perl, 0,
+                    flag_context_list_table_insert (&flag_table_perl, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_perl_brace:
-                    flag_context_list_table_insert (&flag_table_perl, 1,
+                    flag_context_list_table_insert (&flag_table_perl, XFORMAT_SECONDARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_php:
-                    flag_context_list_table_insert (&flag_table_php, 0,
+                    flag_context_list_table_insert (&flag_table_php, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_gcc_internal:
-                    flag_context_list_table_insert (&flag_table_gcc_internal, 0,
+                    flag_context_list_table_insert (&flag_table_gcc_internal, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_gfc_internal:
-                    flag_context_list_table_insert (&flag_table_gcc_internal, 1,
+                    flag_context_list_table_insert (&flag_table_gcc_internal, XFORMAT_SECONDARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
                   case format_ycp:
-                    flag_context_list_table_insert (&flag_table_ycp, 0,
+                    flag_context_list_table_insert (&flag_table_ycp, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
@@ -1929,10 +1926,8 @@ extract_from_file (const char *file_name, extractor_ty extractor,
   char *logical_file_name;
   char *real_file_name;
 
-  current_formatstring_parser1 = extractor.formatstring_parser1;
-  current_formatstring_parser2 = extractor.formatstring_parser2;
-  current_formatstring_parser3 = extractor.formatstring_parser3;
-  current_formatstring_parser4 = extractor.formatstring_parser4;
+  for (size_t fi = 0; fi < NXFORMATS; fi++)
+    current_formatstring_parser[fi] = extractor.formatstring_parser[fi];
 
   if (extractor.extract_from_stream)
     {
@@ -1966,10 +1961,8 @@ extract_from_file (const char *file_name, extractor_ty extractor,
   free (logical_file_name);
   free (real_file_name);
 
-  current_formatstring_parser1 = NULL;
-  current_formatstring_parser2 = NULL;
-  current_formatstring_parser3 = NULL;
-  current_formatstring_parser4 = NULL;
+  for (size_t fi = 0; fi < NXFORMATS; fi++)
+    current_formatstring_parser[fi] = NULL;
 }
 
 static message_ty *
@@ -2037,7 +2030,7 @@ bool
 recognize_qt_formatstrings (void)
 {
   return recognize_format_qt
-         && current_formatstring_parser4 == &formatstring_qt_plural;
+         && current_formatstring_parser[XFORMAT_FOURTH] == &formatstring_qt_plural;
 }
 
 
@@ -2250,10 +2243,10 @@ language_to_extractor (const char *name)
         result.extract_from_stream = tp->extract_from_stream;
         result.extract_from_file = tp->extract_from_file;
         result.flag_table = tp->flag_table;
-        result.formatstring_parser1 = tp->formatstring_parser1;
-        result.formatstring_parser2 = tp->formatstring_parser2;
-        result.formatstring_parser3 = NULL;
-        result.formatstring_parser4 = NULL;
+        result.formatstring_parser[XFORMAT_PRIMARY]   = tp->formatstring_parser1;
+        result.formatstring_parser[XFORMAT_SECONDARY] = tp->formatstring_parser2;
+        for (size_t fi = 2; fi < NXFORMATS; fi++)
+          result.formatstring_parser[fi] = NULL;
 
         /* Handle --qt.  It's preferrable to handle this facility here rather
            than through an option --language=C++/Qt because the latter would
@@ -2261,21 +2254,21 @@ language_to_extractor (const char *name)
         if (recognize_format_qt && strcmp (tp->name, "C++") == 0)
           {
             result.flag_table = &flag_table_cxx_qt;
-            result.formatstring_parser3 = &formatstring_qt;
-            result.formatstring_parser4 = &formatstring_qt_plural;
+            result.formatstring_parser[XFORMAT_TERTIARY] = &formatstring_qt;
+            result.formatstring_parser[XFORMAT_FOURTH]   = &formatstring_qt_plural;
           }
         /* Likewise for --kde.  */
         if (recognize_format_kde && strcmp (tp->name, "C++") == 0)
           {
             result.flag_table = &flag_table_cxx_kde;
-            result.formatstring_parser3 = &formatstring_kde;
-            result.formatstring_parser4 = &formatstring_kde_kuit;
+            result.formatstring_parser[XFORMAT_TERTIARY] = &formatstring_kde;
+            result.formatstring_parser[XFORMAT_FOURTH]   = &formatstring_kde_kuit;
           }
         /* Likewise for --boost.  */
         if (recognize_format_boost && strcmp (tp->name, "C++") == 0)
           {
             result.flag_table = &flag_table_cxx_boost;
-            result.formatstring_parser3 = &formatstring_boost;
+            result.formatstring_parser[XFORMAT_TERTIARY] = &formatstring_boost;
           }
 
         return result;
@@ -2284,7 +2277,7 @@ language_to_extractor (const char *name)
   error (EXIT_FAILURE, 0, _("language '%s' unknown"), name);
   /* NOTREACHED */
   {
-    extractor_ty result = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+    extractor_ty result = { NULL, NULL, NULL, { NULL, NULL, NULL, NULL } };
     return result;
   }
 }

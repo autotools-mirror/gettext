@@ -22,36 +22,33 @@
 
 #include "mem-hash-map.h"
 #include "message.h"
+#include "xg-formatstring.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 
+/* Context representing some flags w.r.t. a specific format string type.  */
+struct formatstring_context_ty
+{
+  /*enum is_format*/ unsigned int is_format    : 3;
+  /*bool*/           unsigned int pass_format  : 1;
+};
+
 /* Context representing some flags.  */
 typedef struct flag_context_ty flag_context_ty;
 struct flag_context_ty
 {
-  /* Regarding the primary formatstring type.  */
-  /*enum is_format*/ unsigned int is_format1    : 3;
-  /*bool*/           unsigned int pass_format1  : 1;
-  /* Regarding the secondary formatstring type.  */
-  /*enum is_format*/ unsigned int is_format2    : 3;
-  /*bool*/           unsigned int pass_format2  : 1;
-  /* Regarding the tertiary formatstring type.  */
-  /*enum is_format*/ unsigned int is_format3    : 3;
-  /*bool*/           unsigned int pass_format3  : 1;
-  /* Regarding the fourth-ranked formatstring type.  */
-  /*enum is_format*/ unsigned int is_format4    : 3;
-  /*bool*/           unsigned int pass_format4  : 1;
+  struct formatstring_context_ty for_formatstring[NXFORMATS];
 };
 /* Null context.  */
 extern flag_context_ty null_context;
 /* Transparent context.  */
 extern flag_context_ty passthrough_context;
 /* Compute an inherited context.
-   The outer_context is assumed to have all pass_format* flags = false.
-   The result will then also have all pass_format* flags = false.  */
+   The outer_context is assumed to have all pass_format flags = false.
+   The result will then also have all pass_format flags = false.  */
 extern flag_context_ty
        inherited_context (flag_context_ty outer_context,
                           flag_context_ty modifier_context);
@@ -87,12 +84,12 @@ typedef hash_table /* char[] -> flag_context_list_ty * */
 extern flag_context_list_ty *
        flag_context_list_table_lookup (flag_context_list_table_ty *flag_table,
                                        const void *key, size_t keylen);
-/* Insert the pair (VALUE, PASS) as (is_formatX, pass_formatX) with X = INDEX+1
-   in the flags of the element numbered ARGNUM of the list corresponding to NAME
-   in the TABLE.  */
+/* Insert the pair (VALUE, PASS) as (is_format, pass_format) for the format
+   string type FI in the flags of the element numbered ARGNUM of the list
+   corresponding to NAME in the TABLE.  */
 extern void
        flag_context_list_table_add (flag_context_list_table_ty *table,
-                                    unsigned int index,
+                                    size_t fi,
                                     const char *name_start, const char *name_end,
                                     int argnum, enum is_format value, bool pass);
 
