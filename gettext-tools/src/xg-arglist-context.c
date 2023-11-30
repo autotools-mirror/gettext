@@ -208,6 +208,53 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
 }
 
 
+static struct remembered_message_list_ty *
+remembered_message_list_alloc ()
+{
+  struct remembered_message_list_ty *list = XMALLOC (struct remembered_message_list_ty);
+  list->refcount = 1;
+  list->item = NULL;
+  list->nitems = 0;
+  list->nitems_max = 0;
+  return list;
+}
+
+void
+remembered_message_list_append (struct remembered_message_list_ty *list,
+                                struct remembered_message_ty element)
+{
+  if (list->nitems >= list->nitems_max)
+    {
+      size_t nbytes;
+
+      list->nitems_max = list->nitems_max * 2 + 4;
+      nbytes = list->nitems_max * sizeof (struct remembered_message_ty);
+      list->item = xrealloc (list->item, nbytes);
+    }
+  list->item[list->nitems++] = element;
+}
+
+static struct remembered_message_list_ty *
+remembered_message_list_ref (struct remembered_message_list_ty *list)
+{
+  if (list != NULL)
+    list->refcount++;
+  return list;
+}
+
+static void
+remembered_message_list_unref (struct remembered_message_list_ty *list)
+{
+  if (list != NULL)
+    {
+      if (list->refcount > 1)
+        list->refcount--;
+      else
+        free (list);
+    }
+}
+
+
 /* We don't need to remember messages that were processed in the null context
    region.  Therefore the null context region can be a singleton.  This
    reduces the number of needed calls to unref_region.  */
@@ -215,10 +262,10 @@ static flag_region_ty const the_null_context_region =
   {
     1,
     {
-      { undecided },
-      { undecided },
-      { undecided },
-      { undecided }
+      { undecided, NULL },
+      { undecided, NULL },
+      { undecided, NULL },
+      { undecided, NULL }
     }
   };
 
@@ -239,9 +286,23 @@ inheriting_region (flag_region_ty *outer_region,
   for (size_t fi = 0; fi < NXFORMATS; fi++)
     {
       if (modifier_context.for_formatstring[fi].pass_format)
-        region->for_formatstring[fi].is_format = outer_region->for_formatstring[fi].is_format;
+        {
+          region->for_formatstring[fi].is_format = outer_region->for_formatstring[fi].is_format;
+          region->for_formatstring[fi].remembered =
+            (current_formatstring_parser[fi] != NULL
+             ? (outer_region->for_formatstring[fi].remembered != NULL
+                ? remembered_message_list_ref (outer_region->for_formatstring[fi].remembered)
+                : remembered_message_list_alloc ())
+             : NULL);
+        }
       else
-        region->for_formatstring[fi].is_format = modifier_context.for_formatstring[fi].is_format;
+        {
+          region->for_formatstring[fi].is_format = modifier_context.for_formatstring[fi].is_format;
+          region->for_formatstring[fi].remembered =
+            (current_formatstring_parser[fi] != NULL
+             ? remembered_message_list_alloc ()
+             : NULL);
+        }
     }
 
   return region;
@@ -265,6 +326,10 @@ unref_region (flag_region_ty *region)
       if (region->refcount > 1)
         region->refcount--;
       else
-        free (region);
+        {
+          for (size_t fi = 0; fi < NXFORMATS; fi++)
+            remembered_message_list_unref (region->for_formatstring[fi].remembered);
+          free (region);
+        }
     }
 }

@@ -44,52 +44,79 @@
                                          pos->line_number);
 
 
+/* Validates the modified value of mp->is_format[i].  */
+static void
+validate_is_format (message_ty *mp, bool plural, lex_pos_ty *pos, size_t i)
+{
+  if (possible_format_p (mp->is_format[i]))
+    {
+      const char *string = (plural ? mp->msgid_plural : mp->msgid);
+      const char *pretty_msgstr = (plural ? "msgid_plural" : "msgid");
+      struct formatstring_parser *parser = formatstring_parsers[i];
+      char *invalid_reason = NULL;
+      void *descr = parser->parse (string, false, NULL, &invalid_reason);
+
+      if (descr != NULL)
+        parser->free (descr);
+      else
+        {
+          /* The string is not a valid format string.  */
+          if (mp->is_format[i] != possible)
+            if_error (IF_SEVERITY_WARNING,
+                      pos->file_name, pos->line_number, (size_t)(-1), true,
+                      mp->is_format[i] == yes_according_to_context
+                      ? _("Although being used in a format string position, the %s is not a valid %s format string. Reason: %s\n")
+                      : _("Although declared as such, the %s is not a valid %s format string. Reason: %s\n"),
+                      pretty_msgstr, format_language_pretty[i],
+                      invalid_reason);
+
+          mp->is_format[i] = impossible;
+          free (invalid_reason);
+        }
+    }
+}
+
 /* Update the is_format[] flags depending on the information given in the
    region's context.  */
 static void
-set_format_flags_from_context (enum is_format is_format[NFORMATS],
-                               flag_region_ty const *region, const char *string,
-                               lex_pos_ty *pos, const char *pretty_msgstr)
+set_format_flags_from_context (message_ty *mp, bool plural, lex_pos_ty *pos,
+                               flag_region_ty const *region)
 {
-  bool some_undecided;
-
-  some_undecided = false;
+  bool some_undecided = false;
   for (size_t fi = 0; fi < NXFORMATS; fi++)
     some_undecided |= (region->for_formatstring[fi].is_format != undecided);
 
   if (some_undecided)
     for (size_t i = 0; i < NFORMATS; i++)
       {
-        if (is_format[i] == undecided)
+        if (mp->is_format[i] == undecided)
           for (size_t fi = 0; fi < NXFORMATS; fi++)
             if (formatstring_parsers[i] == current_formatstring_parser[fi]
                 && region->for_formatstring[fi].is_format != undecided)
-              is_format[i] = region->for_formatstring[fi].is_format;
-        if (possible_format_p (is_format[i]))
-          {
-            struct formatstring_parser *parser = formatstring_parsers[i];
-            char *invalid_reason = NULL;
-            void *descr = parser->parse (string, false, NULL, &invalid_reason);
-
-            if (descr != NULL)
-              parser->free (descr);
-            else
-              {
-                /* The string is not a valid format string.  */
-                if (is_format[i] != possible)
-                  if_error (IF_SEVERITY_WARNING,
-                            pos->file_name, pos->line_number, (size_t)(-1), true,
-                            is_format[i] == yes_according_to_context
-                            ? _("Although being used in a format string position, the %s is not a valid %s format string. Reason: %s\n")
-                            : _("Although declared as such, the %s is not a valid %s format string. Reason: %s\n"),
-                            pretty_msgstr, format_language_pretty[i],
-                            invalid_reason);
-
-                is_format[i] = impossible;
-                free (invalid_reason);
-              }
-          }
+              mp->is_format[i] = region->for_formatstring[fi].is_format;
+        validate_is_format (mp, plural, pos, i);
       }
+
+  /* Prepare for doing the same thing in a delayed manner.
+     This is useful for methods named 'printf' on a class 'String'.  */
+  for (size_t fi = 0; fi < NXFORMATS; fi++)
+    if (current_formatstring_parser[fi] != NULL
+        && region->for_formatstring[fi].remembered != NULL)
+      remembered_message_list_append (region->for_formatstring[fi].remembered,
+                                      (struct remembered_message_ty) { mp, plural, *pos });
+}
+
+void
+set_format_flag_from_context (message_ty *mp, bool plural, lex_pos_ty *pos,
+                              size_t fi, flag_region_ty const *region)
+{
+  if (region->for_formatstring[fi].is_format != undecided)
+    for (size_t i = 0; i < NFORMATS; i++)
+      if (formatstring_parsers[i] == current_formatstring_parser[fi])
+        {
+          mp->is_format[i] = region->for_formatstring[fi].is_format;
+          validate_is_format (mp, plural, pos, i);
+        }
 }
 
 
@@ -336,7 +363,7 @@ meta information, not the empty string.\n"));
 
   /* Determine whether the context specifies that the msgid is a format
      string.  */
-  set_format_flags_from_context (mp->is_format, region, mp->msgid, pos, "msgid");
+  set_format_flags_from_context (mp, false, pos, region);
 
   /* Ask the lexer for the comments it has seen.  */
   {
@@ -559,8 +586,7 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
 
       /* Determine whether the context specifies that the msgid_plural is a
          format string.  */
-      set_format_flags_from_context (mp->is_format, region, mp->msgid_plural,
-                                     pos, "msgid_plural");
+      set_format_flags_from_context (mp, true, pos, region);
 
       /* If it is not already decided, through programmer comments or
          the msgid, whether the msgid is a format string, examine the

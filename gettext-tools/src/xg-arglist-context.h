@@ -85,11 +85,37 @@ extern void
                                     int argnum, enum is_format value, bool pass);
 
 
+/* A set of arguments to pass to set_format_flag_from_context.  */
+struct remembered_message_ty
+{
+  message_ty *mp;
+  bool plural;
+  lex_pos_ty pos;
+};
+
+/* A list of 'struct remembered_message_ty'.  */
+struct remembered_message_list_ty
+{
+  unsigned int refcount;
+  struct remembered_message_ty *item;
+  size_t nitems;
+  size_t nitems_max;
+};
+
+/* Adds an element to a list of 'struct remembered_message_ty'.  */
+extern void
+       remembered_message_list_append (struct remembered_message_list_ty *list,
+                                       struct remembered_message_ty element);
+
 /* Context representing some flags w.r.t. a specific format string type,
    as effective in a region of the input file.  */
 struct formatstring_region_ty
 {
   enum is_format is_format;
+  /* Messages that were remembered in this context.
+     This messages list is shared with sub-regions when pass_format was true
+     in inheriting_region.  */
+  struct remembered_message_list_ty *remembered;
 };
 
 /* A region of the input file, in which a given context is in effect, together

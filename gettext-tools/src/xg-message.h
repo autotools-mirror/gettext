@@ -76,6 +76,7 @@ extern void remember_a_message_plural (message_ty *mp,
                                        refcounted_string_list_ty *comment,
                                        bool comment_is_utf8);
 
+
 /* The following functions are used by remember_a_message.
    Most extractors don't need to invoke them explicitly.  */
 
@@ -90,6 +91,15 @@ extern void decide_do_wrap (message_ty *mp);
 
 /* Eliminates the 'undecided' values in mp->syntax_check.  */
 extern void decide_syntax_check (message_ty *mp);
+
+
+/* Updates the is_format[] flag for the given format string index FI
+   depending on the information given in the region's context.
+   This can be called after long after remember_a_message.  */
+extern void set_format_flag_from_context (message_ty *mp, bool plural,
+                                          lex_pos_ty *pos,
+                                          size_t fi,
+                                          flag_region_ty const *region);
 
 
 #ifdef __cplusplus
