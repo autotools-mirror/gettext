@@ -63,8 +63,9 @@ noinst_HEADERS = \
   po-time.h plural-table.h lang-table.h format.h filters.h \
   xgettext.h \
   if-error.h \
-  rc-str-list.h xg-pos.h xg-encoding.h xg-mixed-string.h xg-arglist-context.h \
-  xg-arglist-callshape.h xg-arglist-parser.h xg-message.h xg-check.h \
+  rc-str-list.h xg-pos.h xg-encoding.h xg-mixed-string.h xg-formatstring.h \
+  xg-arglist-context.h xg-arglist-callshape.h xg-arglist-parser.h xg-message.h \
+  xg-check.h \
   x-po.h x-properties.h x-stringtable.h \
   x-c.h \
   x-python.h \
@@ -238,6 +239,7 @@ xgettext_SOURCES += \
   xg-pos.c \
   xg-encoding.c \
   xg-mixed-string.c \
+  xg-formatstring.c \
   xg-arglist-context.c xg-arglist-callshape.c xg-arglist-parser.c \
   xg-message.c \
   xg-check.c \

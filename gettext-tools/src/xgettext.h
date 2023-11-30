@@ -55,13 +55,6 @@ extern int verbose;
 
 extern enum is_syntax_check default_syntax_check[NSYNTAXCHECKS];
 
-/* Language dependent format string parser.
-   NULL if the language has no notion of format strings.  */
-extern struct formatstring_parser *current_formatstring_parser1;
-extern struct formatstring_parser *current_formatstring_parser2;
-extern struct formatstring_parser *current_formatstring_parser3;
-extern struct formatstring_parser *current_formatstring_parser4;
-
 
 /* Record a flag in the appropriate backend's table.
    OPTIONSTRING has the syntax WORD:ARG:FLAG (as documented)

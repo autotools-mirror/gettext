@@ -308,6 +308,9 @@ msgl-check.c
 | xg-mixed-string.c
 |               Handling strings that are given partially in the source
 |               encoding and partially in Unicode.
+| xg-formatstring.h
+| xg-formatstring.c
+|               Recognizing language-dependent format strings.
 | xg-arglist-context.h
 | xg-arglist-context.c
 |               Keeping track of the flags that apply to a string extracted

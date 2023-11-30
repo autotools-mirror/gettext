@@ -33,6 +33,7 @@
 #include "verify.h"
 
 #include "xgettext.h"
+#include "xg-formatstring.h"
 
 #include "gettext.h"
 #define _(str) gettext (str)
