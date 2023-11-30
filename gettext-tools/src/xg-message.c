@@ -230,7 +230,6 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
                     refcounted_string_list_ty *comment, bool comment_is_utf8)
 {
   struct argument_range range;
-  enum is_syntax_check do_syntax_check[NSYNTAXCHECKS];
   message_ty *mp;
   size_t i;
 
@@ -253,8 +252,6 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
 
   range.min = -1;
   range.max = -1;
-  for (i = 0; i < NSYNTAXCHECKS; i++)
-    do_syntax_check[i] = undecided;
 
   if (!is_utf8)
     {
@@ -315,8 +312,6 @@ meta information, not the empty string.\n"));
       if (msgctxt != NULL)
         free (msgctxt);
       free (msgid);
-      for (i = 0; i < NSYNTAXCHECKS; i++)
-        do_syntax_check[i] = mp->do_syntax_check[i];
     }
   else
     {
@@ -430,7 +425,7 @@ meta information, not the empty string.\n"));
             for (i = 0; i < NSYNTAXCHECKS; i++)
               if (tmp_syntax_check[i] != undecided)
                 {
-                  do_syntax_check[i] = tmp_syntax_check[i];
+                  mp->do_syntax_check[i] = tmp_syntax_check[i];
                   interesting = true;
                 }
 
@@ -498,8 +493,6 @@ meta information, not the empty string.\n"));
 
   decide_do_wrap (mp);
 
-  for (i = 0; i < NSYNTAXCHECKS; i++)
-    mp->do_syntax_check[i] = do_syntax_check[i];
   decide_syntax_check (mp);
 
   /* Warn about the use of non-reorderable format strings when the programming
