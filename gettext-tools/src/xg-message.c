@@ -230,7 +230,6 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
                     refcounted_string_list_ty *comment, bool comment_is_utf8)
 {
   struct argument_range range;
-  enum is_wrap do_wrap;
   enum is_syntax_check do_syntax_check[NSYNTAXCHECKS];
   message_ty *mp;
   size_t i;
@@ -254,7 +253,6 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
 
   range.min = -1;
   range.max = -1;
-  do_wrap = undecided;
   for (i = 0; i < NSYNTAXCHECKS; i++)
     do_syntax_check[i] = undecided;
 
@@ -317,7 +315,6 @@ meta information, not the empty string.\n"));
       if (msgctxt != NULL)
         free (msgctxt);
       free (msgid);
-      do_wrap = mp->do_wrap;
       for (i = 0; i < NSYNTAXCHECKS; i++)
         do_syntax_check[i] = mp->do_syntax_check[i];
     }
@@ -427,7 +424,7 @@ meta information, not the empty string.\n"));
               }
             if (tmp_wrap != undecided)
               {
-                do_wrap = tmp_wrap;
+                mp->do_wrap = tmp_wrap;
                 interesting = true;
               }
             for (i = 0; i < NSYNTAXCHECKS; i++)
@@ -438,7 +435,7 @@ meta information, not the empty string.\n"));
                 }
 
             /* If the "xgettext:" marker was followed by an interesting
-               keyword, and we updated our mp->is_format/do_wrap variables,
+               keyword, and we updated our mp->is_format/mp->do_wrap variables,
                we don't print the comment as a #. comment.  */
             if (interesting)
               continue;
@@ -499,7 +496,6 @@ meta information, not the empty string.\n"));
 
   intersect_range (mp, &range);
 
-  mp->do_wrap = do_wrap;
   decide_do_wrap (mp);
 
   for (i = 0; i < NSYNTAXCHECKS; i++)
