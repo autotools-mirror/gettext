@@ -403,6 +403,7 @@ enum token_type_ty
   token_type_string_literal,            /* "abc" */
   token_type_string_template,           /* @"abc" */
   token_type_regex_literal,             /* /.../ */
+  token_type_semicolon,                 /* ; */
   token_type_symbol,                    /* if else etc. */
   token_type_other
 };
@@ -1206,6 +1207,10 @@ phase3_get (token_ty *tp)
             return;
           }
 
+        case ';':
+          tp->type = last_token_type = token_type_semicolon;
+          return;
+
         default:
           tp->type = last_token_type = token_type_other;
           return;
@@ -1226,11 +1231,20 @@ phase3_unget (token_ty *tp)
 }
 
 
-/* String concatenation with '+'.  */
+/* 4. String concatenation with '+'.  */
+
+static token_ty phase4_pushback[2];
+static int phase4_pushback_length;
 
 static void
-x_vala_lex (token_ty *tp)
+phase4_get (token_ty *tp)
 {
+  if (phase4_pushback_length)
+    {
+      *tp = phase4_pushback[--phase4_pushback_length];
+      return;
+    }
+
   phase3_get (tp);
   if (tp->type == token_type_string_literal)
     {
@@ -1263,6 +1277,31 @@ x_vala_lex (token_ty *tp)
     }
 }
 
+static void
+phase4_unget (token_ty *tp)
+{
+  if (tp->type != token_type_eof)
+    {
+      if (phase4_pushback_length == SIZEOF (phase4_pushback))
+        abort ();
+      phase4_pushback[phase4_pushback_length++] = *tp;
+    }
+}
+
+
+static void
+x_vala_lex (token_ty *tp)
+{
+  phase4_get (tp);
+}
+
+/* Supports 2 tokens of pushback.  */
+static void
+x_vala_unlex (token_ty *tp)
+{
+  phase4_unget (tp);
+}
+
 
 /* ========================= Extracting strings.  ========================== */
 
@@ -1293,7 +1332,8 @@ static int nesting_depth;
    We use recursion because the arguments before msgid or between msgid
    and msgid_plural can contain subexpressions of the same form.  */
 
-/* Extract messages until the next balanced closing parenthesis or bracket.
+/* Extract messages until the next balanced closing parenthesis or bracket
+   or the next semicolon.
    Extracted messages are added to MLP.
    DELIM can be either token_type_rparen or token_type_rbracket, or
    token_type_eof to accept both.
@@ -1366,6 +1406,36 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
               return true;
             }
           nesting_depth--;
+          /* Test whether the next tokens are '.' and 'printf' or 'vprintf'.  */
+          {
+            token_ty token2;
+            x_vala_lex (&token2);
+            if (token2.type == token_type_symbol
+                && strcmp (token2.string, ".") == 0)
+              {
+                token_ty token3;
+                x_vala_lex (&token3);
+                if (token3.type == token_type_symbol
+                    && (strcmp (token3.string, "printf") == 0
+                        || strcmp (token3.string, "vprintf") == 0))
+                  {
+                    /* Mark the messages found in the region as c-format
+                       a posteriori.  */
+                    inner_region->for_formatstring[XFORMAT_PRIMARY].is_format = yes_according_to_context;
+                    struct remembered_message_list_ty *rmlp =
+                      inner_region->for_formatstring[XFORMAT_PRIMARY].remembered;
+                    size_t i;
+                    for (i = 0; i < rmlp->nitems; i++)
+                      {
+                        struct remembered_message_ty *rmp = &rmlp->item[i];
+                        set_format_flag_from_context (rmp->mp, rmp->plural, &rmp->pos,
+                                                      XFORMAT_PRIMARY, inner_region);
+                      }
+                  }
+                x_vala_unlex (&token3);
+              }
+            x_vala_unlex (&token2);
+          }
           next_context_iter = null_context_list_iterator;
           state = 0;
           break;
@@ -1392,6 +1462,11 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
           continue;
+
+        case token_type_semicolon:
+          arglist_parser_done (argparser, arg);
+          unref_region (inner_region);
+          return false;
 
         case token_type_eof:
           arglist_parser_done (argparser, arg);
@@ -1484,6 +1559,8 @@ extract_vala (FILE *f,
 
   phase3_pushback_length = 0;
   last_token_type = token_type_other;
+
+  phase4_pushback_length = 0;
 
   flag_context_list_table = flag_table;
   nesting_depth = 0;

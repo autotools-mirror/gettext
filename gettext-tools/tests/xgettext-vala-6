@@ -8,6 +8,10 @@
 cat <<\EOF > xg-vala-6.vala
 "<b>%s</b>".printf(_("Hello 1"));
 _("Explanation: %s").printf(_("Hello 2"));
+_("No error 1");
+_("No error 2").printf();
+(_("No error 3")).printf();
+foo(_("No error 4")).printf();
 Posix.printf(_("Hello 3"));
 Posix.printf(_("Hello 4 %s!"), _("Sir"));
 EOF
@@ -24,6 +28,20 @@ msgid "Explanation: %s"
 msgstr ""
 
 msgid "Hello 2"
+msgstr ""
+
+msgid "No error 1"
+msgstr ""
+
+#, c-format
+msgid "No error 2"
+msgstr ""
+
+#, c-format
+msgid "No error 3"
+msgstr ""
+
+msgid "No error 4"
 msgstr ""
 
 msgid "Hello 3"

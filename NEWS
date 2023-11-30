@@ -1,6 +1,8 @@
 Version 0.23 - December 2023
 
 * Programming languages support:
+  - Vala: Improved recognition of format strings when the string.printf method
+    is used.
   - Glade: xgettext has improved support for GtkBuilder 4.
 
 * Runtime behaviour:
