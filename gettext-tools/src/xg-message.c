@@ -229,7 +229,6 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
                     const char *extracted_comment,
                     refcounted_string_list_ty *comment, bool comment_is_utf8)
 {
-  enum is_format is_format[NFORMATS];
   struct argument_range range;
   enum is_wrap do_wrap;
   enum is_syntax_check do_syntax_check[NSYNTAXCHECKS];
@@ -253,8 +252,6 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
 
   savable_comment_to_xgettext_comment (comment);
 
-  for (i = 0; i < NFORMATS; i++)
-    is_format[i] = undecided;
   range.min = -1;
   range.max = -1;
   do_wrap = undecided;
@@ -320,8 +317,6 @@ meta information, not the empty string.\n"));
       if (msgctxt != NULL)
         free (msgctxt);
       free (msgid);
-      for (i = 0; i < NFORMATS; i++)
-        is_format[i] = mp->is_format[i];
       do_wrap = mp->do_wrap;
       for (i = 0; i < NSYNTAXCHECKS; i++)
         do_syntax_check[i] = mp->do_syntax_check[i];
@@ -349,7 +344,7 @@ meta information, not the empty string.\n"));
 
   /* Determine whether the context specifies that the msgid is a format
      string.  */
-  set_format_flags_from_context (is_format, context, mp->msgid, pos, "msgid");
+  set_format_flags_from_context (mp->is_format, context, mp->msgid, pos, "msgid");
 
   /* Ask the lexer for the comments it has seen.  */
   {
@@ -422,7 +417,7 @@ meta information, not the empty string.\n"));
             for (i = 0; i < NFORMATS; i++)
               if (tmp_format[i] != undecided)
                 {
-                  is_format[i] = tmp_format[i];
+                  mp->is_format[i] = tmp_format[i];
                   interesting = true;
                 }
             if (has_range_p (tmp_range))
@@ -443,7 +438,7 @@ meta information, not the empty string.\n"));
                 }
 
             /* If the "xgettext:" marker was followed by an interesting
-               keyword, and we updated our is_format/do_wrap variables,
+               keyword, and we updated our mp->is_format/do_wrap variables,
                we don't print the comment as a #. comment.  */
             if (interesting)
               continue;
@@ -500,8 +495,6 @@ meta information, not the empty string.\n"));
       }
   }
 
-  for (i = 0; i < NFORMATS; i++)
-    mp->is_format[i] = is_format[i];
   decide_is_format (mp);
 
   intersect_range (mp, &range);
@@ -515,7 +508,7 @@ meta information, not the empty string.\n"));
 
   /* Warn about the use of non-reorderable format strings when the programming
      language also provides reorderable format strings.  */
-  warn_format_string (is_format, mp->msgid, pos, "msgid");
+  warn_format_string (mp->is_format, mp->msgid, pos, "msgid");
 
   /* Remember where we saw this msgid.  */
   message_comment_filepos (mp, pos->file_name, pos->line_number);
