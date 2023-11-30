@@ -6,8 +6,8 @@
 : ${XGETTEXT=xgettext}
 
 cat <<\EOF > xg-vala-5.vala
-printf (_("blablaQ %d and %s"), a, b);
-printf (_("blablaQ {0} and {1}"), a, b);
+vprintf (_("blablaQ %d and %s"), args);
+vprintf (_("blablaQ {0} and {1}"), args);
 EOF
 
 ${XGETTEXT} --omit-header --no-location -o xg-vala-5.tmp xg-vala-5.vala || Exit 1

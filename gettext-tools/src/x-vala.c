@@ -145,7 +145,52 @@ init_flag_table_vala ()
   xgettext_record_flag ("N_:1:pass-c-format!Vala");
   xgettext_record_flag ("NC_:2:pass-c-format!Vala");
 
-  xgettext_record_flag ("printf:1:c-format!Vala");
+  /* In Vala, vprintf does not exist as a function, only as a method.
+     https://valadoc.org/?q=printf provides this list:
+
+     Method                                             Arguments
+
+     Posix.FILE.printf (posix)                          (string format, ...)
+     Posix.printf (posix)                               (string format, ...)
+     Alsa.Output.printf (alsa)                          (string format, ...)
+     Dazzle.Path.printf (libdazzle-1.0)                 ()
+     Dazzle.ShortcutChordTable.printf (libdazzle-1.0)   ()
+     string.printf (glib-2.0)                           (...)
+     GLib.FileStream.printf (glib-2.0)                  (string format, ...)
+     GLib.StringBuilder.printf (glib-2.0)               (string format, ...)
+     GLib.Variant.Variant.printf (glib-2.0)             (string format, ...)
+     FastCGI.FileStream.printf (fcgi)                   (string format, ...)
+     FastCGI.Stream.printf (fcgi)                       (string format, ...)
+     Purple.Stringref.printf (purple)                   (string format)
+     Gsl.Stream.printf (gsl)                            (string label, string file, int line, string reason)
+     Gsf.Output.printf (libgsf-1)                       (string format, ...)
+     GLib.OutputStream.printf (gio-2.0)                 (out size_t bytes_written, Cancellable? cancellable, string format, ...)
+     TokyoCabinet.XString.printf (tokyocabinet)         (string format, ...)
+     ZLib.GZFileStream.printf (zlib)                    (string format, ...)
+
+     Therefore, whenever the first argument is a string, it may be a format
+     string or a plain string.  We don't know.  Therefore we cannot enable
+     this flag.  Recognition of format strings that occur as a first argument
+     therefore relies on the heuristics.  */
+  /* Override the effect of
+       xgettext_record_flag ("printf:1:c-format");
+     in x-c.c.  */
+  xgettext_record_flag ("printf:1:undecided-c-format!Vala");
+
+  /* In Vala, vprintf does not exist as a function, only as a method.
+     https://valadoc.org/?q=vprintf provides this list:
+
+     Method                                             Arguments
+     string.vprintf (glib-2.0)                          (va_list args)
+     GLib.FileStream.vprintf (glib-2.0)                 (string format, va_list args)
+     GLib.StringBuilder.vprintf (glib-2.0)              (string format, va_list args)
+     FastCGI.FileStream.vprintf (fcgi)                  (string format, va_list args)
+     FastCGI.Stream.vprintf (fcgi)                      (string format, va_list args)
+     Gsf.Output.vprintf (libgsf-1)                      (string format, va_list args)
+     GLib.OutputStream.vprintf (gio-2.0)                (out size_t bytes_written, Cancellable? cancellable, string format, va_list args)
+
+     Therefore, whenever the first argument is a string, it must be a format
+     string.  */
   xgettext_record_flag ("vprintf:1:c-format!Vala");
 }
 

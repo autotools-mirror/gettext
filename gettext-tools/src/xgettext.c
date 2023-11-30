@@ -1483,6 +1483,12 @@ xgettext_record_flag (const char *optionstring)
               n -= 11;
               value = impossible;
             }
+          else if (n >= 10 && memcmp (p, "undecided-", 10) == 0)
+            {
+              p += 10;
+              n -= 10;
+              value = undecided;
+            }
           else
             value = yes_according_to_context;
 
