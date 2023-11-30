@@ -128,7 +128,7 @@ test $? = 0 || { cat autopoint.err; Exit 1; }
 
 # Check that it all compiles.
 : ${CONFIG_SHELL=${SHELL-/bin/sh}}
-${CONFIG_SHELL} ./configure >/dev/null 2>autpoint.err
+${CONFIG_SHELL} ./configure >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
 
 ${MAKE} >/dev/null 2>autopoint.err
