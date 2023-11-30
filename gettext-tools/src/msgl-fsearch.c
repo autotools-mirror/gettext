@@ -25,6 +25,7 @@
 #include <math.h>
 #include <stdlib.h>
 
+#include "attribute.h"
 #include "xalloc.h"
 #include "po-charset.h"
 
@@ -130,7 +131,7 @@ addlast_index (index_list_ty list, index_ty idx)
 /* Add a given index to an index list.
    Return the new index list, if it had to be reallocated, or NULL if it
    didn't change.  */
-static inline index_list_ty
+MAYBE_UNUSED static inline index_list_ty
 add_index (index_list_ty list, index_ty idx)
 {
   index_list_ty result;

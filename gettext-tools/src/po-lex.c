@@ -36,6 +36,7 @@
 # include <iconv.h>
 #endif
 
+#include "attribute.h"
 #include "c-ctype.h"
 #include "uniwidth.h"
 #include "gettext.h"
@@ -169,7 +170,7 @@ mb_iseq (const mbchar_t mbc, char sc)
     return (mbc->bytes == 1 && mbc->buf[0] == sc);
 }
 
-static inline bool
+MAYBE_UNUSED static inline bool
 mb_isnul (const mbchar_t mbc)
 {
 #if HAVE_ICONV
@@ -180,7 +181,7 @@ mb_isnul (const mbchar_t mbc)
     return (mbc->bytes == 1 && mbc->buf[0] == 0);
 }
 
-static inline int
+MAYBE_UNUSED static inline int
 mb_cmp (const mbchar_t mbc1, const mbchar_t mbc2)
 {
 #if HAVE_ICONV
@@ -195,7 +196,7 @@ mb_cmp (const mbchar_t mbc1, const mbchar_t mbc2)
               : (memcmp (mbc1->buf, mbc2->buf, mbc2->bytes) >= 0 ? 1 : -1));
 }
 
-static inline bool
+MAYBE_UNUSED static inline bool
 mb_equal (const mbchar_t mbc1, const mbchar_t mbc2)
 {
 #if HAVE_ICONV
@@ -209,7 +210,7 @@ mb_equal (const mbchar_t mbc1, const mbchar_t mbc2)
 
 /* <ctype.h>, <wctype.h> classification.  */
 
-static inline bool
+MAYBE_UNUSED static inline bool
 mb_isascii (const mbchar_t mbc)
 {
 #if HAVE_ICONV
@@ -279,14 +280,14 @@ mb_width (struct po_parser_state *ps, const mbchar_t mbc)
 }
 
 /* Output.  */
-static inline void
+MAYBE_UNUSED static inline void
 mb_putc (const mbchar_t mbc, FILE *stream)
 {
   fwrite (mbc->buf, 1, mbc->bytes, stream);
 }
 
 /* Assignment.  */
-static inline void
+MAYBE_UNUSED static inline void
 mb_setascii (mbchar_t mbc, char sc)
 {
   mbc->bytes = 1;

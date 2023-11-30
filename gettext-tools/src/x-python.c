@@ -197,7 +197,7 @@ phase0_getc ()
 }
 
 /* Supports only one pushback character, and not '\n'.  */
-static inline void
+MAYBE_UNUSED static inline void
 phase0_ungetc (int c)
 {
   if (c != EOF)

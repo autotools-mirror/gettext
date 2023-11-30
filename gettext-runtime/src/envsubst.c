@@ -28,6 +28,7 @@
 #include <unistd.h>
 #include <locale.h>
 
+#include "attribute.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "error.h"
@@ -358,7 +359,7 @@ string_list_sort (string_list_ty *slp)
 }
 
 /* Test whether a string list contains a given string.  */
-static inline int
+MAYBE_UNUSED static inline int
 string_list_member (const string_list_ty *slp, const char *s)
 {
   size_t j;
@@ -402,7 +403,7 @@ sorted_string_list_member (const string_list_ty *slp, const char *s)
 }
 
 /* Destroy a list of strings.  */
-static inline void
+MAYBE_UNUSED static inline void
 string_list_destroy (string_list_ty *slp)
 {
   size_t j;

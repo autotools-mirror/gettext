@@ -1,5 +1,5 @@
 /* Writing Qt .qm files.
-   Copyright (C) 2003, 2005-2007, 2009, 2016, 2020 Free Software Foundation, Inc.
+   Copyright (C) 2003, 2005-2007, 2009, 2016, 2020, 2023 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "error.h"
 #include "xerror.h"
 #include "message.h"
@@ -189,7 +190,7 @@ write_u8 (FILE *output_file, unsigned char value)
 }
 
 /* Write a u16 (two bytes) to the output stream.  */
-static inline void
+MAYBE_UNUSED static inline void
 write_u16 (FILE *output_file, unsigned short value)
 {
   unsigned char data[2];

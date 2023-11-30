@@ -22,6 +22,7 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
+#include "attribute.h"
 #include "format.h"
 #include "c-ctype.h"
 #include "gcd.h"
@@ -2321,7 +2322,7 @@ make_repeated_list (struct format_arg_list *sublist, unsigned int period)
 
 /* Possible signatures of format directives.  */
 static const enum format_arg_type I [1] = { FAT_INTEGER_NULL };
-_GL_ATTRIBUTE_MAYBE_UNUSED
+MAYBE_UNUSED
 static const enum format_arg_type II [2] = {
   FAT_INTEGER_NULL, FAT_INTEGER_NULL
 };

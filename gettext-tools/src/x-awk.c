@@ -345,7 +345,7 @@ phase7_getc ()
 
 
 /* Free the memory pointed to by a 'struct token_ty'.  */
-static inline void
+MAYBE_UNUSED static inline void
 free_token (token_ty *tp)
 {
   switch (tp->type)
