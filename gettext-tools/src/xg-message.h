@@ -1,5 +1,5 @@
 /* Extracting a message.  Accumulating the message list.
-   Copyright (C) 2001-2020 Free Software Foundation, Inc.
+   Copyright (C) 2001-2023 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -52,7 +52,7 @@ extern message_ty *remember_a_message (message_list_ty *mlp,
                                        char *msgid,
                                        bool is_utf8,
                                        bool pluralp,
-                                       flag_context_ty context,
+                                       flag_region_ty *region,
                                        lex_pos_ty *pos,
                                        const char *extracted_comment,
                                        refcounted_string_list_ty *comment,
@@ -71,7 +71,7 @@ extern message_ty *remember_a_message (message_list_ty *mlp,
 extern void remember_a_message_plural (message_ty *mp,
                                        char *string,
                                        bool is_utf8,
-                                       flag_context_ty context,
+                                       flag_region_ty *region,
                                        lex_pos_ty *pos,
                                        refcounted_string_list_ty *comment,
                                        bool comment_is_utf8);

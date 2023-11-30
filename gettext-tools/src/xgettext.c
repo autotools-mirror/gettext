@@ -1980,7 +1980,7 @@ xgettext_its_extract_callback (message_list_ty *mlp,
                                 msgctxt == NULL ? NULL : xstrdup (msgctxt),
                                 xstrdup (msgid),
                                 false, false,
-                                null_context, pos,
+                                null_context_region (), pos,
                                 extracted_comment, NULL, false);
 
   if (add_itstool_comments)

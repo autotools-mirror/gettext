@@ -561,8 +561,8 @@ extract_smalltalk (FILE *f,
                 pos.file_name = logical_file_name;
                 pos.line_number = token.line_number;
                 remember_a_message (mlp, NULL, token.string, false, false,
-                                    null_context, &pos, NULL, savable_comment,
-                                    false);
+                                    null_context_region (), &pos,
+                                    NULL, savable_comment, false);
                 state = 0;
                 break;
               }
@@ -580,7 +580,7 @@ extract_smalltalk (FILE *f,
                   remember_a_message (mlp, NULL, token.string, false,
                                       token2.type == token_type_symbol
                                       && strcmp (token.string, "plural:") == 0,
-                                      null_context, &pos,
+                                      null_context_region (), &pos,
                                       NULL, savable_comment, false);
 
                 phase3_unget (&token2);
@@ -595,7 +595,7 @@ extract_smalltalk (FILE *f,
                 pos.line_number = token.line_number;
                 if (plural_mp != NULL)
                   remember_a_message_plural (plural_mp, token.string, false,
-                                             null_context, &pos,
+                                             null_context_region (), &pos,
                                              savable_comment, false);
                 state = 0;
                 break;

@@ -24,13 +24,14 @@
 
 #include <stdlib.h>
 
+#include "attribute.h"
 #include "xalloc.h"
 #include "xmalloca.h"
 #include "verify.h"
 
 
 /* Null context.  */
-flag_context_ty null_context =
+static flag_context_ty null_context =
   {
     {
       { undecided, false },
@@ -41,7 +42,7 @@ flag_context_ty null_context =
   };
 
 /* Transparent context.  */
-flag_context_ty passthrough_context =
+MAYBE_UNUSED static flag_context_ty passthrough_context =
   {
     {
       { undecided, true },
@@ -50,22 +51,6 @@ flag_context_ty passthrough_context =
       { undecided, true }
     }
   };
-
-
-flag_context_ty
-inherited_context (flag_context_ty outer_context,
-                   flag_context_ty modifier_context)
-{
-  flag_context_ty result = modifier_context;
-
-  for (size_t fi = 0; fi < NXFORMATS; fi++)
-    if (result.for_formatstring[fi].pass_format)
-      {
-        result.for_formatstring[fi].is_format = outer_context.for_formatstring[fi].is_format;
-        result.for_formatstring[fi].pass_format = false;
-      }
-  return result;
-}
 
 
 /* Null context list iterator.  */
@@ -220,4 +205,66 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
           }
       }
   }
+}
+
+
+/* We don't need to remember messages that were processed in the null context
+   region.  Therefore the null context region can be a singleton.  This
+   reduces the number of needed calls to unref_region.  */
+static flag_region_ty const the_null_context_region =
+  {
+    1,
+    {
+      { undecided },
+      { undecided },
+      { undecided },
+      { undecided }
+    }
+  };
+
+flag_region_ty *
+null_context_region ()
+{
+  return (flag_region_ty *) &the_null_context_region;
+}
+
+
+flag_region_ty *
+inheriting_region (flag_region_ty *outer_region,
+                   flag_context_ty modifier_context)
+{
+  flag_region_ty *region = XMALLOC (flag_region_ty);
+
+  region->refcount = 1;
+  for (size_t fi = 0; fi < NXFORMATS; fi++)
+    {
+      if (modifier_context.for_formatstring[fi].pass_format)
+        region->for_formatstring[fi].is_format = outer_region->for_formatstring[fi].is_format;
+      else
+        region->for_formatstring[fi].is_format = modifier_context.for_formatstring[fi].is_format;
+    }
+
+  return region;
+}
+
+
+flag_region_ty *
+ref_region (flag_region_ty *region)
+{
+  if (region != NULL && region != &the_null_context_region)
+    region->refcount++;
+  return region;
+}
+
+
+void
+unref_region (flag_region_ty *region)
+{
+  if (region != NULL && region != &the_null_context_region)
+    {
+      if (region->refcount > 1)
+        region->refcount--;
+      else
+        free (region);
+    }
 }

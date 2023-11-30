@@ -662,7 +662,7 @@ static int nesting_depth;
    Return true upon eof, false upon closing parenthesis.  */
 static bool
 extract_parenthesized (message_list_ty *mlp,
-                       flag_context_ty outer_context,
+                       flag_region_ty *outer_region,
                        flag_context_list_iterator_ty context_iter,
                        bool in_i18n)
 {
@@ -672,9 +672,9 @@ extract_parenthesized (message_list_ty *mlp,
   /* Context iterator that will be used if the next token is a '('.  */
   flag_context_list_iterator_ty next_context_iter =
     passthrough_context_list_iterator;
-  /* Current context.  */
-  flag_context_ty inner_context =
-    inherited_context (outer_context,
+  /* Current region.  */
+  flag_region_ty *inner_region =
+    inheriting_region (outer_region,
                        flag_context_list_iterator_advance (&context_iter));
 
   /* Start state is 0 or 1.  */
@@ -696,9 +696,12 @@ extract_parenthesized (message_list_ty *mlp,
             if_error (IF_SEVERITY_FATAL_ERROR,
                       logical_file_name, line_number, (size_t)(-1), false,
                       _("too many open parentheses"));
-          if (extract_parenthesized (mlp, inner_context, next_context_iter,
+          if (extract_parenthesized (mlp, inner_region, next_context_iter,
                                      true))
-            return true;
+            {
+              unref_region (inner_region);
+              return true;
+            }
           nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
@@ -724,7 +727,7 @@ extract_parenthesized (message_list_ty *mlp,
                   plural_mp =
                     remember_a_message (mlp, NULL, token.string, false,
                                         token2.type == token_type_comma,
-                                        inner_context, &pos,
+                                        inner_region, &pos,
                                         NULL, token.comment, false);
 
                   if (in_i18n)
@@ -740,7 +743,7 @@ extract_parenthesized (message_list_ty *mlp,
                   /* Seen an msgid_plural.  */
                   if (plural_mp != NULL)
                     remember_a_message_plural (plural_mp, token.string, false,
-                                               inner_context, &pos,
+                                               inner_region, &pos,
                                                token.comment, false);
                   state = 0;
                 }
@@ -769,15 +772,19 @@ extract_parenthesized (message_list_ty *mlp,
             if_error (IF_SEVERITY_FATAL_ERROR,
                       logical_file_name, line_number, (size_t)(-1), false,
                       _("too many open parentheses"));
-          if (extract_parenthesized (mlp, inner_context, next_context_iter,
+          if (extract_parenthesized (mlp, inner_region, next_context_iter,
                                      false))
-            return true;
+            {
+              unref_region (inner_region);
+              return true;
+            }
           nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
           continue;
 
         case token_type_rparen:
+          unref_region (inner_region);
           return false;
 
         case token_type_comma:
@@ -785,8 +792,9 @@ extract_parenthesized (message_list_ty *mlp,
             state = 1;
           else
             state = 0;
-          inner_context =
-            inherited_context (outer_context,
+          unref_region (inner_region);
+          inner_region =
+            inheriting_region (outer_region,
                                flag_context_list_iterator_advance (
                                  &context_iter));
           next_context_iter = passthrough_context_list_iterator;
@@ -798,6 +806,7 @@ extract_parenthesized (message_list_ty *mlp,
           continue;
 
         case token_type_eof:
+          unref_region (inner_region);
           return true;
 
         default:
@@ -833,8 +842,8 @@ extract_ycp (FILE *f,
 
   /* Eat tokens until eof is seen.  When extract_parenthesized returns
      due to an unbalanced closing parenthesis, just restart it.  */
-  while (!extract_parenthesized (mlp, null_context, null_context_list_iterator,
-                                 false))
+  while (!extract_parenthesized (mlp, null_context_region (),
+                                 null_context_list_iterator, false))
     ;
 
   fp = NULL;

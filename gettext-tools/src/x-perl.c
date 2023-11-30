@@ -809,7 +809,7 @@ static bool extract_balanced (message_list_ty *mlp,
                               token_type_ty delim, bool eat_delim,
                               bool semicolon_delim, bool eat_semicolon_delim,
                               bool comma_delim,
-                              flag_context_ty outer_context,
+                              flag_region_ty *outer_region,
                               flag_context_list_iterator_ty context_iter,
                               int arg, struct arglist_parser *argparser);
 
@@ -1416,7 +1416,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
         if (extract_balanced (mlp,
                               token_type_rbrace, true,
                               false, false, false,
-                              null_context, null_context_list_iterator,
+                              null_context_region (), null_context_list_iterator,
                               1, arglist_parser_alloc (mlp, NULL)))
           {
             tp->type = token_type_eof;
@@ -1590,11 +1590,11 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
                     token_ty *t2 = x_perl_lex (mlp);
                     if (t2->type == token_type_rbrace)
                       {
-                        flag_context_ty context;
+                        flag_region_ty *region;
                         lex_pos_ty pos;
 
-                        context =
-                          inherited_context (null_context,
+                        region =
+                          inheriting_region (null_context_region (),
                                              flag_context_list_iterator_advance (
                                                &context_iter));
 
@@ -1602,7 +1602,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
                         pos.file_name = logical_file_name;
 
                         remember_a_message (mlp, NULL, xstrdup (t1->string),
-                                            true, false, context, &pos,
+                                            true, false, region, &pos,
                                             NULL, savable_comment, true);
                         free_token (t2);
                         free_token (t1);
@@ -1618,7 +1618,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
                     if (extract_balanced (mlp,
                                           token_type_rbrace, true,
                                           false, false, false,
-                                          null_context, context_iter,
+                                          null_context_region (), context_iter,
                                           1, arglist_parser_alloc (mlp, &shapes)))
                       return;
                   }
@@ -1651,7 +1651,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
           extract_balanced (mlp,
                             token_type_rbrace, true,
                             false, false, false,
-                            null_context, null_context_list_iterator,
+                            null_context_region (), null_context_list_iterator,
                             1, arglist_parser_alloc (mlp, NULL));
           break;
 
@@ -1663,7 +1663,7 @@ extract_variable (message_list_ty *mlp, token_ty *tp, int first)
           extract_balanced (mlp,
                             token_type_rbracket, true,
                             false, false, false,
-                            null_context, null_context_list_iterator,
+                            null_context_region (), null_context_list_iterator,
                             1, arglist_parser_alloc (mlp, NULL));
           break;
 
@@ -1707,7 +1707,7 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
   static char *buffer;
   static int bufmax = 0;
   int bufpos = 0;
-  flag_context_ty context;
+  flag_region_ty *region;
   size_t length;
   size_t index;
   char c;
@@ -1751,12 +1751,12 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
    * barekey:      an bareword character has been seen in state WAIT_QUOTE
    * wait_rbrace:  closing quote has been seen in state DQUOTE or SQUOTE
    *
-   * In the states initial...identifier the context is null_context; in the
-   * states minus...wait_rbrace the context is the one suitable for the first
-   * argument of the last seen identifier.
+   * In the states initial...identifier the context is null_context_region ();
+   * in the states minus...wait_rbrace the context is the one suitable for the
+   * first argument of the last seen identifier.
    */
   state = initial;
-  context = null_context;
+  region = null_context_region ();
 
   length = string_desc_length (string);
   index = 0;
@@ -1861,8 +1861,8 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
                       flag_context_list_table_lookup (
                         flag_context_list_table,
                         buffer, bufpos));
-                  context =
-                    inherited_context (null_context,
+                  region =
+                    inheriting_region (null_context_region (),
                                        flag_context_list_iterator_advance (
                                          &context_iter));
                   state = minus;
@@ -1881,8 +1881,8 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
                       flag_context_list_table_lookup (
                         flag_context_list_table,
                         buffer, bufpos));
-                  context =
-                    inherited_context (null_context,
+                  region =
+                    inheriting_region (null_context_region (),
                                        flag_context_list_iterator_advance (
                                          &context_iter));
                   state = wait_quote;
@@ -1911,7 +1911,7 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
               state = wait_lbrace;
               break;
             default:
-              context = null_context;
+              region = null_context_region ();
               state = initial;
               break;
             }
@@ -1923,7 +1923,7 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
               state = wait_quote;
               break;
             default:
-              context = null_context;
+              region = null_context_region ();
               state = initial;
               break;
             }
@@ -1955,7 +1955,7 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
                 }
               else
                 {
-                  context = null_context;
+                  region = null_context_region ();
                   state = initial;
                 }
               break;
@@ -1980,7 +1980,7 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
             case '\\':
               if (index == length)
                 {
-                  context = null_context;
+                  region = null_context_region ();
                   state = initial;
                 }
               else
@@ -2011,7 +2011,7 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
             case '\\':
               if (index == length)
                 {
-                  context = null_context;
+                  region = null_context_region ();
                   state = initial;
                 }
               else
@@ -2048,7 +2048,7 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
             }
           else if (c != '}')
             {
-              context = null_context;
+              region = null_context_region ();
               state = initial;
               break;
             }
@@ -2063,11 +2063,11 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
               buffer[bufpos] = '\0';
               token.string = xstrdup (buffer);
               extract_quotelike_pass3 (&token, IF_SEVERITY_FATAL_ERROR);
-              remember_a_message (mlp, NULL, token.string, true, false, context,
+              remember_a_message (mlp, NULL, token.string, true, false, region,
                                   &pos, NULL, savable_comment, true);
               FALLTHROUGH;
             default:
-              context = null_context;
+              region = null_context_region ();
               state = initial;
               break;
             }
@@ -3098,7 +3098,7 @@ extract_balanced (message_list_ty *mlp,
                   token_type_ty delim, bool eat_delim,
                   bool semicolon_delim, bool eat_semicolon_delim,
                   bool comma_delim,
-                  flag_context_ty outer_context,
+                  flag_region_ty *outer_region,
                   flag_context_list_iterator_ty context_iter,
                   int arg, struct arglist_parser *argparser)
 {
@@ -3121,9 +3121,9 @@ extract_balanced (message_list_ty *mlp,
   /* Context iterator that will be used if the next token is a '('.  */
   flag_context_list_iterator_ty next_context_iter =
     passthrough_context_list_iterator;
-  /* Current context.  */
-  flag_context_ty inner_context =
-    inherited_context (outer_context,
+  /* Current region.  */
+  flag_region_ty *inner_region =
+    inheriting_region (outer_region,
                        flag_context_list_iterator_advance (&context_iter));
 
   #if DEBUG_PERL
@@ -3157,6 +3157,7 @@ extract_balanced (message_list_ty *mlp,
                   || tp->type == token_type_rbracket)))
         {
           arglist_parser_done (argparser, arg);
+          unref_region (inner_region);
           if (next_argparser != NULL)
             free (next_argparser);
           #if DEBUG_PERL
@@ -3174,6 +3175,7 @@ extract_balanced (message_list_ty *mlp,
       if (semicolon_delim && tp->type == token_type_semicolon)
         {
           arglist_parser_done (argparser, arg);
+          unref_region (inner_region);
           if (next_argparser != NULL)
             free (next_argparser);
           #if DEBUG_PERL
@@ -3191,6 +3193,7 @@ extract_balanced (message_list_ty *mlp,
       if (comma_delim && tp->type == token_type_comma)
         {
           arglist_parser_done (argparser, arg);
+          unref_region (inner_region);
           if (next_argparser != NULL)
             free (next_argparser);
           #if DEBUG_PERL
@@ -3243,10 +3246,11 @@ extract_balanced (message_list_ty *mlp,
           if (extract_balanced (mlp,
                                 delim, false,
                                 true, false, next_comma_delim,
-                                inner_context, next_context_iter,
+                                inner_region, next_context_iter,
                                 1, next_argparser))
             {
               arglist_parser_done (argparser, arg);
+              unref_region (inner_region);
               return true;
             }
           #if DEBUG_NESTING_DEPTH
@@ -3340,10 +3344,11 @@ extract_balanced (message_list_ty *mlp,
                   if (extract_balanced (mlp,
                                         token_type_rparen, true,
                                         false, false, false,
-                                        inner_context, next_context_iter,
+                                        inner_region, next_context_iter,
                                         1, next_argparser))
                     {
                       arglist_parser_done (argparser, arg);
+                      unref_region (inner_region);
                       return true;
                     }
                   #if DEBUG_NESTING_DEPTH
@@ -3363,10 +3368,11 @@ extract_balanced (message_list_ty *mlp,
                   if (extract_balanced (mlp,
                                         token_type_rparen, true,
                                         false, false, false,
-                                        inner_context, next_context_iter,
+                                        inner_region, next_context_iter,
                                         arg, arglist_parser_clone (argparser)))
                     {
                       arglist_parser_done (argparser, arg);
+                      unref_region (inner_region);
                       if (next_argparser != NULL)
                         free (next_argparser);
                       free_token (tp);
@@ -3416,8 +3422,9 @@ extract_balanced (message_list_ty *mlp,
               fprintf (stderr, "%s:%d: arg: %d\n",
                        real_file_name, tp->line_number, arg);
               #endif
-              inner_context =
-                inherited_context (outer_context,
+              unref_region (inner_region);
+              inner_region =
+                inheriting_region (outer_region,
                                    flag_context_list_iterator_advance (
                                      &context_iter));
               next_is_argument = false;
@@ -3442,7 +3449,7 @@ extract_balanced (message_list_ty *mlp,
 
                   pos.file_name = logical_file_name;
                   pos.line_number = tp->line_number;
-                  remember_a_message (mlp, NULL, string, true, false, inner_context,
+                  remember_a_message (mlp, NULL, string, true, false, inner_region,
                                       &pos, NULL, tp->comment, true);
                 }
               else if (!skip_until_comma)
@@ -3471,7 +3478,7 @@ extract_balanced (message_list_ty *mlp,
                         mixed_string_alloc_utf8 (string, lc_string,
                                                  logical_file_name, tp->line_number);
                       free (string);
-                      arglist_parser_remember (argparser, arg, ms, inner_context,
+                      arglist_parser_remember (argparser, arg, ms, inner_region,
                                                logical_file_name, tp->line_number,
                                                tp->comment, true);
                     }
@@ -3508,6 +3515,7 @@ extract_balanced (message_list_ty *mlp,
                        logical_file_name, tp->line_number, nesting_level);
               #endif
               arglist_parser_done (argparser, arg);
+              unref_region (inner_region);
               if (next_argparser != NULL)
                 free (next_argparser);
               next_argparser = NULL;
@@ -3526,10 +3534,12 @@ extract_balanced (message_list_ty *mlp,
               if (extract_balanced (mlp,
                                     token_type_rbrace, true,
                                     false, false, false,
-                                    null_context, null_context_list_iterator,
+                                    null_context_region (),
+                                    null_context_list_iterator,
                                     1, arglist_parser_alloc (mlp, NULL)))
                 {
                   arglist_parser_done (argparser, arg);
+                  unref_region (inner_region);
                   if (next_argparser != NULL)
                     free (next_argparser);
                   free_token (tp);
@@ -3548,6 +3558,7 @@ extract_balanced (message_list_ty *mlp,
                   /* Go back to the caller.  We don't want to recurse each time we
                      parsed a    sub name... { ... }    definition.  */
                   arglist_parser_done (argparser, arg);
+                  unref_region (inner_region);
                   free_token (tp);
                   return false;
                 }
@@ -3578,10 +3589,12 @@ extract_balanced (message_list_ty *mlp,
               if (extract_balanced (mlp,
                                     token_type_rbracket, true,
                                     false, false, false,
-                                    null_context, null_context_list_iterator,
+                                    null_context_region (),
+                                    null_context_list_iterator,
                                     1, arglist_parser_alloc (mlp, NULL)))
                 {
                   arglist_parser_done (argparser, arg);
+                  unref_region (inner_region);
                   if (next_argparser != NULL)
                     free (next_argparser);
                   free_token (tp);
@@ -3623,15 +3636,16 @@ extract_balanced (message_list_ty *mlp,
               /* FIXME: Instead of resetting outer_context here, it may be better
                  to recurse in the next_is_argument handling above, waiting for
                  the next semicolon or other statement terminator.  */
-              outer_context = null_context;
+              outer_region = null_context_region ();
               context_iter = null_context_list_iterator;
               next_is_argument = false;
               if (next_argparser != NULL)
                 free (next_argparser);
               next_argparser = NULL;
               next_context_iter = passthrough_context_list_iterator;
-              inner_context =
-                inherited_context (outer_context,
+              unref_region (inner_region);
+              inner_region =
+                inheriting_region (outer_region,
                                    flag_context_list_iterator_advance (
                                      &context_iter));
               break;
@@ -3750,7 +3764,7 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   while (!extract_balanced (mlp,
                             token_type_r_any, true,
                             true, true, false,
-                            null_context, null_context_list_iterator,
+                            null_context_region (), null_context_list_iterator,
                             1, arglist_parser_alloc (mlp, NULL)))
     ;
 

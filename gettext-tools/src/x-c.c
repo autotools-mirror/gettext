@@ -2269,7 +2269,7 @@ static int nesting_depth;
    Return true upon eof, false upon closing parenthesis.  */
 static bool
 extract_parenthesized (message_list_ty *mlp,
-                       flag_context_ty outer_context,
+                       flag_region_ty *outer_region,
                        flag_context_list_iterator_ty context_iter,
                        struct arglist_parser *argparser)
 {
@@ -2286,9 +2286,9 @@ extract_parenthesized (message_list_ty *mlp,
      (Objective C selector syntax.)  */
   flag_context_list_iterator_ty selectorcall_context_iter =
     passthrough_context_list_iterator;
-  /* Current context.  */
-  flag_context_ty inner_context =
-    inherited_context (outer_context,
+  /* Current region.  */
+  flag_region_ty *inner_region =
+    inheriting_region (outer_region,
                        flag_context_list_iterator_advance (&context_iter));
 
   /* Start state is 0.  */
@@ -2334,11 +2334,12 @@ extract_parenthesized (message_list_ty *mlp,
             if_error (IF_SEVERITY_FATAL_ERROR,
                       logical_file_name, line_number, (size_t)(-1), false,
                       _("too many open parentheses"));
-          if (extract_parenthesized (mlp, inner_context, next_context_iter,
+          if (extract_parenthesized (mlp, inner_region, next_context_iter,
                                      arglist_parser_alloc (mlp,
                                                            state ? next_shapes : NULL)))
             {
               arglist_parser_done (argparser, arg);
+              unref_region (inner_region);
               return true;
             }
           nesting_depth--;
@@ -2349,12 +2350,14 @@ extract_parenthesized (message_list_ty *mlp,
 
         case xgettext_token_type_rparen:
           arglist_parser_done (argparser, arg);
+          unref_region (inner_region);
           return false;
 
         case xgettext_token_type_comma:
           arg++;
-          inner_context =
-            inherited_context (outer_context,
+          unref_region (inner_region);
+          inner_region =
+            inheriting_region (outer_region,
                                flag_context_list_iterator_advance (
                                  &context_iter));
           next_context_iter = passthrough_context_list_iterator;
@@ -2366,10 +2369,10 @@ extract_parenthesized (message_list_ty *mlp,
           if (objc_extensions)
             {
               context_iter = selectorcall_context_iter;
-              inner_context =
-                inherited_context (inner_context,
+              assign_new_region (inner_region,
+                inheriting_region (inner_region,
                                    flag_context_list_iterator_advance (
-                                     &context_iter));
+                                     &context_iter)));
               next_context_iter = passthrough_context_list_iterator;
               selectorcall_context_iter = passthrough_context_list_iterator;
             }
@@ -2388,12 +2391,12 @@ extract_parenthesized (message_list_ty *mlp,
                 char *string = mixed_string_contents (token.mixed_string);
                 mixed_string_free (token.mixed_string);
                 remember_a_message (mlp, NULL, string, true, false,
-                                    inner_context, &token.pos,
+                                    inner_region, &token.pos,
                                     NULL, token.comment, false);
               }
             else
               arglist_parser_remember (argparser, arg, token.mixed_string,
-                                       inner_context,
+                                       inner_region,
                                        token.pos.file_name,
                                        token.pos.line_number,
                                        token.comment, false);
@@ -2412,6 +2415,7 @@ extract_parenthesized (message_list_ty *mlp,
 
         case xgettext_token_type_eof:
           arglist_parser_done (argparser, arg);
+          unref_region (inner_region);
           return true;
 
         default:
@@ -2452,7 +2456,7 @@ extract_whole_file (FILE *f,
 
   /* Eat tokens until eof is seen.  When extract_parenthesized returns
      due to an unbalanced closing parenthesis, just restart it.  */
-  while (!extract_parenthesized (mlp, null_context, null_context_list_iterator,
+  while (!extract_parenthesized (mlp, null_context_region (), null_context_list_iterator,
                                  arglist_parser_alloc (mlp, NULL)))
     ;
 

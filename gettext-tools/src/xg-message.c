@@ -45,17 +45,17 @@
 
 
 /* Update the is_format[] flags depending on the information given in the
-   context.  */
+   region's context.  */
 static void
 set_format_flags_from_context (enum is_format is_format[NFORMATS],
-                               flag_context_ty context, const char *string,
+                               flag_region_ty const *region, const char *string,
                                lex_pos_ty *pos, const char *pretty_msgstr)
 {
   bool some_undecided;
 
   some_undecided = false;
   for (size_t fi = 0; fi < NXFORMATS; fi++)
-    some_undecided |= (context.for_formatstring[fi].is_format != undecided);
+    some_undecided |= (region->for_formatstring[fi].is_format != undecided);
 
   if (some_undecided)
     for (size_t i = 0; i < NFORMATS; i++)
@@ -63,8 +63,8 @@ set_format_flags_from_context (enum is_format is_format[NFORMATS],
         if (is_format[i] == undecided)
           for (size_t fi = 0; fi < NXFORMATS; fi++)
             if (formatstring_parsers[i] == current_formatstring_parser[fi]
-                && context.for_formatstring[fi].is_format != undecided)
-              is_format[i] = (enum is_format) context.for_formatstring[fi].is_format;
+                && region->for_formatstring[fi].is_format != undecided)
+              is_format[i] = region->for_formatstring[fi].is_format;
         if (possible_format_p (is_format[i]))
           {
             struct formatstring_parser *parser = formatstring_parsers[i];
@@ -224,7 +224,7 @@ and a mapping instead of a tuple for the arguments.\n"),
 
 message_ty *
 remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
-                    bool is_utf8, bool pluralp, flag_context_ty context,
+                    bool is_utf8, bool pluralp, flag_region_ty *region,
                     lex_pos_ty *pos,
                     const char *extracted_comment,
                     refcounted_string_list_ty *comment, bool comment_is_utf8)
@@ -336,7 +336,7 @@ meta information, not the empty string.\n"));
 
   /* Determine whether the context specifies that the msgid is a format
      string.  */
-  set_format_flags_from_context (mp->is_format, context, mp->msgid, pos, "msgid");
+  set_format_flags_from_context (mp->is_format, region, mp->msgid, pos, "msgid");
 
   /* Ask the lexer for the comments it has seen.  */
   {
@@ -513,7 +513,7 @@ meta information, not the empty string.\n"));
 
 void
 remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
-                           flag_context_ty context, lex_pos_ty *pos,
+                           flag_region_ty *region, lex_pos_ty *pos,
                            refcounted_string_list_ty *comment,
                            bool comment_is_utf8)
 {
@@ -559,7 +559,7 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
 
       /* Determine whether the context specifies that the msgid_plural is a
          format string.  */
-      set_format_flags_from_context (mp->is_format, context, mp->msgid_plural,
+      set_format_flags_from_context (mp->is_format, region, mp->msgid_plural,
                                      pos, "msgid_plural");
 
       /* If it is not already decided, through programmer comments or

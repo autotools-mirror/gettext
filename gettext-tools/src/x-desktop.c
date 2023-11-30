@@ -126,7 +126,7 @@ extract_desktop_handle_pair (struct desktop_reader_ty *reader,
 
       remember_a_message (extract_reader->mlp, NULL,
                           desktop_unescape_string (value, is_list), false,
-                          false, null_context, key_pos,
+                          false, null_context_region (), key_pos,
                           NULL, savable_comment, false);
     }
   savable_comment_reset ();

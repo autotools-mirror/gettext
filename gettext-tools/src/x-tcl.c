@@ -662,14 +662,14 @@ enum terminator
 
 /* Forward declaration of local functions.  */
 static enum word_type read_command_list (int looking_for,
-                                         flag_context_ty outer_context);
+                                         flag_region_ty *outer_region);
 
 /* Accumulate tokens into the given word.
    'looking_for' denotes a parse terminator combination.
    Return the first character past the token.  */
 static int
 accumulate_word (struct word *wp, enum terminator looking_for,
-                 flag_context_ty context)
+                 flag_region_ty *region)
 {
   int c;
 
@@ -739,7 +739,8 @@ accumulate_word (struct word *wp, enum terminator looking_for,
                   struct word index_word;
 
                   index_word.type = t_other;
-                  c = accumulate_word (&index_word, te_paren, null_context);
+                  c = accumulate_word (&index_word, te_paren,
+                                       null_context_region ());
                   if (c != EOF && c != ')')
                     phase2_ungetc (c);
                   wp->type = t_other;
@@ -770,7 +771,7 @@ accumulate_word (struct word *wp, enum terminator looking_for,
             if_error (IF_SEVERITY_FATAL_ERROR,
                       logical_file_name, line_number, (size_t)(-1), false,
                       _("too many open brackets"));
-          read_command_list (']', context);
+          read_command_list (']', region);
           bracket_nesting_depth--;
           wp->type = t_other;
         }
@@ -833,7 +834,7 @@ accumulate_word (struct word *wp, enum terminator looking_for,
 /* Read the next word.
    'looking_for' denotes a parse terminator, either ']' or '\0'.  */
 static void
-read_word (struct word *wp, int looking_for, flag_context_ty context)
+read_word (struct word *wp, int looking_for, flag_region_ty *region)
 {
   int c;
 
@@ -893,7 +894,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
         if_error (IF_SEVERITY_FATAL_ERROR,
                   logical_file_name, line_number, (size_t)(-1), false,
                   _("too many open braces"));
-      terminator = read_command_list ('\0', null_context);
+      terminator = read_command_list ('\0', null_context_region ());
       brace_nesting_depth--;
 
       if (terminator == t_brace)
@@ -911,7 +912,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
 
   if (c == '"')
     {
-      c = accumulate_word (wp, te_quote, context);
+      c = accumulate_word (wp, te_quote, region);
       if (c != EOF && c != '"')
         phase2_ungetc (c);
     }
@@ -922,7 +923,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
                            looking_for == ']'
                            ? te_space_separator_bracket
                            : te_space_separator,
-                           context);
+                           region);
       if (c != EOF)
         phase2_ungetc (c);
     }
@@ -941,7 +942,7 @@ read_word (struct word *wp, int looking_for, flag_context_ty context)
    Returns the type of the word that terminated the command: t_separator or
    t_bracket (only if looking_for is ']') or t_brace or t_eof.  */
 static enum word_type
-read_command (int looking_for, flag_context_ty outer_context)
+read_command (int looking_for, flag_region_ty *outer_region)
 {
   int c;
 
@@ -984,17 +985,17 @@ read_command (int looking_for, flag_context_ty outer_context)
     for (;; arg++)
       {
         struct word inner;
-        flag_context_ty inner_context;
+        flag_region_ty *inner_region;
 
         if (arg == 0)
-          inner_context = null_context;
+          inner_region = null_context_region ();
         else
-          inner_context =
-            inherited_context (outer_context,
+          inner_region =
+            inheriting_region (outer_region,
                                flag_context_list_iterator_advance (
                                  &context_iter));
 
-        read_word (&inner, looking_for, inner_context);
+        read_word (&inner, looking_for, inner_region);
 
         /* Recognize end of command.  */
         if (inner.type == t_separator || inner.type == t_bracket
@@ -1002,6 +1003,7 @@ read_command (int looking_for, flag_context_ty outer_context)
           {
             if (argparser != NULL)
               arglist_parser_done (argparser, arg);
+            unref_region (inner_region);
             return inner.type;
           }
 
@@ -1014,7 +1016,7 @@ read_command (int looking_for, flag_context_ty outer_context)
                 pos.file_name = logical_file_name;
                 pos.line_number = inner.line_number_at_start;
                 remember_a_message (mlp, NULL, string_of_word (&inner), false,
-                                    false, inner_context, &pos,
+                                    false, inner_region, &pos,
                                     NULL, savable_comment, false);
               }
           }
@@ -1064,13 +1066,14 @@ read_command (int looking_for, flag_context_ty outer_context)
                                              inner.line_number_at_start);
                 free (s);
                 arglist_parser_remember (argparser, arg, ms,
-                                         inner_context,
+                                         inner_region,
                                          logical_file_name,
                                          inner.line_number_at_start,
                                          savable_comment, false);
               }
           }
 
+        unref_region (inner_region);
         free_word (&inner);
       }
   }
@@ -1082,13 +1085,13 @@ read_command (int looking_for, flag_context_ty outer_context)
    Returns the type of the word that terminated the command list:
    t_bracket (only if looking_for is ']') or t_brace or t_eof.  */
 static enum word_type
-read_command_list (int looking_for, flag_context_ty outer_context)
+read_command_list (int looking_for, flag_region_ty *outer_region)
 {
   for (;;)
     {
       enum word_type terminator;
 
-      terminator = read_command (looking_for, outer_context);
+      terminator = read_command (looking_for, outer_region);
       if (terminator != t_separator)
         return terminator;
     }
@@ -1127,7 +1130,7 @@ extract_tcl (FILE *f,
   init_keywords ();
 
   /* Eat tokens until eof is seen.  */
-  read_command_list ('\0', null_context);
+  read_command_list ('\0', null_context_region ());
 
   fp = NULL;
   real_file_name = NULL;

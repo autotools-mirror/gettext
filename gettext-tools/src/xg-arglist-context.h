@@ -42,16 +42,6 @@ struct flag_context_ty
 {
   struct formatstring_context_ty for_formatstring[NXFORMATS];
 };
-/* Null context.  */
-extern flag_context_ty null_context;
-/* Transparent context.  */
-extern flag_context_ty passthrough_context;
-/* Compute an inherited context.
-   The outer_context is assumed to have all pass_format flags = false.
-   The result will then also have all pass_format flags = false.  */
-extern flag_context_ty
-       inherited_context (flag_context_ty outer_context,
-                          flag_context_ty modifier_context);
 
 /* Context representing some flags, for each possible argument number.
    This is a linked list, sorted according to the argument number.  */
@@ -77,6 +67,7 @@ extern flag_context_list_iterator_ty
 extern flag_context_ty
        flag_context_list_iterator_advance (flag_context_list_iterator_ty *iter);
 
+
 /* For nearly each backend, we have a separate table mapping a keyword to
    a flag_context_list_ty *.  */
 typedef hash_table /* char[] -> flag_context_list_ty * */
@@ -92,6 +83,60 @@ extern void
                                     size_t fi,
                                     const char *name_start, const char *name_end,
                                     int argnum, enum is_format value, bool pass);
+
+
+/* Context representing some flags w.r.t. a specific format string type,
+   as effective in a region of the input file.  */
+struct formatstring_region_ty
+{
+  enum is_format is_format;
+};
+
+/* A region of the input file, in which a given context is in effect, together
+   with the messages that were remembered while processing this region.  */
+typedef struct flag_region_ty flag_region_ty;
+struct flag_region_ty
+{
+  unsigned int refcount;
+  struct formatstring_region_ty for_formatstring[NXFORMATS];
+};
+
+/* Creates a region in which the null context is in effect.  */
+extern flag_region_ty *
+       null_context_region ();
+
+/* Creates a sub-region that inherits from an outer region.  */
+extern flag_region_ty *
+       inheriting_region (flag_region_ty *outer_region,
+                          flag_context_ty modifier_context);
+
+/* Adds a reference to a region.  Returns the region.  */
+extern flag_region_ty *
+       ref_region (flag_region_ty *region);
+
+/* Drops a reference to a region.
+   When the last reference is dropped, the region is freed.  */
+extern void
+       unref_region (flag_region_ty *region);
+
+/* Assigns the value of B to the variable A.
+   Both are of type 'flag_region_ty *'.  B is *not* freshly created.  */
+#define assign_region(a, b) \
+  do {                             \
+    flag_region_ty *_prev_a = (a); \
+    (a) = (b);                     \
+    ref_region (a);                \
+    unref_region (_prev_a);        \
+  } while (0)
+
+/* Assigns the value of B to the variable A.
+   Both are of type 'flag_region_ty *'.  B is freshly created.  */
+#define assign_new_region(a, b) \
+  do {                             \
+    flag_region_ty *_prev_a = (a); \
+    (a) = (b);                     \
+    unref_region (_prev_a);        \
+  } while (0)
 
 
 #ifdef __cplusplus
