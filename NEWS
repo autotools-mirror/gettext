@@ -1,6 +1,7 @@
 Version 0.23 - December 2023
 
 * Programming languages support:
+  - Python: xgettext now recognizes the f-string syntax.
   - Vala: Improved recognition of format strings when the string.printf method
     is used.
   - Glade: xgettext has improved support for GtkBuilder 4.
