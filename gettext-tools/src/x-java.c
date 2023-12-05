@@ -574,6 +574,7 @@ enum token_type_ty
   token_type_number,            /* 1.23 */
   token_type_symbol,            /* identifier, keyword, null */
   token_type_plus,              /* + */
+  token_type_semicolon,         /* ; */
   token_type_other              /* character literal, misc. operator */
 };
 typedef enum token_type_ty token_type_ty;
@@ -1312,6 +1313,11 @@ phase5_get (token_ty *tp)
             }
           return;
 
+        case ';':
+          /* Semicolon.  */
+          tp->type = token_type_semicolon;
+          return;
+
         default:
           /* Misc. operator.  */
           tp->type = token_type_other;
@@ -1586,6 +1592,34 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
               return true;
             }
           paren_nesting_depth--;
+          /* Test whether the next tokens are '.' and 'formatted'.  */
+          {
+            token_ty token2;
+            x_java_lex (&token2);
+            if (token2.type == token_type_dot)
+              {
+                token_ty token3;
+                x_java_lex (&token3);
+                if (token3.type == token_type_symbol
+                    && strcmp (token3.string, "formatted") == 0)
+                  {
+                    /* Mark the messages found in the region as java-printf-format
+                       a posteriori.  */
+                    inner_region->for_formatstring[XFORMAT_SECONDARY].is_format = yes_according_to_context;
+                    struct remembered_message_list_ty *rmlp =
+                      inner_region->for_formatstring[XFORMAT_SECONDARY].remembered;
+                    size_t i;
+                    for (i = 0; i < rmlp->nitems; i++)
+                      {
+                        struct remembered_message_ty *rmp = &rmlp->item[i];
+                        set_format_flag_from_context (rmp->mp, rmp->plural, &rmp->pos,
+                                                      XFORMAT_SECONDARY, inner_region);
+                      }
+                  }
+                x_java_unlex (&token3);
+              }
+            x_java_unlex (&token2);
+          }
           next_context_iter = null_context_list_iterator;
           state = 0;
           continue;
@@ -1675,6 +1709,11 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
           next_context_iter = null_context_list_iterator;
           state = 0;
           continue;
+
+        case token_type_semicolon:
+          arglist_parser_done (argparser, arg);
+          unref_region (inner_region);
+          return false;
 
         case token_type_eof:
           arglist_parser_done (argparser, arg);

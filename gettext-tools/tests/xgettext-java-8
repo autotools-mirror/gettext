@@ -1,0 +1,53 @@
+#! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Java support: formatted and format strings.
+
+: ${XGETTEXT=xgettext}
+
+cat <<\EOF > xg-j-8.java
+"<b>%s</b>".formatted(_("Hello 1"));
+_("Explanation: %s").formatted(_("Hello 2"));
+_("No error 1");
+_("No error 2").formatted();
+(_("No error 3")).formatted();
+foo(_("No error 4")).formatted();
+EOF
+
+${XGETTEXT} --omit-header --no-location \
+            -k_ --flag=_:1:pass-java-format --flag=_:1:pass-java-printf-format \
+            -o xg-j-8.tmp xg-j-8.java \
+  || Exit 1
+func_filter_POT_Creation_Date xg-j-8.tmp xg-j-8.po
+
+cat <<\EOF > xg-j-8.ok
+msgid "Hello 1"
+msgstr ""
+
+#, java-printf-format
+msgid "Explanation: %s"
+msgstr ""
+
+msgid "Hello 2"
+msgstr ""
+
+msgid "No error 1"
+msgstr ""
+
+#, java-printf-format
+msgid "No error 2"
+msgstr ""
+
+#, java-printf-format
+msgid "No error 3"
+msgstr ""
+
+msgid "No error 4"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-j-8.ok xg-j-8.po
+result=$?
+
+exit $result
