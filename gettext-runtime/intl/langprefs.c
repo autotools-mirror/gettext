@@ -1,5 +1,5 @@
 /* Determine the user's language preferences.
-   Copyright (C) 2004-2007, 2018-2023 Free Software Foundation, Inc.
+   Copyright (C) 2004-2007, 2018-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -63,11 +63,11 @@ extern const char *gl_locale_name_from_win32_LCID (LCID lcid);
 static const char *
 _nl_language_preferences_win32_mui (HMODULE kernel32)
 {
-  /* DWORD GetUserPreferredUILanguages (ULONG dwFlags,
-                                        PULONG pulNumLanguages,
-                                        PWSTR pwszLanguagesBuffer,
-                                        PULONG pcchLanguagesBuffer);  */
-  typedef DWORD (WINAPI *GetUserPreferredUILanguages_func) (ULONG, PULONG, PWSTR, PULONG);
+  /* BOOL GetUserPreferredUILanguages (DWORD dwFlags,
+                                       PULONG pulNumLanguages,
+                                       PWSTR pwszLanguagesBuffer,
+                                       PULONG pcchLanguagesBuffer);  */
+  typedef BOOL (WINAPI *GetUserPreferredUILanguages_func) (DWORD, PULONG, PWSTR, PULONG);
   GetUserPreferredUILanguages_func p_GetUserPreferredUILanguages;
 
   p_GetUserPreferredUILanguages =
@@ -77,14 +77,13 @@ _nl_language_preferences_win32_mui (HMODULE kernel32)
     {
       ULONG num_languages;
       ULONG bufsize;
-      DWORD ret;
+      BOOL ret;
 
       bufsize = 0;
       ret = p_GetUserPreferredUILanguages (MUI_LANGUAGE_NAME,
                                            &num_languages,
                                            NULL, &bufsize);
-      if (ret == 0
-          && GetLastError () == STATUS_BUFFER_OVERFLOW
+      if ((ret || GetLastError () == STATUS_BUFFER_OVERFLOW)
           && bufsize > 0)
         {
           WCHAR *buffer = (WCHAR *) malloc (bufsize * sizeof (WCHAR));
