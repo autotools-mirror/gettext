@@ -36,7 +36,7 @@
 This manual provides documentation for the GNU @code{libtextstyle} library.
 
 @copying
-Copyright (C) 2018-2020 Free Software Foundation, Inc.
+Copyright (C) 2018-2024 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -68,7 +68,7 @@ A copy of the license is at @url{https://www.gnu.org/licenses/gpl.html}.
 @page
 @vskip 0pt plus 1filll
 @c @insertcopying
-Copyright (C) 2018-2020 Free Software Foundation, Inc.
+Copyright (C) 2018-2024 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -335,7 +335,7 @@ need three things:
 The @code{ncurses} library version 6.1 or newer must be installed.
 @item
 You need a recent version of the respective terminal emulator program.
-See @url{https://gist.github.com/XVilka/8346728} for the most recent
+See @url{https://github.com/termstandard/colors} for the most recent
 developments in this area.
 @item
 You need to set the @code{TERM} environment variable to the corresponding
@@ -480,7 +480,7 @@ section.
 The same style file can be used for styling a certain type of output, for
 terminal output and for HTML output.  It is written in CSS
 (Cascading Style Sheet) syntax.  See
-@url{https://www.w3.org/TR/css2/cover.html} for a formal definition of
+@url{https://www.w3.org/TR/CSS2/} for a formal definition of
 CSS.  Many HTML authoring tutorials also contain explanations of CSS.
 
 In the case of HTML output, the style file is embedded in the HTML output.
@@ -668,8 +668,9 @@ that piece of text.
 Text output may contain hyperlinks.  These hyperlinks are encoded through
 an escape sequence, specified at
 @url{https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda,
-Hyperlinks in terminal emulators}.  Currently (as of 2019), they are
-displayed only in @code{gnome-terminal} version 3.26 or above.  More
+Hyperlinks in terminal emulators}.  Currently (as of 2024), they are
+displayed in many modern terminals, see
+@url{https://github.com/Alhadis/OSC8-Adoption, OSC8-Adoption}.  More
 terminal emulators will support hyperlinks in the future.  Terminal
 emulators which don't support hyperlinks ignore it, except for a few
 terminal emulators, for which users may need to disable the hyperlinks
