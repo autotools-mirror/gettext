@@ -14,9 +14,6 @@ Makefile.am:
 # Enable more warning options in this directory.
 AM_CFLAGS += @WARN_CFLAGS@
 
-# Support building libintl.a with -fPIC (needed by GCC).
-AM_CFLAGS += @PICFLAG@
-
 Include:
 
 License:

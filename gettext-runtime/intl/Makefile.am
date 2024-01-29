@@ -1,6 +1,6 @@
 ## Makefile for the gettext-runtime/intl and gettext-tools/intl subdirectories
 ## of GNU gettext.
-## Copyright (C) 1995-1998, 2000-2007, 2009-2023 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2007, 2009-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -63,9 +63,6 @@ AM_CFLAGS += @CFLAG_VISIBILITY@
 if WOE32DLL
 AM_LDFLAGS = -Wl,--export-all-symbols
 endif
-
-# Support building libintl.a with -fPIC (needed by GCC).
-AM_CFLAGS += @PICFLAG@
 
 
 # Library include file and code.

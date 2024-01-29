@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-2023 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2024 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -75,14 +75,6 @@ case "$host_os" in
   *) is_windows_native=no ;;
 esac
 AM_CONDITIONAL([WINDOWS_NATIVE], [test $is_windows_native = yes])
-
-dnl Support building libintl.a with -fPIC (needed by GCC).
-dnl <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=100096>
-AC_ARG_ENABLE([host-shared],
-  [AS_HELP_STRING([[--enable-host-shared]], [special hack for GCC])],
-  [PICFLAG='-fPIC'],
-  [PICFLAG=])
-AC_SUBST([PICFLAG])
 
 dnl Checks for libraries.
 
