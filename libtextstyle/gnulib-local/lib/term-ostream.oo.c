@@ -1,5 +1,5 @@
 /* Output stream for attributed text, producing ANSI escape sequences.
-   Copyright (C) 2006-2008, 2017, 2019-2020, 2022-2023 Free Software Foundation, Inc.
+   Copyright (C) 2006-2008, 2017, 2019-2020, 2022-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -2653,7 +2653,11 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
                 || /* Recognize *-direct.  */
                    (strlen (term) > 8
                     && strcmp (term + strlen (term) - 8, "-direct") == 0))
-            ? (stream->max_colors >= 0x7fff ? cm_xtermrgb :
+            ? (/* Note: For recognizing cm_xtermrgb,
+                  <https://github.com/termstandard/colors> recommends to test
+                  getenv ("COLORTERM"), but it does not seem like a good idea.
+                  It's more of a quick hack that causes long-term problems.  */
+               stream->max_colors >= 0x7fff ? cm_xtermrgb :
                stream->max_colors == 256 ? cm_xterm256 :
                stream->max_colors == 88 ? cm_xterm88 :
                stream->max_colors == 16 ? cm_xterm16 :
