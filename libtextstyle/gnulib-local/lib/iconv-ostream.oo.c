@@ -1,5 +1,5 @@
 /* Output stream that converts the output to another encoding.
-   Copyright (C) 2006-2007, 2010, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2006-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -98,12 +98,13 @@ iconv_ostream::write_mem (iconv_ostream_t stream, const void *data, size_t len)
             size_t res = iconv (stream->cd,
                                 (ICONV_CONST char **) &inptr, &insize,
                                 &outptr, &outsize);
-            #if !defined _LIBICONV_VERSION \
+            #if !(defined _LIBICONV_VERSION && !(_LIBICONV_VERSION == 0x10b && defined __APPLE__)) \
                 && !(defined __GLIBC__ && !defined __UCLIBC__)
             /* Irix iconv() inserts a NUL byte if it cannot convert.
                NetBSD iconv() inserts a question mark if it cannot convert.
-               Only GNU libiconv and GNU libc are known to prefer to fail rather
-               than doing a lossy conversion.  */
+               Only GNU libiconv (excluding the bastard Apple iconv) and
+               GNU libc are known to prefer to fail rather than doing a lossy
+               conversion.  */
             if (res > 0)
               {
                 errno = EILSEQ;
