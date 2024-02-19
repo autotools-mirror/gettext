@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode:nil; c-basic-offset: 8-*- */
 
 /* libcroco - Library for parsing and applying CSS
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2024 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -40,7 +40,7 @@
 
 #include <config.h>
 #include "cr-num.h"
-#include "string.h"
+#include <string.h>
 
 /**
  * cr_num_new:
