@@ -1,5 +1,5 @@
 /* Display hostname in various forms.
-   Copyright (C) 2001-2003, 2006-2007, 2012, 2014, 2018-2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -95,9 +95,9 @@
 /* Include this after <sys/socket.h>, to avoid a syntax error on BeOS.  */
 #include <stdbool.h>
 
+#include <error.h>
 #include "noreturn.h"
 #include "closeout.h"
-#include "error.h"
 #include "error-progname.h"
 #include "progname.h"
 #include "relocatable.h"

@@ -1,5 +1,5 @@
 /* XML resource locating rules
-   Copyright (C) 2015, 2019-2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2015-2024 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -23,29 +23,29 @@
 /* Specification.  */
 #include "locating-rule.h"
 
-#include "basename-lgpl.h"
-#include "concat-filename.h"
-#include "c-strcase.h"
+#include <errno.h>
+#include <fnmatch.h>
 
 #if HAVE_DIRENT_H
 # include <dirent.h>
 #endif
-
 #if HAVE_DIRENT_H
 # define HAVE_DIR 1
 #else
 # define HAVE_DIR 0
 #endif
 
-#include "dir-list.h"
-#include <errno.h>
-#include "error.h"
-#include "filename.h"
-#include <fnmatch.h>
-#include "gettext.h"
 #include <libxml/parser.h>
 #include <libxml/uri.h>
+
+#include <error.h>
+#include "basename-lgpl.h"
+#include "concat-filename.h"
+#include "c-strcase.h"
+#include "dir-list.h"
+#include "filename.h"
 #include "xalloc.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

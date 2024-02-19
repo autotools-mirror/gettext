@@ -1,5 +1,5 @@
 /* Reading C# satellite assemblies.
-   Copyright (C) 2003-2004, 2006-2008, 2010-2011, 2020 Free Software Foundation, Inc.
+   Copyright (C) 2003-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -27,6 +27,7 @@
 #include <stdlib.h>
 #include <errno.h>
 
+#include <error.h>
 #include "msgunfmt.h"
 #include "relocatable.h"
 #include "csharpexec.h"
@@ -36,7 +37,6 @@
 #include "read-po.h"
 #include "xalloc.h"
 #include "concat-filename.h"
-#include "error.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

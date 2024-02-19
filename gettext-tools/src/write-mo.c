@@ -1,5 +1,5 @@
 /* Writing binary .mo files.
-   Copyright (C) 1995-1998, 2000-2007, 2016, 2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -37,8 +37,8 @@
 #include "gmo.h"
 #include "hash-string.h"
 
+#include <error.h>
 #include "byteswap.h"
-#include "error.h"
 #include "mem-hash-map.h"
 #include "message.h"
 #include "format.h"

@@ -1,6 +1,5 @@
 /* Writing C# .resources files.
-   Copyright (C) 2003-2005, 2007-2009, 2010-2011, 2016, 2020 Free Software
-   Foundation, Inc.
+   Copyright (C) 2003-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -29,7 +28,7 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "error.h"
+#include <error.h>
 #include "xerror.h"
 #include "relocatable.h"
 #include "csharpexec.h"

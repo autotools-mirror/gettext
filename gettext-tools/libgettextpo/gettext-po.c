@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files.
-   Copyright (C) 2003-2010, 2014, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2003-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -22,7 +22,7 @@
 #define _GL_NO_INLINE_ERROR
 
 /* Avoid side effect of config.h on 'struct po_error_handler'.  */
-#include "error.h"
+#include <error.h>
 static void (*orig_error) (int status, int errnum,
                            const char *format, ...)
   = error;

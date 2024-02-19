@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1996, 1998, 2000-2001, 2003, 2005-2006, 2012-2013, 2016, 2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <pmiller@agso.gov.au>
 
@@ -29,10 +29,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <error.h>
 #include "str-list.h"
 #include "po-lex.h"
 #include "po-charset.h"
-#include "error.h"
 #include "xalloc.h"
 #include "gettext.h"
 #include "read-catalog-abstract.h"

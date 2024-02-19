@@ -1,5 +1,5 @@
 /* xgettext Desktop Entry backend.
-   Copyright (C) 2014, 2018-2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2014-2024 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2014.
 
@@ -29,10 +29,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <error.h>
 #include "message.h"
 #include "xgettext.h"
 #include "xg-message.h"
-#include "error.h"
 #include "error-progname.h"
 #include "xalloc.h"
 #include "xvasprintf.h"

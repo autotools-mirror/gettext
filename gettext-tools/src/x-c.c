@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-1998, 2000-2009, 2012-2015, 2018-2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <error.h>
 #include "attribute.h"
 #include "message.h"
 #include "rc-str-list.h"
@@ -41,7 +42,6 @@
 #include "xg-arglist-callshape.h"
 #include "xg-arglist-parser.h"
 #include "xg-message.h"
-#include "error.h"
 #include "if-error.h"
 #include "xalloc.h"
 #include "xvasprintf.h"

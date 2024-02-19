@@ -1,6 +1,5 @@
 /* Reading Java ResourceBundles.
-   Copyright (C) 2001-2003, 2006-2008, 2010-2011, 2017, 2019-2020 Free Software
-   Foundation, Inc.
+   Copyright (C) 2001-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -28,6 +27,7 @@
 #include <stdlib.h>
 #include <errno.h>
 
+#include <error.h>
 #include "msgunfmt.h"
 #include "relocatable.h"
 #include "javaexec.h"
@@ -35,7 +35,6 @@
 #include "wait-process.h"
 #include "read-catalog.h"
 #include "read-po.h"
-#include "error.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

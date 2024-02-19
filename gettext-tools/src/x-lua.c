@@ -1,5 +1,5 @@
 /* xgettext Lua backend.
-   Copyright (C) 2012-2013, 2016, 2018-2023 Free Software Foundation, Inc.
+   Copyright (C) 2012-2024 Free Software Foundation, Inc.
 
    This file was written by Ľubomír Remák <lubomirr@lubomirr.eu>, 2012.
 
@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <error.h>
 #include "attribute.h"
 #include "message.h"
 #include "rc-str-list.h"
@@ -38,7 +39,6 @@
 #include "xg-arglist-callshape.h"
 #include "xg-arglist-parser.h"
 #include "xg-message.h"
-#include "error.h"
 #include "if-error.h"
 #include "xalloc.h"
 #include "gettext.h"

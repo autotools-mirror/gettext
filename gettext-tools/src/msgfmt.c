@@ -1,5 +1,5 @@
 /* Converts Uniforum style .po files to binary .mo files
-   Copyright (C) 1995-1998, 2000-2007, 2009-2010, 2012, 2014-2016, 2018-2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -30,11 +30,11 @@
 #include <sys/stat.h>
 #include <assert.h>
 
+#include <error.h>
 #include "noreturn.h"
 #include "closeout.h"
 #include "str-list.h"
 #include "dir-list.h"
-#include "error.h"
 #include "error-progname.h"
 #include "progname.h"
 #include "relocatable.h"

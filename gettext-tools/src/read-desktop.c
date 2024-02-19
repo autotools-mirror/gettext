@@ -1,5 +1,5 @@
 /* Reading Desktop Entry files.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014-2019, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
    This file was written by Daiki Ueno <ueno@gnu.org>.
 
    This program is free software: you can redistribute it and/or modify
@@ -31,7 +31,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "error.h"
+#include <error.h>
 #include "error-progname.h"
 #include "xalloc.h"
 #include "xvasprintf.h"

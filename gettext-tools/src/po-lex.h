@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2006, 2012, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -22,7 +22,8 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include <stdbool.h>
-#include "error.h"
+
+#include <error.h>
 #include "error-progname.h"
 #include "xerror.h"
 #include "pos.h"

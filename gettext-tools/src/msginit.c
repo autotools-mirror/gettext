@@ -1,5 +1,5 @@
 /* Initializes a new PO file.
-   Copyright (C) 2001-2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -51,12 +51,13 @@
 
 #include <textstyle.h>
 
+#include <error.h>
+
 /* Get BINDIR.  */
 #include "configmake.h"
 
 #include "noreturn.h"
 #include "closeout.h"
-#include "error.h"
 #include "error-progname.h"
 #include "progname.h"
 #include "relocatable.h"

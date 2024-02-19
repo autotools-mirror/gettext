@@ -1,5 +1,5 @@
 /* Internationalization Tag Set (ITS) handling
-   Copyright (C) 2015, 2018-2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2015-2024 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -25,19 +25,21 @@
 
 #include <assert.h>
 #include <errno.h>
-#include "error.h"
-#include "gettext.h"
-#include "mem-hash-map.h"
 #include <stdint.h>
+#include <stdlib.h>
+
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <libxml/xmlwriter.h>
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
-#include <stdlib.h>
+
+#include <error.h>
+#include "mem-hash-map.h"
 #include "trim.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
+#include "gettext.h"
 
 #define _(str) gettext (str)
 

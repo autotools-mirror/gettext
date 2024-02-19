@@ -1,6 +1,5 @@
 /* Writing tcl/msgcat .msg files.
-   Copyright (C) 2002-2003, 2005, 2007-2009, 2016 Free Software
-   Foundation, Inc.
+   Copyright (C) 2002-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -30,7 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "error.h"
+#include <error.h>
 #include "xerror.h"
 #include "message.h"
 #include "msgl-iconv.h"

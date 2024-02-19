@@ -1,6 +1,6 @@
 /* Handling strings that are given partially in the source encoding and
    partially in Unicode.
-   Copyright (C) 2001-2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "error.h"
+#include <error.h>
 #include "if-error.h"
 #include "flexmember.h"
 #include "msgl-ascii.h"

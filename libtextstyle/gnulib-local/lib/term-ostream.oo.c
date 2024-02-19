@@ -36,7 +36,7 @@
 # include <windows.h>
 #endif
 
-#include "error.h"
+#include <error.h>
 #include "full-write.h"
 #include "get_ppid_of.h"
 #include "get_progname_of.h"

@@ -1,5 +1,5 @@
 /* ngettext - retrieve plural form string from message catalog and print it.
-   Copyright (C) 1995-1997, 2000-2007, 2012, 2018-2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,10 +26,10 @@
 #include <locale.h>
 #include <errno.h>
 
+#include <error.h>
 #include "attribute.h"
 #include "noreturn.h"
 #include "closeout.h"
-#include "error.h"
 #include "progname.h"
 #include "relocatable.h"
 #include "basename-lgpl.h"

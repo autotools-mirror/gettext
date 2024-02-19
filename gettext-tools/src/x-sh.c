@@ -1,5 +1,5 @@
 /* xgettext sh backend.
-   Copyright (C) 2003, 2005-2009, 2014, 2018-2023 Free Software Foundation, Inc.
+   Copyright (C) 2003-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <error.h>
 #include "attribute.h"
 #include "message.h"
 #include "xgettext.h"
@@ -38,7 +39,6 @@
 #include "xg-arglist-callshape.h"
 #include "xg-arglist-parser.h"
 #include "xg-message.h"
-#include "error.h"
 #include "if-error.h"
 #include "xalloc.h"
 #include "mem-hash-map.h"

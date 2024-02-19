@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2010, 2012-2013, 2015, 2019-2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -21,10 +21,10 @@
 #include <stdbool.h>
 #include <stdlib.h>     /* because Gnulib's <stdlib.h> may '#define free ...' */
 
+#include <error.h>      /* Get fallback definition of __attribute__.  */
 #include "pos.h"        /* Get lex_pos_ty.  */
 #include "message.h"    /* Get NFORMATS.  */
 #include "plural-distrib.h" /* Get struct plural_distribution.  */
-#include "error.h"      /* Get fallback definition of __attribute__.  */
 
 
 #ifdef __cplusplus

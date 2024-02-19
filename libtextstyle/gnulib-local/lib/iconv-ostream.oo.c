@@ -27,8 +27,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <error.h>
 #include "c-strcase.h"
-#include "error.h"
 #include "xalloc.h"
 #include "gettext.h"
 

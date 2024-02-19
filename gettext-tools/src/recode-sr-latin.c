@@ -1,5 +1,5 @@
 /* Recode Serbian text from Cyrillic to Latin script.
-   Copyright (C) 2006-2007, 2010, 2012, 2018-2023 Free Software Foundation, Inc.
+   Copyright (C) 2006-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -30,9 +30,9 @@
 #include <iconv.h>
 #endif
 
+#include <error.h>
 #include "noreturn.h"
 #include "closeout.h"
-#include "error.h"
 #include "progname.h"
 #include "relocatable.h"
 #include "basename-lgpl.h"

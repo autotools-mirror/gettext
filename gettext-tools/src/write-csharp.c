@@ -1,5 +1,5 @@
 /* Writing C# satellite assemblies.
-   Copyright (C) 2003-2010, 2016, 2018-2020 Free Software Foundation, Inc.
+   Copyright (C) 2003-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -70,10 +70,10 @@
 # define S_IXOTH (S_IXUSR >> 6)
 #endif
 
+#include <error.h>
 #include "attribute.h"
 #include "c-ctype.h"
 #include "relocatable.h"
-#include "error.h"
 #include "xerror.h"
 #include "csharpcomp.h"
 #include "message.h"

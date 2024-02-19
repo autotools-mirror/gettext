@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -28,9 +28,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <error.h>
 #include "po-charset.h"
 #include "localcharset.h"
-#include "error.h"
 #include "progname.h"
 #include "basename-lgpl.h"
 #include "xmalloca.h"

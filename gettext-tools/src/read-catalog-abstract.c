@@ -1,5 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2009, 2013, 2015, 2021, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -29,11 +29,11 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <error.h>
 #include "po-charset.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "po-xerror.h"
-#include "error.h"
 #include "gettext.h"
 
 /* Local variables.  */

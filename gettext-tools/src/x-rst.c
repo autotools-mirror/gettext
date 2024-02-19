@@ -1,5 +1,5 @@
 /* xgettext RST/RSJ backend.
-   Copyright (C) 2001-2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2024 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -29,6 +29,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+#include <error.h>
 #include "c-ctype.h"
 #include "po-charset.h"
 #include "message.h"
@@ -37,7 +38,6 @@
 #include "xg-encoding.h"
 #include "xg-mixed-string.h"
 #include "xg-message.h"
-#include "error.h"
 #include "if-error.h"
 #include "xalloc.h"
 #include "gettext.h"

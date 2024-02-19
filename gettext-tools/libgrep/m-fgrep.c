@@ -1,5 +1,5 @@
 /* Pattern Matcher for Fixed String search.
-   Copyright (C) 1992, 1998, 2000, 2005-2006, 2010, 2013, 2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1992-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 #include <string.h>
 #include <wchar.h>
 
-#include "error.h"
+#include <error.h>
 #include "exitfail.h"
 #include "xalloc.h"
 #include "kwset.h"

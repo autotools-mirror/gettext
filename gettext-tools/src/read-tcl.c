@@ -1,6 +1,5 @@
 /* Reading tcl/msgcat .msg files.
-   Copyright (C) 2002-2003, 2005-2008, 2010-2011, 2018, 2020 Free Software
-   Foundation, Inc.
+   Copyright (C) 2002-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -28,6 +27,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <error.h>
 #include "msgunfmt.h"
 #include "relocatable.h"
 #include "concat-filename.h"
@@ -37,7 +37,6 @@
 #include "read-catalog.h"
 #include "read-po.h"
 #include "xmalloca.h"
-#include "error.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

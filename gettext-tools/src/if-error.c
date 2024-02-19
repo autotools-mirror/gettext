@@ -1,5 +1,5 @@
 /* Error handling during reading of input files.
-   Copyright (C) 2023 Free Software Foundation, Inc.
+   Copyright (C) 2023-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,7 +26,7 @@
 #include <stdarg.h>
 #include <stdlib.h>
 
-#include "error.h"
+#include <error.h>
 #include "xerror.h"
 #include "error-progname.h"
 #include "xalloc.h"

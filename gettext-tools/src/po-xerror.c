@@ -1,5 +1,5 @@
 /* Error handling during reading and writing of PO files.
-   Copyright (C) 2005-2007, 2013, 2019, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2005-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2005.
 
    This program is free software: you can redistribute it and/or modify
@@ -23,15 +23,14 @@
 /* Specification.  */
 #include "po-xerror.h"
 
-#include <error.h>
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <error.h>
 #include "message.h"
 #include "error-progname.h"
 #include "xalloc.h"
 #include "xerror.h"
-#include "error.h"
 #include "xvasprintf.h"
 #include "po-error.h"
 #if IN_LIBGETTEXTPO

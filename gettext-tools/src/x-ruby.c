@@ -1,5 +1,5 @@
 /* xgettext Ruby backend.
-   Copyright (C) 2020 Free Software Foundation, Inc.
+   Copyright (C) 2020-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2020.
 
    This program is free software: you can redistribute it and/or modify
@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <error.h>
 #include "message.h"
 #include "sh-quote.h"
 #include "spawn-pipe.h"
@@ -38,7 +39,6 @@
 #include "xg-message.h"
 #include "c-strstr.h"
 #include "read-catalog-abstract.h"
-#include "error.h"
 #include "gettext.h"
 
 /* A convenience macro.  I don't like writing gettext() every time.  */

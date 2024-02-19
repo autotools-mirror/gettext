@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1997-1998, 2000-2007, 2009-2023 Free Software Foundation, Inc.
+   Copyright (C) 1997-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -28,12 +28,12 @@
 
 #include <textstyle.h>
 
+#include <error.h>
 #include "noreturn.h"
 #include "closeout.h"
 #include "dir-list.h"
 #include "str-list.h"
 #include "file-list.h"
-#include "error.h"
 #include "error-progname.h"
 #include "progname.h"
 #include "relocatable.h"
