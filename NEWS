@@ -4,6 +4,10 @@ Version 0.22.5 - February 2024
   provided through <libintl.h> on native Windows and NetBSD now enable
   GCC's format string analysis (-Wformat).
 
+* Bug fixes:
+  - xgettext's processing of Vala files with printf method invocations has
+    been corrected (regression in 0.22).
+
 Version 0.22.4 - November 2023
 
 * Bug fixes:

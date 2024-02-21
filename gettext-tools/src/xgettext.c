@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-1998, 2000-2016, 2018-2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-1998, 2000-2016, 2018-2024 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -1484,6 +1484,12 @@ xgettext_record_flag (const char *optionstring)
               p += 11;
               n -= 11;
               value = impossible;
+            }
+          else if (n >= 10 && memcmp (p, "undecided-", 10) == 0)
+            {
+              p += 10;
+              n -= 10;
+              value = undecided;
             }
           else
             value = yes_according_to_context;

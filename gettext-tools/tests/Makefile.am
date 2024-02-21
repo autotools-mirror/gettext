@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/tests subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2010, 2012-2016, 2018-2023 Free Software Foundation, Inc.
+## Copyright (C) 1995-1997, 2001-2010, 2012-2016, 2018-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -164,7 +164,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-tcl-stackovfl-1 xgettext-tcl-stackovfl-2 \
 	xgettext-tcl-stackovfl-3 xgettext-tcl-stackovfl-4 \
 	xgettext-vala-1 xgettext-vala-2 xgettext-vala-3 xgettext-vala-4 \
-	xgettext-vala-5 \
+	xgettext-vala-5 xgettext-vala-6 \
 	xgettext-vala-stackovfl-1 xgettext-vala-stackovfl-2 \
 	xgettext-ycp-1 xgettext-ycp-2 xgettext-ycp-3 xgettext-ycp-4 \
 	xgettext-ycp-stackovfl-1 xgettext-ycp-stackovfl-2 \
