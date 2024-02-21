@@ -52,7 +52,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 20:33+0200\n"
+"POT-Creation-Date: 2024-02-21 11:49+0100\n"
 "PO-Revision-Date: 2023-07-07 09:02+0200\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -72,37 +72,37 @@ msgstr "error d’escriptura"
 msgid "Unknown system error"
 msgstr "Error desconegut del sistema"
 
-#: gnulib-lib/getopt.c:278
+#: gnulib-lib/getopt.c:282
 #, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: l’opció «%s%s» és ambígua\n"
 
-#: gnulib-lib/getopt.c:284
+#: gnulib-lib/getopt.c:288
 #, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
 msgstr "%s: l’opció «%s%s» és ambígua; possibilitats:"
 
-#: gnulib-lib/getopt.c:319
+#: gnulib-lib/getopt.c:322
 #, c-format
 msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: l’opció «%s%s» no és reconeguda\n"
 
-#: gnulib-lib/getopt.c:345
+#: gnulib-lib/getopt.c:348
 #, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
 msgstr "%s: l’opció «%s%s» no admet arguments\n"
 
-#: gnulib-lib/getopt.c:360
+#: gnulib-lib/getopt.c:363
 #, c-format
 msgid "%s: option '%s%s' requires an argument\n"
 msgstr "%s: l’opció «%s%s» necessita un argument\n"
 
-#: gnulib-lib/getopt.c:621
+#: gnulib-lib/getopt.c:624
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: l’opció «%c» no és vàlida\n"
 
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: l’opció «%c» necessita un argument\n"
@@ -274,7 +274,8 @@ msgstr ""
 #: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
-msgstr "  -e                   Habilita l’expansió d’algunes seqüències d’escapada.\n"
+msgstr ""
+"  -e                   Habilita l’expansió d’algunes seqüències d’escapada.\n"
 
 #: src/gettext.c:267
 #, c-format
@@ -284,7 +285,8 @@ msgstr "  -n                   Elimina el caràcter de nova línia final.\n"
 #: src/gettext.c:269 src/ngettext.c:233
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
-msgstr "  -E                   (No es té en compte, s’accepta per compatibilitat).\n"
+msgstr ""
+"  -E                   (No es té en compte, s’accepta per compatibilitat).\n"
 
 #: src/gettext.c:271
 #, c-format
@@ -350,17 +352,22 @@ msgstr ""
 
 #: src/ngettext.c:235
 #, c-format
-msgid "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+msgid ""
+"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr "  [DOMINI_TEXTUAL]     Obté del DOMINI_TEXTUAL el missatge traduït.\n"
 
 #: src/ngettext.c:237
 #, c-format
-msgid "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
-msgstr "  IDMSG IDMSG_PLURAL   Tradueix IDMSG (singular) / IDMSG_PLURAL (plural).\n"
+msgid ""
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
+"(plural)\n"
+msgstr ""
+"  IDMSG IDMSG_PLURAL   Tradueix IDMSG (singular) / IDMSG_PLURAL (plural).\n"
 
 #: src/ngettext.c:239
 #, c-format
-msgid "  COUNT                     choose singular/plural form based on this value\n"
+msgid ""
+"  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
 "  NOMBRE               Escull la forma singular o la plural basant‐se en\n"
 "                       aquest valor.\n"

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"POT-Creation-Date: 2024-02-21 11:49+0100\n"
 "PO-Revision-Date: 2023-06-18 18:12+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: Korean <translation-team-ko@googlegroups.com>\n"
@@ -193,37 +193,37 @@ msgstr "파라미터 문자열이 제대로 인코딩되지 않음"
 msgid "Unknown error"
 msgstr "알 수 없는 오류"
 
-#: gnulib-lib/getopt.c:278
+#: gnulib-lib/getopt.c:282
 #, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: '%s%s' 옵션은 모호한 옵션입니다\n"
 
-#: gnulib-lib/getopt.c:284
+#: gnulib-lib/getopt.c:288
 #, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
 msgstr "%s: '%s%s' 옵션은 모호한 옵션입니다. 가능한 옵션은:"
 
-#: gnulib-lib/getopt.c:319
+#: gnulib-lib/getopt.c:322
 #, c-format
 msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: 인식할 수 없는 옵션 '%s%s'\n"
 
-#: gnulib-lib/getopt.c:345
+#: gnulib-lib/getopt.c:348
 #, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
 msgstr "%s: '%s%s' 옵션은 인수를 허용하지 않습니다\n"
 
-#: gnulib-lib/getopt.c:360
+#: gnulib-lib/getopt.c:363
 #, c-format
 msgid "%s: option '%s%s' requires an argument\n"
 msgstr "%s: '%s%s' 옵션은 인수가 필요합니다\n"
 
-#: gnulib-lib/getopt.c:621
+#: gnulib-lib/getopt.c:624
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: 부적절한 옵션 -- '%c'\n"
 
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: 이 옵션은 인수가 필요합니다 -- '%c'\n"
@@ -277,10 +277,10 @@ msgstr "자바 컴파일러가 없습니다. $JAVAC 환경변수를 세팅하십
 msgid "Java virtual machine not found, try setting $JAVA"
 msgstr "자바 가상기계가 없습니다. $JAVAC 환경변수를 세팅하십시오"
 
-#: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
+#: gnulib-lib/obstack.c:317 gnulib-lib/obstack.c:319 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
-#: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:317
+#: libgettextpo/obstack.c:319 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
 msgstr "메모리가 바닥났습니다"
@@ -540,9 +540,9 @@ msgstr "추가 피연산자 %s"
 
 #: src/file-list.c:53 src/msggrep.c:240 src/open-catalog.c:124
 #: src/read-mo.c:270 src/read-tcl.c:126 src/urlget.c:216
-#: src/write-desktop.c:173 src/xgettext.c:1826 src/xgettext.c:1838
-#: src/xgettext.c:1854 src/xgettext.c:1887 src/xgettext.c:1897
-#: src/xgettext.c:1914
+#: src/write-desktop.c:173 src/xgettext.c:1832 src/xgettext.c:1844
+#: src/xgettext.c:1860 src/xgettext.c:1893 src/xgettext.c:1903
+#: src/xgettext.c:1920
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "읽으려고 \"%s\"을(를) 여는 동안 오류 발생"
@@ -2721,7 +2721,7 @@ msgstr "%s 파일이 있지만 읽을 수 없습니다"
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
 #: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
-#: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
+#: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:224
 #: src/x-ycp.c:91
 #, c-format
 msgid "error while reading \"%s\""
@@ -3007,7 +3007,7 @@ msgstr ""
 
 #: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
-#: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
+#: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2079
 #: src/xg-message.c:340
 #, c-format
 msgid "warning: "
@@ -4143,18 +4143,18 @@ msgstr "%s:%d: 경고: 완결되지 않은 정규식"
 
 #: src/x-awk.c:769 src/x-c.c:2347 src/x-csharp.c:1946 src/x-java.c:1581
 #: src/x-javascript.c:1689 src/x-lua.c:1099 src/x-php.c:1487
-#: src/x-python.c:1602 src/x-vala.c:1322 src/x-ycp.c:698 src/x-ycp.c:773
+#: src/x-python.c:1602 src/x-vala.c:1367 src/x-ycp.c:698 src/x-ycp.c:773
 #, c-format
 msgid "%s:%d: error: too many open parentheses"
 msgstr "%s:%d: 오류: 열린 괄호가 너무 많습니다"
 
-#: src/x-c.c:1117 src/x-vala.c:509
+#: src/x-c.c:1117 src/x-vala.c:554
 #, c-format
 msgid "%s:%d: warning: hexadecimal escape sequence out of range"
 msgstr "%s:%d: 경고: 16진수 이스케이프 시퀀스가 범위를 벗어납니다"
 
 #: src/x-c.c:1206 src/x-csharp.c:1333 src/x-python.c:1103 src/x-tcl.c:804
-#: src/x-vala.c:597
+#: src/x-vala.c:642
 #, c-format
 msgid "%s:%d: warning: invalid Unicode character"
 msgstr "%s:%d: 경고: 잘못된 유니코드 문자"
@@ -4176,12 +4176,12 @@ msgstr "%s:%d: 경고: 완결되지 않은 날 문자열 상수"
 msgid "%s:%d: warning: invalid raw string literal syntax"
 msgstr "%s:%d: 경고: 잘못된 날 문자열 상수 문법"
 
-#: src/x-c.c:1704 src/x-csharp.c:1452 src/x-java.c:682 src/x-vala.c:839
+#: src/x-c.c:1704 src/x-csharp.c:1452 src/x-java.c:682 src/x-vala.c:884
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: 경고: 완결되지 않은 문자 상수"
 
-#: src/x-c.c:1741 src/x-vala.c:940
+#: src/x-c.c:1741 src/x-vala.c:985
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: 경고: 완결되지 않은 문자열 상수"
@@ -4706,18 +4706,18 @@ msgstr ""
 "\"\"을 \n"
 "                                            접미어로 사용합니다\n"
 
-#: src/xgettext.c:1706
+#: src/xgettext.c:1712
 #, c-format
 msgid ""
 "A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: "
 "%s"
 msgstr "--flag의 인자가 <keyword>:<argnum>:[pass-]<flag> 문법이 아닙니다: %s"
 
-#: src/xgettext.c:1873
+#: src/xgettext.c:1879
 msgid "standard input"
 msgstr "표준 입력"
 
-#: src/xgettext.c:2074
+#: src/xgettext.c:2080
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -4729,7 +4729,7 @@ msgstr ""
 "변수를 지정하십시오. 그렇지 않으면 --msgid-bugs-address\n"
 "명령행 옵션을 사용하십시오.\n"
 
-#: src/xgettext.c:2291
+#: src/xgettext.c:2297
 #, c-format
 msgid "language '%s' unknown"
 msgstr "'%s' 언어를 알 수 없습니다"
@@ -5053,7 +5053,7 @@ msgstr ""
 msgid "%s:%d: error: too deeply nested command list"
 msgstr "%s:%d: 오류: 명령어 목록 중첩 단계가 너무 큽니다"
 
-#: src/x-vala.c:647
+#: src/x-vala.c:692
 #, c-format
 msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr "%s:%d: 경고: 정규식 문자열이 너무 빨리 끝났습니다"

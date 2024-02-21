@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-06-15 20:33+0200\n"
+"POT-Creation-Date: 2024-02-21 11:49+0100\n"
 "PO-Revision-Date: 2023-06-18 12:54+0200\n"
 "Last-Translator: Göran Uddeborg <goeran@uddeborg.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
@@ -29,37 +29,37 @@ msgstr "skrivfel"
 msgid "Unknown system error"
 msgstr "Okänt systemfel"
 
-#: gnulib-lib/getopt.c:278
+#: gnulib-lib/getopt.c:282
 #, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: flaggan ”%s%s” är tvetydig\n"
 
-#: gnulib-lib/getopt.c:284
+#: gnulib-lib/getopt.c:288
 #, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
 msgstr "%s: flaggan ”%s%s” är tvetydig; alternativ:"
 
-#: gnulib-lib/getopt.c:319
+#: gnulib-lib/getopt.c:322
 #, c-format
 msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: okänd flagga ”%s%s”\n"
 
-#: gnulib-lib/getopt.c:345
+#: gnulib-lib/getopt.c:348
 #, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
 msgstr "%s: flaggan ”%s%s” tar inget argument\n"
 
-#: gnulib-lib/getopt.c:360
+#: gnulib-lib/getopt.c:363
 #, c-format
 msgid "%s: option '%s%s' requires an argument\n"
 msgstr "%s: flaggan ”%s%s” kräver ett argument\n"
 
-#: gnulib-lib/getopt.c:621
+#: gnulib-lib/getopt.c:624
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: ogiltig flagga -- ”%c”\n"
 
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: flaggan kräver ett argument -- ”%c”\n"
@@ -223,7 +223,8 @@ msgstr "  -c, --context=KONTEXT     ange kontext för MEDID\n"
 #: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
-msgstr "  -e                        aktivera expansion av några styrsekvenser\n"
+msgstr ""
+"  -e                        aktivera expansion av några styrsekvenser\n"
 
 #: src/gettext.c:267
 #, c-format
@@ -295,18 +296,27 @@ msgstr "  -d, --domain=TEXTDOMÄN    hämta ett översatt meddelande från TEXTD
 
 #: src/ngettext.c:235
 #, c-format
-msgid "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-msgstr "  [TEXTDOMÄN]               hämta ett översatt meddelande från TEXTDOMÄN\n"
+msgid ""
+"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+msgstr ""
+"  [TEXTDOMÄN]               hämta ett översatt meddelande från TEXTDOMÄN\n"
 
 #: src/ngettext.c:237
 #, c-format
-msgid "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
-msgstr "  MEDID MEDID-PLURAL        översätt MEDID (singularis) / MEDID-PLURAL (plural)\n"
+msgid ""
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
+"(plural)\n"
+msgstr ""
+"  MEDID MEDID-PLURAL        översätt MEDID (singularis) / MEDID-PLURAL "
+"(plural)\n"
 
 #: src/ngettext.c:239
 #, c-format
-msgid "  COUNT                     choose singular/plural form based on this value\n"
-msgstr "  ANTAL                     välj singular/plural form baserat på detta värde\n"
+msgid ""
+"  COUNT                     choose singular/plural form based on this value\n"
+msgstr ""
+"  ANTAL                     välj singular/plural form baserat på detta "
+"värde\n"
 
 #: src/ngettext.c:250
 #, c-format, no-wrap

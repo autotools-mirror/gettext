@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"POT-Creation-Date: 2024-02-21 11:49+0100\n"
 "PO-Revision-Date: 2023-06-19 07:52+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
@@ -192,37 +192,37 @@ msgstr "Nesprávne zakódovaný reťazec parametra"
 msgid "Unknown error"
 msgstr "Neznáma chyba"
 
-#: gnulib-lib/getopt.c:278
+#: gnulib-lib/getopt.c:282
 #, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: voľba '%s%s' nie je jednoznačná\n"
 
-#: gnulib-lib/getopt.c:284
+#: gnulib-lib/getopt.c:288
 #, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
 msgstr "%s: voľba '%s%s' nie je jednoznačná; možnosti:"
 
-#: gnulib-lib/getopt.c:319
+#: gnulib-lib/getopt.c:322
 #, c-format
 msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: neznáma voľba '%s%s'\n"
 
-#: gnulib-lib/getopt.c:345
+#: gnulib-lib/getopt.c:348
 #, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
 msgstr "%s: voľba '%s%s' nepovoľuje parameter\n"
 
-#: gnulib-lib/getopt.c:360
+#: gnulib-lib/getopt.c:363
 #, c-format
 msgid "%s: option '%s%s' requires an argument\n"
 msgstr "%s: voľba '%s%s' vyžaduje parameter\n"
 
-#: gnulib-lib/getopt.c:621
+#: gnulib-lib/getopt.c:624
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: neplatná voľba -- '%c'\n"
 
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: voľba vyžaduje parameter -- '%c'\n"
@@ -276,10 +276,10 @@ msgstr "Kompilátor Javy nebol nájdený. Skúste nastaviť $JAVAC"
 msgid "Java virtual machine not found, try setting $JAVA"
 msgstr "Virtuálny stroj Javy nebol nájdený. Skúste nastaviť $JAVA"
 
-#: gnulib-lib/obstack.c:337 gnulib-lib/obstack.c:339 gnulib-lib/xalloc-die.c:34
+#: gnulib-lib/obstack.c:317 gnulib-lib/obstack.c:319 gnulib-lib/xalloc-die.c:34
 #: gnulib-lib/xsetenv.c:37 src/msgl-check.c:563 src/po-lex.c:83
-#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:337
-#: libgettextpo/obstack.c:339 libgettextpo/xalloc-die.c:34
+#: src/po-lex.c:102 libgettextpo/gettext-po.c:1340 libgettextpo/obstack.c:317
+#: libgettextpo/obstack.c:319 libgettextpo/xalloc-die.c:34
 #, c-format
 msgid "memory exhausted"
 msgstr "vyčerpaná pamäť"
@@ -542,9 +542,9 @@ msgstr "operand %s navyše"
 
 #: src/file-list.c:53 src/msggrep.c:240 src/open-catalog.c:124
 #: src/read-mo.c:270 src/read-tcl.c:126 src/urlget.c:216
-#: src/write-desktop.c:173 src/xgettext.c:1826 src/xgettext.c:1838
-#: src/xgettext.c:1854 src/xgettext.c:1887 src/xgettext.c:1897
-#: src/xgettext.c:1914
+#: src/write-desktop.c:173 src/xgettext.c:1832 src/xgettext.c:1844
+#: src/xgettext.c:1860 src/xgettext.c:1893 src/xgettext.c:1903
+#: src/xgettext.c:1920
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "chyba pri otváraní súboru \"%s\" na čítanie"
@@ -2807,7 +2807,7 @@ msgstr "%s existuje, ale nedá sa čítať"
 #: src/x-javascript.c:179 src/x-librep.c:149 src/x-lisp.c:214 src/x-lua.c:176
 #: src/x-perl.c:260 src/x-perl.c:335 src/x-perl.c:428 src/x-php.c:164
 #: src/x-python.c:179 src/x-rst.c:242 src/x-rst.c:296 src/x-scheme.c:173
-#: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:179
+#: src/x-sh.c:165 src/x-smalltalk.c:86 src/x-tcl.c:154 src/x-vala.c:224
 #: src/x-ycp.c:91
 #, c-format
 msgid "error while reading \"%s\""
@@ -3107,7 +3107,7 @@ msgstr ""
 
 #: src/msgl-cat.c:476 src/msgl-cat.c:482 src/msgl-cat.c:499
 #: src/msgl-charset.c:91 src/msgl-charset.c:126 src/po-xerror.c:126
-#: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2073
+#: src/po-xerror.c:151 src/xgettext.c:589 src/xgettext.c:2079
 #: src/xg-message.c:340
 #, c-format
 msgid "warning: "
@@ -4254,19 +4254,19 @@ msgstr "%s:%d: upozornenie: neukončený regulárny výraz"
 
 #: src/x-awk.c:769 src/x-c.c:2347 src/x-csharp.c:1946 src/x-java.c:1581
 #: src/x-javascript.c:1689 src/x-lua.c:1099 src/x-php.c:1487
-#: src/x-python.c:1602 src/x-vala.c:1322 src/x-ycp.c:698 src/x-ycp.c:773
+#: src/x-python.c:1602 src/x-vala.c:1367 src/x-ycp.c:698 src/x-ycp.c:773
 #, c-format
 msgid "%s:%d: error: too many open parentheses"
 msgstr "%s:%d: chyba: príliš veľa otvorených zátvoriek"
 
-#: src/x-c.c:1117 src/x-vala.c:509
+#: src/x-c.c:1117 src/x-vala.c:554
 #, c-format
 msgid "%s:%d: warning: hexadecimal escape sequence out of range"
 msgstr ""
 "%s:%d: upozornenie: riadiaca sekvencia v šestnástkovej sústave mimo rozsah"
 
 #: src/x-c.c:1206 src/x-csharp.c:1333 src/x-python.c:1103 src/x-tcl.c:804
-#: src/x-vala.c:597
+#: src/x-vala.c:642
 #, c-format
 msgid "%s:%d: warning: invalid Unicode character"
 msgstr "%s:%d: upozornenie: neplatný znak Unicode"
@@ -4290,12 +4290,12 @@ msgstr "%s:%d: upozornenie: neukončený neupravený znakový reťazec"
 msgid "%s:%d: warning: invalid raw string literal syntax"
 msgstr "%s:%d: upozornenie: neplatná syntax neupraveného znakového reťazca"
 
-#: src/x-c.c:1704 src/x-csharp.c:1452 src/x-java.c:682 src/x-vala.c:839
+#: src/x-c.c:1704 src/x-csharp.c:1452 src/x-java.c:682 src/x-vala.c:884
 #, c-format
 msgid "%s:%d: warning: unterminated character constant"
 msgstr "%s:%d: upozornenie: neukončená znaková konštanta"
 
-#: src/x-c.c:1741 src/x-vala.c:940
+#: src/x-c.c:1741 src/x-vala.c:985
 #, c-format
 msgid "%s:%d: warning: unterminated string literal"
 msgstr "%s:%d: upozornenie: neukončený znakový reťazec"
@@ -4823,7 +4823,7 @@ msgstr ""
 "príponu pre\n"
 "                                hodnoty msgstr\n"
 
-#: src/xgettext.c:1706
+#: src/xgettext.c:1712
 #, c-format
 msgid ""
 "A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: "
@@ -4831,11 +4831,11 @@ msgid ""
 msgstr ""
 "Parameter pre --flag nemá tvar <kľúčové_slovo>:<č_param>:[pass-]<príznak>: %s"
 
-#: src/xgettext.c:1873
+#: src/xgettext.c:1879
 msgid "standard input"
 msgstr "štandardný vstup"
 
-#: src/xgettext.c:2074
+#: src/xgettext.c:2080
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -4847,7 +4847,7 @@ msgstr ""
 "MSGID_BUGS_ADDRESS; inak prosím zadajte voľbu príkazového\n"
 "riadka --msgid-bugs-address.\n"
 
-#: src/xgettext.c:2291
+#: src/xgettext.c:2297
 #, c-format
 msgid "language '%s' unknown"
 msgstr "jazyk '%s' je neznámy"
@@ -5164,7 +5164,7 @@ msgstr ""
 msgid "%s:%d: error: too deeply nested command list"
 msgstr "%s:%d: chyba: príliš hlboko vnorený zoznam príkazov"
 
-#: src/x-vala.c:647
+#: src/x-vala.c:692
 #, c-format
 msgid "%s:%d: warning: regular expression literal terminated too early"
 msgstr ""
