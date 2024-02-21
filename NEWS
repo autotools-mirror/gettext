@@ -1,3 +1,9 @@
+Version 0.22.5 - February 2024
+
+* The replacements for the printf()/fprintf()/... functions that are
+  provided through <libintl.h> on native Windows and NetBSD now enable
+  GCC's format string analysis (-Wformat).
+
 Version 0.22.4 - November 2023
 
 * Bug fixes:
