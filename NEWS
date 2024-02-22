@@ -20,6 +20,17 @@ Version 0.23 - December 2023
 * msgmerge:
   - The msgmerge option '--sorted-output' is now deprecated.
 
+Version 0.22.5 - February 2024
+
+* The replacements for the printf()/fprintf()/... functions that are
+  provided through <libintl.h> on native Windows and NetBSD now enable
+  GCC's format string analysis (-Wformat).
+
+* Bug fixes:
+  - xgettext's processing of Vala files with printf method invocations has
+    been corrected (regression in 0.22).
+  - Build fixes on macOS.
+
 Version 0.22.4 - November 2023
 
 * Bug fixes:

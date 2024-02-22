@@ -4,6 +4,12 @@ Version 0.23 - October 2023
   now return the msgid untranslated. This is relevant for GNU systems,
   Linux with musl libc, FreeBSD, NetBSD, OpenBSD, Cygwin, and Android.
 
+Version 0.22.5 - February 2024
+
+* The replacements for the printf()/fprintf()/... functions that are
+  provided through <libintl.h> on native Windows and NetBSD now enable
+  GCC's format string analysis (-Wformat).
+
 Version 0.22.3 - October 2023
 
 * Portability:
