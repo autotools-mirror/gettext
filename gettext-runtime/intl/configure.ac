@@ -293,15 +293,18 @@ AH_VERBATIM([znoexport], [
 /* Symbols defined by gnulib module 'isnanl-nolibm'.  */
 #define rpl_isnanl                 _libintl_isnanl
 /* Symbols defined by gnulib module 'localename'.  */
+#define gl_locale_name_thread             _libintl_locale_name_thread
+#define gl_locale_name_posix              _libintl_locale_name_posix
+#define gl_locale_name                    _libintl_locale_name
+/* Symbols defined by gnulib module 'localename-unsafe'.  */
 #define gl_locale_name_canonicalize       _libintl_locale_name_canonicalize
 #define gl_locale_name_from_win32_LANGID  _libintl_locale_name_from_win32_LANGID
 #define gl_locale_name_from_win32_LCID    _libintl_locale_name_from_win32_LCID
 #define gl_locale_name_thread_unsafe      _libintl_locale_name_thread_unsafe
-#define gl_locale_name_thread             _libintl_locale_name_thread
-#define gl_locale_name_posix              _libintl_locale_name_posix
+#define gl_locale_name_posix_unsafe       _libintl_locale_name_posix_unsafe
 #define gl_locale_name_environ            _libintl_locale_name_environ
 #define gl_locale_name_default            _libintl_locale_name_default
-#define gl_locale_name                    _libintl_locale_name
+#define gl_locale_name_unsafe             _libintl_locale_name_unsafe
 #define rpl_newlocale                     _libintl_newlocale
 #define rpl_duplocale                     _libintl_duplocale
 #define rpl_freelocale                    _libintl_freelocale
@@ -342,6 +345,9 @@ AH_VERBATIM([znoexport], [
 /* Symbols defined by gnulib module 'setlocale-null'.  */
 #define setlocale_null             _libintl_setlocale_null
 #define setlocale_null_r           _libintl_setlocale_null_r
+/* Symbols defined by gnulib module 'setlocale-null-unlocked'.  */
+#define setlocale_null_unlocked    _libintl_setlocale_null_unlocked
+#define setlocale_null_r_unlocked  _libintl_setlocale_null_r_unlocked
 /* Symbols defined by gnulib module 'signbit'.  */
 #define gl_signbitf                _libintl_signbitf
 #define gl_signbitd                _libintl_signbitd

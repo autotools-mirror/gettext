@@ -211,6 +211,7 @@
 /gettext-tools/libgettextpo/safe-write.c
 /gettext-tools/libgettextpo/safe-write.h
 /gettext-tools/libgettextpo/setlocale-lock.c
+/gettext-tools/libgettextpo/setlocale_null-unlocked.c
 /gettext-tools/libgettextpo/setlocale_null.c
 /gettext-tools/libgettextpo/setlocale_null.h
 /gettext-tools/libgettextpo/signal.in.h
