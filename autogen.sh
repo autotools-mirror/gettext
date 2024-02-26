@@ -70,6 +70,28 @@ if ! $skip_gnulib; then
     echo "*** gnulib-tool not found." 1>&2
     exit 1
   }
+  # Sync files that might have been modified in gnulib or in gettext.
+  sed_extract_serial='s/^#.* serial \([^ ]*\).*/\1/p
+1q'
+  for file in gettext.m4 nls.m4 po.m4 progtest.m4; do
+    if cmp "$GNULIB_SRCDIR/m4/$file" "gettext-runtime/m4/$file" >/dev/null; then
+      :
+    else
+      gnulib_serial=`sed -n -e "$sed_extract_serial" < "$GNULIB_SRCDIR/m4/$file"`
+      gettext_serial=`sed -n -e "$sed_extract_serial" < "gettext-runtime/m4/$file"`
+      if test -n "$gnulib_serial" && test -n "$gettext_serial"; then
+        if test "$gnulib_serial" -ge "$gettext_serial" 2> /dev/null; then
+          # The gnulib copy is newer, or it has an update copyright line.
+          mv "gettext-runtime/m4/$file" "gettext-runtime/m4/$file"'~'
+          cp "$GNULIB_SRCDIR/m4/$file" "gettext-runtime/m4/$file"
+        else
+          # The gettext copy is newer.
+          mv "$GNULIB_SRCDIR/m4/$file" "$GNULIB_SRCDIR/m4/$file"'~'
+          cp "gettext-runtime/m4/$file" "$GNULIB_SRCDIR/m4/$file"
+        fi
+      fi
+    fi
+  done
   # In gettext-runtime:
   GNULIB_MODULES_RUNTIME_FOR_SRC='
     atexit
@@ -504,23 +526,6 @@ cp -p gettext-runtime/po/en@quot.header gettext-tools/po/en@quot.header
 cp -p gettext-runtime/po/en@boldquot.header gettext-tools/po/en@boldquot.header
 cp -p gettext-runtime/po/insert-header.sin gettext-tools/po/insert-header.sin
 cp -p gettext-runtime/po/remove-potcdate.sin gettext-tools/po/remove-potcdate.sin
-# This file might be newer than Gnulib's.
-sed_extract_serial='s/^#.* serial \([^ ]*\).*/\1/p
-1q'
-for file in po.m4; do
-  if test -f "gettext-tools/gnulib-m4/$file"; then
-    existing_serial=`sed -n -e "$sed_extract_serial" < "gettext-tools/gnulib-m4/$file"`
-    gettext_serial=`sed -n -e "$sed_extract_serial" < "gettext-runtime/m4/$file"`
-    if test -n "$existing_serial" && test -n "$gettext_serial" \
-          && test "$existing_serial" -ge "$gettext_serial" 2> /dev/null; then
-      :
-    else
-      cp -p "gettext-runtime/m4/$file" "gettext-tools/gnulib-m4/$file"
-    fi
-  else
-    cp -p "gettext-runtime/m4/$file" "gettext-tools/gnulib-m4/$file"
-  fi
-done
 
 echo "$0: generating configure in gettext-tools..."
 cd gettext-tools
