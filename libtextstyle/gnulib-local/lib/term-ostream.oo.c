@@ -1208,6 +1208,16 @@ out_char (int c)
   return 0;
 }
 
+/* Output an entire string (not an escape sequence) to out_fd.  */
+static void
+out_data_string (const char *s)
+{
+  size_t n = strlen (s);
+  if (n > 0)
+    if (full_write (out_fd, s, n) < n)
+      out_error ();
+}
+
 /* Output a single char to out_fd.  Ignore errors.  */
 static _GL_ASYNC_SAFE int
 out_char_unchecked (int c)
@@ -1217,6 +1227,16 @@ out_char_unchecked (int c)
   bytes[0] = (char)c;
   full_write (out_fd, bytes, 1);
   return 0;
+}
+
+/* Output an entire string (not an escape sequence) to out_fd.
+   Ignore errors.  */
+static _GL_ASYNC_SAFE void
+out_data_string_unchecked (const char *s)
+{
+  size_t n = strlen (s);
+  if (n > 0)
+    full_write (out_fd, s, n);
 }
 
 /* Output escape sequences to switch the foreground color to NEW_COLOR.  */
@@ -1583,11 +1603,23 @@ out_hyperlink_change (term_ostream_t stream, hyperlink_t *new_hyperlink,
   if (new_hyperlink != NULL)
     {
       assert (new_hyperlink->real_id != NULL);
-      tputs ("\033]8;id=",           1, out_ch);
-      tputs (new_hyperlink->real_id, 1, out_ch);
-      tputs (";",                    1, out_ch);
-      tputs (new_hyperlink->ref,     1, out_ch);
-      tputs ("\033\\",               1, out_ch);
+      /* We need to output the hyperlink's id and ref directly, not through
+         tputs(), because
+           - The tputs() documentation says that its first argument "must be
+             a terminfo string variable or the return value from tparm,
+             tgetstr, or tgoto."
+           - Some ncurses versions do special processing if the first argument
+             starts with a digit. Cf. BSD_TPUTS in the ncurses source code.
+         Maybe we should better pass the entire escape sequence to a single
+         tputs() call.  But this would require a memory allocation, which can
+         fail.  (The length limits on id and ref are not enforced.)  */
+      void (*out_string) (const char *) =
+        (async_safe ? out_data_string_unchecked : out_data_string);
+      tputs ("\033]8;id=", 1, out_ch);
+      out_string (new_hyperlink->real_id);
+      out_string (";");
+      out_string (new_hyperlink->ref);
+      tputs ("\033\\", 1, out_ch);
     }
   else
     tputs ("\033]8;;\033\\", 1, out_ch);
