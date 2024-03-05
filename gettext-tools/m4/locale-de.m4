@@ -114,7 +114,7 @@ int main () {
                 if (LC_ALL=de_DE.UTF-8 LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
                   gt_cv_locale_de_utf8=de_DE.UTF-8
                 else
-                  # Test for the Solaris 7 locale name.
+                  # Test for the Solaris 10 locale name.
                   if (LC_ALL=de.UTF-8 LC_TIME= LC_CTYPE= ./conftest; exit) 2>/dev/null; then
                     gt_cv_locale_de_utf8=de.UTF-8
                   else
