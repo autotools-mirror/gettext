@@ -1,5 +1,6 @@
-# hostname.m4 serial 2 (gettext-0.21.1)
-dnl Copyright (C) 2001-2002, 2020 Free Software Foundation, Inc.
+# hostname.m4
+# serial 2 (gettext-0.21.1)
+dnl Copyright (C) 2001-2024 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.

@@ -1,5 +1,6 @@
-# init-package-version.m4 serial 3
-dnl Copyright (C) 1992-2021 Free Software Foundation, Inc.
+# init-package-version.m4
+# serial 3
+dnl Copyright (C) 1992-2024 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
