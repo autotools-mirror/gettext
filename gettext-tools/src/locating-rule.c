@@ -178,7 +178,7 @@ locating_rule_match (struct locating_rule_ty *rule,
                          | XML_PARSE_NOERROR);
       if (doc == NULL)
         {
-          xmlError *err = xmlGetLastError ();
+          const xmlError *err = xmlGetLastError ();
           error (0, 0, _("cannot read %s: %s"), filename, err->message);
           return NULL;
         }

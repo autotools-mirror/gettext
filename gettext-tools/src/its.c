@@ -1460,7 +1460,7 @@ its_rule_list_add_from_file (struct its_rule_list_ty *rules,
                      | XML_PARSE_NOERROR);
   if (doc == NULL)
     {
-      xmlError *err = xmlGetLastError ();
+      const xmlError *err = xmlGetLastError ();
       error (0, 0, _("cannot read %s: %s"), filename, err->message);
       return false;
     }
@@ -1486,7 +1486,7 @@ its_rule_list_add_from_string (struct its_rule_list_ty *rules,
                        | XML_PARSE_NOERROR);
   if (doc == NULL)
     {
-      xmlError *err = xmlGetLastError ();
+      const xmlError *err = xmlGetLastError ();
       error (0, 0, _("cannot read %s: %s"), "(internal)", err->message);
       return false;
     }
@@ -1883,7 +1883,7 @@ its_rule_list_extract (its_rule_list_ty *rules,
                    | XML_PARSE_NOERROR);
   if (doc == NULL)
     {
-      xmlError *err = xmlGetLastError ();
+      const xmlError *err = xmlGetLastError ();
       error (0, 0, _("cannot read %s: %s"), logical_filename, err->message);
       return;
     }
@@ -2004,7 +2004,7 @@ its_merge_context_alloc (its_rule_list_ty *rules,
                      | XML_PARSE_NOERROR);
   if (doc == NULL)
     {
-      xmlError *err = xmlGetLastError ();
+      const xmlError *err = xmlGetLastError ();
       error (0, 0, _("cannot read %s: %s"), filename, err->message);
       return NULL;
     }
