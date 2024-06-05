@@ -2,7 +2,7 @@ The following packages should be installed before GNU gettext is installed
 (runtime dependencies that are also build dependencies):
 
 * GNU libiconv
-  + Not needed on systems with glibc, on macOS, and NetBSD.
+  + Not needed on systems with glibc and on NetBSD.
     But highly recommended on all other systems.
     Needed for character set conversion of PO files from/to Unicode
     and for the iconv_ostream class of libtextstyle.
@@ -16,6 +16,8 @@ The following packages should be installed before GNU gettext is installed
     - Other: https://repology.org/project/libiconv/versions
   + If it is installed in a nonstandard directory, pass the option
     --with-libiconv-prefix=DIR to 'configure'.
+  + On mingw, a slim alternative is the 'win-iconv' package version 0.0.8
+    from https://github.com/win-iconv/win-iconv .
 
 * GNU ncurses (preferred)
   or libtermcap (discouraged) or a curses library (legacy).
