@@ -35,7 +35,7 @@ AC_PROG_INSTALL
 gt_JAVA_CHOICE
 AS_IF([test "$JAVA_CHOICE" != no], [
   gt_JAVAEXEC
-  gt_JAVACOMP([1.5])
+  gt_JAVACOMP([1.8])
   AC_CHECK_PROG([JAR], [jar], [jar])
   if test -n "$HAVE_JAVACOMP" && test -n "$JAR" && test "$JAVA_CHOICE" != no; then
     BUILDJAVA=yes

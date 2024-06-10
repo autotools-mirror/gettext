@@ -1213,7 +1213,7 @@ msgdomain_write_java (message_list_ty *mlp, const char *canon_encoding,
      Java compilers create the class files in the source file's directory -
      which is in a temporary directory in our case.  */
   java_sources[0] = java_file_name;
-  if (compile_java_class (java_sources, 1, NULL, 0, "1.5", "1.6", directory,
+  if (compile_java_class (java_sources, 1, NULL, 0, "1.8", "1.8", directory,
                           true, false, true, verbose > 0))
     {
       if (!verbose)
