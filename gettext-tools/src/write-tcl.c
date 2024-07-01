@@ -97,6 +97,7 @@ write_tcl_string (FILE *stream, const char *str)
         }
       else
         /* The \unnnn notation doesn't support characters >= 0x10000.
+           (See also <https://core.tcl-lang.org/tcl/tktview/d10d6ddf29>.)
            We output them as UTF-8 byte sequences and hope that either
            the Tcl version reading them will be new enough or that the
            user is using an UTF-8 locale.  */
