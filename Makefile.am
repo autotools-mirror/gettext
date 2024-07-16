@@ -54,7 +54,8 @@ EXTRA_DIST = \
   $(changelog_etc) DEPENDENCIES PACKAGING HACKING JOIN-GNU ChangeLog.0 \
   autogen.sh \
   check-copyright-headers \
-  build-aux/ac-help.sed build-aux/git-version-gen build-aux/texi2html \
+  build-aux/ac-help.sed build-aux/git-version-gen build-aux/jar-cf \
+  build-aux/texi2html \
   m4/fixautomake.m4 m4/woe32-dll.m4 \
   m4/libtool.m4
 

@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2023 Free Software Foundation, Inc.
+## Copyright (C) 1995-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -655,7 +655,7 @@ gnu/gettext/GetURL.class: $(srcdir)/gnu/gettext/GetURL.java
 	$(JAVACOMP) -d . $(srcdir)/gnu/gettext/GetURL.java
 
 gettext.jar: gnu/gettext/DumpResource.class gnu/gettext/GetURL.class
-	$(JAR) cf $@ gnu/gettext/DumpResource*.class gnu/gettext/GetURL*.class
+	$(top_srcdir)/../build-aux/jar-cf '$(JAR)' '$(top_srcdir)/..' $@ gnu/gettext/DumpResource*.class gnu/gettext/GetURL*.class
 
 EXTRA_DIST += gnu/gettext/DumpResource.java gnu/gettext/GetURL.java
 

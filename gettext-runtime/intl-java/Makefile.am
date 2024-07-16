@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/intl-java subdirectory of GNU gettext
-## Copyright (C) 2001-2003, 2006-2007, 2013 Free Software Foundation, Inc.
+## Copyright (C) 2001-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -45,7 +45,7 @@ gnu/gettext/GettextResource.class: $(srcdir)/gnu/gettext/GettextResource.java
 	$(JAVACOMP) -d . $(srcdir)/gnu/gettext/GettextResource.java
 
 libintl.jar: gnu/gettext/GettextResource.class
-	$(JAR) cf $@ gnu/gettext/GettextResource*.class
+	$(top_srcdir)/../build-aux/jar-cf '$(JAR)' '$(top_srcdir)/..' $@ gnu/gettext/GettextResource*.class
 
 EXTRA_DIST += gnu/gettext/GettextResource.java
 
