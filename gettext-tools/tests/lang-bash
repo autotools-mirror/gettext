@@ -95,6 +95,10 @@ esac
 # Test which of the fr_FR locales are installed.
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+# bash on macOS supports only UTF-8 locales.
+case "$host_os" in
+  darwin*) LOCALE_FR=none ;;
+esac
 if test $LOCALE_FR != none; then
   LC_ALL=$LOCALE_FR ../testlocale
   case $? in
@@ -119,19 +123,6 @@ if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
   fi
   Exit 77
 fi
-
-case "$host_os" in
-  darwin*)
-    if test $LOCALE_FR != none; then
-      LC_ALL=$LOCALE_FR bash --help \
-        | grep '^Utilisation' > /dev/null 2>&1 || Exit 77
-    fi
-    if test $LOCALE_FR_UTF8 != none; then
-      LC_ALL=$LOCALE_FR_UTF8 bash --help \
-        | grep '^Utilisation' > /dev/null 2>&1 || Exit 77
-    fi
-  ;;
-esac
 
 # Expected result when bash is built without i18n support.
 cat <<\EOF > prog.nok
