@@ -83,9 +83,16 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
 # Test for presence of python version 2.3 or newer.
-(python -V) >/dev/null 2>/dev/null \
-  || { echo "Skipping test: python not found"; Exit 77; }
-case `python -c 'import sys; print(sys.hexversion >= 0x20300F0)'` in
+if (python3 -V) >/dev/null 2>/dev/null; then
+  PYTHON=python3
+else
+  if (python -V) >/dev/null 2>/dev/null; then
+    PYTHON=python
+  else
+    echo "Skipping test: python not found"; Exit 77
+  fi
+fi
+case `$PYTHON -c 'import sys; print(sys.hexversion >= 0x20300F0)'` in
   1 | True) ;;
   *) echo "Skipping test: python version too old"; Exit 77;;
 esac
@@ -106,13 +113,13 @@ EOF
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR_UTF8 != none; then
   prepare_locale_ fr $LOCALE_FR_UTF8
-  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 python prog2.py 2 > prog.out || Exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 $PYTHON prog2.py 2 > prog.out || Exit 1
   ${DIFF} prog.oku prog.out || Exit 1
 fi
 if test -z "$ISO8859_LOCALE_UNSUPPORTED"; then
   if test $LOCALE_FR != none; then
     prepare_locale_ fr $LOCALE_FR
-    LANGUAGE= LC_ALL=$LOCALE_FR python prog2.py 2 > prog.out || Exit 1
+    LANGUAGE= LC_ALL=$LOCALE_FR $PYTHON prog2.py 2 > prog.out || Exit 1
     ${DIFF} prog.ok prog.out || Exit 1
   fi
   if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
