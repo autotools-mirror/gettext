@@ -42,10 +42,6 @@ ${AUTOMAKE} --add-missing >/dev/null 2>/dev/null \
 
 rm -f configure.ac Makefile.am
 
-: ${MAKE=make}
-${MAKE} --version >/dev/null 2>/dev/null \
-  || { echo "Skipping test: make not found"; Exit 77; }
-
 gettext_datadir=$top_builddir/misc
 export gettext_datadir
 
@@ -145,6 +141,7 @@ test $? = 0 || { cat autopoint.err; Exit 1; }
 ${CONFIG_SHELL} ./configure >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
 
+: ${MAKE=make}
 ${MAKE} >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
 
