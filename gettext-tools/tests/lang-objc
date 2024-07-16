@@ -19,7 +19,7 @@ int main ()
   exit (0);
 }
 EOF
-${CC} ${CFLAGS} ${CPPFLAGS} ${LDFLAGS} -o hello hello.m 2>/dev/null \
+${OBJC} ${OBJCFLAGS} ${CPPFLAGS} ${LDFLAGS} -o hello hello.m 2>/dev/null \
   || { echo "Skipping test: Objective C compiler not found"
        Exit 77
      }
@@ -58,15 +58,15 @@ int main (int argc, char *argv[])
 }
 EOF
 
-# Put the -I flags before ${CFLAGS} ${CPPFLAGS}, to make sure that libintl.h
+# Put the -I flags before ${OBJCFLAGS} ${CPPFLAGS}, to make sure that libintl.h
 # is found in the build directory, regardless of -I options present in
-# ${CFLAGS} or ${CPPFLAGS}.
-${CC} -I../.. -I"$abs_top_srcdir"/gnulib-lib -I../../../gettext-runtime/intl ${CFLAGS} ${CPPFLAGS} -c prog.m \
+# ${OBJCFLAGS} or ${CPPFLAGS}.
+${OBJC} -I../.. -I"$abs_top_srcdir"/gnulib-lib -I../../../gettext-runtime/intl ${OBJCFLAGS} ${CPPFLAGS} -c prog.m \
   || Exit 1
 
 : ${CONFIG_SHELL=${SHELL-/bin/sh}}
 ${CONFIG_SHELL} "$top_builddir"/libtool --quiet --tag=CC --mode=link \
-  ${CC} ${CFLAGS} -o prog prog.${OBJEXT} ../../gnulib-lib/libgettextlib.la ${LDFLAGS} ${LTLIBINTL} \
+  ${OBJC} ${OBJCFLAGS} -o prog prog.${OBJEXT} ../../gnulib-lib/libgettextlib.la ${LDFLAGS} ${LTLIBINTL} \
   || Exit 1
 
 : ${XGETTEXT=xgettext}

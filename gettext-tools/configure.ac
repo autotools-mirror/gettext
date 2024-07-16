@@ -550,6 +550,9 @@ gt_LOCALE_FR
 gt_LOCALE_FR_UTF8
 gt_LOCALE_JA
 gt_LOCALE_DE_UTF8
+dnl Test for gobjc before gcc, since that's what the EPEL 9 package 'gcc-objc'
+dnl installs (on systems where gcc does not support Objective C).
+AC_PROG_OBJC([gobjc gcc objcc objc cc CC clang])
 
 dnl Checks for functions for the tests/*.c tests.
 AC_CHECK_FUNCS_ONCE([getrlimit setrlimit uselocale])
