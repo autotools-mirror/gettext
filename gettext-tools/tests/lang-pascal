@@ -26,10 +26,11 @@ begin
 end.
 EOF
 
+(fpc pascalprog.pp) >/dev/null 2>&1 ||
 (ppc386 pascalprog.pp) >/dev/null 2>&1 ||
 (ppcx64 pascalprog.pp) >/dev/null 2>&1 ||
 {
-  echo "Skipping test: Pascal compiler ppc386 or ppcx64 not found"
+  echo "Skipping test: Pascal compiler fpc or ppc386 or ppcx64 not found"
   Exit 77
 }
 
