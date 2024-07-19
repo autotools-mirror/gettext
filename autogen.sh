@@ -427,6 +427,7 @@ if ! $skip_gnulib; then
     --import --avoid=progname $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER || exit $?
   # In gettext-tools/tests:
   GNULIB_MODULES_TOOLS_TESTS='
+    test-xfail
     thread
   '
   $GNULIB_TOOL --dir=gettext-tools --macro-prefix=gttgl --lib=libtestsgnu --source-base=tests/gnulib-lib --m4-base=tests/gnulib-m4 --makefile-name=Makefile.gnulib --local-dir=gnulib-local --local-symlink \

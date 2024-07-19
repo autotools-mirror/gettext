@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/tests subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2001-2010, 2012-2016, 2018-2023 Free Software Foundation, Inc.
+## Copyright (C) 1995-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -222,6 +222,18 @@ TESTS = gettext-1 gettext-2 \
 	lang-ycp \
 	lang-rst \
 	autopoint-1 autopoint-2 autopoint-3 cldr-plurals-1
+
+# Expected test failures.
+XFAIL_TESTS =
+if OS_IS_NATIVE_WINDOWS
+# Tests that rely on shell scripts.
+XFAIL_TESTS += \
+	msgexec-1 msgexec-3 msgexec-4 msgexec-5 msgexec-6 \
+	msgfilter-6 msgfilter-7
+# Functionality that relies on shell scripts.
+XFAIL_TESTS += \
+	msginit-3
+endif
 
 EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	test.mo overflow-1.mo overflow-2.mo overflow-3.mo overflow-4.mo \
