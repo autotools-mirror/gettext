@@ -72,6 +72,11 @@ esac
 # Test which of the fr_FR locales are installed.
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+# librep on FreeBSD, NetBSD supports only UTF-8 locales.
+# (Maybe because librep bundles the intl/ subpackage from gettext-0.10.35.)
+case "$host_os" in
+  freebsd* | netbsd*) LOCALE_FR=none ;;
+esac
 if test $LOCALE_FR != none; then
   LC_ALL=$LOCALE_FR ../testlocale
   case $? in
