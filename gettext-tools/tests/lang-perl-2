@@ -100,6 +100,10 @@ perl -M'Locale::TextDomain' -e '' 2>/dev/null \
 
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+# perl on NetBSD supports only UTF-8 locales.
+case "$host_os" in
+  netbsd*) LOCALE_FR=none ;;
+esac
 if test $LOCALE_FR != none; then
   prepare_locale_ fr $LOCALE_FR
   LANGUAGE= LANG=$LOCALE_FR LC_MESSAGES= LC_CTYPE= LC_ALL= perl program2.pl > prog.out || Exit 1
