@@ -114,7 +114,13 @@ if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
   Exit 77
 fi
 
-: ${DIFF=diff}
+# Expected result when guile is built without i18n support.
+cat <<\EOF > prog.nok
+'Your command, please?', asked the waiter.
+2 pieces of cake
+FF is replaced by EUR.
+EOF
+# Expected result when guile is built with i18n support.
 cat <<\EOF > prog.ok
 «Votre commande, s'il vous plait», dit le garçon.
 2 morceaux de gateau
@@ -126,18 +132,28 @@ cat <<\EOF > prog.oku
 EUR remplace FF.
 EOF
 
+: ${DIFF=diff}
+
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
   prepare_locale_ fr $LOCALE_FR
   LANGUAGE= LC_ALL=$LOCALE_FR guile -s prog.scm 2 > prog.out 2>prog.err || { cat prog.err 1>&2; Exit 1; }
   grep -v '^;;;' prog.err 1>&2
+  ${DIFF} prog.nok prog.out > /dev/null && {
+    echo "Skipping test: guile is built without i18n support"
+    Exit 77
+  }
   ${DIFF} prog.ok prog.out || Exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
   prepare_locale_ fr $LOCALE_FR_UTF8
   LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 guile -s prog.scm 2 > prog.out 2>prog.err || { cat prog.err 1>&2; Exit 1; }
   grep -v '^;;;' prog.err 1>&2
+  ${DIFF} prog.nok prog.out > /dev/null && {
+    echo "Skipping test: guile is built without i18n support"
+    Exit 77
+  }
   ${DIFF} prog.oku prog.out || Exit 1
 fi
 
