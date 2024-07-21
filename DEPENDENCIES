@@ -33,7 +33,7 @@ The following packages should be installed before GNU gettext is installed
     - On Red Hat distributions: ncurses-devel.
     - Other: https://repology.org/project/ncurses/versions
   + If it is installed in a nonstandard directory, pass the option
-    --with-ncurses-prefix=DIR or --with-libtermcap-prefix to 'configure'.
+    --with-libncurses-prefix=DIR or --with-libtermcap-prefix to 'configure'.
 
 * libxml2
   + Recommended.
