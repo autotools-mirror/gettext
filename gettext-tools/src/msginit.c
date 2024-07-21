@@ -21,6 +21,7 @@
 #endif
 #include <alloca.h>
 
+#include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <getopt.h>
@@ -31,22 +32,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <time.h>
+#include <unistd.h>
 #include <sys/types.h>
 
 #if HAVE_PWD_H
 # include <pwd.h>
-#endif
-
-#include <unistd.h>
-
-#if HAVE_DIRENT_H
-# include <dirent.h>
-#endif
-
-#if HAVE_DIRENT_H
-# define HAVE_DIR 1
-#else
-# define HAVE_DIR 0
 #endif
 
 #include <textstyle.h>
@@ -492,7 +482,6 @@ or by email to <%s>.\n"),
 static const char *
 find_pot ()
 {
-#if HAVE_DIR
   DIR *dirp;
   char *found = NULL;
 
@@ -535,7 +524,6 @@ Please specify the input .pot file through the --input option.\n")));
       if (found != NULL)
         return found;
     }
-#endif
 
   multiline_error (xstrdup (""),
                    xstrdup (_("\

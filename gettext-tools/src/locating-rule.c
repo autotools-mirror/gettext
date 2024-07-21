@@ -23,17 +23,9 @@
 /* Specification.  */
 #include "locating-rule.h"
 
+#include <dirent.h>
 #include <errno.h>
 #include <fnmatch.h>
-
-#if HAVE_DIRENT_H
-# include <dirent.h>
-#endif
-#if HAVE_DIRENT_H
-# define HAVE_DIR 1
-#else
-# define HAVE_DIR 0
-#endif
 
 #include <libxml/parser.h>
 #include <libxml/uri.h>
@@ -392,7 +384,6 @@ bool
 locating_rule_list_add_from_directory (struct locating_rule_list_ty *rules,
                                        const char *directory)
 {
-#if HAVE_DIR
   DIR *dirp;
 
   dirp = opendir (directory);
@@ -426,7 +417,6 @@ locating_rule_list_add_from_directory (struct locating_rule_list_ty *rules,
   if (closedir (dirp))
     return false;
 
-#endif
   return true;
 }
 
