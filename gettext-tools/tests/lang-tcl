@@ -95,6 +95,15 @@ unset LC_CTYPE
 
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+# tclsh on native Windows does not want the native Windows locale name
+# (French_France.1252 or French_France.65001), but the Unix locale name (fr_FR).
+# See https://www.tcl.tk/man/tcl8.6/TclCmd/msgcat.htm#M19 .
+case "$host_os" in
+  mingw* | windows*)
+    LOCALE_FR=fr_FR.ISO-8859-1
+    LOCALE_FR_UTF8=none
+    ;;
+esac
 if test $LOCALE_FR != none; then
   prepare_locale_ fr $LOCALE_FR
   LANGUAGE= LANG=$LOCALE_FR tclsh program.tcl > prog.tmp || Exit 1
