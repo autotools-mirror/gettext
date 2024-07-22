@@ -23,6 +23,7 @@
 /lib/asnprintf.c
 /lib/asprintf.c
 /lib/assert.in.h
+/lib/aszprintf.c
 /lib/attribute.h
 /lib/basename-lgpl.c
 /lib/basename-lgpl.h
@@ -152,6 +153,8 @@
 /lib/printf-frexpl.h
 /lib/printf-parse.c
 /lib/printf-parse.h
+/lib/pthread.in.h
+/lib/pthread-once.c
 /lib/raise.c
 /lib/read.c
 /lib/realloc.c
@@ -162,6 +165,7 @@
 /lib/safe-write.h
 /lib/same-inode.c
 /lib/same-inode.h
+/lib/sched.in.h
 /lib/sig-handler.c
 /lib/sig-handler.h
 /lib/sigaction.c
@@ -224,8 +228,10 @@
 /lib/vasnprintf.c
 /lib/vasnprintf.h
 /lib/vasprintf.c
+/lib/vaszprintf.c
 /lib/verify.h
 /lib/vsnprintf.c
+/lib/vsnzprintf.c
 /lib/w32sock.h
 /lib/warn-on-use.h
 /lib/wchar.in.h
@@ -531,6 +537,10 @@ core
 /lib/math.h-t
 /lib/obstack.h
 /lib/obstack.h-t
+/lib/pthread.h
+/lib/pthread.h-t
+/lib/sched.h
+/lib/sched.h-t
 /lib/signal.h
 /lib/signal.h-t
 /lib/stdalign.h
