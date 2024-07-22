@@ -197,7 +197,8 @@ AC_CONFIG_SUBDIRS([intl])
 
 AC_CONFIG_SUBDIRS([libasprintf])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile],
+                [FIX_MAKEFILE_DISTRIB])
 AC_CONFIG_FILES([uninstalled-config.sh])
 
 AC_CONFIG_FILES([doc/Makefile])

@@ -615,6 +615,11 @@ MAINTAINERCLEANFILES += cldr-plural.c cldr-plural.h
 EXTRA_DIST += cldr-plural.c cldr-plural.h
 
 
+# This is implicit in "make all", but is needed explicitly before other target
+# invocations.
+built-sources: $(BUILT_SOURCES)
+
+
 # Special rules for installation of auxiliary programs.
 
 install-exec-local:

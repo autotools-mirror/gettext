@@ -582,7 +582,8 @@ AM_CONDITIONAL([TEST_SYSTEM_LIBINTL], [test $USE_INCLUDED_LIBINTL = no])
 
 AC_CONFIG_SUBDIRS([examples])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile],
+                [FIX_MAKEFILE_DISTRIB])
 
 AC_CONFIG_FILES([doc/Makefile])
 

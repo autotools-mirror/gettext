@@ -1,5 +1,5 @@
 dnl Configuration for the toplevel directory of GNU gettext
-dnl Copyright (C) 1995-2020 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2024 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -51,7 +51,8 @@ dnl Optional Packages: AC_ARG_WITH calls
 dnl Some influential environment variables: AC_ARG_VAR calls
 esyscmd([{ cd gettext-runtime && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)' && cd ..; cd libtextstyle && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)' && cd ..; { cd gettext-tools && autoconf --trace=AC_ARG_ENABLE:'$n([$1],[$2])' --trace=AC_ARG_WITH:'$n([$1],[$2])' --trace=AC_ARG_VAR:'$n($@)' && cd ..; } | grep -v installed.libtextstyle | grep -v installed.csharp | grep -v 'installed C#'; } | sed -f build-aux/ac-help.sed ])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile],
+                [FIX_MAKEFILE_DISTRIB])
 
 AC_CONFIG_FILES([gnulib-local/Makefile])
 

@@ -1,6 +1,5 @@
 ## Makefile for the gettext-runtime directory of GNU gettext
-## Copyright (C) 1995-2006, 2010, 2012-2016, 2018-2019 Free Software Foundation,
-## Inc.
+## Copyright (C) 1995-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -45,6 +44,23 @@ EXTRA_DIST += gnulib-m4/gnulib-cache.m4
 # Windows support.
 
 EXTRA_DIST += INSTALL.windows
+
+
+# Support for "make dist" without prior "make".
+
+# Ensure that the manual pages are up-to-date when "make dist" runs.
+# Hidden from automake, but really activated. Works around an automake bug.
+#distdir: distdir1
+.PHONY: distdir1
+distdir1: man/gettext.1 man/ngettext.1 man/envsubst.1
+man/gettext.1 man/ngettext.1 man/envsubst.1: gen-man1
+.PHONY: gen-man1
+gen-man1: src/gettext.c man/gettext.x \
+          src/ngettext.c man/ngettext.x \
+          src/envsubst.c man/envsubst.x
+	cd gnulib-lib && $(MAKE) $(AM_MAKEFLAGS)
+	cd src && $(MAKE) $(AM_MAKEFLAGS) gettext$(EXEEXT) ngettext$(EXEEXT) envsubst$(EXEEXT)
+	cd man && $(MAKE) $(AM_MAKEFLAGS) gettext.1 ngettext.1 envsubst.1
 
 
 maintainer-update-po: $(top_builddir)/config.status

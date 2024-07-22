@@ -104,6 +104,18 @@ dist-hook: gen-ChangeLogs
 	echo $(VERSION) > $(distdir)/.tarball-version
 
 
+# Support for "make dist" without prior "make".
+
+# Ensure that the prerequisites of gettext-tools/src are built when "make dist"
+# runs.
+# Hidden from automake, but really activated. Works around an automake bug.
+#distdir: distdir1
+.PHONY: distdir1
+distdir1:
+	cd gettext-runtime/intl && $(MAKE) $(AM_MAKEFLAGS)
+	cd libtextstyle && $(MAKE) $(AM_MAKEFLAGS)
+
+
 # Generate ChangeLog.
 
 gen_start_date = 2015-10-13
