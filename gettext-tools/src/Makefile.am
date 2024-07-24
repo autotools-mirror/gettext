@@ -103,7 +103,7 @@ pkglibexecdir = $(libexecdir)/gettext
 # The option -I$(top_srcdir) is needed so that woe32dll/export.h is found.
 AM_CPPFLAGS = \
   -I$(top_srcdir) \
-  -I$(top_srcdir)/libgrep \
+  -I../libgrep -I$(top_srcdir)/libgrep \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
   -I../../gettext-runtime/intl -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = \
