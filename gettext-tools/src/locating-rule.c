@@ -43,6 +43,9 @@
 
 #define LOCATING_RULES_NS "https://www.gnu.org/s/gettext/ns/locating-rules/1.0"
 
+/* This type represents a <documentRule> element, such as
+     <documentRule localName="GTK-Interface" target="glade1.its"/>
+   The attributes 'ns' and 'localName' are optional; 'target' is mandatory.  */
 struct document_locating_rule_ty
 {
   char *ns;
@@ -51,13 +54,22 @@ struct document_locating_rule_ty
   char *target;
 };
 
+/* This type represents a list of <documentRule> elements.  */
 struct document_locating_rule_list_ty
 {
   struct document_locating_rule_ty *items;
   size_t nitems;
+  /* nitems_max is the number of allocated elements.  nitems ≤ nitems_max.  */
   size_t nitems_max;
 };
 
+/* This type represents a <locatingRule> element, such as
+     <locatingRule name="Glade" pattern="*.glade">
+       <documentRule localName="GTK-Interface" target="glade1.its"/>
+       <documentRule localName="glade-interface" target="glade2.its"/>
+       <documentRule localName="interface" target="gtkbuilder.its"/>
+     </locatingRule>
+   The attribute 'name' is optional; 'pattern' is mandatory.  */
 struct locating_rule_ty
 {
   char *pattern;
@@ -67,10 +79,13 @@ struct locating_rule_ty
   char *target;
 };
 
+/* This type represents a list of <locatingRule> elements,
+   possibly from different *.loc files.  */
 struct locating_rule_list_ty
 {
   struct locating_rule_ty *items;
   size_t nitems;
+  /* nitems_max is the number of allocated elements.  nitems ≤ nitems_max.  */
   size_t nitems_max;
 };
 
@@ -194,7 +209,7 @@ locating_rule_match (struct locating_rule_ty *rule,
 }
 
 const char *
-locating_rule_list_locate (struct locating_rule_list_ty *rules,
+locating_rule_list_locate (const struct locating_rule_list_ty *rules,
                            const char *filename,
                            const char *name)
 {

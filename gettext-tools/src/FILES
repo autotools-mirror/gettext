@@ -263,6 +263,19 @@ msgl-check.h
 msgl-check.c
                 Checking of messages.
 
++-------------- Internationalization of XML files
+| search-path.h
+| search-path.c
+|               Search path for locating *.loc and *.its files.
+| locating-rule.h
+| locating-rule.c
+|               Determining the appropriate *.its file for a given input.
+| its.h
+| its.c
+|               Internationalization Tag Set: Interpretation of a *.its file
+|               for processing an XML file.
++-------------- Internationalization of XML files
+
 +-------------- The 'msgfmt' program
 | msgfmt.h
 |               Declarations.
@@ -402,7 +415,6 @@ msgl-check.c
 | x-glade.c
 |               String extractor from .glade files, GNOME GUI descriptions.
 | x-gsettings.h
-| x-gsettings.c
 |               String extractor for GSettings schema file.
 | x-appdata.h
 | x-appdata.c

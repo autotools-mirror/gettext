@@ -1,5 +1,5 @@
 /* Routines for locating data files
-   Copyright (C) 2016, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2016-2024 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2016.
 
@@ -32,21 +32,21 @@
 #include "xmemdup0.h"
 #include "xvasprintf.h"
 
+
+/* This is a callback function from foreach_elements.
+   The argument is a directory name: DIR[0..LEN-1].
+   DATA is an opaque data pointer passed to foreach_elements.  */
 typedef void (* foreach_function_ty) (const char *dir, size_t len, void *data);
 
-struct path_array_ty {
-  char **ptr;
-  size_t len;
-  /* Transient argument for fill().  */
-  const char *sub;
-};
-
+/* Invoke FUNCTION on every non-empty element of DIRS.
+   DIRS is a colon-separated list of directory names.
+   DATA is an opaque data pointer that gets passed to FUNCTION.  */
 static void
 foreach_elements (const char *dirs, foreach_function_ty function, void *data)
 {
   const char *start = dirs;
 
-  /* Count the number of valid elements in DIRS.  */
+  /* Iterate through DIRS.  */
   while (*start != '\0')
     {
       char *end = strchrnul (start, ':');
@@ -62,6 +62,9 @@ foreach_elements (const char *dirs, foreach_function_ty function, void *data)
     }
 }
 
+
+/* Callback function that assumes that DATA is a (size_t *) and increments the
+   pointed value.  */
 static void
 increment (const char *dir, size_t len, void *data)
 {
@@ -69,11 +72,24 @@ increment (const char *dir, size_t len, void *data)
   (*count)++;
 }
 
+
+/* Data for the FILL callback function.  */
+struct path_array_ty {
+  char **ptr;
+  size_t len;
+  /* Transient argument for fill().  */
+  const char *sub;
+};
+
+/* Callback function that assumes that DATA is a (struct path_array_ty *) and
+   adds DIR[0..LEN-1] (or the same, with the SUB subdirectory appended) to
+   the path_array_ty.  */
 static void
 fill (const char *dir, size_t len, void *data)
 {
   struct path_array_ty *array = data;
-  char *base, *name;
+  char *base;
+  char *name;
 
   base = xmemdup0 (dir, len);
   if (array->sub == NULL)
@@ -86,6 +102,7 @@ fill (const char *dir, size_t len, void *data)
 
   array->ptr[array->len++] = name;
 }
+
 
 /* Find the standard search path for data files.  If SUB is not NULL, append it
    to each directory.
@@ -118,7 +135,7 @@ get_search_path (const char *sub)
     foreach_elements (xdgdatadirs, increment, &count);
 
   /* Allocate the array.  */
-  array.ptr = XCALLOC (count + 1, char *);
+  array.ptr = XNMALLOC (count + 1, char *);
   array.len = 0;
 
   /* Fill the array.  */
@@ -177,6 +194,13 @@ get_search_path (const char *sub)
       array.ptr[array.len++] = name;
     }
   }
+
+  /* Verify that COUNT was sufficient.  */
+  if (!(count <= array.len))
+    abort ();
+
+  /* Add a NULL at the end.  */
+  array.ptr[array.len] = NULL;
 
   return array.ptr;
 }

@@ -79,7 +79,7 @@ This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
 @copying
-Copyright (C) 1995-1998, 2001-2023 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2024 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -114,7 +114,7 @@ A copy of the license is included in @ref{GNU GPL}.
 @page
 @vskip 0pt plus 1filll
 @c @insertcopying
-Copyright (C) 1995-1998, 2001-2023 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2024 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -10436,7 +10436,7 @@ where the translated strings are directly consumed by programs, and the
 other is the case where the translated strings are merged back to the
 original XML document.  In the former case, special characters in the
 extracted strings shouldn't be escaped, while they should in the latter
-case.  To control wheter to escape special characters, the @samp{Escape
+case.  To control whether to escape special characters, the @samp{Escape
 Special Characters} data category can be used.
 
 To merge the translations, the @samp{msgfmt} program can be used with
