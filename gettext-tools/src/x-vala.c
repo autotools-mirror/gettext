@@ -393,7 +393,7 @@ enum token_type_ty
   token_type_assign,                    /* = += -= *= /= %= <<= >>= &= |= ^= */
   token_type_return,                    /* return */
   token_type_plus,                      /* + */
-  token_type_arithmetic_operator,       /* - * / % << >> & | ^ */
+  token_type_arithmetic_operator,       /* - * / % << >> & | ^ ~ */
   token_type_equality_test_operator,    /* == < > >= <= != */
   token_type_logic_operator,            /* ! && || */
   token_type_comma,                     /* , */
@@ -1124,6 +1124,10 @@ phase3_get (token_ty *tp)
               }
             return;
           }
+
+        case '~':
+          tp->type = last_token_type = token_type_arithmetic_operator;
+          return;
 
         case '=':
           {
