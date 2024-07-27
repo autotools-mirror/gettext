@@ -1,6 +1,6 @@
 ;;; po-mode.el --- major mode for GNU gettext PO files
 
-;; Copyright (C) 1995-2002, 2005-2008, 2010, 2013-2017, 2019-2020, 2023 Free Software Foundation, Inc.
+;; Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>
 ;;          Greg McGary <gkm@magilla.cichlid.com>
@@ -62,7 +62,7 @@
 
 ;;; Code:
 
-(defconst po-mode-version-string "2.29" "\
+(defconst po-mode-version-string "2.30" "\
 Version number of this version of po-mode.el.")
 
 ;;; Emacs portability matters - part I.
@@ -1000,7 +1000,7 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
   (set (make-local-variable 'po-string-end) nil)
   (set (make-local-variable 'po-marking-overlay) (po-create-overlay))
 
-  (add-hook 'write-contents-hooks 'po-replace-revision-date)
+  (add-hook 'write-contents-functions 'po-replace-revision-date)
 
   (run-hooks 'po-mode-hook)
   (message (_"You may type 'h' or '?' for a short PO mode reminder.")))
