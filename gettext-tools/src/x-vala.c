@@ -54,8 +54,14 @@
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 /* The Vala syntax is defined in the Vala Reference Manual
-   https://www.vala-project.org/doc/vala/.
-   See also vala/valascanner.vala.  */
+   https://gnome.pages.gitlab.gnome.org/vala/manual/index.html.
+   See also vala/valascanner.vala.
+
+   It supports string formatting through functions and methods, namely
+   through the string.printf and string.vprintf methods:
+   <https://valadoc.org/glib-2.0/string.printf.html>
+   <https://valadoc.org/glib-2.0/string.vprintf.html>
+ */
 
 /* ====================== Keyword set customization.  ====================== */
 
@@ -390,7 +396,8 @@ enum token_type_ty
   token_type_rparen,                    /* ) */
   token_type_lbrace,                    /* { */
   token_type_rbrace,                    /* } */
-  token_type_assign,                    /* = += -= *= /= %= <<= >>= &= |= ^= */
+  token_type_assign,                    /* = */
+  token_type_compound_assign,           /* += -= *= /= %= <<= >>= &= |= ^= */
   token_type_return,                    /* return */
   token_type_plus,                      /* + */
   token_type_arithmetic_operator,       /* - * / % << >> & | ^ ~ */
@@ -1018,6 +1025,7 @@ phase3_get (token_ty *tp)
             case token_type_lparen:
             case token_type_lbrace:
             case token_type_assign:
+            case token_type_compound_assign:
             case token_type_return:
             case token_type_plus:
             case token_type_arithmetic_operator:
@@ -1033,7 +1041,7 @@ phase3_get (token_ty *tp)
               {
                 int c2 = phase2_getc ();
                 if (c2 == '=')
-                  tp->type = last_token_type = token_type_assign;
+                  tp->type = last_token_type = token_type_compound_assign;
                 else
                   {
                     phase2_ungetc (c2);
@@ -1069,7 +1077,7 @@ phase3_get (token_ty *tp)
                 tp->type = last_token_type = token_type_other;
                 break;
               case '=':
-                tp->type = last_token_type = token_type_assign;
+                tp->type = last_token_type = token_type_compound_assign;
                 break;
               default:
                 phase2_ungetc (c2);
@@ -1088,7 +1096,7 @@ phase3_get (token_ty *tp)
                 tp->type = last_token_type = token_type_other;
                 break;
               case '=':
-                tp->type = last_token_type = token_type_assign;
+                tp->type = last_token_type = token_type_compound_assign;
                 break;
               default:
                 phase2_ungetc (c2);
@@ -1102,7 +1110,7 @@ phase3_get (token_ty *tp)
           {
             int c2 = phase2_getc ();
             if (c2 == '=')
-              tp->type = last_token_type = token_type_assign;
+              tp->type = last_token_type = token_type_compound_assign;
             else
               {
                 phase2_ungetc (c2);
@@ -1116,7 +1124,7 @@ phase3_get (token_ty *tp)
           {
             int c2 = phase2_getc ();
             if (c2 == '=')
-	      tp->type = last_token_type = token_type_assign;
+	      tp->type = last_token_type = token_type_compound_assign;
             else
               {
                 phase2_ungetc (c2);
@@ -1171,7 +1179,7 @@ phase3_get (token_ty *tp)
               {
                 int c3 = phase2_getc ();
                 if (c3 == '=')
-                  tp->type = last_token_type = token_type_assign;
+                  tp->type = last_token_type = token_type_compound_assign;
                 else
                   {
                     phase2_ungetc (c2);
@@ -1202,7 +1210,7 @@ phase3_get (token_ty *tp)
             if (c2 == c)
 	      tp->type = last_token_type = token_type_logic_operator;
             else if (c2 == '=')
-	      tp->type = last_token_type = token_type_assign;
+	      tp->type = last_token_type = token_type_compound_assign;
             else
               {
                 phase2_ungetc (c2);
@@ -1370,10 +1378,11 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
   /* Context iterator that will be used if the next token is a '('.  */
   flag_context_list_iterator_ty next_context_iter =
     passthrough_context_list_iterator;
+  /* Current context.  */
+  flag_context_ty curr_context =
+    flag_context_list_iterator_advance (&context_iter);
   /* Current region.  */
-  flag_region_ty *inner_region =
-    inheriting_region (outer_region,
-                       flag_context_list_iterator_advance (&context_iter));
+  flag_region_ty *inner_region = new_sub_region (outer_region, curr_context);
 
   /* Start state is 0.  */
   state = 0;
@@ -1438,16 +1447,8 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
                   {
                     /* Mark the messages found in the region as c-format
                        a posteriori.  */
-                    inner_region->for_formatstring[XFORMAT_PRIMARY].is_format = yes_according_to_context;
-                    struct remembered_message_list_ty *rmlp =
-                      inner_region->for_formatstring[XFORMAT_PRIMARY].remembered;
-                    size_t i;
-                    for (i = 0; i < rmlp->nitems; i++)
-                      {
-                        struct remembered_message_ty *rmp = &rmlp->item[i];
-                        set_format_flag_from_context (rmp->mp, rmp->plural, &rmp->pos,
-                                                      XFORMAT_PRIMARY, inner_region);
-                      }
+                    set_format_flag_on_region (inner_region,
+                                               XFORMAT_PRIMARY, yes_according_to_context);
                   }
                 x_vala_unlex (&token3);
               }
@@ -1472,10 +1473,59 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
         case token_type_comma:
           arg++;
           unref_region (inner_region);
-          inner_region =
-            inheriting_region (outer_region,
-                               flag_context_list_iterator_advance (
-                                 &context_iter));
+          curr_context = flag_context_list_iterator_advance (&context_iter);
+          inner_region = new_sub_region (outer_region, curr_context);
+          next_context_iter = passthrough_context_list_iterator;
+          state = 0;
+          continue;
+
+        case token_type_question:
+          /* In an expression A ? B : C, each of A, B, C is a distinct
+             sub-region, and since the value of A is not the value of entire
+             expression, if later set_format_flag_on_region is called on this
+             region or an ancestor region, it shall not have an effect on the
+             remembered messages of A.  */
+          inner_region->inherit_from_parent_region = false;
+          unref_region (inner_region);
+          inner_region = new_sub_region (outer_region, curr_context);
+          next_context_iter = passthrough_context_list_iterator;
+          state = 0;
+          continue;
+
+        case token_type_colon:
+          /* In an expression A ? B : C, each of A, B, C is a distinct
+             sub-region.  */
+          unref_region (inner_region);
+          inner_region = new_sub_region (outer_region, curr_context);
+          next_context_iter = passthrough_context_list_iterator;
+          state = 0;
+          continue;
+
+        case token_type_assign:
+          /* In an expression A = B, A and B are distinct sub-regions.
+             The value of B is the value of the entire expression.  */
+          inner_region->inherit_from_parent_region = false;
+          unref_region (inner_region);
+          inner_region = new_sub_region (outer_region, curr_context);
+          next_context_iter = passthrough_context_list_iterator;
+          state = 0;
+          continue;
+
+        case token_type_plus:
+        case token_type_arithmetic_operator:
+        case token_type_equality_test_operator:
+        case token_type_logic_operator:
+        case token_type_compound_assign:
+          /* When an expression contains one of these operators, neither the
+             value on the left of the operator nor the value on the right of the
+             operator is string-valued and the value of the entire expression.
+             Therefore, if later set_format_flag_on_region is called on this
+             region or an ancestor region, it shall not have an effect on the
+             remembered messages of this region.  */
+          inner_region->inherit_from_parent_region = false;
+          unref_region (inner_region);
+          inner_region = new_sub_region (outer_region, curr_context);
+          inner_region->inherit_from_parent_region = false;
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
           continue;
@@ -1531,17 +1581,14 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
           state = 0;
           continue;
 
+        case token_type_return:
+          next_context_iter = passthrough_context_list_iterator;
+          state = 0;
+          continue;
+
         case token_type_character_constant:
         case token_type_lbrace:
         case token_type_rbrace:
-        case token_type_assign:
-        case token_type_return:
-        case token_type_plus:
-        case token_type_arithmetic_operator:
-        case token_type_equality_test_operator:
-        case token_type_logic_operator:
-        case token_type_question:
-        case token_type_colon:
         case token_type_number:
         case token_type_string_template:
         case token_type_regex_literal:
