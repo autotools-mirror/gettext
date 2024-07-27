@@ -56,7 +56,12 @@
 /* The Java syntax is defined in the
      Java Language Specification
      (available from https://docs.oracle.com/javase/specs/),
-     chapter 3 "Lexical Structure".  */
+     chapter 3 "Lexical Structure".
+
+   It supports string formatting through functions and methods, namely
+   through the Java.formatted method added in Java 15:
+   https://docs.oracle.com/en%2Fjava%2Fjavase%2F17%2Fdocs%2Fapi%2F%2F/java.base/java/lang/String.html#formatted%28java.lang.Object...%29
+ */
 
 
 /* ====================== Keyword set customization.  ====================== */
@@ -574,8 +579,21 @@ enum token_type_ty
   token_type_number,            /* 1.23 */
   token_type_symbol,            /* identifier, keyword, null */
   token_type_plus,              /* + */
+  token_type_conditional,       /* ? */
+  token_type_colon,             /* : */
+  token_type_assign,            /* = */
+  token_type_operator,          /* other operator:
+                                   - ++ -- ~ !
+                                   * / %
+                                   << >> >>>
+                                   < > <= >= == !=
+                                   & ^ | && ||
+                                   *= /= %= += -= <<= >>= >>>= &= ^= |=
+                                   ->
+                                   (switch expressions are not recognized yet.)
+                                 */
   token_type_semicolon,         /* ; */
-  token_type_other              /* character literal, misc. operator */
+  token_type_other              /* character literal, unknown operator */
 };
 typedef enum token_type_ty token_type_ty;
 
@@ -1298,20 +1316,230 @@ phase5_get (token_ty *tp)
           }
 
         case '+':
-          c = phase4_getc ();
+          c = phase3_getc ();
           if (RED (c) == '+')
             /* Operator ++ */
-            tp->type = token_type_other;
+            tp->type = token_type_operator;
           else if (RED (c) == '=')
             /* Operator += */
-            tp->type = token_type_other;
+            tp->type = token_type_operator;
           else
             {
               /* Operator + */
-              phase4_ungetc (c);
+              phase3_ungetc (c);
               tp->type = token_type_plus;
             }
           return;
+
+        case '-':
+          c = phase3_getc ();
+          if (RED (c) == '-')
+            /* Operator -- */
+            tp->type = token_type_operator;
+          else if (RED (c) == '>')
+            /* Operator -> */
+            tp->type = token_type_operator;
+          else if (RED (c) == '=')
+            /* Operator -= */
+            tp->type = token_type_operator;
+          else
+            {
+              /* Operator - */
+              phase3_ungetc (c);
+              tp->type = token_type_operator;
+            }
+          return;
+
+        case '~':
+          /* Operator ~ */
+          tp->type = token_type_operator;
+          return;
+
+        case '!':
+          c = phase3_getc ();
+          if (RED (c) == '=')
+            /* Operator != */
+            tp->type = token_type_operator;
+          else
+            {
+              /* Operator ! */
+              phase3_ungetc (c);
+              tp->type = token_type_operator;
+            }
+          return;
+
+        case '*':
+          c = phase3_getc ();
+          if (RED (c) == '=')
+            /* Operator *= */
+            tp->type = token_type_operator;
+          else
+            {
+              /* Operator * */
+              phase3_ungetc (c);
+              tp->type = token_type_operator;
+            }
+          return;
+
+        case '/':
+          c = phase3_getc ();
+          if (RED (c) == '=')
+            /* Operator /= */
+            tp->type = token_type_operator;
+          else
+            {
+              /* Operator / */
+              phase3_ungetc (c);
+              tp->type = token_type_operator;
+            }
+          return;
+
+        case '%':
+          c = phase3_getc ();
+          if (RED (c) == '=')
+            /* Operator %= */
+            tp->type = token_type_operator;
+          else
+            {
+              /* Operator % */
+              phase3_ungetc (c);
+              tp->type = token_type_operator;
+            }
+          return;
+
+        case '<':
+          c = phase3_getc ();
+          if (RED (c) == '=')
+            /* Operator <= */
+            tp->type = token_type_operator;
+          else if (RED (c) == '<')
+            {
+              int c2 = phase3_getc ();
+              if (RED (c2) == '=')
+                /* Operator <<= */
+                tp->type = token_type_operator;
+              else
+                {
+                  /* Operator << */
+                  phase3_ungetc (c2);
+                  tp->type = token_type_operator;
+                }
+            }
+          else
+            {
+              /* Operator < */
+              phase3_ungetc (c);
+              tp->type = token_type_operator;
+            }
+          return;
+
+        case '>':
+          c = phase3_getc ();
+          if (RED (c) == '=')
+            /* Operator >= */
+            tp->type = token_type_operator;
+          else if (RED (c) == '>')
+            {
+              int c2 = phase3_getc ();
+              if (RED (c2) == '=')
+                /* Operator >>= */
+                tp->type = token_type_operator;
+              else if (RED (c) == '>')
+                {
+                  int c3 = phase3_getc ();
+                  if (RED (c3) == '=')
+                    /* Operator >>>= */
+                    tp->type = token_type_operator;
+                  else
+                    {
+                      /* Operator >>> */
+                      phase3_ungetc (c3);
+                      tp->type = token_type_operator;
+                    }
+                }
+              else
+                {
+                  /* Operator >> */
+                  phase3_ungetc (c2);
+                  tp->type = token_type_operator;
+                }
+            }
+          else
+            {
+              /* Operator > */
+              phase3_ungetc (c);
+              tp->type = token_type_operator;
+            }
+          return;
+
+        case '&':
+          c = phase3_getc ();
+          if (RED (c) == '&')
+            /* Operator && */
+            tp->type = token_type_operator;
+          else if (RED (c) == '=')
+            /* Operator &= */
+            tp->type = token_type_operator;
+          else
+            {
+              /* Operator & */
+              phase3_ungetc (c);
+              tp->type = token_type_operator;
+            }
+          return;
+
+        case '^':
+          c = phase3_getc ();
+          if (RED (c) == '=')
+            /* Operator ^= */
+            tp->type = token_type_operator;
+          else
+            {
+              /* Operator ^ */
+              phase3_ungetc (c);
+              tp->type = token_type_operator;
+            }
+          return;
+
+        case '|':
+          c = phase3_getc ();
+          if (RED (c) == '|')
+            /* Operator || */
+            tp->type = token_type_operator;
+          else if (RED (c) == '=')
+            /* Operator |= */
+            tp->type = token_type_operator;
+          else
+            {
+              /* Operator | */
+              phase3_ungetc (c);
+              tp->type = token_type_operator;
+            }
+          return;
+
+        case '=':
+          c = phase3_getc ();
+          if (RED (c) == '=')
+            /* Operator == */
+            tp->type = token_type_operator;
+          else
+            {
+              /* Assignment operator = */
+              phase3_ungetc (c);
+              tp->type = token_type_assign;
+            }
+          return;
+
+        case '?':
+          /* Operator ?, used in ternary conditionals.  */
+          tp->type = token_type_conditional;
+          return;
+
+        case ':':
+          /* Operator :, used in ternary conditionals.  */
+          tp->type = token_type_colon;
+          return;
+
 
         case ';':
           /* Semicolon.  */
@@ -1319,7 +1547,7 @@ phase5_get (token_ty *tp)
           return;
 
         default:
-          /* Misc. operator.  */
+          /* Unknown operator.  */
           tp->type = token_type_other;
           return;
         }
@@ -1477,10 +1705,11 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
   /* Context iterator that will be used if the next token is a '('.  */
   flag_context_list_iterator_ty next_context_iter =
     passthrough_context_list_iterator;
+  /* Current context.  */
+  flag_context_ty curr_context =
+    flag_context_list_iterator_advance (&context_iter);
   /* Current region.  */
-  flag_region_ty *inner_region =
-    inheriting_region (outer_region,
-                       flag_context_list_iterator_advance (&context_iter));
+  flag_region_ty *inner_region = new_sub_region (outer_region, curr_context);
 
   /* Start state is 0.  */
   state = 0;
@@ -1535,43 +1764,53 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
                 break;
               }
 
-            for (dottedname = sum;;)
+            /* 'return' is a keyword, not a function-like symbol.
+               It needs to be treated specially, because in
+                 return (EXPR).formatted()
+               the extracted strings in EXPR need to be marked as
+               java-printf-format, whereas in
+                 foobar (EXPR).formatted()
+               they should not.  */
+            if (strcmp (sum, "return") != 0)
               {
-                void *keyword_value;
-
-                if (hash_find_entry (&keywords, dottedname, strlen (dottedname),
-                                     &keyword_value)
-                    == 0)
+                for (dottedname = sum;;)
                   {
-                    next_shapes = (const struct callshapes *) keyword_value;
-                    state = 1;
-                    break;
+                    void *keyword_value;
+
+                    if (hash_find_entry (&keywords, dottedname, strlen (dottedname),
+                                         &keyword_value)
+                        == 0)
+                      {
+                        next_shapes = (const struct callshapes *) keyword_value;
+                        state = 1;
+                        break;
+                      }
+
+                    dottedname = strchr (dottedname, '.');
+                    if (dottedname == NULL)
+                      {
+                        state = 0;
+                        break;
+                      }
+                    dottedname++;
                   }
 
-                dottedname = strchr (dottedname, '.');
-                if (dottedname == NULL)
+                for (dottedname = sum;;)
                   {
-                    state = 0;
-                    break;
+                    context_list =
+                      flag_context_list_table_lookup (
+                        flag_context_list_table,
+                        dottedname, strlen (dottedname));
+                    if (context_list != NULL)
+                      break;
+
+                    dottedname = strchr (dottedname, '.');
+                    if (dottedname == NULL)
+                      break;
+                    dottedname++;
                   }
-                dottedname++;
+                next_context_iter = flag_context_list_iterator (context_list);
               }
-
-            for (dottedname = sum;;)
-              {
-                context_list =
-                  flag_context_list_table_lookup (
-                    flag_context_list_table,
-                    dottedname, strlen (dottedname));
-                if (context_list != NULL)
-                  break;
-
-                dottedname = strchr (dottedname, '.');
-                if (dottedname == NULL)
-                  break;
-                dottedname++;
-              }
-            next_context_iter = flag_context_list_iterator (context_list);
 
             free (sum);
             continue;
@@ -1605,16 +1844,8 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
                   {
                     /* Mark the messages found in the region as java-printf-format
                        a posteriori.  */
-                    inner_region->for_formatstring[XFORMAT_SECONDARY].is_format = yes_according_to_context;
-                    struct remembered_message_list_ty *rmlp =
-                      inner_region->for_formatstring[XFORMAT_SECONDARY].remembered;
-                    size_t i;
-                    for (i = 0; i < rmlp->nitems; i++)
-                      {
-                        struct remembered_message_ty *rmp = &rmlp->item[i];
-                        set_format_flag_from_context (rmp->mp, rmp->plural, &rmp->pos,
-                                                      XFORMAT_SECONDARY, inner_region);
-                      }
+                    set_format_flag_on_region (inner_region,
+                                               XFORMAT_SECONDARY, yes_according_to_context);
                   }
                 x_java_unlex (&token3);
               }
@@ -1676,10 +1907,56 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
         case token_type_comma:
           arg++;
           unref_region (inner_region);
-          inner_region =
-            inheriting_region (outer_region,
-                               flag_context_list_iterator_advance (
-                                 &context_iter));
+          curr_context = flag_context_list_iterator_advance (&context_iter);
+          inner_region = new_sub_region (outer_region, curr_context);
+          next_context_iter = passthrough_context_list_iterator;
+          state = 0;
+          continue;
+
+        case token_type_conditional:
+          /* In an expression A ? B : C, each of A, B, C is a distinct
+             sub-region, and since the value of A is not the value of entire
+             expression, if later set_format_flag_on_region is called on this
+             region or an ancestor region, it shall not have an effect on the
+             remembered messages of A.  */
+          inner_region->inherit_from_parent_region = false;
+          unref_region (inner_region);
+          inner_region = new_sub_region (outer_region, curr_context);
+          next_context_iter = passthrough_context_list_iterator;
+          state = 0;
+          continue;
+
+        case token_type_colon:
+          /* In an expression A ? B : C, each of A, B, C is a distinct
+             sub-region.  */
+          unref_region (inner_region);
+          inner_region = new_sub_region (outer_region, curr_context);
+          next_context_iter = passthrough_context_list_iterator;
+          state = 0;
+          continue;
+
+        case token_type_assign:
+          /* In an expression A = B, A and B are distinct sub-regions.
+             The value of B is the value of the entire expression.  */
+          inner_region->inherit_from_parent_region = false;
+          unref_region (inner_region);
+          inner_region = new_sub_region (outer_region, curr_context);
+          next_context_iter = passthrough_context_list_iterator;
+          state = 0;
+          continue;
+
+        case token_type_plus:
+        case token_type_operator:
+          /* When an expression contains one of these operators, neither the
+             value on the left of the operator nor the value on the right of the
+             operator is string-valued and the value of the entire expression.
+             Therefore, if later set_format_flag_on_region is called on this
+             region or an ancestor region, it shall not have an effect on the
+             remembered messages of this region.  */
+          inner_region->inherit_from_parent_region = false;
+          unref_region (inner_region);
+          inner_region = new_sub_region (outer_region, curr_context);
+          inner_region->inherit_from_parent_region = false;
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
           continue;
@@ -1722,7 +1999,6 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 
         case token_type_dot:
         case token_type_number:
-        case token_type_plus:
         case token_type_other:
           next_context_iter = null_context_list_iterator;
           state = 0;
