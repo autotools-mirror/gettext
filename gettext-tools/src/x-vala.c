@@ -1120,7 +1120,7 @@ phase3_get (token_ty *tp)
             else
               {
                 phase2_ungetc (c2);
-                tp->type = last_token_type = token_type_logic_operator;
+                tp->type = last_token_type = token_type_arithmetic_operator;
               }
             return;
           }
