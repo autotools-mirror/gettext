@@ -1098,6 +1098,19 @@ phase3_get (token_ty *tp)
             return;
           }
 
+        case '*':
+          {
+            int c2 = phase2_getc ();
+            if (c2 == '=')
+              tp->type = last_token_type = token_type_assign;
+            else
+              {
+                phase2_ungetc (c2);
+                tp->type = last_token_type = token_type_arithmetic_operator;
+              }
+            return;
+          }
+
         case '%':
         case '^':
           {
