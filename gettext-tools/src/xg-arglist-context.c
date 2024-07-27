@@ -1,6 +1,6 @@
 /* Keeping track of the flags that apply to a string extracted
    in a certain context.
-   Copyright (C) 2001-2018, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -28,6 +28,8 @@
 #include "xalloc.h"
 #include "xmalloca.h"
 #include "verify.h"
+
+#include "xg-message.h"
 
 
 /* Null context.  */
@@ -262,11 +264,13 @@ static flag_region_ty const the_null_context_region =
   {
     1,
     {
-      { undecided, NULL },
-      { undecided, NULL },
-      { undecided, NULL },
-      { undecided, NULL }
-    }
+      { true, undecided, NULL },
+      { true, undecided, NULL },
+      { true, undecided, NULL },
+      { true, undecided, NULL }
+    },
+    NULL, 0, 0,
+    true
   };
 
 flag_region_ty *
@@ -285,6 +289,7 @@ inheriting_region (flag_region_ty *outer_region,
   region->refcount = 1;
   for (size_t fi = 0; fi < NXFORMATS; fi++)
     {
+      region->for_formatstring[fi].pass_format = modifier_context.for_formatstring[fi].pass_format;
       if (modifier_context.for_formatstring[fi].pass_format)
         {
           region->for_formatstring[fi].is_format = outer_region->for_formatstring[fi].is_format;
@@ -304,10 +309,57 @@ inheriting_region (flag_region_ty *outer_region,
              : NULL);
         }
     }
+  region->subregion = NULL;
+  region->nsubregions = 0;
+  region->nsubregions_max = 0;
+  region->inherit_from_parent_region = true;
 
   return region;
 }
 
+
+flag_region_ty *
+new_sub_region (flag_region_ty *outer_region, flag_context_ty modifier_context)
+{
+  /* Create the new region.  */
+  flag_region_ty *region = XMALLOC (flag_region_ty);
+
+  region->refcount = 1;
+  for (size_t fi = 0; fi < NXFORMATS; fi++)
+    {
+      region->for_formatstring[fi].pass_format = modifier_context.for_formatstring[fi].pass_format;
+      if (modifier_context.for_formatstring[fi].pass_format)
+        region->for_formatstring[fi].is_format = outer_region->for_formatstring[fi].is_format;
+      else
+        region->for_formatstring[fi].is_format = modifier_context.for_formatstring[fi].is_format;
+      region->for_formatstring[fi].remembered =
+        (current_formatstring_parser[fi] != NULL
+         ? remembered_message_list_alloc ()
+         : NULL);
+    }
+  region->subregion = NULL;
+  region->nsubregions = 0;
+  region->nsubregions_max = 0;
+  /* Set to true initially.  Can be set to false later during the parsing.  */
+  region->inherit_from_parent_region = true;
+
+  if (outer_region != &the_null_context_region)
+    {
+      /* Register it as child of outer_region.  */
+      if (outer_region->nsubregions >= outer_region->nsubregions_max)
+        {
+          size_t nbytes;
+
+          outer_region->nsubregions_max = outer_region->nsubregions_max * 2 + 4;
+          nbytes = outer_region->nsubregions_max * sizeof (struct flag_region_ty *);
+          outer_region->subregion = xrealloc (outer_region->subregion, nbytes);
+        }
+      outer_region->subregion[outer_region->nsubregions++] = region;
+      region->refcount++;
+    }
+
+  return region;
+}
 
 flag_region_ty *
 ref_region (flag_region_ty *region)
@@ -327,9 +379,40 @@ unref_region (flag_region_ty *region)
         region->refcount--;
       else
         {
+          for (size_t i = 0; i < region->nsubregions; i++)
+            unref_region (region->subregion[i]);
+          free (region->subregion);
           for (size_t fi = 0; fi < NXFORMATS; fi++)
             remembered_message_list_unref (region->for_formatstring[fi].remembered);
           free (region);
         }
+    }
+}
+
+
+void
+set_format_flag_on_region (flag_region_ty *region,
+                           size_t fi, enum is_format value)
+{
+  size_t i;
+
+  /* First, on this region.  */
+  region->for_formatstring[fi].is_format = value;
+  struct remembered_message_list_ty *rmlp =
+    region->for_formatstring[fi].remembered;
+  for (i = 0; i < rmlp->nitems; i++)
+    {
+      struct remembered_message_ty *rmp = &rmlp->item[i];
+      set_format_flag_from_context (rmp->mp, rmp->plural, &rmp->pos,
+                                    fi, region);
+    }
+
+  /* Then, recurse through the sub-regions that inherit.  */
+  for (i = 0; i < region->nsubregions; i++)
+    {
+      flag_region_ty *sub_region = region->subregion[i];
+      if (sub_region->inherit_from_parent_region
+          && sub_region->for_formatstring[fi].pass_format)
+        set_format_flag_on_region (sub_region, fi, value);
     }
 }

@@ -1,5 +1,5 @@
 /* Extracting a message.  Accumulating the message list.
-   Copyright (C) 2001-2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -95,7 +95,7 @@ extern void decide_syntax_check (message_ty *mp);
 
 /* Updates the is_format[] flag for the given format string index FI
    depending on the information given in the region's context.
-   This can be called after long after remember_a_message.  */
+   This can be called long after remember_a_message.  */
 extern void set_format_flag_from_context (message_ty *mp, bool plural,
                                           lex_pos_ty *pos,
                                           size_t fi,
