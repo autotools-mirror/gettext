@@ -262,7 +262,7 @@ struct sysdep_instantiation_rule
   const char *prefix_for_FAST32;
   const char *prefix_for_PTR;
 };
-const struct sysdep_instantiation_rule useful_instantiation_rules[] =
+static const struct sysdep_instantiation_rule useful_instantiation_rules[] =
 {
   /*  0 */ { "ll",  "",   "",  "ll",  "",  "",  ""    },
   /*  1 */ { "l",   "",   "",  "l",   "",  "",  "l"   },
