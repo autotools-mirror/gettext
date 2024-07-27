@@ -1,5 +1,5 @@
 /* xgettext PO, JavaProperties, and NXStringTable backends.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014, 2018, 2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -65,10 +65,6 @@ extract_add_message (default_catalog_reader_ty *this,
                      char *prev_msgid_plural,
                      bool force_fuzzy, bool obsolete)
 {
-  /* See whether we shall exclude this message.  */
-  if (exclude != NULL && message_list_search (exclude, msgctxt, msgid) != NULL)
-    goto discard;
-
   /* If the msgid is the empty string, it is the old header.  Throw it
      away, we have constructed a new one.  Only remember its charset.
      But if no new one was constructed, keep the old header.  This is useful
@@ -110,6 +106,10 @@ extract_add_message (default_catalog_reader_ty *this,
         free (prev_msgid_plural);
       return;
     }
+
+  /* See whether we shall exclude this message.  */
+  if (exclude != NULL && message_list_search (exclude, msgctxt, msgid) != NULL)
+    goto discard;
 
   /* Invoke superclass method.  */
   default_add_message (this, msgctxt, msgid, msgid_pos, msgid_plural,
