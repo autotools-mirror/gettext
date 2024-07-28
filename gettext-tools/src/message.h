@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012-2013, 2015-2016, 2019-2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -241,7 +241,8 @@ extern void
 extern void
        message_comment_dot_append (message_ty *mp, const char *comment);
 extern void
-       message_comment_filepos (message_ty *mp, const char *name, size_t line);
+       message_comment_filepos (message_ty *mp,
+                                const char *file_name, size_t line_number);
 extern message_ty *
        message_copy (message_ty *mp);
 

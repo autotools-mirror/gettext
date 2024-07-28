@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012-2013, 2015-2016, 2019-2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -204,7 +204,8 @@ message_comment_dot_append (message_ty *mp, const char *s)
 
 
 void
-message_comment_filepos (message_ty *mp, const char *name, size_t line)
+message_comment_filepos (message_ty *mp,
+                         const char *file_name, size_t line_number)
 {
   size_t j;
   size_t nbytes;
@@ -214,7 +215,8 @@ message_comment_filepos (message_ty *mp, const char *name, size_t line)
   for (j = 0; j < mp->filepos_count; j++)
     {
       pp = &mp->filepos[j];
-      if (strcmp (pp->file_name, name) == 0 && pp->line_number == line)
+      if (strcmp (pp->file_name, file_name) == 0
+          && pp->line_number == line_number)
         return;
     }
 
@@ -224,8 +226,8 @@ message_comment_filepos (message_ty *mp, const char *name, size_t line)
 
   /* Insert the position at the end.  Don't sort the file positions here.  */
   pp = &mp->filepos[mp->filepos_count++];
-  pp->file_name = xstrdup (name);
-  pp->line_number = line;
+  pp->file_name = xstrdup (file_name);
+  pp->line_number = line_number;
 }
 
 
