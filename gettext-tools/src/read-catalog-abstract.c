@@ -215,7 +215,7 @@ po_callback_comment_dot (abstract_catalog_reader_ty *catr, const char *s)
 }
 
 
-/* This function is called by po_parse_comment_filepos(), once for each
+/* This function is called by parse_comment_filepos(), once for each
    file name.  */
 void
 po_callback_comment_filepos (abstract_catalog_reader_ty *catr,
@@ -245,7 +245,7 @@ po_callback_comment_special (abstract_catalog_reader_ty *catr, const char *s)
              U+2068 FILENAME U+2069.
    Call po_callback_comment_filepos for each of them.  */
 static void
-po_parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
+parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
 {
   while (*s != '\0')
     {
@@ -462,8 +462,7 @@ po_parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
      NUMBER ::= [0-9]+
    Return true if parsed, false if not a comment of this form. */
 static bool
-po_parse_comment_solaris_filepos (abstract_catalog_reader_ty *catr,
-                                  const char *s)
+parse_comment_solaris_filepos (abstract_catalog_reader_ty *catr, const char *s)
 {
   if (s[0] == ' '
       && (s[1] == 'F' || s[1] == 'f')
@@ -558,7 +557,7 @@ po_parse_comment_solaris_filepos (abstract_catalog_reader_ty *catr,
 /* This function is called by po_gram_lex() whenever a comment is
    seen.  It analyzes the comment to see what sort it is, and then
    dispatches it to the appropriate method: call_comment, call_comment_dot,
-   call_comment_filepos (via po_parse_comment_filepos), or
+   call_comment_filepos (via parse_comment_filepos), or
    call_comment_special.  */
 void
 po_callback_comment_dispatcher (abstract_catalog_reader_ty *catr, const char *s)
@@ -576,7 +575,7 @@ po_callback_comment_dispatcher (abstract_catalog_reader_ty *catr, const char *s)
     {
       /* Parse the file location string.  The appropriate callback will be
          invoked.  */
-      po_parse_comment_filepos (catr, s + 1);
+      parse_comment_filepos (catr, s + 1);
     }
   else if (*s == ',' || *s == '!')
     {
@@ -588,7 +587,7 @@ po_callback_comment_dispatcher (abstract_catalog_reader_ty *catr, const char *s)
       /* It looks like a plain vanilla comment, but Solaris-style file
          position lines do, too.  Try to parse the lot.  If the parse
          succeeds, the appropriate callback will be invoked.  */
-      if (po_parse_comment_solaris_filepos (catr, s))
+      if (parse_comment_solaris_filepos (catr, s))
         /* Do nothing, it is a Sun-style file pos line.  */ ;
       else
         {
