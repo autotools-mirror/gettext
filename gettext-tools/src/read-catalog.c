@@ -29,6 +29,7 @@
 #include "po-charset.h"
 #include "po-xerror.h"
 #include "xalloc.h"
+#include "read-catalog-special.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

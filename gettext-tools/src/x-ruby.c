@@ -38,7 +38,7 @@
 #include "xgettext.h"
 #include "xg-message.h"
 #include "c-strstr.h"
-#include "read-catalog-abstract.h"
+#include "read-catalog-special.h"
 #include "gettext.h"
 
 /* A convenience macro.  I don't like writing gettext() every time.  */
