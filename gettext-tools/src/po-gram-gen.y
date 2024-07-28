@@ -56,12 +56,12 @@ do_callback_message (struct po_parser_state *ps,
   if (msgctxt == NULL && msgid[0] == '\0' && !obsolete)
     po_lex_charset_set (msgstr, gram_pos.file_name, ps->gram_pot_role);
 
-  po_callback_message (ps->catr,
-                       msgctxt,
-                       msgid, msgid_pos, msgid_plural,
-                       msgstr, msgstr_len, msgstr_pos,
-                       prev_msgctxt, prev_msgid, prev_msgid_plural,
-                       false, obsolete);
+  catalog_reader_seen_message (ps->catr,
+                               msgctxt,
+                               msgid, msgid_pos, msgid_plural,
+                               msgstr, msgstr_len, msgstr_pos,
+                               prev_msgctxt, prev_msgid, prev_msgid_plural,
+                               false, obsolete);
 }
 
 #define free_message_intro(value) \
@@ -140,7 +140,7 @@ po_file
 comment
         : COMMENT
                 {
-                  po_callback_comment_dispatcher (ps->catr, $1.string);
+                  catalog_reader_seen_generic_comment (ps->catr, $1.string);
                 }
         ;
 
@@ -148,7 +148,7 @@ comment
 domain
         : DOMAIN STRING
                 {
-                   po_callback_domain (ps->catr, $2.string);
+                   catalog_reader_seen_domain (ps->catr, $2.string);
                 }
         ;
 

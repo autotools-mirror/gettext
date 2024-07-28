@@ -169,28 +169,50 @@ extern void
        catalog_reader_free (abstract_catalog_reader_ty *catr);
 
 
-/* Callbacks used by po-gram.y or po-lex.c, indirectly from
-   catalog_reader_parse.  */
-extern void po_callback_domain (abstract_catalog_reader_ty *catr, char *name);
-extern void po_callback_message (abstract_catalog_reader_ty *catr,
-                                 char *msgctxt,
-                                 char *msgid, lex_pos_ty *msgid_pos,
-                                 char *msgid_plural,
-                                 char *msgstr, size_t msgstr_len,
-                                 lex_pos_ty *msgstr_pos,
-                                 char *prev_msgctxt,
-                                 char *prev_msgid, char *prev_msgid_plural,
-                                 bool force_fuzzy, bool obsolete);
-extern void po_callback_comment (abstract_catalog_reader_ty *catr,
-                                 const char *s);
-extern void po_callback_comment_dot (abstract_catalog_reader_ty *catr,
-                                     const char *s);
-extern void po_callback_comment_filepos (abstract_catalog_reader_ty *catr,
-                                         const char *file_name,
-                                         size_t line_number);
-extern void po_callback_comment_special (abstract_catalog_reader_ty *catr,
-                                         const char *s);
-extern void po_callback_comment_dispatcher (abstract_catalog_reader_ty *catr,
+/* Callbacks used by po-gram-gen.y, read-properties.c, read-stringtable.c,
+   indirectly from catalog_reader_parse.  */
+/* This callback is called whenever a domain directive has been seen.
+   It invokes the 'directive_domain' method.  */
+extern void
+       catalog_reader_seen_domain (abstract_catalog_reader_ty *catr,
+                                   char *name);
+/* This callback is called whenever a message has been seen.
+   It invokes the 'directive_message' method.  */
+extern void
+       catalog_reader_seen_message (abstract_catalog_reader_ty *catr,
+                                    char *msgctxt,
+                                    char *msgid, lex_pos_ty *msgid_pos,
+                                    char *msgid_plural,
+                                    char *msgstr, size_t msgstr_len,
+                                    lex_pos_ty *msgstr_pos,
+                                    char *prev_msgctxt,
+                                    char *prev_msgid, char *prev_msgid_plural,
+                                    bool force_fuzzy, bool obsolete);
+/* This callback is called whenever a plain comment (a.k.a. translator comment)
+   has been seen.  It invokes the 'comment' method.  */
+extern void
+       catalog_reader_seen_comment (abstract_catalog_reader_ty *catr,
+                                    const char *s);
+/* This callback is called whenever a dot comment (a.k.a. extracted comment)
+   has been seen.  It invokes the 'comment_dot' method.  */
+extern void
+       catalog_reader_seen_comment_dot (abstract_catalog_reader_ty *catr,
+                                        const char *s);
+/* This callback is called whenever a source file reference has been seen.
+   It invokes the 'comment_filepos' method.  */
+extern void
+       catalog_reader_seen_comment_filepos (abstract_catalog_reader_ty *catr,
+                                            const char *file_name,
+                                            size_t line_number);
+/* This callback is called whenever a special comment (#,) has been seen.
+   It invokes the 'comment_special' method.  */
+extern void
+       catalog_reader_seen_comment_special (abstract_catalog_reader_ty *catr,
+                                            const char *s);
+/* This callback is called whenever a generic comment line has been seeen.
+   It parses s and invokes the appropriate method.  */
+extern void
+       catalog_reader_seen_generic_comment (abstract_catalog_reader_ty *catr,
                                             const char *s);
 
 

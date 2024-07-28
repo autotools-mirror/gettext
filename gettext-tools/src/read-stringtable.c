@@ -478,7 +478,7 @@ special_comment_finish (abstract_catalog_reader_ty *catr)
 {
   if (special_comment != NULL)
     {
-      po_callback_comment_special (catr, special_comment);
+      catalog_reader_seen_comment_special (catr, special_comment);
       free (special_comment);
       special_comment = NULL;
     }
@@ -549,7 +549,7 @@ comment_line_end (abstract_catalog_reader_ty *catr,
     special_comment_add (line + 6);
   else if (strlen (line) >= 9 && memcmp (line, "Comment: ", 9) == 0)
     /* A comment extracted from the source.  */
-    po_callback_comment_dot (catr, line + 9);
+    catalog_reader_seen_comment_dot (catr, line + 9);
   else
     {
       char *last_colon;
@@ -563,10 +563,10 @@ comment_line_end (abstract_catalog_reader_ty *catr,
         {
           /* A "File: <filename>:<number>" type comment.  */
           *last_colon = '\0';
-          po_callback_comment_filepos (catr, line + 6, number);
+          catalog_reader_seen_comment_filepos (catr, line + 6, number);
         }
       else
-        po_callback_comment (catr, line);
+        catalog_reader_seen_comment (catr, line);
     }
 }
 
@@ -880,11 +880,11 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
              necessarily designate an untranslated entry.  */
           msgstr = xstrdup ("");
           msgstr_pos = msgid_pos;
-          po_callback_message (catr,
-                               NULL, msgid, &msgid_pos, NULL,
-                               msgstr, strlen (msgstr) + 1, &msgstr_pos,
-                               NULL, NULL, NULL,
-                               false, next_is_obsolete);
+          catalog_reader_seen_message (catr,
+                                       NULL, msgid, &msgid_pos, NULL,
+                                       msgstr, strlen (msgstr) + 1, &msgstr_pos,
+                                       NULL, NULL, NULL,
+                                       false, next_is_obsolete);
         }
       else if (c == '=')
         {
@@ -931,11 +931,11 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
                 msgstr = fuzzy_msgstr;
 
               /* A key/value pair.  */
-              po_callback_message (catr,
-                                   NULL, msgid, &msgid_pos, NULL,
-                                   msgstr, strlen (msgstr) + 1, &msgstr_pos,
-                                   NULL, NULL, NULL,
-                                   false, next_is_obsolete);
+              catalog_reader_seen_message (catr,
+                                           NULL, msgid, &msgid_pos, NULL,
+                                           msgstr, strlen (msgstr) + 1, &msgstr_pos,
+                                           NULL, NULL, NULL,
+                                           false, next_is_obsolete);
             }
           else
             {

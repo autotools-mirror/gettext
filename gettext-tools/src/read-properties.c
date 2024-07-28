@@ -670,7 +670,7 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
             }
           buffer[buflen] = '\0';
 
-          po_callback_comment_dispatcher (
+          catalog_reader_seen_generic_comment (
             catr,
             conv_from_java (
               assume_utf8 ? buffer : conv_from_iso_8859_1 (buffer)));
@@ -701,11 +701,11 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
                  and if it is not already header/fuzzy/untranslated.  */
               force_fuzzy = (hidden && msgid[0] != '\0' && msgstr[0] != '\0');
 
-              po_callback_message (catr,
-                                   NULL, msgid, &msgid_pos, NULL,
-                                   msgstr, strlen (msgstr) + 1, &msgstr_pos,
-                                   NULL, NULL, NULL,
-                                   force_fuzzy, false);
+              catalog_reader_seen_message (catr,
+                                           NULL, msgid, &msgid_pos, NULL,
+                                           msgstr, strlen (msgstr) + 1, &msgstr_pos,
+                                           NULL, NULL, NULL,
+                                           force_fuzzy, false);
             }
         }
     }
