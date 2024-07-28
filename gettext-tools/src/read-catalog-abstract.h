@@ -124,7 +124,14 @@ struct abstract_catalog_reader_class_ty
    etc.  */
 
 #define ABSTRACT_CATALOG_READER_TY \
-  abstract_catalog_reader_class_ty *methods;
+  abstract_catalog_reader_class_ty *methods;                            \
+                                                                        \
+  /* Representation of U+2068 FIRST STRONG ISOLATE (FSI) in the         \
+     PO file's encoding, or NULL if not available.  */                  \
+  const char *po_lex_isolate_start;                                     \
+  /* Representation of U+2069 POP DIRECTIONAL ISOLATE (PDI) in the      \
+     PO file's encoding, or NULL if not available.  */                  \
+  const char *po_lex_isolate_end;                                       \
 
 typedef struct abstract_catalog_reader_ty abstract_catalog_reader_ty;
 struct abstract_catalog_reader_ty

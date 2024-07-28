@@ -47,6 +47,8 @@ catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table)
 
   catr = (abstract_catalog_reader_ty *) xmalloc (method_table->size);
   catr->methods = method_table;
+  catr->po_lex_isolate_start = NULL;
+  catr->po_lex_isolate_end = NULL;
   if (method_table->constructor)
     method_table->constructor (catr);
   return catr;
@@ -250,11 +252,11 @@ parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
       if (*s != '\0')
         {
           bool isolated_filename =
-            (po_lex_isolate_start != NULL
-             && strncmp (s, po_lex_isolate_start,
-                         strlen (po_lex_isolate_start)) == 0);
+            (catr->po_lex_isolate_start != NULL
+             && strncmp (s, catr->po_lex_isolate_start,
+                         strlen (catr->po_lex_isolate_start)) == 0);
           if (isolated_filename)
-            s += strlen (po_lex_isolate_start);
+            s += strlen (catr->po_lex_isolate_start);
 
           const char *filename_start = s;
           const char *filename_end;
@@ -268,11 +270,11 @@ parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
                       filename_end = s;
                       break;
                     }
-                  if (strncmp (s, po_lex_isolate_end,
-                               strlen (po_lex_isolate_end)) == 0)
+                  if (strncmp (s, catr->po_lex_isolate_end,
+                               strlen (catr->po_lex_isolate_end)) == 0)
                     {
                       filename_end = s;
-                      s += strlen (po_lex_isolate_end);
+                      s += strlen (catr->po_lex_isolate_end);
                       break;
                     }
                 }

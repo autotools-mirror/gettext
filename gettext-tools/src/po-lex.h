@@ -71,7 +71,7 @@ extern void lex_start (struct po_parser_state *ps,
                        const char *logical_filename);
 
 /* Terminate lexical analysis.  */
-extern void lex_end (void);
+extern void lex_end (struct po_parser_state *ps);
 
 /* Return the next token in the PO file.  The return codes are defined
    in "po-gram-gen.h".  Associated data is put in '*lval'.  */
@@ -89,6 +89,13 @@ extern void po_gram_error (struct po_parser_state *ps, const char *fmt, ...)
        __attribute__ ((__format__ (__printf__, 2, 3)));
 extern void po_gram_error_at_line (const lex_pos_ty *pos, const char *fmt, ...)
        __attribute__ ((__format__ (__printf__, 2, 3)));
+
+/* Set the PO file's encoding from the header entry.
+   If is_pot_role is true, "charset=CHARSET" is expected and does not deserve
+   a warning.  */
+extern void po_lex_charset_set (struct po_parser_state *ps,
+                                const char *header_entry,
+                                const char *filename, bool is_pot_role);
 
 
 /* Contains information about the definition of one translation.  */

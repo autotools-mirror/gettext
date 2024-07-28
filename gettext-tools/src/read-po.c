@@ -37,7 +37,7 @@ po_parse (abstract_catalog_reader_ty *catr, FILE *fp,
   ps.gram_pot_role = is_pot_role;
   lex_start (&ps, fp, real_filename, logical_filename);
   po_gram_parse (&ps);
-  lex_end ();
+  lex_end (&ps);
 }
 
 const struct catalog_input_format input_format_po =

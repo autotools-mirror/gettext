@@ -23,6 +23,7 @@
 #include <stdio.h>
 
 #if HAVE_ICONV
+#include <iconv.h>
 # include "unistr.h"
 #endif
 
@@ -88,6 +89,17 @@ struct po_parser_state
   /* ----- Output variables -----  */
 
   /* ----- Local variables of po-lex.c -----  */
+
+  /* The PO file's encoding, as specified in the header entry.  */
+  const char *po_lex_charset;
+
+#if HAVE_ICONV
+  /* Converter from the PO file's encoding to UTF-8.  */
+  iconv_t po_lex_iconv;
+#endif
+  /* If no converter is available, some information about the structure of the
+     PO file's encoding.  */
+  bool po_lex_weird_cjk;
 
   /* Current position within the PO file.  */
   int gram_pos_column;
