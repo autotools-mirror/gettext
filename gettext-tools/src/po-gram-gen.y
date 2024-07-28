@@ -56,7 +56,8 @@ do_callback_message (struct po_parser_state *ps,
   if (msgctxt == NULL && msgid[0] == '\0' && !obsolete)
     po_lex_charset_set (msgstr, gram_pos.file_name, ps->gram_pot_role);
 
-  po_callback_message (msgctxt,
+  po_callback_message (ps->catr,
+                       msgctxt,
                        msgid, msgid_pos, msgid_plural,
                        msgstr, msgstr_len, msgstr_pos,
                        prev_msgctxt, prev_msgid, prev_msgid_plural,
@@ -139,7 +140,7 @@ po_file
 comment
         : COMMENT
                 {
-                  po_callback_comment_dispatcher ($1.string);
+                  po_callback_comment_dispatcher (ps->catr, $1.string);
                 }
         ;
 
@@ -147,7 +148,7 @@ comment
 domain
         : DOMAIN STRING
                 {
-                   po_callback_domain ($2.string);
+                   po_callback_domain (ps->catr, $2.string);
                 }
         ;
 

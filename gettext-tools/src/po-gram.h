@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -25,6 +25,8 @@
 #if HAVE_ICONV
 # include "unistr.h"
 #endif
+
+#include "read-catalog-abstract.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -76,6 +78,9 @@ typedef struct mbfile mbfile_t[1];
 struct po_parser_state
 {
   /* ----- Input variables -----  */
+
+  /* The catalog reader that implements the callbacks.  */
+  struct abstract_catalog_reader_ty *catr;
 
   /* Whether the PO file is in the role of a POT file.  */
   bool gram_pot_role;

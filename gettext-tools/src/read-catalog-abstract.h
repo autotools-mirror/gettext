@@ -171,8 +171,9 @@ extern void
 
 /* Callbacks used by po-gram.y or po-lex.c, indirectly from
    catalog_reader_parse.  */
-extern void po_callback_domain (char *name);
-extern void po_callback_message (char *msgctxt,
+extern void po_callback_domain (abstract_catalog_reader_ty *catr, char *name);
+extern void po_callback_message (abstract_catalog_reader_ty *catr,
+                                 char *msgctxt,
                                  char *msgid, lex_pos_ty *msgid_pos,
                                  char *msgid_plural,
                                  char *msgstr, size_t msgstr_len,
@@ -180,12 +181,17 @@ extern void po_callback_message (char *msgctxt,
                                  char *prev_msgctxt,
                                  char *prev_msgid, char *prev_msgid_plural,
                                  bool force_fuzzy, bool obsolete);
-extern void po_callback_comment (const char *s);
-extern void po_callback_comment_dot (const char *s);
-extern void po_callback_comment_filepos (const char *file_name,
+extern void po_callback_comment (abstract_catalog_reader_ty *catr,
+                                 const char *s);
+extern void po_callback_comment_dot (abstract_catalog_reader_ty *catr,
+                                     const char *s);
+extern void po_callback_comment_filepos (abstract_catalog_reader_ty *catr,
+                                         const char *file_name,
                                          size_t line_number);
-extern void po_callback_comment_special (const char *s);
-extern void po_callback_comment_dispatcher (const char *s);
+extern void po_callback_comment_special (abstract_catalog_reader_ty *catr,
+                                         const char *s);
+extern void po_callback_comment_dispatcher (abstract_catalog_reader_ty *catr,
+                                            const char *s);
 
 /* Parse a special comment and put the result in *fuzzyp, formatp, *rangep,
    *wrapp.  */

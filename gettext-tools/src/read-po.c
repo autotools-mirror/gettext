@@ -33,6 +33,7 @@ po_parse (abstract_catalog_reader_ty *catr, FILE *fp,
           bool is_pot_role)
 {
   struct po_parser_state ps;
+  ps.catr = catr;
   ps.gram_pot_role = is_pot_role;
   lex_start (&ps, fp, real_filename, logical_filename);
   po_gram_parse (&ps);

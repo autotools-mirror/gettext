@@ -36,9 +36,6 @@
 #include "po-xerror.h"
 #include "gettext.h"
 
-/* Local variables.  */
-static abstract_catalog_reader_ty *callback_arg;
-
 
 /* ========================================================================= */
 /* Allocating and freeing instances of abstract_catalog_reader_ty.  */
@@ -148,26 +145,6 @@ call_comment_special (abstract_catalog_reader_ty *catr, const char *s)
 /* Exported functions.  */
 
 
-static inline void
-parse_start (abstract_catalog_reader_ty *catr)
-{
-  /* The parse will call the po_callback_... functions (see below)
-     when the various directive are recognised.  The callback_arg
-     variable is used to tell these functions which instance is to
-     have the relevant method invoked.  */
-  callback_arg = catr;
-
-  call_parse_brief (catr);
-}
-
-static inline void
-parse_end (abstract_catalog_reader_ty *catr)
-{
-  call_parse_debrief (catr);
-  callback_arg = NULL;
-}
-
-
 void
 catalog_reader_parse (abstract_catalog_reader_ty *catr, FILE *fp,
                       const char *real_filename, const char *logical_filename,
@@ -177,9 +154,9 @@ catalog_reader_parse (abstract_catalog_reader_ty *catr, FILE *fp,
   error_message_count = 0;
 
   /* Parse the stream's content.  */
-  parse_start (catr);
+  call_parse_brief (catr);
   input_syntax->parse (catr, fp, real_filename, logical_filename, is_pot_role);
-  parse_end (catr);
+  call_parse_debrief (catr);
 
   if (error_message_count > 0)
     po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
@@ -199,17 +176,17 @@ catalog_reader_parse (abstract_catalog_reader_ty *catr, FILE *fp,
 /* This function is called by po_gram_lex() whenever a domain directive
    has been seen.  */
 void
-po_callback_domain (char *name)
+po_callback_domain (abstract_catalog_reader_ty *catr, char *name)
 {
-  /* assert(callback_arg); */
-  call_directive_domain (callback_arg, name);
+  call_directive_domain (catr, name);
 }
 
 
 /* This function is called by po_gram_lex() whenever a message has been
    seen.  */
 void
-po_callback_message (char *msgctxt,
+po_callback_message (abstract_catalog_reader_ty *catr,
+                     char *msgctxt,
                      char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
                      char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
                      char *prev_msgctxt,
@@ -217,8 +194,7 @@ po_callback_message (char *msgctxt,
                      char *prev_msgid_plural,
                      bool force_fuzzy, bool obsolete)
 {
-  /* assert(callback_arg); */
-  call_directive_message (callback_arg, msgctxt,
+  call_directive_message (catr, msgctxt,
                           msgid, msgid_pos, msgid_plural,
                           msgstr, msgstr_len, msgstr_pos,
                           prev_msgctxt, prev_msgid, prev_msgid_plural,
@@ -227,36 +203,33 @@ po_callback_message (char *msgctxt,
 
 
 void
-po_callback_comment (const char *s)
+po_callback_comment (abstract_catalog_reader_ty *catr, const char *s)
 {
-  /* assert(callback_arg); */
-  call_comment (callback_arg, s);
+  call_comment (catr, s);
 }
 
 
 void
-po_callback_comment_dot (const char *s)
+po_callback_comment_dot (abstract_catalog_reader_ty *catr, const char *s)
 {
-  /* assert(callback_arg); */
-  call_comment_dot (callback_arg, s);
+  call_comment_dot (catr, s);
 }
 
 
 /* This function is called by po_parse_comment_filepos(), once for each
    file name.  */
 void
-po_callback_comment_filepos (const char *file_name, size_t line_number)
+po_callback_comment_filepos (abstract_catalog_reader_ty *catr,
+                             const char *file_name, size_t line_number)
 {
-  /* assert(callback_arg); */
-  call_comment_filepos (callback_arg, file_name, line_number);
+  call_comment_filepos (catr, file_name, line_number);
 }
 
 
 void
-po_callback_comment_special (const char *s)
+po_callback_comment_special (abstract_catalog_reader_ty *catr, const char *s)
 {
-  /* assert(callback_arg); */
-  call_comment_special (callback_arg, s);
+  call_comment_special (catr, s);
 }
 
 
@@ -461,7 +434,7 @@ po_parse_comment_special (const char *s,
              U+2068 FILENAME U+2069.
    Call po_callback_comment_filepos for each of them.  */
 static void
-po_parse_comment_filepos (const char *s)
+po_parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
 {
   while (*s != '\0')
     {
@@ -541,7 +514,7 @@ po_parse_comment_filepos (const char *s)
                         memcpy (filename, filename_start, filename_length);
                         filename[filename_length] = '\0';
 
-                        po_callback_comment_filepos (filename, n);
+                        po_callback_comment_filepos (catr, filename, n);
 
                         free (filename);
 
@@ -583,7 +556,7 @@ po_parse_comment_filepos (const char *s)
                       memcpy (filename, filename_start, filename_length);
                       filename[filename_length] = '\0';
 
-                      po_callback_comment_filepos (filename, n);
+                      po_callback_comment_filepos (catr, filename, n);
 
                       free (filename);
 
@@ -637,7 +610,7 @@ po_parse_comment_filepos (const char *s)
                     memcpy (filename, filename_start, filename_length);
                     filename[filename_length] = '\0';
 
-                    po_callback_comment_filepos (filename, n);
+                    po_callback_comment_filepos (catr, filename, n);
 
                     free (filename);
 
@@ -655,7 +628,7 @@ po_parse_comment_filepos (const char *s)
             memcpy (filename, filename_start, filename_length);
             filename[filename_length] = '\0';
 
-            po_callback_comment_filepos (filename, (size_t)(-1));
+            po_callback_comment_filepos (catr, filename, (size_t)(-1));
 
             free (filename);
           }
@@ -678,7 +651,8 @@ po_parse_comment_filepos (const char *s)
      NUMBER ::= [0-9]+
    Return true if parsed, false if not a comment of this form. */
 static bool
-po_parse_comment_solaris_filepos (const char *s)
+po_parse_comment_solaris_filepos (abstract_catalog_reader_ty *catr,
+                                  const char *s)
 {
   if (s[0] == ' '
       && (s[1] == 'F' || s[1] == 'f')
@@ -754,7 +728,7 @@ po_parse_comment_solaris_filepos (const char *s)
                               memcpy (string, string_start, string_length);
                               string[string_length] = '\0';
 
-                              po_callback_comment_filepos (string, n);
+                              po_callback_comment_filepos (catr, string, n);
 
                               free (string);
                               return true;
@@ -776,7 +750,7 @@ po_parse_comment_solaris_filepos (const char *s)
    call_comment_filepos (via po_parse_comment_filepos), or
    call_comment_special.  */
 void
-po_callback_comment_dispatcher (const char *s)
+po_callback_comment_dispatcher (abstract_catalog_reader_ty *catr, const char *s)
 {
   if (*s == '.')
     {
@@ -785,25 +759,25 @@ po_callback_comment_dispatcher (const char *s)
          consider it part of the comment, therefore remove it here.  */
       if (*s == ' ')
         s++;
-      po_callback_comment_dot (s);
+      po_callback_comment_dot (catr, s);
     }
   else if (*s == ':')
     {
       /* Parse the file location string.  The appropriate callback will be
          invoked.  */
-      po_parse_comment_filepos (s + 1);
+      po_parse_comment_filepos (catr, s + 1);
     }
   else if (*s == ',' || *s == '!')
     {
       /* Get all entries in the special comment line.  */
-      po_callback_comment_special (s + 1);
+      po_callback_comment_special (catr, s + 1);
     }
   else
     {
       /* It looks like a plain vanilla comment, but Solaris-style file
          position lines do, too.  Try to parse the lot.  If the parse
          succeeds, the appropriate callback will be invoked.  */
-      if (po_parse_comment_solaris_filepos (s))
+      if (po_parse_comment_solaris_filepos (catr, s))
         /* Do nothing, it is a Sun-style file pos line.  */ ;
       else
         {
@@ -811,7 +785,7 @@ po_callback_comment_dispatcher (const char *s)
              consider it part of the comment, therefore remove it here.  */
           if (*s == ' ')
             s++;
-          po_callback_comment (s);
+          po_callback_comment (catr, s);
         }
     }
 }
