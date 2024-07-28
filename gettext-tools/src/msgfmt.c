@@ -1163,33 +1163,33 @@ struct msgfmt_catalog_reader_ty
 
 /* Prepare for first message.  */
 static void
-msgfmt_constructor (abstract_catalog_reader_ty *that)
+msgfmt_constructor (abstract_catalog_reader_ty *catr)
 {
-  msgfmt_catalog_reader_ty *this = (msgfmt_catalog_reader_ty *) that;
+  msgfmt_catalog_reader_ty *mcatr = (msgfmt_catalog_reader_ty *) catr;
 
   /* Invoke superclass constructor.  */
-  default_constructor (that);
+  default_constructor (catr);
 
-  this->has_header_entry = false;
+  mcatr->has_header_entry = false;
 }
 
 
 /* Some checks after whole file is read.  */
 static void
-msgfmt_parse_debrief (abstract_catalog_reader_ty *that)
+msgfmt_parse_debrief (abstract_catalog_reader_ty *catr)
 {
-  msgfmt_catalog_reader_ty *this = (msgfmt_catalog_reader_ty *) that;
+  msgfmt_catalog_reader_ty *mcatr = (msgfmt_catalog_reader_ty *) catr;
 
   /* Invoke superclass method.  */
-  default_parse_debrief (that);
+  default_parse_debrief (catr);
 
   /* Test whether header entry was found.  */
   if (check_header)
     {
-      if (!this->has_header_entry)
+      if (!mcatr->has_header_entry)
         {
           size_t prefix_width =
-            multiline_error (xasprintf ("%s: ", this->file_name),
+            multiline_error (xasprintf ("%s: ", mcatr->file_name),
                              xasprintf (_("warning: PO file header missing or invalid\n")));
           multiline_append (prefix_width,
                             xasprintf (_("warning: charset conversion will not work\n")));
@@ -1200,7 +1200,7 @@ msgfmt_parse_debrief (abstract_catalog_reader_ty *that)
 
 /* Set 'domain' directive when seen in .po file.  */
 static void
-msgfmt_set_domain (default_catalog_reader_ty *this, char *name)
+msgfmt_set_domain (default_catalog_reader_ty *dcatr, char *name)
 {
   /* If no output file was given, we change it with each 'domain'
      directive.  */
@@ -1228,8 +1228,8 @@ msgfmt_set_domain (default_catalog_reader_ty *this, char *name)
 
       /* Set new domain.  */
       current_domain = new_domain (name, add_mo_suffix (name));
-      this->domain = current_domain->domain_name;
-      this->mlp = current_domain->mlp;
+      dcatr->domain = current_domain->domain_name;
+      dcatr->mlp = current_domain->mlp;
     }
   else
     {
@@ -1244,7 +1244,7 @@ msgfmt_set_domain (default_catalog_reader_ty *this, char *name)
 
 
 static void
-msgfmt_add_message (default_catalog_reader_ty *this,
+msgfmt_add_message (default_catalog_reader_ty *dcatr,
                     char *msgctxt,
                     char *msgid,
                     lex_pos_ty *msgid_pos,
@@ -1262,13 +1262,13 @@ msgfmt_add_message (default_catalog_reader_ty *this,
     {
       current_domain = new_domain (MESSAGE_DOMAIN_DEFAULT,
                                    add_mo_suffix (MESSAGE_DOMAIN_DEFAULT));
-      /* Keep current_domain and this->domain synchronized.  */
-      this->domain = current_domain->domain_name;
-      this->mlp = current_domain->mlp;
+      /* Keep current_domain and dcatr->domain synchronized.  */
+      dcatr->domain = current_domain->domain_name;
+      dcatr->mlp = current_domain->mlp;
     }
 
   /* Invoke superclass method.  */
-  default_add_message (this, msgctxt, msgid, msgid_pos, msgid_plural,
+  default_add_message (dcatr, msgctxt, msgid, msgid_pos, msgid_plural,
                        msgstr, msgstr_len, msgstr_pos,
                        prev_msgctxt, prev_msgid, prev_msgid_plural,
                        force_fuzzy, obsolete);
@@ -1276,11 +1276,11 @@ msgfmt_add_message (default_catalog_reader_ty *this,
 
 
 static void
-msgfmt_frob_new_message (default_catalog_reader_ty *that, message_ty *mp,
+msgfmt_frob_new_message (default_catalog_reader_ty *dcatr, message_ty *mp,
                          const lex_pos_ty *msgid_pos,
                          const lex_pos_ty *msgstr_pos)
 {
-  msgfmt_catalog_reader_ty *this = (msgfmt_catalog_reader_ty *) that;
+  msgfmt_catalog_reader_ty *mcatr = (msgfmt_catalog_reader_ty *) dcatr;
 
   if (!mp->obsolete)
     {
@@ -1313,7 +1313,7 @@ msgfmt_frob_new_message (default_catalog_reader_ty *that, message_ty *mp,
           /* Test for header entry.  */
           if (is_header (mp))
             {
-              this->has_header_entry = true;
+              mcatr->has_header_entry = true;
             }
           else
             /* We don't count the header entry in the statistic so place
@@ -1329,14 +1329,14 @@ msgfmt_frob_new_message (default_catalog_reader_ty *that, message_ty *mp,
 
 /* Test for '#, fuzzy' comments and warn.  */
 static void
-msgfmt_comment_special (abstract_catalog_reader_ty *that, const char *s)
+msgfmt_comment_special (abstract_catalog_reader_ty *catr, const char *s)
 {
-  msgfmt_catalog_reader_ty *this = (msgfmt_catalog_reader_ty *) that;
+  msgfmt_catalog_reader_ty *mcatr = (msgfmt_catalog_reader_ty *) catr;
 
   /* Invoke superclass method.  */
-  default_comment_special (that, s);
+  default_comment_special (catr, s);
 
-  if (this->is_fuzzy)
+  if (mcatr->is_fuzzy)
     {
       static bool warned = false;
 
@@ -1384,26 +1384,26 @@ read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
 {
   char *real_filename;
   FILE *fp = open_catalog_file (filename, &real_filename, true);
-  default_catalog_reader_ty *pop;
+  default_catalog_reader_ty *dcatr;
 
-  pop = default_catalog_reader_alloc (&msgfmt_methods);
-  pop->handle_comments = false;
-  pop->allow_domain_directives = true;
-  pop->allow_duplicates = false;
-  pop->allow_duplicates_if_same_msgstr = false;
-  pop->file_name = real_filename;
-  pop->mdlp = NULL;
-  pop->mlp = NULL;
+  dcatr = default_catalog_reader_alloc (&msgfmt_methods);
+  dcatr->handle_comments = false;
+  dcatr->allow_domain_directives = true;
+  dcatr->allow_duplicates = false;
+  dcatr->allow_duplicates_if_same_msgstr = false;
+  dcatr->file_name = real_filename;
+  dcatr->mdlp = NULL;
+  dcatr->mlp = NULL;
   if (current_domain != NULL)
     {
-      /* Keep current_domain and this->domain synchronized.  */
-      pop->domain = current_domain->domain_name;
-      pop->mlp = current_domain->mlp;
+      /* Keep current_domain and dcatr->domain synchronized.  */
+      dcatr->domain = current_domain->domain_name;
+      dcatr->mlp = current_domain->mlp;
     }
   po_lex_pass_obsolete_entries (true);
-  catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
+  catalog_reader_parse ((abstract_catalog_reader_ty *) dcatr, fp, real_filename,
                         filename, false, input_syntax);
-  catalog_reader_free ((abstract_catalog_reader_ty *) pop);
+  catalog_reader_free ((abstract_catalog_reader_ty *) dcatr);
 
   if (fp != stdin)
     fclose (fp);

@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-1996, 1998, 2000-2006, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -24,16 +24,11 @@
 #include "po-lex.h"
 #include "po-gram.h"
 
-/* For compiling this file in C++ mode.  */
-#ifdef __cplusplus
-# define this thiss
-#endif
-
 
 /* Read a .po / .pot file from a stream, and dispatch to the various
    abstract_catalog_reader_class_ty methods.  */
 static void
-po_parse (abstract_catalog_reader_ty *this, FILE *fp,
+po_parse (abstract_catalog_reader_ty *catr, FILE *fp,
           const char *real_filename, const char *logical_filename,
           bool is_pot_role)
 {

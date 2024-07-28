@@ -1268,7 +1268,7 @@ or by email to <%s>.\n"),
 
 
 static void
-exclude_directive_domain (abstract_catalog_reader_ty *pop, char *name)
+exclude_directive_domain (abstract_catalog_reader_ty *catr, char *name)
 {
   po_gram_error_at_line (&gram_pos,
                          _("this file may not contain domain directives"));
@@ -1276,7 +1276,7 @@ exclude_directive_domain (abstract_catalog_reader_ty *pop, char *name)
 
 
 static void
-exclude_directive_message (abstract_catalog_reader_ty *pop,
+exclude_directive_message (abstract_catalog_reader_ty *catr,
                            char *msgctxt,
                            char *msgid,
                            lex_pos_ty *msgid_pos,

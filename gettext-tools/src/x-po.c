@@ -152,21 +152,21 @@ extract (FILE *fp,
          catalog_input_format_ty input_syntax,
          msgdomain_list_ty *mdlp)
 {
-  default_catalog_reader_ty *pop;
+  default_catalog_reader_ty *dcatr;
 
   header_charset = NULL;
 
-  pop = default_catalog_reader_alloc (&extract_methods);
-  pop->handle_comments = true;
-  pop->allow_domain_directives = false;
-  pop->allow_duplicates = false;
-  pop->allow_duplicates_if_same_msgstr = true;
-  pop->file_name = real_filename;
-  pop->mdlp = NULL;
-  pop->mlp = mdlp->item[0]->messages;
-  catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
+  dcatr = default_catalog_reader_alloc (&extract_methods);
+  dcatr->handle_comments = true;
+  dcatr->allow_domain_directives = false;
+  dcatr->allow_duplicates = false;
+  dcatr->allow_duplicates_if_same_msgstr = true;
+  dcatr->file_name = real_filename;
+  dcatr->mdlp = NULL;
+  dcatr->mlp = mdlp->item[0]->messages;
+  catalog_reader_parse ((abstract_catalog_reader_ty *) dcatr, fp, real_filename,
                         logical_filename, true, input_syntax);
-  catalog_reader_free ((abstract_catalog_reader_ty *) pop);
+  catalog_reader_free ((abstract_catalog_reader_ty *) dcatr);
 
   if (header_charset != NULL)
     {

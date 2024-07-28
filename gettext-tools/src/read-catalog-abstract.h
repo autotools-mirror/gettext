@@ -60,26 +60,26 @@ struct abstract_catalog_reader_class_ty
   size_t size;
 
   /* What to do immediately after the instance is malloc()ed.  */
-  void (*constructor) (struct abstract_catalog_reader_ty *pop);
+  void (*constructor) (struct abstract_catalog_reader_ty *catr);
 
   /* What to do immediately before the instance is free()ed.  */
-  void (*destructor) (struct abstract_catalog_reader_ty *pop);
+  void (*destructor) (struct abstract_catalog_reader_ty *catr);
 
   /* This method is invoked before the parse, but after the file is
      opened by the lexer.  */
-  void (*parse_brief) (struct abstract_catalog_reader_ty *pop);
+  void (*parse_brief) (struct abstract_catalog_reader_ty *catr);
 
   /* This method is invoked after the parse, but before the file is
      closed by the lexer.  The intention is to make consistency checks
      against the file here, and emit the errors through the lex_error*
      functions.  */
-  void (*parse_debrief) (struct abstract_catalog_reader_ty *pop);
+  void (*parse_debrief) (struct abstract_catalog_reader_ty *catr);
 
   /* What to do with a domain directive.  */
-  void (*directive_domain) (struct abstract_catalog_reader_ty *pop, char *name);
+  void (*directive_domain) (struct abstract_catalog_reader_ty *catr, char *name);
 
   /* What to do with a message directive.  */
-  void (*directive_message) (struct abstract_catalog_reader_ty *pop,
+  void (*directive_message) (struct abstract_catalog_reader_ty *catr,
                              char *msgctxt,
                              char *msgid, lex_pos_ty *msgid_pos,
                              char *msgid_plural,
@@ -92,25 +92,25 @@ struct abstract_catalog_reader_class_ty
   /* What to do with a plain-vanilla comment.  The expectation is that
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
-  void (*comment) (struct abstract_catalog_reader_ty *pop, const char *s);
+  void (*comment) (struct abstract_catalog_reader_ty *catr, const char *s);
 
   /* What to do with a comment that starts with a dot (i.e. extracted
      by xgettext).  The expectation is that they will be accumulated,
      and added to the next message definition seen.  Or completely
      ignored.  */
-  void (*comment_dot) (struct abstract_catalog_reader_ty *pop, const char *s);
+  void (*comment_dot) (struct abstract_catalog_reader_ty *catr, const char *s);
 
   /* What to do with a file position seen in a comment (i.e. a message
      location comment extracted by xgettext).  The expectation is that
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
-  void (*comment_filepos) (struct abstract_catalog_reader_ty *pop,
+  void (*comment_filepos) (struct abstract_catalog_reader_ty *catr,
                            const char *file_name, size_t line_number);
 
   /* What to do with a comment that starts with a ',' or '!'; this is a
      special comment.  One of the possible uses is to indicate a
      inexact translation.  */
-  void (*comment_special) (struct abstract_catalog_reader_ty *pop,
+  void (*comment_special) (struct abstract_catalog_reader_ty *catr,
                            const char *s);
 };
 
@@ -137,7 +137,7 @@ struct abstract_catalog_reader_ty
 struct catalog_input_format
 {
   /* Parses the contents of FP, invoking the appropriate callbacks.  */
-  void (*parse) (abstract_catalog_reader_ty *pop, FILE *fp,
+  void (*parse) (abstract_catalog_reader_ty *catr, FILE *fp,
                  const char *real_filename, const char *logical_filename,
                  bool is_pot_role);
 
@@ -157,7 +157,7 @@ extern abstract_catalog_reader_ty *
 /* Read a PO file from a stream, and dispatch to the various
    abstract_catalog_reader_class_ty methods.  */
 extern void
-       catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
+       catalog_reader_parse (abstract_catalog_reader_ty *catr, FILE *fp,
                              const char *real_filename,
                              const char *logical_filename,
                              bool is_pot_role,
@@ -166,7 +166,7 @@ extern void
 /* Call the destructor and deallocate a abstract_catalog_reader_ty (or derived
    class) instance.  */
 extern void
-       catalog_reader_free (abstract_catalog_reader_ty *pop);
+       catalog_reader_free (abstract_catalog_reader_ty *catr);
 
 
 /* Callbacks used by po-gram.y or po-lex.c, indirectly from

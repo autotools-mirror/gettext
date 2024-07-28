@@ -43,11 +43,6 @@
 
 #define _(str) gettext (str)
 
-/* For compiling this file in C++ mode.  */
-#ifdef __cplusplus
-# define this thiss
-#endif
-
 
 /* The format of the Java .properties files is documented in the JDK
    documentation for class java.util.Properties.  In the case of .properties
@@ -596,7 +591,7 @@ read_escaped_string (bool in_key)
 /* Read a .properties file from a stream, and dispatch to the various
    abstract_catalog_reader_class_ty methods.  */
 static void
-properties_parse (abstract_catalog_reader_ty *this, FILE *file,
+properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
                   const char *real_filename, const char *logical_filename,
                   bool is_pot_role)
 {

@@ -127,13 +127,13 @@ struct default_catalog_reader_ty
   DEFAULT_CATALOG_READER_TY
 };
 
-extern void default_constructor (abstract_catalog_reader_ty *that);
-extern void default_destructor (abstract_catalog_reader_ty *that);
-extern void default_parse_brief (abstract_catalog_reader_ty *that);
-extern void default_parse_debrief (abstract_catalog_reader_ty *that);
-extern void default_directive_domain (abstract_catalog_reader_ty *that,
+extern void default_constructor (abstract_catalog_reader_ty *catr);
+extern void default_destructor (abstract_catalog_reader_ty *catr);
+extern void default_parse_brief (abstract_catalog_reader_ty *catr);
+extern void default_parse_debrief (abstract_catalog_reader_ty *catr);
+extern void default_directive_domain (abstract_catalog_reader_ty *catr,
                                       char *name);
-extern void default_directive_message (abstract_catalog_reader_ty *that,
+extern void default_directive_message (abstract_catalog_reader_ty *catr,
                                        char *msgctxt,
                                        char *msgid,
                                        lex_pos_ty *msgid_pos,
@@ -144,15 +144,15 @@ extern void default_directive_message (abstract_catalog_reader_ty *that,
                                        char *prev_msgid,
                                        char *prev_msgid_plural,
                                        bool force_fuzzy, bool obsolete);
-extern void default_comment (abstract_catalog_reader_ty *that, const char *s);
-extern void default_comment_dot (abstract_catalog_reader_ty *that,
+extern void default_comment (abstract_catalog_reader_ty *catr, const char *s);
+extern void default_comment_dot (abstract_catalog_reader_ty *catr,
                                  const char *s);
-extern void default_comment_filepos (abstract_catalog_reader_ty *that,
+extern void default_comment_filepos (abstract_catalog_reader_ty *catr,
                                      const char *file_name, size_t line_number);
-extern void default_comment_special (abstract_catalog_reader_ty *that,
+extern void default_comment_special (abstract_catalog_reader_ty *catr,
                                      const char *s);
-extern void default_set_domain (default_catalog_reader_ty *this, char *name);
-extern void default_add_message (default_catalog_reader_ty *this,
+extern void default_set_domain (default_catalog_reader_ty *dcatr, char *name);
+extern void default_add_message (default_catalog_reader_ty *dcatr,
                                  char *msgctxt,
                                  char *msgid,
                                  lex_pos_ty *msgid_pos,

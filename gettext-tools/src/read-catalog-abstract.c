@@ -47,22 +47,22 @@ static abstract_catalog_reader_ty *callback_arg;
 abstract_catalog_reader_ty *
 catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table)
 {
-  abstract_catalog_reader_ty *pop;
+  abstract_catalog_reader_ty *catr;
 
-  pop = (abstract_catalog_reader_ty *) xmalloc (method_table->size);
-  pop->methods = method_table;
+  catr = (abstract_catalog_reader_ty *) xmalloc (method_table->size);
+  catr->methods = method_table;
   if (method_table->constructor)
-    method_table->constructor (pop);
-  return pop;
+    method_table->constructor (catr);
+  return catr;
 }
 
 
 void
-catalog_reader_free (abstract_catalog_reader_ty *pop)
+catalog_reader_free (abstract_catalog_reader_ty *catr)
 {
-  if (pop->methods->destructor)
-    pop->methods->destructor (pop);
-  free (pop);
+  if (catr->methods->destructor)
+    catr->methods->destructor (catr);
+  free (catr);
 }
 
 
@@ -71,28 +71,28 @@ catalog_reader_free (abstract_catalog_reader_ty *pop)
 
 
 static inline void
-call_parse_brief (abstract_catalog_reader_ty *pop)
+call_parse_brief (abstract_catalog_reader_ty *catr)
 {
-  if (pop->methods->parse_brief)
-    pop->methods->parse_brief (pop);
+  if (catr->methods->parse_brief)
+    catr->methods->parse_brief (catr);
 }
 
 static inline void
-call_parse_debrief (abstract_catalog_reader_ty *pop)
+call_parse_debrief (abstract_catalog_reader_ty *catr)
 {
-  if (pop->methods->parse_debrief)
-    pop->methods->parse_debrief (pop);
+  if (catr->methods->parse_debrief)
+    catr->methods->parse_debrief (catr);
 }
 
 static inline void
-call_directive_domain (abstract_catalog_reader_ty *pop, char *name)
+call_directive_domain (abstract_catalog_reader_ty *catr, char *name)
 {
-  if (pop->methods->directive_domain)
-    pop->methods->directive_domain (pop, name);
+  if (catr->methods->directive_domain)
+    catr->methods->directive_domain (catr, name);
 }
 
 static inline void
-call_directive_message (abstract_catalog_reader_ty *pop,
+call_directive_message (abstract_catalog_reader_ty *catr,
                         char *msgctxt,
                         char *msgid,
                         lex_pos_ty *msgid_pos,
@@ -104,43 +104,43 @@ call_directive_message (abstract_catalog_reader_ty *pop,
                         char *prev_msgid_plural,
                         bool force_fuzzy, bool obsolete)
 {
-  if (pop->methods->directive_message)
-    pop->methods->directive_message (pop, msgctxt,
-                                     msgid, msgid_pos, msgid_plural,
-                                     msgstr, msgstr_len, msgstr_pos,
-                                     prev_msgctxt,
-                                     prev_msgid,
-                                     prev_msgid_plural,
-                                     force_fuzzy, obsolete);
+  if (catr->methods->directive_message)
+    catr->methods->directive_message (catr, msgctxt,
+                                      msgid, msgid_pos, msgid_plural,
+                                      msgstr, msgstr_len, msgstr_pos,
+                                      prev_msgctxt,
+                                      prev_msgid,
+                                      prev_msgid_plural,
+                                      force_fuzzy, obsolete);
 }
 
 static inline void
-call_comment (abstract_catalog_reader_ty *pop, const char *s)
+call_comment (abstract_catalog_reader_ty *catr, const char *s)
 {
-  if (pop->methods->comment != NULL)
-    pop->methods->comment (pop, s);
+  if (catr->methods->comment != NULL)
+    catr->methods->comment (catr, s);
 }
 
 static inline void
-call_comment_dot (abstract_catalog_reader_ty *pop, const char *s)
+call_comment_dot (abstract_catalog_reader_ty *catr, const char *s)
 {
-  if (pop->methods->comment_dot != NULL)
-    pop->methods->comment_dot (pop, s);
+  if (catr->methods->comment_dot != NULL)
+    catr->methods->comment_dot (catr, s);
 }
 
 static inline void
-call_comment_filepos (abstract_catalog_reader_ty *pop,
+call_comment_filepos (abstract_catalog_reader_ty *catr,
                       const char *file_name, size_t line_number)
 {
-  if (pop->methods->comment_filepos)
-    pop->methods->comment_filepos (pop, file_name, line_number);
+  if (catr->methods->comment_filepos)
+    catr->methods->comment_filepos (catr, file_name, line_number);
 }
 
 static inline void
-call_comment_special (abstract_catalog_reader_ty *pop, const char *s)
+call_comment_special (abstract_catalog_reader_ty *catr, const char *s)
 {
-  if (pop->methods->comment_special != NULL)
-    pop->methods->comment_special (pop, s);
+  if (catr->methods->comment_special != NULL)
+    catr->methods->comment_special (catr, s);
 }
 
 
@@ -149,27 +149,27 @@ call_comment_special (abstract_catalog_reader_ty *pop, const char *s)
 
 
 static inline void
-parse_start (abstract_catalog_reader_ty *pop)
+parse_start (abstract_catalog_reader_ty *catr)
 {
   /* The parse will call the po_callback_... functions (see below)
      when the various directive are recognised.  The callback_arg
      variable is used to tell these functions which instance is to
      have the relevant method invoked.  */
-  callback_arg = pop;
+  callback_arg = catr;
 
-  call_parse_brief (pop);
+  call_parse_brief (catr);
 }
 
 static inline void
-parse_end (abstract_catalog_reader_ty *pop)
+parse_end (abstract_catalog_reader_ty *catr)
 {
-  call_parse_debrief (pop);
+  call_parse_debrief (catr);
   callback_arg = NULL;
 }
 
 
 void
-catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
+catalog_reader_parse (abstract_catalog_reader_ty *catr, FILE *fp,
                       const char *real_filename, const char *logical_filename,
                       bool is_pot_role,
                       catalog_input_format_ty input_syntax)
@@ -177,9 +177,9 @@ catalog_reader_parse (abstract_catalog_reader_ty *pop, FILE *fp,
   error_message_count = 0;
 
   /* Parse the stream's content.  */
-  parse_start (pop);
-  input_syntax->parse (pop, fp, real_filename, logical_filename, is_pot_role);
-  parse_end (pop);
+  parse_start (catr);
+  input_syntax->parse (catr, fp, real_filename, logical_filename, is_pot_role);
+  parse_end (catr);
 
   if (error_message_count > 0)
     po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
