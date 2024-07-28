@@ -268,17 +268,17 @@ struct its_rule_class_ty
   size_t size;
 
   /* What to do immediately after the instance is malloc()ed.  */
-  void (*constructor) (struct its_rule_ty *pop, xmlNode *node);
+  void (*constructor) (struct its_rule_ty *rule, xmlNode *node);
 
   /* What to do immediately before the instance is free()ed.  */
-  void (*destructor) (struct its_rule_ty *pop);
+  void (*destructor) (struct its_rule_ty *rule);
 
   /* How to apply the rule to all elements in DOC.  */
-  void (* apply) (struct its_rule_ty *pop, struct its_pool_ty *pool,
+  void (* apply) (struct its_rule_ty *rule, struct its_pool_ty *pool,
                   xmlDoc *doc);
 
   /* How to evaluate the value of NODE according to the rule.  */
-  struct its_value_list_ty *(* eval) (struct its_rule_ty *pop,
+  struct its_value_list_ty *(* eval) (struct its_rule_ty *rule,
                                       struct its_pool_ty *pool, xmlNode *node);
 };
 
@@ -296,16 +296,16 @@ struct its_rule_ty
 static hash_table classes;
 
 static void
-its_rule_destructor (struct its_rule_ty *pop)
+its_rule_destructor (struct its_rule_ty *rule)
 {
-  free (pop->selector);
-  its_value_list_destroy (&pop->values);
-  if (pop->namespaces)
+  free (rule->selector);
+  its_value_list_destroy (&rule->values);
+  if (rule->namespaces)
     {
       size_t i;
-      for (i = 0; pop->namespaces[i] != NULL; i++)
-        xmlFreeNs (pop->namespaces[i]);
-      free (pop->namespaces);
+      for (i = 0; rule->namespaces[i] != NULL; i++)
+        xmlFreeNs (rule->namespaces[i]);
+      free (rule->namespaces);
     }
 }
 
@@ -701,7 +701,7 @@ _its_error_missing_attribute (xmlNode *node, const char *attribute)
 
 /* Implementation of Translate data category.  */
 static void
-its_translate_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
+its_translate_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
 {
   char *prop;
 
@@ -719,15 +719,15 @@ its_translate_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
 
   prop = _its_get_attribute (node, "selector", NULL);
   if (prop)
-    pop->selector = prop;
+    rule->selector = prop;
 
   prop = _its_get_attribute (node, "translate", NULL);
-  its_value_list_append (&pop->values, "translate", prop);
+  its_value_list_append (&rule->values, "translate", prop);
   free (prop);
 }
 
 static struct its_value_list_ty *
-its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
+its_translate_rule_eval (struct its_rule_ty *rule, struct its_pool_ty *pool,
                          xmlNode *node)
 {
   struct its_value_list_ty *result;
@@ -785,7 +785,7 @@ its_translate_rule_eval (struct its_rule_ty *pop, struct its_pool_ty *pool,
           {
             struct its_value_list_ty *values;
 
-            values = its_translate_rule_eval (pop, pool, node->parent);
+            values = its_translate_rule_eval (rule, pool, node->parent);
             its_value_list_merge (result, values);
             its_value_list_destroy (values);
             free (values);
@@ -811,7 +811,7 @@ static struct its_rule_class_ty its_translate_rule_class =
 
 /* Implementation of Localization Note data category.  */
 static void
-its_localization_note_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
+its_localization_note_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
 {
   char *prop;
   xmlNode *n;
@@ -830,7 +830,7 @@ its_localization_note_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
 
   prop = _its_get_attribute (node, "selector", NULL);
   if (prop)
-    pop->selector = prop;
+    rule->selector = prop;
 
   for (n = node->children; n; n = n->next)
     {
@@ -842,7 +842,7 @@ its_localization_note_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
 
   prop = _its_get_attribute (node, "locNoteType", NULL);
   if (prop)
-    its_value_list_append (&pop->values, "locNoteType", prop);
+    its_value_list_append (&rule->values, "locNoteType", prop);
   free (prop);
 
   if (n)
@@ -850,20 +850,20 @@ its_localization_note_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
       /* FIXME: Respect space attribute.  */
       char *content = _its_collect_text_content (n, ITS_WHITESPACE_NORMALIZE,
                                                  false);
-      its_value_list_append (&pop->values, "locNote", content);
+      its_value_list_append (&rule->values, "locNote", content);
       free (content);
     }
   else if (xmlHasProp (node, BAD_CAST "locNotePointer"))
     {
       prop = _its_get_attribute (node, "locNotePointer", NULL);
-      its_value_list_append (&pop->values, "locNotePointer", prop);
+      its_value_list_append (&rule->values, "locNotePointer", prop);
       free (prop);
     }
   /* FIXME: locNoteRef and locNoteRefPointer */
 }
 
 static struct its_value_list_ty *
-its_localization_note_rule_eval (struct its_rule_ty *pop,
+its_localization_note_rule_eval (struct its_rule_ty *rule,
                                  struct its_pool_ty *pool,
                                  xmlNode *node)
 {
@@ -956,7 +956,7 @@ its_localization_note_rule_eval (struct its_rule_ty *pop,
           {
             struct its_value_list_ty *values;
 
-            values = its_localization_note_rule_eval (pop, pool, node->parent);
+            values = its_localization_note_rule_eval (rule, pool, node->parent);
             its_value_list_merge (result, values);
             its_value_list_destroy (values);
             free (values);
@@ -983,7 +983,7 @@ static struct its_rule_class_ty its_localization_note_rule_class =
 
 /* Implementation of Element Within Text data category.  */
 static void
-its_element_within_text_rule_constructor (struct its_rule_ty *pop,
+its_element_within_text_rule_constructor (struct its_rule_ty *rule,
                                           xmlNode *node)
 {
   char *prop;
@@ -1002,15 +1002,15 @@ its_element_within_text_rule_constructor (struct its_rule_ty *pop,
 
   prop = _its_get_attribute (node, "selector", NULL);
   if (prop)
-    pop->selector = prop;
+    rule->selector = prop;
 
   prop = _its_get_attribute (node, "withinText", NULL);
-  its_value_list_append (&pop->values, "withinText", prop);
+  its_value_list_append (&rule->values, "withinText", prop);
   free (prop);
 }
 
 static struct its_value_list_ty *
-its_element_within_text_rule_eval (struct its_rule_ty *pop,
+its_element_within_text_rule_eval (struct its_rule_ty *rule,
                                    struct its_pool_ty *pool,
                                    xmlNode *node)
 {
@@ -1053,7 +1053,7 @@ static struct its_rule_class_ty its_element_within_text_rule_class =
 
 /* Implementation of Preserve Space data category.  */
 static void
-its_preserve_space_rule_constructor (struct its_rule_ty *pop,
+its_preserve_space_rule_constructor (struct its_rule_ty *rule,
                                      xmlNode *node)
 {
   char *prop;
@@ -1072,7 +1072,7 @@ its_preserve_space_rule_constructor (struct its_rule_ty *pop,
 
   prop = _its_get_attribute (node, "selector", NULL);
   if (prop)
-    pop->selector = prop;
+    rule->selector = prop;
 
   prop = _its_get_attribute (node, "space", NULL);
   if (prop
@@ -1092,12 +1092,12 @@ its_preserve_space_rule_constructor (struct its_rule_ty *pop,
       return;
     }
 
-  its_value_list_append (&pop->values, "space", prop);
+  its_value_list_append (&rule->values, "space", prop);
   free (prop);
 }
 
 static struct its_value_list_ty *
-its_preserve_space_rule_eval (struct its_rule_ty *pop,
+its_preserve_space_rule_eval (struct its_rule_ty *rule,
                               struct its_pool_ty *pool,
                               xmlNode *node)
 {
@@ -1138,7 +1138,7 @@ its_preserve_space_rule_eval (struct its_rule_ty *pop,
     }
 
   /* Recursively check value for the parent node.  */
-  values = its_preserve_space_rule_eval (pop, pool, node->parent);
+  values = its_preserve_space_rule_eval (rule, pool, node->parent);
   its_value_list_merge (result, values);
   its_value_list_destroy (values);
   free (values);
@@ -1157,7 +1157,7 @@ static struct its_rule_class_ty its_preserve_space_rule_class =
 
 /* Implementation of Context data category.  */
 static void
-its_extension_context_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
+its_extension_context_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
 {
   char *prop;
 
@@ -1175,22 +1175,22 @@ its_extension_context_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
 
   prop = _its_get_attribute (node, "selector", NULL);
   if (prop)
-    pop->selector = prop;
+    rule->selector = prop;
 
   prop = _its_get_attribute (node, "contextPointer", NULL);
-  its_value_list_append (&pop->values, "contextPointer", prop);
+  its_value_list_append (&rule->values, "contextPointer", prop);
   free (prop);
 
   if (xmlHasProp (node, BAD_CAST "textPointer"))
     {
       prop = _its_get_attribute (node, "textPointer", NULL);
-      its_value_list_append (&pop->values, "textPointer", prop);
+      its_value_list_append (&rule->values, "textPointer", prop);
       free (prop);
     }
 }
 
 static struct its_value_list_ty *
-its_extension_context_rule_eval (struct its_rule_ty *pop,
+its_extension_context_rule_eval (struct its_rule_ty *rule,
                                  struct its_pool_ty *pool,
                                  xmlNode *node)
 {
@@ -1223,7 +1223,7 @@ static struct its_rule_class_ty its_extension_context_rule_class =
 
 /* Implementation of Escape Special Characters data category.  */
 static void
-its_extension_escape_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
+its_extension_escape_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
 {
   char *prop;
 
@@ -1241,15 +1241,15 @@ its_extension_escape_rule_constructor (struct its_rule_ty *pop, xmlNode *node)
 
   prop = _its_get_attribute (node, "selector", NULL);
   if (prop)
-    pop->selector = prop;
+    rule->selector = prop;
 
   prop = _its_get_attribute (node, "escape", NULL);
-  its_value_list_append (&pop->values, "escape", prop);
+  its_value_list_append (&rule->values, "escape", prop);
   free (prop);
 }
 
 static struct its_value_list_ty *
-its_extension_escape_rule_eval (struct its_rule_ty *pop,
+its_extension_escape_rule_eval (struct its_rule_ty *rule,
                                 struct its_pool_ty *pool,
                                 xmlNode *node)
 {
@@ -1291,7 +1291,7 @@ its_extension_escape_rule_eval (struct its_rule_ty *pop,
           {
             struct its_value_list_ty *values;
 
-            values = its_extension_escape_rule_eval (pop, pool, node->parent);
+            values = its_extension_escape_rule_eval (rule, pool, node->parent);
             its_value_list_merge (result, values);
             its_value_list_destroy (values);
             free (values);
@@ -1318,13 +1318,13 @@ static struct its_rule_class_ty its_extension_escape_rule_class =
 static struct its_rule_ty *
 its_rule_alloc (struct its_rule_class_ty *method_table, xmlNode *node)
 {
-  struct its_rule_ty *pop;
+  struct its_rule_ty *rule;
 
-  pop = (struct its_rule_ty *) xcalloc (1, method_table->size);
-  pop->methods = method_table;
+  rule = (struct its_rule_ty *) xcalloc (1, method_table->size);
+  rule->methods = method_table;
   if (method_table->constructor)
-    method_table->constructor (pop, node);
-  return pop;
+    method_table->constructor (rule, node);
+  return rule;
 }
 
 static struct its_rule_ty *
@@ -1357,10 +1357,10 @@ its_rule_parse (xmlDoc *doc, xmlNode *node)
 }
 
 static void
-its_rule_destroy (struct its_rule_ty *pop)
+its_rule_destroy (struct its_rule_ty *rule)
 {
-  if (pop->methods->destructor)
-    pop->methods->destructor (pop);
+  if (rule->methods->destructor)
+    rule->methods->destructor (rule);
 }
 
 static void
