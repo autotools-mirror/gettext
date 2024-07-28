@@ -1336,11 +1336,11 @@ read_exclusion_file (char *filename)
 {
   char *real_filename;
   FILE *fp = open_catalog_file (filename, &real_filename, true);
-  abstract_catalog_reader_ty *pop;
+  abstract_catalog_reader_ty *catr;
 
-  pop = catalog_reader_alloc (&exclude_methods);
-  catalog_reader_parse (pop, fp, real_filename, filename, true, &input_format_po);
-  catalog_reader_free (pop);
+  catr = catalog_reader_alloc (&exclude_methods);
+  catalog_reader_parse (catr, fp, real_filename, filename, true, &input_format_po);
+  catalog_reader_free (catr);
 
   if (fp != stdin)
     fclose (fp);

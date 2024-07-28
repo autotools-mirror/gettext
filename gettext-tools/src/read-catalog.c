@@ -463,24 +463,24 @@ read_catalog_stream (FILE *fp, const char *real_filename,
                      const char *logical_filename,
                      catalog_input_format_ty input_syntax)
 {
-  default_catalog_reader_ty *pop;
+  default_catalog_reader_ty *dcatr;
   msgdomain_list_ty *mdlp;
 
-  pop = default_catalog_reader_alloc (&default_methods);
-  pop->handle_comments = true;
-  pop->allow_domain_directives = true;
-  pop->allow_duplicates = allow_duplicates;
-  pop->allow_duplicates_if_same_msgstr = false;
-  pop->file_name = real_filename;
-  pop->mdlp = msgdomain_list_alloc (!pop->allow_duplicates);
-  pop->mlp = msgdomain_list_sublist (pop->mdlp, pop->domain, true);
+  dcatr = default_catalog_reader_alloc (&default_methods);
+  dcatr->handle_comments = true;
+  dcatr->allow_domain_directives = true;
+  dcatr->allow_duplicates = allow_duplicates;
+  dcatr->allow_duplicates_if_same_msgstr = false;
+  dcatr->file_name = real_filename;
+  dcatr->mdlp = msgdomain_list_alloc (!dcatr->allow_duplicates);
+  dcatr->mlp = msgdomain_list_sublist (dcatr->mdlp, dcatr->domain, true);
   if (input_syntax->produces_utf8)
     /* We know a priori that input_syntax->parse convert strings to UTF-8.  */
-    pop->mdlp->encoding = po_charset_utf8;
+    dcatr->mdlp->encoding = po_charset_utf8;
   po_lex_pass_obsolete_entries (true);
-  catalog_reader_parse ((abstract_catalog_reader_ty *) pop, fp, real_filename,
+  catalog_reader_parse ((abstract_catalog_reader_ty *) dcatr, fp, real_filename,
                         logical_filename, false, input_syntax);
-  mdlp = pop->mdlp;
-  catalog_reader_free ((abstract_catalog_reader_ty *) pop);
+  mdlp = dcatr->mdlp;
+  catalog_reader_free ((abstract_catalog_reader_ty *) dcatr);
   return mdlp;
 }
