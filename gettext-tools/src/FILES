@@ -79,6 +79,10 @@ po-xerror.c
 | po-lex.c
 |               Lexical analysis of PO files.
 |
+| read-catalog-special.h
+| read-catalog-special.c
+|               Parsing of special comments (#, comments).
+|
 | read-catalog-abstract.h
 | po-gram.h
 | po-gram-gen.y

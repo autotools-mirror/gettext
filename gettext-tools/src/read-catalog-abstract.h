@@ -193,14 +193,6 @@ extern void po_callback_comment_special (abstract_catalog_reader_ty *catr,
 extern void po_callback_comment_dispatcher (abstract_catalog_reader_ty *catr,
                                             const char *s);
 
-/* Parse a special comment and put the result in *fuzzyp, formatp, *rangep,
-   *wrapp.  */
-extern void po_parse_comment_special (const char *s, bool *fuzzyp,
-                                      enum is_format formatp[NFORMATS],
-                                      struct argument_range *rangep,
-                                      enum is_wrap *wrapp,
-                                      enum is_syntax_check scp[NSYNTAXCHECKS]);
-
 
 #ifdef __cplusplus
 }
