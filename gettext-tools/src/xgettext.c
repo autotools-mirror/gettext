@@ -1452,7 +1452,7 @@ xgettext_record_flag (const char *optionstring)
           flag_start += 5;
         }
 
-      /* Unlike po_parse_comment_special(), we don't accept "fuzzy",
+      /* Unlike parse_comment_special(), we don't accept "fuzzy",
          "wrap", or "check" here - it has no sense.  */
       if (flag_end - flag_start >= 7
           && memcmp (flag_end - 7, "-format", 7) == 0)

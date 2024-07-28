@@ -303,8 +303,8 @@ default_comment_special (abstract_catalog_reader_ty *catr, const char *s)
 {
   default_catalog_reader_ty *dcatr = (default_catalog_reader_ty *) catr;
 
-  po_parse_comment_special (s, &dcatr->is_fuzzy, dcatr->is_format, &dcatr->range,
-                            &dcatr->do_wrap, dcatr->do_syntax_check);
+  parse_comment_special (s, &dcatr->is_fuzzy, dcatr->is_format, &dcatr->range,
+                         &dcatr->do_wrap, dcatr->do_syntax_check);
 }
 
 

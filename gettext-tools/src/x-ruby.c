@@ -191,9 +191,9 @@ extract_ruby (const char *found_in_dir, const char *real_filename,
 
                           t += strlen ("xgettext:");
 
-                          po_parse_comment_special (t, &tmp_fuzzy, tmp_format,
-                                                    &tmp_range, &tmp_wrap,
-                                                    tmp_syntax_check);
+                          parse_comment_special (t, &tmp_fuzzy, tmp_format,
+                                                 &tmp_range, &tmp_wrap,
+                                                 tmp_syntax_check);
 
                           interesting = false;
                           for (i = 0; i < NFORMATS; i++)

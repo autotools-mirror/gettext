@@ -31,10 +31,10 @@
 /* Parse a special comment and put the result in *fuzzyp, formatp, *rangep,
    *wrapp, scp.  */
 void
-po_parse_comment_special (const char *s,
-                          bool *fuzzyp, enum is_format formatp[NFORMATS],
-                          struct argument_range *rangep, enum is_wrap *wrapp,
-                          enum is_syntax_check scp[NSYNTAXCHECKS])
+parse_comment_special (const char *s,
+                       bool *fuzzyp, enum is_format formatp[NFORMATS],
+                       struct argument_range *rangep, enum is_wrap *wrapp,
+                       enum is_syntax_check scp[NSYNTAXCHECKS])
 {
   size_t i;
 
