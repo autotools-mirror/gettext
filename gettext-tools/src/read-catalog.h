@@ -1,4 +1,4 @@
-/* Reading PO files.
+/* Reading textual message catalogs (such as PO files).
    Copyright (C) 1995-2024 Free Software Foundation, Inc.
    This file was written by Bruno Haible <haible@clisp.cons.org>.
 
@@ -37,8 +37,14 @@ extern "C" {
 
 /* The following pair of structures cooperate to create a derived class from
    class abstract_catalog_reader_ty.  (See read-catalog-abstract.h for an
-   explanation.)  It implements the default behaviour of reading a PO file
-   and converting it to an 'msgdomain_list_ty *'.  */
+   explanation.)
+
+   This derived class stores the contents of the message catalog in memory,
+   converting it to an 'msgdomain_list_ty *'.
+
+   It is called the "default" catalog reader because useful variants can be
+   implemented with little effort by creating a derived class of class
+   default_catalog_reader_ty.  */
 
 /* Forward declaration.  */
 struct default_catalog_reader_ty;

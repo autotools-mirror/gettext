@@ -1,4 +1,4 @@
-/* Reading PO files.
+/* Reading textual message catalogs (such as PO files).
    Copyright (C) 1995-2024 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 

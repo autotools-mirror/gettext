@@ -1,4 +1,4 @@
-/* Reading PO files, abstract class.
+/* Reading textual message catalogs (such as PO files), abstract class.
    Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
@@ -38,6 +38,11 @@ extern "C" {
    help of an OO compiler.  This implementation allows polymorphism
    and inheritance - more than enough for the immediate needs.  */
 
+/* This abstract base class implements the parsing of the catalog file.
+   Several syntaxes are supported (see type catalog_input_format_ty below).
+   Derived classes implement methods that are invoked when a particular
+   element (message, comment, etc.) is seen.  */
+
 /* Forward declaration.  */
 struct abstract_catalog_reader_ty;
 
@@ -51,13 +56,13 @@ typedef struct abstract_catalog_reader_class_ty
         abstract_catalog_reader_class_ty;
 struct abstract_catalog_reader_class_ty
 {
-  /* how many bytes to malloc for an instance of this class */
+  /* How many bytes to malloc for an instance of this class.  */
   size_t size;
 
-  /* what to do immediately after the instance is malloc()ed */
+  /* What to do immediately after the instance is malloc()ed.  */
   void (*constructor) (struct abstract_catalog_reader_ty *pop);
 
-  /* what to do immediately before the instance is free()ed */
+  /* What to do immediately before the instance is free()ed.  */
   void (*destructor) (struct abstract_catalog_reader_ty *pop);
 
   /* This method is invoked before the parse, but after the file is
@@ -70,10 +75,10 @@ struct abstract_catalog_reader_class_ty
      functions.  */
   void (*parse_debrief) (struct abstract_catalog_reader_ty *pop);
 
-  /* what to do with a domain directive */
+  /* What to do with a domain directive.  */
   void (*directive_domain) (struct abstract_catalog_reader_ty *pop, char *name);
 
-  /* what to do with a message directive */
+  /* What to do with a message directive.  */
   void (*directive_message) (struct abstract_catalog_reader_ty *pop,
                              char *msgctxt,
                              char *msgid, lex_pos_ty *msgid_pos,
@@ -84,25 +89,25 @@ struct abstract_catalog_reader_class_ty
                              char *prev_msgid, char *prev_msgid_plural,
                              bool force_fuzzy, bool obsolete);
 
-  /* What to do with a plain-vanilla comment - the expectation is that
+  /* What to do with a plain-vanilla comment.  The expectation is that
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
   void (*comment) (struct abstract_catalog_reader_ty *pop, const char *s);
 
   /* What to do with a comment that starts with a dot (i.e. extracted
-     by xgettext) - the expectation is that they will be accumulated,
+     by xgettext).  The expectation is that they will be accumulated,
      and added to the next message definition seen.  Or completely
      ignored.  */
   void (*comment_dot) (struct abstract_catalog_reader_ty *pop, const char *s);
 
   /* What to do with a file position seen in a comment (i.e. a message
-     location comment extracted by xgettext) - the expectation is that
+     location comment extracted by xgettext).  The expectation is that
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
   void (*comment_filepos) (struct abstract_catalog_reader_ty *pop,
                            const char *file_name, size_t line_number);
 
-  /* What to do with a comment that starts with a ',' or '!' - this is a
+  /* What to do with a comment that starts with a ',' or '!'; this is a
      special comment.  One of the possible uses is to indicate a
      inexact translation.  */
   void (*comment_special) (struct abstract_catalog_reader_ty *pop,
