@@ -129,11 +129,11 @@ call_comment_dot (abstract_catalog_reader_ty *pop, const char *s)
 }
 
 static inline void
-call_comment_filepos (abstract_catalog_reader_ty *pop, const char *name,
-                      size_t line)
+call_comment_filepos (abstract_catalog_reader_ty *pop,
+                      const char *file_name, size_t line_number)
 {
   if (pop->methods->comment_filepos)
-    pop->methods->comment_filepos (pop, name, line);
+    pop->methods->comment_filepos (pop, file_name, line_number);
 }
 
 static inline void
@@ -243,12 +243,12 @@ po_callback_comment_dot (const char *s)
 
 
 /* This function is called by po_parse_comment_filepos(), once for each
-   filename.  */
+   file name.  */
 void
-po_callback_comment_filepos (const char *name, size_t line)
+po_callback_comment_filepos (const char *file_name, size_t line_number)
 {
   /* assert(callback_arg); */
-  call_comment_filepos (callback_arg, name, line);
+  call_comment_filepos (callback_arg, file_name, line_number);
 }
 
 

@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014-2016, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software: you can redistribute it and/or modify
@@ -283,7 +283,7 @@ default_comment_dot (abstract_catalog_reader_ty *that, const char *s)
 
 void
 default_comment_filepos (abstract_catalog_reader_ty *that,
-                         const char *name, size_t line)
+                         const char *file_name, size_t line_number)
 {
   default_catalog_reader_ty *this = (default_catalog_reader_ty *) that;
   size_t nbytes;
@@ -292,8 +292,8 @@ default_comment_filepos (abstract_catalog_reader_ty *that,
   nbytes = (this->filepos_count + 1) * sizeof (this->filepos[0]);
   this->filepos = xrealloc (this->filepos, nbytes);
   pp = &this->filepos[this->filepos_count++];
-  pp->file_name = xstrdup (name);
-  pp->line_number = line;
+  pp->file_name = xstrdup (file_name);
+  pp->line_number = line_number;
 }
 
 

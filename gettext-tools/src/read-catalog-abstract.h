@@ -1,5 +1,5 @@
 /* Reading PO files, abstract class.
-   Copyright (C) 1995-1996, 1998, 2000-2003, 2005-2006, 2008-2009, 2012, 2015, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -89,7 +89,7 @@ struct abstract_catalog_reader_class_ty
      definition seen.  Or completely ignored.  */
   void (*comment) (struct abstract_catalog_reader_ty *pop, const char *s);
 
-  /* What to do with a comment that starts with a dot (i.e.  extracted
+  /* What to do with a comment that starts with a dot (i.e. extracted
      by xgettext) - the expectation is that they will be accumulated,
      and added to the next message definition seen.  Or completely
      ignored.  */
@@ -100,7 +100,7 @@ struct abstract_catalog_reader_class_ty
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
   void (*comment_filepos) (struct abstract_catalog_reader_ty *pop,
-                           const char *s, size_t line);
+                           const char *file_name, size_t line_number);
 
   /* What to do with a comment that starts with a ',' or '!' - this is a
      special comment.  One of the possible uses is to indicate a
@@ -177,7 +177,8 @@ extern void po_callback_message (char *msgctxt,
                                  bool force_fuzzy, bool obsolete);
 extern void po_callback_comment (const char *s);
 extern void po_callback_comment_dot (const char *s);
-extern void po_callback_comment_filepos (const char *s, size_t line);
+extern void po_callback_comment_filepos (const char *file_name,
+                                         size_t line_number);
 extern void po_callback_comment_special (const char *s);
 extern void po_callback_comment_dispatcher (const char *s);
 

@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
    This file was written by Bruno Haible <haible@clisp.cons.org>.
 
    This program is free software: you can redistribute it and/or modify
@@ -142,7 +142,7 @@ extern void default_comment (abstract_catalog_reader_ty *that, const char *s);
 extern void default_comment_dot (abstract_catalog_reader_ty *that,
                                  const char *s);
 extern void default_comment_filepos (abstract_catalog_reader_ty *that,
-                                     const char *name, size_t line);
+                                     const char *file_name, size_t line_number);
 extern void default_comment_special (abstract_catalog_reader_ty *that,
                                      const char *s);
 extern void default_set_domain (default_catalog_reader_ty *this, char *name);
