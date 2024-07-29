@@ -820,7 +820,6 @@ mbfile_ungetc (const mbchar_t mbc, mbfile_t mbf)
 /* Lexer variables.  */
 
 unsigned int gram_max_allowed_errors = 20;
-static bool pass_comments = false;
 
 
 /* Prepare lexical analysis.  */
@@ -1140,7 +1139,7 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                to pass comments, generate a COMMENT token, otherwise
                discard it.  */
             ps->signal_eilseq = false;
-            if (pass_comments)
+            if (ps->catr->pass_comments)
               {
                 bufpos = 0;
                 for (;;)
@@ -1346,12 +1345,4 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
         /* This will cause a syntax error.  */
         return JUNK;
     }
-}
-
-
-/* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
-void
-po_lex_pass_comments (bool flag)
-{
-  pass_comments = flag;
 }

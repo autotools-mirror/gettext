@@ -75,9 +75,6 @@ extern void lex_end (struct po_parser_state *ps);
 union PO_GRAM_STYPE;
 extern int po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps);
 
-/* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
-extern void po_lex_pass_comments (bool flag);
-
 extern void po_gram_error (struct po_parser_state *ps, const char *fmt, ...)
        __attribute__ ((__format__ (__printf__, 2, 3)));
 extern void po_gram_error_at_line (const lex_pos_ty *pos, const char *fmt, ...)

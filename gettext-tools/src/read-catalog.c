@@ -137,7 +137,7 @@ default_parse_brief (abstract_catalog_reader_ty *catr)
 {
   /* We need to parse comments, because even if dcatr->handle_comments
      is false, we need to know which messages are fuzzy.  */
-  po_lex_pass_comments (true);
+  catr->pass_comments = true;
 }
 
 
