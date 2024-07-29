@@ -821,7 +821,6 @@ mbfile_ungetc (const mbchar_t mbc, mbfile_t mbf)
 
 unsigned int gram_max_allowed_errors = 20;
 static bool pass_comments = false;
-bool pass_obsolete_entries = false;
 
 
 /* Prepare lexical analysis.  */
@@ -1355,13 +1354,4 @@ void
 po_lex_pass_comments (bool flag)
 {
   pass_comments = flag;
-}
-
-
-/* po_gram_lex() can return obsolete entries as if they were normal entries.
-   Switch this on or off.  */
-void
-po_lex_pass_obsolete_entries (bool flag)
-{
-  pass_obsolete_entries = flag;
 }

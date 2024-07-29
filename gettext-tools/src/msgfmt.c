@@ -1387,6 +1387,7 @@ read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
   default_catalog_reader_ty *dcatr;
 
   dcatr = default_catalog_reader_alloc (&msgfmt_methods);
+  dcatr->pass_obsolete_entries = true;
   dcatr->handle_comments = false;
   dcatr->allow_domain_directives = true;
   dcatr->allow_duplicates = false;
@@ -1400,7 +1401,6 @@ read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
       dcatr->domain = current_domain->domain_name;
       dcatr->mlp = current_domain->mlp;
     }
-  po_lex_pass_obsolete_entries (true);
   catalog_reader_parse ((abstract_catalog_reader_ty *) dcatr, fp, real_filename,
                         filename, false, input_syntax);
   catalog_reader_free ((abstract_catalog_reader_ty *) dcatr);

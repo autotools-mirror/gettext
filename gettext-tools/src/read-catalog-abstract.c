@@ -47,6 +47,7 @@ catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table)
 
   catr = (abstract_catalog_reader_ty *) xmalloc (method_table->size);
   catr->methods = method_table;
+  catr->pass_obsolete_entries = false;
   catr->po_lex_isolate_start = NULL;
   catr->po_lex_isolate_end = NULL;
   if (method_table->constructor)

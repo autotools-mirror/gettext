@@ -467,6 +467,7 @@ read_catalog_stream (FILE *fp, const char *real_filename,
   msgdomain_list_ty *mdlp;
 
   dcatr = default_catalog_reader_alloc (&default_methods);
+  dcatr->pass_obsolete_entries = true;
   dcatr->handle_comments = true;
   dcatr->allow_domain_directives = true;
   dcatr->allow_duplicates = allow_duplicates;
@@ -477,7 +478,6 @@ read_catalog_stream (FILE *fp, const char *real_filename,
   if (input_syntax->produces_utf8)
     /* We know a priori that input_syntax->parse convert strings to UTF-8.  */
     dcatr->mdlp->encoding = po_charset_utf8;
-  po_lex_pass_obsolete_entries (true);
   catalog_reader_parse ((abstract_catalog_reader_ty *) dcatr, fp, real_filename,
                         logical_filename, false, input_syntax);
   mdlp = dcatr->mdlp;

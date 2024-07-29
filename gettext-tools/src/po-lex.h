@@ -61,9 +61,6 @@ extern DLL_VARIABLE lex_pos_ty gram_pos;
    terminate.  Cf. error_message_count, declared in <error.h>.  */
 extern DLL_VARIABLE unsigned int gram_max_allowed_errors;
 
-/* True if obsolete entries shall be considered as valid.  */
-extern DLL_VARIABLE bool pass_obsolete_entries;
-
 
 /* Prepare lexical analysis.  */
 extern void lex_start (struct po_parser_state *ps,
@@ -80,10 +77,6 @@ extern int po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps);
 
 /* po_gram_lex() can return comments as COMMENT.  Switch this on or off.  */
 extern void po_lex_pass_comments (bool flag);
-
-/* po_gram_lex() can return obsolete entries as if they were normal entries.
-   Switch this on or off.  */
-extern void po_lex_pass_obsolete_entries (bool flag);
 
 extern void po_gram_error (struct po_parser_state *ps, const char *fmt, ...)
        __attribute__ ((__format__ (__printf__, 2, 3)));

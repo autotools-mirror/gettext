@@ -126,6 +126,9 @@ struct abstract_catalog_reader_class_ty
 #define ABSTRACT_CATALOG_READER_TY \
   abstract_catalog_reader_class_ty *methods;                            \
                                                                         \
+  /* True if obsolete entries shall be considered as valid.  */         \
+  bool pass_obsolete_entries;                                           \
+                                                                        \
   /* Representation of U+2068 FIRST STRONG ISOLATE (FSI) in the         \
      PO file's encoding, or NULL if not available.  */                  \
   const char *po_lex_isolate_start;                                     \

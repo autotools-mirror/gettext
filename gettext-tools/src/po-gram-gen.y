@@ -162,7 +162,7 @@ message
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
                   check_obsolete ($1, $4);
-                  if (!$1.obsolete || pass_obsolete_entries)
+                  if (!$1.obsolete || ps->catr->pass_obsolete_entries)
                     do_callback_message (ps, $1.ctxt, string2, &$1.pos, NULL,
                                          string4, strlen (string4) + 1, &$3.pos,
                                          $1.prev_ctxt,
@@ -182,7 +182,7 @@ message
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
                   check_obsolete ($1, $4);
-                  if (!$1.obsolete || pass_obsolete_entries)
+                  if (!$1.obsolete || ps->catr->pass_obsolete_entries)
                     do_callback_message (ps, $1.ctxt, string2, &$1.pos, $3.string,
                                          $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos,
                                          $1.prev_ctxt,
