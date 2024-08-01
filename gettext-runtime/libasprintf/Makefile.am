@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
-## Copyright (C) 2002-2007, 2009-2011, 2013, 2016, 2018-2019, 2021, 2023 Free Software Foundation, Inc.
+## Copyright (C) 2002-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -16,7 +16,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-AUTOMAKE_OPTIONS = 1.5 gnu no-dependencies
+AUTOMAKE_OPTIONS = 1.5 gnu
 ACLOCAL_AMFLAGS = -I ../../m4 -I ../m4 -I gnulib-m4
 
 SUBDIRS = gnulib-lib

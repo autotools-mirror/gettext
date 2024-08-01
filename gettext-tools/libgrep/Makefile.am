@@ -1,5 +1,5 @@
 ## Makefile for libgrep directory in GNU gettext package.
-## Copyright (C) 2005-2007, 2009-2010, 2014, 2021, 2023 Free Software Foundation, Inc.
+## Copyright (C) 2005-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-AUTOMAKE_OPTIONS = 1.5 gnits no-dependencies subdir-objects
+AUTOMAKE_OPTIONS = 1.5 gnits subdir-objects
 EXTRA_DIST =
 BUILT_SOURCES =
 MOSTLYCLEANFILES = core *.stackdump

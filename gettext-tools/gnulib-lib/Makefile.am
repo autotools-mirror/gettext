@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/gnulib-lib subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2006, 2009, 2016, 2019, 2021, 2023 Free Software Foundation, Inc.
+## Copyright (C) 1995-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-AUTOMAKE_OPTIONS = 1.5 gnits subdir-objects no-dependencies
+AUTOMAKE_OPTIONS = 1.5 gnits subdir-objects
 EXTRA_DIST =
 BUILT_SOURCES =
 MOSTLYCLEANFILES = core *.stackdump

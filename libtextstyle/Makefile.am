@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU libtextstyle
-## Copyright (C) 1995-2023 Free Software Foundation, Inc.
+## Copyright (C) 1995-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-AUTOMAKE_OPTIONS = 1.13 gnu no-dependencies
+AUTOMAKE_OPTIONS = 1.13 gnu
 ACLOCAL_AMFLAGS = -I m4 -I gnulib-m4
 
 # The list of subdirectories containing Makefiles.

@@ -7,8 +7,6 @@ Depends-on:
 configure.ac:
 
 Makefile.am:
-AUTOMAKE_OPTIONS += no-dependencies
-
 # Needed for the gnulib source code that does '#include "gettext.h"'.
 AM_CPPFLAGS += -I$(top_builddir)/intl
 

@@ -1,6 +1,6 @@
 ## Makefile for the gettext-runtime/intl and gettext-tools/intl subdirectories
 ## of GNU gettext.
-## Copyright (C) 1995-1998, 2000-2007, 2009-2024 Free Software Foundation, Inc.
+## Copyright (C) 1995-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -17,7 +17,7 @@
 
 ## Process this file with automake to produce Makefile.in.
 
-AUTOMAKE_OPTIONS = 1.10 gnu no-dependencies
+AUTOMAKE_OPTIONS = 1.10 gnu
 ACLOCAL_AMFLAGS = -I ../../m4 -I ../m4 -I gnulib-m4
 
 SUBDIRS = gnulib-lib
