@@ -108,6 +108,10 @@ struct po_parser_state
      or silently tolerated.  */
   bool signal_eilseq;
 
+  /* A buffer for po_gram_lex().  */
+  char *buf;
+  size_t bufmax;
+
   mbfile_t mbf;
   bool po_lex_obsolete;
   bool po_lex_previous;

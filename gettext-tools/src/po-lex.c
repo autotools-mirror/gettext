@@ -839,6 +839,8 @@ lex_start (struct po_parser_state *ps,
   ps->po_lex_obsolete = false;
   ps->po_lex_previous = false;
   po_lex_charset_init (ps);
+  ps->buf = NULL;
+  ps->bufmax = 0;
 }
 
 /* Terminate lexical analysis.  */
@@ -848,6 +850,7 @@ lex_end (struct po_parser_state *ps)
   gram_pos.file_name = NULL;
   gram_pos.line_number = 0;
   po_lex_charset_close (ps);
+  free (ps->buf);
 }
 
 
@@ -1075,8 +1078,10 @@ control_sequence (struct po_parser_state *ps)
 int
 po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
 {
-  static char *buf;
-  static size_t bufmax;
+  /* Cache ps->buf and ps->bufmax in local variables.  */
+  char *buf = ps->buf;
+  size_t bufmax = ps->bufmax;
+
   mbchar_t mbc;
   size_t bufpos;
 
@@ -1148,6 +1153,8 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                       {
                         bufmax += 100;
                         buf = xrealloc (buf, bufmax);
+                        ps->bufmax = bufmax;
+                        ps->buf = buf;
                       }
                     if (mb_iseof (mbc) || mb_iseq (mbc, '\n'))
                       break;
@@ -1188,6 +1195,8 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                   {
                     bufmax += 100;
                     buf = xrealloc (buf, bufmax);
+                    ps->bufmax = bufmax;
+                    ps->buf = buf;
                   }
                 if (mb_iseof (mbc))
                   {
@@ -1246,6 +1255,8 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                   {
                     bufmax += 100;
                     buf = xrealloc (buf, bufmax);
+                    ps->bufmax = bufmax;
+                    ps->buf = buf;
                   }
                 buf[bufpos++] = c;
                 lex_getc (ps, mbc);
@@ -1303,6 +1314,8 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                   {
                     bufmax += 100;
                     buf = xrealloc (buf, bufmax + 1);
+                    ps->bufmax = bufmax;
+                    ps->buf = buf;
                   }
                 buf[bufpos++] = c;
                 lex_getc (ps, mbc);
