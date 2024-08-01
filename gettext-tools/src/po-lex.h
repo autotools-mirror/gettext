@@ -54,9 +54,6 @@ struct po_parser_state;
 
 /* Global variables from po-lex.c.  */
 
-/* Current position within the PO file.  */
-extern DLL_VARIABLE lex_pos_ty gram_pos;
-
 /* Number of parse errors within a PO file that cause the program to
    terminate.  Cf. error_message_count, declared in <error.h>.  */
 extern DLL_VARIABLE unsigned int gram_max_allowed_errors;

@@ -67,12 +67,8 @@
 #endif
 
 
-/* Current position within the PO file.  */
-lex_pos_ty gram_pos;
-
-
 /* Error handling during the parsing of a PO file.
-   These functions can access gram_pos and ps->gram_pos_column.  */
+   These functions can access ps->gram_pos and ps->gram_pos_column.  */
 
 /* VARARGS1 */
 void
@@ -85,7 +81,8 @@ po_gram_error (struct po_parser_state *ps, const char *fmt, ...)
   if (vasprintf (&buffer, fmt, ap) < 0)
     error (EXIT_FAILURE, 0, _("memory exhausted"));
   va_end (ap);
-  po_xerror (PO_SEVERITY_ERROR, NULL, gram_pos.file_name, gram_pos.line_number,
+  po_xerror (PO_SEVERITY_ERROR, NULL,
+             ps->gram_pos.file_name, ps->gram_pos.line_number,
              ps->gram_pos_column + 1, false, buffer);
   free (buffer);
 
@@ -829,11 +826,11 @@ lex_start (struct po_parser_state *ps,
 {
   /* Ignore the logical_filename, because PO file entries already have
      their file names attached.  But use real_filename for error messages.  */
-  gram_pos.file_name = xstrdup (real_filename);
+  ps->gram_pos.file_name = xstrdup (real_filename);
 
   mbfile_init (ps->mbf, fp);
 
-  gram_pos.line_number = 1;
+  ps->gram_pos.line_number = 1;
   ps->gram_pos_column = 0;
   ps->signal_eilseq = true;
   ps->po_lex_obsolete = false;
@@ -847,8 +844,8 @@ lex_start (struct po_parser_state *ps,
 void
 lex_end (struct po_parser_state *ps)
 {
-  gram_pos.file_name = NULL;
-  gram_pos.line_number = 0;
+  ps->gram_pos.file_name = NULL;
+  ps->gram_pos.line_number = 0;
   po_lex_charset_close (ps);
   free (ps->buf);
 }
@@ -872,7 +869,7 @@ lex_getc (struct po_parser_state *ps, mbchar_t mbc)
               po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
                          xasprintf ("%s: %s",
                                     xasprintf (_("error while reading \"%s\""),
-                                               gram_pos.file_name),
+                                               ps->gram_pos.file_name),
                                     errno_description));
             }
           break;
@@ -880,7 +877,7 @@ lex_getc (struct po_parser_state *ps, mbchar_t mbc)
 
       if (mb_iseq (mbc, '\n'))
         {
-          gram_pos.line_number++;
+          ps->gram_pos.line_number++;
           ps->gram_pos_column = 0;
           break;
         }
@@ -906,7 +903,7 @@ lex_getc (struct po_parser_state *ps, mbchar_t mbc)
               break;
             }
 
-          gram_pos.line_number++;
+          ps->gram_pos.line_number++;
           ps->gram_pos_column = 0;
         }
       else
@@ -922,7 +919,7 @@ lex_ungetc (struct po_parser_state *ps, const mbchar_t mbc)
     {
       if (mb_iseq (mbc, '\n'))
         /* Decrement the line number, but don't care about the column.  */
-        gram_pos.line_number--;
+        ps->gram_pos.line_number--;
       else
         /* Decrement the column number.  Also works well enough for tabs.  */
         ps->gram_pos_column -= mb_width (ps, mbc);
@@ -958,7 +955,7 @@ keyword_p (struct po_parser_state *ps, const char *s)
       if (!strcmp (s, "msgctxt"))
         return PREV_MSGCTXT;
     }
-  po_gram_error_at_line (&gram_pos, _("keyword \"%s\" unknown"), s);
+  po_gram_error_at_line (&ps->gram_pos, _("keyword \"%s\" unknown"), s);
   return NAME;
 }
 
@@ -1167,7 +1164,7 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                 buf[bufpos] = '\0';
 
                 lval->string.string = buf;
-                lval->string.pos = gram_pos;
+                lval->string.pos = ps->gram_pos;
                 lval->string.obsolete = ps->po_lex_obsolete;
                 ps->po_lex_obsolete = false;
                 ps->signal_eilseq = true;
@@ -1200,13 +1197,13 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                   }
                 if (mb_iseof (mbc))
                   {
-                    po_gram_error_at_line (&gram_pos,
+                    po_gram_error_at_line (&ps->gram_pos,
                                            _("end-of-file within string"));
                     break;
                   }
                 if (mb_iseq (mbc, '\n'))
                   {
-                    po_gram_error_at_line (&gram_pos,
+                    po_gram_error_at_line (&ps->gram_pos,
                                            _("end-of-line within string"));
                     break;
                   }
@@ -1227,12 +1224,12 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
             /* Strings cannot contain the msgctxt separator, because it cannot
                be faithfully represented in the msgid of a .mo file.  */
             if (strchr (buf, MSGCTXT_SEPARATOR) != NULL)
-              po_gram_error_at_line (&gram_pos,
+              po_gram_error_at_line (&ps->gram_pos,
                                      _("context separator <EOT> within string"));
 
             /* FIXME: Treatment of embedded \000 chars is incorrect.  */
             lval->string.string = xstrdup (buf);
-            lval->string.pos = gram_pos;
+            lval->string.pos = ps->gram_pos;
             lval->string.obsolete = ps->po_lex_obsolete;
             return (ps->po_lex_previous ? PREV_STRING : STRING);
 
@@ -1293,12 +1290,12 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
               if (k == NAME)
                 {
                   lval->string.string = xstrdup (buf);
-                  lval->string.pos = gram_pos;
+                  lval->string.pos = ps->gram_pos;
                   lval->string.obsolete = ps->po_lex_obsolete;
                 }
               else
                 {
-                  lval->pos.pos = gram_pos;
+                  lval->pos.pos = ps->gram_pos;
                   lval->pos.obsolete = ps->po_lex_obsolete;
                 }
               return k;
@@ -1336,17 +1333,17 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
             buf[bufpos] = '\0';
 
             lval->number.number = atol (buf);
-            lval->number.pos = gram_pos;
+            lval->number.pos = ps->gram_pos;
             lval->number.obsolete = ps->po_lex_obsolete;
             return NUMBER;
 
           case '[':
-            lval->pos.pos = gram_pos;
+            lval->pos.pos = ps->gram_pos;
             lval->pos.obsolete = ps->po_lex_obsolete;
             return '[';
 
           case ']':
-            lval->pos.pos = gram_pos;
+            lval->pos.pos = ps->gram_pos;
             lval->pos.obsolete = ps->po_lex_obsolete;
             return ']';
 

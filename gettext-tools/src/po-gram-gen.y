@@ -54,7 +54,7 @@ do_callback_message (struct po_parser_state *ps,
 {
   /* Test for header entry.  Ignore fuzziness of the header entry.  */
   if (msgctxt == NULL && msgid[0] == '\0' && !obsolete)
-    po_lex_charset_set (ps, msgstr, gram_pos.file_name, ps->gram_pot_role);
+    po_lex_charset_set (ps, msgstr, ps->gram_pos.file_name, ps->gram_pot_role);
 
   catalog_reader_seen_message (ps->catr,
                                msgctxt,
@@ -148,7 +148,8 @@ comment
 domain
         : DOMAIN STRING
                 {
-                   catalog_reader_seen_domain (ps->catr, $2.string, &gram_pos);
+                   catalog_reader_seen_domain (ps->catr, $2.string,
+                                               &ps->gram_pos);
                 }
         ;
 

@@ -102,6 +102,7 @@ struct po_parser_state
   bool po_lex_weird_cjk;
 
   /* Current position within the PO file.  */
+  lex_pos_ty gram_pos;
   int gram_pos_column;
 
   /* Whether invalid multibyte sequences in the input shall be signalled
