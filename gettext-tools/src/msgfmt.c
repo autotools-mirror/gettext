@@ -1346,7 +1346,7 @@ msgfmt_comment_special (abstract_catalog_reader_ty *catr, const char *s)
           warned = true;
           error (0, 0,
                  _("%s: warning: source file contains fuzzy translation"),
-                 gram_pos.file_name);
+                 mcatr->file_name);
         }
     }
 }

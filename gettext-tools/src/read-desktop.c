@@ -101,7 +101,7 @@ desktop_reader_handle_blank (desktop_reader_ty *reader, const char *s)
 static const char *real_file_name;
 
 /* File name and line number.  */
-extern lex_pos_ty gram_pos;
+static lex_pos_ty pos;
 
 /* The input file stream.  */
 static FILE *fp;
@@ -164,7 +164,7 @@ phase2_getc ()
     }
 
   if (c == '\n')
-    gram_pos.line_number++;
+    pos.line_number++;
 
   return c;
 }
@@ -173,7 +173,7 @@ static void
 phase2_ungetc (int c)
 {
   if (c == '\n')
-    --gram_pos.line_number;
+    --pos.line_number;
   if (c != EOF)
     phase2_pushback[phase2_pushback_length++] = c;
 }
@@ -254,7 +254,7 @@ desktop_lex (token_ty *tp)
                 if (c == '\n')
                   {
                     po_xerror (PO_SEVERITY_WARNING, NULL,
-                               real_file_name, gram_pos.line_number, 0, false,
+                               real_file_name, pos.line_number, 0, false,
                                _("unterminated group name"));
                     break;
                   }
@@ -275,7 +275,7 @@ desktop_lex (token_ty *tp)
               }
             if (non_blank)
               po_xerror (PO_SEVERITY_WARNING, NULL,
-                         real_file_name, gram_pos.line_number, 0, false,
+                         real_file_name, pos.line_number, 0, false,
                          _("invalid non-blank character"));
             APPEND (0);
             tp->type = token_type_group;
@@ -382,7 +382,7 @@ desktop_lex (token_ty *tp)
             if (c != '=')
               {
                 po_xerror (PO_SEVERITY_WARNING, NULL,
-                           real_file_name, gram_pos.line_number, 0, false,
+                           real_file_name, pos.line_number, 0, false,
                            xasprintf (_("missing '=' after \"%s\""), buffer));
                 for (;;)
                   {
@@ -445,7 +445,7 @@ desktop_lex (token_ty *tp)
             if (non_blank)
               {
                 po_xerror (PO_SEVERITY_WARNING, NULL,
-                           real_file_name, gram_pos.line_number, 0, false,
+                           real_file_name, pos.line_number, 0, false,
                            _("invalid non-blank line"));
                 tp->type = token_type_other;
                 return;
@@ -466,8 +466,8 @@ desktop_parse (desktop_reader_ty *reader, FILE *file,
 {
   fp = file;
   real_file_name = real_filename;
-  gram_pos.file_name = xstrdup (logical_filename);
-  gram_pos.line_number = 1;
+  pos.file_name = xstrdup (logical_filename);
+  pos.line_number = 1;
 
   for (;;)
     {
@@ -484,7 +484,7 @@ desktop_parse (desktop_reader_ty *reader, FILE *file,
           desktop_reader_handle_comment (reader, token.string);
           break;
         case token_type_pair:
-          desktop_reader_handle_pair (reader, &gram_pos,
+          desktop_reader_handle_pair (reader, &pos,
                                       token.string, token.locale, token.value);
           break;
         case token_type_blank:
@@ -499,7 +499,7 @@ desktop_parse (desktop_reader_ty *reader, FILE *file,
  out:
   fp = NULL;
   real_file_name = NULL;
-  gram_pos.line_number = 0;
+  pos.line_number = 0;
 }
 
 char *

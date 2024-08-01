@@ -67,7 +67,7 @@
 static const char *real_file_name;
 
 /* File name and line number.  */
-extern lex_pos_ty gram_pos;
+static lex_pos_ty pos;
 
 /* The input file stream.  */
 static FILE *fp;
@@ -312,7 +312,7 @@ phase3_getc ()
   int c = phase2_getc ();
 
   if (c == '\n')
-    gram_pos.line_number++;
+    pos.line_number++;
 
   return c;
 }
@@ -321,7 +321,7 @@ static void
 phase3_ungetc (int c)
 {
   if (c == '\n')
-    --gram_pos.line_number;
+    --pos.line_number;
   phase2_ungetc (c);
 }
 
@@ -331,18 +331,18 @@ static char *
 conv_from_ucs4 (const int *buffer, size_t buflen)
 {
   unsigned char *utf8_string;
-  size_t pos;
+  size_t i;
   unsigned char *q;
 
   /* Each UCS-4 word needs 6 bytes at worst.  */
   utf8_string = XNMALLOC (6 * buflen + 1, unsigned char);
 
-  for (pos = 0, q = utf8_string; pos < buflen; )
+  for (i = 0, q = utf8_string; i < buflen; )
     {
       unsigned int uc;
       int n;
 
-      uc = buffer[pos++];
+      uc = buffer[i++];
       n = u8_uctomb (q, uc, 6);
       assert (n > 0);
       q += n;
@@ -707,9 +707,9 @@ is_quotable (int c)
 
 /* Read a key or value string.
    Return the string in UTF-8 encoding, or NULL if no string is seen.
-   Return the start position of the string in *pos.  */
+   Return the start position of the string in *start_pos.  */
 static char *
-read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *pos)
+read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *start_pos)
 {
   static int *buffer;
   static size_t bufmax;
@@ -725,7 +725,7 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *pos)
     /* No more string.  */
     return NULL;
 
-  *pos = gram_pos;
+  *start_pos = pos;
   buflen = 0;
   if (c == '"')
     {
@@ -800,7 +800,7 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *pos)
         }
       if (c == UEOF)
         po_xerror (PO_SEVERITY_ERROR, NULL,
-                   real_file_name, gram_pos.line_number, (size_t)(-1), false,
+                   real_file_name, pos.line_number, (size_t)(-1), false,
                    _("warning: unterminated string"));
     }
   else
@@ -808,7 +808,7 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *pos)
       /* Read a token outside quotes.  */
       if (is_quotable (c))
         po_xerror (PO_SEVERITY_ERROR, NULL,
-                   real_file_name, gram_pos.line_number, (size_t)(-1), false,
+                   real_file_name, pos.line_number, (size_t)(-1), false,
                    _("warning: syntax error"));
       for (; c != UEOF && !is_quotable (c); c = phase4_getc (catr))
         {
@@ -834,8 +834,8 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
 {
   fp = file;
   real_file_name = real_filename;
-  gram_pos.file_name = xstrdup (real_file_name);
-  gram_pos.line_number = 1;
+  pos.file_name = xstrdup (real_file_name);
+  pos.line_number = 1;
   encoding = enc_undetermined;
   expect_fuzzy_msgstr_as_c_comment = false;
   expect_fuzzy_msgstr_as_cxx_comment = false;
@@ -870,7 +870,7 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
       if (c == UEOF)
         {
           po_xerror (PO_SEVERITY_ERROR, NULL,
-                     real_file_name, gram_pos.line_number, (size_t)(-1), false,
+                     real_file_name, pos.line_number, (size_t)(-1), false,
                      _("warning: unterminated key/value pair"));
           break;
         }
@@ -893,7 +893,7 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
           if (msgstr == NULL)
             {
               po_xerror (PO_SEVERITY_ERROR, NULL,
-                         real_file_name, gram_pos.line_number, (size_t)(-1),
+                         real_file_name, pos.line_number, (size_t)(-1),
                          false, _("warning: unterminated key/value pair"));
               break;
             }
@@ -940,7 +940,7 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
           else
             {
               po_xerror (PO_SEVERITY_ERROR, NULL,
-                         real_file_name, gram_pos.line_number, (size_t)(-1),
+                         real_file_name, pos.line_number, (size_t)(-1),
                          false,
                          _("warning: syntax error, expected ';' after string"));
               break;
@@ -949,7 +949,7 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
       else
         {
           po_xerror (PO_SEVERITY_ERROR, NULL,
-                     real_file_name, gram_pos.line_number, (size_t)(-1), false,
+                     real_file_name, pos.line_number, (size_t)(-1), false,
                      _("warning: syntax error, expected '=' or ';' after string"));
           break;
         }
@@ -957,7 +957,7 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
 
   fp = NULL;
   real_file_name = NULL;
-  gram_pos.line_number = 0;
+  pos.line_number = 0;
 }
 
 const struct catalog_input_format input_format_stringtable =

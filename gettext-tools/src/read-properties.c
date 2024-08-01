@@ -66,7 +66,7 @@
 static const char *real_file_name;
 
 /* File name and line number.  */
-extern lex_pos_ty gram_pos;
+static lex_pos_ty pos;
 
 /* The contents of the input file.  */
 static char *contents;
@@ -127,7 +127,7 @@ phase2_getc ()
     }
 
   if (c == '\n')
-    gram_pos.line_number++;
+    pos.line_number++;
 
   return c;
 }
@@ -136,7 +136,7 @@ static void
 phase2_ungetc (int c)
 {
   if (c == '\n')
-    --gram_pos.line_number;
+    --pos.line_number;
   if (c != EOF)
     phase2_pushback[phase2_pushback_length++] = c;
 }
@@ -348,7 +348,7 @@ phase4_getuc ()
                 {
                   phase3_ungetc (c1);
                   po_xerror (PO_SEVERITY_ERROR, NULL,
-                             real_file_name, gram_pos.line_number, (size_t)(-1),
+                             real_file_name, pos.line_number, (size_t)(-1),
                              false, _("warning: invalid \\uxxxx syntax for Unicode character"));
                   return 'u';
                 }
@@ -490,7 +490,7 @@ read_escaped_string (bool in_key)
                 {
                   error_with_progname = false;
                   po_xerror (PO_SEVERITY_ERROR, NULL,
-                             real_file_name, gram_pos.line_number, (size_t)(-1),
+                             real_file_name, pos.line_number, (size_t)(-1),
                              false, _("warning: invalid Unicode character"));
                   error_with_progname = true;
                 }
@@ -510,10 +510,10 @@ read_escaped_string (bool in_key)
               if (c >= UNICODE (0xd800) && c < UNICODE (0xdc00))
                 {
                   utf16_surr = UTF16_VALUE (c);
-                  utf16_surr_line = gram_pos.line_number;
+                  utf16_surr_line = pos.line_number;
                 }
               else if (c >= UNICODE (0xdc00) && c < UNICODE (0xe000))
-                utf8_buffer_append_lone_surrogate (UTF16_VALUE (c), gram_pos.line_number);
+                utf8_buffer_append_lone_surrogate (UTF16_VALUE (c), pos.line_number);
               else
                 {
                   ucs4_t uc = UTF16_VALUE (c);
@@ -525,7 +525,7 @@ read_escaped_string (bool in_key)
                     {
                       error_with_progname = false;
                       po_xerror (PO_SEVERITY_ERROR, NULL,
-                                 real_file_name, gram_pos.line_number, (size_t)(-1),
+                                 real_file_name, pos.line_number, (size_t)(-1),
                                  false, _("warning: invalid Unicode character"));
                       error_with_progname = true;
                     }
@@ -613,8 +613,8 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
 
   position = 0;
   real_file_name = real_filename;
-  gram_pos.file_name = xstrdup (real_file_name);
-  gram_pos.line_number = 1;
+  pos.file_name = xstrdup (real_file_name);
+  pos.line_number = 1;
 
   for (;;)
     {
@@ -681,7 +681,7 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
           char *msgid;
           lex_pos_ty msgid_pos;
 
-          msgid_pos = gram_pos;
+          msgid_pos = pos;
           msgid = read_escaped_string (true);
           if (msgid == NULL)
             /* Skip blank line.  */
@@ -692,7 +692,7 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
               lex_pos_ty msgstr_pos;
               bool force_fuzzy;
 
-              msgstr_pos = gram_pos;
+              msgstr_pos = pos;
               msgstr = read_escaped_string (false);
               if (msgstr == NULL)
                 msgstr = xstrdup ("");
@@ -713,7 +713,7 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
   free (contents);
   contents = NULL;
   real_file_name = NULL;
-  gram_pos.line_number = 0;
+  pos.line_number = 0;
 }
 
 const struct catalog_input_format input_format_properties =
