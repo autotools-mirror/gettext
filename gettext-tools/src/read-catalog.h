@@ -25,11 +25,6 @@
 #include <stdio.h>
 
 
-/* For including this file in C++ mode.  */
-#ifdef __cplusplus
-# define this thiss
-#endif
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -57,10 +52,10 @@ struct default_catalog_reader_class_ty
   struct abstract_catalog_reader_class_ty super;
 
   /* How to change the current domain.  */
-  void (*set_domain) (struct default_catalog_reader_ty *pop, char *name);
+  void (*set_domain) (struct default_catalog_reader_ty *dcatr, char *name);
 
   /* How to add a message to the list.  */
-  void (*add_message) (struct default_catalog_reader_ty *pop,
+  void (*add_message) (struct default_catalog_reader_ty *dcatr,
                        char *msgctxt,
                        char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
                        char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
@@ -70,7 +65,7 @@ struct default_catalog_reader_class_ty
                        bool force_fuzzy, bool obsolete);
 
   /* How to modify a new message before adding it to the list.  */
-  void (*frob_new_message) (struct default_catalog_reader_ty *pop,
+  void (*frob_new_message) (struct default_catalog_reader_ty *dcatr,
                             message_ty *mp,
                             const lex_pos_ty *msgid_pos,
                             const lex_pos_ty *msgstr_pos);
