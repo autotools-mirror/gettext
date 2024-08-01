@@ -1,5 +1,5 @@
 /* Reading Desktop Entry files.
-   Copyright (C) 1995-1998, 2000-2003, 2005-2006, 2008-2009, 2014-2016, 2020 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
    This file was written by Daiki Ueno <ueno@gnu.org>.
 
    This program is free software: you can redistribute it and/or modify
@@ -44,27 +44,27 @@ struct desktop_reader_class_ty
   size_t size;
 
   /* what to do immediately after the instance is malloc()ed */
-  void (*constructor) (struct desktop_reader_ty *pop);
+  void (*constructor) (struct desktop_reader_ty *reader);
 
   /* what to do immediately before the instance is free()ed */
-  void (*destructor) (struct desktop_reader_ty *pop);
+  void (*destructor) (struct desktop_reader_ty *reader);
 
   /* what to do with a group header */
-  void (*handle_group) (struct desktop_reader_ty *pop,
+  void (*handle_group) (struct desktop_reader_ty *reader,
                         const char *group);
 
   /* what to do with a key/value pair */
-  void (*handle_pair) (struct desktop_reader_ty *pop,
+  void (*handle_pair) (struct desktop_reader_ty *reader,
                        lex_pos_ty *key_pos,
                        const char *key,
                        const char *locale,
                        const char *value);
 
   /* what to do with a comment */
-  void (*handle_comment) (struct desktop_reader_ty *pop, const char *s);
+  void (*handle_comment) (struct desktop_reader_ty *reader, const char *s);
 
   /* what to do with a blank line */
-  void (*handle_blank) (struct desktop_reader_ty *pop, const char *s);
+  void (*handle_blank) (struct desktop_reader_ty *reader, const char *s);
 };
 
 /* This next structure defines the base class passed to the methods.
