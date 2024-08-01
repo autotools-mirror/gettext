@@ -148,7 +148,7 @@ comment
 domain
         : DOMAIN STRING
                 {
-                   catalog_reader_seen_domain (ps->catr, $2.string);
+                   catalog_reader_seen_domain (ps->catr, $2.string, &gram_pos);
                 }
         ;
 

@@ -76,7 +76,8 @@ struct abstract_catalog_reader_class_ty
   void (*parse_debrief) (struct abstract_catalog_reader_ty *catr);
 
   /* What to do with a domain directive.  */
-  void (*directive_domain) (struct abstract_catalog_reader_ty *catr, char *name);
+  void (*directive_domain) (struct abstract_catalog_reader_ty *catr,
+                            char *name, lex_pos_ty *name_pos);
 
   /* What to do with a message directive.  */
   void (*directive_message) (struct abstract_catalog_reader_ty *catr,
@@ -189,7 +190,7 @@ extern void
    It invokes the 'directive_domain' method.  */
 extern void
        catalog_reader_seen_domain (abstract_catalog_reader_ty *catr,
-                                   char *name);
+                                   char *name, lex_pos_ty *name_pos);
 /* This callback is called whenever a message has been seen.
    It invokes the 'directive_message' method.  */
 extern void

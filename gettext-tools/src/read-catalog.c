@@ -39,13 +39,14 @@
 /* Inline functions to invoke the methods.  */
 
 static inline void
-call_set_domain (struct default_catalog_reader_ty *dcatr, char *name)
+call_set_domain (struct default_catalog_reader_ty *dcatr,
+                 char *name, lex_pos_ty *name_pos)
 {
   default_catalog_reader_class_ty *methods =
     (default_catalog_reader_class_ty *) dcatr->methods;
 
   if (methods->set_domain)
-    methods->set_domain (dcatr, name);
+    methods->set_domain (dcatr, name, name_pos);
 }
 
 static inline void
@@ -216,11 +217,12 @@ default_reset_comment_state (default_catalog_reader_ty *dcatr)
 
 /* Process 'domain' directive from .po file.  */
 void
-default_directive_domain (abstract_catalog_reader_ty *catr, char *name)
+default_directive_domain (abstract_catalog_reader_ty *catr,
+                          char *name, lex_pos_ty *name_pos)
 {
   default_catalog_reader_ty *dcatr = (default_catalog_reader_ty *) catr;
 
-  call_set_domain (dcatr, name);
+  call_set_domain (dcatr, name, name_pos);
 
   /* If there are accumulated comments, throw them away, they are
      probably part of the file header, or about the domain directive,
@@ -313,14 +315,15 @@ default_comment_special (abstract_catalog_reader_ty *catr, const char *s)
 
 
 void
-default_set_domain (default_catalog_reader_ty *dcatr, char *name)
+default_set_domain (default_catalog_reader_ty *dcatr,
+                    char *name, lex_pos_ty *name_pos)
 {
   if (dcatr->allow_domain_directives)
     /* Override current domain name.  Don't free memory.  */
     dcatr->domain = name;
   else
     {
-      po_gram_error_at_line (&gram_pos,
+      po_gram_error_at_line (name_pos,
                              _("this file may not contain domain directives"));
 
       /* NAME was allocated in po-gram-gen.y but is not used anywhere.  */

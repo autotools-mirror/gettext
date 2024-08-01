@@ -85,10 +85,11 @@ call_parse_debrief (abstract_catalog_reader_ty *catr)
 }
 
 static inline void
-call_directive_domain (abstract_catalog_reader_ty *catr, char *name)
+call_directive_domain (abstract_catalog_reader_ty *catr,
+                       char *name, lex_pos_ty *name_pos)
 {
   if (catr->methods->directive_domain)
-    catr->methods->directive_domain (catr, name);
+    catr->methods->directive_domain (catr, name, name_pos);
 }
 
 static inline void
@@ -177,9 +178,10 @@ catalog_reader_parse (abstract_catalog_reader_ty *catr, FILE *fp,
 
 
 void
-catalog_reader_seen_domain (abstract_catalog_reader_ty *catr, char *name)
+catalog_reader_seen_domain (abstract_catalog_reader_ty *catr,
+                            char *name, lex_pos_ty *name_pos)
 {
-  call_directive_domain (catr, name);
+  call_directive_domain (catr, name, name_pos);
 }
 
 

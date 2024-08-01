@@ -52,7 +52,8 @@ struct default_catalog_reader_class_ty
   struct abstract_catalog_reader_class_ty super;
 
   /* How to change the current domain.  */
-  void (*set_domain) (struct default_catalog_reader_ty *dcatr, char *name);
+  void (*set_domain) (struct default_catalog_reader_ty *dcatr,
+                      char *name, lex_pos_ty *name_pos);
 
   /* How to add a message to the list.  */
   void (*add_message) (struct default_catalog_reader_ty *dcatr,
@@ -127,7 +128,7 @@ extern void default_destructor (abstract_catalog_reader_ty *catr);
 extern void default_parse_brief (abstract_catalog_reader_ty *catr);
 extern void default_parse_debrief (abstract_catalog_reader_ty *catr);
 extern void default_directive_domain (abstract_catalog_reader_ty *catr,
-                                      char *name);
+                                      char *name, lex_pos_ty *name_pos);
 extern void default_directive_message (abstract_catalog_reader_ty *catr,
                                        char *msgctxt,
                                        char *msgid,
@@ -146,7 +147,8 @@ extern void default_comment_filepos (abstract_catalog_reader_ty *catr,
                                      const char *file_name, size_t line_number);
 extern void default_comment_special (abstract_catalog_reader_ty *catr,
                                      const char *s);
-extern void default_set_domain (default_catalog_reader_ty *dcatr, char *name);
+extern void default_set_domain (default_catalog_reader_ty *dcatr,
+                                char *name, lex_pos_ty *name_pos);
 extern void default_add_message (default_catalog_reader_ty *dcatr,
                                  char *msgctxt,
                                  char *msgid,

@@ -1200,7 +1200,8 @@ msgfmt_parse_debrief (abstract_catalog_reader_ty *catr)
 
 /* Set 'domain' directive when seen in .po file.  */
 static void
-msgfmt_set_domain (default_catalog_reader_ty *dcatr, char *name)
+msgfmt_set_domain (default_catalog_reader_ty *dcatr,
+                   char *name, lex_pos_ty *name_pos)
 {
   /* If no output file was given, we change it with each 'domain'
      directive.  */
@@ -1234,7 +1235,7 @@ msgfmt_set_domain (default_catalog_reader_ty *dcatr, char *name)
   else
     {
       if (check_domain)
-        po_gram_error_at_line (&gram_pos,
+        po_gram_error_at_line (name_pos,
                                _("'domain %s' directive ignored"), name);
 
       /* NAME was allocated in po-gram-gen.y but is not used anywhere.  */
