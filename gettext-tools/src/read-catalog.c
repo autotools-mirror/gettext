@@ -324,8 +324,9 @@ default_set_domain (default_catalog_reader_ty *dcatr,
     dcatr->domain = name;
   else
     {
-      po_gram_error_at_line (name_pos,
-                             _("this file may not contain domain directives"));
+      po_xerror (PO_SEVERITY_ERROR, NULL,
+                 name_pos->file_name, name_pos->line_number, (size_t)(-1),
+                 false, _("this file may not contain domain directives"));
 
       /* NAME was allocated in read-po-gram.y but is not used anywhere.  */
       free (name);

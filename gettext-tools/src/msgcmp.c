@@ -41,6 +41,8 @@
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "xmalloca.h"
+#include "po-xerror.h"
+#include "xvasprintf.h"
 #include "po-charset.h"
 #include "msgl-iconv.h"
 #include "msgl-fsearch.h"
@@ -323,14 +325,14 @@ match_domain (const char *fn1, const char *fn2,
           if (!include_untranslated && defmsg->msgstr[0] == '\0')
             {
               (*nerrors)++;
-              po_gram_error_at_line (&defmsg->pos,
-                                     _("this message is untranslated"));
+              po_xerror (PO_SEVERITY_ERROR, defmsg, NULL, 0, 0, false,
+                         _("this message is untranslated"));
             }
           else if (!include_fuzzies && defmsg->is_fuzzy && !is_header (defmsg))
             {
               (*nerrors)++;
-              po_gram_error_at_line (&defmsg->pos,
-                                     _("this message needs to be reviewed by the translator"));
+              po_xerror (PO_SEVERITY_ERROR, defmsg, NULL, 0, 0, false,
+                         _("this message needs to be reviewed by the translator"));
             }
           else
             defmsg->used = 1;
@@ -368,17 +370,18 @@ match_domain (const char *fn1, const char *fn2,
             defmsg = NULL;
           if (defmsg)
             {
-              po_gram_error_at_line (&refmsg->pos,
-                                     _("this message is used but not defined..."));
-              error_message_count--;
-              po_gram_error_at_line (&defmsg->pos,
-                                     _("...but this definition is similar"));
+              po_xerror2 (PO_SEVERITY_ERROR,
+                          refmsg, NULL, 0, 0, false,
+                          _("this message is used but not defined"),
+                          defmsg, NULL, 0, 0, false,
+                          _("but this definition is similar"));
               defmsg->used = 1;
             }
           else
-            po_gram_error_at_line (&refmsg->pos,
-                                   _("this message is used but not defined in %s"),
-                                   fn1);
+            po_xerror (PO_SEVERITY_ERROR, refmsg, NULL, 0, 0, false,
+                       xasprintf (
+                         _("this message is used but not defined in %s"),
+                         fn1));
         }
     }
 }
@@ -545,8 +548,8 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
           message_ty *defmsg = defmlp->item[j];
 
           if (!defmsg->used)
-            po_gram_error_at_line (&defmsg->pos,
-                                   _("warning: this message is not used"));
+            po_xerror (PO_SEVERITY_ERROR, defmsg, NULL, 0, 0, false,
+                       _("warning: this message is not used"));
         }
     }
 

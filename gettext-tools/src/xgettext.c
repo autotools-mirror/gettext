@@ -72,6 +72,7 @@
 #include "read-po-lex.h"
 #include "message.h"
 #include "pos.h"
+#include "po-xerror.h"
 #include "po-charset.h"
 #include "msgl-iconv.h"
 #include "msgl-ascii.h"
@@ -1272,8 +1273,9 @@ static void
 exclude_directive_domain (abstract_catalog_reader_ty *catr,
                           char *name, lex_pos_ty *name_pos)
 {
-  po_gram_error_at_line (name_pos,
-                         _("this file may not contain domain directives"));
+  po_xerror (PO_SEVERITY_ERROR, NULL,
+             name_pos->file_name, name_pos->line_number, (size_t)(-1), false,
+             _("this file may not contain domain directives"));
 }
 
 

@@ -67,6 +67,7 @@
 #include "plural-count.h"
 #include "msgl-check.h"
 #include "po-xerror.h"
+#include "xvasprintf.h"
 #include "backupfile.h"
 #include "copy-file.h"
 #include "propername.h"
@@ -1596,13 +1597,11 @@ match_domain (const char *fn1, const char *fn2,
                 message_ty *mp;
 
                 if (verbosity_level > 1)
-                  {
-                    po_gram_error_at_line (&refmsg->pos,
-                                           _("this message is used but not defined..."));
-                    error_message_count--;
-                    po_gram_error_at_line (&defmsg->pos,
-                                           _("...but this definition is similar"));
-                  }
+                  po_xerror2 (PO_SEVERITY_ERROR,
+                              refmsg, NULL, 0, 0, false,
+                              _("this message is used but not defined"),
+                              defmsg, NULL, 0, 0, false,
+                              _("but this definition is similar"));
 
                 /* Merge the reference with the definition: take the #. and
                    #: comments from the reference, take the # comments from
@@ -1629,9 +1628,10 @@ match_domain (const char *fn1, const char *fn2,
                 const char *pend;
 
                 if (verbosity_level > 1)
-                  po_gram_error_at_line (&refmsg->pos,
-                                         _("this message is used but not defined in %s"),
-                                         fn1);
+                  po_xerror (PO_SEVERITY_ERROR, refmsg, NULL, 0, 0, false,
+                             xasprintf (
+                               _("this message is used but not defined in %s"),
+                               fn1));
 
                 mp = message_copy (refmsg);
 
@@ -1708,8 +1708,8 @@ match_domain (const char *fn1, const char *fn2,
                 unsigned long i;
 
                 if (verbosity_level > 1)
-                  po_gram_error_at_line (&mp->pos,
-                                         _("this message should define plural forms"));
+                  po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false,
+                             _("this message should define plural forms"));
 
                 new_msgstr_len = nplurals * mp->msgstr_len;
                 new_msgstr = XNMALLOC (new_msgstr_len, char);
@@ -1729,8 +1729,8 @@ match_domain (const char *fn1, const char *fn2,
                    Use only the first among the plural forms.  */
 
                 if (verbosity_level > 1)
-                  po_gram_error_at_line (&mp->pos,
-                                         _("this message should not define plural forms"));
+                  po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false,
+                             _("this message should not define plural forms"));
 
                 mp->msgstr_len = strlen (mp->msgstr) + 1;
                 mp->is_fuzzy = true;

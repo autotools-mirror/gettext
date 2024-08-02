@@ -60,6 +60,7 @@
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "read-desktop.h"
+#include "po-xerror.h"
 #include "po-charset.h"
 #include "msgl-check.h"
 #include "msgl-iconv.h"
@@ -1236,8 +1237,10 @@ msgfmt_set_domain (default_catalog_reader_ty *dcatr,
   else
     {
       if (check_domain)
-        po_gram_error_at_line (name_pos,
-                               _("'domain %s' directive ignored"), name);
+        po_xerror (PO_SEVERITY_ERROR, NULL,
+                   name_pos->file_name, name_pos->line_number, (size_t)(-1),
+                   false,
+                   xasprintf (_("'domain %s' directive ignored"), name));
 
       /* NAME was allocated in read-po-gram.y but is not used anywhere.  */
       free (name);
