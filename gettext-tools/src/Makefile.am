@@ -42,13 +42,13 @@ noinst_LTLIBRARIES = libgettextsrc.la
 endif
 
 noinst_HEADERS = \
-  pos.h message.h po-error.h po-xerror.h po-gram.h po-charset.h \
-  po-lex.h open-catalog.h read-catalog-special.h \
+  pos.h message.h po-error.h po-xerror.h read-po-internal.h po-charset.h \
+  read-po-lex.h open-catalog.h read-catalog-special.h \
   read-catalog-abstract.h read-catalog.h read-catalog-file.h \
   read-po.h read-properties.h read-stringtable.h \
   str-list.h \
   write-catalog.h write-po.h write-properties.h write-stringtable.h \
-  dir-list.h file-list.h po-gram-gen.h cldr-plural.h \
+  dir-list.h file-list.h read-po-gram.h cldr-plural.h \
   cldr-plural-exp.h locating-rule.h its.h search-path.h \
   msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-ofn.h msgl-cat.h \
   msgl-header.h msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
@@ -138,12 +138,12 @@ CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 # All programs must read PO files. (msgunfmt also, for read-java.c,
 # read-csharp.c and read-resources.c.)
 # message.c -> str-list.c.
-# (read-catalog-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> str-list.c.
-# (read-catalog-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> po-charset.c.
-# (read-catalog-abstract.c <--> po-gram-gen.y <--> po-lex.c) -> message.c -> str-list.c.
+# (read-catalog-abstract.c <--> read-po-gram.y <--> read-po-lex.c) -> str-list.c.
+# (read-catalog-abstract.c <--> read-po-gram.y <--> read-po-lex.c) -> po-charset.c.
+# (read-catalog-abstract.c <--> read-po-gram.y <--> read-po-lex.c) -> message.c -> str-list.c.
 # read-catalog-file.c -> open-catalog.c -> dir-list.c -> str-list.c.
 COMMON_SOURCE = message.c pos.c po-error.c po-xerror.c \
-read-catalog-abstract.c po-lex.c po-gram-gen.y po-charset.c \
+read-catalog-abstract.c read-po-lex.c read-po-gram.y po-charset.c \
 read-po.c read-properties.c read-stringtable.c open-catalog.c \
 dir-list.c str-list.c
 
@@ -340,8 +340,8 @@ endif
 # taken from libunistring, when the configure option --with-libunistring-prefix
 # was given.
 # Need @LTLIBINTL@ because many source files use gettext().
-# Need @LTLIBICONV@ because po-charset.c, po-lex.c, msgl-iconv.c, write-po.c
-# use iconv().
+# Need @LTLIBICONV@ because po-charset.c, read-po-lex.c, msgl-iconv.c,
+# write-po.c use iconv().
 libgettextsrc_la_LDFLAGS = \
   -release @VERSION@ \
   ../gnulib-lib/libgettextlib.la $(LTLIBUNISTRING) $(LT_LIBTEXTSTYLE) @LTLIBINTL@ @LTLIBICONV@ -lc -no-undefined
@@ -577,24 +577,24 @@ endif
 # postprocess the generated files and we don't want that unpostprocessed files
 # remain in place if the user interrupts the build through Ctrl-C.
 
-po-gram-gen.c po-gram-gen.h: po-gram-gen.y
-	$(AM_V_YACC)$(BISON) -d $(YFLAGS) $(AM_YFLAGS) $(srcdir)/po-gram-gen.y \
+read-po-gram.c read-po-gram.h: read-po-gram.y
+	$(AM_V_YACC)$(BISON) -d $(YFLAGS) $(AM_YFLAGS) $(srcdir)/read-po-gram.y \
 	&& test ':' = '$(BISON)' || { \
-	  sed -e 's|".*/po-gram-gen\.y"|"po-gram-gen.y"|' \
-	      -e 's|"po-gram-gen\.tab\.c"|"po-gram-gen.c"|' \
-	      -e 's|"po-gram-gen\.tab\.h"|"po-gram-gen.h"|' \
-	      < po-gram-gen.tab.c > po-gram-gen.c-tmp \
-	  && sed -e 's|".*/po-gram-gen\.y"|"po-gram-gen.y"|' \
-	         -e 's|"po-gram-gen\.tab\.h"|"po-gram-gen.h"|' \
-	         < po-gram-gen.tab.h > po-gram-gen.h-tmp \
-	  && rm -f po-gram-gen.tab.c po-gram-gen.tab.h \
-	  && mv po-gram-gen.c-tmp $(srcdir)/po-gram-gen.c \
-	  && mv po-gram-gen.h-tmp $(srcdir)/po-gram-gen.h; \
+	  sed -e 's|".*/read-po-gram\.y"|"read-po-gram.y"|' \
+	      -e 's|"read-po-gram\.tab\.c"|"read-po-gram.c"|' \
+	      -e 's|"read-po-gram\.tab\.h"|"read-po-gram.h"|' \
+	      < read-po-gram.tab.c > read-po-gram.c-tmp \
+	  && sed -e 's|".*/read-po-gram\.y"|"read-po-gram.y"|' \
+	         -e 's|"read-po-gram\.tab\.h"|"read-po-gram.h"|' \
+	         < read-po-gram.tab.h > read-po-gram.h-tmp \
+	  && rm -f read-po-gram.tab.c read-po-gram.tab.h \
+	  && mv read-po-gram.c-tmp $(srcdir)/read-po-gram.c \
+	  && mv read-po-gram.h-tmp $(srcdir)/read-po-gram.h; \
 	}
-BUILT_SOURCES += po-gram-gen.c po-gram-gen.h
-MOSTLYCLEANFILES += po-gram-gen.tab.c po-gram-gen.tab.h po-gram-gen.c-tmp po-gram-gen.h-tmp
-MAINTAINERCLEANFILES += po-gram-gen.c po-gram-gen.h
-EXTRA_DIST += po-gram-gen.c po-gram-gen.h
+BUILT_SOURCES += read-po-gram.c read-po-gram.h
+MOSTLYCLEANFILES += read-po-gram.tab.c read-po-gram.tab.h read-po-gram.c-tmp read-po-gram.h-tmp
+MAINTAINERCLEANFILES += read-po-gram.c read-po-gram.h
+EXTRA_DIST += read-po-gram.c read-po-gram.h
 
 
 cldr-plural.c cldr-plural.h: cldr-plural.y
@@ -764,7 +764,7 @@ endif
 
 
 # This Makefile contains rules which don't work with parallel make,
-# namely those which build textstyle.h, po-gram-gen.c, cldr-plural.c.
+# namely those which build textstyle.h, read-po-gram.c, cldr-plural.c.
 # See <https://lists.gnu.org/archive/html/bug-make/2019-05/msg00011.html>.
 # So, turn off parallel execution in this Makefile.
 .NOTPARALLEL:

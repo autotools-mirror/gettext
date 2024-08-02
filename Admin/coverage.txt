@@ -16,7 +16,7 @@ https://linux.die.net/man/1/lcov
    $ ./configure CC="gcc --coverage" CPPFLAGS=-Wall
    Why in the source directory?
    Because in a VPATH build, there are more files that create trouble in
-   steps 4 and 5 (po-gram-gen.[yc], cldr-plurals.[yc], and more).
+   steps 4 and 5 (read-po-gram.[yc], cldr-plurals.[yc], and more).
 
 2. Compile:
    $ make

@@ -184,7 +184,7 @@ extern void
        catalog_reader_free (abstract_catalog_reader_ty *catr);
 
 
-/* Callbacks used by po-gram-gen.y, read-properties.c, read-stringtable.c,
+/* Callbacks used by read-po-gram.y, read-properties.c, read-stringtable.c,
    indirectly from catalog_reader_parse.  */
 /* This callback is called whenever a domain directive has been seen.
    It invokes the 'directive_domain' method.  */

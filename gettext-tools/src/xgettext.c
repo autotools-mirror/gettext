@@ -69,7 +69,7 @@
 #include "open-catalog.h"
 #include "read-catalog-abstract.h"
 #include "read-po.h"
-#include "po-lex.h"
+#include "read-po-lex.h"
 #include "message.h"
 #include "pos.h"
 #include "po-charset.h"

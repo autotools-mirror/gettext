@@ -173,7 +173,7 @@ catalog_reader_parse (abstract_catalog_reader_ty *catr, FILE *fp,
 
 
 /* ========================================================================= */
-/* Callbacks used by po-gram-gen.y, read-properties.c, read-stringtable.c,
+/* Callbacks used by read-po-gram.y, read-properties.c, read-stringtable.c,
    indirectly from catalog_reader_parse.  */
 
 

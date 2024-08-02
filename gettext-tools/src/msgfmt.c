@@ -56,7 +56,7 @@
 #include "open-catalog.h"
 #include "read-catalog-file.h"
 #include "read-po.h"
-#include "po-lex.h"
+#include "read-po-lex.h"
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "read-desktop.h"
@@ -1239,7 +1239,7 @@ msgfmt_set_domain (default_catalog_reader_ty *dcatr,
         po_gram_error_at_line (name_pos,
                                _("'domain %s' directive ignored"), name);
 
-      /* NAME was allocated in po-gram-gen.y but is not used anywhere.  */
+      /* NAME was allocated in read-po-gram.y but is not used anywhere.  */
       free (name);
     }
 }

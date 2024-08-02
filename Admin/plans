@@ -44,7 +44,7 @@ Things we plan to do. Comments welcome.
     - where to look for i18n files,
     - which file types are to be considered by i18n,
     - which files are explicitly not i18n (e.g. generated files like
-      src/po-gram-gen.c)
+      src/read-po-gram.c)
 
 - Generating sr@latin PO file automatically from sr.po.
 

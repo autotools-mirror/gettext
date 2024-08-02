@@ -21,8 +21,8 @@
 /* Specification.  */
 #include "read-po.h"
 
-#include "po-lex.h"
-#include "po-gram.h"
+#include "read-po-lex.h"
+#include "read-po-internal.h"
 
 
 /* Read a .po / .pot file from a stream, and dispatch to the various

@@ -52,7 +52,7 @@ extern "C" {
 
 struct po_parser_state;
 
-/* Global variables from po-lex.c.  */
+/* Global variables from read-po-lex.c.  */
 
 /* Number of parse errors within a PO file that cause the program to
    terminate.  Cf. error_message_count, declared in <error.h>.  */
@@ -68,7 +68,7 @@ extern void lex_start (struct po_parser_state *ps,
 extern void lex_end (struct po_parser_state *ps);
 
 /* Return the next token in the PO file.  The return codes are defined
-   in "po-gram-gen.h".  Associated data is put in '*lval'.  */
+   in "read-po-gram.h".  Associated data is put in '*lval'.  */
 union PO_GRAM_STYPE;
 extern int po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps);
 

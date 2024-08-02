@@ -27,7 +27,7 @@
 #include <string.h>
 
 #include "po-charset.h"
-#include "po-lex.h"
+#include "read-po-lex.h"
 #include "po-xerror.h"
 #include "xalloc.h"
 #include "read-catalog-special.h"
@@ -327,7 +327,7 @@ default_set_domain (default_catalog_reader_ty *dcatr,
       po_gram_error_at_line (name_pos,
                              _("this file may not contain domain directives"));
 
-      /* NAME was allocated in po-gram-gen.y but is not used anywhere.  */
+      /* NAME was allocated in read-po-gram.y but is not used anywhere.  */
       free (name);
     }
 }
@@ -375,7 +375,7 @@ default_add_message (default_catalog_reader_ty *dcatr,
                       _("this is the location of the first definition"));
         }
       /* We don't need the just constructed entries' parameter string
-         (allocated in po-gram-gen.y).  */
+         (allocated in read-po-gram.y).  */
       free (msgid);
       if (msgid_plural != NULL)
         free (msgid_plural);

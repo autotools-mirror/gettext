@@ -62,12 +62,12 @@ libgettextpo_la_AUXSOURCES = \
   ../src/write-catalog.c \
   ../src/write-po.c \
   ../src/po-charset.c \
-  ../src/po-lex.c \
-  ../src/po-gram-gen.c \
   ../src/read-catalog-special.c \
   ../src/read-catalog-abstract.c \
   ../src/read-catalog.c \
   ../src/read-po.c \
+  ../src/read-po-lex.c \
+  ../src/read-po-gram.c \
   ../src/plural-table.c \
   ../src/format-c.c \
   ../src/format-c++-brace.c \

@@ -1,5 +1,5 @@
 # List of files which contain translatable strings.
-# Copyright (C) 1995-2023 Free Software Foundation, Inc.
+# Copyright (C) 1995-2024 Free Software Foundation, Inc.
 # This file is free software, distributed under GNU GPL v3+.
 
 # For updating this file, look at the result of:
@@ -90,14 +90,14 @@ src/msgunfmt.c
 src/msguniq.c
 src/open-catalog.c
 src/po-charset.c
-src/po-gram-gen.y
-src/po-lex.c
 src/po-xerror.c
 src/read-catalog.c
 src/read-csharp.c
 src/read-desktop.c
 src/read-java.c
 src/read-mo.c
+src/read-po-gram.y
+src/read-po-lex.c
 src/read-properties.c
 src/read-resources.c
 src/read-stringtable.c

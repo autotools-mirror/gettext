@@ -75,17 +75,15 @@ po-xerror.c
 | po-charset.c
 |               Charset handling while reading PO files.
 |
-| po-lex.h
-| po-lex.c
-|               Lexical analysis of PO files.
-|
 | read-catalog-special.h
 | read-catalog-special.c
 |               Parsing of special comments (#, comments).
 |
 | read-catalog-abstract.h
-| po-gram.h
-| po-gram-gen.y
+| read-po-internal.h
+| read-po-lex.h
+| read-po-lex.c
+| read-po-gram.y
 | read-po.h
 | read-po.c
 | read-properties.h
@@ -97,9 +95,12 @@ po-xerror.c
 |              .strings files.
 |         read-catalog-abstract.h
 |                       General parser structure.
-|         po-gram.h
-|         po-gram-gen.y
-|                       Parsing of PO files, based on po-lex.{h,c}.
+|         read-po-internal.h
+|         read-po-lex.h
+|         read-po-lex.c
+|                       Lexical analysis of PO files.
+|         read-po-gram.y
+|                       Parsing of PO files, based on read-po-lex.{h,c}.
 |         read-po.h
 |         read-po.c
 |                       Parsing of PO files.

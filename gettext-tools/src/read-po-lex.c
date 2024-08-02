@@ -23,7 +23,7 @@
 #endif
 
 /* Specification.  */
-#include "po-lex.h"
+#include "read-po-lex.h"
 
 #include <errno.h>
 #include <limits.h>
@@ -56,8 +56,8 @@
 #include "pos.h"
 #include "message.h"
 #include "str-list.h"
-#include "po-gram.h"
-#include "po-gram-gen.h"
+#include "read-po-internal.h"
+#include "read-po-gram.h"
 
 #define _(str) gettext(str)
 
@@ -1071,7 +1071,7 @@ control_sequence (struct po_parser_state *ps)
 
 
 /* Return the next token in the PO file.  The return codes are defined
-   in "po-gram-gen2.h".  Associated data is put in 'po_gram_lval'.  */
+   in "read-po-gram.h".  Associated data is put in 'po_gram_lval'.  */
 int
 po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
 {

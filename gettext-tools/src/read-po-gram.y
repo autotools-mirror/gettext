@@ -22,7 +22,7 @@
 #endif
 
 /* Specification.  */
-#include "po-gram.h"
+#include "read-po-internal.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -31,7 +31,7 @@
 
 #include <error.h>
 #include "str-list.h"
-#include "po-lex.h"
+#include "read-po-lex.h"
 #include "po-charset.h"
 #include "xalloc.h"
 #include "gettext.h"

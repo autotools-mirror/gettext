@@ -88,7 +88,7 @@ struct po_parser_state
 
   /* ----- Output variables -----  */
 
-  /* ----- Local variables of po-lex.c -----  */
+  /* ----- Local variables of read-po-lex.c -----  */
 
   /* The PO file's encoding, as specified in the header entry.  */
   const char *po_lex_charset;
@@ -117,7 +117,7 @@ struct po_parser_state
   bool po_lex_obsolete;
   bool po_lex_previous;
 
-  /* ----- Local variables of po-gram-gen.y -----  */
+  /* ----- Local variables of read-po-gram.y -----  */
   long plural_counter;
 };
 
