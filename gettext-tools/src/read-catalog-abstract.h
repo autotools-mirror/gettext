@@ -19,10 +19,10 @@
 #ifndef _READ_CATALOG_ABSTRACT_H
 #define _READ_CATALOG_ABSTRACT_H
 
-#include "po-lex.h"
-#include "message.h"
-
 #include <stdbool.h>
+#include <stdio.h>
+
+#include "message.h"
 
 
 #ifdef __cplusplus

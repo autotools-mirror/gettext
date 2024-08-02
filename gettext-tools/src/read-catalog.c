@@ -27,6 +27,7 @@
 #include <string.h>
 
 #include "po-charset.h"
+#include "po-lex.h"
 #include "po-xerror.h"
 #include "xalloc.h"
 #include "read-catalog-special.h"

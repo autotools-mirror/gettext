@@ -56,6 +56,7 @@
 #include "open-catalog.h"
 #include "read-catalog-file.h"
 #include "read-po.h"
+#include "po-lex.h"
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "read-desktop.h"

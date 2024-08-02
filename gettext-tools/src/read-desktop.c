@@ -36,7 +36,6 @@
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "c-ctype.h"
-#include "po-lex.h"
 #include "po-xerror.h"
 #include "gettext.h"
 

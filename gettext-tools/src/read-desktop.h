@@ -21,7 +21,7 @@
 #include <sys/types.h>
 #include <stdio.h>
 #include "mem-hash-map.h"
-#include "po-lex.h"
+#include "pos.h"
 #include "str-list.h"
 
 #ifdef __cplusplus
@@ -93,9 +93,9 @@ extern void desktop_reader_handle_group (desktop_reader_ty *reader,
 
 extern void desktop_reader_handle_pair (desktop_reader_ty *reader,
                                         lex_pos_ty *key_pos,
-                                 const char *key,
-                                 const char *locale,
-                                 const char *value);
+                                        const char *key,
+                                        const char *locale,
+                                        const char *value);
 
 extern void desktop_reader_handle_comment (desktop_reader_ty *reader,
                                            const char *s);

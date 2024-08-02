@@ -48,6 +48,7 @@ static void (*orig_error_at_line) (int status, int errnum,
 #include "xalloc.h"
 #include "read-catalog.h"
 #include "read-po.h"
+#include "po-lex.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "xerror.h"

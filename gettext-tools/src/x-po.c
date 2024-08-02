@@ -30,6 +30,7 @@
 #include <stdbool.h>
 #include <string.h>
 
+#include <error.h>
 #include "message.h"
 #include "xgettext.h"
 #include "xalloc.h"
@@ -40,7 +41,6 @@
 #include "msgl-iconv.h"
 #include "msgl-ascii.h"
 #include "po-charset.h"
-#include "po-lex.h"
 #include "gettext.h"
 
 /* A convenience macro.  I don't like writing gettext() every time.  */
