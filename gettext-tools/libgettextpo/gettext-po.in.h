@@ -46,7 +46,7 @@ typedef struct po_message *po_message_t;
 /* A po_filepos_t represents a string's position within a source file.  */
 typedef struct po_filepos *po_filepos_t;
 
-/* A po_error_handler handles error situations.  */
+/* A po_error_handler handles error situations.  No longer used.  */
 struct po_error_handler
 {
   /* Signal an error.  The error message is built from FORMAT and the following

@@ -113,8 +113,7 @@ xerror (int severity, const char *prefix_tail,
 }
 
 /* The default error handler is based on the lower-level error handler
-   in po-error.h, so that gettext-po.h can offer to override one or the
-   other.  */
+   in po-error.h.  */
 void
 textmode_xerror (int severity,
                  const struct message_ty *message,
