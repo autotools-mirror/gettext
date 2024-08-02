@@ -45,6 +45,8 @@ po-error.h
 po-error.c
 po-xerror.h
 po-xerror.c
+xerror-handler.h
+xerror-handler.c
                 Error handling during writing and reading of PO files.
 
 +-------------- Writing PO files

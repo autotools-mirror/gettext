@@ -42,8 +42,9 @@ noinst_LTLIBRARIES = libgettextsrc.la
 endif
 
 noinst_HEADERS = \
-  pos.h message.h po-error.h po-xerror.h read-po-internal.h po-charset.h \
-  read-po-lex.h open-catalog.h read-catalog-special.h \
+  pos.h message.h po-error.h po-xerror.h xerror-handler.h \
+  read-po-internal.h po-charset.h read-po-lex.h \
+  open-catalog.h read-catalog-special.h \
   read-catalog-abstract.h read-catalog.h read-catalog-file.h \
   read-po.h read-properties.h read-stringtable.h \
   str-list.h \
@@ -142,10 +143,27 @@ CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 # (read-catalog-abstract.c <--> read-po-gram.y <--> read-po-lex.c) -> po-charset.c.
 # (read-catalog-abstract.c <--> read-po-gram.y <--> read-po-lex.c) -> message.c -> str-list.c.
 # read-catalog-file.c -> open-catalog.c -> dir-list.c -> str-list.c.
-COMMON_SOURCE = message.c pos.c po-error.c po-xerror.c \
-read-catalog-abstract.c read-po-lex.c read-po-gram.y po-charset.c \
-read-po.c read-properties.c read-stringtable.c open-catalog.c \
-dir-list.c str-list.c
+COMMON_SOURCE = \
+  message.c \
+  pos.c \
+  po-error.c \
+  po-xerror.c
+if !WOE32DLL
+COMMON_SOURCE += xerror-handler.c
+else
+COMMON_SOURCE += ../woe32dll/c++xerror-handler.cc
+endif
+COMMON_SOURCE += \
+  read-catalog-abstract.c \
+  read-po-lex.c \
+  read-po-gram.y \
+  po-charset.c \
+  read-po.c \
+  read-properties.c \
+  read-stringtable.c \
+  open-catalog.c \
+  dir-list.c \
+  str-list.c
 
 # xgettext and msgfmt deal with format strings.
 if !WOE32DLL
