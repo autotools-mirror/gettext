@@ -31,7 +31,6 @@
 #include "xalloc.h"
 #include "read-catalog.h"
 #include "read-po.h"
-#include "read-po-lex.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "xvasprintf.h"
@@ -113,7 +112,6 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
       handler->xerror2,
       &error_count
     };
-  gram_max_allowed_errors = UINT_MAX;
 
   file = XMALLOC (struct po_file);
   file->real_filename = filename;
@@ -122,9 +120,6 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
                                     file->logical_filename, &input_format_po,
                                     &local_xerror_handler);
   file->domains = NULL;
-
-  /* Restore.  */
-  gram_max_allowed_errors = 20;
 
   if (fp != stdin)
     fclose (fp);

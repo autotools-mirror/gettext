@@ -56,6 +56,7 @@
 #include "pos.h"
 #include "message.h"
 #include "str-list.h"
+#include "read-po.h"
 #include "read-po-internal.h"
 #include "read-po-gram.h"
 
@@ -816,11 +817,6 @@ mbfile_ungetc (const mbchar_t mbc, mbfile_t mbf)
   mb_copy (&mbf->pushback[mbf->have_pushback], mbc);
   mbf->have_pushback++;
 }
-
-
-/* Lexer variables.  */
-
-unsigned int gram_max_allowed_errors = 20;
 
 
 /* Prepare lexical analysis.  */

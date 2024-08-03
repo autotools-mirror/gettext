@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -28,6 +28,13 @@ extern "C" {
 
 /* Describes a .po / .pot file parser.  */
 extern DLL_VARIABLE const struct catalog_input_format input_format_po;
+
+
+/* Global variables.  */
+
+/* Number of parse errors within a PO file that cause the program to
+   terminate.  Cf. error_message_count, declared in <error.h>.  */
+extern DLL_VARIABLE unsigned int gram_max_allowed_errors;
 
 
 #ifdef __cplusplus

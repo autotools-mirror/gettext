@@ -52,12 +52,6 @@ extern "C" {
 
 struct po_parser_state;
 
-/* Global variables from read-po-lex.c.  */
-
-/* Number of parse errors within a PO file that cause the program to
-   terminate.  Cf. error_message_count, declared in <error.h>.  */
-extern DLL_VARIABLE unsigned int gram_max_allowed_errors;
-
 
 /* Prepare lexical analysis.  */
 extern void lex_start (struct po_parser_state *ps,

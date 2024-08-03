@@ -21,6 +21,8 @@
 /* Specification.  */
 #include "read-po.h"
 
+#include <limits.h>
+
 #include "read-po-lex.h"
 #include "read-po-internal.h"
 
@@ -45,3 +47,8 @@ const struct catalog_input_format input_format_po =
   po_parse,                             /* parse */
   false                                 /* produces_utf8 */
 };
+
+
+/* Lexer variables.  */
+
+unsigned int gram_max_allowed_errors = UINT_MAX;

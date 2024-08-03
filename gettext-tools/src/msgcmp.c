@@ -37,7 +37,6 @@
 #include "message.h"
 #include "read-catalog-file.h"
 #include "read-po.h"
-#include "read-po-lex.h"
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "xmalloca.h"

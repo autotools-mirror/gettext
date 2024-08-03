@@ -154,6 +154,7 @@ main (int argc, char **argv)
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
+  gram_max_allowed_errors = 20;
 
   /* Set locale via LC_ALL.  */
   setlocale (LC_ALL, "");

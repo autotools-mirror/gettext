@@ -57,7 +57,6 @@
 #include "open-catalog.h"
 #include "read-catalog-file.h"
 #include "read-po.h"
-#include "read-po-lex.h"
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "read-desktop.h"
@@ -259,6 +258,7 @@ main (int argc, char *argv[])
   error_print_progname = maybe_print_progname;
   error_one_per_line = 1;
   exit_status = EXIT_SUCCESS;
+  gram_max_allowed_errors = 20;
 
   /* Set locale via LC_ALL.  */
   setlocale (LC_ALL, "");
