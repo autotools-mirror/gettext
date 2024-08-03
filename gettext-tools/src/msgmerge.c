@@ -67,6 +67,7 @@
 #include "plural-count.h"
 #include "msgl-check.h"
 #include "po-xerror.h"
+#include "xerror-handler.h"
 #include "xvasprintf.h"
 #include "backupfile.h"
 #include "copy-file.h"
@@ -517,14 +518,15 @@ There is NO WARRANTY, to the extent permitted by law.\n\
             }
 
           /* Write the merged message list out.  */
-          msgdomain_list_print (result, output_file, output_syntax, true,
-                                false);
+          msgdomain_list_print (result, output_file, output_syntax,
+                                textmode_xerror_handler, true, false);
         }
     }
   else
     {
       /* Write the merged message list out.  */
       msgdomain_list_print (result, output_file, output_syntax,
+                            textmode_xerror_handler,
                             for_msgfmt || force_po, false);
     }
 
@@ -1827,11 +1829,13 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
         }
     if (was_utf8)
       {
-        def = iconv_msgdomain_list (def, po_charset_utf8, true, fn1);
+        def = iconv_msgdomain_list (def, po_charset_utf8, true, fn1,
+                                    textmode_xerror_handler);
         if (compendiums != NULL)
           for (k = 0; k < compendiums->nitems; k++)
             iconv_message_list (compendiums->item[k], NULL, po_charset_utf8,
-                                compendium_filenames->item[k]);
+                                compendium_filenames->item[k],
+                                textmode_xerror_handler);
       }
     else if (compendiums != NULL && compendiums->nitems > 0)
       {
@@ -1898,7 +1902,8 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
                         for (k = 0; k < compendiums->nitems; k++)
                           iconv_message_list (compendiums->item[k],
                                               NULL, canon_charset,
-                                              compendium_filenames->item[k]);
+                                              compendium_filenames->item[k],
+                                              textmode_xerror_handler);
                       conversion_done = true;
                     }
                 }
@@ -1971,12 +1976,14 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
               {
                 /* It's too hairy to find out what would be the optimal target
                    encoding.  So, convert everything to UTF-8.  */
-                def = iconv_msgdomain_list (def, po_charset_utf8, true, fn1);
+                def = iconv_msgdomain_list (def, po_charset_utf8, true, fn1,
+                                            textmode_xerror_handler);
                 if (compendiums != NULL)
                   for (k = 0; k < compendiums->nitems; k++)
                     iconv_message_list (compendiums->item[k],
                                         NULL, po_charset_utf8,
-                                        compendium_filenames->item[k]);
+                                        compendium_filenames->item[k],
+                                        textmode_xerror_handler);
               }
           }
       }

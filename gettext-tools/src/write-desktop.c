@@ -30,6 +30,7 @@
 
 #include <error.h>
 #include "msgl-iconv.h"
+#include "xerror-handler.h"
 #include "msgl-header.h"
 #include "po-charset.h"
 #include "read-catalog.h"
@@ -203,7 +204,8 @@ msgdomain_write_desktop (message_list_ty *mlp,
   msgfmt_operand_list_ty operands;
 
   /* Convert the messages to Unicode.  */
-  iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
+  iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL,
+                      textmode_xerror_handler);
 
   /* Support for "reproducible builds": Delete information that may vary
      between builds in the same conditions.  */

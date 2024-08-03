@@ -139,19 +139,19 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
 po_file_t
 po_file_write (po_file_t file, const char *filename, po_xerror_handler_t handler)
 {
-  /* Establish error handler around msgdomain_list_print().  */
-  po_xerror =
-    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
-    handler->xerror;
-  po_xerror2 =
-    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
-    handler->xerror2;
+  /* Establish error handler for msgdomain_list_print().  */
+  unsigned int error_count = 0;
+  struct xerror_handler local_xerror_handler =
+    {
+      (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
+      handler->xerror,
+      (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
+      handler->xerror2,
+      &error_count
+    };
 
-  msgdomain_list_print (file->mdlp, filename, &output_format_po, true, false);
-
-  /* Restore error handler.  */
-  po_xerror  = textmode_xerror;
-  po_xerror2 = textmode_xerror2;
+  msgdomain_list_print (file->mdlp, filename, &output_format_po,
+                        &local_xerror_handler, true, false);
 
   return file;
 }

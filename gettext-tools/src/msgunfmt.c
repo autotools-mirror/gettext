@@ -46,6 +46,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "xerror-handler.h"
 #include "propername.h"
 #include "gettext.h"
 
@@ -405,7 +406,8 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     msgdomain_list_sort_by_msgid (result);
 
   /* Write the resulting message list to the given .po file.  */
-  msgdomain_list_print (result, output_file, output_syntax, force_po, false);
+  msgdomain_list_print (result, output_file, output_syntax,
+                        textmode_xerror_handler, force_po, false);
 
   /* No problems.  */
   exit (EXIT_SUCCESS);

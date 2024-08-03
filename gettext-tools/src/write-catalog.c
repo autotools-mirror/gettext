@@ -1,6 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2008, 2012, 2019-2020 Free Software
-   Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -39,7 +38,7 @@
 #include "fwriteerror.h"
 #include "error-progname.h"
 #include "xvasprintf.h"
-#include "po-xerror.h"
+#include "xerror-handler.h"
 #include "gettext.h"
 
 /* Our regular abbreviation.  */
@@ -90,6 +89,7 @@ message_page_width_set (size_t n)
 void
 msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
                       catalog_output_format_ty output_syntax,
+                      xerror_handler_ty xeh,
                       bool force, bool debug)
 {
   bool to_stdout;
@@ -121,11 +121,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
   if (!output_syntax->supports_multiple_domains && mdlp->nitems > 1)
     {
       if (output_syntax->alternative_is_po)
-        po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                   _("Cannot output multiple translation domains into a single file with the specified output format. Try using PO file syntax instead."));
+        xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                     _("Cannot output multiple translation domains into a single file with the specified output format. Try using PO file syntax instead."));
       else
-        po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                   _("Cannot output multiple translation domains into a single file with the specified output format."));
+        xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                     _("Cannot output multiple translation domains into a single file with the specified output format."));
     }
   else
     {
@@ -155,10 +155,10 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
           if (has_context != NULL)
             {
               error_with_progname = false;
-              po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
-                         has_context->file_name, has_context->line_number,
-                         (size_t)(-1), false,
-                         _("message catalog has context dependent translations, but the output format does not support them."));
+              xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL,
+                           has_context->file_name, has_context->line_number,
+                           (size_t)(-1), false,
+                           _("message catalog has context dependent translations, but the output format does not support them."));
               error_with_progname = true;
             }
         }
@@ -190,15 +190,15 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
             {
               error_with_progname = false;
               if (output_syntax->alternative_is_java_class)
-                po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
-                           has_plural->file_name, has_plural->line_number,
-                           (size_t)(-1), false,
-                           _("message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
+                xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL,
+                             has_plural->file_name, has_plural->line_number,
+                             (size_t)(-1), false,
+                             _("message catalog has plural form translations, but the output format does not support them. Try generating a Java class using \"msgfmt --java\", instead of a properties file."));
               else
-                po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
-                           has_plural->file_name, has_plural->line_number,
-                           (size_t)(-1), false,
-                           _("message catalog has plural form translations, but the output format does not support them."));
+                xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL,
+                             has_plural->file_name, has_plural->line_number,
+                             (size_t)(-1), false,
+                             _("message catalog has plural form translations, but the output format does not support them."));
               error_with_progname = true;
             }
         }
@@ -226,11 +226,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
           if (fd < 0)
             {
               const char *errno_description = strerror (errno);
-              po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                         xasprintf ("%s: %s",
-                                    xasprintf (_("cannot create output file \"%s\""),
-                                               filename),
-                                    errno_description));
+              xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                           xasprintf ("%s: %s",
+                                      xasprintf (_("cannot create output file \"%s\""),
+                                                 filename),
+                                      errno_description));
             }
         }
       else
@@ -244,18 +244,18 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
                           "po-default.css");
       stream =
         styled_ostream_create (fd, filename, TTYCTL_AUTO, style_file_name);
-      output_syntax->print (mdlp, stream, page_width, debug);
+      output_syntax->print (mdlp, stream, page_width, xeh, debug);
       ostream_free (stream);
 
       /* Make sure nothing went wrong.  */
       if (close (fd) < 0)
         {
           const char *errno_description = strerror (errno);
-          po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                     xasprintf ("%s: %s",
-                                xasprintf (_("error while writing \"%s\" file"),
-                                           filename),
-                                errno_description));
+          xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                       xasprintf ("%s: %s",
+                                  xasprintf (_("error while writing \"%s\" file"),
+                                             filename),
+                                  errno_description));
         }
     }
   else
@@ -271,11 +271,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
           if (fp == NULL)
             {
               const char *errno_description = strerror (errno);
-              po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                         xasprintf ("%s: %s",
-                                    xasprintf (_("cannot create output file \"%s\""),
-                                               filename),
-                                    errno_description));
+              xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                           xasprintf ("%s: %s",
+                                      xasprintf (_("cannot create output file \"%s\""),
+                                                 filename),
+                                      errno_description));
             }
         }
       else
@@ -295,14 +295,15 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
           if (mdlp->encoding != po_charset_utf8)
             {
               mdlp = msgdomain_list_copy (mdlp, 0);
-              mdlp = iconv_msgdomain_list (mdlp, po_charset_utf8, false, NULL);
+              mdlp = iconv_msgdomain_list (mdlp, po_charset_utf8, false, NULL,
+                                           xeh);
             }
 
           style_file_prepare ("PO_STYLE",
                               "GETTEXTSTYLESDIR", relocate (GETTEXTSTYLESDIR),
                               "po-default.css");
           html_stream = html_styled_ostream_create (stream, style_file_name);
-          output_syntax->print (mdlp, html_stream, page_width, debug);
+          output_syntax->print (mdlp, html_stream, page_width, xeh, debug);
           ostream_free (html_stream);
         }
       else
@@ -310,11 +311,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
           noop_styled_ostream_t styled_stream;
 
           styled_stream = noop_styled_ostream_create (stream, false);
-          output_syntax->print (mdlp, styled_stream, page_width, debug);
+          output_syntax->print (mdlp, styled_stream, page_width, xeh, debug);
           ostream_free (styled_stream);
         }
 #else
-      output_syntax->print (mdlp, stream, page_width, debug);
+      output_syntax->print (mdlp, stream, page_width, xeh, debug);
       /* Don't call ostream_free if file_ostream_create is a dummy.  */
       if (stream != fp)
 #endif
@@ -324,11 +325,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
       if (fwriteerror (fp))
         {
           const char *errno_description = strerror (errno);
-          po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                     xasprintf ("%s: %s",
-                                xasprintf (_("error while writing \"%s\" file"),
-                                           filename),
-                                errno_description));
+          xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                       xasprintf ("%s: %s",
+                                  xasprintf (_("error while writing \"%s\" file"),
+                                             filename),
+                                  errno_description));
         }
     }
 }

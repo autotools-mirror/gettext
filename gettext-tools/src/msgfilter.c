@@ -57,6 +57,7 @@
 #include "xsetenv.h"
 #include "filters.h"
 #include "msgl-iconv.h"
+#include "xerror-handler.h"
 #include "po-charset.h"
 #include "propername.h"
 #include "gettext.h"
@@ -351,21 +352,24 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       filter = serbian_to_latin;
 
       /* Convert the input to UTF-8 first.  */
-      result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file);
+      result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file,
+                                     textmode_xerror_handler);
     }
   else if (strcmp (sub_name, "quot") == 0 && sub_argc == 1)
     {
       filter = ascii_quote_to_unicode;
 
       /* Convert the input to UTF-8 first.  */
-      result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file);
+      result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file,
+                                     textmode_xerror_handler);
     }
   else if (strcmp (sub_name, "boldquot") == 0 && sub_argc == 1)
     {
       filter = ascii_quote_to_unicode_bold;
 
       /* Convert the input to UTF-8 first.  */
-      result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file);
+      result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file,
+                                     textmode_xerror_handler);
     }
   else
     {
@@ -393,7 +397,8 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     msgdomain_list_sort_by_msgid (result);
 
   /* Write the merged message list out.  */
-  msgdomain_list_print (result, output_file, output_syntax, force_po, false);
+  msgdomain_list_print (result, output_file, output_syntax,
+                        textmode_xerror_handler, force_po, false);
 
   exit (EXIT_SUCCESS);
 }

@@ -62,6 +62,7 @@
 #include "read-stringtable.h"
 #include "read-desktop.h"
 #include "po-xerror.h"
+#include "xerror-handler.h"
 #include "po-charset.h"
 #include "msgl-check.h"
 #include "msgl-iconv.h"
@@ -1621,7 +1622,8 @@ msgfmt_operand_list_add_from_directory (msgfmt_operand_list_ty *operands,
         }
 
       /* Convert the messages to Unicode.  */
-      iconv_message_list (mlp, NULL, po_charset_utf8, NULL);
+      iconv_message_list (mlp, NULL, po_charset_utf8, NULL,
+                          textmode_xerror_handler);
 
       msgfmt_operand_list_append (operands, language, mlp);
     }

@@ -42,6 +42,7 @@
 #include "read-stringtable.h"
 #include "xmalloca.h"
 #include "po-xerror.h"
+#include "xerror-handler.h"
 #include "xvasprintf.h"
 #include "po-charset.h"
 #include "msgl-iconv.h"
@@ -435,7 +436,8 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
             }
         }
     if (was_utf8)
-      def = iconv_msgdomain_list (def, po_charset_utf8, true, fn1);
+      def = iconv_msgdomain_list (def, po_charset_utf8, true, fn1,
+                                  textmode_xerror_handler);
   }
 
   /* Determine canonicalized encoding name of the definitions now, after

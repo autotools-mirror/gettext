@@ -212,7 +212,8 @@ extract (FILE *fp,
               /* Convert the messages to UTF-8.
                  finalize_header() expects this.  */
               message_list_ty *mlp = mdlp->item[0]->messages;
-              iconv_message_list (mlp, NULL, po_charset_utf8, logical_filename);
+              iconv_message_list (mlp, NULL, po_charset_utf8, logical_filename,
+                                  textmode_xerror_handler);
             }
         }
 

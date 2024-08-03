@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2010, 2012, 2014-2015, 2018-2021, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -49,7 +49,7 @@
 #include "c-strstr.h"
 #include "xvasprintf.h"
 #include "verify.h"
-#include "po-xerror.h"
+#include "xerror-handler.h"
 #include "gettext.h"
 
 /* Our regular abbreviation.  */
@@ -654,7 +654,7 @@ wrap (const message_ty *mp, ostream_t stream,
       const char *line_prefix, int extra_indent, const char *css_class,
       const char *name, const char *value,
       enum is_wrap do_wrap, size_t page_width,
-      const char *charset)
+      const char *charset, xerror_handler_ty xeh)
 {
   const char *canon_charset;
   char *fmtdir;
@@ -845,8 +845,9 @@ wrap (const message_ty *mp, ostream_t stream,
                     {
                       if (errno == EILSEQ)
                         {
-                          po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false,
-                                     _("invalid multibyte sequence"));
+                          xeh->xerror (CAT_SEVERITY_ERROR, mp, NULL, 0, 0,
+                                       false,
+                                       _("invalid multibyte sequence"));
                           continue;
                         }
                       else if (errno == EINVAL)
@@ -854,8 +855,9 @@ wrap (const message_ty *mp, ostream_t stream,
                           /* This could happen if an incomplete
                              multibyte sequence at the end of input
                              bytes.  */
-                          po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false,
-                                     _("incomplete multibyte sequence"));
+                          xeh->xerror (CAT_SEVERITY_ERROR, mp, NULL, 0, 0,
+                                       false,
+                                       _("incomplete multibyte sequence"));
                           continue;
                         }
                       else
@@ -920,8 +922,8 @@ wrap (const message_ty *mp, ostream_t stream,
                   char *error_message =
                     xasprintf (_("internationalized messages should not contain the '\\%c' escape sequence"),
                                c);
-                  po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, false,
-                             error_message);
+                  xeh->xerror (CAT_SEVERITY_WARNING, mp, NULL, 0, 0, false,
+                               error_message);
                   free (error_message);
                 }
             }
@@ -982,8 +984,8 @@ wrap (const message_ty *mp, ostream_t stream,
                     {
                       if (errno == EILSEQ)
                         {
-                          po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0,
-                                     false, _("invalid multibyte sequence"));
+                          xeh->xerror (CAT_SEVERITY_ERROR, mp, NULL, 0, 0,
+                                       false, _("invalid multibyte sequence"));
                           continue;
                         }
                       else
@@ -1304,7 +1306,7 @@ print_blank_line (ostream_t stream)
 static void
 message_print (const message_ty *mp, ostream_t stream,
                const char *charset, size_t page_width, bool blank_line,
-               bool debug)
+               xerror_handler_ty xeh, bool debug)
 {
   int extra_indent;
 
@@ -1346,13 +1348,13 @@ message_print (const message_ty *mp, ostream_t stream,
   begin_css_class (stream, class_previous_comment);
   if (mp->prev_msgctxt != NULL)
     wrap (mp, stream, "#| ", 0, class_previous, "msgctxt", mp->prev_msgctxt,
-          mp->do_wrap, page_width, charset);
+          mp->do_wrap, page_width, charset, xeh);
   if (mp->prev_msgid != NULL)
     wrap (mp, stream, "#| ", 0, class_previous, "msgid", mp->prev_msgid,
-          mp->do_wrap, page_width, charset);
+          mp->do_wrap, page_width, charset, xeh);
   if (mp->prev_msgid_plural != NULL)
     wrap (mp, stream, "#| ", 0, class_previous, "msgid_plural",
-          mp->prev_msgid_plural, mp->do_wrap, page_width, charset);
+          mp->prev_msgid_plural, mp->do_wrap, page_width, charset, xeh);
   end_css_class (stream, class_previous_comment);
   extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
                   || mp->prev_msgid_plural != NULL
@@ -1373,7 +1375,7 @@ The following msgctxt contains non-ASCII characters.\n\
 This will cause problems to translators who use a character encoding\n\
 different from yours. Consider using a pure ASCII msgctxt instead.\n\
 %s\n"), mp->msgctxt);
-      po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
+      xeh->xerror (CAT_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
       free (warning_message);
     }
   if (!is_ascii_string (mp->msgid)
@@ -1385,21 +1387,21 @@ The following msgid contains non-ASCII characters.\n\
 This will cause problems to translators who use a character encoding\n\
 different from yours. Consider using a pure ASCII msgid instead.\n\
 %s\n"), mp->msgid);
-      po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
+      xeh->xerror (CAT_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
       free (warning_message);
     }
   if (mp->msgctxt != NULL)
     wrap (mp, stream, NULL, extra_indent, class_msgid, "msgctxt", mp->msgctxt,
-          mp->do_wrap, page_width, charset);
+          mp->do_wrap, page_width, charset, xeh);
   wrap (mp, stream, NULL, extra_indent, class_msgid, "msgid", mp->msgid,
-        mp->do_wrap, page_width, charset);
+        mp->do_wrap, page_width, charset, xeh);
   if (mp->msgid_plural != NULL)
     wrap (mp, stream, NULL, extra_indent, class_msgid, "msgid_plural",
-          mp->msgid_plural, mp->do_wrap, page_width, charset);
+          mp->msgid_plural, mp->do_wrap, page_width, charset, xeh);
 
   if (mp->msgid_plural == NULL)
     wrap (mp, stream, NULL, extra_indent, class_msgstr, "msgstr", mp->msgstr,
-          mp->do_wrap, page_width, charset);
+          mp->do_wrap, page_width, charset, xeh);
   else
     {
       char prefix_buf[20];
@@ -1412,7 +1414,7 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
         {
           sprintf (prefix_buf, "msgstr[%u]", i);
           wrap (mp, stream, NULL, extra_indent, class_msgstr, prefix_buf, p,
-                mp->do_wrap, page_width, charset);
+                mp->do_wrap, page_width, charset, xeh);
         }
     }
 
@@ -1430,7 +1432,7 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 static void
 message_print_obsolete (const message_ty *mp, ostream_t stream,
                         const char *charset, size_t page_width, bool blank_line,
-                        bool debug)
+                        xerror_handler_ty xeh, bool debug)
 {
   int extra_indent;
 
@@ -1517,13 +1519,13 @@ message_print_obsolete (const message_ty *mp, ostream_t stream,
   begin_css_class (stream, class_previous_comment);
   if (mp->prev_msgctxt != NULL)
     wrap (mp, stream, "#~| ", 0, class_previous, "msgctxt", mp->prev_msgctxt,
-          mp->do_wrap, page_width, charset);
+          mp->do_wrap, page_width, charset, xeh);
   if (mp->prev_msgid != NULL)
     wrap (mp, stream, "#~| ", 0, class_previous, "msgid", mp->prev_msgid,
-          mp->do_wrap, page_width, charset);
+          mp->do_wrap, page_width, charset, xeh);
   if (mp->prev_msgid_plural != NULL)
     wrap (mp, stream, "#~| ", 0, class_previous, "msgid_plural",
-          mp->prev_msgid_plural, mp->do_wrap, page_width, charset);
+          mp->prev_msgid_plural, mp->do_wrap, page_width, charset, xeh);
   end_css_class (stream, class_previous_comment);
   extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
                   || mp->prev_msgid_plural != NULL
@@ -1543,7 +1545,7 @@ The following msgctxt contains non-ASCII characters.\n\
 This will cause problems to translators who use a character encoding\n\
 different from yours. Consider using a pure ASCII msgctxt instead.\n\
 %s\n"), mp->msgctxt);
-      po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
+      xeh->xerror (CAT_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
       free (warning_message);
     }
   if (!is_ascii_string (mp->msgid)
@@ -1555,21 +1557,21 @@ The following msgid contains non-ASCII characters.\n\
 This will cause problems to translators who use a character encoding\n\
 different from yours. Consider using a pure ASCII msgid instead.\n\
 %s\n"), mp->msgid);
-      po_xerror (PO_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
+      xeh->xerror (CAT_SEVERITY_WARNING, mp, NULL, 0, 0, true, warning_message);
       free (warning_message);
     }
   if (mp->msgctxt != NULL)
     wrap (mp, stream, "#~ ", extra_indent, class_msgid, "msgctxt", mp->msgctxt,
-          mp->do_wrap, page_width, charset);
+          mp->do_wrap, page_width, charset, xeh);
   wrap (mp, stream, "#~ ", extra_indent, class_msgid, "msgid", mp->msgid,
-        mp->do_wrap, page_width, charset);
+        mp->do_wrap, page_width, charset, xeh);
   if (mp->msgid_plural != NULL)
     wrap (mp, stream, "#~ ", extra_indent, class_msgid, "msgid_plural",
-          mp->msgid_plural, mp->do_wrap, page_width, charset);
+          mp->msgid_plural, mp->do_wrap, page_width, charset, xeh);
 
   if (mp->msgid_plural == NULL)
     wrap (mp, stream, "#~ ", extra_indent, class_msgstr, "msgstr", mp->msgstr,
-          mp->do_wrap, page_width, charset);
+          mp->do_wrap, page_width, charset, xeh);
   else
     {
       char prefix_buf[20];
@@ -1582,7 +1584,7 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
         {
           sprintf (prefix_buf, "msgstr[%u]", i);
           wrap (mp, stream, "#~ ", extra_indent, class_msgstr, prefix_buf, p,
-                mp->do_wrap, page_width, charset);
+                mp->do_wrap, page_width, charset, xeh);
         }
     }
 
@@ -1592,7 +1594,7 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
 
 static void
 msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
-                         size_t page_width, bool debug)
+                         size_t page_width, xerror_handler_ty xeh, bool debug)
 {
   size_t j, k;
   bool blank_line;
@@ -1668,7 +1670,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
         if (!mlp->item[j]->obsolete)
           {
             message_print (mlp->item[j], stream, charset, page_width,
-                           blank_line, debug);
+                           blank_line, xeh, debug);
             blank_line = true;
           }
 
@@ -1677,7 +1679,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
         if (mlp->item[j]->obsolete)
           {
             message_print_obsolete (mlp->item[j], stream, charset, page_width,
-                                    blank_line, debug);
+                                    blank_line, xeh, debug);
             blank_line = true;
           }
 

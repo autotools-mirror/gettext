@@ -37,6 +37,7 @@
 #include "message.h"
 #include "msgfmt.h"
 #include "msgl-iconv.h"
+#include "xerror-handler.h"
 #include "msgl-header.h"
 #include "po-charset.h"
 #include "xalloc.h"
@@ -156,7 +157,8 @@ but the C# .resources format doesn't support plural handling\n")));
       }
 
       /* Convert the messages to Unicode.  */
-      iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
+      iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL,
+                          textmode_xerror_handler);
 
       /* Support for "reproducible builds": Delete information that may vary
          between builds in the same conditions.  */

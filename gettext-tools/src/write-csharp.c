@@ -79,6 +79,7 @@
 #include "message.h"
 #include "msgfmt.h"
 #include "msgl-iconv.h"
+#include "xerror-handler.h"
 #include "msgl-header.h"
 #include "plural-exp.h"
 #include "po-charset.h"
@@ -645,7 +646,8 @@ msgdomain_write_csharp (message_list_ty *mlp, const char *canon_encoding,
   retval = 1;
 
   /* Convert the messages to Unicode.  */
-  iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
+  iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL,
+                      textmode_xerror_handler);
 
   /* Support for "reproducible builds": Delete information that may vary
      between builds in the same conditions.  */

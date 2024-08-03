@@ -74,6 +74,7 @@
 #include "message.h"
 #include "pos.h"
 #include "po-xerror.h"
+#include "xerror-handler.h"
 #include "po-charset.h"
 #include "msgl-iconv.h"
 #include "msgl-ascii.h"
@@ -849,7 +850,8 @@ xgettext cannot work without keywords to look for"));
 
       extract_from_file (file_name, po_extractor, mdlp);
       if (!is_ascii_msgdomain_list (mdlp))
-        mdlp = iconv_msgdomain_list (mdlp, po_charset_utf8, true, file_name);
+        mdlp = iconv_msgdomain_list (mdlp, po_charset_utf8, true, file_name,
+                                     textmode_xerror_handler);
 
       dir_list_restore (saved_directory_list);
     }
@@ -1038,7 +1040,8 @@ xgettext cannot work without keywords to look for"));
   }
 
   /* Write the PO file.  */
-  msgdomain_list_print (mdlp, file_name, output_syntax, force_po, do_debug);
+  msgdomain_list_print (mdlp, file_name, output_syntax, textmode_xerror_handler,
+                        force_po, do_debug);
 
   if (its_locating_rules)
     locating_rule_list_free (its_locating_rules);
@@ -2191,7 +2194,8 @@ finalize_header (msgdomain_list_ty *mdlp)
       {
         message_list_ty *mlp = mdlp->item[0]->messages;
 
-        iconv_message_list (mlp, po_charset_utf8, po_charset_utf8, NULL);
+        iconv_message_list (mlp, po_charset_utf8, po_charset_utf8, NULL,
+                            textmode_xerror_handler);
       }
   }
 }

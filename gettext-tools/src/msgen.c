@@ -47,6 +47,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "xerror-handler.h"
 #include "propername.h"
 #include "gettext.h"
 
@@ -283,7 +284,8 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     msgdomain_list_set_header_field (result, "Language:", catalogname);
 
   /* Write the merged message list out.  */
-  msgdomain_list_print (result, output_file, output_syntax, force_po, false);
+  msgdomain_list_print (result, output_file, output_syntax,
+                        textmode_xerror_handler, force_po, false);
 
   exit (EXIT_SUCCESS);
 }

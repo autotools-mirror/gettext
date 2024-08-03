@@ -63,6 +63,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "xerror-handler.h"
 #include "po-charset.h"
 #include "localcharset.h"
 #include "localename.h"
@@ -378,7 +379,8 @@ the output .po file through the --output-file option.\n"),
     result = update_msgstr_plurals (result);
 
   /* Write the modified message list out.  */
-  msgdomain_list_print (result, output_file, output_syntax, true, false);
+  msgdomain_list_print (result, output_file, output_syntax,
+                        textmode_xerror_handler, true, false);
 
   if (!no_translator)
     fprintf (stderr, "\n");

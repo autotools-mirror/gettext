@@ -1,5 +1,5 @@
 /* Writing NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003-2023 Free Software Foundation, Inc.
+   Copyright (C) 2003-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -32,6 +32,7 @@
 #include "msgl-ascii.h"
 #include "msgl-iconv.h"
 #include "po-charset.h"
+#include "xerror-handler.h"
 #include "c-strstr.h"
 #include "xvasprintf.h"
 #include "write-po.h"
@@ -279,13 +280,14 @@ write_message (ostream_t stream, const message_ty *mp,
 /* Writes an entire message list to the stream.  */
 static void
 write_stringtable (ostream_t stream, message_list_ty *mlp,
-                   const char *canon_encoding, size_t page_width, bool debug)
+                   const char *canon_encoding, size_t page_width,
+                   xerror_handler_ty xeh, bool debug)
 {
   bool blank_line;
   size_t j;
 
   /* Convert the messages to Unicode.  */
-  iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL);
+  iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL, xeh);
 
   /* Output the BOM.  */
   if (!is_ascii_message_list (mlp))
@@ -312,7 +314,8 @@ write_stringtable (ostream_t stream, message_list_ty *mlp,
 /* Output the contents of a PO file in .strings syntax.  */
 static void
 msgdomain_list_print_stringtable (msgdomain_list_ty *mdlp, ostream_t stream,
-                                  size_t page_width, bool debug)
+                                  size_t page_width, xerror_handler_ty xeh,
+                                  bool debug)
 {
   message_list_ty *mlp;
 
@@ -320,7 +323,7 @@ msgdomain_list_print_stringtable (msgdomain_list_ty *mdlp, ostream_t stream,
     mlp = mdlp->item[0]->messages;
   else
     mlp = message_list_alloc (false);
-  write_stringtable (stream, mlp, mdlp->encoding, page_width, debug);
+  write_stringtable (stream, mlp, mdlp->encoding, page_width, xeh, debug);
 }
 
 /* Describes a PO file in .strings syntax.  */

@@ -47,6 +47,7 @@
 #include "xmalloca.h"
 #include "po-charset.h"
 #include "msgl-iconv.h"
+#include "xerror-handler.h"
 #include "msgl-header.h"
 #include "binary-io.h"
 #include "supersede.h"
@@ -1195,7 +1196,8 @@ msgdomain_write_mo (message_list_ty *mlp,
              It is also helpful for performance on glibc systems, since most
              locales nowadays have UTF-8 as locale encoding, whereas some PO
              files still are encoded in EUC-JP or so.  */
-          iconv_message_list (mlp, NULL, po_charset_utf8, input_file);
+          iconv_message_list (mlp, NULL, po_charset_utf8, input_file,
+                              textmode_xerror_handler);
         }
 
       /* Support for "reproducible builds": Delete information that may vary

@@ -40,6 +40,7 @@
 #include "msgl-ofn.h"
 #include "msgl-equal.h"
 #include "msgl-iconv.h"
+#include "xerror-handler.h"
 #include "xalloc.h"
 #include "xmalloca.h"
 #include "c-strstr.h"
@@ -532,7 +533,7 @@ Converting the output to %s.\n\
             if (!(to_code == NULL && canon_charsets[n][k] == canon_to_code))
               if (iconv_message_list (mdlp->item[k]->messages,
                                       canon_charsets[n][k], canon_to_code,
-                                      files[n]))
+                                      files[n], textmode_xerror_handler))
                 {
                   multiline_error (xstrdup (""),
                                    xasprintf (_("\
