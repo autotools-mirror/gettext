@@ -40,6 +40,7 @@
 #include "relocatable.h"
 #include "basename-lgpl.h"
 #include "xerror.h"
+#include "xerror-handler.h"
 #include "xvasprintf.h"
 #include "xalloc.h"
 #include "msgfmt.h"
@@ -1391,7 +1392,8 @@ read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
   FILE *fp = open_catalog_file (filename, &real_filename, true);
   default_catalog_reader_ty *dcatr;
 
-  dcatr = default_catalog_reader_alloc (&msgfmt_methods);
+  dcatr = default_catalog_reader_alloc (&msgfmt_methods,
+                                        textmode_xerror_handler);
   dcatr->pass_obsolete_entries = true;
   dcatr->handle_comments = false;
   dcatr->allow_domain_directives = true;

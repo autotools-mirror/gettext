@@ -41,7 +41,8 @@
 
 #define check_obsolete(value1,value2) \
   if ((value1).obsolete != (value2).obsolete) \
-    po_gram_error_at_line (&(value2).pos, _("inconsistent use of #~"));
+    po_gram_error_at_line (ps->catr, &(value2).pos, \
+                           _("inconsistent use of #~"));
 
 static inline void
 do_callback_message (struct po_parser_state *ps,
@@ -201,7 +202,7 @@ message
                 {
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
-                  po_gram_error_at_line (&$1.pos, _("missing 'msgstr[]' section"));
+                  po_gram_error_at_line (ps->catr, &$1.pos, _("missing 'msgstr[]' section"));
                   free_message_intro ($1);
                   string_list_destroy (&$2.stringlist);
                   free ($3.string);
@@ -210,7 +211,7 @@ message
                 {
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
-                  po_gram_error_at_line (&$1.pos, _("missing 'msgid_plural' section"));
+                  po_gram_error_at_line (ps->catr, &$1.pos, _("missing 'msgid_plural' section"));
                   free_message_intro ($1);
                   string_list_destroy (&$2.stringlist);
                   free ($3.rhs.msgstr);
@@ -218,7 +219,7 @@ message
         | message_intro string_list
                 {
                   check_obsolete ($1, $2);
-                  po_gram_error_at_line (&$1.pos, _("missing 'msgstr' section"));
+                  po_gram_error_at_line (ps->catr, &$1.pos, _("missing 'msgstr' section"));
                   free_message_intro ($1);
                   string_list_destroy (&$2.stringlist);
                 }
@@ -357,9 +358,9 @@ pluralform
                   if ($3.number != ps->plural_counter)
                     {
                       if (ps->plural_counter == 0)
-                        po_gram_error_at_line (&$1.pos, _("first plural form has nonzero index"));
+                        po_gram_error_at_line (ps->catr, &$1.pos, _("first plural form has nonzero index"));
                       else
-                        po_gram_error_at_line (&$1.pos, _("plural form has wrong index"));
+                        po_gram_error_at_line (ps->catr, &$1.pos, _("plural form has wrong index"));
                     }
                   ps->plural_counter++;
                   $$.rhs.msgstr = string_list_concat_destroy (&$5.stringlist);

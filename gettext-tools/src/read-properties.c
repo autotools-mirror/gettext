@@ -35,7 +35,7 @@
 #include "read-catalog-abstract.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
-#include "po-xerror.h"
+#include "xerror-handler.h"
 #include "msgl-ascii.h"
 #include "read-file.h"
 #include "unistr.h"
@@ -311,7 +311,7 @@ conv_from_java (char *string)
 #define UTF16_VALUE(p4_result) ((unsigned short) ((p4_result) - 0x10000))
 
 static int
-phase4_getuc ()
+phase4_getuc (abstract_catalog_reader_ty *catr)
 {
   int c = phase3_getc ();
 
@@ -347,9 +347,10 @@ phase4_getuc ()
               else
                 {
                   phase3_ungetc (c1);
-                  po_xerror (PO_SEVERITY_ERROR, NULL,
-                             real_file_name, pos.line_number, (size_t)(-1),
-                             false, _("warning: invalid \\uxxxx syntax for Unicode character"));
+                  catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                                     real_file_name, pos.line_number, (size_t)(-1),
+                                     false,
+                                     _("warning: invalid \\uxxxx syntax for Unicode character"));
                   return 'u';
                 }
             }
@@ -373,7 +374,7 @@ phase4_getuc ()
      - otherwise, if in_key is false, after the end of the logical line. */
 
 static char *
-read_escaped_string (bool in_key)
+read_escaped_string (abstract_catalog_reader_ty *catr, bool in_key)
 {
   /* The part of the string that has already been converted to UTF-8.  */
   static unsigned char *utf8_buffer;
@@ -419,9 +420,10 @@ read_escaped_string (bool in_key)
     do                                                                        \
       {                                                                       \
         error_with_progname = false;                                          \
-        po_xerror (PO_SEVERITY_ERROR, NULL,                                   \
-                   real_file_name, (line), (size_t)(-1), false,               \
-                   xasprintf (_("warning: lone surrogate U+%04X"), (uc)));    \
+        catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,                          \
+                           real_file_name, (line), (size_t)(-1), false,       \
+                           xasprintf (_("warning: lone surrogate U+%04X"),    \
+                                      (uc)));                                 \
         error_with_progname = true;                                           \
         utf8_buffer_ensure_available (3);                                     \
         utf8_buffer[utf8_buflen++] = 0xef;                                    \
@@ -462,7 +464,7 @@ read_escaped_string (bool in_key)
       phase3_ungetc (c);
 
       /* Read the next byte or UTF-16 code point.  */
-      c = phase4_getuc ();
+      c = phase4_getuc (catr);
       if (c == P4_EOF)
         break;
 
@@ -489,9 +491,10 @@ read_escaped_string (bool in_key)
               if (len < 0)
                 {
                   error_with_progname = false;
-                  po_xerror (PO_SEVERITY_ERROR, NULL,
-                             real_file_name, pos.line_number, (size_t)(-1),
-                             false, _("warning: invalid Unicode character"));
+                  catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                                     real_file_name, pos.line_number, (size_t)(-1),
+                                     false,
+                                     _("warning: invalid Unicode character"));
                   error_with_progname = true;
                 }
               else
@@ -524,9 +527,10 @@ read_escaped_string (bool in_key)
                   if (len < 0)
                     {
                       error_with_progname = false;
-                      po_xerror (PO_SEVERITY_ERROR, NULL,
-                                 real_file_name, pos.line_number, (size_t)(-1),
-                                 false, _("warning: invalid Unicode character"));
+                      catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                                         real_file_name, pos.line_number, (size_t)(-1),
+                                         false,
+                                         _("warning: invalid Unicode character"));
                       error_with_progname = true;
                     }
                   else
@@ -600,11 +604,11 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
   if (contents == NULL)
     {
       const char *errno_description = strerror (errno);
-      po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                 xasprintf ("%s: %s",
-                            xasprintf (_("error while reading \"%s\""),
-                                       real_filename),
-                            errno_description));
+      catr->xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                         xasprintf ("%s: %s",
+                                    xasprintf (_("error while reading \"%s\""),
+                                               real_filename),
+                                    errno_description));
       return;
     }
 
@@ -682,7 +686,7 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
           lex_pos_ty msgid_pos;
 
           msgid_pos = pos;
-          msgid = read_escaped_string (true);
+          msgid = read_escaped_string (catr, true);
           if (msgid == NULL)
             /* Skip blank line.  */
             ;
@@ -693,7 +697,7 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
               bool force_fuzzy;
 
               msgstr_pos = pos;
-              msgstr = read_escaped_string (false);
+              msgstr = read_escaped_string (catr, false);
               if (msgstr == NULL)
                 msgstr = xstrdup ("");
 

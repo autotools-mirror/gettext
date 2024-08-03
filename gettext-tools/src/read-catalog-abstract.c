@@ -32,7 +32,7 @@
 #include "po-charset.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
-#include "po-xerror.h"
+#include "xerror-handler.h"
 #include "gettext.h"
 
 
@@ -41,12 +41,14 @@
 
 
 abstract_catalog_reader_ty *
-catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table)
+catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table,
+                      xerror_handler_ty xerror_handler)
 {
   abstract_catalog_reader_ty *catr;
 
   catr = (abstract_catalog_reader_ty *) xmalloc (method_table->size);
   catr->methods = method_table;
+  catr->xeh = xerror_handler;
   catr->pass_comments = false;
   catr->pass_obsolete_entries = false;
   catr->po_lex_isolate_start = NULL;
@@ -155,20 +157,22 @@ catalog_reader_parse (abstract_catalog_reader_ty *catr, FILE *fp,
                       bool is_pot_role,
                       catalog_input_format_ty input_syntax)
 {
-  error_message_count = 0;
+  *(catr->xeh->error_message_count_p) = 0;
 
   /* Parse the stream's content.  */
   call_parse_brief (catr);
   input_syntax->parse (catr, fp, real_filename, logical_filename, is_pot_role);
   call_parse_debrief (catr);
 
-  if (error_message_count > 0)
-    po_xerror (PO_SEVERITY_FATAL_ERROR, NULL,
-               /*real_filename*/ NULL, (size_t)(-1), (size_t)(-1), false,
-               xasprintf (ngettext ("found %u fatal error",
-                                    "found %u fatal errors",
-                                    error_message_count),
-                          error_message_count));
+  unsigned int num_errors = *(catr->xeh->error_message_count_p);
+  if (num_errors > 0)
+    catr->xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL,
+                       /*real_filename*/ NULL, (size_t)(-1), (size_t)(-1),
+                       false,
+                       xasprintf (ngettext ("found %u fatal error",
+                                            "found %u fatal errors",
+                                            num_errors),
+                                  num_errors));
 }
 
 

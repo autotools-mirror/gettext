@@ -104,25 +104,27 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
         return NULL;
     }
 
-  /* Establish error handler around read_catalog_stream().  */
-  po_xerror =
-    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
-    handler->xerror;
-  po_xerror2 =
-    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
-    handler->xerror2;
+  /* Establish error handler for read_catalog_stream().  */
+  unsigned int error_count = 0;
+  struct xerror_handler local_xerror_handler =
+    {
+      (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
+      handler->xerror,
+      (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
+      handler->xerror2,
+      &error_count
+    };
   gram_max_allowed_errors = UINT_MAX;
 
   file = XMALLOC (struct po_file);
   file->real_filename = filename;
   file->logical_filename = filename;
   file->mdlp = read_catalog_stream (fp, file->real_filename,
-                                    file->logical_filename, &input_format_po);
+                                    file->logical_filename, &input_format_po,
+                                    &local_xerror_handler);
   file->domains = NULL;
 
-  /* Restore error handler.  */
-  po_xerror  = textmode_xerror;
-  po_xerror2 = textmode_xerror2;
+  /* Restore.  */
   gram_max_allowed_errors = 20;
 
   if (fp != stdin)

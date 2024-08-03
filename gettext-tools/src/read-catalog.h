@@ -20,6 +20,7 @@
 
 #include "message.h"
 #include "read-catalog-abstract.h"
+#include "xerror-handler.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -164,7 +165,8 @@ extern void default_add_message (default_catalog_reader_ty *dcatr,
 /* Allocate a fresh default_catalog_reader_ty (or derived class) instance and
    call its constructor.  */
 extern default_catalog_reader_ty *
-       default_catalog_reader_alloc (default_catalog_reader_class_ty *method_table);
+       default_catalog_reader_alloc (default_catalog_reader_class_ty *method_table,
+                                     xerror_handler_ty xerror_handler);
 
 
 /* If false, duplicate msgids in the same domain and file generate an error.
@@ -177,7 +179,8 @@ extern msgdomain_list_ty *
        read_catalog_stream (FILE *fp,
                             const char *real_filename,
                             const char *logical_filename,
-                            catalog_input_format_ty input_syntax);
+                            catalog_input_format_ty input_syntax,
+                            xerror_handler_ty xerror_handler);
 
 
 #ifdef __cplusplus

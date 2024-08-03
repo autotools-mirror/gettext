@@ -23,6 +23,7 @@
 #include <stdio.h>
 
 #include "message.h"
+#include "xerror-handler.h"
 
 
 #ifdef __cplusplus
@@ -127,6 +128,9 @@ struct abstract_catalog_reader_class_ty
 #define ABSTRACT_CATALOG_READER_TY \
   abstract_catalog_reader_class_ty *methods;                            \
                                                                         \
+  /* The error handler.  */                                             \
+  xerror_handler_ty xeh;                                                \
+                                                                        \
   /* True if comments shall be handled, false if they shall be          \
      ignored. */                                                        \
   bool pass_comments;                                                   \
@@ -167,7 +171,8 @@ typedef const struct catalog_input_format * catalog_input_format_ty;
 /* Allocate a fresh abstract_catalog_reader_ty (or derived class) instance and
    call its constructor.  */
 extern abstract_catalog_reader_ty *
-       catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table);
+       catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table,
+                             xerror_handler_ty xerror_handler);
 
 /* Read a PO file from a stream, and dispatch to the various
    abstract_catalog_reader_class_ty methods.  */

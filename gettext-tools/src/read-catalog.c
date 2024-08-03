@@ -28,7 +28,7 @@
 
 #include "po-charset.h"
 #include "read-po-lex.h"
-#include "po-xerror.h"
+#include "xerror-handler.h"
 #include "xalloc.h"
 #include "read-catalog-special.h"
 #include "gettext.h"
@@ -324,9 +324,10 @@ default_set_domain (default_catalog_reader_ty *dcatr,
     dcatr->domain = name;
   else
     {
-      po_xerror (PO_SEVERITY_ERROR, NULL,
-                 name_pos->file_name, name_pos->line_number, (size_t)(-1),
-                 false, _("this file may not contain domain directives"));
+      dcatr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                          name_pos->file_name, name_pos->line_number, (size_t)(-1),
+                          false,
+                          _("this file may not contain domain directives"));
 
       /* NAME was allocated in read-po-gram.y but is not used anywhere.  */
       free (name);
@@ -369,11 +370,15 @@ default_add_message (default_catalog_reader_ty *dcatr,
              translations are equal or different.  This is for consistency
              with msgmerge, msgcat and others.  The user can use the
              msguniq program to get rid of duplicates.  */
-          po_xerror2 (PO_SEVERITY_ERROR,
-                      NULL, msgid_pos->file_name, msgid_pos->line_number,
-                      (size_t)(-1), false, _("duplicate message definition"),
-                      mp, NULL, 0, 0, false,
-                      _("this is the location of the first definition"));
+          dcatr->xeh->xerror2 (CAT_SEVERITY_ERROR,
+                               NULL,
+                               msgid_pos->file_name, msgid_pos->line_number, (size_t)(-1),
+                               false,
+                               _("duplicate message definition"),
+                               mp,
+                               NULL, 0, 0,
+                               false,
+                               _("this is the location of the first definition"));
         }
       /* We don't need the just constructed entries' parameter string
          (allocated in read-po-gram.y).  */
@@ -446,10 +451,12 @@ static default_catalog_reader_class_ty default_methods =
 
 
 default_catalog_reader_ty *
-default_catalog_reader_alloc (default_catalog_reader_class_ty *method_table)
+default_catalog_reader_alloc (default_catalog_reader_class_ty *method_table,
+                              xerror_handler_ty xerror_handler)
 {
   return
-    (default_catalog_reader_ty *) catalog_reader_alloc (&method_table->super);
+    (default_catalog_reader_ty *)
+    catalog_reader_alloc (&method_table->super, xerror_handler);
 }
 
 
@@ -466,12 +473,13 @@ bool allow_duplicates = false;
 msgdomain_list_ty *
 read_catalog_stream (FILE *fp, const char *real_filename,
                      const char *logical_filename,
-                     catalog_input_format_ty input_syntax)
+                     catalog_input_format_ty input_syntax,
+                     xerror_handler_ty xerror_handler)
 {
   default_catalog_reader_ty *dcatr;
   msgdomain_list_ty *mdlp;
 
-  dcatr = default_catalog_reader_alloc (&default_methods);
+  dcatr = default_catalog_reader_alloc (&default_methods, xerror_handler);
   dcatr->pass_obsolete_entries = true;
   dcatr->handle_comments = true;
   dcatr->allow_domain_directives = true;

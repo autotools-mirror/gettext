@@ -35,7 +35,7 @@
 #include "read-catalog-abstract.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
-#include "po-xerror.h"
+#include "xerror-handler.h"
 #include "unistr.h"
 #include "gettext.h"
 
@@ -80,7 +80,7 @@ static unsigned char phase1_pushback[4];
 static int phase1_pushback_length;
 
 static int
-phase1_getc ()
+phase1_getc (abstract_catalog_reader_ty *catr)
 {
   int c;
 
@@ -94,11 +94,11 @@ phase1_getc ()
       if (ferror (fp))
         {
           const char *errno_description = strerror (errno);
-          po_xerror (PO_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                     xasprintf ("%s: %s",
-                                xasprintf (_("error while reading \"%s\""),
-                                           real_file_name),
-                                errno_description));
+          catr->xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
+                             xasprintf ("%s: %s",
+                                        xasprintf (_("error while reading \"%s\""),
+                                                   real_file_name),
+                                        errno_description));
         }
       return EOF;
     }
@@ -138,7 +138,7 @@ enum enc
 static enum enc encoding;
 
 static int
-phase2_getc ()
+phase2_getc (abstract_catalog_reader_ty *catr)
 {
   if (phase2_pushback_length)
     return phase2_pushback[--phase2_pushback_length];
@@ -148,10 +148,10 @@ phase2_getc ()
       /* Determine the input file's encoding.  */
       int c0, c1;
 
-      c0 = phase1_getc ();
+      c0 = phase1_getc (catr);
       if (c0 == EOF)
         return UEOF;
-      c1 = phase1_getc ();
+      c1 = phase1_getc (catr);
       if (c1 == EOF)
         {
           phase1_ungetc (c0);
@@ -165,7 +165,7 @@ phase2_getc ()
         {
           int c2;
 
-          c2 = phase1_getc ();
+          c2 = phase1_getc (catr);
           if (c2 == EOF)
             {
               phase1_ungetc (c1);
@@ -191,10 +191,10 @@ phase2_getc ()
       {
         int c0, c1;
 
-        c0 = phase1_getc ();
+        c0 = phase1_getc (catr);
         if (c0 == EOF)
           return UEOF;
-        c1 = phase1_getc ();
+        c1 = phase1_getc (catr);
         if (c1 == EOF)
           return UEOF;
         return (c0 << 8) + c1;
@@ -205,10 +205,10 @@ phase2_getc ()
       {
         int c0, c1;
 
-        c0 = phase1_getc ();
+        c0 = phase1_getc (catr);
         if (c0 == EOF)
           return UEOF;
-        c1 = phase1_getc ();
+        c1 = phase1_getc (catr);
         if (c1 == EOF)
           return UEOF;
         return c0 + (c1 << 8);
@@ -222,7 +222,7 @@ phase2_getc ()
         int c;
         ucs4_t uc;
 
-        c = phase1_getc ();
+        c = phase1_getc (catr);
         if (c == EOF)
           return UEOF;
         buf[0] = c;
@@ -230,7 +230,7 @@ phase2_getc ()
 
         if (buf[0] >= 0xc0)
           {
-            c = phase1_getc ();
+            c = phase1_getc (catr);
             if (c == EOF)
               return UEOF;
             buf[1] = c;
@@ -239,7 +239,7 @@ phase2_getc ()
             if (buf[0] >= 0xe0
                 && ((buf[1] ^ 0x80) < 0x40))
               {
-                c = phase1_getc ();
+                c = phase1_getc (catr);
                 if (c == EOF)
                   return UEOF;
                 buf[2] = c;
@@ -248,7 +248,7 @@ phase2_getc ()
                 if (buf[0] >= 0xf0
                     && ((buf[2] ^ 0x80) < 0x40))
                   {
-                    c = phase1_getc ();
+                    c = phase1_getc (catr);
                     if (c == EOF)
                       return UEOF;
                     buf[3] = c;
@@ -257,7 +257,7 @@ phase2_getc ()
                     if (buf[0] >= 0xf8
                         && ((buf[3] ^ 0x80) < 0x40))
                       {
-                        c = phase1_getc ();
+                        c = phase1_getc (catr);
                         if (c == EOF)
                           return UEOF;
                         buf[4] = c;
@@ -266,7 +266,7 @@ phase2_getc ()
                         if (buf[0] >= 0xfc
                             && ((buf[4] ^ 0x80) < 0x40))
                           {
-                            c = phase1_getc ();
+                            c = phase1_getc (catr);
                             if (c == EOF)
                               return UEOF;
                             buf[5] = c;
@@ -284,7 +284,7 @@ phase2_getc ()
     case enc_iso8859_1:
       /* Read an ISO-8859-1 encoded character.  */
       {
-        int c = phase1_getc ();
+        int c = phase1_getc (catr);
 
         if (c == EOF)
           return UEOF;
@@ -307,9 +307,9 @@ phase2_ungetc (int c)
 /* Phase 3: Read an UCS-4 character, with line number handling.  */
 
 static int
-phase3_getc ()
+phase3_getc (abstract_catalog_reader_ty *catr)
 {
-  int c = phase2_getc ();
+  int c = phase2_getc (catr);
 
   if (c == '\n')
     pos.line_number++;
@@ -579,10 +579,10 @@ phase4_getc (abstract_catalog_reader_ty *catr)
 {
   int c;
 
-  c = phase3_getc ();
+  c = phase3_getc (catr);
   if (c != '/')
     return c;
-  c = phase3_getc ();
+  c = phase3_getc (catr);
   switch (c)
     {
     default:
@@ -603,7 +603,7 @@ phase4_getc (abstract_catalog_reader_ty *catr)
         /* Drop additional stars at the beginning of the comment.  */
         for (;;)
           {
-            c = phase3_getc ();
+            c = phase3_getc (catr);
             if (c != '*')
               break;
             last_was_star = true;
@@ -611,7 +611,7 @@ phase4_getc (abstract_catalog_reader_ty *catr)
         phase3_ungetc (c);
         for (;;)
           {
-            c = phase3_getc ();
+            c = phase3_getc (catr);
             if (c == UEOF)
               break;
             /* We skip all leading white space, but not EOLs.  */
@@ -658,7 +658,7 @@ phase4_getc (abstract_catalog_reader_ty *catr)
       comment_start ();
       for (;;)
         {
-          c = phase3_getc ();
+          c = phase3_getc (catr);
           if (c == '\n' || c == UEOF)
             break;
           /* We skip all leading white space, but not EOLs.  */
@@ -732,12 +732,12 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *start_pos)
       /* Read a string enclosed in double-quotes.  */
       for (;;)
         {
-          c = phase3_getc ();
+          c = phase3_getc (catr);
           if (c == UEOF || c == '"')
             break;
           if (c == '\\')
             {
-              c = phase3_getc ();
+              c = phase3_getc (catr);
               if (c == UEOF)
                 break;
               if (c >= '0' && c <= '7')
@@ -749,7 +749,7 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *start_pos)
                       n = n * 8 + (c - '0');
                       if (++j == 3)
                         break;
-                      c = phase3_getc ();
+                      c = phase3_getc (catr);
                       if (!(c >= '0' && c <= '7'))
                         {
                           phase3_ungetc (c);
@@ -764,7 +764,7 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *start_pos)
                   int j;
                   for (j = 0; j < 4; j++)
                     {
-                      c = phase3_getc ();
+                      c = phase3_getc (catr);
                       if (c >= '0' && c <= '9')
                         n = n * 16 + (c - '0');
                       else if (c >= 'A' && c <= 'F')
@@ -799,17 +799,17 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *start_pos)
           buffer[buflen++] = c;
         }
       if (c == UEOF)
-        po_xerror (PO_SEVERITY_ERROR, NULL,
-                   real_file_name, pos.line_number, (size_t)(-1), false,
-                   _("warning: unterminated string"));
+        catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                           real_file_name, pos.line_number, (size_t)(-1), false,
+                           _("warning: unterminated string"));
     }
   else
     {
       /* Read a token outside quotes.  */
       if (is_quotable (c))
-        po_xerror (PO_SEVERITY_ERROR, NULL,
-                   real_file_name, pos.line_number, (size_t)(-1), false,
-                   _("warning: syntax error"));
+        catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                           real_file_name, pos.line_number, (size_t)(-1), false,
+                           _("warning: syntax error"));
       for (; c != UEOF && !is_quotable (c); c = phase4_getc (catr))
         {
           if (buflen >= bufmax)
@@ -869,9 +869,10 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
       /* Expect a '=' or ';'.  */
       if (c == UEOF)
         {
-          po_xerror (PO_SEVERITY_ERROR, NULL,
-                     real_file_name, pos.line_number, (size_t)(-1), false,
-                     _("warning: unterminated key/value pair"));
+          catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                             real_file_name, pos.line_number, (size_t)(-1),
+                             false,
+                             _("warning: unterminated key/value pair"));
           break;
         }
       if (c == ';')
@@ -892,9 +893,10 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
           msgstr = read_string (catr, &msgstr_pos);
           if (msgstr == NULL)
             {
-              po_xerror (PO_SEVERITY_ERROR, NULL,
-                         real_file_name, pos.line_number, (size_t)(-1),
-                         false, _("warning: unterminated key/value pair"));
+              catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                                 real_file_name, pos.line_number, (size_t)(-1),
+                                 false,
+                                 _("warning: unterminated key/value pair"));
               break;
             }
 
@@ -918,7 +920,7 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
               if (fuzzy_msgstr == NULL && next_is_fuzzy)
                 {
                   do
-                    c = phase3_getc ();
+                    c = phase3_getc (catr);
                   while (c == ' ');
                   phase3_ungetc (c);
 
@@ -939,18 +941,19 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
             }
           else
             {
-              po_xerror (PO_SEVERITY_ERROR, NULL,
-                         real_file_name, pos.line_number, (size_t)(-1),
-                         false,
-                         _("warning: syntax error, expected ';' after string"));
+              catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                                 real_file_name, pos.line_number, (size_t)(-1),
+                                 false,
+                                 _("warning: syntax error, expected ';' after string"));
               break;
             }
         }
       else
         {
-          po_xerror (PO_SEVERITY_ERROR, NULL,
-                     real_file_name, pos.line_number, (size_t)(-1), false,
-                     _("warning: syntax error, expected '=' or ';' after string"));
+          catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                             real_file_name, pos.line_number, (size_t)(-1),
+                             false,
+                             _("warning: syntax error, expected '=' or ';' after string"));
           break;
         }
     }
