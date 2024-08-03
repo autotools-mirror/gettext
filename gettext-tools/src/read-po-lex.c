@@ -70,7 +70,6 @@
 /* Error handling during the parsing of a PO file.
    These functions can access ps->gram_pos and ps->gram_pos_column.  */
 
-/* VARARGS1 */
 void
 po_gram_error (struct po_parser_state *ps, const char *fmt, ...)
 {
@@ -90,7 +89,6 @@ po_gram_error (struct po_parser_state *ps, const char *fmt, ...)
     po_error (EXIT_FAILURE, 0, _("too many errors, aborting"));
 }
 
-/* VARARGS2 */
 void
 po_gram_error_at_line (const lex_pos_ty *pp, const char *fmt, ...)
 {
