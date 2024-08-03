@@ -966,7 +966,16 @@ silent_xerror (int severity,
                int multiline_p, const char *message_text)
 {
 }
-
+static void
+silent_xerror2 (int severity,
+                const struct message_ty *message1,
+                const char *filename1, size_t lineno1, size_t column1,
+                int multiline_p1, const char *message_text1,
+                const struct message_ty *message2,
+                const char *filename2, size_t lineno2, size_t column2,
+                int multiline_p2, const char *message_text2)
+{
+}
 
 static message_ty *
 message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
@@ -1481,21 +1490,22 @@ match_domain (const char *fn1, const char *fn2,
       /* Determine the plural distribution of the plural_expr formula.  */
       {
         /* Disable error output temporarily.  */
-        void (*old_po_xerror) (int, const struct message_ty *, const char *, size_t,
-                               size_t, int, const char *)
-          = po_xerror;
-        po_xerror = silent_xerror;
+        unsigned int error_count = 0;
+        struct xerror_handler local_xerror_handler =
+          {
+            silent_xerror,
+            silent_xerror2,
+            &error_count
+          };
 
         if (check_plural_eval (plural_expr, nplurals, header_entry,
-                               &distribution, textmode_xerror_handler) > 0)
+                               &distribution, &local_xerror_handler) > 0)
           {
             distribution.expr = NULL;
             distribution.often = NULL;
             distribution.often_length = 0;
             distribution.histogram = NULL;
           }
-
-        po_xerror = old_po_xerror;
       }
     }
 

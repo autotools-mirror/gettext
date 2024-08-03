@@ -90,7 +90,6 @@ src/msgunfmt.c
 src/msguniq.c
 src/open-catalog.c
 src/po-charset.c
-src/po-xerror.c
 src/read-catalog.c
 src/read-csharp.c
 src/read-desktop.c
@@ -119,6 +118,7 @@ src/x-c.c
 src/x-csharp.c
 src/x-desktop.c
 src/x-elisp.c
+src/xerror-handler.c
 src/xg-arglist-parser.c
 src/xg-check.c
 src/xg-encoding.c

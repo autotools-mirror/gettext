@@ -42,7 +42,7 @@ noinst_LTLIBRARIES = libgettextsrc.la
 endif
 
 noinst_HEADERS = \
-  pos.h message.h po-error.h po-xerror.h xerror-handler.h \
+  pos.h message.h po-error.h xerror-handler.h po-xerror.h \
   read-po-internal.h po-charset.h read-po-lex.h \
   open-catalog.h read-catalog-special.h \
   read-catalog-abstract.h read-catalog.h read-catalog-file.h \
@@ -146,8 +146,7 @@ CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 COMMON_SOURCE = \
   message.c \
   pos.c \
-  po-error.c \
-  po-xerror.c
+  po-error.c
 if !WOE32DLL
 COMMON_SOURCE += xerror-handler.c
 else
