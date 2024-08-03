@@ -57,8 +57,6 @@ libgettextpo_la_AUXSOURCES = \
   ../src/message.c \
   ../src/pos.c \
   ../src/msgl-ascii.c \
-  ../src/po-error.c \
-  ../src/po-xerror.c \
   ../src/write-catalog.c \
   ../src/write-po.c \
   ../src/po-charset.c \

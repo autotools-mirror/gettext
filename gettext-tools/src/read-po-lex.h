@@ -25,7 +25,6 @@
 
 #include <error.h>
 #include "error-progname.h"
-#include "xerror.h"
 #include "pos.h"
 #include "read-catalog-abstract.h"
 

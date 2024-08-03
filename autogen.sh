@@ -398,7 +398,6 @@ if ! $skip_gnulib; then
     xalloc
     xconcat-filename
     xmalloca
-    xerror
     xstriconv
     xvasprintf
   '

@@ -302,8 +302,6 @@
 /gettext-tools/libgettextpo/xalloc.h
 /gettext-tools/libgettextpo/xasprintf.c
 /gettext-tools/libgettextpo/xconcat-filename.c
-/gettext-tools/libgettextpo/xerror.c
-/gettext-tools/libgettextpo/xerror.h
 /gettext-tools/libgettextpo/xmalloc.c
 /gettext-tools/libgettextpo/xmalloca.c
 /gettext-tools/libgettextpo/xmalloca.h
