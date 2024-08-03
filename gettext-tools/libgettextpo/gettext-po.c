@@ -34,7 +34,6 @@
 #include "read-po-lex.h"
 #include "write-catalog.h"
 #include "write-po.h"
-#include "po-xerror.h"
 #include "xvasprintf.h"
 #include "msgl-check.h"
 #include "gettext.h"
@@ -1093,21 +1092,21 @@ po_file_check_all (po_file_t file, po_xerror_handler_t handler)
   msgdomain_list_ty *mdlp;
   size_t k;
 
-  /* Establish error handler.  */
-  po_xerror =
-    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
-    handler->xerror;
-  po_xerror2 =
-    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
-    handler->xerror2;
+  /* Establish error handler for check_message_list().  */
+  unsigned int error_count = 0;
+  struct xerror_handler local_xerror_handler =
+    {
+      (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
+      handler->xerror,
+      (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
+      handler->xerror2,
+      &error_count
+    };
 
   mdlp = file->mdlp;
   for (k = 0; k < mdlp->nitems; k++)
-    check_message_list (mdlp->item[k]->messages, 1, 1, 1, 1, 1, 0, 0, 0);
-
-  /* Restore error handler.  */
-  po_xerror  = textmode_xerror;
-  po_xerror2 = textmode_xerror2;
+    check_message_list (mdlp->item[k]->messages, 1, 1, 1, 1, 1, 0, 0, 0,
+                        &local_xerror_handler);
 }
 
 
@@ -1121,13 +1120,16 @@ po_message_check_all (po_message_t message, po_message_iterator_t iterator,
 {
   message_ty *mp = (message_ty *) message;
 
-  /* Establish error handler.  */
-  po_xerror =
-    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
-    handler->xerror;
-  po_xerror2 =
-    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
-    handler->xerror2;
+  /* Establish error handler for check_message_list().  */
+  unsigned int error_count = 0;
+  struct xerror_handler local_xerror_handler =
+    {
+      (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
+      handler->xerror,
+      (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
+      handler->xerror2,
+      &error_count
+    };
 
   /* For plural checking, combine the message and its header into a small,
      two-element message list.  */
@@ -1164,13 +1166,9 @@ po_message_check_all (po_message_t message, po_message_iterator_t iterator,
       if (mp != header)
         message_list_append (&ml, mp);
 
-      check_message_list (&ml, 1, 1, 1, 1, 1, 0, 0, 0);
+      check_message_list (&ml, 1, 1, 1, 1, 1, 0, 0, 0, &local_xerror_handler);
     }
   }
-
-  /* Restore error handler.  */
-  po_xerror  = textmode_xerror;
-  po_xerror2 = textmode_xerror2;
 }
 
 
@@ -1182,18 +1180,17 @@ po_message_check_format (po_message_t message, po_xerror_handler_t handler)
 {
   message_ty *mp = (message_ty *) message;
 
-  /* Establish error handler.  */
-  po_xerror =
-    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
-    handler->xerror;
-  po_xerror2 =
-    (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
-    handler->xerror2;
+  /* Establish error handler for check_message().  */
+  unsigned int error_count = 0;
+  struct xerror_handler local_xerror_handler =
+    {
+      (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *))
+      handler->xerror,
+      (void (*) (int, const message_ty *, const char *, size_t, size_t, int, const char *, const message_ty *, const char *, size_t, size_t, int, const char *))
+      handler->xerror2,
+      &error_count
+    };
 
   if (!mp->obsolete)
-    check_message (mp, &mp->pos, 0, 1, NULL, 0, 0, 0, 0);
-
-  /* Restore error handler.  */
-  po_xerror  = textmode_xerror;
-  po_xerror2 = textmode_xerror2;
+    check_message (mp, &mp->pos, 0, 1, NULL, 0, 0, 0, 0, &local_xerror_handler);
 }

@@ -770,7 +770,8 @@ There is NO WARRANTY, to the extent permitted by law.\n\
                             0, 0,
                             1, check_format_strings, check_header,
                             check_compatibility,
-                            check_accelerators, accelerator_char);
+                            check_accelerators, accelerator_char,
+                            textmode_xerror_handler);
 
     /* Exit with status 1 on any error.  */
     if (nerrors > 0)
@@ -1609,7 +1610,8 @@ msgfmt_operand_list_add_from_directory (msgfmt_operand_list_ty *operands,
                             0, 0,
                             1, check_format_strings, check_header,
                             check_compatibility,
-                            check_accelerators, accelerator_char);
+                            check_accelerators, accelerator_char,
+                            textmode_xerror_handler);
 
       retval += nerrors;
       if (nerrors > 0)

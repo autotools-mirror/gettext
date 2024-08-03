@@ -1,5 +1,5 @@
 /* Checking of messages in PO files.
-   Copyright (C) 2005-2023 Free Software Foundation, Inc.
+   Copyright (C) 2005-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2005.
 
    This program is free software: you can redistribute it and/or modify
@@ -22,6 +22,7 @@
 #include "pos.h"
 #include "plural-eval.h"
 #include "plural-distrib.h"
+#include "xerror-handler.h"
 
 
 #ifdef __cplusplus
@@ -37,7 +38,8 @@ extern "C" {
 extern int check_plural_eval (const struct expression *plural_expr,
                               unsigned long nplurals_value,
                               const message_ty *header,
-                              struct plural_distribution *distribution);
+                              struct plural_distribution *distribution,
+                              xerror_handler_ty xeh);
 
 /* Perform all checks on a non-obsolete message.  */
 extern int check_message (const message_ty *mp,
@@ -47,7 +49,8 @@ extern int check_message (const message_ty *mp,
                           const struct plural_distribution *distribution,
                           int check_header,
                           int check_compatibility,
-                          int check_accelerators, char accelerator_char);
+                          int check_accelerators, char accelerator_char,
+                          xerror_handler_ty xeh);
 
 /* Perform all checks on a message list.
    Return the number of errors that were seen.  */
@@ -58,7 +61,8 @@ extern int check_message_list (message_list_ty *mlp,
                                int check_format_strings,
                                int check_header,
                                int check_compatibility,
-                               int check_accelerators, char accelerator_char);
+                               int check_accelerators, char accelerator_char,
+                               xerror_handler_ty xeh);
 
 
 #ifdef __cplusplus

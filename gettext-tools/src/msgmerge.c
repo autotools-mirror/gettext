@@ -1487,7 +1487,7 @@ match_domain (const char *fn1, const char *fn2,
         po_xerror = silent_xerror;
 
         if (check_plural_eval (plural_expr, nplurals, header_entry,
-                               &distribution) > 0)
+                               &distribution, textmode_xerror_handler) > 0)
           {
             distribution.expr = NULL;
             distribution.often = NULL;
