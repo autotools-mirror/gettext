@@ -35,6 +35,7 @@
 #include "write-po.h"
 #include "xvasprintf.h"
 #include "msgl-check.h"
+#include "glthread/once.h"
 #include "gettext.h"
 
 #define _(str) gettext(str)
@@ -1039,22 +1040,30 @@ po_filepos_start_line (po_filepos_t filepos)
 }
 
 
+/* A NULL terminated array of the supported format types.  */
+static const char * const * all_formats;
+
+static void
+all_formats_init (void)
+{
+  const char **list = XNMALLOC (NFORMATS + 1, const char *);
+  size_t i;
+  for (i = 0; i < NFORMATS; i++)
+    list[i] = xasprintf ("%s-format", format_language[i]);
+  list[i] = NULL;
+  all_formats = list;
+}
+
+/* Ensure that all_formats_init is called once only.  */
+gl_once_define(static, all_formats_init_once)
+
 /* Return a NULL terminated array of the supported format types.  */
 
 const char * const *
 po_format_list (void)
 {
-  static const char * const * whole_list /* = NULL */;
-  if (whole_list == NULL)
-    {
-      const char **list = XNMALLOC (NFORMATS + 1, const char *);
-      size_t i;
-      for (i = 0; i < NFORMATS; i++)
-        list[i] = xasprintf ("%s-format", format_language[i]);
-      list[i] = NULL;
-      whole_list = list;
-    }
-  return whole_list;
+  gl_once (all_formats_init_once, all_formats_init);
+  return all_formats;
 }
 
 

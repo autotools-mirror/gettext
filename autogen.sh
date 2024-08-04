@@ -375,6 +375,7 @@ if ! $skip_gnulib; then
     markup
     mem-hash-map
     minmax
+    once
     open
     relocatable-lib
     sigpipe
