@@ -950,7 +950,10 @@ definitions_destroy (definitions_ty *definitions)
    occurred at all.  */
 static void
 silent_error_logger (void *data, const char *format, ...)
-     __attribute__ ((__format__ (__printf__, 2, 3)));
+#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 7) || __GNUC__ > 2)
+     __attribute__ ((__format__ (__printf__, 2, 3)))
+#endif
+;
 static void
 silent_error_logger (void *data, const char *format, ...)
 {
