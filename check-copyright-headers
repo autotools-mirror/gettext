@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# Copyright (C) 2019-2022 Free Software Foundation, Inc.
+# Copyright (C) 2019-2024 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -231,7 +231,7 @@ func_check_file ()
 
   # <https://www.gnu.org/prep/maintain/html_node/Copyright-Notices.html>
   # says that the (C) "can be omitted entirely; the word ‘Copyright’ suffices.
-  if head -n 15 "$dir/$1" | LC_ALL=C grep 'Copyright .* Free Software Foundation' >/dev/null; then
+  if head -n 20 "$dir/$1" | LC_ALL=C grep 'Copyright .* Free Software Foundation' >/dev/null; then
     # The file has a copyright header.
     return 0
   fi
