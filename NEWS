@@ -1,4 +1,4 @@
-Version 0.23 - December 2023
+Version 0.23 - August 2024
 
 * Programming languages support:
   - Python: xgettext now recognizes the f-string syntax.
@@ -19,6 +19,9 @@ Version 0.23 - December 2023
 
 * msgmerge:
   - The msgmerge option '--sorted-output' is now deprecated.
+
+* libgettextpo library:
+  - This library is now multithread-safe.
 
 Version 0.22.5 - February 2024
 

@@ -213,6 +213,9 @@ else
 endif
 	mv gettext-po.h-tmp gettext-po.h
 
+# Internal documentation.
+EXTRA_DIST += multithread-safe.txt
+
 # Allow users to use "gnulib-tool --update".
 EXTRA_DIST += gnulib-m4/gnulib-cache.m4
 

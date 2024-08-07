@@ -5477,6 +5477,13 @@ provided too.
 The functions are declared in the header file @samp{<gettext-po.h>}, and are
 defined in a library called @samp{libgettextpo}.
 
+The library is multithread-safe in the following sense:
+Different threads can safely use the various functions simultaneously on
+unrelated data objects.
+For example, if several threads have created separate @code{po_file_t} objects,
+each of them can safely work on its respective @code{po_file_t} object,
+without caring about the other threads.
+
 @menu
 * Error Handling::              Error handling functions
 * po_file_t API::               File management
