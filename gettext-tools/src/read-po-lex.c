@@ -44,6 +44,7 @@
 #include "po-charset.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
+#include "xstrerror.h"
 #include "po-error.h"
 #include "xerror-handler.h"
 #include "xmalloca.h"
@@ -704,12 +705,10 @@ mbfile_getc (struct po_parser_state *ps, mbchar_t mbc, mbfile_t mbf)
                 }
               else
                 {
-                  const char *errno_description = strerror (errno);
+                  int err = errno;
                   ps->catr->xeh->xerror (CAT_SEVERITY_FATAL_ERROR,
                                          NULL, NULL, 0, 0, false,
-                                         xasprintf ("%s: %s",
-                                                    _("iconv failure"),
-                                                    errno_description));
+                                         xstrerror (_("iconv failure"), err));
                 }
             }
           else
@@ -864,13 +863,12 @@ lex_getc (struct po_parser_state *ps, mbchar_t mbc)
           if (ferror (ps->mbf->fp))
            bomb:
             {
-              const char *errno_description = strerror (errno);
+              int err = errno;
               ps->catr->xeh->xerror (CAT_SEVERITY_FATAL_ERROR,
                                      NULL, NULL, 0, 0, false,
-                                     xasprintf ("%s: %s",
-                                                xasprintf (_("error while reading \"%s\""),
+                                     xstrerror (xasprintf (_("error while reading \"%s\""),
                                                            ps->gram_pos.file_name),
-                                                errno_description));
+                                                err));
             }
           break;
         }

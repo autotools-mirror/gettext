@@ -34,6 +34,7 @@
 #include "read-catalog-abstract.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
+#include "xstrerror.h"
 #include "xerror-handler.h"
 #include "msgl-ascii.h"
 #include "read-file.h"
@@ -592,12 +593,11 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
   contents = fread_file (file, 0, &contents_length);
   if (contents == NULL)
     {
-      const char *errno_description = strerror (errno);
+      int err = errno;
       catr->xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                         xasprintf ("%s: %s",
-                                    xasprintf (_("error while reading \"%s\""),
+                         xstrerror (xasprintf (_("error while reading \"%s\""),
                                                real_filename),
-                                    errno_description));
+                                    err));
       return;
     }
 

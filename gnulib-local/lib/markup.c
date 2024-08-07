@@ -1,5 +1,5 @@
 /* markup.c -- simple XML-like parser
-   Copyright (C) 2015, 2018, 2020 Free Software Foundation, Inc.
+   Copyright (C) 2015-2024 Free Software Foundation, Inc.
 
    This file is not part of the GNU gettext program, but is used with
    GNU gettext.
@@ -48,6 +48,7 @@
 #include "unistr.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
+#include "xstrerror.h"
 
 #define _(s) gettext(s)
 
@@ -522,7 +523,7 @@ unescape_string_inplace (markup_parse_context_ty *context,
                   char *error_text =
                     xasprintf (_("invalid character reference: %s"),
                                errno != 0
-                               ? strerror (errno)
+                               ? xstrerror (NULL, errno)
                                : _("not a valid number specification"));
                   emit_error (context, error_text);
                   free (error_text);

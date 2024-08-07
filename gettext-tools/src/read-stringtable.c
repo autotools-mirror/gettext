@@ -34,6 +34,7 @@
 #include "read-catalog-abstract.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
+#include "xstrerror.h"
 #include "xerror-handler.h"
 #include "unistr.h"
 #include "gettext.h"
@@ -92,12 +93,11 @@ phase1_getc (abstract_catalog_reader_ty *catr)
     {
       if (ferror (fp))
         {
-          const char *errno_description = strerror (errno);
+          int err = errno;
           catr->xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                             xasprintf ("%s: %s",
-                                        xasprintf (_("error while reading \"%s\""),
+                             xstrerror (xasprintf (_("error while reading \"%s\""),
                                                    real_file_name),
-                                        errno_description));
+                                        err));
         }
       return EOF;
     }

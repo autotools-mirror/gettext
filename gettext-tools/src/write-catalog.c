@@ -37,6 +37,7 @@
 
 #include "fwriteerror.h"
 #include "xvasprintf.h"
+#include "xstrerror.h"
 #include "xerror-handler.h"
 #include "gettext.h"
 
@@ -218,12 +219,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
                      S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
           if (fd < 0)
             {
-              const char *errno_description = strerror (errno);
+              int err = errno;
               xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                           xasprintf ("%s: %s",
-                                      xasprintf (_("cannot create output file \"%s\""),
+                           xstrerror (xasprintf (_("cannot create output file \"%s\""),
                                                  filename),
-                                      errno_description));
+                                      err));
             }
         }
       else
@@ -243,12 +243,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
       /* Make sure nothing went wrong.  */
       if (close (fd) < 0)
         {
-          const char *errno_description = strerror (errno);
+          int err = errno;
           xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                       xasprintf ("%s: %s",
-                                  xasprintf (_("error while writing \"%s\" file"),
+                       xstrerror (xasprintf (_("error while writing \"%s\" file"),
                                              filename),
-                                  errno_description));
+                                  err));
         }
     }
   else
@@ -263,12 +262,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
           fp = fopen (filename, "wb");
           if (fp == NULL)
             {
-              const char *errno_description = strerror (errno);
+              int err = errno;
               xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                           xasprintf ("%s: %s",
-                                      xasprintf (_("cannot create output file \"%s\""),
+                           xstrerror (xasprintf (_("cannot create output file \"%s\""),
                                                  filename),
-                                      errno_description));
+                                      err));
             }
         }
       else
@@ -317,12 +315,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
       /* Make sure nothing went wrong.  */
       if (fwriteerror (fp))
         {
-          const char *errno_description = strerror (errno);
+          int err = errno;
           xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
-                       xasprintf ("%s: %s",
-                                  xasprintf (_("error while writing \"%s\" file"),
+                       xstrerror (xasprintf (_("error while writing \"%s\" file"),
                                              filename),
-                                  errno_description));
+                                  err));
         }
     }
 }
