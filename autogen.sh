@@ -360,7 +360,6 @@ if ! $skip_gnulib; then
     c-strcase
     c-strstr
     error
-    error-progname
     filename
     fopen
     free-posix

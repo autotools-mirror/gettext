@@ -36,7 +36,6 @@
 #include <textstyle.h>
 
 #include "fwriteerror.h"
-#include "error-progname.h"
 #include "xvasprintf.h"
 #include "xerror-handler.h"
 #include "gettext.h"
@@ -153,14 +152,10 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
             }
 
           if (has_context != NULL)
-            {
-              error_with_progname = false;
-              xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL,
-                           has_context->file_name, has_context->line_number,
-                           (size_t)(-1), false,
-                           _("message catalog has context dependent translations, but the output format does not support them."));
-              error_with_progname = true;
-            }
+            xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL,
+                         has_context->file_name, has_context->line_number,
+                         (size_t)(-1), false,
+                         _("message catalog has context dependent translations, but the output format does not support them."));
         }
 
       if (!output_syntax->supports_plurals)
@@ -188,7 +183,6 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 
           if (has_plural != NULL)
             {
-              error_with_progname = false;
               if (output_syntax->alternative_is_java_class)
                 xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL,
                              has_plural->file_name, has_plural->line_number,
@@ -199,7 +193,6 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
                              has_plural->file_name, has_plural->line_number,
                              (size_t)(-1), false,
                              _("message catalog has plural form translations, but the output format does not support them."));
-              error_with_progname = true;
             }
         }
     }

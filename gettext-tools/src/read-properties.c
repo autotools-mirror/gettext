@@ -30,7 +30,6 @@
 #include <string.h>
 
 #include <error.h>
-#include "error-progname.h"
 #include "message.h"
 #include "read-catalog-abstract.h"
 #include "xalloc.h"
@@ -419,12 +418,10 @@ read_escaped_string (abstract_catalog_reader_ty *catr, bool in_key)
   #define utf8_buffer_append_lone_surrogate(uc, line) \
     do                                                                        \
       {                                                                       \
-        error_with_progname = false;                                          \
         catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,                          \
                            real_file_name, (line), (size_t)(-1), false,       \
                            xasprintf (_("warning: lone surrogate U+%04X"),    \
                                       (uc)));                                 \
-        error_with_progname = true;                                           \
         utf8_buffer_ensure_available (3);                                     \
         utf8_buffer[utf8_buflen++] = 0xef;                                    \
         utf8_buffer[utf8_buflen++] = 0xbf;                                    \
@@ -489,14 +486,10 @@ read_escaped_string (abstract_catalog_reader_ty *catr, bool in_key)
               utf8_buffer_ensure_available (6);
               len = u8_uctomb (utf8_buffer + utf8_buflen, uc, 6);
               if (len < 0)
-                {
-                  error_with_progname = false;
-                  catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
-                                     real_file_name, pos.line_number, (size_t)(-1),
-                                     false,
-                                     _("warning: invalid Unicode character"));
-                  error_with_progname = true;
-                }
+                catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                                   real_file_name, pos.line_number, (size_t)(-1),
+                                   false,
+                                   _("warning: invalid Unicode character"));
               else
                 utf8_buflen += len;
 
@@ -525,14 +518,10 @@ read_escaped_string (abstract_catalog_reader_ty *catr, bool in_key)
                   utf8_buffer_ensure_available (3);
                   len = u8_uctomb (utf8_buffer + utf8_buflen, uc, 3);
                   if (len < 0)
-                    {
-                      error_with_progname = false;
-                      catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
-                                         real_file_name, pos.line_number, (size_t)(-1),
-                                         false,
-                                         _("warning: invalid Unicode character"));
-                      error_with_progname = true;
-                    }
+                    catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
+                                       real_file_name, pos.line_number, (size_t)(-1),
+                                       false,
+                                       _("warning: invalid Unicode character"));
                   else
                     utf8_buflen += len;
                 }

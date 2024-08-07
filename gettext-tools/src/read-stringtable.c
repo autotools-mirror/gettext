@@ -31,7 +31,6 @@
 
 #include <error.h>
 #include "attribute.h"
-#include "error-progname.h"
 #include "read-catalog-abstract.h"
 #include "xalloc.h"
 #include "xvasprintf.h"

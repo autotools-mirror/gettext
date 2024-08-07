@@ -43,7 +43,6 @@
 #include "gettext.h"
 #include "po-charset.h"
 #include "xalloc.h"
-#include "error-progname.h"
 #include "xvasprintf.h"
 #include "po-error.h"
 #include "xerror-handler.h"
