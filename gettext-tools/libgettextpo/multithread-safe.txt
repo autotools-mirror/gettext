@@ -1,6 +1,8 @@
 This file explains in detail how we come to the conclusion that libgettextpo
 is multithread-safe.
 
+This file is in the public domain.
+
 2024-08: This is the list of all variables
   $ nm $file | grep ' [bBdD] '
 and their resolution.
