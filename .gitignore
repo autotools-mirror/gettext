@@ -367,7 +367,6 @@
 # Files brought in by "automake --add-missing --copy":
 /build-aux/compile
 /build-aux/depcomp
-/build-aux/elisp-comp
 /build-aux/install-sh
 /build-aux/mdate-sh
 /build-aux/missing
