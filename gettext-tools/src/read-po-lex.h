@@ -24,7 +24,6 @@
 #include <stdbool.h>
 
 #include <error.h>
-#include "error-progname.h"
 #include "pos.h"
 #include "read-catalog-abstract.h"
 

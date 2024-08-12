@@ -32,7 +32,6 @@
 #include <string.h>
 
 #include <error.h>
-#include "error-progname.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "c-ctype.h"

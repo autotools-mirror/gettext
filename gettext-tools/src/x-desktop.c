@@ -33,7 +33,6 @@
 #include "message.h"
 #include "xgettext.h"
 #include "xg-message.h"
-#include "error-progname.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "mem-hash-map.h"

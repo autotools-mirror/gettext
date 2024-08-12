@@ -31,7 +31,6 @@
 #include "xvasprintf.h"
 #include "format-invalid.h"
 #include "minmax.h"
-#include "error-progname.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)

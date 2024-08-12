@@ -95,8 +95,6 @@
 /gettext-tools/libgettextpo/dosname.h
 /gettext-tools/libgettextpo/dup2.c
 /gettext-tools/libgettextpo/errno.in.h
-/gettext-tools/libgettextpo/error-progname.c
-/gettext-tools/libgettextpo/error-progname.h
 /gettext-tools/libgettextpo/error.c
 /gettext-tools/libgettextpo/error.in.h
 /gettext-tools/libgettextpo/exitfail.c
