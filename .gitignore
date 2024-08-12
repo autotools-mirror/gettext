@@ -306,6 +306,8 @@
 /gettext-tools/libgettextpo/xsize.c
 /gettext-tools/libgettextpo/xsize.h
 /gettext-tools/libgettextpo/xstrdup.c
+/gettext-tools/libgettextpo/xstrerror.c
+/gettext-tools/libgettextpo/xstrerror.h
 /gettext-tools/libgettextpo/xstriconv.c
 /gettext-tools/libgettextpo/xstriconv.h
 /gettext-tools/libgettextpo/xvasprintf.c
