@@ -1,5 +1,5 @@
 /* Handle aliases for locale names.
-   Copyright (C) 1995-2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -339,26 +339,19 @@ read_alias_file (const char *fname, int fname_len)
 	      else if (cp[0] != '\0')
 		*cp++ = '\0';
 
-# ifdef IN_LIBGLOCALE
-	      /* glibc's locale.alias contains entries for ja_JP and ko_KR
-		 that make it impossible to use a Japanese or Korean UTF-8
-		 locale under the name "ja_JP" or "ko_KR".  Ignore these
-		 entries.  */
-	      if (strchr (alias, '_') == NULL)
-# endif
-		{
-		  size_t alias_len;
-		  size_t value_len;
+	      {
+		size_t alias_len;
+		size_t value_len;
 
-		  if (nmap >= maxmap)
-		    if (__builtin_expect (extend_alias_table (), 0))
-		      goto out;
+		if (nmap >= maxmap)
+		  if (__builtin_expect (extend_alias_table (), 0))
+		    goto out;
 
-		  alias_len = strlen (alias) + 1;
-		  value_len = strlen (value) + 1;
+		alias_len = strlen (alias) + 1;
+		value_len = strlen (value) + 1;
 
-		  if (string_space_act + alias_len + value_len > string_space_max)
-		    {
+		if (string_space_act + alias_len + value_len > string_space_max)
+		  {
 # if defined __GNUC__ && __GNUC__ >= 12
 #  pragma GCC diagnostic push
   /* Suppress the valid GCC 12 warning until the code below is changed
@@ -366,46 +359,46 @@ read_alias_file (const char *fname, int fname_len)
 #  pragma GCC diagnostic ignored "-Wuse-after-free"
 # endif
 
-		    /* Increase size of memory pool.  */
-		      size_t new_size = (string_space_max
-					 + (alias_len + value_len > 1024
-					    ? alias_len + value_len : 1024));
-		      char *new_pool = (char *) realloc (string_space, new_size);
-		      if (new_pool == NULL)
-			goto out;
+		  /* Increase size of memory pool.  */
+		    size_t new_size = (string_space_max
+				       + (alias_len + value_len > 1024
+					  ? alias_len + value_len : 1024));
+		    char *new_pool = (char *) realloc (string_space, new_size);
+		    if (new_pool == NULL)
+		      goto out;
 
-		      if (__builtin_expect (string_space != new_pool, 0))
-			{
-			  size_t i;
+		    if (__builtin_expect (string_space != new_pool, 0))
+		      {
+			size_t i;
 
-			  for (i = 0; i < nmap; i++)
-			    {
-			      map[i].alias += new_pool - string_space;
-			      map[i].value += new_pool - string_space;
-			    }
-			}
+			for (i = 0; i < nmap; i++)
+			  {
+			    map[i].alias += new_pool - string_space;
+			    map[i].value += new_pool - string_space;
+			  }
+		      }
 
-		      string_space = new_pool;
-		      string_space_max = new_size;
-		    }
+		    string_space = new_pool;
+		    string_space_max = new_size;
+		  }
 
-		  map[nmap].alias =
-		    (const char *) memcpy (&string_space[string_space_act],
-					   alias, alias_len);
-		  string_space_act += alias_len;
+		map[nmap].alias =
+		  (const char *) memcpy (&string_space[string_space_act],
+					 alias, alias_len);
+		string_space_act += alias_len;
 
-		  map[nmap].value =
-		    (const char *) memcpy (&string_space[string_space_act],
-					   value, value_len);
-		  string_space_act += value_len;
+		map[nmap].value =
+		  (const char *) memcpy (&string_space[string_space_act],
+					 value, value_len);
+		string_space_act += value_len;
 
 # if defined __GNUC__ && __GNUC__ >= 12
 #  pragma GCC diagnostic pop
 # endif
 
-		  ++nmap;
-		  ++added;
-		}
+		++nmap;
+		++added;
+	      }
 	    }
 	}
 

@@ -1,5 +1,5 @@
 /* Expression parsing and evaluation for plural form selection.
-   Copyright (C) 2000-2023 Free Software Foundation, Inc.
+   Copyright (C) 2000-2024 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@cygnus.com>, 2000.
 
    This program is free software: you can redistribute it and/or modify
@@ -129,7 +129,7 @@ struct eval_result
   unsigned long int value;      /* Only relevant for status == PE_OK */
 };
 
-#if !defined (_LIBC) && !defined (IN_LIBINTL) && !defined (IN_LIBGLOCALE)
+#if !defined (_LIBC) && !defined (IN_LIBINTL)
 extern struct eval_result plural_eval (const struct expression *pexp,
 				       unsigned long int n);
 #endif

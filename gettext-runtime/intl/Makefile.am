@@ -222,8 +222,7 @@ endif
 EXTRA_DIST += export.h
 
 libgnuintl.h: $(srcdir)/libgnuintl.in.h $(srcdir)/export.h
-	sed -e '/IN_LIBGLOCALE/d' \
-	    -e 's,@''HAVE_POSIX_PRINTF''@,@HAVE_POSIX_PRINTF@,g' \
+	sed -e 's,@''HAVE_POSIX_PRINTF''@,@HAVE_POSIX_PRINTF@,g' \
 	    -e 's,@''HAVE_ASPRINTF''@,@HAVE_ASPRINTF@,g' \
 	    -e 's,@''HAVE_SNPRINTF''@,@HAVE_SNPRINTF@,g' \
 	    -e 's,@''HAVE_WPRINTF''@,@HAVE_WPRINTF@,g' \
@@ -244,8 +243,7 @@ libgnuintl.h: $(srcdir)/libgnuintl.in.h $(srcdir)/export.h
 MOSTLYCLEANFILES += libgnuintl.h
 
 libintl.h: $(srcdir)/libgnuintl.in.h
-	sed -e '/IN_LIBGLOCALE/d' \
-	    -e 's,@''HAVE_POSIX_PRINTF''@,@HAVE_POSIX_PRINTF@,g' \
+	sed -e 's,@''HAVE_POSIX_PRINTF''@,@HAVE_POSIX_PRINTF@,g' \
 	    -e 's,@''HAVE_ASPRINTF''@,@HAVE_ASPRINTF@,g' \
 	    -e 's,@''HAVE_SNPRINTF''@,@HAVE_SNPRINTF@,g' \
 	    -e 's,@''HAVE_WPRINTF''@,@HAVE_WPRINTF@,g' \

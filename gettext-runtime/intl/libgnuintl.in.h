@@ -1,5 +1,5 @@
 /* Message catalogs for internationalization.
-   Copyright (C) 1995-1997, 2000-2016, 2018-2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -300,28 +300,26 @@ extern char *dcngettext (const char *__domainname,
 #endif
 
 
-#ifndef IN_LIBGLOCALE
-
 /* Set the current default message catalog to DOMAINNAME.
    If DOMAINNAME is null, return the current default.
    If DOMAINNAME is "", reset to the default of "messages".  */
-# ifdef _INTL_REDIRECT_INLINE
+#ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_textdomain (const char *__domainname);
 static inline char *textdomain (const char *__domainname)
 {
   return libintl_textdomain (__domainname);
 }
-# else
-#  ifdef _INTL_REDIRECT_MACROS
-#   define textdomain libintl_textdomain
-#  endif
+#else
+# ifdef _INTL_REDIRECT_MACROS
+#  define textdomain libintl_textdomain
+# endif
 extern char *textdomain (const char *__domainname)
        _INTL_ASM (libintl_textdomain);
-# endif
+#endif
 
 /* Specify that the DOMAINNAME message catalog will be found
    in DIRNAME rather than in the system locale data base.  */
-# ifdef _INTL_REDIRECT_INLINE
+#ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_bindtextdomain (const char *__domainname,
                                      const char *__dirname);
 static inline char *bindtextdomain (const char *__domainname,
@@ -329,18 +327,18 @@ static inline char *bindtextdomain (const char *__domainname,
 {
   return libintl_bindtextdomain (__domainname, __dirname);
 }
-# else
-#  ifdef _INTL_REDIRECT_MACROS
-#   define bindtextdomain libintl_bindtextdomain
-#  endif
+#else
+# ifdef _INTL_REDIRECT_MACROS
+#  define bindtextdomain libintl_bindtextdomain
+# endif
 extern char *bindtextdomain (const char *__domainname, const char *__dirname)
        _INTL_ASM (libintl_bindtextdomain);
-# endif
+#endif
 
-# if defined _WIN32 && !defined __CYGWIN__
+#if defined _WIN32 && !defined __CYGWIN__
 /* Specify that the DOMAINNAME message catalog will be found
    in WDIRNAME rather than in the system locale data base.  */
-#  ifdef _INTL_REDIRECT_INLINE
+# ifdef _INTL_REDIRECT_INLINE
 extern wchar_t *libintl_wbindtextdomain (const char *__domainname,
                                          const wchar_t *__wdirname);
 static inline wchar_t *wbindtextdomain (const char *__domainname,
@@ -348,19 +346,19 @@ static inline wchar_t *wbindtextdomain (const char *__domainname,
 {
   return libintl_wbindtextdomain (__domainname, __wdirname);
 }
-#  else
-#   ifdef _INTL_REDIRECT_MACROS
-#    define wbindtextdomain libintl_wbindtextdomain
-#   endif
+# else
+#  ifdef _INTL_REDIRECT_MACROS
+#   define wbindtextdomain libintl_wbindtextdomain
+#  endif
 extern wchar_t *wbindtextdomain (const char *__domainname,
                                  const wchar_t *__wdirname)
        _INTL_ASM (libintl_wbindtextdomain);
-#  endif
 # endif
+#endif
 
 /* Specify the character encoding in which the messages from the
    DOMAINNAME message catalog will be returned.  */
-# ifdef _INTL_REDIRECT_INLINE
+#ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_bind_textdomain_codeset (const char *__domainname,
                                               const char *__codeset);
 static inline char *bind_textdomain_codeset (const char *__domainname,
@@ -368,16 +366,14 @@ static inline char *bind_textdomain_codeset (const char *__domainname,
 {
   return libintl_bind_textdomain_codeset (__domainname, __codeset);
 }
-# else
-#  ifdef _INTL_REDIRECT_MACROS
-#   define bind_textdomain_codeset libintl_bind_textdomain_codeset
-#  endif
+#else
+# ifdef _INTL_REDIRECT_MACROS
+#  define bind_textdomain_codeset libintl_bind_textdomain_codeset
+# endif
 extern char *bind_textdomain_codeset (const char *__domainname,
                                       const char *__codeset)
        _INTL_ASM (libintl_bind_textdomain_codeset);
-# endif
-
-#endif /* IN_LIBGLOCALE */
+#endif
 
 
 /* Support for format strings with positions in *printf(), following the
