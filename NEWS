@@ -7,6 +7,9 @@ Version 0.23 - August 2024
   - Vala: Improved recognition of format strings when the string.printf method
     is used.
   - Glade: xgettext has improved support for GtkBuilder 4.
+  - Tcl: With the forthcoming Tcl 9.0, characters outside the Unicode BMP
+    in Tcl message catalogs (.msg files) will work regardless of the locale's
+    encoding.
 
 * Runtime behaviour:
   - In the C.UTF-8 locale, like in the C locale, the *gettext() functions

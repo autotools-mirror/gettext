@@ -54,6 +54,7 @@ TESTS = gettext-1 gettext-2 \
 	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 msgfmt-12 msgfmt-13 msgfmt-14 \
 	msgfmt-15 msgfmt-16 msgfmt-17 msgfmt-18 msgfmt-19 msgfmt-20 \
 	msgfmt-properties-1 \
+	msgfmt-tcl-1 msgfmt-tcl-2 \
 	msgfmt-qt-1 msgfmt-qt-2 \
 	msgfmt-desktop-1 msgfmt-desktop-2 msgfmt-desktop-3 \
 	msgfmt-xml-1 msgfmt-xml-2 \
@@ -252,6 +253,8 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	xgettext-1 \
 	xgettext-c-1 xg-c-comment-6.c xg-c-escape-3.c xg-vala-2.vala \
 	common/supplemental/plurals.xml \
+	testdata/tcltest_pl.po testdata/tcltest_pl.msg \
+	testdata/tcltest_cs.po testdata/tcltest_cs.msg \
 	testdata/xg-el-so-3.el testdata/xg-el-so-4.el \
 	testdata/xg-pl-so-5.pl \
 	testdata/xg-po-3.po testdata/xg-po-4.po

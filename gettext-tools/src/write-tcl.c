@@ -46,16 +46,17 @@
 #define _(str) gettext (str)
 
 
-/* Write a string in Tcl Unicode notation to the given stream.
+static const char hexdigit[] = "0123456789abcdef";
+
+/* Write a string in Tcl 8 Unicode notation to the given stream.
    Tcl 8 uses Unicode for its internal string representation.
    In tcl-8.3.3, the .msg files are read in using the locale dependent
    encoding.  The only way to specify strings in an encoding independent
    form is the \unnnn notation.  Newer tcl versions have this fixed:
    they read the .msg files in UTF-8 encoding.  */
 static void
-write_tcl_string (FILE *stream, const char *str)
+write_tcl8_string (FILE *stream, const char *str)
 {
-  static const char hexdigit[] = "0123456789abcdef";
   const char *str_limit = str + strlen (str);
 
   fprintf (stream, "\"");
@@ -81,14 +82,12 @@ write_tcl_string (FILE *stream, const char *str)
             fprintf (stream, "\\\\");
           else if (uc == 0x005d)
             fprintf (stream, "\\]");
-          /* No need to escape '{' and '}' because we don't have opening
-             braces outside the strings.  */
-#if 0
+          /* Need to escape '{' and '}' because we have opening braces
+             outside the strings.  */
           else if (uc == 0x007b)
             fprintf (stream, "\\{");
           else if (uc == 0x007d)
             fprintf (stream, "\\}");
-#endif
           else if (uc >= 0x0020 && uc < 0x007f)
             fprintf (stream, "%c", (int) uc);
           else
@@ -106,6 +105,104 @@ write_tcl_string (FILE *stream, const char *str)
       str += count;
     }
   fprintf (stream, "\"");
+}
+
+
+/* Write a string in Tcl 9 Unicode notation to the given stream.
+   Tcl 9 uses Unicode for its internal string representation,
+   but unlike Tcl 8, requires \Uxxxxxxxx syntax instead of \uxxxx\uyyyy
+   syntax (understood by Tcl 8.6) for characters outside the BMP.  */
+static void
+write_tcl9_string (FILE *stream, const char *str)
+{
+  const char *str_limit = str + strlen (str);
+
+  fprintf (stream, "\"");
+  while (str < str_limit)
+    {
+      ucs4_t uc;
+      unsigned int count;
+      count = u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
+      if (uc < 0x10000)
+        {
+          /* Single UCS-2 'char'.  */
+          if (uc == 0x000a)
+            fprintf (stream, "\\n");
+          else if (uc == 0x000d)
+            fprintf (stream, "\\r");
+          else if (uc == 0x0022)
+            fprintf (stream, "\\\"");
+          else if (uc == 0x0024)
+            fprintf (stream, "\\$");
+          else if (uc == 0x005b)
+            fprintf (stream, "\\[");
+          else if (uc == 0x005c)
+            fprintf (stream, "\\\\");
+          else if (uc == 0x005d)
+            fprintf (stream, "\\]");
+          /* Need to escape '{' and '}' because we have opening braces
+             outside the strings.  */
+          else if (uc == 0x007b)
+            fprintf (stream, "\\{");
+          else if (uc == 0x007d)
+            fprintf (stream, "\\}");
+          else if (uc >= 0x0020 && uc < 0x007f)
+            fprintf (stream, "%c", (int) uc);
+          else
+            fprintf (stream, "\\u%c%c%c%c",
+                     hexdigit[(uc >> 12) & 0x0f], hexdigit[(uc >> 8) & 0x0f],
+                     hexdigit[(uc >> 4) & 0x0f], hexdigit[uc & 0x0f]);
+        }
+      else
+        fprintf (stream, "\\U%c%c%c%c%c%c%c%c",
+                 hexdigit[(uc >> 28) & 0x0f], hexdigit[(uc >> 24) & 0x0f],
+                 hexdigit[(uc >> 20) & 0x0f], hexdigit[(uc >> 16) & 0x0f],
+                 hexdigit[(uc >> 12) & 0x0f], hexdigit[(uc >> 8) & 0x0f],
+                 hexdigit[(uc >> 4) & 0x0f], hexdigit[uc & 0x0f]);
+      str += count;
+    }
+  fprintf (stream, "\"");
+}
+
+
+/* Determine whether a string has no characters outside the Unicode BMP.  */
+static bool
+is_entirely_ucs2 (const char *str)
+{
+  const char *str_limit = str + strlen (str);
+  while (str < str_limit)
+    {
+      ucs4_t uc;
+      unsigned int count;
+      count = u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
+      if (uc >= 0x10000)
+        return false;
+      str += count;
+    }
+  return true;
+}
+
+
+/* Write a string either as a Tcl string literal or as a Tcl expression.  */
+static void
+write_tcl_string (FILE *stream, const char *str)
+{
+  if (is_entirely_ucs2 (str))
+    /* write_tcl8_string and write_tcl9_string produce the same external
+       representation for this string.  */
+    write_tcl8_string (stream, str);
+  else
+    {
+      /* Use this syntax:
+         [expr { $tcl_version < 9 ? "😃" : "\U0001F603" }]
+         So that we don't need to assume an UTF-8 locale in Tcl >= 9.0.
+         Cf. <https://core.tcl-lang.org/tcl/tktview/d10d6ddf295864389294b966163a23a58b9a1e72>  */
+      fprintf (stream, "[expr { $tcl_version < 9 ? ");
+      write_tcl8_string (stream, str);
+      fprintf (stream, " : ");
+      write_tcl9_string (stream, str);
+      fprintf (stream, " }]");
+    }
 }
 
 
