@@ -65,9 +65,9 @@
 /gettext-tools/libgettextpo/alloca.in.h
 /gettext-tools/libgettextpo/arg-nonnull.h
 /gettext-tools/libgettextpo/asnprintf.c
-/gettext-tools/libgettextpo/aszprintf.c
 /gettext-tools/libgettextpo/asprintf.c
 /gettext-tools/libgettextpo/assert.in.h
+/gettext-tools/libgettextpo/aszprintf.c
 /gettext-tools/libgettextpo/attribute.h
 /gettext-tools/libgettextpo/basename-lgpl.c
 /gettext-tools/libgettextpo/basename-lgpl.h
@@ -304,8 +304,8 @@
 /gettext-tools/libgettextpo/xvasprintf.c
 /gettext-tools/libgettextpo/xvasprintf.h
 /gettext-tools/libgrep/glthread/
-/gettext-tools/libgrep/malloc/
 /gettext-tools/libgrep/gnulib-m4/
+/gettext-tools/libgrep/malloc/
 /gettext-tools/libgrep/Makefile.gnulib
 /gettext-tools/libgrep/_Noreturn.h
 /gettext-tools/libgrep/arg-nonnull.h
@@ -353,12 +353,12 @@
 /gettext-tools/libgrep/unistd.in.h
 /gettext-tools/libgrep/warn-on-use.h
 /gettext-tools/libgrep/wchar.in.h
+/gettext-tools/libgrep/wcrtomb.c
 /gettext-tools/libgrep/wctype-h.c
 /gettext-tools/libgrep/wctype-impl.h
 /gettext-tools/libgrep/wctype.c
 /gettext-tools/libgrep/wctype.in.h
 /gettext-tools/libgrep/windows-initguard.h
-/gettext-tools/libgrep/wcrtomb.c
 /gettext-tools/man/x-to-1.in
 /gettext-tools/tests/gnulib-m4/
 /gettext-tools/tests/gnulib-lib/
