@@ -187,7 +187,6 @@
 /gettext-tools/libgettextpo/msvc-inval.h
 /gettext-tools/libgettextpo/msvc-nothrow.c
 /gettext-tools/libgettextpo/msvc-nothrow.h
-/gettext-tools/libgettextpo/noreturn.h
 /gettext-tools/libgettextpo/obstack.c
 /gettext-tools/libgettextpo/obstack.in.h
 /gettext-tools/libgettextpo/open.c
@@ -196,8 +195,6 @@
 /gettext-tools/libgettextpo/printf-args.h
 /gettext-tools/libgettextpo/printf-parse.c
 /gettext-tools/libgettextpo/printf-parse.h
-/gettext-tools/libgettextpo/progname.c
-/gettext-tools/libgettextpo/progname.h
 /gettext-tools/libgettextpo/pthread.in.h
 /gettext-tools/libgettextpo/pthread-once.c
 /gettext-tools/libgettextpo/raise.c
@@ -224,9 +221,7 @@
 /gettext-tools/libgettextpo/stat-w32.c
 /gettext-tools/libgettextpo/stat-w32.h
 /gettext-tools/libgettextpo/stat.c
-/gettext-tools/libgettextpo/stdalign.in.h
 /gettext-tools/libgettextpo/stdarg.in.h
-/gettext-tools/libgettextpo/stdbool.in.h
 /gettext-tools/libgettextpo/stdckdint.in.h
 /gettext-tools/libgettextpo/stddef.in.h
 /gettext-tools/libgettextpo/stdint.in.h
@@ -239,7 +234,6 @@
 /gettext-tools/libgettextpo/str-two-way.h
 /gettext-tools/libgettextpo/strchrnul.c
 /gettext-tools/libgettextpo/strchrnul.valgrind
-/gettext-tools/libgettextpo/strdup.c
 /gettext-tools/libgettextpo/streq.h
 /gettext-tools/libgettextpo/strerror-override.c
 /gettext-tools/libgettextpo/strerror-override.h
@@ -255,7 +249,6 @@
 /gettext-tools/libgettextpo/string-desc.c
 /gettext-tools/libgettextpo/string-desc.h
 /gettext-tools/libgettextpo/string.in.h
-/gettext-tools/libgettextpo/stripslash.c
 /gettext-tools/libgettextpo/strstr.c
 /gettext-tools/libgettextpo/sys-limits.h
 /gettext-tools/libgettextpo/sys_stat.in.h
@@ -272,7 +265,6 @@
 /gettext-tools/libgettextpo/unitypes.in.h
 /gettext-tools/libgettextpo/uniwidth.in.h
 /gettext-tools/libgettextpo/unlocked-io.h
-/gettext-tools/libgettextpo/unused-parameter.h
 /gettext-tools/libgettextpo/vasnprintf.c
 /gettext-tools/libgettextpo/vasnprintf.h
 /gettext-tools/libgettextpo/vasprintf.c
@@ -305,7 +297,6 @@
 /gettext-tools/libgettextpo/xmalloca.h
 /gettext-tools/libgettextpo/xsize.c
 /gettext-tools/libgettextpo/xsize.h
-/gettext-tools/libgettextpo/xstrdup.c
 /gettext-tools/libgettextpo/xstrerror.c
 /gettext-tools/libgettextpo/xstrerror.h
 /gettext-tools/libgettextpo/xstriconv.c
@@ -352,7 +343,6 @@
 /gettext-tools/libgrep/regex_internal.h
 /gettext-tools/libgrep/regexec.c
 /gettext-tools/libgrep/sched.in.h
-/gettext-tools/libgrep/stdbool.in.h
 /gettext-tools/libgrep/stdckdint.in.h
 /gettext-tools/libgrep/stddef.in.h
 /gettext-tools/libgrep/stdint.in.h
