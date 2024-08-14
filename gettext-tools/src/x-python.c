@@ -66,8 +66,8 @@
 
 /* The Python syntax is defined in the Python Reference Manual
    /usr/share/doc/packages/python/html/ref/index.html.
-   See also Python-2.0/Parser/tokenizer.c, Python-2.0/Python/compile.c,
-   Python-2.0/Objects/unicodeobject.c.
+   See also Python-3.7.17/Parser/tokenizer.c, Python-3.7.17/Python/compile.c,
+   Python-3.7.17/Objects/bytesobject.c, Python-3.7.17/Objects/unicodeobject.c.
    For the f-strings, refer to https://peps.python.org/pep-0498/
    and https://docs.python.org/3/reference/lexical_analysis.html#literals .  */
 
@@ -838,12 +838,13 @@ free_token (token_ty *tp)
 }
 
 
-/* There are two different input syntaxes for strings, "abc" and r"abc",
-   and two different input syntaxes for Unicode strings, u"abc" and ur"abc".
+/* There are two different input syntaxes for byte strings, b"abc" and br"abc",
+   and two different input syntaxes for Unicode strings, u"abc" and ur"abc";
+   the 'u' may be omitted.
    Which escape sequences are understood, i.e. what is interpreted specially
    after backslash?
-    "abc"     \<nl> \\ \' \" \a\b\f\n\r\t\v \ooo \xnn
-    r"abc"
+    b"abc"    \<nl> \\ \' \" \a\b\f\n\r\t\v \ooo \xnn
+    br"abc"
     u"abc"    \<nl> \\ \' \" \a\b\f\n\r\t\v \ooo \xnn \unnnn \Unnnnnnnn \N{...}
     ur"abc"                                           \unnnn
    The \unnnn values are UTF-16 values; a single \Unnnnnnnn can expand to two
@@ -1005,6 +1006,11 @@ phase7_getuc (int quote_char,
                     phase2_ungetc (c);
                 }
               *backslash_counter = 0;
+              /* <https://docs.python.org/3.12/reference/lexical_analysis.html#escape-sequences>
+                 says: "In a bytes literal, hexadecimal and octal escapes denote
+                        the byte with the given value.
+                        In a string literal, these escapes denote a Unicode
+                        character with the given value."  */
               if (interpret_unicode)
                 return UNICODE (n);
               else
@@ -1042,6 +1048,12 @@ phase7_getuc (int quote_char,
                     {
                       int n = (n1 << 4) + n2;
                       *backslash_counter = 0;
+                      /* <https://docs.python.org/3.12/reference/lexical_analysis.html#escape-sequences>
+                         says:
+                         "In a bytes literal, hexadecimal and octal escapes denote
+                          the byte with the given value.
+                          In a string literal, these escapes denote a Unicode
+                          character with the given value."  */
                       if (interpret_unicode)
                         return UNICODE (n);
                       else
@@ -1057,7 +1069,7 @@ phase7_getuc (int quote_char,
             }
           }
 
-      if (interpret_unicode)
+      if (interpret_ansic && interpret_unicode)
         {
           if (c == 'u')
             {
@@ -1091,97 +1103,94 @@ phase7_getuc (int quote_char,
               return UNICODE (n);
             }
 
-          if (interpret_ansic)
+          if (c == 'U')
             {
-              if (c == 'U')
+              unsigned char buf[8];
+              unsigned int n = 0;
+              int i;
+
+              for (i = 0; i < 8; i++)
                 {
-                  unsigned char buf[8];
-                  unsigned int n = 0;
-                  int i;
+                  int c1 = phase2_getc ();
 
-                  for (i = 0; i < 8; i++)
+                  if (c1 >= '0' && c1 <= '9')
+                    n = (n << 4) + (c1 - '0');
+                  else if (c1 >= 'A' && c1 <= 'F')
+                    n = (n << 4) + (c1 - 'A' + 10);
+                  else if (c1 >= 'a' && c1 <= 'f')
+                    n = (n << 4) + (c1 - 'a' + 10);
+                  else
                     {
-                      int c1 = phase2_getc ();
+                      phase2_ungetc (c1);
+                      while (--i >= 0)
+                        phase2_ungetc (buf[i]);
+                      phase2_ungetc (c);
+                      ++*backslash_counter;
+                      return UNICODE ('\\');
+                    }
 
-                      if (c1 >= '0' && c1 <= '9')
-                        n = (n << 4) + (c1 - '0');
-                      else if (c1 >= 'A' && c1 <= 'F')
-                        n = (n << 4) + (c1 - 'A' + 10);
-                      else if (c1 >= 'a' && c1 <= 'f')
-                        n = (n << 4) + (c1 - 'a' + 10);
-                      else
+                  buf[i] = c1;
+                }
+              if (n < 0x110000)
+                {
+                  *backslash_counter = 0;
+                  return UNICODE (n);
+                }
+
+              if_error (IF_SEVERITY_WARNING,
+                        logical_file_name, line_number, (size_t)(-1), false,
+                        _("invalid Unicode character"));
+
+              while (--i >= 0)
+                phase2_ungetc (buf[i]);
+              phase2_ungetc (c);
+              ++*backslash_counter;
+              return UNICODE ('\\');
+            }
+
+          if (c == 'N')
+            {
+              int c1 = phase2_getc ();
+              if (c1 == '{')
+                {
+                  unsigned char buf[UNINAME_MAX + 1];
+                  int i;
+                  unsigned int n;
+
+                  for (i = 0; i < UNINAME_MAX; i++)
+                    {
+                      int c2 = phase2_getc ();
+                      if (!(c2 >= ' ' && c2 <= '~'))
                         {
-                          phase2_ungetc (c1);
+                          phase2_ungetc (c2);
                           while (--i >= 0)
                             phase2_ungetc (buf[i]);
+                          phase2_ungetc (c1);
                           phase2_ungetc (c);
                           ++*backslash_counter;
                           return UNICODE ('\\');
                         }
-
-                      buf[i] = c1;
+                      if (c2 == '}')
+                        break;
+                      buf[i] = c2;
                     }
-                  if (n < 0x110000)
+                  buf[i] = '\0';
+
+                  n = unicode_name_character ((char *) buf);
+                  if (n != UNINAME_INVALID)
                     {
                       *backslash_counter = 0;
                       return UNICODE (n);
                     }
 
-                  if_error (IF_SEVERITY_WARNING,
-                            logical_file_name, line_number, (size_t)(-1), false,
-                            _("invalid Unicode character"));
-
+                  phase2_ungetc ('}');
                   while (--i >= 0)
                     phase2_ungetc (buf[i]);
-                  phase2_ungetc (c);
-                  ++*backslash_counter;
-                  return UNICODE ('\\');
                 }
-
-              if (c == 'N')
-                {
-                  int c1 = phase2_getc ();
-                  if (c1 == '{')
-                    {
-                      unsigned char buf[UNINAME_MAX + 1];
-                      int i;
-                      unsigned int n;
-
-                      for (i = 0; i < UNINAME_MAX; i++)
-                        {
-                          int c2 = phase2_getc ();
-                          if (!(c2 >= ' ' && c2 <= '~'))
-                            {
-                              phase2_ungetc (c2);
-                              while (--i >= 0)
-                                phase2_ungetc (buf[i]);
-                              phase2_ungetc (c1);
-                              phase2_ungetc (c);
-                              ++*backslash_counter;
-                              return UNICODE ('\\');
-                            }
-                          if (c2 == '}')
-                            break;
-                          buf[i] = c2;
-                        }
-                      buf[i] = '\0';
-
-                      n = unicode_name_character ((char *) buf);
-                      if (n != UNINAME_INVALID)
-                        {
-                          *backslash_counter = 0;
-                          return UNICODE (n);
-                        }
-
-                      phase2_ungetc ('}');
-                      while (--i >= 0)
-                        phase2_ungetc (buf[i]);
-                    }
-                  phase2_ungetc (c1);
-                  phase2_ungetc (c);
-                  ++*backslash_counter;
-                  return UNICODE ('\\');
-                }
+              phase2_ungetc (c1);
+              phase2_ungetc (c);
+              ++*backslash_counter;
+              return UNICODE ('\\');
             }
         }
 
@@ -1297,13 +1306,13 @@ phase5_get (token_ty *tp)
               }
           }
           FALLTHROUGH;
-        case 'A': case 'B': case 'C': case 'D': case 'E':
+        case 'A':           case 'C': case 'D': case 'E':
         case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
         case 'M': case 'N': case 'O': case 'P': case 'Q':
         case 'S': case 'T':           case 'V': case 'W': case 'X':
         case 'Y': case 'Z':
         case '_':
-        case 'a': case 'b': case 'c': case 'd': case 'e':
+        case 'a':           case 'c': case 'd': case 'e':
         case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
         case 'm': case 'n': case 'o': case 'p': case 'q':
         case 's': case 't':           case 'v': case 'w': case 'x':
@@ -1369,7 +1378,7 @@ phase5_get (token_ty *tp)
             bool triple;
             unsigned int backslash_counter;
 
-            case 'F': case 'f':
+            case 'B': case 'b':
               {
                 int c1 = phase2_getc ();
                 if (c1 == '"' || c1 == '\'')
@@ -1377,7 +1386,7 @@ phase5_get (token_ty *tp)
                     quote_char = c1;
                     interpret_ansic = true;
                     interpret_unicode = false;
-                    f_string = true;
+                    f_string = false;
                     goto string;
                   }
                 if (c1 == 'R' || c1 == 'r')
@@ -1388,6 +1397,34 @@ phase5_get (token_ty *tp)
                         quote_char = c2;
                         interpret_ansic = false;
                         interpret_unicode = false;
+                        f_string = false;
+                        goto string;
+                      }
+                    phase2_ungetc (c2);
+                  }
+                phase2_ungetc (c1);
+                goto symbol;
+              }
+
+            case 'F': case 'f':
+              {
+                int c1 = phase2_getc ();
+                if (c1 == '"' || c1 == '\'')
+                  {
+                    quote_char = c1;
+                    interpret_ansic = true;
+                    interpret_unicode = true;
+                    f_string = true;
+                    goto string;
+                  }
+                if (c1 == 'R' || c1 == 'r')
+                  {
+                    int c2 = phase2_getc ();
+                    if (c2 == '"' || c2 == '\'')
+                      {
+                        quote_char = c2;
+                        interpret_ansic = false;
+                        interpret_unicode = true;
                         f_string = true;
                         goto string;
                       }
@@ -1404,7 +1441,7 @@ phase5_get (token_ty *tp)
                   {
                     quote_char = c1;
                     interpret_ansic = false;
-                    interpret_unicode = false;
+                    interpret_unicode = true;
                     f_string = false;
                     goto string;
                   }
@@ -1415,7 +1452,7 @@ phase5_get (token_ty *tp)
                       {
                         quote_char = c2;
                         interpret_ansic = false;
-                        interpret_unicode = false;
+                        interpret_unicode = true;
                         f_string = true;
                         goto string;
                       }
@@ -1436,19 +1473,6 @@ phase5_get (token_ty *tp)
                     f_string = false;
                     goto string;
                   }
-                if (c1 == 'R' || c1 == 'r')
-                  {
-                    int c2 = phase2_getc ();
-                    if (c2 == '"' || c2 == '\'')
-                      {
-                        quote_char = c2;
-                        interpret_ansic = false;
-                        interpret_unicode = true;
-                        f_string = false;
-                        goto string;
-                      }
-                    phase2_ungetc (c2);
-                  }
                 phase2_ungetc (c1);
                 goto symbol;
               }
@@ -1456,7 +1480,7 @@ phase5_get (token_ty *tp)
             case '"': case '\'':
               quote_char = c;
               interpret_ansic = true;
-              interpret_unicode = false;
+              interpret_unicode = true;
               f_string = false;
             string:
               triple = false;
@@ -1543,7 +1567,7 @@ phase5_get (token_ty *tp)
               for (;;)
                 {
                   int uc = phase7_getuc (quote_char, triple, interpret_ansic,
-                                         false, true,
+                                         true, true,
                                          &backslash_counter);
 
                   if (uc == P7_EOF || uc == P7_STRING_END)

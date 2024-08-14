@@ -5,10 +5,18 @@
 
 cat <<\EOF > xg-py-1.py
 # interpret_ansic = true, interpret_unicode = false, f_string = false
-_("abc\
+_(b"abc\
 \\def\'ghi\"jkl\a\b\f\n\r\t\v x\040x\x7ey\u0142\U00010123\N{LATIN SMALL LETTER Z}");
 
 # interpret_ansic = false, interpret_unicode = false, f_string = false
+_(br"abc\
+\\def\'ghi\"jkl\a\b\f\n\r\t\v x\040x\x7ey\u0142\U00010123\N{LATIN SMALL LETTER Z}");
+
+# interpret_ansic = true, interpret_unicode = true, f_string = false
+_("abc\
+\\def\'ghi\"jkl\a\b\f\n\r\t\v x\040x\x7ey\u0142\U00010123\N{LATIN SMALL LETTER Z}");
+
+# interpret_ansic = false, interpret_unicode = true, f_string = false
 _(r"abc\
 \\def\'ghi\"jkl\a\b\f\n\r\t\v x\040x\x7ey\u0142\U00010123\N{LATIN SMALL LETTER Z}");
 
@@ -16,15 +24,11 @@ _(r"abc\
 _(u"abc\
 \\def\'ghi\"jkl\a\b\f\n\r\t\v x\040x\x7ey\u0142\U00010123\N{LATIN SMALL LETTER Z}");
 
-# interpret_ansic = false, interpret_unicode = true, f_string = false
-_(ur"abc\
-\\def\'ghi\"jkl\a\b\f\n\r\t\v x\040x\x7ey\u0142\U00010123\N{LATIN SMALL LETTER Z}");
-
-# interpret_ansic = true, interpret_unicode = false, f_string = true
+# interpret_ansic = true, interpret_unicode = true, f_string = true
 _(f"abc\
 \\def\'ghi\"jkl{{m\{{n\\{{o\\\{{p\\\\{{q\\\\\{{r}}s\}}t\\}}u\\\}}v\\\\}}w\\\\\}}x\a\b\f\n\r\t\v x\040x\x7ey\u0142\U00010123");
 
-# interpret_ansic = false, interpret_unicode = false, f_string = true
+# interpret_ansic = false, interpret_unicode = true, f_string = true
 _(fr"Abc\
 \\def\'ghi\"jkl{{m\{{n\\{{o\\\{{p\\\\{{q\\\\\{{r}}s\}}t\\}}u\\\}}v\\\\}}w\\\\\}}x\a\b\f\n\r\t\v x\040x\x7ey\u0142\U00010123");
 
@@ -67,6 +71,7 @@ msgid ""
 msgstr ""
 
 #. interpret_ansic = false, interpret_unicode = false, f_string = false
+#. interpret_ansic = false, interpret_unicode = true, f_string = false
 msgid ""
 "abc\\\n"
 "\\\\def\\'ghi\\\"jkl\\a\\b\\f\\n\\r\\t\\v "
@@ -79,21 +84,14 @@ msgid ""
 "\r\t\v x x~ył𐄣z"
 msgstr ""
 
-#. interpret_ansic = false, interpret_unicode = true, f_string = false
-msgid ""
-"abc\\\n"
-"\\\\def\\'ghi\\\"jkl\\a\\b\\f\\n\\r\\t\\v x\\040x\\x7eył\\U00010123\\N{LATIN "
-"SMALL LETTER Z}"
-msgstr ""
-
-#. interpret_ansic = true, interpret_unicode = false, f_string = true
+#. interpret_ansic = true, interpret_unicode = true, f_string = true
 msgid ""
 "abc\\def'ghi\"jkl{m\\{n\\{o\\\\{p\\\\{q\\\\\\{r}s\\}t\\}u\\\\}v\\\\}w\\\\\\}"
 "x\a\b\f\n"
-"\r\t\v x x~y\\u0142\\U00010123"
+"\r\t\v x x~ył𐄣"
 msgstr ""
 
-#. interpret_ansic = false, interpret_unicode = false, f_string = true
+#. interpret_ansic = false, interpret_unicode = true, f_string = true
 msgid ""
 "Abc\\\n"
 "\\\\def\\'ghi\\\"jkl{m\\{n\\\\{o\\\\\\{p\\\\\\\\{q\\\\\\\\\\{r}s\\}t\\\\}u\\"
