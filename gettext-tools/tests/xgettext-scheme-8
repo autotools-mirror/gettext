@@ -1,0 +1,44 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Scheme support: '-L Guile' syntax.
+
+cat <<\EOF > xg-sc-8.scm
+(display (gettext "Llanfairpwllgwyngyllgogerychwyrn\
+                   drobwllllantysiliogogogoch"))
+(display (gettext "The hotel has a  \
+                   pretty garden."))
+#!r6rs
+(display (gettext "Llanfairpwllgwyngyllgogerychwyrn\
+                   drobwllllantysiliogogogoch"))
+(display (gettext "The hotel has a  \
+                   pretty garden."))
+EOF
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} -L Guile --omit-header -d xg-sc-8 xg-sc-8.scm || Exit 1
+
+cat <<\EOF > xg-sc-8.ok
+#: xg-sc-8.scm:1
+msgid ""
+"Llanfairpwllgwyngyllgogerychwyrn                   drobwllllantysiliogogogoch"
+msgstr ""
+
+#: xg-sc-8.scm:3
+msgid "The hotel has a                     pretty garden."
+msgstr ""
+
+#: xg-sc-8.scm:6
+msgid "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch"
+msgstr ""
+
+#: xg-sc-8.scm:8
+msgid "The hotel has a  pretty garden."
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-sc-8.ok xg-sc-8.po
+result=$?
+
+exit $result

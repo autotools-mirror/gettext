@@ -1,0 +1,30 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Scheme support: '-L Scheme' syntax.
+
+cat <<\EOF > xg-sc-7.scm
+(display (gettext "Llanfairpwllgwyngyllgogerychwyrn\
+                   drobwllllantysiliogogogoch"))
+(display (gettext "The hotel has a  \
+                   pretty garden."))
+EOF
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} -L Scheme --omit-header -d xg-sc-7 xg-sc-7.scm || Exit 1
+
+cat <<\EOF > xg-sc-7.ok
+#: xg-sc-7.scm:1
+msgid "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch"
+msgstr ""
+
+#: xg-sc-7.scm:3
+msgid "The hotel has a  pretty garden."
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-sc-7.ok xg-sc-7.po
+result=$?
+
+exit $result

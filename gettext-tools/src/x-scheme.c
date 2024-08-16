@@ -1512,10 +1512,50 @@ read_object (struct object *op, flag_region_ty *outer_region)
                     if (c == EOF)
                       /* Invalid input.  Be tolerant, no error message.  */
                       break;
+                    if (c == ' ' || c == '\t')
+                      {
+                        if (follow_guile)
+                         /* Invalid input.  Be tolerant, no error message.  */
+                          ;
+                        else
+                          {
+                            /* In R6RS mode, a sequence of spaces and tabs is
+                               allowed between the backslash and the newline.
+                               Other than that, backslash-space and backslash-tab
+                               are not allowed.  See R6RS § 4.2.7, R7RS § 6.7.  */
+                            do
+                              c = phase1_getc ();
+                            while (c == ' ' || c == '\t');
+                            if (c == EOF)
+                              /* Invalid input.  Be tolerant, no error message.  */
+                              break;
+                            if (c != '\n')
+                              {
+                                /* Invalid input.  Be tolerant, no error message.  */
+                                phase1_ungetc (c);
+                                continue;
+                              }
+                          }
+                      }
+                    if (c == '\n')
+                      {
+                        if (!follow_guile)
+                          {
+                            /* In R6RS mode, a sequence of spaces and tabs is
+                               allowed after the newline and is discarded.
+                               See R6RS § 4.2.7, R7RS § 6.7.  */
+                            do
+                              c = phase1_getc ();
+                            while (c == ' ' || c == '\t');
+                            if (c == EOF)
+                              /* Invalid input.  Be tolerant, no error message.  */
+                              break;
+                            phase1_ungetc (c);
+                          }
+                        continue;
+                      }
                     switch (c)
                       {
-                      case '\n':
-                        continue;
                       case '0':
                         c = '\0';
                         break;
