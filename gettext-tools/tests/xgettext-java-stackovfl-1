@@ -3,7 +3,7 @@
 
 # Test Java support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-j-so-1.java
+cat <<\EOF > xg-j-so-1.java
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-j-so-1.tmp xg-j-so-1.java || Exit 1
 LC_ALL=C tr -d '\r' < xg-j-so-1.tmp.po > xg-j-so-1.po || Exit 1
 
-cat <<EOF > xg-j-so-1.ok
+cat <<\EOF > xg-j-so-1.ok
 msgid "Hello!"
 msgstr ""
 EOF

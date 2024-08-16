@@ -3,7 +3,7 @@
 
 # Test Perl support: --add-comments option.
 
-cat <<EOF > xg-pl-5.pl
+cat <<\EOF > xg-pl-5.pl
 # This comment will not be extracted.
 print gettext "help";
 #  TRANSLATORS: This is an extracted comment.
@@ -20,7 +20,7 @@ ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-pl-5.tmp xg-pl-5.pl || Exit 1
 LC_ALL=C tr -d '\r' < xg-pl-5.tmp.po > xg-pl-5.po || Exit 1
 
-cat <<EOF > xg-pl-5.ok
+cat <<\EOF > xg-pl-5.ok
 msgid "help"
 msgstr ""
 

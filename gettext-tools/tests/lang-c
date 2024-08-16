@@ -58,7 +58,7 @@ ${CONFIG_SHELL} "$top_builddir"/libtool --quiet --tag=CC --mode=link \
 ${XGETTEXT} -o prog.tmp --omit-header --no-location -k_ prog.c || Exit 1
 LC_ALL=C tr -d '\r' < prog.tmp > prog.pot || Exit 1
 
-cat <<EOF > prog.ok
+cat <<\EOF > prog.ok
 #, c-format
 msgid "'Your command, please?', asked the waiter."
 msgstr ""

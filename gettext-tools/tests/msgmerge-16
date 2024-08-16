@@ -28,7 +28,7 @@ msgid "error %1."
 msgstr "b³±d %1."
 EOF
 
-cat <<EOF > mm-test16.pot
+cat <<\EOF > mm-test16.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Yoyodyne, Inc.
 # This file is distributed under the same license as the PACKAGE package.

@@ -3,7 +3,7 @@
 
 # Test Python support: --add-comments option.
 
-cat <<EOF > xg-py-2.py
+cat <<\EOF > xg-py-2.py
 # This comment will not be extracted.
 print gettext.gettext("help")
 #  TRANSLATORS: This is an extracted comment.
@@ -24,7 +24,7 @@ ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-py-2.tmp xg-py-2.py || Exit 1
 LC_ALL=C tr -d '\r' < xg-py-2.tmp.po > xg-py-2.po || Exit 1
 
-cat <<EOF > xg-py-2.ok
+cat <<\EOF > xg-py-2.ok
 msgid "help"
 msgstr ""
 

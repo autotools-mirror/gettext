@@ -4,7 +4,7 @@
 # Test merging of a message which has plural forms in def.po but not
 # in ref.pot.
 
-cat <<EOF > mm-test12.po
+cat <<\EOF > mm-test12.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -28,7 +28,7 @@ msgstr[0] "%d erreur"
 msgstr[1] "%d erreurs"
 EOF
 
-cat <<EOF > mm-test12.pot
+cat <<\EOF > mm-test12.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -54,7 +54,7 @@ EOF
 ${MSGMERGE} -q -o mm-test12.tmp mm-test12.po mm-test12.pot || Exit 1
 LC_ALL=C tr -d '\r' < mm-test12.tmp > mm-test12.out || Exit 1
 
-cat <<EOF > mm-test12.ok
+cat <<\EOF > mm-test12.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.

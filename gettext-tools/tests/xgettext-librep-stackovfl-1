@@ -3,7 +3,7 @@
 
 # Test librep support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-lr-so-1.jl
+cat <<\EOF > xg-lr-so-1.jl
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-lr-so-1.tmp xg-lr-so-1.jl || Exit 1
 LC_ALL=C tr -d '\r' < xg-lr-so-1.tmp.po > xg-lr-so-1.po || Exit 1
 
-cat <<EOF > xg-lr-so-1.ok
+cat <<\EOF > xg-lr-so-1.ok
 msgid "Hello!"
 msgstr ""
 EOF

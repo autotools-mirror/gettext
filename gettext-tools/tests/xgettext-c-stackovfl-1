@@ -3,7 +3,7 @@
 
 # Test C support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-c-so-1.c
+cat <<\EOF > xg-c-so-1.c
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-c-so-1.tmp xg-c-so-1.c || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-so-1.tmp.po > xg-c-so-1.po || Exit 1
 
-cat <<EOF > xg-c-so-1.ok
+cat <<\EOF > xg-c-so-1.ok
 msgid "Hello!"
 msgstr ""
 EOF

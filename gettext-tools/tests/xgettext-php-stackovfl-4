@@ -3,7 +3,7 @@
 
 # Test PHP support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-ph-so-4.php
+cat <<\EOF > xg-ph-so-4.php
 <?
 [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
 [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[

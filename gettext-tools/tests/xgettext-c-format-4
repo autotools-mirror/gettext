@@ -19,7 +19,7 @@ ${XGETTEXT} --omit-header --no-location -d xg-c-format-4.tmp --language=C++ --kd
   xg-c-format-4.cc || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-format-4.tmp.po > xg-c-format-4.po || Exit 1
 
-cat <<EOF > xg-c-format-4.ok
+cat <<\EOF > xg-c-format-4.ok
 #, c-format, kde-format
 msgid "used time: %1m %2s"
 msgstr ""

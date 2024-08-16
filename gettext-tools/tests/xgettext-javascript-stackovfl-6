@@ -3,7 +3,7 @@
 
 # Test JavaScript support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-js-so-6.js
+cat <<\EOF > xg-js-so-6.js
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{

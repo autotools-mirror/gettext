@@ -3,7 +3,7 @@
 
 # Test Tcl support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-t-so-3.tcl
+cat <<\EOF > xg-t-so-3.tcl
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} -k_ --omit-header --no-location -d xg-t-so-3.tmp xg-t-so-3.tcl || Exit 1
 LC_ALL=C tr -d '\r' < xg-t-so-3.tmp.po > xg-t-so-3.po || Exit 1
 
-cat <<EOF > xg-t-so-3.ok
+cat <<\EOF > xg-t-so-3.ok
 msgid "Hello!"
 msgstr ""
 EOF

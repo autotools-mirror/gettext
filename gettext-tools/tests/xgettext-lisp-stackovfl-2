@@ -3,7 +3,7 @@
 
 # Test Lisp support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-ls-so-2.lisp
+cat <<\EOF > xg-ls-so-2.lisp
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((

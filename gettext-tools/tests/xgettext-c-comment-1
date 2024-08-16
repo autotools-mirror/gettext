@@ -3,7 +3,7 @@
 
 # Test C support: comments.
 
-cat <<EOF > xg-c-comment-1.in.cc
+cat <<\EOF > xg-c-comment-1.in.cc
 main(){printf(gettext/*puke*/(/*barf*/"Hello, " "World!" "\n")); }
 EOF
 
@@ -11,7 +11,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location --add-comments -d xg-c-comment-1.tmp xg-c-comment-1.in.cc || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-comment-1.tmp.po > xg-c-comment-1.po || Exit 1
 
-cat <<EOF > xg-c-comment-1.ok
+cat <<\EOF > xg-c-comment-1.ok
 #. puke
 #. barf
 #, c-format

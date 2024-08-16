@@ -3,7 +3,7 @@
 
 # Test EmacsLisp support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-el-so-2.el
+cat <<\EOF > xg-el-so-2.el
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((

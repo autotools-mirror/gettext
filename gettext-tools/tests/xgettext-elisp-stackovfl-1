@@ -3,7 +3,7 @@
 
 # Test EmacsLisp support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-el-so-1.el
+cat <<\EOF > xg-el-so-1.el
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-el-so-1.tmp xg-el-so-1.el || Exit 1
 LC_ALL=C tr -d '\r' < xg-el-so-1.tmp.po > xg-el-so-1.po || Exit 1
 
-cat <<EOF > xg-el-so-1.ok
+cat <<\EOF > xg-el-so-1.ok
 msgid "Hello!"
 msgstr ""
 EOF

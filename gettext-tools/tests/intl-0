@@ -11,7 +11,7 @@ test -d in-0/C/LC_MESSAGES || mkdir in-0/C/LC_MESSAGES
 ${MSGFMT} -o in-0/C/LC_MESSAGES/tstprog.mo "$wabs_srcdir"/intl-1.po
 
 : ${DIFF=diff}
-cat <<EOF > in-0.ok
+cat <<\EOF > in-0.ok
 cheese
 EOF
 

@@ -25,7 +25,7 @@ ${XGETTEXT} --omit-header --no-location -d xg-18.tmp xg-18-a.py xg-18-b.ui \
   || Exit 1
 LC_ALL=C tr -d '\r' < xg-18.tmp.po > xg-18.po || Exit 1
 
-cat <<EOF > xg-18.ok
+cat <<\EOF > xg-18.ok
 #, python-format
 msgid "Found %(count)d warnings"
 msgstr ""

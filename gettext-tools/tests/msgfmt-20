@@ -66,7 +66,7 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/mf-20.mo mf-20.po || Exit 1
 
-cat <<EOF > mf-20.ok
+cat <<\EOF > mf-20.ok
 Le soleil tape.
 EOF
 

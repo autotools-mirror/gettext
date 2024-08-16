@@ -66,7 +66,7 @@ CLASSPATH=../../../gettext-runtime/intl-java/libintl.jar ${JAVACOMP} -d . Progra
 ${XGETTEXT} -o prog.tmp --omit-header --no-location Program.java || Exit 1
 LC_ALL=C tr -d '\r' < prog.tmp > prog.pot || Exit 1
 
-cat <<EOF > prog.ok
+cat <<\EOF > prog.ok
 msgid "'Your command, please?', asked the waiter."
 msgstr ""
 

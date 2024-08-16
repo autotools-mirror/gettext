@@ -3,7 +3,7 @@
 
 # Test Shell support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-sh-so-3.sh
+cat <<\EOF > xg-sh-so-3.sh
 x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(
 x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(
 x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(x<(

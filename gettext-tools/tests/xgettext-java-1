@@ -4,7 +4,7 @@
 # Some tests for java support
 #
 
-cat <<EOF > xg-j-1.java
+cat <<\EOF > xg-j-1.java
 class TestCase {
     public TestCase() {
         ResourceBundle b = ResourceBundle.getBundle("test");
@@ -32,7 +32,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -c -d xg-j-1.tmp xg-j-1.java || Exit 1
 LC_ALL=C tr -d '\r' < xg-j-1.tmp.po > xg-j-1.po || Exit 1
 
-cat <<EOF > xg-j-1.ok
+cat <<\EOF > xg-j-1.ok
 #. standard usage
 msgid "Test String 1"
 msgstr ""

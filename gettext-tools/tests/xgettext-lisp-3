@@ -3,7 +3,7 @@
 
 # Test Lisp support: lisp-format string with a loop.
 
-cat <<EOF > xg-ls-3.lisp
+cat <<\EOF > xg-ls-3.lisp
 (gettext "~{~*~}")
 EOF
 
@@ -11,7 +11,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-ls-3.tmp xg-ls-3.lisp || Exit 1
 LC_ALL=C tr -d '\r' < xg-ls-3.tmp.po > xg-ls-3.po || Exit 1
 
-cat <<EOF > xg-ls-3.ok
+cat <<\EOF > xg-ls-3.ok
 #, lisp-format
 msgid "~{~*~}"
 msgstr ""

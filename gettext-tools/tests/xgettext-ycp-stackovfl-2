@@ -3,7 +3,7 @@
 
 # Test YCP support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-y-so-2.ycp
+cat <<\EOF > xg-y-so-2.ycp
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((

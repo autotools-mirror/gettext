@@ -3,7 +3,7 @@
 
 # Test PHP support: here documents.
 
-cat <<EOF > xg-ph-2.php
+cat <<\EOF > xg-ph-2.php
 <?
 echo _("Egyptians");
 echo <<<EOTMARKER
@@ -57,7 +57,7 @@ LC_ALL=C tr -d '\r' < xg-ph-2d.tmp.po > xg-ph-2d.po || Exit 1
 ${XGETTEXT} --omit-header --no-location -d xg-ph-2s.tmp xg-ph-2s.php || Exit 1
 LC_ALL=C tr -d '\r' < xg-ph-2s.tmp.po > xg-ph-2s.po || Exit 1
 
-cat <<EOF > xg-ph-2.ok
+cat <<\EOF > xg-ph-2.ok
 msgid "Egyptians"
 msgstr ""
 

@@ -29,7 +29,7 @@ msgid "bye"
 msgstr "A bientôt"
 EOF
 
-cat <<EOF > mm-test7.pot
+cat <<\EOF > mm-test7.pot
 domain "foo-de"
 msgid "Hello"
 msgstr ""

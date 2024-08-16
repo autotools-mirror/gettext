@@ -3,7 +3,7 @@
 
 # Test Java support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-j-so-4.java
+cat <<\EOF > xg-j-so-4.java
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{

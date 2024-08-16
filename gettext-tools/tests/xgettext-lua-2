@@ -28,7 +28,7 @@ ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-lu-2.tmp xg-lu-2.lua || Exit 1
 LC_ALL=C tr -d '\r' < xg-lu-2.tmp.po > xg-lu-2.po || Exit 1
 
-cat <<EOF > xg-lu-2.ok
+cat <<\EOF > xg-lu-2.ok
 msgid "Hmm."
 msgstr ""
 

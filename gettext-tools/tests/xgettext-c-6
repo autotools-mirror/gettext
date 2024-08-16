@@ -15,7 +15,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-c-6.tmp xg-c-6.c || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-6.tmp.po > xg-c-6.po || Exit 1
 
-cat <<EOF > xg-c-6.ok
+cat <<\EOF > xg-c-6.ok
 #, c-format, range: 1..6
 msgid "one week and one day"
 msgid_plural "one week and %d days"

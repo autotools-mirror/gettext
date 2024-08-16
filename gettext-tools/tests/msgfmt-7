@@ -3,7 +3,7 @@
 
 # Check for duplicates with identical translations
 
-cat <<EOF > mf-test7.in1
+cat <<\EOF > mf-test7.in1
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.

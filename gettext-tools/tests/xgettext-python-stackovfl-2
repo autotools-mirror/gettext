@@ -3,7 +3,7 @@
 
 # Test Python support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-py-so-2.py
+cat <<\EOF > xg-py-so-2.py
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((

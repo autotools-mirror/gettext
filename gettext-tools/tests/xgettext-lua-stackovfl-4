@@ -3,7 +3,7 @@
 
 # Test Lua support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-lu-so-4.lua
+cat <<\EOF > xg-lu-so-4.lua
 [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [
 [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [
 [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [

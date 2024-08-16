@@ -3,7 +3,7 @@
 
 # Duplicates are also fatal in obsolete marked entries.
 
-cat <<EOF > mf-test9.in1
+cat <<\EOF > mf-test9.in1
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.

@@ -18,10 +18,10 @@ test -d in-2-2/fr/LC_MESSAGES || mkdir in-2-2/fr/LC_MESSAGES
 ${MSGFMT} -o in-2-2/fr/LC_MESSAGES/tstprog.mo "$wabs_srcdir"/intl-2-2.po
 
 : ${DIFF=diff}
-cat <<EOF > in-2-1.ok
+cat <<\EOF > in-2-1.ok
 Käse
 EOF
-cat <<EOF > in-2-2.ok
+cat <<\EOF > in-2-2.ok
 KÃ¤se
 EOF
 

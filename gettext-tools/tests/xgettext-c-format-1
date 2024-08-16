@@ -12,7 +12,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-c-format-1.tmp xg-c-format-1.c || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-format-1.tmp.po > xg-c-format-1.po || Exit 1
 
-cat <<EOF > xg-c-format-1.ok
+cat <<\EOF > xg-c-format-1.ok
 msgid "%1% on, %2% off"
 msgstr ""
 EOF

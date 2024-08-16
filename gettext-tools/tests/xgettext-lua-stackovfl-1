@@ -3,7 +3,7 @@
 
 # Test Lua support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-lu-so-1.lua
+cat <<\EOF > xg-lu-so-1.lua
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-lu-so-1.tmp xg-lu-so-1.lua || Exit 1
 LC_ALL=C tr -d '\r' < xg-lu-so-1.tmp.po > xg-lu-so-1.po || Exit 1
 
-cat <<EOF > xg-lu-so-1.ok
+cat <<\EOF > xg-lu-so-1.ok
 msgid "Hello!"
 msgstr ""
 EOF

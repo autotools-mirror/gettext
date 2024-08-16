@@ -3,7 +3,7 @@
 
 # Test Scheme support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-sc-so-1.scm
+cat <<\EOF > xg-sc-so-1.scm
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} -k_ --omit-header --no-location -d xg-sc-so-1.tmp xg-sc-so-1.scm || Exit 1
 LC_ALL=C tr -d '\r' < xg-sc-so-1.tmp.po > xg-sc-so-1.po || Exit 1
 
-cat <<EOF > xg-sc-so-1.ok
+cat <<\EOF > xg-sc-so-1.ok
 msgid "Hello!"
 msgstr ""
 EOF

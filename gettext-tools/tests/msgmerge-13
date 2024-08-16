@@ -4,7 +4,7 @@
 # Test merging of a message which has c-format specified in ref.pot but not
 # in def.po.
 
-cat <<EOF > mm-test13.po
+cat <<\EOF > mm-test13.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -43,7 +43,7 @@ msgid "%age"
 msgstr "%-Satz"
 EOF
 
-cat <<EOF > mm-test13.pot
+cat <<\EOF > mm-test13.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -87,7 +87,7 @@ EOF
 ${MSGMERGE} -q -o mm-test13.tmp mm-test13.po mm-test13.pot || Exit 1
 LC_ALL=C tr -d '\r' < mm-test13.tmp > mm-test13.out || Exit 1
 
-cat <<EOF > mm-test13.ok
+cat <<\EOF > mm-test13.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.

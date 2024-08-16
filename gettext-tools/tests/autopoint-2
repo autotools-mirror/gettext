@@ -68,7 +68,7 @@ test $? = 1 || { cat autopoint.err; Exit 1; }
 rm -fr intl m4 po ABOUT-NLS config.rpath
 
 # Check for copying libintl source of an older version.
-cat <<EOF >configure.ac
+cat <<\EOF >configure.ac
 AC_INIT
 AC_CONFIG_SRCDIR(hello.c)
 
@@ -187,7 +187,7 @@ test -f po/Makefile.in.in || Exit 1
 rm -fr m4 po ABOUT-NLS config.rpath
 
 # Check for AM_GNU_GETTEXT_REQUIRE_VERSION.
-cat <<EOF >configure.ac
+cat <<\EOF >configure.ac
 AC_INIT
 AC_CONFIG_SRCDIR(hello.c)
 
@@ -212,7 +212,7 @@ test -f po/Makefile.in.in || Exit 1
 
 # Check for the case where both AM_GNU_GETTEXT_REQUIRE_VERSION and
 # AM_GNU_GETTEXT_VERSION are used. Once with libintl source.
-cat <<EOF >configure.ac
+cat <<\EOF >configure.ac
 AC_INIT
 AC_CONFIG_SRCDIR(hello.c)
 
@@ -234,7 +234,7 @@ test $? = 1 || { cat autopoint.err; Exit 1; }
 
 # Check for the case where both AM_GNU_GETTEXT_REQUIRE_VERSION and
 # AM_GNU_GETTEXT_VERSION are used. Once without libintl source.
-cat <<EOF >configure.ac
+cat <<\EOF >configure.ac
 AC_INIT
 AC_CONFIG_SRCDIR(hello.c)
 

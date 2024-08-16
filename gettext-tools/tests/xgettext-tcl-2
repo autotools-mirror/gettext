@@ -3,7 +3,7 @@
 
 # Test Tcl support: --add-comments option.
 
-cat <<EOF > xg-t-2.tcl
+cat <<\EOF > xg-t-2.tcl
 # This comment will not be extracted.
 puts [_ "help"]
 #  TRANSLATORS: This is an extracted comment.
@@ -20,7 +20,7 @@ ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: -k_ \
   -d xg-t-2.tmp xg-t-2.tcl || Exit 1
 LC_ALL=C tr -d '\r' < xg-t-2.tmp.po > xg-t-2.po || Exit 1
 
-cat <<EOF > xg-t-2.ok
+cat <<\EOF > xg-t-2.ok
 msgid "help"
 msgstr ""
 

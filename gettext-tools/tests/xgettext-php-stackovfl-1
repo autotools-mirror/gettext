@@ -3,7 +3,7 @@
 
 # Test PHP support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-ph-so-1.php
+cat <<\EOF > xg-ph-so-1.php
 <?
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
@@ -53,7 +53,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-ph-so-1.tmp xg-ph-so-1.php || Exit 1
 LC_ALL=C tr -d '\r' < xg-ph-so-1.tmp.po > xg-ph-so-1.po || Exit 1
 
-cat <<EOF > xg-ph-so-1.ok
+cat <<\EOF > xg-ph-so-1.ok
 msgid "Hello!"
 msgstr ""
 EOF

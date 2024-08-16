@@ -3,7 +3,7 @@
 
 # Test Vala support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-vala-so-2.vala
+cat <<\EOF > xg-vala-so-2.vala
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((

@@ -3,7 +3,7 @@
 
 # Test awk support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-a-so-2.awk
+cat <<\EOF > xg-a-so-2.awk
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((

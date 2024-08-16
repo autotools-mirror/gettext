@@ -18,7 +18,7 @@ ${XGETTEXT} --omit-header --no-location -kQ_ -kX_ \
             -d xg-c-format-6.tmp xg-c-format-6.c || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-format-6.tmp.po > xg-c-format-6.po || Exit 1
 
-cat <<EOF > xg-c-format-6.ok
+cat <<\EOF > xg-c-format-6.ok
 #, c-format
 msgid "blablaQ %d and %s"
 msgstr ""

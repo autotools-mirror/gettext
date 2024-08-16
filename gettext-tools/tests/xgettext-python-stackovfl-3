@@ -3,7 +3,7 @@
 
 # Test Python support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-py-so-3.py
+cat <<\EOF > xg-py-so-3.py
 [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
 [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
 [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-py-so-3.tmp xg-py-so-3.py || Exit 1
 LC_ALL=C tr -d '\r' < xg-py-so-3.tmp.po > xg-py-so-3.po || Exit 1
 
-cat <<EOF > xg-py-so-3.ok
+cat <<\EOF > xg-py-so-3.ok
 msgid "Hello!"
 msgstr ""
 EOF

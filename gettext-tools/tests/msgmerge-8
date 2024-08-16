@@ -29,7 +29,7 @@ msgid "bye"
 msgstr "A bientôt"
 EOF
 
-cat <<EOF > mm-test8.pot
+cat <<\EOF > mm-test8.pot
 msgid "Hello"
 msgstr ""
 EOF

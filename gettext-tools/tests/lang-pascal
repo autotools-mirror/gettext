@@ -44,7 +44,7 @@ fi
 ${XGETTEXT} -o pascalprog.tmp --omit-header --add-location pascalprog.${suffix} || Exit 1
 LC_ALL=C tr -d '\r' < pascalprog.tmp > pascalprog.pot || Exit 1
 
-cat <<EOF > pascalprog.ok
+cat <<\EOF > pascalprog.ok
 #: pascalprog.question
 msgid "'Your command, please?', asked the waiter."
 msgstr ""

@@ -3,7 +3,7 @@
 
 # Test PO extractors with multiple input files.
 
-cat <<EOF > xg-po-2-1.po
+cat <<\EOF > xg-po-2-1.po
 msgid "first msgid"
 msgid_plural "first msgid (plural)"
 msgstr[0] ""
@@ -15,7 +15,7 @@ msgstr[0] ""
 msgstr[1] ""
 EOF
 
-cat <<EOF > xg-po-2-2.po
+cat <<\EOF > xg-po-2-2.po
 msgid "third msgid"
 msgid_plural "third msgid (plural)"
 msgstr[0] ""
@@ -31,7 +31,7 @@ EOF
 ${XGETTEXT} --omit-header xg-po-2-1.po xg-po-2-2.po -o xg-po-2.tmp.po || Exit 1
 LC_ALL=C tr -d '\r' < xg-po-2.tmp.po > xg-po-2.po || Exit 1
 
-cat <<EOF > xg-po-2.ok
+cat <<\EOF > xg-po-2.ok
 msgid "first msgid"
 msgid_plural "first msgid (plural)"
 msgstr[0] ""

@@ -3,7 +3,7 @@
 
 # Test of Glade 2 support for msgctxt.
 
-cat <<EOF > xg-gl-5-empty.glade
+cat <<\EOF > xg-gl-5-empty.glade
 <?xml version="1.0"?>
 <GTK-Interface/>
 EOF
@@ -15,7 +15,7 @@ test $? = 0 || {
   Exit 77
 }
 
-cat <<EOF > xg-gl-5.glade
+cat <<\EOF > xg-gl-5.glade
 <?xml version="1.0"?>
 <glade-interface>
   <!-- interface-requires gtk+ 2.8 -->
@@ -106,7 +106,7 @@ test $result = 0 || {
   exit $result
 }
 
-cat <<EOF > xg-gl-5b.glade
+cat <<\EOF > xg-gl-5b.glade
 <?xml version="1.0"?>
 <glade-interface>
   <!-- interface-requires gtk+ 2.8 -->

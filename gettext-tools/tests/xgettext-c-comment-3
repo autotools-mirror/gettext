@@ -15,7 +15,7 @@ ${XGETTEXT} --add-comments --omit-header --no-location --keyword=_ \
   -d xg-c-comment-3.tmp xg-c-comment-3.c || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-comment-3.tmp.po > xg-c-comment-3.po || Exit 1
 
-cat <<EOF > xg-c-comment-3.ok
+cat <<\EOF > xg-c-comment-3.ok
 #. a
 #. b
 #. c

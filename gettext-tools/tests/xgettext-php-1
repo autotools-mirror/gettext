@@ -3,7 +3,7 @@
 
 # Test PHP support: --add-comments option.
 
-cat <<EOF > xg-ph-1.php
+cat <<\EOF > xg-ph-1.php
 <?
 // This comment will not be extracted.
 echo _("help");
@@ -27,7 +27,7 @@ ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-ph-1.tmp xg-ph-1.php || Exit 1
 LC_ALL=C tr -d '\r' < xg-ph-1.tmp.po > xg-ph-1.po || Exit 1
 
-cat <<EOF > xg-ph-1.ok
+cat <<\EOF > xg-ph-1.ok
 msgid "help"
 msgstr ""
 

@@ -4091,7 +4091,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-sh-so-5.tmp xg-sh-so-5.sh || Exit 1
 LC_ALL=C tr -d '\r' < xg-sh-so-5.tmp.po > xg-sh-so-5.po || Exit 1
 
-cat <<EOF > xg-sh-so-5.ok
+cat <<\EOF > xg-sh-so-5.ok
 msgid "Hello!"
 msgstr ""
 EOF

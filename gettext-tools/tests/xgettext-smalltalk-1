@@ -3,7 +3,7 @@
 
 # Test Smalltalk support: --add-comments option.
 
-cat <<EOF > xg-st-1.st
+cat <<\EOF > xg-st-1.st
 "This comment will not be extracted."
 Transcript showCr: (NLS ? 'help').
 " TRANSLATORS: This is an extracted comment."
@@ -21,7 +21,7 @@ ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-st-1.tmp xg-st-1.st || Exit 1
 LC_ALL=C tr -d '\r' < xg-st-1.tmp.po > xg-st-1.po || Exit 1
 
-cat <<EOF > xg-st-1.ok
+cat <<\EOF > xg-st-1.ok
 msgid "help"
 msgstr ""
 

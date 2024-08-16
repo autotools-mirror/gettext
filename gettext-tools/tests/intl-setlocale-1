@@ -40,7 +40,7 @@ test -d in-sl-1/fr_FR/LC_MESSAGES || mkdir in-sl-1/fr_FR/LC_MESSAGES
 ${MSGFMT} -o in-sl-1/de_DE/LC_MESSAGES/tstprog.mo "$wabs_srcdir"/intl-setlocale-1-1.po
 ${MSGFMT} -o in-sl-1/fr_FR/LC_MESSAGES/tstprog.mo "$wabs_srcdir"/intl-setlocale-1-2.po
 
-cat <<EOF > in-sl-1.ok
+cat <<\EOF > in-sl-1.ok
 String1 - Lang1: 1st string
 String2 - Lang1: 2nd string
 String1 - Lang2: 1st string

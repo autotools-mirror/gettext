@@ -3,7 +3,7 @@
 
 # Test Perl support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-pl-so-2.pl
+cat <<\EOF > xg-pl-so-2.pl
 [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
 [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
 [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[

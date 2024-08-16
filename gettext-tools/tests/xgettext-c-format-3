@@ -18,7 +18,7 @@ ${XGETTEXT} --omit-header --no-location -d xg-c-format-3.tmp \
   xg-c-format-3.cc || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-format-3.tmp.po > xg-c-format-3.po || Exit 1
 
-cat <<EOF > xg-c-format-3.ok
+cat <<\EOF > xg-c-format-3.ok
 #, qt-format
 msgid "on"
 msgstr ""

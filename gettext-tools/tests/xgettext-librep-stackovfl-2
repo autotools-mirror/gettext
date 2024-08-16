@@ -3,7 +3,7 @@
 
 # Test librep support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-lr-so-2.jl
+cat <<\EOF > xg-lr-so-2.jl
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((

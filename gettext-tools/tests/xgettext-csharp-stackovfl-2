@@ -3,7 +3,7 @@
 
 # Test C# support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-cs-so-2.cs
+cat <<\EOF > xg-cs-so-2.cs
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((

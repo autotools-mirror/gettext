@@ -19,7 +19,7 @@ ${XGETTEXT} --omit-header --no-location \
   -d xg-c-ctxt-2.tmp xg-c-ctxt-2.c || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-ctxt-2.tmp.po > xg-c-ctxt-2.po || Exit 1
 
-cat <<EOF > xg-c-ctxt-2.ok
+cat <<\EOF > xg-c-ctxt-2.ok
 msgid "help"
 msgstr ""
 

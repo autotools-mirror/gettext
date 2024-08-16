@@ -3,7 +3,7 @@
 
 # Test awk support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-a-so-1.awk
+cat <<\EOF > xg-a-so-1.awk
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-a-so-1.tmp xg-a-so-1.awk || Exit 1
 LC_ALL=C tr -d '\r' < xg-a-so-1.tmp.po > xg-a-so-1.po || Exit 1
 
-cat <<EOF > xg-a-so-1.ok
+cat <<\EOF > xg-a-so-1.ok
 msgid "Hello!"
 msgstr ""
 EOF

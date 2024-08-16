@@ -4,7 +4,7 @@
 # Test of Glade support, in particular ISO-8859-1 to UTF-8 conversion
 # and ASCII entities (&lt; &gt; &quot;).
 
-cat <<EOF > xg-gl-2-empty.glade
+cat <<\EOF > xg-gl-2-empty.glade
 <?xml version="1.0"?>
 <GTK-Interface/>
 EOF

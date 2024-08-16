@@ -3,11 +3,11 @@
 
 # Test combining of POT files by merging them.
 
-cat <<EOF > xg-co-test1-a.c
+cat <<\EOF > xg-co-test1-a.c
 void f () { gettext ("foobar"); }
 EOF
 
-cat <<EOF > xg-co-test1-b.py
+cat <<\EOF > xg-co-test1-b.py
 print gettext.gettext("sumsum");
 EOF
 
@@ -20,7 +20,7 @@ LC_ALL=C tr -d '\r' < xg-co-test1-all.tmp1 > xg-co-test1-all.tmp2 || Exit 1
 
 sed -e '/POT-Creation-Date/d' < xg-co-test1-all.tmp2 > xg-co-test1-all.pot
 
-cat <<EOF > xg-co-test1.ok
+cat <<\EOF > xg-co-test1.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.

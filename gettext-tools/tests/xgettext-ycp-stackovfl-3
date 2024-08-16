@@ -3,7 +3,7 @@
 
 # Test YCP support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-y-so-3.ycp
+cat <<\EOF > xg-y-so-3.ycp
 _(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(
 _(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(
 _(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(_(
@@ -71,7 +71,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-y-so-3.tmp xg-y-so-3.ycp || Exit 1
 LC_ALL=C tr -d '\r' < xg-y-so-3.tmp.po > xg-y-so-3.po || Exit 1
 
-cat <<EOF > xg-y-so-3.ok
+cat <<\EOF > xg-y-so-3.ok
 msgid "Hello!"
 msgstr ""
 EOF

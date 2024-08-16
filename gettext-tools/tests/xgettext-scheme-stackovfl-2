@@ -3,7 +3,7 @@
 
 # Test Scheme support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-sc-so-2.scm
+cat <<\EOF > xg-sc-so-2.scm
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((

@@ -3,7 +3,7 @@
 
 # Test Lisp support: lisp-format string with a ~V at an unknown position.
 
-cat <<EOF > xg-ls-5.lisp
+cat <<\EOF > xg-ls-5.lisp
 (gettext "~@?~v!")
 EOF
 
@@ -11,7 +11,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-ls-5.tmp xg-ls-5.lisp || Exit 1
 LC_ALL=C tr -d '\r' < xg-ls-5.tmp.po > xg-ls-5.po || Exit 1
 
-cat <<EOF > xg-ls-5.ok
+cat <<\EOF > xg-ls-5.ok
 #, lisp-format
 msgid "~@?~v!"
 msgstr ""

@@ -17,7 +17,7 @@ msgstr "a"
 #~ msgstr "b"
 EOF
 
-cat <<EOF > mm-test29.pot
+cat <<\EOF > mm-test29.pot
 msgid "a"
 msgstr ""
 EOF

@@ -3,7 +3,7 @@
 
 # Test C support: comments meant for xgettext, whitespace, and literals.
 
-cat <<EOF > xg-c-2.in.c
+cat <<\EOF > xg-c-2.in.c
 This is a test of the xgettext functionality.
 /* xgettext:no-c-format */
 _("extract me")
@@ -37,7 +37,7 @@ EOF
 ${XGETTEXT} -d xg-c-2.tmp -k_ --omit-header --no-location xg-c-2.in.c || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-2.tmp.po > xg-c-2.po || Exit 1
 
-cat <<EOF > xg-c-2.ok
+cat <<\EOF > xg-c-2.ok
 #, no-c-format
 msgid "extract me"
 msgstr ""

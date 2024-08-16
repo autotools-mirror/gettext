@@ -7,7 +7,7 @@
 ${XGETTEXT} -o fc3.tmp --omit-header --no-location "$wabs_srcdir"/format-c-3-prg.c || Exit 1
 LC_ALL=C tr -d '\r' < fc3.tmp > fc3.pot || Exit 1
 
-cat <<EOF > fc3.ok
+cat <<\EOF > fc3.ok
 msgid "the president"
 msgstr ""
 
@@ -19,7 +19,7 @@ EOF
 : ${DIFF=diff}
 ${DIFF} fc3.ok fc3.pot || Exit 1
 
-cat <<EOF > fc3-de.po
+cat <<\EOF > fc3-de.po
 msgid "the president"
 msgstr "der Vorsitzende"
 
@@ -39,7 +39,7 @@ ${MSGFMT} -o fc3-dir/fr/LC_MESSAGES/fc3.mo fc3-de.po
 ${MSGUNFMT} -o fc3-de.po.tmp fc3-dir/fr/LC_MESSAGES/fc3.mo || Exit 1
 LC_ALL=C tr -d '\r' < fc3-de.po.tmp > fc3-de.po.un || Exit 1
 
-cat <<EOF > fc3-de.po.red
+cat <<\EOF > fc3-de.po.red
 msgid "father of %d children"
 msgstr "Vater von %d Kindern"
 

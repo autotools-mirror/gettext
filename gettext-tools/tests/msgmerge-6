@@ -24,7 +24,7 @@ msgid "white"
 msgstr "weiﬂ"
 EOF
 
-cat <<EOF > mm-test6.in2.po
+cat <<\EOF > mm-test6.in2.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.

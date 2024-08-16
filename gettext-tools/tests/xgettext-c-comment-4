@@ -3,7 +3,7 @@
 
 # Test C support: --add-comments option.
 
-cat <<EOF > xg-c-comment-4.in.C
+cat <<\EOF > xg-c-comment-4.in.C
 /* This comment will not be extracted.  */
 gettext ("help");
 
@@ -22,7 +22,7 @@ ${XGETTEXT} --omit-header --no-location --add-comments=XXX \
   -d xg-c-comment-4.tmp xg-c-comment-4.in.C || Exit 1
 LC_ALL=C tr -d '\r' < xg-c-comment-4.tmp.po > xg-c-comment-4.po || Exit 1
 
-cat <<EOF > xg-c-comment-4.ok
+cat <<\EOF > xg-c-comment-4.ok
 msgid "help"
 msgstr ""
 

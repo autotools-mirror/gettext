@@ -3,7 +3,7 @@
 
 # Test C# support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-cs-so-3.cs
+cat <<\EOF > xg-cs-so-3.cs
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
 {{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-cs-so-3.tmp xg-cs-so-3.cs || Exit 1
 LC_ALL=C tr -d '\r' < xg-cs-so-3.tmp.po > xg-cs-so-3.po || Exit 1
 
-cat <<EOF > xg-cs-so-3.ok
+cat <<\EOF > xg-cs-so-3.ok
 msgid "Hello!"
 msgstr ""
 EOF

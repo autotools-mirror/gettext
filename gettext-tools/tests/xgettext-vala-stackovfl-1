@@ -3,7 +3,7 @@
 
 # Test Vala support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-vala-so-1.vala
+cat <<\EOF > xg-vala-so-1.vala
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
 ((((((((((((((((((((((((((((((((((((((((((((((((((
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-vala-so-1.tmp xg-vala-so-1.vala || Exit 1
 LC_ALL=C tr -d '\r' < xg-vala-so-1.tmp.po > xg-vala-so-1.po || Exit 1
 
-cat <<EOF > xg-vala-so-1.ok
+cat <<\EOF > xg-vala-so-1.ok
 msgid "Hello!"
 msgstr ""
 EOF

@@ -3,7 +3,7 @@
 
 # Test awk support: --add-comments option.
 
-cat <<EOF > xg-a-1.awk
+cat <<\EOF > xg-a-1.awk
 # This comment will not be extracted.
 print _"help"
 #  TRANSLATORS: This is an extracted comment.
@@ -20,7 +20,7 @@ ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-a-1.tmp xg-a-1.awk || Exit 1
 LC_ALL=C tr -d '\r' < xg-a-1.tmp.po > xg-a-1.po || Exit 1
 
-cat <<EOF > xg-a-1.ok
+cat <<\EOF > xg-a-1.ok
 msgid "help"
 msgstr ""
 

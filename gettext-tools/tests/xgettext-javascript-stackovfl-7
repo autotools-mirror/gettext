@@ -3,7 +3,7 @@
 
 # Test JavaScript support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-js-so-7.js
+cat <<\EOF > xg-js-so-7.js
 <x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x>
 <x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x>
 <x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x><x>
@@ -111,7 +111,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-js-so-7.tmp xg-js-so-7.js || Exit 1
 LC_ALL=C tr -d '\r' < xg-js-so-7.tmp.po > xg-js-so-7.po || Exit 1
 
-cat <<EOF > xg-js-so-7.ok
+cat <<\EOF > xg-js-so-7.ok
 msgid "Hello!"
 msgstr ""
 EOF

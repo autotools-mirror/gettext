@@ -3,7 +3,7 @@
 
 # Test Perl support: stack overflow prevented by nesting depth check.
 
-cat <<EOF > xg-pl-so-1.pl
+cat <<\EOF > xg-pl-so-1.pl
 [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
 [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
 [[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
@@ -51,7 +51,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-pl-so-1.tmp xg-pl-so-1.pl || Exit 1
 LC_ALL=C tr -d '\r' < xg-pl-so-1.tmp.po > xg-pl-so-1.po || Exit 1
 
-cat <<EOF > xg-pl-so-1.ok
+cat <<\EOF > xg-pl-so-1.ok
 msgid "Hello!"
 msgstr ""
 EOF

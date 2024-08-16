@@ -12,7 +12,7 @@
 ${XGETTEXT} -o fc5.tmp --omit-header --no-location "$wabs_srcdir"/format-c-5-prg.c || Exit 1
 LC_ALL=C tr -d '\r' < fc5.tmp > fc5.pot || Exit 1
 
-cat <<EOF > fc5.ok
+cat <<\EOF > fc5.ok
 msgid "the president"
 msgstr ""
 
@@ -25,7 +25,7 @@ EOF
 ${DIFF} fc5.ok fc5.pot || Exit 1
 
 # This should better be Farsi, not German. Can some translator help me?
-cat <<EOF > fa.po
+cat <<\EOF > fa.po
 msgid "the president"
 msgstr "der Vorsitzende"
 
