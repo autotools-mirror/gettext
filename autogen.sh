@@ -250,10 +250,12 @@ if ! $skip_gnulib; then
     sys_stat
     sys_time
     trim
+    unicase/u8-casefold
     unictype/ctype-space
     unictype/syntax-java-whitespace
     unilbrk/ulc-width-linebreaks
     uniname/uniname
+    uninorm/nfc
     unistd
     unistr/u8-check
     unistr/u8-mbtouc

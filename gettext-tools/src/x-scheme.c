@@ -33,6 +33,8 @@
 #include "attribute.h"
 #include "message.h"
 #include "xgettext.h"
+#include "unicase.h"
+#include "uninorm.h"
 #include "xg-pos.h"
 #include "xg-mixed-string.h"
 #include "xg-arglist-context.h"
@@ -45,6 +47,8 @@
 #include "gettext.h"
 
 #define _(s) gettext(s)
+
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* The Scheme syntax is described in R5RS and following standards:
@@ -74,6 +78,13 @@
 
    - The syntax code assigned to each character, and how tokens are built
      up from characters (single escape, multiple escape etc.).
+
+   - Directives:
+       #!r6rs          (see R6RS § 4) turns R6RS compliance on
+       #!fold-case     (see R7RS § 2.1) turns case-folding of identifiers on
+       #!no-fold-case  (see R7RS § 2.1) turns case-folding of identifiers off
+       #!curly-infix                    (guile specific)
+       #!curly-infix-and-bracket-lists  (guile specific)
 
    - Comment syntax:
        ';' up to end of line
@@ -173,7 +184,7 @@ static FILE *fp;
 
 /* Fetch the next character from the input file.  */
 static int
-do_getc ()
+phase0_getc ()
 {
   int c = getc (fp);
 
@@ -183,19 +194,56 @@ do_getc ()
         error (EXIT_FAILURE, errno,
                _("error while reading \"%s\""), real_file_name);
     }
-  else if (c == '\n')
-   line_number++;
 
   return c;
 }
 
 /* Put back the last fetched character, not EOF.  */
-static void
-do_ungetc (int c)
+MAYBE_UNUSED static void
+phase0_ungetc (int c)
 {
-  if (c == '\n')
-    line_number--;
   ungetc (c, fp);
+}
+
+
+/* 1. line_number handling.  */
+
+/* Maximum used.
+   Must be larger than the longest possible directive.  */
+#define MAX_PHASE1_PUSHBACK 32
+static unsigned char phase1_pushback[MAX_PHASE1_PUSHBACK];
+static int phase1_pushback_length;
+
+/* Read the next single character from the input file.  */
+static int
+phase1_getc ()
+{
+  int c;
+
+  if (phase1_pushback_length)
+    c = phase1_pushback[--phase1_pushback_length];
+  else
+    c = phase0_getc ();
+
+  if (c == '\n')
+    ++line_number;
+
+  return c;
+}
+
+/* Supports MAX_PHASE1_PUSHBACK characters of pushback.  */
+static void
+phase1_ungetc (int c)
+{
+  if (c != EOF)
+    {
+      if (c == '\n')
+        --line_number;
+
+      if (phase1_pushback_length == SIZEOF (phase1_pushback))
+        abort ();
+      phase1_pushback[phase1_pushback_length++] = c;
+    }
 }
 
 
@@ -205,6 +253,10 @@ do_ungetc (int c)
 /* True to follow what Guile does (before a '#!r6rs' directive is seen).
    False to follow R6RS and R7RS.  */
 static bool follow_guile;
+
+/* True if all read identifiers are to be casefolded, i.e. essentially mapped
+   to lower case.  */
+static bool casefold;
 
 /* A token consists of a sequence of characters.  */
 struct token
@@ -253,14 +305,14 @@ read_token (struct token *tp, int first)
 
   for (;;)
     {
-      int c = do_getc ();
+      int c = phase1_getc ();
 
       if (c == EOF)
         break;
       if (c == ' ' || c == '\r' || c == '\f' || c == '\t' || c == '\n'
           || c == '"' || c == '(' || c == ')' || c == ';')
         {
-          do_ungetc (c);
+          phase1_ungetc (c);
           break;
         }
       grow_token (tp);
@@ -708,7 +760,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
               _("too deeply nested objects"));
   for (;;)
     {
-      int ch = do_getc ();
+      int ch = phase1_getc ();
       bool seen_underscore_prefix = false;
 
       switch (ch)
@@ -736,7 +788,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
             comment_start ();
             for (;;)
               {
-                int c = do_getc ();
+                int c = phase1_getc ();
                 if (c == EOF || c == '\n')
                   break;
                 if (c != ';')
@@ -803,6 +855,29 @@ read_object (struct object *op, flag_region_ty *outer_region)
                         if (inner.type == t_symbol)
                           {
                             char *symbol_name = string_of_object (&inner);
+                            if (casefold)
+                              {
+                                char *symbol_name_converted =
+                                  from_current_source_encoding (symbol_name,
+                                                                lc_outside,
+                                                                logical_file_name,
+                                                                line_number);
+                                size_t symbol_name_casefolded_len;
+                                char *symbol_name_casefolded =
+                                  (char *)
+                                  u8_casefold ((uint8_t *) symbol_name_converted,
+                                               strlen (symbol_name_converted) + 1,
+                                               NULL, UNINORM_NFC,
+                                               NULL, &symbol_name_casefolded_len);
+                                if (symbol_name_converted != symbol_name)
+                                  free (symbol_name_converted);
+                                if (symbol_name_casefolded != NULL)
+                                  {
+                                    free (symbol_name);
+                                    symbol_name = symbol_name_casefolded;
+                                  }
+                              }
+
                             void *keyword_value;
 
                             if (hash_find_entry (&keywords,
@@ -864,11 +939,11 @@ read_object (struct object *op, flag_region_ty *outer_region)
 
         case ',':
           {
-            int c = do_getc ();
+            int c = phase1_getc ();
             /* The ,@ handling inside lists is wrong anyway, because
                ,@form expands to an unknown number of elements.  */
             if (c != EOF && c != '@')
-              do_ungetc (c);
+              phase1_ungetc (c);
           }
           FALLTHROUGH;
         case '\'':
@@ -892,7 +967,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
         case '#':
           /* Dispatch macro handling.  */
           {
-            int dmc = do_getc ();
+            int dmc = phase1_getc ();
             if (dmc == EOF)
               /* Invalid input.  Be tolerant, no error message.  */
               {
@@ -903,7 +978,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
             switch (dmc)
               {
               case '(': /* Vector */
-                do_ungetc (dmc);
+                phase1_ungetc (dmc);
                 {
                   struct object inner;
                   ++nesting_depth;
@@ -934,7 +1009,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
               case 'y':
                 {
                   struct token token;
-                  do_ungetc (dmc);
+                  phase1_ungetc (dmc);
                   read_token (&token, '#');
                   if ((token.charcount == 2
                        && (token.chars[1] == 'a' || token.chars[1] == 'c'
@@ -960,9 +1035,9 @@ read_object (struct object *op, flag_region_ty *outer_region)
                                   && token.chars[2] == 'u'
                                   && token.chars[3] == '8'))))
                     {
-                      int c = do_getc ();
+                      int c = phase1_getc ();
                       if (c != EOF)
-                        do_ungetc (c);
+                        phase1_ungetc (c);
                       if (c == '(')
                         {
                           /* Homogenous vector syntax:
@@ -1015,7 +1090,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
               case 'I': case 'i':
                 {
                   struct token token;
-                  do_ungetc (dmc);
+                  phase1_ungetc (dmc);
                   read_token (&token, '#');
                   if (is_number (&token))
                     {
@@ -1030,9 +1105,9 @@ read_object (struct object *op, flag_region_ty *outer_region)
                       if (token.charcount == 2
                           && (token.chars[1] == 'e' || token.chars[1] == 'i'))
                         {
-                          int c = do_getc ();
+                          int c = phase1_getc ();
                           if (c != EOF)
-                            do_ungetc (c);
+                            phase1_ungetc (c);
                           if (c == '(')
                             {
                               /* Homogenous vector syntax:
@@ -1080,50 +1155,124 @@ read_object (struct object *op, flag_region_ty *outer_region)
                 }
 
               case '!':
-                /* Block comment '#! ... !#'.  See
-                   <https://www.gnu.org/software/guile/manual/html_node/Block-Comments.html>.  */
+                /* Directive or block comment.  */
                 {
-                  int c;
-
-                  comment_start ();
-                  c = do_getc ();
-                  for (;;)
+                  const char * const directives[] =
                     {
-                      if (c == EOF)
-                        break;
-                      if (c == '!')
+                      "r6rs",
+                      "fold-case",
+                      "no-fold-case",
+                      "curly-infix",
+                      "curly-infix-and-bracket-lists"
+                    };
+                  int num_directives = SIZEOF (directives);
+                  enum { max_directive_len = 29 };
+                  bool seen_directive = false;
+                  int d;
+                  for (d = 0; d < num_directives; d++)
+                    {
+                      const char *directive = directives[d];
+                      int directive_len = strlen (directive);
+                      int c[max_directive_len];
+                      int i;
+                      for (i = 0; i < directive_len; i++)
                         {
-                          c = do_getc ();
-                          if (c == EOF)
-                            break;
-                          if (c == '#')
+                          c[i] = phase1_getc ();
+                          if (c[i] != directive[i])
                             {
-                              comment_line_end (0);
+                              phase1_ungetc (c[i]);
                               break;
                             }
-                          else
-                            comment_add ('!');
                         }
-                      else
+                      if (i == directive_len)
                         {
-                          /* We skip all leading white space.  */
-                          if (!(buflen == 0 && (c == ' ' || c == '\t')))
-                            comment_add (c);
-                          if (c == '\n')
+                          int e = phase1_getc ();
+                          /* Like in read_token.  */
+                          if (e == ' '
+                              || e == '\r' || e == '\f' || e == '\t' || e == '\n'
+                              || e == '"' || e == '(' || e == ')' || e == ';')
                             {
-                              comment_line_end (1);
-                              comment_start ();
+                              /* Seen the directive.  */
+                              phase1_ungetc (e);
+                              seen_directive = true;
+                              switch (d)
+                                {
+                                case 0: /* #!r6rs */
+                                  follow_guile = false;
+                                  break;
+                                case 1: /* #!fold-case */
+                                  casefold = true;
+                                  break;
+                                case 2: /* #!no-fold-case */
+                                  casefold = false;
+                                  break;
+                                case 3: /* #!curly-infix */
+                                case 4: /* #!curly-infix-and-bracket-lists */
+                                  if_error (IF_SEVERITY_WARNING,
+                                            logical_file_name, line_number, (size_t)(-1),
+                                            false,
+                                            _("Unsupported Guile directive \"%s\"."),
+                                            directive);
+                                  break;
+                                default:
+                                  abort ();
+                                }
+                              break;
                             }
-                          c = do_getc ();
+                          phase1_ungetc (e);
+                        }
+                      while (i > 0)
+                        {
+                          i--;
+                          phase1_ungetc (c[i]);
                         }
                     }
-                  if (c == EOF)
+                  if (!seen_directive)
+                    /* Block comment '#! ... !#'.  See
+                       <https://www.gnu.org/software/guile/manual/html_node/Block-Comments.html>.  */
                     {
-                      /* EOF not allowed here.  But be tolerant.  */
-                      op->type = t_eof;
-                      return;
+                      int c;
+
+                      comment_start ();
+                      c = phase1_getc ();
+                      for (;;)
+                        {
+                          if (c == EOF)
+                            break;
+                          if (c == '!')
+                            {
+                              c = phase1_getc ();
+                              if (c == EOF)
+                                break;
+                              if (c == '#')
+                                {
+                                  comment_line_end (0);
+                                  break;
+                                }
+                              else
+                                comment_add ('!');
+                            }
+                          else
+                            {
+                              /* We skip all leading white space.  */
+                              if (!(buflen == 0 && (c == ' ' || c == '\t')))
+                                comment_add (c);
+                              if (c == '\n')
+                                {
+                                  comment_line_end (1);
+                                  comment_start ();
+                                }
+                              c = phase1_getc ();
+                            }
+                        }
+                      if (c == EOF)
+                        {
+                          /* EOF not allowed here.  But be tolerant.  */
+                          op->type = t_eof;
+                          return;
+                        }
+                      last_comment_line = line_number;
                     }
-                  last_comment_line = line_number;
                   continue;
                 }
 
@@ -1136,14 +1285,14 @@ read_object (struct object *op, flag_region_ty *outer_region)
                   int c;
 
                   comment_start ();
-                  c = do_getc ();
+                  c = phase1_getc ();
                   for (;;)
                     {
                       if (c == EOF)
                         break;
                       if (c == '|')
                         {
-                          c = do_getc ();
+                          c = phase1_getc ();
                           if (c == EOF)
                             break;
                           if (c == '#')
@@ -1156,14 +1305,14 @@ read_object (struct object *op, flag_region_ty *outer_region)
                               depth--;
                               comment_add ('|');
                               comment_add ('#');
-                              c = do_getc ();
+                              c = phase1_getc ();
                             }
                           else
                             comment_add ('|');
                         }
                       else if (c == '#')
                         {
-                          c = do_getc ();
+                          c = phase1_getc ();
                           if (c == EOF)
                             break;
                           comment_add ('#');
@@ -1171,7 +1320,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
                             {
                               depth++;
                               comment_add ('|');
-                              c = do_getc ();
+                              c = phase1_getc ();
                             }
                         }
                       else
@@ -1184,7 +1333,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
                               comment_line_end (1);
                               comment_start ();
                             }
-                          c = do_getc ();
+                          c = phase1_getc ();
                         }
                     }
                   if (c == EOF)
@@ -1219,23 +1368,23 @@ read_object (struct object *op, flag_region_ty *outer_region)
 
                   for (;;)
                     {
-                      int c = do_getc ();
+                      int c = phase1_getc ();
 
                       if (c == EOF)
                         break;
                       if (c == '\\')
                         {
-                          c = do_getc ();
+                          c = phase1_getc ();
                           if (c == EOF)
                             break;
                         }
                       else if (c == '}')
                         {
-                          c = do_getc ();
+                          c = phase1_getc ();
                           if (c == '#')
                             break;
                           if (c != EOF)
-                            do_ungetc (c);
+                            phase1_ungetc (c);
                           c = '}';
                         }
                       grow_token (op->token);
@@ -1251,7 +1400,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
                 /* Character.  */
                 {
                   struct token token;
-                  int c = do_getc ();
+                  int c = phase1_getc ();
                   if (c != EOF)
                     {
                       read_token (&token, c);
@@ -1285,7 +1434,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
                 {
                   int c;
                   do
-                    c = do_getc ();
+                    c = phase1_getc ();
                   while (c >= '0' && c <= '9');
                   /* c should be one of {'a'|'b'|'c'|'e'|'i'|'s'|'u'}.
                      But be tolerant.  */
@@ -1321,7 +1470,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
           /* GIMP script-fu extension: '_' before a string literal is
              considered a gettext call on the string.  */
           {
-            int c = do_getc ();
+            int c = phase1_getc ();
             if (c == EOF)
               /* Invalid input.  Be tolerant, no error message.  */
               {
@@ -1330,7 +1479,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
               }
             if (c != '"')
               {
-                do_ungetc (c);
+                phase1_ungetc (c);
 
                 /* If '_' is not followed by a string literal,
                    consider it a part of symbol.  */
@@ -1351,7 +1500,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
             op->line_number_at_start = line_number;
             for (;;)
               {
-                int c = do_getc ();
+                int c = phase1_getc ();
                 if (c == EOF)
                   /* Invalid input.  Be tolerant, no error message.  */
                   break;
@@ -1359,7 +1508,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
                   break;
                 if (c == '\\')
                   {
-                    c = do_getc ();
+                    c = phase1_getc ();
                     if (c == EOF)
                       /* Invalid input.  Be tolerant, no error message.  */
                       break;
@@ -1463,6 +1612,10 @@ extract_whole_file (FILE *f,
   real_file_name = real_filename;
   logical_file_name = xstrdup (logical_filename);
   line_number = 1;
+
+  phase1_pushback_length = 0;
+
+  casefold = false;
 
   last_comment_line = -1;
   last_non_comment_line = -1;
