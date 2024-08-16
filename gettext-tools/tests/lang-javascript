@@ -119,7 +119,7 @@ fi
 if test $LOCALE_FR_UTF8 != none; then
   prepare_locale_ fr $LOCALE_FR_UTF8
   LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 gjs prog.js > prog.out || Exit 1
-  ${DIFF} -u prog.oku prog.out || Exit 1
+  ${DIFF} prog.oku prog.out || Exit 1
 fi
 
 Exit 0

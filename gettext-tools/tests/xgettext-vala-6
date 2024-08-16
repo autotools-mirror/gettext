@@ -346,7 +346,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} -u xg-vala-6.ok xg-vala-6.po
+${DIFF} xg-vala-6.ok xg-vala-6.po
 result=$?
 
 exit $result
