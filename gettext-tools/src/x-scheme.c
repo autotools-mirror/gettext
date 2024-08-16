@@ -692,6 +692,166 @@ accumulate_escaped (struct mixed_string_buffer *literal)
                 }
               continue;
             }
+          if (follow_guile && (c == 'x' || c == 'u' || c == 'U'))
+            {
+              /* In Guile, \x must be followed by exactly 2 hexadecimal digits,
+                 \u must be followed by exactly 4 hexadecimal digits, and
+                 \U must be followed by exactly 6 hexadecimal digits, producing
+                 a value < 0x110000.  See
+                 <https://www.gnu.org/software/guile/manual/html_node/String-Syntax.html>.  */
+              int first = c;
+              unsigned int count = (c == 'x' ? 2 : c == 'u' ? 4 : 6);
+              unsigned int n_limit =
+                (c == 'x' ? 0x100 : c == 'u' ? 0x10000 : 0x110000);
+              c = phase1_getc ();
+              switch (c)
+                {
+                default:
+                  phase1_ungetc (c);
+                  phase1_ungetc (first);
+                  /* Invalid input.  Be tolerant, no error message.  */
+                  mixed_string_buffer_append_char (literal, '\\');
+                  continue;
+
+                case '0': case '1': case '2': case '3': case '4':
+                case '5': case '6': case '7': case '8': case '9':
+                case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                  break;
+                }
+              {
+                unsigned int n;
+                bool overflow;
+
+                n = 0;
+                overflow = false;
+
+                for (;;)
+                  {
+                    switch (c)
+                      {
+                      default:
+                        phase1_ungetc (c);
+                        goto guile_hex_escape_done;
+
+                      case '0': case '1': case '2': case '3': case '4':
+                      case '5': case '6': case '7': case '8': case '9':
+                        if (n < n_limit / 16)
+                          n = n * 16 + c - '0';
+                        else
+                          overflow = true;
+                        break;
+
+                      case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                        if (n < n_limit / 16)
+                          n = n * 16 + 10 + c - 'A';
+                        else
+                          overflow = true;
+                        break;
+
+                      case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                        if (n < n_limit / 16)
+                          n = n * 16 + 10 + c - 'a';
+                        else
+                          overflow = true;
+                        break;
+                      }
+                    if (--count == 0)
+                      goto guile_hex_escape_done;
+                    c = phase1_getc ();
+                  }
+
+               guile_hex_escape_done:
+                if (count > 0)
+                  {
+                    if_error (IF_SEVERITY_WARNING,
+                              logical_file_name, line_number, (size_t)(-1), false,
+                              _("hexadecimal escape sequence with too few digits"));
+                    n = 0xFFFD;
+                  }
+                else if (overflow)
+                  {
+                    if_error (IF_SEVERITY_WARNING,
+                              logical_file_name, line_number, (size_t)(-1), false,
+                              _("hexadecimal escape sequence out of range"));
+                    n = 0xFFFD;
+                  }
+                mixed_string_buffer_append_unicode (literal, n);
+              }
+              continue;
+            }
+          if (!follow_guile && c == 'x')
+            {
+              /* In R6RS mode, \x must be followed by one or more hexadecimal
+                 digits and then a semicolon.  See
+                 R6RS § 4.2.7, R7RS § 6.7 and § 7.1.1.  */
+              unsigned int const n_limit = 0x110000;
+              unsigned int count;
+              unsigned int n;
+              bool overflow;
+
+              count = 0;
+              n = 0;
+              overflow = false;
+
+              for (;;)
+                {
+                  c = phase1_getc ();
+                  switch (c)
+                    {
+                    case '0': case '1': case '2': case '3': case '4':
+                    case '5': case '6': case '7': case '8': case '9':
+                      if (n < n_limit / 16)
+                        n = n * 16 + c - '0';
+                      else
+                        overflow = true;
+                      break;
+
+                    case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                      if (n < n_limit / 16)
+                        n = n * 16 + 10 + c - 'A';
+                      else
+                        overflow = true;
+                      break;
+
+                    case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                      if (n < n_limit / 16)
+                        n = n * 16 + 10 + c - 'a';
+                      else
+                        overflow = true;
+                      break;
+
+                    case ';':
+                      if (count == 0)
+                        {
+                          if_error (IF_SEVERITY_WARNING,
+                                    logical_file_name, line_number, (size_t)(-1), false,
+                                    _("hexadecimal escape sequence with no digits"));
+                          n = 0xFFFD;
+                        }
+                      else if (overflow)
+                        {
+                          if_error (IF_SEVERITY_WARNING,
+                                    logical_file_name, line_number, (size_t)(-1), false,
+                                    _("hexadecimal escape sequence out of range"));
+                          n = 0xFFFD;
+                        }
+                      goto r6rs_hex_escape_done;
+
+                    default:
+                      if_error (IF_SEVERITY_WARNING,
+                                logical_file_name, line_number, (size_t)(-1), false,
+                                _("hexadecimal escape sequence not terminated with a semicolon"));
+                      n = '\\';
+                      goto r6rs_hex_escape_done;
+                    }
+                  count++;
+                }
+
+             r6rs_hex_escape_done:
+              mixed_string_buffer_append_unicode (literal, n);
+              continue;
+            }
           switch (c)
             {
             case '0':
