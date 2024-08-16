@@ -52,7 +52,10 @@
      - R6RS: https://www.r6rs.org/
      - R7RS: https://standards.scheme.org/corrected-r7rs/r7rs.html
 
-   It is implemented in guile-3.0.10/libguile/read.c.
+   It is implemented in guile-3.0.10/module/ice-9/read.scm, with support of
+   #!r6rs.  What you see in guile-3.0.10/libguile/read.c is just the bootstrap
+   reader, without support of #!r6rs and similar directives.
+
    Since we are interested only in strings and in forms similar to
         (gettext msgid ...)
    or   (ngettext msgid msgid_plural ...)
@@ -72,7 +75,11 @@
    - The syntax code assigned to each character, and how tokens are built
      up from characters (single escape, multiple escape etc.).
 
-   - Comment syntax: ';' and '#! ... !#' and '#| ... |#' (may be nested).
+   - Comment syntax:
+       ';' up to end of line
+       '#;' <datum> (see R6RS § 4.2.3, R7RS § 2.2)
+       '#! ... !#'
+       '#| ... |#' (may be nested)
 
    - String syntax: "..." with single escapes.
 
@@ -687,6 +694,9 @@ static flag_context_list_table_ty *flag_context_list_table;
 /* Current nesting depth.  */
 static int nesting_depth;
 
+/* Current nesting depth of #;<datum> comments.  */
+static int datum_comment_nesting_depth;
+
 
 /* Read the next object.  */
 static void
@@ -785,49 +795,52 @@ read_object (struct object *op, flag_region_ty *outer_region)
                 if (inner.type == t_eof)
                   break;
 
-                if (arg == 0)
+                if (datum_comment_nesting_depth == 0)
                   {
-                    /* This is the function position.  */
-                    if (inner.type == t_symbol)
+                    if (arg == 0)
                       {
-                        char *symbol_name = string_of_object (&inner);
-                        void *keyword_value;
+                        /* This is the function position.  */
+                        if (inner.type == t_symbol)
+                          {
+                            char *symbol_name = string_of_object (&inner);
+                            void *keyword_value;
 
-                        if (hash_find_entry (&keywords,
-                                             symbol_name, strlen (symbol_name),
-                                             &keyword_value)
-                            == 0)
-                          shapes = (const struct callshapes *) keyword_value;
+                            if (hash_find_entry (&keywords,
+                                                 symbol_name, strlen (symbol_name),
+                                                 &keyword_value)
+                                == 0)
+                              shapes = (const struct callshapes *) keyword_value;
 
-                        argparser = arglist_parser_alloc (mlp, shapes);
+                            argparser = arglist_parser_alloc (mlp, shapes);
 
-                        context_iter =
-                          flag_context_list_iterator (
-                            flag_context_list_table_lookup (
-                              flag_context_list_table,
-                              symbol_name, strlen (symbol_name)));
+                            context_iter =
+                              flag_context_list_iterator (
+                                flag_context_list_table_lookup (
+                                  flag_context_list_table,
+                                  symbol_name, strlen (symbol_name)));
 
-                        free (symbol_name);
+                            free (symbol_name);
+                          }
+                        else
+                          context_iter = null_context_list_iterator;
                       }
                     else
-                      context_iter = null_context_list_iterator;
-                  }
-                else
-                  {
-                    /* These are the argument positions.  */
-                    if (argparser != NULL && inner.type == t_string)
                       {
-                        char *s = string_of_object (&inner);
-                        mixed_string_ty *ms =
-                          mixed_string_alloc_simple (s, lc_string,
+                        /* These are the argument positions.  */
+                        if (argparser != NULL && inner.type == t_string)
+                          {
+                            char *s = string_of_object (&inner);
+                            mixed_string_ty *ms =
+                              mixed_string_alloc_simple (s, lc_string,
+                                                         logical_file_name,
+                                                         inner.line_number_at_start);
+                            free (s);
+                            arglist_parser_remember (argparser, arg, ms,
+                                                     inner_region,
                                                      logical_file_name,
-                                                     inner.line_number_at_start);
-                        free (s);
-                        arglist_parser_remember (argparser, arg, ms,
-                                                 inner_region,
-                                                 logical_file_name,
-                                                 inner.line_number_at_start,
-                                                 savable_comment, false);
+                                                     inner.line_number_at_start,
+                                                     savable_comment, false);
+                          }
                       }
                   }
 
@@ -1045,6 +1058,25 @@ read_object (struct object *op, flag_region_ty *outer_region)
                       last_non_comment_line = line_number;
                       return;
                     }
+                }
+
+              case ';':
+                /* Datum comment '#; <datum>'.
+                   See R6RS § 4.2.3, R7RS § 2.2.  */
+                {
+                  struct object inner;
+                  int saved_last_non_comment_line = last_non_comment_line;
+                  ++datum_comment_nesting_depth;
+                  ++nesting_depth;
+                  read_object (&inner, null_context_region ());
+                  nesting_depth--;
+                  datum_comment_nesting_depth--;
+                  last_non_comment_line = saved_last_non_comment_line;
+                  /* Dots and EOF are not allowed here.
+                     But be tolerant.  */
+                  free_object (&inner);
+                  last_comment_line = line_number;
+                  continue;
                 }
 
               case '!':
@@ -1437,6 +1469,7 @@ extract_whole_file (FILE *f,
 
   flag_context_list_table = flag_table;
   nesting_depth = 0;
+  datum_comment_nesting_depth = 0;
 
   init_keywords ();
 
