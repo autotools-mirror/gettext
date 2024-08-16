@@ -632,6 +632,97 @@ is_number (const struct token *tp)
   return false;
 }
 
+/* Read a string literal.  */
+static void
+accumulate_escaped (struct mixed_string_buffer *literal)
+{
+  for (;;)
+    {
+      int c = phase1_getc ();
+      if (c == EOF)
+        /* Invalid input.  Be tolerant, no error message.  */
+        break;
+      if (c == '"')
+        break;
+      if (c == '\\')
+        {
+          c = phase1_getc ();
+          if (c == EOF)
+            /* Invalid input.  Be tolerant, no error message.  */
+            break;
+          if (c == ' ' || c == '\t')
+            {
+              if (follow_guile)
+               /* Invalid input.  Be tolerant, no error message.  */
+                ;
+              else
+                {
+                  /* In R6RS mode, a sequence of spaces and tabs is
+                     allowed between the backslash and the newline.
+                     Other than that, backslash-space and backslash-tab
+                     are not allowed.  See R6RS § 4.2.7, R7RS § 6.7.  */
+                  do
+                    c = phase1_getc ();
+                  while (c == ' ' || c == '\t');
+                  if (c == EOF)
+                    /* Invalid input.  Be tolerant, no error message.  */
+                    break;
+                  if (c != '\n')
+                    {
+                      /* Invalid input.  Be tolerant, no error message.  */
+                      phase1_ungetc (c);
+                      continue;
+                    }
+                }
+            }
+          if (c == '\n')
+            {
+              if (!follow_guile)
+                {
+                  /* In R6RS mode, a sequence of spaces and tabs is
+                     allowed after the newline and is discarded.
+                     See R6RS § 4.2.7, R7RS § 6.7.  */
+                  do
+                    c = phase1_getc ();
+                  while (c == ' ' || c == '\t');
+                  if (c == EOF)
+                    /* Invalid input.  Be tolerant, no error message.  */
+                    break;
+                  phase1_ungetc (c);
+                }
+              continue;
+            }
+          switch (c)
+            {
+            case '0':
+              c = '\0';
+              break;
+            case 'a':
+              c = '\a';
+              break;
+            case 'f':
+              c = '\f';
+              break;
+            case 'n':
+              c = '\n';
+              break;
+            case 'r':
+              c = '\r';
+              break;
+            case 't':
+              c = '\t';
+              break;
+            case 'v':
+              c = '\v';
+              break;
+            default:
+              break;
+            }
+        }
+      mixed_string_buffer_append_char (literal, c);
+    }
+}
+
 
 /* ========================= Accumulating comments ========================= */
 
@@ -704,19 +795,22 @@ enum object_type
 struct object
 {
   enum object_type type;
-  struct token *token;          /* for t_symbol and t_string */
-  int line_number_at_start;     /* for t_string */
+  struct token *token;           /* for t_symbol */
+  mixed_string_ty *mixed_string; /* for t_string */
+  int line_number_at_start;      /* for t_string */
 };
 
 /* Free the memory pointed to by a 'struct object'.  */
 static inline void
 free_object (struct object *op)
 {
-  if (op->type == t_symbol || op->type == t_string)
+  if (op->type == t_symbol)
     {
       free_token (op->token);
       free (op->token);
     }
+  else if (op->type == t_string)
+    mixed_string_free (op->mixed_string);
 }
 
 /* Convert a t_symbol/t_string token to a char*.  */
@@ -724,14 +818,22 @@ static char *
 string_of_object (const struct object *op)
 {
   char *str;
-  int n;
 
-  if (!(op->type == t_symbol || op->type == t_string))
+  if (op->type == t_symbol)
+    {
+      int n = op->token->charcount;
+      str = XNMALLOC (n + 1, char);
+      memcpy (str, op->token->chars, n);
+      str[n] = '\0';
+      /* In this case, str's encoding is the xgettext_current_source_encoding.  */
+    }
+  else if (op->type == t_string)
+    {
+      str = mixed_string_contents (op->mixed_string);
+      /* In this case, str is UTF-8 encoded.  */
+    }
+  else
     abort ();
-  n = op->token->charcount;
-  str = XNMALLOC (n + 1, char);
-  memcpy (str, op->token->chars, n);
-  str[n] = '\0';
   return str;
 }
 
@@ -906,9 +1008,9 @@ read_object (struct object *op, flag_region_ty *outer_region)
                           {
                             char *s = string_of_object (&inner);
                             mixed_string_ty *ms =
-                              mixed_string_alloc_simple (s, lc_string,
-                                                         logical_file_name,
-                                                         inner.line_number_at_start);
+                              mixed_string_alloc_utf8 (s, lc_string,
+                                                       logical_file_name,
+                                                       inner.line_number_at_start);
                             free (s);
                             arglist_parser_remember (argparser, arg, ms,
                                                      inner_region,
@@ -1494,96 +1596,16 @@ read_object (struct object *op, flag_region_ty *outer_region)
           FALLTHROUGH;
 
         case '"':
+          /* String literal.  */
           {
-            op->token = XMALLOC (struct token);
-            init_token (op->token);
             op->line_number_at_start = line_number;
-            for (;;)
-              {
-                int c = phase1_getc ();
-                if (c == EOF)
-                  /* Invalid input.  Be tolerant, no error message.  */
-                  break;
-                if (c == '"')
-                  break;
-                if (c == '\\')
-                  {
-                    c = phase1_getc ();
-                    if (c == EOF)
-                      /* Invalid input.  Be tolerant, no error message.  */
-                      break;
-                    if (c == ' ' || c == '\t')
-                      {
-                        if (follow_guile)
-                         /* Invalid input.  Be tolerant, no error message.  */
-                          ;
-                        else
-                          {
-                            /* In R6RS mode, a sequence of spaces and tabs is
-                               allowed between the backslash and the newline.
-                               Other than that, backslash-space and backslash-tab
-                               are not allowed.  See R6RS § 4.2.7, R7RS § 6.7.  */
-                            do
-                              c = phase1_getc ();
-                            while (c == ' ' || c == '\t');
-                            if (c == EOF)
-                              /* Invalid input.  Be tolerant, no error message.  */
-                              break;
-                            if (c != '\n')
-                              {
-                                /* Invalid input.  Be tolerant, no error message.  */
-                                phase1_ungetc (c);
-                                continue;
-                              }
-                          }
-                      }
-                    if (c == '\n')
-                      {
-                        if (!follow_guile)
-                          {
-                            /* In R6RS mode, a sequence of spaces and tabs is
-                               allowed after the newline and is discarded.
-                               See R6RS § 4.2.7, R7RS § 6.7.  */
-                            do
-                              c = phase1_getc ();
-                            while (c == ' ' || c == '\t');
-                            if (c == EOF)
-                              /* Invalid input.  Be tolerant, no error message.  */
-                              break;
-                            phase1_ungetc (c);
-                          }
-                        continue;
-                      }
-                    switch (c)
-                      {
-                      case '0':
-                        c = '\0';
-                        break;
-                      case 'a':
-                        c = '\a';
-                        break;
-                      case 'f':
-                        c = '\f';
-                        break;
-                      case 'n':
-                        c = '\n';
-                        break;
-                      case 'r':
-                        c = '\r';
-                        break;
-                      case 't':
-                        c = '\t';
-                        break;
-                      case 'v':
-                        c = '\v';
-                        break;
-                      default:
-                        break;
-                      }
-                  }
-                grow_token (op->token);
-                op->token->chars[op->token->charcount++] = c;
-              }
+            {
+              struct mixed_string_buffer literal;
+              mixed_string_buffer_init (&literal, lc_string,
+                                        logical_file_name, line_number);
+              accumulate_escaped (&literal);
+              op->mixed_string = mixed_string_buffer_result (&literal);
+            }
             op->type = t_string;
 
             if (seen_underscore_prefix || extract_all)
@@ -1592,7 +1614,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
 
                 pos.file_name = logical_file_name;
                 pos.line_number = op->line_number_at_start;
-                remember_a_message (mlp, NULL, string_of_object (op), false,
+                remember_a_message (mlp, NULL, string_of_object (op), true,
                                     false, null_context_region (), &pos,
                                     NULL, savable_comment, false);
               }
