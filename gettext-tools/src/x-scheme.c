@@ -47,8 +47,12 @@
 #define _(s) gettext(s)
 
 
-/* The Scheme syntax is described in R5RS.  It is implemented in
-   guile-2.0.0/libguile/read.c.
+/* The Scheme syntax is described in R5RS and following standards:
+     - R5RS: https://conservatory.scheme.org/schemers/Documents/Standards/R5RS/HTML/
+     - R6RS: https://www.r6rs.org/
+     - R7RS: https://standards.scheme.org/corrected-r7rs/r7rs.html
+
+   It is implemented in guile-3.0.10/libguile/read.c.
    Since we are interested only in strings and in forms similar to
         (gettext msgid ...)
    or   (ngettext msgid msgid_plural ...)
@@ -190,6 +194,10 @@ do_ungetc (int c)
 
 /* ========================== Reading of tokens.  ========================== */
 
+
+/* True to follow what Guile does (before a '#!r6rs' directive is seen).
+   False to follow R6RS and R7RS.  */
+static bool follow_guile;
 
 /* A token consists of a sequence of characters.  */
 struct token
@@ -1411,11 +1419,11 @@ read_object (struct object *op, flag_region_ty *outer_region)
 }
 
 
-void
-extract_scheme (FILE *f,
-                const char *real_filename, const char *logical_filename,
-                flag_context_list_table_ty *flag_table,
-                msgdomain_list_ty *mdlp)
+static void
+extract_whole_file (FILE *f,
+                    const char *real_filename, const char *logical_filename,
+                    flag_context_list_table_ty *flag_table,
+                    msgdomain_list_ty *mdlp)
 {
   mlp = mdlp->item[0]->messages;
 
@@ -1452,4 +1460,24 @@ extract_scheme (FILE *f,
   real_file_name = NULL;
   logical_file_name = NULL;
   line_number = 0;
+}
+
+void
+extract_scheme (FILE *f,
+                const char *real_filename, const char *logical_filename,
+                flag_context_list_table_ty *flag_table,
+                msgdomain_list_ty *mdlp)
+{
+  follow_guile = false;
+  extract_whole_file (f, real_filename, logical_filename, flag_table, mdlp);
+}
+
+void
+extract_guile (FILE *f,
+               const char *real_filename, const char *logical_filename,
+               flag_context_list_table_ty *flag_table,
+               msgdomain_list_ty *mdlp)
+{
+  follow_guile = true;
+  extract_whole_file (f, real_filename, logical_filename, flag_table, mdlp);
 }

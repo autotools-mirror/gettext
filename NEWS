@@ -5,6 +5,13 @@ Version 0.23 - August 2024
     o xgettext now assumes source code for Python 3 rather than Python 2.
       This affects the interpretation of escape sequences in string literals.
     o xgettext now recognizes the f-string syntax.
+  - Scheme: xgettext now supports the option '-L Guile' as an alternative to
+    '-L Scheme'.  They are nearly equivalent.  They differ in the interpretation
+    of escape sequences in string literals: While 'xgettext -L Scheme' assumes
+    the R6RS and R7RS syntax of string literals, 'xgettext -L Guile' assumes
+    the syntax of string literals understood by Guile 2.x and 3.0 (without
+    command-line option '--r6rs' or '--r7rs', and before a '#!r6rs' directive
+    is seen).
   - Java: Improved recognition of format strings when the String.formatted
     method is used.
   - Vala: Improved recognition of format strings when the string.printf method

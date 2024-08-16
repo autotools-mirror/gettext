@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2023 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2024 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @pindex xgettext
@@ -75,6 +75,7 @@ is written to standard output.
 Specifies the language of the input files.  The supported languages
 are @code{C}, @code{C++}, @code{ObjectiveC}, @code{PO}, @code{Shell},
 @code{Python}, @code{Lisp}, @code{EmacsLisp}, @code{librep}, @code{Scheme},
+@code{Guile},
 @code{Smalltalk}, @code{Java}, @code{JavaProperties}, @code{C#}, @code{awk},
 @code{YCP}, @code{Tcl}, @code{Perl}, @code{PHP}, @code{Ruby},
 @code{GCC-source}, @code{NXStringTable}, @code{RST}, @code{RSJ}, @code{Glade},
@@ -305,7 +306,7 @@ For EmacsLisp: @code{_}.
 For librep: @code{_}.
 
 @item
-For Scheme: @code{gettext}, @code{ngettext:1,2}, @code{gettext-noop}.
+For Scheme and Guile: @code{gettext}, @code{ngettext:1,2}, @code{gettext-noop}.
 
 @item
 For Java: @code{GettextResource.gettext:2},
@@ -405,8 +406,8 @@ translators cannot accidentally use format string directives that would
 lead to a crash at runtime.
 @*
 This option has an effect with most languages, namely C, C++, ObjectiveC,
-Shell, Python, Lisp, EmacsLisp, librep, Scheme, Java, C#, awk, YCP, Tcl, Perl, PHP,
-GCC-source, Lua, JavaScript, Vala.
+Shell, Python, Lisp, EmacsLisp, librep, Scheme, Guile, Java, C#, awk,
+YCP, Tcl, Perl, PHP, GCC-source, Lua, JavaScript, Vala.
 
 @item -T
 @itemx --trigraphs
