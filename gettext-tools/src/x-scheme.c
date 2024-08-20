@@ -1109,75 +1109,74 @@ read_object (struct object *op, flag_region_ty *outer_region)
                 if (inner.type == t_eof)
                   break;
 
-                if (datum_comment_nesting_depth == 0)
+                if (arg == 0)
                   {
-                    if (arg == 0)
+                    /* This is the function position.  */
+                    if (datum_comment_nesting_depth == 0
+                        && inner.type == t_symbol)
                       {
-                        /* This is the function position.  */
-                        if (inner.type == t_symbol)
+                        char *symbol_name = string_of_object (&inner);
+                        if (casefold)
                           {
-                            char *symbol_name = string_of_object (&inner);
-                            if (casefold)
+                            char *symbol_name_converted =
+                              from_current_source_encoding (symbol_name,
+                                                            lc_outside,
+                                                            logical_file_name,
+                                                            line_number);
+                            size_t symbol_name_casefolded_len;
+                            char *symbol_name_casefolded =
+                              (char *)
+                              u8_casefold ((uint8_t *) symbol_name_converted,
+                                           strlen (symbol_name_converted) + 1,
+                                           NULL, UNINORM_NFC,
+                                           NULL, &symbol_name_casefolded_len);
+                            if (symbol_name_converted != symbol_name)
+                              free (symbol_name_converted);
+                            if (symbol_name_casefolded != NULL)
                               {
-                                char *symbol_name_converted =
-                                  from_current_source_encoding (symbol_name,
-                                                                lc_outside,
-                                                                logical_file_name,
-                                                                line_number);
-                                size_t symbol_name_casefolded_len;
-                                char *symbol_name_casefolded =
-                                  (char *)
-                                  u8_casefold ((uint8_t *) symbol_name_converted,
-                                               strlen (symbol_name_converted) + 1,
-                                               NULL, UNINORM_NFC,
-                                               NULL, &symbol_name_casefolded_len);
-                                if (symbol_name_converted != symbol_name)
-                                  free (symbol_name_converted);
-                                if (symbol_name_casefolded != NULL)
-                                  {
-                                    free (symbol_name);
-                                    symbol_name = symbol_name_casefolded;
-                                  }
+                                free (symbol_name);
+                                symbol_name = symbol_name_casefolded;
                               }
-
-                            void *keyword_value;
-
-                            if (hash_find_entry (&keywords,
-                                                 symbol_name, strlen (symbol_name),
-                                                 &keyword_value)
-                                == 0)
-                              shapes = (const struct callshapes *) keyword_value;
-
-                            argparser = arglist_parser_alloc (mlp, shapes);
-
-                            context_iter =
-                              flag_context_list_iterator (
-                                flag_context_list_table_lookup (
-                                  flag_context_list_table,
-                                  symbol_name, strlen (symbol_name)));
-
-                            free (symbol_name);
                           }
-                        else
-                          context_iter = null_context_list_iterator;
+
+                        void *keyword_value;
+
+                        if (hash_find_entry (&keywords,
+                                             symbol_name, strlen (symbol_name),
+                                             &keyword_value)
+                            == 0)
+                          shapes = (const struct callshapes *) keyword_value;
+
+                        argparser = arglist_parser_alloc (mlp, shapes);
+
+                        context_iter =
+                          flag_context_list_iterator (
+                            flag_context_list_table_lookup (
+                              flag_context_list_table,
+                              symbol_name, strlen (symbol_name)));
+
+                        free (symbol_name);
                       }
                     else
+                      context_iter = null_context_list_iterator;
+                  }
+                else
+                  {
+                    /* These are the argument positions.  */
+                    if (datum_comment_nesting_depth == 0
+                        && argparser != NULL && inner.type == t_string)
                       {
-                        /* These are the argument positions.  */
-                        if (argparser != NULL && inner.type == t_string)
-                          {
-                            char *s = string_of_object (&inner);
-                            mixed_string_ty *ms =
-                              mixed_string_alloc_utf8 (s, lc_string,
-                                                       logical_file_name,
-                                                       inner.line_number_at_start);
-                            free (s);
-                            arglist_parser_remember (argparser, arg, ms,
-                                                     inner_region,
-                                                     logical_file_name,
-                                                     inner.line_number_at_start,
-                                                     savable_comment, false);
-                          }
+                        char *s = string_of_object (&inner);
+                        mixed_string_ty *ms =
+                          mixed_string_alloc_utf8 (s, lc_string,
+                                                   logical_file_name,
+                                                   inner.line_number_at_start);
+                        free (s);
+                        arglist_parser_remember (argparser, arg, ms,
+                                                 inner_region,
+                                                 logical_file_name,
+                                                 inner.line_number_at_start,
+                                                 savable_comment, false);
                       }
                   }
 
