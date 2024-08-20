@@ -311,7 +311,7 @@ but the Tcl message catalog format doesn't support plural handling\n")));
 
     file_name = xconcatenated_filename (directory, frobbed_locale_name, ".msg");
 
-    output_file = fopen (file_name, "w");
+    output_file = fopen (file_name, "wb");
     if (output_file == NULL)
       {
         error (0, errno, _("error while opening \"%s\" for writing"),
