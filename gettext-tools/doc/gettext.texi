@@ -230,8 +230,10 @@ Updating Existing PO Files
 
 Editing PO Files
 
-* KBabel::                      KDE's PO File Editor
+* Web based localization::      Web-based PO editing
+* Lokalize::                    KDE's PO File Editor
 * Gtranslator::                 GNOME's PO File Editor
+* Poedit::                      A simple PO File Editor
 * PO Mode::                     Emacs's PO File Editor
 * Compendium::                  Using Translation Compendia
 
@@ -3440,20 +3442,88 @@ format of the plural forms field is described in @ref{Plural forms} and
 @chapter Editing PO Files
 @cindex Editing PO Files
 
+As a translator, you will typically edit a PO file
+in an editor that has built-in knowledge about the PO file format.
+You most probably won't want to edit a PO file
+in a text editor for plain-text files,
+because that would be cumbersome regarding cursor navigation
+and would also easily lead to syntax mistakes.
+
 @menu
-* KBabel::                      KDE's PO File Editor
+* Web based localization::      Web-based PO editing
+* Lokalize::                    KDE's PO File Editor
 * Gtranslator::                 GNOME's PO File Editor
+* Poedit::                      A simple PO File Editor
 * PO Mode::                     Emacs's PO File Editor
 * Compendium::                  Using Translation Compendia
 @end menu
 
-@node KBabel
+@node Web based localization
+@section Web-based PO editing
+@cindex weblate
+
+There are two ways to edit a PO file:
+either through a web-based PO editor, in a browser,
+or through a PO editor that you can install on your computer.
+Which one you choose, depends on your habits.
+
+Typically, the software project for which you want to provide translations
+has set up a workflow that you, as a translator, have to follow.
+
+@itemize @bullet
+@item
+There are projects which use the @url{https://weblate.org/, Weblate}
+localization suite.
+In this case, you have the choice between a
+@url{https://docs.weblate.org/en/latest/user/translating.html, web-based PO editor}
+and a @url{https://docs.weblate.org/en/latest/user/files.html, workflow}
+where you download the previous translation,
+update it with your preferred PO editor,
+and then upload it back.
+
+@item
+There are projects which offer you only a web-based PO editor, as only choice.
+Since web-based tools restrict your freedom as a user -- you cannot make
+modifications on your own to that tool --,
+you should complain to that project and claim the choice of using a locally
+installed PO editor, because that is the only way that can guarantee
+your freedom of choice and freedom to modify the software.
+
+@item
+There are projects which do not support web-based localizations.
+In this case, pick a PO file editor as listed in the next few sections.
+Examples for such projects are
+the @url{https://translationproject.org/, Free Translation Project},
+as well as projects where you directly interact with the version control
+system of the project.
+@end itemize
+
+@node Lokalize
 @section KDE's PO File Editor
 @cindex KDE PO file editor
+
+Lokalize (@url{https://apps.kde.org/lokalize/})
+is the PO file editor made by the KDE project.
+It is present in @url{https://repology.org/project/lokalize/versions, many}
+GNU/Linux distributions.
 
 @node Gtranslator
 @section GNOME's PO File Editor
 @cindex GNOME PO file editor
+
+Gtranslator (@url{https://wiki.gnome.org/Apps/Gtranslator})
+is the PO file editor made by the GNOME project.
+It is present in @url{https://repology.org/project/gtranslator/versions, many}
+GNU/Linux distributions.
+
+@node Poedit
+@section Poedit
+
+Poedit (@url{https://github.com/vslavik/poedit})
+is another decent PO file editor.
+It works on all major desktop OSes and
+is present in @url{https://repology.org/project/poedit/versions, many}
+GNU/Linux distributions.
 
 @node PO Mode
 @section Emacs's PO File Editor
@@ -8214,7 +8284,7 @@ $ msgattrib --set-obsolete --ignore-file $domain-missing.po $domain.$lang.po \
 
 The she translates @file{$domain.$lang-urgent.po} by use of a PO file editor
 (@pxref{Editing}).
-(FIXME: I don't know whether @code{KBabel} and @code{gtranslator} also
+(FIXME: I don't know whether @code{Lokalize} and @code{gtranslator} also
 preserve obsolete messages, as they should.)
 Finally she restores the not urgent messages (with their earlier
 translations, for those which were already translated) through this command:
