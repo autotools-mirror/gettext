@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2020 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2024 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node JavaScript
@@ -52,7 +52,14 @@ use, or emulate
 @code{xgettext}
 
 @item Formatting with positions
----
+A @code{format} method on strings can be used.
+But since it is not standard in JavaScript,
+you have to enable it yourself, through
+
+@example
+const Format = imports.format;
+String.prototype.format = Format.format;
+@end example
 
 @item Portability
 On platforms without gettext, the functions are not available.
