@@ -275,7 +275,7 @@ GCC-source, Glade, Lua, JavaScript, Vala, GSettings, Desktop.
 The default keyword specifications, which are always looked for if not
 explicitly disabled, are language dependent.  They are:
 
-@itemize
+@itemize @bullet
 @item
 For C, C++, and GCC-source: @code{gettext}, @code{dgettext:2},
 @code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},

@@ -3351,7 +3351,7 @@ In the GNU system, the following encodings are frequently used for the
 corresponding languages.
 
 @cindex encoding for your language
-@itemize
+@itemize @bullet
 @item @code{ISO-8859-1} for
 Afrikaans, Albanian, Basque, Breton, Catalan, Cornish, Danish, Dutch,
 English, Estonian, Faroese, Finnish, French, Galician, German,
@@ -5446,7 +5446,7 @@ esac
 The ``Pology'' package is a Free Software package for manipulating PO files.
 It features, in particular:
 
-@itemize
+@itemize @bullet
 @item
 Examination and in-place modification of collections of PO files.
 @item
@@ -10306,7 +10306,7 @@ categories:
 This data category associates @code{msgctxt} to the extracted text.  In
 the global rule, the @code{contextRule} element contains the following:
 
-@itemize
+@itemize @bullet
 @item
 A required @code{selector} attribute.  It contains an absolute selector
 that selects the nodes to which this rule applies.
@@ -10327,7 +10327,7 @@ This data category indicates whether the special XML characters
 reference.  In the global rule, the @code{escapeRule} element contains
 the following:
 
-@itemize
+@itemize @bullet
 @item
 A required @code{selector} attribute.  It contains an absolute selector
 that selects the nodes to which this rule applies.
@@ -10346,7 +10346,7 @@ content, but not to normalize whitespaces in the middle.
 boundaries.  In the global
 rule, the @code{preserveSpaceRule} element contains the following:
 
-@itemize
+@itemize @bullet
 @item
 A required @code{selector} attribute.  It contains an absolute selector
 that selects the nodes to which this rule applies.
