@@ -275,16 +275,9 @@ process (FILE *stream)
   if (need_code_conversion)
     {
 #if HAVE_ICONV
-      /* Avoid glibc-2.1 bug with EUC-KR.  */
-# if ((__GLIBC__ == 2 && __GLIBC_MINOR__ <= 1) && !defined __UCLIBC__) \
-     && !defined _LIBICONV_VERSION
-      if (strcmp (locale_code, "EUC-KR") != 0)
-# endif
-        {
-          conv_to_utf8 = iconv_open ("UTF-8", locale_code);
-          /* TODO:  Maybe append //TRANSLIT here?  */
-          conv_from_utf8 = iconv_open (locale_code, "UTF-8");
-        }
+      conv_to_utf8 = iconv_open ("UTF-8", locale_code);
+      /* TODO:  Maybe append //TRANSLIT here?  */
+      conv_from_utf8 = iconv_open (locale_code, "UTF-8");
       if (conv_to_utf8 == (iconv_t)(-1))
         error (EXIT_FAILURE, 0,
                _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does not support this conversion."),

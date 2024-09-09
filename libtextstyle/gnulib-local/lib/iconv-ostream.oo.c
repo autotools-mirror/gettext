@@ -155,11 +155,6 @@ iconv_ostream::free (iconv_ostream_t stream)
   /* Silently ignore the few bytes in stream->buf[] that don't correspond to a
      character.  */
 
-  /* Avoid glibc-2.1 bug and Solaris 2.7 bug.  */
-  #if defined _LIBICONV_VERSION \
-      || !(((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) \
-            && !defined __UCLIBC__) \
-           || defined __sun)
   {
     char outbuffer[2048];
     char *outptr = outbuffer;
@@ -173,7 +168,6 @@ iconv_ostream::free (iconv_ostream_t stream)
       ostream_write_mem (stream->destination,
                          outbuffer, sizeof (outbuffer) - outsize);
   }
-  #endif
 
   iconv_close (stream->cd);
   free (stream->from_encoding);
@@ -194,16 +188,7 @@ iconv_ostream_create (const char *from_encoding, const char *to_encoding,
   stream->from_encoding = xstrdup (from_encoding);
   stream->to_encoding = xstrdup (to_encoding);
 
-  /* Avoid glibc-2.1 bug with EUC-KR.  */
-  #if ((__GLIBC__ - 0 == 2 && __GLIBC_MINOR__ - 0 <= 1) \
-       && !defined __UCLIBC__) \
-      && !defined _LIBICONV_VERSION
-  if (c_strcasecmp (from_encoding, "EUC-KR") == 0
-      || c_strcasecmp (to_encoding, "EUC-KR") == 0)
-    stream->cd = (iconv_t)(-1):
-  else
-  #endif
-    stream->cd = iconv_open (to_encoding, from_encoding);
+  stream->cd = iconv_open (to_encoding, from_encoding);
   if (stream->cd == (iconv_t)(-1))
     {
       if (iconv_open ("UTF-8", from_encoding) == (iconv_t)(-1))

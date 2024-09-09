@@ -227,25 +227,6 @@ Message conversion to user's charset might not work.\n"),
             {
               /* Use iconv() to parse multibyte characters.  */
 #if HAVE_ICONV
-              /* Avoid glibc-2.1 bug with EUC-KR.  */
-# if ((__GLIBC__ == 2 && __GLIBC_MINOR__ <= 1) && !defined __UCLIBC__) \
-     && !defined _LIBICONV_VERSION
-              if (strcmp (ps->po_lex_charset, "EUC-KR") == 0)
-                ps->po_lex_iconv = (iconv_t)(-1);
-              else
-# endif
-              /* Avoid Solaris 2.9 bug with GB2312, EUC-TW, BIG5, BIG5-HKSCS,
-                 GBK, GB18030.  */
-# if defined __sun && !defined _LIBICONV_VERSION
-              if (   strcmp (ps->po_lex_charset, "GB2312") == 0
-                  || strcmp (ps->po_lex_charset, "EUC-TW") == 0
-                  || strcmp (ps->po_lex_charset, "BIG5") == 0
-                  || strcmp (ps->po_lex_charset, "BIG5-HKSCS") == 0
-                  || strcmp (ps->po_lex_charset, "GBK") == 0
-                  || strcmp (ps->po_lex_charset, "GB18030") == 0)
-                ps->po_lex_iconv = (iconv_t)(-1);
-              else
-# endif
               ps->po_lex_iconv = iconv_open ("UTF-8", ps->po_lex_charset);
               if (ps->po_lex_iconv == (iconv_t)(-1))
                 {

@@ -808,16 +808,9 @@ xgettext cannot work without keywords to look for"));
       && xgettext_global_source_encoding != po_charset_utf8)
     {
 #if HAVE_ICONV
-      iconv_t cd;
+      iconv_t cd =
+        iconv_open (po_charset_utf8, xgettext_global_source_encoding);
 
-      /* Avoid glibc-2.1 bug with EUC-KR.  */
-# if ((__GLIBC__ == 2 && __GLIBC_MINOR__ <= 1) && !defined __UCLIBC__) \
-     && !defined _LIBICONV_VERSION
-      if (strcmp (xgettext_global_source_encoding, "EUC-KR") == 0)
-        cd = (iconv_t)(-1);
-      else
-# endif
-      cd = iconv_open (po_charset_utf8, xgettext_global_source_encoding);
       if (cd == (iconv_t)(-1))
         error (EXIT_FAILURE, 0,
                _("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does not support this conversion."),

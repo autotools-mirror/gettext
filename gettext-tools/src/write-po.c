@@ -685,25 +685,6 @@ wrap (const message_ty *mp, ostream_t stream,
       /* Invalid PO file encoding.  */
       conv = (iconv_t)(-1);
     else
-      /* Avoid glibc-2.1 bug with EUC-KR.  */
-# if ((__GLIBC__ == 2 && __GLIBC_MINOR__ <= 1) && !defined __UCLIBC__) \
-     && !defined _LIBICONV_VERSION
-      if (strcmp (canon_charset, "EUC-KR") == 0)
-        conv = (iconv_t)(-1);
-      else
-# endif
-      /* Avoid Solaris 2.9 bug with GB2312, EUC-TW, BIG5, BIG5-HKSCS, GBK,
-         GB18030.  */
-# if defined __sun && !defined _LIBICONV_VERSION
-      if (   strcmp (canon_charset, "GB2312") == 0
-          || strcmp (canon_charset, "EUC-TW") == 0
-          || strcmp (canon_charset, "BIG5") == 0
-          || strcmp (canon_charset, "BIG5-HKSCS") == 0
-          || strcmp (canon_charset, "GBK") == 0
-          || strcmp (canon_charset, "GB18030") == 0)
-        conv = (iconv_t)(-1);
-      else
-# endif
       /* Use iconv() to parse multibyte characters.  */
       conv = iconv_open ("UTF-8", canon_charset);
 
