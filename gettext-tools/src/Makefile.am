@@ -344,7 +344,7 @@ else
 textstyle.h textstyle/stdbool.h textstyle/version.h textstyle/woe32dll.h:
 	here=`pwd`; \
 	cd ../../libtextstyle/lib && \
-	  $(MAKE) install-nobase_includeHEADERS install-nobase_nodist_includeHEADERS includedir="$$here"
+	  $(MAKE) install-nobase_includeHEADERS install-nobase_nodist_includeHEADERS DESTDIR= includedir="$$here"
 BUILT_SOURCES    += textstyle.h textstyle/stdbool.h textstyle/version.h textstyle/woe32dll.h
 MOSTLYCLEANFILES += textstyle.h textstyle/stdbool.h textstyle/version.h textstyle/woe32dll.h
 # Where to find the built libtextstyle library.
