@@ -414,7 +414,8 @@ YCP, Tcl, Perl, PHP, GCC-source, Lua, JavaScript, Vala.
 @opindex -T@r{, @code{xgettext} option}
 @opindex --trigraphs@r{, @code{xgettext} option}
 @cindex C trigraphs
-Understand ANSI C trigraphs for input.
+Understand ANSI C trigraphs for input
+(deprecated, since trigraphs have been removed from ISO C 23).
 @*
 This option has an effect only with the languages C, C++, ObjectiveC.
 

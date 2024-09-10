@@ -1166,7 +1166,7 @@ Language specific options:\n"));
       printf (_("\
   -T, --trigraphs             understand ANSI C trigraphs for input\n"));
       printf (_("\
-                                (only languages C, C++, ObjectiveC)\n"));
+                                (deprecated; only languages C, C++, ObjectiveC)\n"));
       printf (_("\
       --its=FILE              apply ITS rules from FILE\n"));
       printf (_("\
