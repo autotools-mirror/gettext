@@ -559,6 +559,8 @@ Sort output by file location.
 @item --omit-header
 @opindex --omit-header@r{, @code{xgettext} option}
 Don't write header with @samp{msgid ""} entry.
+Note: Using this option may lead to an error in subsequent operations
+if the output contains non-ASCII characters.
 
 @cindex testing @file{.po} files for equivalence
 This is useful for testing purposes because it eliminates a source
