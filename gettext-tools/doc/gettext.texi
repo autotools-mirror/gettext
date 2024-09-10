@@ -9742,10 +9742,9 @@ strings.
 
 C format strings are described in POSIX (IEEE P1003.1 2001), section
 XSH 3 fprintf(),
-@uref{http://www.opengroup.org/onlinepubs/007904975/functions/fprintf.html}.
-See also the fprintf() manual page,
-@uref{http://www.linuxvalley.it/encyclopedia/ldp/manpage/man3/printf.3.php},
-@uref{http://informatik.fh-wuerzburg.de/student/i510/man/printf.html}.
+@uref{https://pubs.opengroup.org/onlinepubs/9799919799/functions/fprintf.html}.
+See also the fprintf() manual page
+@uref{https://www.kernel.org/doc/man-pages/online/pages/man3/fprintf.3.html,,man fprintf}.
 
 Although format strings with positions that reorder arguments, such as
 
@@ -9766,6 +9765,19 @@ on this reordering ability: On the few platforms where @code{printf()},
 @code{fprintf()} etc. don't support this feature natively, @file{libintl.a}
 or @file{libintl.so} provides replacement functions, and GNU @code{<libintl.h>}
 activates these replacement functions automatically.
+
+@cindex @code{inttypes.h}
+C format strings can contain placeholders
+that reference macros defined in ISO C 99 @code{<inttypes.h>}.
+For example, @code{<PRId64>} references the macro @code{PRId64}.
+The value of such a macro is system-dependent,
+but programmers and translators do not need to know this value.
+ISO C 23 specifies system-independent format string elements,
+for example, @code{"%w64d"} instead of @code{"%" PRId64};
+however, as of 2024, these are not implemented across systems
+and therefore cannot be used portably.
+@c We need it implemented in glibc and in gcc and clang; <libintl.h> could
+@c then do the rest, with the help of gnulib's *printf functions.
 
 @cindex outdigits
 @cindex Arabic digits
@@ -9788,6 +9800,10 @@ glibc when NLS is disabled.)
 Objective C format strings are like C format strings.  They support an
 additional format directive: "%@@", which when executed consumes an argument
 of type @code{Object *}.
+
+@cindex @code{inttypes.h}
+Objective C format strings, like C format strings, can contain placeholders
+that reference macros defined in ISO C 99 @code{<inttypes.h>}.
 
 @node c++-format
 @subsection C++ Format Strings
