@@ -1171,7 +1171,7 @@ phase7_getc ()
     case 'U': case 'u':
       {
         unsigned char buf[8];
-        int n;
+        unsigned int n;
 
         n = 0;
         for (j = 0; j < (c == 'u' ? 4 : 8); j++)

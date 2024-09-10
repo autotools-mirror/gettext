@@ -69,6 +69,12 @@ msgstr ""
 
 msgid "14abc\\u567"
 msgstr ""
+
+msgid "15abc\\U01234567"
+msgstr ""
+
+msgid "16abc\\U9FFFFFFF"
+msgstr ""
 EOF
 
 : ${DIFF=diff}
