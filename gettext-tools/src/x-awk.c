@@ -45,6 +45,8 @@
 
 #define _(s) gettext(s)
 
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
 
 /* The awk syntax is defined in the gawk manual page and documentation.
    See also gawk/awkgram.y.  */
@@ -374,13 +376,22 @@ free_token (token_ty *tp)
    in between.  */
 static bool prefer_division_over_regexp;
 
+static token_ty phase3_pushback[1];
+static int phase3_pushback_length;
+
 static void
-x_awk_lex (token_ty *tp)
+phase3_get (token_ty *tp)
 {
   static char *buffer;
   static int bufmax;
   int bufpos;
   int c;
+
+  if (phase3_pushback_length)
+    {
+      *tp = phase3_pushback[--phase3_pushback_length];
+      return;
+    }
 
   for (;;)
     {
@@ -657,6 +668,56 @@ x_awk_lex (token_ty *tp)
     }
 }
 
+/* Supports only one pushback token.  */
+static void
+phase3_unget (token_ty *tp)
+{
+  if (tp->type != token_type_eof)
+    {
+      if (phase3_pushback_length == SIZEOF (phase3_pushback))
+        abort ();
+      phase3_pushback[phase3_pushback_length++] = *tp;
+    }
+}
+
+
+/* 8. Concatenate adjacent string literals to form single string literals.  */
+
+/* Concatenates two strings, and frees the first argument.  */
+static char *
+string_concat_free1 (char *s1, const char *s2)
+{
+  size_t len1 = strlen (s1);
+  size_t len2 = strlen (s2);
+  size_t len = len1 + len2 + 1;
+  char *result = XNMALLOC (len, char);
+  memcpy (result, s1, len1);
+  memcpy (result + len1, s2, len2 + 1);
+  free (s1);
+  return result;
+}
+
+static void
+phase4_get (token_ty *tp)
+{
+  phase3_get (tp);
+  if (tp->type != token_type_string)
+    return;
+  for (;;)
+    {
+      token_ty tmp;
+
+      phase3_get (&tmp);
+      if (tmp.type != token_type_string)
+        {
+          phase3_unget (&tmp);
+          return;
+        }
+      tp->string = string_concat_free1 (tp->string, tmp.string);
+      free_token (&tmp);
+    }
+}
+
 
 /* ========================= Extracting strings.  ========================== */
 
@@ -720,7 +781,7 @@ extract_parenthesized (message_list_ty *mlp,
     {
       token_ty token;
 
-      x_awk_lex (&token);
+      phase4_get (&token);
 
       if (next_is_argument && token.type != token_type_lparen)
         {
@@ -892,6 +953,7 @@ extract_awk (FILE *f,
   last_non_comment_line = -1;
 
   prefer_division_over_regexp = false;
+  phase3_pushback_length = 0;
 
   flag_context_list_table = flag_table;
   nesting_depth = 0;
