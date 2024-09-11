@@ -1,7 +1,7 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test of Shell support.
+# Test of Shell support: escape sequences, string concatenation.
 
 cat <<\EOF > xg-sh-1.sh
 # Test escape sequences expansion.
@@ -477,6 +477,19 @@ echo "`echo "\`ngettext 'depth_2_11_squote_5_semi \\\\\;'\`"`"
 echo "`echo "\`ngettext 'depth_2_11_squote_6_semi \\\\\\;'\`"`"
 echo "`echo "\`ngettext 'depth_2_11_squote_7_semi \\\\\\\;'\`"`"
 echo "`echo "\`ngettext 'depth_2_11_squote_8_semi \\\\\\\\;'\`"`"
+
+# Test string concatenation.
+
+gettext "concat_0_""part2"
+gettext "concat_1_"'part2'
+gettext "concat_2_"part2
+gettext 'concat_3_'"part2"
+gettext 'concat_4_''part2'
+gettext 'concat_5_'part2
+gettext  concat_6_"part2"
+gettext  concat_7_'part2'
+gettext  concat_8_ part2
+gettext "concat_9_"'part2'"part3"
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -1847,6 +1860,36 @@ msgid "depth_2_11_squote_7_semi \\\\;"
 msgstr ""
 
 msgid "depth_2_11_squote_8_semi \\\\;"
+msgstr ""
+
+msgid "concat_0_part2"
+msgstr ""
+
+msgid "concat_1_part2"
+msgstr ""
+
+msgid "concat_2_part2"
+msgstr ""
+
+msgid "concat_3_part2"
+msgstr ""
+
+msgid "concat_4_part2"
+msgstr ""
+
+msgid "concat_5_part2"
+msgstr ""
+
+msgid "concat_6_part2"
+msgstr ""
+
+msgid "concat_7_part2"
+msgstr ""
+
+msgid "concat_8_"
+msgstr ""
+
+msgid "concat_9_part2part3"
 msgstr ""
 EOF
 

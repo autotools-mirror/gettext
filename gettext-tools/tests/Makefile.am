@@ -151,7 +151,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-python-7 xgettext-python-8 \
 	xgettext-python-stackovfl-1 xgettext-python-stackovfl-2 \
 	xgettext-python-stackovfl-3 xgettext-python-stackovfl-4 \
-	xgettext-ruby-1 \
+	xgettext-ruby-1 xgettext-ruby-2 \
 	xgettext-scheme-1 xgettext-scheme-2 xgettext-scheme-3 \
 	xgettext-scheme-4 xgettext-scheme-5 xgettext-scheme-6 \
 	xgettext-scheme-7 xgettext-scheme-8 \

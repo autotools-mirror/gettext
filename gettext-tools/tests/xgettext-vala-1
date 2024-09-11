@@ -74,7 +74,13 @@ int main (string[] args) {
        multiline C style comment */
     var s7 = _("Extract this //sixth string");
 
-    var s8 = _(@"This is a template string, which cannot be extracted!");
+    // a
+    var s8 = /* b */
+             _("This" + " whole " // c
+               + "string" + // d
+               """ should""" + " be " + """extracted""");
+
+    var s9 = _(@"This is a template string, which cannot be extracted!");
 
     /* /= shouldn't start a regex literal */
     var i5 = 1000;
@@ -136,6 +142,11 @@ msgstr ""
 #. This is a
 #. multiline C style comment
 msgid "Extract this //sixth string"
+msgstr ""
+
+#. a
+#. b
+msgid "This whole string should be extracted"
 msgstr ""
 EOF
 
@@ -199,6 +210,11 @@ msgstr ""
 #. This is a
 #. multiline C style comment
 msgid "Extract this //sixth string"
+msgstr ""
+
+#. a
+#. b
+msgid "This whole string should be extracted"
 msgstr ""
 EOF
 

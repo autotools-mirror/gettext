@@ -29,7 +29,11 @@ print(_["nope"])
 print(_("\097"))
 print(_("\x3F\z  	
 \x2a"))
+-- String concatenation in regular contexts.
 print(_("abc" .. "def"))
+-- String concatenation *not* happening when the parentheses are omitted.
+print(_"hello" " world")
+
 print(speed / 1000 .. 'Mbps')
 EOF
 
@@ -92,6 +96,9 @@ msgid "?*"
 msgstr ""
 
 msgid "abcdef"
+msgstr ""
+
+msgid "hello"
 msgstr ""
 EOF
 

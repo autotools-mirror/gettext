@@ -1,7 +1,7 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test of Ruby support.
+# Test of Ruby support: --add-comments option.
 
 (rxgettext --version) >/dev/null 2>/dev/null \
   || { echo "Skipping test: rxgettext not found"; Exit 77; }

@@ -1,7 +1,7 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test C# support: --add-comments option.
+# Test C# support: --add-comments option, string concatenation.
 
 cat <<\EOF > xg-cs-5.cs
 // This comment will not be extracted.
