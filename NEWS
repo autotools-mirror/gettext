@@ -1,4 +1,4 @@
-Version 0.23 - August 2024
+Version 0.23 - September 2024
 
 * Programming languages support:
   - Python:
@@ -16,6 +16,7 @@ Version 0.23 - August 2024
     o xgettext now recognizes comments of the form '#; <expression>'.
   - Java: Improved recognition of format strings when the String.formatted
     method is used.
+  - Smalltalk: The string concatenation operator ',' is now recognized.
   - Vala: Improved recognition of format strings when the string.printf method
     is used.
   - Glade: xgettext has improved support for GtkBuilder 4.

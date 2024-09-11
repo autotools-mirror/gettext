@@ -1,7 +1,7 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test Smalltalk support: --add-comments option.
+# Test Smalltalk support: --add-comments option, string concatenation.
 
 cat <<\EOF > xg-st-1.st
 "This comment will not be extracted."
@@ -14,6 +14,7 @@ Transcript showCr: (NLS ? 'Hey Jude').
      Nickname of the Beatles
 "
 Transcript showCr: (NLS ? 'The Fabulous Four').
+Transcript showCr: (NLS ? 'The Fabulous Four',' are ','The Beatles').
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -36,6 +37,9 @@ msgstr ""
 #. Nickname of the Beatles
 #.
 msgid "The Fabulous Four"
+msgstr ""
+
+msgid "The Fabulous Four are The Beatles"
 msgstr ""
 EOF
 
