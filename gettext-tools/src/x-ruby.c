@@ -45,6 +45,7 @@
 #define _(str) gettext (str)
 
 /* The Ruby syntax is defined in
+   https://en.wikibooks.org/wiki/Ruby_Programming/Syntax
    https://ruby-doc.org/core-2.7.1/doc/syntax_rdoc.html
    https://ruby-doc.org/core-2.7.1/doc/syntax/comments_rdoc.html
    https://ruby-doc.org/core-2.7.1/doc/syntax/literals_rdoc.html
@@ -74,6 +75,12 @@ init_flag_table_ruby (void)
 
 
 /* ========================= Extracting strings.  ========================== */
+
+static bool
+is_not_header (const message_ty *mp)
+{
+  return !is_header (mp);
+}
 
 void
 extract_ruby (const char *found_in_dir, const char *real_filename,
@@ -247,4 +254,11 @@ extract_ruby (const char *found_in_dir, const char *real_filename,
   msgdomain_list_free (mdlp2);
 
   free (dummy_filename);
+
+  if (xgettext_omit_header)
+    {
+      /* Remove the header entry.  */
+      if (mdlp->nitems > 0)
+        message_list_remove_if_not (mdlp->item[0]->messages, is_not_header);
+    }
 }
