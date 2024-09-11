@@ -332,13 +332,13 @@ struct token_ty
 };
 
 
-/* 7. Replace escape sequences within character strings with their
+/* Replace escape sequences within character strings with their
    single character equivalents.  */
 
-#define P7_QUOTES (1000 + '"')
+#define SE_QUOTES (1000 + '"')
 
 static int
-phase7_getc ()
+get_string_element ()
 {
   int c;
 
@@ -348,7 +348,7 @@ phase7_getc ()
       c = phase1_getc ();
 
       if (c == '"')
-        return P7_QUOTES;
+        return SE_QUOTES;
       if (c != '\\')
         return c;
       c = phase1_getc ();
@@ -524,8 +524,8 @@ phase5_get (token_ty *tp)
           bufpos = 0;
           for (;;)
             {
-              c = phase7_getc ();
-              if (c == EOF || c == P7_QUOTES)
+              c = get_string_element ();
+              if (c == EOF || c == SE_QUOTES)
                 break;
               if (bufpos >= bufmax)
                 {

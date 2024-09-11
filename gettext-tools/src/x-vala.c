@@ -440,14 +440,14 @@ free_token (token_ty *tp)
 }
 
 
-/* Return value of phase7_getc when EOF is reached.  */
-#define P7_EOF (-1)
+/* Return value of get_string_element when EOF is reached.  */
+#define SE_EOF (-1)
 
 /* Replace escape sequences within character strings with their single
    character equivalents.  */
-#define P7_QUOTES (-3)
-#define P7_QUOTE (-4)
-#define P7_NEWLINE (-5)
+#define SE_QUOTES (-3)
+#define SE_QUOTE (-4)
+#define SE_NEWLINE (-5)
 
 /* Convert an UTF-16 or UTF-32 code point to a return value that can be
    distinguished from a single-byte return value.  */
@@ -463,7 +463,7 @@ free_token (token_ty *tp)
 
 
 static int
-phase7_getc ()
+get_string_element ()
 {
   int c, j;
 
@@ -471,7 +471,7 @@ phase7_getc ()
   c = phase1_getc ();
 
   if (c == EOF)
-    return P7_EOF;
+    return SE_EOF;
 
   /* Return a magic newline indicator, so that we can distinguish
      between the user requesting a newline in the string (e.g. using
@@ -491,12 +491,12 @@ phase7_getc ()
      you may not embed newlines in character constants; try it, you get
      a useful diagnostic.  --PMiller  */
   if (c == '\n')
-    return P7_NEWLINE;
+    return SE_NEWLINE;
 
   if (c == '"')
-    return P7_QUOTES;
+    return SE_QUOTES;
   if (c == '\'')
-    return P7_QUOTE;
+    return SE_QUOTE;
   if (c != '\\')
     return c;
   c = phase1_getc ();
@@ -657,7 +657,7 @@ phase7_getc ()
 
 
 static void
-phase7_ungetc (int c)
+unget_string_element (int c)
 {
   phase1_ungetc (c);
 }
@@ -879,16 +879,16 @@ phase3_get (token_ty *tp)
         case '\'':
           for (;;)
             {
-              c = phase7_getc ();
-              if (c == P7_NEWLINE)
+              c = get_string_element ();
+              if (c == SE_NEWLINE)
                 {
                   if_error (IF_SEVERITY_WARNING,
                             logical_file_name, line_number - 1, (size_t)(-1), false,
                             _("unterminated character constant"));
-                  phase7_ungetc ('\n');
+                  unget_string_element ('\n');
                   break;
                 }
-              if (c == P7_EOF || c == P7_QUOTE)
+              if (c == SE_EOF || c == SE_QUOTE)
                 break;
             }
           tp->type = last_token_type = token_type_character_constant;
@@ -974,24 +974,24 @@ phase3_get (token_ty *tp)
             else
               for (;;)
                 {
-                  c = phase7_getc ();
+                  c = get_string_element ();
 
                   /* Keep line_number in sync.  */
                   msb.line_number = line_number;
 
-                  if (c == P7_NEWLINE)
+                  if (c == SE_NEWLINE)
                     {
                       if_error (IF_SEVERITY_WARNING,
                                 logical_file_name, line_number - 1, (size_t)(-1), false,
                                 _("unterminated string literal"));
-                      phase7_ungetc ('\n');
+                      unget_string_element ('\n');
                       break;
                     }
-                  if (c == P7_QUOTES)
+                  if (c == SE_QUOTES)
                     break;
-                  if (c == P7_EOF)
+                  if (c == SE_EOF)
                     break;
-                  if (c == P7_QUOTE)
+                  if (c == SE_QUOTE)
                     c = '\'';
                   if (IS_UNICODE (c))
                     {
