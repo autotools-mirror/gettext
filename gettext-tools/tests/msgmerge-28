@@ -66,8 +66,8 @@ msgstr ""
 
 msgid "warning: bad context for singular argument of keyword '%.*s'"
 msgstr ""
-"Warnung: schlechter Kontext für das Singular-Argument des Schlüsselwortes »%."
-"*s«"
+"Warnung: schlechter Kontext für das Singular-Argument des Schlüsselwortes "
+"»%.*s«"
 
 #, c-format
 msgid "warning: broken context for singular argument of keyword '%.*s'"
@@ -77,8 +77,8 @@ msgstr ""
 
 #~ msgid "warning: abstruse context for plural argument of keyword '%.*s'"
 #~ msgstr ""
-#~ "Warnung: abstruser Kontext für das Plural-Argument des Schlüsselwortes »%."
-#~ "*s«"
+#~ "Warnung: abstruser Kontext für das Plural-Argument des Schlüsselwortes "
+#~ "»%.*s«"
 
 #, c-format
 #~ msgid "warning: missing context for plural argument of keyword '%.*s'"
@@ -202,13 +202,13 @@ msgstr ""
 
 msgid "warning: bad context for singular argument of keyword '%.*s'"
 msgstr ""
-"Warnung: schlechter Kontext für das Singular-Argument des Schlüsselwortes »%."
-"*s«"
+"Warnung: schlechter Kontext für das Singular-Argument des Schlüsselwortes "
+"»%.*s«"
 
 msgid "warning: broken context for singular argument of keyword '%.*s'"
 msgstr ""
-"Warnung: missratener Kontext für das Singular-Argument des Schlüsselworts »%."
-"*s«"
+"Warnung: missratener Kontext für das Singular-Argument des Schlüsselworts "
+"»%.*s«"
 
 msgid "warning: abstruse context for plural argument of keyword '%.*s'"
 msgstr ""
