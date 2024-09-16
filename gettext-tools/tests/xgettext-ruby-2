@@ -3,6 +3,9 @@
 
 # Test Ruby support: --add-comments option, string concatenation.
 
+(rxgettext --version) >/dev/null 2>/dev/null \
+  || { echo "Skipping test: rxgettext not found"; Exit 77; }
+
 cat <<\EOF > xg-ru-2.rb
 # a
 s = # b
