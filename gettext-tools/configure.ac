@@ -142,6 +142,13 @@ dnl Checks for libraries.
 dnl These are the only lines required to internationalize the package.
 dnl (OK, not quite, the AC_CONFIG_FILES has also some parts.)
 AM_GNU_GETTEXT([use-libtool], [need-ngettext], [\${top_builddir}/../gettext-runtime/intl])
+dnl When not cross-compiling, use the 'msgmerge' program from this package,
+dnl for output consistency with the 'msgfilter' program used to create
+dnl en@quot.po and en@boldquot.po.
+if test "$CROSS_COMPILING" != yes; then
+  MSGMERGE='msgmerge'
+  MSGMERGE_FOR_MSGFMT_OPTION='--for-msgfmt'
+fi
 
 dnl This option allows to build gettext-tools without (re)building libtextstyle.
 AC_ARG_WITH([installed-libtextstyle],
