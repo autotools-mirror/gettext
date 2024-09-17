@@ -1,7 +1,8 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test of Shell support: escape sequences, string concatenation.
+# Test of Shell support: escape sequences, string concatenation,
+# strings with embedded expressions.
 
 cat <<\EOF > xg-sh-1.sh
 # Test escape sequences expansion.
@@ -490,6 +491,13 @@ gettext  concat_6_"part2"
 gettext  concat_7_'part2'
 gettext  concat_8_ part2
 gettext "concat_9_"'part2'"part3"
+
+# Test strings with embedded expressions.
+
+gettext "embedded_1_${foo}_bar"
+gettext "embedded_2_${foo-`gettext embedded_2_sub1`}_bar_${foo-`gettext embedded_2_sub2`}_baz"
+gettext "embedded_3_${foo:-`gettext embedded_3_sub1`}_bar_${foo:-`gettext embedded_3_sub2`}_baz"
+gettext "embedded_4"
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -1890,6 +1898,21 @@ msgid "concat_8_"
 msgstr ""
 
 msgid "concat_9_part2part3"
+msgstr ""
+
+msgid "embedded_2_sub1"
+msgstr ""
+
+msgid "embedded_2_sub2"
+msgstr ""
+
+msgid "embedded_3_sub1"
+msgstr ""
+
+msgid "embedded_3_sub2"
+msgstr ""
+
+msgid "embedded_4"
 msgstr ""
 EOF
 

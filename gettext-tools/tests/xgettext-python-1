@@ -1,7 +1,8 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test of Python support: escape sequences, string concatenation.
+# Test of Python support: escape sequences, string concatenation,
+# strings with embedded expressions.
 
 cat <<\EOF > xg-py-1.py
 # interpret_ansic = true, interpret_unicode = false, f_string = false
@@ -38,6 +39,11 @@ _(CATEGORIES["default"]["name"]);
 # string concatenation
 _("abc" "def" + "ghi"
 "jkl" + mno)
+
+# strings with embedded expressions
+_(f"embedded_1_{foo}_bar");
+_(f"embedded_2_{_('embedded_2_sub1')}_bar_{_('embedded_2_sub2')}_baz");
+_(f"embedded_3");
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -101,6 +107,15 @@ msgstr ""
 
 #. string concatenation
 msgid "abcdefghijkl"
+msgstr ""
+
+msgid "embedded_2_sub1"
+msgstr ""
+
+msgid "embedded_2_sub2"
+msgstr ""
+
+msgid "embedded_3"
 msgstr ""
 EOF
 

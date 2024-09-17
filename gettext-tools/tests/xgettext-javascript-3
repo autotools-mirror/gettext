@@ -1,8 +1,8 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test of JavaScript support: string concatenation.
-# Playing with concatenation of string literals within the gettext arguments.
+# Test of JavaScript support: string concatenation,
+# strings with embedded expressions.
 
 cat <<\EOF > xg-js-3.js
 // The usual way to concatenate strings is the plus '+' sign
@@ -14,6 +14,11 @@ var s3 = // b
          _("This" + " whole " // c
           + "string" + // d
          ' should' + " be " + 'extracted');
+// Strings with embedded expressions, a.k.a. template literals.
+var t = "";
+var e1 = _(`embedded_1_${foo}_bar`);
+var e2 = _(`embedded_2_${_("embedded_2_sub1")}_bar_${_('embedded_2_sub2')}_baz`);
+var e3 = _(`embedded_3`);
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -49,6 +54,15 @@ msgstr ""
 #. a
 #. b
 msgid "This whole string should be extracted"
+msgstr ""
+
+msgid "embedded_2_sub1"
+msgstr ""
+
+msgid "embedded_2_sub2"
+msgstr ""
+
+msgid "embedded_3"
 msgstr ""
 EOF
 
