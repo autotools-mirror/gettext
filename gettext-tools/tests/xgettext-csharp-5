@@ -1,7 +1,8 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test C# support: --add-comments option, string concatenation.
+# Test C# support: --add-comments option, string concatenation,
+# strings with embedded expressions.
 
 cat <<\EOF > xg-cs-5.cs
 // This comment will not be extracted.
@@ -18,6 +19,10 @@ Console.WriteLine(GetString("The Fabulous Four"));
 Console.WriteLine(GetString("there is not enough" +
 " room on a single line for this entire long, " // confusing, eh?
 + "verbose string"));
+// Strings with embedded expressions, a.k.a. interpolated strings.
+Console.WriteLine(GetString($"embedded_1_{foo}_bar"));
+Console.WriteLine(GetString($"embedded_2_{GetString("embedded_2_sub1")}_bar_{GetString("embedded_2_sub2")}_baz"));
+Console.WriteLine(GetString($"embedded_3"));
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -46,6 +51,15 @@ msgstr ""
 msgid ""
 "there is not enough room on a single line for this entire long, verbose "
 "string"
+msgstr ""
+
+msgid "embedded_2_sub1"
+msgstr ""
+
+msgid "embedded_2_sub2"
+msgstr ""
+
+msgid "embedded_3"
 msgstr ""
 EOF
 

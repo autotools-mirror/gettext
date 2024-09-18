@@ -56,7 +56,9 @@
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
-/* The C# syntax is defined in ECMA-334, second edition.  */
+/* The C# syntax is defined in ECMA-334, second edition.
+   Strings with embedded expressions are defined in
+   <https://learn.microsoft.com/en-us/dotnet/csharp/how-to/concatenate-multiple-strings#string-interpolation>.  */
 
 
 /* ====================== Keyword set customization.  ====================== */
@@ -1253,6 +1255,10 @@ enum token_type_ty
   token_type_comma,             /* , */
   token_type_dot,               /* . */
   token_type_string_literal,    /* "abc", @"abc" */
+  token_type_template,          /* $"abc" */
+  token_type_ltemplate,         /* left part of template: $"abc{ */
+  token_type_mtemplate,         /* middle part of template: }abc{ */
+  token_type_rtemplate,         /* right part of template: }abc" */
   token_type_number,            /* 1.23 */
   token_type_symbol,            /* identifier, keyword, null */
   token_type_plus,              /* + */
@@ -1265,8 +1271,8 @@ struct token_ty
 {
   token_type_ty type;
   char *string;                         /* for token_type_symbol */
-  mixed_string_ty *mixed_string;        /* for token_type_string_literal */
-  refcounted_string_list_ty *comment;   /* for token_type_string_literal */
+  mixed_string_ty *mixed_string;        /* for token_type_string_literal, token_type_template */
+  refcounted_string_list_ty *comment;   /* for token_type_string_literal, token_type_template */
   int line_number;
   int logical_line_number;
 };
@@ -1278,7 +1284,7 @@ free_token (token_ty *tp)
 {
   if (tp->type == token_type_symbol)
     free (tp->string);
-  if (tp->type == token_type_string_literal)
+  if (tp->type == token_type_string_literal || tp->type == token_type_template)
     {
       mixed_string_free (tp->mixed_string);
       drop_reference (tp->comment);
@@ -1431,9 +1437,11 @@ do_getc_escaped ()
 }
 
 /* Read a regular string literal or character literal.
-   See ECMA-334 sections 9.4.4.4., 9.4.4.5.  */
-static void
-accumulate_escaped (struct mixed_string_buffer *literal, int delimiter)
+   See ECMA-334 sections 9.4.4.4., 9.4.4.5.
+   Returns one of UEOF, delimiter, delimiter2, UNL.  */
+static int
+accumulate_escaped (struct mixed_string_buffer *literal,
+                    int delimiter, int delimiter2)
 {
   int c;
 
@@ -1441,7 +1449,7 @@ accumulate_escaped (struct mixed_string_buffer *literal, int delimiter)
     {
       /* Use phase 3, because phase 4 elides comments.  */
       c = phase3_getc ();
-      if (c == UEOF || c == delimiter)
+      if (c == UEOF || c == delimiter || c == delimiter2)
         break;
       if (c == UNL)
         {
@@ -1461,6 +1469,7 @@ accumulate_escaped (struct mixed_string_buffer *literal, int delimiter)
       if (literal)
         mixed_string_buffer_append_unicode (literal, c);
     }
+  return c;
 }
 
 
@@ -1469,6 +1478,30 @@ accumulate_escaped (struct mixed_string_buffer *literal, int delimiter)
 /* Maximum used guaranteed to be < 4.  */
 static token_ty phase6_pushback[4];
 static int phase6_pushback_length;
+
+/* Number of open template literals $"...{  */
+static int template_literal_depth;
+
+/* Number of open '{' tokens, at each template literal level.
+   The "current" element is brace_depths[template_literal_depth].  */
+static int *brace_depths;
+/* Number of allocated elements in brace_depths.  */
+static size_t brace_depths_alloc;
+
+/* Adds a new brace_depths level after template_literal_depth was
+   incremented.  */
+static void
+new_brace_depth_level (void)
+{
+  if (template_literal_depth == brace_depths_alloc)
+    {
+      brace_depths_alloc = 2 * brace_depths_alloc + 1;
+      /* Now template_literal_depth < brace_depths_alloc.  */
+      brace_depths =
+        (int *) xrealloc (brace_depths, brace_depths_alloc * sizeof (int));
+    }
+  brace_depths[template_literal_depth] = 0;
+}
 
 static void
 phase6_get (token_ty *tp)
@@ -1517,14 +1550,6 @@ phase6_get (token_ty *tp)
 
         case ')':
           tp->type = token_type_rparen;
-          return;
-
-        case '{':
-          tp->type = token_type_lbrace;
-          return;
-
-        case '}':
-          tp->type = token_type_rbrace;
           return;
 
         case ',':
@@ -1587,7 +1612,7 @@ phase6_get (token_ty *tp)
                                       lexical_context,
                                       logical_file_name,
                                       logical_line_number);
-            accumulate_escaped (&literal, '"');
+            accumulate_escaped (&literal, '"', '"');
             tp->mixed_string = mixed_string_buffer_result (&literal);
             tp->comment = add_reference (savable_comment);
             lexical_context = lc_outside;
@@ -1595,10 +1620,46 @@ phase6_get (token_ty *tp)
             return;
           }
 
+        case '$':
+          c = phase4_getc ();
+          if (c != '"')
+            {
+              phase4_ungetc (c);
+              /* Misc. operator.  */
+              tp->type = token_type_other;
+              return;
+            }
+          /* String with embedded expressions, a.k.a. "interpolated string".  */
+          {
+            struct mixed_string_buffer msb;
+
+            lexical_context = lc_string;
+            /* Start accumulating the string.  */
+            mixed_string_buffer_init (&msb, lexical_context,
+                                      logical_file_name, logical_line_number);
+            c = accumulate_escaped (&msb, '"', '{');
+            /* Keep line_number in sync.  */
+            msb.line_number = logical_line_number;
+            if (c == '{')
+              {
+                mixed_string_buffer_destroy (&msb);
+                tp->type = token_type_ltemplate;
+                template_literal_depth++;
+                new_brace_depth_level ();
+              }
+            else
+              {
+                tp->mixed_string = mixed_string_buffer_result (&msb);
+                tp->comment = add_reference (savable_comment);
+                tp->type = token_type_template;
+              }
+            return;
+          }
+
         case '\'':
           /* Character literal.  */
           {
-            accumulate_escaped (NULL, '\'');
+            accumulate_escaped (NULL, '\'', '\'');
             tp->type = token_type_other;
             return;
           }
@@ -1617,6 +1678,30 @@ phase6_get (token_ty *tp)
               phase4_ungetc (c);
               tp->type = token_type_plus;
             }
+          return;
+
+        case '{':
+          brace_depths[template_literal_depth]++;
+          tp->type = token_type_lbrace;
+          return;
+
+        case '}':
+          if (brace_depths[template_literal_depth] > 0)
+            brace_depths[template_literal_depth]--;
+          else if (template_literal_depth > 0)
+            {
+              /* Middle or right part of string with embedded expressions.  */
+              c = accumulate_escaped (NULL, '"', '{');
+              if (c == '{')
+                tp->type = token_type_mtemplate;
+              else
+                {
+                  tp->type = token_type_rtemplate;
+                  template_literal_depth--;
+                }
+              return;
+            }
+          tp->type = token_type_rbrace;
           return;
 
         case '@':
@@ -2018,6 +2103,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
           continue;
 
         case token_type_string_literal:
+        case token_type_template:
           {
             lex_pos_ty pos;
 
@@ -2048,6 +2134,9 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
           unref_region (inner_region);
           return true;
 
+        case token_type_ltemplate:
+        case token_type_mtemplate:
+        case token_type_rtemplate:
         case token_type_dot:
         case token_type_number:
         case token_type_plus:
@@ -2091,6 +2180,8 @@ extract_csharp (FILE *f,
 
   phase5_pushback_length = 0;
   phase6_pushback_length = 0;
+  template_literal_depth = 0;
+  new_brace_depth_level ();
   phase7_pushback_length = 0;
 
   flag_context_list_table = flag_table;
