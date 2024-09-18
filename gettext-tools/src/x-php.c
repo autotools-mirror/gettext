@@ -53,7 +53,9 @@
    and      php-8.1.0/Zend/zend_language_parser.y.
    Note that variable and function names can contain bytes in the range
    0x80..0xff; see
-     https://www.php.net/manual/en/language.variables.basics.php  */
+     https://www.php.net/manual/en/language.variables.basics.php
+   String syntaxes (single-quoted, double-quoted, heredoc, nowdoc):
+     https://www.php.net/manual/en/language.types.string.php  */
 
 
 /* ====================== Keyword set customization.  ====================== */
@@ -968,7 +970,7 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
               bufmax = 2 * bufmax + 10;
               buffer = xrealloc (buffer, bufmax);
             }
-          buffer[bufpos] = 0;
+          buffer[bufpos] = '\0';
           tp->string = xstrdup (buffer);
           tp->type = token_type_symbol;
           return;
@@ -1002,7 +1004,7 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
               bufmax = 2 * bufmax + 10;
               buffer = xrealloc (buffer, bufmax);
             }
-          buffer[bufpos] = 0;
+          buffer[bufpos] = '\0';
           tp->type = token_type_string_literal;
           tp->string = xstrdup (buffer);
           tp->comment = add_reference (savable_comment);
@@ -1141,7 +1143,7 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
               bufmax = 2 * bufmax + 10;
               buffer = xrealloc (buffer, bufmax);
             }
-          buffer[bufpos] = 0;
+          buffer[bufpos] = '\0';
           if (tp->type == token_type_string_literal)
             {
               tp->string = xstrdup (buffer);
