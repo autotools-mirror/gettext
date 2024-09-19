@@ -466,7 +466,7 @@ Perl
 * Default Keywords::            Which Keywords Will xgettext Look For?
 * Special Keywords::            How to Extract Hash Keys
 * Quote-like Expressions::      What are Strings And Quote-like Expressions?
-* Interpolation I::             Invalid String Interpolation
+* Interpolation I::             Unsupported String Interpolation
 * Interpolation II::            Valid String Interpolation
 * Parentheses::                 When To Use Parentheses
 * Long Lines::                  How To Grok with Long Lines

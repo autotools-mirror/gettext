@@ -57,7 +57,13 @@
    Also, the syntax after the 'sub' keyword is specified in perlsub.pod.
    Try the command "man perlsub" or "perldoc perlsub".
    Perl 5.10 has new operators '//' and '//=', see
-   <https://perldoc.perl.org/perldelta.html#Defined-or-operator>.  */
+   <https://perldoc.perl.org/perldelta.html#Defined-or-operator>.
+
+   The actual Perl lexer and parser are in
+     perl-5.40.0/toke.c
+     perl-5.40.0/perly.y
+   but, for your sanity, you better don't look at it :)
+ */
 
 #define DEBUG_PERL 0
 #define DEBUG_NESTING_DEPTH 0
@@ -544,6 +550,7 @@ enum token_type_ty
   token_type_lbracket,          /* [ */
   token_type_rbracket,          /* ] */
   token_type_string,            /* quote-like */
+  token_type_string_interpol,   /* quote-like with embedded expressions */
   token_type_number,            /* starting with a digit or dot */
   token_type_named_op,          /* if, unless, while, ... */
   token_type_variable,          /* $... */
@@ -626,6 +633,8 @@ token2string (const token_ty *token)
       return "token_type_rbracket";
     case token_type_string:
       return "token_type_string";
+    case token_type_string_interpol:
+      return "token_type_string_interpol";
     case token_type_number:
       return "token type number";
     case token_type_named_op:
@@ -927,11 +936,12 @@ extract_triple_quotelike (message_list_ty *mlp, token_ty *tp, int delim,
 
 /* Perform pass 3 of quotelike extraction (interpolation).
    *tp is a token of type token_type_string.
-   This function replaces tp->string.
+   This function may either replace tp->string, or change *tp's type to
+   token_type_string_interpol.
    This function does not access tp->comment.  */
 /* FIXME: Currently may writes null-bytes into the string.  */
 static void
-extract_quotelike_pass3 (token_ty *tp, int error_level)
+extract_quotelike_pass3 (token_ty *tp)
 {
   static char *buffer;
   static int bufmax = 0;
@@ -1077,7 +1087,7 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
                     const char *end = strchr (crs, '}');
                     if (end == NULL)
                       {
-                        if_error (error_level,
+                        if_error (IF_SEVERITY_WARNING,
                                   real_file_name, line_number, (size_t)(-1), false,
                                   _("missing right brace on \\x{HEXNUMBER}"));
                         ++crs;
@@ -1196,9 +1206,9 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
                 }
               else if ((unsigned char) *crs >= 0x80)
                 {
-                  if_error (error_level,
+                  if_error (IF_SEVERITY_WARNING,
                             real_file_name, line_number, (size_t)(-1), false,
-                            _("invalid interpolation (\"\\l\") of 8bit character \"%c\""),
+                            _("unsupported interpolation (\"\\l\") of 8bit character \"%c\""),
                             *crs);
                 }
               else
@@ -1215,9 +1225,9 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
                 }
               else if ((unsigned char) *crs >= 0x80)
                 {
-                  if_error (error_level,
+                  if_error (IF_SEVERITY_WARNING,
                             real_file_name, line_number, (size_t)(-1), false,
-                            _("invalid interpolation (\"\\u\") of 8bit character \"%c\""),
+                            _("unsupported interpolation (\"\\u\") of 8bit character \"%c\""),
                             *crs);
                 }
               else
@@ -1248,9 +1258,10 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 
       if (!backslashed && !extract_all && (*crs == '$' || *crs == '@'))
         {
-          if_error (error_level,
+          if_error (IF_SEVERITY_WARNING,
                     real_file_name, line_number, (size_t)(-1), false,
-                    _("invalid variable interpolation at \"%c\""), *crs);
+                    _("unsupported variable interpolation at \"%c\""), *crs);
+          tp->type = token_type_string_interpol;
           ++crs;
         }
       else if (lowercase)
@@ -1259,9 +1270,9 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
             buffer[bufpos++] = *crs - 'A' + 'a';
           else if ((unsigned char) *crs >= 0x80)
             {
-              if_error (error_level,
+              if_error (IF_SEVERITY_WARNING,
                         real_file_name, line_number, (size_t)(-1), false,
-                        _("invalid interpolation (\"\\L\") of 8bit character \"%c\""),
+                        _("unsupported interpolation (\"\\L\") of 8bit character \"%c\""),
                         *crs);
               buffer[bufpos++] = *crs;
             }
@@ -1275,9 +1286,9 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
             buffer[bufpos++] = *crs - 'a' + 'A';
           else if ((unsigned char) *crs >= 0x80)
             {
-              if_error (error_level,
+              if_error (IF_SEVERITY_WARNING,
                         real_file_name, line_number, (size_t)(-1), false,
-                        _("invalid interpolation (\"\\U\") of 8bit character \"%c\""),
+                        _("unsupported interpolation (\"\\U\") of 8bit character \"%c\""),
                         *crs);
               buffer[bufpos++] = *crs;
             }
@@ -1306,7 +1317,8 @@ extract_quotelike_pass3 (token_ty *tp, int error_level)
 
   /* Replace tp->string.  */
   free (tp->string);
-  tp->string = xstrdup (buffer);
+  if (tp->type == token_type_string)
+    tp->string = xstrdup (buffer);
 }
 
 /* Parse a variable.  This is done in several steps:
@@ -1968,13 +1980,16 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
               /* The resulting string has to be interpolated twice.  */
               buffer[bufpos] = '\0';
               token.string = xstrdup (buffer);
-              extract_quotelike_pass3 (&token, IF_SEVERITY_FATAL_ERROR);
-              /* The string can only shrink with interpolation (because
-                 we ignore \Q).  */
-              if (!(strlen (token.string) <= bufpos))
-                abort ();
-              strcpy (buffer, token.string);
-              free (token.string);
+              extract_quotelike_pass3 (&token);
+              if (token.type == token_type_string)
+                {
+                  /* The string can only shrink with interpolation (because
+                     we ignore \Q).  */
+                  if (!(strlen (token.string) <= bufpos))
+                    abort ();
+                  strcpy (buffer, token.string);
+                  free (token.string);
+                }
               state = wait_rbrace;
               break;
             case '\\':
@@ -2060,11 +2075,18 @@ interpolate_keywords (message_list_ty *mlp, string_desc_t string, int lineno)
             case_whitespace:
               break;
             case '}':
-              buffer[bufpos] = '\0';
-              token.string = xstrdup (buffer);
-              extract_quotelike_pass3 (&token, IF_SEVERITY_FATAL_ERROR);
-              remember_a_message (mlp, NULL, token.string, true, false, region,
-                                  &pos, NULL, savable_comment, true);
+              if (token.type == token_type_string)
+                {
+                  buffer[bufpos] = '\0';
+                  token.string = xstrdup (buffer);
+                  extract_quotelike_pass3 (&token);
+                  if (token.type == token_type_string)
+                    {
+                      remember_a_message (mlp, NULL, token.string, true, false,
+                                          region, &pos, NULL, savable_comment,
+                                          true);
+                    }
+                }
               FALLTHROUGH;
             default:
               region = null_context_region ();
@@ -2125,6 +2147,7 @@ prefer_regexp_over_division (token_type_ty type)
         retval = false;
         break;
       case token_type_string:
+      case token_type_string_interpol:
         retval = false;
         break;
       case token_type_number:
@@ -2961,17 +2984,27 @@ x_perl_unlex (token_ty *tp)
 /* ========================= Extracting strings.  ========================== */
 
 /* Assuming TP is a string token, this function accumulates all subsequent
-   . string2 . string3 ... to the string.  (String concatenation.)  */
+   . string2 . string3 ... to the string.  (String concatenation.)
+   If at least one of the tokens gets transformed into a token of type
+   token_type_string_interpol, it returns NULL instead.  */
 
 static char *
-collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
+collect_message (message_list_ty *mlp, token_ty *tp)
 {
   char *string;
   size_t len;
 
-  extract_quotelike_pass3 (tp, error_level);
-  string = xstrdup (tp->string);
-  len = strlen (tp->string) + 1;
+  extract_quotelike_pass3 (tp);
+  if (tp->type == token_type_string)
+    {
+      string = xstrdup (tp->string);
+      len = strlen (tp->string) + 1;
+    }
+  else
+    {
+      string = NULL;
+      len = 0;
+    }
 
   for (;;)
     {
@@ -3006,11 +3039,17 @@ collect_message (message_list_ty *mlp, token_ty *tp, int error_level)
               return string;
             }
 
-          extract_quotelike_pass3 (qstring, error_level);
-          len += strlen (qstring->string);
-          string = xrealloc (string, len);
-          strcat (string, qstring->string);
-          free_token (qstring);
+          extract_quotelike_pass3 (qstring);
+          if (qstring->type == token_type_string)
+            {
+              if (string != NULL)
+                {
+                  len += strlen (qstring->string);
+                  string = xrealloc (string, len);
+                  strcat (string, qstring->string);
+                }
+              free_token (qstring);
+            }
         }
     }
 }
@@ -3436,21 +3475,30 @@ extract_balanced (message_list_ty *mlp,
               break;
 
             case token_type_string:
+            case token_type_string_interpol:
               #if DEBUG_PERL
-              fprintf (stderr, "%s:%d: type string (%d): \"%s\"\n",
-                       logical_file_name, tp->line_number, nesting_level,
-                       tp->string);
+              if (tp->type == token_type_string)
+                fprintf (stderr, "%s:%d: type string (%d): \"%s\"\n",
+                         logical_file_name, tp->line_number, nesting_level,
+                         tp->string);
+              else
+                fprintf (stderr, "%s:%d: type string_interpol (%d)\n",
+                         logical_file_name, tp->line_number, nesting_level);
               #endif
 
               if (extract_all)
                 {
-                  char *string = collect_message (mlp, tp, IF_SEVERITY_WARNING);
-                  lex_pos_ty pos;
+                  char *string = collect_message (mlp, tp);
+                  if (string != NULL)
+                    {
+                      lex_pos_ty pos;
 
-                  pos.file_name = logical_file_name;
-                  pos.line_number = tp->line_number;
-                  remember_a_message (mlp, NULL, string, true, false, inner_region,
-                                      &pos, NULL, tp->comment, true);
+                      pos.file_name = logical_file_name;
+                      pos.line_number = tp->line_number;
+                      remember_a_message (mlp, NULL, string, true, false,
+                                          inner_region, &pos, NULL, tp->comment,
+                                          true);
+                    }
                 }
               else if (!skip_until_comma)
                 {
@@ -3473,14 +3521,20 @@ extract_balanced (message_list_ty *mlp,
 
                   if (must_collect)
                     {
-                      char *string = collect_message (mlp, tp, IF_SEVERITY_FATAL_ERROR);
-                      mixed_string_ty *ms =
-                        mixed_string_alloc_utf8 (string, lc_string,
-                                                 logical_file_name, tp->line_number);
-                      free (string);
-                      arglist_parser_remember (argparser, arg, ms, inner_region,
-                                               logical_file_name, tp->line_number,
-                                               tp->comment, true);
+                      char *string = collect_message (mlp, tp);
+                      if (string != NULL)
+                        {
+                          mixed_string_ty *ms =
+                            mixed_string_alloc_utf8 (string, lc_string,
+                                                     logical_file_name,
+                                                     tp->line_number);
+                          free (string);
+                          arglist_parser_remember (argparser, arg, ms,
+                                                   inner_region,
+                                                   logical_file_name,
+                                                   tp->line_number,
+                                                   tp->comment, true);
+                        }
                     }
                 }
 

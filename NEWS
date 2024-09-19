@@ -26,6 +26,7 @@ Version 0.23 - September 2024
   - Tcl: With the forthcoming Tcl 9.0, characters outside the Unicode BMP
     in Tcl message catalogs (.msg files) will work regardless of the locale's
     encoding.
+  - Perl: xgettext now reports warnings instead of fatal errors.
   - PHP: Strings with embedded expressions are now recognized.
 
 * Runtime behaviour:

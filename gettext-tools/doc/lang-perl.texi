@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2020 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2024 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node Perl
@@ -115,7 +115,7 @@ worst probably being its imperfectness.
 * Default Keywords::            Which Keywords Will xgettext Look For?
 * Special Keywords::            How to Extract Hash Keys
 * Quote-like Expressions::      What are Strings And Quote-like Expressions?
-* Interpolation I::             Invalid String Interpolation
+* Interpolation I::             Unsupported String Interpolation
 * Interpolation II::            Valid String Interpolation
 * Parentheses::                 When To Use Parentheses
 * Long Lines::                  How To Grok with Long Lines
@@ -479,8 +479,8 @@ Delimiters that start with a digit are not supported!
 @end itemize
 
 @node Interpolation I
-@subsubsection Invalid Uses Of String Interpolation
-@cindex Perl invalid string interpolation
+@subsubsection Unsupported Uses Of String Interpolation
+@cindex Perl unsupported string interpolation
 
 Perl is capable of interpolating variables into strings.  This offers
 some nice features in localized programs but can also lead to
@@ -503,9 +503,10 @@ Consequently, it is almost impossible that a translation can be looked
 up at runtime (except if, by accident, the interpolated string is found
 in the message catalog).
 
-The @code{xgettext} program will therefore terminate parsing with a fatal
-error if it encounters a variable inside of an extracted string.  In
-general, this will happen for all kinds of string interpolations that
+The @code{xgettext} program will therefore produce a warning
+if it encounters a variable inside of a string to be extracted,
+and not extract that string.
+In general, this will happen for all kinds of string interpolations that
 cannot be safely performed at compile time.  If you absolutely know
 what you are doing, you can always circumvent this behavior:
 
@@ -526,8 +527,8 @@ internationalization.
 
 Please see the manual page @samp{man perlop} for details of strings and
 quote-like expressions that are subject to interpolation and those
-that are not.  Safe interpolations (that will not lead to a fatal
-error) are:
+that are not.  Safe interpolations (that will not lead to a warning)
+are:
 
 @itemize @bullet
 
@@ -631,7 +632,7 @@ the resulting PO file will begrudgingly improve in terms of readability.
 
 You can interpolate hash lookups in all strings or quote-like
 expressions that are subject to interpolation (see the manual page
-@samp{man perlop} for details).  Double interpolation is invalid, however:
+@samp{man perlop} for details).  Double interpolation is unsupported, however:
 
 @example
 # TRANSLATORS: Replace "the earth" with the name of your planet.
@@ -639,9 +640,9 @@ print gettext qq@{Welcome to $gettext->@{"the earth"@}@};
 @end example
 
 The @code{qq}-quoted string is recognized as an argument to @code{xgettext} in
-the first place, and checked for invalid variable interpolation.  The
+the first place, and checked for unsupported variable interpolation.  The
 dollar sign of hash-dereferencing will therefore terminate the parser 
-with an ``invalid interpolation'' error.
+with an ``unsupported interpolation'' warning.
 
 It is valid to interpolate hash lookups in regular expressions:
 
