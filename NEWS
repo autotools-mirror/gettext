@@ -37,6 +37,10 @@ Version 0.23 - September 2024
     now return the msgid untranslated. This is relevant for GNU systems,
     Linux with musl libc, FreeBSD, NetBSD, OpenBSD, Cygwin, and Android.
 
+* Documentation:
+  - The section "Preparing Strings" now gives more advice how to deal with
+    string concatenation and strings with embedded expressions.
+
 * xgettext:
   - Most of the diagnostics emitted by xgettext are now labelled as
     "warning" or "error".
