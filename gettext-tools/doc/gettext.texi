@@ -208,6 +208,7 @@ Preparing Program Sources
 * Preparing Strings::           Preparing Translatable Strings
 * Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
+* Translator advice::           Adding advice for translators
 * c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 * Bug Report Address::          Letting Users Report Translation Bugs
@@ -1910,6 +1911,7 @@ needing translation.
 * Preparing Strings::           Preparing Translatable Strings
 * Mark Keywords::               How Marks Appear in Sources
 * Marking::                     Marking Translatable Strings
+* Translator advice::           Adding advice for translators
 * c-format Flag::               Telling something about the following string
 * Special cases::               Special Cases of Translatable Strings
 * Bug Report Address::          Letting Users Report Translation Bugs
@@ -2850,6 +2852,63 @@ it afresh.  When a PO file is newly brought up in an Emacs window, only
 @samp{gettext} and @samp{_} are known as keywords, and @samp{gettext}
 is preferred for the @kbd{M-.} command.  In fact, this is not useful to
 prefer @samp{_}, as this one is already built in the @kbd{M-,} command.
+
+@node Translator advice
+@section Adding advice for translators
+
+Sometimes you might want to add advice for the translators to a
+particular message.
+For example:
+@itemize @bullet
+@item
+The translatable string might be decent English but nevertheless ambiguous.
+@item
+The translatable string refers to something in English culture (such as
+a film's name) that is different in other cultures.
+@item
+The translator should make an adjustment that is specific to her locale.
+@end itemize
+
+The way to do this is to add comments,
+before the @code{gettext} invocation or inside the @code{gettext} invocation
+but before the string, that start with the substring @samp{TRANSLATORS:}.
+These comments will be extracted into the POT file, so that translators
+can see them.
+For example, when you write
+
+@example
+/* TRANSLATORS: This is an English idiom,
+   meaning not to reveal a secret. */
+puts (gettext ("Don't spill the beans!"));
+@end example
+
+@noindent
+the POT file will contain:
+
+@example
+#. TRANSLATORS: This is an English idiom,
+#. meaning not to reveal a secret.
+#: source.c:213
+msgid "Don't spill the beans!"
+msgstr ""
+@end example
+
+@noindent
+and the translators will be shown the advice
+in a particular place in their translation tool.
+
+Only comments that immediately precede the @code{gettext} invocation or
+the translatable string are considered.
+Intervening blank lines are OK,
+but if there is other code between the comment and the translatable string,
+the comment no longer applies.
+
+Note: The string @code{TRANSLATORS:} is a convention, enabled by the
+@code{Makefile.in.in} file that is part of a package's build system.
+It is not enabled by default in @code{xgettext}.
+If you are using @code{xgettext}
+without the @code{Makefile.in.in} infrastructure,
+you will need to pass the option @code{--add-comments=TRANSLATORS:} yourself.
 
 @node c-format Flag
 @section Special Comments preceding Keywords
