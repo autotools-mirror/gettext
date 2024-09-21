@@ -25,6 +25,22 @@ echo _("embedded_2_${foo}bar");
 echo _("embedded_3_{$foo}bar");
 echo _("embedded_4_{$array[func(_('embedded_4_sub1'))]}_bar_{$array[func(_('embedded_4_sub2'))]}_baz");
 echo _("embedded_5");
+// Heredoc with with embedded expressions.
+echo _(<<<EOT
+embedded_6_$foo bar
+EOT);
+echo _(<<<EOT
+embedded_7_${foo}bar
+EOT);
+echo _(<<<EOT
+embedded_8_{$foo}bar
+EOT);
+echo _(<<<EOT
+embedded_9_{$array[func(_('embedded_9_sub1'))]}_bar_{$array[func(_('embedded_9_sub2'))]}_baz
+EOT);
+echo _(<<<EOT
+embedded_10
+EOT);
 ?>
 EOF
 
@@ -61,6 +77,15 @@ msgid "embedded_4_sub2"
 msgstr ""
 
 msgid "embedded_5"
+msgstr ""
+
+msgid "embedded_9_sub1"
+msgstr ""
+
+msgid "embedded_9_sub2"
+msgstr ""
+
+msgid "embedded_10"
 msgstr ""
 EOF
 

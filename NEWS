@@ -30,7 +30,9 @@ Version 0.23 - September 2024
     o xgettext now reports warnings instead of fatal errors.
     o Strings with embedded expressions (a.k.a. interpolated strings) are now
       recognized.
-  - PHP: Strings with embedded expressions are now recognized.
+  - PHP:
+    o Strings with embedded expressions are now recognized.
+    o Heredoc and Nowdoc strings are now scanned correctly.
 
 * Runtime behaviour:
   - In the C.UTF-8 locale, like in the C locale, the *gettext() functions
