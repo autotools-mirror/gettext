@@ -1,5 +1,5 @@
 dnl Configuration for the GNU libasprintf library
-dnl Copyright (C) 2002-2012, 2016, 2018-2023 Free Software Foundation, Inc.
+dnl Copyright (C) 2002-2024 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -78,7 +78,6 @@ dnl Checks for typedefs, structures, and compiler characteristics.
 AC_C_INLINE
 AC_TYPE_SIZE_T
 AC_TYPE_LONG_LONG_INT
-gt_TYPE_WCHAR_T
 gt_TYPE_WINT_T
 AC_TYPE_MBSTATE_T
 AC_CHECK_TYPE([ptrdiff_t], ,
