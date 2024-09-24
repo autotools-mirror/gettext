@@ -31,6 +31,7 @@
 #include <error.h>
 #include "attribute.h"
 #include "message.h"
+#include "sf-istream.h"
 #include "rc-str-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -175,11 +176,8 @@ struct php_extractor
   /* Accumulator for the output.  */
   message_list_ty *mlp;
 
-  /* The input file stream, when reading from a file.  */
-  FILE *fp;
-  /* The input area, when reading from a string.  */
-  const char *input;
-  const char *input_end;
+  /* The input.  */
+  sf_istream_t input;
 
   int line_number;
 
@@ -256,26 +254,20 @@ phase1_getc (struct php_extractor *xp)
 
   if (xp->phase1_pushback_length)
     c = xp->phase1_pushback[--(xp->phase1_pushback_length)];
-  else if (xp->fp != NULL)
+  else
     {
-      c = getc (xp->fp);
+      c = sf_getc (&xp->input);
 
       if (c == EOF)
         {
-          if (ferror (xp->fp))
+          if (sf_ferror (&xp->input))
             error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
                    real_file_name);
           return EOF;
         }
     }
-  else
-    {
-      if (xp->input == xp->input_end)
-        return EOF;
-      c = *(xp->input++);
-    }
 
-  if (xp->fp != NULL && c == '\n')
+  if (xp->input.fp != NULL && c == '\n')
     xp->line_number++;
 
   return c;
@@ -1065,9 +1057,8 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
 
     struct php_extractor *rxp = XMALLOC (struct php_extractor);
     rxp->mlp = xp->mlp;
-    rxp->fp = NULL;
-    rxp->input = substring;
-    rxp->input_end = substring + bufpos;
+    sf_istream_init_from_string_desc (&rxp->input,
+                                      string_desc_new_addr (bufpos, substring));
     rxp->line_number = xp->line_number;
     php_extractor_init_rest (rxp);
 
@@ -1453,9 +1444,9 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
 
             struct php_extractor *rxp = XMALLOC (struct php_extractor);
             rxp->mlp = xp->mlp;
-            rxp->fp = NULL;
-            rxp->input = substring;
-            rxp->input_end = substring + bufpos;
+            sf_istream_init_from_string_desc (
+              &rxp->input,
+              string_desc_new_addr (bufpos, substring));
             rxp->line_number = xp->line_number;
             php_extractor_init_rest (rxp);
 
@@ -2143,9 +2134,7 @@ extract_php (FILE *f,
   struct php_extractor *xp = XMALLOC (struct php_extractor);
 
   xp->mlp = mdlp->item[0]->messages;
-  xp->fp = f;
-  xp->input = NULL;
-  xp->input_end = NULL;
+  sf_istream_init_from_file (&xp->input, f);
   real_file_name = real_filename;
   logical_file_name = xstrdup (logical_filename);
   xp->line_number = 1;

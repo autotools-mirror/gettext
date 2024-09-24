@@ -32,6 +32,7 @@
 #include <error.h>
 #include "attribute.h"
 #include "message.h"
+#include "sf-istream.h"
 #include "rc-str-list.h"
 #include "string-desc.h"
 #include "xgettext.h"
@@ -275,11 +276,8 @@ struct perl_extractor
   /* Accumulator for the output.  */
   message_list_ty *mlp;
 
-  /* The input file stream, when reading from a file.  */
-  FILE *fp;
-  /* The input area, when reading from a string.  */
-  const char *input;
-  const char *input_end;
+  /* The input.  */
+  sf_istream_t input;
 
   int line_number;
 
@@ -355,15 +353,16 @@ phase1_getc (struct perl_extractor *xp)
   if (xp->end_of_file)
     return EOF;
 
-  if (xp->fp != NULL)
+  if (xp->input.fp != NULL)
     {
       if (xp->linepos >= xp->linesize)
         {
-          xp->linesize = getline (&xp->linebuf, &xp->linebuf_size, xp->fp);
+          xp->linesize =
+            getline (&xp->linebuf, &xp->linebuf_size, xp->input.fp);
 
           if (xp->linesize < 0)
             {
-              if (ferror (xp->fp))
+              if (ferror (xp->input.fp))
                 error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
                        real_file_name);
               xp->end_of_file = true;
@@ -391,8 +390,8 @@ phase1_getc (struct perl_extractor *xp)
     {
       if (xp->linebuf == NULL)
         {
-          xp->linebuf = xp->input;
-          xp->linesize = xp->input_end - xp->input;
+          xp->linebuf = (char *) xp->input.input;
+          xp->linesize = xp->input.input_end - xp->input.input;
           xp->linepos = 0;
         }
       if (xp->linepos >= xp->linesize)
@@ -446,13 +445,13 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
 
   for (;;)
     {
-      int read_bytes = getline (&my_linebuf, &my_linebuf_size, xp->fp);
+      int read_bytes = getline (&my_linebuf, &my_linebuf_size, xp->input.fp);
       char *my_line_utf8;
       bool chomp;
 
       if (read_bytes < 0)
         {
-          if (ferror (xp->fp))
+          if (ferror (xp->input.fp))
             {
               error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
                      real_file_name);
@@ -540,11 +539,11 @@ skip_pod (struct perl_extractor *xp)
 
   for (;;)
     {
-      xp->linesize = getline (&xp->linebuf, &xp->linebuf_size, xp->fp);
+      xp->linesize = getline (&xp->linebuf, &xp->linebuf_size, xp->input.fp);
 
       if (xp->linesize < 0)
         {
-          if (ferror (xp->fp))
+          if (ferror (xp->input.fp))
             error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
                    real_file_name);
           return;
@@ -2024,9 +2023,9 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
 
                 struct perl_extractor *rxp = XMALLOC (struct perl_extractor);
                 rxp->mlp = xp->mlp;
-                rxp->fp = NULL;
-                rxp->input = substring;
-                rxp->input_end = substring + bufpos;
+                sf_istream_init_from_string_desc (
+                  &rxp->input,
+                  string_desc_new_addr (bufpos, substring));
                 rxp->line_number = xp->line_number;
                 perl_extractor_init_rest (rxp);
 
@@ -3979,9 +3978,7 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   struct perl_extractor *xp = XMALLOC (struct perl_extractor);
 
   xp->mlp = mdlp->item[0]->messages;
-  xp->fp = f;
-  xp->input = NULL;
-  xp->input_end = NULL;
+  sf_istream_init_from_file (&xp->input, f);
   real_file_name = real_filename;
   logical_file_name = xstrdup (logical_filename);
   perl_extractor_init_rest (xp);

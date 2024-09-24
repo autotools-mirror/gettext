@@ -228,6 +228,7 @@ if ! $skip_gnulib; then
     relocatable-prog
     relocatable-script
     setlocale
+    sf-istream
     sh-filename
     sh-quote
     sigpipe
