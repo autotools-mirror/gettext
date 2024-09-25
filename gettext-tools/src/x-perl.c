@@ -480,6 +480,7 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
               my_linebuf = xrealloc (my_linebuf, my_linebuf_size);
             }
           strcpy (my_linebuf, my_line_utf8);
+          read_bytes = strlen (my_line_utf8);
           free (my_line_utf8);
         }
 
