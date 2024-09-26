@@ -22,8 +22,6 @@
 /* Specification.  */
 #include "read-desktop.h"
 
-#include "xalloc.h"
-
 #include <assert.h>
 #include <errno.h>
 #include <stdbool.h>
@@ -34,6 +32,7 @@
 #include <error.h>
 #include "xalloc.h"
 #include "xvasprintf.h"
+#include "string-buffer.h"
 #include "c-ctype.h"
 #include "po-xerror.h"
 #include "gettext.h"
@@ -210,24 +209,12 @@ free_token (token_ty *tp)
 static void
 desktop_lex (token_ty *tp)
 {
-  static char *buffer;
-  static size_t bufmax;
-  size_t bufpos;
+  struct string_buffer buffer;
 
 #undef APPEND
-#define APPEND(c)                               \
-  do                                            \
-    {                                           \
-      if (bufpos >= bufmax)                     \
-        {                                       \
-          bufmax += 100;                        \
-          buffer = xrealloc (buffer, bufmax);   \
-        }                                       \
-      buffer[bufpos++] = c;                     \
-    }                                           \
-  while (0)
+#define APPEND(c) sb_xappend1 (&buffer, (c))
 
-  bufpos = 0;
+  sb_init (&buffer);
   for (;;)
     {
       int c;
@@ -237,6 +224,7 @@ desktop_lex (token_ty *tp)
       switch (c)
         {
         case EOF:
+          sb_free (&buffer);
           tp->type = token_type_eof;
           return;
 
@@ -277,7 +265,7 @@ desktop_lex (token_ty *tp)
                          _("invalid non-blank character"));
             APPEND (0);
             tp->type = token_type_group;
-            tp->string = xstrdup (buffer);
+            tp->string = sb_xdupfree_c (&buffer);
             return;
           }
 
@@ -293,7 +281,7 @@ desktop_lex (token_ty *tp)
               }
             APPEND (0);
             tp->type = token_type_comment;
-            tp->string = xstrdup (buffer);
+            tp->string = sb_xdupfree_c (&buffer);
             return;
           }
 
@@ -340,7 +328,7 @@ desktop_lex (token_ty *tp)
                     /* Finish the key part and start the locale part.  */
                     APPEND (0);
                     found_locale = true;
-                    locale_start = bufpos;
+                    locale_start = string_desc_length (sb_contents (&buffer));
 
                     for (;;)
                       {
@@ -381,7 +369,9 @@ desktop_lex (token_ty *tp)
               {
                 po_xerror (PO_SEVERITY_WARNING, NULL,
                            real_file_name, pos.line_number, 0, false,
-                           xasprintf (_("missing '=' after \"%s\""), buffer));
+                           xasprintf (_("missing '=' after \"%s\""),
+                                      sb_xcontents_c (&buffer)));
+                sb_free (&buffer);
                 for (;;)
                   {
                     c = phase2_getc ();
@@ -409,7 +399,7 @@ desktop_lex (token_ty *tp)
                 break;
               }
 
-            value_start = bufpos;
+            value_start = string_desc_length (sb_contents (&buffer));
             for (;;)
               {
                 c = phase2_getc ();
@@ -418,10 +408,13 @@ desktop_lex (token_ty *tp)
                 APPEND (c);
               }
             APPEND (0);
+            char *buffer_contents = sb_xdupfree_c (&buffer);
             tp->type = token_type_pair;
-            tp->string = xmemdup (buffer, bufpos);
-            tp->locale = found_locale ? &buffer[locale_start] : NULL;
-            tp->value = &buffer[value_start];
+            tp->string = buffer_contents;
+            /* tp->locale and tp->value are live only as long as tp->string is
+               live.  */
+            tp->locale = found_locale ? &buffer_contents[locale_start] : NULL;
+            tp->value = &buffer_contents[value_start];
             return;
           }
         default:
@@ -445,12 +438,13 @@ desktop_lex (token_ty *tp)
                 po_xerror (PO_SEVERITY_WARNING, NULL,
                            real_file_name, pos.line_number, 0, false,
                            _("invalid non-blank line"));
+                sb_free (&buffer);
                 tp->type = token_type_other;
                 return;
               }
             APPEND (0);
             tp->type = token_type_blank;
-            tp->string = xstrdup (buffer);
+            tp->string = sb_xdupfree_c (&buffer);
             return;
           }
         }

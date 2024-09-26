@@ -1,5 +1,5 @@
 /* Unicode CLDR plural rule parser and converter
-   Copyright (C) 2015, 2020 Free Software Foundation, Inc.
+   Copyright (C) 2015-2024 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -27,6 +27,7 @@
 #include <unistd.h>
 #include "unistr.h"
 #include "xalloc.h"
+#include "string-buffer.h"
 
 #include "cldr-plural-exp.h"
 #include "cldr-plural.h"
@@ -289,9 +290,6 @@ yylex (YYSTYPE *lval, struct cldr_plural_parse_args *arg)
   ucs4_t uc;
   int length;
   int result;
-  static char *buffer;
-  static size_t bufmax;
-  size_t bufpos;
 
   while (1)
     {
@@ -384,67 +382,64 @@ yylex (YYSTYPE *lval, struct cldr_plural_parse_args *arg)
     case 'h': case 'i': case 'j': case 'k': case 'l': case 'm': case 'n':
     case 'o': case 'p': case 'q': case 'r': case 's': case 't': case 'u':
     case 'v': case 'w': case 'x': case 'y': case 'z':
-      bufpos = 0;
-      for (;;)
-        {
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos++] = result;
-          result = *exp;
-          switch (result)
-            {
-            case 'a': case 'b': case 'c': case 'd': case 'e':
-            case 'f': case 'g': case 'h': case 'i': case 'j':
-            case 'k': case 'l': case 'm': case 'n': case 'o':
-            case 'p': case 'q': case 'r': case 's': case 't':
-            case 'u': case 'v': case 'w': case 'x': case 'y':
-            case 'z':
-              ++exp;
-              continue;
-            default:
-              break;
-            }
-          break;
-        }
+      {
+        struct string_buffer buffer;
 
-      if (bufpos >= bufmax)
-        {
-          bufmax = 2 * bufmax + 10;
-          buffer = xrealloc (buffer, bufmax);
-        }
-      buffer[bufpos] = '\0';
+        sb_init (&buffer);
+        for (;;)
+          {
+            sb_xappend1 (&buffer, result);
+            result = *exp;
+            switch (result)
+              {
+              case 'a': case 'b': case 'c': case 'd': case 'e':
+              case 'f': case 'g': case 'h': case 'i': case 'j':
+              case 'k': case 'l': case 'm': case 'n': case 'o':
+              case 'p': case 'q': case 'r': case 's': case 't':
+              case 'u': case 'v': case 'w': case 'x': case 'y':
+              case 'z':
+                ++exp;
+                continue;
+              default:
+                break;
+              }
+            break;
+          }
 
-      /* Operands.  */
-      if (bufpos == 1)
-        {
-          switch (buffer[0])
-            {
-            case 'n': case 'i': case 'f': case 't': case 'v': case 'w':
-              arg->cp = exp;
-              lval->ival = buffer[0];
-              return OPERAND;
-            default:
-              break;
-            }
-        }
+        const char *ident = sb_xcontents_c (&buffer);
 
-      /* Keywords.  */
-      if (strcmp (buffer, "and") == 0)
-        {
-          arg->cp = exp;
-          return AND;
-        }
-      else if (strcmp (buffer, "or") == 0)
-        {
-          arg->cp = exp;
-          return OR;
-        }
+        /* Operands.  */
+        if (strlen (ident) == 1)
+          {
+            switch (ident[0])
+              {
+              case 'n': case 'i': case 'f': case 't': case 'v': case 'w':
+                arg->cp = exp;
+                lval->ival = ident[0];
+                sb_free (&buffer);
+                return OPERAND;
+              default:
+                break;
+              }
+          }
 
-      lval->sval = xstrdup (buffer);
-      result = KEYWORD;
+        /* Keywords.  */
+        if (strcmp (ident, "and") == 0)
+          {
+            arg->cp = exp;
+            sb_free (&buffer);
+            return AND;
+          }
+        else if (strcmp (ident, "or") == 0)
+          {
+            arg->cp = exp;
+            sb_free (&buffer);
+            return OR;
+          }
+
+        lval->sval = sb_xdupfree_c (&buffer);
+        result = KEYWORD;
+      }
       break;
     case '!':
       if (exp[0] == '=')

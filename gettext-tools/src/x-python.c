@@ -49,6 +49,7 @@
 #include "xerror.h"
 #include "xvasprintf.h"
 #include "xalloc.h"
+#include "string-buffer.h"
 #include "c-strstr.h"
 #include "c-ctype.h"
 #include "po-charset.h"
@@ -1315,19 +1316,12 @@ phase5_get (token_ty *tp)
         symbol:
           /* Symbol, or part of a number.  */
           {
-            static char *buffer;
-            static int bufmax;
-            int bufpos;
+            struct string_buffer buffer;
 
-            bufpos = 0;
+            sb_init (&buffer);
             for (;;)
               {
-                if (bufpos >= bufmax)
-                  {
-                    bufmax = 2 * bufmax + 10;
-                    buffer = xrealloc (buffer, bufmax);
-                  }
-                buffer[bufpos++] = c;
+                sb_xappend1 (&buffer, c);
                 c = phase3_getc ();
                 switch (c)
                   {
@@ -1351,13 +1345,7 @@ phase5_get (token_ty *tp)
                   }
                 break;
               }
-            if (bufpos >= bufmax)
-              {
-                bufmax = 2 * bufmax + 10;
-                buffer = xrealloc (buffer, bufmax);
-              }
-            buffer[bufpos] = '\0';
-            tp->string = xstrdup (buffer);
+            tp->string = sb_xdupfree_c (&buffer);
             tp->type = token_type_symbol;
             return;
           }

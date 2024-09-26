@@ -45,6 +45,7 @@
 #include "xg-message.h"
 #include "if-error.h"
 #include "xalloc.h"
+#include "string-buffer.h"
 #include "c-ctype.h"
 #include "po-charset.h"
 #include "unistr.h"
@@ -428,20 +429,12 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
 {
   /* Accumulator for the entire here document, including a NUL byte
      at the end.  */
-  static char *buffer;
-  static size_t bufmax = 0;
-  size_t bufpos = 0;
+  struct string_buffer buffer;
   /* Current line being appended.  */
   static char *my_linebuf = NULL;
   static size_t my_linebuf_size = 0;
 
-  /* Allocate the initial buffer.  Later on, bufmax > 0.  */
-  if (bufmax == 0)
-    {
-      buffer = XNMALLOC (1, char);
-      buffer[0] = '\0';
-      bufmax = 1;
-    }
+  sb_init (&buffer);
 
   for (;;)
     {
@@ -513,21 +506,12 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
       if (chomp)
         my_linebuf[read_bytes - 1] = '\n';
 
-      /* Ensure room for read_bytes + 1 bytes.  */
-      if (bufpos + read_bytes >= bufmax)
-        {
-          do
-            bufmax = 2 * bufmax + 10;
-          while (bufpos + read_bytes >= bufmax);
-          buffer = xrealloc (buffer, bufmax);
-        }
       /* Append this line to the accumulator.  */
-      strcpy (buffer + bufpos, my_linebuf);
-      bufpos += read_bytes;
+      sb_xappend_desc (&buffer, string_desc_new_addr (read_bytes, my_linebuf));
     }
 
   /* Done accumulating the here document.  */
-  return xstrdup (buffer);
+  return sb_xdupfree_c (&buffer);
 }
 
 /* Skips pod sections.  */
@@ -569,9 +553,6 @@ skip_pod (struct perl_extractor *xp)
 static int
 phase2_getc (struct perl_extractor *xp)
 {
-  static char *buffer;
-  static size_t bufmax;
-  size_t buflen;
   int lineno;
   int c;
   char *utf8_string;
@@ -579,7 +560,8 @@ phase2_getc (struct perl_extractor *xp)
   c = phase1_getc (xp);
   if (c == '#')
     {
-      buflen = 0;
+      struct string_buffer buffer;
+      sb_init (&buffer);
       lineno = xp->line_number;
       /* Skip leading whitespace.  */
       for (;;)
@@ -599,23 +581,13 @@ phase2_getc (struct perl_extractor *xp)
           c = phase1_getc (xp);
           if (c == '\n' || c == EOF)
             break;
-          if (buflen >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[buflen++] = c;
+          sb_xappend1 (&buffer, c);
         }
-      if (buflen >= bufmax)
-        {
-          bufmax = 2 * bufmax + 10;
-          buffer = xrealloc (buffer, bufmax);
-        }
-      buffer[buflen] = '\0';
       /* Convert it to UTF-8.  */
       utf8_string =
-        from_current_source_encoding (buffer, lc_comment, logical_file_name,
-                                      lineno);
+        from_current_source_encoding (sb_xcontents_c (&buffer), lc_comment,
+                                      logical_file_name, lineno);
+      sb_free (&buffer);
       /* Save it until we encounter the corresponding string.  */
       savable_comment_add (utf8_string);
       xp->last_comment_line = lineno;
@@ -765,16 +737,12 @@ free_token (token_ty *tp)
 static string_desc_t
 extract_quotelike_pass1 (struct perl_extractor *xp, int delim)
 {
-  /* This function is called recursively.  No way to allocate stuff
-     statically.  Also alloca() is inappropriate due to limited stack
-     size on some platforms.  So we use malloc().  */
-  int bufmax = 10;
-  char *buffer = XNMALLOC (bufmax, char);
-  int bufpos = 0;
+  struct string_buffer buffer;
   bool nested = true;
   int counter_delim;
 
-  buffer[bufpos++] = delim;
+  sb_init (&buffer);
+  sb_xappend1 (&buffer, delim);
 
   /* Find the closing delimiter.  */
   switch (delim)
@@ -801,61 +769,43 @@ extract_quotelike_pass1 (struct perl_extractor *xp, int delim)
     {
       int c = phase1_getc (xp);
 
-      /* This round can produce 1 or 2 bytes.  Ensure room for 2 bytes.  */
-      if (bufpos + 2 > bufmax)
-        {
-          bufmax = 2 * bufmax + 10;
-          buffer = xrealloc (buffer, bufmax);
-        }
-
       if (c == counter_delim || c == EOF)
         {
-          buffer[bufpos++] = counter_delim; /* will be stripped off later */
+          sb_xappend1 (&buffer, counter_delim); /* will be stripped off later */
           #if DEBUG_PERL
-          fprintf (stderr, "PASS1: %.*s\n", bufpos, buffer);
+          fprintf (stderr, "PASS1: %.*s\n", (int) buffer.length, buffer.data);
           #endif
-          return string_desc_new_addr (bufpos, buffer);
+          return sb_xdupfree (&buffer);
         }
 
       if (nested && c == delim)
         {
           string_desc_t inner = extract_quotelike_pass1 (xp, delim);
-          size_t len = string_desc_length (inner);
-
-          /* Ensure room for len + 1 bytes.  */
-          if (bufpos + len >= bufmax)
-            {
-              do
-                bufmax = 2 * bufmax + 10;
-              while (bufpos + len >= bufmax);
-              buffer = xrealloc (buffer, bufmax);
-            }
-          memcpy (buffer + bufpos, string_desc_data (inner), len);
+          sb_xappend_desc (&buffer, inner);
           string_desc_free (inner);
-          bufpos += len;
         }
       else if (c == '\\')
         {
           c = phase1_getc (xp);
           if (c == '\\')
             {
-              buffer[bufpos++] = '\\';
-              buffer[bufpos++] = '\\';
+              sb_xappend1 (&buffer, '\\');
+              sb_xappend1 (&buffer, '\\');
             }
           else if (c == delim || c == counter_delim)
             {
               /* This is pass2 in Perl.  */
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
             }
           else
             {
-              buffer[bufpos++] = '\\';
+              sb_xappend1 (&buffer, '\\');
               phase1_ungetc (xp, c);
             }
         }
       else
         {
-          buffer[bufpos++] = c;
+          sb_xappend1 (&buffer, c);
         }
     }
 }
@@ -1018,9 +968,7 @@ extract_triple_quotelike (struct perl_extractor *xp, token_ty *tp, int delim,
 static void
 extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
 {
-  static char *buffer;
-  static int bufmax = 0;
-  int bufpos = 0;
+  struct string_buffer buffer;
   const char *crs;
   bool uppercase;
   bool lowercase;
@@ -1050,6 +998,8 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
   if (tp->sub_type == string_type_verbatim)
     return;
 
+  sb_init (&buffer);
+
   /* Loop over tp->string, accumulating the expansion in buffer.  */
   crs = tp->string;
   uppercase = false;
@@ -1059,14 +1009,6 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
     {
       bool backslashed;
 
-      /* Ensure room for 7 bytes, 6 (multi-)bytes plus a leading backslash
-         if \Q modifier is present.  */
-      if (bufpos + 7 > bufmax)
-        {
-          bufmax = 2 * bufmax + 10;
-          buffer = xrealloc (buffer, bufmax);
-        }
-
       if (tp->sub_type == string_type_q)
         {
           switch (*crs)
@@ -1075,12 +1017,12 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
               if (crs[1] == '\\')
                 {
                   crs += 2;
-                  buffer[bufpos++] = '\\';
+                  sb_xappend1 (&buffer, '\\');
                   break;
                 }
               FALLTHROUGH;
             default:
-              buffer[bufpos++] = *crs++;
+              sb_xappend1 (&buffer, *crs++);
               break;
             }
           continue;
@@ -1094,37 +1036,36 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
             {
             case 't':
               crs += 2;
-              buffer[bufpos++] = '\t';
+              sb_xappend1 (&buffer, '\t');
               continue;
             case 'n':
               crs += 2;
-              buffer[bufpos++] = '\n';
+              sb_xappend1 (&buffer, '\n');
               continue;
             case 'r':
               crs += 2;
-              buffer[bufpos++] = '\r';
+              sb_xappend1 (&buffer, '\r');
               continue;
             case 'f':
               crs += 2;
-              buffer[bufpos++] = '\f';
+              sb_xappend1 (&buffer, '\f');
               continue;
             case 'b':
               crs += 2;
-              buffer[bufpos++] = '\b';
+              sb_xappend1 (&buffer, '\b');
               continue;
             case 'a':
               crs += 2;
-              buffer[bufpos++] = '\a';
+              sb_xappend1 (&buffer, '\a');
               continue;
             case 'e':
               crs += 2;
-              buffer[bufpos++] = 0x1b;
+              sb_xappend1 (&buffer, 0x1b);
               continue;
             case '0': case '1': case '2': case '3':
             case '4': case '5': case '6': case '7':
               {
                 unsigned int oct_number;
-                int length;
 
                 crs = extract_oct (crs + 1, 3, &oct_number);
 
@@ -1142,19 +1083,19 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                     oct_number = oct_number - 'A' + 'a';
                   }
 
-
                 /* Yes, octal escape sequences in the range 0x100..0x1ff are
                    valid.  */
-                length = u8_uctomb ((unsigned char *) (buffer + bufpos),
-                                    oct_number, 2);
+                char tmpbuf[2];
+                int length =
+                  u8_uctomb ((unsigned char *) tmpbuf, oct_number, 2);
                 if (length > 0)
-                  bufpos += length;
+                  sb_xappend_desc (&buffer,
+                                   string_desc_new_addr (length, tmpbuf));
               }
               continue;
             case 'x':
               {
                 unsigned int hex_number = 0;
-                int length;
 
                 crs += 2;
                 if (*crs == '{')
@@ -1194,11 +1135,12 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                     hex_number = hex_number - 'A' + 'a';
                   }
 
-                length = u8_uctomb ((unsigned char *) (buffer + bufpos),
-                                    hex_number, 6);
-
+                char tmpbuf[6];
+                int length =
+                  u8_uctomb ((unsigned char *) tmpbuf, hex_number, 6);
                 if (length > 0)
-                  bufpos += length;
+                  sb_xappend_desc (&buffer,
+                                   string_desc_new_addr (length, tmpbuf));
               }
               continue;
             case 'c':
@@ -1209,7 +1151,7 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                   int the_char = (unsigned char) *crs;
                   if (the_char >= 'a' && the_char <= 'z')
                     the_char = the_char - 'a' + 'A';
-                  buffer[bufpos++] = the_char ^ 0x40;
+                  sb_xappend1 (&buffer, the_char ^ 0x40);
                 }
               continue;
             case 'N':
@@ -1231,11 +1173,12 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                         {
                           /* FIXME: Convert to upper/lowercase if the
                              corresponding flag is set to true.  */
+                          char tmpbuf[6];
                           int length =
-                            u8_uctomb ((unsigned char *) (buffer + bufpos),
-                                       unicode, 6);
+                            u8_uctomb ((unsigned char *) tmpbuf, unicode, 6);
                           if (length > 0)
-                            bufpos += length;
+                            sb_xappend_desc (&buffer,
+                                             string_desc_new_addr (length, tmpbuf));
                         }
 
                       free (name);
@@ -1277,7 +1220,7 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
               ++crs;
               if (*crs >= 'A' && *crs <= 'Z')
                 {
-                  buffer[bufpos++] = *crs - 'A' + 'a';
+                  sb_xappend1 (&buffer, *crs - 'A' + 'a');
                 }
               else if ((unsigned char) *crs >= 0x80)
                 {
@@ -1288,7 +1231,7 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                 }
               else
                 {
-                  buffer[bufpos++] = *crs;
+                  sb_xappend1 (&buffer, *crs);
                 }
               ++crs;
               continue;
@@ -1296,7 +1239,7 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
               ++crs;
               if (*crs >= 'a' && *crs <= 'z')
                 {
-                  buffer[bufpos++] = *crs - 'a' + 'A';
+                  sb_xappend1 (&buffer, *crs - 'a' + 'A');
                 }
               else if ((unsigned char) *crs >= 0x80)
                 {
@@ -1307,12 +1250,12 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                 }
               else
                 {
-                  buffer[bufpos++] = *crs;
+                  sb_xappend1 (&buffer, *crs);
                 }
               ++crs;
               continue;
             case '\\':
-              buffer[bufpos++] = *crs;
+              sb_xappend1 (&buffer, *crs);
               ++crs;
               continue;
             default:
@@ -1327,7 +1270,7 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
           && !((*crs >= 'A' && *crs <= 'Z') || (*crs >= 'A' && *crs <= 'z')
                || (*crs >= '0' && *crs <= '9') || *crs == '_'))
         {
-          buffer[bufpos++] = '\\';
+          sb_xappend1 (&buffer, '\\');
           backslashed = true;
         }
 
@@ -1342,49 +1285,40 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
       else if (lowercase)
         {
           if (*crs >= 'A' && *crs <= 'Z')
-            buffer[bufpos++] = *crs - 'A' + 'a';
+            sb_xappend1 (&buffer, *crs - 'A' + 'a');
           else if ((unsigned char) *crs >= 0x80)
             {
               if_error (IF_SEVERITY_WARNING,
                         real_file_name, xp->line_number, (size_t)(-1), false,
                         _("unsupported interpolation (\"\\L\") of 8bit character \"%c\""),
                         *crs);
-              buffer[bufpos++] = *crs;
+              sb_xappend1 (&buffer, *crs);
             }
           else
-            buffer[bufpos++] = *crs;
+            sb_xappend1 (&buffer, *crs);
           ++crs;
         }
       else if (uppercase)
         {
           if (*crs >= 'a' && *crs <= 'z')
-            buffer[bufpos++] = *crs - 'a' + 'A';
+            sb_xappend1 (&buffer, *crs - 'a' + 'A');
           else if ((unsigned char) *crs >= 0x80)
             {
               if_error (IF_SEVERITY_WARNING,
                         real_file_name, xp->line_number, (size_t)(-1), false,
                         _("unsupported interpolation (\"\\U\") of 8bit character \"%c\""),
                         *crs);
-              buffer[bufpos++] = *crs;
+              sb_xappend1 (&buffer, *crs);
             }
           else
-            buffer[bufpos++] = *crs;
+            sb_xappend1 (&buffer, *crs);
           ++crs;
         }
       else
         {
-          buffer[bufpos++] = *crs++;
+          sb_xappend1 (&buffer, *crs++);
         }
     }
-
-  /* Ensure room for 1 more byte.  */
-  if (bufpos >= bufmax)
-    {
-      bufmax = 2 * bufmax + 10;
-      buffer = xrealloc (buffer, bufmax);
-    }
-
-  buffer[bufpos++] = '\0';
 
   #if DEBUG_PERL
   fprintf (stderr, "---> %s\n", buffer);
@@ -1393,7 +1327,9 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
   /* Replace tp->string.  */
   free (tp->string);
   if (tp->type == token_type_string)
-    tp->string = xstrdup (buffer);
+    tp->string = sb_xdupfree_c (&buffer);
+  else
+    sb_free (&buffer);
 }
 
 /* Parse a variable.  This is done in several steps:
@@ -1404,12 +1340,12 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
 static void
 extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
 {
-  static char *buffer;
-  static int bufmax = 0;
-  int bufpos = 0;
+  struct string_buffer buffer;
   size_t varbody_length = 0;
   bool maybe_hash_deref = false;
   bool maybe_hash_value = false;
+
+  sb_init (&buffer);
 
   tp->type = token_type_variable;
 
@@ -1428,28 +1364,26 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
 
     while (c == '$' || c == '*' || c == '#' || c == '@' || c == '%')
       {
-        if (bufpos >= bufmax)
-          {
-            bufmax = 2 * bufmax + 10;
-            buffer = xrealloc (buffer, bufmax);
-          }
-        buffer[bufpos++] = c;
+        sb_xappend1 (&buffer, c);
         c = phase1_getc (xp);
       }
 
     if (c == EOF)
       {
+        sb_free (&buffer);
         tp->type = token_type_eof;
         return;
       }
 
     /* Hash references are treated in a special way, when looking for
        our keywords.  */
-    if (buffer[0] == '$')
+    string_desc_t contents = sb_contents (&buffer);
+    if (string_desc_char_at (contents, 0) == '$')
       {
-        if (bufpos == 1)
+        if (string_desc_length (contents) == 1)
           maybe_hash_value = true;
-        else if (bufpos == 2 && buffer[1] == '$')
+        else if (string_desc_length (contents) == 2
+                 && string_desc_char_at (contents, 1) == '$')
           {
             if (!(c == '{'
                   || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
@@ -1457,13 +1391,7 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
                   || c == '_' || c == ':' || c == '\'' || c >= 0x80))
               {
                 /* Special variable $$ for pid.  */
-                if (bufpos >= bufmax)
-                  {
-                    bufmax = 2 * bufmax + 10;
-                    buffer = xrealloc (buffer, bufmax);
-                  }
-                buffer[bufpos++] = '\0';
-                tp->string = xstrdup (buffer);
+                tp->string = sb_xdupfree_c (&buffer);
                 #if DEBUG_PERL
                 fprintf (stderr, "%s:%d: is PID ($$)\n",
                          real_file_name, xp->line_number);
@@ -1474,7 +1402,8 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
               }
 
             maybe_hash_deref = true;
-            bufpos = 1;
+            /* Truncate to length 1.  */
+            buffer.length = 1;
           }
       }
 
@@ -1484,11 +1413,6 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
      *    in the global namespace but that subtle difference is not interesting
      *    for us.
      */
-    if (bufpos >= bufmax)
-      {
-        bufmax = 2 * bufmax + 10;
-        buffer = xrealloc (buffer, bufmax);
-      }
     if (c == '{')
       {
         /* Yuck, we cannot accept ${gettext} as a keyword...  Except for
@@ -1506,17 +1430,13 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
                               null_context_region (), null_context_list_iterator,
                               1, arglist_parser_alloc (xp->mlp, NULL)))
           {
+            sb_free (&buffer);
             tp->type = token_type_eof;
             return;
           }
-        buffer[bufpos++] = c;
+        sb_xappend1 (&buffer, c);
         ++varbody_length;
-        if (bufpos >= bufmax)
-          {
-            bufmax = 2 * bufmax + 10;
-            buffer = xrealloc (buffer, bufmax);
-          }
-        buffer[bufpos++] = '}';
+        sb_xappend1 (&buffer, '}');
       }
     else
       {
@@ -1525,12 +1445,7 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
                || c == '_' || c == ':' || c == '\'' || c >= 0x80)
           {
             ++varbody_length;
-            if (bufpos >= bufmax)
-              {
-                bufmax = 2 * bufmax + 10;
-                buffer = xrealloc (buffer, bufmax);
-              }
-            buffer[bufpos++] = c;
+            sb_xappend1 (&buffer, c);
             c = phase1_getc (xp);
           }
         phase1_ungetc (xp, c);
@@ -1544,24 +1459,10 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
       if (c == EOF || is_whitespace (c))
         phase1_ungetc (xp, c);  /* Loser.  */
       else
-        {
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos++] = c;
-        }
+        sb_xappend1 (&buffer, c);
     }
 
-  if (bufpos >= bufmax)
-    {
-      bufmax = 2 * bufmax + 10;
-      buffer = xrealloc (buffer, bufmax);
-    }
-  buffer[bufpos++] = '\0';
-
-  tp->string = xstrdup (buffer);
+  tp->string = sb_xdupfree_c (&buffer);
 
   #if DEBUG_PERL
   fprintf (stderr, "%s:%d: complete variable name: %s\n",
@@ -1792,9 +1693,7 @@ static void
 interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                       int lineno)
 {
-  static char *buffer;
-  static int bufmax = 0;
-  int bufpos = 0;
+  struct string_buffer buffer;
   flag_region_ty *region;
   size_t length;
   size_t index;
@@ -1820,6 +1719,8 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
   token_ty token;
 
   lex_pos_ty pos;
+
+  sb_init (&buffer);
 
   if (++(xp->nesting_depth) > MAX_NESTING_DEPTH)
     if_error (IF_SEVERITY_FATAL_ERROR,
@@ -1874,16 +1775,10 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
 
       c = string_desc_char_at (string, index++);
       if (state == initial)
-        bufpos = 0;
+        buffer.length = 0;
 
       if (c == '\n')
         lineno++;
-
-      if (bufpos + 1 >= bufmax)
-        {
-          bufmax = 2 * bufmax + 10;
-          buffer = xrealloc (buffer, bufmax);
-        }
 
       switch (state)
         {
@@ -1894,12 +1789,13 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
               if (index == length)
                 {
                   xp->nesting_depth--;
+                  sb_free (&buffer);
                   return;
                 }
               c = string_desc_char_at (string, index++);
               break;
             case '$':
-              buffer[bufpos++] = '$';
+              sb_xappend1 (&buffer, '$');
               maybe_hash_deref = false;
               state = one_dollar;
               break;
@@ -1925,7 +1821,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                   || (c >= 'a' && c <= 'z')
                   || (c >= '0' && c <= '9'))
                 {
-                  buffer[bufpos++] = c;
+                  sb_xappend1 (&buffer, c);
                   state = identifier;
                 }
               else
@@ -1940,7 +1836,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
               || (c >= 'a' && c <= 'z')
               || (c >= '0' && c <= '9'))
             {
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
               state = identifier;
             }
           else
@@ -1950,46 +1846,60 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
           switch (c)
             {
             case '-':
-              if (hash_find_entry (&keywords, buffer, bufpos, &keyword_value)
-                  == 0)
-                {
-                  flag_context_list_iterator_ty context_iter =
-                    flag_context_list_iterator (
-                      flag_context_list_table_lookup (
-                        flag_context_list_table,
-                        buffer, bufpos));
-                  region =
-                    inheriting_region (null_context_region (),
-                                       flag_context_list_iterator_advance (
-                                         &context_iter));
-                  state = minus;
-                }
-              else
-                state = initial;
+              {
+                string_desc_t contents = sb_contents (&buffer);
+                if (hash_find_entry (&keywords,
+                                     string_desc_data (contents),
+                                     string_desc_length (contents),
+                                     &keyword_value)
+                    == 0)
+                  {
+                    flag_context_list_iterator_ty context_iter =
+                      flag_context_list_iterator (
+                        flag_context_list_table_lookup (
+                          flag_context_list_table,
+                          string_desc_data (contents),
+                          string_desc_length (contents)));
+                    region =
+                      inheriting_region (null_context_region (),
+                                         flag_context_list_iterator_advance (
+                                           &context_iter));
+                    state = minus;
+                  }
+                else
+                  state = initial;
+              }
               break;
             case '[':
-              bufpos = 0;
+              buffer.length = 0;
               state = seen_lbracket;
               break;
             case '{':
-              if (!maybe_hash_deref)
-                buffer[0] = '%';
-              if (hash_find_entry (&keywords, buffer, bufpos, &keyword_value)
-                  == 0)
-                {
-                  flag_context_list_iterator_ty context_iter =
-                    flag_context_list_iterator (
-                      flag_context_list_table_lookup (
-                        flag_context_list_table,
-                        buffer, bufpos));
-                  region =
-                    inheriting_region (null_context_region (),
-                                       flag_context_list_iterator_advance (
-                                         &context_iter));
-                  state = seen_lbrace;
-                }
-              else
-                state = initial;
+              {
+                string_desc_t contents = sb_contents (&buffer);
+                if (!maybe_hash_deref)
+                  string_desc_set_char_at (contents, 0, '%');
+                if (hash_find_entry (&keywords,
+                                     string_desc_data (contents),
+                                     string_desc_length (contents),
+                                     &keyword_value)
+                    == 0)
+                  {
+                    flag_context_list_iterator_ty context_iter =
+                      flag_context_list_iterator (
+                        flag_context_list_table_lookup (
+                          flag_context_list_table,
+                          string_desc_data (contents),
+                          string_desc_length (contents)));
+                    region =
+                      inheriting_region (null_context_region (),
+                                         flag_context_list_iterator_advance (
+                                           &context_iter));
+                    state = seen_lbrace;
+                  }
+                else
+                  state = initial;
+              }
               break;
             default:
               if (!c_isascii ((unsigned char) c)
@@ -1998,7 +1908,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                   || (c >= 'a' && c <= 'z')
                   || (c >= '0' && c <= '9'))
                 {
-                  buffer[bufpos++] = c;
+                  sb_xappend1 (&buffer, c);
                 }
               else
                 state = initial;
@@ -2009,35 +1919,31 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
           switch (c)
             {
             case '\'':
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
               state = lbracket_squote;
               break;
             case '"':
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
               state = lbracket_dquote;
               break;
             case ']':
               /* Recursively extract messages from the bracketed expression.  */
               {
-                char *substring = xmalloc (bufpos);
-                memcpy (substring, buffer, bufpos);
+                string_desc_t substring = sb_contents (&buffer);
 
                 struct perl_extractor *rxp = XMALLOC (struct perl_extractor);
                 rxp->mlp = xp->mlp;
-                sf_istream_init_from_string_desc (
-                  &rxp->input,
-                  string_desc_new_addr (bufpos, substring));
+                sf_istream_init_from_string_desc (&rxp->input, substring);
                 rxp->line_number = xp->line_number;
                 perl_extractor_init_rest (rxp);
 
                 extract_perl_input (rxp);
 
                 free (rxp);
-                free (substring);
               }
               break;
             default:
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
               break;
             }
           break;
@@ -2045,7 +1951,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
           switch (c)
             {
             case '"':
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
               state = seen_lbracket;
               break;
             case '\\':
@@ -2059,17 +1965,17 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                   c = string_desc_char_at (string, index++);
                   if (c == '\"')
                     {
-                      buffer[bufpos++] = c;
+                      sb_xappend1 (&buffer, c);
                     }
                   else
                     {
-                      buffer[bufpos++] = '\\';
-                      buffer[bufpos++] = c;
+                      sb_xappend1 (&buffer, '\\');
+                      sb_xappend1 (&buffer, c);
                     }
                 }
               break;
             default:
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
               break;
             }
           break;
@@ -2077,7 +1983,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
           switch (c)
             {
             case '\'':
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
               state = seen_lbracket;
               break;
             case '\\':
@@ -2091,17 +1997,17 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                   c = string_desc_char_at (string, index++);
                   if (c == '\'')
                     {
-                      buffer[bufpos++] = c;
+                      sb_xappend1 (&buffer, c);
                     }
                   else
                     {
-                      buffer[bufpos++] = '\\';
-                      buffer[bufpos++] = c;
+                      sb_xappend1 (&buffer, '\\');
+                      sb_xappend1 (&buffer, c);
                     }
                 }
               break;
             default:
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
               break;
             }
           break;
@@ -2136,12 +2042,12 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
               break;
             case '\'':
               pos.line_number = lineno;
-              bufpos = 0;
+              buffer.length = 0;
               state = lbrace_squote;
               break;
             case '"':
               pos.line_number = lineno;
-              bufpos = 0;
+              buffer.length = 0;
               state = lbrace_dquote;
               break;
             default:
@@ -2150,8 +2056,8 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                   || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
                 {
                   pos.line_number = lineno;
-                  bufpos = 0;
-                  buffer[bufpos++] = c;
+                  buffer.length = 0;
+                  sb_xappend1 (&buffer, c);
                   state = lbrace_barekey;
                 }
               else
@@ -2167,16 +2073,12 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
             {
             case '"':
               /* The resulting string has to be interpolated twice.  */
-              buffer[bufpos] = '\0';
-              token.string = xstrdup (buffer);
+              token.string = sb_xdupfree_c (&buffer);
+              sb_init (&buffer);
               extract_quotelike_pass3 (xp, &token);
               if (token.type == token_type_string)
                 {
-                  /* The string can only shrink with interpolation (because
-                     we ignore \Q).  */
-                  if (!(strlen (token.string) <= bufpos))
-                    abort ();
-                  strcpy (buffer, token.string);
+                  sb_xappend_c (&buffer, token.string);
                   free (token.string);
                 }
               state = wait_rbrace;
@@ -2192,17 +2094,17 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                   c = string_desc_char_at (string, index++);
                   if (c == '\"')
                     {
-                      buffer[bufpos++] = c;
+                      sb_xappend1 (&buffer, c);
                     }
                   else
                     {
-                      buffer[bufpos++] = '\\';
-                      buffer[bufpos++] = c;
+                      sb_xappend1 (&buffer, '\\');
+                      sb_xappend1 (&buffer, c);
                     }
                 }
               break;
             default:
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
               break;
             }
           break;
@@ -2223,17 +2125,17 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                   c = string_desc_char_at (string, index++);
                   if (c == '\'')
                     {
-                      buffer[bufpos++] = c;
+                      sb_xappend1 (&buffer, c);
                     }
                   else
                     {
-                      buffer[bufpos++] = '\\';
-                      buffer[bufpos++] = c;
+                      sb_xappend1 (&buffer, '\\');
+                      sb_xappend1 (&buffer, c);
                     }
                 }
               break;
             default:
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
               break;
             }
           break;
@@ -2242,7 +2144,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
               || c == '_' || (c >= '0' && c <= '9')
               || (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'))
             {
-              buffer[bufpos++] = c;
+              sb_xappend1 (&buffer, c);
               break;
             }
           else if (is_whitespace (c))
@@ -2266,8 +2168,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
             case '}':
               if (token.type == token_type_string)
                 {
-                  buffer[bufpos] = '\0';
-                  token.string = xstrdup (buffer);
+                  token.string = sb_xdupfree_c (&buffer);
                   extract_quotelike_pass3 (xp, &token);
                   if (token.type == token_type_string)
                     {
@@ -2275,6 +2176,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                                           false, region, &pos, NULL,
                                           savable_comment, true);
                     }
+                  sb_init (&buffer);
                 }
               FALLTHROUGH;
             default:
@@ -2287,6 +2189,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
     }
 
   xp->nesting_depth--;
+  sb_free (&buffer);
   return;
 }
 
@@ -2384,9 +2287,6 @@ prefer_regexp_over_division (token_type_ty type)
 static void
 x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
 {
-  static char *buffer;
-  static int bufmax;
-  int bufpos;
   int c;
 
   for (;;)
@@ -2456,218 +2356,220 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9':
           /* Symbol, or part of a number.  */
-          bufpos = 0;
-          for (;;)
-            {
-              if (bufpos >= bufmax)
-                {
-                  bufmax = 2 * bufmax + 10;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-              buffer[bufpos++] = c;
-              c = phase1_getc (xp);
-              switch (c)
-                {
-                case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-                case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-                case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-                case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-                case 'Y': case 'Z':
-                case '_':
-                case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-                case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-                case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-                case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-                case 'y': case 'z':
-                case '0': case '1': case '2': case '3': case '4':
-                case '5': case '6': case '7': case '8': case '9':
-                  continue;
-
-                default:
-                  phase1_ungetc (xp, c);
-                  break;
-                }
-              break;
-            }
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos] = '\0';
-
-          if (strcmp (buffer, "__END__") == 0
-              || strcmp (buffer, "__DATA__") == 0)
-            {
-              xp->end_of_file = true;
-              tp->type = token_type_eof;
-              return;
-            }
-          else if (strcmp (buffer, "and") == 0
-                   || strcmp (buffer, "cmp") == 0
-                   || strcmp (buffer, "eq") == 0
-                   || strcmp (buffer, "if") == 0
-                   || strcmp (buffer, "ge") == 0
-                   || strcmp (buffer, "gt") == 0
-                   || strcmp (buffer, "le") == 0
-                   || strcmp (buffer, "lt") == 0
-                   || strcmp (buffer, "ne") == 0
-                   || strcmp (buffer, "not") == 0
-                   || strcmp (buffer, "or") == 0
-                   || strcmp (buffer, "unless") == 0
-                   || strcmp (buffer, "while") == 0
-                   || strcmp (buffer, "xor") == 0)
-            {
-              tp->type = token_type_named_op;
-              tp->string = xstrdup (buffer);
-              return;
-            }
-          else if (strcmp (buffer, "s") == 0
-                 || strcmp (buffer, "y") == 0
-                 || strcmp (buffer, "tr") == 0)
-            {
-              int delim = phase1_getc (xp);
-
-              while (is_whitespace (delim))
-                delim = phase2_getc (xp);
-
-              if (delim == EOF)
-                {
-                  tp->type = token_type_eof;
-                  return;
-                }
-              if ((delim >= '0' && delim <= '9')
-                  || (delim >= 'A' && delim <= 'Z')
-                  || (delim >= 'a' && delim <= 'z'))
-                {
-                  /* False positive.  */
-                  phase2_ungetc (xp, delim);
-                  tp->type = token_type_symbol;
-                  tp->sub_type = symbol_type_none;
-                  tp->string = xstrdup (buffer);
-                  return;
-                }
-              extract_triple_quotelike (xp, tp, delim,
-                                        buffer[0] == 's' && delim != '\'');
-
-              /* Eat the following modifiers.  */
-              do
+          {
+            struct string_buffer buffer;
+            sb_init (&buffer);
+            for (;;)
+              {
+                sb_xappend1 (&buffer, c);
                 c = phase1_getc (xp);
-              while (c >= 'a' && c <= 'z');
-              phase1_ungetc (xp, c);
-              return;
-            }
-          else if (strcmp (buffer, "m") == 0)
-            {
-              int delim = phase1_getc (xp);
+                switch (c)
+                  {
+                  case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                  case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+                  case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+                  case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+                  case 'Y': case 'Z':
+                  case '_':
+                  case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                  case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+                  case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+                  case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+                  case 'y': case 'z':
+                  case '0': case '1': case '2': case '3': case '4':
+                  case '5': case '6': case '7': case '8': case '9':
+                    continue;
 
-              while (is_whitespace (delim))
-                delim = phase2_getc (xp);
+                  default:
+                    phase1_ungetc (xp, c);
+                    break;
+                  }
+                break;
+              }
+            const char *contents = sb_xcontents_c (&buffer);
 
-              if (delim == EOF)
-                {
-                  tp->type = token_type_eof;
-                  return;
-                }
-              if ((delim >= '0' && delim <= '9')
-                  || (delim >= 'A' && delim <= 'Z')
-                  || (delim >= 'a' && delim <= 'z'))
-                {
-                  /* False positive.  */
-                  phase2_ungetc (xp, delim);
-                  tp->type = token_type_symbol;
-                  tp->sub_type = symbol_type_none;
-                  tp->string = xstrdup (buffer);
-                  return;
-                }
-              extract_quotelike (xp, tp, delim);
-              if (delim != '\'')
-                interpolate_keywords (xp, string_desc_from_c (tp->string),
-                                      xp->line_number);
-              free (tp->string);
-              drop_reference (tp->comment);
-              tp->type = token_type_regex_op;
+            if (strcmp (contents, "__END__") == 0
+                || strcmp (contents, "__DATA__") == 0)
+              {
+                sb_free (&buffer);
+                xp->end_of_file = true;
+                tp->type = token_type_eof;
+                return;
+              }
+            else if (strcmp (contents, "and") == 0
+                     || strcmp (contents, "cmp") == 0
+                     || strcmp (contents, "eq") == 0
+                     || strcmp (contents, "if") == 0
+                     || strcmp (contents, "ge") == 0
+                     || strcmp (contents, "gt") == 0
+                     || strcmp (contents, "le") == 0
+                     || strcmp (contents, "lt") == 0
+                     || strcmp (contents, "ne") == 0
+                     || strcmp (contents, "not") == 0
+                     || strcmp (contents, "or") == 0
+                     || strcmp (contents, "unless") == 0
+                     || strcmp (contents, "while") == 0
+                     || strcmp (contents, "xor") == 0)
+              {
+                tp->type = token_type_named_op;
+                tp->string = sb_xdupfree_c (&buffer);
+                return;
+              }
+            else if (strcmp (contents, "s") == 0
+                   || strcmp (contents, "y") == 0
+                   || strcmp (contents, "tr") == 0)
+              {
+                int delim = phase1_getc (xp);
 
-              /* Eat the following modifiers.  */
-              do
-                c = phase1_getc (xp);
-              while (c >= 'a' && c <= 'z');
-              phase1_ungetc (xp, c);
-              return;
-            }
-          else if (strcmp (buffer, "qq") == 0
-                   || strcmp (buffer, "q") == 0
-                   || strcmp (buffer, "qx") == 0
-                   || strcmp (buffer, "qw") == 0
-                   || strcmp (buffer, "qr") == 0)
-            {
-              /* The qw (...) construct is not really a string but we
-                 can treat in the same manner and then pretend it is
-                 a symbol.  Rationale: Saying "qw (foo bar)" is the
-                 same as "my @list = ('foo', 'bar'); @list;".  */
+                while (is_whitespace (delim))
+                  delim = phase2_getc (xp);
 
-              int delim = phase1_getc (xp);
+                if (delim == EOF)
+                  {
+                    sb_free (&buffer);
+                    tp->type = token_type_eof;
+                    return;
+                  }
+                if ((delim >= '0' && delim <= '9')
+                    || (delim >= 'A' && delim <= 'Z')
+                    || (delim >= 'a' && delim <= 'z'))
+                  {
+                    /* False positive.  */
+                    phase2_ungetc (xp, delim);
+                    tp->type = token_type_symbol;
+                    tp->sub_type = symbol_type_none;
+                    tp->string = sb_xdupfree_c (&buffer);
+                    return;
+                  }
+                extract_triple_quotelike (xp, tp, delim,
+                                          contents[0] == 's' && delim != '\'');
+                sb_free (&buffer);
 
-              while (is_whitespace (delim))
-                delim = phase2_getc (xp);
+                /* Eat the following modifiers.  */
+                do
+                  c = phase1_getc (xp);
+                while (c >= 'a' && c <= 'z');
+                phase1_ungetc (xp, c);
+                return;
+              }
+            else if (strcmp (contents, "m") == 0)
+              {
+                int delim = phase1_getc (xp);
 
-              if (delim == EOF)
-                {
-                  tp->type = token_type_eof;
-                  return;
-                }
+                while (is_whitespace (delim))
+                  delim = phase2_getc (xp);
 
-              if ((delim >= '0' && delim <= '9')
-                  || (delim >= 'A' && delim <= 'Z')
-                  || (delim >= 'a' && delim <= 'z'))
-                {
-                  /* False positive.  */
-                  phase2_ungetc (xp, delim);
-                  tp->type = token_type_symbol;
-                  tp->sub_type = symbol_type_none;
-                  tp->string = xstrdup (buffer);
-                  return;
-                }
-
-              extract_quotelike (xp, tp, delim);
-
-              switch (buffer[1])
-                {
-                case 'q':
-                case 'x':
-                  tp->type = token_type_string;
-                  tp->sub_type = string_type_qq;
+                if (delim == EOF)
+                  {
+                    sb_free (&buffer);
+                    tp->type = token_type_eof;
+                    return;
+                  }
+                if ((delim >= '0' && delim <= '9')
+                    || (delim >= 'A' && delim <= 'Z')
+                    || (delim >= 'a' && delim <= 'z'))
+                  {
+                    /* False positive.  */
+                    phase2_ungetc (xp, delim);
+                    tp->type = token_type_symbol;
+                    tp->sub_type = symbol_type_none;
+                    tp->string = sb_xdupfree_c (&buffer);
+                    return;
+                  }
+                extract_quotelike (xp, tp, delim);
+                sb_free (&buffer);
+                if (delim != '\'')
                   interpolate_keywords (xp, string_desc_from_c (tp->string),
                                         xp->line_number);
-                  break;
-                case 'r':
-                  drop_reference (tp->comment);
-                  tp->type = token_type_regex_op;
-                  break;
-                case 'w':
-                  drop_reference (tp->comment);
-                  tp->type = token_type_symbol;
-                  tp->sub_type = symbol_type_none;
-                  break;
-                case '\0':
-                  tp->type = token_type_string;
-                  tp->sub_type = string_type_q;
-                  break;
-                default:
-                  abort ();
-                }
-              return;
-            }
-          else if ((buffer[0] >= '0' && buffer[0] <= '9') || buffer[0] == '.')
-            {
-              tp->type = token_type_number;
-              return;
-            }
-          tp->type = token_type_symbol;
-          tp->sub_type = (strcmp (buffer, "sub") == 0
-                          ? symbol_type_sub
-                          : symbol_type_none);
-          tp->string = xstrdup (buffer);
+                free (tp->string);
+                drop_reference (tp->comment);
+                tp->type = token_type_regex_op;
+
+                /* Eat the following modifiers.  */
+                do
+                  c = phase1_getc (xp);
+                while (c >= 'a' && c <= 'z');
+                phase1_ungetc (xp, c);
+                return;
+              }
+            else if (strcmp (contents, "qq") == 0
+                     || strcmp (contents, "q") == 0
+                     || strcmp (contents, "qx") == 0
+                     || strcmp (contents, "qw") == 0
+                     || strcmp (contents, "qr") == 0)
+              {
+                /* The qw (...) construct is not really a string but we
+                   can treat in the same manner and then pretend it is
+                   a symbol.  Rationale: Saying "qw (foo bar)" is the
+                   same as "my @list = ('foo', 'bar'); @list;".  */
+
+                int delim = phase1_getc (xp);
+
+                while (is_whitespace (delim))
+                  delim = phase2_getc (xp);
+
+                if (delim == EOF)
+                  {
+                    sb_free (&buffer);
+                    tp->type = token_type_eof;
+                    return;
+                  }
+
+                if ((delim >= '0' && delim <= '9')
+                    || (delim >= 'A' && delim <= 'Z')
+                    || (delim >= 'a' && delim <= 'z'))
+                  {
+                    /* False positive.  */
+                    phase2_ungetc (xp, delim);
+                    tp->type = token_type_symbol;
+                    tp->sub_type = symbol_type_none;
+                    tp->string = sb_xdupfree_c (&buffer);
+                    return;
+                  }
+
+                extract_quotelike (xp, tp, delim);
+
+                switch (contents[1])
+                  {
+                  case 'q':
+                  case 'x':
+                    tp->type = token_type_string;
+                    tp->sub_type = string_type_qq;
+                    interpolate_keywords (xp, string_desc_from_c (tp->string),
+                                          xp->line_number);
+                    break;
+                  case 'r':
+                    drop_reference (tp->comment);
+                    tp->type = token_type_regex_op;
+                    break;
+                  case 'w':
+                    drop_reference (tp->comment);
+                    tp->type = token_type_symbol;
+                    tp->sub_type = symbol_type_none;
+                    break;
+                  case '\0':
+                    tp->type = token_type_string;
+                    tp->sub_type = string_type_q;
+                    break;
+                  default:
+                    abort ();
+                  }
+                sb_free (&buffer);
+                return;
+              }
+            else if ((contents[0] >= '0' && contents[0] <= '9')
+                     || contents[0] == '.')
+              {
+                sb_free (&buffer);
+                tp->type = token_type_number;
+                return;
+              }
+            tp->type = token_type_symbol;
+            tp->sub_type = (strcmp (contents, "sub") == 0
+                            ? symbol_type_sub
+                            : symbol_type_none);
+            tp->string = sb_xdupfree_c (&buffer);
+          }
           return;
 
         case '"':
@@ -2786,22 +2688,19 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                        || (c >= 'a' && c <= 'z')
                        || c == '_')
                 {
-                  bufpos = 0;
+                  struct string_buffer buffer;
+                  sb_init (&buffer);
                   while ((c >= 'A' && c <= 'Z')
                          || (c >= 'a' && c <= 'z')
                          || (c >= '0' && c <= '9')
                          || c == '_' || c >= 0x80)
                     {
-                      if (bufpos >= bufmax)
-                        {
-                          bufmax = 2 * bufmax + 10;
-                          buffer = xrealloc (buffer, bufmax);
-                        }
-                      buffer[bufpos++] = c;
+                      sb_xappend1 (&buffer, c);
                       c = phase1_getc (xp);
                     }
                   if (c == EOF)
                     {
+                      sb_free (&buffer);
                       tp->type = token_type_eof;
                       return;
                     }
@@ -2809,13 +2708,7 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                     {
                       char *string;
                       phase1_ungetc (xp, c);
-                      if (bufpos >= bufmax)
-                        {
-                          bufmax = 2 * bufmax + 10;
-                          buffer = xrealloc (buffer, bufmax);
-                        }
-                      buffer[bufpos++] = '\0';
-                      string = get_here_document (xp, buffer);
+                      string = get_here_document (xp, sb_xdupfree_c (&buffer));
                       tp->string = string;
                       tp->type = token_type_string;
                       tp->sub_type = string_type_qq;

@@ -45,6 +45,7 @@
 #include "if-error.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
+#include "string-buffer.h"
 #include "mem-hash-map.h"
 #include "po-charset.h"
 #include "gettext.h"
@@ -706,22 +707,8 @@ phase3_scan_regex ()
 static void
 phase3_get (token_ty *tp)
 {
-  static char *buffer;
-  static int bufmax;
-  int bufpos;
-
 #undef APPEND
-#define APPEND(c)                               \
-  do                                            \
-    {                                           \
-      if (bufpos >= bufmax)                     \
-        {                                       \
-          bufmax = 2 * bufmax + 10;             \
-          buffer = xrealloc (buffer, bufmax);   \
-        }                                       \
-      buffer[bufpos++] = c;                     \
-    }                                           \
-  while (0)
+#define APPEND(c) sb_xappend1 (&buffer, (c))
 
   if (phase3_pushback_length)
     {
@@ -773,42 +760,48 @@ phase3_get (token_ty *tp)
         case 'h': case 'i': case 'j': case 'k': case 'l': case 'm': case 'n':
         case 'o': case 'p': case 'q': case 'r': case 's': case 't': case 'u':
         case 'v': case 'w': case 'x': case 'y': case 'z':
-          bufpos = 0;
-          for (;;)
-            {
-              APPEND (c);
-              c = phase2_getc ();
-              switch (c)
-                {
-                case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-                case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-                case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-                case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-                case 'Y': case 'Z':
-                case '_':
-                case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-                case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-                case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-                case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-                case 'y': case 'z':
-                case '0': case '1': case '2': case '3': case '4':
-                case '5': case '6': case '7': case '8': case '9':
-                  continue;
+          {
+            struct string_buffer buffer;
+            sb_init (&buffer);
+            for (;;)
+              {
+                APPEND (c);
+                c = phase2_getc ();
+                switch (c)
+                  {
+                  case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                  case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+                  case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+                  case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+                  case 'Y': case 'Z':
+                  case '_':
+                  case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                  case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+                  case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+                  case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+                  case 'y': case 'z':
+                  case '0': case '1': case '2': case '3': case '4':
+                  case '5': case '6': case '7': case '8': case '9':
+                    continue;
 
-                default:
-                  phase2_ungetc (c);
-                  break;
-                }
-              break;
+                  default:
+                    phase2_ungetc (c);
+                    break;
+                  }
+                break;
             }
-          APPEND (0);
-          if (strcmp (buffer, "return") == 0)
-            tp->type = last_token_type = token_type_return;
-          else
-            {
-              tp->string = xstrdup (buffer);
-              tp->type = last_token_type = token_type_symbol;
-            }
+            const char *contents = sb_xcontents_c (&buffer);
+            if (strcmp (contents, "return") == 0)
+              {
+                sb_free (&buffer);
+                tp->type = last_token_type = token_type_return;
+              }
+            else
+              {
+                tp->string = sb_xdupfree_c (&buffer);
+                tp->type = last_token_type = token_type_symbol;
+              }
+          }
           return;
 
         case '.':
@@ -833,47 +826,50 @@ phase3_get (token_ty *tp)
           /* The preprocessing number token is more "generous" than the C
              number tokens.  This is mostly due to token pasting (another
              thing we can ignore here).  */
-          bufpos = 0;
-          for (;;)
-            {
-              APPEND (c);
-              c = phase2_getc ();
-              switch (c)
-                {
-                case 'e':
-                case 'E':
-                  APPEND (c);
-                  c = phase2_getc ();
-                  if (c != '+' && c != '-')
-                    {
-                      phase2_ungetc (c);
-                      break;
-                    }
-                  continue;
+          {
+            struct string_buffer buffer;
+            sb_init (&buffer);
+            for (;;)
+              {
+                APPEND (c);
+                c = phase2_getc ();
+                switch (c)
+                  {
+                  case 'e':
+                  case 'E':
+                    APPEND (c);
+                    c = phase2_getc ();
+                    if (c != '+' && c != '-')
+                      {
+                        phase2_ungetc (c);
+                        break;
+                      }
+                    continue;
 
-                case 'A': case 'B': case 'C': case 'D':           case 'F':
-                case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-                case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-                case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-                case 'Y': case 'Z':
-                case 'a': case 'b': case 'c': case 'd':           case 'f':
-                case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-                case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-                case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-                case 'y': case 'z':
-                case '0': case '1': case '2': case '3': case '4':
-                case '5': case '6': case '7': case '8': case '9':
-                case '.':
-                  continue;
+                  case 'A': case 'B': case 'C': case 'D':           case 'F':
+                  case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+                  case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+                  case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+                  case 'Y': case 'Z':
+                  case 'a': case 'b': case 'c': case 'd':           case 'f':
+                  case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+                  case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+                  case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+                  case 'y': case 'z':
+                  case '0': case '1': case '2': case '3': case '4':
+                  case '5': case '6': case '7': case '8': case '9':
+                  case '.':
+                    continue;
 
-                default:
-                  phase2_ungetc (c);
-                  break;
-                }
-              break;
-            }
-          APPEND (0);
-          tp->type = last_token_type = token_type_number;
+                  default:
+                    phase2_ungetc (c);
+                    break;
+                  }
+                break;
+              }
+            sb_free (&buffer);
+            tp->type = last_token_type = token_type_number;
+          }
           return;
 
         case '\'':

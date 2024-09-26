@@ -39,6 +39,7 @@
 #include "trim.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
+#include "string-buffer.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -577,10 +578,10 @@ _its_collect_text_content (xmlNode *node,
                            enum its_whitespace_type_ty whitespace,
                            bool no_escape)
 {
-  char *buffer = NULL;
-  size_t bufmax = 0;
-  size_t bufpos = 0;
+  struct string_buffer buffer;
   xmlNode *n;
+
+  sb_init (&buffer);
 
   for (n = node->children; n; n = n->next)
     {
@@ -673,23 +674,11 @@ _its_collect_text_content (xmlNode *node,
         }
 
       if (content != NULL)
-        {
-          size_t length = strlen (content);
-
-          if (bufpos + length + 1 >= bufmax)
-            {
-              bufmax = 2 * bufmax + length + 1;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          strcpy (&buffer[bufpos], content);
-          bufpos += length;
-        }
+        sb_xappend_c (&buffer, content);
       free (content);
     }
 
-  if (buffer == NULL)
-    buffer = xstrdup ("");
-  return buffer;
+  return sb_xdupfree_c (&buffer);
 }
 
 static void

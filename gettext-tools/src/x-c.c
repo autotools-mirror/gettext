@@ -45,6 +45,7 @@
 #include "if-error.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
+#include "string-buffer.h"
 #include "mem-hash-map.h"
 #include "po-charset.h"
 #include "gettext.h"
@@ -1243,9 +1244,6 @@ static int phase5_pushback_length;
 static void
 phase5_get (token_ty *tp)
 {
-  static char *buffer;
-  static int bufmax;
-  int bufpos;
   int c;
 
   if (phase5_pushback_length)
@@ -1298,218 +1296,218 @@ phase5_get (token_ty *tp)
     case 'h': case 'i': case 'j': case 'k': case 'l': case 'm': case 'n':
     case 'o': case 'p': case 'q': case 'r': case 's': case 't': case 'u':
     case 'v': case 'w': case 'x': case 'y': case 'z':
-      bufpos = 0;
-      for (;;)
-        {
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos++] = c;
-          c = phase4_getc ();
-          switch (c)
-            {
-            case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-            case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-            case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-            case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-            case 'Y': case 'Z':
-            case '_':
-            case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-            case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-            case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-            case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-            case 'y': case 'z':
-            case '0': case '1': case '2': case '3': case '4':
-            case '5': case '6': case '7': case '8': case '9':
-              continue;
+      {
+        struct string_buffer buffer;
+        sb_init (&buffer);
+        for (;;)
+          {
+            sb_xappend1 (&buffer, c);
+            c = phase4_getc ();
+            switch (c)
+              {
+              case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+              case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+              case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+              case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+              case 'Y': case 'Z':
+              case '_':
+              case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+              case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+              case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+              case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+              case 'y': case 'z':
+              case '0': case '1': case '2': case '3': case '4':
+              case '5': case '6': case '7': case '8': case '9':
+                continue;
 
-            case '"':
-              /* Recognize C11 / C++11 string literals.
-                 See (for C) ISO 9899:2011 section 6.4.5
-                 and (for C++) ISO C++ 11 section 2.14.5 [lex.string].
-                 Note: The programmer who passes an UTF-8 encoded string to
-                 gettext() or similar API functions will have to have called
-                 bind_textdomain_codeset (DOMAIN, "UTF-8") first.  */
-              if ((bufpos == 1
-                   && (buffer[0] == 'u' || buffer[0] == 'U'
-                       || buffer[0] == 'L'))
-                  || (bufpos == 2 && buffer[0] == 'u' && buffer[1] == '8'))
-                goto string_literal;
-              /* Recognize C++11 raw string literals.
-                 See ISO C++ 11 section 2.14.5 [lex.string].
-                 Here it is important to properly parse all cases according to
-                 the standard, otherwise our parser could get confused by
-                 double-quotes inside the raw string.
-                 Note: The programmer who passes an UTF-8 encoded string to
-                 gettext() or similar API functions will have to have called
-                 bind_textdomain_codeset (DOMAIN, "UTF-8") first.  */
-              if (cxx_extensions
-                  && (bufpos == 1
-                      || (bufpos == 2
-                          && (buffer[0] == 'u' || buffer[0] == 'U'
-                              || buffer[0] == 'L'))
-                      || (bufpos == 3 && buffer[0] == 'u' && buffer[1] == '8'))
-                  && buffer[bufpos - 1] == 'R')
+              case '"':
                 {
-                  /* Only R and u8R raw strings can be used as gettext()
-                     arguments, for type reasons.  But the programmer may have
-                     defined
-                       - a c16gettext function that takes a 'const char16_t *'
-                         argument, or
-                       - a c32gettext function that takes a 'const char32_t *'
-                         argument, or
-                       - a wgettext function that takes a 'const wchar_t *'
-                         argument.  */
-                  int starting_line_number = line_number;
-                  bufpos = 0;
-                  /* Start the buffer with a closing parenthesis.  This makes the
-                     parsing code below simpler.  */
-                  buffer[bufpos++] = ')';
-                  /* Parse the initial delimiter.  */
-                  for (;;)
+                  string_desc_t contents = sb_contents (&buffer);
+                  const char *buf = string_desc_data (contents);
+                  size_t buflen = string_desc_length (contents);
+
+                  /* Recognize C11 / C++11 string literals.
+                     See (for C) ISO 9899:2011 section 6.4.5
+                     and (for C++) ISO C++ 11 section 2.14.5 [lex.string].
+                     Note: The programmer who passes an UTF-8 encoded string to
+                     gettext() or similar API functions will have to have called
+                     bind_textdomain_codeset (DOMAIN, "UTF-8") first.  */
+                  if ((buflen == 1
+                       && (buf[0] == 'u' || buf[0] == 'U' || buf[0] == 'L'))
+                      || (buflen == 2 && buf[0] == 'u' && buf[1] == '8'))
                     {
-                      bool valid_delimiter_char;
-
-                      c = phase3_getc ();
-                      switch (c)
-                        {
-                        case 'A': case 'B': case 'C': case 'D': case 'E':
-                        case 'F': case 'G': case 'H': case 'I': case 'J':
-                        case 'K': case 'L': case 'M': case 'N': case 'O':
-                        case 'P': case 'Q': case 'R': case 'S': case 'T':
-                        case 'U': case 'V': case 'W': case 'X': case 'Y':
-                        case 'Z':
-                        case 'a': case 'b': case 'c': case 'd': case 'e':
-                        case 'f': case 'g': case 'h': case 'i': case 'j':
-                        case 'k': case 'l': case 'm': case 'n': case 'o':
-                        case 'p': case 'q': case 'r': case 's': case 't':
-                        case 'u': case 'v': case 'w': case 'x': case 'y':
-                        case 'z':
-                        case '0': case '1': case '2': case '3': case '4':
-                        case '5': case '6': case '7': case '8': case '9':
-                        case '_': case '{': case '}': case '[': case ']':
-                        case '#': case '<': case '>': case '%': case ':':
-                        case ';': case '.': case '?': case '*': case '+':
-                        case '-': case '/': case '^': case '&': case '|':
-                        case '~': case '!': case '=': case ',': case '\'':
-                          valid_delimiter_char = true;
-                          break;
-                        case '"':
-                          /* A double-quote within the delimiter! This is too
-                             weird.  We don't support this.  */
-                          if_error (IF_SEVERITY_WARNING,
-                                    logical_file_name, starting_line_number, (size_t)(-1), false,
-                                    _("a double-quote in the delimiter of a raw string literal is unsupported"));
-                          FALLTHROUGH;
-                        default:
-                          valid_delimiter_char = false;
-                          break;
-                        }
-                      if (!valid_delimiter_char)
-                        break;
-
-                      if (bufpos >= bufmax)
-                        {
-                          bufmax = 2 * bufmax + 10;
-                          buffer = xrealloc (buffer, bufmax);
-                        }
-                      buffer[bufpos++] = c;
+                      sb_free (&buffer);
+                      goto string_literal;
                     }
-                  if (c == '(')
+                  /* Recognize C++11 raw string literals.
+                     See ISO C++ 11 section 2.14.5 [lex.string].
+                     Here it is important to properly parse all cases according to
+                     the standard, otherwise our parser could get confused by
+                     double-quotes inside the raw string.
+                     Note: The programmer who passes an UTF-8 encoded string to
+                     gettext() or similar API functions will have to have called
+                     bind_textdomain_codeset (DOMAIN, "UTF-8") first.  */
+                  if (cxx_extensions
+                      && (buflen == 1
+                          || (buflen == 2
+                              && (buf[0] == 'u' || buf[0] == 'U' || buf[0] == 'L'))
+                          || (buflen == 3 && buf[0] == 'u' && buf[1] == '8'))
+                      && buf[buflen - 1] == 'R')
                     {
-                      struct mixed_string_buffer msb;
-                      /* The state is either 0 or
-                         N, after a ')' and N-1 bytes of the delimiter have been
-                         encountered.  */
-                      int state;
-
-                      /* Start accumulating the string.  */
-                      mixed_string_buffer_init (&msb, lc_string,
-                                                logical_file_name, line_number);
-                      state = 0;
-
+                      /* Only R and u8R raw strings can be used as gettext()
+                         arguments, for type reasons.  But the programmer may have
+                         defined
+                           - a c16gettext function that takes a 'const char16_t *'
+                             argument, or
+                           - a c32gettext function that takes a 'const char32_t *'
+                             argument, or
+                           - a wgettext function that takes a 'const wchar_t *'
+                             argument.  */
+                      int starting_line_number = line_number;
+                      buffer.length = 0;
+                      /* Start the buffer with a closing parenthesis.  This makes the
+                         parsing code below simpler.  */
+                      sb_xappend1 (&buffer, ')');
+                      /* Parse the initial delimiter.  */
                       for (;;)
                         {
+                          bool valid_delimiter_char;
+
                           c = phase3_getc ();
-
-                          /* Keep line_number in sync.  */
-                          msb.line_number = line_number;
-
-                          if (c == EOF)
+                          switch (c)
+                            {
+                            case 'A': case 'B': case 'C': case 'D': case 'E':
+                            case 'F': case 'G': case 'H': case 'I': case 'J':
+                            case 'K': case 'L': case 'M': case 'N': case 'O':
+                            case 'P': case 'Q': case 'R': case 'S': case 'T':
+                            case 'U': case 'V': case 'W': case 'X': case 'Y':
+                            case 'Z':
+                            case 'a': case 'b': case 'c': case 'd': case 'e':
+                            case 'f': case 'g': case 'h': case 'i': case 'j':
+                            case 'k': case 'l': case 'm': case 'n': case 'o':
+                            case 'p': case 'q': case 'r': case 's': case 't':
+                            case 'u': case 'v': case 'w': case 'x': case 'y':
+                            case 'z':
+                            case '0': case '1': case '2': case '3': case '4':
+                            case '5': case '6': case '7': case '8': case '9':
+                            case '_': case '{': case '}': case '[': case ']':
+                            case '#': case '<': case '>': case '%': case ':':
+                            case ';': case '.': case '?': case '*': case '+':
+                            case '-': case '/': case '^': case '&': case '|':
+                            case '~': case '!': case '=': case ',': case '\'':
+                              valid_delimiter_char = true;
+                              break;
+                            case '"':
+                              /* A double-quote within the delimiter! This is too
+                                 weird.  We don't support this.  */
+                              if_error (IF_SEVERITY_WARNING,
+                                        logical_file_name, starting_line_number, (size_t)(-1), false,
+                                        _("a double-quote in the delimiter of a raw string literal is unsupported"));
+                              FALLTHROUGH;
+                            default:
+                              valid_delimiter_char = false;
+                              break;
+                            }
+                          if (!valid_delimiter_char)
                             break;
 
-                          /* Update the state.  */
-                          if (c == (state < bufpos ? buffer[state] : '"'))
+                          sb_xappend1 (&buffer, c);
+                        }
+                      if (c == '(')
+                        {
+                          struct mixed_string_buffer msb;
+                          /* The state is either 0 or
+                             N, after a ')' and N-1 bytes of the delimiter have been
+                             encountered.  */
+                          int state;
+
+                          /* Start accumulating the string.  */
+                          mixed_string_buffer_init (&msb, lc_string,
+                                                    logical_file_name, line_number);
+                          state = 0;
+
+                          for (;;)
                             {
-                              if (state < bufpos)
-                                state++;
-                              else /* state == bufpos && c == '"' */
+                              c = phase3_getc ();
+
+                              /* Keep line_number in sync.  */
+                              msb.line_number = line_number;
+
+                              if (c == EOF)
+                                break;
+
+                              /* Update the state.  */
+                              string_desc_t contents = sb_contents (&buffer);
+                              const char *buf = string_desc_data (contents);
+                              size_t buflen = string_desc_length (contents);
+                              if (c == (state < buflen ? buf[state] : '"'))
                                 {
-                                  /* Finished parsing the string.  */
-                                  tp->type = token_type_string_literal;
-                                  tp->mixed_string = mixed_string_buffer_result (&msb);
-                                  tp->comment = add_reference (savable_comment);
-                                  return;
+                                  if (state < buflen)
+                                    state++;
+                                  else /* state == buflen && c == '"' */
+                                    {
+                                      /* Finished parsing the string.  */
+                                      sb_free (&buffer);
+                                      tp->type = token_type_string_literal;
+                                      tp->mixed_string = mixed_string_buffer_result (&msb);
+                                      tp->comment = add_reference (savable_comment);
+                                      return;
+                                    }
                                 }
-                            }
-                          else
-                            {
-                              int i;
-
-                              /* None of the bytes buffer[0]...buffer[state-1]
-                                 can be ')'.  */
-                              for (i = 0; i < state; i++)
-                                mixed_string_buffer_append_char (&msb, buffer[i]);
-
-                              /* But c may be ')'.  */
-                              if (c == ')')
-                                state = 1;
                               else
                                 {
-                                  mixed_string_buffer_append_char (&msb, c);
-                                  state = 0;
+                                  int i;
+
+                                  /* None of the bytes buf[0]...buf[state-1]
+                                     can be ')'.  */
+                                  for (i = 0; i < state; i++)
+                                    mixed_string_buffer_append_char (&msb, buf[i]);
+
+                                  /* But c may be ')'.  */
+                                  if (c == ')')
+                                    state = 1;
+                                  else
+                                    {
+                                      mixed_string_buffer_append_char (&msb, c);
+                                      state = 0;
+                                    }
                                 }
                             }
                         }
-                    }
-                  if (c == EOF)
-                    {
-                      if_error (IF_SEVERITY_WARNING,
-                                logical_file_name, starting_line_number, (size_t)(-1), false,
-                                _("unterminated raw string literal"));
-                      tp->type = token_type_eof;
+                      if (c == EOF)
+                        {
+                          if_error (IF_SEVERITY_WARNING,
+                                    logical_file_name, starting_line_number, (size_t)(-1), false,
+                                    _("unterminated raw string literal"));
+                          sb_free (&buffer);
+                          tp->type = token_type_eof;
+                          return;
+                        }
+                      /* The warning message for c == '"' was already emitted above.  */
+                      if (c != '"')
+                        if_error (IF_SEVERITY_WARNING,
+                                  logical_file_name, starting_line_number, (size_t)(-1), false,
+                                  _("invalid raw string literal syntax"));
+                      sb_free (&buffer);
+                      /* To get into a sane state, read up until the next double-quote,
+                         newline, or EOF.  */
+                      while (!(c == EOF || c == '"' || c == '\n'))
+                        c = phase3_getc ();
+                      tp->type = token_type_symbol;
                       return;
                     }
-                  /* The warning message for c == '"' was already emitted above.  */
-                  if (c != '"')
-                    if_error (IF_SEVERITY_WARNING,
-                              logical_file_name, starting_line_number, (size_t)(-1), false,
-                              _("invalid raw string literal syntax"));
-                  /* To get into a sane state, read up until the next double-quote,
-                     newline, or EOF.  */
-                  while (!(c == EOF || c == '"' || c == '\n'))
-                    c = phase3_getc ();
-                  tp->type = token_type_symbol;
-                  return;
                 }
-              FALLTHROUGH;
+                FALLTHROUGH;
 
-            default:
-              phase4_ungetc (c);
-              break;
-            }
-          break;
-        }
-      if (bufpos >= bufmax)
-        {
-          bufmax = 2 * bufmax + 10;
-          buffer = xrealloc (buffer, bufmax);
-        }
-      buffer[bufpos] = 0;
-      tp->string = xstrdup (buffer);
-      tp->type = token_type_name;
+              default:
+                phase4_ungetc (c);
+                break;
+              }
+            break;
+          }
+        tp->string = sb_xdupfree_c (&buffer);
+        tp->type = token_type_name;
+      }
       return;
 
     case '.':
@@ -1533,152 +1531,135 @@ phase5_get (token_ty *tp)
       /* The preprocessing number token is more "generous" than the C
          number tokens.  This is mostly due to token pasting (another
          thing we can ignore here).  */
-      bufpos = 0;
-      for (;;)
-        {
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos++] = c;
-          c = phase4_getc ();
-          switch (c)
-            {
-            case 'p':
-            case 'P':
-              /* In C99 and C++17, 'p' and 'P' can be used as an exponent
-                 marker.  */
-              FALLTHROUGH;
-            case 'e':
-            case 'E':
-              if (bufpos >= bufmax)
-                {
-                  bufmax = 2 * bufmax + 10;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-              buffer[bufpos++] = c;
-              c = phase4_getc ();
-              if (c != '+' && c != '-')
-                {
-                  phase4_ungetc (c);
-                  break;
-                }
-              continue;
-
-            case 'A': case 'B': case 'C': case 'D':           case 'F':
-            case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-            case 'M': case 'N': case 'O':           case 'Q': case 'R':
-            case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-            case 'Y': case 'Z':
-            case 'a': case 'b': case 'c': case 'd':           case 'f':
-            case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-            case 'm': case 'n': case 'o':           case 'q': case 'r':
-            case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-            case 'y': case 'z':
-            case '0': case '1': case '2': case '3': case '4':
-            case '5': case '6': case '7': case '8': case '9':
-            case '.':
-              continue;
-
-            case '_':
-              if (cxx_extensions)
-                /* In C++, an underscore can be part of a preprocessing number
-                   token.  */
+      {
+        struct string_buffer buffer;
+        sb_init (&buffer);
+        for (;;)
+          {
+            sb_xappend1 (&buffer, c);
+            c = phase4_getc ();
+            switch (c)
+              {
+              case 'p':
+              case 'P':
+                /* In C99 and C++17, 'p' and 'P' can be used as an exponent
+                   marker.  */
+                FALLTHROUGH;
+              case 'e':
+              case 'E':
+                sb_xappend1 (&buffer, c);
+                c = phase4_getc ();
+                if (c != '+' && c != '-')
+                  {
+                    phase4_ungetc (c);
+                    break;
+                  }
                 continue;
-              else
-                {
-                  phase4_ungetc (c);
-                  break;
-                }
 
-            case '\'':
-              if (cxx_extensions)
-                {
-                  /* In C++14, a single-quote followed by a digit, ASCII letter,
-                     or underscore can be part of a preprocessing number token.  */
-                  int c1 = phase4_getc ();
-                  switch (c1)
-                    {
-                    case '0': case '1': case '2': case '3': case '4':
-                    case '5': case '6': case '7': case '8': case '9':
-                    case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-                    case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-                    case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-                    case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-                    case 'Y': case 'Z':
-                    case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-                    case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-                    case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-                    case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-                    case 'y': case 'z':
-                    case '_':
-                      if (bufpos >= bufmax)
-                        {
-                          bufmax = 2 * bufmax + 10;
-                          buffer = xrealloc (buffer, bufmax);
-                        }
-                      buffer[bufpos++] = c;
-                      c = c1;
-                      continue;
-                    default:
-                      /* The two phase4_getc() calls that returned c and c1 did
-                         nothing more than to call phase3_getc(), without any
-                         lookahead.  Therefore 2 pushback characters are
-                         supported in this case.  */
-                      phase4_ungetc (c1);
-                      break;
-                    }
-                }
-              else
-                {
-                  /* In C23, a single-quote between two hexadecimal digits
-                     can be part of a number token.  It's called a "digit
-                     separator".  See ISO C 23 § 6.4.4.1 and § 6.4.4.2.  */
-                  if (bufpos > 0)
-                    {
-                      char prev = buffer[bufpos - 1];
-                      if ((prev >= '0' && prev <= '9')
-                          || (prev >= 'A' && prev <= 'F')
-                          || (prev >= 'a' && prev <= 'f'))
-                        {
-                          int c1 = phase4_getc ();
-                          if ((c1 >= '0' && c1 <= '9')
-                              || (c1 >= 'A' && c1 <= 'F')
-                              || (c1 >= 'a' && c1 <= 'f'))
-                            {
-                              if (bufpos >= bufmax)
-                                {
-                                  bufmax = 2 * bufmax + 10;
-                                  buffer = xrealloc (buffer, bufmax);
-                                }
-                              buffer[bufpos++] = c;
-                              c = c1;
-                              continue;
-                            }
-                          /* The two phase4_getc() calls that returned c and c1
-                             did nothing more than to call phase3_getc(),
-                             without any lookahead.  Therefore 2 pushback
-                             characters are supported in this case.  */
-                          phase4_ungetc (c1);
-                        }
-                    }
-                }
-              FALLTHROUGH;
-            default:
-              phase4_ungetc (c);
-              break;
-            }
-          break;
-        }
-      if (bufpos >= bufmax)
-        {
-          bufmax = 2 * bufmax + 10;
-          buffer = xrealloc (buffer, bufmax);
-        }
-      buffer[bufpos] = 0;
-      tp->type = token_type_number;
-      tp->number = atol (buffer);
+              case 'A': case 'B': case 'C': case 'D':           case 'F':
+              case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+              case 'M': case 'N': case 'O':           case 'Q': case 'R':
+              case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+              case 'Y': case 'Z':
+              case 'a': case 'b': case 'c': case 'd':           case 'f':
+              case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+              case 'm': case 'n': case 'o':           case 'q': case 'r':
+              case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+              case 'y': case 'z':
+              case '0': case '1': case '2': case '3': case '4':
+              case '5': case '6': case '7': case '8': case '9':
+              case '.':
+                continue;
+
+              case '_':
+                if (cxx_extensions)
+                  /* In C++, an underscore can be part of a preprocessing number
+                     token.  */
+                  continue;
+                else
+                  {
+                    phase4_ungetc (c);
+                    break;
+                  }
+
+              case '\'':
+                if (cxx_extensions)
+                  {
+                    /* In C++14, a single-quote followed by a digit, ASCII
+                       letter, or underscore can be part of a preprocessing
+                       number token.  */
+                    int c1 = phase4_getc ();
+                    switch (c1)
+                      {
+                      case '0': case '1': case '2': case '3': case '4':
+                      case '5': case '6': case '7': case '8': case '9':
+                      case 'A': case 'B': case 'C': case 'D': case 'E':
+                      case 'F': case 'G': case 'H': case 'I': case 'J':
+                      case 'K': case 'L': case 'M': case 'N': case 'O':
+                      case 'P': case 'Q': case 'R': case 'S': case 'T':
+                      case 'U': case 'V': case 'W': case 'X': case 'Y':
+                      case 'Z':
+                      case 'a': case 'b': case 'c': case 'd': case 'e':
+                      case 'f': case 'g': case 'h': case 'i': case 'j':
+                      case 'k': case 'l': case 'm': case 'n': case 'o':
+                      case 'p': case 'q': case 'r': case 's': case 't':
+                      case 'u': case 'v': case 'w': case 'x': case 'y':
+                      case 'z':
+                      case '_':
+                        sb_xappend1 (&buffer, c);
+                        c = c1;
+                        continue;
+                      default:
+                        /* The two phase4_getc() calls that returned c and c1 did
+                           nothing more than to call phase3_getc(), without any
+                           lookahead.  Therefore 2 pushback characters are
+                           supported in this case.  */
+                        phase4_ungetc (c1);
+                        break;
+                      }
+                  }
+                else
+                  {
+                    /* In C23, a single-quote between two hexadecimal digits
+                       can be part of a number token.  It's called a "digit
+                       separator".  See ISO C 23 § 6.4.4.1 and § 6.4.4.2.  */
+                    string_desc_t contents = sb_contents (&buffer);
+                    if (string_desc_length (contents) > 0)
+                      {
+                        char prev =
+                          string_desc_char_at (contents,
+                                               string_desc_length (contents) - 1);
+                        if ((prev >= '0' && prev <= '9')
+                            || (prev >= 'A' && prev <= 'F')
+                            || (prev >= 'a' && prev <= 'f'))
+                          {
+                            int c1 = phase4_getc ();
+                            if ((c1 >= '0' && c1 <= '9')
+                                || (c1 >= 'A' && c1 <= 'F')
+                                || (c1 >= 'a' && c1 <= 'f'))
+                              {
+                                sb_xappend1 (&buffer, c);
+                                c = c1;
+                                continue;
+                              }
+                            /* The two phase4_getc() calls that returned c and c1
+                               did nothing more than to call phase3_getc(),
+                               without any lookahead.  Therefore 2 pushback
+                               characters are supported in this case.  */
+                            phase4_ungetc (c1);
+                          }
+                      }
+                  }
+                FALLTHROUGH;
+              default:
+                phase4_ungetc (c);
+                break;
+              }
+            break;
+          }
+        tp->type = token_type_number;
+        tp->number = atol (sb_xdupfree_c (&buffer));
+      }
       return;
 
     case '\'':

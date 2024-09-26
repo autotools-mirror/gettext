@@ -34,6 +34,7 @@
 #include "read-catalog-abstract.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
+#include "string-buffer.h"
 #include "xstrerror.h"
 #include "xerror-handler.h"
 #include "msgl-ascii.h"
@@ -641,32 +642,23 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
       if (comment)
         {
           /* A comment line.  */
-          static char *buffer;
-          static size_t bufmax;
-          static size_t buflen;
+          struct string_buffer buffer;
 
-          buflen = 0;
+          sb_init (&buffer);
           for (;;)
             {
               c = phase2_getc ();
-
-              if (buflen >= bufmax)
-                {
-                  bufmax += 100;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-
               if (c == EOF || c == '\n')
                 break;
 
-              buffer[buflen++] = c;
+              sb_xappend1 (&buffer, c);
             }
-          buffer[buflen] = '\0';
+          char *contents = sb_xdupfree_c (&buffer);
 
           catalog_reader_seen_generic_comment (
             catr,
             conv_from_java (
-              assume_utf8 ? buffer : conv_from_iso_8859_1 (buffer)));
+              assume_utf8 ? contents : conv_from_iso_8859_1 (contents)));
         }
       else
         {

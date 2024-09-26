@@ -42,6 +42,7 @@
 #include "xg-message.h"
 #include "if-error.h"
 #include "xalloc.h"
+#include "string-buffer.h"
 #include "mem-hash-map.h"
 #include "po-charset.h"
 #include "unistr.h"
@@ -1173,17 +1174,11 @@ phase5_get (token_ty *tp)
              characters.  This avoids conversion hassles w.r.t. the --keyword
              arguments, and shouldn't be a big problem in practice.  */
           {
-            static char *buffer;
-            static int bufmax;
-            int bufpos = 0;
+            struct string_buffer buffer;
+            sb_init (&buffer);
             for (;;)
               {
-                if (bufpos >= bufmax)
-                  {
-                    bufmax = 2 * bufmax + 10;
-                    buffer = xrealloc (buffer, bufmax);
-                  }
-                buffer[bufpos++] = RED (c);
+                sb_xappend1 (&buffer, RED (c));
                 c = phase4_getc ();
                 if (!((RED (c) >= 'A' && RED (c) <= 'Z')
                       || (RED (c) >= 'a' && RED (c) <= 'z')
@@ -1192,13 +1187,7 @@ phase5_get (token_ty *tp)
                   break;
               }
             phase4_ungetc (c);
-            if (bufpos >= bufmax)
-              {
-                bufmax = 2 * bufmax + 10;
-                buffer = xrealloc (buffer, bufmax);
-              }
-            buffer[bufpos] = '\0';
-            tp->string = xstrdup (buffer);
+            tp->string = sb_xdupfree_c (&buffer);
             tp->type = token_type_symbol;
             return;
           }

@@ -34,6 +34,7 @@
 #include "xg-pos.h"
 #include "xg-message.h"
 #include "xalloc.h"
+#include "string-buffer.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)
@@ -194,9 +195,6 @@ static int phase2_pushback_length;
 static void
 phase2_get (token_ty *tp)
 {
-  static char *buffer;
-  static int bufmax;
-  int bufpos;
   int c;
 
   if (phase2_pushback_length)
@@ -263,37 +261,29 @@ phase2_get (token_ty *tp)
         {
         case '\'':
           /* String literal.  */
-          bufpos = 0;
-          for (;;)
-            {
-              c = phase1_getc ();
-              if (c == EOF)
-                break;
-              if (c == '\'')
-                {
-                  c = phase1_getc ();
-                  if (c != '\'')
-                    {
-                      phase1_ungetc (c);
-                      break;
-                    }
-                }
-              if (bufpos >= bufmax)
-                {
-                  bufmax = 2 * bufmax + 10;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-              buffer[bufpos++] = c;
-            }
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos] = 0;
-          tp->type = token_type_string_literal;
-          tp->string = xstrdup (buffer);
-          tp->comment = add_reference (savable_comment);
+          {
+            struct string_buffer buffer;
+            sb_init (&buffer);
+            for (;;)
+              {
+                c = phase1_getc ();
+                if (c == EOF)
+                  break;
+                if (c == '\'')
+                  {
+                    c = phase1_getc ();
+                    if (c != '\'')
+                      {
+                        phase1_ungetc (c);
+                        break;
+                      }
+                  }
+                sb_xappend1 (&buffer, c);
+              }
+            tp->type = token_type_string_literal;
+            tp->string = sb_xdupfree_c (&buffer);
+            tp->comment = add_reference (savable_comment);
+          }
           return;
 
         case '+':
@@ -360,71 +350,60 @@ phase2_get (token_ty *tp)
         case 's': case 't': case 'u': case 'v': case 'w': case 'x':
         case 'y': case 'z':
           /* Recognize id or id":"[id":"]* or id":"[id":"]*id.  */
-          bufpos = 0;
-          for (;;)
-            {
-              if (bufpos >= bufmax)
-                {
-                  bufmax = 2 * bufmax + 10;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-              buffer[bufpos++] = c;
-              c = phase1_getc ();
-              switch (c)
-                {
-                case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-                case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-                case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-                case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-                case 'Y': case 'Z':
-                case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-                case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-                case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-                case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-                case 'y': case 'z':
-                case '0': case '1': case '2': case '3': case '4':
-                case '5': case '6': case '7': case '8': case '9':
-                  continue;
-                case ':':
-                  if (bufpos >= bufmax)
-                    {
-                      bufmax = 2 * bufmax + 10;
-                      buffer = xrealloc (buffer, bufmax);
-                    }
-                  buffer[bufpos++] = c;
-                  c = phase1_getc ();
-                  switch (c)
-                    {
-                    case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-                    case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-                    case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-                    case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-                    case 'Y': case 'Z':
-                    case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-                    case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-                    case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-                    case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-                    case 'y': case 'z':
-                      continue;
-                    default:
-                      phase1_ungetc (c);
-                      break;
-                    }
-                  break;
-                default:
-                  phase1_ungetc (c);
-                  break;
-                }
-              break;
-            }
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos] = '\0';
-          tp->string = xstrdup (buffer);
-          tp->type = token_type_symbol;
+          {
+            struct string_buffer buffer;
+            sb_init (&buffer);
+            for (;;)
+              {
+                sb_xappend1 (&buffer, c);
+                c = phase1_getc ();
+                switch (c)
+                  {
+                  case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                  case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+                  case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+                  case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+                  case 'Y': case 'Z':
+                  case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                  case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+                  case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+                  case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+                  case 'y': case 'z':
+                  case '0': case '1': case '2': case '3': case '4':
+                  case '5': case '6': case '7': case '8': case '9':
+                    continue;
+                  case ':':
+                    sb_xappend1 (&buffer, c);
+                    c = phase1_getc ();
+                    switch (c)
+                      {
+                      case 'A': case 'B': case 'C': case 'D': case 'E':
+                      case 'F': case 'G': case 'H': case 'I': case 'J':
+                      case 'K': case 'L': case 'M': case 'N': case 'O':
+                      case 'P': case 'Q': case 'R': case 'S': case 'T':
+                      case 'U': case 'V': case 'W': case 'X': case 'Y':
+                      case 'Z':
+                      case 'a': case 'b': case 'c': case 'd': case 'e':
+                      case 'f': case 'g': case 'h': case 'i': case 'j':
+                      case 'k': case 'l': case 'm': case 'n': case 'o':
+                      case 'p': case 'q': case 'r': case 's': case 't':
+                      case 'u': case 'v': case 'w': case 'x': case 'y':
+                      case 'z':
+                        continue;
+                      default:
+                        phase1_ungetc (c);
+                        break;
+                      }
+                    break;
+                  default:
+                    phase1_ungetc (c);
+                    break;
+                  }
+                break;
+              }
+            tp->string = sb_xdupfree_c (&buffer);
+            tp->type = token_type_symbol;
+          }
           return;
 
         case '#':

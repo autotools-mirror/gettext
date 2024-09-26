@@ -41,6 +41,7 @@
 #include "xg-message.h"
 #include "if-error.h"
 #include "xalloc.h"
+#include "string-buffer.h"
 #include "gettext.h"
 
 #define _(s) gettext(s)
@@ -170,16 +171,14 @@ phase1_ungetc (int c)
 static int
 phase2_getc ()
 {
-  static char *buffer;
-  static size_t bufmax;
-  size_t buflen;
   int lineno;
   int c;
 
   c = phase1_getc ();
   if (c == '#')
     {
-      buflen = 0;
+      struct string_buffer buffer;
+      sb_init (&buffer);
       lineno = line_number;
       for (;;)
         {
@@ -187,23 +186,11 @@ phase2_getc ()
           if (c == '\n' || c == EOF)
             break;
           /* We skip all leading white space, but not EOLs.  */
-          if (!(buflen == 0 && (c == ' ' || c == '\t')))
-            {
-              if (buflen >= bufmax)
-                {
-                  bufmax = 2 * bufmax + 10;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-              buffer[buflen++] = c;
-            }
+          if (!(string_desc_length (sb_contents (&buffer)) == 0
+                && (c == ' ' || c == '\t')))
+            sb_xappend1 (&buffer, c);
         }
-      if (buflen >= bufmax)
-        {
-          bufmax = 2 * bufmax + 10;
-          buffer = xrealloc (buffer, bufmax);
-        }
-      buffer[buflen] = '\0';
-      savable_comment_add (buffer);
+      savable_comment_add (sb_xdupfree_c (&buffer));
       last_comment_line = lineno;
     }
   return c;
@@ -382,9 +369,6 @@ static int phase3_pushback_length;
 static void
 phase3_get (token_ty *tp)
 {
-  static char *buffer;
-  static int bufmax;
-  int bufpos;
   int c;
 
   if (phase3_pushback_length)
@@ -454,97 +438,87 @@ phase3_get (token_ty *tp)
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9':
           /* Symbol, or part of a number.  */
-          bufpos = 0;
-          for (;;)
-            {
-              if (bufpos >= bufmax)
-                {
-                  bufmax = 2 * bufmax + 10;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-              buffer[bufpos++] = c;
-              c = phase2_getc ();
-              switch (c)
-                {
-                case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-                case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
-                case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
-                case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
-                case 'Y': case 'Z':
-                case '_':
-                case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-                case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
-                case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
-                case 's': case 't': case 'u': case 'v': case 'w': case 'x':
-                case 'y': case 'z':
-                case '0': case '1': case '2': case '3': case '4':
-                case '5': case '6': case '7': case '8': case '9':
-                  continue;
-                default:
-                  if (bufpos == 1 && buffer[0] == '_' && c == '"')
+          {
+            struct string_buffer buffer;
+            sb_init (&buffer);
+            for (;;)
+              {
+                sb_xappend1 (&buffer, c);
+                c = phase2_getc ();
+                switch (c)
+                  {
+                  case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                  case 'G': case 'H': case 'I': case 'J': case 'K': case 'L':
+                  case 'M': case 'N': case 'O': case 'P': case 'Q': case 'R':
+                  case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
+                  case 'Y': case 'Z':
+                  case '_':
+                  case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                  case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':
+                  case 'm': case 'n': case 'o': case 'p': case 'q': case 'r':
+                  case 's': case 't': case 'u': case 'v': case 'w': case 'x':
+                  case 'y': case 'z':
+                  case '0': case '1': case '2': case '3': case '4':
+                  case '5': case '6': case '7': case '8': case '9':
+                    continue;
+                  default:
                     {
-                      tp->type = token_type_i18nstring;
-                      goto case_string;
+                      string_desc_t contents = sb_contents (&buffer);
+                      if (string_desc_length (contents) == 1
+                          && string_desc_char_at (contents, 0) == '_'
+                          && c == '"')
+                        {
+                          sb_free (&buffer);
+                          tp->type = token_type_i18nstring;
+                          goto case_string;
+                        }
                     }
-                  phase2_ungetc (c);
-                  break;
-                }
-              break;
-            }
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos] = '\0';
-          tp->string = xstrdup (buffer);
-          tp->type = token_type_symbol;
-          /* Most identifiers can be variable names; after them we must
-             interpret '/' as division operator.  But for awk's builtin
-             keywords we have three cases:
-             (a) Must interpret '/' as division operator. "length".
-             (b) Must interpret '/' as start of a regular expression.
-                 "do", "exit", "print", "printf", "return".
-             (c) '/' after this keyword in invalid anyway. All others.
-             I used the following script for the distinction.
-                for k in $awk_keywords; do
-                  echo; echo $k; awk "function foo () { $k / 10 }" < /dev/null
-                done
-           */
-          if (strcmp (buffer, "do") == 0
-              || strcmp (buffer, "exit") == 0
-              || strcmp (buffer, "print") == 0
-              || strcmp (buffer, "printf") == 0
-              || strcmp (buffer, "return") == 0)
-            prefer_division_over_regexp = false;
-          else
-            prefer_division_over_regexp = true;
+                    phase2_ungetc (c);
+                    break;
+                  }
+                break;
+              }
+            tp->string = sb_xdupfree_c (&buffer);
+            tp->type = token_type_symbol;
+            /* Most identifiers can be variable names; after them we must
+               interpret '/' as division operator.  But for awk's builtin
+               keywords we have three cases:
+               (a) Must interpret '/' as division operator. "length".
+               (b) Must interpret '/' as start of a regular expression.
+                   "do", "exit", "print", "printf", "return".
+               (c) '/' after this keyword in invalid anyway. All others.
+               I used the following script for the distinction.
+                  for k in $awk_keywords; do
+                    echo; echo $k; awk "function foo () { $k / 10 }" < /dev/null
+                  done
+             */
+            if (strcmp (tp->string, "do") == 0
+                || strcmp (tp->string, "exit") == 0
+                || strcmp (tp->string, "print") == 0
+                || strcmp (tp->string, "printf") == 0
+                || strcmp (tp->string, "return") == 0)
+              prefer_division_over_regexp = false;
+            else
+              prefer_division_over_regexp = true;
+          }
           return;
 
         case '"':
           tp->type = token_type_string;
         case_string:
-          bufpos = 0;
-          for (;;)
-            {
-              c = get_string_element ();
-              if (c == EOF || c == SE_QUOTES)
-                break;
-              if (bufpos >= bufmax)
-                {
-                  bufmax = 2 * bufmax + 10;
-                  buffer = xrealloc (buffer, bufmax);
-                }
-              buffer[bufpos++] = c;
-            }
-          if (bufpos >= bufmax)
-            {
-              bufmax = 2 * bufmax + 10;
-              buffer = xrealloc (buffer, bufmax);
-            }
-          buffer[bufpos] = '\0';
-          tp->string = xstrdup (buffer);
-          prefer_division_over_regexp = true;
+          {
+            struct string_buffer buffer;
+            sb_init (&buffer);
+            for (;;)
+              {
+                c = get_string_element ();
+                if (c == EOF || c == SE_QUOTES)
+                  break;
+                sb_xappend1 (&buffer, c);
+              }
+            tp->string = sb_xdupfree_c (&buffer);
+            prefer_division_over_regexp = true;
+          }
           return;
 
         case '(':

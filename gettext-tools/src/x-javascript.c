@@ -49,6 +49,7 @@
 #include "xerror.h"
 #include "xvasprintf.h"
 #include "xalloc.h"
+#include "string-buffer.h"
 #include "c-strstr.h"
 #include "c-ctype.h"
 #include "po-charset.h"
@@ -1187,19 +1188,12 @@ phase5_get (token_ty *tp)
         case '5': case '6': case '7': case '8': case '9':
           /* Symbol, or part of a number.  */
           {
-            static char *buffer;
-            static int bufmax;
-            int bufpos;
+            struct string_buffer buffer;
 
-            bufpos = 0;
+            sb_init (&buffer);
             for (;;)
               {
-                if (bufpos >= bufmax)
-                  {
-                    bufmax = 2 * bufmax + 10;
-                    buffer = xrealloc (buffer, bufmax);
-                  }
-                buffer[bufpos++] = c;
+                sb_xappend1 (&buffer, c);
                 c = phase3_getc ();
                 switch (c)
                   {
@@ -1223,15 +1217,9 @@ phase5_get (token_ty *tp)
                   }
                 break;
               }
-            if (bufpos >= bufmax)
-              {
-                bufmax = 2 * bufmax + 10;
-                buffer = xrealloc (buffer, bufmax);
-              }
-            buffer[bufpos] = '\0';
-            tp->string = xstrdup (buffer);
-            if (strcmp (buffer, "return") == 0
-                || strcmp (buffer, "else") == 0)
+            tp->string = sb_xdupfree_c (&buffer);
+            if (strcmp (tp->string, "return") == 0
+                || strcmp (tp->string, "else") == 0)
               tp->type = last_token_type = token_type_keyword;
             else
               tp->type = last_token_type = token_type_symbol;

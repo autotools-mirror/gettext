@@ -1,5 +1,5 @@
 /* Unicode CLDR plural rule parser and converter
-   Copyright (C) 2015, 2018-2023 Free Software Foundation, Inc.
+   Copyright (C) 2015-2024 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -36,7 +36,7 @@
 #include "relocatable.h"
 #include <stdlib.h>
 #include <string.h>
-#include "xalloc.h"
+#include "string-buffer.h"
 
 #define _(s) gettext(s)
 
@@ -49,9 +49,9 @@ extract_rules (FILE *fp,
   xmlDocPtr doc;
   xmlNodePtr node, n;
   size_t locale_length;
-  char *buffer = NULL, *p;
-  size_t bufmax = 0;
-  size_t buflen = 0;
+  struct string_buffer buffer;
+
+  sb_init (&buffer);
 
   doc = xmlReadFd (fileno (fp), logical_filename, NULL,
                    XML_PARSE_NONET
@@ -128,10 +128,6 @@ extract_rules (FILE *fp,
 
       for (n2 = n->children; n2; n2 = n2->next)
         {
-          xmlChar *count;
-          xmlChar *content;
-          size_t length;
-
           if (n2->type != XML_ELEMENT_NODE
               || !xmlStrEqual (n2->name, BAD_CAST "pluralRule"))
             continue;
@@ -146,38 +142,24 @@ extract_rules (FILE *fp,
               break;
             }
 
-          count = xmlGetProp (n2, BAD_CAST "count");
-          content = xmlNodeGetContent (n2);
-          length = xmlStrlen (count) + strlen (": ")
-            + xmlStrlen (content) + strlen ("; ");
-
-          if (buflen + length + 1 > bufmax)
-            {
-              bufmax *= 2;
-              if (bufmax < buflen + length + 1)
-                bufmax = buflen + length + 1;
-              buffer = (char *) xrealloc (buffer, bufmax);
-            }
-
-          sprintf (buffer + buflen, "%s: %s; ", count, content);
+          xmlChar *count = xmlGetProp (n2, BAD_CAST "count");
+          xmlChar *content = xmlNodeGetContent (n2);
+          sb_xappendf (&buffer, "%s: %s; ", count, content);
           xmlFree (count);
           xmlFree (content);
-
-          buflen += length;
         }
     }
 
-  if (buffer)
-    {
-      /* Scrub the last semicolon, if any.  */
-      p = strrchr (buffer, ';');
-      if (p)
-        *p = '\0';
-    }
+  {
+    /* Scrub the last semicolon, if any.  */
+    char *p = strrchr (sb_xcontents_c (&buffer), ';');
+    if (p)
+      *p = '\0';
+  }
 
  out:
   xmlFreeDoc (doc);
-  return buffer;
+  return sb_xdupfree_c (&buffer);
 }
 
 /* Display usage information and exit.  */

@@ -36,6 +36,7 @@
 #include "relocatable.h"
 #include "basename-lgpl.h"
 #include "xalloc.h"
+#include "string-buffer.h"
 #include "propername.h"
 #include "binary-io.h"
 #include "gettext.h"
@@ -466,9 +467,6 @@ do_ungetc (int c)
 static void
 subst_from_stdin ()
 {
-  static char *buffer;
-  static size_t bufmax;
-  static size_t buflen;
   int c;
 
   for (;;)
@@ -490,19 +488,14 @@ subst_from_stdin ()
             }
           if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
             {
+              struct string_buffer buffer;
               bool valid;
 
               /* Accumulate the VARIABLE in buffer.  */
-              buflen = 0;
+              sb_init (&buffer);
               do
                 {
-                  if (buflen >= bufmax)
-                    {
-                      bufmax = 2 * bufmax + 10;
-                      buffer = xrealloc (buffer, bufmax);
-                    }
-                  buffer[buflen++] = c;
-
+                  sb_xappend1 (&buffer, c);
                   c = do_getc ();
                 }
               while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
@@ -530,23 +523,19 @@ subst_from_stdin ()
               if (valid)
                 {
                   /* Terminate the variable in the buffer.  */
-                  if (buflen >= bufmax)
-                    {
-                      bufmax = 2 * bufmax + 10;
-                      buffer = xrealloc (buffer, bufmax);
-                    }
-                  buffer[buflen] = '\0';
+                  const char *variable = sb_xcontents_c (&buffer);
 
                   /* Test whether the variable shall be substituted.  */
                   if (!all_variables
-                      && !sorted_string_list_member (&variables_set, buffer))
+                      && !sorted_string_list_member (&variables_set, variable))
                     valid = false;
                 }
 
               if (valid)
                 {
                   /* Substitute the variable's value from the environment.  */
-                  const char *env_value = getenv (buffer);
+                  const char *variable = sb_xcontents_c (&buffer);
+                  const char *env_value = getenv (variable);
 
                   if (env_value != NULL)
                     fputs (env_value, stdout);
@@ -559,10 +548,12 @@ subst_from_stdin ()
                   putchar ('$');
                   if (opening_brace)
                     putchar ('{');
-                  fwrite (buffer, buflen, 1, stdout);
+                  string_desc_fwrite (stdout, sb_contents (&buffer));
                   if (closing_brace)
                     putchar ('}');
                 }
+
+              sb_free (&buffer);
             }
           else
             {
