@@ -28,6 +28,49 @@ AC_CONFIG_HEADERS([config.h])
 dnl Installation directories.
 test "$docdir" != '${datarootdir}/doc/${PACKAGE_TARNAME}' || docdir='${datarootdir}/doc/gettext'
 
+dnl Define bindir_c and bindir_c_make.
+dnl Find the final value of bindir.
+gt_save_prefix="${prefix}"
+gt_save_exec_prefix="${exec_prefix}"
+gt_save_bindir="${bindir}"
+dnl Unfortunately, prefix and exec_prefix get only finally determined
+dnl at the end of configure.
+if test "X$prefix" = "XNONE"; then
+  prefix="$ac_default_prefix"
+fi
+if test "X$exec_prefix" = "XNONE"; then
+  exec_prefix='${prefix}'
+fi
+eval exec_prefix="$exec_prefix"
+eval bindir="$bindir"
+gl_BUILD_TO_HOST([bindir])
+bindir="${gt_save_bindir}"
+exec_prefix="${gt_save_exec_prefix}"
+prefix="${gt_save_prefix}"
+
+dnl Define pkglibdir_c and pkglibdir_c_make.
+dnl Find the final value of pkglibdir.
+gt_save_prefix="${prefix}"
+gt_save_exec_prefix="${exec_prefix}"
+gt_save_libdir="${libdir}"
+gt_save_pkglibdir="${pkglibdir}"
+dnl Unfortunately, prefix and exec_prefix get only finally determined
+dnl at the end of configure.
+if test "X$prefix" = "XNONE"; then
+  prefix="$ac_default_prefix"
+fi
+if test "X$exec_prefix" = "XNONE"; then
+  exec_prefix='${prefix}'
+fi
+eval exec_prefix="$exec_prefix"
+eval libdir="$libdir"
+eval pkglibdir="$pkglibdir"
+gl_BUILD_TO_HOST([pkglibdir])
+pkglibdir="${gt_save_pkglibdir}"
+libdir="${gt_save_libdir}"
+exec_prefix="${gt_save_exec_prefix}"
+prefix="${gt_save_prefix}"
+
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL

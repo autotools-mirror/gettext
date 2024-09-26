@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-1998, 2000-2023 Free Software Foundation, Inc.
+## Copyright (C) 1995-1998, 2000-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -403,25 +403,25 @@ hostname_DEPENDENCIES = $(OTHERPROGDEPENDENCIES)
 urlget_DEPENDENCIES = $(OTHERPROGDEPENDENCIES)
 
 # Specify installation directory, for --enable-relocatable.
-msgcmp_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msgfmt_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msgmerge_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msgunfmt_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-xgettext_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msgattrib_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msgcat_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msgcomm_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msgconv_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msgen_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msgexec_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msgfilter_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msggrep_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msginit_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-msguniq_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-recode_sr_latin_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(bindir)\"
-hostname_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
-urlget_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
-cldr_plurals_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=\"$(pkglibdir)\"
+msgcmp_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msgfmt_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msgmerge_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msgunfmt_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+xgettext_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msgattrib_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msgcat_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msgcomm_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msgconv_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msgen_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msgexec_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msgfilter_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msggrep_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msginit_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msguniq_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+recode_sr_latin_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+hostname_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(pkglibdir_c_make)
+urlget_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(pkglibdir_c_make)
+cldr_plurals_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(pkglibdir_c_make)
 if RELOCATABLE_VIA_LD
 msgcmp_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msgfmt_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
