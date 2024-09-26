@@ -48,6 +48,22 @@ function foo() {
   return <a>{ 'b' }</a>;
 }
 var s10 = _("Expected translation string #9");
+// Mixing JSX with template literals.
+var s11 = 0;
+var s12 = (
+  <div>
+    _("Expected translation string #10");
+    {`${ _("Expected translation string #11") }`}
+    _("Expected translation string #12");
+  </div>
+);
+var s13 = _("Expected translation string #13");
+var s14 = <div className={`${ _("Expected translation string #14") }`} /> ;
+var s15 = _("Expected translation string #15");
+var s16 = { a: 1, b: <div className={`${ _("Expected translation string #16") }`} /> };
+var s17 = _("Expected translation string #17");
+var s18 = `begin${ <div> _("Expected translation string #18") </div> }end`;
+var s19 = _("Expected translation string #19");
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -102,6 +118,36 @@ msgid "Expected translation string #8"
 msgstr ""
 
 msgid "Expected translation string #9"
+msgstr ""
+
+msgid "Expected translation string #10"
+msgstr ""
+
+msgid "Expected translation string #11"
+msgstr ""
+
+msgid "Expected translation string #12"
+msgstr ""
+
+msgid "Expected translation string #13"
+msgstr ""
+
+msgid "Expected translation string #14"
+msgstr ""
+
+msgid "Expected translation string #15"
+msgstr ""
+
+msgid "Expected translation string #16"
+msgstr ""
+
+msgid "Expected translation string #17"
+msgstr ""
+
+msgid "Expected translation string #18"
+msgstr ""
+
+msgid "Expected translation string #19"
 msgstr ""
 EOF
 

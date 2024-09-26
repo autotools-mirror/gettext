@@ -991,33 +991,51 @@ phase5_scan_regexp (void)
     phase2_ungetc (c);
 }
 
-/* Number of open template literals `...${  */
-static int template_literal_depth;
-
-/* Number of open '{' tokens, at each template literal level.
-   The "current" element is brace_depths[template_literal_depth].  */
-static int *brace_depths;
-/* Number of allocated elements in brace_depths.  */
-static size_t brace_depths_alloc;
-
-/* Adds a new brace_depths level after template_literal_depth was
-   incremented.  */
-static void
-new_brace_depth_level (void)
+/* Various syntactic constructs can be nested:
+     - braces in expressions       {
+     - template literals           `...${
+     - XML elements                <tag>
+     - embedded JavaScript in XML  {
+   For a well-formed program:
+     - expressions must have balanced braces;
+     - template literals must be closed before the embedded JavaScript is closed;
+     - the embedded JavaScript must be closed before the XML element is closed;
+     - and so on.
+   Therefore we can represent these nested syntactic constructs with a stack;
+   each element is a new level.  */
+enum level_ty
 {
-  if (template_literal_depth == brace_depths_alloc)
+  level_brace              = 1,
+  level_template_literal   = 2,
+  level_xml_element        = 3,
+  level_embedded_js_in_xml = 4
+};
+/* The level stack.  */
+static unsigned char *levels /* = NULL */;
+/* Number of allocated elements in levels.  */
+static size_t levels_alloc /* = 0 */;
+/* Number of currently used elements in levels.  */
+static size_t level;
+
+/* Adds a new level.  */
+static void
+new_level (enum level_ty l)
+{
+  if (level == levels_alloc)
     {
-      brace_depths_alloc = 2 * brace_depths_alloc + 1;
-      /* Now template_literal_depth < brace_depths_alloc.  */
-      brace_depths =
-        (int *) xrealloc (brace_depths, brace_depths_alloc * sizeof (int));
+      levels_alloc = 2 * levels_alloc + 1;
+      /* Now level < levels_alloc.  */
+      levels =
+        (unsigned char *)
+        xrealloc (levels, levels_alloc * sizeof (unsigned char));
     }
-  brace_depths[template_literal_depth] = 0;
+  levels[level++] = l;
 }
 
-/* Number of open XML elements.  */
-static int xml_element_depth;
-static bool inside_embedded_js_in_xml;
+/* Returns the current level's type,
+   as one of the level_* enum items, or 0 if the level stack is empty.  */
+#define level_type() \
+  (level > 0 ? levels[level - 1] : 0)
 
 /* Parses some XML markup.
    Returns 0 for an XML comment,
@@ -1292,8 +1310,7 @@ phase5_get (token_ty *tp)
                   {
                     mixed_string_buffer_destroy (&msb);
                     tp->type = last_token_type = token_type_ltemplate;
-                    template_literal_depth++;
-                    new_brace_depth_level ();
+                    new_level (level_template_literal);
                     break;
                   }
 
@@ -1334,8 +1351,8 @@ phase5_get (token_ty *tp)
                - XMLMarkup and XMLElement are not allowed after an expression,
                - embedded JavaScript expressions in XML do not recurse.
              */
-            if (xml_element_depth > 0
-                || (!inside_embedded_js_in_xml
+            if (level_type () == level_xml_element
+                || (level_type () != level_embedded_js_in_xml
                     && ! is_after_expression ()))
               {
                 /* Recognize XML markup: XML comment, CDATA, Processing
@@ -1363,7 +1380,7 @@ phase5_get (token_ty *tp)
                     /* Opening element.  */
                     phase2_ungetc (c);
                     lexical_context = lc_xml_open_tag;
-                    xml_element_depth++;
+                    new_level (level_xml_element);
                   }
                 tp->type = last_token_type = token_type_xml_tag;
               }
@@ -1373,7 +1390,7 @@ phase5_get (token_ty *tp)
           return;
 
         case '>':
-          if (xml_element_depth > 0 && !inside_embedded_js_in_xml)
+          if (level_type () == level_xml_element)
             {
               switch (lexical_context)
                 {
@@ -1383,7 +1400,8 @@ phase5_get (token_ty *tp)
                   return;
 
                 case lc_xml_close_tag:
-                  if (--xml_element_depth > 0)
+                  level--;
+                  if (memchr (levels, level_xml_element, level) != NULL)
                     lexical_context = lc_xml_content;
                   else
                     lexical_context = lc_outside;
@@ -1398,7 +1416,7 @@ phase5_get (token_ty *tp)
           return;
 
         case '/':
-          if (xml_element_depth > 0 && !inside_embedded_js_in_xml)
+          if (level_type () == level_xml_element)
             {
               /* If it appears in an opening tag of an XML element, it's
                  part of '/>'.  */
@@ -1407,7 +1425,8 @@ phase5_get (token_ty *tp)
                   c = phase2_getc ();
                   if (c == '>')
                     {
-                      if (--xml_element_depth > 0)
+                      level--;
+                      if (memchr (levels, level_xml_element, level) != NULL)
                         lexical_context = lc_xml_content;
                       else
                         lexical_context = lc_outside;
@@ -1432,19 +1451,19 @@ phase5_get (token_ty *tp)
           return;
 
         case '{':
-          if (xml_element_depth > 0 && !inside_embedded_js_in_xml)
-            inside_embedded_js_in_xml = true;
+          if (level_type () == level_xml_element)
+            new_level (level_embedded_js_in_xml);
           else
-            brace_depths[template_literal_depth]++;
+            new_level (level_brace);
           tp->type = last_token_type = token_type_lbrace;
           return;
 
         case '}':
-          if (xml_element_depth > 0 && inside_embedded_js_in_xml)
-            inside_embedded_js_in_xml = false;
-          else if (brace_depths[template_literal_depth] > 0)
-            brace_depths[template_literal_depth]--;
-          else if (template_literal_depth > 0)
+          if (level_type () == level_embedded_js_in_xml)
+            level--;
+          else if (level_type () == level_brace)
+            level--;
+          else if (level_type () == level_template_literal)
             {
               /* Middle or right part of template literal.  */
               for (;;)
@@ -1454,7 +1473,7 @@ phase5_get (token_ty *tp)
                   if (uc == P7_EOF || uc == P7_STRING_END)
                     {
                       tp->type = last_token_type = token_type_rtemplate;
-                      template_literal_depth--;
+                      level--;
                       break;
                     }
 
@@ -1886,10 +1905,7 @@ extract_javascript (FILE *f,
   phase5_pushback_length = 0;
   last_token_type = token_type_start;
 
-  template_literal_depth = 0;
-  new_brace_depth_level ();
-  xml_element_depth = 0;
-  inside_embedded_js_in_xml = false;
+  level = 0;
 
   flag_context_list_table = flag_table;
   paren_nesting_depth = 0;
