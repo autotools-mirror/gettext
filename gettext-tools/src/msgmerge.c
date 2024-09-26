@@ -513,7 +513,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
           if (backup_type != none)
             {
               backup_file = find_backup_file_name (output_file, backup_type);
-              copy_file_preserving (output_file, backup_file);
+              xcopy_file_preserving (output_file, backup_file);
             }
 
           /* Write the merged message list out.  */
