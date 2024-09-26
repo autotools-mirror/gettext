@@ -1071,23 +1071,6 @@ process_dquote_or_heredoc (struct php_extractor *xp, bool heredoc)
   goto string_continued;
 }
 
-/* On a heredoc string, do the same processing as phase4_getc (below) does
-   on a double-quoted string (except for recognizing a double-quote as
-   end-of-string, of course).
-   Return the processed string, or NULL if it contains variables or embedded
-   expressions.  */
-static char *
-process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
-{
-  struct php_extractor hxp;
-  hxp.mlp = xp->mlp;
-  sf_istream_init_from_string (&hxp.input, doc);
-  hxp.line_number = doc_line_number;
-  php_extractor_init_rest (&hxp);
-
-  return process_dquote_or_heredoc (&hxp, true);
-}
-
 static void
 phase4_get (struct php_extractor *xp, token_ty *tp)
 {
@@ -1530,11 +1513,18 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
                     doc[doc_len++] = '\0';
 
                     /* For a here document, do the same processing as in
-                       double-quoted strings (see above).  */
+                       double-quoted strings (except for recognizing a
+                       double-quote as end-of-string, of course).  */
                     if (heredoc)
                       {
+                        struct php_extractor hxp;
+                        hxp.mlp = xp->mlp;
+                        sf_istream_init_from_string (&hxp.input, doc);
+                        hxp.line_number = doc_line_number;
+                        php_extractor_init_rest (&hxp);
+
                         char *processed_doc =
-                          process_heredoc (xp, doc, doc_line_number);
+                          process_dquote_or_heredoc (&hxp, true);
                         free (doc);
                         doc = processed_doc;
                       }
