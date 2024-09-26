@@ -46,9 +46,9 @@ envsubst_SOURCES = envsubst.c
 LDADD = ../gnulib-lib/libgrt.a @LTLIBINTL@ @LTLIBICONV@ $(WOE32_LDADD)
 
 # Specify installation directory, for --enable-relocatable.
-gettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-ngettext_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
-envsubst_CFLAGS = -DINSTALLDIR=\"$(bindir)\"
+gettext_CFLAGS = -DINSTALLDIR=$(bindir_c_make)
+ngettext_CFLAGS = -DINSTALLDIR=$(bindir_c_make)
+envsubst_CFLAGS = -DINSTALLDIR=$(bindir_c_make)
 if RELOCATABLE_VIA_LD
 gettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 ngettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`

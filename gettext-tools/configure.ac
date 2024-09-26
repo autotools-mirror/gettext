@@ -28,6 +28,11 @@ AC_CONFIG_HEADERS([config.h])
 dnl Installation directories.
 test "$docdir" != '${datarootdir}/doc/${PACKAGE_TARNAME}' || docdir='${datarootdir}/doc/gettext'
 
+dnl Define bindir_c and bindir_c_make.
+gl_BUILD_TO_HOST_BINDIR
+dnl Define pkglibexecdir_c and pkglibexecdir_c_make.
+gl_BUILD_TO_HOST_PKGLIBEXECDIR
+
 dnl Checks for programs.
 AC_PROG_CC
 AC_PROG_INSTALL
