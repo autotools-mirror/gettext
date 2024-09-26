@@ -839,31 +839,30 @@ free_token (token_ty *tp)
 
 /* 4. Combine characters into tokens.  Discard whitespace.  */
 
-/* On a heredoc string, do the same processing as phase4_getc (below) does
-   on a double-quoted string (except for recognizing a double-quote as
-   end-of-string, of course).
+/* Do the processing of a double-quoted string or heredoc string.
    Return the processed string, or NULL if it contains variables or embedded
    expressions.  */
 static char *
-process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
+process_dquote_or_heredoc (struct php_extractor *xp, bool heredoc)
 {
   bool is_constant = true;
-  int lineno = doc_line_number;
 
- heredoc_continued:
+ string_continued:
   {
     struct string_buffer buffer;
     sb_init (&buffer);
     for (;;)
       {
-        char c = *doc++;
-        if (c == '\0')
+        int c;
+
+        c = phase1_getc (xp);
+        if (c == EOF || (!heredoc && c == '"'))
           break;
-        if (c == '\n')
-          lineno++;
+        if (heredoc && c == '\n')
+          xp->line_number++;
         if (c == '$')
           {
-            c = *doc++;
+            c = phase1_getc (xp);
             if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
                 || c == '_' || c >= 0x7f)
               {
@@ -873,30 +872,30 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
               }
             if (c == '{')
               {
-                /* Heredoc string with embedded expressions.  */
+                /* String with embedded expressions.  */
                 sb_free (&buffer);
-                goto heredoc_with_embedded_expressions;
+                goto string_with_embedded_expressions;
               }
-            --doc;
+            phase1_ungetc (xp, c);
             c = '$';
           }
         if (c == '{')
           {
-            c = *doc++;
+            c = phase1_getc (xp);
             if (c == '$')
               {
-                /* Heredoc string with embedded expressions.  */
+                /* String with embedded expressions.  */
                 sb_free (&buffer);
-                goto heredoc_with_embedded_expressions;
+                goto string_with_embedded_expressions;
               }
-            --doc;
+            phase1_ungetc (xp, c);
             c = '{';
           }
         if (c == '\\')
           {
             int n, j;
 
-            c = *doc++;
+            c = phase1_getc (xp);
             switch (c)
               {
               case '\\':
@@ -909,7 +908,7 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
                 for (j = 0; j < 3; ++j)
                   {
                     n = n * 8 + c - '0';
-                    c = *doc++;
+                    c = phase1_getc (xp);
                     switch (c)
                       {
                       default:
@@ -921,7 +920,7 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
                       }
                     break;
                   }
-                --doc;
+                phase1_ungetc (xp, c);
                 c = n;
                 break;
 
@@ -929,7 +928,7 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
                 n = 0;
                 for (j = 0; j < 2; ++j)
                   {
-                    c = *doc++;
+                    c = phase1_getc (xp);
                     switch (c)
                       {
                       case '0': case '1': case '2': case '3': case '4':
@@ -945,7 +944,7 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
                         n = n * 16 + 10 + c - 'a';
                         break;
                       default:
-                        --doc;
+                        phase1_ungetc (xp, c);
                         c = 0;
                         break;
                       }
@@ -954,7 +953,7 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
                   }
                 if (j == 0)
                   {
-                    --doc;
+                    phase1_ungetc (xp, 'x');
                     c = '\\';
                   }
                 else
@@ -971,8 +970,12 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
                 c = '\r';
                 break;
 
+              case '"':
+                if (!heredoc)
+                  break;
+                FALLTHROUGH;
               default:
-                --doc;
+                phase1_ungetc (xp, c);
                 c = '\\';
                 break;
               }
@@ -988,7 +991,7 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
       }
   }
 
- heredoc_with_embedded_expressions:
+ string_with_embedded_expressions:
   is_constant = false;
   {
     size_t nesting_stack_alloc = 10;
@@ -1002,19 +1005,24 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
     sb_init (&buffer);
     for (;;)
       {
-        char c = *doc;
-        if (c == '\0')
+        int c;
+
+        c = phase1_getc (xp);
+        if (!heredoc && c == EOF)
+          break;
+        if (c == (heredoc ? EOF : '"'))
           {
             if (nesting_stack_depth > 0)
               if_error (IF_SEVERITY_WARNING,
-                        logical_file_name, lineno, (size_t)(-1), false,
-                        _("unterminated expression in heredoc, expected a '%c'"),
+                        logical_file_name, xp->line_number, (size_t)(-1), false,
+                        heredoc
+                        ? _("unterminated expression in heredoc, expected a '%c'")
+                        : _("unterminated expression in string literal, expected a '%c'"),
                         nesting_stack[nesting_stack_depth - 1]);
             break;
           }
-        doc++;
-        if (c == '\n')
-          lineno++;
+        if (heredoc && c == '\n')
+          xp->line_number++;
         if (c == '{' || c == '[' || c == '(')
           {
             if (nesting_stack_depth >= nesting_stack_alloc)
@@ -1036,8 +1044,10 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
               }
             else
               if_error (IF_SEVERITY_WARNING,
-                        logical_file_name, lineno, (size_t)(-1), false,
-                        _("unterminated expression in heredoc contains unbalanced '%c'"),
+                        logical_file_name, xp->line_number, (size_t)(-1), false,
+                        heredoc
+                        ? _("unterminated expression in heredoc contains unbalanced '%c'")
+                        : _("unterminated expression in string literal contains unbalanced '%c'"),
                         c);
           }
         sb_xappend1 (&buffer, c);
@@ -1058,7 +1068,24 @@ process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
     sb_free (&buffer);
     free (nesting_stack);
   }
-  goto heredoc_continued;
+  goto string_continued;
+}
+
+/* On a heredoc string, do the same processing as phase4_getc (below) does
+   on a double-quoted string (except for recognizing a double-quote as
+   end-of-string, of course).
+   Return the processed string, or NULL if it contains variables or embedded
+   expressions.  */
+static char *
+process_heredoc (struct php_extractor *xp, const char *doc, int doc_line_number)
+{
+  struct php_extractor hxp;
+  hxp.mlp = xp->mlp;
+  sf_istream_init_from_string (&hxp.input, doc);
+  hxp.line_number = doc_line_number;
+  php_extractor_init_rest (&hxp);
+
+  return process_dquote_or_heredoc (&hxp, true);
 }
 
 static void
@@ -1212,215 +1239,18 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
 
         case '"':
           /* Double-quoted string literal.  */
-          tp->type = token_type_string_literal;
-        string_literal_continued:
           {
-            struct string_buffer buffer;
-            sb_init (&buffer);
-            for (;;)
+            char *string = process_dquote_or_heredoc (xp, false);
+            if (string != NULL)
               {
-                c = phase1_getc (xp);
-                if (c == EOF || c == '"')
-                  break;
-                if (c == '$')
-                  {
-                    c = phase1_getc (xp);
-                    if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
-                        || c == '_' || c >= 0x7f)
-                      {
-                        /* String with variables.  */
-                        tp->type = token_type_other;
-                        continue;
-                      }
-                    if (c == '{')
-                      {
-                        /* String with embedded expressions.  */
-                        sb_free (&buffer);
-                        goto string_with_embedded_expressions;
-                      }
-                    phase1_ungetc (xp, c);
-                    c = '$';
-                  }
-                if (c == '{')
-                  {
-                    c = phase1_getc (xp);
-                    if (c == '$')
-                      {
-                        /* String with embedded expressions.  */
-                        sb_free (&buffer);
-                        goto string_with_embedded_expressions;
-                      }
-                    phase1_ungetc (xp, c);
-                    c = '{';
-                  }
-                if (c == '\\')
-                  {
-                    int n, j;
-
-                    c = phase1_getc (xp);
-                    switch (c)
-                      {
-                      case '"':
-                      case '\\':
-                      case '$':
-                        break;
-
-                      case '0': case '1': case '2': case '3':
-                      case '4': case '5': case '6': case '7':
-                        n = 0;
-                        for (j = 0; j < 3; ++j)
-                          {
-                            n = n * 8 + c - '0';
-                            c = phase1_getc (xp);
-                            switch (c)
-                              {
-                              default:
-                                break;
-
-                              case '0': case '1': case '2': case '3':
-                              case '4': case '5': case '6': case '7':
-                                continue;
-                              }
-                            break;
-                          }
-                        phase1_ungetc (xp, c);
-                        c = n;
-                        break;
-
-                      case 'x':
-                        n = 0;
-                        for (j = 0; j < 2; ++j)
-                          {
-                            c = phase1_getc (xp);
-                            switch (c)
-                              {
-                              case '0': case '1': case '2': case '3': case '4':
-                              case '5': case '6': case '7': case '8': case '9':
-                                n = n * 16 + c - '0';
-                                break;
-                              case 'A': case 'B': case 'C': case 'D': case 'E':
-                              case 'F':
-                                n = n * 16 + 10 + c - 'A';
-                                break;
-                              case 'a': case 'b': case 'c': case 'd': case 'e':
-                              case 'f':
-                                n = n * 16 + 10 + c - 'a';
-                                break;
-                              default:
-                                phase1_ungetc (xp, c);
-                                c = 0;
-                                break;
-                              }
-                            if (c == 0)
-                              break;
-                          }
-                        if (j == 0)
-                          {
-                            phase1_ungetc (xp, 'x');
-                            c = '\\';
-                          }
-                        else
-                          c = n;
-                        break;
-
-                      case 'n':
-                        c = '\n';
-                        break;
-                      case 't':
-                        c = '\t';
-                        break;
-                      case 'r':
-                        c = '\r';
-                        break;
-
-                      default:
-                        phase1_ungetc (xp, c);
-                        c = '\\';
-                        break;
-                      }
-                  }
-                sb_xappend1 (&buffer, c);
-              }
-            if (tp->type == token_type_string_literal)
-              {
-                tp->string = sb_xdupfree_c (&buffer);
+                tp->type = token_type_string_literal;
+                tp->string = string;
                 tp->comment = add_reference (savable_comment);
               }
             else
-              sb_free (&buffer);
+              tp->type = token_type_other;
           }
           return;
-
-        string_with_embedded_expressions:
-          tp->type = token_type_other;
-          {
-            size_t nesting_stack_alloc = 10;
-            char *nesting_stack = xmalloc (nesting_stack_alloc);
-            size_t nesting_stack_depth = 0;
-            /* We just read a '{', so expect a matching '}'.  */
-            nesting_stack[nesting_stack_depth++] = '}';
-
-            /* Find the extent of the expression.  */
-            struct string_buffer buffer;
-            sb_init (&buffer);
-            for (;;)
-              {
-                c = phase1_getc (xp);
-                if (c == EOF)
-                  break;
-                if (c == '"')
-                  {
-                    if (nesting_stack_depth > 0)
-                      if_error (IF_SEVERITY_WARNING,
-                                logical_file_name, xp->line_number, (size_t)(-1), false,
-                                _("unterminated expression in string literal, expected a '%c'"),
-                                nesting_stack[nesting_stack_depth - 1]);
-                    break;
-                  }
-                if (c == '{' || c == '[' || c == '(')
-                  {
-                    if (nesting_stack_depth >= nesting_stack_alloc)
-                      {
-                        nesting_stack_alloc = 2 * nesting_stack_alloc;
-                        nesting_stack =
-                          xrealloc (nesting_stack, nesting_stack_alloc);
-                      }
-                    nesting_stack[nesting_stack_depth++] =
-                      (c == '{' ? '}' : c == '[' ? ']' : ')');
-                  }
-                else if (c == '}' || c == ']' || c == ')')
-                  {
-                    if (nesting_stack_depth > 0
-                        && c == nesting_stack[nesting_stack_depth - 1])
-                      {
-                        if (--nesting_stack_depth == 0)
-                          break;
-                      }
-                    else
-                      if_error (IF_SEVERITY_WARNING,
-                                logical_file_name, xp->line_number, (size_t)(-1), false,
-                                _("unterminated expression in string literal contains unbalanced '%c'"),
-                                c);
-                  }
-                sb_xappend1 (&buffer, c);
-              }
-
-            /* Recursively extract messages from the expression.  */
-            string_desc_t substring = sb_contents (&buffer);
-
-            struct php_extractor *rxp = XMALLOC (struct php_extractor);
-            rxp->mlp = xp->mlp;
-            sf_istream_init_from_string_desc (&rxp->input, substring);
-            rxp->line_number = xp->line_number;
-            php_extractor_init_rest (rxp);
-
-            extract_php_input (rxp);
-
-            free (rxp);
-            sb_free (&buffer);
-            free (nesting_stack);
-          }
-          goto string_literal_continued;
 
         case '?':
         case '%':
