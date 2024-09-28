@@ -69,7 +69,7 @@ src/format-tcl.c
 src/hostname.c
 src/if-error.c
 src/its.c
-src/locating-rule.c
+src/locating-rules.c
 src/msgattrib.c
 src/msgcat.c
 src/msgcmp.c

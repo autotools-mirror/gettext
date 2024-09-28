@@ -67,7 +67,7 @@
 #include "msgl-iconv.h"
 #include "concat-filename.h"
 #include "its.h"
-#include "locating-rule.h"
+#include "locating-rules.h"
 #include "search-path.h"
 #include "gettext.h"
 

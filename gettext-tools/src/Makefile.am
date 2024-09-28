@@ -50,7 +50,7 @@ noinst_HEADERS = \
   str-list.h \
   write-catalog.h write-po.h write-properties.h write-stringtable.h \
   dir-list.h file-list.h read-po-gram.h cldr-plural.h \
-  cldr-plural-exp.h locating-rule.h its.h search-path.h \
+  cldr-plural-exp.h locating-rules.h its.h search-path.h \
   msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-ofn.h msgl-cat.h \
   msgl-header.h msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
   plural-count.h plural-eval.h plural-distrib.h \
@@ -224,7 +224,7 @@ libgettextsrc_la_SOURCES = \
   sentence.h sentence.c \
   $(FORMAT_SOURCE) \
   read-desktop.c \
-  locating-rule.c its.c \
+  locating-rules.c its.c \
   search-path.c
 
 # msggrep needs pattern matching.

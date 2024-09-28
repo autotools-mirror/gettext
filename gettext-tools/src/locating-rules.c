@@ -21,7 +21,7 @@
 #endif
 
 /* Specification.  */
-#include "locating-rule.h"
+#include "locating-rules.h"
 
 #include <dirent.h>
 #include <errno.h>
