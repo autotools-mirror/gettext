@@ -276,6 +276,7 @@ static const struct option long_options[] =
   { "string-limit", required_argument, NULL, 'l' },
   { "stringtable-output", no_argument, NULL, CHAR_MAX + 7 },
   { "style", required_argument, NULL, CHAR_MAX + 15 },
+  { "tag", required_argument, NULL, CHAR_MAX + 21 },
   { "trigraphs", no_argument, NULL, 'T' },
   { "verbose", no_argument, NULL, 'v' },
   { "version", no_argument, NULL, 'V' },
@@ -672,12 +673,16 @@ main (int argc, char *argv[])
           error (EXIT_FAILURE, 0, _("sentence end type '%s' unknown"), optarg);
         break;
 
+      case CHAR_MAX + 19: /* --itstool */
+        add_itstool_comments = true;
+        break;
+
       case CHAR_MAX + 20: /* --its */
         explicit_its_filename = optarg;
         break;
 
-      case CHAR_MAX + 19: /* --itstool */
-        add_itstool_comments = true;
+      case CHAR_MAX + 21: /* --tag */
+        x_javascript_tag (optarg);
         break;
 
       default:
@@ -1163,6 +1168,11 @@ Language specific options:\n"));
                                 Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
                                 C#, awk, YCP, Tcl, Perl, PHP, GCC-source,\n\
                                 Lua, JavaScript, Vala)\n"));
+      printf (_("\
+      --tag=WORD:FORMAT       defines the behaviour of tagged template literals\n\
+                              with tag WORD\n"));
+      printf (_("\
+                                (only language JavaScript)\n"));
       printf (_("\
   -T, --trigraphs             understand ANSI C trigraphs for input\n"));
       printf (_("\

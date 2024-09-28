@@ -2424,6 +2424,17 @@ into a statement involving a format string:
 print ('Replace %s with %s?'.format(object1.name, object2.name))
 @end example
 
+@noindent
+Specifically in JavaScript,
+an alternative is to use a @emph{tagged} template literal:
+
+@example
+print (@var{tag}`Replace $@{object1.name@} with $@{object2.name@}?`)
+@end example
+
+@noindent
+and pass an option @samp{--tag=@var{tag}:@var{format}} to @code{xgettext}.
+
 @subheading Format strings with embedded named references
 
 Format strings with embedded named references are different:

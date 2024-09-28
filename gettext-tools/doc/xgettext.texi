@@ -409,6 +409,22 @@ This option has an effect with most languages, namely C, C++, ObjectiveC,
 Shell, Python, Lisp, EmacsLisp, librep, Scheme, Guile, Java, C#, awk,
 YCP, Tcl, Perl, PHP, GCC-source, Lua, JavaScript, Vala.
 
+@item --tag=@var{word}:@var{format}
+@opindex --tag@r{, @code{xgettext} option}
+Defines the behaviour of tagged template literals with tag @var{word}.
+This option has an effect only with language JavaScript.
+@*
+@var{format} is a symbolic description
+of the first step of the JavaScript function named @var{word},
+namely how this function constructs a format string
+based on the parts of the template literal.
+Currently only one value is supported: @code{javascript-gnome-format},
+which describes the construction of a format string with numbered placeholders
+@code{@{0@}}, @code{@{1@}}, @code{@{2@}}, etc.
+For example, @code{javascript-gnome-format} transforms the template literal
+@code{@var{word}`My name is $@{id.name@} and I am $@{id.age@} years old.`}
+into the format string @code{"My name is @{0@} and I am @{1@} years old."}.
+
 @item -T
 @itemx --trigraphs
 @opindex -T@r{, @code{xgettext} option}

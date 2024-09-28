@@ -24,6 +24,10 @@ gjs
 
 @item @code{`abc`}
 
+@c https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+@item @code{@var{tag}`abc$@{@var{expression}@}def@{@var{expression}@}...`},
+see the description of @samp{--tag} in @ref{xgettext Invocation}.
+
 @end itemize
 
 @item gettext shorthand

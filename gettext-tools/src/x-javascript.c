@@ -34,6 +34,7 @@
 #include <error.h>
 #include "attribute.h"
 #include "message.h"
+#include "str-list.h"
 #include "rc-str-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -147,6 +148,105 @@ init_flag_table_javascript ()
   xgettext_record_flag ("pgettext:2:pass-javascript-format");
   xgettext_record_flag ("dpgettext:3:pass-javascript-format");
   xgettext_record_flag ("_:1:pass-javascript-format");
+}
+
+
+/* ======================== Tag set customization.  ======================== */
+
+/* Tagged template literals are described in
+   <https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals>.
+
+   A tagged template literal looks like this in the source code:
+     TAG`part0 ${expression 1} part1 ${expression 2} ... ${expression N} partN`
+
+   A tag, immediately before a template literal, denotes a function that takes
+   as arguments:
+     - A list of the N+1 parts of the template literal,
+     - The N values of the N expressions between these parts.
+
+   In our use case, the tag function is supposed to
+     1. Convert the N+1 parts to a format string.
+     2. Look up the translation of this format string. (It is supposed to
+        accept the same number of arguments.)
+     3. Call a formatting facility that substitutes the N values into the
+        translated format string.
+   The type of format string is not fixed.  */
+
+/* Type of a C function that implements step 1 of what a tag function does.
+   It takes a non-empty string_list_ty as argument and returns a freshly
+   allocated string.  */
+typedef char * (*tag_step1_fn) (string_list_ty *parts);
+
+/* Tag step 1 function that produces a format string with placeholders
+   {0}, {1}, {2}, etc.  */
+static char *
+gnome_step1 (string_list_ty *parts)
+{
+  size_t n = parts->nitems - 1;
+  string_list_ty pieces;
+  unsigned long i;
+
+  pieces.nitems = 2 * n + 1;
+  pieces.nitems_max = pieces.nitems;
+  pieces.item = XNMALLOC (pieces.nitems, const char *);
+  for (i = 0; i <= n; i++)
+    {
+      pieces.item[2 * i] = parts->item[i];
+      if (i < n)
+        pieces.item[2 * i + 1] = xasprintf ("{%lu}", i);
+    }
+
+  char *result = string_list_concat (&pieces);
+
+  for (i = 0; i < n; i++)
+    free ((char *) pieces.item[2 * i + 1]);
+
+  return result;
+}
+
+/* Returns the tag step 1 function for a given format, or NULL if that format
+   is unknown.  */
+static tag_step1_fn
+get_tag_step1_fn (const char *format)
+{
+  if (strcmp (format, "javascript-gnome-format") == 0)
+    return gnome_step1;
+  /* ... More formats can be added here ...  */
+  return NULL;
+}
+
+/* Information associated with a tag.  */
+struct tag_definition
+{
+  const char *format;
+  tag_step1_fn step1_fn;
+};
+
+/* Mapping tag -> format.  */
+static hash_table tags;
+
+void
+x_javascript_tag (const char *name)
+{
+  const char *colon = strchr (name, ':');
+  if (colon != NULL)
+    {
+      const char *format = colon + 1;
+      tag_step1_fn step1_fn = get_tag_step1_fn (format);
+      if (step1_fn != NULL)
+        {
+          /* Heap-allocate a 'struct tag_definition'  */
+          struct tag_definition *def = XMALLOC (struct tag_definition);
+          def->format = xstrdup (format);
+          def->step1_fn = step1_fn;
+
+          if (tags.table == NULL)
+            hash_init (&tags, 10);
+
+          /* Insert it in the TAGS table.  */
+          hash_set_value (&tags, name, colon - name, def);
+        }
+    }
 }
 
 
@@ -699,9 +799,15 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;                  /* for token_type_symbol, token_type_keyword */
-  mixed_string_ty *mixed_string;        /* for token_type_string, token_type_template */
-  refcounted_string_list_ty *comment;   /* for token_type_string, token_type_template */
+  char *template_tag;                 /* for token_type_template, token_type_ltemplate,
+                                         token_type_rtemplate */
+  char *string;                       /* for token_type_symbol, token_type_keyword */
+  mixed_string_ty *mixed_string;      /* for token_type_string, token_type_template,
+                                         token_type_ltemplate, token_type_mtemplate,
+                                         token_type_rtemplate */
+  string_list_ty *template_parts;     /* for token_type_rtemplate */
+  refcounted_string_list_ty *comment; /* for token_type_string, token_type_template,
+                                         token_type_ltemplate, token_type_rtemplate */
   int line_number;
 };
 
@@ -710,13 +816,23 @@ struct token_ty
 static inline void
 free_token (token_ty *tp)
 {
+  if (tp->type == token_type_template || tp->type == token_type_ltemplate
+      || tp->type == token_type_rtemplate)
+    free (tp->template_tag);
   if (tp->type == token_type_symbol || tp->type == token_type_keyword)
     free (tp->string);
-  if (tp->type == token_type_string || tp->type == token_type_template)
-    {
-      mixed_string_free (tp->mixed_string);
-      drop_reference (tp->comment);
-    }
+  if (tp->type == token_type_string || tp->type == token_type_template
+      /* For these types, tp->mixed_string is already freed earlier, when we
+         build up the level's template_parts.  */
+      #if 0
+      || tp->type == token_type_ltemplate || tp->type == token_type_mtemplate
+      || tp->type == token_type_rtemplate
+      #endif
+     )
+    mixed_string_free (tp->mixed_string);
+  if (tp->type == token_type_string || tp->type == token_type_template
+      || tp->type == token_type_ltemplate || tp->type == token_type_rtemplate)
+    drop_reference (tp->comment);
 }
 
 
@@ -1010,8 +1126,15 @@ enum level_ty
   level_xml_element        = 3,
   level_embedded_js_in_xml = 4
 };
+struct level_info
+{
+  enum level_ty type;
+  char *template_tag;                          /* for level_template_literal */
+  string_list_ty *template_parts;              /* for level_template_literal */
+  refcounted_string_list_ty *template_comment; /* for level_template_literal */
+};
 /* The level stack.  */
-static unsigned char *levels /* = NULL */;
+static struct level_info *levels /* = NULL */;
 /* Number of allocated elements in levels.  */
 static size_t levels_alloc /* = 0 */;
 /* Number of currently used elements in levels.  */
@@ -1026,16 +1149,17 @@ new_level (enum level_ty l)
       levels_alloc = 2 * levels_alloc + 1;
       /* Now level < levels_alloc.  */
       levels =
-        (unsigned char *)
-        xrealloc (levels, levels_alloc * sizeof (unsigned char));
+        (struct level_info *)
+        xrealloc (levels, levels_alloc * sizeof (struct level_info));
     }
-  levels[level++] = l;
+  levels[level].type = l;
+  level++;
 }
 
 /* Returns the current level's type,
    as one of the level_* enum items, or 0 if the level stack is empty.  */
 #define level_type() \
-  (level > 0 ? levels[level - 1] : 0)
+  (level > 0 ? levels[level - 1].type : 0)
 
 /* Parses some XML markup.
    Returns 0 for an XML comment,
@@ -1300,6 +1424,7 @@ phase5_get (token_ty *tp)
 
                 if (uc == P7_EOF || uc == P7_STRING_END)
                   {
+                    tp->template_tag = NULL;
                     tp->mixed_string = mixed_string_buffer_result (&msb);
                     tp->comment = add_reference (savable_comment);
                     tp->type = last_token_type = token_type_template;
@@ -1308,9 +1433,14 @@ phase5_get (token_ty *tp)
 
                 if (uc == P7_TEMPLATE_START_OF_EXPRESSION)
                   {
-                    mixed_string_buffer_destroy (&msb);
+                    tp->template_tag = NULL;
+                    tp->mixed_string = mixed_string_buffer_result (&msb);
+                    tp->comment = add_reference (savable_comment);
                     tp->type = last_token_type = token_type_ltemplate;
                     new_level (level_template_literal);
+                    levels[level - 1].template_tag = NULL;
+                    levels[level - 1].template_parts = NULL;
+                    levels[level - 1].template_comment = NULL;
                     break;
                   }
 
@@ -1466,23 +1596,51 @@ phase5_get (token_ty *tp)
           else if (level_type () == level_template_literal)
             {
               /* Middle or right part of template literal.  */
+              struct mixed_string_buffer msb;
+
+              lexical_context = lc_string;
+              /* Start accumulating the string.  */
+              mixed_string_buffer_init (&msb, lexical_context,
+                                        logical_file_name, line_number);
               for (;;)
                 {
                   int uc = phase7_getuc ('`');
 
+                  /* Keep line_number in sync.  */
+                  msb.line_number = line_number;
+
                   if (uc == P7_EOF || uc == P7_STRING_END)
                     {
+                      tp->mixed_string = mixed_string_buffer_result (&msb);
                       tp->type = last_token_type = token_type_rtemplate;
+                      string_list_append_move (levels[level - 1].template_parts,
+                                               mixed_string_contents_free1 (tp->mixed_string));
+                      /* Move info from the current level to the token.  */
+                      tp->template_tag = levels[level - 1].template_tag;
+                      tp->template_parts = levels[level - 1].template_parts;
+                      tp->comment = levels[level - 1].template_comment;
                       level--;
                       break;
                     }
 
                   if (uc == P7_TEMPLATE_START_OF_EXPRESSION)
                     {
+                      tp->mixed_string = mixed_string_buffer_result (&msb);
                       tp->type = last_token_type = token_type_mtemplate;
                       break;
                     }
+
+                  if (IS_UNICODE (uc))
+                    {
+                      assert (UNICODE_VALUE (uc) >= 0
+                              && UNICODE_VALUE (uc) < 0x110000);
+                      mixed_string_buffer_append_unicode (&msb,
+                                                          UNICODE_VALUE (uc));
+                    }
+                  else
+                    mixed_string_buffer_append_char (&msb, uc);
                 }
+              lexical_context = lc_outside;
               return;
             }
           tp->type = last_token_type = token_type_rbrace;
@@ -1538,6 +1696,7 @@ static void
 x_javascript_lex (token_ty *tp)
 {
   phase5_get (tp);
+
   if (tp->type == token_type_string || tp->type == token_type_template)
     {
       mixed_string_ty *sum = tp->mixed_string;
@@ -1573,18 +1732,39 @@ x_javascript_lex (token_ty *tp)
       token_ty token2;
 
       phase5_get (&token2);
-      if (token2.type == token_type_template)
+      if (token2.type == token_type_template
+          || token2.type == token_type_ltemplate)
         {
-          /* The value of
-               tag `abc`
-             is the value of the function call
-               tag (["abc"])
-             We don't know anything about this value.  Therefore, don't
-             let the extractor see this template literal.  */
-          free_token (&token2);
+          /* Merge *tp and token2:
+             tag `abc`    becomes    tag`abc`
+             tag `abc${   becomes    tag`abc${
+           */
+          tp->type = token2.type;
+          tp->template_tag = tp->string;
+          tp->mixed_string = token2.mixed_string;
+          tp->comment = token2.comment;
+          tp->line_number = token2.line_number;
         }
       else
         phase5_unget (&token2);
+    }
+
+  /* Move info from the token into the current level.  */
+  if (tp->type == token_type_ltemplate
+      || tp->type == token_type_mtemplate)
+    {
+      if (!(level_type () == level_template_literal))
+        abort ();
+      if (tp->type == token_type_ltemplate)
+        {
+          levels[level - 1].template_tag = tp->template_tag;
+          tp->template_tag = NULL;
+          levels[level - 1].template_parts = string_list_alloc ();
+          levels[level - 1].template_comment = tp->comment;
+          tp->comment = NULL;
+        }
+      string_list_append_move (levels[level - 1].template_parts,
+                               mixed_string_contents_free1 (tp->mixed_string));
     }
 }
 
@@ -1782,25 +1962,68 @@ extract_balanced (message_list_ty *mlp,
 
         case token_type_string:
         case token_type_template:
+        case token_type_rtemplate:
           {
             lex_pos_ty pos;
 
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 
-            if (extract_all)
+            mixed_string_ty *mixed_string =
+              (token.type != token_type_rtemplate ? token.mixed_string : NULL);
+            /* For a tagged template literal, perform the tag step 1.  */
+            if ((token.type == token_type_template
+                 || token.type == token_type_rtemplate)
+                && token.template_tag != NULL)
               {
-                char *string = mixed_string_contents (token.mixed_string);
-                mixed_string_free (token.mixed_string);
-                remember_a_message (mlp, NULL, string, true, false,
-                                    inner_region, &pos,
-                                    NULL, token.comment, true);
+                const char *tag = token.template_tag;
+                string_list_ty *parts;
+
+                if (token.type == token_type_template)
+                  {
+                    parts = string_list_alloc ();
+                    string_list_append_move (parts,
+                                             mixed_string_contents (mixed_string));
+                  }
+                else /* (token.type == token_type_rtemplate) */
+                  parts = token.template_parts;
+
+                void *tag_value;
+                if (tags.table != NULL
+                    && hash_find_entry (&tags, tag, strlen (tag), &tag_value) == 0)
+                  {
+                    struct tag_definition *def = tag_value;
+
+                    /* Invoke the tag step 1 function.  */
+                    char *string = def->step1_fn (parts);
+
+                    /* Extract the string.  */
+                    remember_a_message (mlp, NULL, string, true, false,
+                                        inner_region, &pos,
+                                        NULL, token.comment, true);
+                  }
+
+                string_list_free (parts);
+
+                /* Due to the tag, the value is not a constant.  */
+                mixed_string = NULL;
               }
-            else
-              arglist_parser_remember (argparser, arg, token.mixed_string,
-                                       inner_region,
-                                       pos.file_name, pos.line_number,
-                                       token.comment, true);
+
+            if (mixed_string != NULL)
+              {
+                if (extract_all)
+                  {
+                    char *string = mixed_string_contents_free1 (mixed_string);
+                    remember_a_message (mlp, NULL, string, true, false,
+                                        inner_region, &pos,
+                                        NULL, token.comment, true);
+                  }
+                else
+                  arglist_parser_remember (argparser, arg, mixed_string,
+                                           inner_region,
+                                           pos.file_name, pos.line_number,
+                                           token.comment, true);
+              }
           }
           drop_reference (token.comment);
           next_context_iter = null_context_list_iterator;
@@ -1844,7 +2067,6 @@ extract_balanced (message_list_ty *mlp,
 
         case token_type_ltemplate:
         case token_type_mtemplate:
-        case token_type_rtemplate:
         case token_type_keyword:
         case token_type_start:
         case token_type_dot:

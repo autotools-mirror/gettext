@@ -1,5 +1,5 @@
 /* xgettext JavaScript backend.
-   Copyright (C) 2002-2003, 2006, 2010, 2013-2014, 2018, 2020 Free Software Foundation, Inc.
+   Copyright (C) 2002-2024 Free Software Foundation, Inc.
    This file was written by Andreas Stricker <andy@knitter.ch>, 2010.
    It's based on x-python from Bruno Haible.
 
@@ -45,6 +45,8 @@ extern void x_javascript_keyword (const char *keyword);
 extern void x_javascript_extract_all (void);
 
 extern void init_flag_table_javascript (void);
+
+extern void x_javascript_tag (const char *tag);
 
 
 #ifdef __cplusplus

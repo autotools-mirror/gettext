@@ -1,6 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995, 1998, 2000-2004, 2006, 2009, 2020 Free Software
-   Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -72,6 +71,26 @@ string_list_append (string_list_ty *slp, const char *s)
 
   /* Add a copy of the string to the end of the list.  */
   slp->item[slp->nitems++] = xstrdup (s);
+}
+
+
+/* Append a freshly allocated single string to the end of a list of strings,
+   transferring its ownership to SLP.  */
+void
+string_list_append_move (string_list_ty *slp, char *s)
+{
+  /* Grow the list.  */
+  if (slp->nitems >= slp->nitems_max)
+    {
+      size_t nbytes;
+
+      slp->nitems_max = slp->nitems_max * 2 + 4;
+      nbytes = slp->nitems_max * sizeof (slp->item[0]);
+      slp->item = (const char **) xrealloc (slp->item, nbytes);
+    }
+
+  /* Add the string itself to the end of the list.  */
+  slp->item[slp->nitems++] = s;
 }
 
 
