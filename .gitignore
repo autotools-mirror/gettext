@@ -108,7 +108,10 @@
 /gettext-tools/libgettextpo/float.c
 /gettext-tools/libgettextpo/float.in.h
 /gettext-tools/libgettextpo/fopen.c
+/gettext-tools/libgettextpo/fpucw.h
 /gettext-tools/libgettextpo/free.c
+/gettext-tools/libgettextpo/frexp.c
+/gettext-tools/libgettextpo/frexpl.c
 /gettext-tools/libgettextpo/fstat.c
 /gettext-tools/libgettextpo/fstrcmp.c
 /gettext-tools/libgettextpo/fstrcmp.h
@@ -152,6 +155,13 @@
 /gettext-tools/libgettextpo/intprops-internal.h
 /gettext-tools/libgettextpo/intprops.h
 /gettext-tools/libgettextpo/inttypes.in.h
+/gettext-tools/libgettextpo/isnan.c
+/gettext-tools/libgettextpo/isnand-nolibm.h
+/gettext-tools/libgettextpo/isnand.c
+/gettext-tools/libgettextpo/isnanf-nolibm.h
+/gettext-tools/libgettextpo/isnanf.c
+/gettext-tools/libgettextpo/isnanl-nolibm.h
+/gettext-tools/libgettextpo/isnanl.c
 /gettext-tools/libgettextpo/itold.c
 /gettext-tools/libgettextpo/lc-charset-dispatch.c
 /gettext-tools/libgettextpo/lc-charset-dispatch.h
@@ -165,6 +175,8 @@
 /gettext-tools/libgettextpo/malloca.h
 /gettext-tools/libgettextpo/markup.c
 /gettext-tools/libgettextpo/markup.h
+/gettext-tools/libgettextpo/math.c
+/gettext-tools/libgettextpo/math.in.h
 /gettext-tools/libgettextpo/mbrtoc32.c
 /gettext-tools/libgettextpo/mbrtowc.c
 /gettext-tools/libgettextpo/mbrtowc-impl.h
@@ -192,6 +204,10 @@
 /gettext-tools/libgettextpo/pathmax.h
 /gettext-tools/libgettextpo/printf-args.c
 /gettext-tools/libgettextpo/printf-args.h
+/gettext-tools/libgettextpo/printf-frexp.c
+/gettext-tools/libgettextpo/printf-frexp.h
+/gettext-tools/libgettextpo/printf-frexpl.c
+/gettext-tools/libgettextpo/printf-frexpl.h
 /gettext-tools/libgettextpo/printf-parse.c
 /gettext-tools/libgettextpo/printf-parse.h
 /gettext-tools/libgettextpo/pthread.in.h
@@ -213,6 +229,9 @@
 /gettext-tools/libgettextpo/setlocale_null.c
 /gettext-tools/libgettextpo/setlocale_null.h
 /gettext-tools/libgettextpo/signal.in.h
+/gettext-tools/libgettextpo/signbitd.c
+/gettext-tools/libgettextpo/signbitf.c
+/gettext-tools/libgettextpo/signbitl.c
 /gettext-tools/libgettextpo/sigprocmask.c
 /gettext-tools/libgettextpo/size_max.h
 /gettext-tools/libgettextpo/stat-time.c
@@ -868,6 +887,7 @@ core
 /gettext-tools/libgettextpo/inttypes.h
 /gettext-tools/libgettextpo/limits.h
 /gettext-tools/libgettextpo/locale.h
+/gettext-tools/libgettextpo/math.h
 /gettext-tools/libgettextpo/obstack.h
 /gettext-tools/libgettextpo/pthread.h
 /gettext-tools/libgettextpo/sched.h

@@ -423,10 +423,17 @@ if ! $skip_gnulib; then
   # '#define GNULIB_STRERROR_R_POSIX 1'. Therefore on mingw,
   # libgettextpo/error.o references strerror_r. Therefore we need to include
   # strerror_r.lo in libgettextpo.la.
+  # Module 'mixin/printf-posix' is enabled in gettext-tools/config.status,
+  # because it occurs as dependency of some module ('xstring-buffer' ->
+  # 'string-buffer' -> 'vsnzprintf-posix') in GNULIB_MODULES_TOOLS_FOR_SRC.
+  # Therefore gettext-tools/config.h defines many NEED_* macros, from
+  # gl_PREREQ_VASNPRINTF_WITH_POSIX_EXTRAS. Therefore on mingw,
+  # libgettextpo/vasnprintf.c references isnand-nolibm.h.
   GNULIB_MODULES_LIBGETTEXTPO_OTHER='
     fdopen
     realloc-posix
     strerror_r-posix
+    mixin/printf-posix
   '
   $GNULIB_TOOL --dir=gettext-tools --source-base=libgettextpo --m4-base=libgettextpo/gnulib-m4 --macro-prefix=gtpo --makefile-name=Makefile.gnulib --libtool --local-dir=gnulib-local --local-symlink \
     --import --avoid=progname $GNULIB_MODULES_LIBGETTEXTPO $GNULIB_MODULES_LIBGETTEXTPO_OTHER || exit $?
