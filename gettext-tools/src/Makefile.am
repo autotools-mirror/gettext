@@ -352,6 +352,34 @@ MOSTLYCLEANFILES += textstyle.h textstyle/stdbool.h textstyle/version.h textstyl
 LT_LIBTEXTSTYLE = ../../libtextstyle/lib/libtextstyle.la
 endif
 
+# Version information according to Woe32 conventions.
+EXTRA_DIST += libgettextsrc.rc
+if WOE32
+WOE32_LIBADD = libgettextsrc.res.lo
+# This rule is executed only on Woe32 systems.
+# Use $(RC) with libtool, $(WINDRES) when not using libtool.
+# The following sed expressions come from the windres-options script. They are
+# inlined here, so that they can be written in a Makefile without requiring a
+# temporary file. They must contain literal newlines rather than semicolons,
+# so that they work with the sed-3.02 that is shipped with MSYS.
+libgettextsrc.res.lo: $(srcdir)/libgettextsrc.rc
+	nlinit=`echo 'nl="'; echo '"'`; eval "$$nlinit"; \
+	sed_extract_major='/^[0-9]/{'$${nl}'s/^\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
+	sed_extract_minor='/^[0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
+	sed_extract_subminor='/^[0-9][0-9]*[.][0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.][0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
+	$(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
+	  "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
+	  "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	  "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	  "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	  -i $(srcdir)/libgettextsrc.rc -o libgettextsrc.res.lo --output-format=coff
+MOSTLYCLEANFILES += libgettextsrc.res.lo
+else
+WOE32_LIBADD =
+endif
+libgettextsrc_la_LIBADD       = $(WOE32_LIBADD)
+libgettextsrc_la_DEPENDENCIES = $(WOE32_LIBADD)
+
 # How to build libgettextsrc.la.
 # Need ../gnulib-lib/libgettextlib.la.
 # Need $(LTLIBUNISTRING) because ulc_width_linebreaks, uc_width, etc. may be

@@ -24,7 +24,7 @@ BEGIN
             VALUE "FileDescription", "GPLed libgettextpo for Windows\0"
             VALUE "FileVersion", PACKAGE_VERSION_STRING "\0"
             VALUE "InternalName", "gettextpo.dll\0"
-            VALUE "LegalCopyright", "Copyright (C) 1995-2019\0"
+            VALUE "LegalCopyright", "Copyright (C) 1995-2024\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "gettextpo.dll\0"
             VALUE "ProductName", "GNU libgettextpo: public API for PO files\0"

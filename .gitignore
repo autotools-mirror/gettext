@@ -48,6 +48,7 @@
 /gettext-tools/gnulib-m4/
 /gettext-tools/gnulib-lib/
 !/gettext-tools/gnulib-lib/Makefile.am
+!/gettext-tools/gnulib-lib/libgettextlib.rc
 /gettext-tools/gnulib-tests/
 !/gettext-tools/gnulib-tests/ChangeLog.0
 !/gettext-tools/gnulib-tests/Makefile.am

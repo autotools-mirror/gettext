@@ -24,7 +24,7 @@ BEGIN
             VALUE "FileDescription", "GPLed program for Windows\0"
             VALUE "FileVersion", PACKAGE_VERSION_STRING "\0"
             VALUE "InternalName", "*.exe\0"
-            VALUE "LegalCopyright", "Copyright (C) 1995-2019\0"
+            VALUE "LegalCopyright", "Copyright (C) 1995-2024\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "*.exe\0"
             VALUE "ProductName", "GNU gettext utilities\0"
