@@ -1,6 +1,7 @@
 Version 0.23 - September 2024
 
 * Programming languages support:
+  - XML: XML schemas for .its and .loc files are now provided.
   - Python:
     o xgettext now assumes source code for Python 3 rather than Python 2.
       This affects the interpretation of escape sequences in string literals.

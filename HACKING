@@ -141,6 +141,13 @@ Additional requirements for maintainers
 If you are a maintainer, you will want to minimize the number of tests that
 are skipped. To this effect, you need to install also:
 
+  * The xmllint program
+    + Homepage: https://gitlab.gnome.org/GNOME/libxml2/-/wikis/home
+    + Pre-built package name:
+      - On Debian and Debian-based systems: libxml2-utils,
+      - On Red Hat distributions: libxml2.
+      - Other: https://repology.org/project/libxml2/versions
+
   * A C++ compiler
     + Homepage: https://gcc.gnu.org/
     + Pre-built package name:

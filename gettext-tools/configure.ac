@@ -592,6 +592,9 @@ dnl Check whether to execute tests of the system (vendor-provided) libintl API.
 dnl We execute these tests if and only if we don't install our own libintl.
 AM_CONDITIONAL([TEST_SYSTEM_LIBINTL], [test $USE_INCLUDED_LIBINTL = no])
 
+dnl Checks for optional programs for the its/* tests.
+AC_PATH_PROGS([XMLLINT], [xmllint], [:])
+
 AC_CONFIG_SUBDIRS([examples])
 
 AC_CONFIG_FILES([Makefile],

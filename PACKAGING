@@ -133,6 +133,7 @@ is according to the following file list.
       $prefix/share/gettext/config.rpath
       $prefix/share/gettext/po/*
       $prefix/share/gettext/projects/*
+      $prefix/share/gettext/schema/*
       $prefix/share/gettext/styles/*
       $prefix/share/gettext/gettext.h
       $prefix/share/gettext/gettext.jar

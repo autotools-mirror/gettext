@@ -97,6 +97,7 @@ EXTRA_DIST += FILES project-id
 jardir = $(datadir)/gettext
 pkgdatadir = $(datadir)/gettext
 projectsdir = $(pkgdatadir)/projects
+schemadir = $(pkgdatadir)/schema
 pkglibdir = $(libdir)/gettext
 pkglibexecdir = $(libexecdir)/gettext
 
@@ -759,6 +760,14 @@ installdirs-tcl:
 uninstall-local: uninstall-tcl
 uninstall-tcl:
 	$(RM) $(DESTDIR)$(pkgdatadir)/msgunfmt.tcl
+
+
+# Special rules for XML schemas.
+
+schema_DATA = \
+  its.xsd its-extensions.xsd \
+  locating-rules.xsd
+EXTRA_DIST += $(schema_DATA)
 
 
 # Support for relocatability.

@@ -487,6 +487,11 @@ Internationalizable Data Formats
 * AppData::                     AppData - freedesktop.org application description
 * Preparing ITS Rules::         Preparing Rules for XML Internationalization
 
+Preparing Rules for XML Internationalization
+
+* ITS Rules::                   Specifying ITS Rules
+* Locating Rules::              Specifying where to find the ITS Rules
+
 Localized Data Formats
 
 * Editable Message Catalogs::   Editable Message Catalogs
@@ -10651,6 +10656,14 @@ appdata-tools, appstream, libappstream-glib-dev
 @subsection Preparing Rules for XML Internationalization
 @cindex preparing rules for XML translation
 
+@menu
+* ITS Rules::                   Specifying ITS Rules
+* Locating Rules::              Specifying where to find the ITS Rules
+@end menu
+
+@node ITS Rules
+@subsubsection Specifying ITS Rules
+
 Marking translatable strings in an XML file is done through a separate
 "rule" file, making use of the Internationalization Tag Set standard
 (ITS, @uref{https://www.w3.org/TR/its20/}).  The currently supported ITS
@@ -10751,9 +10764,16 @@ second ("A non-translatable string"), the following ITS rules can be used:
 </its:rules>
 @end example
 
-@samp{xgettext} needs another file called "locating rule" to associate
+ITS rules files must have the @file{.its} file extension and obey
+the XML schema encoded by
+@code{its.xsd} and its auxiliary schema @code{its-extensions.xsd}.
+
+@node Locating Rules
+@subsubsection Specifying where to find the ITS Rules
+
+@samp{xgettext} needs another file called "locating rules" to associate
 an ITS rule with an XML file.  If the above ITS file is saved as
-@file{messages.its}, the locating rule would look like:
+@file{messages.its}, the locating rules file would look like:
 
 @example
 <?xml version="1.0"?>
@@ -10779,18 +10799,19 @@ file.
 The first rule matches any file with the @file{.xml} file extension, but
 it only applies to XML files whose root element is @samp{<messages>}.
 
-The second rule indicates that the same ITS rule file are also
+The second rule indicates that the same ITS rules file are also
 applicable to any file with the @file{.msg} file extension.  The
 optional @code{name} attribute of @code{locatingRule} allows to choose
 rules by name, typically with @code{xgettext}'s @code{-L} option.
 
-The associated ITS rule file is indicated by the @code{target} attribute
+The associated ITS rules file is indicated by the @code{target} attribute
 of @code{locatingRule} or @code{documentRule}.  If it is specified in a
 @code{documentRule} element, the parent @code{locatingRule} shouldn't
 have the @code{target} attribute.
 
-Locating rule files must have the @file{.loc} file extension.  Both ITS
-rule files and locating rule files must be installed in the
+Locating rules files must have the @file{.loc} file extension and obey
+the XML schema encoded by @code{locating-rules.xsd}.
+Both ITS rules files and locating rules files must be installed in the
 @file{$prefix/share/gettext/its} directory.  Once those files are
 properly installed, @code{xgettext} can extract translatable strings
 from the matching XML files.
