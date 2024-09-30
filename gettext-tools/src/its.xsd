@@ -97,6 +97,8 @@ Written by Bruno Haible &lt;bruno@clisp.org&gt;, 2024.
     </attribute>
   </complexType>
 
+  <!-- If no <its:preserveSpaceRule> nor <gt:preserveSpaceRule> is present,
+       the default 'space' property is "default".  -->
   <complexType name="PreserveSpaceRuleType">
     <attribute name="selector" type="string" use="required"></attribute>
     <attribute name="space" use="required">

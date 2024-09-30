@@ -27,6 +27,8 @@ Written by Bruno Haible &lt;bruno@clisp.org&gt;, 2024.
   <element name="contextRule" type="gt:ContextRuleType"></element>
   <element name="escapeRule" type="gt:EscapeRuleType"></element>
 
+  <!-- If no <its:preserveSpaceRule> nor <gt:preserveSpaceRule> is present,
+       the default 'space' property is "default".  -->
   <complexType name="ExtendedPreserveSpaceRuleType">
     <attribute name="selector" type="string" use="required"></attribute>
     <attribute name="space" use="required">
@@ -47,6 +49,8 @@ Written by Bruno Haible &lt;bruno@clisp.org&gt;, 2024.
     <attribute name="textPointer" type="string" use="optional"></attribute>
   </complexType>
 
+  <!-- If no <gt:escapeRule> is present, the default 'escape' property
+       is "yes".  -->
   <complexType name="EscapeRuleType">
     <attribute name="selector" type="string" use="required"></attribute>
     <attribute name="escape" use="required">
