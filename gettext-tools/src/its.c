@@ -578,7 +578,7 @@ _its_encode_special_chars (const char *content, bool is_attribute)
 static char *
 _its_collect_text_content (xmlNode *node,
                            enum its_whitespace_type_ty whitespace,
-                           bool no_escape)
+                           bool do_escape)
 {
   struct string_buffer buffer;
   xmlNode *n;
@@ -601,12 +601,12 @@ _its_collect_text_content (xmlNode *node,
             /* We can't expect xmlTextWriterWriteString() encode
                special characters as we write text outside of the
                element.  */
-            if (no_escape)
-              econtent = xstrdup ((const char *) xcontent);
-            else
+            if (do_escape)
               econtent =
                 _its_encode_special_chars ((const char *) xcontent,
                                            node->type == XML_ATTRIBUTE_NODE);
+            else
+              econtent = xstrdup ((const char *) xcontent);
             xmlFree (xcontent);
 
             /* Skip whitespaces at the beginning of the text, if this
@@ -641,7 +641,7 @@ _its_collect_text_content (xmlNode *node,
             xmlOutputBuffer *obuffer = xmlAllocOutputBuffer (NULL);
             xmlTextWriter *writer = xmlNewTextWriter (obuffer);
             char *p = _its_collect_text_content (n, whitespace,
-                                                 no_escape);
+                                                 do_escape);
             const char *ccontent;
 
             xmlTextWriterStartElement (writer, BAD_CAST n->name);
@@ -846,7 +846,7 @@ its_localization_note_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
     {
       /* FIXME: Respect space attribute.  */
       char *content = _its_collect_text_content (n, ITS_WHITESPACE_NORMALIZE,
-                                                 false);
+                                                 true);
       its_value_list_append (&rule->values, "locNote", content);
       free (content);
     }
@@ -1650,7 +1650,7 @@ static char *
 _its_get_content (struct its_rule_list_ty *rules, xmlNode *node,
                   const char *pointer,
                   enum its_whitespace_type_ty whitespace,
-                  bool no_escape)
+                  bool do_escape)
 {
   xmlXPathContext *context;
   xmlXPathObject *object;
@@ -1704,7 +1704,7 @@ _its_get_content (struct its_rule_list_ty *rules, xmlNode *node,
           {
             char *content = _its_collect_text_content (nodes->nodeTab[i],
                                                        whitespace,
-                                                       no_escape);
+                                                       do_escape);
             string_list_append (&sl, content);
             free (content);
           }
@@ -1787,7 +1787,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
           value = its_value_list_get_value (values, "locNotePointer");
           if (value)
             comment = _its_get_content (rules, node, value, ITS_WHITESPACE_TRIM,
-                                        no_escape);
+                                        !no_escape);
         }
 
       if (comment != NULL && *comment != '\0')
@@ -1844,17 +1844,17 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       value = its_value_list_get_value (values, "contextPointer");
       if (value)
         msgctxt = _its_get_content (rules, node, value, ITS_WHITESPACE_PRESERVE,
-                                    no_escape);
+                                    !no_escape);
 
       value = its_value_list_get_value (values, "textPointer");
       if (value)
         msgid = _its_get_content (rules, node, value, ITS_WHITESPACE_PRESERVE,
-                                  no_escape);
+                                  !no_escape);
       its_value_list_destroy (values);
       free (values);
 
       if (msgid == NULL)
-        msgid = _its_collect_text_content (node, whitespace, no_escape);
+        msgid = _its_collect_text_content (node, whitespace, !no_escape);
       if (*msgid != '\0')
         {
           lex_pos_ty pos;
@@ -1974,17 +1974,17 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
       value = its_value_list_get_value (values, "contextPointer");
       if (value)
         msgctxt = _its_get_content (context->rules, node, value,
-                                    ITS_WHITESPACE_PRESERVE, no_escape);
+                                    ITS_WHITESPACE_PRESERVE, !no_escape);
 
       value = its_value_list_get_value (values, "textPointer");
       if (value)
         msgid = _its_get_content (context->rules, node, value,
-                                  ITS_WHITESPACE_PRESERVE, no_escape);
+                                  ITS_WHITESPACE_PRESERVE, !no_escape);
       its_value_list_destroy (values);
       free (values);
 
       if (msgid == NULL)
-        msgid = _its_collect_text_content (node, whitespace, no_escape);
+        msgid = _its_collect_text_content (node, whitespace, !no_escape);
       if (*msgid != '\0')
         {
           message_ty *mp;
