@@ -68,6 +68,11 @@
 #define XML_NS "http://www.w3.org/XML/1998/namespace"
 #define GT_NS "https://www.gnu.org/s/gettext/ns/its/extensions/1.0"
 
+
+/* =================== Common API for xgettext and msgfmt =================== */
+
+/* --------------------------------- Values --------------------------------- */
+
 struct its_value_ty
 {
   char *name;
@@ -233,14 +238,8 @@ its_pool_destroy (struct its_pool_ty *pool)
   free (pool->items);
 }
 
-struct its_rule_list_ty
-{
-  struct its_rule_ty **items;
-  size_t nitems;
-  size_t nitems_max;
 
-  struct its_pool_ty pool;
-};
+/* ----------------------------- Lists of nodes ----------------------------- */
 
 struct its_node_list_ty
 {
@@ -261,6 +260,11 @@ its_node_list_append (struct its_node_list_ty *nodes,
     }
   nodes->items[nodes->nitems++] = node;
 }
+
+
+/* ---------------------------- Rule base class ---------------------------- */
+
+struct its_rule_ty;
 
 /* Base class representing an ITS rule in global definition.  */
 struct its_rule_class_ty
@@ -293,8 +297,6 @@ struct its_rule_ty
 {
   ITS_RULE_TY
 };
-
-static hash_table classes;
 
 static void
 its_rule_destructor (struct its_rule_ty *rule)
@@ -688,6 +690,9 @@ _its_error_missing_attribute (xmlNode *node, const char *attribute)
          node->name, attribute);
 }
 
+
+/* ---------------------------- <translateRule> ---------------------------- */
+
 /* Implementation of Translate data category.  */
 static void
 its_translate_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
@@ -797,6 +802,9 @@ static struct its_rule_class_ty its_translate_rule_class =
     its_rule_apply,
     its_translate_rule_eval,
   };
+
+
+/* ----------------------------- <locNoteRule> ----------------------------- */
 
 /* Implementation of Localization Note data category.  */
 static void
@@ -970,6 +978,9 @@ static struct its_rule_class_ty its_localization_note_rule_class =
     its_localization_note_rule_eval,
   };
 
+
+/* ---------------------------- <withinTextRule> ---------------------------- */
+
 /* Implementation of Element Within Text data category.  */
 static void
 its_element_within_text_rule_constructor (struct its_rule_ty *rule,
@@ -1039,6 +1050,9 @@ static struct its_rule_class_ty its_element_within_text_rule_class =
     its_rule_apply,
     its_element_within_text_rule_eval,
   };
+
+
+/* -------------------------- <preserveSpaceRule> -------------------------- */
 
 /* Implementation of Preserve Space data category.  */
 static void
@@ -1144,6 +1158,9 @@ static struct its_rule_class_ty its_preserve_space_rule_class =
     its_preserve_space_rule_eval,
   };
 
+
+/* ----------------------------- <contextRule> ----------------------------- */
+
 /* Implementation of Context data category.  */
 static void
 its_extension_context_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
@@ -1209,6 +1226,9 @@ static struct its_rule_class_ty its_extension_context_rule_class =
     its_rule_apply,
     its_extension_context_rule_eval,
   };
+
+
+/* ------------------------------ <escapeRule> ------------------------------ */
 
 /* Implementation of Escape Special Characters data category.  */
 static void
@@ -1304,6 +1324,11 @@ static struct its_rule_class_ty its_extension_escape_rule_class =
     its_extension_escape_rule_eval,
   };
 
+
+/* ---------------------------- Rules in general ---------------------------- */
+
+static hash_table classes;
+
 static struct its_rule_ty *
 its_rule_alloc (struct its_rule_class_ty *method_table, xmlNode *node)
 {
@@ -1367,6 +1392,18 @@ init_classes (void)
 
 #undef ADD_RULE_CLASS
 }
+
+
+/* --------------------------- Loading the rules --------------------------- */
+
+struct its_rule_list_ty
+{
+  struct its_rule_ty **items;
+  size_t nitems;
+  size_t nitems_max;
+
+  struct its_pool_ty pool;
+};
 
 struct its_rule_list_ty *
 its_rule_list_alloc (void)
@@ -1690,6 +1727,9 @@ _its_get_content (struct its_rule_list_ty *rules, xmlNode *node,
   return result;
 }
 
+
+/* ========================= API only for xgettext ========================= */
+
 static void
 _its_comment_append (string_list_ty *comments, const char *data)
 {
@@ -1891,6 +1931,9 @@ its_rule_list_extract (its_rule_list_ty *rules,
   free (nodes.items);
   xmlFreeDoc (doc);
 }
+
+
+/* ========================== API only for msgfmt ========================== */
 
 struct its_merge_context_ty
 {
