@@ -1722,7 +1722,6 @@ static void
 its_rule_list_extract_text (its_rule_list_ty *rules,
                             xmlNode *node,
                             const char *logical_filename,
-                            flag_context_list_table_ty *flag_table,
                             message_list_ty *mlp,
                             its_extract_callback_ty callback)
 {
@@ -1857,7 +1856,6 @@ void
 its_rule_list_extract (its_rule_list_ty *rules,
                        FILE *fp, const char *real_filename,
                        const char *logical_filename,
-                       flag_context_list_table_ty *flag_table,
                        msgdomain_list_ty *mdlp,
                        its_extract_callback_ty callback)
 {
@@ -1887,7 +1885,6 @@ its_rule_list_extract (its_rule_list_ty *rules,
   for (i = 0; i < nodes.nitems; i++)
     its_rule_list_extract_text (rules, nodes.items[i],
                                 logical_filename,
-                                flag_table,
                                 mdlp->item[0]->messages,
                                 callback);
 

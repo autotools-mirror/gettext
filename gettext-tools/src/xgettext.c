@@ -2033,7 +2033,6 @@ extract_from_xml_file (const char *file_name,
 #endif
 
   its_rule_list_extract (rules, fp, real_file_name, logical_file_name,
-                         NULL,
                          mdlp,
                          xgettext_its_extract_callback);
 

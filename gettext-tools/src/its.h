@@ -1,5 +1,5 @@
 /* Internationalization Tag Set (ITS) handling
-   Copyright (C) 2015, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2015-2024 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -23,7 +23,6 @@
 
 #include "message.h"
 #include "pos.h"
-#include "xg-arglist-context.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -66,7 +65,6 @@ extern bool its_rule_list_add_from_file (its_rule_list_ty *rules,
 extern void its_rule_list_extract (its_rule_list_ty *rules,
                                    FILE *fp, const char *real_filename,
                                    const char *logical_filename,
-                                   flag_context_list_table_ty *flag_table,
                                    msgdomain_list_ty *mdlp,
                                    its_extract_callback_ty callback);
 
