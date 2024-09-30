@@ -52,7 +52,14 @@ Written by Bruno Haible &lt;bruno@clisp.org&gt;, 2024.
 
   <complexType name="TranslateRuleType">
     <attribute name="selector" type="string" use="required"></attribute>
-    <attribute name="translate" type="string" use="required"></attribute>
+    <attribute name="translate" use="required">
+      <simpleType>
+        <restriction base="string">
+          <enumeration value="yes"></enumeration>
+          <enumeration value="no"></enumeration>
+        </restriction>
+      </simpleType>
+    </attribute>
   </complexType>
 
   <complexType name="LocNoteRuleType">
@@ -63,7 +70,14 @@ Written by Bruno Haible &lt;bruno@clisp.org&gt;, 2024.
       <element name="locNote" type="string"></element>
     </sequence>
     <attribute name="selector" type="string" use="required"></attribute>
-    <attribute name="locNoteType" type="string" use="required"></attribute>
+    <attribute name="locNoteType" use="required">
+      <simpleType>
+        <restriction base="string">
+          <enumeration value="description"></enumeration>
+          <enumeration value="alert"></enumeration>
+        </restriction>
+      </simpleType>
+    </attribute>
     <attribute name="locNotePointer" type="string" use="optional"></attribute>
     <!-- Valid in XML Schema 1.1 only:
     <xsd:assert test="not(@locNotePointer and locNote)"/>
@@ -72,7 +86,15 @@ Written by Bruno Haible &lt;bruno@clisp.org&gt;, 2024.
 
   <complexType name="WithinTextRuleType">
     <attribute name="selector" type="string" use="required"></attribute>
-    <attribute name="withinText" type="string" use="required"></attribute>
+    <attribute name="withinText" use="required">
+      <simpleType>
+        <restriction base="string">
+          <enumeration value="yes"></enumeration>
+          <enumeration value="nested"></enumeration>
+          <enumeration value="no"></enumeration>
+        </restriction>
+      </simpleType>
+    </attribute>
   </complexType>
 
   <complexType name="PreserveSpaceRuleType">
