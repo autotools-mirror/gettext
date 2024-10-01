@@ -1771,19 +1771,19 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       struct its_value_list_ty *values;
       const char *value;
       char *msgid = NULL, *msgctxt = NULL, *comment = NULL;
-      enum its_whitespace_type_ty whitespace;
       bool no_escape;
+      enum its_whitespace_type_ty whitespace;
       
       values = its_rule_list_eval (rules, node);
+
+      value = its_value_list_get_value (values, "escape");
+      no_escape = value != NULL && strcmp (value, "no") == 0;
 
       value = its_value_list_get_value (values, "locNote");
       if (value)
         comment = xstrdup (value);
       else
         {
-          value = its_value_list_get_value (values, "escape");
-          no_escape = value != NULL && strcmp (value, "no") == 0;
-
           value = its_value_list_get_value (values, "locNotePointer");
           if (value)
             comment = _its_get_content (rules, node, value, ITS_WHITESPACE_TRIM,
@@ -1837,9 +1837,6 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
         whitespace = ITS_WHITESPACE_NORMALIZE_PARAGRAPH;
       else
         whitespace = ITS_WHITESPACE_NORMALIZE;
-
-      value = its_value_list_get_value (values, "escape");
-      no_escape = value != NULL && strcmp (value, "no") == 0;
 
       value = its_value_list_get_value (values, "contextPointer");
       if (value)
@@ -1953,10 +1950,13 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
       struct its_value_list_ty *values;
       const char *value;
       char *msgid = NULL, *msgctxt = NULL;
-      enum its_whitespace_type_ty whitespace;
       bool no_escape;
+      enum its_whitespace_type_ty whitespace;
 
       values = its_rule_list_eval (context->rules, node);
+
+      value = its_value_list_get_value (values, "escape");
+      no_escape = value != NULL && strcmp (value, "no") == 0;
 
       value = its_value_list_get_value (values, "space");
       if (value && strcmp (value, "preserve") == 0)
@@ -1967,9 +1967,6 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
         whitespace = ITS_WHITESPACE_NORMALIZE_PARAGRAPH;
       else
         whitespace = ITS_WHITESPACE_NORMALIZE;
-
-      value = its_value_list_get_value (values, "escape");
-      no_escape = value != NULL && strcmp (value, "no") == 0;
 
       value = its_value_list_get_value (values, "contextPointer");
       if (value)
