@@ -201,7 +201,7 @@ EOF
 cat <<\EOF >messages.ok
 #. (itstool) path: message/p
 #: messages.xml:8
-msgid "This is a test message &foo;&gt;&lt;&amp;\"\""
+msgid "This is a test message &foo;><&\"\""
 msgstr ""
 
 #. (itstool) path: message/p
@@ -214,15 +214,15 @@ msgstr ""
 #: messages.xml:17
 #, no-wrap
 msgid ""
-"  $ echo '  ' &gt;&gt; /dev/null\n"
-"  $ cat &lt; /dev/yes\n"
-"  $ sleep 10 &amp;\n"
+"  $ echo '  ' >> /dev/null\n"
+"  $ cat < /dev/yes\n"
+"  $ sleep 10 &\n"
 msgstr ""
 
 #. This is a comment
 #. (itstool) path: messages/message@comment
 #: messages.xml:22
-msgid "This is a comment &lt;&gt;&amp;&quot;"
+msgid "This is a comment <>&\""
 msgstr ""
 
 #. (itstool) path: message/p

@@ -50,7 +50,7 @@ Written by Bruno Haible &lt;bruno@clisp.org&gt;, 2024.
   </complexType>
 
   <!-- If no <gt:escapeRule> is present, the default 'escape' property
-       is "yes".  -->
+       is "no".  -->
   <complexType name="EscapeRuleType">
     <attribute name="selector" type="string" use="required"></attribute>
     <attribute name="escape" use="required">

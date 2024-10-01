@@ -1,7 +1,7 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test of AppData support.
+# Test of AppData support: HTML markup.
 
 cat <<\EOF > xg-gs-1-empty.appdata.xml
 <?xml version="1.0"?>

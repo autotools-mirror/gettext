@@ -846,7 +846,7 @@ its_localization_note_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
     {
       /* FIXME: Respect space attribute.  */
       char *content = _its_collect_text_content (n, ITS_WHITESPACE_NORMALIZE,
-                                                 true);
+                                                 false);
       its_value_list_append (&rule->values, "locNote", content);
       free (content);
     }
@@ -1771,13 +1771,34 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       struct its_value_list_ty *values;
       const char *value;
       char *msgid = NULL, *msgctxt = NULL, *comment = NULL;
-      bool no_escape;
+      bool do_escape;
+      bool do_escape_during_extract;
       enum its_whitespace_type_ty whitespace;
       
       values = its_rule_list_eval (rules, node);
 
       value = its_value_list_get_value (values, "escape");
-      no_escape = value != NULL && strcmp (value, "no") == 0;
+      do_escape = value != NULL && strcmp (value, "yes") == 0;
+      /* Consider also a locally declared 'gt:escape' attribute.  */
+      if (node->type == XML_ELEMENT_NODE
+          && xmlHasNsProp (node, BAD_CAST "escape", BAD_CAST GT_NS))
+        {
+          char *prop = _its_get_attribute (node, "escape", GT_NS);
+          if (strcmp (prop, "yes") == 0 || strcmp (prop, "no") == 0)
+            do_escape = strcmp (prop, "yes") == 0;
+          free (prop);
+        }
+
+      do_escape_during_extract = do_escape;
+      /* But no, during message extraction (i.e. what xgettext does), we do
+         *not* want escaping to be done.  The contents of the POT file is meant
+         for translators, and
+           - the messages are not labelled as requiring XML content syntax,
+           - it is better for the translators if they can write various
+             characters such as & < > without escaping them.
+         Escaping needs to happen in the message merge phase (i.e. what msgfmt
+         does) instead.  */
+      do_escape_during_extract = false;
 
       value = its_value_list_get_value (values, "locNote");
       if (value)
@@ -1787,7 +1808,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
           value = its_value_list_get_value (values, "locNotePointer");
           if (value)
             comment = _its_get_content (rules, node, value, ITS_WHITESPACE_TRIM,
-                                        !no_escape);
+                                        do_escape_during_extract);
         }
 
       if (comment != NULL && *comment != '\0')
@@ -1841,17 +1862,18 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       value = its_value_list_get_value (values, "contextPointer");
       if (value)
         msgctxt = _its_get_content (rules, node, value, ITS_WHITESPACE_PRESERVE,
-                                    !no_escape);
+                                    do_escape_during_extract);
 
       value = its_value_list_get_value (values, "textPointer");
       if (value)
         msgid = _its_get_content (rules, node, value, ITS_WHITESPACE_PRESERVE,
-                                  !no_escape);
+                                  do_escape_during_extract);
       its_value_list_destroy (values);
       free (values);
 
       if (msgid == NULL)
-        msgid = _its_collect_text_content (node, whitespace, !no_escape);
+        msgid = _its_collect_text_content (node, whitespace,
+                                           do_escape_during_extract);
       if (*msgid != '\0')
         {
           lex_pos_ty pos;
@@ -1939,6 +1961,82 @@ struct its_merge_context_ty
   struct its_node_list_ty nodes;
 };
 
+/* Returns true if S starts with a character reference.  */
+static bool
+starts_with_character_reference (const char *s)
+{
+  /* <https://www.w3.org/TR/xml/#NT-CharRef> defines
+     CharRef ::= '&#' [0-9]+ ';' | '&#x' [0-9a-fA-F]+ ';'  */
+  if (*s == '&')
+    {
+      s++;
+      if (*s == '#')
+        {
+          s++;
+          if (*s >= '0' && *s <= '9')
+            {
+              do
+                s++;
+              while (*s >= '0' && *s <= '9');
+              return *s == ';';
+            }
+          if (*s == 'x')
+            {
+              s++;
+              if ((*s >= '0' && *s <= '9')
+                  || (*s >= 'A' && *s <= 'F')
+                  || (*s >= 'a' && *s <= 'f'))
+                {
+                  do
+                    s++;
+                  while ((*s >= '0' && *s <= '9')
+                         || (*s >= 'A' && *s <= 'F')
+                         || (*s >= 'a' && *s <= 'f'));
+                  return *s == ';';
+                }
+            }
+        }
+    }
+  return false;
+}
+
+static char *
+_its_encode_special_chars_for_merge (const char *content)
+{
+  const char *str;
+  size_t amount = 0;
+  char *result, *p;
+
+  for (str = content; *str != '\0'; str++)
+    {
+      if (*str == '&' && starts_with_character_reference (str))
+        amount += sizeof ("&amp;");
+      else if (*str == '<')
+        amount += sizeof ("&lt;");
+      else if (*str == '>')
+        amount += sizeof ("&gt;");
+      else
+        amount += 1;
+    }
+
+  result = XNMALLOC (amount + 1, char);
+  *result = '\0';
+  p = result;
+  for (str = content; *str != '\0'; str++)
+    {
+      if (*str == '&' && starts_with_character_reference (str))
+        p = stpcpy (p, "&amp;");
+      else if (*str == '<')
+        p = stpcpy (p, "&lt;");
+      else if (*str == '>')
+        p = stpcpy (p, "&gt;");
+      else
+        *p++ = *str;
+    }
+  *p = '\0';
+  return result;
+}
+
 static void
 its_merge_context_merge_node (struct its_merge_context_ty *context,
                               xmlNode *node,
@@ -1950,13 +2048,29 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
       struct its_value_list_ty *values;
       const char *value;
       char *msgid = NULL, *msgctxt = NULL;
-      bool no_escape;
+      bool do_escape;
+      bool do_escape_during_extract;
+      bool do_escape_during_merge;
       enum its_whitespace_type_ty whitespace;
 
       values = its_rule_list_eval (context->rules, node);
 
       value = its_value_list_get_value (values, "escape");
-      no_escape = value != NULL && strcmp (value, "no") == 0;
+      do_escape = value != NULL && strcmp (value, "yes") == 0;
+      /* Consider also a locally declared 'gt:escape' attribute.  */
+      if (xmlHasNsProp (node, BAD_CAST "escape", BAD_CAST GT_NS))
+        {
+          char *prop = _its_get_attribute (node, "escape", GT_NS);
+          if (strcmp (prop, "yes") == 0 || strcmp (prop, "no") == 0)
+            do_escape = strcmp (prop, "yes") == 0;
+          free (prop);
+        }
+
+      do_escape_during_extract = do_escape;
+      /* Like above, in its_rule_list_extract_text.  */
+      do_escape_during_extract = false;
+
+      do_escape_during_merge = do_escape;
 
       value = its_value_list_get_value (values, "space");
       if (value && strcmp (value, "preserve") == 0)
@@ -1971,17 +2085,20 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
       value = its_value_list_get_value (values, "contextPointer");
       if (value)
         msgctxt = _its_get_content (context->rules, node, value,
-                                    ITS_WHITESPACE_PRESERVE, !no_escape);
+                                    ITS_WHITESPACE_PRESERVE,
+                                    do_escape_during_extract);
 
       value = its_value_list_get_value (values, "textPointer");
       if (value)
         msgid = _its_get_content (context->rules, node, value,
-                                  ITS_WHITESPACE_PRESERVE, !no_escape);
+                                  ITS_WHITESPACE_PRESERVE,
+                                  do_escape_during_extract);
       its_value_list_destroy (values);
       free (values);
 
       if (msgid == NULL)
-        msgid = _its_collect_text_content (node, whitespace, !no_escape);
+        msgid = _its_collect_text_content (node, whitespace,
+                                           do_escape_during_extract);
       if (*msgid != '\0')
         {
           message_ty *mp;
@@ -1994,7 +2111,50 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
               translated = xmlNewNode (node->ns, node->name);
               xmlSetProp (translated, BAD_CAST "xml:lang", BAD_CAST language);
 
-              xmlNodeAddContent (translated, BAD_CAST mp->msgstr);
+              /* libxml2 offers two functions for setting the content of an
+                 element: xmlNodeSetContent and xmlNodeAddContent.  They differ
+                 in the amount of escaping they do:
+                 - xmlNodeSetContent does no escaping, at the risk of creating
+                   malformed XML.
+                 - xmlNodeAddContent escapes all of & < >, which always produces
+                   well-formed XML but is not the right thing for entity
+                   references.
+                 We need a middle ground between both, that is adapted to what
+                 translators will usually produce.
+
+                 translated       | no escaping | middle-ground | full escaping
+                                  | SetContent  |               | AddContent
+                 -----------------+-------------+---------------+--------------
+                 &                | &           | &             | &amp;
+                 &quot;           | &quot;      | &quot;        | &amp;quot;
+                 &amp;            | &amp;       | &amp;         | &amp;amp;
+                 <                | <           | &lt;          | &lt;
+                 >                | >           | &gt;          | &gt;
+                 &lt;             | &lt;        | &lt;          | &amp;lt;
+                 &gt;             | &gt;        | &gt;          | &amp;gt;
+                 &#xa9;           | &#xa9;      | &amp;#xa9;    | &amp;#xa9;
+                 &copy;           | &copy;      | &copy;        | &amp;copy;
+                 -----------------+-------------+---------------+--------------
+
+                 The function _its_encode_special_chars_for_merge implements
+                 this middle-ground.  But we allow full escaping to be requested
+                 through a gt:escape="yes" attribute.  */
+
+              if (do_escape_during_merge)
+                {
+                  /* These three are equivalent:
+                     xmlNodeAddContent (translated, BAD_CAST mp->msgstr);
+                     xmlNodeSetContent (translated, xmlEncodeEntitiesReentrant (context->doc, BAD_CAST mp->msgstr));
+                     xmlNodeSetContent (translated, xmlEncodeSpecialChars (context->doc, BAD_CAST mp->msgstr));  */
+                  xmlNodeAddContent (translated, BAD_CAST mp->msgstr);
+                }
+              else
+                {
+                  char *middle_ground = _its_encode_special_chars_for_merge (mp->msgstr);
+                  xmlNodeSetContent (translated, BAD_CAST middle_ground);
+                  free (middle_ground);
+                }
+
               xmlAddNextSibling (node, translated);
             }
         }
