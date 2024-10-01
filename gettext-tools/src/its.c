@@ -1961,6 +1961,43 @@ struct its_merge_context_ty
   struct its_node_list_ty nodes;
 };
 
+/* Copies an element node and its attributes, but not its children nodes,
+   for inserting at a sibling position in the document tree.  */
+static xmlNode *
+_its_copy_node_with_attributes (xmlNode *node)
+{
+  xmlNode *copy;
+
+#if 0
+  /* Not suitable here, because it adds namespace declaration attributes,
+     which is overkill here.  */
+  copy = xmlCopyNode (node, 2);
+#elif 0
+  /* Not suitable here either, for the same reason.  */
+  copy = xmlNewNode (node->ns, node->name);
+  copy->properties = xmlCopyPropList (copy, node->properties);
+#else
+  copy = xmlNewNode (node->ns, node->name);
+
+  xmlAttr *attributes;
+  for (attributes = node->properties;
+       attributes != NULL;
+       attributes = attributes->next)
+    {
+      const xmlChar *attr_name = attributes->name;
+      if (strcmp ((const char *) attr_name, "id") != 0)
+        {
+          xmlNs *attr_ns = attributes->ns;
+          xmlChar *attr_value = xmlGetNsProp (node, attr_name, attr_ns->href);
+          xmlNewNsProp (copy, attr_ns, attr_name, attr_value);
+          xmlFree (attr_value);
+        }
+    }
+#endif
+
+  return copy;
+}
+
 /* Returns true if S starts with a character reference.  */
 static bool
 starts_with_character_reference (const char *s)
@@ -2108,7 +2145,10 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
             {
               xmlNode *translated;
 
-              translated = xmlNewNode (node->ns, node->name);
+              /* Create a new element node, of the same name, with the same
+                 attributes.  */
+              translated = _its_copy_node_with_attributes (node);
+
               xmlSetProp (translated, BAD_CAST "xml:lang", BAD_CAST language);
 
               /* libxml2 offers two functions for setting the content of an

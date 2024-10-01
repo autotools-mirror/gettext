@@ -185,17 +185,17 @@ cat <<\EOF > mf.appdata.xml.ok
       as &amp;#169;,
       or as &amp;copy;?
     </p>
-    <p xml:lang="fr">Saviez-vous que le signe de copyright (©, U+00A9) peut être écrit en HTML comme &amp;#xa9;, comme &amp;#169; ou comme &amp;copy; ?</p>
-    <p xml:lang="de">Wussten Sie, dass das Copyright-Zeichen (©, U+00A9) in HTML als &amp;#xa9;, als &amp;#169;, oder als &amp;copy; geschrieben werden kann?</p>
+    <p gt:escape="yes" xml:lang="fr">Saviez-vous que le signe de copyright (©, U+00A9) peut être écrit en HTML comme &amp;#xa9;, comme &amp;#169; ou comme &amp;copy; ?</p>
+    <p gt:escape="yes" xml:lang="de">Wussten Sie, dass das Copyright-Zeichen (©, U+00A9) in HTML als &amp;#xa9;, als &amp;#169;, oder als &amp;copy; geschrieben werden kann?</p>
     <p>Written by &author1;, &author2;, and &author3;.</p>
     <p xml:lang="fr">Écrit par &author1;, &author2;, et &author3;.</p>
     <p xml:lang="de">Geschrieben von &author1;, &author2; und &author3;.</p>
     <p gt:escape="no">Escape gallery: operator x&amp;y, standard XML entities &amp; " ' &amp; &lt; &gt;, character reference ©, escaped character reference &amp;#xa9;, entity references &copy; &author1;</p>
-    <p xml:lang="fr">Exposition d'échappements: operateur x&y, entités XML standard & " ' & &lt; &gt;, caractère ©, caractère échappé &amp;#xa9;, entités &copy; &author1;</p>
-    <p xml:lang="de">Escape-Beispiele: Operator x&y, Standard-XML Entitäten & " ' & &lt; &gt;, Zeichen ©, escaptes Zeichen &amp;#xa9;, Entitäten &copy; &author1;</p>
+    <p gt:escape="no" xml:lang="fr">Exposition d'échappements: operateur x&y, entités XML standard & " ' & &lt; &gt;, caractère ©, caractère échappé &amp;#xa9;, entités &copy; &author1;</p>
+    <p gt:escape="no" xml:lang="de">Escape-Beispiele: Operator x&y, Standard-XML Entitäten & " ' & &lt; &gt;, Zeichen ©, escaptes Zeichen &amp;#xa9;, Entitäten &copy; &author1;</p>
     <p gt:escape="yes">Escape gallery: operator x&amp;y, standard XML entities &amp; " ' &amp; &lt; &gt;, character reference ©, escaped character reference &amp;#xa9;, entity references &copy; &author1;</p>
-    <p xml:lang="fr">Exposition d'échappements: operateur x&amp;y, entités XML standard &amp; " ' &amp; &lt; &gt;, caractère ©, caractère échappé &amp;#xa9;, entités &amp;copy; &amp;author1;</p>
-    <p xml:lang="de">Escape-Beispiele: Operator x&amp;y, Standard-XML Entitäten &amp; " ' &amp; &lt; &gt;, Zeichen ©, escaptes Zeichen &amp;#xa9;, Entitäten &amp;copy; &amp;author1;</p>
+    <p gt:escape="yes" xml:lang="fr">Exposition d'échappements: operateur x&amp;y, entités XML standard &amp; " ' &amp; &lt; &gt;, caractère ©, caractère échappé &amp;#xa9;, entités &amp;copy; &amp;author1;</p>
+    <p gt:escape="yes" xml:lang="de">Escape-Beispiele: Operator x&amp;y, Standard-XML Entitäten &amp; " ' &amp; &lt; &gt;, Zeichen ©, escaptes Zeichen &amp;#xa9;, Entitäten &amp;copy; &amp;author1;</p>
   </description>
   <url type="homepage">https://wiki.gnome.org/Design/Apps/CharacterMap</url>
   <updatecontact>dueno_at_src.gnome.org</updatecontact>
@@ -232,13 +232,13 @@ cat <<\EOF > mf.appdata.xml.desired.ok
       as &amp;#169;,
       or as &amp;copy;?
     </p>
-    <p xml:lang="fr">Saviez-vous que le signe de copyright (©, U+00A9) peut être écrit en HTML comme &amp;#xa9;, comme &amp;#169; ou comme &amp;copy; ?</p>
+    <p gt:escape="yes" xml:lang="fr">Saviez-vous que le signe de copyright (©, U+00A9) peut être écrit en HTML comme &amp;#xa9;, comme &amp;#169; ou comme &amp;copy; ?</p>
     <p>Written by &author1;, &author2;, and &author3;.</p>
     <p xml:lang="fr">Écrit par &author1;, &author2;, et &author3;.</p>
     <p gt:escape="no">Escape gallery: operator x&amp;y, standard XML entities &amp; " ' &amp; &lt; &gt;, character reference ©, escaped character reference &amp;#xa9;, entity references &copy; &author1;</p>
-    <p xml:lang="fr">Exposition d'échappements: operateur x&y, entités XML standard & " ' & &lt; &gt;, caractère ©, caractère échappé &amp;#xa9;, entités &copy; &author1;</p>
+    <p gt:escape="no" xml:lang="fr">Exposition d'échappements: operateur x&y, entités XML standard & " ' & &lt; &gt;, caractère ©, caractère échappé &amp;#xa9;, entités &copy; &author1;</p>
     <p gt:escape="yes">Escape gallery: operator x&amp;y, standard XML entities &amp; " ' &amp; &lt; &gt;, character reference ©, escaped character reference &amp;#xa9;, entity references &copy; &author1;</p>
-    <p xml:lang="fr">Exposition d'échappements: operateur x&amp;y, entités XML standard &amp; " ' &amp; &lt; &gt;, caractère ©, caractère échappé &amp;#xa9;, entités &amp;copy; &amp;author1;</p>
+    <p gt:escape="yes" xml:lang="fr">Exposition d'échappements: operateur x&amp;y, entités XML standard &amp; " ' &amp; &lt; &gt;, caractère ©, caractère échappé &amp;#xa9;, entités &amp;copy; &amp;author1;</p>
   </description>
   <url type="homepage">https://wiki.gnome.org/Design/Apps/CharacterMap</url>
   <updatecontact>dueno_at_src.gnome.org</updatecontact>
