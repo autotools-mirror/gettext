@@ -12,6 +12,8 @@ Version 0.23 - September 2024
       fully apply. As a maintainer of a package that has translatable XML files,
       you need to regenerate the POT file and pass it on to your translators.
     o XML schemas for .its and .loc files are now provided.
+    o The value of the xml:lang attribute, inserted by msgfmt, now conforms
+      to W3C standards.
   - Python:
     o xgettext now assumes source code for Python 3 rather than Python 2.
       This affects the interpretation of escape sequences in string literals.

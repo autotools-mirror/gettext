@@ -168,6 +168,7 @@ if ! $skip_gnulib; then
     attribute
     backupfile
     basename-lgpl
+    bcp47
     binary-io
     bison
     bison-i18n

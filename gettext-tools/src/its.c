@@ -40,6 +40,7 @@
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "string-buffer.h"
+#include "bcp47.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -2144,12 +2145,18 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
           if (mp && *mp->msgstr != '\0')
             {
               xmlNode *translated;
+              char language_bcp47[BCP47_MAX];
 
               /* Create a new element node, of the same name, with the same
                  attributes.  */
               translated = _its_copy_node_with_attributes (node);
 
-              xmlSetProp (translated, BAD_CAST "xml:lang", BAD_CAST language);
+              /* Set the xml:lang attribute.
+                 <https://www.w3.org/International/questions/qa-when-xmllang.en.html>
+                 says: "The value of the xml:lang attribute is a language tag
+                 defined by BCP 47."  */
+              xpg_to_bcp47 (language_bcp47, language);
+              xmlSetProp (translated, BAD_CAST "xml:lang", BAD_CAST language_bcp47);
 
               /* libxml2 offers two functions for setting the content of an
                  element: xmlNodeSetContent and xmlNodeAddContent.  They differ
