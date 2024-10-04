@@ -235,7 +235,10 @@ Editing PO Files
 * Lokalize::                    KDE's PO File Editor
 * Gtranslator::                 GNOME's PO File Editor
 * Poedit::                      A simple PO File Editor
+* OmegaT::                      A powerful Translation Editor
+* Virtaal::                     The Virtaal Translation Editor
 * PO Mode::                     Emacs's PO File Editor
+* Vim::                         Editing PO Files in vim
 * Compendium::                  Using Translation Compendia
 
 Emacs's PO File Editor
@@ -3732,7 +3735,10 @@ and would also easily lead to syntax mistakes.
 * Lokalize::                    KDE's PO File Editor
 * Gtranslator::                 GNOME's PO File Editor
 * Poedit::                      A simple PO File Editor
+* OmegaT::                      A powerful Translation Editor
+* Virtaal::                     The Virtaal Translation Editor
 * PO Mode::                     Emacs's PO File Editor
+* Vim::                         Editing PO Files in vim
 * Compendium::                  Using Translation Compendia
 @end menu
 
@@ -3802,6 +3808,36 @@ is another decent PO file editor.
 It works on all major desktop OSes and
 is present in @url{https://repology.org/project/poedit/versions, many}
 GNU/Linux distributions.
+
+@node OmegaT
+@section OmegaT
+
+OmegaT
+(Wikipedia: @url{https://en.wikipedia.org/wiki/OmegaT},
+home page: @url{https://omegat.org/},
+code: @url{https://github.com/omegat-org/omegat})
+is a translation editor
+that focuses on speeding up the translator's work through advanced features
+like translation memory, spell-checking, glossaries, dictionaries.
+It supports not only PO files, but also
+direct translation of various file formats
+(such as plain text, web pages, OpenDocument files, DocBook XML, etc.)
+without using intermediate files.
+It is present in @url{https://repology.org/omegat/poedit/versions, many}
+GNU/Linux distributions.
+
+@node Virtaal
+@section The Virtaal Translation Editor
+
+Virtaal
+(Wikipedia: @url{https://en.wikipedia.org/wiki/Virtaal},
+home page: @url{https://virtaal.translatehouse.org/},
+code: @url{https://github.com/translate/virtaal})
+is a translation editor
+that supports not only PO files but also XLIFF files.
+It is present in @url{https://repology.org/project/virtaal/versions, some}
+GNU/Linux distributions,
+such as Debian up to Debian 11.
 
 @node PO Mode
 @section Emacs's PO File Editor
@@ -5116,6 +5152,27 @@ files resulting of the @samp{M-x normalize} command.  Until these
 discrepancies between PO mode and other GNU @code{gettext} tools get
 fully resolved, the translator should stay aware of normalisation issues.
 
+@node Vim
+@section Editing PO Files in vim
+
+FIXME: Try these scripts. Do they work well? How do they compare?
+
+There are two @code{vim} plugins for editing PO files in @code{vim}:
+
+@itemize @bullet
+@item
+The one by Aleksandar Jelenak (2005), at
+@url{https://www.vim.org/scripts/script.php?script_id=695}.
+
+@item
+A fork of it (2009), at
+@url{https://www.vim.org/scripts/script.php?script_id=2530}.
+@end itemize
+
+Additionally, if you only need syntax highlighting, not editing, of PO files,
+there is a @code{vim} script for that at
+@url{https://www.vim.org/scripts/script.php?script_id=913}.
+
 @node Compendium
 @section Using Translation Compendia
 @emindex using translation compendia
@@ -5790,6 +5847,8 @@ esac
 @node Other tools
 @section Other tools for manipulating PO files
 
+@subheading Pology
+
 @cindex Pology
 The ``Pology'' package is a Free Software package for manipulating PO files.
 It features, in particular:
@@ -5810,6 +5869,18 @@ Language and project specific support.
 @end itemize
 
 Its home page is at @url{http://pology.nedohodnik.net/}.
+
+@subheading Translate Toolkit
+
+@cindex Translate Toolkit
+The ``Translate Toolkit'' is a Free Software package.
+It contains a set of programs to
+convert between PO files and other file formats,
+merge translations,
+and perform various checks.
+
+Its home page is at @url{https://toolkit.translatehouse.org/}.
+The code is at @url{https://github.com/translate/translate}.
 
 @node libgettextpo
 @section Writing your own programs that process PO files

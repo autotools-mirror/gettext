@@ -109,3 +109,8 @@ _(f"The file @{file[i]@} does not exist.")
 @noindent
 because the translator is generally not a programmer and should thus not be
 confronted with expressions from the programming language.
+
+@subheading Related software
+
+An internationalization system based on GNU gettext and PO files is
+@url{https://babel.pocoo.org/, Babel}.
