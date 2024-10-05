@@ -112,9 +112,14 @@ fill (const char *dir, size_t len, void *data)
    The order in the path is as follows:
 
    1. $GETTEXTDATADIR or GETTEXTDATADIR
+      (used by the test suite)
    2. $GETTEXTDATADIRS
+      (used by users who install their own *.its and *.loc files)
    3. $XDG_DATA_DIRS, where each element is suffixed with "gettext"
-   4. $GETTEXTDATADIR or GETTEXTDATADIR, suffixed with PACKAGE_SUFFIX  */
+      (this is where distributions install *.its and *.loc files from
+      other packages)
+   4. $GETTEXTDATADIR or GETTEXTDATADIR, suffixed with PACKAGE_SUFFIX
+      (this is where gettext's *.its and *.loc files are installed)  */
 char **
 get_search_path (const char *sub)
 {

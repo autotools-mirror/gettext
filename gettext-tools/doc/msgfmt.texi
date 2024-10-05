@@ -276,6 +276,18 @@ variable.
 For either operation modes, the @samp{-o} and @samp{--template}
 options are mandatory.
 
+If your XML file is not of one of the types covered by the system-wide
+installed *.its files,
+you need a particular *.its file and a corresponding *.loc file
+(@pxref{Preparing ITS Rules}).
+Furthermore you need to store these files
+in a directory @file{@var{parent_dir}/its/}
+@vindex GETTEXTDATADIRS@r{, environment variable}
+and set the environment variable @code{GETTEXTDATADIRS} to include
+@code{@var{parent_dir}}.
+More generally, the value of @code{GETTEXTDATADIRS} should be
+a colon-separated list of directory names.
+
 @subsection Input file syntax
 
 @table @samp

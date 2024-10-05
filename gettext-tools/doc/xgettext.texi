@@ -473,6 +473,40 @@ This implementation of @code{xgettext} is able to process a few awkward
 cases, like strings in preprocessor macros, ANSI concatenation of
 adjacent strings, and escaped end of lines for continued strings.
 
+@subsection Options for XML input files
+
+When some of the input files are XML files
+and they are not of one of the types covered
+by the system-wide installed *.its files,
+a *.its file is needed for each such file type,
+so that @code{xgettext} can handle them.
+There are two ways to specify such a file:
+
+@itemize @bullet
+@item
+@table @samp
+@item --its=@var{file}
+@opindex --its@r{, @code{xgettext} option}
+Use the ITS rules defined in @var{file}.
+@end table
+
+@item
+The environment variable @code{GETTEXTDATADIRS}.
+Together with the *.its file, you need a corresponding *.loc file
+(@pxref{Preparing ITS Rules}).
+Furthermore you need to store these files
+in a directory @file{@var{parent_dir}/its/}
+@vindex GETTEXTDATADIRS@r{, environment variable}
+and set the environment variable @code{GETTEXTDATADIRS} to include
+@code{@var{parent_dir}}.
+More generally, the value of @code{GETTEXTDATADIRS} should be
+a colon-separated list of directory names.
+@end itemize
+
+Note that when the option @code{--its} is specified,
+the system-wide installed *.its files are ignored
+and the environment variable @code{GETTEXTDATADIRS} has no effect either.
+
 @subsection Output details
 
 @c --no-escape and --escape omitted on purpose.  They are not useful.
@@ -533,11 +567,6 @@ obsolete messages.
 @opindex --stringtable-output@r{, @code{xgettext} option}
 Write out a NeXTstep/GNUstep localized resource file in @code{.strings} syntax.
 Note that this file format doesn't support plural forms.
-
-@item --its=@var{file}
-@opindex --its@r{, @code{xgettext} option}
-Use ITS rules defined in @var{file}.
-Note that this is only effective with XML files.
 
 @item --itstool
 @opindex --itstool@r{, @code{xgettext} option}

@@ -9886,6 +9886,14 @@ may be set, prior to configuration, to limit the installed set.
 @code{LINGUAS} should then contain a space separated list of two-letter
 codes, stating which languages are allowed.
 
+GNU @code{gettext} uses *.its and *.loc files (@pxref{Preparing ITS Rules})
+from other packages, provided they are installed in
+@file{@var{prefix}/share/gettext/its/},
+where @code{@var{prefix}} is the value of the @code{--prefix} option
+passed to @code{gettext}'s @code{configure} script.
+So, this is the canonical location for installing *.its and *.loc files
+from other packages.
+
 @node Programming Languages
 @chapter Other Programming Languages
 
