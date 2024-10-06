@@ -120,6 +120,7 @@ static bool desktop_default_keywords = true;
 
 /* XML mode output file specification.  */
 static bool xml_mode;
+static bool xml_replace_text;
 static const char *xml_locale_name;
 static const char *xml_template_name;
 static const char *xml_base_directory;
@@ -204,6 +205,7 @@ static const struct option long_options[] =
   { "output-file", required_argument, NULL, 'o' },
   { "properties-input", no_argument, NULL, 'P' },
   { "qt", no_argument, NULL, CHAR_MAX + 9 },
+  { "replace-text", no_argument, NULL, CHAR_MAX + 19 },
   { "resource", required_argument, NULL, 'r' },
   { "source", no_argument, NULL, CHAR_MAX + 14 },
   { "statistics", no_argument, &do_statistics, 1 },
@@ -434,6 +436,9 @@ main (int argc, char *argv[])
       case CHAR_MAX + 18: /* --no-redundancy */
         no_redundancy = true;
         break;
+      case CHAR_MAX + 19: /* --replace-text */
+        xml_replace_text = true;
+        break;
       default:
         usage (EXIT_FAILURE);
         break;
@@ -508,6 +513,12 @@ There is NO WARRANTY, to the extent permitted by law.\n\
                first_option, second_option);
       }
   }
+  if (!xml_mode && xml_replace_text)
+    {
+      error (EXIT_SUCCESS, 0, _("%s is only valid with %s"),
+             "--replace-text", "--xml");
+      usage (EXIT_FAILURE);
+    }
   if (java_mode)
     {
       if (output_file_name != NULL)
@@ -611,6 +622,10 @@ There is NO WARRANTY, to the extent permitted by law.\n\
                  "--xml");
           usage (EXIT_FAILURE);
         }
+      if (xml_replace_text && xml_base_directory != NULL)
+        error (EXIT_FAILURE, 0,
+               _("%s and %s are mutually exclusive in %s"),
+               "--replace-text", "-d", "--xml");
       if (xml_base_directory != NULL && xml_locale_name != NULL)
         error (EXIT_FAILURE, 0,
                _("%s and %s are mutually exclusive in %s"),
@@ -850,6 +865,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
                                    xml_locale_name,
                                    xml_template_name,
                                    xml_its_rules,
+                                   xml_replace_text,
                                    domain->file_name))
             exit_status = EXIT_FAILURE;
         }
@@ -1023,6 +1039,9 @@ XML mode options:\n"));
   --template=TEMPLATE         an XML file used as a template\n"));
       printf (_("\
   -d DIRECTORY                base directory of .po files\n"));
+      printf (_("\
+  --replace-text              output XML with translated text replacing the\n\
+                              original text, not augmenting the original text\n"));
       printf (_("\
 The -l, -o, and --template options are mandatory.  If -D is specified, input\n\
 files are read from the directory instead of the command line arguments.\n"));
@@ -1694,6 +1713,7 @@ msgfmt_xml_bulk (const char *directory,
   status = msgdomain_write_xml_bulk (&operands,
                                      template_file_name,
                                      its_rules,
+                                     false,
                                      file_name);
 
   msgfmt_operand_list_destroy (&operands);

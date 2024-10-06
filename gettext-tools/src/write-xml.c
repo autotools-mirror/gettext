@@ -44,6 +44,7 @@ int
 msgdomain_write_xml_bulk (msgfmt_operand_list_ty *operands,
                           const char *template_file_name,
                           its_rule_list_ty *its_rules,
+                          bool replace_text,
                           const char *file_name)
 {
   its_merge_context_ty *context;
@@ -67,7 +68,8 @@ msgdomain_write_xml_bulk (msgfmt_operand_list_ty *operands,
   for (i = 0; i < operands->nitems; i++)
     its_merge_context_merge (context,
                              operands->items[i].language,
-                             operands->items[i].mlp);
+                             operands->items[i].mlp,
+                             replace_text);
   its_merge_context_write (context, fp);
   its_merge_context_free (context);
 
@@ -88,6 +90,7 @@ msgdomain_write_xml (message_list_ty *mlp,
                      const char *locale_name,
                      const char *template_file_name,
                      its_rule_list_ty *its_rules,
+                     bool replace_text,
                      const char *file_name)
 {
   msgfmt_operand_ty operand;
@@ -110,5 +113,6 @@ msgdomain_write_xml (message_list_ty *mlp,
   return msgdomain_write_xml_bulk (&operands,
                                    template_file_name,
                                    its_rules,
+                                   replace_text,
                                    file_name);
 }

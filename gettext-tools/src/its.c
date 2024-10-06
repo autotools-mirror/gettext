@@ -2079,7 +2079,8 @@ static void
 its_merge_context_merge_node (struct its_merge_context_ty *context,
                               xmlNode *node,
                               const char *language,
-                              message_list_ty *mlp)
+                              message_list_ty *mlp,
+                              bool replace_text)
 {
   if (node->type == XML_ELEMENT_NODE)
     {
@@ -2147,9 +2148,19 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
               xmlNode *translated;
               char language_bcp47[BCP47_MAX];
 
-              /* Create a new element node, of the same name, with the same
-                 attributes.  */
-              translated = _its_copy_node_with_attributes (node);
+              if (replace_text)
+                {
+                  /* Reuse the node.  But first, clear its text content and all
+                     its children nodes (except the attributes).  */
+                  xmlNodeSetContent (node, NULL);
+                  translated = node;
+                }
+              else
+                {
+                  /* Create a new element node, of the same name, with the same
+                     attributes.  */
+                  translated = _its_copy_node_with_attributes (node);
+                }
 
               /* Set the xml:lang attribute.
                  <https://www.w3.org/International/questions/qa-when-xmllang.en.html>
@@ -2202,7 +2213,8 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
                   free (middle_ground);
                 }
 
-              xmlAddNextSibling (node, translated);
+              if (!replace_text)
+                xmlAddNextSibling (node, translated);
             }
         }
       free (msgctxt);
@@ -2213,14 +2225,16 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
 void
 its_merge_context_merge (its_merge_context_ty *context,
                          const char *language,
-                         message_list_ty *mlp)
+                         message_list_ty *mlp,
+                         bool replace_text)
 {
   size_t i;
 
   for (i = 0; i < context->nodes.nitems; i++)
     its_merge_context_merge_node (context, context->nodes.items[i],
                                   language,
-                                  mlp);
+                                  mlp,
+                                  replace_text);
 }
 
 struct its_merge_context_ty *

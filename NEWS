@@ -1,4 +1,4 @@
-Version 0.23 - September 2024
+Version 0.23 - October 2024
 
 * Programming languages support:
   - XML:
@@ -14,6 +14,8 @@ Version 0.23 - September 2024
     o XML schemas for .its and .loc files are now provided.
     o The value of the xml:lang attribute, inserted by msgfmt, now conforms
       to W3C standards.
+    o 'msgfmt --xml' accept an option --replace-text, that causes the output
+      to be a mono-lingual XML file instead of a multi-lingual XML file.
   - Python:
     o xgettext now assumes source code for Python 3 rather than Python 2.
       This affects the interpretation of escape sequences in string literals.

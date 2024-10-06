@@ -84,7 +84,8 @@ extern its_merge_context_ty *
 extern void its_merge_context_free (its_merge_context_ty *context);
 extern void its_merge_context_merge (its_merge_context_ty *context,
                                      const char *language,
-                                     message_list_ty *mlp);
+                                     message_list_ty *mlp,
+                                     bool replace_text);
 
 extern void its_merge_context_write (its_merge_context_ty *context,
                                      FILE *fp);

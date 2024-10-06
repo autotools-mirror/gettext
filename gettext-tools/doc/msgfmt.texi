@@ -176,7 +176,7 @@ Specify the base directory of @file{.msg} message catalogs.
 The @samp{-l} and @samp{-d} options are mandatory.  The @file{.msg} file is
 written in the specified directory.
 
-@subsection Desktop Entry mode operations
+@subsection Desktop Entry mode options
 
 @table @samp
 @item --template=@var{template}
@@ -227,7 +227,7 @@ variable.
 For either operation modes, the @samp{-o} and @samp{--template}
 options are mandatory.
 
-@subsection XML mode operations
+@subsection XML mode options
 
 @table @samp
 @item --template=@var{template}
@@ -252,6 +252,12 @@ or a combined language and country specification of the form @var{ll_CC}.
 @opindex -d@r{, @code{msgfmt} option}
 Specify the base directory of @file{.po} message catalogs.
 
+@item --replace-text
+@opindex --replace-text@r{, @code{msgfmt} option}
+Output XML with translated text replacing the original text,
+not augmenting the original text.
+With this option, @code{msgfmt} produces a mono-lingual XML file.
+Without this option, it produces a multi-lingual XML file.
 @end table
 
 To generate an XML file for a single locale, you can use it as follows.

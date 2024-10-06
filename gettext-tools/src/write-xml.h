@@ -1,5 +1,5 @@
 /* Writing XML files.
-   Copyright (C) 2024 Free Software Foundation, Inc.
+   Copyright (C) 2015-2024 Free Software Foundation, Inc.
    This file was written by Daiki Ueno <ueno@gnu.org>.
 
    This program is free software: you can redistribute it and/or modify
@@ -35,12 +35,14 @@ extern int
                             const char *locale_name,
                             const char *template_file_name,
                             its_rule_list_ty *its_rules,
+                            bool replace_text,
                             const char *file_name);
 
 extern int
        msgdomain_write_xml_bulk (msgfmt_operand_list_ty *operands,
                                  const char *template_file_name,
                                  its_rule_list_ty *its_rules,
+                                 bool replace_text,
                                  const char *file_name);
 
 #ifdef __cplusplus
