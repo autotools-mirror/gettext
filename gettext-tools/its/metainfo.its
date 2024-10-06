@@ -19,6 +19,11 @@
 <its:rules xmlns:its="http://www.w3.org/2005/11/its"
            xmlns:gt="https://www.gnu.org/s/gettext/ns/its/extensions/1.0"
            version="2.0">
+
+  <!-- Documentation of the *.metainfo.xml file format:
+       https://www.freedesktop.org/software/appstream/docs/chap-Quickstart.html
+  -->
+
   <its:translateRule selector="/component" translate="no"/>
   <its:translateRule selector="/component/name |
                                /component/summary |

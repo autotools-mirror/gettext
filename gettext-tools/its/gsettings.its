@@ -19,6 +19,11 @@
 <its:rules xmlns:its="http://www.w3.org/2005/11/its"
            xmlns:gt="https://www.gnu.org/s/gettext/ns/its/extensions/1.0"
            version="2.0">
+
+  <!-- Documentation of the GSettings XML file format:
+       https://docs.gtk.org/gio/class.Settings.html
+  -->
+
   <its:translateRule selector="/schemalist" translate="no"/>
 
   <its:translateRule selector="//summary | //description" translate="yes"/>
