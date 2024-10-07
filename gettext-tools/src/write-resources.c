@@ -43,6 +43,7 @@
 #include "xalloc.h"
 #include "concat-filename.h"
 #include "fwriteerror.h"
+#include "cygpath.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -164,6 +165,9 @@ but the C# .resources format doesn't support plural handling\n")));
          between builds in the same conditions.  */
       message_list_delete_header_field (mlp, "POT-Creation-Date:");
 
+      /* On Windows, assume a native Windows implementation of C#.  */
+      char *file_name_converted = cygpath_w (file_name);
+
       /* Execute the WriteResource program.  */
       {
         const char *args[2];
@@ -172,7 +176,7 @@ but the C# .resources format doesn't support plural handling\n")));
         struct locals locals;
 
         /* Prepare arguments.  */
-        args[0] = file_name;
+        args[0] = file_name_converted;
         args[1] = NULL;
 
         /* Make it possible to override the .exe location.  This is
@@ -195,6 +199,8 @@ but the C# .resources format doesn't support plural handling\n")));
 
         free (assembly_path);
       }
+
+      free (file_name_converted);
     }
 
   return 0;

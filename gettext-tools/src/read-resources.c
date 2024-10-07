@@ -38,6 +38,7 @@
 #include "xerror-handler.h"
 #include "message.h"
 #include "concat-filename.h"
+#include "cygpath.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -94,6 +95,7 @@ execute_and_read_po_output (const char *progname,
 void
 read_resources_file (message_list_ty *mlp, const char *filename)
 {
+  char *filename_converted;
   const char *args[2];
   const char *gettextexedir;
   const char *gettextlibdir;
@@ -101,8 +103,10 @@ read_resources_file (message_list_ty *mlp, const char *filename)
   const char *libdirs[1];
   struct locals locals;
 
+  filename_converted = cygpath_w (filename);
+
   /* Prepare arguments.  */
-  args[0] = filename;
+  args[0] = filename_converted;
   args[1] = NULL;
 
   /* Make it possible to override the .exe location.  This is
@@ -138,4 +142,5 @@ read_resources_file (message_list_ty *mlp, const char *filename)
   }
 
   free (assembly_path);
+  free (filename_converted);
 }

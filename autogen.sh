@@ -184,6 +184,7 @@ if ! $skip_gnulib; then
     copy-file
     csharpcomp
     csharpexec
+    cygpath
     error
     error-progname
     execute

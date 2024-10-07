@@ -38,6 +38,7 @@
 #include "xerror-handler.h"
 #include "xalloc.h"
 #include "concat-filename.h"
+#include "cygpath.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
@@ -94,6 +95,7 @@ msgdomain_list_ty *
 msgdomain_read_csharp (const char *resource_name, const char *locale_name,
                        const char *directory)
 {
+  char *directory_converted;
   char *culture_name;
   const char *args[4];
   const char *gettextexedir;
@@ -105,6 +107,8 @@ msgdomain_read_csharp (const char *resource_name, const char *locale_name,
   /* Assign a default value to the resource name.  */
   if (resource_name == NULL)
     resource_name = "Messages";
+
+  directory_converted = cygpath_w (directory);
 
   /* Convert the locale name to a .NET specific culture name.  */
   culture_name = xstrdup (locale_name);
@@ -136,7 +140,7 @@ msgdomain_read_csharp (const char *resource_name, const char *locale_name,
   }
 
   /* Prepare arguments.  */
-  args[0] = directory;
+  args[0] = directory_converted;
   args[1] = resource_name;
   args[2] = culture_name;
   args[3] = NULL;
@@ -166,6 +170,7 @@ msgdomain_read_csharp (const char *resource_name, const char *locale_name,
 
   free (assembly_path);
   free (culture_name);
+  free (directory_converted);
 
   return locals.mdlp;
 }
