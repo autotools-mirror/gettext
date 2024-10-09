@@ -6822,12 +6822,10 @@ func_mode_link ()
     xrpath=
     perm_rpath=
     temp_rpath=
-    temp_rpath_tail=
     thread_safe=no
     vinfo=
     vinfo_number=no
     weak_libs=
-    rpath_arg=
     single_module=$wl-single_module
     func_infer_tag $base_compile
 
@@ -7746,20 +7744,8 @@ func_mode_link ()
 
       # Now actually substitute the argument into the commands.
       if test -n "$arg"; then
-	if test -n "$rpath_arg"; then
-          func_append finalize_rpath " ${arg##*,}"
-	  unset rpath_arg
-	else
-	  case $arg in
-          -Wl,-rpath,*)
-	    func_append finalize_rpath " ${arg##*,}";;
-          -Wl,-rpath)
-	    rpath_arg=1;;
-          *)
-            func_append compile_command " $arg"
-	    func_append finalize_command " $arg"
-	  esac
-        fi
+	func_append compile_command " $arg"
+	func_append finalize_command " $arg"
       fi
     done # argument parsing loop
 
@@ -8410,10 +8396,7 @@ func_mode_link ()
 	      # Make sure the rpath contains only unique directories.
 	      case $temp_rpath: in
 	      *"$absdir:"*) ;;
-              *) case $absdir in
-                 "$progdir/"*) func_append temp_rpath "$absdir:" ;;
-                 *)            func_append temp_rpath_tail "$absdir:" ;;
-                 esac
+	      *) func_append temp_rpath "$absdir:" ;;
 	      esac
 	    fi
 
@@ -8425,9 +8408,7 @@ func_mode_link ()
 	    *)
 	      case "$compile_rpath " in
 	      *" $absdir "*) ;;
-	      *) case $absdir in
-                 "$progdir/"*) func_append compile_rpath " $absdir" ;;
-		 esac
+	      *) func_append compile_rpath " $absdir" ;;
 	      esac
 	      ;;
 	    esac
@@ -8501,9 +8482,7 @@ func_mode_link ()
 	    *)
 	      case "$compile_rpath " in
 	      *" $absdir "*) ;;
-	      *) case $absdir in
-                 "$progdir/"*) func_append compile_rpath " $absdir" ;;
-		 esac
+	      *) func_append compile_rpath " $absdir" ;;
 	      esac
 	      ;;
 	    esac
@@ -8864,8 +8843,6 @@ func_mode_link ()
 	  fi # link_all_deplibs != no
 	fi # linkmode = lib
       done # for deplib in $libs
-
-      func_append temp_rpath "$temp_rpath_tail"
       if test link = "$pass"; then
 	if test prog = "$linkmode"; then
 	  compile_deplibs="$new_inherited_linker_flags $compile_deplibs"
