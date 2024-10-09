@@ -94,7 +94,7 @@ top_srcdir="$2"
 shift
 shift
 
-if $jar_program --help 2>&1 | grep '\-\-date=' >/dev/null; then
+if $jar_program --help 2>&1 | grep '\--date=' >/dev/null; then
   # The JAR_PROGRAM supports the --date option. Its effect is to set the given
   # date as time stamp on all the ELEMENTs and also the META-INF/MANIFEST.MF.
   # Use it, for reproducibility (cf. <https://reproducible-builds.org/>).
