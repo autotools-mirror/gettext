@@ -693,6 +693,7 @@ autom4te.cache/
 /gettext-runtime/intl/libgnuintl.la
 /gettext-runtime/intl-csharp/GNU.Gettext.dll
 /gettext-runtime/intl-csharp/GNU.Gettext.dll.mdb
+/gettext-runtime/intl-csharp/GNU.Gettext.pdb
 /gettext-runtime/intl-java/**/*.class
 /gettext-runtime/intl-java/libintl.jar
 /gettext-runtime/libasprintf/libasprintf.la

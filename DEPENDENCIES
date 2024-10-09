@@ -83,18 +83,28 @@ The following packages should be installed before GNU gettext is installed
       java-11-openjdk or java-1.8.0-openjdk or java-1.7.0-openjdk.
     - Other: https://repology.org/project/openjdk/versions
 
-* A C# runtime and compiler (e.g. mono).
+* A C# runtime and compiler (e.g. mono or dotnet).
   + Recommended.
     Needed for building GNU.Gettext.dll. Also needed for 'msgfmt' and
     'msgunfmt', so that they can handle C# resources and assemblies.
-  + Homepage:
-    http://www.mono-project.com/
-  + Download:
-    http://www.mono-project.com/download/
-  + Pre-built package name:
-    - On Debian and Debian-based systems: mono-runtime,
-    - On Red Hat distributions: mono.
-    - Other: https://repology.org/project/mono/versions
+  o Mono:
+    + Homepage:
+      https://www.mono-project.com/
+    + Download:
+      https://www.mono-project.com/download/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: mono-runtime,
+      - On Red Hat distributions: mono.
+      - Other: https://repology.org/project/mono/versions
+  o dotnet:
+    + Homepage:
+      https://dotnet.microsoft.com/
+    + Download:
+      https://dotnet.microsoft.com/en-us/download
+    + Pre-built package name:
+      - On Debian and Debian-based systems: dotnet7, dotnet8,
+      - On Red Hat distributions: dotnet7.0, dotnet8.0.
+      - Other: https://repology.org/project/dotnet/versions
   + If more than one C# is installed, pass the option --enable-csharp=IMPL
     to 'configure', to disambiguate.
 

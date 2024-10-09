@@ -35,8 +35,12 @@ Version 0.23 - October 2024
     o xgettext now parses template literals inside JSX correctly.
     o xgettext has a new option --tag that customizes the behaviour of tagged
       template literals.
-  - C#: Strings with embedded expressions (a.k.a. interpolated strings) are now
-    recognized.
+  - C#:
+    o The build system and tools now also support 'dotnet' (.NET) as C#
+      implementation.  In order to declare a preference for 'dotnet' over
+      'mono', you can use the configure option '--enable-csharp=dotnet'.
+    o Strings with embedded expressions (a.k.a. interpolated strings) are now
+      recognized.
   - awk: String concatenation by juxtaposition is now recognized.
   - Smalltalk: The string concatenation operator ',' is now recognized.
   - Vala: Improved recognition of format strings when the string.printf method

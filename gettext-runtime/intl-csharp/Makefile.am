@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/intl-csharp subdirectory of GNU gettext
-## Copyright (C) 2003-2004, 2006, 2013, 2015, 2018 Free Software Foundation, Inc.
+## Copyright (C) 2003-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -25,6 +25,8 @@ RM = rm -f
 CSHARPCOMP = $(SHELL) ../csharpcomp.sh
 CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 
+pkglibdir = $(libdir)/gettext
+
 
 all-local: all-dll all-doc
 install-data-local: install-dll install-doc
@@ -43,20 +45,29 @@ GNU.Gettext.dll: intl.cs
 
 EXTRA_DIST += intl.cs
 
-CLEANFILES += GNU.Gettext.dll GNU.Gettext.dll.mdb
+CLEANFILES += GNU.Gettext.dll GNU.Gettext.dll.mdb GNU.Gettext.pdb
 
+# Install GNU.Gettext.dll
+#   - in $(libdir), as a user-visible package-independent location,
+#   - in $(pkglibdir), because msgunfmt.net.exe will be installed there
+#     and its needs all its dependency DLLs in the same directory.
 install-dll: install-dll-@BUILDCSHARP@
 install-dll-no:
 	$(MKDIR_P) $(DESTDIR)$(libdir)
+	$(MKDIR_P) $(DESTDIR)$(pkglibdir)
 install-dll-yes: all-dll-yes
 	$(MKDIR_P) $(DESTDIR)$(libdir)
+	$(MKDIR_P) $(DESTDIR)$(pkglibdir)
 	$(INSTALL_DATA) GNU.Gettext.dll $(DESTDIR)$(libdir)/GNU.Gettext.dll
+	$(INSTALL_DATA) GNU.Gettext.dll $(DESTDIR)$(pkglibdir)/GNU.Gettext.dll
 
 installdirs-dll:
 	$(MKDIR_P) $(DESTDIR)$(libdir)
+	$(MKDIR_P) $(DESTDIR)$(pkglibdir)
 
 uninstall-dll:
 	$(RM) $(DESTDIR)$(libdir)/GNU.Gettext.dll
+	$(RM) $(DESTDIR)$(pkglibdir)/GNU.Gettext.dll
 
 
 # C# reference documentation. Requires the pnet tools.

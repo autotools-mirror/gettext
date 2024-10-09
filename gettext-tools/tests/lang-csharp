@@ -32,17 +32,35 @@ test "${TESTCSHARP}" = yes || {
 }
 
 cat <<\EOF > program.cs
-using System;
-using GNU.Gettext;
+using System; /* Console */
+using System.IO; /* StreamWriter */
+using System.Text; /* UTF8Encoding */
+using System.Runtime.InteropServices; /* RuntimeInformation, OSPlatform */
+using GNU.Gettext; /* GettextResourceManager */
 class Program {
   static void Main (String[] args) {
+    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+      {
+        // Change the Console to produce UTF-8 output with Unix end-of-lines.
+        Console.SetOut(
+            new StreamWriter(Console.OpenStandardOutput(),
+                             new UTF8Encoding(false)) {
+                NewLine = "\n",
+                AutoFlush = true
+            });
+      }
     #if __MonoCS__
-    // Some systems don't set CurrentCulture and CurrentUICulture as specified
-    // by LC_ALL. So set it by hand.
-    System.Threading.Thread.CurrentThread.CurrentCulture =
-    System.Threading.Thread.CurrentThread.CurrentUICulture =
-      new System.Globalization.CultureInfo("fr-FR");
+    if (true)
+    #else
+    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
     #endif
+      {
+        // Some systems don't set CurrentCulture and CurrentUICulture as
+        // specified by LC_ALL. So set it by hand.
+        System.Threading.Thread.CurrentThread.CurrentCulture =
+        System.Threading.Thread.CurrentThread.CurrentUICulture =
+          new System.Globalization.CultureInfo("fr-FR");
+      }
     int n = Int32.Parse(args[0]);
     GettextResourceManager catalog = new GettextResourceManager("prog");
     Console.WriteLine(catalog.GetString("'Your command, please?', asked the waiter."));
