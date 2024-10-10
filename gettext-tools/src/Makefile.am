@@ -735,8 +735,8 @@ uninstall-java-no:
 EXTRA_DIST += msgfmt.cs msgunfmt.cs
 
 CLEANFILES += \
-  msgfmt.net.exe msgfmt.net.exe.mdb \
-  msgunfmt.net.exe msgunfmt.net.exe.mdb
+  msgfmt.net.exe msgfmt.net.exe.mdb msgfmt.net.pdb \
+  msgunfmt.net.exe msgunfmt.net.exe.mdb msgunfmt.net.pdb
 
 all-local: all-csharp-@BUILDCSHARP@
 all-csharp-yes: msgfmt.net.exe msgunfmt.net.exe
