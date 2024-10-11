@@ -18,6 +18,7 @@
 -->
 <its:rules xmlns:its="http://www.w3.org/2005/11/its"
            xmlns:gt="https://www.gnu.org/s/gettext/ns/its/extensions/1.0"
+           xmlns:metainfo="https://specifications.freedesktop.org/metainfo/1.0"
            version="2.0">
 
   <!-- Documentation of the *.metainfo.xml file format:
@@ -30,6 +31,24 @@
                                /component/description |
                                /component/developer_name |
                                /component/screenshots/screenshot/caption"
+                     translate="yes"/>
+
+  <!-- A duplicate of the rules above, for files that use the metainfo
+       namespace.  Rationale:
+       https://www.freedesktop.org/software/appstream/docs/chap-Metadata.html
+       says
+       "The XML in metainfo files does not need any XML namespace, and adding
+       one should generally be avoided. If you want to use a namespace though
+       (maybe in case you want to embed the data in other contexts), the xmlns
+       should be https://specifications.freedesktop.org/metainfo/1.0."
+  -->
+
+  <its:translateRule selector="/metainfo:component" translate="no"/>
+  <its:translateRule selector="/metainfo:component/metainfo:name |
+                               /metainfo:component/metainfo:summary |
+                               /metainfo:component/metainfo:description |
+                               /metainfo:component/metainfo:developer_name |
+                               /metainfo:component/metainfo:screenshots/metainfo:screenshot/metainfo:caption"
                      translate="yes"/>
 
   <!-- This rule is redundant since gettext 0.23.  -->
