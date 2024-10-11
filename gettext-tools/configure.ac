@@ -26,10 +26,34 @@ AM_INIT_AUTOMAKE([1.11.1 silent-rules parallel-tests])
 AC_CONFIG_HEADERS([config.h])
 
 dnl Installation directories.
-test "$docdir" != '${datarootdir}/doc/${PACKAGE_TARNAME}' || docdir='${datarootdir}/doc/gettext'
+dnl They should have the suffix '/gettext' by default, not '/gettext-tools'.
+if test "$docdir" = '${datarootdir}/doc/${PACKAGE_TARNAME}'; then
+  docdir='${datarootdir}/doc/gettext'
+fi
+gl_CONFIGMAKE_PREP
+if test "$pkgdatadir" = '${datadir}/${PACKAGE}'; then
+  pkgdatadir='${datadir}/gettext'
+fi
+if test "$pkgincludedir" = '${includedir}/${PACKAGE}'; then
+  pkgincludedir='${includedir}/gettext'
+fi
+if test "$pkglibdir" = '${libdir}/${PACKAGE}'; then
+  pkglibdir='${libdir}/gettext'
+fi
+if test "$pkglibexecdir" = '${libexecdir}/${PACKAGE}'; then
+  pkglibexecdir='${libexecdir}/gettext'
+fi
 
 dnl Define bindir_c and bindir_c_make.
 gl_BUILD_TO_HOST_BINDIR
+dnl Define libdir_c and libdir_c_make.
+gl_BUILD_TO_HOST_LIBDIR
+dnl Define libexecdir_c and libexecdir_c_make.
+gl_BUILD_TO_HOST_LIBEXECDIR
+dnl Define pkgdatadir_c and pkgdatadir_c_make.
+gl_BUILD_TO_HOST_PKGDATADIR
+dnl Define pkglibdir_c and pkglibdir_c_make.
+gl_BUILD_TO_HOST_PKGLIBDIR
 dnl Define pkglibexecdir_c and pkglibexecdir_c_make.
 gl_BUILD_TO_HOST_PKGLIBEXECDIR
 

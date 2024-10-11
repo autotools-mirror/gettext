@@ -94,12 +94,15 @@ noinst_HEADERS = \
 
 EXTRA_DIST += FILES project-id
 
-jardir = $(datadir)/gettext
-pkgdatadir = $(datadir)/gettext
+# The following are already set through configmake.m4 and configure.ac:
+#pkgdatadir = $(datadir)/gettext
+#pkglibdir = $(libdir)/gettext
+#pkglibexecdir = $(libexecdir)/gettext
+jardir = $(pkgdatadir)
+jardir_c_make = $(pkgdatadir_c_make)
 projectsdir = $(pkgdatadir)/projects
+projectsdir_c_make = $(pkgdatadir_c_make)\"/projects\"
 schemadir = $(pkgdatadir)/schema
-pkglibdir = $(libdir)/gettext
-pkglibexecdir = $(libexecdir)/gettext
 
 # Note that Automake's $(DEFAULT_INCLUDES) already contains
 # -I. -I$(srcdir) -I$(top_builddir).
@@ -110,13 +113,13 @@ AM_CPPFLAGS = \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
   -I../../gettext-runtime/intl -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = \
-  -DLOCALEDIR=$(localedir_c_make) -DBISON_LOCALEDIR=\"$(BISON_LOCALEDIR)\" \
+  -DLOCALEDIR=$(localedir_c_make) -DBISON_LOCALEDIR=$(BISON_LOCALEDIR_c_make) \
   -DUSEJAVA=$(USEJAVA) \
-  -DGETTEXTJAR=\"$(jardir)/gettext.jar\" \
-  -DLIBDIR=\"$(libdir)\" \
-  -DLIBEXECDIR=\"$(libexecdir)\" \
-  -DGETTEXTDATADIR=\"$(pkgdatadir)\" \
-  -DPROJECTSDIR=\"$(projectsdir)\" \
+  -DGETTEXTJAR=$(jardir_c_make)\"/gettext.jar\" \
+  -DLIBDIR=$(libdir_c_make) \
+  -DLIBEXECDIR=$(libexecdir_c_make) \
+  -DGETTEXTDATADIR=$(pkgdatadir_c_make) \
+  -DPROJECTSDIR=$(projectsdir_c_make) \
   -DEXEEXT=\"@EXEEXT@\" @DEFS@
 
 # Enable more warning options in this directory.
