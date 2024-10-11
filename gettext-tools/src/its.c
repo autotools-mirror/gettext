@@ -1989,7 +1989,9 @@ _its_copy_node_with_attributes (xmlNode *node)
       if (strcmp ((const char *) attr_name, "id") != 0)
         {
           xmlNs *attr_ns = attributes->ns;
-          xmlChar *attr_value = xmlGetNsProp (node, attr_name, attr_ns->href);
+          xmlChar *attr_value =
+            xmlGetNsProp (node, attr_name,
+                          attr_ns != NULL ? attr_ns->href : NULL);
           xmlNewNsProp (copy, attr_ns, attr_name, attr_value);
           xmlFree (attr_value);
         }
