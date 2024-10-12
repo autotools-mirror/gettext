@@ -725,6 +725,14 @@ static struct its_value_list_ty *
 its_translate_rule_eval (struct its_rule_ty *rule, struct its_pool_ty *pool,
                          xmlNode *node)
 {
+  /* Evaluation rules,
+     as specified in <https://www.w3.org/TR/its20/#datacategories-defaults-etc>:
+     - Local usage: Yes
+     - Global, rule-based selection: Yes
+     - Default values: translate="yes" for elements,
+                       translate="no" for attributes.
+     - Inheritance for element nodes: Textual content of element,
+       including content of child elements, but excluding attributes.  */
   struct its_value_list_ty *result;
 
   result = XCALLOC (1, struct its_value_list_ty);
@@ -865,6 +873,13 @@ its_localization_note_rule_eval (struct its_rule_ty *rule,
                                  struct its_pool_ty *pool,
                                  xmlNode *node)
 {
+  /* Evaluation rules,
+     as specified in <https://www.w3.org/TR/its20/#datacategories-defaults-etc>:
+     - Local usage: Yes
+     - Global, rule-based selection: Yes
+     - Default values: none
+     - Inheritance for element nodes: Textual content of element,
+       including content of child elements, but excluding attributes.  */
   struct its_value_list_ty *result;
 
   result = XCALLOC (1, struct its_value_list_ty);
@@ -1015,6 +1030,12 @@ its_element_within_text_rule_eval (struct its_rule_ty *rule,
                                    struct its_pool_ty *pool,
                                    xmlNode *node)
 {
+  /* Evaluation rules,
+     as specified in <https://www.w3.org/TR/its20/#datacategories-defaults-etc>:
+     - Local usage: Yes
+     - Global, rule-based selection: Yes
+     - Default values: withinText="no"
+     - Inheritance for element nodes: none  */
   struct its_value_list_ty *result;
   const char *value;
 
@@ -1035,7 +1056,7 @@ its_element_within_text_rule_eval (struct its_rule_ty *rule,
     }
 
   /* Doesn't inherit from the parent elements, and the default value
-     is None.  */
+     is "no".  */
   value = its_pool_get_value_for_node (pool, node, "withinText");
   if (value != NULL)
     its_value_list_set_value (result, "withinText", value);
@@ -1105,6 +1126,13 @@ its_preserve_space_rule_eval (struct its_rule_ty *rule,
                               struct its_pool_ty *pool,
                               xmlNode *node)
 {
+  /* Evaluation rules,
+     as specified in <https://www.w3.org/TR/its20/#datacategories-defaults-etc>:
+     - Local usage: Yes
+     - Global, rule-based selection: Yes
+     - Default values: space="default"
+     - Inheritance for element nodes: Textual content of element,
+       including attributes and child elements.  */
   struct its_value_list_ty *result;
   struct its_value_list_ty *values;
   const char *value;
@@ -1201,6 +1229,11 @@ its_extension_context_rule_eval (struct its_rule_ty *rule,
                                  struct its_pool_ty *pool,
                                  xmlNode *node)
 {
+  /* Evaluation rules:
+     - Local usage: No
+     - Global, rule-based selection: Yes
+     - Default values: none
+     - Inheritance for element nodes: none  */
   struct its_value_list_ty *result;
   const char *value;
 
@@ -1263,6 +1296,12 @@ its_extension_escape_rule_eval (struct its_rule_ty *rule,
                                 struct its_pool_ty *pool,
                                 xmlNode *node)
 {
+  /* Evaluation rules:
+     - Local usage: Yes
+     - Global, rule-based selection: Yes
+     - Default values: escape="no" (handled in the caller)
+     - Inheritance for element nodes: Textual content of element,
+       including content of child elements, but excluding attributes.  */
   struct its_value_list_ty *result;
 
   result = XCALLOC (1, struct its_value_list_ty);
@@ -1286,6 +1325,21 @@ its_extension_escape_rule_eval (struct its_rule_ty *rule,
       /* Inherit from the parent elements.  */
       {
         const char *value;
+
+        /* A local attribute overrides the global rule.  */
+        if (xmlHasNsProp (node, BAD_CAST "escape", BAD_CAST GT_NS))
+          {
+            char *prop;
+
+            prop = _its_get_attribute (node, "escape", GT_NS);
+            if (strcmp (prop, "yes") == 0 || strcmp (prop, "no") == 0)
+              {
+                its_value_list_append (result, "escape", prop);
+                free (prop);
+                return result;
+              }
+            free (prop);
+          }
 
         /* Check value for the current node.  */
         value = its_pool_get_value_for_node (pool, node, "escape");
@@ -1780,15 +1834,6 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
 
       value = its_value_list_get_value (values, "escape");
       do_escape = value != NULL && strcmp (value, "yes") == 0;
-      /* Consider also a locally declared 'gt:escape' attribute.  */
-      if (node->type == XML_ELEMENT_NODE
-          && xmlHasNsProp (node, BAD_CAST "escape", BAD_CAST GT_NS))
-        {
-          char *prop = _its_get_attribute (node, "escape", GT_NS);
-          if (strcmp (prop, "yes") == 0 || strcmp (prop, "no") == 0)
-            do_escape = strcmp (prop, "yes") == 0;
-          free (prop);
-        }
 
       do_escape_during_extract = do_escape;
       /* But no, during message extraction (i.e. what xgettext does), we do
@@ -2098,14 +2143,6 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
 
       value = its_value_list_get_value (values, "escape");
       do_escape = value != NULL && strcmp (value, "yes") == 0;
-      /* Consider also a locally declared 'gt:escape' attribute.  */
-      if (xmlHasNsProp (node, BAD_CAST "escape", BAD_CAST GT_NS))
-        {
-          char *prop = _its_get_attribute (node, "escape", GT_NS);
-          if (strcmp (prop, "yes") == 0 || strcmp (prop, "no") == 0)
-            do_escape = strcmp (prop, "yes") == 0;
-          free (prop);
-        }
 
       do_escape_during_extract = do_escape;
       /* Like above, in its_rule_list_extract_text.  */
