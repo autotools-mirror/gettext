@@ -4,7 +4,7 @@
 # Test msgmerge when the second argument is a PO file with obsolete messages
 # (e.g. the result of an earlier msgmerge operation).
 
-cat <<\EOF > mm-test20.po
+cat <<\EOF > mm-test11.po
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -32,7 +32,7 @@ msgid "This program is running as process number {pid}."
 msgstr "Dieses Programm läuft mit der Prozeß-Nummer {pid}."
 EOF
 
-cat <<\EOF > mm-test20.pot
+cat <<\EOF > mm-test11.pot
 #, fuzzy
 msgid ""
 msgstr ""
@@ -72,10 +72,10 @@ msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test20.tmp.po mm-test20.po mm-test20.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test20.tmp.po > mm-test20.new.po || Exit 1
+${MSGMERGE} -q -o mm-test11.tmp.po mm-test11.po mm-test11.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-test11.tmp.po > mm-test11.new.po || Exit 1
 
-cat <<\EOF > mm-test20.ok
+cat <<\EOF > mm-test11.ok
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
@@ -109,6 +109,6 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test20.ok mm-test20.new.po || Exit 1
+${DIFF} mm-test11.ok mm-test11.new.po || Exit 1
 
 Exit 0

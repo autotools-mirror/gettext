@@ -3,7 +3,7 @@
 
 # Test msgmerge --previous option.
 
-cat <<\EOF > mm-test19.po
+cat <<\EOF > mm-test10.po
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -28,7 +28,7 @@ msgid "%s: invalid option -- %c\n"
 msgstr "%s: ungültige Option -- %c\n"
 EOF
 
-cat <<\EOF > mm-test19.pot
+cat <<\EOF > mm-test10.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -77,10 +77,10 @@ msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q --previous -o mm-test19.tmp.po mm-test19.po mm-test19.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test19.tmp.po > mm-test19.new1.po || Exit 1
+${MSGMERGE} -q --previous -o mm-test10.tmp.po mm-test10.po mm-test10.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-test10.tmp.po > mm-test10.new1.po || Exit 1
 
-cat <<\EOF > mm-test19.ok1
+cat <<\EOF > mm-test10.ok1
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
@@ -120,9 +120,9 @@ msgstr "%s: ungültige Option -- %c\n"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test19.ok1 mm-test19.new1.po || Exit 1
+${DIFF} mm-test10.ok1 mm-test10.new1.po || Exit 1
 
-cat <<\EOF > mm-test19.pot
+cat <<\EOF > mm-test10.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -161,10 +161,10 @@ msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q --previous -o mm-test19.tmp.po mm-test19.new1.po mm-test19.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test19.tmp.po > mm-test19.new2.po || Exit 1
+${MSGMERGE} -q --previous -o mm-test10.tmp.po mm-test10.new1.po mm-test10.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-test10.tmp.po > mm-test10.new2.po || Exit 1
 
-cat <<\EOF > mm-test19.ok2
+cat <<\EOF > mm-test10.ok2
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
@@ -204,6 +204,6 @@ msgstr "Argumente fehlen"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test19.ok2 mm-test19.new2.po || Exit 1
+${DIFF} mm-test10.ok2 mm-test10.new2.po || Exit 1
 
 Exit 0

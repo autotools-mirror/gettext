@@ -62,8 +62,8 @@ TESTS = gettext-1 gettext-2 \
 	msggrep-8 msggrep-9 msggrep-10 msggrep-11 \
 	msginit-1 msginit-2 msginit-3 msginit-4 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
-	msgmerge-7 msgmerge-8 msgmerge-18 msgmerge-19 msgmerge-20 msgmerge-25 \
-	msgmerge-26 msgmerge-27 msgmerge-29 \
+	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
+	msgmerge-13 msgmerge-14 msgmerge-15 \
 	msgmerge-charset-1 msgmerge-charset-2 msgmerge-charset-3 \
 	msgmerge-compendium-1 msgmerge-compendium-2 msgmerge-compendium-3 \
 	msgmerge-compendium-4 msgmerge-compendium-5 msgmerge-compendium-6 \

@@ -3,7 +3,7 @@
 
 # Test --add-location=file option.
 
-cat <<\EOF > mm-test25.in1
+cat <<\EOF > mm-test12.in1
 # first
 #. this should be discarded
 msgid "1"
@@ -20,7 +20,7 @@ msgid "3"
 msgstr "3z"
 EOF
 
-cat <<\EOF > mm-test25.in2
+cat <<\EOF > mm-test12.in2
 #. this is the first
 #: snark.c:345
 msgid "1"
@@ -36,11 +36,11 @@ msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} --add-location=file -q -o mm-test25.tmp mm-test25.in1 mm-test25.in2 \
+${MSGMERGE} --add-location=file -q -o mm-test12.tmp mm-test12.in1 mm-test12.in2 \
     || Exit 1
-LC_ALL=C tr -d '\r' < mm-test25.tmp > mm-test25.out || Exit 1
+LC_ALL=C tr -d '\r' < mm-test12.tmp > mm-test12.out || Exit 1
 
-cat << EOF > mm-test25.ok
+cat << EOF > mm-test12.ok
 # first
 #. this is the first
 #: snark.c
@@ -63,7 +63,7 @@ msgstr "3z"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test25.ok mm-test25.out
+${DIFF} mm-test12.ok mm-test12.out
 result=$?
 
 exit $result

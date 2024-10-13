@@ -3,7 +3,7 @@
 
 # Test msgmerge and msgcmp on a PO file with contexts.
 
-cat <<\EOF > mm-test18.po
+cat <<\EOF > mm-test9.po
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -48,7 +48,7 @@ msgid "copier"
 msgstr "photocopieur"
 EOF
 
-cat <<\EOF > mm-test18.pot
+cat <<\EOF > mm-test9.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -113,16 +113,16 @@ msgstr ""
 EOF
 
 : ${MSGCMP=msgcmp}
-${MSGCMP} --use-fuzzy --use-untranslated mm-test18.po mm-test18.pot 2>/dev/null
+${MSGCMP} --use-fuzzy --use-untranslated mm-test9.po mm-test9.pot 2>/dev/null
 test $? = 1 || { Exit 1; }
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test18.tmp.po mm-test18.po mm-test18.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test18.tmp.po > mm-test18.new.po || Exit 1
+${MSGMERGE} -q -o mm-test9.tmp.po mm-test9.po mm-test9.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-test9.tmp.po > mm-test9.new.po || Exit 1
 
 # Note that the fuzzy guess for "Open" in context "Door state" could be either
 # "Ouvrir" (from context "File|") or "Ouvert" (from context "Lock state").
-cat <<\EOF > mm-test18.ok
+cat <<\EOF > mm-test9.ok
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
@@ -186,9 +186,9 @@ msgstr "photocopieur"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test18.ok mm-test18.new.po || Exit 1
+${DIFF} mm-test9.ok mm-test9.new.po || Exit 1
 
 : ${MSGCMP=msgcmp}
-${MSGCMP} --use-fuzzy --use-untranslated mm-test18.new.po mm-test18.pot || Exit 1
+${MSGCMP} --use-fuzzy --use-untranslated mm-test9.new.po mm-test9.pot || Exit 1
 
 Exit 0

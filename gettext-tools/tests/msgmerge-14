@@ -4,7 +4,7 @@
 # Test that the msgmerge output is stable under an 'msgcat' invocation.
 # Also test what happens with the 'no-wrap' flag during msgmerge.
 
-cat <<\EOF > mm-test27.po
+cat <<\EOF > mm-test14.po
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgid "This is another long paragraph that does not get wrapped into several lin
 msgstr "Dies ist ein weiterer langer Abschnitt, der nicht in mehrere Zeilen umgebrochen wird, weil er als 'no-wrap' markiert ist."
 EOF
 
-cat <<\EOF > mm-test27-1.pot
+cat <<\EOF > mm-test14-1.pot
 #, fuzzy
 msgid ""
 msgstr ""
@@ -47,17 +47,17 @@ msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test27.tmp.po mm-test27.po mm-test27-1.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test27.tmp.po > mm-test27.new.po || Exit 1
+${MSGMERGE} -q -o mm-test14.tmp.po mm-test14.po mm-test14-1.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-test14.tmp.po > mm-test14.new.po || Exit 1
 
 : ${MSGCAT=msgcat}
-${MSGCAT} mm-test27.new.po > mm-test27.tmp.po || Exit 1
-LC_ALL=C tr -d '\r' < mm-test27.tmp.po > mm-test27.cat.po || Exit 1
+${MSGCAT} mm-test14.new.po > mm-test14.tmp.po || Exit 1
+LC_ALL=C tr -d '\r' < mm-test14.tmp.po > mm-test14.cat.po || Exit 1
 
 : ${DIFF=diff}
-${DIFF} mm-test27.new.po mm-test27.cat.po || Exit 1
+${DIFF} mm-test14.new.po mm-test14.cat.po || Exit 1
 
-cat <<\EOF > mm-test27-1.ok
+cat <<\EOF > mm-test14-1.ok
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
@@ -88,12 +88,12 @@ msgstr "Dies ist ein langer Abschnitt, der nicht in mehrere Zeilen umgebrochen w
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test27-1.ok mm-test27.new.po || Exit 1
+${DIFF} mm-test14-1.ok mm-test14.new.po || Exit 1
 
 # Now test what happens with the 'no-wrap' flag when merging with a POT file
 # where the 'no-wrap' flag is set.
 
-cat <<\EOF > mm-test27-2.pot
+cat <<\EOF > mm-test14-2.pot
 #, fuzzy
 msgid ""
 msgstr ""
@@ -124,10 +124,10 @@ msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test27.tmp.po mm-test27.new.po mm-test27-2.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test27.tmp.po > mm-test27-2.po || Exit 1
+${MSGMERGE} -q -o mm-test14.tmp.po mm-test14.new.po mm-test14-2.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-test14.tmp.po > mm-test14-2.po || Exit 1
 
-cat <<\EOF > mm-test27-2.ok
+cat <<\EOF > mm-test14-2.ok
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
@@ -152,12 +152,12 @@ msgstr "Dies ist ein weiterer langer Abschnitt, der nicht in mehrere Zeilen umge
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test27-2.ok mm-test27-2.po || Exit 1
+${DIFF} mm-test14-2.ok mm-test14-2.po || Exit 1
 
 # Now test what happens with the 'no-wrap' flag when merging with a POT file
 # where the 'no-wrap' flag is absent.
 
-cat <<\EOF > mm-test27-3.pot
+cat <<\EOF > mm-test14-3.pot
 #, fuzzy
 msgid ""
 msgstr ""
@@ -184,10 +184,10 @@ msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test27.tmp.po mm-test27.new.po mm-test27-3.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test27.tmp.po > mm-test27-3.po || Exit 1
+${MSGMERGE} -q -o mm-test14.tmp.po mm-test14.new.po mm-test14-3.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-test14.tmp.po > mm-test14-3.po || Exit 1
 
-cat <<\EOF > mm-test27-3.ok
+cat <<\EOF > mm-test14-3.ok
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
@@ -224,6 +224,6 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test27-3.ok mm-test27-3.po || Exit 1
+${DIFF} mm-test14-3.ok mm-test14-3.po || Exit 1
 
 Exit 0
