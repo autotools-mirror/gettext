@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <!--
   Copyright (C) 2010-2018 Shaun McCance
+  Copyright (C) 2024 Free Software Foundation, Inc.
   This file was written by Shaun McCance <shaunm@gnome.org>, 2010-2018.
 
   This program is free software: you can redistribute it and/or modify
@@ -19,6 +20,7 @@
 <its:rules
     xmlns:its="http://www.w3.org/2005/11/its"
     xmlns:itst="http://itstool.org/extensions/"
+    xmlns:gt="https://www.gnu.org/s/gettext/ns/its/extensions/1.0"
     version="2.0">
 
   <itst:match selector="/book"/>
@@ -230,4 +232,5 @@
 
   <!-- Some hacks -->
   <its:translateRule translate="no" selector="//releaseinfo[@role = 'CVS' and normalize-space(.) = '$Id$']"/>
+  <gt:escapeRule selector="//*" escape="no" unescape-if="xml"/>
 </its:rules>

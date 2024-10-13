@@ -282,6 +282,7 @@ if ! $skip_gnulib; then
     xstriconv
     xstriconveh
     xstring-buffer
+    xstring-desc
     xvasprintf
   '
   # Common dependencies of GNULIB_MODULES_TOOLS_FOR_SRC and GNULIB_MODULES_TOOLS_FOR_LIBGREP.

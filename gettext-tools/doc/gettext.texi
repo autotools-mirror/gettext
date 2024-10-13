@@ -10812,13 +10812,35 @@ that selects the nodes to which this rule applies.
 
 @item
 A required @code{escape} attribute with the value @code{yes} or @code{no}.
+
+@item
+An optional @code{unescape-if} attribute with the value
+@code{xml}, @code{xhtml}, @code{html}, or @code{no}.
 @end itemize
 
 @noindent
-The default value, @code{no}, should be good for most XML file types.
+The default values, @code{escape="no"} and @code{unescape-if="no"},
+should be good for most XML file types.
 A rule with @code{escape="no"},
 that was necessary with GNU gettext versions before 0.23,
 is now redundant.
+
+The @code{unescape-if} attribute is useful for XML file types
+which present messages with embedded XML elements to the translator.
+Such file types are for example DocBook or XHTML.
+If @code{unescape-if="xml"} is specified and the translation
+of a message looks like valid XML, the usual escaping of @code{<},
+@code{>}, and character references is omitted.
+The resulting XML document then is likely what the translator intended.
+However, if the translator did not merely copy the XML markup from the
+message to the translation, but added or removed markup,
+the resulting XML document may be invalid.
+It is therefore useful if, after invoking @code{msgfmt}, you check
+the resulting XML document against the appropriate XML schema or DTD.
+
+Similarly, if @code{unescape-if="xhtml"} is specified and the translation
+looks like valid XHTML, the usual escaping is omitted.
+And likewise for @code{unescape-if="html"}.
 
 @end table
 

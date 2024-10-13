@@ -16,6 +16,7 @@ Version 0.23 - October 2024
       to W3C standards.
     o 'msgfmt --xml' accept an option --replace-text, that causes the output
       to be a mono-lingual XML file instead of a multi-lingual XML file.
+    o xgettext and 'msgfmt --xml' now supports DocBook XML files.
   - Python:
     o xgettext now assumes source code for Python 3 rather than Python 2.
       This affects the interpretation of escape sequences in string literals.

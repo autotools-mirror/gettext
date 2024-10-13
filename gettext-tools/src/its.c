@@ -41,10 +41,16 @@
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "string-buffer.h"
+#include "xstring-desc.h"
+#include "c-ctype.h"
+#include "unistr.h"
 #include "bcp47.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
+
+#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
 
 /* The Internationalization Tag Set (ITS) 2.0 standard is available at:
    https://www.w3.org/TR/its20/
@@ -1299,6 +1305,13 @@ its_extension_escape_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
   prop = _its_get_attribute (node, "escape", NULL);
   its_value_list_append (&rule->values, "escape", prop);
   free (prop);
+
+  if (xmlHasProp (node, BAD_CAST "unescape-if"))
+    {
+      prop = _its_get_attribute (node, "unescape-if", NULL);
+      its_value_list_append (&rule->values, "unescape-if", prop);
+      free (prop);
+    }
 }
 
 static struct its_value_list_ty *
@@ -1309,7 +1322,7 @@ its_extension_escape_rule_eval (struct its_rule_ty *rule,
   /* Evaluation rules:
      - Local usage: Yes
      - Global, rule-based selection: Yes
-     - Default values: escape="no" (handled in the caller)
+     - Default values: escape="no" unescape-if="no" (handled in the caller)
      - Inheritance for element nodes: Textual content of element,
        including content of child elements, but excluding attributes.  */
   struct its_value_list_ty *result;
@@ -1337,21 +1350,48 @@ its_extension_escape_rule_eval (struct its_rule_ty *rule,
         const char *value;
 
         /* A local attribute overrides the global rule.  */
-        if (xmlHasNsProp (node, BAD_CAST "escape", BAD_CAST GT_NS))
+        if (xmlHasNsProp (node, BAD_CAST "escape", BAD_CAST GT_NS)
+            || xmlHasNsProp (node, BAD_CAST "unescape-if", BAD_CAST GT_NS))
           {
-            char *prop;
-
-            prop = _its_get_attribute (node, "escape", GT_NS);
-            if (strcmp (prop, "yes") == 0 || strcmp (prop, "no") == 0)
+            if (xmlHasNsProp (node, BAD_CAST "escape", BAD_CAST GT_NS))
               {
-                its_value_list_append (result, "escape", prop);
+                char *prop = _its_get_attribute (node, "escape", GT_NS);
+                if (strcmp (prop, "yes") == 0 || strcmp (prop, "no") == 0)
+                  {
+                    its_value_list_append (result, "escape", prop);
+                    if (strcmp (prop, "no") != 0)
+                      {
+                        free (prop);
+                        return result;
+                      }
+                  }
                 free (prop);
-                return result;
               }
-            free (prop);
+
+            if (xmlHasNsProp (node, BAD_CAST "unescape-if", BAD_CAST GT_NS))
+              {
+                char *prop = _its_get_attribute (node, "unescape-if", GT_NS);
+                if (strcmp (prop, "xml") == 0
+                    || strcmp (prop, "xhtml") == 0
+                    || strcmp (prop, "html") == 0
+                    || strcmp (prop, "no") == 0)
+                  {
+                    its_value_list_append (result, "unescape-if", prop);
+                    if (strcmp (prop, "no") != 0)
+                      {
+                        free (prop);
+                        return result;
+                      }
+                  }
+                free (prop);
+              }
           }
 
         /* Check value for the current node.  */
+        value = its_pool_get_value_for_node (pool, node, "unescape-if");
+        if (value != NULL)
+          its_value_list_set_value (result, "unescape-if", value);
+
         value = its_pool_get_value_for_node (pool, node, "escape");
         if (value != NULL)
           {
@@ -2071,9 +2111,11 @@ _its_copy_node_with_attributes (xmlNode *node)
   return copy;
 }
 
-/* Returns true if S starts with a character reference.  */
+/* Returns true if S starts with a character reference.
+   If so, and if UCS_P is non-NULL, it returns the Unicode code point
+   in *UCS_P.  */
 static bool
-starts_with_character_reference (const char *s)
+starts_with_character_reference (const char *s, unsigned int *ucs_p)
 {
   /* <https://www.w3.org/TR/xml/#NT-CharRef> defines
      CharRef ::= '&#' [0-9]+ ';' | '&#x' [0-9a-fA-F]+ ';'  */
@@ -2085,10 +2127,26 @@ starts_with_character_reference (const char *s)
           s++;
           if (*s >= '0' && *s <= '9')
             {
+              bool overflow = false;
+              unsigned int value = 0;
               do
-                s++;
+                {
+                  value = 10 * value + (*s - '0');
+                  if (value >= 0x110000)
+                    overflow = true;
+                  s++;
+                }
               while (*s >= '0' && *s <= '9');
-              return *s == ';';
+              if (*s == ';')
+                {
+                  if (ucs_p != NULL)
+                    *ucs_p = (overflow || (value >= 0xD800 && value <= 0xDFFF)
+                              ? 0xFFFD
+                              : value);
+                  return true;
+                }
+              else
+                return false;
             }
           if (*s == 'x')
             {
@@ -2097,12 +2155,32 @@ starts_with_character_reference (const char *s)
                   || (*s >= 'A' && *s <= 'F')
                   || (*s >= 'a' && *s <= 'f'))
                 {
+                  bool overflow = false;
+                  unsigned int value = 0;
                   do
-                    s++;
+                    {
+                      value = 16 * value
+                              + (*s >= '0' && *s <= '9' ? *s - '0' :
+                                 *s >= 'A' && *s <= 'F' ? *s - 'A' + 10 :
+                                 *s >= 'a' && *s <= 'f' ? *s - 'a' + 10 :
+                                 0);
+                      if (value >= 0x110000)
+                        overflow = true;
+                      s++;
+                    }
                   while ((*s >= '0' && *s <= '9')
                          || (*s >= 'A' && *s <= 'F')
                          || (*s >= 'a' && *s <= 'f'));
-                  return *s == ';';
+                  if (*s == ';')
+                    {
+                      if (ucs_p != NULL)
+                        *ucs_p = (overflow || (value >= 0xD800 && value <= 0xDFFF)
+                                  ? 0xFFFD
+                                  : value);
+                      return true;
+                    }
+                  else
+                    return false;
                 }
             }
         }
@@ -2119,7 +2197,7 @@ _its_encode_special_chars_for_merge (const char *content)
 
   for (str = content; *str != '\0'; str++)
     {
-      if (*str == '&' && starts_with_character_reference (str))
+      if (*str == '&' && starts_with_character_reference (str, NULL))
         amount += sizeof ("&amp;");
       else if (*str == '<')
         amount += sizeof ("&lt;");
@@ -2134,7 +2212,7 @@ _its_encode_special_chars_for_merge (const char *content)
   p = result;
   for (str = content; *str != '\0'; str++)
     {
-      if (*str == '&' && starts_with_character_reference (str))
+      if (*str == '&' && starts_with_character_reference (str, NULL))
         p = stpcpy (p, "&amp;");
       else if (*str == '<')
         p = stpcpy (p, "&lt;");
@@ -2145,6 +2223,610 @@ _its_encode_special_chars_for_merge (const char *content)
     }
   *p = '\0';
   return result;
+}
+
+/* Attempts to set the document's encoding to UTF-8.
+   Returns true if successful, or false if it failed.  */
+static bool
+set_doc_encoding_utf8 (xmlDoc *doc)
+{
+  if (doc->encoding == NULL)
+    {
+      doc->encoding = BAD_CAST xstrdup ("UTF-8");
+      return true;
+    }
+  string_desc_t enc = string_desc_from_c ((char *) doc->encoding);
+  if (string_desc_c_casecmp (enc, string_desc_from_c ("UTF-8")) == 0
+      || string_desc_c_casecmp (enc, string_desc_from_c ("UTF8")) == 0)
+    return true;
+  /* The document's encoding is not UTF-8.  Conversion would be expensive.  */
+  return false;
+}
+
+/* Parses CONTENTS as a piece of simple well-formed generalized XML
+   ("simple" meaning without comments, CDATA, and other gobbledygook),
+   with markup being limited to ASCII tags only.
+   IGNORE_CASE means to ignore the case of tags (like in HTML).
+   VALID_ELEMENT is a test whether to accept a given element name,
+   or NULL to accept any element name.
+   NO_END_ELEMENT is a test whether a given element name is one that is an
+   empty element without needing an end tag (like e.g. <br> in HTML), or NULL
+   for none.
+   ADD_TO_NODE is the node (of type XML_ELEMENT_NODE) to which to add the
+   contents in form of XML_TEXT_NODE and XML_ELEMENT_NODE nodes, or NULL
+   for parsing without constructing the tree.
+   Returns true if the parsing succeeded.
+   Returns false with partially allocated children nodes (under ADD_TO_NODE,
+   to be freed by the caller) if the parsing failed.  */
+static bool
+_its_is_valid_simple_gen_xml (const char *contents,
+                              bool ignore_case,
+                              bool (*valid_element) (string_desc_t tag),
+                              bool (*no_end_element) (string_desc_t tag),
+                              xmlNode *add_to_node)
+{
+  /* Specification:
+     https://www.w3.org/TR/xml/  */
+
+  xmlNode *parent_node = add_to_node;
+
+  /* Stack of open elements.  */
+  string_desc_t open_elements[100];
+  size_t open_elements_count = 0;
+  const size_t open_elements_max = SIZEOF (open_elements);
+
+  const char *p = contents;
+  const char *curr_text_segment_start = p;
+
+  for (;;)
+    {
+      char c;
+
+      c = *p;
+      if (c == '\0')
+        {
+          if (open_elements_count > 0)
+            return false;
+          break;
+        }
+      if (c == '<')
+        {
+          if (add_to_node != NULL && curr_text_segment_start < p)
+            {
+              xmlNode *text_node = xmlNewDocTextLen (add_to_node->doc, NULL, 0);
+              xmlNodeSetContentLen (text_node,
+                                    BAD_CAST curr_text_segment_start,
+                                    p - curr_text_segment_start);
+              xmlAddChild (parent_node, text_node);
+            }
+
+          bool slash_before_tag = false;
+          bool slash_after_tag = false;
+
+          c = *++p;
+          if (c == '\0')
+            return false;
+          if (c == '/')
+            {
+              slash_before_tag = true;
+              c = *++p;
+              if (c == '\0')
+                return false;
+            }
+          /* Parse a name.
+             <https://www.w3.org/TR/xml/#NT-Name>  */
+          if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+                || c == '_' || c == ':'))
+            return false;
+          const char *name_start = p;
+          do
+            {
+              c = *++p;
+              if (c == '\0')
+                return false;
+            }
+          while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+                 || c == '_' || c == ':'
+                 || (c >= '0' && c <= '9') || c == '-' || c == '.');
+          const char *name_end = p;
+          xmlNode *current_node = NULL;
+          if (add_to_node != NULL && !slash_before_tag)
+            {
+              string_desc_t name =
+                string_desc_new_addr (name_end - name_start,
+                                      (char *) name_start);
+              char *name_c = xstring_desc_c (name);
+              if (ignore_case)
+                {
+                  /* Convert the name to lower case.  */
+                  char *np;
+                  for (np = name_c; *np != '\0'; np++)
+                    *np = c_tolower (*np);
+                }
+              current_node =
+                xmlNewDocNodeEatName (add_to_node->doc, NULL, BAD_CAST name_c,
+                                      NULL);
+              xmlAddChild (parent_node, current_node);
+            }
+          /* Skip over whitespace.
+             <https://www.w3.org/TR/xml/#sec-common-syn>  */
+          while (c == ' ' || c == '\t' || c == '\n' || c == '\r')
+            {
+              c = *++p;
+              if (c == '\0')
+                return false;
+            }
+          if (!slash_before_tag)
+            {
+              /* Parse a sequence of attributes.
+                 <https://www.w3.org/TR/xml/#NT-Attribute>  */
+              for (;;)
+                {
+                  if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+                        || c == '_' || c == ':'))
+                    break;
+                  const char *attr_name_start = p;
+                  do
+                    {
+                      c = *++p;
+                      if (c == '\0')
+                        return false;
+                    }
+                  while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
+                         || c == '_' || c == ':'
+                         || (c >= '0' && c <= '9') || c == '-' || c == '.');
+                  const char *attr_name_end = p;
+                  /* Skip over whitespace before '='.  */
+                  while (c == ' ' || c == '\t' || c == '\n' || c == '\r')
+                    {
+                      c = *++p;
+                      if (c == '\0')
+                        return false;
+                    }
+                  /* Expect '='.  */
+                  if (c != '=')
+                    return false;
+                  /* Skip over whitespace after '='.  */
+                  do
+                    {
+                      c = *++p;
+                      if (c == '\0')
+                        return false;
+                    }
+                  while (c == ' ' || c == '\t' || c == '\n' || c == '\r');
+                  /* Skip over an attribute value.  */
+                  const char *attr_value_start = NULL;
+                  const char *attr_value_end = NULL;
+                  if (c == '"')
+                    {
+                      attr_value_start = p + 1;
+                      do
+                        {
+                          c = *++p;
+                          if (c == '\0')
+                            return false;
+                        }
+                      while (c != '"');
+                      attr_value_end = p;
+                    }
+                  else if (c == '\'')
+                    {
+                      attr_value_start = p + 1;
+                      do
+                        {
+                          c = *++p;
+                          if (c == '\0')
+                            return false;
+                        }
+                      while (c != '\'');
+                      attr_value_end = p;
+                    }
+                  else
+                    return false;
+                  if (add_to_node != NULL)
+                    {
+                      string_desc_t attr_name =
+                        string_desc_new_addr (attr_name_end - attr_name_start,
+                                              (char *) attr_name_start);
+                      string_desc_t attr_value =
+                        string_desc_new_addr (attr_value_end - attr_value_start,
+                                              (char *) attr_value_start);
+                      char *attr_name_c = xstring_desc_c (attr_name);
+                      char *attr_value_c = xstring_desc_c (attr_value);
+                      xmlAttr *attr =
+                        xmlNewProp (current_node, BAD_CAST attr_name_c,
+                                    BAD_CAST attr_value_c);
+                      if (attr == NULL)
+                        xalloc_die ();
+                      free (attr_value_c);
+                      free (attr_name_c);
+                    }
+                  /* Skip over whitespace after the attribute value.  */
+                  c = *++p;
+                  if (c == '\0')
+                    return false;
+                  if (!(c == ' ' || c == '\t' || c == '\n' || c == '\r'))
+                    break;
+                  do
+                    {
+                      c = *++p;
+                      if (c == '\0')
+                        return false;
+                    }
+                  while (c == ' ' || c == '\t' || c == '\n' || c == '\r');
+                }
+              if (c == '/')
+                {
+                  slash_after_tag = true;
+                  c = *++p;
+                  if (c == '\0')
+                    return false;
+                }
+            }
+          if (c != '>')
+            return false;
+          /* Seen a complete <...> element start/end.  */
+          /* Verify that the tag is allowed.  */
+          string_desc_t tag =
+            string_desc_new_addr (name_end - name_start, (char *) name_start);
+          if (!(valid_element == NULL || valid_element (tag)))
+            return false;
+          if (slash_after_tag || (no_end_element != NULL && no_end_element (tag)))
+            {
+              /* Seen an empty element.  */
+            }
+          else if (!slash_before_tag)
+            {
+              /* Seen the start of an element.  */
+              if (open_elements_count == open_elements_max)
+                /* Nesting depth too high.  */
+                return false;
+              open_elements[open_elements_count++] = tag;
+              if (add_to_node != NULL)
+                parent_node = current_node;
+            }
+          else
+            {
+              /* Seen the end of an element.
+                 Verify that the tag matches the one of the start.  */
+              if (open_elements_count == 0)
+                /* The end of an element without a corresponding start.  */
+                return false;
+              if ((ignore_case ? string_desc_c_casecmp : string_desc_cmp)
+                  (open_elements[open_elements_count - 1], tag)
+                  != 0)
+                return false;
+              open_elements_count--;
+              if (add_to_node != NULL)
+                parent_node = parent_node->parent;
+            }
+          curr_text_segment_start = p + 1;
+        }
+      else if (c == '>')
+        {
+          /* Stray '>'.
+             We could allow it, but better not.  */
+          return false;
+        }
+      else if (c == '&')
+        {
+          /* Allow a character reference as a whole.
+             Also allow a single '&', as it does not much harm.  */
+          unsigned int ucs;
+          if (starts_with_character_reference (p, &ucs))
+            {
+              const char *semicolon = strchr (p, ';');
+              if (add_to_node != NULL)
+                {
+                  if (curr_text_segment_start < p)
+                    {
+                      xmlNode *text_node =
+                        xmlNewDocTextLen (add_to_node->doc, NULL, 0);
+                      xmlNodeSetContentLen (text_node,
+                                            BAD_CAST curr_text_segment_start,
+                                            p - curr_text_segment_start);
+                      xmlAddChild (parent_node, text_node);
+                    }
+                  xmlNode *text_node =
+                    xmlNewDocTextLen (add_to_node->doc, NULL, 0);
+                  if (set_doc_encoding_utf8 (add_to_node->doc))
+                    {
+                      uint8_t buf[6];
+                      int nbytes = u8_uctomb (buf, ucs, SIZEOF (buf));
+                      if (nbytes <= 0)
+                        abort ();
+                      xmlNodeSetContentLen (text_node, BAD_CAST buf, nbytes);
+                    }
+                  else
+                    xmlNodeSetContentLen (text_node, BAD_CAST p,
+                                          semicolon + 1 - p);
+                  /* Here it is useful that xmlAddChild merges adjacent text
+                     nodes.  */
+                  xmlAddChild (parent_node, text_node);
+                }
+              curr_text_segment_start = semicolon + 1;
+              p = semicolon;
+            }
+        }
+      p++;
+    }
+
+  if (add_to_node != NULL && curr_text_segment_start < p)
+    {
+      xmlNode *text_node = xmlNewDocTextLen (add_to_node->doc, NULL, 0);
+      xmlNodeSetContentLen (text_node,
+                            BAD_CAST curr_text_segment_start,
+                            p - curr_text_segment_start);
+      xmlAddChild (parent_node, text_node);
+    }
+  return true;
+}
+
+/* Returns true if CONTENTS is a piece of simple well-formed XML
+   ("simple" meaning without comments, CDATA, and other gobbledygook),
+   with markup being limited to ASCII tags only.  */
+static bool
+_its_is_valid_simple_xml (const char *contents)
+{
+  return _its_is_valid_simple_gen_xml (contents, false, NULL, NULL, NULL);
+}
+
+static bool
+is_valid_xhtml_element (string_desc_t tag)
+{
+  /* Specification:
+     https://www.w3.org/TR/xhtml1/
+     https://www.w3.org/TR/xhtml1/dtds.html  */
+  /* Sorted list of allowed tags.  */
+  static const char allowed[41][12] =
+    {
+      "a", /* anchor */
+      "abbr", /* abbreviation */
+      "acronym", /* acronym */
+      "address", /* address */
+      "b", /* bold font style */
+      "bdo", /* bidi override */
+      "big", /* bigger font */
+      "blockquote", /* block-like quote */
+      "br", /* forced line break */
+      "cite", /* citation */
+      "code", /* program code */
+      "dd", /* definition list item */
+      "del", /* deleted text */
+      "dfn", /* definitional */
+      "dl", /* definition list */
+      "dt", /* definition list item */
+      "em", /* emphasis */
+      "h1", /* heading */
+      "h2", /* heading */
+      "h3", /* heading */
+      "h4", /* heading */
+      "h5", /* heading */
+      "h6", /* heading */
+      "hr", /* horizontal rule */
+      "i", /* italic font style */
+      "ins", /* inserted text */
+      "kbd", /* user typed */
+      "li", /* list item */
+      "ol", /* list */
+      "p", /* paragraph */
+      "pre", /* preformatted text */
+      "q", /* inlined quote */
+      "samp", /* sample */
+      "small", /* smaller font */
+      "span", /* generic container */
+      "strong", /* strong emphasis */
+      "sub", /* subscript */
+      "sup", /* superscript */
+      "tt", /* fixed-width font */
+      "ul", /* list */
+      "var" /* variable */
+#if 0 /* I don't think it is appropriate for a translator to use these.  */
+      "div", /* generic container */
+      "script", /* only used in head */
+      "object", /* embedded object */
+      "param", /* parameter for object */
+      "img", /* image */
+      "map", /* image map */
+      "area", /* image map */
+      "form", /* form */
+      "label", /* form element */
+      "input", /* form control */
+      "select", /* form control */
+      "optgroup", /* form element */
+      "option", /* form element */
+      "textarea", /* user input */
+      "fieldset", /* form element */
+      "legend", /* form element */
+      "button", /* form element */
+      "table", /* table */
+      "caption", /* table */
+      "thead", /* table */
+      "tfoot", /* table */
+      "tbody", /* table */
+      "colgroup", /* table */
+      "col", /* table */
+      "tr", /* table */
+      "th", /* table */
+      "td", /* table */
+#endif
+    };
+  /* Use binary search.  */
+  size_t lo = 0;
+  size_t hi = SIZEOF (allowed);
+  while (lo < hi)
+    {
+      /* Invariant:
+         If tag occurs in the table, it is at an index >= lo, < hi.  */
+      size_t i = (lo + hi) / 2; /* >= lo, < hi */
+      int cmp = string_desc_cmp (tag, string_desc_from_c (allowed[i]));
+      if (cmp == 0)
+        return true;
+      if (cmp < 0)
+        hi = i;
+      else
+        lo = i + 1;
+    }
+  return false;
+}
+
+/* Returns true if the argument is a piece of simple well-formed XHTML
+   ("simple" meaning without comments, CDATA, and other gobbledygook),
+   with markup being limited to ASCII tags only.  */
+static bool
+_its_is_valid_simple_xhtml (const char *contents)
+{
+  return _its_is_valid_simple_gen_xml (contents, false,
+                                       is_valid_xhtml_element, NULL, NULL);
+}
+
+static bool
+is_valid_html_element (string_desc_t tag)
+{
+  /* Specification:
+     https://html.spec.whatwg.org/
+     sections
+     4.3 Sections
+     4.4 Grouping content
+     4.5 Text-level semantics
+     4.6 Links
+     4.7 Edits
+     I don't think it is appropriate for a translator to use elements from
+     the other sections of chapter 4.  */
+  /* Sorted list of allowed tags.  */
+  static const char allowed[52][12] =
+    {
+      "a", /* anchor */
+      "abbr", /* abbreviation */
+      "acronym", /* acronym (removed in HTML 5) */
+      "address", /* address */
+      "b", /* bold font style */
+      "bdi", /* bidi isolation */
+      "bdo", /* bidi override */
+      "big", /* bigger font (removed in HTML 5) */
+      "blockquote", /* block-like quote */
+      "br", /* forced line break */
+      "cite", /* citation */
+      "code", /* program code */
+      "dd", /* definition list item */
+      "del", /* deleted text */
+      "dfn", /* definitional */
+      "dl", /* definition list */
+      "dt", /* definition list item */
+      "em", /* emphasis */
+      "figcaption",
+      "figure",
+      "h1", /* heading */
+      "h2", /* heading */
+      "h3", /* heading */
+      "h4", /* heading */
+      "h5", /* heading */
+      "h6", /* heading */
+      "hr", /* horizontal rule */
+      "i", /* italic font style */
+      "ins", /* inserted text */
+      "kbd", /* user typed */
+      "li", /* list item */
+      "mark", /* marked */
+      "menu", /* toolbar */
+      "ol", /* list */
+      "p", /* paragraph */
+      "pre", /* preformatted text */
+      "q", /* inlined quote */
+      "rp", /* ruby */
+      "rt", /* ruby */
+      "ruby", /* ruby annotations */
+      "s", /* strikethrough */
+      "samp", /* sample */
+      "small", /* smaller font */
+      "span", /* generic container */
+      "strong", /* strong emphasis */
+      "sub", /* subscript */
+      "sup", /* superscript */
+      "tt", /* fixed-width font (removed in HTML 5) */
+      "u", /* unarticulated */
+      "ul", /* list */
+      "var", /* variable */
+      "wbr" /* possible line break */
+    };
+  /* Use binary search.  */
+  size_t lo = 0;
+  size_t hi = SIZEOF (allowed);
+  while (lo < hi)
+    {
+      /* Invariant:
+         If tag occurs in the table, it is at an index >= lo, < hi.  */
+      size_t i = (lo + hi) / 2; /* >= lo, < hi */
+      int cmp = string_desc_cmp (tag, string_desc_from_c (allowed[i]));
+      if (cmp == 0)
+        return true;
+      if (cmp < 0)
+        hi = i;
+      else
+        lo = i + 1;
+    }
+  return false;
+}
+
+static bool
+is_no_end_html_element (string_desc_t tag)
+{
+  /* Specification:
+     https://html.spec.whatwg.org/
+     Search for "Tag omission in text/html: No end tag."  */
+  return string_desc_cmp (tag, string_desc_from_c ("br")) == 0
+         || string_desc_cmp (tag, string_desc_from_c ("hr")) == 0;
+}
+
+/* Returns true if the argument is a piece of simple well-formed HTML
+   ("simple" meaning without comments, CDATA, and other gobbledygook),
+   with markup being limited to ASCII tags only.  */
+static bool
+_its_is_valid_simple_html (const char *contents)
+{
+  /* Specification:
+     https://html.spec.whatwg.org/  */
+  return _its_is_valid_simple_gen_xml (contents, true,
+                                       is_valid_html_element,
+                                       is_no_end_html_element,
+                                       NULL);
+}
+
+static bool
+_its_set_simple_xml_content (xmlNode *node, const char *contents)
+{
+  /* This works fine for "xml" and "xhtml", but not for "html", due to
+     elements with no end, such as <br>.  xmlParseInNodeContext returns error
+     XML_ERR_NOT_WELL_BALANCED in this situation.  */
+  xmlNode *newChildNodes = NULL;
+  xmlParserErrors errors =
+    xmlParseInNodeContext (node, contents, strlen (contents),
+                           XML_PARSE_NONET | XML_PARSE_NOWARNING
+                           | XML_PARSE_NOBLANKS | XML_PARSE_NOERROR,
+                           &newChildNodes);
+  if (errors == XML_ERR_OK)
+    {
+      if (newChildNodes != NULL)
+        xmlAddChildList (node, newChildNodes);
+      return true;
+    }
+  else
+    return false;
+}
+
+static bool
+_its_set_simple_html_content (xmlNode *node, const char *contents)
+{
+  if (_its_is_valid_simple_gen_xml (contents, true,
+                                    is_valid_html_element,
+                                    is_no_end_html_element,
+                                    node))
+    return true;
+  else
+    {
+      xmlNodeSetContent (node, NULL);
+      return false;
+    }
 }
 
 static void
@@ -2162,6 +2844,7 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
       bool do_escape;
       bool do_escape_during_extract;
       bool do_escape_during_merge;
+      const char *do_unescape_if;
       enum its_whitespace_type_ty whitespace;
 
       values = its_rule_list_eval (context->rules, node);
@@ -2174,6 +2857,8 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
       do_escape_during_extract = false;
 
       do_escape_during_merge = do_escape;
+
+      do_unescape_if = its_value_list_get_value (values, "unescape-if");
 
       value = its_value_list_get_value (values, "space");
       if (value && strcmp (value, "preserve") == 0)
@@ -2196,8 +2881,6 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
         msgid = _its_get_content (context->rules, node, value,
                                   ITS_WHITESPACE_PRESERVE,
                                   do_escape_during_extract);
-      its_value_list_destroy (values);
-      free (values);
 
       if (msgid == NULL)
         msgid = _its_collect_text_content (node, whitespace,
@@ -2233,6 +2916,7 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
               xpg_to_bcp47 (language_bcp47, language);
               xmlSetProp (translated, BAD_CAST "xml:lang", BAD_CAST language_bcp47);
 
+              const char *msgstr = mp->msgstr;
               /* libxml2 offers two functions for setting the content of an
                  element: xmlNodeSetContent and xmlNodeAddContent.  They differ
                  in the amount of escaping they do:
@@ -2265,25 +2949,68 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
               if (do_escape_during_merge)
                 {
                   /* These three are equivalent:
-                     xmlNodeAddContent (translated, BAD_CAST mp->msgstr);
-                     xmlNodeSetContent (translated, xmlEncodeEntitiesReentrant (context->doc, BAD_CAST mp->msgstr));
-                     xmlNodeSetContent (translated, xmlEncodeSpecialChars (context->doc, BAD_CAST mp->msgstr));  */
-                  xmlNodeAddContent (translated, BAD_CAST mp->msgstr);
+                     xmlNodeAddContent (translated, BAD_CAST msgstr);
+                     xmlNodeSetContent (translated, xmlEncodeEntitiesReentrant (context->doc, BAD_CAST msgstr));
+                     xmlNodeSetContent (translated, xmlEncodeSpecialChars (context->doc, BAD_CAST msgstr));  */
+                  xmlNodeAddContent (translated, BAD_CAST msgstr);
                 }
               else
                 {
-                  char *middle_ground = _its_encode_special_chars_for_merge (mp->msgstr);
-                  xmlNodeSetContent (translated, BAD_CAST middle_ground);
-                  free (middle_ground);
+                  bool done_unescape = false;
+
+                  if (do_unescape_if != NULL
+                       && ((strcmp (do_unescape_if, "xml") == 0
+                           && _its_is_valid_simple_xml (msgstr))
+                          || (strcmp (do_unescape_if, "xhtml") == 0
+                              && _its_is_valid_simple_xhtml (msgstr))
+                          || (strcmp (do_unescape_if, "html") == 0
+                              && _its_is_valid_simple_html (msgstr))))
+                    {
+                      /* It looks like the translator has provided a syntactically
+                         valid XML or HTML markup.
+                         Note: This is only a simple test; we don't check the XML
+                         or XHTML schema or HTML DTD here.  Therefore in theory the
+                         result may be invalid.  But this should be rare, since
+                         translators most often only preserve the markup that was
+                         present in the msgid; if they do this, the result will be
+                         valid.  */
+                      if (strcmp (do_unescape_if, "xml") == 0
+                          || strcmp (do_unescape_if, "xhtml") == 0)
+                        {
+                          if (_its_set_simple_xml_content (translated, msgstr))
+                            done_unescape = true;
+                        }
+                      else
+                        {
+                          /* For "html", we create the children nodes ourselves,
+                             in order to deal with elements with no end, such as
+                             <br>.  For "xml" and "xhtml", on the other hand,
+                             this code would not work well, due to insufficient
+                             handling of namespaces.  */
+                          if (_its_set_simple_html_content (translated, msgstr))
+                            done_unescape = true;
+                        }
+                    }
+                  if (!done_unescape)
+                    {
+                      char *middle_ground = _its_encode_special_chars_for_merge (msgstr);
+                      xmlNodeSetContent (translated, BAD_CAST middle_ground);
+                      free (middle_ground);
+                    }
                 }
 
               if (!replace_text)
                 xmlAddNextSibling (node, translated);
             }
         }
-      free (msgctxt);
       free (msgid);
+      free (msgctxt);
+      its_value_list_destroy (values);
+      free (values);
     }
+  /* FIXME: If replace_text, we should handle nodes of type XML_ATTRIBUTE_NODE,
+     because at least the "translatable" and "escape" properties are applicable
+     to them.  */
 }
 
 void
