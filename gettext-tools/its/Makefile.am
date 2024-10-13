@@ -24,12 +24,14 @@ itsdir = $(pkgdatadir)$(PACKAGE_SUFFIX)/its
 ITS_FILES = \
   glade1.its glade2.its gtkbuilder.its \
   gsettings.its \
-  metainfo.its
+  metainfo.its \
+  docbook4.its docbook5.its
 
 LOC_FILES = \
   glade.loc \
   gsettings.loc \
-  metainfo.loc
+  metainfo.loc \
+  docbook.loc
 
 dist_its_DATA = $(ITS_FILES) $(LOC_FILES)
 
