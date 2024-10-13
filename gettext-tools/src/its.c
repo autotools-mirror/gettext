@@ -28,6 +28,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include <libxml/xmlerror.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
 #include <libxml/xmlwriter.h>
@@ -71,6 +72,15 @@
 
 
 /* =================== Common API for xgettext and msgfmt =================== */
+
+/* ----------------------------- Error handling ----------------------------- */
+
+static void
+structured_error (void *data, xmlError *err)
+{
+  error (0, err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0,
+         _("%s error: %s"), "libxml2", err->message);
+}
 
 /* --------------------------------- Values --------------------------------- */
 
@@ -1542,12 +1552,17 @@ its_rule_list_add_from_file (struct its_rule_list_ty *rules,
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
-      error (0, 0, _("cannot read %s: %s"), filename, err->message);
+      error (0, err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0,
+             _("cannot read %s: %s"), filename, err->message);
       return false;
     }
 
+  xmlSetStructuredErrorFunc (NULL, structured_error);
+
   result = its_rule_list_add_from_doc (rules, doc);
   xmlFreeDoc (doc);
+
+  xmlSetStructuredErrorFunc (NULL, NULL);
   return result;
 }
 
@@ -1568,12 +1583,17 @@ its_rule_list_add_from_string (struct its_rule_list_ty *rules,
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
-      error (0, 0, _("cannot read %s: %s"), "(internal)", err->message);
+      error (0, err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0,
+             _("cannot read %s: %s"), "(internal)", err->message);
       return false;
     }
 
+  xmlSetStructuredErrorFunc (NULL, structured_error);
+
   result = its_rule_list_add_from_doc (rules, doc);
   xmlFreeDoc (doc);
+
+  xmlSetStructuredErrorFunc (NULL, NULL);
   return result;
 }
 
@@ -1976,9 +1996,12 @@ its_rule_list_extract (its_rule_list_ty *rules,
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
-      error (0, 0, _("cannot read %s: %s"), logical_filename, err->message);
+      error (0, err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0,
+             _("cannot read %s: %s"), logical_filename, err->message);
       return;
     }
+
+  xmlSetStructuredErrorFunc (NULL, structured_error);
 
   its_rule_list_apply (rules, doc);
 
@@ -1995,6 +2018,8 @@ its_rule_list_extract (its_rule_list_ty *rules,
 
   free (nodes.items);
   xmlFreeDoc (doc);
+
+  xmlSetStructuredErrorFunc (NULL, NULL);
 }
 
 
@@ -2269,11 +2294,15 @@ its_merge_context_merge (its_merge_context_ty *context,
 {
   size_t i;
 
+  xmlSetStructuredErrorFunc (NULL, structured_error);
+
   for (i = 0; i < context->nodes.nitems; i++)
     its_merge_context_merge_node (context, context->nodes.items[i],
                                   language,
                                   mlp,
                                   replace_text);
+
+  xmlSetStructuredErrorFunc (NULL, NULL);
 }
 
 struct its_merge_context_ty *
@@ -2291,9 +2320,12 @@ its_merge_context_alloc (its_rule_list_ty *rules,
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
-      error (0, 0, _("cannot read %s: %s"), filename, err->message);
+      error (0, err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0,
+             _("cannot read %s: %s"), filename, err->message);
       return NULL;
     }
+
+  xmlSetStructuredErrorFunc (NULL, structured_error);
 
   its_rule_list_apply (rules, doc);
 
@@ -2307,6 +2339,7 @@ its_merge_context_alloc (its_rule_list_ty *rules,
                                &result->nodes,
                                xmlDocGetRootElement (result->doc));
 
+  xmlSetStructuredErrorFunc (NULL, NULL);
   return result;
 }
 
@@ -2314,7 +2347,11 @@ void
 its_merge_context_write (struct its_merge_context_ty *context,
                          FILE *fp)
 {
+  xmlSetStructuredErrorFunc (NULL, structured_error);
+
   xmlDocFormatDump (fp, context->doc, 1);
+
+  xmlSetStructuredErrorFunc (NULL, NULL);
 }
 
 void
