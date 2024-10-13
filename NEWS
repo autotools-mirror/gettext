@@ -59,6 +59,7 @@ Version 0.23 - October 2024
     o Heredoc and Nowdoc strings are now scanned correctly.
     o The format string directives %E, %F, %g, %G, %h, %H are now regarded as
       valid.
+  - Desktop: xgettext now produces POT files with correct line numbers.
 
 * Runtime behaviour:
   - In the C.UTF-8 locale, like in the C locale, the *gettext() functions

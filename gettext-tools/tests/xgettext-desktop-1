@@ -75,19 +75,19 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: xg.desktop:4
+#: xg.desktop:3
 msgid "Foo"
 msgstr ""
 
 #. This is a comment for comment
 #. This is a comment for comment
-#: xg.desktop:7
+#: xg.desktop:6
 msgid ""
 " This is a \n"
 "multiline\t comment; for testing"
 msgstr ""
 
-#: xg.desktop:12
+#: xg.desktop:11
 msgid "Keyword1;Keyword2;Key\\;word3;"
 msgstr ""
 EOF

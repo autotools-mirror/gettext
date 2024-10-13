@@ -195,6 +195,7 @@ struct token_ty
   char *string;
   const char *value;
   const char *locale;
+  size_t lineno;
 };
 
 /* Free the memory pointed to by a 'struct token_ty'.  */
@@ -231,6 +232,7 @@ desktop_lex (token_ty *tp)
         case '[':
           {
             bool non_blank = false;
+            size_t non_blank_lineno = 0;
 
             for (;;)
               {
@@ -240,7 +242,7 @@ desktop_lex (token_ty *tp)
                 if (c == '\n')
                   {
                     po_xerror (PO_SEVERITY_WARNING, NULL,
-                               real_file_name, pos.line_number, 0, false,
+                               real_file_name, pos.line_number - 1, 0, false,
                                _("unterminated group name"));
                     break;
                   }
@@ -257,11 +259,14 @@ desktop_lex (token_ty *tp)
                 if (c == EOF)
                   break;
                 if (!c_isspace (c))
-                  non_blank = true;
+                  {
+                    non_blank = true;
+                    non_blank_lineno = pos.line_number;
+                  }
               }
             if (non_blank)
               po_xerror (PO_SEVERITY_WARNING, NULL,
-                         real_file_name, pos.line_number, 0, false,
+                         real_file_name, non_blank_lineno, 0, false,
                          _("invalid non-blank character"));
             APPEND (0);
             tp->type = token_type_group;
@@ -348,6 +353,7 @@ desktop_lex (token_ty *tp)
             APPEND (0);
 
             /* Skip any space before '='.  */
+            size_t before_equals_lineno = pos.line_number;
             for (;;)
               {
                 c = phase2_getc ();
@@ -368,7 +374,7 @@ desktop_lex (token_ty *tp)
             if (c != '=')
               {
                 po_xerror (PO_SEVERITY_WARNING, NULL,
-                           real_file_name, pos.line_number, 0, false,
+                           real_file_name, before_equals_lineno, 0, false,
                            xasprintf (_("missing '=' after \"%s\""),
                                       sb_xcontents_c (&buffer)));
                 sb_free (&buffer);
@@ -399,6 +405,7 @@ desktop_lex (token_ty *tp)
                 break;
               }
 
+            size_t before_value_lineno = pos.line_number;
             value_start = string_desc_length (sb_contents (&buffer));
             for (;;)
               {
@@ -415,11 +422,13 @@ desktop_lex (token_ty *tp)
                live.  */
             tp->locale = found_locale ? &buffer_contents[locale_start] : NULL;
             tp->value = &buffer_contents[value_start];
+            tp->lineno = before_value_lineno;
             return;
           }
         default:
           {
             bool non_blank = false;
+            size_t non_blank_lineno = 0;
 
             for (;;)
               {
@@ -427,7 +436,10 @@ desktop_lex (token_ty *tp)
                   break;
 
                 if (!c_isspace (c))
-                  non_blank = true;
+                  {
+                    non_blank = true;
+                    non_blank_lineno = pos.line_number;
+                  }
                 else
                   APPEND (c);
 
@@ -436,7 +448,7 @@ desktop_lex (token_ty *tp)
             if (non_blank)
               {
                 po_xerror (PO_SEVERITY_WARNING, NULL,
-                           real_file_name, pos.line_number, 0, false,
+                           real_file_name, non_blank_lineno, 0, false,
                            _("invalid non-blank line"));
                 sb_free (&buffer);
                 tp->type = token_type_other;
@@ -476,8 +488,14 @@ desktop_parse (desktop_reader_ty *reader, FILE *file,
           desktop_reader_handle_comment (reader, token.string);
           break;
         case token_type_pair:
-          desktop_reader_handle_pair (reader, &pos,
-                                      token.string, token.locale, token.value);
+          {
+            lex_pos_ty token_pos;
+            token_pos.file_name = pos.file_name;
+            token_pos.line_number = token.lineno;
+
+            desktop_reader_handle_pair (reader, &token_pos,
+                                        token.string, token.locale, token.value);
+          }
           break;
         case token_type_blank:
           desktop_reader_handle_blank (reader, token.string);
