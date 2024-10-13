@@ -1,10 +1,10 @@
 #! /bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test merging of a message which has c-format specified in ref.pot but not
+# Test merging of a message which has plural forms in ref.pot but not
 # in def.po.
 
-cat <<\EOF > mm-test13.po
+cat <<\EOF > mm-pl-1.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -20,30 +20,13 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: foobar.c:11
+#:foobar.c:29
 #, c-format
-msgid "file named %s"
-msgstr "Datei namens %s"
-
-#: foobar.c:12
-#, c-format
-msgid "directory named %s"
-msgstr "Verzeichnis namens %s"
-
-#: foobar.c:13
-msgid "result %s"
-msgstr "Ergebnis %s"
-
-#: foobar.c:14
-msgid "intermediate result %s"
-msgstr "Zwischenergebnis %d"
-
-#: foobar.c:15
-msgid "%age"
-msgstr "%-Satz"
+msgid "%d error"
+msgstr "%d erreur"
 EOF
 
-cat <<\EOF > mm-test13.pot
+cat <<\EOF > mm-pl-1.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -59,35 +42,19 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: foobar.c:21
+#:foobar.c:32
 #, c-format
-msgid "file named %s"
-msgstr ""
-
-#: foobar.c:22
-msgid "directory named %s"
-msgstr ""
-
-#: foobar.c:23
-#, c-format
-msgid "result %s"
-msgstr ""
-
-#: foobar.c:24
-#, c-format
-msgid "intermediate result %s"
-msgstr ""
-
-#: foobar.c:25
-msgid "%age"
-msgstr ""
+msgid "%d error"
+msgid_plural "%d errors"
+msgstr[0] ""
+msgstr[1] ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test13.tmp mm-test13.po mm-test13.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test13.tmp > mm-test13.out || Exit 1
+${MSGMERGE} -q -o mm-pl-1.tmp mm-pl-1.po mm-pl-1.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-pl-1.tmp > mm-pl-1.out || Exit 1
 
-cat <<\EOF > mm-test13.ok
+cat <<\EOF > mm-pl-1.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -104,32 +71,16 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: foobar.c:21
-#, c-format
-msgid "file named %s"
-msgstr "Datei namens %s"
-
-#: foobar.c:22
-msgid "directory named %s"
-msgstr "Verzeichnis namens %s"
-
-#: foobar.c:23
-#, c-format
-msgid "result %s"
-msgstr "Ergebnis %s"
-
-#: foobar.c:24
+#: foobar.c:32
 #, fuzzy, c-format
-msgid "intermediate result %s"
-msgstr "Zwischenergebnis %d"
-
-#: foobar.c:25
-msgid "%age"
-msgstr "%-Satz"
+msgid "%d error"
+msgid_plural "%d errors"
+msgstr[0] "%d erreur"
+msgstr[1] "%d erreur"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test13.ok mm-test13.out
+${DIFF} mm-pl-1.ok mm-pl-1.out
 result=$?
 
 exit $result

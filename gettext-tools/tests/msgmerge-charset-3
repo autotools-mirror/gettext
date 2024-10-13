@@ -4,7 +4,7 @@
 # Test non-ASCII msgids when the PO file and the POT file are in different
 # encodings.
 
-cat <<\EOF > mm-test16.po
+cat <<\EOF > mm-ch-3.po
 msgid ""
 msgstr ""
 "Project-Id-Version: hello-cplusplus-qt 0\n"
@@ -28,7 +28,7 @@ msgid "error %1."
 msgstr "b³±d %1."
 EOF
 
-cat <<\EOF > mm-test16.pot
+cat <<\EOF > mm-ch-3.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Yoyodyne, Inc.
 # This file is distributed under the same license as the PACKAGE package.
@@ -57,10 +57,10 @@ msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test16.tmp.po mm-test16.po mm-test16.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test16.tmp.po > mm-test16.new.po || Exit 1
+${MSGMERGE} -q -o mm-ch-3.tmp.po mm-ch-3.po mm-ch-3.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-ch-3.tmp.po > mm-ch-3.new.po || Exit 1
 
-cat <<\EOF > mm-test16.ok
+cat <<\EOF > mm-ch-3.ok
 msgid ""
 msgstr ""
 "Project-Id-Version: hello-cplusplus-qt 0\n"
@@ -86,7 +86,7 @@ msgstr "bÅ‚Ä…d %1."
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test16.ok mm-test16.new.po
+${DIFF} mm-ch-3.ok mm-ch-3.new.po
 result=$?
 
 exit $result

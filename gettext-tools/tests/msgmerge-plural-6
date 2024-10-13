@@ -3,7 +3,7 @@
 
 # Test msgmerge and msgcmp: handling of 'range:' flags.
 
-cat <<\EOF > mm-test24.po
+cat <<\EOF > mm-pl-6.po
 msgid ""
 msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -46,7 +46,7 @@ msgstr[0] "cinq semaines et un jour"
 msgstr[1] "cinq semaines et %d jours"
 EOF
 
-cat <<\EOF > mm-test24.pot
+cat <<\EOF > mm-pl-6.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -102,13 +102,13 @@ msgstr[1] ""
 EOF
 
 : ${MSGCMP=msgcmp}
-${MSGCMP} --use-fuzzy --use-untranslated mm-test24.po mm-test24.pot 2>/dev/null || Exit 1
+${MSGCMP} --use-fuzzy --use-untranslated mm-pl-6.po mm-pl-6.pot 2>/dev/null || Exit 1
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test24.tmp.po mm-test24.po mm-test24.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test24.tmp.po > mm-test24.new.po || Exit 1
+${MSGMERGE} -q -o mm-pl-6.tmp.po mm-pl-6.po mm-pl-6.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-pl-6.tmp.po > mm-pl-6.new.po || Exit 1
 
-cat <<\EOF > mm-test24.ok
+cat <<\EOF > mm-pl-6.ok
 msgid ""
 msgstr ""
 "Report-Msgid-Bugs-To: \n"
@@ -153,9 +153,9 @@ msgstr[1] "cinq semaines et %d jours"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test24.ok mm-test24.new.po || Exit 1
+${DIFF} mm-pl-6.ok mm-pl-6.new.po || Exit 1
 
 : ${MSGCMP=msgcmp}
-${MSGCMP} --use-fuzzy --use-untranslated mm-test24.new.po mm-test24.pot || Exit 1
+${MSGCMP} --use-fuzzy --use-untranslated mm-pl-6.new.po mm-pl-6.pot || Exit 1
 
 Exit 0

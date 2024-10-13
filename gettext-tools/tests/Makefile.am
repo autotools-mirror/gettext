@@ -61,14 +61,16 @@ TESTS = gettext-1 gettext-2 \
 	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 msggrep-6 msggrep-7 \
 	msggrep-8 msggrep-9 msggrep-10 msggrep-11 \
 	msginit-1 msginit-2 msginit-3 msginit-4 \
-	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
-	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
-	msgmerge-13 msgmerge-14 msgmerge-15 msgmerge-16 msgmerge-17 \
-	msgmerge-18 msgmerge-19 msgmerge-20 msgmerge-21 msgmerge-22 \
-	msgmerge-23 msgmerge-24 msgmerge-25 msgmerge-26 msgmerge-27 \
-	msgmerge-28 msgmerge-29 \
+	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-9 \
+	msgmerge-15 msgmerge-17 msgmerge-18 msgmerge-19 msgmerge-20 \
+	msgmerge-25 msgmerge-26 msgmerge-27 msgmerge-29 \
+	msgmerge-charset-1 msgmerge-charset-2 msgmerge-charset-3 \
 	msgmerge-compendium-1 msgmerge-compendium-2 msgmerge-compendium-3 \
 	msgmerge-compendium-4 msgmerge-compendium-5 msgmerge-compendium-6 \
+	msgmerge-domain-1 msgmerge-domain-2 \
+	msgmerge-format-1 msgmerge-format-2 msgmerge-format-3 \
+	msgmerge-plural-1 msgmerge-plural-2 msgmerge-plural-3 \
+	msgmerge-plural-4 msgmerge-plural-5 msgmerge-plural-6 \
 	msgmerge-properties-1 msgmerge-properties-2 \
 	msgmerge-update-1 msgmerge-update-2 msgmerge-update-3 \
 	msgmerge-update-4 \

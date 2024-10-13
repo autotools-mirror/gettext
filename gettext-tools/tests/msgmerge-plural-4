@@ -4,7 +4,7 @@
 # Test msgmerge when a msgid_plural changed but msgid remained the same.
 # Reported by Chusslove Illich (Часлав Илић).
 
-cat <<\EOF > mm-test22.po
+cat <<\EOF > mm-pl-4.po
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.16\n"
@@ -24,7 +24,7 @@ msgstr[0] "Engadir un recurso dende o libro de enderezos"
 msgstr[1] "Engadir %n recursos dende o libro de enderezos"
 EOF
 
-cat <<\EOF > mm-test22.pot
+cat <<\EOF > mm-pl-4.pot
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.16\n"
@@ -44,10 +44,10 @@ msgstr[1] ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test22.tmp.po mm-test22.po mm-test22.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test22.tmp.po > mm-test22.new.po || Exit 1
+${MSGMERGE} -q -o mm-pl-4.tmp.po mm-pl-4.po mm-pl-4.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-pl-4.tmp.po > mm-pl-4.new.po || Exit 1
 
-cat <<\EOF > mm-test22.ok
+cat <<\EOF > mm-pl-4.ok
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-tools 0.16\n"
@@ -70,9 +70,9 @@ msgstr[1] "Engadir %n recursos dende o libro de enderezos"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test22.ok mm-test22.new.po || Exit 1
+${DIFF} mm-pl-4.ok mm-pl-4.new.po || Exit 1
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check -o mm-test22.mo mm-test22.new.po || Exit 1
+${MSGFMT} --check -o mm-pl-4.mo mm-pl-4.new.po || Exit 1
 
 Exit 0

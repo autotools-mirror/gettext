@@ -1,10 +1,9 @@
 #! /bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test merging of a message which has plural forms in def.po but not
-# in ref.pot.
+# Test non-ASCII character at the end of msgstr. (Triggered a glibc-2.1 bug.)
 
-cat <<\EOF > mm-test12.po
+cat <<\EOF > mm-ch-1.in1.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -14,21 +13,18 @@ msgstr ""
 "Project-Id-Version: cog_training 1.0\n"
 "POT-Creation-Date: 2001-04-29 22:40+0200\n"
 "PO-Revision-Date: 2001-04-29 21:19+02:00\n"
-"Last-Translator: Felix N. <xyz@zyx.uucp>\n"
+"Last-Translator: Felix Natter <fnatter@gmx.net>\n"
 "Language-Team: German <de@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#:foobar.c:29
-#, c-format
-msgid "%d error"
-msgid_plural "%d errors"
-msgstr[0] "%d erreur"
-msgstr[1] "%d erreurs"
+#: cogarithmetic.cc:12 cogidmarkup.cc:288 cogroman.cc:14
+msgid "white"
+msgstr "weiﬂ"
 EOF
 
-cat <<\EOF > mm-test12.pot
+cat <<\EOF > mm-ch-1.in2.po
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -44,17 +40,25 @@ msgstr ""
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#:foobar.c:32
-#, c-format
-msgid "%d error"
+#: cogarithmetic.cc:12 cogidmarkup.cc:288 cogroman.cc:14
+msgid "white"
+msgstr ""
+
+#: cogarithmetic.cc:13 cogroman.cc:109 cogroman.cc:114
+msgid "false."
+msgstr ""
+
+#: cogarithmetic.cc:14
+msgid "was correct."
 msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test12.tmp mm-test12.po mm-test12.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test12.tmp > mm-test12.out || Exit 1
+LC_MESSAGES=C LC_ALL= \
+${MSGMERGE} -q -o mm-ch-1.tmp mm-ch-1.in1.po mm-ch-1.in2.po || Exit 1
+LC_ALL=C tr -d '\r' < mm-ch-1.tmp > mm-ch-1.out || Exit 1
 
-cat <<\EOF > mm-test12.ok
+cat <<\EOF > mm-ch-1.ok
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR Free Software Foundation, Inc.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
@@ -64,21 +68,28 @@ msgstr ""
 "Project-Id-Version: cog_training 1.0\n"
 "POT-Creation-Date: 2001-04-30 18:51+0200\n"
 "PO-Revision-Date: 2001-04-29 21:19+02:00\n"
-"Last-Translator: Felix N. <xyz@zyx.uucp>\n"
+"Last-Translator: Felix Natter <fnatter@gmx.net>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: foobar.c:32
-#, fuzzy, c-format
-msgid "%d error"
-msgstr "%d erreur"
+#: cogarithmetic.cc:12 cogidmarkup.cc:288 cogroman.cc:14
+msgid "white"
+msgstr "weiﬂ"
+
+#: cogarithmetic.cc:13 cogroman.cc:109 cogroman.cc:114
+msgid "false."
+msgstr ""
+
+#: cogarithmetic.cc:14
+msgid "was correct."
+msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test12.ok mm-test12.out
+${DIFF} mm-ch-1.ok mm-ch-1.out
 result=$?
 
 exit $result

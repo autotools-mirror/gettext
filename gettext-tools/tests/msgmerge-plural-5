@@ -5,7 +5,7 @@
 # and --previous was specified.
 # Reported by Chusslove Illich (Часлав Илић).
 
-cat <<\EOF > mm-test23.po
+cat <<\EOF > mm-pl-5.po
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -41,7 +41,7 @@ msgstr[0] "Ein Band"
 msgstr[1] "%n Bände"
 EOF
 
-cat <<\EOF > mm-test23.pot
+cat <<\EOF > mm-pl-5.pot
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -77,10 +77,10 @@ msgstr[1] ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q --previous -o mm-test23.tmp.po mm-test23.po mm-test23.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test23.tmp.po > mm-test23.new.po || Exit 1
+${MSGMERGE} -q --previous -o mm-pl-5.tmp.po mm-pl-5.po mm-pl-5.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-pl-5.tmp.po > mm-pl-5.new.po || Exit 1
 
-cat <<\EOF > mm-test23.ok
+cat <<\EOF > mm-pl-5.ok
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
@@ -120,9 +120,9 @@ msgstr[1] "%n Bände"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test23.ok mm-test23.new.po || Exit 1
+${DIFF} mm-pl-5.ok mm-pl-5.new.po || Exit 1
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --check -o mm-test23.mo mm-test23.new.po || Exit 1
+${MSGFMT} --check -o mm-pl-5.mo mm-pl-5.new.po || Exit 1
 
 Exit 0

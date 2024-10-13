@@ -5,7 +5,7 @@
 # encoding (that was produced from an older version of ref.pot, in ASCII
 # encoding).
 
-cat <<\EOF > mm-test14-ru.po
+cat <<\EOF > mm-ch-2-ru.po
 # Russian messages for CLISP
 # Copyright (C) 1998 Free Software Foundation, Inc.
 # Eduard Haritonov <hed@iis.nsk.su>, 1998.
@@ -27,7 +27,7 @@ msgid "Division durch Null"
 msgstr "деление на нуль"
 EOF
 
-cat <<\EOF > mm-test14.pot
+cat <<\EOF > mm-ch-2.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -55,10 +55,10 @@ msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test14.tmp mm-test14-ru.po mm-test14.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test14.tmp > mm-test14.out || Exit 1
+${MSGMERGE} -q -o mm-ch-2.tmp mm-ch-2-ru.po mm-ch-2.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-ch-2.tmp > mm-ch-2.out || Exit 1
 
-cat <<\EOF > mm-test14.ok
+cat <<\EOF > mm-ch-2.ok
 # Russian messages for CLISP
 # Copyright (C) 1998 Free Software Foundation, Inc.
 # Eduard Haritonov <hed@iis.nsk.su>, 1998.
@@ -86,7 +86,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test14.ok mm-test14.out
+${DIFF} mm-ch-2.ok mm-ch-2.out
 result=$?
 
 exit $result

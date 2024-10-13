@@ -3,7 +3,7 @@
 
 # Test multi-domain handling.
 
-cat <<\EOF > mm-test7.po
+cat <<\EOF > mm-d-2.po
 domain "foo-de"
 msgid ""
 msgstr "Content-Type: text/plain; charset=ISO-8859-1\n"
@@ -29,20 +29,16 @@ msgid "bye"
 msgstr "A bientôt"
 EOF
 
-cat <<\EOF > mm-test7.pot
-domain "foo-de"
-msgid "Hello"
-msgstr ""
-domain "foo-fr"
+cat <<\EOF > mm-d-2.pot
 msgid "Hello"
 msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test7.tmp mm-test7.po mm-test7.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test7.tmp > mm-test7.out || Exit 1
+${MSGMERGE} --multi-domain -q -o mm-d-2.tmp mm-d-2.po mm-d-2.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-d-2.tmp > mm-d-2.out || Exit 1
 
-cat <<\EOF > mm-test7.ok
+cat <<\EOF > mm-d-2.ok
 domain "foo-de"
 
 msgid ""
@@ -73,7 +69,7 @@ msgstr "Salut"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test7.ok mm-test7.out
+${DIFF} mm-d-2.ok mm-d-2.out
 result=$?
 
 exit $result
