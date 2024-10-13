@@ -4,7 +4,7 @@
 # Test that untranslated messages that are brought over from the .pot file
 # get the right number of msgstrs.
 
-cat <<\EOF > mm-test17.po
+cat <<\EOF > mm-test8.po
 # Irish translations.
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgid "'Your command, please?', asked the waiter."
 msgstr ""
 EOF
 
-cat <<\EOF > mm-test17.pot
+cat <<\EOF > mm-test8.pot
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
@@ -51,10 +51,10 @@ msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test17.tmp.po mm-test17.po mm-test17.pot || Exit 1
-LC_ALL=C tr -d '\r' < mm-test17.tmp.po > mm-test17.new.po || Exit 1
+${MSGMERGE} -q -o mm-test8.tmp.po mm-test8.po mm-test8.pot || Exit 1
+LC_ALL=C tr -d '\r' < mm-test8.tmp.po > mm-test8.new.po || Exit 1
 
-cat <<\EOF > mm-test17.ok
+cat <<\EOF > mm-test8.ok
 # Irish translations.
 msgid ""
 msgstr ""
@@ -80,7 +80,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test17.ok mm-test17.new.po
+${DIFF} mm-test8.ok mm-test8.new.po
 result=$?
 
 exit $result

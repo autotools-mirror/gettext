@@ -3,7 +3,7 @@
 
 # Test pseudo-comments containing filenames that start with a digit.
 
-cat <<\EOF > mm-test15.pot
+cat <<\EOF > mm-test7.pot
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.5\n"
@@ -19,7 +19,7 @@ msgid "invalid argument `%s' for `%s'"
 msgstr "ungültiges Argument »%s« für »%s«"
 EOF
 
-cat <<\EOF > mm-test15.po
+cat <<\EOF > mm-test7.po
 #: 123.c:134
 #, c-format
 msgid "invalid argument `%s' for `%s'"
@@ -27,10 +27,10 @@ msgstr ""
 EOF
 
 : ${MSGMERGE=msgmerge}
-${MSGMERGE} -q -o mm-test15.tmp mm-test15.pot mm-test15.po || Exit 1
-LC_ALL=C tr -d '\r' < mm-test15.tmp > mm-test15.out || Exit 1
+${MSGMERGE} -q -o mm-test7.tmp mm-test7.pot mm-test7.po || Exit 1
+LC_ALL=C tr -d '\r' < mm-test7.tmp > mm-test7.out || Exit 1
 
-cat <<\EOF > mm-test15.ok
+cat <<\EOF > mm-test7.ok
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.11.5\n"
@@ -47,7 +47,7 @@ msgstr "ungültiges Argument »%s« für »%s«"
 EOF
 
 : ${DIFF=diff}
-${DIFF} mm-test15.ok mm-test15.out
+${DIFF} mm-test7.ok mm-test7.out
 result=$?
 
 exit $result
