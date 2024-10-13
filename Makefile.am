@@ -70,7 +70,7 @@ distcheck-hook:
 	cmp -s $(srcdir)/gettext-runtime/po/quot.sed $(srcdir)/gettext-tools/po/quot.sed
 	cmp -s $(srcdir)/gettext-runtime/po/en@quot.header $(srcdir)/gettext-tools/po/en@quot.header
 	cmp -s $(srcdir)/gettext-runtime/po/en@boldquot.header $(srcdir)/gettext-tools/po/en@boldquot.header
-	cmp -s $(srcdir)/gettext-runtime/po/insert-header.sin $(srcdir)/gettext-tools/po/insert-header.sin
+	cmp -s $(srcdir)/gettext-runtime/po/insert-header.sed $(srcdir)/gettext-tools/po/insert-header.sed
 	cmp -s $(srcdir)/gettext-runtime/po/remove-potcdate.sin $(srcdir)/gettext-tools/po/remove-potcdate.sin
 	cmp -s $(srcdir)/gettext-runtime/po/remove-potcdate.sin $(srcdir)/gettext-tools/examples/po/remove-potcdate.sin
 	cmp -s $(srcdir)/gettext-runtime/m4/build-to-host.m4 $(srcdir)/gettext-tools/gnulib-m4/build-to-host.m4

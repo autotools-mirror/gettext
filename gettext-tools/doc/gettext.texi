@@ -8909,7 +8909,7 @@ a terminal emulator which supports the VT100 escape sequences (such as
 These extra message catalogs @samp{en@@quot} and @samp{en@@boldquot}
 are constructed automatically, not by translators; to support them, you
 need the files @file{Rules-quot}, @file{quot.sed}, @file{boldquot.sed},
-@file{en@@quot.header}, @file{en@@boldquot.header}, @file{insert-header.sin}
+@file{en@@quot.header}, @file{en@@boldquot.header}, @file{insert-header.sed}
 in the @file{po/} directory.  You can copy them from GNU gettext's @file{po/}
 directory; they are also installed by running @code{gettextize}.
 

@@ -540,7 +540,7 @@ cp -p gettext-runtime/po/boldquot.sed gettext-tools/po/boldquot.sed
 cp -p gettext-runtime/po/quot.sed gettext-tools/po/quot.sed
 cp -p gettext-runtime/po/en@quot.header gettext-tools/po/en@quot.header
 cp -p gettext-runtime/po/en@boldquot.header gettext-tools/po/en@boldquot.header
-cp -p gettext-runtime/po/insert-header.sin gettext-tools/po/insert-header.sin
+cp -p gettext-runtime/po/insert-header.sed gettext-tools/po/insert-header.sed
 cp -p gettext-runtime/po/remove-potcdate.sin gettext-tools/po/remove-potcdate.sin
 
 echo "$0: generating configure in gettext-tools..."

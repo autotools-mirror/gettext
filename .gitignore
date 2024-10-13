@@ -410,7 +410,7 @@
 /gettext-tools/po/boldquot.sed
 /gettext-tools/po/en@boldquot.header
 /gettext-tools/po/en@quot.header
-/gettext-tools/po/insert-header.sin
+/gettext-tools/po/insert-header.sed
 /gettext-tools/po/quot.sed
 /gettext-tools/po/remove-potcdate.sin
 
