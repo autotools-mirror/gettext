@@ -60,11 +60,12 @@ TESTS = gettext-1 gettext-2 \
 	msgfmt-xml-1 msgfmt-xml-2 msgfmt-xml-3 msgfmt-xml-4 msgfmt-xml-5 \
 	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 msggrep-6 msggrep-7 \
 	msggrep-8 msggrep-9 msggrep-10 msggrep-11 \
-	msginit-1 msginit-2 msginit-3 msginit-4 \
+	msginit-1 msginit-2 msginit-3 msginit-4 msginit-5 \
 	msgmerge-1 msgmerge-2 msgmerge-3 msgmerge-4 msgmerge-5 msgmerge-6 \
 	msgmerge-7 msgmerge-8 msgmerge-9 msgmerge-10 msgmerge-11 msgmerge-12 \
 	msgmerge-13 msgmerge-14 msgmerge-15 \
 	msgmerge-charset-1 msgmerge-charset-2 msgmerge-charset-3 \
+	msgmerge-charset-4 \
 	msgmerge-compendium-1 msgmerge-compendium-2 msgmerge-compendium-3 \
 	msgmerge-compendium-4 msgmerge-compendium-5 msgmerge-compendium-6 \
 	msgmerge-domain-1 msgmerge-domain-2 \
@@ -259,6 +260,7 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	xgettext-1 \
 	xgettext-c-1 xg-c-comment-6.c xg-c-escape-3.c xg-vala-2.vala \
 	common/supplemental/plurals.xml \
+	testdata/nonascii.pot \
 	testdata/tcltest_pl.po testdata/tcltest_pl.msg \
 	testdata/tcltest_cs.po testdata/tcltest_cs.msg \
 	testdata/xg-el-so-3.el testdata/xg-el-so-4.el \

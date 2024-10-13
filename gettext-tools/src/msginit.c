@@ -63,6 +63,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "msgl-charset.h"
 #include "xerror-handler.h"
 #include "po-charset.h"
 #include "localcharset.h"
@@ -327,6 +328,7 @@ the output .po file through the --output-file option.\n"),
 
   /* Read input file.  */
   result = read_catalog_file (input_file, input_syntax);
+  check_pot_charset (result, input_file);
 
 #if defined _WIN32 || defined __CYGWIN__
   /* The function fill_header invokes, directly or indirectly, some programs

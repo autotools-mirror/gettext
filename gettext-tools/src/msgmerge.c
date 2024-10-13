@@ -50,6 +50,7 @@
 #include "write-po.h"
 #include "write-properties.h"
 #include "write-stringtable.h"
+#include "msgl-charset.h"
 #include "format.h"
 #include "xalloc.h"
 #include "xmalloca.h"
@@ -1798,6 +1799,7 @@ merge (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax,
   /* This is the references file, created by groping the sources with
      the xgettext program.  */
   ref = read_catalog_file (fn2, input_syntax);
+  check_pot_charset (ref, fn2);
   /* Add a dummy header entry, if the references file contains none.  */
   for (k = 0; k < ref->nitems; k++)
     if (message_list_search (ref->item[k]->messages, NULL, "") == NULL)

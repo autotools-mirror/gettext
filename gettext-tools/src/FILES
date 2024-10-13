@@ -134,6 +134,10 @@ msgl-cat.c
 
 msgcmp.c        Main source for the 'msgcmp' program.
 
+msgl-charset.h
+msgl-charset.c
+                Checking the encoding of a list-of-messages.
+
 +-------------- The 'msgmerge' program
 | msgl-equal.h
 | msgl-equal.c
@@ -155,11 +159,6 @@ msgattrib.c     Main source for the 'msgattrib' program.
 msgcat.c        Main source for the 'msgcat' program.
 msgconv.c       Main source for the 'msgconv' program.
 msguniq.c       Main source for the 'msguniq' program.
-
-msgl-charset.h
-msgl-charset.c
-                Compare the encoding of a list-of-messages with the locale
-                encoding.
 
 msgexec.c       Main source for the 'msgexec' program.
 msgfilter.c     Main source for the 'msgfilter' program.
