@@ -90,11 +90,10 @@ check_pot_charset (const msgdomain_list_ty *mdlp, const char *filename)
                              _("%s: The present charset \"%s\" is not a portable encoding name."),
                              filename, charset);
                     if (!is_ascii_message_list (mlp)
-                        && !(canon_charset == po_charset_ascii
-                             || canon_charset == po_charset_utf8))
+                        && canon_charset != po_charset_utf8)
                       error (EXIT_FAILURE, 0,
-                             _("%s: The file contains non-ASCII characters but the present charset \"%s\" is not %s or %s."),
-                             filename, charset, "ASCII", "UTF-8");
+                             _("%s: The file contains non-ASCII characters but the present charset \"%s\" is not %s."),
+                             filename, charset, "UTF-8");
 
                     freea (charset);
                   }
