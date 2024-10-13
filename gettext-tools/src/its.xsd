@@ -45,6 +45,9 @@ Written by Bruno Haible &lt;bruno@clisp.org&gt;, 2024.
         </element>
         <element ref="gt:escapeRule">
         </element>
+        <!-- Allow other rules from the ITS namespace, as well as itstool
+             extensions (not implemented by GNU gettext).  -->
+        <any namespace="##targetNamespace http://itstool.org/extensions/" processContents="skip"/>
       </choice>
     </sequence>
     <attribute name="version" type="string" use="required" fixed="2.0"></attribute>
