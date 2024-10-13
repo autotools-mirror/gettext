@@ -138,6 +138,8 @@ cat <<\EOF > mf.appdata.xml.ok
 </component>
 EOF
 
+: ${MSGFMT=msgfmt}
+
 # Sanity checks for contradicting options.
 
 ${MSGFMT} --xml --template=mf.appdata.xml -l fr fr.po \

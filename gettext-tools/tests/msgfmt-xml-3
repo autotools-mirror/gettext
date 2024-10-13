@@ -214,6 +214,7 @@ EOF
 
 unset LINGUAS
 
+: ${MSGFMT=msgfmt}
 ${MSGFMT} --xml --template=mf.appdata.xml -d po -o mf.appdata.xml.out || Exit 1
 
 : ${DIFF=diff}

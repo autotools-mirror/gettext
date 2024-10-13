@@ -129,6 +129,7 @@ cat <<\EOF > activipy_tester.de.xml.ok
 </refentry>
 EOF
 
+: ${MSGFMT=msgfmt}
 ${MSGFMT} --xml --template=activipy_tester.xml --replace-text -l de de.po -o activipy_tester.de.xml \
   || Exit 1
 

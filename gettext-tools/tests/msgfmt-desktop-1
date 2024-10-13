@@ -67,6 +67,8 @@ Categories=
 NoDisplay=true
 EOF
 
+: ${MSGFMT=msgfmt}
+
 # Sanity checks for contradicting options.
 
 ${MSGFMT} --desktop --template=mf.desktop -l fr fr.po \

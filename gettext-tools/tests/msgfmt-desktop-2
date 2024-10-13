@@ -127,6 +127,8 @@ EOF
 
 unset LINGUAS
 
+: ${MSGFMT=msgfmt}
+
 # Sanity checks for contradicting options.
 
 ${MSGFMT} --desktop --template=mf.desktop -d po -o mf.desktop.out \

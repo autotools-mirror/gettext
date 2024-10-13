@@ -59,6 +59,7 @@ EOF
 
 # Generate the merged .desktop file.
 
+: ${MSGFMT=msgfmt}
 ${MSGFMT} --desktop --template=hello.desktop -l th th.po -o hello.desktop.tmp \
   || Exit 1
 LC_ALL=C tr -d '\r' < hello.desktop.tmp > hello.desktop.out || Exit 1

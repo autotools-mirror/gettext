@@ -247,6 +247,8 @@ EOF
 
 unset LINGUAS
 
+: ${MSGFMT=msgfmt}
+
 # Sanity checks for contradicting options.
 
 ${MSGFMT} --xml --template=mf.appdata.xml -d po -o mf.appdata.xml.out \
