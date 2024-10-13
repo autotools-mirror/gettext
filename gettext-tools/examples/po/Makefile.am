@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples/po subdirectory of GNU gettext
-## Copyright (C) 1995-2023 Free Software Foundation, Inc.
+## Copyright (C) 1995-2024 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -203,7 +203,7 @@ $(srcdir)/stamp-po: $(srcdir)/$(DOMAIN).pot
 
 # This target rebuilds $(DOMAIN).pot; it is an expensive operation.
 # Note that $(DOMAIN).pot is not touched if it doesn't need to be changed.
-$(DOMAIN).pot-update: $(POTFILES_DEPS) $(SMALLPOTS) remove-potcdate.sed
+$(DOMAIN).pot-update: $(POTFILES_DEPS) $(SMALLPOTS)
 	if test -n '$(MSGID_BUGS_ADDRESS)'; then \
 	  msgid_bugs_address='$(MSGID_BUGS_ADDRESS)'; \
 	else \
@@ -218,8 +218,8 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) $(SMALLPOTS) remove-potcdate.sed
 	  $(SMALLPOTS)
 	test ! -f $(DOMAIN).po || { \
 	  if test -f $(srcdir)/$(DOMAIN).pot; then \
-	    sed -f remove-potcdate.sed < $(srcdir)/$(DOMAIN).pot > $(DOMAIN).1po && \
-	    sed -f remove-potcdate.sed < $(DOMAIN).po > $(DOMAIN).2po && \
+	    sed -f $(srcdir)/remove-potcdate.sed < $(srcdir)/$(DOMAIN).pot > $(DOMAIN).1po && \
+	    sed -f $(srcdir)/remove-potcdate.sed < $(DOMAIN).po > $(DOMAIN).2po && \
 	    if cmp $(DOMAIN).1po $(DOMAIN).2po >/dev/null 2>&1; then \
 	      rm -f $(DOMAIN).1po $(DOMAIN).2po $(DOMAIN).po; \
 	    else \
@@ -353,14 +353,13 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 html ID:
 
 MOSTLYCLEANFILES =
-MOSTLYCLEANFILES += remove-potcdate.sed
 MOSTLYCLEANFILES += stamp-poT
 MOSTLYCLEANFILES += core core.* *.stackdump $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 MOSTLYCLEANFILES += *.o
 
 MAINTAINERCLEANFILES = $(DOMAIN).pot stamp-po $(SMALLPOTS)
 
-EXTRA_DIST = remove-potcdate.sin xsmallpot.sh mmsmallpo.sh LINGUAS \
+EXTRA_DIST = remove-potcdate.sed xsmallpot.sh mmsmallpo.sh LINGUAS \
   $(POFILES)
 
 # Hidden from automake, but really activated. Works around an automake-1.5 bug.
