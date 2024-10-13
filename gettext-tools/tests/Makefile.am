@@ -56,7 +56,7 @@ TESTS = gettext-1 gettext-2 \
 	msgfmt-properties-1 \
 	msgfmt-tcl-1 msgfmt-tcl-2 \
 	msgfmt-qt-1 msgfmt-qt-2 \
-	msgfmt-desktop-1 msgfmt-desktop-2 msgfmt-desktop-3 \
+	msgfmt-desktop-1 msgfmt-desktop-2 msgfmt-desktop-3 msgfmt-desktop-4 \
 	msgfmt-xml-1 msgfmt-xml-2 msgfmt-xml-3 msgfmt-xml-4 msgfmt-xml-5 \
 	msggrep-1 msggrep-2 msggrep-3 msggrep-4 msggrep-5 msggrep-6 msggrep-7 \
 	msggrep-8 msggrep-9 msggrep-10 msggrep-11 \
@@ -105,7 +105,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-csharp-7 xgettext-csharp-8 xgettext-csharp-9 \
 	xgettext-csharp-stackovfl-1 xgettext-csharp-stackovfl-2 \
 	xgettext-csharp-stackovfl-3 xgettext-csharp-stackovfl-4 \
-	xgettext-desktop-1 xgettext-desktop-2 \
+	xgettext-desktop-1 xgettext-desktop-2 xgettext-desktop-3 \
 	xgettext-docbook-1 \
 	xgettext-elisp-1 xgettext-elisp-2 xgettext-elisp-3 \
 	xgettext-elisp-stackovfl-1 xgettext-elisp-stackovfl-2 \
