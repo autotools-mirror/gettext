@@ -36,12 +36,15 @@ LOC_FILES = \
 dist_its_DATA = $(ITS_FILES) $(LOC_FILES)
 
 # Checks the XML files against their schemas.
+# Work around <https://gitlab.gnome.org/GNOME/libxml2/-/issues/809>.
 check-local:
-	@for file in $(ITS_FILES); do \
-	  echo "Checking $$file..."; \
-	  echo "$(XMLLINT) --noout --schema $(top_srcdir)/src/its.xsd $(srcdir)/$$file"; \
-	  $(XMLLINT) --noout --schema $(top_srcdir)/src/its.xsd $(srcdir)/$$file || exit 1; \
-	done
+	@if echo '<?xml version="1.0"?><rules xmlns="http://www.w3.org/2005/11/its" version="2.0"/>' | $(XMLLINT) --noout --schema $(top_srcdir)/src/its.xsd - >/dev/null 2>&1; then \
+	  for file in $(ITS_FILES); do \
+	    echo "Checking $$file..."; \
+	    echo "$(XMLLINT) --noout --schema $(top_srcdir)/src/its.xsd $(srcdir)/$$file"; \
+	    $(XMLLINT) --noout --schema $(top_srcdir)/src/its.xsd $(srcdir)/$$file || exit 1; \
+	  done; \
+	fi
 	@for file in $(LOC_FILES); do \
 	  echo "Checking $$file..."; \
 	  echo "$(XMLLINT) --noout --schema $(top_srcdir)/src/locating-rules.xsd $(srcdir)/$$file"; \
