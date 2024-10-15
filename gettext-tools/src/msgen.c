@@ -42,7 +42,10 @@
 #include "read-properties.h"
 #include "read-stringtable.h"
 #include "msgl-english.h"
+#include "msgl-ascii.h"
 #include "msgl-header.h"
+#include "c-strstr.h"
+#include "xalloc.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -88,6 +91,7 @@ static const struct option long_options[] =
 
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
+static msgdomain_list_ty *fill_header (msgdomain_list_ty *mdlp);
 
 
 int
@@ -271,6 +275,10 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* Read input file.  */
   result = read_catalog_file (argv[optind], input_syntax);
 
+  if (!output_syntax->requires_utf8)
+    /* Fill the header entry.  */
+    result = fill_header (result);
+
   /* Add English translations.  */
   result = msgdomain_list_english (result);
 
@@ -398,4 +406,64 @@ or by email to <%s>.\n"),
     }
 
   exit (status);
+}
+
+/* Fill the templates in the most essential fields of the header entry,
+   namely to force a charset name.  */
+static msgdomain_list_ty *
+fill_header (msgdomain_list_ty *mdlp)
+{
+  size_t k, j;
+
+  if (mdlp->encoding == NULL
+      && is_ascii_msgdomain_list (mdlp))
+    mdlp->encoding = "ASCII";
+
+  if (mdlp->encoding != NULL)
+    for (k = 0; k < mdlp->nitems; k++)
+      {
+        message_list_ty *mlp = mdlp->item[k]->messages;
+
+        if (mlp->nitems > 0)
+          {
+            message_ty *header_mp = NULL;
+
+            /* Search the header entry.  */
+            for (j = 0; j < mlp->nitems; j++)
+              if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+                {
+                  header_mp = mlp->item[j];
+                  break;
+                }
+
+            /* If it wasn't found, provide one.  */
+            if (header_mp == NULL)
+              {
+                static lex_pos_ty pos = { __FILE__, __LINE__ };
+                const char *msgstr =
+                  "Content-Type: text/plain; charset=CHARSET\n"
+                  "Content-Transfer-Encoding: 8bit\n";
+
+                header_mp =
+                  message_alloc (NULL, "", NULL, msgstr, strlen (msgstr), &pos);
+                message_list_prepend (mlp, header_mp);
+              }
+
+            /* Fill in the charset name.  */
+            {
+              const char *header = header_mp->msgstr;
+              const char *charsetstr = c_strstr (header, "charset=");
+              if (charsetstr != NULL)
+                {
+                  charsetstr += strlen ("charset=");
+                  header_set_charset (header_mp, charsetstr, mdlp->encoding);
+                }
+            }
+
+            /* Finally remove the fuzzy attribute.  */
+            header_mp->is_fuzzy = false;
+          }
+      }
+
+  return mdlp;
 }
