@@ -2,7 +2,7 @@
 <schema targetNamespace="http://www.w3.org/2005/11/its" xmlns="http://www.w3.org/2001/XMLSchema" xmlns:its="http://www.w3.org/2005/11/its" xmlns:gt="https://www.gnu.org/s/gettext/ns/its/extensions/1.0" elementFormDefault="qualified">
 
   <annotation>
-    <documentation>XML schema of *.its files, as understood by GNU gettext.
+    <documentation>XML schema 1.0 of *.its files, as understood by GNU gettext.
 
 Copyright (C) 2015-2024 Free Software Foundation, Inc.
 
@@ -45,9 +45,24 @@ Written by Bruno Haible &lt;bruno@clisp.org&gt;, 2024.
         </element>
         <element ref="gt:escapeRule">
         </element>
-        <!-- Allow other rules from the ITS namespace, as well as itstool
-             extensions (not implemented by GNU gettext).  -->
-        <any namespace="##targetNamespace http://itstool.org/extensions/" processContents="skip"/>
+        <!-- Allow other rules from the ITS namespace (not implemented
+             by GNU gettext).  -->
+        <element name="termRule" type="its:OtherRuleType"/>
+        <element name="dirRule" type="its:OtherRuleType"/>
+        <element name="langRule" type="its:OtherRuleType"/>
+        <element name="domainRule" type="its:OtherRuleType"/>
+        <element name="textAnalysisRule" type="its:OtherRuleType"/>
+        <element name="localeFilterRule" type="its:OtherRuleType"/>
+        <element name="provRule" type="its:OtherRuleType"/>
+        <element name="externalResourceRefRule" type="its:OtherRuleType"/>
+        <element name="targetPointerRule" type="its:OtherRuleType"/>
+        <element name="idValueRule" type="its:OtherRuleType"/>
+        <element name="locQualityIssueRule" type="its:OtherRuleType"/>
+        <element name="mtConfidenceRule" type="its:OtherRuleType"/>
+        <element name="allowedCharactersRule" type="its:OtherRuleType"/>
+        <element name="storageSizeRule" type="its:OtherRuleType"/>
+        <!-- Allow itstool extensions (not implemented by GNU gettext).  -->
+        <any namespace="http://itstool.org/extensions/" processContents="skip"/>
       </choice>
     </sequence>
     <attribute name="version" type="string" use="required" fixed="2.0"></attribute>
@@ -83,7 +98,7 @@ Written by Bruno Haible &lt;bruno@clisp.org&gt;, 2024.
     </attribute>
     <attribute name="locNotePointer" type="string" use="optional"></attribute>
     <!-- Valid in XML Schema 1.1 only:
-    <xsd:assert test="not(@locNotePointer and locNote)"/>
+    <assert test="not(@locNotePointer and locNote)"/>
     -->
   </complexType>
 
@@ -113,4 +128,12 @@ Written by Bruno Haible &lt;bruno@clisp.org&gt;, 2024.
       </simpleType>
     </attribute>
   </complexType>
+
+  <complexType name="OtherRuleType" mixed="true">
+    <sequence>
+      <any processContents="skip" minOccurs="0" maxOccurs="unbounded"/>
+    </sequence>
+    <anyAttribute processContents="skip"/>
+  </complexType>
+
 </schema>

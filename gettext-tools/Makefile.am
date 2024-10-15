@@ -23,6 +23,7 @@ SUBDIRS = gnulib-lib libgrep src libgettextpo po its projects styles emacs misc 
 
 EXTRA_DIST = misc/DISCLAIM
 MOSTLYCLEANFILES = core *.stackdump
+DISTCLEANFILES = build-aux/xml-validate-10 build-aux/xml-validate-11
 
 
 # Files installed for use by gettextize.

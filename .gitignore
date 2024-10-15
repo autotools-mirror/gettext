@@ -642,6 +642,8 @@ autom4te.cache/
 /gettext-tools/javaexec.sh
 /gettext-tools/libtool
 /gettext-tools/stamp-h1
+/gettext-tools/build-aux/xml-validate-10
+/gettext-tools/build-aux/xml-validate-11
 /gettext-tools/doc/Makefile
 /gettext-tools/emacs/Makefile
 /gettext-tools/examples/Makefile

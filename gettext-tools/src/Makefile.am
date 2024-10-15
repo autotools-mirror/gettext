@@ -796,8 +796,8 @@ uninstall-tcl:
 # Special rules for XML schemas.
 
 schema_DATA = \
-  its.xsd its-extensions.xsd \
-  locating-rules.xsd
+  its.xsd10 its.xsd11 its-extensions.xsd \
+  locating-rules.xsd10 locating-rules.xsd11
 EXTRA_DIST += $(schema_DATA)
 
 

@@ -2,7 +2,7 @@
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
   <xsd:annotation>
-    <xsd:documentation>XML schema of *.loc files, as understood by GNU gettext.
+    <xsd:documentation>XML schema 1.0 of *.loc files, as understood by GNU gettext.
 
 Copyright (C) 2015-2024 Free Software Foundation, Inc.
 

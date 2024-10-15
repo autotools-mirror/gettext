@@ -618,6 +618,7 @@ AM_CONDITIONAL([TEST_SYSTEM_LIBINTL], [test $USE_INCLUDED_LIBINTL = no])
 
 dnl Checks for optional programs for the its/* tests.
 AC_PATH_PROGS([XMLLINT], [xmllint], [:])
+AC_SUBST([HAVE_JAVAEXEC])
 
 AC_CONFIG_SUBDIRS([examples])
 
@@ -663,5 +664,10 @@ AC_CONFIG_FILES([tests/gnulib-lib/Makefile])
 AC_CONFIG_FILES([system-tests/Makefile])
 
 AC_CONFIG_FILES([gnulib-tests/Makefile])
+
+AC_CONFIG_FILES([build-aux/xml-validate-10],
+                [chmod a+x build-aux/xml-validate-10])
+AC_CONFIG_FILES([build-aux/xml-validate-11],
+                [chmod a+x build-aux/xml-validate-11])
 
 AC_OUTPUT

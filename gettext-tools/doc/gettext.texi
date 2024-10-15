@@ -10879,8 +10879,9 @@ second ("A non-translatable string"), the following ITS rules can be used:
 @end example
 
 ITS rules files must have the @file{.its} file extension and obey
-the XML schema encoded by
-@code{its.xsd} and its auxiliary schema @code{its-extensions.xsd}.
+the XML schema version 1.0 encoded by @code{its.xsd10} or
+the XML schema version 1.1 encoded by @code{its.xsd11}
+and its auxiliary schema @code{its-extensions.xsd}.
 
 @node Locating Rules
 @subsubsection Specifying where to find the ITS Rules
@@ -10924,7 +10925,8 @@ of @code{locatingRule} or @code{documentRule}.  If it is specified in a
 have the @code{target} attribute.
 
 Locating rules files must have the @file{.loc} file extension and obey
-the XML schema encoded by @code{locating-rules.xsd}.
+the XML schema version 1.0 encoded by @code{locating-rules.xsd10} or
+the XML schema version 1.1 encoded by @code{locating-rules.xsd11}.
 Both ITS rules files and locating rules files must be installed in the
 @file{$prefix/share/gettext/its} directory.  Once those files are
 properly installed, @code{xgettext} can extract translatable strings

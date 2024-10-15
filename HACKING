@@ -147,6 +147,10 @@ are skipped. To this effect, you need to install also:
       - On Debian and Debian-based systems: libxml2-utils,
       - On Red Hat distributions: libxml2.
       - Other: https://repology.org/project/libxml2/versions
+  * The Xerces2 Java XML parser (binary distribution named 'xml-schema-1.1')
+    + Homepage: https://xerces.apache.org/xerces2-j/
+    + Pre-built package name: --
+    + See gettext-tools/build-aux/xml-validate-11.in for more details.
 
   * A C++ compiler
     + Homepage: https://gcc.gnu.org/

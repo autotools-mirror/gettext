@@ -38,15 +38,17 @@ dist_its_DATA = $(ITS_FILES) $(LOC_FILES)
 # Checks the XML files against their schemas.
 # Work around <https://gitlab.gnome.org/GNOME/libxml2/-/issues/809>.
 check-local:
-	@if echo '<?xml version="1.0"?><rules xmlns="http://www.w3.org/2005/11/its" version="2.0"/>' | $(XMLLINT) --noout --schema $(top_srcdir)/src/its.xsd - >/dev/null 2>&1; then \
-	  for file in $(ITS_FILES); do \
-	    echo "Checking $$file..."; \
-	    echo "$(XMLLINT) --noout --schema $(top_srcdir)/src/its.xsd $(srcdir)/$$file"; \
-	    $(XMLLINT) --noout --schema $(top_srcdir)/src/its.xsd $(srcdir)/$$file || exit 1; \
-	  done; \
-	fi
+	@for file in $(ITS_FILES); do \
+	  echo "Checking $$file..."; \
+	  echo "$(top_builddir)/build-aux/xml-validate-10 $(top_srcdir)/src/its.xsd10 $(srcdir)/$$file"; \
+	  $(top_builddir)/build-aux/xml-validate-10 $(top_srcdir)/src/its.xsd10 $(srcdir)/$$file || exit 1; \
+	  echo "$(top_builddir)/build-aux/xml-validate-11 $(top_srcdir)/src/its.xsd11 $(srcdir)/$$file"; \
+	  $(top_builddir)/build-aux/xml-validate-11 $(top_srcdir)/src/its.xsd11 $(srcdir)/$$file || exit 1; \
+	done
 	@for file in $(LOC_FILES); do \
 	  echo "Checking $$file..."; \
-	  echo "$(XMLLINT) --noout --schema $(top_srcdir)/src/locating-rules.xsd $(srcdir)/$$file"; \
-	  $(XMLLINT) --noout --schema $(top_srcdir)/src/locating-rules.xsd $(srcdir)/$$file || exit 1; \
+	  echo "$(top_builddir)/build-aux/xml-validate-10 $(top_srcdir)/src/locating-rules.xsd10 $(srcdir)/$$file"; \
+	  $(top_builddir)/build-aux/xml-validate-10 $(top_srcdir)/src/locating-rules.xsd10 $(srcdir)/$$file || exit 1; \
+	  echo "$(top_builddir)/build-aux/xml-validate-11 $(top_srcdir)/src/locating-rules.xsd11 $(srcdir)/$$file"; \
+	  $(top_builddir)/build-aux/xml-validate-11 $(top_srcdir)/src/locating-rules.xsd11 $(srcdir)/$$file || exit 1; \
 	done
