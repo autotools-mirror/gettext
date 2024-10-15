@@ -1,5 +1,5 @@
 /* Message list header manipulation.
-   Copyright (C) 2007, 2016 Free Software Foundation, Inc.
+   Copyright (C) 2007-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2007.
 
    This program is free software: you can redistribute it and/or modify
@@ -25,6 +25,14 @@
 extern "C" {
 #endif
 
+
+/* Set the 'charset' value in the 'Content-Type:' field to the given value.
+   HEADER_MP is a message that satisfies the is_header() predicate.
+   CHARSETSTR is a pointer into its msgstr, right after the "charset=" substring.
+   VALUE is the new charset value.  */
+extern void
+       header_set_charset (message_ty *header_mp, const char *charsetstr,
+                           const char *value);
 
 /* Set the given field to the given value.
    The FIELD name ends in a colon.

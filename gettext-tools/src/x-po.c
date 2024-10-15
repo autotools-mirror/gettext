@@ -39,6 +39,7 @@
 #include "read-po.h"
 #include "read-properties.h"
 #include "read-stringtable.h"
+#include "msgl-header.h"
 #include "msgl-iconv.h"
 #include "msgl-ascii.h"
 #include "po-charset.h"
@@ -188,21 +189,8 @@ extract (FILE *fp,
 
                   if (charsetstr != NULL)
                     {
-                      size_t len, len1, len2, len3;
-                      char *new_header;
-
                       charsetstr += strlen ("charset=");
-                      len = strcspn (charsetstr, " \t\n");
-
-                      len1 = charsetstr - header;
-                      len2 = strlen (header_charset);
-                      len3 = (header + strlen (header)) - (charsetstr + len);
-                      new_header = XNMALLOC (len1 + len2 + len3 + 1, char);
-                      memcpy (new_header, header, len1);
-                      memcpy (new_header + len1, header_charset, len2);
-                      memcpy (new_header + len1 + len2, charsetstr + len, len3 + 1);
-                      mp->msgstr = new_header;
-                      mp->msgstr_len = len1 + len2 + len3 + 1;
+                      header_set_charset (mp, charsetstr, header_charset);
                     }
                 }
             }

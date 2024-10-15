@@ -123,6 +123,10 @@ xerror-handler.c
 |               Reading of a .desktop file, returning a list-of-messages.
 +-------------- Reading PO files
 
+msgl-header.h
+msgl-header.c
+                Message list header manipulation.
+
 msgl-iconv.h
 msgl-iconv.c
                 Convert a list-of-messages to another character encoding.
@@ -149,10 +153,6 @@ msgl-charset.c
 |               Main source for the 'msgmerge' program.
 |
 +-------------- The 'msgmerge' program
-
-msgl-header.h
-msgl-header.c
-                Message list header manipulation.
 
 msgcomm.c       Main source for the 'msgcomm' program.
 msgattrib.c     Main source for the 'msgattrib' program.

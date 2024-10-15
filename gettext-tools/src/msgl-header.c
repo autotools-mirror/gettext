@@ -1,5 +1,5 @@
 /* Message list header manipulation.
-   Copyright (C) 2007, 2016-2017 Free Software Foundation, Inc.
+   Copyright (C) 2007-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2007.
 
    This program is free software: you can redistribute it and/or modify
@@ -28,6 +28,28 @@
 #include "xalloc.h"
 
 #define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
+
+
+void
+header_set_charset (message_ty *header_mp, const char *charsetstr,
+                    const char *value)
+{
+  const char *msgstr = header_mp->msgstr;
+  size_t len, len1, len2, len3;
+  char *new_msgstr;
+
+  len = strcspn (charsetstr, " \t\n");
+
+  len1 = charsetstr - msgstr;
+  len2 = strlen (value);
+  len3 = (msgstr + strlen (msgstr)) - (charsetstr + len);
+  new_msgstr = XNMALLOC (len1 + len2 + len3 + 1, char);
+  memcpy (new_msgstr, msgstr, len1);
+  memcpy (new_msgstr + len1, value, len2);
+  memcpy (new_msgstr + len1 + len2, charsetstr + len, len3 + 1);
+  header_mp->msgstr = new_msgstr;
+  header_mp->msgstr_len = len1 + len2 + len3 + 1;
+}
 
 
 /* The known fields in their usual order.  */

@@ -38,6 +38,7 @@
 #include "string-desc.h"
 #include "message.h"
 #include "po-charset.h"
+#include "msgl-header.h"
 #include "xstriconv.h"
 #include "xstriconveh.h"
 #include "msgl-ascii.h"
@@ -289,21 +290,7 @@ iconv_message_list_internal (message_list_ty *mlp,
                 freea (charset);
 
                 if (update_header)
-                  {
-                    size_t len1, len2, len3;
-                    char *new_header;
-
-                    len1 = charsetstr - header;
-                    len2 = strlen (canon_to_code);
-                    len3 = (header + strlen (header)) - (charsetstr + len);
-                    new_header = XNMALLOC (len1 + len2 + len3 + 1, char);
-                    memcpy (new_header, header, len1);
-                    memcpy (new_header + len1, canon_to_code, len2);
-                    memcpy (new_header + len1 + len2, charsetstr + len,
-                            len3 + 1);
-                    mlp->item[j]->msgstr = new_header;
-                    mlp->item[j]->msgstr_len = len1 + len2 + len3 + 1;
-                  }
+                  header_set_charset (mlp->item[j], charsetstr, canon_to_code);
               }
           }
       }
