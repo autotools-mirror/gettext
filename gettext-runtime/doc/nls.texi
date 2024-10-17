@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2023 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2024 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node The original ABOUT-NLS
@@ -68,14 +68,28 @@ library and will decide to use it.  If not, you may have to to use the
 look for it.
 
 Internationalized packages usually have many @file{po/@var{ll}.po}
-files, where @var{ll} gives an @w{ISO 639} two-letter code
-identifying the language.  Unless translations have been forbidden
+or @file{po/@var{ll}_@var{CC}.po}
+files, where
+
+@itemize @bullet
+@item
+@var{ll} gives an @w{ISO 639} two-letter code identifying the language.
+For some languages,
+a two-letter code does not exist, and a three-letter code is used instead.
+@item
+The optional @var{CC} is an @w{ISO 3166} two-letter code of a country or
+territory.
+@end itemize
+
+@noindent
+Unless translations have been forbidden
 at @code{configure} time by using the @samp{--disable-nls} switch,
 all available translations are installed together with the package.
 However, the environment variable @code{LINGUAS} may be set, prior
-to configuration, to limit the installed set.  @code{LINGUAS} should
-then contain a space separated list of two-letter codes, stating
-which languages are allowed.
+to configuration, to limit the installed set.
+@code{LINGUAS} should then contain a space separated list of locale names
+(of the form @code{@var{ll}} or @code{@var{ll}_@var{CC}},
+stating which languages or language variants are allowed.
 
 @node Using This Package
 @subsection Using This Package
@@ -90,9 +104,19 @@ only have to set the @code{LANG} environment variable to the appropriate
 @samp{@var{ll}_@var{CC}} combination.  If you happen to have the @code{LC_ALL}
 or some other @code{LC_xxx} environment variables set, you should unset them
 before setting @code{LANG}, otherwise the setting of @code{LANG} will not
-have the desired effect.  Here @samp{@var{ll}} is an
-@w{ISO 639} two-letter language code, and @samp{@var{CC}} is an
-@w{ISO 3166} two-letter country code.  For example, let's suppose that you
+have the desired effect.  Here
+
+@itemize
+@item
+@samp{@var{ll}} is an @w{ISO 639} two-letter language code.
+For some languages,
+a two-letter code does not exist, and a three-letter code is used instead.
+@item
+@samp{@var{CC}} is an @w{ISO 3166} two-letter code of a country or territory.
+@end itemize
+
+@noindent
+For example, let's suppose that you
 speak German and live in Germany.  At the shell prompt, merely execute
 @w{@samp{setenv LANG de_DE}} (in @code{csh}),
 @w{@samp{export LANG; LANG=de_DE}} (in @code{sh}) or

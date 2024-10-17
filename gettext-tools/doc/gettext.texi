@@ -1255,8 +1255,18 @@ prompt, merely execute
 @subsection Locale Names
 
 A locale name usually has the form @samp{@var{ll}_@var{CC}}.  Here
-@samp{@var{ll}} is an @w{ISO 639} two-letter language code, and
-@samp{@var{CC}} is an @w{ISO 3166} two-letter country code.  For example,
+
+@itemize
+@item
+@samp{@var{ll}} is an @w{ISO 639} two-letter language code.
+For some languages,
+a two-letter code does not exist, and a three-letter code is used instead.
+@item
+@samp{@var{CC}} is an @w{ISO 3166} two-letter code of a country or territory.
+@end itemize
+
+@noindent
+For example,
 for German in Germany, @var{ll} is @code{de}, and @var{CC} is @code{DE}.
 You find a list of the language codes in appendix @ref{Language Codes} and
 a list of the country codes in appendix @ref{Country Codes}.
@@ -3554,10 +3564,13 @@ forms:
 @itemize -
 @item
 @samp{@var{ll}}, an @w{ISO 639} two-letter language code (lowercase).
+For some languages,
+a two-letter code does not exist, and a three-letter code is used instead.
 See @ref{Language Codes} for the list of codes.
 
 @item
 @samp{@var{ll}_@var{CC}}, where @samp{@var{ll}} is an @w{ISO 639} two-letter
+or three-letter
 language code (lowercase) and @samp{@var{CC}} is an @w{ISO 3166} two-letter
 country code (uppercase).  The country code specification is not redundant:
 Some languages have dialects in different countries.  For example,
@@ -3567,7 +3580,9 @@ code serves to distinguish the dialects. See @ref{Language Codes} and
 
 @item
 @samp{@var{ll}_@var{CC}@@@var{variant}}, where @samp{@var{ll}} is an
-@w{ISO 639} two-letter language code (lowercase), @samp{@var{CC}} is an
+@w{ISO 639} two-letter
+or three-letter
+language code (lowercase), @samp{@var{CC}} is an
 @w{ISO 3166} two-letter country code (uppercase), and @samp{@var{variant}} is
 a variant designator. The variant designator (lowercase) can be a script
 designator, such as @samp{latin} or @samp{cyrillic}.
@@ -9879,12 +9894,25 @@ produces programs totally unable to translate messages.
 
 @vindex LINGUAS@r{, environment variable}
 Internationalized packages have usually many @file{@var{ll}.po}
-files.  Unless
-translations are disabled, all those available are installed together
+or @file{@var{ll}_@var{CC}.po} files, where
+
+@itemize @bullet
+@item
+@var{ll} gives an @w{ISO 639} two-letter code identifying the language.
+For some languages,
+a two-letter code does not exist, and a three-letter code is used instead.
+@item
+The optional @var{CC} is an @w{ISO 3166} two-letter code of a country or
+territory.
+@end itemize
+
+@noindent
+Unless translations are disabled, all those available are installed together
 with the package.  However, the environment variable @code{LINGUAS}
 may be set, prior to configuration, to limit the installed set.
-@code{LINGUAS} should then contain a space separated list of two-letter
-codes, stating which languages are allowed.
+@code{LINGUAS} should then contain a space separated list of locale names
+(of the form @code{@var{ll}} or @code{@var{ll}_@var{CC}}),
+stating which languages or language variants are allowed.
 
 GNU @code{gettext} uses *.its and *.loc files (@pxref{Preparing ITS Rules})
 from other packages, provided they are installed in
