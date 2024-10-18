@@ -706,3 +706,18 @@ Output version information and exit.
 Increase verbosity level.
 
 @end table
+
+@subsection Example
+
+A sample invocation of @code{xgettext}, in a project
+that has a single source file @file{src/hello.c}
+that uses @samp{_} as shorthand for the @code{gettext} function,
+could be:
+
+@example
+xgettext -o hello.pot \
+         --add-comments=TRANSLATORS: \
+         --keyword=_ --flag=_:1:pass-c-format \
+         --directory=.. \
+         src/hello.c
+@end example
