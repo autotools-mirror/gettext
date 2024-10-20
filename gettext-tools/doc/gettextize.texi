@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2019 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2024 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 The @code{gettextize} program is an interactive tool that helps the
@@ -106,7 +106,7 @@ no existing file will be replaced unless the option @code{--force}
 The @file{ABOUT-NLS} file is copied in the main directory of your package,
 the one being at the top level.  This file contains a reference to the
 GNU gettext documentation.  It also avoids an error from Automake in
-packages that use the Automake option @samp{gnu} or @samp{gnits}:
+packages that use the Automake option @samp{gnits}:
 ``error: required file './ABOUT-NLS' not found''.
 
 @item
