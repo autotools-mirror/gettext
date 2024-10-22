@@ -937,7 +937,7 @@ project_id (const char *header)
     argv[0] = BOURNE_SHELL;
     argv[1] = prog;
     argv[2] = NULL;
-    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL,
+    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL, NULL,
                             DEV_NULL, false, true, false, fd);
     if (child == -1)
       goto failed;
@@ -1020,7 +1020,7 @@ project_id_version (const char *header)
     argv[1] = prog;
     argv[2] = "yes";
     argv[3] = NULL;
-    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL,
+    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL, NULL,
                             DEV_NULL, false, true, false, fd);
     if (child == -1)
       goto failed;
@@ -1189,7 +1189,7 @@ The new message catalog should contain your email address, so that users can\n\
 give you feedback about the translations, and so that maintainers can contact\n\
 you in case of unexpected technical problems.\n");
     argv[3] = NULL;
-    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL,
+    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL, NULL,
                             DEV_NULL, false, true, false, fd);
     if (child == -1)
       goto failed;
@@ -1296,7 +1296,7 @@ language_team_address ()
     argv[4] = catalogname;
     argv[5] = language;
     argv[6] = NULL;
-    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL,
+    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL, NULL,
                             DEV_NULL, false, true, false, fd);
     if (child == -1)
       goto failed;
@@ -1469,7 +1469,7 @@ plural_forms ()
       argv[1] = language;
       argv[2] = last_dir;
       argv[3] = NULL;
-      child = create_pipe_in (prog, prog, argv, NULL,
+      child = create_pipe_in (prog, prog, argv, NULL, NULL,
                               DEV_NULL, false, true, false, fd);
       free (last_dir);
       if (child == -1)

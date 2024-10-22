@@ -72,7 +72,7 @@ execute_writing_input (const char *progname,
   int exitstatus;
 
   /* Open a pipe to the C# execution engine.  */
-  child = create_pipe_out (progname, prog_path, prog_argv, NULL,
+  child = create_pipe_out (progname, prog_path, prog_argv, NULL, NULL,
                            NULL, false, true, true, fd);
 
   fp = fdopen (fd[0], "wb");

@@ -407,7 +407,7 @@ process_string (const message_ty *mp, const char *str, size_t len)
         unsetenv ("MSGEXEC_PREV_MSGID_PLURAL");
 
       /* Open a pipe to a subprocess.  */
-      child = create_pipe_out (sub_name, sub_path, sub_argv, NULL,
+      child = create_pipe_out (sub_name, sub_path, sub_argv, NULL, NULL,
                                NULL, false, true, true, fd);
 
       /* Ignore SIGPIPE here.  We don't care if the subprocesses terminates
