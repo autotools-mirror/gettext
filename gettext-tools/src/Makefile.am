@@ -116,6 +116,7 @@ DEFS = \
   -DLOCALEDIR=$(localedir_c_make) -DBISON_LOCALEDIR=$(BISON_LOCALEDIR_c_make) \
   -DUSEJAVA=$(USEJAVA) \
   -DGETTEXTJAR=$(jardir_c_make)\"/gettext.jar\" \
+  -DBINDIR=$(bindir_c_make) \
   -DLIBDIR=$(libdir_c_make) \
   -DLIBEXECDIR=$(libexecdir_c_make) \
   -DGETTEXTDATADIR=$(pkgdatadir_c_make) \

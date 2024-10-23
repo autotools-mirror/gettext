@@ -180,7 +180,6 @@ if ! $skip_gnulib; then
     clean-temp
     closedir
     closeout
-    configmake
     copy-file
     csharpcomp
     csharpexec

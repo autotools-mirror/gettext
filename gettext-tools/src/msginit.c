@@ -43,9 +43,6 @@
 
 #include <error.h>
 
-/* Get BINDIR.  */
-#include "configmake.h"
-
 #include "noreturn.h"
 #include "closeout.h"
 #include "error-progname.h"
@@ -329,48 +326,6 @@ the output .po file through the --output-file option.\n"),
   /* Read input file.  */
   result = read_catalog_file (input_file, input_syntax);
   check_pot_charset (result, input_file);
-
-#if defined _WIN32 || defined __CYGWIN__
-  /* The function fill_header invokes, directly or indirectly, some programs
-     that are installed in ${libdir}/gettext:
-       - hostname, invoked indirectly through 'user-email'.
-       - urlget, invoked indirectly through 'team-address'.
-       - cldr-plurals, invoked directly.
-     These programs depend on libintl.  In installations with shared libraries,
-     we need to guarantee that the programs find the DLL, which is installed
-     in ${bindir}, not in ${libdir}/gettext.  The preferred way to do so is to
-     extend $PATH, so that it contains ${bindir}.  */
-  {
-    const char *orig_path;
-    size_t orig_path_len;
-    char separator;
-    const char *bindir;
-    size_t bindir_len;
-    char *augmented_path;
-
-    orig_path = getenv ("PATH");
-    if (orig_path == NULL)
-      orig_path = "";
-    orig_path_len = strlen (orig_path);
-
-    #if defined __CYGWIN__
-    separator = ':';
-    #else /* native Windows */
-    separator = ';';
-    #endif
-
-    bindir = BINDIR;
-    bindir_len = strlen (bindir);
-
-    /* Concatenate bindir, separator, orig_path.  */
-    augmented_path = XNMALLOC (bindir_len + 1 + orig_path_len + 1, char);
-    memcpy (augmented_path, bindir, bindir_len);
-    augmented_path[bindir_len] = separator;
-    memcpy (augmented_path + bindir_len + 1, orig_path, orig_path_len + 1);
-
-    xsetenv ("PATH", augmented_path, 1);
-  }
-#endif
 
   /* Fill the header entry.  */
   result = fill_header (result);
@@ -1172,6 +1127,7 @@ get_user_email ()
 #if !(defined _WIN32 && ! defined __CYGWIN__)
   {
     const char *prog = relocate (LIBEXECDIR "/gettext/user-email");
+    const char *dll_dirs[2];
     const char *argv[4];
     pid_t child;
     int fd[1];
@@ -1181,6 +1137,14 @@ get_user_email ()
     size_t linelen;
     int exitstatus;
 
+    /* The program 'hostname', that 'user-email' may invoke, is installed in
+       gettextlibdir and depends on libintl and libgettextlib.  On Windows,
+       in installations with shared libraries, these DLLs are installed in
+       ${bindir}.  Make sure that the program can find them, even if
+       ${bindir} is not in $PATH.  */
+    dll_dirs[0] = relocate (BINDIR);
+    dll_dirs[1] = NULL;
+
     /* Ask the user for his email address.  */
     argv[0] = BOURNE_SHELL;
     argv[1] = prog;
@@ -1189,7 +1153,7 @@ The new message catalog should contain your email address, so that users can\n\
 give you feedback about the translations, and so that maintainers can contact\n\
 you in case of unexpected technical problems.\n");
     argv[3] = NULL;
-    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL, NULL,
+    child = create_pipe_in (prog, BOURNE_SHELL, argv, dll_dirs, NULL,
                             DEV_NULL, false, true, false, fd);
     if (child == -1)
       goto failed;
@@ -1278,6 +1242,7 @@ language_team_address ()
 #if !(defined _WIN32 && ! defined __CYGWIN__)
   {
     const char *prog = relocate (PROJECTSDIR "/team-address");
+    const char *dll_dirs[2];
     const char *argv[7];
     pid_t child;
     int fd[1];
@@ -1288,6 +1253,14 @@ language_team_address ()
     const char *result;
     int exitstatus;
 
+    /* The program 'urlget', that 'team-address' may invoke, is installed in
+       gettextlibdir and depends on libintl and libgettextlib.  On Windows,
+       in installations with shared libraries, these DLLs are installed in
+       ${bindir}.  Make sure that the program can find them, even if
+       ${bindir} is not in $PATH.  */
+    dll_dirs[0] = relocate (BINDIR);
+    dll_dirs[1] = NULL;
+
     /* Call the team-address shell script.  */
     argv[0] = BOURNE_SHELL;
     argv[1] = prog;
@@ -1296,7 +1269,7 @@ language_team_address ()
     argv[4] = catalogname;
     argv[5] = language;
     argv[6] = NULL;
-    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL, NULL,
+    child = create_pipe_in (prog, BOURNE_SHELL, argv, dll_dirs, NULL,
                             DEV_NULL, false, true, false, fd);
     if (child == -1)
       goto failed;
@@ -1435,6 +1408,7 @@ plural_forms ()
       const char *gettextlibdir;
       const char *dirs[3];
       char *last_dir;
+      const char *dll_dirs[2];
       const char *argv[4];
       pid_t child;
       int fd[1];
@@ -1461,6 +1435,14 @@ plural_forms ()
           last_dir = dir;
         }
 
+      /* The program 'cldr-plurals', that we invoke here, is installed in
+         gettextlibdir and depends on libintl and libgettextlib.  On Windows,
+         in installations with shared libraries, these DLLs are installed in
+         ${bindir}.  Make sure that the program can find them, even if
+         ${bindir} is not in $PATH.  */
+      dll_dirs[0] = relocate (BINDIR);
+      dll_dirs[1] = NULL;
+
       /* Call the cldr-plurals command.
          argv[0] must be prog, not just the base name "cldr-plurals",
          because on Cygwin in a build with --enable-shared, the libtool
@@ -1469,7 +1451,7 @@ plural_forms ()
       argv[1] = language;
       argv[2] = last_dir;
       argv[3] = NULL;
-      child = create_pipe_in (prog, prog, argv, NULL, NULL,
+      child = create_pipe_in (prog, prog, argv, dll_dirs, NULL,
                               DEV_NULL, false, true, false, fd);
       free (last_dir);
       if (child == -1)
