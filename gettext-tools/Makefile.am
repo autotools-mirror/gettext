@@ -21,9 +21,14 @@ ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgre
 
 SUBDIRS = gnulib-lib libgrep src libgettextpo po its projects styles emacs misc man m4 tests system-tests gnulib-tests examples doc
 
-EXTRA_DIST = misc/DISCLAIM
+EXTRA_DIST = misc/disclaim-translations.txt
 MOSTLYCLEANFILES = core *.stackdump
 DISTCLEANFILES = build-aux/xml-validate-10 build-aux/xml-validate-11
+
+
+# Files installed for the user.
+
+pkgdata_DATA = misc/disclaim-translations.txt
 
 
 # Files installed for use by gettextize.
