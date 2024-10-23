@@ -48,7 +48,6 @@ export gettext_datadir
 cat <<EOF >configure.ac
 AC_INIT([hello], [0.0.0], [bug-gnu-gettext@gnu.org])
 AM_INIT_AUTOMAKE([foreign])
-LT_INIT
 
 AC_CONFIG_MACRO_DIR([m4])
 
@@ -84,7 +83,7 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 AM_CPPFLAGS = -I. -I$(srcdir)
 
 # Link time dependencies.
-LDADD = @LTLIBINTL@
+LDADD = @LIBINTL@
 EOF
 
 cp -p "$abs_top_srcdir"/gnulib-lib/gettext.h .
@@ -114,10 +113,6 @@ fi
 
 ${AUTOCONF} >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
-
-# If ltmain.sh is not present, some installations of Automake fail with an
-# error "configure.ac:3: error: required file './ltmain.sh' not found".
-touch ltmain.sh
 
 # Avoid an Automake 1.16.5 failure, in the presence of Autoconf 2.71, on an ext4
 # file system:
