@@ -28,8 +28,7 @@ DISTCLEANFILES = build-aux/xml-validate-10 build-aux/xml-validate-11
 
 # Files installed for use by gettextize.
 
-gettextsrcdir = $(datadir)/gettext
-gettextsrc_SCRIPTS = ../build-aux/config.rpath
+pkgdata_SCRIPTS = ../build-aux/config.rpath
 
 
 # Files installed for the examples.
