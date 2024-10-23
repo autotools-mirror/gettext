@@ -8050,8 +8050,9 @@ The following rules and habits apply to the Translation Project.
 The translator's responsibilities are:
 @itemize @bullet
 @item
-(Once only.)
-She submits a translations disclaimer to the Free Software Foundation.
+She submits a translations disclaimer to the Free Software Foundation
+(once only, and
+only when she wants to translate a package that requires a disclaimer).
 
 A disclaimer is a legal document
 that allows the software package to distribute her translation work.
@@ -8062,7 +8063,8 @@ will never forbid copying them,
 and will never ask for some kind of compensation.
 This guarantees that the FSF (and everyone else)
 will always be allowed to freely distribute these translations.
-The FSF wishes to have this guarantee in writing, to be on the safe side.
+The FSF wishes to have this guarantee in a legally binding manner,
+to be on the safe side.
 
 There are two ways to submit the disclaimer:
 @c In 2024, the <copyright-clerk@fsf.org> wrote:
@@ -8323,7 +8325,7 @@ $ msgattrib --set-obsolete --ignore-file $domain-missing.po $domain.$lang.po \
   > $domain.$lang-urgent.po
 @end smallexample
 
-The she translates @file{$domain.$lang-urgent.po} by use of a PO file editor
+Then she translates @file{$domain.$lang-urgent.po} by use of a PO file editor
 (@pxref{Editing}).
 (FIXME: I don't know whether @code{Lokalize} and @code{gtranslator} also
 preserve obsolete messages, as they should.)
