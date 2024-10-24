@@ -327,6 +327,7 @@ The Translator's View
 
 * Organization::                Organization
 * Responsibilities::            Responsibilities in the Translation Project
+* Dialects::                    Language dialects
 * Translating plural forms::    How to fill in @code{msgstr[0]}, @code{msgstr[1]}
 * Prioritizing messages::       How to find which messages to translate first
 
@@ -1382,6 +1383,18 @@ abbreviated as @samp{@var{ll}} to denote the language's main dialect.
 For example, @samp{de} is equivalent to @samp{de_DE} (German as spoken in
 Germany), and @samp{pt} to @samp{pt_PT} (Portuguese as spoken in Portugal)
 in this context.
+
+Special advice for Chinese users:
+Users who want to see translations with Simplified Chinese characters
+should set @code{LANGUAGE} to @code{zh_CN},
+whereas users who want to see translations with Traditional Chinese characters
+should set @code{LANGUAGE} to @code{zh_TW}.
+Chinese users in Singapore will want to set it to @code{zh_SG:zh_CN},
+Chinese users in Hong Kong will want to set it to @code{zh_HK:zh_TW},
+and Chinese users in Macao will want to set it to @code{zh_MO:zh_TW}.
+Here @code{zh_CN} or @code{zh_TW}, respectively, acts as fallback,
+since only few packages have translations
+for @code{zh_SG}, @code{zh_HK}, or @code{zh_MO}.
 
 Note: The variable @code{LANGUAGE} is ignored if the locale is set to
 @samp{C}.  In other words, you have to first enable localization, by setting
@@ -8006,6 +8019,7 @@ Solaris is not the only system having @code{gettext}.
 @menu
 * Organization::                Organization
 * Responsibilities::            Responsibilities in the Translation Project
+* Dialects::                    Language dialects
 * Translating plural forms::    How to fill in @code{msgstr[0]}, @code{msgstr[1]}
 * Prioritizing messages::       How to find which messages to translate first
 @end menu
@@ -8130,6 +8144,41 @@ because that would cause conflicts with the translation team.
 @c But it gives the right to use @code{libintl} as a static library or
 @c to incorporate @code{libintl} into another library only to free
 @c software.
+
+@node Dialects
+@section Language dialects
+
+For many languages, a translation into the main dialect is intelligible
+by all speakers of the language.
+Speakers of another dialect can have a separate translation if they wish so.
+In fact, since the fallback mechanism implemented in GNU libc and GNU libintl
+applies on a per-message basis,
+the message catalog for the dialect needs only to contain
+the translations that differ from those in the main language.
+
+For example,
+French speakers in Canada (that is, users in the locale @code{fr_CA})
+can use and do accept translations
+produced by French speakers in France (typical file name: @code{fr.po}).
+Nevertheless, the translation system with PO files
+enables them to produce special message catalogs (file name: @code{fr_CA.po})
+that will take priority over @code{fr.po} for users in that locale.
+Similarly for users in Austria,
+where message catalogs @code{de_AT.po} take priority
+over the catalogs named @code{de.po} that reflect German as spoken in Germany.
+
+The situation is different for Chinese, though:
+Since users in the People's Republic of China and in Singapore
+want translations with Simplified Chinese characters,
+whereas Chinese users in other territories
+(such as Taiwan, Hong Kong, and Macao)
+want translations with Traditional Chinese characters,
+no translator should ever submit a file named @code{zh.po}.
+Instead, there will typically be two separate translation teams:
+a team that produces translations with Simplified Chinese characters
+(file name @code{zh_CN.po})
+and a team that produces translations with Traditional Chinese characters
+(file name @code{zh_TW.po}).
 
 @node Translating plural forms
 @section Translating plural forms
