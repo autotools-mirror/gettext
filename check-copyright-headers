@@ -151,7 +151,7 @@ func_check_file ()
       # We are not interested in attaching our own copyright header to each.
       return 0 ;;
 
-    /gettext-tools/misc/DISCLAIM )
+    /gettext-tools/misc/disclaim-translations.txt )
       # This is a form, used for communication with the FSF.
       return 0 ;;
 
