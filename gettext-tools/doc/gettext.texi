@@ -14,7 +14,18 @@
 @documentencoding UTF-8
 @end ifset
 @settitle GNU @code{gettext} utilities
+
+@c Remove the black boxes generated in the GPL appendix.
 @finalout
+
+@c In PDF output, use a brown colour for interactive links,
+@c like it was before commit
+@c https://git.savannah.gnu.org/gitweb/?p=texinfo.git;a=commitdiff;h=b4f50b9f4c083327e81ec5c7cde9b87234a19646
+@tex
+\global\def\linkcolor{\rgbDarkRed}
+\global\def\urlcolor{\rgbDarkRed}
+@end tex
+
 @c Indices:
 @c   am = autoconf macro  @amindex
 @c   cp = concept         @cindex
@@ -39,6 +50,7 @@
 @syncodeindex ev em
 @syncodeindex fn cp
 @syncodeindex kw cp
+
 @ifclear texi2html
 @firstparagraphindent insert
 @end ifclear
