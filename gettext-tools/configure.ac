@@ -174,7 +174,7 @@ AM_GNU_GETTEXT([use-libtool], [need-ngettext], [\${top_builddir}/../gettext-runt
 dnl When not cross-compiling, use the 'msgmerge' program from this package,
 dnl for output consistency with the 'msgfilter' program used to create
 dnl en@quot.po and en@boldquot.po.
-if test "$CROSS_COMPILING" != yes; then
+if test "$cross_compiling" != yes; then
   MSGMERGE='msgmerge'
   MSGMERGE_FOR_MSGFMT_OPTION='--for-msgfmt'
 fi
