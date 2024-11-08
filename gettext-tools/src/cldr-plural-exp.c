@@ -1,5 +1,5 @@
-/* Unicode CLDR plural rule parser and converter
-   Copyright (C) 2015, 2018-2020 Free Software Foundation, Inc.
+/* Unicode CLDR plural rule parser and converter.
+   Copyright (C) 2015-2024 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -28,7 +28,6 @@
 #include "xalloc.h"
 
 #include "cldr-plural-exp.h"
-#include "cldr-plural.h"
 
 /* The grammar of Unicode CLDR plural rules is defined at:
    https://unicode.org/reports/tr35/tr35-numbers.html#Plural_rules_syntax
@@ -63,6 +62,14 @@ cldr_plural_range_list_free (struct cldr_plural_range_list_ty *ranges)
 }
 
 void
+cldr_plural_relation_free (struct cldr_plural_relation_ty *relation)
+{
+  free (relation->expression);
+  cldr_plural_range_list_free (relation->ranges);
+  free (relation);
+}
+
+void
 cldr_plural_condition_free (struct cldr_plural_condition_ty *condition)
 {
   if (condition->type == CLDR_PLURAL_CONDITION_AND
@@ -74,14 +81,6 @@ cldr_plural_condition_free (struct cldr_plural_condition_ty *condition)
   else if (condition->type == CLDR_PLURAL_CONDITION_RELATION)
     cldr_plural_relation_free (condition->value.relation);
   free (condition);
-}
-
-void
-cldr_plural_relation_free (struct cldr_plural_relation_ty *relation)
-{
-  free (relation->expression);
-  cldr_plural_range_list_free (relation->ranges);
-  free (relation);
 }
 
 static void
@@ -99,23 +98,6 @@ cldr_plural_rule_list_free (struct cldr_plural_rule_list_ty *rules)
     cldr_plural_rule_free (rules->items[rules->nitems]);
   free (rules->items);
   free (rules);
-}
-
-struct cldr_plural_rule_list_ty *
-cldr_plural_parse (const char *input)
-{
-  struct cldr_plural_parse_args arg;
-
-  memset (&arg, 0, sizeof (struct cldr_plural_parse_args));
-  arg.cp = input;
-  arg.cp_end = input + strlen (input);
-  arg.result = XMALLOC (struct cldr_plural_rule_list_ty);
-  memset (arg.result, 0, sizeof (struct cldr_plural_rule_list_ty));
-
-  if (yyparse (&arg) != 0)
-    return NULL;
-
-  return arg.result;
 }
 
 #define OPERAND_ZERO_P(o)                               \

@@ -1,4 +1,4 @@
-/* Unicode CLDR plural rule parser and converter
+/* Unicode CLDR plural rule parser and converter.
    Copyright (C) 2015-2024 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
@@ -30,11 +30,6 @@
 #include "string-buffer.h"
 
 #include "cldr-plural-exp.h"
-#include "cldr-plural.h"
-
-/* Prototypes for local functions.  */
-static int yylex (YYSTYPE *lval, struct cldr_plural_parse_args *arg);
-static void yyerror (struct cldr_plural_parse_args *arg, const char *str);
 
 /* Allocation of expressions.  */
 
@@ -119,6 +114,25 @@ new_range (struct cldr_plural_operand_ty *start,
   result->end = end;
   return result;
 }
+
+/* Internal state of the Bison-generated parser.  */
+
+struct cldr_plural_parse_args
+{
+  /* The lifetime of cp, cp_end is limited to the cldr_plural_parse
+     invocation.  */
+  const char *cp;
+  const char *cp_end;
+
+  struct cldr_plural_rule_list_ty *result;
+};
+
+#include "cldr-plural.h"
+
+/* Prototypes for local functions, that must come after the rules.  */
+static int yylex (YYSTYPE *lval, struct cldr_plural_parse_args *arg);
+static void yyerror (struct cldr_plural_parse_args *arg, const char *str);
+
 %}
 
 %require "3.0"
@@ -272,16 +286,18 @@ sample_ellipsis: %empty
         ;
 
 sample_range: DECIMAL
-	{ free ($1); }
+        { free ($1); }
         | DECIMAL '~' DECIMAL
         { free ($1); free ($3); }
         | INTEGER
         { free ($1); }
         | INTEGER '~' INTEGER
-	{ free ($1); free ($3); }
+        { free ($1); free ($3); }
         ;
 
 %%
+
+/* Functions invoked by the Bison-generated parser.  */
 
 static int
 yylex (YYSTYPE *lval, struct cldr_plural_parse_args *arg)
@@ -463,4 +479,23 @@ static void
 yyerror (struct cldr_plural_parse_args *arg, char const *s)
 {
   fprintf (stderr, "%s\n", s);
+}
+
+/* Entry point to the parser.  */
+
+struct cldr_plural_rule_list_ty *
+cldr_plural_parse (const char *input)
+{
+  struct cldr_plural_parse_args arg;
+
+  memset (&arg, 0, sizeof (struct cldr_plural_parse_args));
+  arg.cp = input;
+  arg.cp_end = input + strlen (input);
+  arg.result = XMALLOC (struct cldr_plural_rule_list_ty);
+  memset (arg.result, 0, sizeof (struct cldr_plural_rule_list_ty));
+
+  if (yyparse (&arg) != 0)
+    return NULL;
+
+  return arg.result;
 }

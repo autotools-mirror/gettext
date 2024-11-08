@@ -1,5 +1,5 @@
-/* Unicode CLDR plural rule parser and converter
-   Copyright (C) 2015, 2018 Free Software Foundation, Inc.
+/* Unicode CLDR plural rule parser and converter.
+   Copyright (C) 2015-2024 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -112,28 +112,25 @@ struct cldr_plural_rule_list_ty
   size_t nitems_max;
 };
 
-struct cldr_plural_parse_args
-{
-  const char *cp;
-  const char *cp_end;
-  struct cldr_plural_rule_list_ty *result;
-};
+/* Defined in cldr-plural-exp.c.  */
 
 extern void
 cldr_plural_range_free (struct cldr_plural_range_ty *range);
 extern void
 cldr_plural_range_list_free (struct cldr_plural_range_list_ty *ranges);
 extern void
-cldr_plural_condition_free (struct cldr_plural_condition_ty *condition);
-extern void
 cldr_plural_relation_free (struct cldr_plural_relation_ty *relation);
-
-extern struct cldr_plural_rule_list_ty *
-cldr_plural_parse (const char *input);
+extern void
+cldr_plural_condition_free (struct cldr_plural_condition_ty *condition);
 extern void
 cldr_plural_rule_list_free (struct cldr_plural_rule_list_ty *rules);
 extern void
 cldr_plural_rule_list_print (struct cldr_plural_rule_list_ty *rules, FILE *fp);
+
+/* Defined in cldr-plural.y.  */
+
+extern struct cldr_plural_rule_list_ty *
+cldr_plural_parse (const char *input);
 
 #ifdef __cplusplus
 }
