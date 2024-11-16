@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode:nil; c-basic-offset: 8-*- */
 
 /* libcroco - Library for parsing and applying CSS
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2024 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -1076,7 +1076,7 @@ cr_om_parser_parse_paths_to_cascade (CROMParser * a_this,
         if (!result) {
                 for (i = 0; i < 3; i++) {
                         cr_stylesheet_unref (sheets[i]);
-                        sheets[i] = 0;
+                        sheets[i] = NULL;
                 }
                 return CR_ERROR;
         }

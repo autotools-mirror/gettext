@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode: nil; c-basic-offset: 8 -*- */
 
 /* libcroco - Library for parsing and applying CSS
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2024 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -67,7 +67,7 @@ static struct CREncAlias gv_default_aliases[] = {
         {"UCS-4", CR_UCS_4},
         {"UCS_4", CR_UCS_4},
         {"ASCII", CR_ASCII},
-        {0, 0}
+        {NULL, 0}
 };
 
 static CREncHandler gv_default_enc_handlers[] = {

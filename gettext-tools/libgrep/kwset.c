@@ -1,6 +1,5 @@
 /* kwset.c - search for any of a set of keywords.
-   Copyright 1989, 1998, 2000, 2005-2006, 2010, 2012 Free Software
-   Foundation, Inc.
+   Copyright 1989, 1998, 2000, 2005-2006, 2010, 2012, 2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -107,15 +106,15 @@ kwsalloc (char const *trans)
       return NULL;
     }
   kwset->trie->accepting = 0;
-  kwset->trie->links = 0;
-  kwset->trie->parent = 0;
-  kwset->trie->next = 0;
-  kwset->trie->fail = 0;
+  kwset->trie->links = NULL;
+  kwset->trie->parent = NULL;
+  kwset->trie->next = NULL;
+  kwset->trie->fail = NULL;
   kwset->trie->depth = 0;
   kwset->trie->shift = 0;
   kwset->mind = INT_MAX;
   kwset->maxd = -1;
-  kwset->target = 0;
+  kwset->target = NULL;
   kwset->trans = trans;
 
   return kwset;
@@ -171,17 +170,17 @@ kwsincr (kwset_t kws, char const *text, size_t len)
                                                 sizeof (struct tree));
           if (!link)
             return _("memory exhausted");
-          link->llink = 0;
-          link->rlink = 0;
+          link->llink = NULL;
+          link->rlink = NULL;
           link->trie = (struct trie *) obstack_alloc (&kwset->obstack,
                                                       sizeof (struct trie));
           if (!link->trie)
             return _("memory exhausted");
           link->trie->accepting = 0;
-          link->trie->links = 0;
+          link->trie->links = NULL;
           link->trie->parent = trie;
-          link->trie->next = 0;
-          link->trie->fail = 0;
+          link->trie->next = NULL;
+          link->trie->fail = NULL;
           link->trie->depth = trie->depth + 1;
           link->trie->shift = 0;
           link->label = label;
@@ -278,7 +277,7 @@ kwsincr (kwset_t kws, char const *text, size_t len)
   if (trie->depth > kwset->maxd)
     kwset->maxd = trie->depth;
 
-  return 0;
+  return NULL;
 }
 
 /* Enqueue the trie nodes referenced from the given tree in the
@@ -397,7 +396,7 @@ kwsprep (kwset_t kwset)
 
   /* Check if we can use the simple boyer-moore algorithm, instead
      of the hairy commentz-walter algorithm. */
-  if (kwset->words == 1 && kwset->trans == 0)
+  if (kwset->words == 1 && kwset->trans == NULL)
     {
       register int i;
       register struct trie *curr;
@@ -478,13 +477,13 @@ kwsprep (kwset_t kwset)
         register int i;
 
         for (i = 0; i < NCHAR; ++i)
-          next[i] = 0;
+          next[i] = NULL;
         treenext (kwset->trie->links, next);
 
         {
           register char const *trans;
 
-          if ((trans = kwset->trans) != 0)
+          if ((trans = kwset->trans) != NULL)
             for (i = 0; i < NCHAR; ++i)
               kwset->next[i] = next[(unsigned char) trans[i]];
           else
@@ -499,7 +498,7 @@ kwsprep (kwset_t kwset)
     register char const *trans;
     register int i;
 
-    if ((trans = kwset->trans) != 0)
+    if ((trans = kwset->trans) != NULL)
       for (i = 0; i < NCHAR; ++i)
         kwset->delta[i] = delta[(unsigned char) trans[i]];
     else
@@ -507,7 +506,7 @@ kwsprep (kwset_t kwset)
         kwset->delta[i] = delta[i];
   }
 
-  return 0;
+  return NULL;
 }
 
 #define U(C) ((unsigned char) (C))
@@ -647,7 +646,7 @@ cwexec (kwset_t kws, char const *text, size_t len, struct kwsmatch *kwsmatch)
     lim = text + len;
     end = text;
     if ((d = kwset->mind) != 0)
-      mch = 0;
+      mch = NULL;
     else
       {
         mch = text, accept = kwset->trie;
@@ -657,7 +656,7 @@ cwexec (kwset_t kws, char const *text, size_t len, struct kwsmatch *kwsmatch)
     if (len >= 4 * kwset->mind)
       qlim = lim - 4 * kwset->mind;
     else
-      qlim = 0;
+      qlim = NULL;
 
     while (lim - end >= d)
       {
@@ -730,7 +729,7 @@ cwexec (kwset_t kws, char const *text, size_t len, struct kwsmatch *kwsmatch)
 
       if (lim - mch > kwset->maxd)
         lim = mch + kwset->maxd;
-      lmch = 0;
+      lmch = NULL;
       d = 1;
       while (lim - end >= d)
         {
@@ -812,10 +811,10 @@ kwsexec (kwset_t kws, char const *text, size_t size,
          struct kwsmatch *kwsmatch)
 {
   struct kwset const *kwset = (struct kwset *) kws;
-  if (kwset->words == 1 && kwset->trans == 0)
+  if (kwset->words == 1 && kwset->trans == NULL)
     {
       size_t ret = bmexec (kws, text, size);
-      if (kwsmatch != 0 && ret != (size_t) -1)
+      if (kwsmatch != NULL && ret != (size_t) -1)
         {
           kwsmatch->index = 0;
           kwsmatch->offset[0] = ret;
