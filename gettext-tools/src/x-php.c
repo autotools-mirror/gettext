@@ -322,18 +322,6 @@ skip_html (struct php_extractor *xp)
               return;
             }
 
-          if (c2 == '%')
-            {
-              /* <% and <%= are recognized by PHP depending on a configuration
-                 setting.  */
-              int c3 = phase1_getc (xp);
-
-              if (c3 != '=')
-                phase1_ungetc (xp, c3);
-
-              return;
-            }
-
           if (c2 == '<')
             {
               phase1_ungetc (xp, c2);
@@ -549,7 +537,6 @@ phase2_getc (struct php_extractor *xp)
   switch (c)
     {
     case '?':
-    case '%':
       {
         int c2 = phase1_getc (xp);
         if (c2 == '>')
@@ -705,7 +692,7 @@ phase3_getc (struct php_extractor *xp)
           /* We skip all leading white space, but not EOLs.  */
           if (!(xp->buflen == 0 && (c == ' ' || c == '\t')))
             comment_add (xp, c);
-          last_was_qmark = (c == '?' || c == '%');
+          last_was_qmark = (c == '?');
         }
       xp->last_comment_line = lineno;
       return '\n';
@@ -792,7 +779,7 @@ phase3_getc (struct php_extractor *xp)
                 /* We skip all leading white space, but not EOLs.  */
                 if (!(xp->buflen == 0 && (c == ' ' || c == '\t')))
                   comment_add (xp, c);
-                last_was_qmark = (c == '?' || c == '%');
+                last_was_qmark = (c == '?');
               }
             xp->last_comment_line = lineno;
             return '\n';
@@ -1236,20 +1223,18 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
           return;
 
         case '?':
-        case '%':
           {
             int c2 = phase1_getc (xp);
             if (c2 == '>')
               {
-                /* ?> and %> terminate PHP mode and switch back to HTML
-                   mode.  */
+                /* ?> terminates PHP mode and switches back to HTML mode.  */
                 skip_html (xp);
                 tp->type = token_type_other;
               }
             else
               {
                 phase1_ungetc (xp, c2);
-                tp->type = (c == '%' ? token_type_operator1 : token_type_other);
+                tp->type = token_type_other;
               }
             return;
           }
