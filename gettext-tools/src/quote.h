@@ -1,5 +1,5 @@
 /* Handle quoted segments of a string.
-   Copyright (C) 2014-2016 Free Software Foundation, Inc.
+   Copyright (C) 2014-2024 Free Software Foundation, Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2015.
 
    This program is free software: you can redistribute it and/or modify
@@ -25,10 +25,19 @@
 extern "C" {
 #endif
 
+
+/* Iterates over the quoted segments of the given string (starting at INPUT,
+   with LENGTH bytes) and invokes
+     CALLBACK (quote, segment_start, segment_length, DATA)
+   on each.  The definition of "quoted segment" is as in po/quot.sed.
+   It also invokes
+     CALLBACK ('\0', segment_start, segment_length, DATA)
+   for the segments in-between (outside quotes).  */
 static void
 scan_quoted (const char *input, size_t length,
-             void (* callback) (char quote, const char *quoted,
-                                size_t quoted_length,
+             void (* callback) (char quote,
+                                const char *segment_start,
+                                size_t segment_length,
                                 void *data),
              void *data)
 {
@@ -38,14 +47,14 @@ scan_quoted (const char *input, size_t length,
   /* START shall point to the beginning of a quoted segment, END
      points to the end of the entire input string.  */
   start = input;
-  end = &input[length - 1];
+  end = input + length;
   
   /* True if we have seen a character which could be an opening
      quotation mark.  Note that we can't determine if it is really an
      opening quotation mark until we see a closing quotation mark.  */
   seen_opening = false;
 
-  for (p = start; p <= end; p++)
+  for (p = start; p < end; p++)
     {
       switch (*p)
         {
@@ -104,9 +113,9 @@ scan_quoted (const char *input, size_t length,
                        the right quote is followed by a space.  */
                   || (*start == '\''
                       && (((start > input && *(start - 1) == ' ')
-                           && (p == end || *(p + 1) == '\n' || *(p + 1) == ' '))
+                           && (p + 1 == end || p[1] == '\n' || p[1] == ' '))
                           || ((start == input || *(start - 1) == '\n')
-                              && p < end && *(p + 1) == ' '))))
+                              && p + 1 < end && p[1] == ' '))))
                 {
                   callback ('\'', start + 1, p - (start + 1), data);
                   start = p + 1;
