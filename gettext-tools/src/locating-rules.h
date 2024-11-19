@@ -90,7 +90,9 @@ extern bool
    when the "language name" is NAME (can be NULL if not provided),
    accoding to the locating rules in the RULES object.
    The result is just the base name of the .its file; the caller then
-   needs to find it, using "search-path.h".  */
+   needs to find it, using "search-path.h".
+   The lifetime of the result is limited by the lifetime of the RULES
+   object.  */
 extern const char *
        locating_rule_list_locate (const locating_rule_list_ty *rules,
                                   const char *filename,
