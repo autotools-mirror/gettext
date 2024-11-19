@@ -6289,8 +6289,14 @@ is marked as being a format string of @var{format_type}.
 @end deftypefun
 
 @deftypefun {void} po_message_set_format (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{format_type}, int@tie{}@var{value})
-The @code{po_message_set_fuzzy} function changes the format mark of
-the message for the @var{format_type} provided.
+The @code{po_message_set_format} function changes
+the format string mark of the message for the @var{format_type} provided.
+Pass @var{value} = 1
+to assert the format string mark (leading to e.g. @samp{c-format}),
+@var{value} = 0
+to assert the opposite (leading to e.g. @samp{no-c-format}),
+or @var{value} = -1
+to remove the format string mark and its opposite.
 @end deftypefun
 
 @deftypefun {int} po_message_is_range (po_message_t@tie{}@var{message}, int@tie{}*@var{minp}, int@tie{}*@var{maxp})

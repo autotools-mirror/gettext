@@ -960,7 +960,7 @@ po_message_is_format (po_message_t message, const char *format_type)
 /* Change the format string mark for a given type of a message.  */
 
 void
-po_message_set_format (po_message_t message, const char *format_type, /*bool*/int value)
+po_message_set_format (po_message_t message, const char *format_type, int value)
 {
   message_ty *mp = (message_ty *) message;
   size_t len = strlen (format_type);
@@ -971,7 +971,7 @@ po_message_set_format (po_message_t message, const char *format_type, /*bool*/in
       if (strlen (format_language[i]) == len - 7
           && memcmp (format_language[i], format_type, len - 7) == 0)
         /* The given format_type corresponds to (enum format_type) i.  */
-        mp->is_format[i] = (value ? yes : no);
+        mp->is_format[i] = (value >= 0 ? (value ? yes : no) : undecided);
 }
 
 

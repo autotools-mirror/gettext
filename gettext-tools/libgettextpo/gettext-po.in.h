@@ -298,8 +298,11 @@ extern void po_message_set_fuzzy (po_message_t message, int fuzzy);
    type (e.g. "c-format").  */
 extern int po_message_is_format (po_message_t message, const char *format_type);
 
-/* Change the format string mark for a given type of a message.  */
-extern void po_message_set_format (po_message_t message, const char *format_type, /*bool*/int value);
+/* Change the format string mark for a given type of a message.
+   Pass value = 1 to assert the format string mark (e.g. "c-format"),
+   value = 0 to assert the opposite (leading to e.g. "no-c-format"),
+   or value = -1 to remove the format string mark and its opposite.  */
+extern void po_message_set_format (po_message_t message, const char *format_type, int value);
 
 /* If a numeric range of a message is set, return true and store the minimum
    and maximum value in *MINP and *MAXP.  */

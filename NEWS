@@ -1,4 +1,4 @@
-Version 0.23 - October 2024
+Version 0.23 - November 2024
 
 * Programming languages support:
   - XML:
@@ -79,6 +79,8 @@ Version 0.23 - October 2024
 
 * libgettextpo library:
   - This library is now multithread-safe.
+  - The function 'po_message_set_format' now supports resetting a format string
+    mark.
 
 Version 0.22.5 - February 2024
 
