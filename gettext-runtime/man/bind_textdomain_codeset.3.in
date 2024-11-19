@@ -30,7 +30,7 @@ every software package has its own message domain.
 By default, the \fBgettext\fP family of functions returns translated messages
 in the locale's character encoding, which can be retrieved as
 \fBnl_langinfo (CODESET)\fP. The need for calling \fBbind_textdomain_codeset\fP
-arises for programs which store strings in a locale independent way (e.g.
+arises for programs which store strings in a locale independent way (e.g.\&
 UTF-8) and want to avoid an extra character set conversion on the returned
 translated messages.
 .PP
