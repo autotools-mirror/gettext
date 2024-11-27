@@ -1299,7 +1299,9 @@ On other systems, some variations of this scheme are used, such as
 @samp{@var{ll}}.  You can get the list of locales supported by your system
 for your language by running the command @samp{locale -a | grep '^@var{ll}'}.
 
-There is also a special locale, called @samp{C}.
+There are also two special locales:
+@table @bullet
+@item The locale called @samp{C}.
 @c Don't mention that this locale also has the name "POSIX". When we talk about
 @c the "POSIX locale", we mean the "locale as specified in the POSIX way", and
 @c mentioning a locale called "POSIX" would bring total confusion.
@@ -1307,6 +1309,12 @@ When it is used, it disables all localization: in this locale, all programs
 standardized by POSIX use English messages and an unspecified character
 encoding (often US-ASCII, but sometimes also ISO-8859-1 or UTF-8, depending on
 the operating system).
+@item The locale called @samp{C.UTF-8}.
+This locale exists on all modern GNU and Unix systems,
+but not on all operating systems.
+When it is used, it disables all localization as well.
+It uses UTF-8 as character encoding.
+@end table
 
 @node Locale Environment Variables
 @subsection Locale Environment Variables
