@@ -19,6 +19,7 @@
 
 # Files brought in by gnulib-tool:
 /GNUmakefile
+/INSTALL.generic
 /maint.mk
 /build-aux/config.libpath
 /build-aux/config.rpath

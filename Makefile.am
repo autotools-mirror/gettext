@@ -51,7 +51,9 @@ changelog_etc = \
   gnulib-local/ChangeLog.0
 
 EXTRA_DIST = \
-  $(changelog_etc) DEPENDENCIES PACKAGING HACKING JOIN-GNU ChangeLog.0 \
+  $(changelog_etc) \
+  DEPENDENCIES INSTALL.generic PACKAGING HACKING \
+  JOIN-GNU ChangeLog.0 \
   autogen.sh \
   check-copyright-headers \
   build-aux/ac-help.sed build-aux/git-version-gen build-aux/jar-cf \

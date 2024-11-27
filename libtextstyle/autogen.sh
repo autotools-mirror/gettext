@@ -6,7 +6,7 @@
 #
 # This script requires autoconf-2.64..2.71 and automake-1.11..1.16 in the PATH.
 
-# Copyright (C) 2003-2023 Free Software Foundation, Inc.
+# Copyright (C) 2003-2024 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -100,6 +100,8 @@ if test $skip_gnulib = false; then
   if test ! -f build-aux/texinfo.tex; then
     $GNULIB_TOOL --copy-file build-aux/texinfo.tex
   fi
+  # Fetch INSTALL.generic.
+  $GNULIB_TOOL --copy-file doc/INSTALL.UTF-8 INSTALL.generic
   # For use by the example programs.
   $GNULIB_TOOL --copy-file m4/libtextstyle.m4
 fi

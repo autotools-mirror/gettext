@@ -276,6 +276,7 @@
 /build-aux/texinfo.tex
 
 # Other files brought in by autogen.sh:
+/INSTALL.generic
 /INSTALL.windows
 /build-aux/config.guess
 /build-aux/config.sub

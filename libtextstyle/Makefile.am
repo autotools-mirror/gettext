@@ -25,6 +25,7 @@ SUBDIRS = lib tests adhoc-tests doc
 EXTRA_DIST = \
   version.sh \
   DEPENDENCIES \
+  INSTALL.generic \
   HACKING \
   autogen.sh \
   gnulib-local/build-aux/moopp \

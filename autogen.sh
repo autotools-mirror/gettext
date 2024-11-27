@@ -470,6 +470,9 @@ if ! $skip_gnulib; then
   for file in config.guess config.sub; do
     $GNULIB_TOOL --copy-file build-aux/$file && chmod a+x build-aux/$file || exit $?
   done
+
+  # Fetch INSTALL.generic.
+  $GNULIB_TOOL --copy-file doc/INSTALL.UTF-8 INSTALL.generic
 fi
 
 # Make sure we get new versions of files brought in by automake.
