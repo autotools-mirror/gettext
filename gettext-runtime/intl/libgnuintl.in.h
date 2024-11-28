@@ -439,29 +439,90 @@ extern char *bind_textdomain_codeset (const char *__domainname,
 # endif
 
 # if !((defined fprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_fprintf) /* don't override gnulib */
-#  undef fprintf
-#  define fprintf libintl_fprintf
+#  if defined _INTL_REDIRECT_INLINE && !(defined __MINGW32__ || defined _MSC_VER)
+extern int libintl_vfprintf (FILE *, const char *, va_list)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+       _INTL_ARG_NONNULL ((1, 2));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3) _INTL_ARG_NONNULL ((1, 2))
+int fprintf (FILE *__stream, const char *__format, ...)
+{
+  va_list __args;
+  int __ret;
+  va_start (__args, __format);
+  __ret = libintl_vfprintf (__stream, __format, __args);
+  va_end (__args);
+  return __ret;
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_FPRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER
+#    undef fprintf
+#    define fprintf libintl_fprintf
+#   endif
 extern int fprintf (FILE *, const char *, ...)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3)
-  _INTL_ARG_NONNULL ((1, 2));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_fprintf)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3)
+       _INTL_ARG_NONNULL ((1, 2));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_fprintf; }
+#   endif
 #  endif
 # endif
 # if !((defined vfprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vfprintf) /* don't override gnulib */
-#  undef vfprintf
-#  define vfprintf libintl_vfprintf
+#  if defined _INTL_REDIRECT_INLINE && !(defined __MINGW32__ || defined _MSC_VER)
+extern int libintl_vfprintf (FILE *, const char *, va_list)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+       _INTL_ARG_NONNULL ((1, 2));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0) _INTL_ARG_NONNULL ((1, 2))
+int vfprintf (FILE *__stream, const char *__format, va_list __args)
+{
+  return libintl_vfprintf (__stream, __format, __args);
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_VFPRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER
+#    undef vfprintf
+#    define vfprintf libintl_vfprintf
+#   endif
 extern int vfprintf (FILE *, const char *, va_list)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
-  _INTL_ARG_NONNULL ((1, 2));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_vfprintf)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+       _INTL_ARG_NONNULL ((1, 2));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vfprintf; }
+#   endif
 #  endif
 # endif
 
 # if !((defined printf && defined _GL_STDIO_H) || defined GNULIB_overrides_printf) /* don't override gnulib */
-#  undef printf
-#  if defined __NetBSD__ || defined __BEOS__ || defined __CYGWIN__ || defined __MINGW32__
+#  if defined _INTL_REDIRECT_INLINE && !(defined __MINGW32__ || defined _MSC_VER)
+extern int libintl_vprintf (const char *, va_list)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 0)
+       _INTL_ARG_NONNULL ((1));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 2) _INTL_ARG_NONNULL ((1))
+int printf (const char *__format, ...)
+{
+  va_list __args;
+  int __ret;
+  va_start (__args, __format);
+  __ret = libintl_vprintf (__format, __args);
+  va_end (__args);
+  return __ret;
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_PRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER
+#    undef printf
+#    if defined __NetBSD__ || defined __BEOS__ || defined __CYGWIN__ || defined __MINGW32__
 /* Don't break __attribute__((format(printf,M,N))).
    This redefinition is only possible because the libc in NetBSD, Cygwin,
    mingw does not have a function __printf__.
@@ -471,68 +532,171 @@ namespace std { using ::libintl_vfprintf; }
               __asm__ (#__USER_LABEL_PREFIX__ "libintl_printf");
    But doing it now would introduce a binary incompatibility with already
    distributed versions of libintl on these systems.  */
-#   define libintl_printf __printf__
-#  endif
-#  define printf libintl_printf
+#     define libintl_printf __printf__
+#    endif
+#    define printf libintl_printf
+#   endif
 extern int printf (const char *, ...)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 2)
-  _INTL_ARG_NONNULL ((1));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_printf)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 2)
+       _INTL_ARG_NONNULL ((1));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_printf; }
+#   endif
 #  endif
 # endif
 # if !((defined vprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vprintf) /* don't override gnulib */
-#  undef vprintf
-#  define vprintf libintl_vprintf
+#  if defined _INTL_REDIRECT_INLINE && !(defined __MINGW32__ || defined _MSC_VER)
+extern int libintl_vprintf (const char *, va_list)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 0)
+       _INTL_ARG_NONNULL ((1));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 0) _INTL_ARG_NONNULL ((1))
+int vprintf (const char *__format, va_list __args)
+{
+  return libintl_vprintf (__format, __args);
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_VPRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER
+#    undef vprintf
+#    define vprintf libintl_vprintf
+#   endif
 extern int vprintf (const char *, va_list)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 0)
-  _INTL_ARG_NONNULL ((1));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_vprintf)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 0)
+       _INTL_ARG_NONNULL ((1));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vprintf; }
+#   endif
 #  endif
 # endif
 
 # if !((defined sprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_sprintf) /* don't override gnulib */
-#  undef sprintf
-#  define sprintf libintl_sprintf
+#  if defined _INTL_REDIRECT_INLINE && !(defined __MINGW32__ || defined _MSC_VER)
+extern int libintl_vsprintf (char *, const char *, va_list)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+       _INTL_ARG_NONNULL ((1, 2));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3) _INTL_ARG_NONNULL ((1, 2))
+int sprintf (char *__result, const char *__format, ...)
+{
+  va_list __args;
+  int __ret;
+  va_start (__args, __format);
+  __ret = libintl_vsprintf (__result, __format, __args);
+  va_end (__args);
+  return __ret;
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_SPRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER
+#    undef sprintf
+#    define sprintf libintl_sprintf
+#   endif
 extern int sprintf (char *, const char *, ...)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3)
-  _INTL_ARG_NONNULL ((1, 2));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_sprintf)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3)
+       _INTL_ARG_NONNULL ((1, 2));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_sprintf; }
+#   endif
 #  endif
 # endif
 # if !((defined vsprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vsprintf) /* don't override gnulib */
-#  undef vsprintf
-#  define vsprintf libintl_vsprintf
+#  if defined _INTL_REDIRECT_INLINE && !(defined __MINGW32__ || defined _MSC_VER)
+extern int libintl_vsprintf (char *, const char *, va_list)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+       _INTL_ARG_NONNULL ((1, 2));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0) _INTL_ARG_NONNULL ((1, 2))
+int vsprintf (char *__result, const char *__format, va_list __args)
+{
+  return libintl_vsprintf (__result, __format, __args);
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_VSPRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER
+#    undef vsprintf
+#    define vsprintf libintl_vsprintf
+#   endif
 extern int vsprintf (char *, const char *, va_list)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
-  _INTL_ARG_NONNULL ((1, 2));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_vsprintf)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+       _INTL_ARG_NONNULL ((1, 2));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__ || defined _MSC_VER) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vsprintf; }
+#   endif
 #  endif
 # endif
 
 # if @HAVE_SNPRINTF@
 
 #  if !((defined snprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_snprintf) /* don't override gnulib */
-#   undef snprintf
-#   define snprintf libintl_snprintf
+#   if defined _INTL_REDIRECT_INLINE && !defined __MINGW32__
+extern int libintl_vsnprintf (char *, size_t, const char *, va_list)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0)
+       _INTL_ARG_NONNULL ((3));
+#    ifndef __cplusplus
+static
+#    endif
+inline
+_INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 4) _INTL_ARG_NONNULL ((3))
+int snprintf (char *__result, size_t __maxlen, const char *__format, ...)
+{
+  va_list __args;
+  int __ret;
+  va_start (__args, __format);
+  __ret = libintl_vsnprintf (__result, __maxlen, __format, __args);
+  va_end (__args);
+  return __ret;
+}
+#   elif !defined _INTL_NO_DEFINE_MACRO_SNPRINTF
+#    if defined _INTL_REDIRECT_MACROS || defined __MINGW32__
+#     undef snprintf
+#     define snprintf libintl_snprintf
+#    endif
 extern int snprintf (char *, size_t, const char *, ...)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 4)
-  _INTL_ARG_NONNULL ((3));
-#   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_snprintf)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 4)
+       _INTL_ARG_NONNULL ((3));
+#    if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_snprintf; }
+#    endif
 #   endif
 #  endif
 #  if !((defined vsnprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vsnprintf) /* don't override gnulib */
-#   undef vsnprintf
-#   define vsnprintf libintl_vsnprintf
+#   if defined _INTL_REDIRECT_INLINE && !defined __MINGW32__
+extern int libintl_vsnprintf (char *, size_t, const char *, va_list)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0)
+       _INTL_ARG_NONNULL ((3));
+#    ifndef __cplusplus
+static
+#    endif
+inline
+_INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0) _INTL_ARG_NONNULL ((3))
+int vsnprintf (char *__result, size_t __maxlen, const char *__format, va_list __args)
+{
+  return libintl_vsnprintf (__result, __maxlen, __format, __args);
+}
+#   elif !defined _INTL_NO_DEFINE_MACRO_VSNPRINTF
+#    if defined _INTL_REDIRECT_MACROS || defined __MINGW32__
+#     undef vsnprintf
+#     define vsnprintf libintl_vsnprintf
+#    endif
 extern int vsnprintf (char *, size_t, const char *, va_list)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0)
-  _INTL_ARG_NONNULL ((3));
-#   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_vsnprintf)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0)
+       _INTL_ARG_NONNULL ((3));
+#    if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vsnprintf; }
+#    endif
 #   endif
 #  endif
 
@@ -541,23 +705,64 @@ namespace std { using ::libintl_vsnprintf; }
 # if @HAVE_ASPRINTF@
 
 #  if !((defined asprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_asprintf) /* don't override gnulib */
-#   undef asprintf
-#   define asprintf libintl_asprintf
+#   if defined _INTL_REDIRECT_INLINE && !defined __MINGW32__
+extern int libintl_vasprintf (char **, const char *, va_list)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+       _INTL_ARG_NONNULL ((1, 2));
+#    ifndef __cplusplus
+static
+#    endif
+inline
+_INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3) _INTL_ARG_NONNULL ((1, 2))
+int asprintf (char **__result, const char *__format, ...)
+{
+  va_list __args;
+  int __ret;
+  va_start (__args, __format);
+  __ret = libintl_vasprintf (__result, __format, __args);
+  va_end (__args);
+  return __ret;
+}
+#   elif !defined _INTL_NO_DEFINE_MACRO_ASPRINTF
+#    if defined _INTL_REDIRECT_MACROS || defined __MINGW32__
+#     undef asprintf
+#     define asprintf libintl_asprintf
+#    endif
 extern int asprintf (char **, const char *, ...)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3)
-  _INTL_ARG_NONNULL ((1, 2));
-#   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_asprintf)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3)
+       _INTL_ARG_NONNULL ((1, 2));
+#    if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_asprintf; }
+#    endif
 #   endif
 #  endif
 #  if !((defined vasprintf && defined _GL_STDIO_H) || defined GNULIB_overrides_vasprintf) /* don't override gnulib */
-#   undef vasprintf
-#   define vasprintf libintl_vasprintf
+#   if defined _INTL_REDIRECT_INLINE && !defined __MINGW32__
+extern int libintl_vasprintf (char **, const char *, va_list)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+       _INTL_ARG_NONNULL ((1, 2));
+#    ifndef __cplusplus
+static
+#    endif
+inline
+_INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0) _INTL_ARG_NONNULL ((1, 2))
+int vasprintf (char **__result, const char *__format, va_list __args)
+{
+  return libintl_vasprintf (__result, __format, __args);
+}
+#   elif !defined _INTL_NO_DEFINE_MACRO_VASPRINTF
+#    if defined _INTL_REDIRECT_MACROS || defined __MINGW32__
+#     undef vasprintf
+#     define vasprintf libintl_vasprintf
+#    endif
 extern int vasprintf (char **, const char *, va_list)
-  _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
-  _INTL_ARG_NONNULL ((1, 2));
-#   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_vasprintf)
+       _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0)
+       _INTL_ARG_NONNULL ((1, 2));
+#    if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vasprintf; }
+#    endif
 #   endif
 #  endif
 
@@ -565,49 +770,166 @@ namespace std { using ::libintl_vasprintf; }
 
 # if @HAVE_WPRINTF@
 
-#  undef fwprintf
-#  define fwprintf libintl_fwprintf
+#  if defined _INTL_REDIRECT_INLINE && !defined __MINGW32__
+extern int libintl_vfwprintf (FILE *, const wchar_t *, va_list)
+       _INTL_ARG_NONNULL ((1, 2));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ARG_NONNULL ((1, 2))
+int fwprintf (FILE *__stream, const wchar_t *__format, ...)
+{
+  va_list __args;
+  int __ret;
+  va_start (__args, __format);
+  __ret = libintl_vfwprintf (__stream, __format, __args);
+  va_end (__args);
+  return __ret;
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_FWPRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__
+#    undef fwprintf
+#    define fwprintf libintl_fwprintf
+#   endif
 extern int fwprintf (FILE *, const wchar_t *, ...)
-  _INTL_ARG_NONNULL ((1, 2));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_fwprintf)
+       _INTL_ARG_NONNULL ((1, 2));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_fwprintf; }
+#   endif
 #  endif
-#  undef vfwprintf
-#  define vfwprintf libintl_vfwprintf
+#  if defined _INTL_REDIRECT_INLINE && !defined __MINGW32__
+extern int libintl_vfwprintf (FILE *, const wchar_t *, va_list)
+       _INTL_ARG_NONNULL ((1, 2));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ARG_NONNULL ((1, 2))
+int vfwprintf (FILE *__stream, const wchar_t *__format, va_list __args)
+{
+  return libintl_vfwprintf (__stream, __format, __args);
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_VFWPRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__
+#    undef vfwprintf
+#    define vfwprintf libintl_vfwprintf
+#   endif
 extern int vfwprintf (FILE *, const wchar_t *, va_list)
-  _INTL_ARG_NONNULL ((1, 2));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_vfwprintf)
+       _INTL_ARG_NONNULL ((1, 2));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vfwprintf; }
+#   endif
 #  endif
 
-#  undef wprintf
-#  define wprintf libintl_wprintf
+#  if defined _INTL_REDIRECT_INLINE && !defined __MINGW32__
+extern int libintl_vwprintf (const wchar_t *, va_list)
+       _INTL_ARG_NONNULL ((1));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ARG_NONNULL ((1))
+int wprintf (const wchar_t *__format, ...)
+{
+  va_list __args;
+  int __ret;
+  va_start (__args, __format);
+  __ret = libintl_vwprintf (__format, __args);
+  va_end (__args);
+  return __ret;
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_WPRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__
+#    undef wprintf
+#    define wprintf libintl_wprintf
+#   endif
 extern int wprintf (const wchar_t *, ...)
-  _INTL_ARG_NONNULL ((1));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_wprintf)
+       _INTL_ARG_NONNULL ((1));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_wprintf; }
+#   endif
 #  endif
-#  undef vwprintf
-#  define vwprintf libintl_vwprintf
+#  if defined _INTL_REDIRECT_INLINE && !defined __MINGW32__
+extern int libintl_vwprintf (const wchar_t *, va_list)
+       _INTL_ARG_NONNULL ((1));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ARG_NONNULL ((1))
+int vwprintf (const wchar_t *__format, va_list __args)
+{
+  return libintl_vwprintf (__format, __args);
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_VWPRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__
+#    undef vwprintf
+#    define vwprintf libintl_vwprintf
+#   endif
 extern int vwprintf (const wchar_t *, va_list)
-  _INTL_ARG_NONNULL ((1));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_vwprintf)
+       _INTL_ARG_NONNULL ((1));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vwprintf; }
+#   endif
 #  endif
 
-#  undef swprintf
-#  define swprintf libintl_swprintf
+#  if defined _INTL_REDIRECT_INLINE && !defined __MINGW32__
+extern int libintl_vswprintf (wchar_t *, size_t, const wchar_t *, va_list)
+       _INTL_ARG_NONNULL ((1, 3));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ARG_NONNULL ((1, 3))
+int swprintf (wchar_t *__result, size_t __maxlen, const wchar_t * __format, ...)
+{
+  va_list __args;
+  int __ret;
+  va_start (__args, __format);
+  __ret = libintl_vswprintf (__result, __maxlen, __format, __args);
+  va_end (__args);
+  return __ret;
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_SWPRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__
+#    undef swprintf
+#    define swprintf libintl_swprintf
+#   endif
 extern int swprintf (wchar_t *, size_t, const wchar_t *, ...)
-  _INTL_ARG_NONNULL ((1, 3));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_swprintf)
+       _INTL_ARG_NONNULL ((1, 3));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_swprintf; }
+#   endif
 #  endif
-#  undef vswprintf
-#  define vswprintf libintl_vswprintf
+#  if defined _INTL_REDIRECT_INLINE && !defined __MINGW32__
+extern int libintl_vswprintf (wchar_t *, size_t, const wchar_t *, va_list)
+       _INTL_ARG_NONNULL ((1, 3));
+#   ifndef __cplusplus
+static
+#   endif
+inline
+_INTL_ARG_NONNULL ((1, 3))
+int vswprintf (wchar_t *__result, size_t __maxlen, const wchar_t *__format, va_list __args)
+{
+  return libintl_vswprintf (__result, __maxlen, __format, __args);
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_VSWPRINTF
+#   if defined _INTL_REDIRECT_MACROS || defined __MINGW32__
+#    undef vswprintf
+#    define vswprintf libintl_vswprintf
+#   endif
 extern int vswprintf (wchar_t *, size_t, const wchar_t *, va_list)
-  _INTL_ARG_NONNULL ((1, 3));
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+       _INTL_ASM (libintl_vswprintf)
+       _INTL_ARG_NONNULL ((1, 3));
+#   if (defined _INTL_REDIRECT_MACROS || defined __MINGW32__) && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_vswprintf; }
+#   endif
 #  endif
 
 # endif
@@ -619,29 +941,74 @@ namespace std { using ::libintl_vswprintf; }
 #if @ENHANCE_LOCALE_FUNCS@
 
 # ifndef GNULIB_defined_newlocale /* don't override gnulib */
-#  undef newlocale
-#  define newlocale libintl_newlocale
-extern locale_t newlocale (int, const char *, locale_t);
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+#  ifdef _INTL_REDIRECT_INLINE
+extern locale_t libintl_newlocale (int, const char *, locale_t);
+#   ifndef __cplusplus
+static
+#   endif
+inline
+locale_t newlocale (int __category_mask, const char *__name, locale_t __base)
+{
+  return libintl_newlocale (__category_mask, __name, __base);
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_NEWLOCALE
+#   ifdef _INTL_REDIRECT_MACROS
+#    undef newlocale
+#    define newlocale libintl_newlocale
+#   endif
+extern locale_t newlocale (int, const char *, locale_t)
+       _INTL_ASM (libintl_newlocale);
+#   if defined _INTL_REDIRECT_MACROS && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_newlocale; }
+#   endif
 #  endif
 # endif
 
 # ifndef GNULIB_defined_duplocale /* don't override gnulib */
-#  undef duplocale
-#  define duplocale libintl_duplocale
-extern locale_t duplocale (locale_t);
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+#  ifdef _INTL_REDIRECT_INLINE
+extern locale_t libintl_duplocale (locale_t);
+#   ifndef __cplusplus
+static
+#   endif
+inline
+locale_t duplocale (locale_t __locale)
+{
+  return libintl_duplocale (__locale);
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_DUPLOCALE
+#   ifdef _INTL_REDIRECT_MACROS
+#    undef duplocale
+#    define duplocale libintl_duplocale
+#   endif
+extern locale_t duplocale (locale_t)
+       _INTL_ASM (libintl_duplocale);
+#   if defined _INTL_REDIRECT_MACROS && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_duplocale; }
+#   endif
 #  endif
 # endif
 
 # ifndef GNULIB_defined_freelocale /* don't override gnulib */
-#  undef freelocale
-#  define freelocale libintl_freelocale
-extern void freelocale (locale_t);
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+#  ifdef _INTL_REDIRECT_INLINE
+extern void libintl_freelocale (locale_t);
+#   ifndef __cplusplus
+static
+#   endif
+inline
+void freelocale (locale_t __locale)
+{
+  libintl_freelocale (__locale);
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_FREELOCALE
+#   ifdef _INTL_REDIRECT_MACROS
+#    undef freelocale
+#    define freelocale libintl_freelocale
+#   endif
+extern void freelocale (locale_t)
+       _INTL_ASM (libintl_freelocale);
+#   if defined _INTL_REDIRECT_MACROS && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_freelocale; }
+#   endif
 #  endif
 # endif
 
@@ -652,23 +1019,53 @@ namespace std { using ::libintl_freelocale; }
 #if (defined __APPLE__ && defined __MACH__) || defined _WIN32 || defined __CYGWIN__
 
 # ifndef GNULIB_defined_setlocale /* don't override gnulib */
-#  undef setlocale
-#  define setlocale libintl_setlocale
-extern char *setlocale (int, const char *);
-#  if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+#  ifdef _INTL_REDIRECT_INLINE
+extern char *libintl_setlocale (int, const char *);
+#   ifndef __cplusplus
+static
+#   endif
+inline
+char *setlocale (int __category, const char *__locale)
+{
+  return libintl_setlocale (__category, __locale);
+}
+#  elif !defined _INTL_NO_DEFINE_MACRO_SETLOCALE
+#   ifdef _INTL_REDIRECT_MACROS
+#    undef setlocale
+#    define setlocale libintl_setlocale
+#   endif
+extern char *setlocale (int, const char *)
+       _INTL_ASM (libintl_setlocale);
+#   if defined _INTL_REDIRECT_MACROS && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_setlocale; }
+#   endif
 #  endif
 # endif
 
 # if @HAVE_NEWLOCALE@
 
-#  undef newlocale
-#  define newlocale libintl_newlocale
 /* Declare newlocale() only if the system headers define the 'locale_t' type. */
 #  if !(defined __CYGWIN__ && !defined LC_ALL_MASK)
-extern locale_t newlocale (int, const char *, locale_t);
-#   if defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
+#   ifdef _INTL_REDIRECT_INLINE
+extern locale_t libintl_newlocale (int, const char *, locale_t);
+#    ifndef __cplusplus
+static
+#    endif
+inline
+locale_t newlocale (int __category_mask, const char *__name, locale_t __base)
+{
+  return libintl_newlocale (__category_mask, __name, __base);
+}
+#   elif !defined _INTL_NO_DEFINE_MACRO_NEWLOCALE
+#    ifdef _INTL_REDIRECT_MACROS
+#     undef newlocale
+#     define newlocale libintl_newlocale
+#    endif
+extern locale_t newlocale (int, const char *, locale_t)
+       _INTL_ASM (libintl_newlocale);
+#    if defined _INTL_REDIRECT_MACROS && defined __cplusplus && !defined _INTL_CXX_NO_CLOBBER_STD_NAMESPACE
 namespace std { using ::libintl_newlocale; }
+#    endif
 #   endif
 #  endif
 
