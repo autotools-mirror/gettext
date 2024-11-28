@@ -168,7 +168,10 @@ extern int libintl_version;
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_gettext (const char *__msgid)
        _INTL_MAY_RETURN_STRING_ARG (1);
-static inline
+# ifndef __cplusplus
+static
+# endif
+inline
 _INTL_MAY_RETURN_STRING_ARG (1)
 char *gettext (const char *__msgid)
 {
@@ -188,7 +191,10 @@ extern char *gettext (const char *__msgid)
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_dgettext (const char *__domainname, const char *__msgid)
        _INTL_MAY_RETURN_STRING_ARG (2);
-static inline
+# ifndef __cplusplus
+static
+# endif
+inline
 _INTL_MAY_RETURN_STRING_ARG (2)
 char *dgettext (const char *__domainname, const char *__msgid)
 {
@@ -209,7 +215,10 @@ extern char *dgettext (const char *__domainname, const char *__msgid)
 extern char *libintl_dcgettext (const char *__domainname, const char *__msgid,
                                 int __category)
        _INTL_MAY_RETURN_STRING_ARG (2);
-static inline
+# ifndef __cplusplus
+static
+# endif
+inline
 _INTL_MAY_RETURN_STRING_ARG (2)
 char *dcgettext (const char *__domainname, const char *__msgid, int __category)
 {
@@ -232,7 +241,10 @@ extern char *dcgettext (const char *__domainname, const char *__msgid,
 extern char *libintl_ngettext (const char *__msgid1, const char *__msgid2,
                                unsigned long int __n)
        _INTL_MAY_RETURN_STRING_ARG (1) _INTL_MAY_RETURN_STRING_ARG (2);
-static inline
+# ifndef __cplusplus
+static
+# endif
+inline
 _INTL_MAY_RETURN_STRING_ARG (1) _INTL_MAY_RETURN_STRING_ARG (2)
 char *ngettext (const char *__msgid1, const char *__msgid2,
                 unsigned long int __n)
@@ -255,7 +267,10 @@ extern char *ngettext (const char *__msgid1, const char *__msgid2,
 extern char *libintl_dngettext (const char *__domainname, const char *__msgid1,
                                 const char *__msgid2, unsigned long int __n)
        _INTL_MAY_RETURN_STRING_ARG (2) _INTL_MAY_RETURN_STRING_ARG (3);
-static inline
+# ifndef __cplusplus
+static
+# endif
+inline
 _INTL_MAY_RETURN_STRING_ARG (2) _INTL_MAY_RETURN_STRING_ARG (3)
 char *dngettext (const char *__domainname, const char *__msgid1,
                  const char *__msgid2, unsigned long int __n)
@@ -280,7 +295,10 @@ extern char *libintl_dcngettext (const char *__domainname,
                                  const char *__msgid1, const char *__msgid2,
                                  unsigned long int __n, int __category)
        _INTL_MAY_RETURN_STRING_ARG (2) _INTL_MAY_RETURN_STRING_ARG (3);
-static inline
+# ifndef __cplusplus
+static
+# endif
+inline
 _INTL_MAY_RETURN_STRING_ARG (2) _INTL_MAY_RETURN_STRING_ARG (3)
 char *dcngettext (const char *__domainname,
                   const char *__msgid1, const char *__msgid2,
@@ -305,7 +323,11 @@ extern char *dcngettext (const char *__domainname,
    If DOMAINNAME is "", reset to the default of "messages".  */
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_textdomain (const char *__domainname);
-static inline char *textdomain (const char *__domainname)
+# ifndef __cplusplus
+static
+# endif
+inline
+char *textdomain (const char *__domainname)
 {
   return libintl_textdomain (__domainname);
 }
@@ -322,8 +344,11 @@ extern char *textdomain (const char *__domainname)
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_bindtextdomain (const char *__domainname,
                                      const char *__dirname);
-static inline char *bindtextdomain (const char *__domainname,
-                                    const char *__dirname)
+# ifndef __cplusplus
+static
+# endif
+inline
+char *bindtextdomain (const char *__domainname, const char *__dirname)
 {
   return libintl_bindtextdomain (__domainname, __dirname);
 }
@@ -341,8 +366,11 @@ extern char *bindtextdomain (const char *__domainname, const char *__dirname)
 # ifdef _INTL_REDIRECT_INLINE
 extern wchar_t *libintl_wbindtextdomain (const char *__domainname,
                                          const wchar_t *__wdirname);
-static inline wchar_t *wbindtextdomain (const char *__domainname,
-                                        const wchar_t *__wdirname)
+# ifndef __cplusplus
+static
+# endif
+inline
+wchar_t *wbindtextdomain (const char *__domainname, const wchar_t *__wdirname)
 {
   return libintl_wbindtextdomain (__domainname, __wdirname);
 }
@@ -361,8 +389,11 @@ extern wchar_t *wbindtextdomain (const char *__domainname,
 #ifdef _INTL_REDIRECT_INLINE
 extern char *libintl_bind_textdomain_codeset (const char *__domainname,
                                               const char *__codeset);
-static inline char *bind_textdomain_codeset (const char *__domainname,
-                                             const char *__codeset)
+# ifndef __cplusplus
+static
+# endif
+inline
+char *bind_textdomain_codeset (const char *__domainname, const char *__codeset)
 {
   return libintl_bind_textdomain_codeset (__domainname, __codeset);
 }
