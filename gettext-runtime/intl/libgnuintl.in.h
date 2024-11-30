@@ -80,19 +80,50 @@ extern int libintl_version;
    Since Solaris gettext() behaves differently than GNU gettext(), this
    would be unacceptable.
 
-   The redirection happens by default through macros in C, so that &gettext
-   is independent of the compilation unit, but through inline functions in
-   C++, in order not to interfere with the name mangling of class fields or
-   class methods called 'gettext'.  */
+   For the redirection, three mechanisms are available:
+     * _INTL_REDIRECT_ASM uses a function declaration with 'asm', that
+       specifies a different symbol at the linker level than at the C level.
+     * _INTL_REDIRECT_INLINE uses an inline function definition.  In C,
+       we use 'static inline' to force the override.  In C++, it is better
+       to use 'inline' without 'static'.  But since the override is only
+       effective if the inlining happens, we need to use
+       __attribute__ ((__always_inline__)), which is supported in g++ >= 3.1
+       and clang.  MSVC has a similar keyword __forceinline (see
+       <https://learn.microsoft.com/en-us/cpp/cpp/inline-functions-cpp>),
+       but it has an effect only when optimizing is enabled, and there is no
+       preprocessor macro that tells us whether optimizing is enabled.
+     * _INTL_REDIRECT_MACROS uses C macros.
+   The drawbacks are:
+     * _INTL_REDIRECT_ASM and _INTL_REDIRECT_INLINE don't work when the
+       function has an inline function definition in a system header file;
+       this mostly affects mingw and MSVC.  In these cases,
+       _INTL_REDIRECT_MACROS is the only mechanism that works.
+     * _INTL_REDIRECT_MACROS can interfere with symbols used in structs and
+       classes (especially in C++, but also in C).  For example, Qt has a class
+       with an 'asprintf' member, and our '#define asprintf libintl_asprintf'
+       triggers a compilation error.
+     * _INTL_REDIRECT_INLINE in C mode has the effect that each function's
+       address, such as &gettext, is different in each compilation unit.
+ */
+
+/* _INTL_FORCE_INLINE ensures inlining of a function, even when not
+   optimizing.  */
+/* Applies to: functions.  */
+/* Supported by g++ >= 3.1 and clang.  Actually needed for g++ < 4.0.  */
+#if (defined __GNUC__ && __GNUC__ + (__GNUC_MINOR__ >= 1) > 3) || defined __clang__
+# define _INTL_HAS_FORCE_INLINE
+# define _INTL_FORCE_INLINE __attribute__ ((__always_inline__))
+#else
+# define _INTL_FORCE_INLINE
+#endif
 
 /* The user can define _INTL_REDIRECT_INLINE or _INTL_REDIRECT_MACROS.
-   If he doesn't, we choose the method.  A third possible method is
-   _INTL_REDIRECT_ASM, supported only by GCC.  */
+   If he doesn't, we choose the method.  */
 #if !(defined _INTL_REDIRECT_INLINE || defined _INTL_REDIRECT_MACROS)
 # if defined __GNUC__ && __GNUC__ >= 2 && !(defined __APPLE_CC__ && __APPLE_CC__ > 1) && !defined __MINGW32__ && !(__GNUC__ == 2 && defined _AIX) && (defined __STDC__ || defined __cplusplus)
 #  define _INTL_REDIRECT_ASM
 # else
-#  ifdef __cplusplus
+#  if defined __cplusplus && defined _INTL_HAS_FORCE_INLINE
 #   define _INTL_REDIRECT_INLINE
 #  else
 #   define _INTL_REDIRECT_MACROS
@@ -172,6 +203,7 @@ extern char *libintl_gettext (const char *__msgid)
 static
 # endif
 inline
+_INTL_FORCE_INLINE
 _INTL_MAY_RETURN_STRING_ARG (1)
 char *gettext (const char *__msgid)
 {
@@ -195,6 +227,7 @@ extern char *libintl_dgettext (const char *__domainname, const char *__msgid)
 static
 # endif
 inline
+_INTL_FORCE_INLINE
 _INTL_MAY_RETURN_STRING_ARG (2)
 char *dgettext (const char *__domainname, const char *__msgid)
 {
@@ -219,6 +252,7 @@ extern char *libintl_dcgettext (const char *__domainname, const char *__msgid,
 static
 # endif
 inline
+_INTL_FORCE_INLINE
 _INTL_MAY_RETURN_STRING_ARG (2)
 char *dcgettext (const char *__domainname, const char *__msgid, int __category)
 {
@@ -245,6 +279,7 @@ extern char *libintl_ngettext (const char *__msgid1, const char *__msgid2,
 static
 # endif
 inline
+_INTL_FORCE_INLINE
 _INTL_MAY_RETURN_STRING_ARG (1) _INTL_MAY_RETURN_STRING_ARG (2)
 char *ngettext (const char *__msgid1, const char *__msgid2,
                 unsigned long int __n)
@@ -271,6 +306,7 @@ extern char *libintl_dngettext (const char *__domainname, const char *__msgid1,
 static
 # endif
 inline
+_INTL_FORCE_INLINE
 _INTL_MAY_RETURN_STRING_ARG (2) _INTL_MAY_RETURN_STRING_ARG (3)
 char *dngettext (const char *__domainname, const char *__msgid1,
                  const char *__msgid2, unsigned long int __n)
@@ -299,6 +335,7 @@ extern char *libintl_dcngettext (const char *__domainname,
 static
 # endif
 inline
+_INTL_FORCE_INLINE
 _INTL_MAY_RETURN_STRING_ARG (2) _INTL_MAY_RETURN_STRING_ARG (3)
 char *dcngettext (const char *__domainname,
                   const char *__msgid1, const char *__msgid2,
@@ -327,6 +364,7 @@ extern char *libintl_textdomain (const char *__domainname);
 static
 # endif
 inline
+_INTL_FORCE_INLINE
 char *textdomain (const char *__domainname)
 {
   return libintl_textdomain (__domainname);
@@ -348,6 +386,7 @@ extern char *libintl_bindtextdomain (const char *__domainname,
 static
 # endif
 inline
+_INTL_FORCE_INLINE
 char *bindtextdomain (const char *__domainname, const char *__dirname)
 {
   return libintl_bindtextdomain (__domainname, __dirname);
@@ -370,6 +409,7 @@ extern wchar_t *libintl_wbindtextdomain (const char *__domainname,
 static
 # endif
 inline
+_INTL_FORCE_INLINE
 wchar_t *wbindtextdomain (const char *__domainname, const wchar_t *__wdirname)
 {
   return libintl_wbindtextdomain (__domainname, __wdirname);
@@ -393,6 +433,7 @@ extern char *libintl_bind_textdomain_codeset (const char *__domainname,
 static
 # endif
 inline
+_INTL_FORCE_INLINE
 char *bind_textdomain_codeset (const char *__domainname, const char *__codeset)
 {
   return libintl_bind_textdomain_codeset (__domainname, __codeset);
@@ -447,6 +488,7 @@ extern int libintl_vfprintf (FILE *, const char *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3) _INTL_ARG_NONNULL ((1, 2))
 int fprintf (FILE *__stream, const char *__format, ...)
 {
@@ -480,6 +522,7 @@ extern int libintl_vfprintf (FILE *, const char *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0) _INTL_ARG_NONNULL ((1, 2))
 int vfprintf (FILE *__stream, const char *__format, va_list __args)
 {
@@ -509,6 +552,7 @@ extern int libintl_vprintf (const char *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 2) _INTL_ARG_NONNULL ((1))
 int printf (const char *__format, ...)
 {
@@ -554,6 +598,7 @@ extern int libintl_vprintf (const char *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (1, 0) _INTL_ARG_NONNULL ((1))
 int vprintf (const char *__format, va_list __args)
 {
@@ -583,6 +628,7 @@ extern int libintl_vsprintf (char *, const char *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3) _INTL_ARG_NONNULL ((1, 2))
 int sprintf (char *__result, const char *__format, ...)
 {
@@ -616,6 +662,7 @@ extern int libintl_vsprintf (char *, const char *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0) _INTL_ARG_NONNULL ((1, 2))
 int vsprintf (char *__result, const char *__format, va_list __args)
 {
@@ -647,6 +694,7 @@ extern int libintl_vsnprintf (char *, size_t, const char *, va_list)
 static
 #    endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 4) _INTL_ARG_NONNULL ((3))
 int snprintf (char *__result, size_t __maxlen, const char *__format, ...)
 {
@@ -680,6 +728,7 @@ extern int libintl_vsnprintf (char *, size_t, const char *, va_list)
 static
 #    endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (3, 0) _INTL_ARG_NONNULL ((3))
 int vsnprintf (char *__result, size_t __maxlen, const char *__format, va_list __args)
 {
@@ -713,6 +762,7 @@ extern int libintl_vasprintf (char **, const char *, va_list)
 static
 #    endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 3) _INTL_ARG_NONNULL ((1, 2))
 int asprintf (char **__result, const char *__format, ...)
 {
@@ -746,6 +796,7 @@ extern int libintl_vasprintf (char **, const char *, va_list)
 static
 #    endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ATTRIBUTE_FORMAT_PRINTF_STANDARD (2, 0) _INTL_ARG_NONNULL ((1, 2))
 int vasprintf (char **__result, const char *__format, va_list __args)
 {
@@ -777,6 +828,7 @@ extern int libintl_vfwprintf (FILE *, const wchar_t *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ARG_NONNULL ((1, 2))
 int fwprintf (FILE *__stream, const wchar_t *__format, ...)
 {
@@ -806,6 +858,7 @@ extern int libintl_vfwprintf (FILE *, const wchar_t *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ARG_NONNULL ((1, 2))
 int vfwprintf (FILE *__stream, const wchar_t *__format, va_list __args)
 {
@@ -831,6 +884,7 @@ extern int libintl_vwprintf (const wchar_t *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ARG_NONNULL ((1))
 int wprintf (const wchar_t *__format, ...)
 {
@@ -860,6 +914,7 @@ extern int libintl_vwprintf (const wchar_t *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ARG_NONNULL ((1))
 int vwprintf (const wchar_t *__format, va_list __args)
 {
@@ -885,6 +940,7 @@ extern int libintl_vswprintf (wchar_t *, size_t, const wchar_t *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ARG_NONNULL ((1, 3))
 int swprintf (wchar_t *__result, size_t __maxlen, const wchar_t * __format, ...)
 {
@@ -914,6 +970,7 @@ extern int libintl_vswprintf (wchar_t *, size_t, const wchar_t *, va_list)
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 _INTL_ARG_NONNULL ((1, 3))
 int vswprintf (wchar_t *__result, size_t __maxlen, const wchar_t *__format, va_list __args)
 {
@@ -947,6 +1004,7 @@ extern locale_t libintl_newlocale (int, const char *, locale_t);
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 locale_t newlocale (int __category_mask, const char *__name, locale_t __base)
 {
   return libintl_newlocale (__category_mask, __name, __base);
@@ -971,6 +1029,7 @@ extern locale_t libintl_duplocale (locale_t);
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 locale_t duplocale (locale_t __locale)
 {
   return libintl_duplocale (__locale);
@@ -995,6 +1054,7 @@ extern void libintl_freelocale (locale_t);
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 void freelocale (locale_t __locale)
 {
   libintl_freelocale (__locale);
@@ -1025,6 +1085,7 @@ extern char *libintl_setlocale (int, const char *);
 static
 #   endif
 inline
+_INTL_FORCE_INLINE
 char *setlocale (int __category, const char *__locale)
 {
   return libintl_setlocale (__category, __locale);
@@ -1052,6 +1113,7 @@ extern locale_t libintl_newlocale (int, const char *, locale_t);
 static
 #    endif
 inline
+_INTL_FORCE_INLINE
 locale_t newlocale (int __category_mask, const char *__name, locale_t __base)
 {
   return libintl_newlocale (__category_mask, __name, __base);
