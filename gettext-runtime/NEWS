@@ -1,4 +1,4 @@
-Version 0.23 - October 2023
+Version 0.23 - December 2023
 
 * In the C.UTF-8 locale, like in the C locale, the *gettext() functions
   now return the msgid untranslated. This is relevant for GNU systems,

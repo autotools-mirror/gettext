@@ -7,8 +7,8 @@
 # notice and this notice are preserved.  This file is offered as-is,
 # without any warranty.
 #
-# Origin: gettext-0.22
-GETTEXT_MACRO_VERSION = 0.20
+# Origin: gettext-0.23
+GETTEXT_MACRO_VERSION = 0.22
 
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
