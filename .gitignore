@@ -248,6 +248,7 @@
 /gettext-tools/libgettextpo/stdio-read.c
 /gettext-tools/libgettextpo/stdio-write.c
 /gettext-tools/libgettextpo/stdio.in.h
+/gettext-tools/libgettextpo/stdlib.c
 /gettext-tools/libgettextpo/stdlib.in.h
 /gettext-tools/libgettextpo/stpcpy.c
 /gettext-tools/libgettextpo/stpncpy.c
@@ -348,6 +349,7 @@
 /gettext-tools/libgrep/limits.in.h
 /gettext-tools/libgrep/locale.in.h
 /gettext-tools/libgrep/localeconv.c
+/gettext-tools/libgrep/malloc.c
 /gettext-tools/libgrep/mbrlen.c
 /gettext-tools/libgrep/mbszero.c
 /gettext-tools/libgrep/mbtowc-impl.h
@@ -366,6 +368,7 @@
 /gettext-tools/libgrep/stdckdint.in.h
 /gettext-tools/libgrep/stddef.in.h
 /gettext-tools/libgrep/stdint.in.h
+/gettext-tools/libgrep/stdlib.c
 /gettext-tools/libgrep/stdlib.in.h
 /gettext-tools/libgrep/sys_types.in.h
 /gettext-tools/libgrep/time.in.h

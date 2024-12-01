@@ -192,6 +192,7 @@
 /lib/stdio-read.c
 /lib/stdio-write.c
 /lib/stdio.in.h
+/lib/stdlib.c
 /lib/stdlib.in.h
 /lib/stpcpy.c
 /lib/strerror.c
