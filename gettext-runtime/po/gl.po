@@ -13,7 +13,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.19.4.73\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"POT-Creation-Date: 2024-12-01 09:16+0100\n"
 "PO-Revision-Date: 2015-09-09 16:05+0100\n"
 "Last-Translator: Leandro Regueiro <leandro.regueiro@gmail.com>\n"
 "Language-Team: Galician <proxecto@trasno.net>\n"
@@ -29,46 +29,46 @@ msgstr ""
 msgid "write error"
 msgstr "erro de escritura"
 
-#: gnulib-lib/error.c:194
+#: gnulib-lib/error.c:208
 msgid "Unknown system error"
 msgstr "Erro de sistema descoñecido"
 
-#: gnulib-lib/getopt.c:278
+#: gnulib-lib/getopt.c:282
 #, fuzzy, c-format
 #| msgid "%s: option '%s' is ambiguous\n"
 msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: a opción «%s» é ambigua\n"
 
-#: gnulib-lib/getopt.c:284
+#: gnulib-lib/getopt.c:288
 #, fuzzy, c-format
 #| msgid "%s: option '%s' is ambiguous; possibilities:"
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
 msgstr "%s: a opción «%s» é ambigua; as posibilidades son:"
 
-#: gnulib-lib/getopt.c:319
+#: gnulib-lib/getopt.c:322
 #, fuzzy, c-format
 #| msgid "%s: unrecognized option '%c%s'\n"
 msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: opción «%c%s» non recoñecida\n"
 
-#: gnulib-lib/getopt.c:345
+#: gnulib-lib/getopt.c:348
 #, fuzzy, c-format
 #| msgid "%s: option '%c%s' doesn't allow an argument\n"
 msgid "%s: option '%s%s' doesn't allow an argument\n"
 msgstr "%s: a opción «%c%s» non permite un argumento\n"
 
-#: gnulib-lib/getopt.c:360
+#: gnulib-lib/getopt.c:363
 #, fuzzy, c-format
 #| msgid "%s: option '--%s' requires an argument\n"
 msgid "%s: option '%s%s' requires an argument\n"
 msgstr "%s: a opción «--%s» require un argumento\n"
 
-#: gnulib-lib/getopt.c:621
+#: gnulib-lib/getopt.c:624
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: opción incorrecta -- «%c»\n"
 
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: a opción require un argumento -- «%c»\n"
@@ -77,7 +77,7 @@ msgstr "%s: a opción require un argumento -- «%c»\n"
 msgid "memory exhausted"
 msgstr "memoria esgotada"
 
-#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:112 src/gettext.c:135 src/ngettext.c:125
 #, fuzzy, c-format, no-wrap
 #| msgid ""
 #| "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -95,67 +95,67 @@ msgstr ""
 "Isto é software libre: ten a liberdade para cambialo e redistribuílo.\n"
 "Non hai GARANTÍAS, ata onde o permita a lei.\n"
 
-#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
+#: src/envsubst.c:118 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Escrito por %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:116
+#: src/envsubst.c:118
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
+#: src/envsubst.c:127 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "demasiados argumentos"
 
-#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
+#: src/envsubst.c:138 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "faltan argumentos"
 
-#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
+#: src/envsubst.c:176 src/gettext.c:246 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Use «%s --help» para obter máis información.\n"
 
-#: src/envsubst.c:179
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Modo de uso: %s [OPCIÓN] [FORMATO-SHELL]\n"
 
-#: src/envsubst.c:184
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Substitúe os valores das variábeis de ambiente.\n"
 
-#: src/envsubst.c:188
+#: src/envsubst.c:190
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Modo de funcionamento:\n"
 
-#: src/envsubst.c:191
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             escribe na saída as variábeis atopadas en FORMATO-SHELL\n"
 
-#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
+#: src/envsubst.c:197 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Saída informativa:\n"
 
-#: src/envsubst.c:198
+#: src/envsubst.c:200
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  Mostra esta mensaxe de axuda e sae\n"
 
-#: src/envsubst.c:201
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               Mostra a información da versión e sae\n"
 
-#: src/envsubst.c:205
+#: src/envsubst.c:207
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -172,7 +172,7 @@ msgstr ""
 "substitúense todas as referencias a variábeis que se atopen na entrada\n"
 "estándar.\n"
 
-#: src/envsubst.c:214
+#: src/envsubst.c:216
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -186,19 +186,19 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
+#: src/envsubst.c:225 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
 "or by email to <%s>.\n"
 msgstr ""
 
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "erro ao ler \"%s\""
 
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 msgid "standard input"
 msgstr "entrada estándar"
 
@@ -557,10 +557,10 @@ msgstr ""
 #~ msgstr ""
 #~ "  -i, --indent                   escribi-lo ficheiro .po cun estilo "
 #~ "indentado\n"
-#~ "      --no-location              non escribi-las liñas '#: ficheiro:"
-#~ "liña'\n"
-#~ "  -n, --add-location             xera-las liñas '#: ficheiro:"
-#~ "liña' (defecto)\n"
+#~ "      --no-location              non escribi-las liñas '#: "
+#~ "ficheiro:liña'\n"
+#~ "  -n, --add-location             xera-las liñas '#: ficheiro:liña' "
+#~ "(defecto)\n"
 #~ "      --omit-header              non escribi-la entrada `msgid \"\"' na\n"
 #~ "                                 cabeceira\n"
 #~ "  -o, --output=FICHEIRO          escribi-la saída ao ficheiro indicado\n"

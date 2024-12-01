@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples 0.19.4.73\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 23:34+0200\n"
+"POT-Creation-Date: 2024-07-22 13:17+0200\n"
 "PO-Revision-Date: 2015-06-26 08:43+0200\n"
 "Last-Translator: Marek Černocký <marek@manet.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -87,7 +87,6 @@ msgstr "Zda v textu používat značkovací jazyk XML."
 
 #: hello-c++20/hello.cc:37
 #, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number {:d}."
 msgstr "Tento program běží jako proces číslo {pid}."
 

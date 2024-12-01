@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"POT-Creation-Date: 2024-12-01 09:16+0100\n"
 "PO-Revision-Date: 2020-04-20 09:36+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
@@ -24,41 +24,41 @@ msgstr ""
 msgid "write error"
 msgstr "грешка писања"
 
-#: gnulib-lib/error.c:194
+#: gnulib-lib/error.c:208
 msgid "Unknown system error"
 msgstr "Непозната системска грешка"
 
-#: gnulib-lib/getopt.c:278
+#: gnulib-lib/getopt.c:282
 #, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: опција „%s%s“ је нејасна\n"
 
-#: gnulib-lib/getopt.c:284
+#: gnulib-lib/getopt.c:288
 #, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
 msgstr "%s: опција „%s%s“ је нејасна; могућности:"
 
-#: gnulib-lib/getopt.c:319
+#: gnulib-lib/getopt.c:322
 #, c-format
 msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: непозната опција „%s%s“\n"
 
-#: gnulib-lib/getopt.c:345
+#: gnulib-lib/getopt.c:348
 #, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
 msgstr "%s: опција „%s%s“ не дозвољава аргумент\n"
 
-#: gnulib-lib/getopt.c:360
+#: gnulib-lib/getopt.c:363
 #, c-format
 msgid "%s: option '%s%s' requires an argument\n"
 msgstr "%s: опција „%s%s“ захтева аргумент\n"
 
-#: gnulib-lib/getopt.c:621
+#: gnulib-lib/getopt.c:624
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: неисправна опција —— „%c“\n"
 
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: опција захтева аргумент —— „%c“\n"
@@ -67,7 +67,7 @@ msgstr "%s: опција захтева аргумент —— „%c“\n"
 msgid "memory exhausted"
 msgstr "меморија је потрошена"
 
-#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:112 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -80,67 +80,67 @@ msgstr ""
 "Ово је слободан софтвер: слободни сте да га мењате и расподељујете.\n"
 "Не постоји НИКАКВА ГАРАНЦИЈА, у оквирима дозвољеним законом.\n"
 
-#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
+#: src/envsubst.c:118 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Написао је %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:116
+#: src/envsubst.c:118
 msgid "Bruno Haible"
 msgstr "Бруно Хејбл"
 
-#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
+#: src/envsubst.c:127 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "превише аргумената"
 
-#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
+#: src/envsubst.c:138 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "недостају аргументи"
 
-#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
+#: src/envsubst.c:176 src/gettext.c:246 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Пробајте „%s --help“ за више података.\n"
 
-#: src/envsubst.c:179
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Употреба: %s [ОПЦИЈА] [ФОРМАТ-ЉУСКЕ]\n"
 
-#: src/envsubst.c:184
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Замењује вредности променљивих из окружења.\n"
 
-#: src/envsubst.c:188
+#: src/envsubst.c:190
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Начин рада:\n"
 
-#: src/envsubst.c:191
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             исписује променљиве из ФОРМАТА-ЉУСКЕ\n"
 
-#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
+#: src/envsubst.c:197 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Обавештајни излаз:\n"
 
-#: src/envsubst.c:198
+#: src/envsubst.c:200
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  приказује ову помоћ и излази\n"
 
-#: src/envsubst.c:201
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               исписује податке о издању и излази\n"
 
-#: src/envsubst.c:205
+#: src/envsubst.c:207
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -156,7 +156,7 @@ msgstr ""
 "наведене се замењују; иначе, све променљиве окружења наведене у стандардном\n"
 "улазу се замењују.\n"
 
-#: src/envsubst.c:214
+#: src/envsubst.c:216
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -170,7 +170,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
+#: src/envsubst.c:225 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -179,12 +179,12 @@ msgstr ""
 "Грешке пријавите на пратиоцу грешака на „%s“\n"
 "или пошаљите поруку на „%s“.\n"
 
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "грешка при читању „%s“"
 
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 msgid "standard input"
 msgstr "стандардни улаз"
 
@@ -304,8 +304,8 @@ msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
 "(plural)\n"
 msgstr ""
-"  MSGID MSGID-PLURAL          преводи „MSGID“ (једнина) / „MSGID-"
-"PLURAL“ (множина)\n"
+"  MSGID MSGID-PLURAL          преводи „MSGID“ (једнина) / „MSGID-PLURAL“ "
+"(множина)\n"
 
 #: src/ngettext.c:239
 #, c-format

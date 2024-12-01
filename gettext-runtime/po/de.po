@@ -80,7 +80,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"POT-Creation-Date: 2024-12-01 09:16+0100\n"
 "PO-Revision-Date: 2020-04-18 23:24+0200\n"
 "Last-Translator: Mario Blättermann <mario.blaettermann@gmail.com>\n"
 "Language-Team: German <translation-team-de@lists.sourceforge.net>\n"
@@ -96,41 +96,41 @@ msgstr ""
 msgid "write error"
 msgstr "Fehler beim Schreiben"
 
-#: gnulib-lib/error.c:194
+#: gnulib-lib/error.c:208
 msgid "Unknown system error"
 msgstr "Unbekannter Systemfehler"
 
-#: gnulib-lib/getopt.c:278
+#: gnulib-lib/getopt.c:282
 #, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: Option „%s%s“ ist mehrdeutig\n"
 
-#: gnulib-lib/getopt.c:284
+#: gnulib-lib/getopt.c:288
 #, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
 msgstr "%s: Option »%s%s« ist mehrdeutig; Möglichkeiten:"
 
-#: gnulib-lib/getopt.c:319
+#: gnulib-lib/getopt.c:322
 #, c-format
 msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: unbekannte Option »%s%s«\n"
 
-#: gnulib-lib/getopt.c:345
+#: gnulib-lib/getopt.c:348
 #, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
 msgstr "%s: Option »%s%s« erwartet kein Argument\n"
 
-#: gnulib-lib/getopt.c:360
+#: gnulib-lib/getopt.c:363
 #, c-format
 msgid "%s: option '%s%s' requires an argument\n"
 msgstr "%s: Option »%s%s« erwartet ein Argument\n"
 
-#: gnulib-lib/getopt.c:621
+#: gnulib-lib/getopt.c:624
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: ungültige Option -- »%c«\n"
 
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: Option erwartet ein Argument -- »%c«\n"
@@ -139,7 +139,7 @@ msgstr "%s: Option erwartet ein Argument -- »%c«\n"
 msgid "memory exhausted"
 msgstr "Speicher ausgeschöpft"
 
-#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:112 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -153,67 +153,67 @@ msgstr ""
 "weiterzugeben.\n"
 "Es gibt KEINE GARANTIE, soweit als vom Gesetz erlaubt.\n"
 
-#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
+#: src/envsubst.c:118 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Geschrieben von %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:116
+#: src/envsubst.c:118
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
+#: src/envsubst.c:127 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "zu viele Argumente"
 
-#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
+#: src/envsubst.c:138 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "Argumente fehlen"
 
-#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
+#: src/envsubst.c:176 src/gettext.c:246 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "»%s --help« gibt weitere Informationen.\n"
 
-#: src/envsubst.c:179
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Aufruf: %s [OPTION] [SHELL-FORMAT]\n"
 
-#: src/envsubst.c:184
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Werte der Umgebungsvariablen substituieren.\n"
 
-#: src/envsubst.c:188
+#: src/envsubst.c:190
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Art der Verarbeitung:\n"
 
-#: src/envsubst.c:191
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables              Variablen ausgeben, die im SHELL-FORMAT vorkommen\n"
 
-#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
+#: src/envsubst.c:197 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informative Ausgabe:\n"
 
-#: src/envsubst.c:198
+#: src/envsubst.c:200
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                   diese Hilfe anzeigen und beenden\n"
 
-#: src/envsubst.c:201
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version                Versionsnummer anzeigen und beenden\n"
 
-#: src/envsubst.c:205
+#: src/envsubst.c:207
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -230,7 +230,7 @@ msgstr ""
 "referenziert, substituiert; andernfalls werden alle Referenzen auf\n"
 "Umgebungsvariablen bei der Standardausgabe substituiert.\n"
 
-#: src/envsubst.c:214
+#: src/envsubst.c:216
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -245,7 +245,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
+#: src/envsubst.c:225 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -254,12 +254,12 @@ msgstr ""
 "Melden Sie Fehler im Fehlererfassungssystem auf <%s>\n"
 "oder per E-Mail an <%s> (jeweils auf Englisch).\n"
 
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "Fehler beim Lesen von »%s«"
 
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 msgid "standard input"
 msgstr "Standardeingabe"
 

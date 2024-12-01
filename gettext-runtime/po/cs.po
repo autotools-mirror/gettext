@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"POT-Creation-Date: 2024-12-01 09:16+0100\n"
 "PO-Revision-Date: 2021-04-04 11:35+02:00\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -27,48 +27,48 @@ msgid "write error"
 msgstr "chyba při zápisu"
 
 # lib/error.c:91
-#: gnulib-lib/error.c:194
+#: gnulib-lib/error.c:208
 msgid "Unknown system error"
 msgstr "Neznámá systémová chyba"
 
 # lib/getopt.c:813
-#: gnulib-lib/getopt.c:278
+#: gnulib-lib/getopt.c:282
 #, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: přepínač „%s%s“ není jednoznačný\n"
 
 # lib/getopt.c:628
-#: gnulib-lib/getopt.c:284
+#: gnulib-lib/getopt.c:288
 #, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
 msgstr "%s: přepínač „%s%s“ není jednoznačný; možnosti:"
 
 # lib/getopt.c:707
-#: gnulib-lib/getopt.c:319
+#: gnulib-lib/getopt.c:322
 #, c-format
 msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: neznámý přepínač „%s%s“\n"
 
 # lib/getopt.c:657
-#: gnulib-lib/getopt.c:345
+#: gnulib-lib/getopt.c:348
 #, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
 msgstr "%s: přepínač „%s%s“ nepřipouští argument\n"
 
 # lib/getopt.c:674 lib/getopt.c:847
-#: gnulib-lib/getopt.c:360
+#: gnulib-lib/getopt.c:363
 #, c-format
 msgid "%s: option '%s%s' requires an argument\n"
 msgstr "%s: přepínač „%s%s“ vyžaduje argument\n"
 
 # lib/getopt.c:736
-#: gnulib-lib/getopt.c:621
+#: gnulib-lib/getopt.c:624
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: neznámý přepínač – „%c“\n"
 
 # lib/getopt.c:766 lib/getopt.c:896
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: přepínač vyžaduje argument – „%c“\n"
@@ -78,7 +78,7 @@ msgstr "%s: přepínač vyžaduje argument – „%c“\n"
 msgid "memory exhausted"
 msgstr "paměť vyčerpána"
 
-#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:112 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -93,71 +93,71 @@ msgstr ""
 
 # src/gettextp.c:139 src/msgcmp.c:149 src/msgfmt.c:262 src/msgmerge.c:256
 # src/msgunfmt.c:180 src/xgettext.c:399
-#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
+#: src/envsubst.c:118 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Napsal %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:116
+#: src/envsubst.c:118
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
 # src/gettextp.c:164
-#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
+#: src/envsubst.c:127 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "příliš mnoho argumentů"
 
 # src/gettextp.c:154
-#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
+#: src/envsubst.c:138 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "chybí argumenty"
 
 # src/gettextp.c:228 src/msgcmp.c:181 src/msgfmt.c:361 src/msgmerge.c:298
 # src/msgunfmt.c:210 src/xgettext.c:532
-#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
+#: src/envsubst.c:176 src/gettext.c:246 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Více informací získáte příkazem „%s --help“.\n"
 
-#: src/envsubst.c:179
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Použití: %s [PŘEPÍNAČE] [FORMÁT_SHELLU]\n"
 
-#: src/envsubst.c:184
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Dosadí hodnoty proměnných prostředí.\n"
 
-#: src/envsubst.c:188
+#: src/envsubst.c:190
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Operační režim:\n"
 
-#: src/envsubst.c:191
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             vypsat proměnné vyskytující se ve FORMÁTU_SHELLU\n"
 
-#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
+#: src/envsubst.c:197 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informační výstup:\n"
 
-#: src/envsubst.c:198
+#: src/envsubst.c:200
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  zobrazit tuto nápovědu a skončit\n"
 
-#: src/envsubst.c:201
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               vypsat informace o verzi a skončit\n"
 
-#: src/envsubst.c:205
+#: src/envsubst.c:207
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -174,7 +174,7 @@ msgstr ""
 "v opačném případě jsou dosazovány všechny odkazy na proměnné prostředí,\n"
 "které se objeví na standardním vstupu.\n"
 
-#: src/envsubst.c:214
+#: src/envsubst.c:216
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -189,7 +189,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
+#: src/envsubst.c:225 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -201,13 +201,13 @@ msgstr ""
 "<translation-team-cs@lists.sourceforge.net>.\n"
 
 # src/msgunfmt.c:266 src/msgunfmt.c:330 src/po-lex.c:185 src/xget-lex.c:254
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "chyba při čtení „%s“"
 
 # src/xget-lex.c:150
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 msgid "standard input"
 msgstr "standardní vstup"
 

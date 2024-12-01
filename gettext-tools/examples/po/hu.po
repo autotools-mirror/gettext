@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples 0.19.4.73\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 23:34+0200\n"
+"POT-Creation-Date: 2024-07-22 13:17+0200\n"
 "PO-Revision-Date: 2015-06-23 20:31+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -88,7 +88,6 @@ msgstr "Használjon-e XML-jelölőnyelvet a szövegben."
 
 #: hello-c++20/hello.cc:37
 #, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number {:d}."
 msgstr "Ez a program a(z) {pid} folyamatazonosítóval fut."
 

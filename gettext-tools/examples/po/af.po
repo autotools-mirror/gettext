@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples-0.13.1\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 23:34+0200\n"
+"POT-Creation-Date: 2024-07-22 13:17+0200\n"
 "PO-Revision-Date: 2003-12-31 10:30+2\n"
 "Last-Translator: Ysbeer <ysbeer@af.org.za>\n"
 "Language-Team: Afrikaans <i18n@af.org.za>\n"
@@ -48,7 +48,6 @@ msgstr "Hierdie program loop as prosesnommer %d."
 
 #: hello-c-gnome3/hello.c:84
 #, fuzzy, c-format
-#| msgid "This program is running as process number %d."
 msgid ""
 "<big>Hello world!</big>\n"
 "This program is running as process number <b>%d</b>."
@@ -84,7 +83,6 @@ msgstr ""
 
 #: hello-c++20/hello.cc:37
 #, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number {:d}."
 msgstr "Hierdie program loop as prosesnommer {pid}"
 

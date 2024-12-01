@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"POT-Creation-Date: 2024-12-01 09:16+0100\n"
 "PO-Revision-Date: 2020-04-17 13:07+0300\n"
 "Last-Translator: Mehmet Kececi <mkececi@mehmetkececi.com>\n"
 "Language-Team: Turkish <gnu-tr-u12a@lists.sourceforge.net>\n"
@@ -24,41 +24,41 @@ msgstr ""
 msgid "write error"
 msgstr "yazma hatası"
 
-#: gnulib-lib/error.c:194
+#: gnulib-lib/error.c:208
 msgid "Unknown system error"
 msgstr "Bilinmeyen sistem hatası"
 
-#: gnulib-lib/getopt.c:278
+#: gnulib-lib/getopt.c:282
 #, c-format
 msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: '%s%s' seçeneği belirsiz\n"
 
-#: gnulib-lib/getopt.c:284
+#: gnulib-lib/getopt.c:288
 #, c-format
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
 msgstr "%s: '%s%s' seçeneği belirsizdir; olasılıklar:"
 
-#: gnulib-lib/getopt.c:319
+#: gnulib-lib/getopt.c:322
 #, c-format
 msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: '%s%s' seçeneği bilinmiyor\n"
 
-#: gnulib-lib/getopt.c:345
+#: gnulib-lib/getopt.c:348
 #, c-format
 msgid "%s: option '%s%s' doesn't allow an argument\n"
 msgstr "%s: '%s%s' seçeneği bağımsız değişkene izin vermiyor\n"
 
-#: gnulib-lib/getopt.c:360
+#: gnulib-lib/getopt.c:363
 #, c-format
 msgid "%s: option '%s%s' requires an argument\n"
 msgstr "%s: '%s%s' seçeneği bağımsız bir değişken gerektiriyor\n"
 
-#: gnulib-lib/getopt.c:621
+#: gnulib-lib/getopt.c:624
 #, c-format
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: geçersiz seçenek -- '%c'\n"
 
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
 #, c-format
 msgid "%s: option requires an argument -- '%c'\n"
 msgstr "%s: seçenek bir bağımsız değişken gerektiriyor -- '%c'\n"
@@ -67,7 +67,7 @@ msgstr "%s: seçenek bir bağımsız değişken gerektiriyor -- '%c'\n"
 msgid "memory exhausted"
 msgstr "bellek tükendi"
 
-#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:112 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -80,67 +80,67 @@ msgstr ""
 "Bu özgür yazılımdır: değiştirip dağıtma özgürlüğüne sahipsiniz.\n"
 "Yasaların elverdiği ölçüde HİÇBİR GARANTİSİ yoktur.\n"
 
-#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
+#: src/envsubst.c:118 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s tarafından yazıldı.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:116
+#: src/envsubst.c:118
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
+#: src/envsubst.c:127 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "çok fazla argüman"
 
-#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
+#: src/envsubst.c:138 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "argümanlar eksik"
 
-#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
+#: src/envsubst.c:176 src/gettext.c:246 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Daha fazla bilgi için '%s --help' deneyin.\n"
 
-#: src/envsubst.c:179
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Kullanımı: %s [SEÇENEK] [KABUK-BİÇİMİ]\n"
 
-#: src/envsubst.c:184
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Ortam değişkenlerinin değerleri ikame edilir.\n"
 
-#: src/envsubst.c:188
+#: src/envsubst.c:190
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "İşlem kipi:\n"
 
-#: src/envsubst.c:191
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             KABUK-BİÇİMİ içindeki değişkenleri çıktılar\n"
 
-#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
+#: src/envsubst.c:197 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Bilgilendirici çıktı:\n"
 
-#: src/envsubst.c:198
+#: src/envsubst.c:200
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  bu yardım iletisini gösterir ve çıkar\n"
 
-#: src/envsubst.c:201
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               Sürüm bilgilerini gösterir ve çıkar\n"
 
-#: src/envsubst.c:205
+#: src/envsubst.c:207
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -157,7 +157,7 @@ msgstr ""
 "Aksi takdirde, standart girdideki ortam değişkenlerinin tümüne bu ikame\n"
 "işlemi uygulanır.\n"
 
-#: src/envsubst.c:214
+#: src/envsubst.c:216
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -172,7 +172,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
+#: src/envsubst.c:225 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -181,12 +181,12 @@ msgstr ""
 "Hata izleyicideki hataları <%s>'de bildirin\n"
 "veya <%s> adresine e-posta gönderin.\n"
 
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "\"%s\" okunurken hata"
 
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 msgid "standard input"
 msgstr "standart girdi"
 
@@ -853,8 +853,8 @@ msgstr ""
 
 #~ msgid ""
 #~ "Operation modifiers:\n"
-#~ "  -m, --multi-domain          apply ref.pot to each of the domains in def."
-#~ "po\n"
+#~ "  -m, --multi-domain          apply ref.pot to each of the domains in "
+#~ "def.po\n"
 #~ msgstr ""
 #~ "İşlem seçenekleri:\n"
 #~ "  -m, --multi-domain          ref.pot'u tüm def.po dosyalarına uygular\n"
@@ -1833,8 +1833,8 @@ msgstr ""
 #~ "Merges two Uniforum style .po files together.  The def.po file is an\n"
 #~ "existing PO file with translations which will be taken over to the newly\n"
 #~ "created file as long as they still match; comments will be preserved,\n"
-#~ "but extracted comments and file positions will be discarded.  The ref."
-#~ "pot\n"
+#~ "but extracted comments and file positions will be discarded.  The "
+#~ "ref.pot\n"
 #~ "file is the last created PO file with up-to-date source references but\n"
 #~ "old translations, or a PO Template file (generally created by xgettext);\n"
 #~ "any translations or comments in the file will be discarded, however dot\n"

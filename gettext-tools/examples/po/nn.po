@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples-0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 23:34+0200\n"
+"POT-Creation-Date: 2024-07-22 13:17+0200\n"
 "PO-Revision-Date: 2020-05-04 18:58+0200\n"
 "Last-Translator: Karl Ove Hufthammer <karl@huftis.org>\n"
 "Language-Team: Norwegian Nynorsk <l10n-no@lister.huftis.org>\n"
@@ -87,7 +87,6 @@ msgstr "Om det skal brukast XML-oppmerking i teksten."
 
 #: hello-c++20/hello.cc:37
 #, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number {:d}."
 msgstr "Dette programmet køyrer som prosess nummer {pid}."
 

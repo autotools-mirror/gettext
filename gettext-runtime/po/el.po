@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.34\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2023-09-18 22:55+0200\n"
+"POT-Creation-Date: 2024-12-01 09:16+0100\n"
 "PO-Revision-Date: 1998-05-17 13:12+0200\n"
 "Last-Translator: Simos KSenitellis <simos@teiath.gr>\n"
 "Language-Team: Greek <simos@teiath.gr>\n"
@@ -22,54 +22,54 @@ msgid "write error"
 msgstr ""
 
 #
-#: gnulib-lib/error.c:194
+#: gnulib-lib/error.c:208
 msgid "Unknown system error"
 msgstr "¶γνωστο σφάλμα συστήματος"
 
 #
-#: gnulib-lib/getopt.c:278
+#: gnulib-lib/getopt.c:282
 #, fuzzy, c-format
 #| msgid "%s: option `%s' is ambiguous\n"
 msgid "%s: option '%s%s' is ambiguous\n"
 msgstr "%s: η επιλογή `%s' είναι διφορούμενη\n"
 
 #
-#: gnulib-lib/getopt.c:284
+#: gnulib-lib/getopt.c:288
 #, fuzzy, c-format
 #| msgid "%s: option `%s' is ambiguous\n"
 msgid "%s: option '%s%s' is ambiguous; possibilities:"
 msgstr "%s: η επιλογή `%s' είναι διφορούμενη\n"
 
 #
-#: gnulib-lib/getopt.c:319
+#: gnulib-lib/getopt.c:322
 #, fuzzy, c-format
 #| msgid "%s: unrecognized option `%c%s'\n"
 msgid "%s: unrecognized option '%s%s'\n"
 msgstr "%s: μη αναγνωρίσιμη επιλογή `%c%s'\n"
 
 #
-#: gnulib-lib/getopt.c:345
+#: gnulib-lib/getopt.c:348
 #, fuzzy, c-format
 #| msgid "%s: option `%c%s' doesn't allow an argument\n"
 msgid "%s: option '%s%s' doesn't allow an argument\n"
 msgstr "%s: η επιλογή `%c%s' δεν επιτρέπει παράμετρο\n"
 
 #
-#: gnulib-lib/getopt.c:360
+#: gnulib-lib/getopt.c:363
 #, fuzzy, c-format
 #| msgid "%s: option `%s' requires an argument\n"
 msgid "%s: option '%s%s' requires an argument\n"
 msgstr "%s: η επιλογή `%s' απαιτεί παράμετρο\n"
 
 #
-#: gnulib-lib/getopt.c:621
+#: gnulib-lib/getopt.c:624
 #, fuzzy, c-format
 #| msgid "%s: invalid option -- %c\n"
 msgid "%s: invalid option -- '%c'\n"
 msgstr "%s: μη έγκυρη επιλογή -- %c\n"
 
 #
-#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
 #, fuzzy, c-format
 #| msgid "%s: option requires an argument -- %c\n"
 msgid "%s: option requires an argument -- '%c'\n"
@@ -81,7 +81,7 @@ msgstr "%s: η επιλογή απαιτεί παράμετρο -- %c\n"
 msgid "memory exhausted"
 msgstr "H μνήμη εξαντλήθηκε"
 
-#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:112 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -91,71 +91,71 @@ msgid ""
 msgstr ""
 
 #
-#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
+#: src/envsubst.c:118 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Γραμμένο από τον/την %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:116
+#: src/envsubst.c:118
 msgid "Bruno Haible"
 msgstr ""
 
 #
-#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
+#: src/envsubst.c:127 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "πάρα πολλά ορίσματα"
 
 #
-#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
+#: src/envsubst.c:138 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "υπολείπονται ορίσματα"
 
 #
-#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
+#: src/envsubst.c:176 src/gettext.c:246 src/ngettext.c:212
 #, fuzzy, c-format
 #| msgid "Try `%s --help' for more information.\n"
 msgid "Try '%s --help' for more information.\n"
 msgstr "Δοκιμάστε `%s --help' για περισσότερες πληροφορίες.\n"
 
-#: src/envsubst.c:179
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr ""
 
-#: src/envsubst.c:184
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr ""
 
-#: src/envsubst.c:188
+#: src/envsubst.c:190
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr ""
 
-#: src/envsubst.c:191
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr ""
 
-#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
+#: src/envsubst.c:197 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr ""
 
-#: src/envsubst.c:198
+#: src/envsubst.c:200
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr ""
 
-#: src/envsubst.c:201
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr ""
 
-#: src/envsubst.c:205
+#: src/envsubst.c:207
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -166,7 +166,7 @@ msgid ""
 "standard input are substituted.\n"
 msgstr ""
 
-#: src/envsubst.c:214
+#: src/envsubst.c:216
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -178,7 +178,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
+#: src/envsubst.c:225 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -186,13 +186,13 @@ msgid ""
 msgstr ""
 
 #
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "σφάλμα στην ανάγνωση του \"%s\""
 
 #
-#: src/envsubst.c:451
+#: src/envsubst.c:453
 msgid "standard input"
 msgstr "κανονική είσοδος"
 
@@ -584,8 +584,8 @@ msgstr ""
 #~ "  -h, --help                  εμφάνιση αυτής της βοήθειας και έξοδος\n"
 #~ "  -i, --indent                μορφοποιημένη έξοδος\n"
 #~ "  -o, --output-file=ΑΡΧΕΙΟ    το αρχείο εξόδου θα είναι το ΑΡΧΕΙΟ\n"
-#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: filename:"
-#~ "line'\n"
+#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: "
+#~ "filename:line'\n"
 #~ "      --add-location          διατήρηση γραμμών '#: filename:line' (εξ "
 #~ "ορισμού)\n"
 #~ "      --strict                αυστηρή μορφή εξόδου Uniforum\n"
@@ -724,8 +724,8 @@ msgstr ""
 #~ "  -h, --help                  εμφάνιση αυτής της βοήθειας και έξοδος\n"
 #~ "  -i, --indent                μορφοποιημένη έξοδος\n"
 #~ "  -o, --output-file=ΑΡΧΕΙΟ    το αρχείο εξόδου θα είναι το ΑΡΧΕΙΟ\n"
-#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: filename:"
-#~ "line'\n"
+#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: "
+#~ "filename:line'\n"
 #~ "      --add-location          διατήρηση γραμμών '#: filename:line' (εξ "
 #~ "ορισμού)\n"
 #~ "      --strict                αυστηρή μορφή εξόδου Uniforum\n"
@@ -922,8 +922,8 @@ msgstr ""
 #~ "  -h, --help                  εμφάνιση αυτής της βοήθειας και έξοδος\n"
 #~ "  -i, --indent                μορφοποιημένη έξοδος\n"
 #~ "  -o, --output-file=ΑΡΧΕΙΟ    το αρχείο εξόδου θα είναι το ΑΡΧΕΙΟ\n"
-#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: filename:"
-#~ "line'\n"
+#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: "
+#~ "filename:line'\n"
 #~ "      --add-location          διατήρηση γραμμών '#: filename:line' (εξ "
 #~ "ορισμού)\n"
 #~ "      --strict                αυστηρή μορφή εξόδου Uniforum\n"
@@ -966,8 +966,8 @@ msgstr ""
 #~ "  -h, --help                  εμφάνιση αυτής της βοήθειας και έξοδος\n"
 #~ "  -i, --indent                μορφοποιημένη έξοδος\n"
 #~ "  -o, --output-file=ΑΡΧΕΙΟ    το αρχείο εξόδου θα είναι το ΑΡΧΕΙΟ\n"
-#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: filename:"
-#~ "line'\n"
+#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: "
+#~ "filename:line'\n"
 #~ "      --add-location          διατήρηση γραμμών '#: filename:line' (εξ "
 #~ "ορισμού)\n"
 #~ "      --strict                αυστηρή μορφή εξόδου Uniforum\n"
@@ -1036,8 +1036,8 @@ msgstr ""
 #~ "  -h, --help                  εμφάνιση αυτής της βοήθειας και έξοδος\n"
 #~ "  -i, --indent                μορφοποιημένη έξοδος\n"
 #~ "  -o, --output-file=ΑΡΧΕΙΟ    το αρχείο εξόδου θα είναι το ΑΡΧΕΙΟ\n"
-#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: filename:"
-#~ "line'\n"
+#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: "
+#~ "filename:line'\n"
 #~ "      --add-location          διατήρηση γραμμών '#: filename:line' (εξ "
 #~ "ορισμού)\n"
 #~ "      --strict                αυστηρή μορφή εξόδου Uniforum\n"
@@ -1219,8 +1219,8 @@ msgstr ""
 #~ "  -h, --help                  εμφάνιση αυτής της βοήθειας και έξοδος\n"
 #~ "  -i, --indent                μορφοποιημένη έξοδος\n"
 #~ "  -o, --output-file=ΑΡΧΕΙΟ    το αρχείο εξόδου θα είναι το ΑΡΧΕΙΟ\n"
-#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: filename:"
-#~ "line'\n"
+#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: "
+#~ "filename:line'\n"
 #~ "      --add-location          διατήρηση γραμμών '#: filename:line' (εξ "
 #~ "ορισμού)\n"
 #~ "      --strict                αυστηρή μορφή εξόδου Uniforum\n"
@@ -1234,8 +1234,8 @@ msgstr ""
 #~ "Merges two Uniforum style .po files together.  The def.po file is an\n"
 #~ "existing PO file with translations which will be taken over to the newly\n"
 #~ "created file as long as they still match; comments will be preserved,\n"
-#~ "but extracted comments and file positions will be discarded.  The ref."
-#~ "pot\n"
+#~ "but extracted comments and file positions will be discarded.  The "
+#~ "ref.pot\n"
 #~ "file is the last created PO file with up-to-date source references but\n"
 #~ "old translations, or a PO Template file (generally created by xgettext);\n"
 #~ "any translations or comments in the file will be discarded, however dot\n"
@@ -1272,8 +1272,8 @@ msgstr ""
 #~ "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 #~ "obsolete %ld.\n"
 #~ msgstr ""
-#~ "%sΑναγνώστηκαν %d παλαιά + %d αναφορές, συγχωνευμένα %d, προσεγγιστικά %d,"
-#~ "έχουν παραληφθεί %d, αχρησιμοποίητα %d.\n"
+#~ "%sΑναγνώστηκαν %d παλαιά + %d αναφορές, συγχωνευμένα %d, προσεγγιστικά "
+#~ "%d,έχουν παραληφθεί %d, αχρησιμοποίητα %d.\n"
 
 #
 #~ msgid " done.\n"
@@ -1505,8 +1505,8 @@ msgstr ""
 #~ "  -h, --help                  εμφάνιση αυτής της βοήθειας και έξοδος\n"
 #~ "  -i, --indent                μορφοποιημένη έξοδος\n"
 #~ "  -o, --output-file=ΑΡΧΕΙΟ    το αρχείο εξόδου θα είναι το ΑΡΧΕΙΟ\n"
-#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: filename:"
-#~ "line'\n"
+#~ "      --no-location           αποφυγή εμφάνισης γραμμών '#: "
+#~ "filename:line'\n"
 #~ "      --add-location          διατήρηση γραμμών '#: filename:line' (εξ "
 #~ "ορισμού)\n"
 #~ "      --strict                αυστηρή μορφή εξόδου Uniforum\n"
@@ -1622,10 +1622,10 @@ msgstr ""
 #~ msgstr ""
 #~ "  -i, --indent                   δημιουργία .po αρχείου με μορφοποιημένη "
 #~ "έξοδο\n"
-#~ "      --no-location              αποφυγή εμφάνισης γραμμών '#: filename:"
-#~ "line'\n"
-#~ "  -n, --add-location             δημιουργία γραμμών '#: filename:"
-#~ "line' (εξ ορισμού)\n"
+#~ "      --no-location              αποφυγή εμφάνισης γραμμών '#: "
+#~ "filename:line'\n"
+#~ "  -n, --add-location             δημιουργία γραμμών '#: filename:line' "
+#~ "(εξ ορισμού)\n"
 #~ "      --omit-header              να μη γραφτεί κεφαλίδα με εγγραφή `msgid "
 #~ "\"\"'\n"
 #~ "  -o, --output=ΑΡΧΕΙΟ            εγγραφή εξόδου στο επιλεγμένο αρχείο\n"
@@ -1836,8 +1836,8 @@ msgstr ""
 #~ "  -M, --msgstr-suffix[=ΑΛΦΑΡΙΘΜΗΤΙΚΟ] χρήση του ΑΛΦΑΡΙΘΜΗΤΙΚΟ ή \"\" για "
 #~ "κατάληξη\n"
 #~ "                                 σε εγγραφές msgstr\n"
-#~ "      --no-location              να μην γραφούν γραμμές '#: filename:"
-#~ "line'\n"
+#~ "      --no-location              να μην γραφούν γραμμές '#: "
+#~ "filename:line'\n"
 
 #
 #~ msgid ""
@@ -1859,8 +1859,8 @@ msgstr ""
 #~ "\n"
 #~ "If INPUTFILE is -, standard input is read.\n"
 #~ msgstr ""
-#~ "  -n, --add-location             δημιουργία γραμμών '#: filename:"
-#~ "line' (εξ ορισμού)\n"
+#~ "  -n, --add-location             δημιουργία γραμμών '#: filename:line' "
+#~ "(εξ ορισμού)\n"
 #~ "      --omit-header              να μη γραφεί κεφαλίδα με εγγραφή `msgid "
 #~ "\"\"'\n"
 #~ "  -o, --output=ΑΡΧΕΙΟ            εγγραφή εξόδου στο επιλεγμένο αρχείο\n"
