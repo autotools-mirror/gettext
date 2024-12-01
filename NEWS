@@ -17,6 +17,7 @@ Version 0.23 - December 2024
     o 'msgfmt --xml' accept an option --replace-text, that causes the output
       to be a mono-lingual XML file instead of a multi-lingual XML file.
     o xgettext and 'msgfmt --xml' now support DocBook XML files.
+  * Desktop: xgettext now produces POT files with correct line numbers.
 
 # Programming languages support:
   * Python:
@@ -61,7 +62,6 @@ Version 0.23 - December 2024
     o xgettext now scans Heredoc and Nowdoc strings correctly.
     o xgettext now regards the format string directives %E, %F, %g, %G, %h, %H
       as valid.
-  * Desktop: xgettext now produces POT files with correct line numbers.
 
 # Runtime behaviour:
   * In the C.UTF-8 locale, like in the C locale, the *gettext() functions
