@@ -11,7 +11,7 @@ dnl Test for gobjc before gcc, since that's what the EPEL 9 package 'gcc-objc'
 dnl installs (on systems where gcc does not support Objective C).
 AC_PROG_OBJC([gobjc gcc objcc objc cc CC clang])
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.22])
+AM_GNU_GETTEXT_VERSION([0.23])
 
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([m4/Makefile])

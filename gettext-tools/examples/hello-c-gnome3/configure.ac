@@ -9,7 +9,7 @@ AM_INIT_AUTOMAKE([1.11])
 
 AC_PROG_CC
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.22])
+AM_GNU_GETTEXT_VERSION([0.23])
 
 dnl Check GNOME specific stuff.
 dnl
