@@ -1015,8 +1015,12 @@ struct token_ty
 #define UNICODE_VALUE(p7_result) ((p7_result) - 0x100)
 
 
+/* Parse an element of a character literal or string literal.
+   CONTEXT is -1 for a character literal (wide or not),
+              0 for a normal string literal,
+              1 for a wide string literal.  */
 static int
-get_string_element ()
+get_string_element (int context)
 {
   int c, j;
 
@@ -1100,7 +1104,12 @@ get_string_element ()
           break;
         }
       {
-        int n;
+        /* For the overflow detection:
+           - Valid character values in normal strings must be < 0x100.
+           - In wide strings, warn and assume the programmer meant Unicode code
+             points.  */
+        unsigned int n_limit = (context > 0 ? 0x110000 : 0x100);
+        unsigned int n;
         bool overflow;
 
         n = 0;
@@ -1112,29 +1121,40 @@ get_string_element ()
               {
               default:
                 phase3_ungetc (c);
-                if (overflow)
-                  if_error (IF_SEVERITY_WARNING,
-                            logical_file_name, line_number, (size_t)(-1), false,
-                            _("hexadecimal escape sequence out of range"));
-                return n;
+                /* Don't warn for character literals.  */
+                if (context >= 0)
+                  {
+                    if (context > 0 && n >= 0x80)
+                      /* Hexadecimal escape sequences outside the ASCII
+                         character range are platform and locale dependent.
+                         Cf. <https://savannah.gnu.org/bugs/?65053>.  */
+                      if_error (IF_SEVERITY_WARNING,
+                                logical_file_name, line_number, (size_t)(-1), false,
+                                _("hexadecimal escape sequence in wide string literal is unsupported; use \\u instead of \\x if you meant to designate a Unicode character"));
+                    if (overflow)
+                      if_error (IF_SEVERITY_WARNING,
+                                logical_file_name, line_number, (size_t)(-1), false,
+                                _("hexadecimal escape sequence out of range"));
+                  }
+                return (context > 0 ? UNICODE (n) : n);
 
               case '0': case '1': case '2': case '3': case '4':
               case '5': case '6': case '7': case '8': case '9':
-                if (n < 0x100 / 16)
+                if (n < n_limit / 16)
                   n = n * 16 + c - '0';
                 else
                   overflow = true;
                 break;
 
               case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-                if (n < 0x100 / 16)
+                if (n < n_limit / 16)
                   n = n * 16 + 10 + c - 'A';
                 else
                   overflow = true;
                 break;
 
               case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-                if (n < 0x100 / 16)
+                if (n < n_limit / 16)
                   n = n * 16 + 10 + c - 'a';
                 else
                   overflow = true;
@@ -1200,9 +1220,11 @@ get_string_element ()
         if (n < 0x110000)
           return UNICODE (n);
 
-        if_error (IF_SEVERITY_WARNING,
-                  logical_file_name, line_number, (size_t)(-1), false,
-                  _("invalid Unicode character"));
+        /* Don't warn for character literals.  */
+        if (context >= 0)
+          if_error (IF_SEVERITY_WARNING,
+                    logical_file_name, line_number, (size_t)(-1), false,
+                     _("invalid Unicode character"));
 
         while (--j >= 0)
           phase3_ungetc (buf[j]);
@@ -1332,12 +1354,16 @@ phase5_get (token_ty *tp)
                      Note: The programmer who passes an UTF-8 encoded string to
                      gettext() or similar API functions will have to have called
                      bind_textdomain_codeset (DOMAIN, "UTF-8") first.  */
-                  if ((buflen == 1
-                       && (buf[0] == 'u' || buf[0] == 'U' || buf[0] == 'L'))
+                  if ((buflen == 1 && (buf[0] == 'u' || buf[0] == 'U'))
                       || (buflen == 2 && buf[0] == 'u' && buf[1] == '8'))
                     {
                       sb_free (&buffer);
                       goto string_literal;
+                    }
+                  if (buflen == 1 && buf[0] == 'L')
+                    {
+                      sb_free (&buffer);
+                      goto wide_string_literal;
                     }
                   /* Recognize C++11 raw string literals.
                      See ISO C++ 11 section 2.14.5 [lex.string].
@@ -1669,7 +1695,7 @@ phase5_get (token_ty *tp)
          remember the character constant.  */
       for (;;)
         {
-          c = get_string_element ();
+          c = get_string_element (-1);
           if (c == SE_NEWLINE)
             {
               if_error (IF_SEVERITY_WARNING,
@@ -1693,6 +1719,9 @@ phase5_get (token_ty *tp)
          about the argument not matching the prototype.  Just pretend it
          won't happen.  */
       {
+        int wide = 0;
+        if (false)
+          wide_string_literal: wide = 1;
         struct mixed_string_buffer msb;
 
         /* Start accumulating the string.  */
@@ -1701,7 +1730,7 @@ phase5_get (token_ty *tp)
 
         for (;;)
           {
-            c = get_string_element ();
+            c = get_string_element (wide);
 
             /* Keep line_number in sync.  */
             msb.line_number = line_number;
