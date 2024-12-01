@@ -28,6 +28,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+#include <libxml/xmlversion.h>
 #include <libxml/xmlerror.h>
 #include <libxml/tree.h>
 #include <libxml/parser.h>
@@ -82,7 +83,13 @@
 /* ----------------------------- Error handling ----------------------------- */
 
 static void
+/* Adapt to API change in libxml 2.12.0.
+   See <https://gitlab.gnome.org/GNOME/libxml2/-/issues/622>.  */
+#if LIBXML_VERSION >= 21200
+structured_error (void *data, const xmlError *err)
+#else
 structured_error (void *data, xmlError *err)
+#endif
 {
   error (0, err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0,
          _("%s error: %s"), "libxml2", err->message);
