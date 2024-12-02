@@ -13,6 +13,9 @@
 # https://discourse.llvm.org/t/std-format-not-available-in-libc-15/66137
 # https://stackoverflow.com/questions/71777564/
 
+# This test also fails with g++ 13.3. See the comments in
+# gettext-tools/examples/hello-c++20/hello.cc.
+
 # Test whether a C++ compiler is found.
 test "${CXX}" != "no" || {
   echo "Skipping test: no C++ compiler found"
@@ -22,13 +25,20 @@ test "${CXX}" != "no" || {
 # Try to find compiler option for ISO C++ 20 support.
 cat <<\EOF > test.cc
 #include <format>
+#if __cpp_lib_format <= 202106L
 using std::vformat;
 using std::make_format_args;
+#else
+using std::format;
+using std::runtime_format;
+#endif
 EOF
 if ${CXX} ${CXXFLAGS} ${CPPFLAGS} -c test.cc 2>/dev/null; then
   CXX20=
 elif ${CXX} ${CXXFLAGS} -std=gnu++20 ${CPPFLAGS} -c test.cc 2>/dev/null; then
   CXX20='-std=gnu++20'
+elif ${CXX} ${CXXFLAGS} -std=gnu++26 ${CPPFLAGS} -c test.cc 2>/dev/null; then
+  CXX20='-std=gnu++26'
 else
   echo "Skipping test: C++ compiler does not support ISO C++ 20"
   Exit 77
@@ -62,11 +72,20 @@ int main (int argc, char *argv[])
 
   cout << _("'Your command, please?', asked the waiter.") << endl;
 
+#if __cpp_lib_format <= 202106L
   cout << vformat (ngettext ("a piece of cake", "{} pieces of cake", n),
                    make_format_args (n))
+#else
+  cout << format (runtime_format (ngettext ("a piece of cake", "{} pieces of cake", n)),
+                  n)
+#endif
        << endl;
 
+#if __cpp_lib_format <= 202106L
   cout << vformat (_("{} is replaced by {}."), make_format_args ("FF", "EUR"))
+#else
+  cout << format (runtime_format (_("{} is replaced by {}.")), "FF", "EUR")
+#endif
        << endl;
 }
 EOF
