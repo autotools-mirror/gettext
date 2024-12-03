@@ -1,5 +1,5 @@
 /* Message list test for ordinary file names.
-   Copyright (C) 2021 Free Software Foundation, Inc.
+   Copyright (C) 2021-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -28,7 +28,7 @@
 
 
 bool
-message_has_filenames_with_spaces (message_ty *mp)
+message_has_filenames_with_spaces (const message_ty *mp)
 {
   size_t n = mp->filepos_count;
   size_t i;
@@ -41,7 +41,7 @@ message_has_filenames_with_spaces (message_ty *mp)
 }
 
 bool
-message_list_has_filenames_with_spaces (message_list_ty *mlp)
+message_list_has_filenames_with_spaces (const message_list_ty *mlp)
 {
   size_t j;
 
@@ -53,7 +53,7 @@ message_list_has_filenames_with_spaces (message_list_ty *mlp)
 }
 
 bool
-msgdomain_list_has_filenames_with_spaces (msgdomain_list_ty *mdlp)
+msgdomain_list_has_filenames_with_spaces (const msgdomain_list_ty *mdlp)
 {
   size_t k;
 

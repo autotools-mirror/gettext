@@ -54,7 +54,7 @@ extern int check_message (const message_ty *mp,
 
 /* Perform all checks on a message list.
    Return the number of errors that were seen.  */
-extern int check_message_list (message_list_ty *mlp,
+extern int check_message_list (const message_list_ty *mlp,
                                int ignore_untranslated_messages,
                                int ignore_fuzzy_messages,
                                int check_newlines,

@@ -1,5 +1,5 @@
 /* hash - implement simple hashing table where the keys are memory blocks.
-   Copyright (C) 1994-1995, 2000-2006, 2018, 2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1994-2024 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, October 1994.
 
    This program is free software: you can redistribute it and/or modify
@@ -144,7 +144,7 @@ compute_hashval (const void *key, size_t keylen)
    Return the index of the entry, if present, or otherwise the index a free
    entry where it could be inserted.  */
 static size_t
-lookup (hash_table *htab,
+lookup (const hash_table *htab,
         const void *key, size_t keylen,
         unsigned long int hval)
 {
@@ -187,7 +187,7 @@ lookup (hash_table *htab,
 /* Look up the value of a key in the given table.
    If found, return 0 and set *RESULT to it.  Otherwise return -1.  */
 int
-hash_find_entry (hash_table *htab, const void *key, size_t keylen,
+hash_find_entry (const hash_table *htab, const void *key, size_t keylen,
                  void **result)
 {
   hash_entry *table = htab->table;

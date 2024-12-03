@@ -1,4 +1,4 @@
-/* Copyright (C) 1995, 2000-2003, 2005-2006, 2023 Free Software Foundation, Inc.
+/* Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -45,7 +45,7 @@ extern int hash_destroy (hash_table *htab);
 
 /* Look up the value of a key in the given table.
    If found, return 0 and set *RESULT to it.  Otherwise return -1.  */
-extern int hash_find_entry (hash_table *htab,
+extern int hash_find_entry (const hash_table *htab,
                             const void *key, size_t keylen,
                             void **result);
 

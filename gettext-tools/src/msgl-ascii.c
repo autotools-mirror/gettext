@@ -1,5 +1,5 @@
 /* Message list test for ASCII character set.
-   Copyright (C) 2001-2002, 2005-2006, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2024 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -50,7 +50,7 @@ is_ascii_string_desc (string_desc_t string)
 }
 
 bool
-is_ascii_string_list (string_list_ty *slp)
+is_ascii_string_list (const string_list_ty *slp)
 {
   size_t i;
 
@@ -62,7 +62,7 @@ is_ascii_string_list (string_list_ty *slp)
 }
 
 bool
-is_ascii_message (message_ty *mp)
+is_ascii_message (const message_ty *mp)
 {
   const char *p = mp->msgstr;
   const char *p_end = p + mp->msgstr_len;
@@ -99,7 +99,7 @@ is_ascii_message (message_ty *mp)
 }
 
 bool
-is_ascii_message_list (message_list_ty *mlp)
+is_ascii_message_list (const message_list_ty *mlp)
 {
   size_t j;
 
@@ -111,7 +111,7 @@ is_ascii_message_list (message_list_ty *mlp)
 }
 
 bool
-is_ascii_msgdomain_list (msgdomain_list_ty *mdlp)
+is_ascii_msgdomain_list (const msgdomain_list_ty *mdlp)
 {
   size_t k;
 

@@ -243,7 +243,7 @@ plural_help (const char *nullentry)
    If no errors, returns in *DISTRIBUTION information about the plural_eval
    values distribution.  */
 static int
-check_plural (message_list_ty *mlp,
+check_plural (const message_list_ty *mlp,
               int ignore_untranslated_messages,
               int ignore_fuzzy_messages,
               struct plural_distribution *distributionp,
@@ -853,7 +853,7 @@ check_message (const message_ty *mp,
 /* Perform all checks on a message list.
    Return the number of errors that were seen.  */
 int
-check_message_list (message_list_ty *mlp,
+check_message_list (const message_list_ty *mlp,
                     int ignore_untranslated_messages,
                     int ignore_fuzzy_messages,
                     int check_newlines,

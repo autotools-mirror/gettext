@@ -504,7 +504,7 @@ message_list_copy (message_list_ty *mlp, int copy_level)
 
 
 message_ty *
-message_list_search (message_list_ty *mlp,
+message_list_search (const message_list_ty *mlp,
                      const char *msgctxt, const char *msgid)
 {
   if (mlp->use_hashtable)
