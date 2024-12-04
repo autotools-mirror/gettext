@@ -109,6 +109,10 @@ SWAP (nls_uint32 i)
 #endif
 
 
+/* Lock variable to protect the global data in the gettext implementation.  */
+gl_rwlock_define (extern, _nl_state_lock attribute_hidden)
+
+
 /* In-memory representation of system dependent string.  */
 struct sysdep_string_desc
 {

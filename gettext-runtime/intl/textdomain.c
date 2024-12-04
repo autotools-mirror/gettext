@@ -1,5 +1,5 @@
 /* Implementation of the textdomain(3) function.
-   Copyright (C) 1995-2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2024 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -53,9 +53,6 @@
 #else
 # define TEXTDOMAIN libintl_textdomain
 #endif
-
-/* Lock variable to protect the global data in the gettext implementation.  */
-gl_rwlock_define (extern, _nl_state_lock attribute_hidden)
 
 /* Set the current default message catalog to DOMAINNAME.
    If DOMAINNAME is null, return the current default.
