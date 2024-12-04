@@ -1463,14 +1463,14 @@ phase5_get (token_ty *tp)
                                 break;
 
                               /* Update the state.  */
-                              string_desc_t contents = sb_contents (&buffer);
-                              const char *buf = string_desc_data (contents);
-                              size_t buflen = string_desc_length (contents);
-                              if (c == (state < buflen ? buf[state] : '"'))
+                              string_desc_t raw_contents = sb_contents (&buffer);
+                              const char *raw_buf = string_desc_data (raw_contents);
+                              size_t raw_buflen = string_desc_length (raw_contents);
+                              if (c == (state < raw_buflen ? raw_buf[state] : '"'))
                                 {
-                                  if (state < buflen)
+                                  if (state < raw_buflen)
                                     state++;
-                                  else /* state == buflen && c == '"' */
+                                  else /* state == raw_buflen && c == '"' */
                                     {
                                       /* Finished parsing the string.  */
                                       sb_free (&buffer);
@@ -1484,10 +1484,10 @@ phase5_get (token_ty *tp)
                                 {
                                   int i;
 
-                                  /* None of the bytes buf[0]...buf[state-1]
+                                  /* None of the bytes raw_buf[0]...raw_buf[state-1]
                                      can be ')'.  */
                                   for (i = 0; i < state; i++)
-                                    mixed_string_buffer_append_char (&msb, buf[i]);
+                                    mixed_string_buffer_append_char (&msb, raw_buf[i]);
 
                                   /* But c may be ')'.  */
                                   if (c == ')')

@@ -1458,16 +1458,16 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
                         for (p = doc; p < doc + doc_len; p++)
                           {
                             /* Invariant: doc <= q <= p <= doc + doc_len.  */
-                            char c = *p;
-                            *q++ = c;
+                            char d = *p;
+                            *q++ = d;
                             if (curr_line_indent < end_label_indent)
                               {
-                                if (c == ' ')
+                                if (d == ' ')
                                   {
                                     curr_line_indent++;
                                     --q;
                                   }
-                                else if (c == '\t')
+                                else if (d == '\t')
                                   {
                                     curr_line_indent |= TAB_WIDTH - 1;
                                     curr_line_indent++;
@@ -1475,7 +1475,7 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
                                       --q;
                                   }
                               }
-                            if (c == '\n')
+                            if (d == '\n')
                               curr_line_indent = 0;
                           }
                         doc_len = q - doc;
