@@ -7,8 +7,20 @@
 # notice and this notice are preserved.  This file is offered as-is,
 # without any warranty.
 #
-# Origin: gettext-0.23
-GETTEXT_MACRO_VERSION = 0.22
+# Origin: gettext-0.24
+GETTEXT_MACRO_VERSION = 0.24
+
+# This Makefile makes use of the variable assignment operator != standardized
+# by POSIX:2024
+# <https://pubs.opengroup.org/onlinepubs/9799919799/utilities/make.html>.
+# It thus requires a 'make' implementation that supports this operator !=.
+# As of 2024, these are: GNU make >= 4.0, FreeBSD make, NetBSD make,
+# OpenBSD make. This means that building on specific platforms requires
+# use of GNU make:
+#   - On macOS, use /opt/homebrew/bin/gmake.
+#   - On Solaris 11 OpenIndiana, use /usr/bin/gmake = /usr/gnu/bin/make.
+#   - On Solaris 11.4, install GNU make yourself.
+#   - On AIX, use /opt/freeware/bin/make.
 
 PACKAGE = @PACKAGE@
 VERSION = @VERSION@
@@ -74,7 +86,10 @@ DISTFILES = $(DISTFILES.common) Makevars POTFILES.in \
 $(POFILES) $(GMOFILES) \
 $(DISTFILES.extra1) $(DISTFILES.extra2) $(DISTFILES.extra3)
 
-POTFILES = \
+# The list of files which contain translatable strings.
+POTFILES != sed -e '/^\#/d' < $(srcdir)/POTFILES.in
+# This is computed as $(foreach file, $(POTFILES), $(top_srcdir)/$(file))
+POTFILES_DEPS != for file in $(POTFILES); do echo $(top_srcdir)/$$file; done
 
 CATALOGS = @CATALOGS@
 
@@ -167,7 +182,7 @@ $(srcdir)/stamp-po: $(srcdir)/$(DOMAIN).pot
 # The determination of whether the package xyz is a GNU one is based on the
 # heuristic whether some file in the top level directory mentions "GNU xyz".
 # If GNU 'find' is available, we avoid grepping through monster files.
-$(DOMAIN).pot-update: $(POTFILES) $(srcdir)/POTFILES.in
+$(DOMAIN).pot-update: $(POTFILES_DEPS) $(srcdir)/POTFILES.in
 	package_gnu="$(PACKAGE_GNU)"; \
 	test -n "$$package_gnu" || { \
 	  if { if (LC_ALL=C find --version) 2>/dev/null | grep GNU >/dev/null; then \
@@ -401,7 +416,7 @@ mostlyclean:
 clean: mostlyclean
 
 distclean: clean
-	rm -f Makefile Makefile.in POTFILES
+	rm -f Makefile Makefile.in
 
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"

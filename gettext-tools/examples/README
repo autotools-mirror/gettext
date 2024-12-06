@@ -86,3 +86,14 @@ Makefile types:
     hello-c++-qt               .qm                     Makefile.am
     hello-objc-gnustep         .strings                GNUmakefile
 
+The Makefiles in the po/ directories make use of the variable assignment
+operator != standardized by POSIX:2024
+<https://pubs.opengroup.org/onlinepubs/9799919799/utilities/make.html>.
+They thus require a 'make' implementation that supports this operator !=.
+As of 2024, these are: GNU make >= 4.0, FreeBSD make, NetBSD make,
+OpenBSD make. This means that building on specific platforms requires
+use of GNU make:
+  - On macOS, use /opt/homebrew/bin/gmake.
+  - On Solaris 11 OpenIndiana, use /usr/bin/gmake = /usr/gnu/bin/make.
+  - On Solaris 11.4, install GNU make yourself.
+  - On AIX, use /opt/freeware/bin/make.

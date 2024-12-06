@@ -633,7 +633,6 @@ autom4te.cache/
 /gettext-runtime/man/x-to-1
 /gettext-runtime/po/Makefile.in
 /gettext-runtime/po/Makefile
-/gettext-runtime/po/POTFILES
 /gettext-runtime/src/Makefile
 # (see DISTCLEANFILES in Makefile.am):
 /gettext-runtime/src/gettext.sh
@@ -667,7 +666,6 @@ autom4te.cache/
 /gettext-tools/misc/gettextize
 /gettext-tools/po/Makefile.in
 /gettext-tools/po/Makefile
-/gettext-tools/po/POTFILES
 /gettext-tools/projects/Makefile
 /gettext-tools/src/Makefile
 /gettext-tools/src/user-email

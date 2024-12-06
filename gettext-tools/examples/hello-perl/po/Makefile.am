@@ -79,7 +79,7 @@ MSGCONV = msgconv
 MSGFILTER = msgfilter
 
 # This is computed as $(foreach file, $(POTFILES), $(top_srcdir)/$(file))
-POTFILES_DEPS = @POTFILES_DEPS@
+POTFILES_DEPS != for file in $(POTFILES); do echo $(top_srcdir)/$$file; done
 
 # This is computed as $(foreach lang, $(LINGUAS), $(srcdir)/$(lang).po)
 POFILES = @POFILES@
