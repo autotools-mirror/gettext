@@ -147,12 +147,18 @@ MSGFILTER = msgfilter
 # This is computed as $(foreach file, $(POTFILES), $(top_srcdir)/$(file))
 POTFILES_DEPS != for file in $(POTFILES); do echo $(top_srcdir)/$$file; done
 
-# This is computed as $(foreach lang, $(LINGUAS), $(srcdir)/$(lang).po)
-POFILES = @POFILES@
-# This is computed as $(foreach lang, $(LINGUAS), $(lang).po-update)
-UPDATEPOFILES = @UPDATEPOFILES@
-# This is computed as $(foreach lang, $(LINGUAS), $(lang).nop)
-DUMMYPOFILES = @DUMMYPOFILES@
+# The set of available translations.
+ALL_LINGUAS != if test -f $(srcdir)/LINGUAS; then \
+                 sed -e '/^\#/d' < $(srcdir)/LINGUAS; \
+               else \
+                 echo $(LINGUAS); \
+               fi
+# This is computed as $(foreach lang, $(ALL_LINGUAS), $(srcdir)/$(lang).po)
+POFILES != for lang in $(ALL_LINGUAS); do echo $(srcdir)/$$lang.po; done
+# This is computed as $(foreach lang, $(ALL_LINGUAS), $(lang).po-update)
+UPDATEPOFILES != for lang in $(ALL_LINGUAS); do echo $$lang.po-update; done
+# This is computed as $(foreach lang, $(ALL_LINGUAS), $(lang).nop)
+DUMMYPOFILES != for lang in $(ALL_LINGUAS); do echo $$lang.nop; done
 
 SUFFIXES = .po .nop .po-update
 
