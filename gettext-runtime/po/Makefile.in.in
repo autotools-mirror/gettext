@@ -546,7 +546,7 @@ update-gmo: Makefile $(GMOFILES)
 # because execution permission bits may not work on the current file system.
 # Use @SHELL@, which is the shell determined by autoconf for the use by its
 # scripts, not $(SHELL) which is hardwired to /bin/sh and may be deficient.
-Makefile: Makefile.in.in Makevars $(top_builddir)/config.status @POMAKEFILEDEPS@
+Makefile: Makefile.in.in Makevars $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && @SHELL@ ./config.status $(subdir)/$@.in po-directories
 

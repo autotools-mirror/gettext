@@ -127,12 +127,8 @@ changequote([,])dnl
         # POTFILES.in file. This allows packages to have multiple PO
         # directories under different names or in different locations.
         if test -f "$ac_given_srcdir/$ac_dir/POTFILES.in"; then
-          POMAKEFILEDEPS="POTFILES.in"
-          if test -f "$ac_given_srcdir/$ac_dir/LINGUAS"; then
-            POMAKEFILEDEPS="$POMAKEFILEDEPS LINGUAS"
-          fi
           test -n "$as_me" && echo "$as_me: creating $ac_dir/Makefile" || echo "creating $ac_dir/Makefile"
-          sed -e "/^# Makevars/r $ac_given_srcdir/$ac_dir/Makevars" -e "s|@POMAKEFILEDEPS@|$POMAKEFILEDEPS|g" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
+          sed -e "/^# Makevars/r $ac_given_srcdir/$ac_dir/Makevars" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
           for f in "$ac_given_srcdir/$ac_dir"/Rules-*; do
             if test -f "$f"; then
               case "$f" in
@@ -151,22 +147,7 @@ changequote([,])dnl
 dnl Postprocesses a Makefile in a directory containing PO files.
 AC_DEFUN([AM_POSTPROCESS_PO_MAKEFILE],
 [
-changequote(,)dnl
-  # Adjust a relative srcdir.
-  ac_dir=`echo "$ac_file"|sed 's%/[^/][^/]*$%%'`
-changequote([,])dnl
-
-  POMAKEFILEDEPS=""
-  if test -f "$ac_given_srcdir/$ac_dir/LINGUAS"; then
-    POMAKEFILEDEPS="$POMAKEFILEDEPS LINGUAS"
-  fi
-
   sed -e 's,^#distdir:,distdir:,' < "$ac_file" > "$ac_file.tmp"
-  if test -n "$POMAKEFILEDEPS"; then
-    cat >> "$ac_file.tmp" <<EOF
-Makefile: $POMAKEFILEDEPS
-EOF
-  fi
   mv "$ac_file.tmp" "$ac_file"
 ])
 
