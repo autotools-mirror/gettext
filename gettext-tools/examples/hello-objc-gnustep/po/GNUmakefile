@@ -91,11 +91,7 @@ STRINGSFILES = $(foreach lang, $(LINGUAS), $(top_srcdir)/$(NSLOCALE_$(lang)).lpr
 ENSTRINGSFILES = $(foreach lang, $(ENLINGUAS), $(top_srcdir)/$(NSLOCALE_$(lang)).lproj/Localizable.strings)
 CATALOGS = $(STRINGSFILES) $(ENSTRINGSFILES)
 
-.SUFFIXES: .po .sed .sin .nop .po-create .po-update
-
-.sin.sed:
-	sed -e '/^#/d' $< > t-$@
-	mv t-$@ $@
+.SUFFIXES: .po .nop .po-create .po-update
 
 
 internal-all:: all-local-$(USE_NLS)

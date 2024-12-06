@@ -83,7 +83,7 @@ CLASSFILES = @CLASSFILES@
 # $(foreach lang, user-specified subset of $(LINGUAS), $(DOMAIN)_$(lang).properties)
 CATALOGS = @JAVACATALOGS@
 
-SUFFIXES = .po .sed .sin .nop .po-create .po-update
+SUFFIXES = .po .nop .po-create .po-update
 
 # The .pot file, stamp-po, .po files, and .properties or .class files appear
 # in release tarballs. The GNU Coding Standards say in
@@ -94,10 +94,6 @@ SUFFIXES = .po .sed .sin .nop .po-create .po-update
 #    So Makefile rules to update them should put the updated files in the
 #    source directory."
 # Therefore we put these files in the source directory, not the build directory.
-
-.sin.sed:
-	sed -e '/^#/d' $< > t-$@
-	mv t-$@ $@
 
 
 all-local: $(srcdir)/stamp-po

@@ -154,7 +154,7 @@ UPDATEPOFILES = @UPDATEPOFILES@
 # This is computed as $(foreach lang, $(LINGUAS), $(lang).nop)
 DUMMYPOFILES = @DUMMYPOFILES@
 
-SUFFIXES = .po .sed .sin .nop .po-update
+SUFFIXES = .po .nop .po-update
 
 # The .pot file, stamp-po, and .po files appear in release tarballs.
 # The GNU Coding Standards say in
@@ -165,10 +165,6 @@ SUFFIXES = .po .sed .sin .nop .po-update
 #    So Makefile rules to update them should put the updated files in the
 #    source directory."
 # Therefore we put these files in the source directory, not the build directory.
-
-.sin.sed:
-	sed -e '/^#/d' $< > t-$@
-	mv t-$@ $@
 
 
 all-local: all-local-@USE_NLS@

@@ -94,7 +94,7 @@ all: all-@USE_NLS@
 
 
 .SUFFIXES:
-.SUFFIXES: .po .gmo .sed .nop .po-create .po-update
+.SUFFIXES: .po .gmo .nop .po-create .po-update
 
 # The .pot file, stamp-po, .po files, and .gmo files appear in release tarballs.
 # The GNU Coding Standards say in

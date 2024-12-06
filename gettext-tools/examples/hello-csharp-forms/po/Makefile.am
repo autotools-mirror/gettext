@@ -82,7 +82,7 @@ RESOURCESDLLFILES = @RESOURCESDLLFILES@
 # $(foreach lang, user-specified subset of $(LINGUAS), $(frob $(lang))/$(DOMAIN).resources.dll)
 CATALOGS = @CSHARPCATALOGS@
 
-SUFFIXES = .sed .sin .nop .po-create .po-update
+SUFFIXES = .nop .po-create .po-update
 
 # The .pot file, stamp-po, .po files, and .resources.dll files appear in release
 # tarballs.
@@ -94,10 +94,6 @@ SUFFIXES = .sed .sin .nop .po-create .po-update
 #    So Makefile rules to update them should put the updated files in the
 #    source directory."
 # Therefore we put these files in the source directory, not the build directory.
-
-.sin.sed:
-	sed -e '/^#/d' $< > t-$@
-	mv t-$@ $@
 
 
 all-local: all-local-@USE_NLS@

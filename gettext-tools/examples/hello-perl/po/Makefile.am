@@ -94,7 +94,7 @@ DUMMYPOFILES = @DUMMYPOFILES@
 # $(foreach lang, user-specified subset of $(LINGUAS), $(lang).gmo)
 CATALOGS = @CATALOGS@
 
-SUFFIXES = .po .gmo .sed .sin .nop .po-create .po-update
+SUFFIXES = .po .gmo .nop .po-create .po-update
 
 # The .pot file, stamp-po, .po files, and .gmo files appear in release tarballs.
 # The GNU Coding Standards say in
@@ -121,10 +121,6 @@ $(GMOFILES): $(srcdir)/$(DOMAIN).pot
 	$(GMSGFMT) -c --statistics --verbose -o t-$${lang}.gmo $${lang}.1po && \
 	mv t-$${lang}.gmo $${lang}.gmo && \
 	rm -f $${lang}.1po
-
-.sin.sed:
-	sed -e '/^#/d' $< > t-$@
-	mv t-$@ $@
 
 
 all-local: all-local-@USE_NLS@

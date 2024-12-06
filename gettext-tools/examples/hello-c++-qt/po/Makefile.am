@@ -87,7 +87,7 @@ QMFILES = @QMFILES@
 # $(foreach lang, user-specified subset of $(LINGUAS), $(lang).qm)
 CATALOGS = @QTCATALOGS@
 
-SUFFIXES = .po .qm .sed .sin .nop .po-create .po-update
+SUFFIXES = .po .qm .nop .po-create .po-update
 
 # The .pot file, stamp-po, .po files, and .qm files appear in release tarballs.
 # The GNU Coding Standards say in
@@ -114,10 +114,6 @@ $(QMFILES): $(srcdir)/$(DOMAIN).pot
 	$(GMSGFMT) -c --qt --statistics --verbose -o t-$${lang}.qm $${lang}.1po && \
 	mv t-$${lang}.qm $${lang}.qm && \
 	rm -f $${lang}.1po
-
-.sin.sed:
-	sed -e '/^#/d' $< > t-$@
-	mv t-$@ $@
 
 
 all-local: all-local-@USE_NLS@
