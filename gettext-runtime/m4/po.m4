@@ -128,7 +128,7 @@ changequote([,])dnl
         # directories under different names or in different locations.
         if test -f "$ac_given_srcdir/$ac_dir/POTFILES.in"; then
           test -n "$as_me" && echo "$as_me: creating $ac_dir/Makefile" || echo "creating $ac_dir/Makefile"
-          sed -e "/^# Makevars/r $ac_given_srcdir/$ac_dir/Makevars" "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
+          cat "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
           for f in "$ac_given_srcdir/$ac_dir"/Rules-*; do
             if test -f "$f"; then
               case "$f" in
