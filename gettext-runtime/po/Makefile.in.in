@@ -550,6 +550,19 @@ $(DUMMYPOFILES):
 update-gmo: Makefile $(GMOFILES)
 	@:
 
+# Include all the Rules-* extensions. Documented in
+# <https://www.gnu.org/software/gettext/manual/html_node/po_002fRules_002d_002a.html>
+RULES_FILES != cd $(srcdir) \
+               && for file in Rules-*; do \
+                    if test -f "$$file"; then \
+                      case "$$file" in \
+                        *.orig | *.bak | *~) ;; \
+                        *) echo $(srcdir)/"$$file" ;; \
+                      esac; \
+                    fi; \
+                  done
+include $(RULES_FILES)
+
 # Recreate Makefile by invoking config.status. Explicitly invoke the shell,
 # because execution permission bits may not work on the current file system.
 # Use @SHELL@, which is the shell determined by autoconf for the use by its
