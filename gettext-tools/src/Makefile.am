@@ -113,7 +113,7 @@ AM_CPPFLAGS = \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
   -I../../gettext-runtime/intl -I$(top_srcdir)/../gettext-runtime/intl
 DEFS = \
-  -DLOCALEDIR=$(localedir_c_make) -DBISON_LOCALEDIR=$(BISON_LOCALEDIR_c_make) \
+  -DLOCALEDIR=$(localedir_c_make) \
   -DUSEJAVA=$(USEJAVA) \
   -DGETTEXTJAR=$(jardir_c_make)\"/gettext.jar\" \
   -DBINDIR=$(bindir_c_make) \
