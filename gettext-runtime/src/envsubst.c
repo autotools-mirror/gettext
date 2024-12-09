@@ -79,6 +79,7 @@ main (int argc, char *argv[])
 
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
+  bindtextdomain ("gnulib", relocate (GNULIB_LOCALEDIR));
   textdomain (PACKAGE);
 
   /* Ensure that write errors on stdout are detected.  */
