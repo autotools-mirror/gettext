@@ -158,6 +158,7 @@ main (int argc, char **argv)
 
   /* Set the text message domain.  */
   bindtextdomain (PACKAGE, relocate (LOCALEDIR));
+  bindtextdomain ("gnulib", relocate (GNULIB_LOCALEDIR));
   bindtextdomain ("bison-runtime", relocate (BISON_LOCALEDIR));
   textdomain (PACKAGE);
 
