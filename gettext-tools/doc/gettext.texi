@@ -2952,10 +2952,10 @@ but if there is other code between the comment and the translatable string,
 the comment no longer applies.
 
 Note: The string @code{TRANSLATORS:} is a convention, enabled by the
-@code{Makefile.in.in} file that is part of a package's build system.
+@code{Makefile.in} file that is part of a package's build system.
 It is not enabled by default in @code{xgettext}.
 If you are using @code{xgettext}
-without the @code{Makefile.in.in} infrastructure,
+without the @code{Makefile.in} infrastructure,
 you will need to pass the option @code{--add-comments=TRANSLATORS:} yourself.
 
 @node c-format Flag
@@ -8704,12 +8704,12 @@ possible to specify @code{xgettext} options through the
 
 @node po/Rules-*
 @subsection Extending @file{Makefile} in @file{po/}
-@cindex @file{Makefile.in.in} extensions
+@cindex @file{Makefile.in} extensions
 
 All files called @file{Rules-*} in the @file{po/} directory get appended to
 the @file{po/Makefile} when it is created.  They present an opportunity to
 add rules for special PO files to the Makefile, without needing to mess
-with @file{po/Makefile.in.in}.
+with @file{po/Makefile.in}.
 
 @cindex quotation marks
 @vindex LANGUAGE@r{, environment variable}
@@ -8785,14 +8785,12 @@ The @code{AC_OUTPUT} directive, at the end of your @file{configure.ac}
 file, needs to be modified in two ways:
 
 @example
-AC_OUTPUT([@var{existing configuration files} po/Makefile.in],
+AC_OUTPUT([@var{existing configuration files} po/Makefile],
 [@var{existing additional actions}])
 @end example
 
 The modification to the first argument to @code{AC_OUTPUT} asks
 for substitution in the @file{po/} directory.
-Note the @samp{.in} suffix used for @file{po/} only.  This is because
-the distributed file is really @file{po/Makefile.in.in}.
 
 @end enumerate
 
@@ -9480,7 +9478,7 @@ undiscovered due to this constellation.
 There are basically three ways to deal with generated files in the
 context of a version controlled repository, such as @file{configure}
 generated from @file{configure.ac}, @code{@var{parser}.c} generated
-from @code{@var{parser}.y}, or @code{po/Makefile.in.in} autoinstalled
+from @code{@var{parser}.y}, or @code{po/Makefile.in} autoinstalled
 by @code{gettextize} or @code{autopoint}.
 
 @enumerate
@@ -10238,7 +10236,7 @@ variable in @file{po/Makevars} (@pxref{po/Makevars}) should be adjusted to
 match the @code{xgettext} options for that particular programming language.
 If the package uses more than one programming language with @code{gettext}
 support, it becomes necessary to change the POT file construction rule
-in @file{po/Makefile.in.in}.  It is recommended to make one @code{xgettext}
+in @file{po/Makefile.in}.  It is recommended to make one @code{xgettext}
 invocation per programming language, each with the options appropriate for
 that language, and to combine the resulting files using @code{msgcat}.
 @end itemize

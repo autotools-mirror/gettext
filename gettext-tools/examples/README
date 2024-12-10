@@ -54,15 +54,15 @@ Makefile types:
 
     Example                    Binary catalog format   Makefile type
 
-    hello-c                    .gmo                    Makefile.in.in
-    hello-c-gnome              .gmo                    Makefile.in.in
-    hello-c-gnome3             .gmo                    Makefile.in.in
-    hello-c++                  .gmo                    Makefile.in.in
-    hello-c++20                .gmo                    Makefile.in.in
-    hello-c++-kde              .gmo                    Makefile.in.in
-    hello-c++-gnome            .gmo                    Makefile.in.in
-    hello-objc                 .gmo                    Makefile.in.in
-    hello-objc-gnome           .gmo                    Makefile.in.in
+    hello-c                    .gmo                    Makefile.in
+    hello-c-gnome              .gmo                    Makefile.in
+    hello-c-gnome3             .gmo                    Makefile.in
+    hello-c++                  .gmo                    Makefile.in
+    hello-c++20                .gmo                    Makefile.in
+    hello-c++-kde              .gmo                    Makefile.in
+    hello-c++-gnome            .gmo                    Makefile.in
+    hello-objc                 .gmo                    Makefile.in
+    hello-objc-gnome           .gmo                    Makefile.in
     hello-c++-wxwidgets        .gmo                    Makefile.am
     hello-sh                   .gmo                    Makefile.am
     hello-python               .gmo                    Makefile.am

@@ -65,5 +65,5 @@ gen-man1: src/gettext.c man/gettext.x \
 
 maintainer-update-po: $(top_builddir)/config.status
 	$(SHELL) ./config.status --recheck
-	$(SHELL) ./config.status po/Makefile.in po-directories
+	$(SHELL) ./config.status po/Makefile
 	cd po && $(MAKE) update-po

@@ -463,12 +463,13 @@ fi
 
 # Check in which directory or directories the po/* infrastructure belongs.
 configfiles=`"$func_trace" AC_CONFIG_FILES "$configure_in"`
-# PO directories have a Makefile.in generated from Makefile.in.in.
+# PO directories have a Makefile generated from Makefile.in.
 # Treat a directory as a PO directory if and only if it has a
 # POTFILES.in file. This allows packages to have multiple PO
 # directories under different names or in different locations.
-sed_remove_Makefile_in='s,/Makefile\.in$,,'
-podirs=`for f in $configfiles; do case "$f" in */Makefile.in) echo $f;; esac; done | sed -e "$sed_remove_Makefile_in"`
+sed_remove_Makefile='s,/Makefile$,,'
+podirs=`for f in $configfiles; do case "$f" in */Makefile) echo $f;; esac; done | sed -e "$sed_remove_Makefile"`
+podirs=`for d in $podirs; do if test -r $d/POTFILES.in; then echo $d; fi; done`
 if test -z "$podirs"; then
   # If we cannot get the list of PO directories from configure.ac, assume the
   # common default.

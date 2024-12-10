@@ -57,7 +57,7 @@ AM_GNU_GETTEXT_VERSION([$ARCHIVE_VERSION])
 
 dnl AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([po/Makefile.in])
+AC_CONFIG_FILES([po/Makefile.in]) dnl if $ARCHIVE_VERSION > 0.23: po/Makefile
 AC_OUTPUT
 EOF
 
@@ -97,6 +97,7 @@ test -d m4 || Exit 1
 test -d po || Exit 1
 
 test -f m4/po.m4 || Exit 1
+# if $ARCHIVE_VERSION > 0.23: po/Makefile.in
 test -f po/Makefile.in.in || Exit 1
 
 cp -p po/Makevars.template po/Makevars

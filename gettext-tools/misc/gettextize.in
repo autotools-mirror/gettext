@@ -359,6 +359,9 @@ if test $force -eq 0; then
     func_fatal_error "intl/ subdirectory exists: use option -f if you really want to delete it."
   fi
   for podir in $podirs; do
+    if test -f "$podir/Makefile.in"; then
+      func_fatal_error "$podir/Makefile.in exists: use option -f if you really want to delete it."
+    fi
     if test -f "$podir/Makefile.in.in"; then
       func_fatal_error "$podir/Makefile.in.in exists: use option -f if you really want to delete it."
     fi
@@ -715,14 +718,14 @@ fi
 cd po
 for podir in $podirs; do
   $do_changelog && func_poChangeLog_init
-  for file in Makefile.in.in; do
+  for file in Makefile.in; do
     same=no
     if test -f "$srcdir/$podir/$file"; then
       if cmp -s $file "$srcdir/$podir/$file"; then
         same=yes
       fi
     else
-      added_acoutput="$added_acoutput $podir/Makefile.in"
+      added_acoutput="$added_acoutput $podir/Makefile"
     fi
     if $do_changelog && test $same = no; then
       if test -f "$srcdir/$podir/$file"; then
@@ -734,9 +737,18 @@ for podir in $podirs; do
     func_backup "$podir/$file"
     func_linkorcopy $file "$gettext_datadir/po/$file" "$podir/$file"
   done
+  for file in Makefile.in.in; do
+    if test -f "$srcdir/$podir/$file"; then
+      if $do_changelog; then
+        func_poChangeLog_add_entry "	* $file: Remove file."
+      fi
+      func_backup "$podir/$file"
+      rm -f "$srcdir/$podir/$file"
+    fi
+  done
   for file in *; do
     case $file in
-      Makefile.in.in)
+      Makefile.in | Makefile.in.in)
         # Already handled above.
         ;;
       Makevars.template)
@@ -813,7 +825,7 @@ m4filelist='
   po.m4 progtest.m4'
 
 # All sorts of bugs could occur if the configure file was remade with the wrong
-# version of gettext.m4 et al. (because then the configure and the po/Makefile.in.in
+# version of gettext.m4 et al. (because then the configure and the po/Makefile.in
 # don't fit together). It is therefore important that the package carries the
 # right versions of gettext.m4 et al. with it.
 if test -f "$srcdir/Makefile.am"; then

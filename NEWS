@@ -1,3 +1,9 @@
+Version 0.24 - December 2024
+
+# Improvements for maintainers:
+  * The contents of the po/ directory has been changed:
+    - A file Makefile.in replaces the old Makefile.in.in.
+
 Version 0.23 - December 2024
 
 # Internationalized data formats:

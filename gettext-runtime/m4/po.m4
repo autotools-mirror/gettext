@@ -31,7 +31,7 @@ AC_DEFUN([AM_PO_SUBDIRS],
   AC_REQUIRE([AM_NLS])dnl
 
   dnl Release version of the gettext macros. This is used to ensure that
-  dnl the gettext macros and po/Makefile.in.in are in sync.
+  dnl the gettext macros and po/Makefile.in are in sync.
   AC_SUBST([GETTEXT_MACRO_VERSION], [0.24])
 
   dnl Perform the following tests also if --disable-nls has been given,
@@ -107,33 +107,6 @@ changequote([,])dnl
   dnl the set of available translations, given by the developer).
   DESIRED_LINGUAS="${LINGUAS-\$(ALL_LINGUAS)}"
   AC_SUBST([DESIRED_LINGUAS])
-
-  AC_CONFIG_COMMANDS([po-directories], [[
-    for ac_file in $CONFIG_FILES; do
-      # Support "outfile[:infile[:infile...]]"
-      case "$ac_file" in
-        *:*) ac_file=`echo "$ac_file"|sed 's%:.*%%'` ;;
-      esac
-      # PO directories have a Makefile.in generated from Makefile.in.in.
-      case "$ac_file" in */Makefile.in)
-        # Adjust a relative srcdir.
-        ac_dir=`echo "$ac_file"|sed 's%/[^/][^/]*$%%'`
-        ac_dir_suffix=/`echo "$ac_dir"|sed 's%^\./%%'`
-        ac_dots=`echo "$ac_dir_suffix"|sed 's%/[^/]*%../%g'`
-        # In autoconf-2.13 it is called $ac_given_srcdir.
-        # In autoconf-2.50 it is called $srcdir.
-        test -n "$ac_given_srcdir" || ac_given_srcdir="$srcdir"
-        # Treat a directory as a PO directory if and only if it has a
-        # POTFILES.in file. This allows packages to have multiple PO
-        # directories under different names or in different locations.
-        if test -f "$ac_given_srcdir/$ac_dir/POTFILES.in"; then
-          test -n "$as_me" && echo "$as_me: creating $ac_dir/Makefile" || echo "creating $ac_dir/Makefile"
-          cat "$ac_dir/Makefile.in" > "$ac_dir/Makefile"
-        fi
-        ;;
-      esac
-    done]],
-   [])
 ])
 
 dnl Postprocesses a Makefile in a directory containing PO files.

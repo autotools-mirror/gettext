@@ -639,7 +639,7 @@ AC_CONFIG_FILES([src/user-email:src/user-email.sh.in])
 AC_CONFIG_FILES([libgettextpo/Makefile])
 AC_CONFIG_FILES([libgettextpo/exported.sh])
 
-AC_CONFIG_FILES([po/Makefile.in])
+AC_CONFIG_FILES([po/Makefile])
 
 AC_CONFIG_FILES([projects/Makefile])
 

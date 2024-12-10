@@ -178,6 +178,6 @@ distdir2: programs-for-distdir
 
 maintainer-update-po: $(top_builddir)/config.status
 	$(SHELL) ./config.status --recheck
-	$(SHELL) ./config.status po/Makefile.in po-directories
+	$(SHELL) ./config.status po/Makefile
 	cd po && $(MAKE) update-po
 	cd examples && $(MAKE) maintainer-update-po

@@ -215,7 +215,7 @@ AC_CONFIG_FILES([gnulib-lib/Makefile])
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([src/gettext.sh], [chmod a+x src/gettext.sh])
 
-AC_CONFIG_FILES([po/Makefile.in])
+AC_CONFIG_FILES([po/Makefile])
 
 AC_CONFIG_FILES([man/Makefile])
 AC_CONFIG_FILES([man/x-to-1])
