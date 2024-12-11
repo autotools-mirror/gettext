@@ -71,10 +71,9 @@ You will need reasonably recent versions of the build tools:
       - On Red Hat distributions: texinfo.
       - Other: https://repology.org/project/texinfo/versions
 
-  * GNU emacs or XEmacs
+  * GNU emacs
     + Homepage:
       https://www.gnu.org/software/emacs/
-      https://www.xemacs.org/
     + Pre-built package name:
       - On Debian and Debian-based systems: emacs,
       - On Red Hat distributions: emacs.
@@ -197,25 +196,36 @@ are skipped. To this effect, you need to install also:
   * GNU smalltalk
     + Homepage: http://smalltalk.gnu.org/
     + Pre-built package name:
-      - On Debian and Debian-based systems: gnu-smalltalk, gnu-smalltalk-doc,
+      - On Debian and Debian-based systems: gnu-smalltalk, gnu-smalltalk-doc
+        (only up to Debian 11),
       - On Red Hat distributions: gnu-smalltalk (EPEL).
       - Other: https://repology.org/project/smalltalk/versions
 
   * A Java compiler
     + Homepage: http://openjdk.java.net/
-  + Pre-built package name:
-    - On Debian and Debian-based systems:
-      openjdk-11-jdk or openjdk-8-jdk, default-jdk,
-    - On Red Hat distributions:
-      java-11-openjdk-devel or java-1.8.0-openjdk-devel.
-    - Other: https://repology.org/project/openjdk/versions
+    + Pre-built package name:
+      - On Debian and Debian-based systems:
+        openjdk-11-jdk or openjdk-8-jdk, default-jdk,
+      - On Red Hat distributions:
+        java-11-openjdk-devel or java-1.8.0-openjdk-devel.
+      - Other: https://repology.org/project/openjdk/versions
 
   * A C# compiler
-    + Homepage: https://www.mono-project.com/
-    + Pre-built package name:
-      - On Debian and Debian-based systems: mono-mcs,
-      - On Red Hat distributions: mono-devel (EPEL).
-      - Other: https://repology.org/project/mono/versions
+    Either Mono or dotnet.
+    o Mono
+      + Wikipedia: https://en.wikipedia.org/wiki/Mono_(software)
+      + Homepage: https://www.mono-project.com/
+      + Pre-built package name:
+        - On Debian and Debian-based systems: mono-mcs,
+        - On Red Hat distributions: mono-devel (EPEL).
+        - Other: https://repology.org/project/mono/versions
+    o dotnet
+      + Wikipedia: https://en.wikipedia.org/wiki/.NET
+      + Homepage: https://dotnet.microsoft.com/
+      + Pre-built package name:
+        - On Debian and Debian-based systems: dotnet7 or dotnet8,
+        - On Red Hat distributions: dotnet7.0 or dotnet8.0.
+        - Other: https://repology.org/project/dotnet/versions
 
   * GNU awk
     + Homepage: https://www.gnu.org/software/gawk/
@@ -323,6 +333,7 @@ also need to install:
     + Pre-built package name:
       - On Debian and Debian-based systems: libwxgtk3.0-gtk3-dev, wx3.0-doc,
         or:                                 libwxgtk3.0-dev,
+        or:                                 libwxgtk3.2-dev,
       - On Red Hat distributions: --.
       - Other: https://repology.org/project/wxwidgets/versions
 

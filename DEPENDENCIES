@@ -54,7 +54,7 @@ The following packages should be installed before GNU gettext is installed
     --with-libxml2-prefix=DIR to 'configure'.
 
 * libacl
-  + Recommended.
+  + Recommended on Linux systems.
     Needed so that the creation of backup files respects the access control
     lists (ACLs) set on the original files.
   + Homepage:
@@ -65,6 +65,19 @@ The following packages should be installed before GNU gettext is installed
     - On Debian and Debian-based systems: acl, libacl1-dev,
     - On Red Hat distributions: acl, libacl-devel.
     - Other: https://repology.org/project/acl/versions
+
+  * libattr
+    + Recommended on Linux systems.
+      Needed so that the creation of backup files respects the access control
+      lists (ACLs) set on the original files, with fewer system calls.
+    + Homepage:
+      https://savannah.nongnu.org/projects/attr/
+    + Download:
+      https://download.savannah.nongnu.org/releases/attr/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: libattr1-dev,
+      - On Red Hat distributions: libattr-devel.
+      - Other: https://repology.org/project/attr/versions
 
 * A Java runtime and compiler (e.g. OpenJDK, AdoptOpenJDK, or kaffe).
   + Recommended.
@@ -102,8 +115,8 @@ The following packages should be installed before GNU gettext is installed
     + Download:
       https://dotnet.microsoft.com/en-us/download
     + Pre-built package name:
-      - On Debian and Debian-based systems: dotnet7, dotnet8,
-      - On Red Hat distributions: dotnet7.0, dotnet8.0.
+      - On Debian and Debian-based systems: dotnet7 or dotnet8,
+      - On Red Hat distributions: dotnet7.0 or dotnet8.0.
       - Other: https://repology.org/project/dotnet/versions
   + If more than one C# is installed, pass the option --enable-csharp=IMPL
     to 'configure', to disambiguate.
