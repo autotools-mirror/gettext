@@ -1,5 +1,5 @@
 /* GNU gettext for Java
- * Copyright (C) 2001, 2007 Free Software Foundation, Inc.
+ * Copyright (C) 2001-2024 Free Software Foundation, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -148,7 +148,7 @@ public abstract class GettextResource extends ResourceBundle {
               String[] pluralforms = (String[])localValue;
               long i = 0;
               try {
-                i = ((Long) pluralEvalMethod.invoke(catalog, new Object[] { new Long(n) })).longValue();
+                i = ((Long) pluralEvalMethod.invoke(catalog, new Object[] { Long.valueOf(n) })).longValue();
                 if (!(i >= 0 && i < pluralforms.length))
                   i = 0;
               } catch (IllegalAccessException e) {
