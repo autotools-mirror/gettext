@@ -1,5 +1,5 @@
 # more-warnings.m4
-# serial 3 (gettext-0.23)
+# serial 4 (gettext-0.24)
 dnl Copyright (C) 2023-2024 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -136,17 +136,18 @@ AS_HELP_STRING([[--disable-more-warnings]], [obey exactly the warning options sp
     dnl that the compiler could often infer and which have little effect on the
     dnl performance of the generated code.
     nw="$nw -Wsuggest-attribute=cold"
-    dnl With GCC 11 and older, there warnings are pointless:
+    dnl With GCC 11 and older and Ubuntu GCC, these warnings are pointless:
     dnl "warning: stack protector not protecting local variables: variable
-    dnl length buffer [-Wstack-protector]", "[-Wanalyzer-use-after-free],
-    dnl "[-Wanalyzer-free-of-non-heap]".
+    dnl length buffer [-Wstack-protector]".
+    nw="$nw -Wstack-protector"
+    dnl With GCC 11 and older, these warnings are pointless:
+    dnl "[-Wanalyzer-use-after-free], "[-Wanalyzer-free-of-non-heap]".
     AC_PREPROC_IFELSE([AC_LANG_PROGRAM([[
       #if __GNUC__ > 11
       #error "You are lucky"
       #endif
       ]])],
-      [nw="$nw -Wstack-protector"
-       nw="$nw -Wanalyzer-use-after-free -Wanalyzer-free-of-non-heap"
+      [nw="$nw -Wanalyzer-use-after-free -Wanalyzer-free-of-non-heap"
       ])
 
     dnl Setup the list of meaningful warning options for the C compiler.
