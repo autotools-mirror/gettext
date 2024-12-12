@@ -1,5 +1,5 @@
 /* libxml2 - Library for parsing XML documents
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2024 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -1837,9 +1837,9 @@ xmlURIEscape(const xmlChar * str)
     }
 
     if (uri->port) {
-        xmlChar port[10];
+        xmlChar port[12];
 
-        snprintf((char *) port, 10, "%d", uri->port);
+        snprintf((char *) port, 12, "%d", uri->port);
         ret = xmlStrcat(ret, BAD_CAST ":");
         ret = xmlStrcat(ret, port);
     }
