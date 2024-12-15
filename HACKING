@@ -290,14 +290,14 @@ are skipped. To this effect, you need to install also:
   * lua
     + Homepage: https://www.lua.org/
     + Pre-built package name:
-      - On Debian and Debian-based systems: lua5.3 or lua5.2 or lua5.1,
+      - On Debian and Debian-based systems: lua5.4 or lua5.3 or lua5.2 or lua5.1,
       - On Red Hat distributions: lua.
       - Other: https://repology.org/project/lua/versions
   * The lua-gettext package
     + Homepage: https://gitlab.com/sukhichev/lua-gettext/blob/master/README.us.md
     + Debian and Ubuntu packages:
-      Download, then install through
-      $ sudo dpkg -i lua-gettext_0.0_amd64.deb
+      Download (following the hyperlinks in the homepage), then install through
+      $ sudo dpkg -i lua-gettext_0.0+nmu1_amd64.deb
     + Pre-built package name:
       - On Debian and Debian-based systems: --,
       - On Red Hat distributions: --.
