@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2020 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2024 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node Lua
@@ -16,7 +16,7 @@ You need to install the @code{lua-gettext} package from
 @url{https://gitlab.com/sukhichev/lua-gettext/blob/master/README.us.md}.
 Debian and Ubuntu packages of it are available.  Download the
 appropriate one, and install it through
-@samp{sudo dpkg -i lua-gettext_0.0_amd64.deb}.
+@samp{sudo dpkg -i lua-gettext_0.0+nmu1_amd64.deb}.
 
 @item File extension
 @code{lua}
