@@ -94,18 +94,9 @@ hello_application_window_init (HelloApplicationWindow *window)
 }
 
 static void
-hello_application_window_dispose (GObject *object)
-{
-  HelloApplicationWindow *window = HELLO_APPLICATION_WINDOW (object);
-  g_clear_object (&window->settings);
-}
-
-static void
 hello_application_window_class_init (HelloApplicationWindowClass *klass)
 {
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
-
-  gobject_class->dispose = hello_application_window_dispose;
 
   gtk_widget_class_set_template_from_resource (GTK_WIDGET_CLASS (klass),
                                                UI_PATH);
