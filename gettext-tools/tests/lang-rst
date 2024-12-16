@@ -2,6 +2,7 @@
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test of gettext facilities in the RST format.
+# Assumes the following packages are installed: fp-utils.
 
 cat <<\EOF > prog.rst
 # From the rstconv program itself.
