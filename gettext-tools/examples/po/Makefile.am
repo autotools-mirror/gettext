@@ -53,6 +53,7 @@ POTFILES = \
   hello-java-qtjambi/Hello.java \
   hello-csharp/hello.cs \
   hello-csharp-forms/hello.cs \
+  hello-ruby/hello.rb \
   hello-gawk/hello.awk \
   hello-pascal/hello.pas \
   hello-ycp/hello.ycp \
@@ -88,6 +89,7 @@ SMALLPOTS = \
   hello-java-qtjambi.pot \
   hello-csharp.pot \
   hello-csharp-forms.pot \
+  hello-ruby.pot \
   hello-gawk.pot \
   hello-pascal.pot \
   hello-ycp.pot \
@@ -315,6 +317,9 @@ hello-csharp.pot : $(POTFILES_DEPS)
 hello-csharp-forms.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-csharp-forms
 
+hello-ruby.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-ruby
+
 hello-gawk.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-gawk
 
@@ -436,6 +441,7 @@ SMALLPOFILES_FOR_lang = \
   $(srcdir)/../hello-java-qtjambi/po/$$lang.po \
   $(srcdir)/../hello-csharp/po/$$lang.po \
   $(srcdir)/../hello-csharp-forms/po/$$lang.po \
+  $(srcdir)/../hello-ruby/po/$$lang.po \
   $(srcdir)/../hello-gawk/po/$$lang.po \
   $(srcdir)/../hello-pascal/po/$$lang.po \
   $(srcdir)/../hello-ycp/po/$$lang.po \
@@ -515,6 +521,9 @@ $(srcdir)/../hello-csharp/po/$(LL).po: $(srcdir)/hello-csharp.pot $(srcdir)/$(LL
 
 $(srcdir)/../hello-csharp-forms/po/$(LL).po: $(srcdir)/hello-csharp-forms.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-csharp-forms $(LL)
+
+$(srcdir)/../hello-ruby/po/$(LL).po: $(srcdir)/hello-ruby.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-ruby $(LL)
 
 $(srcdir)/../hello-gawk/po/$(LL).po: $(srcdir)/hello-gawk.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-gawk $(LL)

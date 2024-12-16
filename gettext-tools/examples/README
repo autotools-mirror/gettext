@@ -29,6 +29,7 @@ environment.
     hello-java-qtjambi         Java              Qt
     hello-csharp               C#
     hello-csharp-forms         C#                Forms
+    hello-ruby                 Ruby
     hello-gawk                 awk
     hello-pascal               Pascal
     hello-ycp                  YCP               libyui
@@ -70,6 +71,7 @@ Makefile types:
     hello-librep               .gmo                    Makefile.am
     hello-guile                .gmo                    Makefile.am
     hello-smalltalk            .gmo                    Makefile.am
+    hello-ruby                 .gmo                    Makefile.am
     hello-gawk                 .gmo                    Makefile.am
     hello-pascal               .gmo                    Makefile.am
     hello-ycp                  .gmo                    Makefile.am
