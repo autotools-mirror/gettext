@@ -16,8 +16,12 @@ bin_PROGRAMS = hello
 # The source files of the 'hello' program.
 hello_SOURCES = hello.c resources.c
 
-# Define a C macro LOCALEDIR indicating where catalogs will be installed.
-DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
+# Define a C macro LOCALEDIR indicating where catalogs will be installed
+# and a C macro PKGDATADIR indicating a package-specific location.
+DEFS = \
+  -DLOCALEDIR=$(localedir_c_make) \
+  -DPKGDATADIR=$(pkgdatadir_c_make) \
+  @DEFS@
 
 # Make sure the gnome.h include file is found.
 AM_CPPFLAGS = $(GTK_CFLAGS)
@@ -35,6 +39,10 @@ gschemas.compiled: hello.gschema.xml
 resources.c: hello.gresource.xml hello.ui
 	$(AM_V_GEN) $(GLIB_COMPILE_RESOURCES) $< --target=$@ \
 		--sourcedir=$(srcdir) --generate-source
+
+# Install the compiled GSettings schema in a package-specific location
+# (so that "make install" works with a --prefix other than /usr).
+pkgdata_DATA = gschemas.compiled
 
 desktopdir = $(datadir)/applications
 desktop_DATA = hello.desktop
