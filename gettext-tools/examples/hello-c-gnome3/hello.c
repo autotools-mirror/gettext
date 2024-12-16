@@ -170,8 +170,12 @@ main (int argc, char *argv[])
   GApplication *application;
   int status;
 
-  /* Load the GSettings schema from the current directory.  */
-  g_setenv ("GSETTINGS_SCHEMA_DIR", ".", FALSE);
+  /* Load the compiled GSettings schema
+     - from PKGDATADIR (so that it works after "make install"),
+     - from the current directory (so that it works in the build directory,
+       before "make install").  */
+  g_setenv ("GSETTINGS_SCHEMA_DIR", PKGDATADIR G_SEARCHPATH_SEPARATOR_S ".",
+            FALSE);
 
   /* Initializations.  */
   textdomain ("hello-c-gnome3");

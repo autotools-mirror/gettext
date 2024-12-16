@@ -11,6 +11,11 @@ AC_PROG_CC
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.23])
 
+dnl Define localedir_c and localedir_c_make.
+gl_BUILD_TO_HOST_LOCALEDIR
+dnl Define pkgdatadir_c and pkgdatadir_c_make.
+gl_BUILD_TO_HOST_PKGDATADIR
+
 dnl Check GNOME specific stuff.
 dnl
 dnl If you have full GNOME development environment installed on your
