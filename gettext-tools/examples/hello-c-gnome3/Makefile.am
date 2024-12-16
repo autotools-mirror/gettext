@@ -29,11 +29,9 @@ AM_CPPFLAGS = $(GTK_CFLAGS)
 # Link time dependencies.
 LDADD = $(GTK_LIBS) @LIBINTL@
 
-BUILT_SOURCES = gschemas.compiled resources.c
-
 # Compile GSettings schema.
 gschemas.compiled: hello.gschema.xml
-	$(AM_V_GEN) $(GLIB_COMPILE_SCHEMAS) .
+	$(AM_V_GEN) $(GLIB_COMPILE_SCHEMAS) --targetdir=. $(srcdir)
 
 # Compile assets into a C source and link it with the application.
 resources.c: hello.gresource.xml hello.ui
@@ -59,12 +57,13 @@ hello.desktop.in: hello.desktop.in.in
 hello.desktop: hello.desktop.in
 	$(AM_V_GEN) sed -e 's|@bindir[@]|$(bindir)|g' $< > $@
 
-CLEANFILES = $(BUILT_SOURCES) hello.desktop $(desktop_DATA)
+BUILT_SOURCES        = gschemas.compiled resources.c hello.desktop
+CLEANFILES           = gschemas.compiled             hello.desktop
+DISTCLEANFILES       =
+MAINTAINERCLEANFILES =                   resources.c hello.desktop.in
 
 # Additional files to be distributed.
 EXTRA_DIST = autogen.sh autoclean.sh hello.ui \
 	hello.desktop.in.in hello.desktop.in \
 	hello.gschema.xml \
 	hello.gresource.xml
-
-MAINTAINERCLEANFILES = hello.desktop.in
