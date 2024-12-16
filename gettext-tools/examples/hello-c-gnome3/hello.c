@@ -80,15 +80,15 @@ hello_application_window_init (HelloApplicationWindow *window)
                    window->label, "use-markup",
                    G_SETTINGS_BIND_DEFAULT);
 
-  window->labels[0]
-    = g_strdup_printf (_("<big>Hello world!</big>\n"
-                         "This program is running as "
-                         "process number <b>%d</b>."),
-                       getpid ());
+  gchar *line1 = g_strdup_printf ("<big>%s</big>", _("Hello world!"));
+  gchar *line2 =
+    g_strdup_printf (_("This program is running as process number %s."),
+                     g_strdup_printf ("<b>%d</b>", getpid ()));
+  window->labels[0] = g_strdup_printf ("%s\n%s", line1, line2);
   window->labels[1]
-    = g_strdup (_("<big><u>This is another text</u></big>"));
+    = g_strdup_printf ("<big><u>%s</u></big>", _("This is another text"));
   window->labels[2]
-    = g_strdup (_("<big><i>This is yet another text</i></big>"));
+    = g_strdup_printf ("<big><i>%s</i></big>", _("This is yet another text"));
 
   update_content (window);
 }
