@@ -97,7 +97,7 @@ UPDATEPOFILES != for lang in $(ALL_LINGUAS); do echo $$lang.po-update; done
 DUMMYPOFILES != for lang in $(ALL_LINGUAS); do echo $$lang.nop; done
 
 DISTFILES.common = \
-  Makefile.in remove-potcdate.sed \
+  remove-potcdate.sed \
   $(DISTFILES.common.extra1) $(DISTFILES.common.extra2) \
   $(DISTFILES.common.extra3) $(DISTFILES.common.extra4) \
   $(DISTFILES.common.extra5) $(DISTFILES.common.extra6)
