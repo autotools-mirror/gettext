@@ -38,8 +38,8 @@ main (int argc, char *argv[])
   /* Initializations.  */
 
   gnome_init (PACKAGE, VERSION, argc, argv);
-  textdomain ("hello-c-gnome");
-  bindtextdomain ("hello-c-gnome", LOCALEDIR);
+  textdomain ("hello-c-gnome2");
+  bindtextdomain ("hello-c-gnome2", LOCALEDIR);
 
   /* Create the GUI elements.  */
 

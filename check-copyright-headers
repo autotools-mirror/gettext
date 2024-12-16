@@ -129,7 +129,7 @@ func_check_file ()
       # in attaching our own copyright header to each.
       return 0 ;;
 
-    /gettext-tools/examples/hello-*-gnome/m4/*.m4 | \
+    /gettext-tools/examples/hello-*-gnome2/m4/*.m4 | \
     /gettext-tools/projects/GNOME/teams.html )
       # These files come from the GNOME project.
       # We are not interested in attaching our own copyright header to each.

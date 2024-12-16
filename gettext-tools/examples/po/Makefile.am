@@ -21,7 +21,7 @@ AUTOMAKE_OPTIONS = 1.5 gnits
 # List of files which contain translatable strings.
 POTFILES = \
   hello-c/hello.c \
-  hello-c-gnome/hello.c \
+  hello-c-gnome2/hello.c \
   hello-c-gnome3/hello.c \
   hello-c-gnome3/hello.desktop.in.in \
   hello-c-gnome3/hello.gschema.xml \
@@ -32,7 +32,7 @@ POTFILES = \
   hello-c++-kde/hello.cc \
   hello-c++-kde/hellowindow.h \
   hello-c++-kde/hellowindow.cc \
-  hello-c++-gnome/hello.cc \
+  hello-c++-gnome2/hello.cc \
   hello-c++-wxwidgets/hello.cc \
   hello-objc/hello.m \
   hello-objc-gnustep/main.m \
@@ -40,7 +40,7 @@ POTFILES = \
   hello-objc-gnustep/AppController.m \
   hello-objc-gnustep/Hello.h \
   hello-objc-gnustep/Hello.m \
-  hello-objc-gnome/hello.m \
+  hello-objc-gnome2/hello.m \
   hello-sh/hello.sh \
   hello-python/hello.py.in \
   hello-clisp/hello.lisp.in \
@@ -66,17 +66,17 @@ POTFILES = \
 # List of small POT files.
 SMALLPOTS = \
   hello-c.pot \
-  hello-c-gnome.pot \
+  hello-c-gnome2.pot \
   hello-c-gnome3.pot \
   hello-c++.pot \
   hello-c++20.pot \
   hello-c++-qt.pot \
   hello-c++-kde.pot \
-  hello-c++-gnome.pot \
+  hello-c++-gnome2.pot \
   hello-c++-wxwidgets.pot \
   hello-objc.pot \
   hello-objc-gnustep.pot \
-  hello-objc-gnome.pot \
+  hello-objc-gnome2.pot \
   hello-sh.pot \
   hello-python.pot \
   hello-clisp.pot \
@@ -248,8 +248,8 @@ USE_BUILT_PROGS = \
 hello-c.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c
 
-hello-c-gnome.pot : $(POTFILES_DEPS)
-	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c-gnome
+hello-c-gnome2.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c-gnome2
 
 hello-c-gnome3.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c-gnome3
@@ -266,8 +266,8 @@ hello-c++-qt.pot : $(POTFILES_DEPS)
 hello-c++-kde.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-kde
 
-hello-c++-gnome.pot : $(POTFILES_DEPS)
-	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-gnome
+hello-c++-gnome2.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-gnome2
 
 hello-c++-wxwidgets.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-wxwidgets
@@ -278,8 +278,8 @@ hello-objc.pot : $(POTFILES_DEPS)
 hello-objc-gnustep.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-objc-gnustep
 
-hello-objc-gnome.pot : $(POTFILES_DEPS)
-	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-objc-gnome
+hello-objc-gnome2.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-objc-gnome2
 
 hello-sh.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-sh
@@ -418,17 +418,17 @@ $(DUMMYPOFILES):
 
 SMALLPOFILES_FOR_lang = \
   $(srcdir)/../hello-c/po/$$lang.po \
-  $(srcdir)/../hello-c-gnome/po/$$lang.po \
+  $(srcdir)/../hello-c-gnome2/po/$$lang.po \
   $(srcdir)/../hello-c-gnome3/po/$$lang.po \
   $(srcdir)/../hello-c++/po/$$lang.po \
   $(srcdir)/../hello-c++20/po/$$lang.po \
   $(srcdir)/../hello-c++-qt/po/$$lang.po \
   $(srcdir)/../hello-c++-kde/po/$$lang.po \
-  $(srcdir)/../hello-c++-gnome/po/$$lang.po \
+  $(srcdir)/../hello-c++-gnome2/po/$$lang.po \
   $(srcdir)/../hello-c++-wxwidgets/po/$$lang.po \
   $(srcdir)/../hello-objc/po/$$lang.po \
   $(srcdir)/../hello-objc-gnustep/po/$$lang.po \
-  $(srcdir)/../hello-objc-gnome/po/$$lang.po \
+  $(srcdir)/../hello-objc-gnome2/po/$$lang.po \
   $(srcdir)/../hello-sh/po/$$lang.po \
   $(srcdir)/../hello-python/po/$$lang.po \
   $(srcdir)/../hello-clisp/po/$$lang.po \
@@ -453,8 +453,8 @@ SMALLPOFILES_FOR_lang = \
 $(srcdir)/../hello-c/po/$(LL).po: $(srcdir)/hello-c.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c $(LL)
 
-$(srcdir)/../hello-c-gnome/po/$(LL).po: $(srcdir)/hello-c-gnome.pot $(srcdir)/$(LL).po
-	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c-gnome $(LL)
+$(srcdir)/../hello-c-gnome2/po/$(LL).po: $(srcdir)/hello-c-gnome2.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c-gnome2 $(LL)
 
 $(srcdir)/../hello-c-gnome3/po/$(LL).po: $(srcdir)/hello-c-gnome3.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c-gnome3 $(LL)
@@ -471,8 +471,8 @@ $(srcdir)/../hello-c++-qt/po/$(LL).po: $(srcdir)/hello-c++-qt.pot $(srcdir)/$(LL
 $(srcdir)/../hello-c++-kde/po/$(LL).po: $(srcdir)/hello-c++-kde.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-kde $(LL)
 
-$(srcdir)/../hello-c++-gnome/po/$(LL).po: $(srcdir)/hello-c++-gnome.pot $(srcdir)/$(LL).po
-	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-gnome $(LL)
+$(srcdir)/../hello-c++-gnome2/po/$(LL).po: $(srcdir)/hello-c++-gnome2.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-gnome2 $(LL)
 
 $(srcdir)/../hello-c++-wxwidgets/po/$(LL).po: $(srcdir)/hello-c++-wxwidgets.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-wxwidgets $(LL)
@@ -483,8 +483,8 @@ $(srcdir)/../hello-objc/po/$(LL).po: $(srcdir)/hello-objc.pot $(srcdir)/$(LL).po
 $(srcdir)/../hello-objc-gnustep/po/$(LL).po: $(srcdir)/hello-objc-gnustep.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-objc-gnustep $(LL)
 
-$(srcdir)/../hello-objc-gnome/po/$(LL).po: $(srcdir)/hello-objc-gnome.pot $(srcdir)/$(LL).po
-	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-objc-gnome $(LL)
+$(srcdir)/../hello-objc-gnome2/po/$(LL).po: $(srcdir)/hello-objc-gnome2.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-objc-gnome2 $(LL)
 
 $(srcdir)/../hello-sh/po/$(LL).po: $(srcdir)/hello-sh.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-sh $(LL)

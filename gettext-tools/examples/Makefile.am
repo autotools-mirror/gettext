@@ -40,18 +40,18 @@ EXAMPLESFILES = \
   hello-c/po/Makevars \
   hello-c/po/POTFILES.in \
   \
-  hello-c-gnome/INSTALL \
-  hello-c-gnome/autogen.sh \
-  hello-c-gnome/autoclean.sh \
-  hello-c-gnome/hello.c \
-  hello-c-gnome/Makefile.am \
-  hello-c-gnome/configure.ac \
-  hello-c-gnome/m4/Makefile.am \
-  hello-c-gnome/m4/gnome.m4 \
-  hello-c-gnome/m4/gnome-gnorba-check.m4 \
-  hello-c-gnome/m4/gnome-orbit-check.m4 \
-  hello-c-gnome/po/Makevars \
-  hello-c-gnome/po/POTFILES.in \
+  hello-c-gnome2/INSTALL \
+  hello-c-gnome2/autogen.sh \
+  hello-c-gnome2/autoclean.sh \
+  hello-c-gnome2/hello.c \
+  hello-c-gnome2/Makefile.am \
+  hello-c-gnome2/configure.ac \
+  hello-c-gnome2/m4/Makefile.am \
+  hello-c-gnome2/m4/gnome.m4 \
+  hello-c-gnome2/m4/gnome-gnorba-check.m4 \
+  hello-c-gnome2/m4/gnome-orbit-check.m4 \
+  hello-c-gnome2/po/Makevars \
+  hello-c-gnome2/po/POTFILES.in \
   \
   hello-c-gnome3/INSTALL \
   hello-c-gnome3/autogen.sh \
@@ -135,20 +135,20 @@ EXAMPLESFILES = \
   hello-c++-kde/po/Makevars \
   hello-c++-kde/po/POTFILES.in \
   \
-  hello-c++-gnome/INSTALL \
-  hello-c++-gnome/autogen.sh \
-  hello-c++-gnome/autoclean.sh \
-  hello-c++-gnome/hello.cc \
-  hello-c++-gnome/Makefile.am \
-  hello-c++-gnome/configure.ac \
-  hello-c++-gnome/m4/Makefile.am \
-  hello-c++-gnome/m4/gnome.m4 \
-  hello-c++-gnome/m4/gnome-gnorba-check.m4 \
-  hello-c++-gnome/m4/gnome-orbit-check.m4 \
-  hello-c++-gnome/m4/gtk.m4 \
-  hello-c++-gnome/m4/gtk--.m4 \
-  hello-c++-gnome/po/Makevars \
-  hello-c++-gnome/po/POTFILES.in \
+  hello-c++-gnome2/INSTALL \
+  hello-c++-gnome2/autogen.sh \
+  hello-c++-gnome2/autoclean.sh \
+  hello-c++-gnome2/hello.cc \
+  hello-c++-gnome2/Makefile.am \
+  hello-c++-gnome2/configure.ac \
+  hello-c++-gnome2/m4/Makefile.am \
+  hello-c++-gnome2/m4/gnome.m4 \
+  hello-c++-gnome2/m4/gnome-gnorba-check.m4 \
+  hello-c++-gnome2/m4/gnome-orbit-check.m4 \
+  hello-c++-gnome2/m4/gtk.m4 \
+  hello-c++-gnome2/m4/gtk--.m4 \
+  hello-c++-gnome2/po/Makevars \
+  hello-c++-gnome2/po/POTFILES.in \
   \
   hello-c++-wxwidgets/INSTALL \
   hello-c++-wxwidgets/autogen.sh \
@@ -183,18 +183,18 @@ EXAMPLESFILES = \
   hello-objc-gnustep/po/GNUmakefile \
   hello-objc-gnustep/po/LocaleAliases \
   \
-  hello-objc-gnome/INSTALL \
-  hello-objc-gnome/autogen.sh \
-  hello-objc-gnome/autoclean.sh \
-  hello-objc-gnome/hello.m \
-  hello-objc-gnome/Makefile.am \
-  hello-objc-gnome/configure.ac \
-  hello-objc-gnome/m4/Makefile.am \
-  hello-objc-gnome/m4/gnome.m4 \
-  hello-objc-gnome/m4/gnome-gnorba-check.m4 \
-  hello-objc-gnome/m4/gnome-orbit-check.m4 \
-  hello-objc-gnome/po/Makevars \
-  hello-objc-gnome/po/POTFILES.in \
+  hello-objc-gnome2/INSTALL \
+  hello-objc-gnome2/autogen.sh \
+  hello-objc-gnome2/autoclean.sh \
+  hello-objc-gnome2/hello.m \
+  hello-objc-gnome2/Makefile.am \
+  hello-objc-gnome2/configure.ac \
+  hello-objc-gnome2/m4/Makefile.am \
+  hello-objc-gnome2/m4/gnome.m4 \
+  hello-objc-gnome2/m4/gnome-gnorba-check.m4 \
+  hello-objc-gnome2/m4/gnome-orbit-check.m4 \
+  hello-objc-gnome2/po/Makevars \
+  hello-objc-gnome2/po/POTFILES.in \
   \
   hello-sh/INSTALL \
   hello-sh/autogen.sh \
@@ -393,17 +393,17 @@ EXAMPLESFILES = \
 # List of examples directories containing a po directory.
 EXAMPLESDIRS = \
   hello-c \
-  hello-c-gnome \
+  hello-c-gnome2 \
   hello-c-gnome3 \
   hello-c++ \
   hello-c++20 \
   hello-c++-qt \
   hello-c++-kde \
-  hello-c++-gnome \
+  hello-c++-gnome2 \
   hello-c++-wxwidgets \
   hello-objc \
   hello-objc-gnustep \
-  hello-objc-gnome \
+  hello-objc-gnome2 \
   hello-sh \
   hello-python \
   hello-clisp \

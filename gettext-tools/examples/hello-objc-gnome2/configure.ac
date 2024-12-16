@@ -3,17 +3,21 @@ dnl This file is in the public domain.
 dnl
 dnl Configuration file - processed by autoconf.
 
-AC_INIT([hello-c++-gnome], [0], , [hello-c++-gnome])
-AC_CONFIG_SRCDIR([hello.cc])
+AC_INIT([hello-objc-gnome2], [0])
+AC_CONFIG_SRCDIR([hello.m])
 AM_INIT_AUTOMAKE([1.11])
 
-AC_PROG_CXX
+AC_PROG_CC
+AC_SUBST([OBJC],["$CC"])
+AC_SUBST([OBJCFLAGS],["$CFLAGS"])
 
 GNOME_INIT
-GTKMM_CFLAGS=`gtkmm-config --cflags`
-AC_SUBST([GTKMM_CFLAGS])
-GTKMM_LIBS=`gtkmm-config --libs`
-AC_SUBST([GTKMM_LIBS])
+OBGNOME_INCLUDES=
+obgnome_prefix=`obgnome-config --prefix`
+if test -n "$obgnome_prefix"; then
+  OBGNOME_INCLUDES="-I $obgnome_prefix/include"
+fi
+AC_SUBST([OBGNOME_INCLUDES])
 
 AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([0.23])

@@ -39,8 +39,8 @@ main (int argc, char *argv[])
   /* Initializations.  */
 
   application = [[Gnome_App alloc] initApp: PACKAGE : VERSION : argc : argv];
-  textdomain ("hello-objc-gnome");
-  bindtextdomain ("hello-objc-gnome", LOCALEDIR);
+  textdomain ("hello-objc-gnome2");
+  bindtextdomain ("hello-objc-gnome2", LOCALEDIR);
 
   /* Create the GUI elements.  */
 
