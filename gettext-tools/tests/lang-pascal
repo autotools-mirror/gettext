@@ -2,7 +2,7 @@
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
 # Test of gettext facilities in the Object Pascal language.
-# Assumes the following packages are installed: fpk.
+# Assumes the following packages are installed: fpc.
 
 # Note: This test fails with fpk 1.0.10 ... 3.0.0 when an UTF-8 locale is
 # present, because fpk ignores the locale's encoding. It supports only unibyte

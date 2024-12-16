@@ -3,7 +3,7 @@
 
 # Test of gettext facilities in the Vala language.
 # Assumes an fr_FR locale is installed.
-# Assumes the following packages are installed: vala.
+# Assumes the following packages are installed: vala or valac.
 
 # Test for presence of valac.
 (valac --version) >/dev/null 2>/dev/null

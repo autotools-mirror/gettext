@@ -3,7 +3,7 @@
 
 # Test of gettext facilities in the C# language.
 # Assumes an fr_FR locale is installed.
-# Assumes the following packages are installed: mono, mcs.
+# Assumes the following packages are installed: mono, mcs, or dotnet8.
 
 # Note: This test fails when a GNU gettext version < 0.17 is installed with
 # the same --prefix as mcs. mcs apparently searches ${prefix}/lib before

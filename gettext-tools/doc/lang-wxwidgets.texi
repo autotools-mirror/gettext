@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2020 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2024 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node wxWidgets
@@ -11,7 +11,7 @@
 wxGTK, gettext
 
 @item Ubuntu packages
-libwxgtk3.0-dev
+libwxgtk3.0-dev or libwxgtk3.2-dev
 
 @item File extension
 @code{cpp}
