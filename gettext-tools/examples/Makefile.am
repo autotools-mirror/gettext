@@ -155,6 +155,20 @@ EXAMPLESFILES = \
   hello-c++-gnome2/po/Makevars \
   hello-c++-gnome2/po/POTFILES.in \
   \
+  hello-c++-gnome3/INSTALL \
+  hello-c++-gnome3/README \
+  hello-c++-gnome3/autogen.sh \
+  hello-c++-gnome3/autoclean.sh \
+  hello-c++-gnome3/hello.cc \
+  hello-c++-gnome3/hello.desktop.in.in \
+  hello-c++-gnome3/hello.gresource.xml \
+  hello-c++-gnome3/hello.ui \
+  hello-c++-gnome3/Makefile.am \
+  hello-c++-gnome3/configure.ac \
+  hello-c++-gnome3/m4/Makefile.am \
+  hello-c++-gnome3/po/Makevars \
+  hello-c++-gnome3/po/POTFILES.in \
+  \
   hello-c++-wxwidgets/INSTALL \
   hello-c++-wxwidgets/autogen.sh \
   hello-c++-wxwidgets/autoclean.sh \
@@ -405,6 +419,7 @@ EXAMPLESDIRS = \
   hello-c++-qt \
   hello-c++-kde \
   hello-c++-gnome2 \
+  hello-c++-gnome3 \
   hello-c++-wxwidgets \
   hello-objc \
   hello-objc-gnustep \

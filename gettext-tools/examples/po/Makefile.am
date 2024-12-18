@@ -36,6 +36,9 @@ POTFILES = \
   hello-c++-kde/hellowindow.h \
   hello-c++-kde/hellowindow.cc \
   hello-c++-gnome2/hello.cc \
+  hello-c++-gnome3/hello.cc \
+  hello-c++-gnome3/hello.desktop.in.in \
+  hello-c++-gnome3/hello.ui \
   hello-c++-wxwidgets/hello.cc \
   hello-objc/hello.m \
   hello-objc-gnustep/main.m \
@@ -76,6 +79,7 @@ SMALLPOTS = \
   hello-c++-qt.pot \
   hello-c++-kde.pot \
   hello-c++-gnome2.pot \
+  hello-c++-gnome3.pot \
   hello-c++-wxwidgets.pot \
   hello-objc.pot \
   hello-objc-gnustep.pot \
@@ -272,6 +276,9 @@ hello-c++-kde.pot : $(POTFILES_DEPS)
 hello-c++-gnome2.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-gnome2
 
+hello-c++-gnome3.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-gnome3
+
 hello-c++-wxwidgets.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-c++-wxwidgets
 
@@ -428,6 +435,7 @@ SMALLPOFILES_FOR_lang = \
   $(srcdir)/../hello-c++-qt/po/$$lang.po \
   $(srcdir)/../hello-c++-kde/po/$$lang.po \
   $(srcdir)/../hello-c++-gnome2/po/$$lang.po \
+  $(srcdir)/../hello-c++-gnome3/po/$$lang.po \
   $(srcdir)/../hello-c++-wxwidgets/po/$$lang.po \
   $(srcdir)/../hello-objc/po/$$lang.po \
   $(srcdir)/../hello-objc-gnustep/po/$$lang.po \
@@ -476,6 +484,9 @@ $(srcdir)/../hello-c++-kde/po/$(LL).po: $(srcdir)/hello-c++-kde.pot $(srcdir)/$(
 
 $(srcdir)/../hello-c++-gnome2/po/$(LL).po: $(srcdir)/hello-c++-gnome2.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-gnome2 $(LL)
+
+$(srcdir)/../hello-c++-gnome3/po/$(LL).po: $(srcdir)/hello-c++-gnome3.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-gnome3 $(LL)
 
 $(srcdir)/../hello-c++-wxwidgets/po/$(LL).po: $(srcdir)/hello-c++-wxwidgets.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c++-wxwidgets $(LL)
