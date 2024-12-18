@@ -24,8 +24,11 @@ POTFILES = \
   hello-c-gnome2/hello.c \
   hello-c-gnome3/hello.c \
   hello-c-gnome3/hello.desktop.in.in \
-  hello-c-gnome3/hello.gschema.xml \
   hello-c-gnome3/hello.ui \
+  hello-c-gnome3/hello2.c \
+  hello-c-gnome3/hello2.desktop.in.in \
+  hello-c-gnome3/hello2.ui \
+  hello-c-gnome3/hello2.gschema.xml \
   hello-c++/hello.cc \
   hello-c++20/hello.cc \
   hello-c++-qt/hello.cc \
