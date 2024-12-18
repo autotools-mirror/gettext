@@ -76,19 +76,22 @@ hello_application_window_init (HelloApplicationWindow *window)
   gtk_widget_init_template (GTK_WIDGET (window));
 
   window->settings = g_settings_new (GSETTINGS_SCHEMA);
+  /* Allow Pango markup in the label.  */
   g_settings_bind (window->settings, "use-markup",
                    window->label, "use-markup",
                    G_SETTINGS_BIND_DEFAULT);
 
+  /* Prepare various presentations of the label.  */
+  window->label_id = 0;
   gchar *line1 = g_strdup_printf ("<big>%s</big>", _("Hello world!"));
   gchar *line2 =
     g_strdup_printf (_("This program is running as process number %s."),
                      g_strdup_printf ("<b>%d</b>", getpid ()));
   window->labels[0] = g_strdup_printf ("%s\n%s", line1, line2);
-  window->labels[1]
-    = g_strdup_printf ("<big><u>%s</u></big>", _("This is another text"));
-  window->labels[2]
-    = g_strdup_printf ("<big><i>%s</i></big>", _("This is yet another text"));
+  window->labels[1] =
+    g_strdup_printf ("<big><u>%s</u></big>", _("This is another text"));
+  window->labels[2] =
+    g_strdup_printf ("<big><i>%s</i></big>", _("This is yet another text"));
 
   update_content (window);
 }
