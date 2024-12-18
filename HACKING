@@ -320,6 +320,13 @@ are skipped. To this effect, you need to install also:
 If you want to exercise the sample programs in gettext-tools/examples/, you
 also need to install:
 
+  * The Gtk3 GUI toolkit library
+    + Homepage: https://www.gtk.org/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: libgtk-3-dev,
+      - On Red Hat distributions: gtk3-devel.
+      - Other: https://repology.org/project/gtk/versions
+
   * The Qt GUI toolkit library
     + Homepage: https://www.qt.io/
     + Pre-built package name:
