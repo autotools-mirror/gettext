@@ -208,10 +208,6 @@ $(srcdir)/stamp-po: $(srcdir)/$(DOMAIN).pot
 	  mv $(srcdir)/stamp-poT $(srcdir)/stamp-po; \
 	}
 
-# Note: Target 'all' must not depend on target '$(DOMAIN).pot-update',
-# otherwise packages like GCC can not be built if only parts of the source
-# have been downloaded.
-
 # This target rebuilds $(DOMAIN).pot; it is an expensive operation.
 # Note that $(DOMAIN).pot is not touched if it doesn't need to be changed.
 $(DOMAIN).pot-update: $(POTFILES_DEPS) $(SMALLPOTS)

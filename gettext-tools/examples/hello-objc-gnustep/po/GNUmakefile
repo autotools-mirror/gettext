@@ -99,10 +99,6 @@ internal-all:: all-local-$(USE_NLS)
 all-local-yes: $(CATALOGS)
 all-local-no:
 
-# Note: Target 'all' must not depend on target '$(DOMAIN).pot-update',
-# otherwise packages like GCC can not be built if only parts of the source
-# have been downloaded.
-
 # This target rebuilds $(DOMAIN).pot; it is an expensive operation.
 # Note that $(DOMAIN).pot is not touched if it doesn't need to be changed.
 # The determination of whether the package xyz is a GNU one is based on the
