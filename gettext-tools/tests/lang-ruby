@@ -5,6 +5,10 @@
 # Assumes an fr_FR locale is installed.
 # Assumes the following packages are installed: ruby, ruby-gettext.
 
+# Test for presence of rxgettext (needed by xgettext).
+(rxgettext --version) >/dev/null 2>/dev/null \
+  || { echo "Skipping test: rxgettext not found"; Exit 77; }
+
 cat <<\EOF > prog.rb
 require 'gettext'
 include GetText
