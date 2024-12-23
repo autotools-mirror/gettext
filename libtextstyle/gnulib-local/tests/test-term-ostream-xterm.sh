@@ -33,7 +33,8 @@ LC_ALL=C tr -d '\r' < out1 > out
 || ${DIFF} ${srcdir}/test-term-ostream-xterm-aix51.out          out > /dev/null \
 || ${DIFF} ${srcdir}/test-term-ostream-xterm-osf51.out          out > /dev/null \
 || ${DIFF} ${srcdir}/test-term-ostream-xterm-irix65.out         out > /dev/null \
-|| ${DIFF} ${srcdir}/test-term-ostream-xterm-mingw.out          out > /dev/null
+|| ${DIFF} ${srcdir}/test-term-ostream-xterm-mingw.out          out > /dev/null \
+|| ${DIFF} ${srcdir}/test-term-ostream-xterm-msys2.out          out > /dev/null
 result=$?
 
 rm -fr $tmpfiles

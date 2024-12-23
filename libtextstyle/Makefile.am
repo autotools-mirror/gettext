@@ -175,6 +175,7 @@ EXTRA_DIST = \
   gnulib-local/tests/test-term-ostream-xterm-linux-debian.out \
   gnulib-local/tests/test-term-ostream-xterm-linux-mandriva.out \
   gnulib-local/tests/test-term-ostream-xterm-mingw.out \
+  gnulib-local/tests/test-term-ostream-xterm-msys2.out \
   gnulib-local/tests/test-term-ostream-xterm-netbsd3.out \
   gnulib-local/tests/test-term-ostream-xterm-osf51.out \
   gnulib-local/tests/test-term-ostream-xterm-r6.out \
