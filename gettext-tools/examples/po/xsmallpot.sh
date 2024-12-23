@@ -73,10 +73,22 @@ EOF
     ;;
 esac
 cd po
-make $potfile
-sed -e "/^#:/ {
+if make $potfile; then
+  sed -e "/^#:/ {
 s, \\([^ ]\\), $directory/\\1,g
 }" < $potfile > "$abs_srcdir"/$potfile
+else
+  case $directory in
+    hello-ruby)
+      # Creating hello-ruby.pot fails if 'rxgettext' is not installed.
+      # To work around it, we are putting hello-ruby.pot under version control.
+      ;;
+    *)
+      echo "Failed to create $potfile." 1>&2
+      exit 1
+      ;;
+  esac
+fi
 cd ..
 cd ..
 rm -rf tmp-$directory
