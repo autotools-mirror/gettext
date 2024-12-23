@@ -7,9 +7,11 @@ AC_INIT([hello-objc-gnome2], [0])
 AC_CONFIG_SRCDIR([hello.m])
 AM_INIT_AUTOMAKE([1.11])
 
-AC_PROG_CC
-AC_SUBST([OBJC],["$CC"])
-AC_SUBST([OBJCFLAGS],["$CFLAGS"])
+dnl Test for gobjc before gcc, since that's what the EPEL 9 package 'gcc-objc'
+dnl installs (on systems where gcc does not support Objective C).
+m4_pushdef([AC_MSG_FAILURE], m4_defn([AC_MSG_WARN]))
+AC_PROG_OBJC([gobjc gcc objcc objc cc CC clang])
+m4_popdef([AC_MSG_FAILURE])
 
 GNOME_INIT
 OBGNOME_INCLUDES=
