@@ -123,7 +123,7 @@ distdir1:
 gen_start_date = 2015-10-13
 .PHONY: gen-ChangeLogs
 gen-ChangeLogs:
-	$(AM_V_GEN)if test -d .git; then                                       \
+	$(AM_V_GEN)if test -d $(srcdir)/.git; then                             \
 	  log_fix="$(srcdir)/build-aux/git-log-fix";                           \
 	  test -e "$$log_fix"                                                  \
 	    && amend_git_log="--amend=$$log_fix"                               \
@@ -134,6 +134,7 @@ gen-ChangeLogs:
 	      && cldir="$(distdir)"                                            \
 	      || cldir="$(distdir)/$$d";                                       \
 	    $(top_srcdir)/build-aux/gitlog-to-changelog                        \
+	      --srcdir=$(srcdir)                                               \
 	      $$amend_git_log --no-cluster --since=$(gen_start_date) -- "$$d"  \
 	      > "$$cldir/ChangeLog-t"                                          \
 	      && rm -f "$$cldir/ChangeLog"                                     \
