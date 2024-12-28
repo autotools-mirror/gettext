@@ -98,6 +98,7 @@ if ! $skip_gnulib; then
     attribute
     basename-lgpl
     binary-io
+    bool
     closeout
     error
     getopt-gnu
@@ -110,11 +111,10 @@ if ! $skip_gnulib; then
     relocatable-prog
     setlocale
     sigpipe
-    stdbool
-    stdio
-    stdlib
+    stdio-h
+    stdlib-h
     strtoul
-    unistd
+    unistd-h
     unlocked-io
     xalloc
     xstring-buffer
@@ -172,6 +172,7 @@ if ! $skip_gnulib; then
     binary-io
     bison
     bison-i18n
+    bool
     byteswap
     c-ctype
     c-strcase
@@ -207,7 +208,7 @@ if ! $skip_gnulib; then
     libunistring-optional
     libxml
     localcharset
-    locale
+    locale-h
     localename
     localtime
     lock
@@ -236,9 +237,8 @@ if ! $skip_gnulib; then
     sigpipe
     sigprocmask
     spawn-pipe
-    stdbool
-    stdio
-    stdlib
+    stdio-h
+    stdlib-h
     stpcpy
     stpncpy
     strchrnul
@@ -249,9 +249,9 @@ if ! $skip_gnulib; then
     strtol
     strtoul
     supersede
-    sys_select
-    sys_stat
-    sys_time
+    sys_select-h
+    sys_stat-h
+    sys_time-h
     trim
     unicase/u8-casefold
     unictype/ctype-space
@@ -259,7 +259,7 @@ if ! $skip_gnulib; then
     unilbrk/ulc-width-linebreaks
     uniname/uniname
     uninorm/nfc
-    unistd
+    unistd-h
     unistr/u8-check
     unistr/u8-mbtouc
     unistr/u8-mbtoucr
@@ -287,10 +287,11 @@ if ! $skip_gnulib; then
   # Common dependencies of GNULIB_MODULES_TOOLS_FOR_SRC and GNULIB_MODULES_TOOLS_FOR_LIBGREP.
   GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES='
     alloca-opt
+    bool
     extensions
     gettext-h
     include_next
-    locale
+    locale-h
     localcharset
     malloc-posix
     mbrtowc
@@ -301,14 +302,13 @@ if ! $skip_gnulib; then
     snippet/c++defs
     snippet/warn-on-use
     ssize_t
-    stdbool
-    stddef
-    stdint
-    stdlib
+    stddef-h
+    stdint-h
+    stdlib-h
     streq
-    unistd
+    unistd-h
     verify
-    wchar
+    wchar-h
     wctype-h
     windows-mutex
     windows-once
@@ -324,7 +324,7 @@ if ! $skip_gnulib; then
     javacomp-script
     javaexec-script
     manywarnings
-    stdint
+    stdint-h
   '
   GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS='
     unilbrk/u8-possible-linebreaks-tests
@@ -351,7 +351,7 @@ if ! $skip_gnulib; then
     `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do \
        if test \`$GNULIB_TOOL --extract-applicability $m\` != all; then \
          case $m in \
-           locale | stdbool | stddef | stdint | stdlib | unistd | wchar | wctype-h) ;; \
+           bool | locale-h | stddef-h | stdint-h | stdlib-h | unistd-h | wchar-h | wctype-h) ;; \
            *) echo --avoid=$m ;; \
          esac; \
        fi; \
@@ -362,6 +362,7 @@ if ! $skip_gnulib; then
   GNULIB_MODULES_LIBGETTEXTPO='
     attribute
     basename-lgpl
+    bool
     close
     c-ctype
     c-strcase
@@ -385,9 +386,8 @@ if ! $skip_gnulib; then
     open
     relocatable-lib
     sigpipe
-    stdbool
-    stdio
-    stdlib
+    stdio-h
+    stdlib-h
     stpcpy
     stpncpy
     strchrnul
