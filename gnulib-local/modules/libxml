@@ -106,7 +106,7 @@ m4/absolute-header.m4
 
 Depends-on:
 iconv
-stdarg
+stdarg-h
 snprintf
 vsnprintf
 no-c++

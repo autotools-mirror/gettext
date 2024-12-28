@@ -7,12 +7,12 @@ lib/html-styled-ostream.oo.c
 
 Depends-on:
 styled-ostream
-unistd
+unistd-h
 html-ostream
 binary-io
 error
 safe-read
-stdlib
+stdlib-h
 xalloc
 gettext-h
 close

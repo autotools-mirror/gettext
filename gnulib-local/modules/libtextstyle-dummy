@@ -5,8 +5,8 @@ Files:
 lib/textstyle.in.h
 
 Depends-on:
-stdbool
-unistd
+bool
+unistd-h
 fsync
 
 configure.ac:

@@ -10,14 +10,14 @@ Depends-on:
 ostream
 term-style-control
 error
-stdlib
+stdlib-h
 full-write
 fsync
 gettext-h
 gettimeofday
 get_ppid_of
 get_progname_of
-stdint
+stdint-h
 terminfo-h
 xalloc
 xgethostname
