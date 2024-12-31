@@ -1,4 +1,4 @@
-Version 0.24 - December 2024
+Version 0.24 - January 2025
 
 # Improvements for maintainers:
   * The contents of the po/ directory has been changed:
@@ -8,6 +8,13 @@ Version 0.24 - December 2024
     - A new example 'hello-c++-gnome3' has been added.
   * Ruby:
     - A new example 'hello-ruby' has been added.
+
+Version 0.23.1 - December 2024
+
+* Bug fixes:
+  - Building with libxml2 >= 2.12.0 and gcc >= 14 now works.
+  - XML: The value of the xml:lang attribute, inserted by msgfmt, is now
+    more correct.
 
 Version 0.23 - December 2024
 
