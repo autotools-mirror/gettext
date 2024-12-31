@@ -215,7 +215,13 @@ The following packages should be installed before GNU gettext is installed
 The following packages should be installed when GNU gettext is installed
 (runtime dependencies, but not build dependencies):
 
-None.
+* The Gnulib localizations.
+  + Recommended.
+    Needed for localization of some of the programs to the user's language.
+  + Documentation:
+    https://www.gnu.org/software/gnulib/manual/html_node/Localization.html
+  + Download:
+    https://ftp.gnu.org/gnu/gnulib/gnulib-l10n-*
 
 
 The following should be installed when GNU gettext is built, but are not
