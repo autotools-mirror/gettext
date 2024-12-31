@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-tools 0.18\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2024-12-01 12:16+0100\n"
+"POT-Creation-Date: 2024-12-31 12:25+0100\n"
 "PO-Revision-Date: 2012-05-21 20:08+0530\n"
 "Last-Translator: A S Alam <aalam@users.sf.net>\n"
 "Language-Team: Punjabi <punjabi-l10n@lists.sourceforge.net>\n"
@@ -18,406 +18,6 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Lokalize 1.4\n"
-
-#: gnulib-lib/argmatch.c:145
-#, c-format
-msgid "invalid argument %s for %s"
-msgstr "%2$s ਲਈ ਗਲਤ ਆਰਗੂਮੈਂਟ %1$s"
-
-#: gnulib-lib/argmatch.c:146
-#, c-format
-msgid "ambiguous argument %s for %s"
-msgstr ""
-
-#: gnulib-lib/argmatch.c:165
-msgid "Valid arguments are:"
-msgstr "ਠੀਕ ਆਰਗੂਮੈਂਟ ਹਨ:"
-
-#: gnulib-lib/clean-temp.c:234
-#, c-format
-msgid "cannot find a temporary directory, try setting $TMPDIR"
-msgstr "ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਲੱਭੀ ਜਾ ਸਕਦੀ, $TMPDIR ਸੈਟਅੱਪ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
-
-#: gnulib-lib/clean-temp.c:249
-#, c-format
-msgid "cannot create a temporary directory using template \"%s\""
-msgstr "ਟੈਪਲੇਟ \"%s\" ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ ਬਣਾਈ ਨਹੀਂ ਜਾ ਸਕਦੀ"
-
-#: gnulib-lib/clean-temp.c:370
-#, c-format
-msgid "cannot remove temporary directory %s"
-msgstr "ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ %s ਹਟਾਈ ਨਹੀਂ ਜਾ ਸਕਦੀ"
-
-#: gnulib-lib/clean-temp-simple.c:297
-#, c-format
-msgid "cannot remove temporary file %s"
-msgstr "ਆਰਜ਼ੀ ਫਾਇਲ %s ਹਟਾਈ ਨਹੀਂ ਜਾ ਸਕਦੀ"
-
-#: gnulib-lib/closeout.c:66
-msgid "write error"
-msgstr "ਲਿਖਣ ਗਲਤੀ"
-
-#: gnulib-lib/copy-file.c:212
-#, fuzzy, c-format
-#| msgid "error while opening \"%s\" for reading"
-msgid "error while opening %s for reading"
-msgstr "ਪੜ੍ਹਨ ਵਾਸਤੇ \"%s\" ਖੋਲ੍ਹਣ ਦੌਰਾਨ ਗਲਤੀ"
-
-#: gnulib-lib/copy-file.c:216
-#, fuzzy, c-format
-#| msgid "cannot open backup file \"%s\" for writing"
-msgid "cannot open backup file %s for writing"
-msgstr "ਲਿਖਣ ਲਈ ਬੈਕਅੱਪ ਫਾਇਲ \"%s\" ਖੋਲ੍ਹੀ ਨਹੀਂ ਜਾ ਸਕਦੀ"
-
-#: gnulib-lib/copy-file.c:220
-#, fuzzy, c-format
-#| msgid "error reading \"%s\""
-msgid "error reading %s"
-msgstr "\"%s\" ਪੜ੍ਹਨ ਦੌਰਾਨ ਗਲਤੀ"
-
-#: gnulib-lib/copy-file.c:224
-#, fuzzy, c-format
-#| msgid "error writing \"%s\""
-msgid "error writing %s"
-msgstr "\"%s\" ਲਿਖਣ ਦੌਰਾਨ ਗਲਤੀ"
-
-#: gnulib-lib/copy-file.c:228
-#, fuzzy, c-format
-#| msgid "error after reading \"%s\""
-msgid "error after reading %s"
-msgstr "\"%s\" ਪੜ੍ਹਨ ਦੇ ਬਾਅਦ ਗਲਤੀ"
-
-#: gnulib-lib/copy-file.c:235
-#, c-format
-msgid "preserving permissions for %s"
-msgstr ""
-
-#: gnulib-lib/csharpcomp.c:225 gnulib-lib/csharpcomp.c:368
-#: gnulib-lib/csharpcomp.c:460 gnulib-lib/csharpexec.c:397
-#: gnulib-lib/javacomp.c:355 gnulib-lib/javaversion.c:75 src/msginit.c:904
-#: src/msginit.c:987 src/msginit.c:1165 src/msginit.c:1281 src/msginit.c:1464
-#: src/read-csharp.c:75 src/read-java.c:72 src/read-resources.c:76
-#: src/read-tcl.c:111 src/write-resources.c:80 src/x-ruby.c:142
-#, c-format
-msgid "fdopen() failed"
-msgstr "fdopen() ਫੇਲ੍ਹ ਹੈ"
-
-#: gnulib-lib/csharpcomp.c:360 gnulib-lib/csharpcomp.c:378
-#: gnulib-lib/csharpcomp.c:452 gnulib-lib/csharpcomp.c:470
-#: gnulib-lib/csharpexec.c:389 gnulib-lib/csharpexec.c:407
-#: gnulib-lib/javacomp.c:361 gnulib-lib/javaversion.c:81 src/msginit.c:912
-#: src/msginit.c:995 src/msginit.c:1173 src/msginit.c:1472
-#, c-format
-msgid "%s subprocess I/O error"
-msgstr "%s ਸਬ-ਪ੍ਰੋਸੈਸ I/O ਗਲਤੀ"
-
-#: gnulib-lib/csharpcomp.c:430 gnulib-lib/csharpcomp.c:517
-#: gnulib-lib/csharpexec.c:453 gnulib-lib/execute.c:377
-#: gnulib-lib/spawn-pipe.c:599 gnulib-lib/wait-process.c:326
-#: gnulib-lib/wait-process.c:400
-#, c-format
-msgid "%s subprocess failed"
-msgstr "%s ਸਬ-ਪ੍ਰੋਸੈਸ ਫੇਲ੍ਹ ਹੋਇਆ"
-
-#: gnulib-lib/csharpcomp.c:1082
-#, fuzzy, c-format
-#| msgid "C# compiler not found, try installing pnet"
-msgid "C# compiler not found, try installing mono or dotnet"
-msgstr "C# ਕੰਪਾਇਲਰ ਨਹੀਂ ਲੱਭਿਆ, pnet ਇੰਸਟਾਲ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
-
-#: gnulib-lib/csharpexec.c:291
-#, fuzzy, c-format
-#| msgid "failed to create \"%s\""
-msgid "failed to copy '%s' to '%s'"
-msgstr "\"%s\" ਬਣਾਉਣ ਲਈ ਫੇਲ੍ਹ ਹੈ"
-
-#: gnulib-lib/csharpexec.c:463
-#, fuzzy, c-format
-#| msgid "could not get host name"
-msgid "could not determine %s version"
-msgstr "ਹੋਸਟ ਨਾਂ ਲਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ"
-
-#: gnulib-lib/csharpexec.c:483 gnulib-lib/javacomp.c:456 src/write-csharp.c:747
-#: src/write-java.c:1152 src/write-java.c:1160 src/write-java.c:1188
-#: src/write-java.c:1200
-#, c-format
-msgid "failed to create \"%s\""
-msgstr "\"%s\" ਬਣਾਉਣ ਲਈ ਫੇਲ੍ਹ ਹੈ"
-
-#: gnulib-lib/csharpexec.c:498 gnulib-lib/javacomp.c:463
-#: src/write-catalog.c:248 src/write-catalog.c:320 src/write-csharp.c:756
-#: src/write-desktop.c:185 src/write-java.c:1168 src/write-java.c:1209
-#: src/write-mo.c:1216 src/write-mo.c:1238 src/write-qt.c:754
-#: src/write-tcl.c:327 src/write-xml.c:79
-#, c-format
-msgid "error while writing \"%s\" file"
-msgstr "ਫਾਇਲ \"%s\" ਲਿਖਣ ਦੌਰਾਨ ਗਲਤੀ"
-
-#: gnulib-lib/csharpexec.c:681
-#, fuzzy, c-format
-#| msgid "C# compiler not found, try installing pnet"
-msgid "C# virtual machine not found, try installing mono or dotnet"
-msgstr "C# ਕੰਪਾਇਲਰ ਨਹੀਂ ਲੱਭਿਆ, pnet ਇੰਸਟਾਲ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
-
-#: gnulib-lib/error.c:208 libgettextpo/error.c:208
-msgid "Unknown system error"
-msgstr "ਅਣਜਾਣ ਸਿਸਟਮ ਗਲਤੀ"
-
-#: gnulib-lib/gai_strerror.c:57
-msgid "Address family for hostname not supported"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:58
-msgid "Temporary failure in name resolution"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:59
-msgid "Bad value for ai_flags"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:60
-msgid "Non-recoverable failure in name resolution"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:61
-msgid "ai_family not supported"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:62
-msgid "Memory allocation failure"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:63
-msgid "No address associated with hostname"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:64
-msgid "Name or service not known"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:65
-msgid "Servname not supported for ai_socktype"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:66
-msgid "ai_socktype not supported"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:67
-#, fuzzy
-#| msgid "write error"
-msgid "System error"
-msgstr "ਲਿਖਣ ਗਲਤੀ"
-
-#: gnulib-lib/gai_strerror.c:68
-msgid "Argument buffer too small"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:70
-msgid "Processing request in progress"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:71
-msgid "Request canceled"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:72
-msgid "Request not canceled"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:73
-msgid "All requests done"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:74
-msgid "Interrupted by a signal"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:75
-msgid "Parameter string not correctly encoded"
-msgstr ""
-
-#: gnulib-lib/gai_strerror.c:87
-#, fuzzy
-#| msgid "Unknown system error"
-msgid "Unknown error"
-msgstr "ਅਣਜਾਣ ਸਿਸਟਮ ਗਲਤੀ"
-
-#: gnulib-lib/getopt.c:282
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous\n"
-msgid "%s: option '%s%s' is ambiguous\n"
-msgstr "%s: ਚੋਣ '%s' ਗਲਤ ਹੈ\n"
-
-#: gnulib-lib/getopt.c:288
-#, fuzzy, c-format
-#| msgid "%s: option '%s' is ambiguous\n"
-msgid "%s: option '%s%s' is ambiguous; possibilities:"
-msgstr "%s: ਚੋਣ '%s' ਗਲਤ ਹੈ\n"
-
-#: gnulib-lib/getopt.c:322
-#, fuzzy, c-format
-#| msgid "%s: unrecognized option '%c%s'\n"
-msgid "%s: unrecognized option '%s%s'\n"
-msgstr "%s: ਅਣਜਾਣ ਚੋਣ '%c%s'\n"
-
-#: gnulib-lib/getopt.c:348
-#, fuzzy, c-format
-#| msgid "%s: option '%c%s' doesn't allow an argument\n"
-msgid "%s: option '%s%s' doesn't allow an argument\n"
-msgstr "%s: ਚੋਣ '%c%s' ਇੱਕ ਆਰਗੂਮੈਂਟ ਨਹੀਂ ਲੈਂਦੀ\n"
-
-#: gnulib-lib/getopt.c:363
-#, fuzzy, c-format
-#| msgid "%s: option '--%s' requires an argument\n"
-msgid "%s: option '%s%s' requires an argument\n"
-msgstr "%s: ਚੋਣ '--%s' ਲਈ ਇੱਕ ਆਰਗੂਮੈਂਟ ਚਾਹੀਦਾ\n"
-
-#: gnulib-lib/getopt.c:624
-#, c-format
-msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: ਗਲਤ ਚੋਣ -- '%c'\n"
-
-#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
-#, c-format
-msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: ਚੋਣ ਲਈ ਆਰਗੂਮੈਂਟ ਚਾਹੀਦਾ ਹੈ --'%c'\n"
-
-#: gnulib-lib/javacomp.c:103
-#, c-format
-msgid ""
-"The java program is too old. Cannot compile Java code for this old version "
-"any more."
-msgstr ""
-
-#: gnulib-lib/javacomp.c:147
-#, c-format
-msgid "invalid source_version argument to compile_java_class"
-msgstr ""
-
-#: gnulib-lib/javacomp.c:168
-#, c-format
-msgid "invalid target_version argument to compile_java_class"
-msgstr ""
-
-#: gnulib-lib/javacomp.c:1131
-#, fuzzy, c-format
-#| msgid "C# compiler not found, try installing pnet"
-msgid "Java compiler not found, try setting $JAVAC"
-msgstr "C# ਕੰਪਾਇਲਰ ਨਹੀਂ ਲੱਭਿਆ, pnet ਇੰਸਟਾਲ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
-
-#: gnulib-lib/javaexec.c:309
-#, c-format
-msgid "Java virtual machine not found, try setting $JAVA"
-msgstr ""
-
-#: gnulib-lib/obstack.c:317 gnulib-lib/obstack.c:319 gnulib-lib/xalloc-die.c:34
-#: gnulib-lib/xsetenv.c:37 src/msgl-check.c:532 src/read-po-lex.c:83
-#: src/read-po-lex.c:105 libgettextpo/obstack.c:317 libgettextpo/obstack.c:319
-#: libgettextpo/xalloc-die.c:34
-#, c-format
-msgid "memory exhausted"
-msgstr "ਮੈਮੋਰੀ ਖਤਮ ਹੋਈ"
-
-#: gnulib-lib/openat-die.c:38
-#, fuzzy, c-format
-#| msgid "error reading current directory"
-msgid "unable to record current working directory"
-msgstr "ਮੌਜੂਦਾ ਡਾਇਰੈਕਟਰੀ ਪੜ੍ਹਨ ਦੌਰਾਨ ਗਲਤੀ"
-
-#: gnulib-lib/openat-die.c:57
-#, fuzzy, c-format
-#| msgid "failed to create directory \"%s\""
-msgid "failed to return to initial working directory"
-msgstr "ਡਾਇਰੈਕਟਰੀ \"%s\" ਬਣਾਉਣ ਲਈ ਫੇਲ੍ਹ"
-
-#: gnulib-lib/os2-spawn.c:51
-#, c-format
-msgid "_open_osfhandle failed"
-msgstr "_open_osfhandle ਫੇਲ੍ਹ ਹੈ"
-
-#: gnulib-lib/os2-spawn.c:88
-#, c-format
-msgid "cannot restore fd %d: dup2 failed"
-msgstr "fd %d ਰੀਸਟੋਰ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ: dup2 ਫੇਲ੍ਹ ਹੈ"
-
-#: gnulib-lib/pipe-filter-ii.c:313
-#, c-format
-msgid "creation of threads failed"
-msgstr ""
-
-#: gnulib-lib/pipe-filter-ii.c:345 gnulib-lib/pipe-filter-ii.c:502
-#: src/msgexec.c:429
-#, c-format
-msgid "write to %s subprocess failed"
-msgstr "%s ਸਬ-ਪਰੋਸੈਸ ਲਈ ਲਿਖਣ ਵਾਸਤੇ ਫੇਲ੍ਹ"
-
-#: gnulib-lib/pipe-filter-ii.c:366 gnulib-lib/pipe-filter-ii.c:545
-#, fuzzy, c-format
-#| msgid "write to %s subprocess failed"
-msgid "read from %s subprocess failed"
-msgstr "%s ਸਬ-ਪਰੋਸੈਸ ਲਈ ਲਿਖਣ ਵਾਸਤੇ ਫੇਲ੍ਹ"
-
-#: gnulib-lib/pipe-filter-ii.c:419
-#, c-format
-msgid "cannot set up nonblocking I/O to %s subprocess"
-msgstr ""
-
-#: gnulib-lib/pipe-filter-ii.c:457
-#, fuzzy, c-format
-#| msgid "write to %s subprocess failed"
-msgid "communication with %s subprocess failed"
-msgstr "%s ਸਬ-ਪਰੋਸੈਸ ਲਈ ਲਿਖਣ ਵਾਸਤੇ ਫੇਲ੍ਹ"
-
-#: gnulib-lib/pipe-filter-ii.c:577
-#, c-format
-msgid "%s subprocess terminated with exit code %d"
-msgstr ""
-
-#. TRANSLATORS:
-#. Get translations for open and closing quotation marks.
-#. The message catalog should translate "`" to a left
-#. quotation mark suitable for the locale, and similarly for
-#. "'".  For example, a French Unicode local should translate
-#. these to U+00AB (LEFT-POINTING DOUBLE ANGLE
-#. QUOTATION MARK), and U+00BB (RIGHT-POINTING DOUBLE ANGLE
-#. QUOTATION MARK), respectively.
-#.
-#. If the catalog has no translation, we will try to
-#. use Unicode U+2018 (LEFT SINGLE QUOTATION MARK) and
-#. Unicode U+2019 (RIGHT SINGLE QUOTATION MARK).  If the
-#. current locale is not Unicode, locale_quoting_style
-#. will quote 'like this', and clocale_quoting_style will
-#. quote "like this".  You should always include translations
-#. for "`" and "'" even if U+2018 and U+2019 are appropriate
-#. for your locale.
-#.
-#. If you don't know what to put here, please see
-#. <https://en.wikipedia.org/wiki/Quotation_marks_in_other_languages>
-#. and use glyphs suitable for your language.
-#: gnulib-lib/quotearg.c:354
-msgid "`"
-msgstr "`"
-
-#: gnulib-lib/quotearg.c:355
-msgid "'"
-msgstr "'"
-
-#: gnulib-lib/spawn-pipe.c:218 gnulib-lib/spawn-pipe.c:221
-#, c-format
-msgid "cannot create pipe"
-msgstr "ਪਾਈਪ ਬਣਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ"
-
-#: gnulib-lib/wait-process.c:267 gnulib-lib/wait-process.c:299
-#: gnulib-lib/wait-process.c:361
-#, c-format
-msgid "%s subprocess"
-msgstr "%s ਸਬ-ਪ੍ਰੋਸੈਸ"
-
-#: gnulib-lib/wait-process.c:318 gnulib-lib/wait-process.c:390
-#, c-format
-msgid "%s subprocess got fatal signal %d"
-msgstr ""
 
 #: src/cldr-plurals.c:61
 #, c-format
@@ -439,12 +39,12 @@ msgstr ""
 msgid "The element <%s> does not have attribute <%s>"
 msgstr ""
 
-#: src/cldr-plurals.c:170 src/hostname.c:220 src/msgattrib.c:417
-#: src/msgcat.c:363 src/msgcmp.c:208 src/msgcomm.c:355 src/msgconv.c:304
-#: src/msgen.c:308 src/msgexec.c:257 src/msgfilter.c:413 src/msgfmt.c:920
-#: src/msggrep.c:508 src/msginit.c:356 src/msgmerge.c:542 src/msgunfmt.c:422
-#: src/msguniq.c:322 src/recode-sr-latin.c:139 src/urlget.c:168
-#: src/xgettext.c:1064
+#: src/cldr-plurals.c:170 src/hostname.c:221 src/msgattrib.c:418
+#: src/msgcat.c:364 src/msgcmp.c:209 src/msgcomm.c:356 src/msgconv.c:305
+#: src/msgen.c:309 src/msgexec.c:258 src/msgfilter.c:414 src/msgfmt.c:921
+#: src/msggrep.c:509 src/msginit.c:357 src/msgmerge.c:543 src/msgunfmt.c:423
+#: src/msguniq.c:323 src/recode-sr-latin.c:140 src/urlget.c:169
+#: src/xgettext.c:1065
 #, fuzzy, c-format
 #| msgid "Try `%s --help' for more information.\n"
 msgid "Try '%s --help' for more information.\n"
@@ -466,7 +66,7 @@ msgid ""
 "If no argument is given, it reads CLDR plural rules from the standard input.\n"
 msgstr ""
 
-#: src/cldr-plurals.c:188 src/msgfmt.c:933 src/xgettext.c:1077
+#: src/cldr-plurals.c:188 src/msgfmt.c:934 src/xgettext.c:1078
 #, c-format, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -479,22 +79,22 @@ msgstr ""
 msgid "  -c, --cldr                  print plural rules in the CLDR format\n"
 msgstr "  -h, --help                  ਇਹ ਮੱਦਦ ਵੇਖਾਉ ਅਤੇ ਬੰਦ ਕਰੋ\n"
 
-#: src/cldr-plurals.c:195 src/hostname.c:243 src/msgattrib.c:536
-#: src/msgcat.c:471 src/msgcmp.c:259 src/msgcomm.c:457 src/msgconv.c:388
-#: src/msgen.c:391 src/msgexec.c:306 src/msgfilter.c:513 src/msgfmt.c:1094
-#: src/msggrep.c:626 src/msginit.c:420 src/msgmerge.c:672 src/msgunfmt.c:528
-#: src/msguniq.c:419 src/recode-sr-latin.c:160 src/urlget.c:184
-#: src/xgettext.c:1257
+#: src/cldr-plurals.c:195 src/hostname.c:244 src/msgattrib.c:537
+#: src/msgcat.c:472 src/msgcmp.c:260 src/msgcomm.c:458 src/msgconv.c:389
+#: src/msgen.c:392 src/msgexec.c:307 src/msgfilter.c:514 src/msgfmt.c:1095
+#: src/msggrep.c:627 src/msginit.c:421 src/msgmerge.c:673 src/msgunfmt.c:529
+#: src/msguniq.c:420 src/recode-sr-latin.c:161 src/urlget.c:185
+#: src/xgettext.c:1258
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  ਇਹ ਮੱਦਦ ਵੇਖਾਉ ਅਤੇ ਬੰਦ ਕਰੋ\n"
 
-#: src/cldr-plurals.c:197 src/hostname.c:245 src/msgattrib.c:538
-#: src/msgcat.c:473 src/msgcmp.c:261 src/msgcomm.c:459 src/msgconv.c:390
-#: src/msgen.c:393 src/msgexec.c:308 src/msgfilter.c:515 src/msgfmt.c:1096
-#: src/msggrep.c:628 src/msginit.c:422 src/msgmerge.c:674 src/msgunfmt.c:530
-#: src/msguniq.c:421 src/recode-sr-latin.c:163 src/urlget.c:186
-#: src/xgettext.c:1259
+#: src/cldr-plurals.c:197 src/hostname.c:246 src/msgattrib.c:539
+#: src/msgcat.c:474 src/msgcmp.c:262 src/msgcomm.c:460 src/msgconv.c:391
+#: src/msgen.c:394 src/msgexec.c:309 src/msgfilter.c:516 src/msgfmt.c:1097
+#: src/msggrep.c:629 src/msginit.c:423 src/msgmerge.c:675 src/msgunfmt.c:531
+#: src/msguniq.c:422 src/recode-sr-latin.c:164 src/urlget.c:187
+#: src/xgettext.c:1260
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               ਆਉਟਪੁੱਟ ਵਰਜਨ ਜਾਣਕਾਰੀ ਅਤੇ ਬੰਦ ਕਰੋ\n"
@@ -504,24 +104,24 @@ msgstr "  -V, --version               ਆਉਟਪੁੱਟ ਵਰਜਨ ਜਾ�
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/cldr-plurals.c:205 src/hostname.c:253 src/msgattrib.c:546
-#: src/msgcat.c:481 src/msgcmp.c:269 src/msgcomm.c:467 src/msgconv.c:398
-#: src/msgen.c:401 src/msgexec.c:316 src/msgfilter.c:523 src/msgfmt.c:1108
-#: src/msggrep.c:636 src/msginit.c:430 src/msgmerge.c:686 src/msgunfmt.c:540
-#: src/msguniq.c:429 src/recode-sr-latin.c:171 src/urlget.c:196
-#: src/xgettext.c:1269
+#: src/cldr-plurals.c:205 src/hostname.c:254 src/msgattrib.c:547
+#: src/msgcat.c:482 src/msgcmp.c:270 src/msgcomm.c:468 src/msgconv.c:399
+#: src/msgen.c:402 src/msgexec.c:317 src/msgfilter.c:524 src/msgfmt.c:1109
+#: src/msggrep.c:637 src/msginit.c:431 src/msgmerge.c:687 src/msgunfmt.c:541
+#: src/msguniq.c:430 src/recode-sr-latin.c:172 src/urlget.c:197
+#: src/xgettext.c:1270
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
 "or by email to <%s>.\n"
 msgstr ""
 
-#: src/cldr-plurals.c:274 src/hostname.c:191 src/msgattrib.c:354
-#: src/msgcat.c:293 src/msgcmp.c:171 src/msgcomm.c:284 src/msgconv.c:243
-#: src/msgen.c:244 src/msgexec.c:184 src/msgfilter.c:288 src/msgfmt.c:453
-#: src/msggrep.c:414 src/msginit.c:260 src/msgmerge.c:372 src/msgunfmt.c:260
-#: src/msguniq.c:263 src/recode-sr-latin.c:106 src/urlget.c:139
-#: src/xgettext.c:699
+#: src/cldr-plurals.c:275 src/hostname.c:192 src/msgattrib.c:355
+#: src/msgcat.c:294 src/msgcmp.c:172 src/msgcomm.c:285 src/msgconv.c:244
+#: src/msgen.c:245 src/msgexec.c:185 src/msgfilter.c:289 src/msgfmt.c:454
+#: src/msggrep.c:415 src/msginit.c:261 src/msgmerge.c:373 src/msgunfmt.c:261
+#: src/msguniq.c:264 src/recode-sr-latin.c:107 src/urlget.c:140
+#: src/xgettext.c:700
 #, fuzzy, c-format, no-wrap
 #| msgid ""
 #| "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -539,46 +139,46 @@ msgstr ""
 "ਇਹ ਮੁਕਤ/ਮੁਫ਼ਤ ਸਾਫਟਵੇਅਰ ਹੈ: ਤੁਸੀਂ ਇਹ ਬਦਲਣ ਅਤੇ ਮੁੜ-ਵੰਡਣ ਲਈ ਮੁਕਤ ਹੋ।\n"
 "ਕੋਈ ਵੀ ਵਾਰੰਟੀ ਨਹੀਂ ਹੈ, ਕਾਨੂੰਨ ਰਾਹੀਂ ਵੱਧ ਵੱਧ ਮਨਜ਼ੂਰੀ ਮੁਤਾਬਕ।\n"
 
-#: src/cldr-plurals.c:280 src/hostname.c:197 src/msgattrib.c:360
-#: src/msgcat.c:299 src/msgcmp.c:177 src/msgcomm.c:290 src/msgconv.c:249
-#: src/msgen.c:250 src/msgexec.c:190 src/msgfilter.c:294 src/msgfmt.c:459
-#: src/msggrep.c:420 src/msginit.c:266 src/msgmerge.c:378 src/msgunfmt.c:266
-#: src/msguniq.c:269 src/urlget.c:145 src/xgettext.c:705
+#: src/cldr-plurals.c:281 src/hostname.c:198 src/msgattrib.c:361
+#: src/msgcat.c:300 src/msgcmp.c:178 src/msgcomm.c:291 src/msgconv.c:250
+#: src/msgen.c:251 src/msgexec.c:191 src/msgfilter.c:295 src/msgfmt.c:460
+#: src/msggrep.c:421 src/msginit.c:267 src/msgmerge.c:379 src/msgunfmt.c:267
+#: src/msguniq.c:270 src/urlget.c:146 src/xgettext.c:706
 #, c-format
 msgid "Written by %s.\n"
 msgstr "%s ਵਲੋਂ ਲਿਖਿਆ।\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/cldr-plurals.c:280
+#: src/cldr-plurals.c:281
 msgid "Daiki Ueno"
 msgstr ""
 
-#: src/cldr-plurals.c:300
+#: src/cldr-plurals.c:301
 #, c-format
 msgid "%s cannot be read"
 msgstr ""
 
-#: src/cldr-plurals.c:306
+#: src/cldr-plurals.c:307
 #, fuzzy, c-format
 #| msgid "cannot remove temporary directory %s"
 msgid "cannot extract rules for %s"
 msgstr "ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ %s ਹਟਾਈ ਨਹੀਂ ਜਾ ਸਕਦੀ"
 
-#: src/cldr-plurals.c:316
+#: src/cldr-plurals.c:317
 #, c-format
 msgid "cannot parse CLDR rule"
 msgstr ""
 
-#: src/cldr-plurals.c:351
+#: src/cldr-plurals.c:352
 #, c-format
 msgid "extra operand %s"
 msgstr ""
 
-#: src/file-list.c:53 src/msggrep.c:242 src/open-catalog.c:124
-#: src/read-mo.c:270 src/read-tcl.c:127 src/urlget.c:216
-#: src/write-desktop.c:175 src/xgettext.c:1842 src/xgettext.c:1854
-#: src/xgettext.c:1870 src/xgettext.c:1903 src/xgettext.c:1913
-#: src/xgettext.c:1930
+#: src/file-list.c:53 src/msggrep.c:243 src/open-catalog.c:124
+#: src/read-mo.c:270 src/read-tcl.c:127 src/urlget.c:217
+#: src/write-desktop.c:175 src/xgettext.c:1843 src/xgettext.c:1855
+#: src/xgettext.c:1871 src/xgettext.c:1904 src/xgettext.c:1914
+#: src/xgettext.c:1931
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "ਪੜ੍ਹਨ ਵਾਸਤੇ \"%s\" ਖੋਲ੍ਹਣ ਦੌਰਾਨ ਗਲਤੀ"
@@ -1257,39 +857,39 @@ msgid ""
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/hostname.c:197 src/msgattrib.c:360 src/msgcat.c:299 src/msgconv.c:249
-#: src/msgen.c:250 src/msgexec.c:190 src/msgfilter.c:294 src/msggrep.c:420
-#: src/msginit.c:266 src/msguniq.c:269 src/recode-sr-latin.c:117
-#: src/urlget.c:145
+#: src/hostname.c:198 src/msgattrib.c:361 src/msgcat.c:300 src/msgconv.c:250
+#: src/msgen.c:251 src/msgexec.c:191 src/msgfilter.c:295 src/msggrep.c:421
+#: src/msginit.c:267 src/msguniq.c:270 src/recode-sr-latin.c:118
+#: src/urlget.c:146
 msgid "Bruno Haible"
 msgstr "ਬਰੁਨੋ ਹਏਬਲੇ"
 
-#: src/hostname.c:207 src/msginit.c:276 src/recode-sr-latin.c:126
+#: src/hostname.c:208 src/msginit.c:277 src/recode-sr-latin.c:127
 #, c-format
 msgid "too many arguments"
 msgstr "ਬਹੁਤ ਸਾਰੇ ਆਰਗੂਮੈਂਟ"
 
-#: src/hostname.c:224 src/msginit.c:360 src/recode-sr-latin.c:144
+#: src/hostname.c:225 src/msginit.c:361 src/recode-sr-latin.c:145
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION]\n"
 msgstr "ਵਰਤੋਂ: %s [OPTION]\n"
 
-#: src/hostname.c:228
+#: src/hostname.c:229
 #, c-format
 msgid "Print the machine's hostname.\n"
 msgstr "ਮਸ਼ੀਨ ਦਾ ਹੋਸਟ ਨਾਂ ਪ੍ਰਿੰਟ ਕਰੋ।\n"
 
-#: src/hostname.c:231
+#: src/hostname.c:232
 #, c-format
 msgid "Output format:\n"
 msgstr "ਆਉਟਪੁੱਟ ਫਾਰਮੈਟ:\n"
 
-#: src/hostname.c:233
+#: src/hostname.c:234
 #, c-format
 msgid "  -s, --short                 short host name\n"
 msgstr "  -s, --short                 ਛੋਟਾ ਹੋਸਟ ਨਾਂ\n"
 
-#: src/hostname.c:235
+#: src/hostname.c:236
 #, c-format
 msgid ""
 "  -f, --fqdn, --long          long host name, includes fully qualified "
@@ -1297,28 +897,28 @@ msgid ""
 "                                name, and aliases\n"
 msgstr ""
 
-#: src/hostname.c:238
+#: src/hostname.c:239
 #, c-format
 msgid "  -i, --ip-address            addresses for the hostname\n"
 msgstr "  -i, --ip-address            ਹੋਸਟ-ਨਾਂ ਲਈ ਐਡਰੈਸ\n"
 
-#: src/hostname.c:241 src/msgattrib.c:534 src/msgcat.c:469 src/msgcmp.c:257
-#: src/msgcomm.c:455 src/msgconv.c:386 src/msgen.c:389 src/msgexec.c:304
-#: src/msgfilter.c:511 src/msgfmt.c:1092 src/msggrep.c:624 src/msginit.c:418
-#: src/msgmerge.c:670 src/msgunfmt.c:526 src/msguniq.c:417
-#: src/recode-sr-latin.c:157 src/urlget.c:182 src/xgettext.c:1255
+#: src/hostname.c:242 src/msgattrib.c:535 src/msgcat.c:470 src/msgcmp.c:258
+#: src/msgcomm.c:456 src/msgconv.c:387 src/msgen.c:390 src/msgexec.c:305
+#: src/msgfilter.c:512 src/msgfmt.c:1093 src/msggrep.c:625 src/msginit.c:419
+#: src/msgmerge.c:671 src/msgunfmt.c:527 src/msguniq.c:418
+#: src/recode-sr-latin.c:158 src/urlget.c:183 src/xgettext.c:1256
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "ਜਾਣਕਾਰੀ ਸਮੇਤ ਆਉਟਪੁੱਟ:\n"
 
-#: src/hostname.c:272 src/hostname.c:278 src/hostname.c:285
+#: src/hostname.c:273 src/hostname.c:279 src/hostname.c:286
 #, c-format
 msgid "could not get host name"
 msgstr "ਹੋਸਟ ਨਾਂ ਲਿਆ ਨਹੀਂ ਜਾ ਸਕਿਆ"
 
 #: src/if-error.c:45 src/msgl-cat.c:477 src/msgl-cat.c:483 src/msgl-cat.c:500
 #: src/msgl-charset.c:152 src/msgl-charset.c:187 src/xerror-handler.c:120
-#: src/xerror-handler.c:145 src/xgettext.c:593 src/xgettext.c:2076
+#: src/xerror-handler.c:145 src/xgettext.c:594 src/xgettext.c:2077
 #: src/xg-message.c:328
 #, c-format
 msgid "warning: "
@@ -1336,52 +936,52 @@ msgstr ""
 msgid "<unformattable error message>"
 msgstr ""
 
-#: src/its.c:88
+#: src/its.c:95
 #, c-format
 msgid "%s error: %s"
 msgstr ""
 
-#: src/its.c:340
+#: src/its.c:347
 #, fuzzy, c-format
 #| msgid "at least two files must be specified"
 msgid "selector is not specified"
 msgstr "ਘੱਟੋ-ਘੱਟ ਦੋ ਫਾਇਲਾਂ ਦੇਣ ਦੀ ਲੋੜ ਹੈ"
 
-#: src/its.c:347 src/its.c:1777
+#: src/its.c:354 src/its.c:1784
 #, fuzzy, c-format
 #| msgid "cannot create pipe"
 msgid "cannot create XPath context"
 msgstr "ਪਾਈਪ ਬਣਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ"
 
-#: src/its.c:365
+#: src/its.c:372
 #, c-format
 msgid "cannot evaluate XPath expression: %s"
 msgstr ""
 
-#: src/its.c:706
+#: src/its.c:713
 #, c-format
 msgid "\"%s\" node does not contain \"%s\""
 msgstr ""
 
-#: src/its.c:1130
+#: src/its.c:1137
 #, fuzzy, c-format
 #| msgid "invalid argument %s for %s"
 msgid "invalid attribute value \"%s\" for \"%s\""
 msgstr "%2$s ਲਈ ਗਲਤ ਆਰਗੂਮੈਂਟ %1$s"
 
-#: src/its.c:1552
+#: src/its.c:1559
 #, c-format
 msgid "the root element is not \"rules\" under namespace %s"
 msgstr ""
 
-#: src/its.c:1596 src/its.c:1627 src/its.c:2040 src/its.c:3051
+#: src/its.c:1603 src/its.c:1634 src/its.c:2047 src/its.c:3058
 #: src/locating-rules.c:189
 #, fuzzy, c-format
 #| msgid "cannot create pipe"
 msgid "cannot read %s: %s"
 msgstr "ਪਾਈਪ ਬਣਾਇਆ ਨਹੀਂ ਜਾ ਸਕਿਆ"
 
-#: src/its.c:1804
+#: src/its.c:1811
 #, c-format
 msgid "cannot evaluate XPath location path: %s"
 msgstr ""
@@ -1413,236 +1013,236 @@ msgstr "ਆਉਟਪੁੱਟ ਫਾਇਲ \"%s\" ਬਣਾਈ ਨਹੀਂ ਜ�
 msgid "the root element is not \"locatingRules\""
 msgstr ""
 
-#: src/msgattrib.c:375 src/msgconv.c:264 src/msgexec.c:151 src/msgfilter.c:195
-#: src/msggrep.c:435 src/msginit.c:188 src/msguniq.c:284
+#: src/msgattrib.c:376 src/msgconv.c:265 src/msgexec.c:152 src/msgfilter.c:196
+#: src/msggrep.c:436 src/msginit.c:189 src/msguniq.c:285
 #, c-format
 msgid "at most one input file allowed"
 msgstr "ਵੱਧ ਤੋਂ ਵੱਧ ਇੱਕ ਇੰਪੁੱਟ ਫਾਇਲ ਮਨਜ਼ੂਰ ਹੈ"
 
-#: src/msgattrib.c:381 src/msgcat.c:315 src/msgcomm.c:300 src/msgconv.c:270
-#: src/msgen.c:272 src/msgfilter.c:309 src/msgfmt.c:512 src/msgfmt.c:526
-#: src/msgfmt.c:541 src/msgfmt.c:563 src/msggrep.c:441 src/msgmerge.c:403
-#: src/msgmerge.c:408 src/msgmerge.c:413 src/msgmerge.c:418 src/msgmerge.c:439
-#: src/msgunfmt.c:297 src/msguniq.c:290 src/xgettext.c:715 src/xgettext.c:722
-#: src/xgettext.c:725 src/xgettext.c:728 src/xgettext.c:752
+#: src/msgattrib.c:382 src/msgcat.c:316 src/msgcomm.c:301 src/msgconv.c:271
+#: src/msgen.c:273 src/msgfilter.c:310 src/msgfmt.c:513 src/msgfmt.c:527
+#: src/msgfmt.c:542 src/msgfmt.c:564 src/msggrep.c:442 src/msgmerge.c:404
+#: src/msgmerge.c:409 src/msgmerge.c:414 src/msgmerge.c:419 src/msgmerge.c:440
+#: src/msgunfmt.c:298 src/msguniq.c:291 src/xgettext.c:716 src/xgettext.c:723
+#: src/xgettext.c:726 src/xgettext.c:729 src/xgettext.c:753
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr ""
 
-#: src/msgattrib.c:421 src/msgconv.c:308 src/msggrep.c:512 src/msguniq.c:326
+#: src/msgattrib.c:422 src/msgconv.c:309 src/msggrep.c:513 src/msguniq.c:327
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]\n"
 msgstr "ਵਰਤੋਂ: %s [OPTION] [INPUTFILE]\n"
 
-#: src/msgattrib.c:426
+#: src/msgattrib.c:427
 #, c-format, no-wrap
 msgid ""
 "Filters the messages of a translation catalog according to their attributes,\n"
 "and manipulates the attributes.\n"
 msgstr ""
 
-#: src/msgattrib.c:430 src/msgcat.c:384 src/msgcmp.c:226 src/msgcomm.c:375
-#: src/msgconv.c:316 src/msgen.c:324 src/msgexec.c:285 src/msgfilter.c:425
-#: src/msggrep.c:522 src/msginit.c:370 src/msgmerge.c:563 src/msgunfmt.c:434
-#: src/msguniq.c:342
+#: src/msgattrib.c:431 src/msgcat.c:385 src/msgcmp.c:227 src/msgcomm.c:376
+#: src/msgconv.c:317 src/msgen.c:325 src/msgexec.c:286 src/msgfilter.c:426
+#: src/msggrep.c:523 src/msginit.c:371 src/msgmerge.c:564 src/msgunfmt.c:435
+#: src/msguniq.c:343
 #, c-format
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
 msgstr ""
 
-#: src/msgattrib.c:433 src/msgcat.c:387 src/msgcmp.c:229 src/msgcomm.c:378
-#: src/msgconv.c:319 src/msgen.c:327 src/msgexec.c:288 src/msgfilter.c:428
-#: src/msgfmt.c:938 src/msggrep.c:525 src/msginit.c:373 src/msgmerge.c:566
-#: src/msgunfmt.c:448 src/msguniq.c:345 src/xgettext.c:1082
+#: src/msgattrib.c:434 src/msgcat.c:388 src/msgcmp.c:230 src/msgcomm.c:379
+#: src/msgconv.c:320 src/msgen.c:328 src/msgexec.c:289 src/msgfilter.c:429
+#: src/msgfmt.c:939 src/msggrep.c:526 src/msginit.c:374 src/msgmerge.c:567
+#: src/msgunfmt.c:449 src/msguniq.c:346 src/xgettext.c:1083
 #, c-format
 msgid "Input file location:\n"
 msgstr "ਇੰਪੁੱਟ ਫਾਇਲ ਟਿਕਾਣਾ:\n"
 
-#: src/msgattrib.c:435 src/msgconv.c:321 src/msggrep.c:527 src/msguniq.c:347
+#: src/msgattrib.c:436 src/msgconv.c:322 src/msggrep.c:528 src/msguniq.c:348
 #, c-format
 msgid "  INPUTFILE                   input PO file\n"
 msgstr "  INPUTFILE                   ਇੰਪੁੱਟ PO ਫਾਇਲ\n"
 
-#: src/msgattrib.c:437 src/msgcat.c:393 src/msgcmp.c:235 src/msgcomm.c:384
-#: src/msgconv.c:323 src/msgen.c:331 src/msgexec.c:292 src/msgfilter.c:432
-#: src/msgfmt.c:942 src/msggrep.c:529 src/msgmerge.c:572 src/msguniq.c:349
-#: src/xgettext.c:1088
+#: src/msgattrib.c:438 src/msgcat.c:394 src/msgcmp.c:236 src/msgcomm.c:385
+#: src/msgconv.c:324 src/msgen.c:332 src/msgexec.c:293 src/msgfilter.c:433
+#: src/msgfmt.c:943 src/msggrep.c:530 src/msgmerge.c:573 src/msguniq.c:350
+#: src/xgettext.c:1089
 #, c-format
 msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
 msgstr ""
 
-#: src/msgattrib.c:439 src/msgconv.c:325 src/msgexec.c:294 src/msgfilter.c:434
-#: src/msggrep.c:531 src/msgunfmt.c:452 src/msguniq.c:351
+#: src/msgattrib.c:440 src/msgconv.c:326 src/msgexec.c:295 src/msgfilter.c:435
+#: src/msggrep.c:532 src/msgunfmt.c:453 src/msguniq.c:352
 #, c-format
 msgid "If no input file is given or if it is -, standard input is read.\n"
 msgstr ""
 
-#: src/msgattrib.c:442 src/msgcat.c:398 src/msgcomm.c:389 src/msgconv.c:328
-#: src/msgen.c:336 src/msgfilter.c:437 src/msgfmt.c:966 src/msggrep.c:534
-#: src/msginit.c:381 src/msgmerge.c:584 src/msgunfmt.c:488 src/msguniq.c:354
-#: src/xgettext.c:1093
+#: src/msgattrib.c:443 src/msgcat.c:399 src/msgcomm.c:390 src/msgconv.c:329
+#: src/msgen.c:337 src/msgfilter.c:438 src/msgfmt.c:967 src/msggrep.c:535
+#: src/msginit.c:382 src/msgmerge.c:585 src/msgunfmt.c:489 src/msguniq.c:355
+#: src/xgettext.c:1094
 #, c-format
 msgid "Output file location:\n"
 msgstr "ਆਉਟਪੁੱਟ ਫਾਇਲ ਟਿਕਾਣਾ:\n"
 
-#: src/msgattrib.c:444 src/msgcat.c:400 src/msgcomm.c:391 src/msgconv.c:330
-#: src/msgen.c:338 src/msgfilter.c:439 src/msgfmt.c:968 src/msgfmt.c:1017
-#: src/msgfmt.c:1036 src/msggrep.c:536 src/msgmerge.c:586 src/msgunfmt.c:490
-#: src/msguniq.c:356
+#: src/msgattrib.c:445 src/msgcat.c:401 src/msgcomm.c:392 src/msgconv.c:331
+#: src/msgen.c:339 src/msgfilter.c:440 src/msgfmt.c:969 src/msgfmt.c:1018
+#: src/msgfmt.c:1037 src/msggrep.c:537 src/msgmerge.c:587 src/msgunfmt.c:491
+#: src/msguniq.c:357
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified file\n"
 msgstr "  -o, --output-file=FILE      ਆਉਟਪੁੱਟ ਦਿੱਤੀ ਫਾਇਲ ਵਿੱਚ ਲਿਖੋ\n"
 
-#: src/msgattrib.c:446 src/msgcat.c:402 src/msgcomm.c:393 src/msgconv.c:332
-#: src/msgen.c:340 src/msgfilter.c:441 src/msggrep.c:538 src/msgmerge.c:588
-#: src/msgunfmt.c:492 src/msguniq.c:358
+#: src/msgattrib.c:447 src/msgcat.c:403 src/msgcomm.c:394 src/msgconv.c:333
+#: src/msgen.c:341 src/msgfilter.c:442 src/msggrep.c:539 src/msgmerge.c:589
+#: src/msgunfmt.c:493 src/msguniq.c:359
 #, c-format
 msgid ""
 "The results are written to standard output if no output file is specified\n"
 "or if it is -.\n"
 msgstr ""
 
-#: src/msgattrib.c:450 src/msgcat.c:406 src/msgcomm.c:397 src/msguniq.c:362
+#: src/msgattrib.c:451 src/msgcat.c:407 src/msgcomm.c:398 src/msguniq.c:363
 #, c-format
 msgid "Message selection:\n"
 msgstr "ਸੁਨੇਹਾ ਚੋਣ:\n"
 
-#: src/msgattrib.c:452
+#: src/msgattrib.c:453
 #, c-format
 msgid ""
 "      --translated            keep translated, remove untranslated messages\n"
 msgstr "      --translated            ਕੀਤਾ ਅਨੁਵਾਦ ਰੱਖੋ, ਨਾ-ਅਨੁਵਾਦ ਸੁਨੇਹਿਆਂ ਨੂੰ ਹਟਾਓ\n"
 
-#: src/msgattrib.c:454
+#: src/msgattrib.c:455
 #, c-format
 msgid ""
 "      --untranslated          keep untranslated, remove translated messages\n"
 msgstr "      --untranslated          ਨਾ-ਅਨੁਵਾਦ ਰੱਖੋ, ਕੀਤਾ ਅਨੁਵਾਦ ਸੁਨੇਹੇ ਹਟਾਓ\n"
 
-#: src/msgattrib.c:456
+#: src/msgattrib.c:457
 #, c-format
 msgid "      --no-fuzzy              remove 'fuzzy' marked messages\n"
 msgstr "      --no-fuzzy              ਅਸਪਸ਼ਟ ('fuzzy') ਨਿਸ਼ਾਨਬੱਧ ਕੀਤੇ ਸੁਨੇਹੇ ਹਟਾਓ\n"
 
-#: src/msgattrib.c:458
+#: src/msgattrib.c:459
 #, c-format
 msgid "      --only-fuzzy            keep 'fuzzy' marked messages\n"
 msgstr ""
 
-#: src/msgattrib.c:460
+#: src/msgattrib.c:461
 #, c-format
 msgid "      --no-obsolete           remove obsolete #~ messages\n"
 msgstr "      --no-obsolete           ਬਰਤਰਫ਼ #~ ਸੁਨੇਹੇ ਹਟਾਓ\n"
 
-#: src/msgattrib.c:462
+#: src/msgattrib.c:463
 #, c-format
 msgid "      --only-obsolete         keep obsolete #~ messages\n"
 msgstr ""
 
-#: src/msgattrib.c:465
+#: src/msgattrib.c:466
 #, c-format
 msgid "Attribute manipulation:\n"
 msgstr ""
 
-#: src/msgattrib.c:467
+#: src/msgattrib.c:468
 #, c-format
 msgid "      --set-fuzzy             set all messages 'fuzzy'\n"
 msgstr "      --set-fuzzy             ਸਭ ਸੁਨੇਹੇ ਅਸਪਸ਼ਟ ('fuzzy') ਬਣਾਓ\n"
 
-#: src/msgattrib.c:469
+#: src/msgattrib.c:470
 #, c-format
 msgid "      --clear-fuzzy           set all messages non-'fuzzy'\n"
 msgstr ""
 
-#: src/msgattrib.c:471
+#: src/msgattrib.c:472
 #, c-format
 msgid "      --set-obsolete          set all messages obsolete\n"
 msgstr ""
 
-#: src/msgattrib.c:473
+#: src/msgattrib.c:474
 #, c-format
 msgid "      --clear-obsolete        set all messages non-obsolete\n"
 msgstr ""
 
-#: src/msgattrib.c:475
+#: src/msgattrib.c:476
 #, c-format
 msgid ""
 "      --previous              when setting 'fuzzy', keep previous msgids\n"
 "                              of translated messages.\n"
 msgstr ""
 
-#: src/msgattrib.c:478
+#: src/msgattrib.c:479
 #, c-format
 msgid ""
 "      --clear-previous        remove the \"previous msgid\" from all "
 "messages\n"
 msgstr ""
 
-#: src/msgattrib.c:480
+#: src/msgattrib.c:481
 #, fuzzy, c-format
 #| msgid "      --no-fuzzy              remove 'fuzzy' marked messages\n"
 msgid ""
 "      --empty                 when removing 'fuzzy', also set msgstr empty\n"
 msgstr "      --no-fuzzy              ਅਸਪਸ਼ਟ ('fuzzy') ਨਿਸ਼ਾਨਬੱਧ ਕੀਤੇ ਸੁਨੇਹੇ ਹਟਾਓ\n"
 
-#: src/msgattrib.c:482
+#: src/msgattrib.c:483
 #, c-format
 msgid ""
 "      --only-file=FILE.po     manipulate only entries listed in FILE.po\n"
 msgstr ""
 
-#: src/msgattrib.c:484
+#: src/msgattrib.c:485
 #, c-format
 msgid ""
 "      --ignore-file=FILE.po   manipulate only entries not listed in FILE.po\n"
 msgstr ""
 
-#: src/msgattrib.c:486
+#: src/msgattrib.c:487
 #, c-format
 msgid "      --fuzzy                 synonym for --only-fuzzy --clear-fuzzy\n"
 msgstr ""
 
-#: src/msgattrib.c:488
+#: src/msgattrib.c:489
 #, c-format
 msgid ""
 "      --obsolete              synonym for --only-obsolete --clear-obsolete\n"
 msgstr ""
 
-#: src/msgattrib.c:491 src/msgcat.c:418 src/msgcmp.c:249 src/msgcomm.c:409
-#: src/msgconv.c:343 src/msgen.c:344 src/msgexec.c:297 src/msgfilter.c:466
-#: src/msgfmt.c:1049 src/msggrep.c:581 src/msginit.c:389 src/msgmerge.c:624
-#: src/msguniq.c:369
+#: src/msgattrib.c:492 src/msgcat.c:419 src/msgcmp.c:250 src/msgcomm.c:410
+#: src/msgconv.c:344 src/msgen.c:345 src/msgexec.c:298 src/msgfilter.c:467
+#: src/msgfmt.c:1050 src/msggrep.c:582 src/msginit.c:390 src/msgmerge.c:625
+#: src/msguniq.c:370
 #, c-format
 msgid "Input file syntax:\n"
 msgstr "ਇੰਪੁੱਟ ਫਾਇਲ ਸੰਟੈਕਸ:\n"
 
-#: src/msgattrib.c:493 src/msgconv.c:345 src/msgen.c:346 src/msgexec.c:299
-#: src/msgfilter.c:468 src/msggrep.c:583 src/msginit.c:391 src/msguniq.c:371
+#: src/msgattrib.c:494 src/msgconv.c:346 src/msgen.c:347 src/msgexec.c:300
+#: src/msgfilter.c:469 src/msggrep.c:584 src/msginit.c:392 src/msguniq.c:372
 #, c-format
 msgid ""
 "  -P, --properties-input      input file is in Java .properties syntax\n"
 msgstr ""
 
-#: src/msgattrib.c:495 src/msgconv.c:347 src/msgen.c:348 src/msgexec.c:301
-#: src/msgfilter.c:470 src/msggrep.c:585 src/msginit.c:393 src/msguniq.c:373
+#: src/msgattrib.c:496 src/msgconv.c:348 src/msgen.c:349 src/msgexec.c:302
+#: src/msgfilter.c:471 src/msggrep.c:586 src/msginit.c:394 src/msguniq.c:374
 #, c-format
 msgid ""
 "      --stringtable-input     input file is in NeXTstep/GNUstep .strings "
 "syntax\n"
 msgstr ""
 
-#: src/msgattrib.c:498 src/msgcat.c:426 src/msgcomm.c:417 src/msgconv.c:350
-#: src/msgen.c:351 src/msgfilter.c:473 src/msgfmt.c:1077 src/msggrep.c:588
-#: src/msginit.c:396 src/msgmerge.c:632 src/msgunfmt.c:496 src/msguniq.c:376
-#: src/xgettext.c:1199
+#: src/msgattrib.c:499 src/msgcat.c:427 src/msgcomm.c:418 src/msgconv.c:351
+#: src/msgen.c:352 src/msgfilter.c:474 src/msgfmt.c:1078 src/msggrep.c:589
+#: src/msginit.c:397 src/msgmerge.c:633 src/msgunfmt.c:497 src/msguniq.c:377
+#: src/xgettext.c:1200
 #, c-format
 msgid "Output details:\n"
 msgstr "ਆਉਟਪੁੱਟ ਵੇਰਵਾ:\n"
 
-#: src/msgattrib.c:500 src/msgcat.c:435 src/msgcomm.c:419 src/msgconv.c:352
-#: src/msgen.c:355 src/msgfilter.c:475 src/msggrep.c:590 src/msginit.c:402
-#: src/msgmerge.c:636 src/msgunfmt.c:498 src/msguniq.c:383 src/xgettext.c:1201
+#: src/msgattrib.c:501 src/msgcat.c:436 src/msgcomm.c:420 src/msgconv.c:353
+#: src/msgen.c:356 src/msgfilter.c:476 src/msggrep.c:591 src/msginit.c:403
+#: src/msgmerge.c:637 src/msgunfmt.c:499 src/msguniq.c:384 src/xgettext.c:1202
 #, c-format
 msgid ""
 "      --color                 use colors and other text attributes always\n"
@@ -1651,117 +1251,117 @@ msgid ""
 "'html'.\n"
 msgstr ""
 
-#: src/msgattrib.c:504 src/msgcat.c:439 src/msgcomm.c:423 src/msgconv.c:356
-#: src/msgen.c:359 src/msgfilter.c:479 src/msggrep.c:594 src/msginit.c:406
-#: src/msgmerge.c:640 src/msgunfmt.c:502 src/msguniq.c:387 src/xgettext.c:1205
+#: src/msgattrib.c:505 src/msgcat.c:440 src/msgcomm.c:424 src/msgconv.c:357
+#: src/msgen.c:360 src/msgfilter.c:480 src/msggrep.c:595 src/msginit.c:407
+#: src/msgmerge.c:641 src/msgunfmt.c:503 src/msguniq.c:388 src/xgettext.c:1206
 #, c-format
 msgid "      --style=STYLEFILE       specify CSS style rule file for --color\n"
 msgstr ""
 
-#: src/msgattrib.c:506 src/msgcat.c:441 src/msgcomm.c:425 src/msgconv.c:358
-#: src/msgen.c:361 src/msgmerge.c:642 src/msgunfmt.c:504 src/msguniq.c:389
-#: src/xgettext.c:1207
+#: src/msgattrib.c:507 src/msgcat.c:442 src/msgcomm.c:426 src/msgconv.c:359
+#: src/msgen.c:362 src/msgmerge.c:643 src/msgunfmt.c:505 src/msguniq.c:390
+#: src/xgettext.c:1208
 #, c-format
 msgid ""
 "  -e, --no-escape             do not use C escapes in output (default)\n"
 msgstr ""
 
-#: src/msgattrib.c:508 src/msgcat.c:443 src/msgcomm.c:427 src/msgconv.c:360
-#: src/msgen.c:363 src/msgfilter.c:483 src/msgmerge.c:644 src/msgunfmt.c:506
-#: src/msguniq.c:391 src/xgettext.c:1209
+#: src/msgattrib.c:509 src/msgcat.c:444 src/msgcomm.c:428 src/msgconv.c:361
+#: src/msgen.c:364 src/msgfilter.c:484 src/msgmerge.c:645 src/msgunfmt.c:507
+#: src/msguniq.c:392 src/xgettext.c:1210
 #, c-format
 msgid ""
 "  -E, --escape                use C escapes in output, no extended chars\n"
 msgstr ""
 
-#: src/msgattrib.c:510 src/msgcat.c:445 src/msgcomm.c:429 src/msgconv.c:362
-#: src/msgen.c:365 src/msgfilter.c:485 src/msggrep.c:600 src/msgmerge.c:646
-#: src/msgunfmt.c:508 src/msguniq.c:393 src/xgettext.c:1211
+#: src/msgattrib.c:511 src/msgcat.c:446 src/msgcomm.c:430 src/msgconv.c:363
+#: src/msgen.c:366 src/msgfilter.c:486 src/msggrep.c:601 src/msgmerge.c:647
+#: src/msgunfmt.c:509 src/msguniq.c:394 src/xgettext.c:1212
 #, c-format
 msgid "      --force-po              write PO file even if empty\n"
 msgstr ""
 
-#: src/msgattrib.c:512 src/msgcat.c:447 src/msgcomm.c:431 src/msguniq.c:395
-#: src/xgettext.c:1213
+#: src/msgattrib.c:513 src/msgcat.c:448 src/msgcomm.c:432 src/msguniq.c:396
+#: src/xgettext.c:1214
 #, c-format
 msgid "  -i, --indent                write the .po file using indented style\n"
 msgstr ""
 
-#: src/msgattrib.c:514 src/msgcat.c:449 src/msgcomm.c:433 src/msguniq.c:397
-#: src/xgettext.c:1215
+#: src/msgattrib.c:515 src/msgcat.c:450 src/msgcomm.c:434 src/msguniq.c:398
+#: src/xgettext.c:1216
 #, c-format
 msgid "      --no-location           do not write '#: filename:line' lines\n"
 msgstr ""
 
-#: src/msgattrib.c:516 src/msgcat.c:451 src/msgcomm.c:435 src/msguniq.c:399
-#: src/xgettext.c:1217
+#: src/msgattrib.c:517 src/msgcat.c:452 src/msgcomm.c:436 src/msguniq.c:400
+#: src/xgettext.c:1218
 #, c-format
 msgid ""
 "  -n, --add-location          generate '#: filename:line' lines (default)\n"
 msgstr ""
 
-#: src/msgattrib.c:518 src/msgcat.c:453 src/msgcomm.c:437 src/msguniq.c:401
-#: src/xgettext.c:1219
+#: src/msgattrib.c:519 src/msgcat.c:454 src/msgcomm.c:438 src/msguniq.c:402
+#: src/xgettext.c:1220
 #, c-format
 msgid ""
 "      --strict                write out strict Uniforum conforming .po file\n"
 msgstr ""
 
-#: src/msgattrib.c:520 src/msgcat.c:455 src/msgcomm.c:439 src/msgconv.c:372
-#: src/msgen.c:375 src/msgfilter.c:497 src/msggrep.c:610 src/msginit.c:408
-#: src/msgmerge.c:656 src/msgunfmt.c:514 src/msguniq.c:403
+#: src/msgattrib.c:521 src/msgcat.c:456 src/msgcomm.c:440 src/msgconv.c:373
+#: src/msgen.c:376 src/msgfilter.c:498 src/msggrep.c:611 src/msginit.c:409
+#: src/msgmerge.c:657 src/msgunfmt.c:515 src/msguniq.c:404
 #, c-format
 msgid "  -p, --properties-output     write out a Java .properties file\n"
 msgstr ""
 
-#: src/msgattrib.c:522 src/msgcat.c:457 src/msgcomm.c:441 src/msgconv.c:374
-#: src/msgen.c:377 src/msgfilter.c:499 src/msggrep.c:612 src/msginit.c:410
-#: src/msgmerge.c:658 src/msgunfmt.c:516 src/msguniq.c:405 src/xgettext.c:1223
+#: src/msgattrib.c:523 src/msgcat.c:458 src/msgcomm.c:442 src/msgconv.c:375
+#: src/msgen.c:378 src/msgfilter.c:500 src/msggrep.c:613 src/msginit.c:411
+#: src/msgmerge.c:659 src/msgunfmt.c:517 src/msguniq.c:406 src/xgettext.c:1224
 #, c-format
 msgid ""
 "      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"
 msgstr ""
 
-#: src/msgattrib.c:524 src/msgcat.c:459 src/msgcomm.c:443 src/msgconv.c:376
-#: src/msgen.c:379 src/msgfilter.c:501 src/msggrep.c:614 src/msginit.c:412
-#: src/msgmerge.c:660 src/msgunfmt.c:518 src/msguniq.c:407 src/xgettext.c:1227
+#: src/msgattrib.c:525 src/msgcat.c:460 src/msgcomm.c:444 src/msgconv.c:377
+#: src/msgen.c:380 src/msgfilter.c:502 src/msggrep.c:615 src/msginit.c:413
+#: src/msgmerge.c:661 src/msgunfmt.c:519 src/msguniq.c:408 src/xgettext.c:1228
 #, c-format
 msgid "  -w, --width=NUMBER          set output page width\n"
 msgstr ""
 
-#: src/msgattrib.c:526 src/msgcat.c:461 src/msgcomm.c:445 src/msgconv.c:378
-#: src/msgen.c:381 src/msgfilter.c:503 src/msggrep.c:616 src/msginit.c:414
-#: src/msgmerge.c:662 src/msgunfmt.c:520 src/msguniq.c:409 src/xgettext.c:1229
+#: src/msgattrib.c:527 src/msgcat.c:462 src/msgcomm.c:446 src/msgconv.c:379
+#: src/msgen.c:382 src/msgfilter.c:504 src/msggrep.c:617 src/msginit.c:415
+#: src/msgmerge.c:663 src/msgunfmt.c:521 src/msguniq.c:410 src/xgettext.c:1230
 #, c-format
 msgid ""
 "      --no-wrap               do not break long message lines, longer than\n"
 "                              the output page width, into several lines\n"
 msgstr ""
 
-#: src/msgattrib.c:529 src/msgcat.c:464 src/msgcomm.c:448 src/msgconv.c:381
-#: src/msgen.c:384 src/msgfilter.c:506 src/msgunfmt.c:523 src/msguniq.c:412
+#: src/msgattrib.c:530 src/msgcat.c:465 src/msgcomm.c:449 src/msgconv.c:382
+#: src/msgen.c:385 src/msgfilter.c:507 src/msgunfmt.c:524 src/msguniq.c:413
 #, c-format
 msgid "  -s, --sort-output           generate sorted output\n"
 msgstr ""
 
-#: src/msgattrib.c:531 src/msgcat.c:466 src/msgcomm.c:450 src/msgconv.c:383
-#: src/msgen.c:386 src/msgfilter.c:508 src/msgmerge.c:667 src/msguniq.c:414
-#: src/xgettext.c:1234
+#: src/msgattrib.c:532 src/msgcat.c:467 src/msgcomm.c:451 src/msgconv.c:384
+#: src/msgen.c:387 src/msgfilter.c:509 src/msgmerge.c:668 src/msguniq.c:415
+#: src/xgettext.c:1235
 #, c-format
 msgid "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
 
-#: src/msgcat.c:321 src/msgcomm.c:326
+#: src/msgcat.c:322 src/msgcomm.c:327
 #, c-format
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr ""
 
-#: src/msgcat.c:367 src/msgcomm.c:359 src/xgettext.c:1068
+#: src/msgcat.c:368 src/msgcomm.c:360 src/xgettext.c:1069
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "ਵਰਤੋਂ: %s [OPTION] [INPUTFILE]...\n"
 
-#: src/msgcat.c:372
+#: src/msgcat.c:373
 #, c-format, no-wrap
 msgid ""
 "Concatenates and merges the specified PO files.\n"
@@ -1775,97 +1375,97 @@ msgid ""
 "to define them.\n"
 msgstr ""
 
-#: src/msgcat.c:389 src/msgcomm.c:380 src/xgettext.c:1084
+#: src/msgcat.c:390 src/msgcomm.c:381 src/xgettext.c:1085
 #, c-format
 msgid "  INPUTFILE ...               input files\n"
 msgstr "  INPUTFILE ...               ਇੰਪੁੱਟ ਫਾਇਲਾਂ\n"
 
-#: src/msgcat.c:391 src/msgcomm.c:382 src/xgettext.c:1086
+#: src/msgcat.c:392 src/msgcomm.c:383 src/xgettext.c:1087
 #, c-format
 msgid "  -f, --files-from=FILE       get list of input files from FILE\n"
 msgstr "  -f, --files-from=FILE       ਫਾਇਲ (FILE) ਤੋਂ ਇੰਪੁੱਟ ਫਾਇਲਾਂ ਦੀ ਸੂਚੀ ਲਵੋ\n"
 
-#: src/msgcat.c:395 src/msgcomm.c:386 src/msgen.c:333 src/msgfmt.c:944
-#: src/xgettext.c:1090
+#: src/msgcat.c:396 src/msgcomm.c:387 src/msgen.c:334 src/msgfmt.c:945
+#: src/xgettext.c:1091
 #, c-format
 msgid "If input file is -, standard input is read.\n"
 msgstr ""
 
-#: src/msgcat.c:408 src/msgcomm.c:399
+#: src/msgcat.c:409 src/msgcomm.c:400
 #, c-format
 msgid ""
 "  -<, --less-than=NUMBER      print messages with less than this many\n"
 "                              definitions, defaults to infinite if not set\n"
 msgstr ""
 
-#: src/msgcat.c:411
+#: src/msgcat.c:412
 #, c-format
 msgid ""
 "  ->, --more-than=NUMBER      print messages with more than this many\n"
 "                              definitions, defaults to 0 if not set\n"
 msgstr ""
 
-#: src/msgcat.c:414 src/msgcomm.c:405
+#: src/msgcat.c:415 src/msgcomm.c:406
 #, c-format
 msgid ""
 "  -u, --unique                shorthand for --less-than=2, requests\n"
 "                              that only unique messages be printed\n"
 msgstr ""
 
-#: src/msgcat.c:420 src/msgcmp.c:251 src/msgcomm.c:411 src/msgfmt.c:1051
-#: src/msgmerge.c:626
+#: src/msgcat.c:421 src/msgcmp.c:252 src/msgcomm.c:412 src/msgfmt.c:1052
+#: src/msgmerge.c:627
 #, c-format
 msgid ""
 "  -P, --properties-input      input files are in Java .properties syntax\n"
 msgstr ""
 
-#: src/msgcat.c:422 src/msgcmp.c:253 src/msgcomm.c:413 src/msgfmt.c:1053
-#: src/msgmerge.c:628
+#: src/msgcat.c:423 src/msgcmp.c:254 src/msgcomm.c:414 src/msgfmt.c:1054
+#: src/msgmerge.c:629
 #, c-format
 msgid ""
 "      --stringtable-input     input files are in NeXTstep/GNUstep .strings\n"
 "                              syntax\n"
 msgstr ""
 
-#: src/msgcat.c:428 src/msgconv.c:338 src/msguniq.c:378
+#: src/msgcat.c:429 src/msgconv.c:339 src/msguniq.c:379
 #, c-format
 msgid "  -t, --to-code=NAME          encoding for output\n"
 msgstr ""
 
-#: src/msgcat.c:430 src/msguniq.c:380
+#: src/msgcat.c:431 src/msguniq.c:381
 #, c-format
 msgid ""
 "      --use-first             use first available translation for each\n"
 "                              message, don't merge several translations\n"
 msgstr ""
 
-#: src/msgcat.c:433 src/msgen.c:353 src/msgmerge.c:634
+#: src/msgcat.c:434 src/msgen.c:354 src/msgmerge.c:635
 #, c-format
 msgid ""
 "      --lang=CATALOGNAME      set 'Language' field in the header entry\n"
 msgstr ""
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgcmp.c:177 src/msgcomm.c:290 src/msgmerge.c:378
+#: src/msgcmp.c:178 src/msgcomm.c:291 src/msgmerge.c:379
 msgid "Peter Miller"
 msgstr "ਪੀਟਰ ਮਿੱਲਰ"
 
-#: src/msgcmp.c:188 src/msgmerge.c:389
+#: src/msgcmp.c:189 src/msgmerge.c:390
 #, c-format
 msgid "no input files given"
 msgstr "ਕੋਈ ਇੰਪੁੱਟ ਫਾਇਲਾਂ ਨਹੀਂ ਦਿੱਤੀਆਂ ਗਈਆਂ"
 
-#: src/msgcmp.c:193 src/msgmerge.c:394
+#: src/msgcmp.c:194 src/msgmerge.c:395
 #, c-format
 msgid "exactly 2 input files required"
 msgstr "ਠੀਕ 2 ਇੰਪੁੱਟ ਫਾਇਲਾਂ ਹੀ ਚਾਹੀਦੀਆਂ ਹਨ"
 
-#: src/msgcmp.c:212 src/msgmerge.c:546
+#: src/msgcmp.c:213 src/msgmerge.c:547
 #, c-format
 msgid "Usage: %s [OPTION] def.po ref.pot\n"
 msgstr "ਵਰਤੋ: %s [OPTION] def.po ref.pot\n"
 
-#: src/msgcmp.c:217
+#: src/msgcmp.c:218
 #, c-format, no-wrap
 msgid ""
 "Compare two Uniforum style .po files to check that both contain the same\n"
@@ -1876,85 +1476,85 @@ msgid ""
 "match cannot be found, fuzzy matching is used to produce better diagnostics.\n"
 msgstr ""
 
-#: src/msgcmp.c:231
+#: src/msgcmp.c:232
 #, c-format
 msgid "  def.po                      translations\n"
 msgstr "  def.po                      ਅਨੁਵਾਦ\n"
 
-#: src/msgcmp.c:233
+#: src/msgcmp.c:234
 #, c-format
 msgid "  ref.pot                     references to the sources\n"
 msgstr "  ref.pot                     ਸਰੋਤ ਲਈ ਹਵਾਲਾ/ਰੈਫਰੈਂਸ\n"
 
-#: src/msgcmp.c:238 src/msgmerge.c:612
+#: src/msgcmp.c:239 src/msgmerge.c:613
 #, c-format
 msgid "Operation modifiers:\n"
 msgstr "ਓਪਰੇਸ਼ਨ ਮਾਡੀਫਾਇਰ:\n"
 
-#: src/msgcmp.c:240 src/msgmerge.c:614
+#: src/msgcmp.c:241 src/msgmerge.c:615
 #, c-format
 msgid ""
 "  -m, --multi-domain          apply ref.pot to each of the domains in "
 "def.po\n"
 msgstr ""
 
-#: src/msgcmp.c:242 src/msgmerge.c:619
+#: src/msgcmp.c:243 src/msgmerge.c:620
 #, c-format
 msgid "  -N, --no-fuzzy-matching     do not use fuzzy matching\n"
 msgstr ""
 
-#: src/msgcmp.c:244
+#: src/msgcmp.c:245
 #, c-format
 msgid "      --use-fuzzy             consider fuzzy entries\n"
 msgstr "      --use-fuzzy             fuzzy ਐਂਟਰੀਆਂ ਮੰਨੋ\n"
 
-#: src/msgcmp.c:246
+#: src/msgcmp.c:247
 #, c-format
 msgid "      --use-untranslated      consider untranslated entries\n"
 msgstr ""
 
-#: src/msgcmp.c:329
+#: src/msgcmp.c:330
 msgid "this message is untranslated"
 msgstr "ਇਹ ਸੁਨੇਹੇ ਨਾ-ਅਨੁਵਾਦਿਤ ਹੈ"
 
-#: src/msgcmp.c:335
+#: src/msgcmp.c:336
 msgid "this message needs to be reviewed by the translator"
 msgstr "ਇਹ ਸੁਨੇਹੇ ਨੂੰ ਅਨੁਵਾਦਕ ਵਲੋਂ ਰੀਵਿਊ ਕਰਨ ਦੀ ਲੋੜ ਹੈ"
 
-#: src/msgcmp.c:375 src/msgmerge.c:1617
+#: src/msgcmp.c:376 src/msgmerge.c:1618
 #, fuzzy
 #| msgid "this message is used but not defined..."
 msgid "this message is used but not defined"
 msgstr "ਇਹ ਸੁਨੇਹਾ ਵਰਤਿਆ ਗਿਆ ਹੈ, ਪਰ ਦਿੱਤਾ ਕੀਤੇ ਨਹੀਂ ਗਿਆ..."
 
-#: src/msgcmp.c:377 src/msgmerge.c:1619
+#: src/msgcmp.c:378 src/msgmerge.c:1620
 #, fuzzy
 #| msgid "...but this definition is similar"
 msgid "but this definition is similar"
 msgstr "...ਇਹ ਪ੍ਰੀਭਾਸ਼ਾ ਰਲਦੀ ਮਿਲਦੀ ਹੈ"
 
-#: src/msgcmp.c:383 src/msgmerge.c:1648
+#: src/msgcmp.c:384 src/msgmerge.c:1649
 #, c-format
 msgid "this message is used but not defined in %s"
 msgstr "ਇਹ ਸੁਨੇਹਾ ਵਰਤਿਆ ਤਾਂ ਗਿਆ ਹੈ, ਪਰ %s ਵਿੱਚ ਪਰਿਭਾਸ਼ਿਤ ਨਹੀਂ ਹੈ"
 
-#: src/msgcmp.c:553
+#: src/msgcmp.c:554
 msgid "warning: this message is not used"
 msgstr "ਸਾਵਧਾਨ: ਇਹ ਸੁਨੇਹਾ ਵਰਤਿਆ ਨਹੀਂ ਗਿਆ ਹੈ"
 
-#: src/msgcmp.c:560 src/msgfmt.c:795 src/msgfmt.c:1639 src/xgettext.c:1036
+#: src/msgcmp.c:561 src/msgfmt.c:796 src/msgfmt.c:1640 src/xgettext.c:1037
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
 msgstr[0] "%d ਘਾਤਕ ਗਲਤੀ ਲੱਭੀ"
 msgstr[1] "%d ਘਾਤਕ ਗਲਤੀਆਂ ਲੱਭੀਆਂ"
 
-#: src/msgcomm.c:315
+#: src/msgcomm.c:316
 #, c-format
 msgid "at least two files must be specified"
 msgstr "ਘੱਟੋ-ਘੱਟ ਦੋ ਫਾਇਲਾਂ ਦੇਣ ਦੀ ਲੋੜ ਹੈ"
 
-#: src/msgcomm.c:364
+#: src/msgcomm.c:365
 #, c-format, no-wrap
 msgid ""
 "Find messages which are common to two or more of the specified PO files.\n"
@@ -1967,74 +1567,74 @@ msgid ""
 "cumulated.\n"
 msgstr ""
 
-#: src/msgcomm.c:402
+#: src/msgcomm.c:403
 #, c-format
 msgid ""
 "  ->, --more-than=NUMBER      print messages with more than this many\n"
 "                              definitions, defaults to 1 if not set\n"
 msgstr ""
 
-#: src/msgcomm.c:452 src/xgettext.c:1236
+#: src/msgcomm.c:453 src/xgettext.c:1237
 #, c-format
 msgid ""
 "      --omit-header           don't write header with 'msgid \"\"' entry\n"
 msgstr ""
 
-#: src/msgconv.c:312
+#: src/msgconv.c:313
 #, c-format
 msgid "Converts a translation catalog to a different character encoding.\n"
 msgstr ""
 
-#: src/msgconv.c:336
+#: src/msgconv.c:337
 #, c-format
 msgid "Conversion target:\n"
 msgstr "ਕਨਵਰਜ਼ਨ ਟਾਰਗੇਟ:\n"
 
-#: src/msgconv.c:340
+#: src/msgconv.c:341
 #, c-format
 msgid "The default encoding is the current locale's encoding.\n"
 msgstr "ਡਿਫਾਲਟ ਇੰਕੋਡਿੰਗ ਮੌਜੂਦਾ ਲੋਕੇਲ ਦੀ ਇੰਕੋਡਿੰਗ ਹੈ।\n"
 
-#: src/msgconv.c:364 src/msgen.c:367 src/msgmerge.c:648
+#: src/msgconv.c:365 src/msgen.c:368 src/msgmerge.c:649
 #, c-format
 msgid "  -i, --indent                indented output style\n"
 msgstr ""
 
-#: src/msgconv.c:366 src/msgen.c:369 src/msgfilter.c:491 src/msggrep.c:604
-#: src/msgmerge.c:650
+#: src/msgconv.c:367 src/msgen.c:370 src/msgfilter.c:492 src/msggrep.c:605
+#: src/msgmerge.c:651
 #, c-format
 msgid "      --no-location           suppress '#: filename:line' lines\n"
 msgstr ""
 
-#: src/msgconv.c:368 src/msgen.c:371 src/msgfilter.c:493 src/msggrep.c:606
-#: src/msgmerge.c:652
+#: src/msgconv.c:369 src/msgen.c:372 src/msgfilter.c:494 src/msggrep.c:607
+#: src/msgmerge.c:653
 #, c-format
 msgid ""
 "  -n, --add-location          preserve '#: filename:line' lines (default)\n"
 msgstr ""
 
-#: src/msgconv.c:370 src/msgen.c:373 src/msgfilter.c:495 src/msggrep.c:608
-#: src/msgmerge.c:654
+#: src/msgconv.c:371 src/msgen.c:374 src/msgfilter.c:496 src/msggrep.c:609
+#: src/msgmerge.c:655
 #, c-format
 msgid "      --strict                strict Uniforum output style\n"
 msgstr ""
 
-#: src/msgen.c:261 src/msgfmt.c:472 src/xgettext.c:745
+#: src/msgen.c:262 src/msgfmt.c:473 src/xgettext.c:746
 #, c-format
 msgid "no input file given"
 msgstr "ਕੋਈ ਇੰਪੁੱਟ ਫਾਇਲ ਨਹੀਂ ਦਿੱਤੀ"
 
-#: src/msgen.c:266
+#: src/msgen.c:267
 #, c-format
 msgid "exactly one input file required"
 msgstr "ਠੀਕ ਇੱਕ ਇੰਪੁੱਟ ਫਾਇਲ ਚਾਹੀਦੀ ਹੈ"
 
-#: src/msgen.c:312
+#: src/msgen.c:313
 #, c-format
 msgid "Usage: %s [OPTION] INPUTFILE\n"
 msgstr "ਵਰਤੋਂ: %s [OPTION] INPUTFILE\n"
 
-#: src/msgen.c:317
+#: src/msgen.c:318
 #, c-format, no-wrap
 msgid ""
 "Creates an English translation catalog.  The input file is the last\n"
@@ -2043,22 +1643,22 @@ msgid ""
 "identical to the msgid.\n"
 msgstr ""
 
-#: src/msgen.c:329
+#: src/msgen.c:330
 #, c-format
 msgid "  INPUTFILE                   input PO or POT file\n"
 msgstr "  INPUTFILE                   ਇੰਪੁੱਟ PO ਜਾਂ POT ਫਾਇਲ\n"
 
-#: src/msgexec.c:200
+#: src/msgexec.c:201
 #, c-format
 msgid "missing command name"
 msgstr "ਗੁੰਮ ਕਮਾਂਡ ਨਾਂ"
 
-#: src/msgexec.c:261
+#: src/msgexec.c:262
 #, c-format
 msgid "Usage: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
 msgstr "ਵਰਤੋਂ: %s [OPTION] COMMAND [COMMAND-OPTION]\n"
 
-#: src/msgexec.c:266
+#: src/msgexec.c:267
 #, c-format, no-wrap
 msgid ""
 "Applies a command to all translations of a translation catalog.\n"
@@ -2068,86 +1668,91 @@ msgid ""
 "across all invocations.\n"
 msgstr ""
 
-#: src/msgexec.c:275
+#: src/msgexec.c:276
 #, c-format, no-wrap
 msgid ""
 "A special builtin command called '0' outputs the translation, followed by a\n"
 "null byte.  The output of \"msgexec 0\" is suitable as input for \"xargs -0\".\n"
 msgstr ""
 
-#: src/msgexec.c:280
+#: src/msgexec.c:281
 #, fuzzy, c-format
 #| msgid "standard input"
 msgid "Command input:\n"
 msgstr "ਸਟੈਂਡਰਡ ਇੰਪੁੱਟ"
 
-#: src/msgexec.c:282
+#: src/msgexec.c:283
 #, fuzzy, c-format
 #| msgid "  -h, --help                  display this help and exit\n"
 msgid "  --newline                   add newline at the end of input\n"
 msgstr "  -h, --help                  ਇਹ ਮੱਦਦ ਵੇਖਾਉ ਅਤੇ ਬੰਦ ਕਰੋ\n"
 
-#: src/msgexec.c:290 src/msgfilter.c:430
+#: src/msgexec.c:291 src/msgfilter.c:431
 #, c-format
 msgid "  -i, --input=INPUTFILE       input PO file\n"
 msgstr "  -i, --input=INPUTFILE       ਇੰਪੁੱਟ PO ਫਾਇਲ\n"
 
-#: src/msgexec.c:359
+#: src/msgexec.c:360
 #, c-format
 msgid "write to stdout failed"
 msgstr "stdout ਉੱਤੇ ਲਿਖਣ ਲਈ ਫੇਲ੍ਹ ਹੈ"
 
-#: src/msgfilter.c:304
+#: src/msgexec.c:430
+#, c-format
+msgid "write to %s subprocess failed"
+msgstr "%s ਸਬ-ਪਰੋਸੈਸ ਲਈ ਲਿਖਣ ਵਾਸਤੇ ਫੇਲ੍ਹ"
+
+#: src/msgfilter.c:305
 #, c-format
 msgid "missing filter name"
 msgstr "ਗੁੰਮ ਫਿਲਟਰ ਨਾਂ"
 
-#: src/msgfilter.c:324
+#: src/msgfilter.c:325
 #, c-format
 msgid "at least one sed script must be specified"
 msgstr ""
 
-#: src/msgfilter.c:417
+#: src/msgfilter.c:418
 #, c-format
 msgid "Usage: %s [OPTION] FILTER [FILTER-OPTION]\n"
 msgstr "ਵਰਤੋਂ: %s [OPTION] FILTER [FILTER-OPTION]\n"
 
-#: src/msgfilter.c:421
+#: src/msgfilter.c:422
 #, c-format
 msgid "Applies a filter to all translations of a translation catalog.\n"
 msgstr "ਅਨੁਵਾਦ ਕੈਟਾਲਾਗ ਲਈ ਸਭ ਅਨੁਵਾਦ ਉੱਤੇ ਇੱਕ ਫਿਲਟਰ ਲਾਗੂ ਕਰੋ।\n"
 
-#: src/msgfilter.c:445
+#: src/msgfilter.c:446
 #, c-format
 msgid ""
 "The FILTER can be any program that reads a translation from standard input\n"
 "and writes a modified translation to standard output.\n"
 msgstr ""
 
-#: src/msgfilter.c:450
+#: src/msgfilter.c:451
 #, c-format
 msgid "Filter input and output:\n"
 msgstr ""
 
-#: src/msgfilter.c:452
+#: src/msgfilter.c:453
 #, c-format
 msgid ""
 "  --newline                   add a newline at the end of input and\n"
 "                                remove a newline from the end of output"
 msgstr ""
 
-#: src/msgfilter.c:456
+#: src/msgfilter.c:457
 #, c-format
 msgid "Useful FILTER-OPTIONs when the FILTER is 'sed':\n"
 msgstr ""
 
-#: src/msgfilter.c:458
+#: src/msgfilter.c:459
 #, c-format
 msgid ""
 "  -e, --expression=SCRIPT     add SCRIPT to the commands to be executed\n"
 msgstr ""
 
-#: src/msgfilter.c:460
+#: src/msgfilter.c:461
 #, c-format
 msgid ""
 "  -f, --file=SCRIPTFILE       add the contents of SCRIPTFILE to the "
@@ -2155,99 +1760,99 @@ msgid ""
 "                                to be executed\n"
 msgstr ""
 
-#: src/msgfilter.c:463
+#: src/msgfilter.c:464
 #, c-format
 msgid ""
 "  -n, --quiet, --silent       suppress automatic printing of pattern space\n"
 msgstr ""
 
-#: src/msgfilter.c:481 src/msggrep.c:596
+#: src/msgfilter.c:482 src/msggrep.c:597
 #, c-format
 msgid ""
 "      --no-escape             do not use C escapes in output (default)\n"
 msgstr ""
 
-#: src/msgfilter.c:487 src/msggrep.c:602
+#: src/msgfilter.c:488 src/msggrep.c:603
 #, c-format
 msgid "      --indent                indented output style\n"
 msgstr ""
 
-#: src/msgfilter.c:489
+#: src/msgfilter.c:490
 #, c-format
 msgid ""
 "      --keep-header           keep header entry unmodified, don't filter it\n"
 msgstr ""
 
-#: src/msgfilter.c:673
+#: src/msgfilter.c:674
 #, c-format
 msgid "filter output is not terminated with a newline"
 msgstr ""
 
-#: src/msgfmt.c:371
+#: src/msgfmt.c:372
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
 msgstr ""
 
-#: src/msgfmt.c:418
+#: src/msgfmt.c:419
 #, c-format
 msgid "invalid endianness: %s"
 msgstr "ਗਲਤ ਅੰਤ(endianness): %s"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgfmt.c:459 src/msgunfmt.c:266 src/xgettext.c:705
+#: src/msgfmt.c:460 src/msgunfmt.c:267 src/xgettext.c:706
 msgid "Ulrich Drepper"
 msgstr "ਉਲਰਿਚ ਡਰਿੱਪਰ"
 
-#: src/msgfmt.c:480
+#: src/msgfmt.c:481
 #, c-format
 msgid "no input file should be given if %s and %s are specified"
 msgstr ""
 
-#: src/msgfmt.c:518 src/msgmerge.c:426 src/msgmerge.c:432
+#: src/msgfmt.c:519 src/msgmerge.c:427 src/msgmerge.c:433
 #, c-format
 msgid "%s is only valid with %s"
 msgstr "%s ਕੇਵਲ %s ਨਾਲ ਠੀਕ ਹੈ"
 
-#: src/msgfmt.c:532 src/msgfmt.c:554 src/msgfmt.c:576 src/msgunfmt.c:328
-#: src/msgunfmt.c:351
+#: src/msgfmt.c:533 src/msgfmt.c:555 src/msgfmt.c:577 src/msgunfmt.c:329
+#: src/msgunfmt.c:352
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
 msgstr "%s ਲਈ ਇੱਕ \"-d directory\" ਦੇਣ ਦੀ ਲੋੜ ਹੈ"
 
-#: src/msgfmt.c:547 src/msgfmt.c:569 src/msgfmt.c:604 src/msgfmt.c:636
-#: src/msgunfmt.c:321 src/msgunfmt.c:344
+#: src/msgfmt.c:548 src/msgfmt.c:570 src/msgfmt.c:605 src/msgfmt.c:637
+#: src/msgunfmt.c:322 src/msgunfmt.c:345
 #, c-format
 msgid "%s requires a \"-l locale\" specification"
 msgstr "%s ਲਈ ਇੱਕ \"-l locale\" ਹਦਾਇਤ ਦੀ ਲੋੜ ਹੈ"
 
-#: src/msgfmt.c:586 src/msgfmt.c:614
+#: src/msgfmt.c:587 src/msgfmt.c:615
 #, fuzzy, c-format
 #| msgid "%s requires a \"-l locale\" specification"
 msgid "%s requires a \"--template template\" specification"
 msgstr "%s ਲਈ ਇੱਕ \"-l locale\" ਹਦਾਇਤ ਦੀ ਲੋੜ ਹੈ"
 
-#: src/msgfmt.c:593 src/msgfmt.c:621
+#: src/msgfmt.c:594 src/msgfmt.c:622
 #, fuzzy, c-format
 #| msgid "%s requires a \"-l locale\" specification"
 msgid "%s requires a \"-o file\" specification"
 msgstr "%s ਲਈ ਇੱਕ \"-l locale\" ਹਦਾਇਤ ਦੀ ਲੋੜ ਹੈ"
 
-#: src/msgfmt.c:599 src/msgfmt.c:627 src/msgfmt.c:631
+#: src/msgfmt.c:600 src/msgfmt.c:628 src/msgfmt.c:632
 #, c-format
 msgid "%s and %s are mutually exclusive in %s"
 msgstr ""
 
-#: src/msgfmt.c:645 src/msgunfmt.c:360 src/msgunfmt.c:366
+#: src/msgfmt.c:646 src/msgunfmt.c:361 src/msgunfmt.c:367
 #, c-format
 msgid "%s is only valid with %s or %s"
 msgstr "%s ਕੇਵਲ %s ਜਾਂ %s ਲਈ ਹੀ ਢੁੱਕਵਾਂ ਹੈ"
 
-#: src/msgfmt.c:651 src/msgfmt.c:657
+#: src/msgfmt.c:652 src/msgfmt.c:658
 #, c-format
 msgid "%s is only valid with %s, %s or %s"
 msgstr ""
 
-#: src/msgfmt.c:730
+#: src/msgfmt.c:731
 #, fuzzy, c-format
 #| msgid "cannot create output file \"%s\""
 msgid "cannot locate ITS rules for %s"
@@ -2255,143 +1860,143 @@ msgstr "ਆਉਟਪੁੱਟ ਫਾਇਲ \"%s\" ਬਣਾਈ ਨਹੀਂ ਜ�
 
 #. TRANSLATORS: The prefix before a statistics message.  The argument
 #. is a file name or a comma separated list of file names.
-#: src/msgfmt.c:891
+#: src/msgfmt.c:892
 #, c-format
 msgid "%s: "
 msgstr "%s: "
 
-#: src/msgfmt.c:894
+#: src/msgfmt.c:895
 #, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "%d ਅਨੁਵਾਦ ਕੀਤਾ ਸੁਨੇਹਾ"
 msgstr[1] "%d ਅਨੁਵਾਦ ਕੀਤੇ ਸੁਨੇਹੇ"
 
-#: src/msgfmt.c:899
+#: src/msgfmt.c:900
 #, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
 msgstr[0] ", %d ਅਸਪਸ਼ਟ ਅਨੁਵਾਦ"
 msgstr[1] ", %d ਅਸਪਸ਼ਟ ਅਨੁਵਾਦ"
 
-#: src/msgfmt.c:904
+#: src/msgfmt.c:905
 #, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
 msgstr[0] ", %d ਨਾ-ਅਨੁਵਾਦ ਸੁਨੇਹਾ"
 msgstr[1] ", %d ਨਾ-ਅਨੁਵਾਦ ਸੁਨੇਹੇ"
 
-#: src/msgfmt.c:924
+#: src/msgfmt.c:925
 #, c-format
 msgid "Usage: %s [OPTION] filename.po ...\n"
 msgstr "ਵਰਤੋਂ: %s [OPTION] ਫਾਇਲ-ਨਾਂ.po ...\n"
 
-#: src/msgfmt.c:928
+#: src/msgfmt.c:929
 #, c-format
 msgid "Generate binary message catalog from textual translation description.\n"
 msgstr "ਟੈਕਸਟ ਅਨੁਵਾਦ ਵੇਰਵੇ ਤੋਂ ਬਾਈਨਰੀ ਸੁਨੇਹਾ ਕੈਟਾਲਾਗ ਤਿਆਰ ਕਰੋ।\n"
 
-#: src/msgfmt.c:940
+#: src/msgfmt.c:941
 #, c-format
 msgid "  filename.po ...             input files\n"
 msgstr "  filename.po ...             ਇੰਪੁੱਟ ਫਾਇਲ ਨਾਂ\n"
 
-#: src/msgfmt.c:947 src/msgmerge.c:578 src/msgunfmt.c:437 src/xgettext.c:1126
+#: src/msgfmt.c:948 src/msgmerge.c:579 src/msgunfmt.c:438 src/xgettext.c:1127
 #, c-format
 msgid "Operation mode:\n"
 msgstr "ਓਪਰੇਸ਼ਨ ਮੋਡ:\n"
 
-#: src/msgfmt.c:949
+#: src/msgfmt.c:950
 #, c-format
 msgid ""
 "  -j, --java                  Java mode: generate a Java ResourceBundle "
 "class\n"
 msgstr ""
 
-#: src/msgfmt.c:951
+#: src/msgfmt.c:952
 #, c-format
 msgid ""
 "      --java2                 like --java, and assume Java2 (JDK 1.2 or "
 "higher)\n"
 msgstr ""
 
-#: src/msgfmt.c:953
+#: src/msgfmt.c:954
 #, c-format
 msgid "      --csharp                C# mode: generate a .NET .dll file\n"
 msgstr ""
 
-#: src/msgfmt.c:955
+#: src/msgfmt.c:956
 #, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: generate a .NET .resources "
 "file\n"
 msgstr ""
 
-#: src/msgfmt.c:957
+#: src/msgfmt.c:958
 #, c-format
 msgid ""
 "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
 msgstr ""
 
-#: src/msgfmt.c:959
+#: src/msgfmt.c:960
 #, c-format
 msgid "      --qt                    Qt mode: generate a Qt .qm file\n"
 msgstr ""
 
-#: src/msgfmt.c:961
+#: src/msgfmt.c:962
 #, c-format
 msgid ""
 "      --desktop               Desktop Entry mode: generate a .desktop file\n"
 msgstr ""
 
-#: src/msgfmt.c:963
+#: src/msgfmt.c:964
 #, fuzzy, c-format
 #| msgid "  FILE ...                    input .mo files\n"
 msgid "      --xml                   XML mode: generate XML file\n"
 msgstr "  FILE ...                    ਇੰਪੁੱਟ .mo ਫਾਇਲਾਂ\n"
 
-#: src/msgfmt.c:970
+#: src/msgfmt.c:971
 #, c-format
 msgid "      --strict                enable strict Uniforum mode\n"
 msgstr ""
 
-#: src/msgfmt.c:972 src/xgettext.c:1101
+#: src/msgfmt.c:973 src/xgettext.c:1102
 #, c-format
 msgid "If output file is -, output is written to standard output.\n"
 msgstr ""
 
-#: src/msgfmt.c:975
+#: src/msgfmt.c:976
 #, c-format
 msgid "Output file location in Java mode:\n"
 msgstr "ਜਾਵਾ ਮੋਡ ਵਿੱਚ ਆਉਟਪੁੱਟ ਫਾਇਲ ਟਿਕਾਣਾ:\n"
 
-#: src/msgfmt.c:977 src/msgfmt.c:993 src/msgunfmt.c:457 src/msgunfmt.c:468
+#: src/msgfmt.c:978 src/msgfmt.c:994 src/msgunfmt.c:458 src/msgunfmt.c:469
 #, c-format
 msgid "  -r, --resource=RESOURCE     resource name\n"
 msgstr "  -r, --resource=RESOURCE     ਸਰੋਤ ਨਾਂ\n"
 
-#: src/msgfmt.c:979 src/msgfmt.c:995 src/msgfmt.c:1005 src/msgfmt.c:1015
-#: src/msgfmt.c:1032 src/msgunfmt.c:459 src/msgunfmt.c:470 src/msgunfmt.c:480
+#: src/msgfmt.c:980 src/msgfmt.c:996 src/msgfmt.c:1006 src/msgfmt.c:1016
+#: src/msgfmt.c:1033 src/msgunfmt.c:460 src/msgunfmt.c:471 src/msgunfmt.c:481
 #, c-format
 msgid ""
 "  -l, --locale=LOCALE         locale name, either language or "
 "language_COUNTRY\n"
 msgstr "  -l, --locale=LOCALE         ਲੋਕੇਲ ਨਾਂ, ਜਾਂ ਭਾਸ਼ਾ ਨਾਂ ਜਾਂ ਭਾਸ਼ਾ_ਦੇਸ਼ \n"
 
-#: src/msgfmt.c:981
+#: src/msgfmt.c:982
 #, c-format
 msgid ""
 "      --source                produce a .java file, instead of a .class "
 "file\n"
 msgstr ""
 
-#: src/msgfmt.c:983
+#: src/msgfmt.c:984
 #, c-format
 msgid ""
 "  -d DIRECTORY                base directory of classes directory hierarchy\n"
 msgstr "  -d DIRECTORY                ਕਲਾਸ ਡਾਇਰੈਕਟਰੀ ਲੜੀ ਵਿੱਚ ਬੇਸ ਡਾਇਰੈਕਟਰੀ\n"
 
-#: src/msgfmt.c:985
+#: src/msgfmt.c:986
 #, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource "
@@ -2400,53 +2005,53 @@ msgid ""
 "written under the specified directory.\n"
 msgstr ""
 
-#: src/msgfmt.c:991
+#: src/msgfmt.c:992
 #, c-format
 msgid "Output file location in C# mode:\n"
 msgstr "C# ਮੋਡ ਵਿੱਚ ਆਉਟਪੁੱਟ ਫਾਇਲ ਟਿਕਾਣਾ:\n"
 
-#: src/msgfmt.c:997 src/msgunfmt.c:472
+#: src/msgfmt.c:998 src/msgunfmt.c:473
 #, c-format
 msgid ""
 "  -d DIRECTORY                base directory for locale dependent .dll "
 "files\n"
 msgstr ""
 
-#: src/msgfmt.c:999
+#: src/msgfmt.c:1000
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is written in a\n"
 "subdirectory of the specified directory whose name depends on the locale.\n"
 msgstr ""
 
-#: src/msgfmt.c:1003
+#: src/msgfmt.c:1004
 #, c-format
 msgid "Output file location in Tcl mode:\n"
 msgstr "Tcl ਮੋਡ ਵਿੱਚ ਆਉਟਪੁੱਟ ਫਾਇਲ ਟਿਕਾਣਾ:\n"
 
-#: src/msgfmt.c:1007 src/msgunfmt.c:482
+#: src/msgfmt.c:1008 src/msgunfmt.c:483
 #, c-format
 msgid "  -d DIRECTORY                base directory of .msg message catalogs\n"
 msgstr ""
 
-#: src/msgfmt.c:1009
+#: src/msgfmt.c:1010
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
 "specified directory.\n"
 msgstr ""
 
-#: src/msgfmt.c:1013
+#: src/msgfmt.c:1014
 #, c-format
 msgid "Desktop Entry mode options:\n"
 msgstr ""
 
-#: src/msgfmt.c:1019
+#: src/msgfmt.c:1020
 #, c-format
 msgid "  --template=TEMPLATE         a .desktop file used as a template\n"
 msgstr ""
 
-#: src/msgfmt.c:1021 src/msgfmt.c:1040
+#: src/msgfmt.c:1022 src/msgfmt.c:1041
 #, fuzzy, c-format
 #| msgid ""
 #| "  -d DIRECTORY                base directory of classes directory "
@@ -2454,14 +2059,14 @@ msgstr ""
 msgid "  -d DIRECTORY                base directory of .po files\n"
 msgstr "  -d DIRECTORY                ਕਲਾਸ ਡਾਇਰੈਕਟਰੀ ਲੜੀ ਵਿੱਚ ਬੇਸ ਡਾਇਰੈਕਟਰੀ\n"
 
-#: src/msgfmt.c:1023 src/xgettext.c:1155
+#: src/msgfmt.c:1024 src/xgettext.c:1156
 #, c-format
 msgid ""
 "  -kWORD, --keyword=WORD      look for WORD as an additional keyword\n"
 "  -k, --keyword               do not to use default keywords\n"
 msgstr ""
 
-#: src/msgfmt.c:1026 src/msgfmt.c:1045
+#: src/msgfmt.c:1027 src/msgfmt.c:1046
 #, c-format
 msgid ""
 "The -l, -o, and --template options are mandatory.  If -D is specified, "
@@ -2469,22 +2074,22 @@ msgid ""
 "files are read from the directory instead of the command line arguments.\n"
 msgstr ""
 
-#: src/msgfmt.c:1030
+#: src/msgfmt.c:1031
 #, c-format
 msgid "XML mode options:\n"
 msgstr ""
 
-#: src/msgfmt.c:1034
+#: src/msgfmt.c:1035
 #, c-format
 msgid "  -L, --language=NAME         recognise the specified XML language\n"
 msgstr ""
 
-#: src/msgfmt.c:1038
+#: src/msgfmt.c:1039
 #, c-format
 msgid "  --template=TEMPLATE         an XML file used as a template\n"
 msgstr ""
 
-#: src/msgfmt.c:1042
+#: src/msgfmt.c:1043
 #, c-format
 msgid ""
 "  --replace-text              output XML with translated text replacing the\n"
@@ -2492,12 +2097,12 @@ msgid ""
 "text\n"
 msgstr ""
 
-#: src/msgfmt.c:1057 src/xgettext.c:1118
+#: src/msgfmt.c:1058 src/xgettext.c:1119
 #, c-format
 msgid "Input file interpretation:\n"
 msgstr "ਇੰਪੁੱਟ ਫਾਇਲ ਇੰਟਰਪਰੇਟੇਸ਼ਨ:\n"
 
-#: src/msgfmt.c:1059
+#: src/msgfmt.c:1060
 #, c-format
 msgid ""
 "  -c, --check                 perform all the checks implied by\n"
@@ -2505,33 +2110,33 @@ msgid ""
 "domain\n"
 msgstr ""
 
-#: src/msgfmt.c:1062
+#: src/msgfmt.c:1063
 #, c-format
 msgid "      --check-format          check language dependent format strings\n"
 msgstr ""
 
-#: src/msgfmt.c:1064
+#: src/msgfmt.c:1065
 #, c-format
 msgid ""
 "      --check-header          verify presence and contents of the header "
 "entry\n"
 msgstr ""
 
-#: src/msgfmt.c:1066
+#: src/msgfmt.c:1067
 #, c-format
 msgid ""
 "      --check-domain          check for conflicts between domain directives\n"
 "                                and the --output-file option\n"
 msgstr ""
 
-#: src/msgfmt.c:1069
+#: src/msgfmt.c:1070
 #, c-format
 msgid ""
 "  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open "
 "msgfmt\n"
 msgstr ""
 
-#: src/msgfmt.c:1071
+#: src/msgfmt.c:1072
 #, c-format
 msgid ""
 "      --check-accelerators[=CHAR]  check presence of keyboard accelerators "
@@ -2539,32 +2144,32 @@ msgid ""
 "                                menu items\n"
 msgstr ""
 
-#: src/msgfmt.c:1074
+#: src/msgfmt.c:1075
 #, c-format
 msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr "  -f, --use-fuzzy             ਆਉਟਪੁੱਟ ਵਿੱਚ ਅਸਪਸ਼ਟ (fuzzy) ਐਂਟਰੀਆਂ ਵਰਤੋਂ\n"
 
-#: src/msgfmt.c:1079
+#: src/msgfmt.c:1080
 #, fuzzy, c-format
 #| msgid "      --no-obsolete           remove obsolete #~ messages\n"
 msgid ""
 "      --no-convert            don't convert the messages to UTF-8 encoding\n"
 msgstr "      --no-obsolete           ਬਰਤਰਫ਼ #~ ਸੁਨੇਹੇ ਹਟਾਓ\n"
 
-#: src/msgfmt.c:1081
+#: src/msgfmt.c:1082
 #, c-format
 msgid ""
 "      --no-redundancy         don't pre-expand ISO C 99 <inttypes.h>\n"
 "                                format string directive macros\n"
 msgstr ""
 
-#: src/msgfmt.c:1084
+#: src/msgfmt.c:1085
 #, c-format
 msgid ""
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
 msgstr ""
 
-#: src/msgfmt.c:1086
+#: src/msgfmt.c:1087
 #, c-format
 msgid ""
 "      --endianness=BYTEORDER  write out 32-bit numbers in the given byte "
@@ -2573,75 +2178,75 @@ msgid ""
 "platform)\n"
 msgstr ""
 
-#: src/msgfmt.c:1089
+#: src/msgfmt.c:1090
 #, c-format
 msgid ""
 "      --no-hash               binary file will not include the hash table\n"
 msgstr ""
 
-#: src/msgfmt.c:1098
+#: src/msgfmt.c:1099
 #, c-format
 msgid "      --statistics            print statistics about translations\n"
 msgstr "      --statistics            ਅਨੁਵਾਦ ਬਾਰੇ ਅੰਕੜੇ ਪੇਸ਼ ਕਰੋ\n"
 
-#: src/msgfmt.c:1100 src/msgmerge.c:676 src/msgunfmt.c:532 src/xgettext.c:1261
+#: src/msgfmt.c:1101 src/msgmerge.c:677 src/msgunfmt.c:533 src/xgettext.c:1262
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
 msgstr ""
 
-#: src/msgfmt.c:1217
+#: src/msgfmt.c:1218
 #, c-format
 msgid "warning: PO file header missing or invalid\n"
 msgstr "ਸਾਵਧਾਨ: PO ਫਾਇਲ ਹੈੱਡਰ ਗੁੰਮ ਹੈ ਜਾਂ ਗਲਤ ਹੈ\n"
 
-#: src/msgfmt.c:1219
+#: src/msgfmt.c:1220
 #, c-format
 msgid "warning: charset conversion will not work\n"
 msgstr "ਸਾਵਧਾਨ: charset ਬਦਲਣਾ ਕੰਮ ਨਹੀਂ ਕਰੇਗਾ\n"
 
-#: src/msgfmt.c:1244
+#: src/msgfmt.c:1245
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "ਡੋਮੇਨ ਨਾਂ \"%s\" ਫਾਇਲ ਨਾਂ ਲਈ ਢੁੱਕਵਾਂ ਨਹੀਂ ਹੈ"
 
-#: src/msgfmt.c:1249
+#: src/msgfmt.c:1250
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr ""
 
-#: src/msgfmt.c:1265
+#: src/msgfmt.c:1266
 #, c-format
 msgid "'domain %s' directive ignored"
 msgstr ""
 
-#: src/msgfmt.c:1325
+#: src/msgfmt.c:1326
 #, fuzzy, c-format
 #| msgid "empty `msgstr' entry ignored"
 msgid "empty 'msgstr' entry ignored"
 msgstr "ਖਾਲੀ `msgstr' ਐਂਟਰੀ ਅਣ-ਡਿੱਠੀ ਕੀਤੀ ਜਾਵੇਗੀ"
 
-#: src/msgfmt.c:1326
+#: src/msgfmt.c:1327
 #, fuzzy, c-format
 #| msgid "fuzzy `msgstr' entry ignored"
 msgid "fuzzy 'msgstr' entry ignored"
 msgstr "ਅਸਪਸ਼ਟ `msgstr' ਐਂਟਰੀ ਅਣਡਿੱਠੀ ਕੀਤੀ ਜਾਵੇਗੀ"
 
-#: src/msgfmt.c:1374
+#: src/msgfmt.c:1375
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: ਸਾਵਧਾਨ: ਸਰੋਤ ਫਾਇਲ ਵਿੱਚ ਅਸਪਸ਼ਟ ਅਨੁਵਾਦ ਹੋ ਸਕਦਾ ਹੈ"
 
-#: src/msgfmt.c:1490
+#: src/msgfmt.c:1491
 #, c-format
 msgid "%s does not exist"
 msgstr ""
 
-#: src/msgfmt.c:1497
+#: src/msgfmt.c:1498
 #, c-format
 msgid "%s exists but cannot read"
 msgstr ""
 
-#: src/msggrep.c:253 src/read-desktop.c:121 src/read-mo.c:88
+#: src/msggrep.c:254 src/read-desktop.c:121 src/read-mo.c:88
 #: src/read-po-lex.c:850 src/read-properties.c:599 src/read-stringtable.c:98
 #: src/x-awk.c:142 src/x-c.c:609 src/x-csharp.c:168 src/x-elisp.c:147
 #: src/x-java.c:207 src/x-javascript.c:281 src/x-librep.c:149 src/x-lisp.c:214
@@ -2653,21 +2258,21 @@ msgstr ""
 msgid "error while reading \"%s\""
 msgstr "\"%s\" ਪੜ੍ਹਨ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: src/msggrep.c:497
+#: src/msggrep.c:498
 #, c-format
 msgid ""
 "option '%c' cannot be used before 'J' or 'K' or 'T' or 'C' or 'X' has been "
 "specified"
 msgstr ""
 
-#: src/msggrep.c:517
+#: src/msggrep.c:518
 #, c-format, no-wrap
 msgid ""
 "Extracts all messages of a translation catalog that match a given pattern\n"
 "or belong to some given source files.\n"
 msgstr ""
 
-#: src/msggrep.c:543
+#: src/msggrep.c:544
 #, c-format, no-wrap
 msgid ""
 "Message selection:\n"
@@ -2707,23 +2312,23 @@ msgid ""
 "                              selection criterion\n"
 msgstr ""
 
-#: src/msggrep.c:598
+#: src/msggrep.c:599
 #, c-format
 msgid ""
 "      --escape                use C escapes in output, no extended chars\n"
 msgstr ""
 
-#: src/msggrep.c:619
+#: src/msggrep.c:620
 #, c-format
 msgid "      --sort-output           generate sorted output\n"
 msgstr ""
 
-#: src/msggrep.c:621
+#: src/msggrep.c:622
 #, c-format
 msgid "      --sort-by-file          sort output by file location\n"
 msgstr "      --sort-by-file          ਆਉਟਪੁੱਟ ਨੂੰ ਫਾਇਲ ਟਿਕਾਣੇ ਮੁਤਾਬਕ ਲੜੀਬੱਧ ਕਰੋ\n"
 
-#: src/msginit.c:291
+#: src/msginit.c:292
 #, c-format
 msgid ""
 "You are in a language indifferent environment.  Please set\n"
@@ -2732,7 +2337,7 @@ msgid ""
 "This is necessary so you can test your translations.\n"
 msgstr ""
 
-#: src/msginit.c:317
+#: src/msginit.c:318
 #, c-format
 msgid ""
 "Output file %s already exists.\n"
@@ -2743,12 +2348,12 @@ msgstr ""
 "--locale ਚੋਣ ਰਾਹੀਂ ਲੋਕਲ ਦਿਉ ਜੀ ਜਾਂ\n"
 "--output-file ਚੋਣ ਰਾਹੀਂ output.po ਫਾਇਲ ਦਿਉ।\n"
 
-#: src/msginit.c:345
+#: src/msginit.c:346
 #, c-format
 msgid "Created %s.\n"
 msgstr "%s ਬਣਾਈ।\n"
 
-#: src/msginit.c:365
+#: src/msginit.c:366
 #, c-format, no-wrap
 msgid ""
 "Creates a new PO file, initializing the meta information with values from the\n"
@@ -2757,12 +2362,12 @@ msgstr ""
 "ਨਵੀਂ PO ਫਾਇਲ ਬਣਾਉ, ਯੂਜ਼ਰ ਦੇ ਇੰਵਾਇਰਨਮੈਂਟ ਤੋਂ ਮੁੱਲ ਲੈ ਕੇ ਮੇਟਾ ਜਾਣਕਾਰੀ ਸ਼ੁਰੂ\n"
 " ਕਰੋ।\n"
 
-#: src/msginit.c:375
+#: src/msginit.c:376
 #, c-format
 msgid "  -i, --input=INPUTFILE       input POT file\n"
 msgstr "  -i, --input=INPUTFILE       ਇੰਪੁੱਟ POT ਫਾਇਲ\n"
 
-#: src/msginit.c:377
+#: src/msginit.c:378
 #, c-format
 msgid ""
 "If no input file is given, the current directory is searched for the POT "
@@ -2770,31 +2375,31 @@ msgid ""
 "If it is -, standard input is read.\n"
 msgstr ""
 
-#: src/msginit.c:383
+#: src/msginit.c:384
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified PO file\n"
 msgstr ""
 
-#: src/msginit.c:385
+#: src/msginit.c:386
 #, c-format
 msgid ""
 "If no output file is given, it depends on the --locale option or the user's\n"
 "locale setting.  If it is -, the results are written to standard output.\n"
 msgstr ""
 
-#: src/msginit.c:398
+#: src/msginit.c:399
 #, fuzzy, c-format
 #| msgid "  -l, --locale=LL_CC          set target locale\n"
 msgid "  -l, --locale=LL_CC[.ENCODING]  set target locale\n"
 msgstr "  -l, --locale=LL_CC          ਟਾਰਗੇਟ ਲੋਕੇਲ ਸੈੱਟ ਕਰੋ\n"
 
-#: src/msginit.c:400
+#: src/msginit.c:401
 #, c-format
 msgid ""
 "      --no-translator         assume the PO file is automatically generated\n"
 msgstr ""
 
-#: src/msginit.c:469
+#: src/msginit.c:470
 msgid ""
 "Found more than one .pot file.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2802,12 +2407,12 @@ msgstr ""
 "ਇੱਕ ਤੋਂ ਵੱਧ .pot ਫਾਇਲਾਂ ਲੱਭੀਆਂ।\n"
 "--input ਚੋਣ ਰਾਹੀਂ input.pot ਫਾਇਲ ਦਿਉ ਜੀ।\n"
 
-#: src/msginit.c:477 src/msginit.c:482
+#: src/msginit.c:478 src/msginit.c:483
 #, c-format
 msgid "error reading current directory"
 msgstr "ਮੌਜੂਦਾ ਡਾਇਰੈਕਟਰੀ ਪੜ੍ਹਨ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: src/msginit.c:489
+#: src/msginit.c:490
 msgid ""
 "Found no .pot file in the current directory.\n"
 "Please specify the input .pot file through the --input option.\n"
@@ -2815,15 +2420,28 @@ msgstr ""
 "ਮੌਜੂਦਾ ਡਾਇਰੈਕਟਰੀ ਵਿੱਚ ਕੋਈ ਵੀ .pot ਫਾਇਲ ਨਹੀਂ ਲੱਭੀ।\n"
 "--input ਚੋਣ ਰਾਹੀਂ input.pot ਫਾਇਲ ਦਿਉ ਜੀ।\n"
 
-#: src/msginit.c:925 src/msginit.c:1008 src/msginit.c:1186 src/msginit.c:1302
-#: src/msginit.c:1492 src/read-csharp.c:87 src/read-java.c:84
+#: src/msginit.c:905 src/msginit.c:988 src/msginit.c:1166 src/msginit.c:1282
+#: src/msginit.c:1465 src/read-csharp.c:75 src/read-java.c:72
+#: src/read-resources.c:76 src/read-tcl.c:111 src/write-resources.c:80
+#: src/x-ruby.c:142
+#, c-format
+msgid "fdopen() failed"
+msgstr "fdopen() ਫੇਲ੍ਹ ਹੈ"
+
+#: src/msginit.c:913 src/msginit.c:996 src/msginit.c:1174 src/msginit.c:1473
+#, c-format
+msgid "%s subprocess I/O error"
+msgstr "%s ਸਬ-ਪ੍ਰੋਸੈਸ I/O ਗਲਤੀ"
+
+#: src/msginit.c:926 src/msginit.c:1009 src/msginit.c:1187 src/msginit.c:1303
+#: src/msginit.c:1493 src/read-csharp.c:87 src/read-java.c:84
 #: src/read-resources.c:88 src/read-tcl.c:129 src/write-resources.c:107
 #: src/x-ruby.c:154
 #, c-format
 msgid "%s subprocess failed with exit code %d"
 msgstr ""
 
-#: src/msginit.c:1151
+#: src/msginit.c:1152
 msgid ""
 "The new message catalog should contain your email address, so that users "
 "can\n"
@@ -2835,7 +2453,7 @@ msgstr ""
 #. TRANSLATORS: "English" needs to be replaced by your language.
 #. For example in it.po write "Traduzioni italiani ...",
 #. *not* "Traduzioni inglesi ...".
-#: src/msginit.c:1687
+#: src/msginit.c:1688
 #, c-format
 msgid "English translations for %s package"
 msgstr "%s ਪੈਕੇਜ ਲਈ ਅੰਗਰੇਜ਼ੀ ਅਨੁਵਾਦ"
@@ -3049,6 +2667,10 @@ msgid ""
 "\"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\""
 msgstr ""
 
+#: src/msgl-check.c:532 src/read-po-lex.c:83 src/read-po-lex.c:105
+msgid "memory exhausted"
+msgstr "ਮੈਮੋਰੀ ਖਤਮ ਹੋਈ"
+
 #: src/msgl-check.c:587
 #, fuzzy
 #| msgid "`msgid' and `msgid_plural' entries do not both begin with '\\n'"
@@ -3125,8 +2747,8 @@ msgstr ""
 msgid "input file doesn't contain a header entry with a charset specification"
 msgstr "ਇੰਪੁੱਟ ਫਾਇਲ charset ਹਦਾਇਤ ਨਾਲ ਹੈੱਡਰ ਐਂਟਰੀ ਨਹੀਂ ਰੱਖਦੀ ਹੈ"
 
-#: src/msgl-iconv.c:317 src/recode-sr-latin.c:283 src/recode-sr-latin.c:287
-#: src/xgettext.c:821 src/x-python.c:627
+#: src/msgl-iconv.c:317 src/recode-sr-latin.c:284 src/recode-sr-latin.c:288
+#: src/xgettext.c:822 src/x-python.c:627
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
@@ -3140,7 +2762,7 @@ msgid ""
 "msgids become equal."
 msgstr ""
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:295 src/xgettext.c:827
+#: src/msgl-iconv.c:349 src/recode-sr-latin.c:296 src/xgettext.c:828
 #: src/x-python.c:633
 #, c-format
 msgid ""
@@ -3148,16 +2770,16 @@ msgid ""
 "built without iconv()."
 msgstr ""
 
-#: src/msgmerge.c:444 src/xgettext.c:757
+#: src/msgmerge.c:445 src/xgettext.c:758
 #, c-format
 msgid "The option '%s' is deprecated."
 msgstr ""
 
-#: src/msgmerge.c:513
+#: src/msgmerge.c:514
 msgid "backup type"
 msgstr "ਬੈਕਅੱਪ ਕਿਸਮ"
 
-#: src/msgmerge.c:551
+#: src/msgmerge.c:552
 #, c-format, no-wrap
 msgid ""
 "Merges two Uniforum style .po files together.  The def.po file is an\n"
@@ -3171,51 +2793,51 @@ msgid ""
 "cannot be found, fuzzy matching is used to produce better results.\n"
 msgstr ""
 
-#: src/msgmerge.c:568
+#: src/msgmerge.c:569
 #, c-format
 msgid "  def.po                      translations referring to old sources\n"
 msgstr "  def.po                      ਪੁਰਾਣੇ ਸੋਰਤ ਲਈ ਰੈਫਰੈਂਸ ਅਨੁਵਾਦ\n"
 
-#: src/msgmerge.c:570
+#: src/msgmerge.c:571
 #, c-format
 msgid "  ref.pot                     references to new sources\n"
 msgstr "  ref.pot                     ਨਵੇਂ ਸਰੋਤ ਲਈ ਰੈਫਰੈਂਸ\n"
 
-#: src/msgmerge.c:574
+#: src/msgmerge.c:575
 #, c-format
 msgid ""
 "  -C, --compendium=FILE       additional library of message translations,\n"
 "                              may be specified more than once\n"
 msgstr ""
 
-#: src/msgmerge.c:580
+#: src/msgmerge.c:581
 #, c-format
 msgid ""
 "  -U, --update                update def.po,\n"
 "                              do nothing if def.po already up to date\n"
 msgstr ""
 
-#: src/msgmerge.c:592
+#: src/msgmerge.c:593
 #, c-format
 msgid "Output file location in update mode:\n"
 msgstr "ਆਉਟਪੁੱਟ ਮੋਡ ਵਿੱਚ ਆਉਟਪੁੱਟ ਫਾਇਲ ਟਿਕਾਣਾ:\n"
 
-#: src/msgmerge.c:594
+#: src/msgmerge.c:595
 #, c-format
 msgid "The result is written back to def.po.\n"
 msgstr ""
 
-#: src/msgmerge.c:596
+#: src/msgmerge.c:597
 #, c-format
 msgid "      --backup=CONTROL        make a backup of def.po\n"
 msgstr ""
 
-#: src/msgmerge.c:598
+#: src/msgmerge.c:599
 #, c-format
 msgid "      --suffix=SUFFIX         override the usual backup suffix\n"
 msgstr ""
 
-#: src/msgmerge.c:600
+#: src/msgmerge.c:601
 #, c-format
 msgid ""
 "The version control method may be selected via the --backup option or "
@@ -3227,7 +2849,7 @@ msgid ""
 "  simple, never   always make simple backups\n"
 msgstr ""
 
-#: src/msgmerge.c:607
+#: src/msgmerge.c:608
 #, c-format
 msgid ""
 "The backup suffix is '~', unless set with --suffix or the "
@@ -3235,101 +2857,101 @@ msgid ""
 "environment variable.\n"
 msgstr ""
 
-#: src/msgmerge.c:616
+#: src/msgmerge.c:617
 #, c-format
 msgid ""
 "      --for-msgfmt            produce output for '%s', not for a translator\n"
 msgstr ""
 
-#: src/msgmerge.c:621
+#: src/msgmerge.c:622
 #, c-format
 msgid ""
 "      --previous              keep previous msgids of translated messages\n"
 msgstr ""
 
-#: src/msgmerge.c:665 src/xgettext.c:1232
+#: src/msgmerge.c:666 src/xgettext.c:1233
 #, fuzzy, c-format
 #| msgid "  -s, --short                 short host name\n"
 msgid "  -s, --sort-output           generate sorted output (deprecated)\n"
 msgstr "  -s, --short                 ਛੋਟਾ ਹੋਸਟ ਨਾਂ\n"
 
-#: src/msgmerge.c:678 src/urlget.c:188
+#: src/msgmerge.c:679 src/urlget.c:189
 #, c-format
 msgid "  -q, --quiet, --silent       suppress progress indicators\n"
 msgstr ""
 
-#: src/msgmerge.c:1727
+#: src/msgmerge.c:1728
 msgid "this message should define plural forms"
 msgstr "ਇਹ ਸੁਨੇਹਾ ਬਹੁਵਚਨ ਰੂਪ ਦਰਸਾਉਂਦਾ ਹੈ"
 
-#: src/msgmerge.c:1748
+#: src/msgmerge.c:1749
 msgid "this message should not define plural forms"
 msgstr ""
 
-#: src/msgmerge.c:2162
+#: src/msgmerge.c:2163
 #, c-format
 msgid ""
 "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 "obsolete %ld.\n"
 msgstr ""
 
-#: src/msgmerge.c:2170 src/urlget.c:299 src/urlget.c:347 src/urlget.c:390
-#: src/urlget.c:433
+#: src/msgmerge.c:2171 src/urlget.c:300 src/urlget.c:348 src/urlget.c:391
+#: src/urlget.c:434
 #, c-format
 msgid " done.\n"
 msgstr " ਮੁਕੰਮਲ।\n"
 
-#: src/msgunfmt.c:306 src/msgunfmt.c:315 src/msgunfmt.c:338
+#: src/msgunfmt.c:307 src/msgunfmt.c:316 src/msgunfmt.c:339
 #, c-format
 msgid "%s and explicit file names are mutually exclusive"
 msgstr ""
 
-#: src/msgunfmt.c:426
+#: src/msgunfmt.c:427
 #, c-format
 msgid "Usage: %s [OPTION] [FILE]...\n"
 msgstr "ਵਰਤੋਂ: %s [OPTION] [FILE]...\n"
 
-#: src/msgunfmt.c:430
+#: src/msgunfmt.c:431
 #, c-format
 msgid "Convert binary message catalog to Uniforum style .po file.\n"
 msgstr ""
 
-#: src/msgunfmt.c:439
+#: src/msgunfmt.c:440
 #, c-format
 msgid ""
 "  -j, --java                  Java mode: input is a Java ResourceBundle "
 "class\n"
 msgstr ""
 
-#: src/msgunfmt.c:441
+#: src/msgunfmt.c:442
 #, c-format
 msgid "      --csharp                C# mode: input is a .NET .dll file\n"
 msgstr ""
 
-#: src/msgunfmt.c:443
+#: src/msgunfmt.c:444
 #, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: input is a .NET .resources "
 "file\n"
 msgstr ""
 
-#: src/msgunfmt.c:445
+#: src/msgunfmt.c:446
 #, c-format
 msgid ""
 "      --tcl                   Tcl mode: input is a tcl/msgcat .msg file\n"
 msgstr ""
 
-#: src/msgunfmt.c:450
+#: src/msgunfmt.c:451
 #, c-format
 msgid "  FILE ...                    input .mo files\n"
 msgstr "  FILE ...                    ਇੰਪੁੱਟ .mo ਫਾਇਲਾਂ\n"
 
-#: src/msgunfmt.c:455
+#: src/msgunfmt.c:456
 #, c-format
 msgid "Input file location in Java mode:\n"
 msgstr "ਜਾਵਾ ਮੋਡ ਵਿੱਚ ਇੰਪੁੱਟ ਫਾਇਲ ਟਿਕਾਣਾ:\n"
 
-#: src/msgunfmt.c:461
+#: src/msgunfmt.c:462
 #, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource "
@@ -3337,41 +2959,41 @@ msgid ""
 "separated with an underscore.  The class is located using the CLASSPATH.\n"
 msgstr ""
 
-#: src/msgunfmt.c:466
+#: src/msgunfmt.c:467
 #, c-format
 msgid "Input file location in C# mode:\n"
 msgstr "C# ਮੋਡ ਵਿੱਚ ਇੰਪੁੱਟ ਫਾਇਲ ਟਿਕਾਣਾ:\n"
 
-#: src/msgunfmt.c:474
+#: src/msgunfmt.c:475
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is located in a\n"
 "subdirectory of the specified directory whose name depends on the locale.\n"
 msgstr ""
 
-#: src/msgunfmt.c:478
+#: src/msgunfmt.c:479
 #, c-format
 msgid "Input file location in Tcl mode:\n"
 msgstr "Tcl ਮੋਡ ਵਿੱਚ ਇੰਪੁੱਟ ਫਾਇਲ ਟਿਕਾਣਾ:\n"
 
-#: src/msgunfmt.c:484
+#: src/msgunfmt.c:485
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .msg file is located in the\n"
 "specified directory.\n"
 msgstr ""
 
-#: src/msgunfmt.c:510
+#: src/msgunfmt.c:511
 #, c-format
 msgid "  -i, --indent                write indented output style\n"
 msgstr ""
 
-#: src/msgunfmt.c:512
+#: src/msgunfmt.c:513
 #, c-format
 msgid "      --strict                write strict uniforum style\n"
 msgstr ""
 
-#: src/msguniq.c:331
+#: src/msguniq.c:332
 #, c-format, no-wrap
 msgid ""
 "Unifies duplicate translations in a translation catalog.\n"
@@ -3384,12 +3006,12 @@ msgid ""
 "will be cumulated.  When using the --unique option, duplicates are discarded.\n"
 msgstr ""
 
-#: src/msguniq.c:364
+#: src/msguniq.c:365
 #, c-format
 msgid "  -d, --repeated              print only duplicates\n"
 msgstr ""
 
-#: src/msguniq.c:366
+#: src/msguniq.c:367
 #, c-format
 msgid ""
 "  -u, --unique                print only unique messages, discard "
@@ -3400,7 +3022,7 @@ msgstr ""
 msgid "<stdin>"
 msgstr "<stdin>"
 
-#: src/read-catalog.c:330 src/xgettext.c:1286
+#: src/read-catalog.c:330 src/xgettext.c:1287
 msgid "this file may not contain domain directives"
 msgstr ""
 
@@ -3643,7 +3265,7 @@ msgstr ""
 msgid "warning: syntax error, expected '=' or ';' after string"
 msgstr ""
 
-#: src/recode-sr-latin.c:112
+#: src/recode-sr-latin.c:113
 #, c-format
 msgid "Written by %s and %s.\n"
 msgstr "%s ਅਤੇ %s ਵਲੋਂ ਲਿਖਿਆ।\n"
@@ -3652,75 +3274,75 @@ msgstr "%s ਅਤੇ %s ਵਲੋਂ ਲਿਖਿਆ।\n"
 #. (with Unicode escapes) "\u0160egan" or (with HTML entities)
 #. "&Scaron;egan".
 #. This is a proper name. See the gettext manual, section Names.
-#: src/recode-sr-latin.c:116
+#: src/recode-sr-latin.c:117
 msgid "Danilo Segan"
 msgstr "ਡਾਂਇਲੋ ਸਿਗਨ"
 
-#: src/recode-sr-latin.c:149
+#: src/recode-sr-latin.c:150
 #, c-format, no-wrap
 msgid "Recode Serbian text from Cyrillic to Latin script.\n"
 msgstr ""
 
-#: src/recode-sr-latin.c:152
+#: src/recode-sr-latin.c:153
 #, c-format, no-wrap
 msgid ""
 "The input text is read from standard input.  The converted text is output to\n"
 "standard output.\n"
 msgstr ""
 
-#: src/recode-sr-latin.c:330
+#: src/recode-sr-latin.c:331
 #, c-format
 msgid "input is not valid in \"%s\" encoding"
 msgstr "ਇੰਪੁੱਟ \"%s\" ਇੰਕੋਡਿੰਗ ਵਿੱਚ ਠੀਕ ਨਹੀਂ ਹੈ"
 
-#: src/recode-sr-latin.c:358
+#: src/recode-sr-latin.c:359
 #, c-format
 msgid "error while converting from \"%s\" encoding to \"%s\" encoding"
 msgstr "\"%s\" ਇੰਕੋਡਿੰਗ ਤੋਂ \"%s\" ਇੰਕੋਡਿੰਗ ਵਿੱਚ ਬਦਲਣ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: src/urlget.c:155
+#: src/urlget.c:156
 #, c-format
 msgid "expected two arguments"
 msgstr "ਦੋ ਆਰਗੂਮੈਂਟ ਲੋੜੀਦੇ ਹਨ"
 
-#: src/urlget.c:172
+#: src/urlget.c:173
 #, c-format
 msgid "Usage: %s [OPTION] URL FILE\n"
 msgstr "ਵਰਤੋਂ: %s [OPTION] URL FILE\n"
 
-#: src/urlget.c:177
+#: src/urlget.c:178
 #, c-format, no-wrap
 msgid ""
 "Fetches and outputs the contents of an URL.  If the URL cannot be accessed,\n"
 "the locally accessible FILE is used instead.\n"
 msgstr ""
 
-#: src/urlget.c:228
+#: src/urlget.c:229
 #, c-format
 msgid "error reading \"%s\""
 msgstr "\"%s\" ਪੜ੍ਹਨ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: src/urlget.c:234
+#: src/urlget.c:235
 #, c-format
 msgid "error writing stdout"
 msgstr "stdout ਲਿਖਣ ਦੌਰਾਨ ਗਲਤੀ"
 
-#: src/urlget.c:238
+#: src/urlget.c:239
 #, c-format
 msgid "error after reading \"%s\""
 msgstr "\"%s\" ਪੜ੍ਹਨ ਦੇ ਬਾਅਦ ਗਲਤੀ"
 
-#: src/urlget.c:268
+#: src/urlget.c:269
 #, c-format
 msgid "Retrieving %s..."
 msgstr "%s ਲਿਆ ਜਾ ਰਿਹਾ ਹੈ..."
 
-#: src/urlget.c:301
+#: src/urlget.c:302
 #, c-format
 msgid " timed out.\n"
 msgstr " ਟਾਈਮ-ਆਉਟ।\n"
 
-#: src/urlget.c:441
+#: src/urlget.c:442
 #, c-format
 msgid " failed.\n"
 msgstr " ਫੇਲ੍ਹ ਹੈ।\n"
@@ -3765,10 +3387,24 @@ msgstr "ਆਉਟਪੁੱਟ ਫਾਇਲ \"%s\" ਬਣਾਈ ਨਹੀਂ ਜ�
 msgid "standard output"
 msgstr "ਸਟੈਂਡਰਡ ਆਉਟਪੁੱਟ"
 
+#: src/write-catalog.c:248 src/write-catalog.c:320 src/write-csharp.c:756
+#: src/write-desktop.c:185 src/write-java.c:1168 src/write-java.c:1209
+#: src/write-mo.c:1216 src/write-mo.c:1238 src/write-qt.c:754
+#: src/write-tcl.c:327 src/write-xml.c:79
+#, c-format
+msgid "error while writing \"%s\" file"
+msgstr "ਫਾਇਲ \"%s\" ਲਿਖਣ ਦੌਰਾਨ ਗਲਤੀ"
+
 #: src/write-csharp.c:711
 #, c-format
 msgid "failed to create directory \"%s\""
 msgstr "ਡਾਇਰੈਕਟਰੀ \"%s\" ਬਣਾਉਣ ਲਈ ਫੇਲ੍ਹ"
+
+#: src/write-csharp.c:747 src/write-java.c:1152 src/write-java.c:1160
+#: src/write-java.c:1188 src/write-java.c:1200
+#, c-format
+msgid "failed to create \"%s\""
+msgstr "\"%s\" ਬਣਾਉਣ ਲਈ ਫੇਲ੍ਹ ਹੈ"
 
 #: src/write-csharp.c:774
 #, c-format
@@ -4104,84 +3740,84 @@ msgstr ""
 msgid "XML tag at %s%s is not UTF-8 encoded."
 msgstr ""
 
-#: src/xgettext.c:594
+#: src/xgettext.c:595
 #, c-format
 msgid "'%s' is not a valid encoding name.  Using ASCII as fallback.\n"
 msgstr ""
 
-#: src/xgettext.c:664
+#: src/xgettext.c:665
 #, fuzzy, c-format
 #| msgid "language `%s' unknown"
 msgid "syntax check '%s' unknown"
 msgstr "ਲੈਗੂਇਜ਼ `%s' ਅਣਜਾਣ"
 
-#: src/xgettext.c:673
+#: src/xgettext.c:674
 #, c-format
 msgid "sentence end type '%s' unknown"
 msgstr ""
 
-#: src/xgettext.c:733
+#: src/xgettext.c:734
 #, c-format
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 
-#: src/xgettext.c:737
+#: src/xgettext.c:738
 #, c-format
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext ਲੱਭਣ ਵਾਲੇ ਸ਼ਬਦ ਤੋਂ ਬਿਨਾਂ ਕੰਮ ਨਹੀਂ ਕਰ ਸਕਦਾ"
 
-#: src/xgettext.c:875
+#: src/xgettext.c:876
 #, c-format
 msgid "warning: ITS rule file '%s' does not exist"
 msgstr ""
 
-#: src/xgettext.c:953
+#: src/xgettext.c:954
 #, c-format
 msgid ""
 "warning: a fallback ITS rule file '%s' is used; it may not be in sync with "
 "the upstream"
 msgstr ""
 
-#: src/xgettext.c:963
+#: src/xgettext.c:964
 #, c-format
 msgid ""
 "warning: ITS rule file '%s' does not exist; check your gettext installation"
 msgstr ""
 
-#: src/xgettext.c:981
+#: src/xgettext.c:982
 #, c-format
 msgid "warning: file '%s' extension '%s' is unknown; will try C"
 msgstr ""
 
-#: src/xgettext.c:1072
+#: src/xgettext.c:1073
 #, c-format
 msgid "Extract translatable strings from given input files.\n"
 msgstr ""
 
-#: src/xgettext.c:1095
+#: src/xgettext.c:1096
 #, c-format
 msgid ""
 "  -d, --default-domain=NAME   use NAME.po for output (instead of "
 "messages.po)\n"
 msgstr ""
 
-#: src/xgettext.c:1097
+#: src/xgettext.c:1098
 #, c-format
 msgid "  -o, --output=FILE           write output to specified file\n"
 msgstr ""
 
-#: src/xgettext.c:1099
+#: src/xgettext.c:1100
 #, c-format
 msgid ""
 "  -p, --output-dir=DIR        output files will be placed in directory DIR\n"
 msgstr ""
 
-#: src/xgettext.c:1104
+#: src/xgettext.c:1105
 #, c-format
 msgid "Choice of input file language:\n"
 msgstr "ਇੰਪੁੱਟ ਫਾਇਲ ਲੈਗੂਇਜ਼ ਦੀ ਚੋਣ:\n"
 
-#: src/xgettext.c:1106
+#: src/xgettext.c:1107
 #, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
@@ -4196,41 +3832,41 @@ msgid ""
 "                                Glade, Lua, JavaScript, Vala, Desktop)\n"
 msgstr ""
 
-#: src/xgettext.c:1113
+#: src/xgettext.c:1114
 #, c-format
 msgid "  -C, --c++                   shorthand for --language=C++\n"
 msgstr ""
 
-#: src/xgettext.c:1115
+#: src/xgettext.c:1116
 #, c-format
 msgid ""
 "By default the language is guessed depending on the input file name "
 "extension.\n"
 msgstr ""
 
-#: src/xgettext.c:1120
+#: src/xgettext.c:1121
 #, c-format
 msgid ""
 "      --from-code=NAME        encoding of input files\n"
 "                                (except for Python, Tcl, Glade)\n"
 msgstr ""
 
-#: src/xgettext.c:1123
+#: src/xgettext.c:1124
 #, c-format
 msgid "By default the input files are assumed to be in ASCII.\n"
 msgstr ""
 
-#: src/xgettext.c:1128
+#: src/xgettext.c:1129
 #, c-format
 msgid "  -j, --join-existing         join messages with existing file\n"
 msgstr ""
 
-#: src/xgettext.c:1130
+#: src/xgettext.c:1131
 #, c-format
 msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
 msgstr ""
 
-#: src/xgettext.c:1132
+#: src/xgettext.c:1133
 #, c-format
 msgid ""
 "  -cTAG, --add-comments=TAG   place comment blocks starting with TAG and\n"
@@ -4240,7 +3876,7 @@ msgid ""
 "                                in output file\n"
 msgstr ""
 
-#: src/xgettext.c:1137
+#: src/xgettext.c:1138
 #, c-format
 msgid ""
 "      --check=NAME            perform syntax check on messages\n"
@@ -4248,7 +3884,7 @@ msgid ""
 "                                 quote-unicode, bullet-unicode)\n"
 msgstr ""
 
-#: src/xgettext.c:1141
+#: src/xgettext.c:1142
 #, c-format
 msgid ""
 "      --sentence-end=TYPE     type describing the end of sentence\n"
@@ -4256,17 +3892,17 @@ msgid ""
 "                                 or double-space)\n"
 msgstr ""
 
-#: src/xgettext.c:1146
+#: src/xgettext.c:1147
 #, c-format
 msgid "Language specific options:\n"
 msgstr "ਲੈਗੂਇਜ਼ ਖਾਸ ਚੋਣਾਂ:\n"
 
-#: src/xgettext.c:1148
+#: src/xgettext.c:1149
 #, c-format
 msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all           ਸਭ ਲਾਇਨਾਂ ਕੱਢੋ\n"
 
-#: src/xgettext.c:1150
+#: src/xgettext.c:1151
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -4276,7 +3912,7 @@ msgid ""
 "                                Lua, JavaScript, Vala)\n"
 msgstr ""
 
-#: src/xgettext.c:1158
+#: src/xgettext.c:1159
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -4286,7 +3922,7 @@ msgid ""
 "                                Lua, JavaScript, Vala, Desktop)\n"
 msgstr ""
 
-#: src/xgettext.c:1163
+#: src/xgettext.c:1164
 #, c-format
 msgid ""
 "      --flag=WORD:ARG:FLAG    additional flag for strings inside the "
@@ -4294,7 +3930,7 @@ msgid ""
 "                              number ARG of keyword WORD\n"
 msgstr ""
 
-#: src/xgettext.c:1166
+#: src/xgettext.c:1167
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Shell,\n"
@@ -4304,7 +3940,7 @@ msgid ""
 "                                Lua, JavaScript, Vala)\n"
 msgstr ""
 
-#: src/xgettext.c:1171
+#: src/xgettext.c:1172
 #, c-format
 msgid ""
 "      --tag=WORD:FORMAT       defines the behaviour of tagged template "
@@ -4312,18 +3948,18 @@ msgid ""
 "                              with tag WORD\n"
 msgstr ""
 
-#: src/xgettext.c:1174
+#: src/xgettext.c:1175
 #, fuzzy, c-format
 #| msgid "                                (only language C++)\n"
 msgid "                                (only language JavaScript)\n"
 msgstr "                                (ਕੇਵਲ ਲੈਗੂਇਜ਼ C++)\n"
 
-#: src/xgettext.c:1176
+#: src/xgettext.c:1177
 #, c-format
 msgid "  -T, --trigraphs             understand ANSI C trigraphs for input\n"
 msgstr ""
 
-#: src/xgettext.c:1178
+#: src/xgettext.c:1179
 #, fuzzy, c-format
 #| msgid "                                (only language C++)\n"
 msgid ""
@@ -4331,84 +3967,84 @@ msgid ""
 "ObjectiveC)\n"
 msgstr "                                (ਕੇਵਲ ਲੈਗੂਇਜ਼ C++)\n"
 
-#: src/xgettext.c:1180
+#: src/xgettext.c:1181
 #, fuzzy, c-format
 #| msgid "  -f, --files-from=FILE       get list of input files from FILE\n"
 msgid "      --its=FILE              apply ITS rules from FILE\n"
 msgstr "  -f, --files-from=FILE       ਫਾਇਲ (FILE) ਤੋਂ ਇੰਪੁੱਟ ਫਾਇਲਾਂ ਦੀ ਸੂਚੀ ਲਵੋ\n"
 
-#: src/xgettext.c:1182
+#: src/xgettext.c:1183
 #, fuzzy, c-format
 #| msgid "                                (only language C++)\n"
 msgid "                                (only XML based languages)\n"
 msgstr "                                (ਕੇਵਲ ਲੈਗੂਇਜ਼ C++)\n"
 
-#: src/xgettext.c:1184
+#: src/xgettext.c:1185
 #, c-format
 msgid "      --qt                    recognize Qt format strings\n"
 msgstr ""
 
-#: src/xgettext.c:1186 src/xgettext.c:1190 src/xgettext.c:1194
+#: src/xgettext.c:1187 src/xgettext.c:1191 src/xgettext.c:1195
 #, c-format
 msgid "                                (only language C++)\n"
 msgstr "                                (ਕੇਵਲ ਲੈਗੂਇਜ਼ C++)\n"
 
-#: src/xgettext.c:1188
+#: src/xgettext.c:1189
 #, c-format
 msgid "      --kde                   recognize KDE 4 format strings\n"
 msgstr ""
 
-#: src/xgettext.c:1192
+#: src/xgettext.c:1193
 #, c-format
 msgid "      --boost                 recognize Boost format strings\n"
 msgstr ""
 
-#: src/xgettext.c:1196
+#: src/xgettext.c:1197
 #, c-format
 msgid ""
 "      --debug                 more detailed formatstring recognition result\n"
 msgstr ""
 
-#: src/xgettext.c:1221
+#: src/xgettext.c:1222
 #, c-format
 msgid "      --properties-output     write out a Java .properties file\n"
 msgstr ""
 
-#: src/xgettext.c:1225
+#: src/xgettext.c:1226
 #, fuzzy, c-format
 #| msgid "  -s, --short                 short host name\n"
 msgid "      --itstool               write out itstool comments\n"
 msgstr "  -s, --short                 ਛੋਟਾ ਹੋਸਟ ਨਾਂ\n"
 
-#: src/xgettext.c:1238
+#: src/xgettext.c:1239
 #, c-format
 msgid "      --copyright-holder=STRING  set copyright holder in output\n"
 msgstr ""
 
-#: src/xgettext.c:1240
+#: src/xgettext.c:1241
 #, c-format
 msgid ""
 "      --foreign-user          omit FSF copyright in output for foreign user\n"
 msgstr ""
 
-#: src/xgettext.c:1242
+#: src/xgettext.c:1243
 #, c-format
 msgid "      --package-name=PACKAGE  set package name in output\n"
 msgstr "      --package-name=PACKAGE  ਆਉਟਪੁੱਟ ਵਿੱਚ ਪੈਕੇਜ ਨਾਂ ਦਿਓ\n"
 
-#: src/xgettext.c:1244
+#: src/xgettext.c:1245
 #, c-format
 msgid "      --package-version=VERSION  set package version in output\n"
 msgstr "      --package-version=VERSION  ਆਉਟਪੁੱਟ ਵਿੱਚ ਪੈਕੇਜ ਵਰਜਨ ਦਿਓ\n"
 
-#: src/xgettext.c:1246
+#: src/xgettext.c:1247
 #, c-format
 msgid ""
 "      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
 msgstr ""
 "      --msgid-bugs-address=EMAIL@ADDRESS  msgid ਬੱਗ ਦੀ ਜਾਣਕਾਰੀ ਐਡਰੈਸ ਉੱਤੇ ਦਿਓ\n"
 
-#: src/xgettext.c:1248
+#: src/xgettext.c:1249
 #, c-format
 msgid ""
 "  -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for "
@@ -4416,7 +4052,7 @@ msgid ""
 "                                values\n"
 msgstr ""
 
-#: src/xgettext.c:1251
+#: src/xgettext.c:1252
 #, c-format
 msgid ""
 "  -M[STRING], --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for "
@@ -4424,18 +4060,18 @@ msgid ""
 "                                values\n"
 msgstr ""
 
-#: src/xgettext.c:1722
+#: src/xgettext.c:1723
 #, c-format
 msgid ""
 "A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: "
 "%s"
 msgstr ""
 
-#: src/xgettext.c:1889
+#: src/xgettext.c:1890
 msgid "standard input"
 msgstr "ਸਟੈਂਡਰਡ ਇੰਪੁੱਟ"
 
-#: src/xgettext.c:2077
+#: src/xgettext.c:2078
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -4443,7 +4079,7 @@ msgid ""
 "specify an --msgid-bugs-address command line option.\n"
 msgstr ""
 
-#: src/xgettext.c:2295
+#: src/xgettext.c:2296
 #, fuzzy, c-format
 #| msgid "language `%s' unknown"
 msgid "language '%s' unknown"
@@ -4908,12 +4544,75 @@ msgid "document ended unexpectedly: %s"
 msgstr ""
 
 #, c-format
+#~ msgid "Valid arguments are:"
+#~ msgstr "ਠੀਕ ਆਰਗੂਮੈਂਟ ਹਨ:"
+
+#, c-format
+#~ msgid "cannot find a temporary directory, try setting $TMPDIR"
+#~ msgstr ""
+#~ "ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ ਨਹੀਂ ਲੱਭੀ ਜਾ ਸਕਦੀ, $TMPDIR ਸੈਟਅੱਪ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕੀਤੀ ਜਾ ਰਹੀ ਹੈ"
+
+#, c-format
+#~ msgid "cannot create a temporary directory using template \"%s\""
+#~ msgstr "ਟੈਪਲੇਟ \"%s\" ਦੀ ਵਰਤੋਂ ਕਰਕੇ ਆਰਜ਼ੀ ਡਾਇਰੈਕਟਰੀ ਬਣਾਈ ਨਹੀਂ ਜਾ ਸਕਦੀ"
+
+#, c-format
+#~ msgid "cannot remove temporary file %s"
+#~ msgstr "ਆਰਜ਼ੀ ਫਾਇਲ %s ਹਟਾਈ ਨਹੀਂ ਜਾ ਸਕਦੀ"
+
+#~ msgid "write error"
+#~ msgstr "ਲਿਖਣ ਗਲਤੀ"
+
+#, c-format
+#~ msgid "cannot open backup file \"%s\" for writing"
+#~ msgstr "ਲਿਖਣ ਲਈ ਬੈਕਅੱਪ ਫਾਇਲ \"%s\" ਖੋਲ੍ਹੀ ਨਹੀਂ ਜਾ ਸਕਦੀ"
+
+#, c-format
+#~ msgid "error writing \"%s\""
+#~ msgstr "\"%s\" ਲਿਖਣ ਦੌਰਾਨ ਗਲਤੀ"
+
+#, c-format
+#~ msgid "C# compiler not found, try installing pnet"
+#~ msgstr "C# ਕੰਪਾਇਲਰ ਨਹੀਂ ਲੱਭਿਆ, pnet ਇੰਸਟਾਲ ਕਰਨ ਦੀ ਕੋਸ਼ਿਸ਼ ਕਰੋ"
+
+#~ msgid "Unknown system error"
+#~ msgstr "ਅਣਜਾਣ ਸਿਸਟਮ ਗਲਤੀ"
+
+#, c-format
+#~ msgid "%s subprocess failed"
+#~ msgstr "%s ਸਬ-ਪ੍ਰੋਸੈਸ ਫੇਲ੍ਹ ਹੋਇਆ"
+
+#, c-format
+#~ msgid "%s: option '%s' is ambiguous\n"
+#~ msgstr "%s: ਚੋਣ '%s' ਗਲਤ ਹੈ\n"
+
+#, c-format
 #~ msgid "%s: option '--%s' doesn't allow an argument\n"
 #~ msgstr "%s: ਚੋਣ '--%s' ਇੱਕ ਆਰਗੂਮੈਂਟ ਨਹੀਂ ਲੈਂਦੀ\n"
 
 #, c-format
+#~ msgid "%s: option '%c%s' doesn't allow an argument\n"
+#~ msgstr "%s: ਚੋਣ '%c%s' ਇੱਕ ਆਰਗੂਮੈਂਟ ਨਹੀਂ ਲੈਂਦੀ\n"
+
+#, c-format
+#~ msgid "%s: option '--%s' requires an argument\n"
+#~ msgstr "%s: ਚੋਣ '--%s' ਲਈ ਇੱਕ ਆਰਗੂਮੈਂਟ ਚਾਹੀਦਾ\n"
+
+#, c-format
 #~ msgid "%s: unrecognized option '--%s'\n"
 #~ msgstr "%s: ਅਣਜਾਣ ਚੋਣ '--%s'\n"
+
+#, c-format
+#~ msgid "%s: unrecognized option '%c%s'\n"
+#~ msgstr "%s: ਅਣਜਾਣ ਚੋਣ '%c%s'\n"
+
+#, c-format
+#~ msgid "%s: invalid option -- '%c'\n"
+#~ msgstr "%s: ਗਲਤ ਚੋਣ -- '%c'\n"
+
+#, c-format
+#~ msgid "%s: option requires an argument -- '%c'\n"
+#~ msgstr "%s: ਚੋਣ ਲਈ ਆਰਗੂਮੈਂਟ ਚਾਹੀਦਾ ਹੈ --'%c'\n"
 
 #, fuzzy, c-format
 #~ msgid "%s: option '-W %s' is ambiguous\n"
@@ -4922,6 +4621,24 @@ msgstr ""
 #, fuzzy, c-format
 #~ msgid "%s: option '-W %s' doesn't allow an argument\n"
 #~ msgstr "%s: ਚੋਣ '-W %s' ਲਈ ਕੋਈ ਆਰਗੂਮੈਂਟ ਨਹੀਂ ਚਾਹੀਦਾ\n"
+
+#~ msgid "`"
+#~ msgstr "`"
+
+#~ msgid "'"
+#~ msgstr "'"
+
+#, c-format
+#~ msgid "_open_osfhandle failed"
+#~ msgstr "_open_osfhandle ਫੇਲ੍ਹ ਹੈ"
+
+#, c-format
+#~ msgid "cannot restore fd %d: dup2 failed"
+#~ msgstr "fd %d ਰੀਸਟੋਰ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ: dup2 ਫੇਲ੍ਹ ਹੈ"
+
+#, c-format
+#~ msgid "%s subprocess"
+#~ msgstr "%s ਸਬ-ਪ੍ਰੋਸੈਸ"
 
 #~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
 #~ msgstr "ਬੱਗ ਬਾਰੇ ਜਾਣਕਾਰੀ <bug-gnu-gettext@gnu.org> ਨੂੰ ਭੇਜੋ।\n"
