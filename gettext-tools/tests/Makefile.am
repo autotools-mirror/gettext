@@ -261,6 +261,7 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	xgettext-1 \
 	xgettext-c-1 xg-c-comment-6.c xg-c-escape-3.c xg-vala-2.vala \
 	common/supplemental/plurals.xml \
+	testdata/crlf.pot \
 	testdata/nonascii.pot \
 	testdata/tcltest_pl.po testdata/tcltest_pl.msg \
 	testdata/tcltest_cs.po testdata/tcltest_cs.msg \
