@@ -571,7 +571,7 @@ mbfile_init (mbfile_t mbf, FILE *stream)
 {
   mbf->fp = stream;
   mbf->eof_seen = false;
-  mbf->have_pushback = 0;
+  mbf->pushback_count = 0;
   mbf->bufcount = 0;
 }
 
@@ -582,18 +582,18 @@ mbfile_getc (struct po_parser_state *ps, mbchar_t mbc, mbfile_t mbf)
 {
   size_t bytes;
 
+  /* Return character pushed back, if there is one.  */
+  if (mbf->pushback_count > 0)
+    {
+      mbf->pushback_count--;
+      mb_copy (mbc, &mbf->pushback[mbf->pushback_count]);
+      return;
+    }
+
   /* If EOF has already been seen, don't use getc.  This matters if
      mbf->fp is connected to an interactive tty.  */
   if (mbf->eof_seen)
     goto eof;
-
-  /* Return character pushed back, if there is one.  */
-  if (mbf->have_pushback > 0)
-    {
-      mbf->have_pushback--;
-      mb_copy (mbc, &mbf->pushback[mbf->have_pushback]);
-      return;
-    }
 
   /* Before using iconv, we need at least one byte.  */
   if (mbf->bufcount == 0)
@@ -791,10 +791,10 @@ eof:
 static void
 mbfile_ungetc (const mbchar_t mbc, mbfile_t mbf)
 {
-  if (mbf->have_pushback >= NPUSHBACK)
+  if (mbf->pushback_count >= MBFILE_MAX_PUSHBACK)
     abort ();
-  mb_copy (&mbf->pushback[mbf->have_pushback], mbc);
-  mbf->have_pushback++;
+  mb_copy (&mbf->pushback[mbf->pushback_count], mbc);
+  mbf->pushback_count++;
 }
 
 
@@ -830,6 +830,35 @@ lex_end (struct po_parser_state *ps)
 }
 
 
+/* Read a single character, collapsing the Windows CRLF line terminator
+   to a single LF.
+   Supports 1 character of pushback (via mbfile_ungetc).  */
+static void
+mbfile_getc_normalized (struct po_parser_state *ps, mbchar_t mbc, mbfile_t mbf)
+{
+  mbfile_getc (ps, mbc, ps->mbf);
+  if (!mb_iseof (mbc) && mb_iseq (mbc, '\r'))
+    {
+      mbchar_t mbc2;
+
+      mbfile_getc (ps, mbc2, ps->mbf);
+      if (!mb_iseof (mbc2))
+        {
+          if (mb_iseq (mbc2, '\n'))
+            /* Eliminate the CR.  */
+            mb_copy (mbc, mbc2);
+          else
+            {
+              mbfile_ungetc (mbc2, ps->mbf);
+              /* If we get here, the caller can still do
+                   mbfile_ungetc (mbc, ps->mbf);
+                 since mbfile_getc supports 2 characters of pushback.  */
+            }
+        }
+    }
+}
+
+
 /* Read a single character, dealing with backslash-newline.
    Also keep track of the current line number and column number.  */
 static void
@@ -837,7 +866,7 @@ lex_getc (struct po_parser_state *ps, mbchar_t mbc)
 {
   for (;;)
     {
-      mbfile_getc (ps, mbc, ps->mbf);
+      mbfile_getc_normalized (ps, mbc, ps->mbf);
 
       if (mb_iseof (mbc))
         {
@@ -867,7 +896,7 @@ lex_getc (struct po_parser_state *ps, mbchar_t mbc)
         {
           mbchar_t mbc2;
 
-          mbfile_getc (ps, mbc2, ps->mbf);
+          mbfile_getc_normalized (ps, mbc2, ps->mbf);
 
           if (mb_iseof (mbc2))
             {

@@ -56,18 +56,19 @@ typedef struct mbchar mbchar_t[1];
 
 
 /* Number of characters that can be pushed back.
-   We need 1 for lex_getc, plus 1 for lex_ungetc.  */
-#define NPUSHBACK 2
+   We need 1 for mbfile_getc_normalized, plus 1 for lex_getc,
+   plus 1 for lex_ungetc.  */
+#define MBFILE_MAX_PUSHBACK 3
 
 /* Data type of a multibyte character input stream.  */
 struct mbfile
 {
   FILE *fp;
   bool eof_seen;
-  int have_pushback;
+  unsigned int pushback_count; /* <= MBFILE_MAX_PUSHBACK */
   unsigned int bufcount;
   char buf[MBCHAR_BUF_SIZE];
-  struct mbchar pushback[NPUSHBACK];
+  struct mbchar pushback[MBFILE_MAX_PUSHBACK];
 };
 
 /* We want to pass multibyte streams by reference automatically,
