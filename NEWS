@@ -1,3 +1,10 @@
+Version 0.23.1 - December 2024
+
+* Bug fixes:
+  - Building with libxml2 >= 2.12.0 and gcc >= 14 now works.
+  - XML: The value of the xml:lang attribute, inserted by msgfmt, is now
+    more correct.
+
 Version 0.23 - December 2024
 
 # Internationalized data formats:
