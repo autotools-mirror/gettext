@@ -1,5 +1,5 @@
 /* Python brace format strings.
-   Copyright (C) 2004, 2006-2007, 2013-2014, 2016, 2019, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2004-2024 Free Software Foundation, Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2013.
 
    This program is free software: you can redistribute it and/or modify
@@ -462,8 +462,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       unsigned int n1 = spec1->named_arg_count;
       unsigned int n2 = spec2->named_arg_count;
 
-      /* Check the argument names in spec1 are contained in those of spec2.
-         Both arrays are sorted.  We search for the differences.  */
+      /* Check the argument names in spec2 are contained in those of spec1.
+         Both arrays are sorted.  We search for the first difference.  */
       for (i = 0, j = 0; i < n1 || j < n2; )
         {
           int cmp = (i >= n1 ? 1 :
@@ -472,17 +472,13 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
           if (cmp > 0)
             {
-              if (equality)
-                {
-                  if (error_logger)
-                    error_logger (error_logger_data,
-                                  _("a format specification for argument '%s' doesn't exist in '%s'"),
-                                  spec2->named[i].name, pretty_msgid);
-                  err = true;
-                  break;
-                }
-              else
-                j++;
+              if (error_logger)
+                error_logger (error_logger_data,
+                              _("a format specification for argument '%s', as in '%s', doesn't exist in '%s'"),
+                              spec2->named[j].name, pretty_msgstr,
+                              pretty_msgid);
+              err = true;
+              break;
             }
           else if (cmp < 0)
             {
