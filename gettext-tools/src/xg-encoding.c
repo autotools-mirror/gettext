@@ -1,5 +1,5 @@
 /* Keeping track of the encoding of strings to be extracted.
-   Copyright (C) 2001-2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -220,8 +220,7 @@ string_desc_from_current_source_encoding (string_desc_t string,
     }
   else if (xgettext_current_source_encoding == po_charset_utf8)
     {
-      if (u8_check ((const uint8_t *) string_desc_data (string),
-                    string_desc_length (string))
+      if (u8_check ((const uint8_t *) sd_data (string), sd_length (string))
           != NULL)
         {
           multiline_error (xstrdup (""),

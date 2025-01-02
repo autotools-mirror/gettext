@@ -1,5 +1,5 @@
 /* xgettext PHP backend.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2002.
 
@@ -1320,14 +1320,14 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
                     bool heredoc = true;
                     string_desc_t label = sb_contents (&buffer);
                     size_t label_start = 0;
-                    size_t label_end = string_desc_length (label);
+                    size_t label_end = sd_length (label);
                     if (label_end >= 2
-                        && ((string_desc_char_at (label, label_start) == '\''
-                             && string_desc_char_at (label, label_end - 1) == '\'')
-                            || (string_desc_char_at (label, label_start) == '"'
-                                && string_desc_char_at (label, label_end - 1) == '"')))
+                        && ((sd_char_at (label, label_start) == '\''
+                             && sd_char_at (label, label_end - 1) == '\'')
+                            || (sd_char_at (label, label_start) == '"'
+                                && sd_char_at (label, label_end - 1) == '"')))
                       {
-                        heredoc = (string_desc_char_at (label, label_start) == '"');
+                        heredoc = (sd_char_at (label, label_start) == '"');
                         label_start++;
                         label_end--;
                       }
@@ -1368,7 +1368,7 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
                           }
                         else if (in_label_pos >= 0
                                  && in_label_pos < label_end - label_start
-                                 && c == string_desc_char_at (label, label_start + in_label_pos))
+                                 && c == sd_char_at (label, label_start + in_label_pos))
                           {
                             in_label_pos++;
                           }

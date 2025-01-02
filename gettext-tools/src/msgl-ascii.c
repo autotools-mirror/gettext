@@ -1,5 +1,5 @@
 /* Message list test for ASCII character set.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -41,10 +41,10 @@ is_ascii_string (const char *string)
 bool
 is_ascii_string_desc (string_desc_t string)
 {
-  size_t len = string_desc_length (string);
+  size_t len = sd_length (string);
   size_t i;
   for (i = 0; i < len; i++)
-    if (!c_isascii ((unsigned char) string_desc_char_at (string, i)))
+    if (!c_isascii ((unsigned char) sd_char_at (string, i)))
       return false;
   return true;
 }

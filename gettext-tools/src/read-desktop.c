@@ -1,5 +1,5 @@
 /* Reading Desktop Entry files.
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
    This file was written by Daiki Ueno <ueno@gnu.org>.
 
    This program is free software: you can redistribute it and/or modify
@@ -333,7 +333,7 @@ desktop_lex (token_ty *tp)
                     /* Finish the key part and start the locale part.  */
                     APPEND (0);
                     found_locale = true;
-                    locale_start = string_desc_length (sb_contents (&buffer));
+                    locale_start = sd_length (sb_contents (&buffer));
 
                     for (;;)
                       {
@@ -406,7 +406,7 @@ desktop_lex (token_ty *tp)
               }
 
             size_t before_value_lineno = pos.line_number;
-            value_start = string_desc_length (sb_contents (&buffer));
+            value_start = sd_length (sb_contents (&buffer));
             for (;;)
               {
                 c = phase2_getc ();

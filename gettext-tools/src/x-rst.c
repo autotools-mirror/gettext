@@ -1,5 +1,5 @@
 /* xgettext RST/RSJ backend.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -357,7 +357,7 @@ parse_integer ()
       c = phase1_getc ();
     }
   phase1_ungetc (c);
-  return (string_desc_length (sb_contents (&buffer)) == 0 ? pr_none : pr_parsed);
+  return (sd_length (sb_contents (&buffer)) == 0 ? pr_none : pr_parsed);
 }
 
 static struct mixed_string_buffer stringbuf;

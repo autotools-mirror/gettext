@@ -1,5 +1,5 @@
 /* Substitution of environment variables in shell format strings.
-   Copyright (C) 2003-2024 Free Software Foundation, Inc.
+   Copyright (C) 2003-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -549,7 +549,7 @@ subst_from_stdin ()
                   putchar ('$');
                   if (opening_brace)
                     putchar ('{');
-                  string_desc_fwrite (stdout, sb_contents (&buffer));
+                  sd_fwrite (stdout, sb_contents (&buffer));
                   if (closing_brace)
                     putchar ('}');
                 }

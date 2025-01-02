@@ -1,5 +1,5 @@
 /* Internationalization Tag Set (ITS) handling
-   Copyright (C) 2015-2024 Free Software Foundation, Inc.
+   Copyright (C) 2015-2025 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -2242,9 +2242,9 @@ set_doc_encoding_utf8 (xmlDoc *doc)
       doc->encoding = BAD_CAST xstrdup ("UTF-8");
       return true;
     }
-  string_desc_t enc = string_desc_from_c ((char *) doc->encoding);
-  if (string_desc_c_casecmp (enc, string_desc_from_c ("UTF-8")) == 0
-      || string_desc_c_casecmp (enc, string_desc_from_c ("UTF8")) == 0)
+  string_desc_t enc = sd_from_c ((char *) doc->encoding);
+  if (sd_c_casecmp (enc, sd_from_c ("UTF-8")) == 0
+      || sd_c_casecmp (enc, sd_from_c ("UTF8")) == 0)
     return true;
   /* The document's encoding is not UTF-8.  Conversion would be expensive.  */
   return false;
@@ -2340,9 +2340,8 @@ _its_is_valid_simple_gen_xml (const char *contents,
           if (add_to_node != NULL && !slash_before_tag)
             {
               string_desc_t name =
-                string_desc_new_addr (name_end - name_start,
-                                      (char *) name_start);
-              char *name_c = xstring_desc_c (name);
+                sd_new_addr (name_end - name_start, (char *) name_start);
+              char *name_c = xsd_c (name);
               if (ignore_case)
                 {
                   /* Convert the name to lower case.  */
@@ -2433,13 +2432,13 @@ _its_is_valid_simple_gen_xml (const char *contents,
                   if (add_to_node != NULL)
                     {
                       string_desc_t attr_name =
-                        string_desc_new_addr (attr_name_end - attr_name_start,
-                                              (char *) attr_name_start);
+                        sd_new_addr (attr_name_end - attr_name_start,
+                                     (char *) attr_name_start);
                       string_desc_t attr_value =
-                        string_desc_new_addr (attr_value_end - attr_value_start,
-                                              (char *) attr_value_start);
-                      char *attr_name_c = xstring_desc_c (attr_name);
-                      char *attr_value_c = xstring_desc_c (attr_value);
+                        sd_new_addr (attr_value_end - attr_value_start,
+                                     (char *) attr_value_start);
+                      char *attr_name_c = xsd_c (attr_name);
+                      char *attr_value_c = xsd_c (attr_value);
                       xmlAttr *attr =
                         xmlNewProp (current_node, BAD_CAST attr_name_c,
                                     BAD_CAST attr_value_c);
@@ -2475,7 +2474,7 @@ _its_is_valid_simple_gen_xml (const char *contents,
           /* Seen a complete <...> element start/end.  */
           /* Verify that the tag is allowed.  */
           string_desc_t tag =
-            string_desc_new_addr (name_end - name_start, (char *) name_start);
+            sd_new_addr (name_end - name_start, (char *) name_start);
           if (!(valid_element == NULL || valid_element (tag)))
             return false;
           if (slash_after_tag || (no_end_element != NULL && no_end_element (tag)))
@@ -2499,7 +2498,7 @@ _its_is_valid_simple_gen_xml (const char *contents,
               if (open_elements_count == 0)
                 /* The end of an element without a corresponding start.  */
                 return false;
-              if ((ignore_case ? string_desc_c_casecmp : string_desc_cmp)
+              if ((ignore_case ? sd_c_casecmp : sd_cmp)
                   (open_elements[open_elements_count - 1], tag)
                   != 0)
                 return false;
@@ -2666,7 +2665,7 @@ is_valid_xhtml_element (string_desc_t tag)
       /* Invariant:
          If tag occurs in the table, it is at an index >= lo, < hi.  */
       size_t i = (lo + hi) / 2; /* >= lo, < hi */
-      int cmp = string_desc_cmp (tag, string_desc_from_c (allowed[i]));
+      int cmp = sd_cmp (tag, sd_from_c (allowed[i]));
       if (cmp == 0)
         return true;
       if (cmp < 0)
@@ -2764,7 +2763,7 @@ is_valid_html_element (string_desc_t tag)
       /* Invariant:
          If tag occurs in the table, it is at an index >= lo, < hi.  */
       size_t i = (lo + hi) / 2; /* >= lo, < hi */
-      int cmp = string_desc_cmp (tag, string_desc_from_c (allowed[i]));
+      int cmp = sd_cmp (tag, sd_from_c (allowed[i]));
       if (cmp == 0)
         return true;
       if (cmp < 0)
@@ -2781,8 +2780,8 @@ is_no_end_html_element (string_desc_t tag)
   /* Specification:
      https://html.spec.whatwg.org/
      Search for "Tag omission in text/html: No end tag."  */
-  return string_desc_cmp (tag, string_desc_from_c ("br")) == 0
-         || string_desc_cmp (tag, string_desc_from_c ("hr")) == 0;
+  return sd_cmp (tag, sd_from_c ("br")) == 0
+         || sd_cmp (tag, sd_from_c ("hr")) == 0;
 }
 
 /* Returns true if the argument is a piece of simple well-formed HTML

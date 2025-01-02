@@ -1,5 +1,5 @@
 /* Message list charset and locale charset handling.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -102,13 +102,13 @@ convert_string_desc_directly (iconv_t cd, string_desc_t string,
   char *result = NULL;
   size_t resultlen = 0;
 
-  if (xmem_cd_iconv (string_desc_data (string), string_desc_length (string),
+  if (xmem_cd_iconv (sd_data (string), sd_length (string),
                      cd, &result, &resultlen) == 0)
-    return string_desc_new_addr (resultlen, result);
+    return sd_new_addr (resultlen, result);
 
   conversion_error (context, textmode_xerror_handler);
   /* NOTREACHED */
-  return string_desc_new_empty ();
+  return sd_new_empty ();
 }
 
 static char *

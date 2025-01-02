@@ -1,5 +1,5 @@
 /* xgettext YCP backend.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
@@ -162,7 +162,7 @@ phase2_getc ()
               if (c == '\n' || c == EOF)
                 break;
               /* We skip all leading white space, but not EOLs.  */
-              if (!(string_desc_length (sb_contents (&buffer)) == 0
+              if (!(sd_length (sb_contents (&buffer)) == 0
                     && (c == ' ' || c == '\t')))
                 sb_xappend1 (&buffer, c);
             }
@@ -200,7 +200,7 @@ phase2_getc ()
                     break;
                   }
                 /* We skip all leading white space, but not EOLs.  */
-                if (string_desc_length (sb_contents (&buffer)) == 0
+                if (sd_length (sb_contents (&buffer)) == 0
                     && (c == ' ' || c == '\t'))
                   continue;
                 sb_xappend1 (&buffer, c);
@@ -257,7 +257,7 @@ phase2_getc ()
                 if (c == '\n' || c == EOF)
                   break;
                 /* We skip all leading white space, but not EOLs.  */
-                if (!(string_desc_length (sb_contents (&buffer)) == 0
+                if (!(sd_length (sb_contents (&buffer)) == 0
                       && (c == ' ' || c == '\t')))
                   sb_xappend1 (&buffer, c);
               }
@@ -474,8 +474,8 @@ phase5_get (token_ty *tp)
                   default:
                     {
                       string_desc_t contents = sb_contents (&buffer);
-                      if (string_desc_length (contents) == 1
-                          && string_desc_char_at (contents, 0) == '_'
+                      if (sd_length (contents) == 1
+                          && sd_char_at (contents, 0) == '_'
                           && c == '(')
                         {
                           sb_free (&buffer);

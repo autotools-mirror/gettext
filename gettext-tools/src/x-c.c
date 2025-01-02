@@ -1,5 +1,5 @@
 /* xgettext C/C++/ObjectiveC backend.
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -1345,8 +1345,8 @@ phase5_get (token_ty *tp)
               case '"':
                 {
                   string_desc_t contents = sb_contents (&buffer);
-                  const char *buf = string_desc_data (contents);
-                  size_t buflen = string_desc_length (contents);
+                  const char *buf = sd_data (contents);
+                  size_t buflen = sd_length (contents);
 
                   /* Recognize C11 / C++11 string literals.
                      See (for C) ISO 9899:2011 section 6.4.5
@@ -1464,8 +1464,8 @@ phase5_get (token_ty *tp)
 
                               /* Update the state.  */
                               string_desc_t raw_contents = sb_contents (&buffer);
-                              const char *raw_buf = string_desc_data (raw_contents);
-                              size_t raw_buflen = string_desc_length (raw_contents);
+                              const char *raw_buf = sd_data (raw_contents);
+                              size_t raw_buflen = sd_length (raw_contents);
                               if (c == (state < raw_buflen ? raw_buf[state] : '"'))
                                 {
                                   if (state < raw_buflen)
@@ -1650,11 +1650,10 @@ phase5_get (token_ty *tp)
                        can be part of a number token.  It's called a "digit
                        separator".  See ISO C 23 § 6.4.4.1 and § 6.4.4.2.  */
                     string_desc_t contents = sb_contents (&buffer);
-                    if (string_desc_length (contents) > 0)
+                    if (sd_length (contents) > 0)
                       {
                         char prev =
-                          string_desc_char_at (contents,
-                                               string_desc_length (contents) - 1);
+                          sd_char_at (contents, sd_length (contents) - 1);
                         if ((prev >= '0' && prev <= '9')
                             || (prev >= 'A' && prev <= 'F')
                             || (prev >= 'a' && prev <= 'f'))
