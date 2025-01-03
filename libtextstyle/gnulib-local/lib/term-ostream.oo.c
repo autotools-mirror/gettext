@@ -2683,8 +2683,8 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
                    (strlen (term) > 9
                     && strcmp (term + strlen (term) - 9, "-256color") == 0)
                 || /* Recognize *-direct.  */
-                   (strlen (term) > 8
-                    && strcmp (term + strlen (term) - 8, "-direct") == 0))
+                   (strlen (term) > 7
+                    && strcmp (term + strlen (term) - 7, "-direct") == 0))
             ? (/* Note: For recognizing cm_xtermrgb,
                   <https://github.com/termstandard/colors> recommends to test
                   getenv ("COLORTERM"), but it does not seem like a good idea.
