@@ -19,6 +19,7 @@ get_ppid_of
 get_progname_of
 stdint-h
 str_startswith
+str_endswith
 terminfo-h
 xalloc
 xgethostname

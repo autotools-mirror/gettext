@@ -2677,14 +2677,11 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
             && (/* Recognize xterm-16color, xterm-88color, xterm-256color.  */
                 (strlen (term) >= 5 && memcmp (term, "xterm", 5) == 0)
                 || /* Recognize *-16color.  */
-                   (strlen (term) > 8
-                    && strcmp (term + strlen (term) - 8, "-16color") == 0)
+                   (strlen (term) > 8 && str_endswith (term, "-16color"))
                 || /* Recognize *-256color.  */
-                   (strlen (term) > 9
-                    && strcmp (term + strlen (term) - 9, "-256color") == 0)
+                   (strlen (term) > 9 && str_endswith (term, "-256color"))
                 || /* Recognize *-direct.  */
-                   (strlen (term) > 7
-                    && strcmp (term + strlen (term) - 7, "-direct") == 0))
+                   (strlen (term) > 7 && str_endswith (term, "-direct")))
             ? (/* Note: For recognizing cm_xtermrgb,
                   <https://github.com/termstandard/colors> recommends to test
                   getenv ("COLORTERM"), but it does not seem like a good idea.
