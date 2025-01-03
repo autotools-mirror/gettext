@@ -1,5 +1,5 @@
 /* Output stream for attributed text, producing ANSI escape sequences.
-   Copyright (C) 2006-2008, 2017, 2019-2020, 2022-2024 Free Software Foundation, Inc.
+   Copyright (C) 2006-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -2689,6 +2689,11 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
                   <https://github.com/termstandard/colors> recommends to test
                   getenv ("COLORTERM"), but it does not seem like a good idea.
                   It's more of a quick hack that causes long-term problems.  */
+               /* Note: The strange test against 0x7fff is because ncurses
+                  versions < 6.1 did not support 32-bit values as result of
+                  tgetnum(), see <https://stackoverflow.com/questions/36158093/>
+                  and <https://invisible-island.net/ncurses/announce-6.1.html>.
+                */
                stream->max_colors >= 0x7fff ? cm_xtermrgb :
                stream->max_colors == 256 ? cm_xterm256 :
                stream->max_colors == 88 ? cm_xterm88 :
@@ -2707,7 +2712,10 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
         (stream->enter_underline_mode != NULL
          && (stream->exit_underline_mode != NULL
              || stream->exit_attribute_mode != NULL));
-      /* TODO: Use a terminfo capability, once ncurses implements it.  */
+      /* TODO: Use a terminfo capability, once ncurses implements it.
+         Reported at
+         <https://lists.gnu.org/archive/html/bug-ncurses/2025-01/msg00002.html>
+       */
       stream->supports_hyperlink = should_enable_hyperlinks (term);
 
       /* Infer the restore strings.  */
