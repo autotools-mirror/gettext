@@ -1,5 +1,5 @@
 /* markup.c -- simple XML-like parser
-   Copyright (C) 2015-2024 Free Software Foundation, Inc.
+   Copyright (C) 2015-2025 Free Software Foundation, Inc.
 
    This file is not part of the GNU gettext program, but is used with
    GNU gettext.
@@ -387,13 +387,10 @@ slow_name_validate (markup_parse_context_ty *context, const char *name)
        p = (const char *) u8_next (&uc, (const uint8_t *) p))
     {
       /* is_name_char */
-      if (!(c_isalnum (*p) ||
-            (!IS_COMMON_NAME_END_CHAR (*p) &&
-             (*p == '.' ||
-              *p == '-' ||
-              *p == '_' ||
-              *p == ':' ||
-              uc_is_alpha (uc)))))
+      if (!(c_isalnum (*p)
+            || (!IS_COMMON_NAME_END_CHAR (*p)
+                && (*p == '.' || *p == '-' || *p == '_' || *p == ':'
+                    || uc_is_alpha (uc)))))
         {
           char *error_text = xasprintf (_("'%s' is not a valid name: '%c'"),
                                         name, *p);
@@ -541,9 +538,8 @@ unescape_string_inplace (markup_parse_context_ty *context,
               else
                 {
                   /* characters XML 1.1 permits */
-                  if ((0 < l && l <= 0xD7FF) ||
-                      (0xE000 <= l && l <= 0xFFFD) ||
-                      (0x10000 <= l && l <= 0x10FFFF))
+                  if ((0 < l && l <= 0xD7FF)
+                      || (0xE000 <= l && l <= 0xFFFD) || (0x10000 <= l && l <= 0x10FFFF))
                     {
                       char buf[8];
                       int length;
@@ -775,10 +771,8 @@ clear_attributes (markup_parse_context_ty *context)
       context->attr_names[pos] = context->attr_values[pos] = NULL;
     }
   assert (context->cur_attr == -1);
-  assert (context->attr_names == NULL ||
-          context->attr_names[0] == NULL);
-  assert (context->attr_values == NULL ||
-          context->attr_values[0] == NULL);
+  assert (context->attr_names == NULL || context->attr_names[0] == NULL);
+  assert (context->attr_values == NULL || context->attr_values[0] == NULL);
 }
 
 static void
@@ -966,8 +960,7 @@ markup_parse_context_parse (markup_parse_context_ty *context,
           /* Possible next states: INSIDE_OPEN_TAG_NAME,
            *  AFTER_CLOSE_TAG_SLASH, INSIDE_PASSTHROUGH
            */
-          if (*context->iter == '?' ||
-              *context->iter == '!')
+          if (*context->iter == '?' || *context->iter == '!')
             {
               /* include < in the passthrough */
               const char *openangle = "<";
@@ -1147,8 +1140,8 @@ markup_parse_context_parse (markup_parse_context_ty *context,
               /* If we're done with attributes, invoke
                * the start_element callback
                */
-              if (context->state == STATE_AFTER_ELISION_SLASH ||
-                  context->state == STATE_AFTER_CLOSE_ANGLE)
+              if (context->state == STATE_AFTER_ELISION_SLASH
+                  || context->state == STATE_AFTER_CLOSE_ANGLE)
                 emit_start_element (context);
             }
           break;
@@ -1377,14 +1370,14 @@ markup_parse_context_parse (markup_parse_context_ty *context,
 
                   if (str[1] == '?' && str[len - 1] == '?')
                     break;
-                  if (strncmp (str, "<!--", 4) == 0 &&
-                      strcmp (str + len - 2, "--") == 0)
+                  if (strncmp (str, "<!--", 4) == 0
+                      && strcmp (str + len - 2, "--") == 0)
                     break;
-                  if (strncmp (str, "<![CDATA[", 9) == 0 &&
-                      strcmp (str + len - 2, "]]") == 0)
+                  if (strncmp (str, "<![CDATA[", 9) == 0
+                      && strcmp (str + len - 2, "]]") == 0)
                     break;
-                  if (strncmp (str, "<!DOCTYPE", 9) == 0 &&
-                      context->balance == 0)
+                  if (strncmp (str, "<!DOCTYPE", 9) == 0
+                      && context->balance == 0)
                     break;
                 }
             }
@@ -1407,22 +1400,22 @@ markup_parse_context_parse (markup_parse_context_ty *context,
               advance_char (context); /* advance past close angle */
               add_to_partial (context, context->start, context->iter);
 
-              if (context->flags & MARKUP_TREAT_CDATA_AS_TEXT &&
-                  strncmp (context->partial_chunk->buffer, "<![CDATA[", 9) == 0)
+              if (context->flags & MARKUP_TREAT_CDATA_AS_TEXT
+                  && strncmp (context->partial_chunk->buffer, "<![CDATA[", 9) == 0)
                 {
-                  if (context->parser->text &&
-                      text_validate (context,
-                                     context->partial_chunk->buffer + 9,
-                                     context->partial_chunk->buflen - 12))
+                  if (context->parser->text
+                      && text_validate (context,
+                                        context->partial_chunk->buffer + 9,
+                                        context->partial_chunk->buflen - 12))
                     (*context->parser->text) (context,
                                               context->partial_chunk->buffer + 9,
                                               context->partial_chunk->buflen - 12,
                                               context->user_data);
                 }
-              else if (context->parser->passthrough &&
-                       text_validate (context,
-                                      context->partial_chunk->buffer,
-                                      context->partial_chunk->buflen))
+              else if (context->parser->passthrough
+                       && text_validate (context,
+                                         context->partial_chunk->buffer,
+                                         context->partial_chunk->buflen))
                 (*context->parser->passthrough) (context,
                                                  context->partial_chunk->buffer,
                                                  context->partial_chunk->buflen,
