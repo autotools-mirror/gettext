@@ -18,6 +18,7 @@ gettimeofday
 get_ppid_of
 get_progname_of
 stdint-h
+str_startswith
 terminfo-h
 xalloc
 xgethostname

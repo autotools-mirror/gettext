@@ -2351,7 +2351,7 @@ should_enable_hyperlinks (const char *term)
            --------------------+-------------+---------------------
            emacs-terminal 26.1 | eterm-color | produces garbage
        */
-      if (strncmp (term, "eterm", 5) == 0)
+      if (str_startswith (term, "eterm"))
         return false;
 
       /* xterm-compatible terminal emulators:
@@ -2368,13 +2368,13 @@ should_enable_hyperlinks (const char *term)
 
          TODO: Revisit this table periodically.
        */
-      if (strncmp (term, "xterm", 5) == 0)
+      if (str_startswith (term, "xterm"))
         {
           char *progname = get_terminal_emulator_progname ();
           if (progname != NULL)
             {
               bool known_buggy =
-                strncmp (progname, "python", 6) == 0 /* guake */
+                str_startswith (progname, "python") /* guake */
                 || strcmp (progname, "lilyterm") == 0
                 || strcmp (progname, "lterm") == 0
                 || strcmp (progname, "lxterminal") == 0

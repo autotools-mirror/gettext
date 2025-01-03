@@ -536,7 +536,7 @@ skip_pod (struct perl_extractor *xp)
 
       ++(xp->line_number);
 
-      if (strncmp ("=cut", xp->linebuf, 4) == 0)
+      if (str_startswith (xp->linebuf, "=cut"))
         {
           /* Force reading of a new line on next call to phase1_getc().  */
           xp->linepos = xp->linesize;

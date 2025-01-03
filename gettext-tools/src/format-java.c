@@ -1,5 +1,5 @@
 /* Java MessageFormat format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009, 2019, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -219,8 +219,8 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
           type = FAT_OBJECT;
           if (*element == '\0')
             ;
-          else if (strncmp (element, ",time", 5) == 0
-                   || strncmp (element, ",date", 5) == 0)
+          else if (str_startswith (element, ",time")
+                   || str_startswith (element, ",date"))
             {
               type = FAT_DATE;
               element += 5;
@@ -255,7 +255,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
                   return false;
                 }
             }
-          else if (strncmp (element, ",number", 7) == 0)
+          else if (str_startswith (element, ",number"))
             {
               type = FAT_NUMBER;
               element += 7;
@@ -289,7 +289,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
                   return false;
                 }
             }
-          else if (strncmp (element, ",choice", 7) == 0)
+          else if (str_startswith (element, ",choice"))
             {
               type = FAT_NUMBER; /* because ChoiceFormat extends NumberFormat */
               element += 7;
@@ -543,7 +543,7 @@ choice_format_parse (const char *format, struct spec *spec,
       number_nonempty = false;
       while (*format != '\0'
              && !(!quoting && (*format == '<' || *format == '#'
-                               || strncmp (format, "\\u2264", 6) == 0
+                               || str_startswith (format, "\\u2264")
                                || *format == '|')))
         {
           if (format[0] == '\\')
@@ -576,7 +576,7 @@ choice_format_parse (const char *format, struct spec *spec,
 
       if (*format == '<' || *format == '#')
         format += 1;
-      else if (strncmp (format, "\\u2264", 6) == 0)
+      else if (str_startswith (format, "\\u2264"))
         format += 6;
       else
         {

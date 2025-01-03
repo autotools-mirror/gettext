@@ -1,5 +1,5 @@
 /* Reading textual message catalogs (such as PO files), abstract class.
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -261,8 +261,7 @@ parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
         {
           bool isolated_filename =
             (catr->po_lex_isolate_start != NULL
-             && strncmp (s, catr->po_lex_isolate_start,
-                         strlen (catr->po_lex_isolate_start)) == 0);
+             && str_startswith (s, catr->po_lex_isolate_start));
           if (isolated_filename)
             s += strlen (catr->po_lex_isolate_start);
 
@@ -278,8 +277,7 @@ parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
                       filename_end = s;
                       break;
                     }
-                  if (strncmp (s, catr->po_lex_isolate_end,
-                               strlen (catr->po_lex_isolate_end)) == 0)
+                  if (str_startswith (s, catr->po_lex_isolate_end))
                     {
                       filename_end = s;
                       s += strlen (catr->po_lex_isolate_end);

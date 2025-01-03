@@ -1,5 +1,5 @@
 /* Reading C# satellite assemblies.
-   Copyright (C) 2003-2024 Free Software Foundation, Inc.
+   Copyright (C) 2003-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -117,7 +117,7 @@ msgdomain_read_csharp (const char *resource_name, const char *locale_name,
     for (p = culture_name; *p != '\0'; p++)
       if (*p == '_')
         *p = '-';
-    if (strncmp (culture_name, "sr-CS", 5) == 0)
+    if (str_startswith (culture_name, "sr-CS"))
       memcpy (culture_name, "sr-SP", 5);
     p = strchr (culture_name, '@');
     if (p != NULL)

@@ -6,7 +6,7 @@
 #
 # This script requires autoconf-2.64..2.72 and automake-1.13..1.17 in the PATH.
 
-# Copyright (C) 2003-2024 Free Software Foundation, Inc.
+# Copyright (C) 2003-2025 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -241,6 +241,7 @@ if ! $skip_gnulib; then
     stdlib-h
     stpcpy
     stpncpy
+    str_startswith
     strchrnul
     strcspn
     strerror
@@ -390,6 +391,7 @@ if ! $skip_gnulib; then
     stdlib-h
     stpcpy
     stpncpy
+    str_startswith
     strchrnul
     strerror
     string-desc

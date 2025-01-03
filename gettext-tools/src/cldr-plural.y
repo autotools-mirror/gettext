@@ -1,5 +1,5 @@
 /* Unicode CLDR plural rule parser and converter.
-   Copyright (C) 2015-2024 Free Software Foundation, Inc.
+   Copyright (C) 2015-2025 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -326,27 +326,27 @@ yylex (YYSTYPE *lval, struct cldr_plural_parse_args *arg)
       arg->cp = exp + length;
       return ELLIPSIS;
     }
-  else if (strncmp ("...", exp, 3) == 0)
+  else if (str_startswith (exp, "..."))
     {
       arg->cp = exp + 3;
       return ELLIPSIS;
     }
-  else if (strncmp ("..", exp, 2) == 0)
+  else if (str_startswith (exp, ".."))
     {
       arg->cp = exp + 2;
       return RANGE;
     }
-  else if (strncmp ("other", exp, 5) == 0)
+  else if (str_startswith (exp, "other"))
     {
       arg->cp = exp + 5;
       return OTHER;
     }
-  else if (strncmp ("@integer", exp, 8) == 0)
+  else if (str_startswith (exp, "@integer"))
     {
       arg->cp = exp + 8;
       return AT_INTEGER;
     }
-  else if (strncmp ("@decimal", exp, 8) == 0)
+  else if (str_startswith (exp, "@decimal"))
     {
       arg->cp = exp + 8;
       return AT_DECIMAL;

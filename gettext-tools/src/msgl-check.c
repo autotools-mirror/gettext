@@ -1,5 +1,5 @@
 /* Checking of messages in PO files.
-   Copyright (C) 1995-2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -213,9 +213,7 @@ plural_help (const char *nullentry)
 
           language += 15;
           for (j = 0; j < plural_table_size; j++)
-            if (strncmp (language,
-                         plural_table[j].language,
-                         strlen (plural_table[j].language)) == 0)
+            if (str_startswith (language, plural_table[j].language))
               {
                 ptentry = &plural_table[j];
                 break;
@@ -782,8 +780,7 @@ check_header_entry (const message_ty *mp, const char *msgstr_string,
               if (*p == ' ')
                 p++;
               if (default_values[cnt] != NULL
-                  && strncmp (p, default_values[cnt],
-                              strlen (default_values[cnt])) == 0)
+                  && str_startswith (p, default_values[cnt]))
                 {
                   p += strlen (default_values[cnt]);
                   if (*p == '\0' || *p == '\n')
