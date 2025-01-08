@@ -1,5 +1,5 @@
 dnl Configuration for the toplevel directory of GNU gettext
-dnl Copyright (C) 1995-2024 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2025 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -24,8 +24,13 @@ AC_CONFIG_SRCDIR([gettext-tools/src/msgfmt.c])
 AC_CONFIG_AUX_DIR([build-aux])
 AM_INIT_AUTOMAKE([1.13 silent-rules parallel-tests tar-ustar])
 
-dnl Override automake's tar command used for creating distributions.
-am__tar='${AMTAR} chf - --format=ustar --owner=root --group=root "$$tardir"'
+dnl Override automake's tar command used for creating distributions:
+dnl - Sort the files by basename, not by dirname, to achieve higher compression
+dnl   ratios (because all compression programs have a limited-size "window").
+dnl - Use format 'ustar' to avoid "file name is too long (max 99)" errors.
+dnl - Use --owner=root --group=root to avoid unsuitable file ownership after
+dnl   the tarball is unpacked by root.
+am__tar='{ find "$$tardir" -type d | LC_ALL=C sort; find "$$tardir" ! -type d -printf "%f\\t%p\\n" | LC_ALL=C sort | LC_ALL=C cut -f2; } | ${AMTAR} chf - --no-recursion --files-from=- --format=ustar --owner=root --group=root'
 
 dnl Checks for programs.
 
