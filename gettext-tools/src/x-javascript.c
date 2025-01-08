@@ -1478,12 +1478,10 @@ phase5_get (token_ty *tp)
         case '<':
           {
             /* We assume:
-               - XMLMarkup and XMLElement are not allowed after an expression,
-               - embedded JavaScript expressions in XML do not recurse.
+               XMLMarkup and XMLElement are not allowed after an expression.
              */
             if (level_type () == level_xml_element
-                || (level_type () != level_embedded_js_in_xml
-                    && ! is_after_expression ()))
+                || ! is_after_expression ())
               {
                 /* Recognize XML markup: XML comment, CDATA, Processing
                    Instruction.  */

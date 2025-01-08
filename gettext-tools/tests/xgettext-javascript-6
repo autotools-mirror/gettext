@@ -64,6 +64,13 @@ var s16 = { a: 1, b: <div className={`${ _("Expected translation string #16") }`
 var s17 = _("Expected translation string #17");
 var s18 = `begin${ <div> _("Expected translation string #18") </div> }end`;
 var s19 = _("Expected translation string #19");
+const s20 = () => (
+  <Foo
+    a1={_("Expected translation string #20")}
+    a2={foo && <div>_("Expected translation string #21")</div>}
+    a3={_("Expected translation string #22")}
+  />
+);
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -148,6 +155,15 @@ msgid "Expected translation string #18"
 msgstr ""
 
 msgid "Expected translation string #19"
+msgstr ""
+
+msgid "Expected translation string #20"
+msgstr ""
+
+msgid "Expected translation string #21"
+msgstr ""
+
+msgid "Expected translation string #22"
 msgstr ""
 EOF
 
