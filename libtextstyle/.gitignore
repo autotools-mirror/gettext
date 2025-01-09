@@ -195,6 +195,8 @@
 /lib/stdlib.c
 /lib/stdlib.in.h
 /lib/stpcpy.c
+/lib/str_endswith.c
+/lib/str_startswith.c
 /lib/strerror.c
 /lib/strerror-override.c
 /lib/strerror-override.h

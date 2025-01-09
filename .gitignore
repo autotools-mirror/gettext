@@ -253,6 +253,7 @@
 /gettext-tools/libgettextpo/stpcpy.c
 /gettext-tools/libgettextpo/stpncpy.c
 /gettext-tools/libgettextpo/str-two-way.h
+/gettext-tools/libgettextpo/str_startswith.c
 /gettext-tools/libgettextpo/strchrnul.c
 /gettext-tools/libgettextpo/strchrnul.valgrind
 /gettext-tools/libgettextpo/streq.h
