@@ -1,5 +1,5 @@
 /* KDE format strings.
-   Copyright (C) 2003-2004, 2006-2007, 2009, 2019-2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2003-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2007.
 
    This program is free software: you can redistribute it and/or modify
@@ -305,6 +305,7 @@ format_print (void *descr)
         abort ();
       for (; last < number; last++)
         printf ("_ ");
+      printf ("*");
       last = number + 1;
     }
   printf (")");
