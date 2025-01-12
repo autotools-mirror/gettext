@@ -1,5 +1,5 @@
 /* KUIT (KDE User Interface Text) format strings.
-   Copyright (C) 2015-2024 Free Software Foundation, Inc.
+   Copyright (C) 2015-2025 Free Software Foundation, Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2015.
 
    This program is free software: you can redistribute it and/or modify
@@ -333,17 +333,30 @@ struct formatstring_parser formatstring_kde_kuit =
 };
 
 
-#ifdef TEST
+#ifdef TEST_KUIT
 
 /* Test program: Print the argument list specification returned by
    format_parse for strings read from standard input.  */
 
 #include <stdio.h>
 
+struct kde_numbered_arg
+{
+  unsigned int number;
+};
+
+struct kde_spec
+{
+  unsigned int directives;
+  unsigned int numbered_arg_count;
+  struct kde_numbered_arg *numbered;
+};
+
 static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
+  struct kde_spec *kspec;
   unsigned int last;
   unsigned int i;
 
@@ -353,11 +366,19 @@ format_print (void *descr)
       return;
     }
 
+  kspec = (struct kde_spec *) spec->base;
+
+  if (kspec == NULL)
+    {
+      printf ("INVALID");
+      return;
+    }
+
   printf ("(");
   last = 1;
-  for (i = 0; i < spec->numbered_arg_count; i++)
+  for (i = 0; i < kspec->numbered_arg_count; i++)
     {
-      unsigned int number = spec->numbered[i].number;
+      unsigned int number = kspec->numbered[i].number;
 
       if (i > 0)
         printf (" ");
@@ -365,6 +386,7 @@ format_print (void *descr)
         abort ();
       for (; last < number; last++)
         printf ("_ ");
+      printf ("*");
       last = number + 1;
     }
   printf (")");
@@ -405,7 +427,7 @@ main ()
 /*
  * For Emacs M-x compile
  * Local Variables:
- * compile-command: "/bin/sh ../libtool --tag=CC --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../gnulib-lib -I../../gettext-runtime/intl -DHAVE_CONFIG_H -DTEST format-kde-kuit.c ../gnulib-lib/libgettextlib.la"
+ * compile-command: "/bin/sh ../libtool --tag=CC --mode=link gcc -o a.out -static -O -g -Wall -I.. -I../gnulib-lib -I../../gettext-runtime/intl -I/usr/include/libxml2 -DHAVE_CONFIG_H -DTEST_KUIT format-kde-kuit.c format-kde.c ../gnulib-lib/libgettextlib.la"
  * End:
  */
 
