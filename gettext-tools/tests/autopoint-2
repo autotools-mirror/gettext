@@ -30,7 +30,7 @@ AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([$ARCHIVE_VERSION])
 
 AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([po/Makefile.in]) dnl if $ARCHIVE_VERSION > 0.23: po/Makefile
+AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
 EOF
 
@@ -43,7 +43,6 @@ test -d po || Exit 1
 test -d build-aux || Exit 1
 
 test -f m4/po.m4 || Exit 1
-# if $ARCHIVE_VERSION > 0.23: po/Makefile.in
 test -f po/Makefile.in.in || Exit 1
 test -f build-aux/config.rpath || Exit 1
 
@@ -59,7 +58,7 @@ AM_GNU_GETTEXT
 AM_GNU_GETTEXT_VERSION([$ARCHIVE_VERSION])
 
 AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([po/Makefile.in]) dnl if $ARCHIVE_VERSION > 0.23: po/Makefile
+AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
 EOF
 
@@ -111,7 +110,7 @@ AC_CONFIG_MACRO_DIR([gettext-m4])
 AC_CONFIG_MACRO_DIR([m4])
 
 AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([po/Makefile.in]) dnl if $ARCHIVE_VERSION > 0.23: po/Makefile
+AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
 EOF
 
@@ -124,7 +123,6 @@ test -d gettext-m4 || Exit 1
 test -d po || Exit 1
 
 test -f gettext-m4/po.m4 || Exit 1
-# if $ARCHIVE_VERSION > 0.23: po/Makefile.in
 test -f po/Makefile.in.in || Exit 1
 
 rm -fr gettext-m4 po ABOUT-NLS config.rpath
@@ -140,7 +138,7 @@ AM_GNU_GETTEXT([external], [need-formatstring-macros])
 AM_GNU_GETTEXT_VERSION([$ARCHIVE_VERSION])
 
 AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([po/Makefile.in]) dnl if $ARCHIVE_VERSION > 0.23: po/Makefile
+AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
 EOF
 
@@ -152,7 +150,6 @@ test -d m4 || Exit 1
 test -d po || Exit 1
 
 test -f m4/po.m4 || Exit 1
-# if $ARCHIVE_VERSION > 0.23: po/Makefile.in
 test -f po/Makefile.in.in || Exit 1
 
 rm -fr m4 po ABOUT-NLS config.rpath
@@ -173,7 +170,7 @@ AM_GNU_GETTEXT([external])
 AM_GNU_GETTEXT_VERSION([$ARCHIVE_VERSION])
 
 AC_CONFIG_FILES([Makefile])
-AC_CONFIG_FILES([po/Makefile.in]) dnl if $ARCHIVE_VERSION > 0.23: po/Makefile
+AC_CONFIG_FILES([po/Makefile.in])
 AC_OUTPUT
 EOF
 
@@ -185,7 +182,6 @@ test -d m4 || Exit 1
 test -d po || Exit 1
 
 test -f m4/po.m4 || Exit 1
-# if $ARCHIVE_VERSION > 0.23: po/Makefile.in
 test -f po/Makefile.in.in || Exit 1
 
 rm -fr m4 po ABOUT-NLS config.rpath

@@ -540,7 +540,7 @@ cd "$dir0"
 
 echo "$0: copying common files from gettext-runtime to gettext-tools..."
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
-cp -p gettext-runtime/po/Makefile.in gettext-tools/po/Makefile.in
+cp -p gettext-runtime/po/Makefile.in.in gettext-tools/po/Makefile.in.in
 cp -p gettext-runtime/po/Rules-quot gettext-tools/po/Rules-quot
 cp -p gettext-runtime/po/boldquot.sed gettext-tools/po/boldquot.sed
 cp -p gettext-runtime/po/quot.sed gettext-tools/po/quot.sed

@@ -412,7 +412,7 @@
 /gettext-tools/examples/ChangeLog
 # Files copied from gettext-runtime:
 /gettext-tools/ABOUT-NLS
-/gettext-tools/po/Makefile.in
+/gettext-tools/po/Makefile.in.in
 /gettext-tools/po/Rules-quot
 /gettext-tools/po/boldquot.sed
 /gettext-tools/po/en@boldquot.header

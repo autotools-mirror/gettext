@@ -1,8 +1,5 @@
 Version 0.24 - January 2025
 
-# Improvements for maintainers:
-  * The contents of the po/ directory has been changed:
-    - A file Makefile.in replaces the old Makefile.in.in.
 # Programming languages support:
   * JavaScript:
     - xgettext now parses recursive JSX expressions correctly.

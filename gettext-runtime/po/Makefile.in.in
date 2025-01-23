@@ -97,7 +97,7 @@ UPDATEPOFILES != for lang in $(ALL_LINGUAS); do echo $$lang.po-update; done
 DUMMYPOFILES != for lang in $(ALL_LINGUAS); do echo $$lang.nop; done
 
 DISTFILES.common = \
-  remove-potcdate.sed \
+  Makefile.in.in remove-potcdate.sed \
   $(DISTFILES.common.extra1) $(DISTFILES.common.extra2) \
   $(DISTFILES.common.extra3) $(DISTFILES.common.extra4) \
   $(DISTFILES.common.extra5) $(DISTFILES.common.extra6)
@@ -181,10 +181,10 @@ $(GMOFILES): $(srcdir)/$(DOMAIN).pot
 all-yes: $(srcdir)/stamp-po
 all-no:
 
-# Ensure that the gettext macros and this Makefile.in are in sync.
+# Ensure that the gettext macros and this Makefile.in.in are in sync.
 CHECK_MACRO_VERSION = \
 	test "$(GETTEXT_MACRO_VERSION)" = "@GETTEXT_MACRO_VERSION@" \
-	  || { echo "*** error: gettext infrastructure mismatch: using a Makefile.in from gettext version $(GETTEXT_MACRO_VERSION) but the autoconf macros are from gettext version @GETTEXT_MACRO_VERSION@" 1>&2; \
+	  || { echo "*** error: gettext infrastructure mismatch: using a Makefile.in.in from gettext version $(GETTEXT_MACRO_VERSION) but the autoconf macros are from gettext version @GETTEXT_MACRO_VERSION@" 1>&2; \
 	       exit 1; \
 	     }
 
@@ -451,7 +451,7 @@ mostlyclean:
 clean: mostlyclean
 
 distclean: clean
-	rm -f Makefile
+	rm -f Makefile Makefile.in
 
 maintainer-clean: distclean
 	@echo "This command is intended for maintainers to use;"
@@ -563,9 +563,9 @@ include $(RULES_FILES)
 # because execution permission bits may not work on the current file system.
 # Use @SHELL@, which is the shell determined by autoconf for the use by its
 # scripts, not $(SHELL) which is hardwired to /bin/sh and may be deficient.
-Makefile: Makefile.in Makevars $(top_builddir)/config.status
+Makefile: Makefile.in.in Makevars $(top_builddir)/config.status
 	cd $(top_builddir) \
-	  && @SHELL@ ./config.status $(subdir)/$@
+	  && @SHELL@ ./config.status $(subdir)/$@.in po-directories
 
 force:
 

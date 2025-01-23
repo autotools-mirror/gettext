@@ -66,7 +66,7 @@ $(srcdir)/configure: $(srcdir)/gettext-runtime/configure.ac $(srcdir)/gettext-to
 
 distcheck-hook:
 # Verify that some files are the same.
-	cmp -s $(srcdir)/gettext-runtime/po/Makefile.in $(srcdir)/gettext-tools/po/Makefile.in
+	cmp -s $(srcdir)/gettext-runtime/po/Makefile.in.in $(srcdir)/gettext-tools/po/Makefile.in.in
 	cmp -s $(srcdir)/gettext-runtime/po/Rules-quot $(srcdir)/gettext-tools/po/Rules-quot
 	cmp -s $(srcdir)/gettext-runtime/po/boldquot.sed $(srcdir)/gettext-tools/po/boldquot.sed
 	cmp -s $(srcdir)/gettext-runtime/po/quot.sed $(srcdir)/gettext-tools/po/quot.sed

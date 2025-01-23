@@ -75,7 +75,7 @@ We assume that the following environment variables are set:
     run.sh in gettext-runtime/doc/Admin/.  Copy resulting matrix.texi
     into gettext-runtime/doc/.  Update the STATUS date in nls.texi.
 
-  - gettext-runtime/po/Makefile.in
+  - gettext-runtime/po/Makefile.in.in
 
     Update Origin version.
 

@@ -112,10 +112,10 @@ packages that use the Automake option @samp{gnits}:
 @item
 A @file{po/} directory is created for eventually holding
 all translation files, but initially only containing the file
-@file{po/Makefile.in} from the GNU @code{gettext} distribution
-and a few auxiliary
+@file{po/Makefile.in.in} from the GNU @code{gettext} distribution
+(beware the double @samp{.in} in the file name) and a few auxiliary
 files.  If the @file{po/} directory already exists, it will be preserved
-along with the files it contains, and only @file{Makefile.in} and
+along with the files it contains, and only @file{Makefile.in.in} and
 the auxiliary files will be overwritten.
 
 If @samp{--po-dir} has been specified, this holds for every directory
