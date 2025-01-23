@@ -18,18 +18,12 @@ We assume that the following environment variables are set:
 
     # Forcing a specific version number, without having to set a git tag.
     echo $CURRENT_VERSION > .tarball-version
-    # Forcing a rebuild of the documentation and man pages.
-    rm -f .version
 
     ./autopull.sh
     ./autogen.sh
     ./configure --disable-shared
     make
-    make dist
-
-    # To prevent auto-updating '.version' file by GNUmakefile due to
-    # regenerated PO files, specify Makefile manually.
-    make -f Makefile distcheck
+    make distcheck
 
   Then you will get a distribution tarball:
 
@@ -72,8 +66,6 @@ We assume that the following environment variables are set:
 
     # Forcing a specific version number, without having to set a git tag.
     echo $CURRENT_VERSION > .tarball-version
-    # Forcing a rebuild of the documentation and man pages.
-    rm -f .version
 
 ** Update files:
 
@@ -213,8 +205,6 @@ We assume that the following environment variables are set:
 
     # Forcing a specific version number, without having to set a git tag.
     echo $CURRENT_VERSION > .tarball-version
-    # Forcing a rebuild of the documentation and man pages.
-    rm -f .version
 
     ./autogen.sh
     ./configure --disable-shared
@@ -269,9 +259,7 @@ We assume that the following environment variables are set:
 
   Finally really make the release tarball:
 
-    # To prevent auto-updating '.version' file by GNUmakefile due to
-    # regenerated PO files, specify Makefile manually.
-    make -f Makefile distcheck
+    make distcheck
 
   If necessary, produce variants with higher compression (takes 7 minutes):
 
