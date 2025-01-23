@@ -465,6 +465,8 @@ if ! $skip_gnulib; then
   $GNULIB_TOOL --copy-file build-aux/update-copyright || exit $?
   $GNULIB_TOOL --copy-file build-aux/useless-if-before-free || exit $?
   $GNULIB_TOOL --copy-file build-aux/vc-list-files || exit $?
+  $GNULIB_TOOL --copy-file m4/init-package-version.m4 || exit $?
+  $GNULIB_TOOL --copy-file m4/version-stamp.m4 || exit $?
   $GNULIB_TOOL --copy-file top/GNUmakefile . || exit $?
   $GNULIB_TOOL --copy-file top/maint.mk . || exit $?
 

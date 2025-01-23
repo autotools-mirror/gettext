@@ -17,11 +17,14 @@ dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.64])
-AC_INIT([gettext],
-	m4_esyscmd([build-aux/git-version-gen .tarball-version]),
-	[bug-gettext@gnu.org])
+AC_INIT
+PACKAGE_BUGREPORT='bug-gettext@gnu.org'
 AC_CONFIG_SRCDIR([gettext-tools/src/msgfmt.c])
 AC_CONFIG_AUX_DIR([build-aux])
+VERSION_NUMBER=`cd $srcdir \
+                && build-aux/git-version-gen .tarball-version \
+                   | sed -e 's/dirty$/modified/'`
+gl_INIT_PACKAGE([gettext], [$VERSION_NUMBER])
 AM_INIT_AUTOMAKE([1.13 silent-rules parallel-tests tar-ustar])
 
 dnl Override automake's tar command used for creating distributions:
@@ -60,5 +63,7 @@ AC_CONFIG_FILES([Makefile],
                 [FIX_MAKEFILE_DISTRIB])
 
 AC_CONFIG_FILES([gnulib-local/Makefile])
+
+gl_CONFIG_VERSION_STAMP
 
 AC_OUTPUT

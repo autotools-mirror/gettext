@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-2024 Free Software Foundation, Inc.
+## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -98,12 +98,13 @@ EXTRA_DIST += INSTALL.aix
 
 # Versioning based on Git release tags.
 
+dist-hook: dist-tarball-version
+.PHONY: dist-tarball-version
+dist-tarball-version:
+	echo '$(VERSION)' > $(distdir)/.tarball-version
+
 EXTRA_DIST += $(top_srcdir)/.version
 BUILT_SOURCES = $(top_srcdir)/.version
-$(top_srcdir)/.version:
-	echo $(VERSION) > $@-t && mv $@-t $@
-dist-hook: gen-ChangeLogs
-	echo $(VERSION) > $(distdir)/.tarball-version
 
 
 # Support for "make dist" without prior "make".
@@ -119,6 +120,8 @@ distdir1:
 
 
 # Generate ChangeLog.
+
+dist-hook: gen-ChangeLogs
 
 gen_start_date = 2015-10-13
 .PHONY: gen-ChangeLogs

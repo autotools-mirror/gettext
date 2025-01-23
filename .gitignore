@@ -388,6 +388,8 @@
 /gettext-tools/tests/gnulib-lib/
 !/gettext-tools/tests/gnulib-lib/Makefile.am
 /gettext-tools/tests/init.sh
+/m4/init-package-version.m4
+/m4/version-stamp.m4
 
 # Files brought in by "automake --add-missing --copy":
 /build-aux/compile
