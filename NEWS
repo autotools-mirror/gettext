@@ -7,6 +7,9 @@ Version 0.24 - January 2025
     - A new example 'hello-c++-gnome3' has been added.
   * Ruby:
     - A new example 'hello-ruby' has been added.
+# Caveat maintainers:
+  * Building the po/ directory now requires GNU make on specific platforms:
+    macOS, Solaris, AIX.
 
 Version 0.23.1 - December 2024
 
