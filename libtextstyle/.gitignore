@@ -262,6 +262,7 @@
 /lib/xstrdup.c
 /lib/xvasprintf.c
 /lib/xvasprintf.h
+/m4/init-package-version.m4
 /tests/
 !/tests/Makefile.am
 !/tests/test-accessors.c
