@@ -1,7 +1,7 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# More tests for Rust support: string syntax
+# Test Rust support: string syntax and escapes.
 
 LC_ALL=C tr '%' '\015' <<\EOF > xg-rs-3.rs
 pub trait TestCase {
@@ -23,8 +23,7 @@ pub trait TestCase {
     gettext("bel: \x07\n");
     gettext // Recognized despite comments
        ( /* Even across multiline
-comment! */ "this is a single " /* now comes the concatenation! */ + // after +
-         "long line");
+comment! */ "this is a single long line");
     // Byte string literals are extracted.
     gettext(b"byte 1");
     // In byte string literals, escape sequences are recognized.
@@ -36,19 +35,25 @@ comment! */ "this is a single " /* now comes the concatenation! */ + // after +
     // In raw string literals, only delimiters without the proper number of
     // hashes are recognized.
     gettext (r##"raw 3 ""test"##);
-    // Normal and raw string literals can be concatenated.
+    // Rust does not have string literal concatenation.
     gettext("left - \"quot" + r#"ation"" - right"#);
     // Character literals are not extracted.
     gettext('x');
-    // Invalid concatenations are not concatenated.
+    // Rust does not have string literal concatenation.
     gettext("fooba"+'r');
+    // In multiline strings, after backslash-newline, leading ASCII whitespace is ignored.
+    gettext("multiline\
+             with spaces\
+		with tabs\
+             with no-break spaces\
+　　　　　　　　with ideographic spaces");
   }
 }
 EOF
 
 : ${XGETTEXT=xgettext}
 # delete POT-Creation-Date: line because the date depends on local time.
-${XGETTEXT} --output xg-rs-3.tmp --add-location -c -kmygettext:2 xg-rs-3.rs 2>/dev/null || Exit 1
+${XGETTEXT} --output xg-rs-3.tmp --add-location -c xg-rs-3.rs 2>/dev/null || Exit 1
 sed -e '/\"POT-Creation-Date:.*/d' < xg-rs-3.tmp | LC_ALL=C tr -d '\r' > xg-rs-3.po || Exit 1
 
 cat <<\EOF > xg-rs-3.ok
@@ -73,12 +78,6 @@ msgstr ""
 #. Test recognition of \u escapes.
 #: xg-rs-3.rs:4
 msgid "Böse Bübchen"
-msgstr ""
-
-#. \u escapes with more than one u are invalid.
-#: xg-rs-3.rs:6
-#, rust-format
-msgid "Japanese: \\uu{6585}\\uuu{6723}語"
 msgstr ""
 
 #: xg-rs-3.rs:7
@@ -122,44 +121,40 @@ msgid "this is a single long line"
 msgstr ""
 
 #. Byte string literals are extracted.
-#: xg-rs-3.rs:23
+#: xg-rs-3.rs:22
 msgid "byte 1"
 msgstr ""
 
 #. In byte string literals, escape sequences are recognized.
-#: xg-rs-3.rs:25
+#: xg-rs-3.rs:24
 msgid "byte 2 \\ \\ \t \n"
 msgstr ""
 
 #. Raw string literals are extracted.
-#: xg-rs-3.rs:27
+#: xg-rs-3.rs:26
 msgid "raw 1"
 msgstr ""
 
 #. In raw string literals, no escape sequences are recognized.
-#: xg-rs-3.rs:29
+#: xg-rs-3.rs:28
 msgid "raw 2 \\u{005c} \\\\ \\t \\n \\'"
 msgstr ""
 
 #. In raw string literals, only delimiters without the proper number of
 #. hashes are recognized.
-#: xg-rs-3.rs:32
-msgid "raw 3 \"test"
+#: xg-rs-3.rs:31
+msgid "raw 3 \"\"test"
 msgstr ""
 
-#. Normal and raw string literals can be concatenated.
-#: xg-rs-3.rs:34
-msgid "left - \"quotation\" - right"
-msgstr ""
-
-#. Invalid concatenations are not concatenated.
-#: xg-rs-3.rs:38
-msgid "fooba"
+#. In multiline strings, after backslash-newline, leading ASCII whitespace is ignored.
+#: xg-rs-3.rs:39
+msgid ""
+"multilinewith spaceswith tabs             with no-break "
+"spaces　　　　　　　　with ideographic spaces"
 msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-rs-3.ok xg-rs-3.po
-result=$?
+${DIFF} xg-rs-3.ok xg-rs-3.po || Exit 1
 
-exit $result
+exit 0

@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools directory of GNU gettext
-## Copyright (C) 1995-2024 Free Software Foundation, Inc.
+## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -24,6 +24,63 @@ SUBDIRS = gnulib-lib libgrep src libgettextpo po its projects styles emacs misc 
 EXTRA_DIST = misc/disclaim-translations.txt
 MOSTLYCLEANFILES = core *.stackdump
 DISTCLEANFILES = build-aux/xml-validate-10 build-aux/xml-validate-11
+
+
+# Files imported from tree-sitter.
+EXTRA_DIST += \
+  tree-sitter.cfg \
+  build-aux/tree-sitter-portability.diff \
+  tree-sitter-$(TREE_SITTER_VERSION)/LICENSE \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/include/tree_sitter/api.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/alloc.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/alloc.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/array.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/atomic.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/clock.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/error_costs.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/get_changed_ranges.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/get_changed_ranges.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/host.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/language.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/language.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/length.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/lexer.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/lexer.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/lib.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/node.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/parser.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/parser.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/point.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/query.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/reduce_action.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/reusable_node.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/stack.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/stack.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/subtree.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/subtree.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/tree.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/tree.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/tree_cursor.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/tree_cursor.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/unicode.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/unicode/LICENSE \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/unicode/README.md \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/unicode/ptypes.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/unicode/umachine.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/unicode/urename.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/unicode/utf.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/unicode/utf8.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/unicode/utf16.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/wasm_store.c \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/wasm_store.h \
+  tree-sitter-$(TREE_SITTER_VERSION)/lib/src/wasm/wasm-stdlib.h \
+  build-aux/tree-sitter-rust-portability.diff \
+  tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/LICENSE \
+  tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-parser.c \
+  tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-scanner.c \
+  tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/tree_sitter/alloc.h \
+  tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/tree_sitter/array.h \
+  tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/tree_sitter/parser.h
 
 
 # Files installed for the user.

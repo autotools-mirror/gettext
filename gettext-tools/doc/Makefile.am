@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/doc subdirectory of GNU gettext
-## Copyright (C) 1995-2023 Free Software Foundation, Inc.
+## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -69,6 +69,7 @@ gettext_TEXINFOS = \
   lang-clisp-c.texi \
   lang-elisp.texi \
   lang-librep.texi \
+  lang-rust.texi \
   lang-ruby.texi \
   lang-sh.texi \
     $(top_srcdir)/../gettext-runtime/doc/rt-gettext.texi \

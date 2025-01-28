@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -109,6 +109,7 @@
 #include "x-lisp.h"
 #include "x-elisp.h"
 #include "x-librep.h"
+#include "x-rust.h"
 #include "x-ruby.h"
 #include "x-sh.h"
 #include "x-awk.h"
@@ -194,6 +195,10 @@ static flag_context_list_table_ty flag_table_scheme;
 static flag_context_list_table_ty flag_table_lisp;
 static flag_context_list_table_ty flag_table_elisp;
 static flag_context_list_table_ty flag_table_librep;
+#if 0 /* declared in x-rust.h */
+extern flag_context_list_table_ty flag_table_rust_functions;
+extern flag_context_list_table_ty flag_table_rust_macros;
+#endif
 static flag_context_list_table_ty flag_table_ruby;
 static flag_context_list_table_ty flag_table_sh;
 static flag_context_list_table_ty flag_table_awk;
@@ -380,6 +385,7 @@ main (int argc, char *argv[])
   init_flag_table_lisp ();
   init_flag_table_elisp ();
   init_flag_table_librep ();
+  init_flag_table_rust ();
   init_flag_table_ruby ();
   init_flag_table_sh ();
   init_flag_table_awk ();
@@ -413,6 +419,7 @@ main (int argc, char *argv[])
         x_tcl_extract_all ();
         x_perl_extract_all ();
         x_php_extract_all ();
+        x_rust_extract_all ();
         x_ruby_extract_all ();
         x_lua_extract_all ();
         x_javascript_extract_all ();
@@ -493,6 +500,7 @@ main (int argc, char *argv[])
         x_tcl_keyword (optarg);
         x_perl_keyword (optarg);
         x_php_keyword (optarg);
+        x_rust_keyword (optarg);
         x_ruby_keyword (optarg);
         x_lua_keyword (optarg);
         x_javascript_keyword (optarg);
@@ -1108,9 +1116,9 @@ Choice of input file language:\n"));
   -L, --language=NAME         recognise the specified language\n\
                                 (C, C++, ObjectiveC, PO, Shell, Python, Lisp,\n\
                                 EmacsLisp, librep, Scheme, Guile, Smalltalk,\n\
-                                Java, JavaProperties, C#, awk, YCP, Tcl, Perl,\n\
-                                PHP, Ruby, GCC-source, NXStringTable, RST, RSJ,\n\
-                                Glade, Lua, JavaScript, Vala, Desktop)\n"));
+                                Java, JavaProperties, C#, Rust, Ruby, awk, YCP,\n\
+                                Tcl, Perl, PHP, GCC-source, NXStringTable, RST,\n\
+                                RSJ, Glade, Lua, JavaScript, Vala, Desktop)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -1622,6 +1630,16 @@ xgettext_record_flag (const char *optionstring)
                     flag_context_list_table_insert (&flag_table_librep, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
+                    break;
+                  case format_rust:
+                    if (name_end - name_start > 1 && name_end[-1] == '!')
+                      flag_context_list_table_insert (&flag_table_rust_macros, XFORMAT_PRIMARY,
+                                                      name_start, name_end - 1,
+                                                      argnum, value, pass);
+                    else
+                      flag_context_list_table_insert (&flag_table_rust_functions, XFORMAT_PRIMARY,
+                                                      name_start, name_end,
+                                                      argnum, value, pass);
                     break;
                   case format_ruby:
                     flag_context_list_table_insert (&flag_table_ruby, XFORMAT_PRIMARY,
@@ -2233,6 +2251,7 @@ language_to_extractor (const char *name)
     SCANNERS_LISP
     SCANNERS_ELISP
     SCANNERS_LIBREP
+    SCANNERS_RUST
     SCANNERS_RUBY
     SCANNERS_SH
     SCANNERS_AWK
@@ -2326,6 +2345,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_LISP
     EXTENSIONS_ELISP
     EXTENSIONS_LIBREP
+    EXTENSIONS_RUST
     EXTENSIONS_RUBY
     EXTENSIONS_SH
     EXTENSIONS_AWK

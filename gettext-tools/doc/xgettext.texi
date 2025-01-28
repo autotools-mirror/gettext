@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2024 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2025 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @pindex xgettext
@@ -75,11 +75,11 @@ is written to standard output.
 Specifies the language of the input files.  The supported languages
 are @code{C}, @code{C++}, @code{ObjectiveC}, @code{PO}, @code{Shell},
 @code{Python}, @code{Lisp}, @code{EmacsLisp}, @code{librep}, @code{Scheme},
-@code{Guile},
-@code{Smalltalk}, @code{Java}, @code{JavaProperties}, @code{C#}, @code{awk},
-@code{YCP}, @code{Tcl}, @code{Perl}, @code{PHP}, @code{Ruby},
-@code{GCC-source}, @code{NXStringTable}, @code{RST}, @code{RSJ}, @code{Glade},
-@code{Lua}, @code{JavaScript}, @code{Vala}, @code{GSettings}, @code{Desktop}.
+@code{Guile}, @code{Smalltalk}, @code{Java}, @code{JavaProperties},
+@code{C#}, @code{Rust}, @code{Ruby}, @code{awk}, @code{YCP},
+@code{Tcl}, @code{Perl}, @code{PHP}, @code{GCC-source}, @code{NXStringTable},
+@code{RST}, @code{RSJ}, @code{Glade}, @code{Lua}, @code{JavaScript},
+@code{Vala}, @code{GSettings}, @code{Desktop}.
 
 @item -C
 @itemx --c++

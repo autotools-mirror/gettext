@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -47,6 +47,7 @@ const char *const format_language[NFORMATS] =
   /* format_lisp */             "lisp",
   /* format_elisp */            "elisp",
   /* format_librep */           "librep",
+  /* format_rust */             "rust",
   /* format_ruby */             "ruby",
   /* format_sh */               "sh",
   /* format_awk */              "awk",
@@ -82,6 +83,7 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_lisp */             "Lisp",
   /* format_elisp */            "Emacs Lisp",
   /* format_librep */           "librep",
+  /* format_rust */             "Rust",
   /* format_ruby */             "Ruby",
   /* format_sh */               "Shell",
   /* format_awk */              "awk",

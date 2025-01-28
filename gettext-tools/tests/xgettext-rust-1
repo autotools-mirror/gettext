@@ -1,19 +1,18 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Some tests for Rust support
+# Test Rust support: Simple things.
 
 cat <<EOF > xg-rs-1.rs
 use gettext_rs::gettext;
 
 pub trait TestCase {
   fn TestCase() {
-    GettextResourceManager rm = new GettextResourceManager("test");
     // standard usage
     String test1 = gettext("Test String 1");
     /* C style comment */
     String test2 = gettext("Test String 2");
-    // "multiline" string
+    // Rust does not have string literal concatenation.
     String test3 = gettext("Test " +
     "String " +
     "3");
@@ -32,7 +31,7 @@ third line"#);
 EOF
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -c -d xg-rs-1.tmp xg-rs-1.rs || Exit 1
+${XGETTEXT} --omit-header --no-location -k'gettext!' -c -d xg-rs-1.tmp xg-rs-1.rs || Exit 1
 LC_ALL=C tr -d '\r' < xg-rs-1.tmp.po > xg-rs-1.po || Exit 1
 
 cat <<EOF > xg-rs-1.ok
@@ -42,10 +41,6 @@ msgstr ""
 
 #. C style comment
 msgid "Test String 2"
-msgstr ""
-
-#. "multiline" string
-msgid "Test String 3"
 msgstr ""
 
 #. macro
@@ -69,7 +64,6 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-rs-1.ok xg-rs-1.po
-result=$?
+${DIFF} xg-rs-1.ok xg-rs-1.po || Exit 1
 
-exit $result
+exit 0

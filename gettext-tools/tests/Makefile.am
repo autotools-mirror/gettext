@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/tests subdirectory of GNU gettext
-## Copyright (C) 1995-2024 Free Software Foundation, Inc.
+## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -157,6 +157,10 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-python-stackovfl-1 xgettext-python-stackovfl-2 \
 	xgettext-python-stackovfl-3 xgettext-python-stackovfl-4 \
 	xgettext-ruby-1 xgettext-ruby-2 \
+	xgettext-rust-1 xgettext-rust-2 xgettext-rust-3 xgettext-rust-4 \
+	xgettext-rust-5 xgettext-rust-6 xgettext-rust-7 \
+	xgettext-rust-stackovfl-1 xgettext-rust-stackovfl-2 \
+	xgettext-rust-stackovfl-3 xgettext-rust-stackovfl-4 \
 	xgettext-scheme-1 xgettext-scheme-2 xgettext-scheme-3 \
 	xgettext-scheme-4 xgettext-scheme-5 xgettext-scheme-6 \
 	xgettext-scheme-7 xgettext-scheme-8 \
@@ -205,6 +209,7 @@ TESTS = gettext-1 gettext-2 \
 	format-qt-1 format-qt-2 \
 	format-qt-plural-1 format-qt-plural-2 \
 	format-ruby-1 format-ruby-2 \
+	format-rust-1 format-rust-2 \
 	format-scheme-1 format-scheme-2 \
 	format-sh-1 format-sh-2 \
 	format-tcl-1 format-tcl-2 \

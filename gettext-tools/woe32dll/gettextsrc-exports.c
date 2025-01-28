@@ -1,5 +1,5 @@
 /* List of exported symbols of libgettextsrc on Cygwin and native Windows.
-   Copyright (C) 2006-2024 Free Software Foundation, Inc.
+   Copyright (C) 2006-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -51,6 +51,7 @@ VARIABLE(formatstring_python_brace)
 VARIABLE(formatstring_qt)
 VARIABLE(formatstring_qt_plural)
 VARIABLE(formatstring_ruby)
+VARIABLE(formatstring_rust)
 VARIABLE(formatstring_scheme)
 VARIABLE(formatstring_sh)
 VARIABLE(formatstring_smalltalk)

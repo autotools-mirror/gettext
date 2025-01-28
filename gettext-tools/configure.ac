@@ -560,8 +560,19 @@ changequote([,])dnl
 fi
 AC_SUBST([ARCHIVE_FORMAT])
 
+dnl Get versions of files brought in by autopull.sh.
 ARCHIVE_VERSION=0.23.1
 AC_SUBST([ARCHIVE_VERSION])
+dnl We don't offer a --with-tree-sitter-prefix option, but instead always use
+dnl the tree-sitter version included in the tarball. This is required because
+dnl there is no stability guarantee for grammar elements: grammar elements can
+dnl be changed, extended, or even removed in future tree-sitter-<lang> versions,
+dnl whereas the x-<lang>.c code assumes that certain grammar elements have a
+dnl specific structure. We may need to change x-<lang>.c so that it works with
+dnl a newer version of tree-sitter-<lang>.
+. $srcdir/tree-sitter.cfg
+AC_SUBST([TREE_SITTER_VERSION])
+AC_SUBST([TREE_SITTER_RUST_VERSION])
 
 PACKAGE_SUFFIX="-$ARCHIVE_VERSION"
 AC_SUBST([PACKAGE_SUFFIX])

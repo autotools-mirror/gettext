@@ -1,5 +1,5 @@
 #!/bin/sh
-# Copyright (C) 2003-2022 Free Software Foundation, Inc.
+# Copyright (C) 2003-2025 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -48,6 +48,65 @@ if ! test -f gettext-tools/misc/archive.dir.tar; then
   rm -f gettext-tools/misc/archive.dir.tar-t
   test $retval -eq 0 || exit $retval
 fi
+
+# func_git_clone_shallow SUBDIR URL REVISION
+func_git_clone_shallow ()
+{
+  # Only want a shallow checkout of REVISION, but git does not
+  # support cloning by commit hash. So attempt a shallow fetch by
+  # commit hash to minimize the amount of data downloaded and changes
+  # needed to be processed, which can drastically reduce download and
+  # processing time for checkout. If the fetch by commit fails, a
+  # shallow fetch cannot be performed because we do not know what the
+  # depth of the commit is without fetching all commits. So fall back
+  # to fetching all commits.
+  # REVISION can be a commit id, a tag name, or a branch name.
+  mkdir -p "$1"
+  git -C "$1" init
+  git -C "$1" remote add origin "$2"
+  if git -C "$1" fetch --depth 1 origin "$3"; then
+    # "git fetch" of the specific commit succeeded.
+    git -C "$1" reset --hard FETCH_HEAD || { rm -rf "$1"; exit 1; }
+    # "git fetch" does not fetch tags (at least in git version 2.43).
+    # If REVISION is a tag (not a commit id or branch name),
+    # add the tag explicitly.
+    revision=`git -C "$1" log -1 --pretty=format:%H`
+    branch=`LC_ALL=C git -C "$1" remote show origin \
+            | sed -n -e 's/^    \([^ ]*\) * tracked$/\1/p'`
+    test "$revision" = "$3" || test "$branch" = "$3" || git -C "$1" tag "$3"
+  else
+    # Fetch the entire repository.
+    git -C "$1" fetch origin || { rm -rf "$1"; exit 1; }
+    git -C "$1" checkout "$3" || { rm -rf "$1"; exit 1; }
+  fi
+}
+
+# Fetch the compilable (mostly generated) tree-sitter source code.
+TREE_SITTER_VERSION=0.23.2
+TREE_SITTER_RUST_VERSION=0.23.2
+# Cache the relevant source code. Erase the rest of the tree-sitter projects.
+test -d gettext-tools/tree-sitter-$TREE_SITTER_VERSION || {
+  func_git_clone_shallow tree-sitter https://github.com/tree-sitter/tree-sitter.git v$TREE_SITTER_VERSION
+  (cd tree-sitter && patch -p1) < gettext-tools/build-aux/tree-sitter-portability.diff
+  mkdir gettext-tools/tree-sitter-$TREE_SITTER_VERSION
+  mv tree-sitter/LICENSE gettext-tools/tree-sitter-$TREE_SITTER_VERSION/LICENSE
+  mv tree-sitter/lib gettext-tools/tree-sitter-$TREE_SITTER_VERSION/lib
+  rm -rf tree-sitter
+}
+test -d gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION || {
+  func_git_clone_shallow tree-sitter-rust https://github.com/tree-sitter/tree-sitter-rust.git v$TREE_SITTER_RUST_VERSION
+  (cd tree-sitter-rust && patch -p1) < gettext-tools/build-aux/tree-sitter-rust-portability.diff
+  mkdir gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION
+  mv tree-sitter-rust/LICENSE gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION/LICENSE
+  mv tree-sitter-rust/src gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION/src
+  mv gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION/src/parser.c gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION/src/rust-parser.c
+  mv gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION/src/scanner.c gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION/src/rust-scanner.c
+  rm -rf tree-sitter-rust
+}
+cat > gettext-tools/tree-sitter.cfg <<EOF
+TREE_SITTER_VERSION=$TREE_SITTER_VERSION
+TREE_SITTER_RUST_VERSION=$TREE_SITTER_RUST_VERSION
+EOF
 
 dir0=`pwd`
 

@@ -91,7 +91,7 @@ This file provides documentation for GNU @code{gettext} utilities.
 It also serves as a reference for the free Translation Project.
 
 @copying
-Copyright (C) 1995-1998, 2001-2024 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2025 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -126,7 +126,7 @@ A copy of the license is included in @ref{GNU GPL}.
 @page
 @vskip 0pt plus 1filll
 @c @insertcopying
-Copyright (C) 1995-1998, 2001-2024 Free Software Foundation, Inc.
+Copyright (C) 1995-1998, 2001-2025 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -405,6 +405,7 @@ The Translator's View
 * lisp-format::                 Lisp Format Strings
 * elisp-format::                Emacs Lisp Format Strings
 * librep-format::               librep Format Strings
+* rust-format::                 Rust Format Strings
 * ruby-format::                 Ruby Format Strings
 * sh-format::                   Shell Format Strings
 * awk-format::                  awk Format Strings
@@ -435,6 +436,7 @@ Individual Programming Languages
 * clisp C::                     GNU clisp C sources
 * Emacs Lisp::                  Emacs Lisp
 * librep::                      librep
+* Rust::                        Rust
 * Ruby::                        Ruby
 * sh::                          sh - Shell Script
 * bash::                        bash - Bourne-Again Shell Script
@@ -1678,6 +1680,12 @@ Likewise for Emacs Lisp, see @ref{elisp-format}.
 @itemx no-librep-format
 @kwindex no-librep-format@r{ flag}
 Likewise for librep, see @ref{librep-format}.
+
+@item rust-format
+@kwindex rust-format@r{ flag}
+@itemx no-rust-format
+@kwindex no-rust-format@r{ flag}
+Likewise for Rust, see @ref{rust-format}.
 
 @item ruby-format
 @kwindex ruby-format@r{ flag}
@@ -9857,6 +9865,7 @@ strings.
 * lisp-format::                 Lisp Format Strings
 * elisp-format::                Emacs Lisp Format Strings
 * librep-format::               librep Format Strings
+* rust-format::                 Rust Format Strings
 * ruby-format::                 Ruby Format Strings
 * sh-format::                   Shell Format Strings
 * awk-format::                  awk Format Strings
@@ -10041,6 +10050,16 @@ librep format strings are documented in the librep manual, section
 @w{Formatted Output},
 @url{http://librep.sourceforge.net/librep-manual.html#Formatted%20Output},
 @url{http://www.gwinnup.org/research/docs/librep.html#SEC122}.
+
+@node rust-format
+@subsection Rust Format Strings
+
+Rust format strings are those supported by the @code{formatx} library
+@url{https://crates.io/crates/formatx}.
+These are those supported by the @code{format!} built-in
+@url{https://doc.rust-lang.org/std/fmt/}
+with the restrictions listed in
+@url{https://crates.io/crates/formatx}, section "Limitations".
 
 @node ruby-format
 @subsection Ruby Format Strings
@@ -10310,6 +10329,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * clisp C::                     GNU clisp C sources
 * Emacs Lisp::                  Emacs Lisp
 * librep::                      librep
+* Rust::                        Rust
 * Ruby::                        Ruby
 * sh::                          sh - Shell Script
 * bash::                        bash - Bourne-Again Shell Script
@@ -10337,6 +10357,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @include lang-clisp-c.texi
 @include lang-elisp.texi
 @include lang-librep.texi
+@include lang-rust.texi
 @include lang-ruby.texi
 @include lang-sh.texi
 @include lang-bash.texi

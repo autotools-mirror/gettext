@@ -236,6 +236,7 @@ format-scheme.c        Format string handling for Scheme.
 format-lisp.c          Format string handling for Common Lisp.
 format-elisp.c         Format string handling for Emacs Lisp.
 format-librep.c        Format string handling for librep.
+format-rust.c          Format string handling for Rust.
 format-ruby.c          Format string handling for Ruby.
 format-sh.c            Format string handling for Shell.
 format-awk.c           Format string handling for awk.
@@ -384,6 +385,9 @@ msgl-check.c
 | x-librep.h
 | x-librep.c
 |               String extractor for librep.
+| x-rust.h
+| x-rust.c
+|               String extractor for Rust.
 | x-ruby.h
 | x-ruby.c
 |               String extractor for Ruby.

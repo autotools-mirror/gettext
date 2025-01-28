@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -56,6 +56,7 @@ enum format_type
   format_lisp,
   format_elisp,
   format_librep,
+  format_rust,
   format_ruby,
   format_sh,
   format_awk,
@@ -75,7 +76,7 @@ enum format_type
   format_gfc_internal,
   format_ycp
 };
-#define NFORMATS 31     /* Number of format_type enum values.  */
+#define NFORMATS 32     /* Number of format_type enum values.  */
 extern DLL_VARIABLE const char *const format_language[NFORMATS];
 extern DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 

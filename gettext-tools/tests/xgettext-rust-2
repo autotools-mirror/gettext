@@ -1,23 +1,23 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# More tests for Rust support: UTF-8 characters
+# Test Rust support: UTF-8 characters and Unicode escapes.
 
 cat <<\EOF > xg-rs-2.rs
 pub trait TestCase {
   fn main () {
-    catalog.gettext("Russian (Русский): Здравствуйте"));
-    catalog.gettext("Vietnamese (Tiếng Việt): Chào bạn"));
-    catalog.gettext("Japanese (日本語): こんにちは"));
-    catalog.gettext("Thai (ภาษาไทย): สวัสดีครับ"));
-    catalog.gettext("Script: 𝒞"));
-    catalog.gettext("Russian (\u{0420}\u{0443}\u{0441}\u{0441}\u{043a}\u{0438}\u{0439}): \u{0417}\u{0434}\u{0440}\u{0430}\u{0432}\u{0441}\u{0442}\u{0432}\u{0443}\u{0439}\u{0442}\u{0435}"));
-    catalog.gettext("Vietnamese (Ti\u{1ebf}ng Vi\u{1ec7}t): Ch\u{00e0}o b\u{1ea1}n"));
-    catalog.gettext("Japanese (\u{65e5}\u{672c}\u{8a9e}): \u{3053}\u{3093}\u{306b}\u{3061}\u{306f}"));
-    catalog.gettext("Thai (\u{0e20}\u{0e32}\u{0e29}\u{0e32}\u{0e44}\u{0e17}\u{0e22}): \u{0e2a}\u{0e27}\u{0e31}\u{0e2a}\u{0e14}\u{0e35}\u{0e04}\u{0e23}\u{0e31}\u{0e1a}"));
-    catalog.gettext("Script: \u{1d49e}"));
+    gettext("Russian (Русский): Здравствуйте"));
+    gettext("Vietnamese (Tiếng Việt): Chào bạn"));
+    gettext("Japanese (日本語): こんにちは"));
+    gettext("Thai (ภาษาไทย): สวัสดีครับ"));
+    gettext("Script: 𝒞"));
+    gettext("Russian (\u{0420}\u{0443}\u{0441}\u{0441}\u{043a}\u{0438}\u{0439}): \u{0417}\u{0434}\u{0440}\u{0430}\u{0432}\u{0441}\u{0442}\u{0432}\u{0443}\u{0439}\u{0442}\u{0435}"));
+    gettext("Vietnamese (Ti\u{1ebf}ng Vi\u{1ec7}t): Ch\u{00e0}o b\u{1ea1}n"));
+    gettext("Japanese (\u{65e5}\u{672c}\u{8a9e}): \u{3053}\u{3093}\u{306b}\u{3061}\u{306f}"));
+    gettext("Thai (\u{0e20}\u{0e32}\u{0e29}\u{0e32}\u{0e44}\u{0e17}\u{0e22}): \u{0e2a}\u{0e27}\u{0e31}\u{0e2a}\u{0e14}\u{0e35}\u{0e04}\u{0e23}\u{0e31}\u{0e1a}"));
+    gettext("Script: \u{1d49e}"));
     // And now a comment with Русский and 日本語 and Unicode escapes: B\u{00f6}se B\u{00fc}bchen
-    catalog.gettext("This string has a multilingual comment"));
+    gettext("This string has a multilingual comment"));
     // Unicode identifiers.
     String あ = "";
     String 𐀀 = "";
@@ -76,7 +76,6 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-rs-2.ok xg-rs-2.po
-result=$?
+${DIFF} xg-rs-2.ok xg-rs-2.po || Exit 1
 
-exit $result
+exit 0

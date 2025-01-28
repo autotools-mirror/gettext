@@ -17,6 +17,10 @@
 /gettext-runtime/doc/Admin/matrix.xml
 /gettext-tools/misc/archive.dir.tar
 
+# Files brought in by autopull.sh:
+/gettext-tools/tree-sitter-*
+/gettext-tools/tree-sitter.cfg
+
 # Files brought in by gnulib-tool:
 /GNUmakefile
 /INSTALL.generic
@@ -943,6 +947,8 @@ core
 /gettext-tools/libgrep/sys/types.h
 /gettext-tools/po/??@*.insert-header
 /gettext-tools/src/gettext.res
+/gettext-tools/src/libxgettextts1.a
+/gettext-tools/src/libxgettextts2.a
 /gettext-tools/src/textstyle.h
 /gettext-tools/src/textstyle/stdbool.h
 /gettext-tools/src/textstyle/version.h

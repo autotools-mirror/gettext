@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/libgettextpo subdirectory of GNU gettext
-## Copyright (C) 1995-2024 Free Software Foundation, Inc.
+## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -79,6 +79,7 @@ libgettextpo_la_AUXSOURCES = \
   ../src/format-lisp.c \
   ../src/format-elisp.c \
   ../src/format-librep.c \
+  ../src/format-rust.c \
   ../src/format-ruby.c \
   ../src/format-sh.c \
   ../src/format-awk.c \

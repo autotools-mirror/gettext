@@ -246,6 +246,7 @@ if ! $skip_gnulib; then
     strcspn
     strerror
     string-desc
+    strnlen
     strpbrk
     strtol
     strtoul
@@ -256,6 +257,7 @@ if ! $skip_gnulib; then
     trim
     unicase/u8-casefold
     unictype/ctype-space
+    unictype/property-white-space
     unictype/syntax-java-whitespace
     unilbrk/ulc-width-linebreaks
     uniname/uniname
@@ -395,7 +397,9 @@ if ! $skip_gnulib; then
     strchrnul
     strerror
     string-desc
+    strnlen
     unictype/ctype-space
+    unictype/property-white-space
     unilbrk/ulc-width-linebreaks
     unistr/u8-mbtouc
     unistr/u8-mbtoucr

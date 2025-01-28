@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-2024 Free Software Foundation, Inc.
+## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -41,6 +41,8 @@ else
 noinst_LTLIBRARIES = libgettextsrc.la
 endif
 
+noinst_LIBRARIES = libxgettextts1.a libxgettextts2.a
+
 noinst_HEADERS = \
   pos.h message.h po-error.h xerror-handler.h po-xerror.h \
   read-po-internal.h po-charset.h read-po-lex.h \
@@ -78,6 +80,7 @@ noinst_HEADERS = \
   x-lisp.h \
   x-elisp.h \
   x-librep.h \
+  x-rust.h \
   x-ruby.h \
   x-sh.h \
   x-awk.h \
@@ -109,6 +112,7 @@ schemadir = $(pkgdatadir)/schema
 # The option -I$(top_srcdir) is needed so that woe32dll/export.h is found.
 AM_CPPFLAGS = \
   -I$(top_srcdir) \
+  -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include \
   -I../libgrep -I$(top_srcdir)/libgrep \
   -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
   -I../../gettext-runtime/intl -I$(top_srcdir)/../gettext-runtime/intl
@@ -189,6 +193,7 @@ FORMAT_SOURCE += \
   format-lisp.c \
   format-elisp.c \
   format-librep.c \
+  format-rust.c \
   format-ruby.c \
   format-sh.c \
   format-awk.c \
@@ -231,6 +236,19 @@ libgettextsrc_la_SOURCES = \
   read-desktop.c \
   locating-rules.c its.c \
   search-path.c
+
+# xgettext has some tree-sitter based backends.
+LIBXGETTEXTTS = libxgettextts2.a libxgettextts1.a
+libxgettextts1_a_SOURCES = \
+  ../tree-sitter-$(TREE_SITTER_VERSION)/lib/src/lib.c
+libxgettextts1_a_CPPFLAGS = \
+  -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include \
+  -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/src
+libxgettextts2_a_SOURCES = \
+  ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-parser.c \
+  ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-scanner.c
+libxgettextts2_a_CPPFLAGS = \
+  -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
 
 # msggrep needs pattern matching.
 LIBGREP = ../libgrep/libgrep.a
@@ -277,6 +295,7 @@ xgettext_SOURCES += \
   x-lisp.c \
   x-elisp.c \
   x-librep.c \
+  x-rust.c \
   x-ruby.c \
   x-sh.c ../../gettext-runtime/src/escapes.h \
   x-awk.c \
@@ -428,7 +447,7 @@ msgcmp_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @MSGMERGE_LIBM@ $(WOE32_LDADD
 msgfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgmerge_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @MSGMERGE_LIBM@ $(WOE32_LDADD) $(OPENMP_CFLAGS)
 msgunfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
-xgettext_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBICONV@ $(WOE32_LDADD)
+xgettext_LDADD = $(LIBXGETTEXTTS) libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBICONV@ $(WOE32_LDADD)
 msgattrib_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgcat_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgcomm_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
@@ -446,7 +465,7 @@ msgcmp_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LD
 msgfmt_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msgmerge_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msgunfmt_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
-xgettext_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
+xgettext_DEPENDENCIES = $(LIBXGETTEXTTS) libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msgattrib_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msgcat_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msgcomm_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
