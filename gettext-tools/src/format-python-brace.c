@@ -1,5 +1,5 @@
 /* Python brace format strings.
-   Copyright (C) 2004-2024 Free Software Foundation, Inc.
+   Copyright (C) 2004-2025 Free Software Foundation, Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2013.
 
    This program is free software: you can redistribute it and/or modify
@@ -156,10 +156,21 @@ parse_directive (struct spec *spec,
   if (!parse_named_field (spec, &format, translated, fdi, invalid_reason)
       && !parse_numeric_field (spec, &format, translated, fdi, invalid_reason))
     {
-      *invalid_reason =
-        xasprintf (_("In the directive number %u, '%c' cannot start a field name."),
-                   spec->directives, *format);
-      FDI_SET (format, FMTDIR_ERROR);
+      if (*format == '\0')
+        {
+          *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+          FDI_SET (format - 1, FMTDIR_ERROR);
+        }
+      else
+        {
+          *invalid_reason =
+            (c_isprint (*format)
+             ? xasprintf (_("In the directive number %u, '%c' cannot start a field name."),
+                          spec->directives, *format)
+             : xasprintf (_("In the directive number %u, a field name starts with a character that is not alphanumerical or underscore."),
+                          spec->directives));
+          FDI_SET (format, FMTDIR_ERROR);
+        }
       return false;
     }
 
@@ -176,10 +187,21 @@ parse_directive (struct spec *spec,
           if (!parse_named_field (spec, &format, translated, fdi,
                                   invalid_reason))
             {
-              *invalid_reason =
-                xasprintf (_("In the directive number %u, '%c' cannot start a getattr argument."),
-                           spec->directives, *format);
-              FDI_SET (format, FMTDIR_ERROR);
+              if (*format == '\0')
+                {
+                  *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+                  FDI_SET (format - 1, FMTDIR_ERROR);
+                }
+              else
+                {
+                  *invalid_reason =
+                    (c_isprint (*format)
+                     ? xasprintf (_("In the directive number %u, '%c' cannot start a getattr argument."),
+                                  spec->directives, *format)
+                     : xasprintf (_("In the directive number %u, a getattr argument starts with a character that is not alphabetical or underscore."),
+                                  spec->directives));
+                  FDI_SET (format, FMTDIR_ERROR);
+                }
               return false;
             }
         }
@@ -191,10 +213,21 @@ parse_directive (struct spec *spec,
               && !parse_numeric_field (spec, &format, translated, fdi,
                                        invalid_reason))
             {
-              *invalid_reason =
-                xasprintf (_("In the directive number %u, '%c' cannot start a getitem argument."),
-                           spec->directives, *format);
-              FDI_SET (format, FMTDIR_ERROR);
+              if (*format == '\0')
+                {
+                  *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+                  FDI_SET (format - 1, FMTDIR_ERROR);
+                }
+              else
+                {
+                  *invalid_reason =
+                    (c_isprint (*format)
+                     ? xasprintf (_("In the directive number %u, '%c' cannot start a getitem argument."),
+                                  spec->directives, *format)
+                     : xasprintf (_("In the directive number %u, a getitem argument starts with a character that is not alphanumerical or underscore."),
+                                  spec->directives));
+                  FDI_SET (format, FMTDIR_ERROR);
+                }
               return false;
             }
 
@@ -203,7 +236,7 @@ parse_directive (struct spec *spec,
               *invalid_reason =
                 xasprintf (_("In the directive number %u, there is an unterminated getitem argument."),
                            spec->directives);
-              FDI_SET (format, FMTDIR_ERROR);
+              FDI_SET (format - 1, FMTDIR_ERROR);
               return false;
             }
           format++;
@@ -257,9 +290,9 @@ parse_directive (struct spec *spec,
           if (c1 == '\0')
             {
               *invalid_reason =
-                xasprintf (_("In the directive number %u, there is an unterminated format directive."),
+                xasprintf (_("The directive number %u is unterminated."),
                            spec->directives);
-              FDI_SET (format, FMTDIR_ERROR);
+              FDI_SET (format - 1, FMTDIR_ERROR);
               return false;
             }
 
@@ -310,9 +343,9 @@ parse_directive (struct spec *spec,
   if (*format != '}')
     {
       *invalid_reason =
-        xasprintf (_("In the directive number %u, there is an unterminated format directive."),
+        xasprintf (_("The directive number %u is unterminated."),
                    spec->directives);
-      FDI_SET (format, FMTDIR_ERROR);
+      FDI_SET (format - 1, FMTDIR_ERROR);
       return false;
     }
 

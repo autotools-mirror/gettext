@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -47,7 +47,9 @@ enum
 
 /* Macro for use inside a parser:
    Sets an indicator at the position corresponding to PTR.
-   Assumes local variables 'fdi' and 'format_start' are defined.  */
+   Assumes local variables 'fdi' and 'format_start' are defined.
+   *PTR must not be the terminating NUL character; if it might be NUL, you need
+   to pass PTR - 1 instead of PTR.  */
 #define FDI_SET(ptr, flag) \
   if (fdi != NULL) \
     fdi[(ptr) - format_start] |= (flag)/*;*/
