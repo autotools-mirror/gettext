@@ -21,8 +21,7 @@ AC_INIT([gettext-runtime], [dummy], [bug-gettext@gnu.org])
 AC_CONFIG_SRCDIR([intl/dcigettext.c])
 AC_CONFIG_AUX_DIR([../build-aux])
 VERSION_NUMBER=`cd $srcdir/.. \
-                && build-aux/git-version-gen .tarball-version \
-                   | sed -e 's/dirty$/modified/'`
+                && build-aux/git-version-gen .tarball-version`
 gl_INIT_PACKAGE_VERSION([$VERSION_NUMBER])
 AM_INIT_AUTOMAKE([1.11.1 silent-rules parallel-tests])
 AC_CONFIG_HEADERS([config.h])
