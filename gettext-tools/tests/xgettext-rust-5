@@ -1,0 +1,28 @@
+#! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Rust support: extraction of contexts.
+
+cat <<\EOF > xg-rs-7.rs
+println!(gettext("help"));
+println!(pgettext("Help", "about"));
+EOF
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location -d xg-rs-7.tmp xg-rs-7.rs || Exit 1
+LC_ALL=C tr -d '\r' < xg-rs-7.tmp.po > xg-rs-7.po || Exit 1
+
+cat <<EOF > xg-rs-7.ok
+msgid "help"
+msgstr ""
+
+msgctxt "Help"
+msgid "about"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-rs-7.ok xg-rs-7.po
+result=$?
+
+exit $result
