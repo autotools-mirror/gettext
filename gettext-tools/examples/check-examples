@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script that checks against build infrastructure mistakes in the examples.
 
-# Copyright (C) 2018-2024 Free Software Foundation, Inc.
+# Copyright (C) 2018-2025 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -153,6 +153,7 @@ func_check_autoclean_all ()
   func_check_autoclean hello-java-qtjambi
   func_check_autoclean hello-csharp
   func_check_autoclean hello-csharp-forms
+  func_check_autoclean hello-rust
   func_check_autoclean hello-ruby
   func_check_autoclean hello-gawk
   func_check_autoclean hello-pascal
@@ -227,6 +228,7 @@ func_check_distclean_all ()
   func_check_distclean hello-java-qtjambi
   func_check_distclean hello-csharp
   func_check_distclean hello-csharp-forms
+  func_check_distclean hello-rust
   func_check_distclean hello-ruby
   func_check_distclean hello-gawk
   func_check_distclean hello-pascal
@@ -303,6 +305,7 @@ func_check_maintainerclean_all ()
  #func_check_maintainerclean hello-java-qtjambi
   func_check_maintainerclean hello-csharp
   func_check_maintainerclean hello-csharp-forms
+  func_check_maintainerclean hello-rust
   func_check_maintainerclean hello-ruby
   func_check_maintainerclean hello-gawk
   func_check_maintainerclean hello-pascal
@@ -382,6 +385,7 @@ func_check_maintainerclean_vpath_all ()
  #func_check_maintainerclean_vpath hello-java-qtjambi
   func_check_maintainerclean_vpath hello-csharp
   func_check_maintainerclean_vpath hello-csharp-forms
+  func_check_maintainerclean_vpath hello-rust
   func_check_maintainerclean_vpath hello-ruby
   func_check_maintainerclean_vpath hello-gawk
   func_check_maintainerclean_vpath hello-pascal
@@ -468,6 +472,7 @@ func_check_dist_all ()
  #func_check_dist hello-java-qtjambi
   func_check_dist hello-csharp
   func_check_dist hello-csharp-forms
+  func_check_dist hello-rust
   func_check_dist hello-ruby
   func_check_dist hello-gawk
   func_check_dist hello-pascal
@@ -554,6 +559,7 @@ func_check_dist_vpath_all ()
  #func_check_dist_vpath hello-java-qtjambi
   func_check_dist_vpath hello-csharp
   func_check_dist_vpath hello-csharp-forms
+  func_check_dist_vpath hello-rust
   func_check_dist_vpath hello-ruby
   func_check_dist_vpath hello-gawk
   func_check_dist_vpath hello-pascal
@@ -632,6 +638,7 @@ func_check_install_all ()
  #func_check_install hello-java-qtjambi
   func_check_install hello-csharp
   func_check_install hello-csharp-forms
+  func_check_install hello-rust
   func_check_install hello-ruby
   func_check_install hello-gawk
   func_check_install hello-pascal
@@ -707,6 +714,7 @@ func_check_uninstall_all ()
  #func_check_uninstall hello-java-qtjambi
   func_check_uninstall hello-csharp
   func_check_uninstall hello-csharp-forms
+  func_check_uninstall hello-rust
   func_check_uninstall hello-ruby
   func_check_uninstall hello-gawk
   func_check_uninstall hello-pascal
@@ -784,6 +792,7 @@ func_check_distcheck_all ()
  #func_check_distcheck hello-java-qtjambi
   func_check_distcheck hello-csharp
   func_check_distcheck hello-csharp-forms
+  func_check_distcheck hello-rust
   func_check_distcheck hello-ruby
   func_check_distcheck hello-gawk
   func_check_distcheck hello-pascal
@@ -802,10 +811,18 @@ func_check_distcheck_all ()
 
 # If you want to extend this script:
 
-# A dummy check function.
+# A check function for a single sample.
 func_check ()
 {
-  :
+  func_check_autoclean "$1"
+  func_check_distclean "$1"
+  func_check_maintainerclean "$1"
+  func_check_maintainerclean_vpath "$1"
+  func_check_dist "$1"
+  func_check_dist_vpath "$1"
+  func_check_install "$1"
+  func_check_uninstall "$1"
+  func_check_distcheck "$1"
 }
 
 # Complete list of samples.
@@ -836,6 +853,7 @@ func_check_all ()
   func_check hello-java-qtjambi
   func_check hello-csharp
   func_check hello-csharp-forms
+  func_check hello-rust
   func_check hello-ruby
   func_check hello-gawk
   func_check hello-pascal

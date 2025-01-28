@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples subdirectory of GNU gettext
-## Copyright (C) 2001-2024 Free Software Foundation, Inc.
+## Copyright (C) 2001-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -333,6 +333,16 @@ EXAMPLESFILES = \
   hello-csharp-forms/m4/Makefile.am \
   hello-csharp-forms/po/Makefile.am \
   \
+  hello-rust/INSTALL \
+  hello-rust/autogen.sh \
+  hello-rust/autoclean.sh \
+  hello-rust/Cargo.toml.in \
+  hello-rust/src/main.rs.in \
+  hello-rust/Makefile.am \
+  hello-rust/configure.ac \
+  hello-rust/m4/Makefile.am \
+  hello-rust/po/Makefile.am \
+  \
   hello-ruby/INSTALL \
   hello-ruby/autogen.sh \
   hello-ruby/autoclean.sh \
@@ -436,6 +446,7 @@ EXAMPLESDIRS = \
   hello-java-qtjambi \
   hello-csharp \
   hello-csharp-forms \
+  hello-rust \
   hello-ruby \
   hello-gawk \
   hello-pascal \

@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples/po subdirectory of GNU gettext
-## Copyright (C) 1995-2024 Free Software Foundation, Inc.
+## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -59,6 +59,7 @@ POTFILES = \
   hello-java-qtjambi/Hello.java \
   hello-csharp/hello.cs \
   hello-csharp-forms/hello.cs \
+  hello-rust/src/main.rs.in \
   hello-ruby/hello.rb \
   hello-gawk/hello.awk \
   hello-pascal/hello.pas \
@@ -96,6 +97,7 @@ SMALLPOTS = \
   hello-java-qtjambi.pot \
   hello-csharp.pot \
   hello-csharp-forms.pot \
+  hello-rust.pot \
   hello-ruby.pot \
   hello-gawk.pot \
   hello-pascal.pot \
@@ -323,6 +325,9 @@ hello-csharp.pot : $(POTFILES_DEPS)
 hello-csharp-forms.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-csharp-forms
 
+hello-rust.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-rust
+
 hello-ruby.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-ruby
 
@@ -448,6 +453,7 @@ SMALLPOFILES_FOR_lang = \
   $(srcdir)/../hello-java-qtjambi/po/$$lang.po \
   $(srcdir)/../hello-csharp/po/$$lang.po \
   $(srcdir)/../hello-csharp-forms/po/$$lang.po \
+  $(srcdir)/../hello-rust/po/$$lang.po \
   $(srcdir)/../hello-ruby/po/$$lang.po \
   $(srcdir)/../hello-gawk/po/$$lang.po \
   $(srcdir)/../hello-pascal/po/$$lang.po \
@@ -531,6 +537,9 @@ $(srcdir)/../hello-csharp/po/$(LL).po: $(srcdir)/hello-csharp.pot $(srcdir)/$(LL
 
 $(srcdir)/../hello-csharp-forms/po/$(LL).po: $(srcdir)/hello-csharp-forms.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-csharp-forms $(LL)
+
+$(srcdir)/../hello-rust/po/$(LL).po: $(srcdir)/hello-rust.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-rust $(LL)
 
 $(srcdir)/../hello-ruby/po/$(LL).po: $(srcdir)/hello-ruby.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-ruby $(LL)
