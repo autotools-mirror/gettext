@@ -1,5 +1,5 @@
 /* Ruby format strings.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2020.
 
    This program is free software: you can redistribute it and/or modify
@@ -301,13 +301,13 @@ format_parse (const char *format, bool translated, char *fdi,
                     if (seen_precision)
                       {
                         *invalid_reason = INVALID_WIDTH_AFTER_PRECISION (spec.directives);
-                        FDI_SET (format, FMTDIR_ERROR);
+                        FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
                         goto bad_format;
                       }
                     if (seen_width)
                       {
                         *invalid_reason = INVALID_WIDTH_TWICE (spec.directives);
-                        FDI_SET (format, FMTDIR_ERROR);
+                        FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
                         goto bad_format;
                       }
                     seen_width = true;
@@ -496,7 +496,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 if (seen_precision)
                   {
                     *invalid_reason = INVALID_PRECISION_TWICE (spec.directives);
-                    FDI_SET (format, FMTDIR_ERROR);
+                    FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
                     goto bad_format;
                   }
                 seen_precision = true;
