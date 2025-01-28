@@ -223,6 +223,7 @@ TESTS = gettext-1 gettext-2 \
 	lang-csharp \
 	lang-javascript \
 	lang-guile lang-clisp lang-elisp lang-librep \
+	lang-rust \
 	lang-ruby \
 	lang-sh lang-bash \
 	lang-gawk \

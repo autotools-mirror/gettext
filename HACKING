@@ -171,36 +171,6 @@ are skipped. To this effect, you need to install also:
       - On Red Hat distributions: python3.
       - Other: https://repology.org/project/python/versions
 
-  * GNU clisp
-    + Homepage: http://clisp.org/
-    + Pre-built package name:
-      - On Debian and Debian-based systems: clisp, clisp-doc,
-      - On Red Hat distributions: --.
-      - Other: https://repology.org/project/clisp/versions
-
-  * librep
-    + Homepage: http://librep.sourceforge.net/
-    + Pre-built package name:
-      - On Debian and Debian-based systems: rep, rep-doc,
-      - On Red Hat distributions: --.
-      - Other: https://repology.org/project/librep/versions
-
-  * GNU guile
-    + Homepage: https://www.gnu.org/software/guile/
-    + Pre-built package name:
-      - On Debian and Debian-based systems: guile-2.2, guile-2.2-doc,
-        or:                                 guile-3.0, guile-3.0-doc,
-      - On Red Hat distributions: guile.
-      - Other: https://repology.org/project/guile/versions
-
-  * GNU smalltalk
-    + Homepage: http://smalltalk.gnu.org/
-    + Pre-built package name:
-      - On Debian and Debian-based systems: gnu-smalltalk, gnu-smalltalk-doc
-        (only up to Debian 11),
-      - On Red Hat distributions: gnu-smalltalk (EPEL).
-      - Other: https://repology.org/project/smalltalk/versions
-
   * A Java compiler
     + Homepage: http://openjdk.java.net/
     + Pre-built package name:
@@ -227,12 +197,78 @@ are skipped. To this effect, you need to install also:
         - On Red Hat distributions: dotnet7.0 or dotnet8.0.
         - Other: https://repology.org/project/dotnet/versions
 
+  * The GNOME/Mozilla JavaScript interpreter
+    + Homepage: https://wiki.gnome.org/Projects/Gjs
+    + Pre-built package name:
+      - On Debian and Debian-based systems: gjs, gir1.2-gtk-3.0,
+      - On Red Hat distributions: gjs.
+      - Other: https://repology.org/project/gjs/versions
+
+  * GNU guile
+    + Homepage: https://www.gnu.org/software/guile/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: guile-2.2, guile-2.2-doc,
+        or:                                 guile-3.0, guile-3.0-doc,
+      - On Red Hat distributions: guile.
+      - Other: https://repology.org/project/guile/versions
+
+  * GNU clisp
+    + Homepage: http://clisp.org/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: clisp, clisp-doc,
+      - On Red Hat distributions: --.
+      - Other: https://repology.org/project/clisp/versions
+
+  * librep
+    + Homepage: http://librep.sourceforge.net/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: rep, rep-doc,
+      - On Red Hat distributions: --.
+      - Other: https://repology.org/project/librep/versions
+
+  * Rust
+    + Homepage: https://www.rust-lang.org/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: rustc, cargo,
+      - On Red Hat distributions: rust, rust-cargo.
+      - Other: https://repology.org/project/rust/versions
+               https://repology.org/project/cargo/versions
+
+  * Ruby
+    + Homepage: https://www.ruby-lang.org/en/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: ruby,
+      - On Red Hat distributions: ruby.
+      - Other: https://repology.org/project/ruby/versions
+  * The ruby-gettext package
+    + Homepage: https://ruby-gettext.github.io/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: ruby-gettext,
+      - On Red Hat distributions: ruby-gettext.
+      - Other: https://repology.org/project/ruby:gettext/versions
+
   * GNU awk
     + Homepage: https://www.gnu.org/software/gawk/
     + Pre-built package name:
       - On Debian and Debian-based systems: gawk, gawk-doc,
       - On Red Hat distributions: gawk.
       - Other: https://repology.org/project/gawk/versions
+
+  * lua
+    + Homepage: https://www.lua.org/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: lua5.4 or lua5.3 or lua5.2 or lua5.1,
+      - On Red Hat distributions: lua.
+      - Other: https://repology.org/project/lua/versions
+  * The lua-gettext package
+    + Homepage: https://gitlab.com/sukhichev/lua-gettext/blob/master/README.us.md
+    + Debian and Ubuntu packages:
+      Download (following the hyperlinks in the homepage), then install through
+      $ sudo dpkg -i lua-gettext_0.0+nmu1_amd64.deb
+    + Pre-built package name:
+      - On Debian and Debian-based systems: --,
+      - On Red Hat distributions: --.
+      - Other: https://repology.org/project/lua:gettext/versions
 
   * The Free Pascal compiler ppc386 or ppcx64
     + Homepage: https://www.freepascal.org/
@@ -246,6 +282,21 @@ are skipped. To this effect, you need to install also:
       - On Debian and Debian-based systems: fp-units-fcl,
       - On Red Hat distributions: --.
       - Other: https://repology.org/project/fpc/versions
+
+  * GNU smalltalk
+    + Homepage: http://smalltalk.gnu.org/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: gnu-smalltalk, gnu-smalltalk-doc
+        (only up to Debian 11),
+      - On Red Hat distributions: gnu-smalltalk (EPEL).
+      - Other: https://repology.org/project/smalltalk/versions
+
+  * The GNOME Vala compiler
+    + Homepage: https://wiki.gnome.org/Projects/Vala
+    + Pre-built package name:
+      - On Debian and Debian-based systems: valac,
+      - On Red Hat distributions: vala.
+      - Other: https://repology.org/project/vala/versions
 
   * Tcl
     + Homepage: https://www.tcl.tk/
@@ -273,49 +324,6 @@ are skipped. To this effect, you need to install also:
       - On Debian and Debian-based systems: php,
       - On Red Hat distributions: php.
       - Other: https://repology.org/project/php/versions
-
-  * Ruby
-    + Homepage: https://www.ruby-lang.org/en/
-    + Pre-built package name:
-      - On Debian and Debian-based systems: ruby,
-      - On Red Hat distributions: ruby.
-      - Other: https://repology.org/project/ruby/versions
-  * The ruby-gettext package
-    + Homepage: https://ruby-gettext.github.io/
-    + Pre-built package name:
-      - On Debian and Debian-based systems: ruby-gettext,
-      - On Red Hat distributions: ruby-gettext.
-      - Other: https://repology.org/project/ruby:gettext/versions
-
-  * lua
-    + Homepage: https://www.lua.org/
-    + Pre-built package name:
-      - On Debian and Debian-based systems: lua5.4 or lua5.3 or lua5.2 or lua5.1,
-      - On Red Hat distributions: lua.
-      - Other: https://repology.org/project/lua/versions
-  * The lua-gettext package
-    + Homepage: https://gitlab.com/sukhichev/lua-gettext/blob/master/README.us.md
-    + Debian and Ubuntu packages:
-      Download (following the hyperlinks in the homepage), then install through
-      $ sudo dpkg -i lua-gettext_0.0+nmu1_amd64.deb
-    + Pre-built package name:
-      - On Debian and Debian-based systems: --,
-      - On Red Hat distributions: --.
-      - Other: https://repology.org/project/lua:gettext/versions
-
-  * The GNOME/Mozilla JavaScript interpreter
-    + Homepage: https://wiki.gnome.org/Projects/Gjs
-    + Pre-built package name:
-      - On Debian and Debian-based systems: gjs, gir1.2-gtk-3.0,
-      - On Red Hat distributions: gjs.
-      - Other: https://repology.org/project/gjs/versions
-
-  * The GNOME Vala compiler
-    + Homepage: https://wiki.gnome.org/Projects/Vala
-    + Pre-built package name:
-      - On Debian and Debian-based systems: valac,
-      - On Red Hat distributions: vala.
-      - Other: https://repology.org/project/vala/versions
 
 If you want to exercise the sample programs in gettext-tools/examples/, you
 also need to install:
