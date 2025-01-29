@@ -107,7 +107,7 @@ this_test_is_longrunning_
 
 : ${CARGO=cargo}
 # This takes between 2.5 minutes (on a fast machine) and 5 minutes,
-# most of it in "Compiling locale_config v0.3.0". Sigh.
+# most of it in building gettext-sys. Sigh.
 ${CARGO} build || Exit 1
 
 # Test which of the fr_FR locales are installed.
