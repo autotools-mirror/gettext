@@ -1,5 +1,5 @@
 /* Implementation of the internal dcigettext function.
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -1216,7 +1216,6 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	    not_translated_yet:
 
 	      inbuf = (const unsigned char *) result;
-	      outbuf = freemem + sizeof (size_t);
 # ifndef _LIBC
 	      transmem_list = NULL;
 # endif
@@ -1225,12 +1224,15 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	      while (1)
 		{
 		  transmem_block_t *newmem;
-# ifdef _LIBC
-		  size_t non_reversible;
-		  int res;
 
 		  if (freemem_size < sizeof (size_t))
 		    goto resize_freemem;
+
+		  outbuf = freemem + sizeof (size_t);
+
+# ifdef _LIBC
+		  size_t non_reversible;
+		  int res;
 
 		  res = __gconv (convd->conv,
 				 &inbuf, inbuf + resultlen,
@@ -1256,9 +1258,6 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 		  size_t inleft = resultlen;
 		  char *outptr = (char *) outbuf;
 		  size_t outleft;
-
-		  if (freemem_size < sizeof (size_t))
-		    goto resize_freemem;
 
 		  outleft = freemem_size - sizeof (size_t);
 		  if (iconv (convd->conv,
@@ -1328,8 +1327,6 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 		  transmem_list = newmem;
 		  freemem = newmem;
 # endif
-
-		  outbuf = freemem + sizeof (size_t);
 		}
 
 	      /* We have now in our buffer a converted string.  Put this
