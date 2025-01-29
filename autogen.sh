@@ -328,6 +328,7 @@ if ! $skip_gnulib; then
     javaexec-script
     manywarnings
     stdint-h
+    test-xfail
   '
   GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS='
     unilbrk/u8-possible-linebreaks-tests

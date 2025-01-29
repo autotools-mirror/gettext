@@ -520,6 +520,17 @@ recode_sr_latin_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 hostname_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibexecdir)`
 urlget_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibexecdir)`
 cldr_plurals_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibexecdir)`
+else
+xgettext_LDFLAGS =
+endif
+
+# Link-time flags for particular programs.
+# With MSVC 14/x86_64, the default stack size of 1 MB is sufficient only for
+# a recursion depth in "xgettext -L Rust" invocations of 501. To guarantee a
+# recursion depth of 1000, we need to increase the stack size. Cf.
+# <https://learn.microsoft.com/en-us/cpp/build/reference/f-set-stack-size>.
+if PLATFORM_IS_MSVC
+xgettext_LDFLAGS += -Wl,/F4000000
 endif
 
 # Linking with C++ libraries is needed _only_ on mingw and Cygwin.
