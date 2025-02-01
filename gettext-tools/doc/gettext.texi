@@ -1155,6 +1155,31 @@ The MO files themselves should also be properly installed.  Given the
 appropriate environment variables are set (@pxref{Setting the POSIX Locale}),
 the program should localize itself automatically, whenever it executes.
 
+Shipping the MO files as separate files,
+as opposed to embedding them in the executable,
+has three advantages:
+@itemize @bullet
+@item
+For the users:
+It allows users to prepare and install new translations,
+without needing to rebuild the package (which may require developer skills).
+@item
+For the distributors:
+It allows distributions to
+ship translations that were produced after the release of the package.
+@item
+For the vendors of complex packages:
+When lengthy quality assurance steps are required before making a release,
+this quality assurance can start
+before the translators have produced the translations,
+shortening the critical path of the release schedule by a week or two.
+@end itemize
+@noindent
+Embedding the translations in the executable,
+whether by the ISO C @code{#embed} directive or through other means,
+would deprive users without developer skills
+of the ability to fix translation mistakes and add new translations.
+
 The remainder of this manual has the purpose of explaining in depth the various
 steps outlined above.
 
