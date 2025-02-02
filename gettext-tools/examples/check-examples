@@ -141,27 +141,27 @@ func_check_autoclean_all ()
   func_check_autoclean hello-objc
   func_check_autoclean hello-objc-gnustep
   func_check_autoclean hello-objc-gnome2
-  func_check_autoclean hello-sh
   func_check_autoclean hello-python
-  func_check_autoclean hello-clisp
-  func_check_autoclean hello-librep
-  func_check_autoclean hello-guile
-  func_check_autoclean hello-smalltalk
   func_check_autoclean hello-java
   func_check_autoclean hello-java-awt
   func_check_autoclean hello-java-swing
   func_check_autoclean hello-java-qtjambi
   func_check_autoclean hello-csharp
   func_check_autoclean hello-csharp-forms
+  func_check_autoclean hello-guile
+  func_check_autoclean hello-clisp
+  func_check_autoclean hello-librep
   func_check_autoclean hello-rust
   func_check_autoclean hello-ruby
+  func_check_autoclean hello-sh
   func_check_autoclean hello-gawk
   func_check_autoclean hello-pascal
-  func_check_autoclean hello-ycp
+  func_check_autoclean hello-smalltalk
   func_check_autoclean hello-tcl
   func_check_autoclean hello-tcl-tk
   func_check_autoclean hello-perl
   func_check_autoclean hello-php
+  func_check_autoclean hello-ycp
   if (shopt -s failglob; echo hello-*.out) >/dev/null 2>/dev/null; then
     echo "*** func_check_autoclean error: Leftover files:"
     cat hello-*.out
@@ -216,27 +216,27 @@ func_check_distclean_all ()
   func_check_distclean hello-objc
   func_check_distclean hello-objc-gnustep
  #func_check_distclean hello-objc-gnome2
-  func_check_distclean hello-sh
   func_check_distclean hello-python
-  func_check_distclean hello-clisp
-  func_check_distclean hello-librep
-  func_check_distclean hello-guile
-  func_check_distclean hello-smalltalk
   func_check_distclean hello-java
   func_check_distclean hello-java-awt
   func_check_distclean hello-java-swing
   func_check_distclean hello-java-qtjambi
   func_check_distclean hello-csharp
   func_check_distclean hello-csharp-forms
+  func_check_distclean hello-guile
+  func_check_distclean hello-clisp
+  func_check_distclean hello-librep
   func_check_distclean hello-rust
   func_check_distclean hello-ruby
+  func_check_distclean hello-sh
   func_check_distclean hello-gawk
   func_check_distclean hello-pascal
- #func_check_distclean hello-ycp
+  func_check_distclean hello-smalltalk
   func_check_distclean hello-tcl
   func_check_distclean hello-tcl-tk
   func_check_distclean hello-perl
   func_check_distclean hello-php
+ #func_check_distclean hello-ycp
   if (shopt -s failglob; echo hello-*.log) >/dev/null 2>/dev/null; then
     echo "*** func_check_distclean error: 'configure' failures"
     echo hello-*.log
@@ -293,27 +293,27 @@ func_check_maintainerclean_all ()
   func_check_maintainerclean hello-objc
   func_check_maintainerclean hello-objc-gnustep
  #func_check_maintainerclean hello-objc-gnome2
-  func_check_maintainerclean hello-sh
   func_check_maintainerclean hello-python
-  func_check_maintainerclean hello-clisp
-  func_check_maintainerclean hello-librep
-  func_check_maintainerclean hello-guile
-  func_check_maintainerclean hello-smalltalk
   func_check_maintainerclean hello-java
   func_check_maintainerclean hello-java-awt
   func_check_maintainerclean hello-java-swing
  #func_check_maintainerclean hello-java-qtjambi
   func_check_maintainerclean hello-csharp
   func_check_maintainerclean hello-csharp-forms
+  func_check_maintainerclean hello-guile
+  func_check_maintainerclean hello-clisp
+  func_check_maintainerclean hello-librep
   func_check_maintainerclean hello-rust
   func_check_maintainerclean hello-ruby
+  func_check_maintainerclean hello-sh
   func_check_maintainerclean hello-gawk
   func_check_maintainerclean hello-pascal
- #func_check_maintainerclean hello-ycp
+  func_check_maintainerclean hello-smalltalk
   func_check_maintainerclean hello-tcl
   func_check_maintainerclean hello-tcl-tk
   func_check_maintainerclean hello-perl
   func_check_maintainerclean hello-php
+ #func_check_maintainerclean hello-ycp
   if (shopt -s failglob; echo hello-*log) >/dev/null 2>/dev/null; then
     echo "*** func_check_maintainerclean error: 'make' failures"
     echo hello-*.log
@@ -373,27 +373,27 @@ func_check_maintainerclean_vpath_all ()
   func_check_maintainerclean_vpath hello-objc
   func_check_maintainerclean_vpath hello-objc-gnustep
  #func_check_maintainerclean_vpath hello-objc-gnome2
-  func_check_maintainerclean_vpath hello-sh
   func_check_maintainerclean_vpath hello-python
-  func_check_maintainerclean_vpath hello-clisp
-  func_check_maintainerclean_vpath hello-librep
-  func_check_maintainerclean_vpath hello-guile
-  func_check_maintainerclean_vpath hello-smalltalk
   func_check_maintainerclean_vpath hello-java
   func_check_maintainerclean_vpath hello-java-awt
   func_check_maintainerclean_vpath hello-java-swing
  #func_check_maintainerclean_vpath hello-java-qtjambi
   func_check_maintainerclean_vpath hello-csharp
   func_check_maintainerclean_vpath hello-csharp-forms
+  func_check_maintainerclean_vpath hello-guile
+  func_check_maintainerclean_vpath hello-clisp
+  func_check_maintainerclean_vpath hello-librep
   func_check_maintainerclean_vpath hello-rust
   func_check_maintainerclean_vpath hello-ruby
+  func_check_maintainerclean_vpath hello-sh
   func_check_maintainerclean_vpath hello-gawk
   func_check_maintainerclean_vpath hello-pascal
- #func_check_maintainerclean_vpath hello-ycp
+  func_check_maintainerclean_vpath hello-smalltalk
   func_check_maintainerclean_vpath hello-tcl
   func_check_maintainerclean_vpath hello-tcl-tk
   func_check_maintainerclean_vpath hello-perl
   func_check_maintainerclean_vpath hello-php
+ #func_check_maintainerclean_vpath hello-ycp
   if (shopt -s failglob; echo hello-*log) >/dev/null 2>/dev/null; then
     echo "*** func_check_maintainerclean_vpath error: 'make' failures"
     echo hello-*.log
@@ -460,27 +460,27 @@ func_check_dist_all ()
   func_check_dist hello-objc
   func_check_dist hello-objc-gnustep
  #func_check_dist hello-objc-gnome2
-  func_check_dist hello-sh
   func_check_dist hello-python
-  func_check_dist hello-clisp
-  func_check_dist hello-librep
-  func_check_dist hello-guile
-  func_check_dist hello-smalltalk
   func_check_dist hello-java
   func_check_dist hello-java-awt
   func_check_dist hello-java-swing
  #func_check_dist hello-java-qtjambi
   func_check_dist hello-csharp
   func_check_dist hello-csharp-forms
+  func_check_dist hello-guile
+  func_check_dist hello-clisp
+  func_check_dist hello-librep
   func_check_dist hello-rust
   func_check_dist hello-ruby
+  func_check_dist hello-sh
   func_check_dist hello-gawk
   func_check_dist hello-pascal
- #func_check_dist hello-ycp
+  func_check_dist hello-smalltalk
   func_check_dist hello-tcl
   func_check_dist hello-tcl-tk
   func_check_dist hello-perl
   func_check_dist hello-php
+ #func_check_dist hello-ycp
   if (shopt -s failglob; echo hello-*log) >/dev/null 2>/dev/null; then
     echo "*** func_check_dist error: 'make dist' failures"
     echo hello-*.log
@@ -547,27 +547,27 @@ func_check_dist_vpath_all ()
   func_check_dist_vpath hello-objc
   func_check_dist_vpath hello-objc-gnustep
  #func_check_dist_vpath hello-objc-gnome2
-  func_check_dist_vpath hello-sh
   func_check_dist_vpath hello-python
-  func_check_dist_vpath hello-clisp
-  func_check_dist_vpath hello-librep
-  func_check_dist_vpath hello-guile
-  func_check_dist_vpath hello-smalltalk
   func_check_dist_vpath hello-java
   func_check_dist_vpath hello-java-awt
   func_check_dist_vpath hello-java-swing
  #func_check_dist_vpath hello-java-qtjambi
   func_check_dist_vpath hello-csharp
   func_check_dist_vpath hello-csharp-forms
+  func_check_dist_vpath hello-guile
+  func_check_dist_vpath hello-clisp
+  func_check_dist_vpath hello-librep
   func_check_dist_vpath hello-rust
   func_check_dist_vpath hello-ruby
+  func_check_dist_vpath hello-sh
   func_check_dist_vpath hello-gawk
   func_check_dist_vpath hello-pascal
- #func_check_dist_vpath hello-ycp
+  func_check_dist_vpath hello-smalltalk
   func_check_dist_vpath hello-tcl
   func_check_dist_vpath hello-tcl-tk
   func_check_dist_vpath hello-perl
   func_check_dist_vpath hello-php
+ #func_check_dist_vpath hello-ycp
   if (shopt -s failglob; echo hello-*log) >/dev/null 2>/dev/null; then
     echo "*** func_check_dist_vpath error: 'make dist' failures"
     echo hello-*.log
@@ -626,27 +626,27 @@ func_check_install_all ()
   func_check_install hello-objc
   func_check_install hello-objc-gnustep
  #func_check_install hello-objc-gnome2
-  func_check_install hello-sh
   func_check_install hello-python
-  func_check_install hello-clisp
-  func_check_install hello-librep
-  func_check_install hello-guile
-  func_check_install hello-smalltalk
   func_check_install hello-java
   func_check_install hello-java-awt
   func_check_install hello-java-swing
  #func_check_install hello-java-qtjambi
   func_check_install hello-csharp
   func_check_install hello-csharp-forms
+  func_check_install hello-guile
+  func_check_install hello-clisp
+  func_check_install hello-librep
   func_check_install hello-rust
   func_check_install hello-ruby
+  func_check_install hello-sh
   func_check_install hello-gawk
   func_check_install hello-pascal
- #func_check_install hello-ycp
+  func_check_install hello-smalltalk
   func_check_install hello-tcl
   func_check_install hello-tcl-tk
   func_check_install hello-perl
   func_check_install hello-php
+ #func_check_install hello-ycp
   if (shopt -s failglob; echo hello-*log) >/dev/null 2>/dev/null; then
     echo "*** func_check_install error: 'make install' failures"
     echo hello-*.log
@@ -702,27 +702,27 @@ func_check_uninstall_all ()
   func_check_uninstall hello-objc
   func_check_uninstall hello-objc-gnustep
  #func_check_uninstall hello-objc-gnome2
-  func_check_uninstall hello-sh
   func_check_uninstall hello-python
-  func_check_uninstall hello-clisp
-  func_check_uninstall hello-librep
-  func_check_uninstall hello-guile
-  func_check_uninstall hello-smalltalk
   func_check_uninstall hello-java
   func_check_uninstall hello-java-awt
   func_check_uninstall hello-java-swing
  #func_check_uninstall hello-java-qtjambi
   func_check_uninstall hello-csharp
   func_check_uninstall hello-csharp-forms
+  func_check_uninstall hello-guile
+  func_check_uninstall hello-clisp
+  func_check_uninstall hello-librep
   func_check_uninstall hello-rust
   func_check_uninstall hello-ruby
+  func_check_uninstall hello-sh
   func_check_uninstall hello-gawk
   func_check_uninstall hello-pascal
- #func_check_uninstall hello-ycp
+  func_check_uninstall hello-smalltalk
   func_check_uninstall hello-tcl
   func_check_uninstall hello-tcl-tk
   func_check_uninstall hello-perl
   func_check_uninstall hello-php
+ #func_check_uninstall hello-ycp
   if (shopt -s failglob; echo hello-*log) >/dev/null 2>/dev/null; then
     echo "*** func_check_uninstall error: 'make uninstall' failures"
     echo hello-*.log
@@ -780,27 +780,27 @@ func_check_distcheck_all ()
   func_check_distcheck hello-objc
   func_check_distcheck hello-objc-gnustep
  #func_check_distcheck hello-objc-gnome2
-  func_check_distcheck hello-sh
   func_check_distcheck hello-python
-  func_check_distcheck hello-clisp
-  func_check_distcheck hello-librep
-  func_check_distcheck hello-guile
-  func_check_distcheck hello-smalltalk
   func_check_distcheck hello-java
   func_check_distcheck hello-java-awt
   func_check_distcheck hello-java-swing
  #func_check_distcheck hello-java-qtjambi
   func_check_distcheck hello-csharp
   func_check_distcheck hello-csharp-forms
+  func_check_distcheck hello-guile
+  func_check_distcheck hello-clisp
+  func_check_distcheck hello-librep
   func_check_distcheck hello-rust
   func_check_distcheck hello-ruby
+  func_check_distcheck hello-sh
   func_check_distcheck hello-gawk
   func_check_distcheck hello-pascal
- #func_check_distcheck hello-ycp
+  func_check_distcheck hello-smalltalk
   func_check_distcheck hello-tcl
   func_check_distcheck hello-tcl-tk
   func_check_distcheck hello-perl
   func_check_distcheck hello-php
+ #func_check_distcheck hello-ycp
   if (shopt -s failglob; echo hello-*log) >/dev/null 2>/dev/null; then
     echo "*** func_check_distcheck error: 'make distcheck' failures"
     echo hello-*.log
@@ -841,27 +841,27 @@ func_check_all ()
   func_check hello-objc
   func_check hello-objc-gnustep
   func_check hello-objc-gnome2
-  func_check hello-sh
   func_check hello-python
-  func_check hello-clisp
-  func_check hello-librep
-  func_check hello-guile
-  func_check hello-smalltalk
   func_check hello-java
   func_check hello-java-awt
   func_check hello-java-swing
   func_check hello-java-qtjambi
   func_check hello-csharp
   func_check hello-csharp-forms
+  func_check hello-guile
+  func_check hello-clisp
+  func_check hello-librep
   func_check hello-rust
   func_check hello-ruby
+  func_check hello-sh
   func_check hello-gawk
   func_check hello-pascal
-  func_check hello-ycp
+  func_check hello-smalltalk
   func_check hello-tcl
   func_check hello-tcl-tk
   func_check hello-perl
   func_check hello-php
+  func_check hello-ycp
 }
 
 

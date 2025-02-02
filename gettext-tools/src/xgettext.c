@@ -1114,11 +1114,12 @@ If output file is -, output is written to standard output.\n"));
 Choice of input file language:\n"));
       printf (_("\
   -L, --language=NAME         recognise the specified language\n\
-                                (C, C++, ObjectiveC, PO, Shell, Python, Lisp,\n\
-                                EmacsLisp, librep, Scheme, Guile, Smalltalk,\n\
-                                Java, JavaProperties, C#, Rust, Ruby, awk, YCP,\n\
-                                Tcl, Perl, PHP, GCC-source, NXStringTable, RST,\n\
-                                RSJ, Glade, Lua, JavaScript, Vala, Desktop)\n"));
+                                (C, C++, ObjectiveC, PO, Python, Java,\n\
+                                JavaProperties, C#, JavaScript, Scheme, Guile,\n\
+                                Lisp, EmacsLisp, librep, Rust, Ruby, Shell,\n\
+                                awk, Lua, Smalltalk, Vala, Tcl, Perl, PHP,\n\
+                                GCC-source, YCP, NXStringTable, RST, RSJ,\n\
+                                Glade, GSettings, Desktop)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -1157,26 +1158,27 @@ Language specific options:\n"));
       printf (_("\
   -a, --extract-all           extract all strings\n"));
       printf (_("\
-                                (only languages C, C++, ObjectiveC, Shell,\n\
-                                Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade,\n\
-                                Lua, JavaScript, Vala)\n"));
+                                (only languages C, C++, ObjectiveC, Python,\n\
+                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n\
+                                EmacsLisp, librep, Rust, Shell, awk, Lua, Vala,\n\
+                                Tcl, Perl, PHP, GCC-source, Glade, GSettings)\n"));
       printf (_("\
   -kWORD, --keyword=WORD      look for WORD as an additional keyword\n\
   -k, --keyword               do not to use default keywords\n"));
       printf (_("\
-                                (only languages C, C++, ObjectiveC, Shell,\n\
-                                Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, Tcl, Perl, PHP, GCC-source, Glade,\n\
-                                Lua, JavaScript, Vala, Desktop)\n"));
+                                (only languages C, C++, ObjectiveC, Python,\n\
+                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n\
+                                EmacsLisp, librep, Rust, Shell, awk, Lua, Vala,\n\
+                                Tcl, Perl, PHP, GCC-source, Glade, GSettings,\n\
+                                Desktop)\n"));
       printf (_("\
       --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n\
                               number ARG of keyword WORD\n"));
       printf (_("\
-                                (only languages C, C++, ObjectiveC, Shell,\n\
-                                Python, Lisp, EmacsLisp, librep, Scheme, Java,\n\
-                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source,\n\
-                                Lua, JavaScript, Vala)\n"));
+                                (only languages C, C++, ObjectiveC, Python,\n\
+                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n\
+                                EmacsLisp, librep, Rust, Shell, awk, Lua, Vala,\n\
+                                Tcl, Perl, PHP, GCC-source, YCP)\n"));
       printf (_("\
       --tag=WORD:FORMAT       defines the behaviour of tagged template literals\n\
                               with tag WORD\n"));

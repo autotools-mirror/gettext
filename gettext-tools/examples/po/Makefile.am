@@ -47,28 +47,28 @@ POTFILES = \
   hello-objc-gnustep/Hello.h \
   hello-objc-gnustep/Hello.m \
   hello-objc-gnome2/hello.m \
-  hello-sh/hello.sh \
   hello-python/hello.py.in \
-  hello-clisp/hello.lisp.in \
-  hello-librep/hello.jl.in \
-  hello-guile/hello.scm \
-  hello-smalltalk/hello.st.in \
   hello-java/Hello.java \
   hello-java-awt/Hello.java \
   hello-java-swing/Hello.java \
   hello-java-qtjambi/Hello.java \
   hello-csharp/hello.cs \
   hello-csharp-forms/hello.cs \
+  hello-guile/hello.scm \
+  hello-clisp/hello.lisp.in \
+  hello-librep/hello.jl.in \
   hello-rust/src/main.rs.in \
   hello-ruby/hello.rb \
+  hello-sh/hello.sh \
   hello-gawk/hello.awk \
   hello-pascal/hello.pas \
-  hello-ycp/hello.ycp \
+  hello-smalltalk/hello.st.in \
   hello-tcl/hello.tcl \
   hello-tcl-tk/hello.tcl \
   hello-perl/hello-1.pl.in \
   hello-perl/hello-2.pl.in \
-  hello-php/hello.php
+  hello-php/hello.php \
+  hello-ycp/hello.ycp
 
 # List of small POT files.
 SMALLPOTS = \
@@ -85,27 +85,27 @@ SMALLPOTS = \
   hello-objc.pot \
   hello-objc-gnustep.pot \
   hello-objc-gnome2.pot \
-  hello-sh.pot \
   hello-python.pot \
-  hello-clisp.pot \
-  hello-librep.pot \
-  hello-guile.pot \
-  hello-smalltalk.pot \
   hello-java.pot \
   hello-java-awt.pot \
   hello-java-swing.pot \
   hello-java-qtjambi.pot \
   hello-csharp.pot \
   hello-csharp-forms.pot \
+  hello-guile.pot \
+  hello-clisp.pot \
+  hello-librep.pot \
   hello-rust.pot \
   hello-ruby.pot \
+  hello-sh.pot \
   hello-gawk.pot \
   hello-pascal.pot \
-  hello-ycp.pot \
+  hello-smalltalk.pot \
   hello-tcl.pot \
   hello-tcl-tk.pot \
   hello-perl.pot \
-  hello-php.pot
+  hello-php.pot \
+  hello-ycp.pot
 
 # This is a synthetic domain name.
 DOMAIN = gettext-examples
@@ -289,23 +289,8 @@ hello-objc-gnustep.pot : $(POTFILES_DEPS)
 hello-objc-gnome2.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-objc-gnome2
 
-hello-sh.pot : $(POTFILES_DEPS)
-	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-sh
-
 hello-python.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-python
-
-hello-clisp.pot : $(POTFILES_DEPS)
-	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-clisp
-
-hello-librep.pot : $(POTFILES_DEPS)
-	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-librep
-
-hello-guile.pot : $(POTFILES_DEPS)
-	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-guile
-
-hello-smalltalk.pot : $(POTFILES_DEPS)
-	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-smalltalk
 
 hello-java.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-java
@@ -325,11 +310,23 @@ hello-csharp.pot : $(POTFILES_DEPS)
 hello-csharp-forms.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-csharp-forms
 
+hello-guile.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-guile
+
+hello-clisp.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-clisp
+
+hello-librep.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-librep
+
 hello-rust.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-rust
 
 hello-ruby.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-ruby
+
+hello-sh.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-sh
 
 hello-gawk.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-gawk
@@ -337,8 +334,8 @@ hello-gawk.pot : $(POTFILES_DEPS)
 hello-pascal.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-pascal
 
-hello-ycp.pot : $(POTFILES_DEPS)
-	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-ycp
+hello-smalltalk.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-smalltalk
 
 hello-tcl.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-tcl
@@ -351,6 +348,9 @@ hello-perl.pot : $(POTFILES_DEPS)
 
 hello-php.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-php
+
+hello-ycp.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-ycp
 
 
 # This rule has no dependencies: we don't need to update $(DOMAIN).pot at
@@ -441,27 +441,27 @@ SMALLPOFILES_FOR_lang = \
   $(srcdir)/../hello-objc/po/$$lang.po \
   $(srcdir)/../hello-objc-gnustep/po/$$lang.po \
   $(srcdir)/../hello-objc-gnome2/po/$$lang.po \
-  $(srcdir)/../hello-sh/po/$$lang.po \
   $(srcdir)/../hello-python/po/$$lang.po \
-  $(srcdir)/../hello-clisp/po/$$lang.po \
-  $(srcdir)/../hello-librep/po/$$lang.po \
-  $(srcdir)/../hello-guile/po/$$lang.po \
-  $(srcdir)/../hello-smalltalk/po/$$lang.po \
   $(srcdir)/../hello-java/po/$$lang.po \
   $(srcdir)/../hello-java-awt/po/$$lang.po \
   $(srcdir)/../hello-java-swing/po/$$lang.po \
   $(srcdir)/../hello-java-qtjambi/po/$$lang.po \
   $(srcdir)/../hello-csharp/po/$$lang.po \
   $(srcdir)/../hello-csharp-forms/po/$$lang.po \
+  $(srcdir)/../hello-guile/po/$$lang.po \
+  $(srcdir)/../hello-clisp/po/$$lang.po \
+  $(srcdir)/../hello-librep/po/$$lang.po \
   $(srcdir)/../hello-rust/po/$$lang.po \
   $(srcdir)/../hello-ruby/po/$$lang.po \
+  $(srcdir)/../hello-sh/po/$$lang.po \
   $(srcdir)/../hello-gawk/po/$$lang.po \
   $(srcdir)/../hello-pascal/po/$$lang.po \
-  $(srcdir)/../hello-ycp/po/$$lang.po \
+  $(srcdir)/../hello-smalltalk/po/$$lang.po \
   $(srcdir)/../hello-tcl/po/$$lang.po \
   $(srcdir)/../hello-tcl-tk/po/$$lang.po \
   $(srcdir)/../hello-perl/po/$$lang.po \
-  $(srcdir)/../hello-php/po/$$lang.po
+  $(srcdir)/../hello-php/po/$$lang.po \
+  $(srcdir)/../hello-ycp/po/$$lang.po
 
 $(srcdir)/../hello-c/po/$(LL).po: $(srcdir)/hello-c.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-c $(LL)
@@ -502,23 +502,8 @@ $(srcdir)/../hello-objc-gnustep/po/$(LL).po: $(srcdir)/hello-objc-gnustep.pot $(
 $(srcdir)/../hello-objc-gnome2/po/$(LL).po: $(srcdir)/hello-objc-gnome2.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-objc-gnome2 $(LL)
 
-$(srcdir)/../hello-sh/po/$(LL).po: $(srcdir)/hello-sh.pot $(srcdir)/$(LL).po
-	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-sh $(LL)
-
 $(srcdir)/../hello-python/po/$(LL).po: $(srcdir)/hello-python.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-python $(LL)
-
-$(srcdir)/../hello-clisp/po/$(LL).po: $(srcdir)/hello-clisp.pot $(srcdir)/$(LL).po
-	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-clisp $(LL)
-
-$(srcdir)/../hello-librep/po/$(LL).po: $(srcdir)/hello-librep.pot $(srcdir)/$(LL).po
-	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-librep $(LL)
-
-$(srcdir)/../hello-guile/po/$(LL).po: $(srcdir)/hello-guile.pot $(srcdir)/$(LL).po
-	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-guile $(LL)
-
-$(srcdir)/../hello-smalltalk/po/$(LL).po: $(srcdir)/hello-smalltalk.pot $(srcdir)/$(LL).po
-	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-smalltalk $(LL)
 
 $(srcdir)/../hello-java/po/$(LL).po: $(srcdir)/hello-java.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-java $(LL)
@@ -538,11 +523,23 @@ $(srcdir)/../hello-csharp/po/$(LL).po: $(srcdir)/hello-csharp.pot $(srcdir)/$(LL
 $(srcdir)/../hello-csharp-forms/po/$(LL).po: $(srcdir)/hello-csharp-forms.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-csharp-forms $(LL)
 
+$(srcdir)/../hello-guile/po/$(LL).po: $(srcdir)/hello-guile.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-guile $(LL)
+
+$(srcdir)/../hello-clisp/po/$(LL).po: $(srcdir)/hello-clisp.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-clisp $(LL)
+
+$(srcdir)/../hello-librep/po/$(LL).po: $(srcdir)/hello-librep.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-librep $(LL)
+
 $(srcdir)/../hello-rust/po/$(LL).po: $(srcdir)/hello-rust.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-rust $(LL)
 
 $(srcdir)/../hello-ruby/po/$(LL).po: $(srcdir)/hello-ruby.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-ruby $(LL)
+
+$(srcdir)/../hello-sh/po/$(LL).po: $(srcdir)/hello-sh.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-sh $(LL)
 
 $(srcdir)/../hello-gawk/po/$(LL).po: $(srcdir)/hello-gawk.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-gawk $(LL)
@@ -550,8 +547,8 @@ $(srcdir)/../hello-gawk/po/$(LL).po: $(srcdir)/hello-gawk.pot $(srcdir)/$(LL).po
 $(srcdir)/../hello-pascal/po/$(LL).po: $(srcdir)/hello-pascal.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-pascal $(LL)
 
-$(srcdir)/../hello-ycp/po/$(LL).po: $(srcdir)/hello-ycp.pot $(srcdir)/$(LL).po
-	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-ycp $(LL)
+$(srcdir)/../hello-smalltalk/po/$(LL).po: $(srcdir)/hello-smalltalk.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-smalltalk $(LL)
 
 $(srcdir)/../hello-tcl/po/$(LL).po: $(srcdir)/hello-tcl.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-tcl $(LL)
@@ -564,3 +561,6 @@ $(srcdir)/../hello-perl/po/$(LL).po: $(srcdir)/hello-perl.pot $(srcdir)/$(LL).po
 
 $(srcdir)/../hello-php/po/$(LL).po: $(srcdir)/hello-php.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-php $(LL)
+
+$(srcdir)/../hello-ycp/po/$(LL).po: $(srcdir)/hello-ycp.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-ycp $(LL)

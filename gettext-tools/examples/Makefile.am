@@ -215,15 +215,6 @@ EXAMPLESFILES = \
   hello-objc-gnome2/po/Makevars \
   hello-objc-gnome2/po/POTFILES.in \
   \
-  hello-sh/INSTALL \
-  hello-sh/autogen.sh \
-  hello-sh/autoclean.sh \
-  hello-sh/hello.sh \
-  hello-sh/Makefile.am \
-  hello-sh/configure.ac \
-  hello-sh/m4/Makefile.am \
-  hello-sh/po/Makefile.am \
-  \
   hello-python/INSTALL \
   hello-python/autogen.sh \
   hello-python/autoclean.sh \
@@ -232,42 +223,6 @@ EXAMPLESFILES = \
   hello-python/configure.ac \
   hello-python/m4/Makefile.am \
   hello-python/po/Makefile.am \
-  \
-  hello-clisp/INSTALL \
-  hello-clisp/autogen.sh \
-  hello-clisp/autoclean.sh \
-  hello-clisp/hello.lisp.in \
-  hello-clisp/Makefile.am \
-  hello-clisp/configure.ac \
-  hello-clisp/m4/Makefile.am \
-  hello-clisp/po/Makefile.am \
-  \
-  hello-librep/INSTALL \
-  hello-librep/autogen.sh \
-  hello-librep/autoclean.sh \
-  hello-librep/hello.jl.in \
-  hello-librep/Makefile.am \
-  hello-librep/configure.ac \
-  hello-librep/m4/Makefile.am \
-  hello-librep/po/Makefile.am \
-  \
-  hello-guile/INSTALL \
-  hello-guile/autogen.sh \
-  hello-guile/autoclean.sh \
-  hello-guile/hello.scm \
-  hello-guile/Makefile.am \
-  hello-guile/configure.ac \
-  hello-guile/m4/Makefile.am \
-  hello-guile/po/Makefile.am \
-  \
-  hello-smalltalk/INSTALL \
-  hello-smalltalk/autogen.sh \
-  hello-smalltalk/autoclean.sh \
-  hello-smalltalk/hello.st.in \
-  hello-smalltalk/Makefile.am \
-  hello-smalltalk/configure.ac \
-  hello-smalltalk/m4/Makefile.am \
-  hello-smalltalk/po/Makefile.am \
   \
   hello-java/INSTALL \
   hello-java/autogen.sh \
@@ -333,6 +288,33 @@ EXAMPLESFILES = \
   hello-csharp-forms/m4/Makefile.am \
   hello-csharp-forms/po/Makefile.am \
   \
+  hello-guile/INSTALL \
+  hello-guile/autogen.sh \
+  hello-guile/autoclean.sh \
+  hello-guile/hello.scm \
+  hello-guile/Makefile.am \
+  hello-guile/configure.ac \
+  hello-guile/m4/Makefile.am \
+  hello-guile/po/Makefile.am \
+  \
+  hello-clisp/INSTALL \
+  hello-clisp/autogen.sh \
+  hello-clisp/autoclean.sh \
+  hello-clisp/hello.lisp.in \
+  hello-clisp/Makefile.am \
+  hello-clisp/configure.ac \
+  hello-clisp/m4/Makefile.am \
+  hello-clisp/po/Makefile.am \
+  \
+  hello-librep/INSTALL \
+  hello-librep/autogen.sh \
+  hello-librep/autoclean.sh \
+  hello-librep/hello.jl.in \
+  hello-librep/Makefile.am \
+  hello-librep/configure.ac \
+  hello-librep/m4/Makefile.am \
+  hello-librep/po/Makefile.am \
+  \
   hello-rust/INSTALL \
   hello-rust/autogen.sh \
   hello-rust/autoclean.sh \
@@ -352,6 +334,15 @@ EXAMPLESFILES = \
   hello-ruby/m4/Makefile.am \
   hello-ruby/po/Makefile.am \
   \
+  hello-sh/INSTALL \
+  hello-sh/autogen.sh \
+  hello-sh/autoclean.sh \
+  hello-sh/hello.sh \
+  hello-sh/Makefile.am \
+  hello-sh/configure.ac \
+  hello-sh/m4/Makefile.am \
+  hello-sh/po/Makefile.am \
+  \
   hello-gawk/INSTALL \
   hello-gawk/autogen.sh \
   hello-gawk/autoclean.sh \
@@ -370,14 +361,14 @@ EXAMPLESFILES = \
   hello-pascal/m4/Makefile.am \
   hello-pascal/po/Makefile.am \
   \
-  hello-ycp/INSTALL \
-  hello-ycp/autogen.sh \
-  hello-ycp/autoclean.sh \
-  hello-ycp/hello.ycp \
-  hello-ycp/Makefile.am \
-  hello-ycp/configure.ac \
-  hello-ycp/m4/Makefile.am \
-  hello-ycp/po/Makefile.am \
+  hello-smalltalk/INSTALL \
+  hello-smalltalk/autogen.sh \
+  hello-smalltalk/autoclean.sh \
+  hello-smalltalk/hello.st.in \
+  hello-smalltalk/Makefile.am \
+  hello-smalltalk/configure.ac \
+  hello-smalltalk/m4/Makefile.am \
+  hello-smalltalk/po/Makefile.am \
   \
   hello-tcl/INSTALL \
   hello-tcl/autogen.sh \
@@ -417,6 +408,15 @@ EXAMPLESFILES = \
   hello-php/m4/Makefile.am \
   hello-php/po/Makefile.am \
   \
+  hello-ycp/INSTALL \
+  hello-ycp/autogen.sh \
+  hello-ycp/autoclean.sh \
+  hello-ycp/hello.ycp \
+  hello-ycp/Makefile.am \
+  hello-ycp/configure.ac \
+  hello-ycp/m4/Makefile.am \
+  hello-ycp/po/Makefile.am \
+  \
   README
 
 # List of examples directories containing a po directory.
@@ -434,27 +434,27 @@ EXAMPLESDIRS = \
   hello-objc \
   hello-objc-gnustep \
   hello-objc-gnome2 \
-  hello-sh \
   hello-python \
-  hello-clisp \
-  hello-librep \
-  hello-guile \
-  hello-smalltalk \
   hello-java \
   hello-java-awt \
   hello-java-swing \
   hello-java-qtjambi \
   hello-csharp \
   hello-csharp-forms \
+  hello-guile \
+  hello-clisp \
+  hello-librep \
   hello-rust \
   hello-ruby \
+  hello-sh \
   hello-gawk \
   hello-pascal \
-  hello-ycp \
+  hello-smalltalk \
   hello-tcl \
   hello-tcl-tk \
   hello-perl \
-  hello-php
+  hello-php \
+  hello-ycp
 
 # List of files present in every example's po directory.
 EXAMPLESPOFILES = \

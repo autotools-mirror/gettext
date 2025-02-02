@@ -18,27 +18,27 @@ environment.
     hello-objc                 ObjectiveC
     hello-objc-gnustep         ObjectiveC        GNUstep
     hello-objc-gnome2          ObjectiveC        GNOME 2 (obsolete)
-    hello-sh                   Shell
     hello-python               Python
-    hello-clisp                Lisp
-    hello-librep               librep
-    hello-guile                Scheme
-    hello-smalltalk            Smalltalk
     hello-java                 Java
     hello-java-awt             Java              AWT
     hello-java-swing           Java              Swing
     hello-java-qtjambi         Java              Qt
     hello-csharp               C#
     hello-csharp-forms         C#                Forms
+    hello-guile                Scheme
+    hello-clisp                Lisp
+    hello-librep               librep
     hello-rust                 Rust
     hello-ruby                 Ruby
+    hello-sh                   Shell
     hello-gawk                 awk
     hello-pascal               Pascal
-    hello-ycp                  YCP               libyui
+    hello-smalltalk            Smalltalk
     hello-tcl                  Tcl
     hello-tcl-tk               Tcl               Tk
     hello-perl                 Perl
     hello-php                  PHP
+    hello-ycp                  YCP               libyui
 
 Before building an example, you need to
   1. Build and install the GNU gettext package, as described in the INSTALL
@@ -68,19 +68,19 @@ Makefile types:
     hello-objc                 .gmo                    Makefile.in.in
     hello-objc-gnome2          .gmo                    Makefile.in.in
     hello-c++-wxwidgets        .gmo                    Makefile.am
-    hello-sh                   .gmo                    Makefile.am
     hello-python               .gmo                    Makefile.am
+    hello-guile                .gmo                    Makefile.am
     hello-clisp                .gmo                    Makefile.am
     hello-librep               .gmo                    Makefile.am
-    hello-guile                .gmo                    Makefile.am
-    hello-smalltalk            .gmo                    Makefile.am
     hello-rust                 .gmo                    Makefile.am
     hello-ruby                 .gmo                    Makefile.am
+    hello-sh                   .gmo                    Makefile.am
     hello-gawk                 .gmo                    Makefile.am
     hello-pascal               .gmo                    Makefile.am
-    hello-ycp                  .gmo                    Makefile.am
+    hello-smalltalk            .gmo                    Makefile.am
     hello-perl                 .gmo                    Makefile.am
     hello-php                  .gmo                    Makefile.am
+    hello-ycp                  .gmo                    Makefile.am
     hello-java                 .properties             Makefile.am
     hello-java-awt             .properties             Makefile.am
     hello-java-swing           .properties             Makefile.am
