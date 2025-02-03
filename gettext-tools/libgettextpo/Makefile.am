@@ -178,7 +178,7 @@ config.h: $(BUILT_SOURCES)
 	    for f in $(libgettextpo_la_AUXSOURCES) $(libgnu_la_SOURCES) $(libgnu_la_LIBADD); do \
 	      case $$f in \
 	        *.c | *.$(OBJEXT) | *.lo ) \
-	          sf=`echo "$$f" | sed -e 's,\\.[^.]*$$,,'`.c; \
+	          sf=`echo "$$f" | sed -e 's,^libgnu_la-,,' -e 's,\\.[^.]*$$,,'`.c; \
 	          test -f $$sf || sf=$(srcdir)/$$sf; \
 	          of=`echo "$$f" | sed -e 's,^.*/,,' -e 's,\\.[^.]*$$,,'`.$(OBJEXT); \
 	          $(COMPILE) $(DEFS) $(GL_CFLAG_INHIBIT_WARNINGS) -c $$sf || { rm -f config.h; exit 1; }; \
