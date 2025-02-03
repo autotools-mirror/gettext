@@ -275,6 +275,7 @@
 /gettext-tools/libgettextpo/string-desc.c
 /gettext-tools/libgettextpo/string-desc.h
 /gettext-tools/libgettextpo/string.in.h
+/gettext-tools/libgettextpo/strnlen.c
 /gettext-tools/libgettextpo/strstr.c
 /gettext-tools/libgettextpo/sys-limits.h
 /gettext-tools/libgettextpo/sys_stat.in.h
