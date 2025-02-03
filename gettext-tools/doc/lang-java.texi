@@ -1,10 +1,16 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2020 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2025 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node Java
 @subsection Java
 @cindex Java
+
+@ignore
+A widespread approach for localization in Java is via .properties files,
+with a programmer-assigned ID as key for each message.
+With this approach, no PO files, and no support from GNU gettext is possible.
+@end ignore
 
 @table @asis
 @item RPMs
