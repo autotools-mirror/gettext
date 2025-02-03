@@ -123,4 +123,6 @@ fully portable
 ---
 @end table
 
+An example is available in the @file{examples} directory: @code{hello-rust}.
+
 @c Rust me harder. Cargo me to hell.
