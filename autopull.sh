@@ -62,7 +62,10 @@ func_git_clone_shallow ()
   # to fetching all commits.
   # REVISION can be a commit id, a tag name, or a branch name.
   mkdir -p "$1"
-  git -C "$1" init
+  # Use a -c option to silence an annoying message
+  # "hint: Using 'master' as the name for the initial branch."
+  # (cf. <https://stackoverflow.com/questions/65524512/>).
+  git -C "$1" -c init.defaultBranch=master init
   git -C "$1" remote add origin "$2"
   if git -C "$1" fetch --depth 1 origin "$3"; then
     # "git fetch" of the specific commit succeeded.
