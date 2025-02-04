@@ -1,5 +1,5 @@
 ## Makefile for the lib subdirectory of GNU libtextstyle.
-## Copyright (C) 2009-2024 Free Software Foundation, Inc.
+## Copyright (C) 2009-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -226,7 +226,7 @@ config.h: $(BUILT_SOURCES) libtextstyle.sym
 	          *.c | *.$(OBJEXT) | *.lo ) \
 	            sf=`echo "$$f" | sed -e 's,^libtextstyle_la-,,' -e 's,\\.[^.]*$$,,'`.c; \
 	            test -f $$sf || sf=$(srcdir)/$$sf; \
-	            of=`echo "$$f" | sed -e 's,^.*/,,' -e 's,\\.[^.]*$$,,'`.$(OBJEXT); \
+	            of=`echo "$$f" | sed -e 's,^.*/,,' -e 's,^libtextstyle_la-,,' -e 's,\\.[^.]*$$,,'`.$(OBJEXT); \
 	            echo "$(COMPILE) $(GL_CFLAG_INHIBIT_WARNINGS) -c $$sf" 1>&6; \
 	            $(COMPILE) $(GL_CFLAG_INHIBIT_WARNINGS) -c $$sf || { rm -f config.h; exit 1; }; \
 	            sh ./exported.sh $$of 1>&5; \

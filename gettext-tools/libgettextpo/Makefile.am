@@ -180,7 +180,7 @@ config.h: $(BUILT_SOURCES)
 	        *.c | *.$(OBJEXT) | *.lo ) \
 	          sf=`echo "$$f" | sed -e 's,^libgnu_la-,,' -e 's,\\.[^.]*$$,,'`.c; \
 	          test -f $$sf || sf=$(srcdir)/$$sf; \
-	          of=`echo "$$f" | sed -e 's,^.*/,,' -e 's,\\.[^.]*$$,,'`.$(OBJEXT); \
+	          of=`echo "$$f" | sed -e 's,^.*/,,' -e 's,^libgnu_la-,,' -e 's,\\.[^.]*$$,,'`.$(OBJEXT); \
 	          $(COMPILE) $(DEFS) $(GL_CFLAG_INHIBIT_WARNINGS) -c $$sf || { rm -f config.h; exit 1; }; \
 	          sh ./exported.sh $$of 1>&5; \
 	          rm -f $$of `echo "$$of" | sed -e 's,\\.$(OBJEXT)$$,.lo,'`; \
