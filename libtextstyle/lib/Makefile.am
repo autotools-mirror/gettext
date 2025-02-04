@@ -194,10 +194,10 @@ libtextstyle.sym : $(srcdir)/libtextstyle.sym.in
 MOSTLYCLEANFILES += libtextstyle.sym libtextstyle.sym-t
 
 # Hide undesired symbols that are defined by libtextstyle_la_SOURCES or
-# gl_LIBOBJS or the dependency libraries from the global namespace,
-# by prefixing them with "libtextstyle_".
+# lts_libtextstyle_LTLIBOBJS or the dependency libraries from the global
+# namespace, by prefixing them with "libtextstyle_".
 all check install: config.h
-COMPILATION_UNITS = $(libtextstyle_la_SOURCES) $(gl_LIBOBJS)
+COMPILATION_UNITS = $(libtextstyle_la_SOURCES) $(lts_libtextstyle_LTLIBOBJS)
 if INCLUDED_LIBCROCO
 COMPILATION_UNITS += $(libcroco_rpl_la_SOURCES)
 endif
@@ -224,7 +224,7 @@ config.h: $(BUILT_SOURCES) libtextstyle.sym
 	        case $$f in \
 	          *.res.lo ) ;; \
 	          *.c | *.$(OBJEXT) | *.lo ) \
-	            sf=`echo "$$f" | sed -e 's,\\.[^.]*$$,,'`.c; \
+	            sf=`echo "$$f" | sed -e 's,^libtextstyle_la-,,' -e 's,\\.[^.]*$$,,'`.c; \
 	            test -f $$sf || sf=$(srcdir)/$$sf; \
 	            of=`echo "$$f" | sed -e 's,^.*/,,' -e 's,\\.[^.]*$$,,'`.$(OBJEXT); \
 	            echo "$(COMPILE) $(GL_CFLAG_INHIBIT_WARNINGS) -c $$sf" 1>&6; \
