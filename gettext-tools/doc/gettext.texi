@@ -2311,32 +2311,26 @@ In many programming languages,
 a particular operator denotes string concatenation
 at runtime (or possibly at compile time, if the compiler supports that).
 
-@cindex Shell, string concatenation
 @cindex Python, string concatenation
-@cindex Smalltalk, string concatenation
 @cindex Java, string concatenation
 @cindex C#, string concatenation
+@cindex JavaScript, string concatenation
+@cindex Ruby, string concatenation
+@cindex Shell, string concatenation
 @cindex awk, string concatenation
+@cindex Lua, string concatenation
+@cindex Smalltalk, string concatenation
+@cindex Vala, string concatenation
 @cindex Perl, string concatenation
 @cindex PHP, string concatenation
-@cindex Ruby, string concatenation
-@cindex Lua, string concatenation
-@cindex JavaScript, string concatenation
-@cindex Vala, string concatenation
 @itemize @bullet
 @item
 In C++, string concatenation of @code{std::string} objects
 is denoted by the @samp{+} operator.
 @c Reference: https://en.cppreference.com/w/cpp/string/basic_string/operator%2B
 @item
-In Shell, string concatenation is denoted by mere juxtaposition of strings.
-@c Reference: https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html
-@item
 In Python, string concatenation is denoted by the @samp{+} operator.
 @c Reference: https://docs.python.org/3.12/reference/expressions.html#binary-arithmetic-operations
-@item
-In Smalltalk, string concatenation is denoted by the @samp{,} operator.
-@c Reference: https://rmod-files.lille.inria.fr/FreeBooks/ByExample/14%20-%20Chapter%2012%20-%20Strings.pdf
 @item
 In Java, string concatenation is denoted by the @samp{+} operator.
 @c Reference: https://docs.oracle.com/javase/specs/jls/se21/html/jls-15.html#jls-15.18.1
@@ -2344,27 +2338,33 @@ In Java, string concatenation is denoted by the @samp{+} operator.
 In C#, string concatenation is denoted by the @samp{+} operator.
 @c Reference: https://learn.microsoft.com/en-us/dotnet/csharp/how-to/concatenate-multiple-strings
 @item
+In JavaScript, string concatenation is denoted by the @samp{+} operator.
+@c Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Addition
+@item
+In Ruby, string concatenation is denoted by the @samp{+} operator.
+@c Reference: https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Operators
+@c (Ignore ruby-doc.org! It is hopelessly outdated.)
+@item
+In Shell, string concatenation is denoted by mere juxtaposition of strings.
+@c Reference: https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html
+@item
 In awk, string concatenation is denoted by mere juxtaposition of strings.
 @c Reference: https://www.gnu.org/software/gawk/manual/html_node/Concatenation.html
+@item
+In Lua, string concatenation is denoted by the @samp{..} operator.
+@c Reference: https://www.lua.org/pil/3.4.html
+@item
+In Smalltalk, string concatenation is denoted by the @samp{,} operator.
+@c Reference: https://rmod-files.lille.inria.fr/FreeBooks/ByExample/14%20-%20Chapter%2012%20-%20Strings.pdf
+@item
+In Vala, string concatenation is denoted by the @samp{+} operator.
+@c Reference: https://docs.vala.dev/tutorials/programming-language/main/02-00-basics/02-05-operators.html
 @item
 In Perl, string concatenation is denoted by the @samp{.} operator.
 @c Reference: https://perldoc.perl.org/perlop#Additive-Operators
 @item
 In PHP, string concatenation is denoted by the @samp{.} operator.
 @c Reference: https://www.php.net/manual/en/language.operators.string.php
-@item
-In Ruby, string concatenation is denoted by the @samp{+} operator.
-@c Reference: https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Operators
-@c (Ignore ruby-doc.org! It is hopelessly outdated.)
-@item
-In Lua, string concatenation is denoted by the @samp{..} operator.
-@c Reference: https://www.lua.org/pil/3.4.html
-@item
-In JavaScript, string concatenation is denoted by the @samp{+} operator.
-@c Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Addition
-@item
-In Vala, string concatenation is denoted by the @samp{+} operator.
-@c Reference: https://docs.vala.dev/tutorials/programming-language/main/02-00-basics/02-05-operators.html
 @end itemize
 
 So, for example, in Java, you would change
@@ -2406,20 +2406,15 @@ The value of such an expression is converted to a string
 and inserted in place of the expression;
 but no formatting function is called.
 
-@cindex Shell, strings with embedded expressions
 @cindex Python, strings with embedded expressions
 @cindex C#, strings with embedded expressions
+@cindex JavaScript, strings with embedded expressions
+@cindex Ruby, strings with embedded expressions
+@cindex Shell, strings with embedded expressions
 @cindex Tcl, strings with embedded expressions
 @cindex Perl, strings with embedded expressions
 @cindex PHP, strings with embedded expressions
-@cindex Ruby, strings with embedded expressions
-@cindex JavaScript, strings with embedded expressions
 @itemize @bullet
-@item
-In Shell language, double-quoted strings can contain
-references to variables, along with default values and string operations.
-Such as @code{"Hello, $name!"} or @code{"Hello, $@{name@}!"}.
-@c Reference: https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html#tag_19_02_03
 @item
 In Python, @emph{f-strings} can contain expressions.
 Such as @code{f"Hello, @{name@}!"}.
@@ -2434,6 +2429,20 @@ In C#, since C# 6.0, @emph{interpolated strings} can contain expressions.
 Such as @code{$"Hello, @{name@}!"}.
 @c Reference: https://learn.microsoft.com/en-us/dotnet/csharp/how-to/concatenate-multiple-strings
 @item
+In JavaScript, since ES6, @emph{template literals} can contain expressions.
+Such as @code{`Hello, $@{name@}!`}.
+@c Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
+@item
+In Ruby, @emph{interpolated strings} can contain expressions.
+Such as @code{"Hello, #@{name@}!"}.
+@c Reference: https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Literals#Interpolation
+@c (Ignore ruby-doc.org! It is hopelessly outdated.)
+@item
+In Shell language, double-quoted strings can contain
+references to variables, along with default values and string operations.
+Such as @code{"Hello, $name!"} or @code{"Hello, $@{name@}!"}.
+@c Reference: https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html#tag_19_02_03
+@item
 In Tcl, strings are subject to @emph{variable substitution}.
 Such as @code{"Hello, $name!"}.
 @c Reference: https://wiki.tcl-lang.org/page/Dodekalogue
@@ -2446,15 +2455,6 @@ Such as @code{"Hello, $name!"}.
 In PHP, string literals are subject to @emph{variable parsing}.
 Such as @code{"Hello, $name!"}.
 @c Reference: https://www.php.net/manual/en/language.variables.basics.php
-@item
-In Ruby, @emph{interpolated strings} can contain expressions.
-Such as @code{"Hello, #@{name@}!"}.
-@c Reference: https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Literals#Interpolation
-@c (Ignore ruby-doc.org! It is hopelessly outdated.)
-@item
-In JavaScript, since ES6, @emph{template literals} can contain expressions.
-Such as @code{`Hello, $@{name@}!`}.
-@c Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
 @end itemize
 
 These cases are effectively string concatenation as well,
