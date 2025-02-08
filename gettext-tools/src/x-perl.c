@@ -35,6 +35,7 @@
 #include "sf-istream.h"
 #include "rc-str-list.h"
 #include "string-desc.h"
+#include "xstring-desc.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
@@ -919,7 +920,7 @@ extract_quotelike (struct perl_extractor *xp, token_ty *tp, int delim)
   /* Take the string without the delimiters at the start and at the end.  */
   if (!(len >= 2))
     abort ();
-  tp->string = sd_c (sd_substring (string, 1, len - 1));
+  tp->string = xsd_c (sd_substring (string, 1, len - 1));
   sd_free (string);
   tp->comment = add_reference (savable_comment);
 }

@@ -33,6 +33,7 @@
 #include <error.h>
 #include "message.h"
 #include "string-desc.h"
+#include "xstring-desc.h"
 #include "string-buffer.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -43,7 +44,6 @@
 #include "xg-message.h"
 #include "if-error.h"
 #include "xalloc.h"
-#include "string-buffer.h"
 #include "read-file.h"
 #include "unistr.h"
 #include "po-charset.h"
@@ -336,7 +336,7 @@ string_literal_value (TSNode node, const char *contents)
           string_desc_t subnode_string =
             sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
                          (char *) contents + ts_node_start_byte (subnode));
-          return sd_c (subnode_string);
+          return xsd_c (subnode_string);
         }
     }
 
@@ -362,7 +362,7 @@ string_literal_value (TSNode node, const char *contents)
                          || sd_char_at (subnode_string, 0) == '\t'))
                 subnode_string = sd_substring (subnode_string, 1, sd_length (subnode_string));
             }
-          sb_append_desc (&buffer, subnode_string);
+          sb_xappend_desc (&buffer, subnode_string);
           skip_leading_whitespace = false;
         }
       else if (ts_node_symbol (subnode) == ts_symbol_escape_sequence)
@@ -1068,7 +1068,7 @@ extract_from_node (TSNode node,
           string_desc_t subnode_string =
             sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
                          (char *) contents + ts_node_start_byte (subnode));
-          fprintf (stderr, "identifier=%s\n", sd_c (subnode_string));
+          fprintf (stderr, "identifier=%s\n", xsd_c (subnode_string));
           if (sd_equals (subnode_string, sd_from_c ("println")))
             {
               fprintf (stderr, "children:\n");
