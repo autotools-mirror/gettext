@@ -36,6 +36,7 @@
 #include <libxml/xpath.h>
 #include <libxml/xpathInternals.h>
 
+#define SB_NO_APPENDF
 #include <error.h>
 #include "mem-hash-map.h"
 #include "trim.h"

@@ -24,6 +24,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#define SB_NO_APPENDF
 #include "unistr.h"
 #include "xalloc.h"
 #include "string-buffer.h"

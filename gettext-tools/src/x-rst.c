@@ -29,6 +29,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
+#define SB_NO_APPENDF
 #include <error.h>
 #include "c-ctype.h"
 #include "po-charset.h"

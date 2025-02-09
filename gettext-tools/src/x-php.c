@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
 #include "message.h"

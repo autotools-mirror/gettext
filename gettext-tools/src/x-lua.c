@@ -1,5 +1,5 @@
 /* xgettext Lua backend.
-   Copyright (C) 2012-2024 Free Software Foundation, Inc.
+   Copyright (C) 2012-2025 Free Software Foundation, Inc.
 
    This file was written by Ľubomír Remák <lubomirr@lubomirr.eu>, 2012.
 
@@ -28,6 +28,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
 #include "message.h"

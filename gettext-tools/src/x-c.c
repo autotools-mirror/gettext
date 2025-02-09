@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
 #include "message.h"

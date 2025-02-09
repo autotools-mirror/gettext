@@ -1,5 +1,5 @@
 /* xgettext Python backend.
-   Copyright (C) 2002-2024 Free Software Foundation, Inc.
+   Copyright (C) 2002-2025 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
@@ -30,6 +30,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
 #include "message.h"

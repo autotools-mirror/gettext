@@ -29,6 +29,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define SB_NO_APPENDF
 #include <error.h>
 #include "xalloc.h"
 #include "xvasprintf.h"
