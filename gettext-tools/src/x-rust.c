@@ -230,6 +230,11 @@ ts_node_line_number (TSNode node)
   return ts_node_start_point (node).row + 1;
 }
 
+/* -------------------------------- The file -------------------------------- */
+
+/* The entire contents of the file being analyzed.  */
+static const char *contents;
+
 /* -------------------------------- Comments -------------------------------- */
 
 /* These are for tracking whether comments count as immediately before
@@ -507,8 +512,7 @@ static int nesting_depth;
 /* Forward declarations.  */
 static void extract_from_node (TSNode node,
                                flag_region_ty *outer_region,
-                               message_list_ty *mlp,
-                               const char *contents);
+                               message_list_ty *mlp);
 
 /* Extracts messages from the function call consisting of
      - CALLEE_NODE: a tree node of type 'identifier',
@@ -518,8 +522,7 @@ static void
 extract_from_function_call (TSNode callee_node,
                             TSNode args_node,
                             flag_region_ty *outer_region,
-                            message_list_ty *mlp,
-                            const char *contents)
+                            message_list_ty *mlp)
 {
   uint32_t args_count = ts_node_child_count (args_node);
 
@@ -605,8 +608,7 @@ extract_from_function_call (TSNode callee_node,
                               _("too many open parentheses, brackets, or braces"));
                   extract_from_node (arg_node,
                                      arg_region,
-                                     mlp,
-                                     contents);
+                                     mlp);
                   nesting_depth--;
                 }
 
@@ -644,8 +646,7 @@ extract_from_function_call (TSNode callee_node,
                       _("too many open parentheses, brackets, or braces"));
           extract_from_node (arg_node,
                              arg_region,
-                             mlp,
-                             contents);
+                             mlp);
           nesting_depth--;
 
           unref_region (arg_region);
@@ -663,8 +664,7 @@ static void
 extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                                  TSNode args_node,
                                  flag_region_ty *outer_region,
-                                 message_list_ty *mlp,
-                                 const char *contents)
+                                 message_list_ty *mlp)
 {
   /* We have a macro, named by a relevant identifier, with an argument list.
      The args_node contains the argument tokens (some of them of type
@@ -800,8 +800,7 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                                              &identifier_node, false,
                                              arg_node,
                                              arg_region,
-                                             mlp,
-                                             contents);
+                                             mlp);
                         }
                       else if (prev2_token_in_same_arg > 0
                                && ts_node_symbol (ts_node_child (args_node, prev2_token_in_same_arg)) == ts_symbol_identifier
@@ -813,8 +812,7 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                                              &identifier_node, true,
                                              arg_node,
                                              arg_region,
-                                             mlp,
-                                             contents);
+                                             mlp);
                         }
                       else
                         /* A token sequence that looks like a parenthesized expression.  */
@@ -822,16 +820,14 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                                            NULL, false,
                                            arg_node,
                                            arg_region,
-                                           mlp,
-                                           contents);
+                                           mlp);
                     }
                   else
                     {
                       if (!already_extracted)
                         extract_from_node (arg_node,
                                            arg_region,
-                                           mlp,
-                                           contents);
+                                           mlp);
                     }
                   nesting_depth--;
 
@@ -894,8 +890,7 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                                      &identifier_node, false,
                                      arg_node,
                                      arg_region,
-                                     mlp,
-                                     contents);
+                                     mlp);
                 }
               else if (prev2_token_in_same_arg > 0
                        && ts_node_symbol (ts_node_child (args_node, prev2_token_in_same_arg)) == ts_symbol_identifier
@@ -907,8 +902,7 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                                      &identifier_node, true,
                                      arg_node,
                                      arg_region,
-                                     mlp,
-                                     contents);
+                                     mlp);
                 }
               else
                 /* A token sequence that looks like a parenthesized expression.  */
@@ -916,14 +910,12 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                                    NULL, false,
                                    arg_node,
                                    arg_region,
-                                   mlp,
-                                   contents);
+                                   mlp);
             }
           else
             extract_from_node (arg_node,
                                arg_region,
-                               mlp,
-                               contents);
+                               mlp);
           nesting_depth--;
 
           if (!(ts_node_symbol (arg_node) == ts_symbol_line_comment
@@ -943,8 +935,7 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
 static void
 extract_from_node (TSNode node,
                    flag_region_ty *outer_region,
-                   message_list_ty *mlp,
-                   const char *contents)
+                   message_list_ty *mlp)
 {
   if (extract_all
       && (ts_node_symbol (node) == ts_symbol_string_literal
@@ -989,8 +980,7 @@ extract_from_node (TSNode node,
               }
               extract_from_function_call (callee_node, args_node,
                                           outer_region,
-                                          mlp,
-                                          contents);
+                                          mlp);
               return;
             }
         }
@@ -1030,8 +1020,7 @@ extract_from_node (TSNode node,
                   extract_from_function_call_like (&callee_node, true,
                                                    args_node,
                                                    outer_region,
-                                                   mlp,
-                                                   contents);
+                                                   mlp);
                   return;
                 }
             }
@@ -1097,8 +1086,7 @@ extract_from_node (TSNode node,
                       _("too many open parentheses, brackets, or braces"));
           extract_from_node (subnode,
                              outer_region,
-                             mlp,
-                             contents);
+                             mlp);
           nesting_depth--;
        }
     }
@@ -1145,10 +1133,10 @@ extract_rust (FILE *f,
     }
 
   /* Read the file into memory.  */
-  char *contents;
+  char *contents_data;
   size_t contents_length;
-  contents = read_file (real_filename, 0, &contents_length);
-  if (contents == NULL)
+  contents_data = read_file (real_filename, 0, &contents_length);
+  if (contents_data == NULL)
     error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
            real_filename);
 
@@ -1159,7 +1147,7 @@ extract_rust (FILE *f,
 
   /* Rust source files are UTF-8 encoded.
      <https://doc.rust-lang.org/1.6.0/reference.html#input-format>  */
-  if (u8_check ((uint8_t *) contents, contents_length) != NULL)
+  if (u8_check ((uint8_t *) contents_data, contents_length) != NULL)
     error (EXIT_FAILURE, 0,
            _("file \"%s\" is invalid because not UTF-8 encoded"),
            real_filename);
@@ -1172,7 +1160,7 @@ extract_rust (FILE *f,
   ts_parser_set_language (parser, ts_language);
 
   /* Parse the file, producing a syntax tree.  */
-  TSTree *tree = ts_parser_parse_string (parser, NULL, contents, contents_length);
+  TSTree *tree = ts_parser_parse_string (parser, NULL, contents_data, contents_length);
 
   #if DEBUG_RUST
   /* For debugging: Print the tree.  */
@@ -1183,14 +1171,15 @@ extract_rust (FILE *f,
   }
   #endif
 
+  contents = contents_data;
+
   extract_from_node (ts_tree_root_node (tree),
                      null_context_region (),
-                     mlp,
-                     contents);
+                     mlp);
 
   ts_tree_delete (tree);
   ts_parser_delete (parser);
-  free (contents);
+  free (contents_data);
 
   logical_file_name = NULL;
 }
