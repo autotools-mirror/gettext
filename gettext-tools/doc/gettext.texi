@@ -7324,16 +7324,35 @@ if (days > 7 && days < 14)
           days - 7);
 @end smallexample
 
-It is also possible to use this function when the strings don't contain a
-cardinal number:
+There is one case where using @code{ngettext} is @strong{not} appropriate,
+however:
+namely, when neither of the two strings contains a cardinal number.
+Consider the following example:
 
 @smallexample
 puts (ngettext ("Delete the selected file?",
                 "Delete the selected files?",
                 n));
 @end smallexample
-
-In this case the number @var{n} is only used to choose the plural form.
+@noindent
+The Russian language translator would need to provide separate
+translations for the following count forms:
+@itemize @bullet
+@item 1, 21, 31, 41, 51, 61, 71, 81, 91@dots{}
+@item 2--4, 22--24, 32--34, 42--44@dots{}
+@item 5--20, 25--30, 35--40@dots{}
+@end itemize
+@noindent
+As you can see,
+the case @code{n == 1} cannot be expressed with the Russian plural forms.
+Instead, in this case, you need to use separate calls to @code{gettext}:
+@smallexample
+puts (n == 1 ? gettext ("Delete the selected file?")
+             : gettext ("Delete the selected files?"));
+@end smallexample
+@noindent
+The translator will then use the right grammar constructs
+for singular and plural @emph{without} a number.
 @end deftypefun
 
 @deftypefun {char *} dngettext (const@tie{}char@tie{}*@var{domain}, const@tie{}char@tie{}*@var{msgid1}, const@tie{}char@tie{}*@var{msgid2}, unsigned@tie{}long@tie{}int@tie{}@var{n})
