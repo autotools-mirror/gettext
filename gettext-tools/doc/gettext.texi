@@ -10105,6 +10105,44 @@ These are those supported by the @code{format!} built-in
 with the restrictions listed in
 @url{https://crates.io/crates/formatx}, section "Limitations".
 
+A Rust format string consists of
+@itemize @bullet
+@item
+an opening brace @samp{@{},
+@item
+an optional non-empty sequence of digits or an optional identifier,
+@item
+optionally, a @samp{:} and a format specifier,
+where a format specifier is of the form
+@code{[[@var{fill}]@var{align}][@var{sign}][#][0][@var{minimumwidth}][.@var{precision}][@var{type}]}
+where
+@itemize -
+@item
+the @var{fill} character is any character,
+@item
+the @var{align} flag is one of @samp{<}, @samp{>}, @samp{^},
+@item
+the @var{sign} is one of @samp{+}, @samp{-},
+@item
+the # flag is @samp{#},
+@item
+the 0 flag is @samp{0},
+@item
+@var{minimumwidth} is a non-empty sequence of digits,
+@item
+@var{precision} is a non-empty sequence of digits,
+@item
+@var{type} is @samp{?},
+@end itemize
+@item
+optional white-space,
+@item
+a closing brace @samp{@}}.
+@end itemize
+@noindent
+Brace characters @samp{@{} and @samp{@}} can be escaped by doubling them:
+@samp{@{@{} and @samp{@}@}}.
+
 @node ruby-format
 @subsection Ruby Format Strings
 

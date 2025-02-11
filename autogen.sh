@@ -259,6 +259,8 @@ if ! $skip_gnulib; then
     unictype/ctype-space
     unictype/property-white-space
     unictype/syntax-java-whitespace
+    unictype/property-xid-start
+    unictype/property-xid-continue
     unilbrk/ulc-width-linebreaks
     uniname/uniname
     uninorm/nfc
@@ -401,6 +403,8 @@ if ! $skip_gnulib; then
     strnlen
     unictype/ctype-space
     unictype/property-white-space
+    unictype/property-xid-start
+    unictype/property-xid-continue
     unilbrk/ulc-width-linebreaks
     unistr/u8-mbtouc
     unistr/u8-mbtoucr

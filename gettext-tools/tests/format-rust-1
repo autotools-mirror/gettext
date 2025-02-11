@@ -10,22 +10,46 @@ cat <<\EOF > f-rs-1.data
 "abc{{}}"
 # Valid: a numeric argument
 "abc{0}"
-# Invalid: a named argument
+# Valid: a named argument
 "abc{value}"
 # Valid: an omitted number
 "abc{}"
 # Invalid: unterminated directive
 "abc{1"
+# Invalid: unterminated directive
+"abc{v"
+# Valid: a numeric argument and a named argument
+"abc{0}def{value}"
+# Valid: a numeric argument without number and a named argument
+"abc{}def{value}"
+# Valid: a named argument and a numeric argument
+"abc{value}def{0}"
+# Valid: a named argument and a numeric argument without number
+"abc{value}def{}"
+# Invalid: numeric arguments with and without number are unsupported
+"abc{}def{1}"
+# Invalid: numeric arguments with and without number are unsupported
+"abc{1}def{}"
 # Valid: format specifier
 "abc{1:0}"
 # Valid: format specifier
+"abc{value:0}"
+# Valid: format specifier
 "abc{1:<<-#012.34}"
+# Valid: format specifier
+"abc{value:<<-#012.34}"
 # Invalid: conversion in format specifier
 "abc{1:<<-#012.34e}"
+# Invalid: conversion in format specifier
+"abc{value:<<-#012.34e}"
 # Invalid: empty precision
 "abc{1:8.}"
+# Invalid: empty precision
+"abc{value:8.}"
 # Invalid: invalid format specifier
 "abc{1:<c>}"
+# Invalid: invalid format specifier
+"abc{value:<c>}"
 EOF
 
 : ${XGETTEXT=xgettext}

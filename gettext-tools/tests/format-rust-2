@@ -10,24 +10,42 @@ msgstr "xyz{1}{0}{2}"
 # Valid: permutation
 msgid  "abc{2}{0}{1}def"
 msgstr "xyz{1}{0}{2}"
+# Valid: permutation
+msgid  "abc{w}{u}{v}def"
+msgstr "xyz{v}{u}{w}"
+# Valid: permutation
+msgid  "abc{1}{u}{0}def"
+msgstr "xyz{0}{u}{1}"
 # Invalid: missing argument
 msgid  "abc{1}def{0}"
 msgstr "xyz{0}"
 # Invalid: missing argument
 msgid  "abc{0}def{1}"
 msgstr "xyz{1}"
+# Invalid: missing argument
+msgid  "abc{y}def{x}"
+msgstr "xyz{x}"
 # Invalid: added argument
 msgid  "abc{}def"
 msgstr "xyz{}uvw{}"
 # Invalid: added argument
 msgid  "abc{0}def"
 msgstr "xyz{0}uvw{1}"
+# Invalid: added argument
+msgid  "abc{x}def"
+msgstr "xyz{x}uvw{y}"
 # Valid: multiple reuse of same argument
 msgid  "{2} {0} {1}"
 msgstr "{1} {0} {2} {0}"
+# Valid: multiple reuse of same argument
+msgid  "{w} {u} {v}"
+msgstr "{v} {u} {w} {u}"
 # Valid: single reuse of same argument
 msgid  "{1} {0} {2} {0}"
 msgstr "{2} {0} {1}"
+# Valid: single reuse of same argument
+msgid  "{v} {u} {w} {u}"
+msgstr "{w} {u} {v}"
 # Valid: "{{" is an escape of "{"
 msgid  "abc{{{1}{2}"
 msgstr "{2}abc{1}"
