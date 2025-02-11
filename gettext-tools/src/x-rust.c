@@ -57,9 +57,9 @@
 extern const TSLanguage *tree_sitter_rust (void);
 
 
-/* The Rust syntax is defined in https://doc.rust-lang.org/1.6.0/reference.html.
+/* The Rust syntax is defined in https://doc.rust-lang.org/1.84.0/reference/index.html.
    String syntax:
-   https://doc.rust-lang.org/1.6.0/reference.html#character-and-string-literals
+   https://doc.rust-lang.org/1.84.0/reference/tokens.html#character-and-string-literals
  */
 
 #define DEBUG_RUST 0
@@ -388,7 +388,7 @@ string_literal_value (TSNode node, const char *contents)
                 {
                 case '\\':
                 case '"':
-                case '\'': /* Not documented, but accepted by rustc.  */
+                case '\'':
                   sb_xappend1 (&buffer, escape_start[1]);
                   break;
                 case 'n':
