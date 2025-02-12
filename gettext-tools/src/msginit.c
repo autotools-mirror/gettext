@@ -1,5 +1,5 @@
 /* Initializes a new PO file.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -568,6 +568,7 @@ catalogname_for_locale (const char *locale)
     "fy_NL",    /* Western Frisian      Netherlands */
     "ga_IE",    /* Irish        Ireland */
     "gd_GB",    /* Scottish Gaelic      Britain */
+    "gl_ES",    /* Galician     Spain */
     "gon_IN",   /* Gondi        India */
     "gsw_CH",   /* Swiss German Switzerland */
     "gu_IN",    /* Gujarati     India */
@@ -685,6 +686,7 @@ catalogname_for_locale (const char *locale)
     "suk_TZ",   /* Sukuma       Tanzania */
     "sus_GN",   /* Susu         Guinea */
     "sv_SE",    /* Swedish      Sweden */
+    "ta_IN",    /* Tamil        India */
     "te_IN",    /* Telugu       India */
     "tem_SL",   /* Timne        Sierra Leone */
     "tet_ID",   /* Tetum        Indonesia */
