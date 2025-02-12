@@ -8,6 +8,7 @@ environment.
     hello-c                    C
     hello-c-gnome2             C                 GNOME 2 (obsolete)
     hello-c-gnome3             C                 GNOME 3.10 or later
+    hello-c-http               C                 web browser
     hello-c++                  C++
     hello-c++20                C++ 20
     hello-c++-qt               C++               Qt
@@ -60,6 +61,7 @@ Makefile types:
     hello-c                    .gmo                    Makefile.in.in
     hello-c-gnome2             .gmo                    Makefile.in.in
     hello-c-gnome3             .gmo                    Makefile.in.in
+    hello-c-http               .gmo                    Makefile.in.in
     hello-c++                  .gmo                    Makefile.in.in
     hello-c++20                .gmo                    Makefile.in.in
     hello-c++-kde              .gmo                    Makefile.in.in

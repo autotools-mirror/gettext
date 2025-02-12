@@ -1,4 +1,4 @@
-Version 0.24 - January 2025
+Version 0.24 - February 2025
 
 # Programming languages support:
   * JavaScript:
@@ -8,6 +8,9 @@ Version 0.24 - January 2025
     - 'msgfmt -c' now verifies the syntax of translations of Rust format
       strings.
     - A new example 'hello-rust' has been added.
+  * C:
+    - A new example 'hello-c-http' has been added, showing the use of
+      GNU gettext in a multithreaded web server.
   * C++:
     - A new example 'hello-c++-gnome3' has been added.
   * Ruby:

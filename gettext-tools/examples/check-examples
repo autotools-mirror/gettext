@@ -131,6 +131,7 @@ func_check_autoclean_all ()
   func_check_autoclean hello-c
   func_check_autoclean hello-c-gnome2
   func_check_autoclean hello-c-gnome3
+  func_check_autoclean hello-c-http
   func_check_autoclean hello-c++
   func_check_autoclean hello-c++20
   func_check_autoclean hello-c++-qt
@@ -206,6 +207,7 @@ func_check_distclean_all ()
   func_check_distclean hello-c
  #func_check_distclean hello-c-gnome2
  #func_check_distclean hello-c-gnome3
+  func_check_distclean hello-c-http
   func_check_distclean hello-c++
   func_check_distclean hello-c++20
  #func_check_distclean hello-c++-qt
@@ -283,6 +285,7 @@ func_check_maintainerclean_all ()
   func_check_maintainerclean hello-c
  #func_check_maintainerclean hello-c-gnome2
  #func_check_maintainerclean hello-c-gnome3
+  func_check_maintainerclean hello-c-http
   func_check_maintainerclean hello-c++
   func_check_maintainerclean hello-c++20
  #func_check_maintainerclean hello-c++-qt
@@ -363,6 +366,7 @@ func_check_maintainerclean_vpath_all ()
   func_check_maintainerclean_vpath hello-c
  #func_check_maintainerclean_vpath hello-c-gnome2
  #func_check_maintainerclean_vpath hello-c-gnome3
+  func_check_maintainerclean_vpath hello-c-http
   func_check_maintainerclean_vpath hello-c++
   func_check_maintainerclean_vpath hello-c++20
  #func_check_maintainerclean_vpath hello-c++-qt
@@ -450,6 +454,7 @@ func_check_dist_all ()
   func_check_dist hello-c
  #func_check_dist hello-c-gnome2
  #func_check_dist hello-c-gnome3
+  func_check_dist hello-c-http
   func_check_dist hello-c++
   func_check_dist hello-c++20
  #func_check_dist hello-c++-qt
@@ -537,6 +542,7 @@ func_check_dist_vpath_all ()
   func_check_dist_vpath hello-c
  #func_check_dist_vpath hello-c-gnome2
  #func_check_dist_vpath hello-c-gnome3
+  func_check_dist_vpath hello-c-http
   func_check_dist_vpath hello-c++
   func_check_dist_vpath hello-c++20
  #func_check_dist_vpath hello-c++-qt
@@ -616,6 +622,7 @@ func_check_install_all ()
   func_check_install hello-c
  #func_check_install hello-c-gnome2
  #func_check_install hello-c-gnome3
+  func_check_install hello-c-http
   func_check_install hello-c++
   func_check_install hello-c++20
  #func_check_install hello-c++-qt
@@ -692,6 +699,7 @@ func_check_uninstall_all ()
   func_check_uninstall hello-c
  #func_check_uninstall hello-c-gnome2
  #func_check_uninstall hello-c-gnome3
+  func_check_uninstall hello-c-http
   func_check_uninstall hello-c++
   func_check_uninstall hello-c++20
  #func_check_uninstall hello-c++-qt
@@ -770,6 +778,7 @@ func_check_distcheck_all ()
   func_check_distcheck hello-c
  #func_check_distcheck hello-c-gnome2
  #func_check_distcheck hello-c-gnome3
+  func_check_distcheck hello-c-http
   func_check_distcheck hello-c++
   func_check_distcheck hello-c++20
  #func_check_distcheck hello-c++-qt
@@ -831,6 +840,7 @@ func_check_all ()
   func_check hello-c
   func_check hello-c-gnome2
   func_check hello-c-gnome3
+  func_check hello-c-http
   func_check hello-c++
   func_check hello-c++20
   func_check hello-c++-qt

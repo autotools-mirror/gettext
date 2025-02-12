@@ -72,6 +72,16 @@ EXAMPLESFILES = \
   hello-c-gnome3/po/Makevars \
   hello-c-gnome3/po/POTFILES.in \
   \
+  hello-c-http/INSTALL \
+  hello-c-http/autogen.sh \
+  hello-c-http/autoclean.sh \
+  hello-c-http/hello-server.c \
+  hello-c-http/Makefile.am \
+  hello-c-http/configure.ac \
+  hello-c-http/m4/Makefile.am \
+  hello-c-http/po/Makevars \
+  hello-c-http/po/POTFILES.in \
+  \
   hello-c++/INSTALL \
   hello-c++/autogen.sh \
   hello-c++/autoclean.sh \
@@ -424,6 +434,7 @@ EXAMPLESDIRS = \
   hello-c \
   hello-c-gnome2 \
   hello-c-gnome3 \
+  hello-c-http \
   hello-c++ \
   hello-c++20 \
   hello-c++-qt \
