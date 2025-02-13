@@ -1,5 +1,5 @@
 /* setlocale() function that respects the locale chosen by the user.
-   Copyright (C) 2009, 2011-2024 Free Software Foundation, Inc.
+   Copyright (C) 2009, 2011-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2009.
 
    This program is free software: you can redistribute it and/or modify
@@ -993,6 +993,7 @@ static char const locales_with_principal_territory[][6 + 1] =
     "fy_NL",    /* Western Frisian      Netherlands */
     "ga_IE",    /* Irish        Ireland */
     "gd_GB",    /* Scottish Gaelic      Britain */
+    "gl_ES",    /* Galician     Spain */
     "gon_IN",   /* Gondi        India */
     "gsw_CH",   /* Swiss German Switzerland */
     "gu_IN",    /* Gujarati     India */
@@ -1111,6 +1112,7 @@ static char const locales_with_principal_territory[][6 + 1] =
     "suk_TZ",   /* Sukuma       Tanzania */
     "sus_GN",   /* Susu         Guinea */
     "sv_SE",    /* Swedish      Sweden */
+    "ta_IN",    /* Tamil        India */
     "te_IN",    /* Telugu       India */
     "tem_SL",   /* Timne        Sierra Leone */
     "tet_ID",   /* Tetum        Indonesia */
