@@ -341,6 +341,7 @@
 /gettext-tools/libgrep/c++defs.h
 /gettext-tools/libgrep/cdefs.h
 /gettext-tools/libgrep/dynarray.h
+/gettext-tools/libgrep/fcntl.in.h
 /gettext-tools/libgrep/intprops-internal.h
 /gettext-tools/libgrep/intprops.h
 /gettext-tools/libgrep/inttypes.in.h
@@ -930,6 +931,7 @@ core
 /gettext-tools/libgettextpo/uniwidth.h
 /gettext-tools/libgettextpo/wchar.h
 /gettext-tools/libgettextpo/wctype.h
+/gettext-tools/libgrep/fcntl.h
 /gettext-tools/libgrep/inttypes.h
 /gettext-tools/libgrep/langinfo.h
 /gettext-tools/libgrep/limits.h
