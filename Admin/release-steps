@@ -12,7 +12,7 @@ We assume that the following environment variables are set:
 
     ./gitsub.sh upgrade
     git add gnulib
-    git commit -m 'Update to the newest gnulib' gnulib
+    git commit -m 'Update to the newest gnulib.' gnulib
 
 ** Run these commands, in this order:
 

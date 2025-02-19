@@ -1,5 +1,5 @@
 # List of files which contain translatable strings.
-# Copyright (C) 1995-2024 Free Software Foundation, Inc.
+# Copyright (C) 1995-2025 Free Software Foundation, Inc.
 # This file is free software, distributed under GNU GPL v3+.
 
 # For updating this file, look at the result of:
@@ -36,6 +36,7 @@ src/format-python.c
 src/format-qt.c
 src/format-qt-plural.c
 src/format-ruby.c
+src/format-rust.c
 src/format-scheme.c
 src/format-sh.c
 src/format-smalltalk.c
@@ -110,6 +111,7 @@ src/x-po.c
 src/x-python.c
 src/x-rst.c
 src/x-ruby.c
+src/x-rust.c
 src/x-scheme.c
 src/x-sh.c
 src/x-smalltalk.c
