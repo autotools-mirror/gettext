@@ -57,6 +57,7 @@
 # define SHLIB_EXPORTED
 #endif
 
+#include "setlocale-messages.h"
 #include "localename.h"
 
 #if HAVE_CFLOCALECOPYPREFERREDLANGUAGES || HAVE_CFPREFERENCESCOPYAPPVALUE
@@ -902,22 +903,12 @@ setlocale_unixlike (int category, const char *locale)
 
 # if LC_MESSAGES == 1729
 
-/* The system does not store an LC_MESSAGES locale category.  Do it here.  */
-static char lc_messages_name[64] = "C";
-
 /* Like setlocale, but support also LC_MESSAGES.  */
 static char *
 setlocale_single (int category, const char *locale)
 {
   if (category == LC_MESSAGES)
-    {
-      if (locale != NULL)
-        {
-          lc_messages_name[sizeof (lc_messages_name) - 1] = '\0';
-          strncpy (lc_messages_name, locale, sizeof (lc_messages_name) - 1);
-        }
-      return lc_messages_name;
-    }
+    return setlocale_messages (locale);
   else
     return setlocale_unixlike (category, locale);
 }
