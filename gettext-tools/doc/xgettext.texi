@@ -744,6 +744,23 @@ which the translators can contact you.
 The default value is empty, which means that translators will be clueless!
 Don't forget to specify this option.
 
+@item --reference=@var{file}
+@opindex --reference@r{, @code{xgettext} option}
+
+Declares that the output depends on the contents of the given FILE.
+This has an influence on the @samp{POT-Creation-Date} field in the output.
+
+By default, @code{xgettext} determines the @samp{POT-Creation-Date} as
+the maximum version-controlled modification time
+among all the given input files.
+With this option, you can specify that
+the output depends also on some other files.
+For example, use this option when
+some of the input files is not under version control
+but instead is generated from one or more files that are under version control.
+
+By ``version control'', here we mean the @code{Git} version control system.
+
 @item -m[@var{string}]
 @itemx --msgstr-prefix[=@var{string}]
 @opindex -m@r{, @code{xgettext} option}

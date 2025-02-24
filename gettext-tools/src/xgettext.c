@@ -80,7 +80,9 @@
 #include "msgl-ascii.h"
 #include "msgl-ofn.h"
 #include "xg-check.h"
+#include "vc-mtime.h"
 #include "po-time.h"
+#include "msgl-header.h"
 #include "write-catalog.h"
 #include "write-po.h"
 #include "write-properties.h"
@@ -232,6 +234,11 @@ static locating_rule_list_ty *its_locating_rules;
 /* If nonzero add comments used by itstool.  */
 static bool add_itstool_comments = false;
 
+/* Accumulating the version-controlled modification times of file names.  */
+static bool has_some_mtimes = false;
+static struct timespec max_of_mtimes;
+static bool some_mtimes_failed = false;
+
 /* Long options.  */
 static const struct option long_options[] =
 {
@@ -274,6 +281,7 @@ static const struct option long_options[] =
   { "package-version", required_argument, NULL, CHAR_MAX + 13 },
   { "properties-output", no_argument, NULL, CHAR_MAX + 6 },
   { "qt", no_argument, NULL, CHAR_MAX + 9 },
+  { "reference", required_argument, NULL, CHAR_MAX + 22 },
   { "sentence-end", required_argument, NULL, CHAR_MAX + 18 },
   { "sort-by-file", no_argument, NULL, 'F' },
   { "sort-output", no_argument, NULL, 's' },
@@ -319,6 +327,7 @@ struct extractor_ty
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
 static void read_exclusion_file (char *file_name);
+static void consider_vc_mtime (const char *file_name);
 static void extract_from_file (const char *file_name, extractor_ty extractor,
                                msgdomain_list_ty *mdlp);
 static void extract_from_xml_file (const char *file_name,
@@ -694,6 +703,10 @@ main (int argc, char *argv[])
         x_javascript_tag (optarg);
         break;
 
+      case CHAR_MAX + 22: /* --reference */
+        consider_vc_mtime (optarg);
+        break;
+
       default:
         usage (EXIT_FAILURE);
         /* NOTREACHED */
@@ -808,7 +821,11 @@ xgettext cannot work without keywords to look for"));
 
   /* Determine list of files we have to process.  */
   if (files_from != NULL)
-    file_list = read_names_from_file (files_from);
+    {
+      if (strcmp (files_from, "-") != 0)
+        consider_vc_mtime (files_from);
+      file_list = read_names_from_file (files_from);
+    }
   else
     file_list = string_list_alloc ();
   /* Append names from command line.  */
@@ -1257,6 +1274,10 @@ Output details:\n"));
       printf (_("\
       --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"));
       printf (_("\
+      --reference=FILE        Declares that the output depends on the contents\n\
+                              of the given FILE.  This has an influence on the\n\
+                              'POT-Creation-Date' field in the output.\n"));
+      printf (_("\
   -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for msgstr\n\
                                 values\n"));
       printf (_("\
@@ -1285,6 +1306,29 @@ or by email to <%s>.\n"),
     }
 
   exit (status);
+}
+
+
+static void
+consider_vc_mtime (const char *file_name)
+{
+  struct timespec mtime;
+  if (vc_mtime (&mtime, file_name) >= 0)
+    {
+      if (has_some_mtimes)
+        {
+          /* Compute the maximum of max_of_mtimes and mtime.  */
+          if (max_of_mtimes.tv_sec < mtime.tv_sec
+              || (max_of_mtimes.tv_sec == mtime.tv_sec
+                  && max_of_mtimes.tv_nsec < mtime.tv_nsec))
+           max_of_mtimes = mtime;
+        }
+      else
+        max_of_mtimes = mtime;
+    }
+  else
+    some_mtimes_failed = true;
+  has_some_mtimes = true;
 }
 
 
@@ -1359,9 +1403,11 @@ read_exclusion_file (char *filename)
 {
   char *real_filename;
   FILE *fp = open_catalog_file (filename, &real_filename, true);
-  abstract_catalog_reader_ty *catr;
 
-  catr = catalog_reader_alloc (&exclude_methods, textmode_xerror_handler);
+  consider_vc_mtime (real_filename);
+
+  abstract_catalog_reader_ty *catr =
+    catalog_reader_alloc (&exclude_methods, textmode_xerror_handler);
   catalog_reader_parse (catr, fp, real_filename, filename, true, &input_format_po);
   catalog_reader_free (catr);
 
@@ -1971,6 +2017,8 @@ extract_from_file (const char *file_name, extractor_ty extractor,
   if (extractor.extract_from_stream)
     {
       FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
+      if (fp != stdin)
+        consider_vc_mtime (real_file_name);
 
       /* Set the default for the source file encoding.  May be overridden by
          the extractor function.  */
@@ -1992,6 +2040,7 @@ extract_from_file (const char *file_name, extractor_ty extractor,
       const char *found_in_dir;
       xgettext_find_file (file_name, &logical_file_name,
                           &found_in_dir, &real_file_name);
+      consider_vc_mtime (real_file_name);
 
       extractor.extract_from_file (found_in_dir, real_file_name,
                                    logical_file_name,
@@ -2043,6 +2092,8 @@ extract_from_xml_file (const char *file_name,
   char *logical_file_name;
   char *real_file_name;
   FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
+  if (fp != stdin)
+    consider_vc_mtime (real_file_name);
 
   /* The default encoding for XML is UTF-8.  It can be overridden by
      an XML declaration in the XML file itself, not through the
@@ -2059,6 +2110,7 @@ extract_from_xml_file (const char *file_name,
 
   if (fp != stdin)
     fclose (fp);
+  consider_vc_mtime (real_file_name);
   free (logical_file_name);
   free (real_file_name);
 }
@@ -2076,8 +2128,6 @@ static message_ty *
 construct_header ()
 {
   char *project_id_version;
-  time_t now;
-  char *timestring;
   message_ty *mp;
   char *msgstr;
   char *comment;
@@ -2102,13 +2152,10 @@ the MSGID_BUGS_ADDRESS variable there; otherwise please\n\
 specify an --msgid-bugs-address command line option.\n\
 ")));
 
-  time (&now);
-  timestring = po_strftime (&now);
-
   msgstr = xasprintf ("\
 Project-Id-Version: %s\n\
 Report-Msgid-Bugs-To: %s\n\
-POT-Creation-Date: %s\n\
+POT-Creation-Date: \n\
 PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n\
 Last-Translator: FULL NAME <EMAIL@ADDRESS>\n\
 Language-Team: LANGUAGE <LL@li.org>\n\
@@ -2117,10 +2164,8 @@ MIME-Version: 1.0\n\
 Content-Type: text/plain; charset=CHARSET\n\
 Content-Transfer-Encoding: 8bit\n",
                       project_id_version,
-                      msgid_bugs_address != NULL ? msgid_bugs_address : "",
-                      timestring);
+                      msgid_bugs_address != NULL ? msgid_bugs_address : "");
   assume (msgstr != NULL);
-  free (timestring);
   free (project_id_version);
 
   mp = message_alloc (NULL, "", NULL, msgstr, strlen (msgstr) + 1, &pos);
@@ -2149,6 +2194,20 @@ FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
 static void
 finalize_header (msgdomain_list_ty *mdlp)
 {
+  /* Set the POT-Creation-Date field.  */
+  {
+    time_t stamp;
+    if (has_some_mtimes && !some_mtimes_failed)
+      /* Use the maximum of the encountered mtimes.  */
+      stamp = max_of_mtimes.tv_sec;
+    else
+      /* Use the current time.  */
+      time (&stamp);
+    char *timestring = po_strftime (&stamp);
+    msgdomain_list_set_header_field (mdlp, "POT-Creation-Date:", timestring);
+    free (timestring);
+  }
+
   /* If the generated PO file has plural forms, add a Plural-Forms template
      to the constructed header.  */
   {

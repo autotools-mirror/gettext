@@ -274,6 +274,7 @@ if ! $skip_gnulib; then
     unlocked-io
     unsetenv
     vasprintf
+    vc-mtime
     wait-process
     write
     xalloc
