@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2024-12-01 09:16+0100\n"
+"POT-Creation-Date: 2025-01-02 14:12+0100\n"
 "PO-Revision-Date: 2020-04-16 15:00+0200\n"
 "Last-Translator: Rafał Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -20,54 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
 
-#: gnulib-lib/closeout.c:66
-msgid "write error"
-msgstr "błąd zapisu"
-
-#: gnulib-lib/error.c:208
-msgid "Unknown system error"
-msgstr "Nieznany błąd systemu"
-
-#: gnulib-lib/getopt.c:282
-#, c-format
-msgid "%s: option '%s%s' is ambiguous\n"
-msgstr "%s: opcja „%s%s” jest niejednoznaczna\n"
-
-#: gnulib-lib/getopt.c:288
-#, c-format
-msgid "%s: option '%s%s' is ambiguous; possibilities:"
-msgstr "%s: opcja „%s%s” jest niejednoznaczna; możliwości:"
-
-#: gnulib-lib/getopt.c:322
-#, c-format
-msgid "%s: unrecognized option '%s%s'\n"
-msgstr "%s: nierozpoznana opcja „%s%s”\n"
-
-#: gnulib-lib/getopt.c:348
-#, c-format
-msgid "%s: option '%s%s' doesn't allow an argument\n"
-msgstr "%s: opcja „%s%s” nie może mieć argumentu\n"
-
-#: gnulib-lib/getopt.c:363
-#, c-format
-msgid "%s: option '%s%s' requires an argument\n"
-msgstr "%s: opcja „%s%s” wymaga argumentu\n"
-
-#: gnulib-lib/getopt.c:624
-#, c-format
-msgid "%s: invalid option -- '%c'\n"
-msgstr "%s: błędna opcja -- „%c”\n"
-
-#: gnulib-lib/getopt.c:639 gnulib-lib/getopt.c:685
-#, c-format
-msgid "%s: option requires an argument -- '%c'\n"
-msgstr "%s: opcja wymaga argumentu -- „%c'\n"
-
-#: gnulib-lib/xalloc-die.c:34
-msgid "memory exhausted"
-msgstr "pamięć wyczerpana"
-
-#: src/envsubst.c:112 src/gettext.c:135 src/ngettext.c:125
+#: src/envsubst.c:113 src/gettext.c:136 src/ngettext.c:126
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -80,67 +33,67 @@ msgstr ""
 "To jest wolne oprogramowanie: możesz je modyfikować i rozpowszechniać.\n"
 "Autorzy NIE DAJĄ GWARANCJI, na ile pozwala na to prawo.\n"
 
-#: src/envsubst.c:118 src/gettext.c:141 src/ngettext.c:131
+#: src/envsubst.c:119 src/gettext.c:142 src/ngettext.c:132
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Autor programu: %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:118
+#: src/envsubst.c:119
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:127 src/gettext.c:159 src/ngettext.c:143
+#: src/envsubst.c:128 src/gettext.c:160 src/ngettext.c:144
 #, c-format
 msgid "too many arguments"
 msgstr "za dużo argumentów"
 
-#: src/envsubst.c:138 src/gettext.c:169 src/ngettext.c:155
+#: src/envsubst.c:139 src/gettext.c:170 src/ngettext.c:156
 #, c-format
 msgid "missing arguments"
 msgstr "brakujące argumenty"
 
-#: src/envsubst.c:176 src/gettext.c:246 src/ngettext.c:212
+#: src/envsubst.c:177 src/gettext.c:247 src/ngettext.c:213
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Napisz „%s --help” żeby otrzymać więcej informacji.\n"
 
-#: src/envsubst.c:181
+#: src/envsubst.c:182
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Składnia: %s [OPCJA] [FORMAT-POWŁOKI]\n"
 
-#: src/envsubst.c:186
+#: src/envsubst.c:187
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Podstawia wartości zmiennych powłoki.\n"
 
-#: src/envsubst.c:190
+#: src/envsubst.c:191
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Tryb działania:\n"
 
-#: src/envsubst.c:193
+#: src/envsubst.c:194
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             wypisanie zmiennych z FORMATU-POWŁOKI\n"
 
-#: src/envsubst.c:197 src/gettext.c:275 src/ngettext.c:242
+#: src/envsubst.c:198 src/gettext.c:276 src/ngettext.c:243
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informacje:\n"
 
-#: src/envsubst.c:200
+#: src/envsubst.c:201
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  wyświetlenie tego opisu i zakończenie\n"
 
-#: src/envsubst.c:203
+#: src/envsubst.c:204
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               wyświetlenie informacji o wersji i zakończenie\n"
 
-#: src/envsubst.c:207
+#: src/envsubst.c:208
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -156,7 +109,7 @@ msgstr ""
 "zastępowane są tylko zmienne tam wymienione. W przeciwnym wypadku podstawiane\n"
 "są wartości wszystkich zmiennych środowiska podanych na standardowym wejściu.\n"
 
-#: src/envsubst.c:216
+#: src/envsubst.c:217
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -171,7 +124,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:225 src/gettext.c:299 src/ngettext.c:263
+#: src/envsubst.c:226 src/gettext.c:300 src/ngettext.c:264
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -181,21 +134,21 @@ msgstr ""
 "%s\n"
 "albo przez e-mail do %s.\n"
 
-#: src/envsubst.c:453
+#: src/envsubst.c:454
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "błąd podczas czytania \"%s\""
 
-#: src/envsubst.c:453
+#: src/envsubst.c:454
 msgid "standard input"
 msgstr "standardowe wejście"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:141 src/ngettext.c:131
+#: src/gettext.c:142 src/ngettext.c:132
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:251
+#: src/gettext.c:252
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -204,37 +157,37 @@ msgstr ""
 "Składnia: %s [OPCJA] [[DOMENA] MSGID]\n"
 "    albo: %s [OPCJA] -s [MSGID]...\n"
 
-#: src/gettext.c:257
+#: src/gettext.c:258
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Wyświetla tłumaczenie komunikatu.\n"
 
-#: src/gettext.c:261
+#: src/gettext.c:262
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=DOMENA       wydobycie przetłumaczonych komunikatów z DOMENY\n"
 
-#: src/gettext.c:263 src/ngettext.c:229
+#: src/gettext.c:264 src/ngettext.c:230
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=KONTEKST    podaj kontekst dla MSGID\n"
 
-#: src/gettext.c:265 src/ngettext.c:231
+#: src/gettext.c:266 src/ngettext.c:232
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr "  -e                        rozwijanie niektórych sekwencji escape\n"
 
-#: src/gettext.c:267
+#: src/gettext.c:268
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                        wyłączenie końcowego znaku nowej linii\n"
 
-#: src/gettext.c:269 src/ngettext.c:233
+#: src/gettext.c:270 src/ngettext.c:234
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                        (ignorowane, dla kompatybilności)\n"
 
-#: src/gettext.c:271
+#: src/gettext.c:272
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
@@ -243,18 +196,18 @@ msgstr ""
 "  [DOMENA] MSGID            wydobycie z DOMENY przetłumaczonego komunikatu\n"
 "                            odpowiadającego MSGID\n"
 
-#: src/gettext.c:277 src/ngettext.c:244
+#: src/gettext.c:278 src/ngettext.c:245
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                wypisanie tego opisu i zakończenie\n"
 
-#: src/gettext.c:279 src/ngettext.c:246
+#: src/gettext.c:280 src/ngettext.c:247
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr ""
 "  -V, --version             wypisanie informacji o wersji i zakończenie\n"
 
-#: src/gettext.c:283
+#: src/gettext.c:284
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -275,31 +228,31 @@ msgstr ""
 "znalezione w wybranym katalogu.\n"
 "Domyślnie przeszukiwany katalog: %s\n"
 
-#: src/ngettext.c:217
+#: src/ngettext.c:218
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Składnia: %s [OPCJA] [DOMENA] MSGID MSGID-MNOGA ILOŚĆ\n"
 
-#: src/ngettext.c:222
+#: src/ngettext.c:223
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr "Wyświetlenie tłumaczenia komunikatu, którego forma gramatyczna zależy od liczby\n"
 
-#: src/ngettext.c:227
+#: src/ngettext.c:228
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 msgstr "  -d, --domain=DOMENA       wydobycie przetłumaczonych komunikatów z DOMENY\n"
 
-#: src/ngettext.c:235
+#: src/ngettext.c:236
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr ""
 "  [DOMENA]                  wydobycie z DOMENA przetłumaczonego komunikatu\n"
 
-#: src/ngettext.c:237
+#: src/ngettext.c:238
 #, c-format
 msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
@@ -308,14 +261,14 @@ msgstr ""
 "  MSGID MSGID-MNOGA         przetłumaczenie MSGID (pojed.) / MSGID-MNOGA "
 "(mn.)\n"
 
-#: src/ngettext.c:239
+#: src/ngettext.c:240
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
 "  LICZBA                    wybranie formy pojed./mn. w oparciu o LICZBĘ\n"
 
-#: src/ngettext.c:250
+#: src/ngettext.c:251
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -329,3 +282,41 @@ msgstr ""
 "znaleziony w domyślnym katalogu, inna lokalizacja może być podana przez\n"
 "zmienną środowiskową TEXTDOMAINDIR.\n"
 "Domyślnie przeszukiwany katalog: %s\n"
+
+#~ msgid "write error"
+#~ msgstr "błąd zapisu"
+
+#~ msgid "Unknown system error"
+#~ msgstr "Nieznany błąd systemu"
+
+#, c-format
+#~ msgid "%s: option '%s%s' is ambiguous\n"
+#~ msgstr "%s: opcja „%s%s” jest niejednoznaczna\n"
+
+#, c-format
+#~ msgid "%s: option '%s%s' is ambiguous; possibilities:"
+#~ msgstr "%s: opcja „%s%s” jest niejednoznaczna; możliwości:"
+
+#, c-format
+#~ msgid "%s: unrecognized option '%s%s'\n"
+#~ msgstr "%s: nierozpoznana opcja „%s%s”\n"
+
+#, c-format
+#~ msgid "%s: option '%s%s' doesn't allow an argument\n"
+#~ msgstr "%s: opcja „%s%s” nie może mieć argumentu\n"
+
+#, c-format
+#~ msgid "%s: option '%s%s' requires an argument\n"
+#~ msgstr "%s: opcja „%s%s” wymaga argumentu\n"
+
+#, c-format
+#~ msgid "%s: invalid option -- '%c'\n"
+#~ msgstr "%s: błędna opcja -- „%c”\n"
+
+#, c-format
+#~ msgid "%s: option requires an argument -- '%c'\n"
+#~ msgstr "%s: opcja wymaga argumentu -- „%c'\n"
+
+#, c-format
+#~ msgid "memory exhausted"
+#~ msgstr "pamięć wyczerpana"
