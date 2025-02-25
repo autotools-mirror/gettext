@@ -429,7 +429,7 @@ func_check_dist ()
             rm -rf "$sample/autom4te.cache"
             if test -f "$sample/$sample-0.tar.gz"; then
               (cd "$sample" && tar xfz "$sample-0.tar.gz")
-              LC_ALL=C diff -r -q "$sample" "$sample/$sample-0" | grep -v "^Only in $sample: $sample-0$" | grep -v "^Only in $sample: $sample-0.tar.gz$" | grep -v "^Only in $sample: BUGS$" > "$sample.out"
+              LC_ALL=C diff -r -q "$sample" "$sample/$sample-0" | grep -v "^Only in $sample: $sample-0\$" | grep -v "^Only in $sample: $sample-0.tar.gz\$" | grep -v "^Only in $sample: BUGS\$" | grep -v "^Only in hello-rust: target\$" > "$sample.out"
             else
               echo "$sample-0.tar.gz was not created" > "$sample.out"
             fi
@@ -518,7 +518,7 @@ func_check_dist_vpath ()
             if test -f "$sample/build/$sample-0.tar.gz"; then
               (cd "$sample"/build && tar xfz "$sample-0.tar.gz")
               # TODO: Remove stamp-po workaround after next release.
-              LC_ALL=C diff -r -q "$sample" "$sample/build/$sample-0" | grep -v "^Only in $sample: build$" | grep -v "^Only in $sample: BUGS$" | { if test -f "$sample"/po/Makevars; then grep -v "^Only in $sample/build/$sample-0/po: stamp-po$"; else cat; fi; } > "$sample.out"
+              LC_ALL=C diff -r -q "$sample" "$sample/build/$sample-0" | grep -v "^Only in $sample: build\$" | grep -v "^Only in $sample: BUGS\$" | grep -v "^Only in hello-rust: target\$" | { if test -f "$sample"/po/Makevars; then grep -v "^Only in $sample/build/$sample-0/po: stamp-po\$"; else cat; fi; } > "$sample.out"
             else
               echo "$sample-0.tar.gz was not created" > "$sample.out"
             fi
