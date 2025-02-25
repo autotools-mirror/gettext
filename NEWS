@@ -15,10 +15,12 @@ Version 0.24 - February 2025
     - A new example 'hello-c++-gnome3' has been added.
   * Ruby:
     - A new example 'hello-ruby' has been added.
+
 # Improvements for maintainers:
   * When xgettext creates the POT file of a package under Git version control,
     the 'POT-Creation-Date' in the POT file usually no longer changes
     gratuitously each time the POT file is regenerated.
+
 # Caveat maintainers:
   * Building the po/ directory now requires GNU make on specific platforms:
     macOS, Solaris, AIX.
