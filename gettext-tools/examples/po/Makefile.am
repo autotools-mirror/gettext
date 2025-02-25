@@ -369,8 +369,8 @@ $(srcdir)/$(DOMAIN).pot:
 $(POFILES): $(srcdir)/$(DOMAIN).pot
 	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE_UPDATE) --quiet $(MSGMERGE_OPTIONS) $${lang}.po $(DOMAIN).pot"; \
-	cd $(srcdir) && $(MSGMERGE_UPDATE) --quiet $(MSGMERGE_OPTIONS) $${lang}.po $(DOMAIN).pot
+	echo "$${cdcmd}$(MSGMERGE_UPDATE) --quiet $(MSGMERGE_OPTIONS) --lang=$${lang} --previous $${lang}.po $(DOMAIN).pot"; \
+	cd $(srcdir) && $(MSGMERGE_UPDATE) --quiet $(MSGMERGE_OPTIONS) --lang=$${lang} --previous $${lang}.po $(DOMAIN).pot
 
 
 html ID:
@@ -406,9 +406,9 @@ update-po: Makefile
 	tmpdir=`pwd`; \
 	echo "$$lang:"; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE) --quiet $(MSGMERGE_OPTIONS) $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
+	echo "$${cdcmd}$(MSGMERGE) --quiet $(MSGMERGE_OPTIONS) --lang=$${lang} --previous $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
 	(cd $(srcdir) && \
-	 if $(MSGMERGE) --quiet $(MSGMERGE_OPTIONS) $$lang.po $(DOMAIN).pot -o $$tmpdir/$$lang.new.po; then \
+	 if $(MSGMERGE) --quiet $(MSGMERGE_OPTIONS) --lang=$${lang} --previous $$lang.po $(DOMAIN).pot -o $$tmpdir/$$lang.new.po; then \
 	   if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
 	     rm -f $$tmpdir/$$lang.new.po; \
 	   else \
