@@ -17,7 +17,7 @@ dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 dnl Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.64])
-AC_INIT([gettext-tools], [dummy], [bug-gettext@gnu.org])
+AC_INIT([gettext-tools], [package], [bug-gettext@gnu.org])
 AC_CONFIG_SRCDIR([src/msgfmt.c])
 AC_CONFIG_AUX_DIR([../build-aux])
 VERSION_NUMBER=`cd $srcdir/.. \
