@@ -4,7 +4,7 @@
 # Test Rust support: propagation of 'rust-format'.
 
 cat <<\EOF > xg-rs-7.rs
-  gettext ("Hello10"));
+  gettext ("Hello10");
   (gettext ("Hello11"));
   ((gettext ("Hello12")));
   gettext (gettext ("Hello13"));
