@@ -59,7 +59,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location --flag=format:1:rust-format -d xg-rs-7.tmp xg-rs-7.rs || Exit 1
 LC_ALL=C tr -d '\r' < xg-rs-7.tmp.po > xg-rs-7.po || Exit 1
 
-cat <<EOF > xg-rs-7.ok
+cat <<\EOF > xg-rs-7.ok
 msgid "Hello10"
 msgstr ""
 

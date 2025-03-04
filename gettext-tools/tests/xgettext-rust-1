@@ -3,7 +3,7 @@
 
 # Test Rust support: Simple things.
 
-cat <<EOF > xg-rs-1.rs
+cat <<\EOF > xg-rs-1.rs
 use gettext_rs::gettext;
 
 pub trait TestCase {
@@ -34,7 +34,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -k'gettext!' -c -d xg-rs-1.tmp xg-rs-1.rs || Exit 1
 LC_ALL=C tr -d '\r' < xg-rs-1.tmp.po > xg-rs-1.po || Exit 1
 
-cat <<EOF > xg-rs-1.ok
+cat <<\EOF > xg-rs-1.ok
 #. standard usage
 msgid "Test String 1"
 msgstr ""

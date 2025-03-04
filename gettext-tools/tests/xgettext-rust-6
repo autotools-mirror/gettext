@@ -18,7 +18,7 @@ EOF
 ${XGETTEXT} --omit-header --no-location -d xg-rs-6a.tmp xg-rs-6.rs || Exit 1
 LC_ALL=C tr -d '\r' < xg-rs-6a.tmp.po > xg-rs-6a.po || Exit 1
 
-cat <<EOF > xg-rs-6a.ok
+cat <<\EOF > xg-rs-6a.ok
 msgid "Hello1"
 msgstr ""
 
@@ -33,7 +33,7 @@ ${DIFF} xg-rs-6a.ok xg-rs-6a.po || exit 1
 ${XGETTEXT} --omit-header --no-location -k'tr!' -d xg-rs-6b.tmp xg-rs-6.rs || Exit 1
 LC_ALL=C tr -d '\r' < xg-rs-6b.tmp.po > xg-rs-6b.po || Exit 1
 
-cat <<EOF > xg-rs-6b.ok
+cat <<\EOF > xg-rs-6b.ok
 #, rust-format
 msgid "Hello {}"
 msgstr ""

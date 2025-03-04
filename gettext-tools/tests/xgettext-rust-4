@@ -3,7 +3,7 @@
 
 # Test Rust support: plurals.
 
-cat <<EOF > xg-rs-4.rs
+cat <<\EOF > xg-rs-4.rs
 pub trait TestCase {
   fn main () {
     ngettext("test 1", "plural test");
@@ -17,7 +17,7 @@ ${XGETTEXT} --omit-header --no-location --keyword=myngettext:2,3 \
   -d xg-rs-4.tmp xg-rs-4.rs || Exit 1
 LC_ALL=C tr -d '\r' < xg-rs-4.tmp.po > xg-rs-4.po || Exit 1
 
-cat <<EOF > xg-rs-4.ok
+cat <<\EOF > xg-rs-4.ok
 msgid "test 1"
 msgid_plural "plural test"
 msgstr[0] ""
