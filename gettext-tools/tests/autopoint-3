@@ -136,7 +136,11 @@ test $? = 0 || { cat autopoint.err; Exit 1; }
 ${CONFIG_SHELL} ./configure >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
 
-: ${MAKE=make}
+# The po/Makefile requires GNU make on specific platforms.
+case "$host_os" in
+  darwin* | solaris* | aix*) : ${MAKE=gmake} ;;
+  *)                         : ${MAKE=make} ;;
+esac
 ${MAKE} >/dev/null 2>autopoint.err
 test $? = 0 || { cat autopoint.err; Exit 1; }
 
