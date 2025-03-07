@@ -203,6 +203,7 @@ if ! $skip_gnulib; then
     getline
     getopt-gnu
     gettext-h
+    gocomp-script
     hash-map
     hash-set
     iconv

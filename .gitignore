@@ -31,6 +31,7 @@
 /build-aux/csharpexec.sh.in
 /build-aux/git-version-gen
 /build-aux/gitlog-to-changelog
+/build-aux/gocomp.sh.in
 /build-aux/install-reloc
 /build-aux/javacomp.sh.in
 /build-aux/javaexec.sh.in
@@ -650,6 +651,7 @@ autom4te.cache/
 /gettext-tools/config.h
 /gettext-tools/csharpcomp.sh
 /gettext-tools/csharpexec.sh
+/gettext-tools/gocomp.sh
 /gettext-tools/javacomp.sh
 /gettext-tools/javaexec.sh
 /gettext-tools/libtool

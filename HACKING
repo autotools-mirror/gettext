@@ -234,6 +234,33 @@ are skipped. To this effect, you need to install also:
       - Other: https://repology.org/project/rust/versions
                https://repology.org/project/cargo/versions
 
+  * Go
+    Either the golang Go implementation or the GCC Go implementation.
+    o golang Go implementation
+      + Recommended where available.
+      + Homepage: https://go.dev/
+      + Documentation: https://go.dev/doc/
+      + Pre-built package name:
+        - On Debian and Debian-based systems: golang-go,
+        - On Red Hat distributions: golang.
+        - Other: https://repology.org/project/go/versions
+    o GCC Go implementation
+      + Recommended on those platforms where the golang Go implementation
+        is not available. This includes in particular:
+        - Linux/alpha, Linux/hppa, Linux/m68k, Linux/sparc, Linux/powerpc (32-bit)
+        - GNU/Hurd
+        - Solaris/sparc
+        - Haiku
+      + Homepage: https://gcc.gnu.org/
+      + Documentation:
+        - https://go.dev/doc/install/gccgo
+        - https://gcc.gnu.org/onlinedocs/gccgo/index.html
+      + Pre-built package name:
+        - On Debian and Debian-based systems: gccgo,
+        - On Red Hat distributions: gcc-go.
+        - Other: https://repology.org/project/gcc/versions
+                 https://repology.org/project/gccgo/versions
+
   * Ruby
     + Homepage: https://www.ruby-lang.org/en/
     + Pre-built package name:
