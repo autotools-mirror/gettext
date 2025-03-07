@@ -114,6 +114,7 @@ extern DLL_VARIABLE struct formatstring_parser formatstring_lisp;
 extern DLL_VARIABLE struct formatstring_parser formatstring_elisp;
 extern DLL_VARIABLE struct formatstring_parser formatstring_librep;
 extern DLL_VARIABLE struct formatstring_parser formatstring_rust;
+extern DLL_VARIABLE struct formatstring_parser formatstring_go;
 extern DLL_VARIABLE struct formatstring_parser formatstring_ruby;
 extern DLL_VARIABLE struct formatstring_parser formatstring_sh;
 extern DLL_VARIABLE struct formatstring_parser formatstring_awk;

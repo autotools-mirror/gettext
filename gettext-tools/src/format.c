@@ -48,6 +48,7 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_elisp */            &formatstring_elisp,
   /* format_librep */           &formatstring_librep,
   /* format_rust */             &formatstring_rust,
+  /* format_go */               &formatstring_go,
   /* format_ruby */             &formatstring_ruby,
   /* format_sh */               &formatstring_sh,
   /* format_awk */              &formatstring_awk,

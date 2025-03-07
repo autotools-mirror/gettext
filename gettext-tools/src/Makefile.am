@@ -81,6 +81,7 @@ noinst_HEADERS = \
   x-elisp.h \
   x-librep.h \
   x-rust.h \
+  x-go.h \
   x-ruby.h \
   x-sh.h \
   x-awk.h \
@@ -194,6 +195,7 @@ FORMAT_SOURCE += \
   format-elisp.c \
   format-librep.c \
   format-rust.c \
+  format-go.c \
   format-ruby.c \
   format-sh.c \
   format-awk.c \
@@ -246,7 +248,8 @@ libxgettextts1_a_CPPFLAGS = \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/src
 libxgettextts2_a_SOURCES = \
   ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-parser.c \
-  ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-scanner.c
+  ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-scanner.c \
+  ../tree-sitter-go-$(TREE_SITTER_GO_VERSION)/src/go-parser.c
 libxgettextts2_a_CPPFLAGS = \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
 
@@ -296,6 +299,7 @@ xgettext_SOURCES += \
   x-elisp.c \
   x-librep.c \
   x-rust.c \
+  x-go.c \
   x-ruby.c \
   x-sh.c ../../gettext-runtime/src/escapes.h \
   x-awk.c \

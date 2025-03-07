@@ -178,6 +178,7 @@ if ! $skip_gnulib; then
     c-strcase
     c-strcasestr
     c-strstr
+    carray-list
     clean-temp
     closedir
     closeout
@@ -202,6 +203,8 @@ if ! $skip_gnulib; then
     getline
     getopt-gnu
     gettext-h
+    hash-map
+    hash-set
     iconv
     javacomp
     javaexec
@@ -280,13 +283,17 @@ if ! $skip_gnulib; then
     xalloc
     xconcat-filename
     xerror
+    xlist
     xmalloca
+    xmap
     xmemdup0
+    xset
     xsetenv
     xstrerror
     xstriconv
     xstriconveh
     xstring-buffer
+    xstring-buffer-reversed
     xstring-desc
     xvasprintf
   '

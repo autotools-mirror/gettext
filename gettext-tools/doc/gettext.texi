@@ -406,6 +406,7 @@ The Translator's View
 * elisp-format::                Emacs Lisp Format Strings
 * librep-format::               librep Format Strings
 * rust-format::                 Rust Format Strings
+* go-format::                   Go Format Strings
 * ruby-format::                 Ruby Format Strings
 * sh-format::                   Shell Format Strings
 * awk-format::                  awk Format Strings
@@ -437,6 +438,7 @@ Individual Programming Languages
 * Emacs Lisp::                  Emacs Lisp
 * librep::                      librep
 * Rust::                        Rust
+* Go::                          Go
 * Ruby::                        Ruby
 * sh::                          sh - Shell Script
 * bash::                        bash - Bourne-Again Shell Script
@@ -1712,6 +1714,12 @@ Likewise for librep, see @ref{librep-format}.
 @kwindex no-rust-format@r{ flag}
 Likewise for Rust, see @ref{rust-format}.
 
+@item go-format
+@kwindex go-format@r{ flag}
+@itemx no-go-format
+@kwindex no-go-format@r{ flag}
+Likewise for Go, see @ref{go-format}.
+
 @item ruby-format
 @kwindex ruby-format@r{ flag}
 @itemx no-ruby-format
@@ -2315,6 +2323,7 @@ at runtime (or possibly at compile time, if the compiler supports that).
 @cindex Java, string concatenation
 @cindex C#, string concatenation
 @cindex JavaScript, string concatenation
+@cindex Go, string concatenation
 @cindex Ruby, string concatenation
 @cindex Shell, string concatenation
 @cindex awk, string concatenation
@@ -2340,6 +2349,9 @@ In C#, string concatenation is denoted by the @samp{+} operator.
 @item
 In JavaScript, string concatenation is denoted by the @samp{+} operator.
 @c Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Addition
+@item
+In Go, string concatenation is denoted by the @samp{+} operator.
+@c Reference: https://go.dev/ref/spec#Arithmetic_operators
 @item
 In Ruby, string concatenation is denoted by the @samp{+} operator.
 @c Reference: https://en.wikibooks.org/wiki/Ruby_Programming/Syntax/Operators
@@ -9910,6 +9922,7 @@ strings.
 * elisp-format::                Emacs Lisp Format Strings
 * librep-format::               librep Format Strings
 * rust-format::                 Rust Format Strings
+* go-format::                   Go Format Strings
 * ruby-format::                 Ruby Format Strings
 * sh-format::                   Shell Format Strings
 * awk-format::                  awk Format Strings
@@ -10142,6 +10155,13 @@ a closing brace @samp{@}}.
 @noindent
 Brace characters @samp{@{} and @samp{@}} can be escaped by doubling them:
 @samp{@{@{} and @samp{@}@}}.
+
+@node go-format
+@subsection Go Format Strings
+
+Go format strings are documented
+on the Go packages site, for package @code{fmt},
+at @url{https://pkg.go.dev/fmt}.
 
 @node ruby-format
 @subsection Ruby Format Strings
@@ -10412,6 +10432,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * Emacs Lisp::                  Emacs Lisp
 * librep::                      librep
 * Rust::                        Rust
+* Go::                          Go
 * Ruby::                        Ruby
 * sh::                          sh - Shell Script
 * bash::                        bash - Bourne-Again Shell Script
@@ -10440,6 +10461,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @include lang-elisp.texi
 @include lang-librep.texi
 @include lang-rust.texi
+@include lang-go.texi
 @include lang-ruby.texi
 @include lang-sh.texi
 @include lang-bash.texi

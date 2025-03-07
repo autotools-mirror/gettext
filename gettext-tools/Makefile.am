@@ -74,6 +74,12 @@ EXTRA_DIST += \
   tree-sitter-$(TREE_SITTER_VERSION)/lib/src/wasm_store.c \
   tree-sitter-$(TREE_SITTER_VERSION)/lib/src/wasm_store.h \
   tree-sitter-$(TREE_SITTER_VERSION)/lib/src/wasm/wasm-stdlib.h \
+  build-aux/tree-sitter-go-portability.diff \
+  tree-sitter-go-$(TREE_SITTER_GO_VERSION)/LICENSE \
+  tree-sitter-go-$(TREE_SITTER_GO_VERSION)/src/go-parser.c \
+  tree-sitter-go-$(TREE_SITTER_GO_VERSION)/src/tree_sitter/alloc.h \
+  tree-sitter-go-$(TREE_SITTER_GO_VERSION)/src/tree_sitter/array.h \
+  tree-sitter-go-$(TREE_SITTER_GO_VERSION)/src/tree_sitter/parser.h \
   build-aux/tree-sitter-rust-portability.diff \
   tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/LICENSE \
   tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-parser.c \

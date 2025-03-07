@@ -112,6 +112,11 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-elisp-stackovfl-3 xgettext-elisp-stackovfl-4 \
 	xgettext-glade-1 xgettext-glade-2 xgettext-glade-3 xgettext-glade-4 \
 	xgettext-glade-5 xgettext-glade-6 xgettext-glade-7 \
+	xgettext-go-1 xgettext-go-2 xgettext-go-3 xgettext-go-4 xgettext-go-5 \
+	xgettext-go-6 xgettext-go-7 xgettext-go-8 xgettext-go-9 xgettext-go-10 \
+	xgettext-go-11 xgettext-go-12 xgettext-go-13 xgettext-go-14 \
+	xgettext-go-15 xgettext-go-16 xgettext-go-17 xgettext-go-18 \
+	xgettext-go-stackovfl-1 xgettext-go-stackovfl-2 \
 	xgettext-gsettings-1 \
 	xgettext-its-1 xgettext-its-2 \
 	xgettext-java-1 xgettext-java-2 xgettext-java-3 xgettext-java-4 \
@@ -191,6 +196,7 @@ TESTS = gettext-1 gettext-2 \
 	format-elisp-1 format-elisp-2 \
 	format-gcc-internal-1 format-gcc-internal-2 \
 	format-gfc-internal-1 format-gfc-internal-2 \
+	format-go-1 format-go-2 \
 	format-java-1 format-java-2 \
 	format-java-printf-1 format-java-printf-2 \
 	format-javascript-1 format-javascript-2 \

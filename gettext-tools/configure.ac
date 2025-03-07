@@ -572,6 +572,7 @@ dnl specific structure. We may need to change x-<lang>.c so that it works with
 dnl a newer version of tree-sitter-<lang>.
 . $srcdir/tree-sitter.cfg
 AC_SUBST([TREE_SITTER_VERSION])
+AC_SUBST([TREE_SITTER_GO_VERSION])
 AC_SUBST([TREE_SITTER_RUST_VERSION])
 
 PACKAGE_SUFFIX="-$ARCHIVE_VERSION"

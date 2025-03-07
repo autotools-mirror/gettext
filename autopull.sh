@@ -86,6 +86,7 @@ func_git_clone_shallow ()
 
 # Fetch the compilable (mostly generated) tree-sitter source code.
 TREE_SITTER_VERSION=0.23.2
+TREE_SITTER_GO_VERSION=0.23.4
 TREE_SITTER_RUST_VERSION=0.23.2
 # Cache the relevant source code. Erase the rest of the tree-sitter projects.
 test -d gettext-tools/tree-sitter-$TREE_SITTER_VERSION || {
@@ -95,6 +96,15 @@ test -d gettext-tools/tree-sitter-$TREE_SITTER_VERSION || {
   mv tree-sitter/LICENSE gettext-tools/tree-sitter-$TREE_SITTER_VERSION/LICENSE
   mv tree-sitter/lib gettext-tools/tree-sitter-$TREE_SITTER_VERSION/lib
   rm -rf tree-sitter
+}
+test -d gettext-tools/tree-sitter-go-$TREE_SITTER_GO_VERSION || {
+  func_git_clone_shallow tree-sitter-go https://github.com/tree-sitter/tree-sitter-go.git v$TREE_SITTER_GO_VERSION
+  (cd tree-sitter-go && patch -p1) < gettext-tools/build-aux/tree-sitter-go-portability.diff
+  mkdir gettext-tools/tree-sitter-go-$TREE_SITTER_GO_VERSION
+  mv tree-sitter-go/LICENSE gettext-tools/tree-sitter-go-$TREE_SITTER_GO_VERSION/LICENSE
+  mv tree-sitter-go/src gettext-tools/tree-sitter-go-$TREE_SITTER_GO_VERSION/src
+  mv gettext-tools/tree-sitter-go-$TREE_SITTER_GO_VERSION/src/parser.c gettext-tools/tree-sitter-go-$TREE_SITTER_GO_VERSION/src/go-parser.c
+  rm -rf tree-sitter-go
 }
 test -d gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION || {
   func_git_clone_shallow tree-sitter-rust https://github.com/tree-sitter/tree-sitter-rust.git v$TREE_SITTER_RUST_VERSION
@@ -108,6 +118,7 @@ test -d gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION || {
 }
 cat > gettext-tools/tree-sitter.cfg <<EOF
 TREE_SITTER_VERSION=$TREE_SITTER_VERSION
+TREE_SITTER_GO_VERSION=$TREE_SITTER_GO_VERSION
 TREE_SITTER_RUST_VERSION=$TREE_SITTER_RUST_VERSION
 EOF
 

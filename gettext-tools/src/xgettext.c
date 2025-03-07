@@ -112,6 +112,7 @@
 #include "x-elisp.h"
 #include "x-librep.h"
 #include "x-rust.h"
+#include "x-go.h"
 #include "x-ruby.h"
 #include "x-sh.h"
 #include "x-awk.h"
@@ -201,6 +202,7 @@ static flag_context_list_table_ty flag_table_librep;
 extern flag_context_list_table_ty flag_table_rust_functions;
 extern flag_context_list_table_ty flag_table_rust_macros;
 #endif
+static flag_context_list_table_ty flag_table_go;
 static flag_context_list_table_ty flag_table_ruby;
 static flag_context_list_table_ty flag_table_sh;
 static flag_context_list_table_ty flag_table_awk;
@@ -395,6 +397,7 @@ main (int argc, char *argv[])
   init_flag_table_elisp ();
   init_flag_table_librep ();
   init_flag_table_rust ();
+  init_flag_table_go ();
   init_flag_table_ruby ();
   init_flag_table_sh ();
   init_flag_table_awk ();
@@ -429,6 +432,7 @@ main (int argc, char *argv[])
         x_perl_extract_all ();
         x_php_extract_all ();
         x_rust_extract_all ();
+        x_go_extract_all ();
         x_ruby_extract_all ();
         x_lua_extract_all ();
         x_javascript_extract_all ();
@@ -510,6 +514,7 @@ main (int argc, char *argv[])
         x_perl_keyword (optarg);
         x_php_keyword (optarg);
         x_rust_keyword (optarg);
+        x_go_keyword (optarg);
         x_ruby_keyword (optarg);
         x_lua_keyword (optarg);
         x_javascript_keyword (optarg);
@@ -1133,7 +1138,7 @@ Choice of input file language:\n"));
   -L, --language=NAME         recognise the specified language\n\
                                 (C, C++, ObjectiveC, PO, Python, Java,\n\
                                 JavaProperties, C#, JavaScript, Scheme, Guile,\n\
-                                Lisp, EmacsLisp, librep, Rust, Ruby, Shell,\n\
+                                Lisp, EmacsLisp, librep, Rust, Go, Ruby, Shell,\n\
                                 awk, Lua, Smalltalk, Vala, Tcl, Perl, PHP,\n\
                                 GCC-source, YCP, NXStringTable, RST, RSJ,\n\
                                 Glade, GSettings, Desktop)\n"));
@@ -1177,25 +1182,26 @@ Language specific options:\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Python,\n\
                                 Java, C#, JavaScript, Scheme, Guile, Lisp,\n\
-                                EmacsLisp, librep, Rust, Shell, awk, Lua, Vala,\n\
-                                Tcl, Perl, PHP, GCC-source, Glade, GSettings)\n"));
+                                EmacsLisp, librep, Rust, Go, Shell, awk, Lua,\n\
+                                Vala, Tcl, Perl, PHP, GCC-source, Glade,\n\
+                                GSettings)\n"));
       printf (_("\
   -kWORD, --keyword=WORD      look for WORD as an additional keyword\n\
   -k, --keyword               do not to use default keywords\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Python,\n\
                                 Java, C#, JavaScript, Scheme, Guile, Lisp,\n\
-                                EmacsLisp, librep, Rust, Shell, awk, Lua, Vala,\n\
-                                Tcl, Perl, PHP, GCC-source, Glade, GSettings,\n\
-                                Desktop)\n"));
+                                EmacsLisp, librep, Rust, Go, Shell, awk, Lua,\n\
+                                Vala, Tcl, Perl, PHP, GCC-source, Glade,\n\
+                                GSettings, Desktop)\n"));
       printf (_("\
       --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n\
                               number ARG of keyword WORD\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Python,\n\
                                 Java, C#, JavaScript, Scheme, Guile, Lisp,\n\
-                                EmacsLisp, librep, Rust, Shell, awk, Lua, Vala,\n\
-                                Tcl, Perl, PHP, GCC-source, YCP)\n"));
+                                EmacsLisp, librep, Rust, Go, Shell, awk, Lua,\n\
+                                Vala, Tcl, Perl, PHP, GCC-source, YCP)\n"));
       printf (_("\
       --tag=WORD:FORMAT       defines the behaviour of tagged template literals\n\
                               with tag WORD\n"));
@@ -1688,6 +1694,11 @@ xgettext_record_flag (const char *optionstring)
                       flag_context_list_table_insert (&flag_table_rust_functions, XFORMAT_PRIMARY,
                                                       name_start, name_end,
                                                       argnum, value, pass);
+                    break;
+                  case format_go:
+                    flag_context_list_table_insert (&flag_table_go, XFORMAT_PRIMARY,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
                     break;
                   case format_ruby:
                     flag_context_list_table_insert (&flag_table_ruby, XFORMAT_PRIMARY,
@@ -2313,6 +2324,7 @@ language_to_extractor (const char *name)
     SCANNERS_ELISP
     SCANNERS_LIBREP
     SCANNERS_RUST
+    SCANNERS_GO
     SCANNERS_RUBY
     SCANNERS_SH
     SCANNERS_AWK
@@ -2407,6 +2419,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_ELISP
     EXTENSIONS_LIBREP
     EXTENSIONS_RUST
+    EXTENSIONS_GO
     EXTENSIONS_RUBY
     EXTENSIONS_SH
     EXTENSIONS_AWK

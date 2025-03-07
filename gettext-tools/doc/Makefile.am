@@ -70,6 +70,7 @@ gettext_TEXINFOS = \
   lang-elisp.texi \
   lang-librep.texi \
   lang-rust.texi \
+  lang-go.texi \
   lang-ruby.texi \
   lang-sh.texi \
     $(top_srcdir)/../gettext-runtime/doc/rt-gettext.texi \

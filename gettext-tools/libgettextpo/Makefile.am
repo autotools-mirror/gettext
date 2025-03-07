@@ -80,6 +80,7 @@ libgettextpo_la_AUXSOURCES = \
   ../src/format-elisp.c \
   ../src/format-librep.c \
   ../src/format-rust.c \
+  ../src/format-go.c \
   ../src/format-ruby.c \
   ../src/format-sh.c \
   ../src/format-awk.c \
