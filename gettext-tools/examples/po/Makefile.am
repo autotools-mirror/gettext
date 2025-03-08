@@ -63,6 +63,7 @@ POTFILES = \
   hello-go/example1/hello1ml.go.in \
   hello-go/example2/hello2sl.go.in \
   hello-go/example3/hello3ml.go.in \
+  hello-go-http/example1/hello1ml.go.in \
   hello-ruby/hello.rb \
   hello-sh/hello.sh \
   hello-gawk/hello.awk \
@@ -103,6 +104,7 @@ SMALLPOTS = \
   hello-librep.pot \
   hello-rust.pot \
   hello-go.pot \
+  hello-go-http.pot \
   hello-ruby.pot \
   hello-sh.pot \
   hello-gawk.pot \
@@ -335,6 +337,9 @@ hello-rust.pot : $(POTFILES_DEPS)
 hello-go.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-go
 
+hello-go-http.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-go-http
+
 hello-ruby.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-ruby
 
@@ -467,6 +472,7 @@ SMALLPOFILES_FOR_lang = \
   $(srcdir)/../hello-librep/po/$$lang.po \
   $(srcdir)/../hello-rust/po/$$lang.po \
   $(srcdir)/../hello-go/po/$$lang.po \
+  $(srcdir)/../hello-go-http/po/$$lang.po \
   $(srcdir)/../hello-ruby/po/$$lang.po \
   $(srcdir)/../hello-sh/po/$$lang.po \
   $(srcdir)/../hello-gawk/po/$$lang.po \
@@ -555,6 +561,9 @@ $(srcdir)/../hello-rust/po/$(LL).po: $(srcdir)/hello-rust.pot $(srcdir)/$(LL).po
 
 $(srcdir)/../hello-go/po/$(LL).po: $(srcdir)/hello-go.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-go $(LL)
+
+$(srcdir)/../hello-go-http/po/$(LL).po: $(srcdir)/hello-go-http.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-go-http $(LL)
 
 $(srcdir)/../hello-ruby/po/$(LL).po: $(srcdir)/hello-ruby.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-ruby $(LL)

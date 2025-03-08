@@ -250,4 +250,5 @@ fully portable
 ---
 @end table
 
-An example is available in the @file{examples} directory: @code{hello-go}.
+Two examples are available in the @file{examples} directory:
+@code{hello-go} and @code{hello-go-http}.

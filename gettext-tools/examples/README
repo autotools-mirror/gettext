@@ -31,6 +31,7 @@ environment.
     hello-librep               librep
     hello-rust                 Rust
     hello-go                   Go
+    hello-go-http              Go                web browser
     hello-ruby                 Ruby
     hello-sh                   Shell
     hello-gawk                 awk
@@ -77,6 +78,7 @@ Makefile types:
     hello-librep               .gmo                    Makefile.am
     hello-rust                 .gmo                    Makefile.am
     hello-go                   .gmo                    Makefile.am
+    hello-go-http              .gmo                    Makefile.am
     hello-ruby                 .gmo                    Makefile.am
     hello-sh                   .gmo                    Makefile.am
     hello-gawk                 .gmo                    Makefile.am

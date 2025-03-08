@@ -353,6 +353,17 @@ EXAMPLESFILES = \
   hello-go/m4/Makefile.am \
   hello-go/po/Makefile.am \
   \
+  hello-go-http/INSTALL \
+  hello-go-http/autogen.sh \
+  hello-go-http/autoclean.sh \
+  hello-go-http/example1/hello1ml.go.in \
+  hello-go-http/example1/go.mod \
+  hello-go-http/example1/Makefile.am \
+  hello-go-http/Makefile.am \
+  hello-go-http/configure.ac \
+  hello-go-http/m4/Makefile.am \
+  hello-go-http/po/Makefile.am \
+  \
   hello-ruby/INSTALL \
   hello-ruby/autogen.sh \
   hello-ruby/autoclean.sh \
@@ -475,6 +486,7 @@ EXAMPLESDIRS = \
   hello-librep \
   hello-rust \
   hello-go \
+  hello-go-http \
   hello-ruby \
   hello-sh \
   hello-gawk \
