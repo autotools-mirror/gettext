@@ -153,6 +153,7 @@ func_check_autoclean_all ()
   func_check_autoclean hello-clisp
   func_check_autoclean hello-librep
   func_check_autoclean hello-rust
+  func_check_autoclean hello-go
   func_check_autoclean hello-ruby
   func_check_autoclean hello-sh
   func_check_autoclean hello-gawk
@@ -229,6 +230,7 @@ func_check_distclean_all ()
   func_check_distclean hello-clisp
   func_check_distclean hello-librep
   func_check_distclean hello-rust
+  func_check_distclean hello-go
   func_check_distclean hello-ruby
   func_check_distclean hello-sh
   func_check_distclean hello-gawk
@@ -307,6 +309,7 @@ func_check_maintainerclean_all ()
   func_check_maintainerclean hello-clisp
   func_check_maintainerclean hello-librep
   func_check_maintainerclean hello-rust
+  func_check_maintainerclean hello-go
   func_check_maintainerclean hello-ruby
   func_check_maintainerclean hello-sh
   func_check_maintainerclean hello-gawk
@@ -388,6 +391,7 @@ func_check_maintainerclean_vpath_all ()
   func_check_maintainerclean_vpath hello-clisp
   func_check_maintainerclean_vpath hello-librep
   func_check_maintainerclean_vpath hello-rust
+  func_check_maintainerclean_vpath hello-go
   func_check_maintainerclean_vpath hello-ruby
   func_check_maintainerclean_vpath hello-sh
   func_check_maintainerclean_vpath hello-gawk
@@ -476,6 +480,7 @@ func_check_dist_all ()
   func_check_dist hello-clisp
   func_check_dist hello-librep
   func_check_dist hello-rust
+  func_check_dist hello-go
   func_check_dist hello-ruby
   func_check_dist hello-sh
   func_check_dist hello-gawk
@@ -564,6 +569,7 @@ func_check_dist_vpath_all ()
   func_check_dist_vpath hello-clisp
   func_check_dist_vpath hello-librep
   func_check_dist_vpath hello-rust
+  func_check_dist_vpath hello-go
   func_check_dist_vpath hello-ruby
   func_check_dist_vpath hello-sh
   func_check_dist_vpath hello-gawk
@@ -644,6 +650,7 @@ func_check_install_all ()
   func_check_install hello-clisp
   func_check_install hello-librep
   func_check_install hello-rust
+  func_check_install hello-go
   func_check_install hello-ruby
   func_check_install hello-sh
   func_check_install hello-gawk
@@ -721,6 +728,7 @@ func_check_uninstall_all ()
   func_check_uninstall hello-clisp
   func_check_uninstall hello-librep
   func_check_uninstall hello-rust
+  func_check_uninstall hello-go
   func_check_uninstall hello-ruby
   func_check_uninstall hello-sh
   func_check_uninstall hello-gawk
@@ -800,6 +808,7 @@ func_check_distcheck_all ()
   func_check_distcheck hello-clisp
   func_check_distcheck hello-librep
   func_check_distcheck hello-rust
+  func_check_distcheck hello-go
   func_check_distcheck hello-ruby
   func_check_distcheck hello-sh
   func_check_distcheck hello-gawk
@@ -862,6 +871,7 @@ func_check_all ()
   func_check hello-clisp
   func_check hello-librep
   func_check hello-rust
+  func_check hello-go
   func_check hello-ruby
   func_check hello-sh
   func_check hello-gawk
