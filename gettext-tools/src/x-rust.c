@@ -265,7 +265,7 @@ static void save_comment_line (string_desc_t gist)
    It is important that this function gets called
      - for each node (not only the named nodes!),
      - in depth-first traversal order.  */
-static void handle_comments (TSNode node, const char *contents)
+static void handle_comments (TSNode node)
 {
   #if DEBUG_RUST
   fprintf (stderr, "LCL=%d LNCL=%d node=[%s]|%s|\n", last_comment_line, last_non_comment_line, ts_node_type (node), ts_node_string (node));
@@ -329,7 +329,7 @@ static void handle_comments (TSNode node, const char *contents)
 /* Combines the pieces of a string_literal or raw_string_literal.
    Returns a freshly allocated UTF-8 encoded string.  */
 static char *
-string_literal_value (TSNode node, const char *contents)
+string_literal_value (TSNode node)
 {
   if (ts_node_named_child_count (node) == 1)
     {
@@ -560,7 +560,7 @@ extract_from_function_call (TSNode callee_node,
       for (i = 0; i < args_count; i++)
         {
           TSNode arg_node = ts_node_child (args_node, i);
-          handle_comments (arg_node, contents);
+          handle_comments (arg_node);
           if (ts_node_is_named (arg_node)
               && !(ts_node_symbol (arg_node) == ts_symbol_line_comment
                    || ts_node_symbol (arg_node) == ts_symbol_block_comment))
@@ -579,7 +579,7 @@ extract_from_function_call (TSNode callee_node,
                   pos.file_name = logical_file_name;
                   pos.line_number = ts_node_line_number (arg_node);
 
-                  char *string = string_literal_value (arg_node, contents);
+                  char *string = string_literal_value (arg_node);
 
                   if (extract_all)
                     {
@@ -629,7 +629,7 @@ extract_from_function_call (TSNode callee_node,
   for (i = 0; i < args_count; i++)
     {
       TSNode arg_node = ts_node_child (args_node, i);
-      handle_comments (arg_node, contents);
+      handle_comments (arg_node);
       if (ts_node_is_named (arg_node)
           && !(ts_node_symbol (arg_node) == ts_symbol_line_comment
                || ts_node_symbol (arg_node) == ts_symbol_block_comment))
@@ -740,7 +740,7 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
           for (i = 0; i < args_count; i++)
             {
               TSNode arg_node = ts_node_child (args_node, i);
-              handle_comments (arg_node, contents);
+              handle_comments (arg_node);
               if (i == 0 || ts_node_symbol (arg_node) == ts_symbol_comma)
                 {
                   /* The next argument starts here.  */
@@ -764,7 +764,7 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                       pos.file_name = logical_file_name;
                       pos.line_number = ts_node_line_number (arg_node);
 
-                      char *string = string_literal_value (arg_node, contents);
+                      char *string = string_literal_value (arg_node);
 
                       if (extract_all)
                         {
@@ -859,7 +859,7 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
   for (i = 0; i < args_count; i++)
     {
       TSNode arg_node = ts_node_child (args_node, i);
-      handle_comments (arg_node, contents);
+      handle_comments (arg_node);
       if (i == 0 || ts_node_symbol (arg_node) == ts_symbol_comma)
         {
           /* The next argument starts here.  */
@@ -945,7 +945,7 @@ extract_from_node (TSNode node,
       pos.file_name = logical_file_name;
       pos.line_number = ts_node_line_number (node);
 
-      char *string = string_literal_value (node, contents);
+      char *string = string_literal_value (node);
 
       remember_a_message (mlp, NULL, string, true, false,
                           outer_region, &pos,
@@ -975,7 +975,7 @@ extract_from_node (TSNode node,
                     TSNode subnode = ts_node_child (node, i);
                     if (ts_node_eq (subnode, args_node))
                       break;
-                    handle_comments (subnode, contents);
+                    handle_comments (subnode);
                   }
               }
               extract_from_function_call (callee_node, args_node,
@@ -1014,7 +1014,7 @@ extract_from_node (TSNode node,
                         TSNode subnode = ts_node_child (node, i);
                         if (ts_node_eq (subnode, args_node))
                           break;
-                        handle_comments (subnode, contents);
+                        handle_comments (subnode);
                       }
                   }
                   extract_from_function_call_like (&callee_node, true,
@@ -1079,7 +1079,7 @@ extract_from_node (TSNode node,
       for (i = 0; i < count; i++)
         {
           TSNode subnode = ts_node_child (node, i);
-          handle_comments (subnode, contents);
+          handle_comments (subnode);
           if (++nesting_depth > MAX_NESTING_DEPTH)
             if_error (IF_SEVERITY_FATAL_ERROR,
                       logical_file_name, ts_node_line_number (subnode), (size_t)(-1), false,
