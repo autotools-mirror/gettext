@@ -1,5 +1,5 @@
 /* xgettext JavaScript backend.
-   Copyright (C) 2002-2024 Free Software Foundation, Inc.
+   Copyright (C) 2002-2025 Free Software Foundation, Inc.
    This file was written by Andreas Stricker <andy@knitter.ch>, 2010.
    It's based on x-python from Bruno Haible.
 
@@ -35,11 +35,11 @@ extern "C" {
   { "JavaScript",       extract_javascript, NULL,                         \
                         &flag_table_javascript, &formatstring_javascript, NULL }, \
 
-/* Scan a Python file and add its translatable strings to mdlp.  */
+/* Scan a JavaScript file and add its translatable strings to mdlp.  */
 extern void extract_javascript (FILE *fp, const char *real_filename,
-                            const char *logical_filename,
-                            flag_context_list_table_ty *flag_table,
-                            msgdomain_list_ty *mdlp);
+                                const char *logical_filename,
+                                flag_context_list_table_ty *flag_table,
+                                msgdomain_list_ty *mdlp);
 
 extern void x_javascript_keyword (const char *keyword);
 extern void x_javascript_extract_all (void);
