@@ -340,13 +340,13 @@ EXAMPLESFILES = \
   hello-go/autoclean.sh \
   hello-go/example1/hello1sl.go.in \
   hello-go/example1/hello1ml.go.in \
-  hello-go/example1/go.mod \
+  hello-go/example1/go.mod.in \
   hello-go/example1/Makefile.am \
   hello-go/example2/hello2sl.go.in \
-  hello-go/example2/go.mod \
+  hello-go/example2/go.mod.in \
   hello-go/example2/Makefile.am \
   hello-go/example3/hello3ml.go.in \
-  hello-go/example3/go.mod \
+  hello-go/example3/go.mod.in \
   hello-go/example3/Makefile.am \
   hello-go/Makefile.am \
   hello-go/configure.ac \
@@ -357,7 +357,7 @@ EXAMPLESFILES = \
   hello-go-http/autogen.sh \
   hello-go-http/autoclean.sh \
   hello-go-http/example1/hello1ml.go.in \
-  hello-go-http/example1/go.mod \
+  hello-go-http/example1/go.mod.in \
   hello-go-http/example1/Makefile.am \
   hello-go-http/Makefile.am \
   hello-go-http/configure.ac \
