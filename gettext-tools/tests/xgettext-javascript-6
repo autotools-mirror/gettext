@@ -1,7 +1,7 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test of JavaScript JSX support.
+# Test of JavaScript E4X and JSX support.
 
 cat <<\EOF > xg-js-6.js
 class Foo extends React.Component {
@@ -21,6 +21,8 @@ class Bar extends React.Component {
         );
     }
 }
+
+// Some E4X tests.
 
 var x1 = <x1></x1>;
 var s1 = _("Expected translation string #1");
@@ -48,7 +50,9 @@ function foo() {
   return <a>{ 'b' }</a>;
 }
 var s10 = _("Expected translation string #9");
+
 // Mixing JSX with template literals.
+
 var s11 = 0;
 var s12 = (
   <div>

@@ -88,6 +88,7 @@ func_git_clone_shallow ()
 TREE_SITTER_VERSION=0.23.2
 TREE_SITTER_GO_VERSION=0.23.4
 TREE_SITTER_RUST_VERSION=0.23.2
+TREE_SITTER_TYPESCRIPT_VERSION=0.23.2
 # Cache the relevant source code. Erase the rest of the tree-sitter projects.
 test -d gettext-tools/tree-sitter-$TREE_SITTER_VERSION || {
   func_git_clone_shallow tree-sitter https://github.com/tree-sitter/tree-sitter.git v$TREE_SITTER_VERSION
@@ -116,10 +117,28 @@ test -d gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION || {
   mv gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION/src/scanner.c gettext-tools/tree-sitter-rust-$TREE_SITTER_RUST_VERSION/src/rust-scanner.c
   rm -rf tree-sitter-rust
 }
+test -d gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION || {
+  func_git_clone_shallow tree-sitter-typescript https://github.com/tree-sitter/tree-sitter-typescript.git v$TREE_SITTER_TYPESCRIPT_VERSION
+  (cd tree-sitter-typescript && patch -p1) < gettext-tools/build-aux/tree-sitter-typescript-portability.diff
+  mkdir gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION
+  mkdir gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/common
+  mkdir gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/typescript
+  mkdir gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/tsx
+  mv tree-sitter-typescript/LICENSE gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/LICENSE
+  mv tree-sitter-typescript/common/scanner.h gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/common/scanner.h
+  mv tree-sitter-typescript/typescript/src gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/typescript/src
+  mv tree-sitter-typescript/tsx/src gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/tsx/src
+  mv gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/typescript/src/parser.c gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/typescript/src/ts-parser.c
+  mv gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/typescript/src/scanner.c gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/typescript/src/ts-scanner.c
+  mv gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/tsx/src/parser.c gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/tsx/src/tsx-parser.c
+  mv gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/tsx/src/scanner.c gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/tsx/src/tsx-scanner.c
+  rm -rf tree-sitter-typescript
+}
 cat > gettext-tools/tree-sitter.cfg <<EOF
 TREE_SITTER_VERSION=$TREE_SITTER_VERSION
 TREE_SITTER_GO_VERSION=$TREE_SITTER_GO_VERSION
 TREE_SITTER_RUST_VERSION=$TREE_SITTER_RUST_VERSION
+TREE_SITTER_TYPESCRIPT_VERSION=$TREE_SITTER_TYPESCRIPT_VERSION
 EOF
 
 dir0=`pwd`

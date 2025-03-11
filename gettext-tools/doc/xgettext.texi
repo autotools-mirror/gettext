@@ -79,6 +79,7 @@ Specifies the language of the input files.  The supported languages are
 @code{Java}, @code{JavaProperties},
 @code{C#},
 @code{JavaScript},
+@code{TypeScript}, @code{TSX},
 @code{Scheme}, @code{Guile},
 @code{Lisp},
 @code{EmacsLisp},
@@ -314,6 +315,7 @@ Python,
 Java,
 C#,
 JavaScript,
+TypeScript, TSX,
 Scheme, Guile,
 Lisp,
 EmacsLisp,
@@ -403,7 +405,8 @@ For Lua: @code{_}, @code{gettext.gettext}, @code{gettext.dgettext:2},
 @code{gettext.dngettext:2,3}, @code{gettext.dcngettext:2,3}.
 
 @item
-For JavaScript: @code{_}, @code{gettext}, @code{dgettext:2},
+For JavaScript, TypeScript, TSX:
+@code{_}, @code{gettext}, @code{dgettext:2},
 @code{dcgettext:2}, @code{ngettext:1,2}, @code{dngettext:2,3},
 @code{pgettext:1c,2}, @code{dpgettext:2c,3}.
 
@@ -471,6 +474,7 @@ Python,
 Java,
 C#,
 JavaScript,
+TypeScript, TSX,
 Scheme, Guile,
 Lisp,
 EmacsLisp,

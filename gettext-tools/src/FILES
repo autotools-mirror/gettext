@@ -374,6 +374,14 @@ msgl-check.c
 | x-javascript.h
 | x-javascript.c
 |               String extractor for JavaScript.
+| x-typescript.h
+| x-typescript.c
+| x-typescript-impl.h
+|               String extractor for TypeScript.
+| x-typescriptx.h
+| x-typescriptx.c
+| x-typescript-impl.h
+|               String extractor for TSX.
 | x-scheme.h
 | x-scheme.c
 |               String extractor for Scheme.

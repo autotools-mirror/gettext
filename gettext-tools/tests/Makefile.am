@@ -182,6 +182,9 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-tcl-5 \
 	xgettext-tcl-stackovfl-1 xgettext-tcl-stackovfl-2 \
 	xgettext-tcl-stackovfl-3 xgettext-tcl-stackovfl-4 \
+	xgettext-typescript-1 xgettext-typescript-2 xgettext-typescript-3 \
+	xgettext-typescript-4 xgettext-typescript-5 xgettext-typescript-6 \
+	xgettext-typescript-7 \
 	xgettext-vala-1 xgettext-vala-2 xgettext-vala-3 xgettext-vala-4 \
 	xgettext-vala-5 xgettext-vala-6 xgettext-vala-7 \
 	xgettext-vala-stackovfl-1 xgettext-vala-stackovfl-2 \

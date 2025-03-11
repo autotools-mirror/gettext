@@ -432,6 +432,7 @@ Individual Programming Languages
 * Java::                        Java
 * C#::                          C#
 * JavaScript::                  JavaScript
+* TypeScript::                  TypeScript
 * Scheme::                      GNU guile - Scheme
 * Common Lisp::                 GNU clisp - Common Lisp
 * clisp C::                     GNU clisp C sources
@@ -2323,6 +2324,7 @@ at runtime (or possibly at compile time, if the compiler supports that).
 @cindex Java, string concatenation
 @cindex C#, string concatenation
 @cindex JavaScript, string concatenation
+@cindex TypeScript, string concatenation
 @cindex Go, string concatenation
 @cindex Ruby, string concatenation
 @cindex Shell, string concatenation
@@ -2347,7 +2349,7 @@ In Java, string concatenation is denoted by the @samp{+} operator.
 In C#, string concatenation is denoted by the @samp{+} operator.
 @c Reference: https://learn.microsoft.com/en-us/dotnet/csharp/how-to/concatenate-multiple-strings
 @item
-In JavaScript, string concatenation is denoted by the @samp{+} operator.
+In JavaScript and TypeScript, string concatenation is denoted by the @samp{+} operator.
 @c Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Addition
 @item
 In Go, string concatenation is denoted by the @samp{+} operator.
@@ -10426,6 +10428,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * Java::                        Java
 * C#::                          C#
 * JavaScript::                  JavaScript
+* TypeScript::                  TypeScript
 * Scheme::                      GNU guile - Scheme
 * Common Lisp::                 GNU clisp - Common Lisp
 * clisp C::                     GNU clisp C sources
@@ -10455,6 +10458,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @include lang-java.texi
 @include lang-csharp.texi
 @include lang-javascript.texi
+@include lang-typescript.texi
 @include lang-scheme.texi
 @include lang-lisp.texi
 @include lang-clisp-c.texi

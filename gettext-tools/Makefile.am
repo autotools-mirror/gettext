@@ -86,8 +86,20 @@ EXTRA_DIST += \
   tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-scanner.c \
   tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/tree_sitter/alloc.h \
   tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/tree_sitter/array.h \
-  tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/tree_sitter/parser.h
-
+  tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/tree_sitter/parser.h \
+  build-aux/tree-sitter-typescript-portability.diff \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/LICENSE \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/common/scanner.h \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/typescript/src/ts-parser.c \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/typescript/src/ts-scanner.c \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/typescript/src/tree_sitter/alloc.h \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/typescript/src/tree_sitter/array.h \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/typescript/src/tree_sitter/parser.h \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tsx-parser.c \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tsx-scanner.c \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tree_sitter/alloc.h \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tree_sitter/array.h \
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tree_sitter/parser.h
 
 # Files installed for the user.
 

@@ -6,6 +6,9 @@ Version 0.25 - March 2025
     - 'msgfmt -c' now verifies the syntax of translations of Go format
       strings.
     - New examples 'hello-go' and 'hello-go-http' have been added.
+  * TypeScript:
+    - xgettext now supports TypeScript and TSX (= TypeScript with JSX
+      extensions).
 
 Version 0.24 - February 2025
 

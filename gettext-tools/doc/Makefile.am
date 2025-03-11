@@ -64,6 +64,7 @@ gettext_TEXINFOS = \
   lang-java.texi \
   lang-csharp.texi \
   lang-javascript.texi \
+  lang-typescript.texi \
   lang-scheme.texi \
   lang-lisp.texi \
   lang-clisp-c.texi \

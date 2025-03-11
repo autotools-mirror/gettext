@@ -107,6 +107,8 @@
 #include "x-java.h"
 #include "x-csharp.h"
 #include "x-javascript.h"
+#include "x-typescript.h"
+#include "x-typescriptx.h"
 #include "x-scheme.h"
 #include "x-lisp.h"
 #include "x-elisp.h"
@@ -194,6 +196,8 @@ static flag_context_list_table_ty flag_table_python;
 static flag_context_list_table_ty flag_table_java;
 static flag_context_list_table_ty flag_table_csharp;
 static flag_context_list_table_ty flag_table_javascript;
+static flag_context_list_table_ty flag_table_typescript;
+static flag_context_list_table_ty flag_table_typescriptx;
 static flag_context_list_table_ty flag_table_scheme;
 static flag_context_list_table_ty flag_table_lisp;
 static flag_context_list_table_ty flag_table_elisp;
@@ -392,6 +396,8 @@ main (int argc, char *argv[])
   init_flag_table_java ();
   init_flag_table_csharp ();
   init_flag_table_javascript ();
+  init_flag_table_typescript ();
+  init_flag_table_typescriptx ();
   init_flag_table_scheme ();
   init_flag_table_lisp ();
   init_flag_table_elisp ();
@@ -436,6 +442,8 @@ main (int argc, char *argv[])
         x_ruby_extract_all ();
         x_lua_extract_all ();
         x_javascript_extract_all ();
+        x_typescript_extract_all ();
+        x_typescriptx_extract_all ();
         x_vala_extract_all ();
         break;
 
@@ -518,6 +526,8 @@ main (int argc, char *argv[])
         x_ruby_keyword (optarg);
         x_lua_keyword (optarg);
         x_javascript_keyword (optarg);
+        x_typescript_keyword (optarg);
+        x_typescriptx_keyword (optarg);
         x_vala_keyword (optarg);
         x_desktop_keyword (optarg);
         if (optarg == NULL)
@@ -1137,11 +1147,11 @@ Choice of input file language:\n"));
       printf (_("\
   -L, --language=NAME         recognise the specified language\n\
                                 (C, C++, ObjectiveC, PO, Python, Java,\n\
-                                JavaProperties, C#, JavaScript, Scheme, Guile,\n\
-                                Lisp, EmacsLisp, librep, Rust, Go, Ruby, Shell,\n\
-                                awk, Lua, Smalltalk, Vala, Tcl, Perl, PHP,\n\
-                                GCC-source, YCP, NXStringTable, RST, RSJ,\n\
-                                Glade, GSettings, Desktop)\n"));
+                                JavaProperties, C#, JavaScript, TypeScript, TSX,\n\
+                                Scheme, Guile, Lisp, EmacsLisp, librep, Rust,\n\
+                                Go, Ruby, Shell, awk, Lua, Smalltalk, Vala, Tcl,\n\
+                                Perl, PHP, GCC-source, YCP, NXStringTable, RST,\n\
+                                RSJ, Glade, GSettings, Desktop)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -1181,27 +1191,27 @@ Language specific options:\n"));
   -a, --extract-all           extract all strings\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Python,\n\
-                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n\
-                                EmacsLisp, librep, Rust, Go, Shell, awk, Lua,\n\
-                                Vala, Tcl, Perl, PHP, GCC-source, Glade,\n\
-                                GSettings)\n"));
+                                Java, C#, JavaScript, TypeScript, TSX, Scheme,\n\
+                                Guile, Lisp, EmacsLisp, librep, Rust, Go, Shell,\n\
+                                awk, Lua, Vala, Tcl, Perl, PHP, GCC-source,\n\
+                                Glade, GSettings)\n"));
       printf (_("\
   -kWORD, --keyword=WORD      look for WORD as an additional keyword\n\
   -k, --keyword               do not to use default keywords\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Python,\n\
-                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n\
-                                EmacsLisp, librep, Rust, Go, Shell, awk, Lua,\n\
-                                Vala, Tcl, Perl, PHP, GCC-source, Glade,\n\
-                                GSettings, Desktop)\n"));
+                                Java, C#, JavaScript, TypeScript, TSX, Scheme,\n\
+                                Guile, Lisp, EmacsLisp, librep, Rust, Go, Shell,\n\
+                                awk, Lua, Vala, Tcl, Perl, PHP, GCC-source,\n\
+                                Glade, GSettings, Desktop)\n"));
       printf (_("\
       --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n\
                               number ARG of keyword WORD\n"));
       printf (_("\
                                 (only languages C, C++, ObjectiveC, Python,\n\
-                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n\
-                                EmacsLisp, librep, Rust, Go, Shell, awk, Lua,\n\
-                                Vala, Tcl, Perl, PHP, GCC-source, YCP)\n"));
+                                Java, C#, JavaScript, TypeScript, TSX, Scheme,\n\
+                                Guile, Lisp, EmacsLisp, librep, Rust, Go, Shell,\n\
+                                awk, Lua, Vala, Tcl, Perl, PHP, GCC-source, YCP)\n"));
       printf (_("\
       --tag=WORD:FORMAT       defines the behaviour of tagged template literals\n\
                               with tag WORD\n"));
@@ -1662,6 +1672,12 @@ xgettext_record_flag (const char *optionstring)
                     break;
                   case format_javascript:
                     flag_context_list_table_insert (&flag_table_javascript, XFORMAT_PRIMARY,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    flag_context_list_table_insert (&flag_table_typescript, XFORMAT_PRIMARY,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    flag_context_list_table_insert (&flag_table_typescriptx, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
@@ -2319,6 +2335,8 @@ language_to_extractor (const char *name)
     SCANNERS_JAVA
     SCANNERS_CSHARP
     SCANNERS_JAVASCRIPT
+    SCANNERS_TYPESCRIPT
+    SCANNERS_TYPESCRIPTX
     SCANNERS_SCHEME
     SCANNERS_LISP
     SCANNERS_ELISP
@@ -2414,6 +2432,8 @@ extension_to_language (const char *extension)
     EXTENSIONS_JAVA
     EXTENSIONS_CSHARP
     EXTENSIONS_JAVASCRIPT
+    EXTENSIONS_TYPESCRIPT
+    EXTENSIONS_TYPESCRIPTX
     EXTENSIONS_SCHEME
     EXTENSIONS_LISP
     EXTENSIONS_ELISP

@@ -41,7 +41,7 @@ else
 noinst_LTLIBRARIES = libgettextsrc.la
 endif
 
-noinst_LIBRARIES = libxgettextts1.a libxgettextts2.a
+noinst_LIBRARIES = $(LIBXGETTEXTTS)
 
 noinst_HEADERS = \
   pos.h message.h po-error.h xerror-handler.h po-xerror.h \
@@ -76,6 +76,9 @@ noinst_HEADERS = \
   x-java.h \
   x-csharp.h \
   x-javascript.h \
+  x-typescript.h \
+  x-typescriptx.h \
+  x-typescript-impl.h \
   x-scheme.h \
   x-lisp.h \
   x-elisp.h \
@@ -240,7 +243,7 @@ libgettextsrc_la_SOURCES = \
   search-path.c
 
 # xgettext has some tree-sitter based backends.
-LIBXGETTEXTTS = libxgettextts2.a libxgettextts1.a
+LIBXGETTEXTTS = libxgettextts2.a libxgettextts3.a libxgettextts4.a libxgettextts1.a
 libxgettextts1_a_SOURCES = \
   ../tree-sitter-$(TREE_SITTER_VERSION)/lib/src/lib.c
 libxgettextts1_a_CPPFLAGS = \
@@ -251,6 +254,18 @@ libxgettextts2_a_SOURCES = \
   ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-scanner.c \
   ../tree-sitter-go-$(TREE_SITTER_GO_VERSION)/src/go-parser.c
 libxgettextts2_a_CPPFLAGS = \
+  -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
+libxgettextts3_a_SOURCES = \
+  ../tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/typescript/src/ts-parser.c \
+  ../tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/typescript/src/ts-scanner.c
+libxgettextts3_a_CPPFLAGS = \
+  -I$(top_srcdir)/tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/typescript/src \
+  -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
+libxgettextts4_a_SOURCES = \
+  ../tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tsx-parser.c \
+  ../tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tsx-scanner.c
+libxgettextts4_a_CPPFLAGS = \
+  -I$(top_srcdir)/tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
 
 # msggrep needs pattern matching.
@@ -294,6 +309,8 @@ xgettext_SOURCES += \
   x-java.c \
   x-csharp.c \
   x-javascript.c \
+  x-typescript.c \
+  x-typescriptx.c \
   x-scheme.c \
   x-lisp.c \
   x-elisp.c \
