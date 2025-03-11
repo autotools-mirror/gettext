@@ -1207,7 +1207,7 @@ string_literal_accumulate_pieces (TSNode node,
     {
       /* Recurse into the left and right subnodes.  */
       string_literal_accumulate_pieces (ts_node_child_by_field_id (node, ts_field_right), buffer);
-      /*string_literal_accumulate_pieces (ts_node_child_by_field_id (node, ts_field_left), buffer, contents);*/
+      /*string_literal_accumulate_pieces (ts_node_child_by_field_id (node, ts_field_left), buffer);*/
       node = ts_node_child_by_field_id (node, ts_field_left);
       goto start;
     }
@@ -2981,7 +2981,7 @@ static void save_comment_line (string_desc_t gist)
    It is important that this function gets called
      - for each node (not only the named nodes!),
      - in depth-first traversal order.  */
-static void handle_comments (TSNode node, const char *contents)
+static void handle_comments (TSNode node)
 {
   #if DEBUG_GO && 0
   fprintf (stderr, "LCL=%d LNCL=%d node=[%s]|%s|\n", last_comment_line, last_non_comment_line, ts_node_type (node), ts_node_string (node));
@@ -3211,7 +3211,7 @@ extract_from_function_call (TSNode callee_node,
       for (i = 0; i < args_count; i++)
         {
           TSNode arg_node = ts_node_child (args_node, i);
-          handle_comments (arg_node, contents);
+          handle_comments (arg_node);
           if (ts_node_is_named (arg_node)
               && ts_node_symbol (arg_node) != ts_symbol_comment)
             {
@@ -3278,7 +3278,7 @@ extract_from_function_call (TSNode callee_node,
   for (i = 0; i < args_count; i++)
     {
       TSNode arg_node = ts_node_child (args_node, i);
-      handle_comments (arg_node, contents);
+      handle_comments (arg_node);
       if (ts_node_is_named (arg_node)
           && ts_node_symbol (arg_node) != ts_symbol_comment)
         {
@@ -3368,7 +3368,7 @@ extract_from_node (TSNode node,
                     TSNode subnode = ts_node_child (node, i);
                     if (ts_node_eq (subnode, args_node))
                       break;
-                    handle_comments (subnode, contents);
+                    handle_comments (subnode);
                   }
               }
               extract_from_function_call (callee_node, args_node,
@@ -3417,7 +3417,7 @@ extract_from_node (TSNode node,
       for (i = 0; i < count; i++)
         {
           TSNode subnode = ts_node_child (node, i);
-          handle_comments (subnode, contents);
+          handle_comments (subnode);
 
           #if DEBUG_GO
           /* For debugging: Show the type of parenthesized expressions.  */
