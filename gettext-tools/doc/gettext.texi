@@ -2349,7 +2349,8 @@ In Java, string concatenation is denoted by the @samp{+} operator.
 In C#, string concatenation is denoted by the @samp{+} operator.
 @c Reference: https://learn.microsoft.com/en-us/dotnet/csharp/how-to/concatenate-multiple-strings
 @item
-In JavaScript and TypeScript, string concatenation is denoted by the @samp{+} operator.
+In JavaScript and TypeScript,
+string concatenation is denoted by the @samp{+} operator.
 @c Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Addition
 @item
 In Go, string concatenation is denoted by the @samp{+} operator.
@@ -2423,6 +2424,7 @@ but no formatting function is called.
 @cindex Python, strings with embedded expressions
 @cindex C#, strings with embedded expressions
 @cindex JavaScript, strings with embedded expressions
+@cindex TypeScript, strings with embedded expressions
 @cindex Ruby, strings with embedded expressions
 @cindex Shell, strings with embedded expressions
 @cindex Tcl, strings with embedded expressions
@@ -2443,7 +2445,8 @@ In C#, since C# 6.0, @emph{interpolated strings} can contain expressions.
 Such as @code{$"Hello, @{name@}!"}.
 @c Reference: https://learn.microsoft.com/en-us/dotnet/csharp/how-to/concatenate-multiple-strings
 @item
-In JavaScript, since ES6, @emph{template literals} can contain expressions.
+In JavaScript, since ES6, and in TypeScript,
+@emph{template literals} can contain expressions.
 Such as @code{`Hello, $@{name@}!`}.
 @c Reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals
 @item
