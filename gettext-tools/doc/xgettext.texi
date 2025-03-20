@@ -701,7 +701,7 @@ would not entirely be in ASCII.
 @item --copyright-holder=@var{string}
 @opindex --copyright-holder@r{, @code{xgettext} option}
 Set the copyright holder in the output.  @var{string} should be the
-copyright holder of the surrounding package.  (Note that the msgstr
+copyright holder of the surrounding package.  (Note that the @code{msgid}
 strings, extracted from the package's sources, belong to the copyright
 holder of the package.)  Translators are expected to transfer or disclaim
 the copyright for their translations, so that package maintainers can
