@@ -179,7 +179,8 @@ static const TSLanguage *ts_language;
 
 /* ------------------------- Node types and symbols ------------------------- */
 
-static TSSymbol ts_language_symbol (const char *name, bool is_named)
+static TSSymbol
+ts_language_symbol (const char *name, bool is_named)
 {
   TSSymbol result =
     ts_language_symbol_for_name (ts_language, name, strlen (name), is_named);
@@ -189,7 +190,8 @@ static TSSymbol ts_language_symbol (const char *name, bool is_named)
   return result;
 }
 
-static TSFieldId ts_language_field (const char *name)
+static TSFieldId
+ts_language_field (const char *name)
 {
   TSFieldId result =
     ts_language_field_id_for_name (ts_language, name, strlen (name));
