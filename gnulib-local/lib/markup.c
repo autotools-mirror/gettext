@@ -35,7 +35,6 @@
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <errno.h>
 
 /* Specification */
 #include "markup.h"
@@ -513,8 +512,10 @@ unescape_string_inplace (markup_parse_context_ty *context,
                 }
 
               if (!(base == 16 ? c_isxdigit (*from) : c_isdigit (*from))
-                  || (errno = 0,
-                      l = strtoul (from, &end, base),
+                  || /* No need to reset and test errno here, because in case
+                        of overflow, l will be == ULONG_MAX, which is
+                        > 0x10FFFF.  */
+                     (l = strtoul (from, &end, base),
                       end == from))
                 {
                   char *error_text =
@@ -533,10 +534,9 @@ unescape_string_inplace (markup_parse_context_ty *context,
                   free (error_text);
                   return false;
                 }
-              else if (errno == 0
-                       /* characters XML 1.1 permits */
-                       && ((0 < l && l <= 0xD7FF)
-                           || (0xE000 <= l && l <= 0xFFFD) || (0x10000 <= l && l <= 0x10FFFF)))
+              else if (/* characters XML 1.1 permits */
+                       (0 < l && l <= 0xD7FF)
+                       || (0xE000 <= l && l <= 0xFFFD) || (0x10000 <= l && l <= 0x10FFFF))
                 {
                   char buf[8];
                   int length;
