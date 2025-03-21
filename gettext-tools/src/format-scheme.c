@@ -1,5 +1,5 @@
 /* Scheme format strings.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -1357,12 +1357,11 @@ make_intersection_with_empty_list (struct format_arg_list *list)
 }
 
 
-#ifdef unused
 /* Create the intersection of two argument list constraints.  NULL stands
    for an impossible situation, i.e. a contradiction.  */
 /* Memory effects: list1 and list2 are freed if non-NULL.  The result,
    if non-NULL, is freshly allocated.  */
-static struct format_arg_list *
+MAYBE_UNUSED static struct format_arg_list *
 intersection (struct format_arg_list *list1, struct format_arg_list *list2)
 {
   if (list1 != NULL)
@@ -1386,7 +1385,6 @@ intersection (struct format_arg_list *list1, struct format_arg_list *list2)
         return NULL;
     }
 }
-#endif
 
 
 /* ===================== Union of two format_arg_lists ===================== */

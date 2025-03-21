@@ -1,5 +1,5 @@
 /* Lisp format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009, 2014, 2019, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -23,6 +23,7 @@
 #include <stdlib.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "c-ctype.h"
 #include "gcd.h"
 #include "xalloc.h"
@@ -1344,12 +1345,11 @@ make_intersection_with_empty_list (struct format_arg_list *list)
 }
 
 
-#ifdef unused
 /* Create the intersection of two argument list constraints.  NULL stands
    for an impossible situation, i.e. a contradiction.  */
 /* Memory effects: list1 and list2 are freed if non-NULL.  The result,
    if non-NULL, is freshly allocated.  */
-static struct format_arg_list *
+MAYBE_UNUSED static struct format_arg_list *
 intersection (struct format_arg_list *list1, struct format_arg_list *list2)
 {
   if (list1 != NULL)
@@ -1373,7 +1373,6 @@ intersection (struct format_arg_list *list1, struct format_arg_list *list2)
         return NULL;
     }
 }
-#endif
 
 
 /* ===================== Union of two format_arg_lists ===================== */

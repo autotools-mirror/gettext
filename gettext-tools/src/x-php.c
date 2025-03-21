@@ -791,8 +791,7 @@ phase3_getc (struct php_extractor *xp)
     return c;
 }
 
-#ifdef unused
-static void
+MAYBE_UNUSED static void
 phase3_ungetc (struct php_extractor *xp, int c)
 {
   if (c != EOF)
@@ -802,7 +801,6 @@ phase3_ungetc (struct php_extractor *xp, int c)
       xp->phase3_pushback[xp->phase3_pushback_length++] = c;
     }
 }
-#endif
 
 
 /* ========================== Reading of tokens.  ========================== */

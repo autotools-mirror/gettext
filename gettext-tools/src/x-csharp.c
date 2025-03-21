@@ -1,5 +1,5 @@
 /* xgettext C# backend.
-   Copyright (C) 2003-2024 Free Software Foundation, Inc.
+   Copyright (C) 2003-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -1229,8 +1229,7 @@ phase5_getc ()
     }
 }
 
-#ifdef unused
-static void
+MAYBE_UNUSED static void
 phase5_ungetc (int c)
 {
   if (c != UEOF)
@@ -1240,7 +1239,6 @@ phase5_ungetc (int c)
       phase5_pushback[phase5_pushback_length++] = c;
     }
 }
-#endif
 
 
 /* ========================== Reading of tokens.  ========================== */
