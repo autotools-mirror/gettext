@@ -1,5 +1,5 @@
 /* ngettext - retrieve plural form strings from message catalog and print them.
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <ctype.h>
 #include <errno.h>
 
 #include <error.h>
@@ -211,9 +212,10 @@ worker_thread (void *arg)
         char *endp;
         unsigned long tmp_val;
 
-        errno = 0;
-        tmp_val = strtoul (count, &endp, 10);
-        if (errno == 0 && count[0] != '\0' && endp[0] == '\0')
+        if (isdigit ((unsigned char) count[0])
+            && (errno = 0,
+                tmp_val = strtoul (count, &endp, 10),
+                errno == 0 && endp[0] == '\0'))
           n = tmp_val;
         else
           /* When COUNT is not valid, use plural.  */

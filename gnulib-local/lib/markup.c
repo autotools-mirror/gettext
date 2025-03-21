@@ -512,16 +512,14 @@ unescape_string_inplace (markup_parse_context_ty *context,
                   from++;
                 }
 
-              errno = 0;
-              l = strtoul (from, &end, base);
-
-              if (end == from || errno != 0)
+              if (!(base == 16 ? c_isxdigit (*from) : c_isdigit (*from))
+                  || (errno = 0,
+                      l = strtoul (from, &end, base),
+                      end == from))
                 {
                   char *error_text =
                     xasprintf (_("invalid character reference: %s"),
-                               errno != 0
-                               ? xstrerror (NULL, errno)
-                               : _("not a valid number specification"));
+                               _("not a valid number specification"));
                   emit_error (context, error_text);
                   free (error_text);
                   return false;
@@ -535,30 +533,28 @@ unescape_string_inplace (markup_parse_context_ty *context,
                   free (error_text);
                   return false;
                 }
+              else if (errno == 0
+                       /* characters XML 1.1 permits */
+                       && ((0 < l && l <= 0xD7FF)
+                           || (0xE000 <= l && l <= 0xFFFD) || (0x10000 <= l && l <= 0x10FFFF)))
+                {
+                  char buf[8];
+                  int length;
+                  length = u8_uctomb ((uint8_t *) buf, l, 8);
+                  memcpy (to, buf, length);
+                  to += length - 1;
+                  from = end;
+                  if (l >= 0x80) /* not ASCII */
+                    mask |= 0x80;
+                }
               else
                 {
-                  /* characters XML 1.1 permits */
-                  if ((0 < l && l <= 0xD7FF)
-                      || (0xE000 <= l && l <= 0xFFFD) || (0x10000 <= l && l <= 0x10FFFF))
-                    {
-                      char buf[8];
-                      int length;
-                      length = u8_uctomb ((uint8_t *) buf, l, 8);
-                      memcpy (to, buf, length);
-                      to += length - 1;
-                      from = end;
-                      if (l >= 0x80) /* not ascii */
-                        mask |= 0x80;
-                    }
-                  else
-                    {
-                      char *error_text =
-                        xasprintf (_("invalid character reference: %s"),
-                                   _("non-permitted character"));
-                      emit_error (context, error_text);
-                      free (error_text);
-                      return false;
-                    }
+                  char *error_text =
+                    xasprintf (_("invalid character reference: %s"),
+                               _("non-permitted character"));
+                  emit_error (context, error_text);
+                  free (error_text);
+                  return false;
                 }
             }
 

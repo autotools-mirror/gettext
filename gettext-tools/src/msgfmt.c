@@ -282,13 +282,16 @@ main (int argc, char *argv[])
       case '\0':                /* Long option.  */
         break;
       case 'a':
-        {
-          char *endp;
-          size_t new_align = strtoul (optarg, &endp, 0);
+        if (isdigit ((unsigned char) optarg[0]))
+          {
+            char *endp;
+            size_t new_align = strtoul (optarg, &endp, 0);
 
-          if (endp != optarg)
-            alignment = new_align;
-        }
+            if (endp != optarg)
+              /* Check whether new_align is a power of 2.  */
+              if (new_align > 0 && (new_align & (new_align - 1)) == 0)
+                alignment = new_align;
+          }
         break;
       case 'c':
         check_domain = true;

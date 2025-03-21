@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <ctype.h>
 #include <errno.h>
 
 #include <error.h>
@@ -168,9 +169,10 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     char *endp;
     unsigned long tmp_val;
 
-    errno = 0;
-    tmp_val = strtoul (count, &endp, 10);
-    if (errno == 0 && count[0] != '\0' && endp[0] == '\0')
+    if (isdigit ((unsigned char) count[0])
+        && (errno = 0,
+            tmp_val = strtoul (count, &endp, 10),
+            errno == 0 && endp[0] == '\0'))
       n = tmp_val;
     else
       /* When COUNT is not valid, use plural.  */
