@@ -57,7 +57,7 @@
 # define SHLIB_EXPORTED
 #endif
 
-#include "setlocale-messages.h"
+#include "setlocale-fixes.h"
 #include "localename.h"
 
 #if HAVE_CFLOCALECOPYPREFERREDLANGUAGES || HAVE_CFPREFERENCESCOPYAPPVALUE
@@ -870,7 +870,7 @@ setlocale_unixlike (int category, const char *locale)
 static char *
 setlocale_unixlike (int category, const char *locale)
 {
-  char *result = setlocale (category, locale);
+  char *result = setlocale_fixed (category, locale);
   if (result == NULL)
     switch (category)
       {
@@ -1814,6 +1814,8 @@ libintl_setlocale (int category, const char *locale)
         return resultbuf;
       }
   }
+# elif defined __ANDROID__
+  return setlocale_fixed_null (LC_ALL);
 # else
   return setlocale (LC_ALL, NULL);
 # endif
