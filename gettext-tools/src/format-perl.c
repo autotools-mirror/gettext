@@ -1,5 +1,5 @@
 /* Perl format strings.
-   Copyright (C) 2004, 2006-2007, 2009, 2019-2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2004-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -112,14 +112,8 @@ struct spec
   struct numbered_arg *numbered;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 /* Locale independent test for a nonzero decimal digit.  */
-#define isnonzerodigit(c) ((unsigned int) ((c) - '1') < 9)
+#define c_isnonzerodigit(c) ((unsigned int) ((c) - '1') < 9)
 
 
 static int
@@ -161,7 +155,7 @@ format_parse (const char *format, bool translated, char *fdi,
         FDI_SET (format - 1, FMTDIR_START);
         directives++;
 
-        if (isnonzerodigit (*format))
+        if (c_isnonzerodigit (*format))
           {
             const char *f = format;
             unsigned int m = 0;
@@ -171,7 +165,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 m = 10 * m + (*f - '0');
                 f++;
               }
-            while (isdigit (*f));
+            while (c_isdigit (*f));
 
             if (*f == '$')
               {
@@ -211,7 +205,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 numbered[numbered_arg_count].type = FAT_SCALAR_VECTOR; /* or FAT_STRING? */
                 numbered_arg_count++;
               }
-            else if (isnonzerodigit (*f))
+            else if (c_isnonzerodigit (*f))
               {
                 unsigned int m = 0;
 
@@ -220,7 +214,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     m = 10 * m + (*f - '0');
                     f++;
                   }
-                while (isdigit (*f));
+                while (c_isdigit (*f));
 
                 if (*f == '$')
                   {
@@ -268,7 +262,7 @@ format_parse (const char *format, bool translated, char *fdi,
 
             format++;
 
-            if (isnonzerodigit (*format))
+            if (c_isnonzerodigit (*format))
               {
                 const char *f = format;
                 unsigned int m = 0;
@@ -278,7 +272,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     m = 10 * m + (*f - '0');
                     f++;
                   }
-                while (isdigit (*f));
+                while (c_isdigit (*f));
 
                 if (*f == '$')
                   {
@@ -299,9 +293,9 @@ format_parse (const char *format, bool translated, char *fdi,
             numbered[numbered_arg_count].type = FAT_INTEGER;
             numbered_arg_count++;
           }
-        else if (isnonzerodigit (*format))
+        else if (c_isnonzerodigit (*format))
           {
-            do format++; while (isdigit (*format));
+            do format++; while (c_isdigit (*format));
           }
 
         /* Parse precision.  */
@@ -315,7 +309,7 @@ format_parse (const char *format, bool translated, char *fdi,
 
                 format++;
 
-                if (isnonzerodigit (*format))
+                if (c_isnonzerodigit (*format))
                   {
                     const char *f = format;
                     unsigned int m = 0;
@@ -325,7 +319,7 @@ format_parse (const char *format, bool translated, char *fdi,
                         m = 10 * m + (*f - '0');
                         f++;
                       }
-                    while (isdigit (*f));
+                    while (c_isdigit (*f));
 
                     if (*f == '$')
                       {
@@ -346,7 +340,7 @@ format_parse (const char *format, bool translated, char *fdi,
               }
             else
               {
-                while (isdigit (*format)) format++;
+                while (c_isdigit (*format)) format++;
               }
           }
 

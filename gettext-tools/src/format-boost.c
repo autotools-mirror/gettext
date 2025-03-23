@@ -1,5 +1,5 @@
 /* Boost format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009, 2019-2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -96,12 +96,6 @@ struct spec
   struct numbered_arg *numbered;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 
 static int
 numbered_arg_compare (const void *p1, const void *p2)
@@ -151,7 +145,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 brackets = true;
               }
 
-            if (isdigit (*format) && *format != '0')
+            if (c_isdigit (*format) && *format != '0')
               {
                 const char *f = format;
                 unsigned int m = 0;
@@ -161,7 +155,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     m = 10 * m + (*f - '0');
                     f++;
                   }
-                while (isdigit (*f));
+                while (c_isdigit (*f));
 
                 if ((!brackets && *f == '%') || *f == '$')
                   {
@@ -202,7 +196,7 @@ format_parse (const char *format, bool translated, char *fdi,
 
                     format++;
 
-                    if (isdigit (*format))
+                    if (c_isdigit (*format))
                       {
                         const char *f = format;
                         unsigned int m = 0;
@@ -212,7 +206,7 @@ format_parse (const char *format, bool translated, char *fdi,
                             m = 10 * m + (*f - '0');
                             f++;
                           }
-                        while (isdigit (*f));
+                        while (c_isdigit (*f));
 
                         if (*f == '$')
                           {
@@ -275,9 +269,9 @@ format_parse (const char *format, bool translated, char *fdi,
                         unnumbered_arg_count++;
                       }
                   }
-                else if (isdigit (*format))
+                else if (c_isdigit (*format))
                   {
-                    do format++; while (isdigit (*format));
+                    do format++; while (c_isdigit (*format));
                   }
 
                 /* Parse precision.  */
@@ -291,7 +285,7 @@ format_parse (const char *format, bool translated, char *fdi,
 
                         format++;
 
-                        if (isdigit (*format))
+                        if (c_isdigit (*format))
                           {
                             const char *f = format;
                             unsigned int m = 0;
@@ -301,7 +295,7 @@ format_parse (const char *format, bool translated, char *fdi,
                                 m = 10 * m + (*f - '0');
                                 f++;
                               }
-                            while (isdigit (*f));
+                            while (c_isdigit (*f));
 
                             if (*f == '$')
                               {
@@ -364,9 +358,9 @@ format_parse (const char *format, bool translated, char *fdi,
                             unnumbered_arg_count++;
                           }
                       }
-                    else if (isdigit (*format))
+                    else if (c_isdigit (*format))
                       {
-                        do format++; while (isdigit (*format));
+                        do format++; while (c_isdigit (*format));
                       }
                   }
 

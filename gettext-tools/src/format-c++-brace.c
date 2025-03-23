@@ -1,5 +1,5 @@
 /* C++ format strings.
-   Copyright (C) 2003-2023 Free Software Foundation, Inc.
+   Copyright (C) 2003-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2023.
 
    This program is free software: you can redistribute it and/or modify
@@ -195,12 +195,6 @@ struct spec
   struct numbered_arg *numbered;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 
 static int
 numbered_arg_compare (const void *p1, const void *p2)
@@ -251,7 +245,7 @@ format_parse (const char *format, bool translated, char *fdi,
             unsigned int presentation;
 
             /* Parse arg-id.  */
-            if (isdigit (*format))
+            if (c_isdigit (*format))
               {
                 /* Numbered argument.  */
                 unsigned int arg_id;
@@ -262,7 +256,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 else
                   {
                     format++;
-                    while (isdigit (*format))
+                    while (c_isdigit (*format))
                       {
                         if (arg_id >= UINT_MAX / 10)
                           {
@@ -355,16 +349,16 @@ format_parse (const char *format, bool translated, char *fdi,
                   }
 
                 /* Parse width.  */
-                if (isdigit (*format) && *format != '0')
+                if (c_isdigit (*format) && *format != '0')
                   {
                     do
                       format++;
-                    while (isdigit (*format));
+                    while (c_isdigit (*format));
                   }
                 else if (*format == '{')
                   {
                     format++;
-                    if (isdigit (*format))
+                    if (c_isdigit (*format))
                       {
                         /* Numbered argument.  */
                         unsigned int width_arg_id;
@@ -375,7 +369,7 @@ format_parse (const char *format, bool translated, char *fdi,
                         else
                           {
                             format++;
-                            while (isdigit (*format))
+                            while (c_isdigit (*format))
                               {
                                 if (width_arg_id >= UINT_MAX / 10)
                                   {
@@ -447,18 +441,18 @@ format_parse (const char *format, bool translated, char *fdi,
                   {
                     format++;
 
-                    if (isdigit (*format))
+                    if (c_isdigit (*format))
                       {
                         do
                           format++;
-                        while (isdigit (*format));
+                        while (c_isdigit (*format));
 
                         have_precision = true;
                       }
                     else if (*format == '{')
                       {
                         format++;
-                        if (isdigit (*format))
+                        if (c_isdigit (*format))
                           {
                             /* Numbered argument.  */
                             unsigned int precision_arg_id;
@@ -469,7 +463,7 @@ format_parse (const char *format, bool translated, char *fdi,
                             else
                               {
                                 format++;
-                                while (isdigit (*format))
+                                while (c_isdigit (*format))
                                   {
                                     if (precision_arg_id >= UINT_MAX / 10)
                                       {

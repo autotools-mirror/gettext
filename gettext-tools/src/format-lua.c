@@ -1,5 +1,5 @@
 /* Lua format strings.
-   Copyright (C) 2012-2023 Free Software Foundation, Inc.
+   Copyright (C) 2012-2025 Free Software Foundation, Inc.
    Written by Ľubomír Remák <lubomirr@lubomirr.eu>, 2012.
 
    This program is free software: you can redistribute it and/or modify
@@ -72,12 +72,6 @@ struct spec
   enum format_arg_type *format_args;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 static void format_free (void *descr);
 
 static void *
@@ -108,7 +102,7 @@ format_parse (const char *format, bool translated, char *fdi,
               enum format_arg_type type;
 
               /* Remove width. */
-              while (isdigit (*fatstr))
+              while (c_isdigit (*fatstr))
                 fatstr++;
 
               if (*fatstr == '.')
@@ -116,7 +110,7 @@ format_parse (const char *format, bool translated, char *fdi,
                   fatstr++;
 
                   /* Remove precision. */
-                  while (isdigit (*fatstr))
+                  while (c_isdigit (*fatstr))
                     fatstr++;
                 }
 

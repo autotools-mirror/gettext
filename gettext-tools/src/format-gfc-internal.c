@@ -1,5 +1,5 @@
 /* GFC (GNU Fortran Compiler) internal format strings.
-   Copyright (C) 2003-2023 Free Software Foundation, Inc.
+   Copyright (C) 2003-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2009.
 
    This program is free software: you can redistribute it and/or modify
@@ -100,12 +100,6 @@ struct spec
   bool uses_currentloc;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 
 static int
 numbered_arg_compare (const void *p1, const void *p2)
@@ -146,7 +140,7 @@ format_parse (const char *format, bool translated, char *fdi,
           {
             format_arg_type_t type;
 
-            if (isdigit (*format))
+            if (c_isdigit (*format))
               {
                 const char *f = format;
                 unsigned int m = 0;
@@ -156,7 +150,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     m = 10 * m + (*f - '0');
                     f++;
                   }
-                while (isdigit (*f));
+                while (c_isdigit (*f));
 
                 if (*f == '$')
                   {

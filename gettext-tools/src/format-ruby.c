@@ -104,12 +104,6 @@ struct spec
   struct numbered_arg *numbered;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 
 static int
 named_arg_compare (const void *p1, const void *p2)
@@ -259,7 +253,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 continue;
               }
 
-            if (isdigit (*format))
+            if (c_isdigit (*format))
               {
                 unsigned int m = 0;
 
@@ -271,7 +265,7 @@ format_parse (const char *format, bool translated, char *fdi,
                       m = UINT_MAX - 1;
                     format++;
                   }
-                while (isdigit (*format));
+                while (c_isdigit (*format));
 
                 if (*format == '$')
                   {
@@ -322,7 +316,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 /* Parse width.  */
                 format++;
 
-                if (isdigit (*format))
+                if (c_isdigit (*format))
                   {
                     const char *f = format;
                     unsigned int m = 0;
@@ -335,7 +329,7 @@ format_parse (const char *format, bool translated, char *fdi,
                           m = UINT_MAX - 1;
                         f++;
                       }
-                    while (isdigit (*f));
+                    while (c_isdigit (*f));
 
                     if (*f == '$')
                       {
@@ -417,7 +411,7 @@ format_parse (const char *format, bool translated, char *fdi,
                   {
                     format++;
 
-                    if (isdigit (*format))
+                    if (c_isdigit (*format))
                       {
                         const char *f = format;
                         unsigned int m = 0;
@@ -430,7 +424,7 @@ format_parse (const char *format, bool translated, char *fdi,
                               m = UINT_MAX - 1;
                             f++;
                           }
-                        while (isdigit (*f));
+                        while (c_isdigit (*f));
 
                         if (*f == '$')
                           {
@@ -491,7 +485,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     continue;
                   }
 
-                while (isdigit (*format))
+                while (c_isdigit (*format))
                   format++;
 
                 /* Seen a constant precision.  */

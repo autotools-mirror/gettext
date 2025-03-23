@@ -97,12 +97,6 @@ struct spec
   struct numbered_arg *numbered;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 
 static int
 numbered_arg_compare (const void *p1, const void *p2)
@@ -148,7 +142,7 @@ format_parse (const char *format, bool translated, char *fdi,
 
         if (*format == '[')
           {
-            if (isdigit (format[1]))
+            if (c_isdigit (format[1]))
               {
                 const char *f = format + 1;
                 unsigned int m = 0;
@@ -159,7 +153,7 @@ format_parse (const char *format, bool translated, char *fdi,
                       m = 10 * m + (*f - '0');
                     f++;
                   }
-                while (isdigit (*f));
+                while (c_isdigit (*f));
 
                 if (*f == ']')
                   {
@@ -203,7 +197,7 @@ format_parse (const char *format, bool translated, char *fdi,
           }
 
         /* Parse width other than [m]*.  */
-        if (isdigit (*format))
+        if (c_isdigit (*format))
           {
             const char *f = format;
             unsigned int width = 0;
@@ -214,7 +208,7 @@ format_parse (const char *format, bool translated, char *fdi,
                   width = 10 * width + (*f - '0');
                 f++;
               }
-            while (isdigit (*f));
+            while (c_isdigit (*f));
 
             if (width > 1000000)
               {
@@ -249,7 +243,7 @@ format_parse (const char *format, bool translated, char *fdi,
           {
             if (format[1] == '[')
               {
-                if (isdigit (format[2]))
+                if (c_isdigit (format[2]))
                   {
                     const char *f = format + 2;
                     unsigned int m = 0;
@@ -260,7 +254,7 @@ format_parse (const char *format, bool translated, char *fdi,
                           m = 10 * m + (*f - '0');
                         f++;
                       }
-                    while (isdigit (*f));
+                    while (c_isdigit (*f));
 
                     if (*f == ']')
                       {
@@ -307,7 +301,7 @@ format_parse (const char *format, bool translated, char *fdi,
               }
 
             /* Parse precision other than [m]*.  */
-            if (isdigit (format[1]))
+            if (c_isdigit (format[1]))
               {
                 const char *f = format + 1;
                 unsigned int precision = 0;
@@ -318,7 +312,7 @@ format_parse (const char *format, bool translated, char *fdi,
                       precision = 10 * precision + (*f - '0');
                     f++;
                   }
-                while (isdigit (*f));
+                while (c_isdigit (*f));
 
                 if (precision > 1000000)
                   {
@@ -351,7 +345,7 @@ format_parse (const char *format, bool translated, char *fdi,
        parse_value:
         if (*format == '[')
           {
-            if (isdigit (format[1]))
+            if (c_isdigit (format[1]))
               {
                 const char *f = format + 1;
                 unsigned int m = 0;
@@ -362,7 +356,7 @@ format_parse (const char *format, bool translated, char *fdi,
                       m = 10 * m + (*f - '0');
                     f++;
                   }
-                while (isdigit (*f));
+                while (c_isdigit (*f));
 
                 if (*f == ']')
                   {

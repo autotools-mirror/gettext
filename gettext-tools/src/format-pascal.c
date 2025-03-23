@@ -1,5 +1,5 @@
 /* Object Pascal format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2018-2020, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -87,12 +87,6 @@ struct spec
   struct numbered_arg *numbered;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 
 static int
 numbered_arg_compare (const void *p1, const void *p2)
@@ -142,12 +136,12 @@ format_parse (const char *format, bool translated, char *fdi,
             unsigned int main_number = 0;
             enum format_arg_type type;
 
-            if (isdigit (*format) || *format == ':')
+            if (c_isdigit (*format) || *format == ':')
               {
                 const char *f = format;
                 unsigned int m = 0;
 
-                while (isdigit (*f))
+                while (c_isdigit (*f))
                   {
                     m = 10 * m + (*f - '0');
                     f++;
@@ -174,11 +168,11 @@ format_parse (const char *format, bool translated, char *fdi,
               format++;
 
             /* Parse width.  */
-            if (isdigit (*format))
+            if (c_isdigit (*format))
               {
                 do
                   format++;
-                while (isdigit (*format));
+                while (c_isdigit (*format));
               }
             else if (*format == '*')
               {
@@ -201,11 +195,11 @@ format_parse (const char *format, bool translated, char *fdi,
               {
                 format++;
 
-                if (isdigit (*format))
+                if (c_isdigit (*format))
                   {
                     do
                       format++;
-                    while (isdigit (*format));
+                    while (c_isdigit (*format));
                   }
                 else if (*format == '*')
                   {

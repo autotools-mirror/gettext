@@ -1,5 +1,5 @@
 /* Emacs Lisp format strings.
-   Copyright (C) 2001-2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -76,12 +76,6 @@ struct spec
   struct numbered_arg *numbered;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 
 static int
 numbered_arg_compare (const void *p1, const void *p2)
@@ -117,7 +111,7 @@ format_parse (const char *format, bool translated, char *fdi,
         FDI_SET (format - 1, FMTDIR_START);
         spec.directives++;
 
-        if (isdigit (*format))
+        if (c_isdigit (*format))
           {
             const char *f = format;
             unsigned int m = 0;
@@ -127,7 +121,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 m = 10 * m + (*f - '0');
                 f++;
               }
-            while (isdigit (*f));
+            while (c_isdigit (*f));
 
             if (*f == '$' && m > 0)
               {
@@ -157,9 +151,9 @@ format_parse (const char *format, bool translated, char *fdi,
 
             number++;
           }
-        else if (isdigit (*format))
+        else if (c_isdigit (*format))
           {
-            do format++; while (isdigit (*format));
+            do format++; while (c_isdigit (*format));
           }
 
         /* Parse precision.  */
@@ -182,9 +176,9 @@ format_parse (const char *format, bool translated, char *fdi,
 
                 number++;
               }
-            else if (isdigit (*format))
+            else if (c_isdigit (*format))
               {
-                do format++; while (isdigit (*format));
+                do format++; while (c_isdigit (*format));
               }
           }
 

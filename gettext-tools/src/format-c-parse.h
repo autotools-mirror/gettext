@@ -1,5 +1,5 @@
 /* Parsing C format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2018, 2020, 2022-2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -149,12 +149,6 @@ struct spec
   const char **sysdep_directives;
 };
 
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
-
 /* Whether to recognize the 'I' flag.  */
 #if SYSDEP_SEGMENTS_PROCESSED
 /* The 'I' flag can only occur in glibc >= 2.2.  On other platforms, gettext()
@@ -212,7 +206,7 @@ format_parse_entrails (const char *format, bool translated,
         FDI_SET (format - 1, FMTDIR_START);
         spec.directives++;
 
-        if (isdigit (*format))
+        if (c_isdigit (*format))
           {
             const char *f = format;
             unsigned int m = 0;
@@ -222,7 +216,7 @@ format_parse_entrails (const char *format, bool translated,
                 m = 10 * m + (*f - '0');
                 f++;
               }
-            while (isdigit (*f));
+            while (c_isdigit (*f));
 
             if (*f == '$')
               {
@@ -269,7 +263,7 @@ format_parse_entrails (const char *format, bool translated,
 
             format++;
 
-            if (isdigit (*format))
+            if (c_isdigit (*format))
               {
                 const char *f = format;
                 unsigned int m = 0;
@@ -279,7 +273,7 @@ format_parse_entrails (const char *format, bool translated,
                     m = 10 * m + (*f - '0');
                     f++;
                   }
-                while (isdigit (*f));
+                while (c_isdigit (*f));
 
                 if (*f == '$')
                   {
@@ -339,9 +333,9 @@ format_parse_entrails (const char *format, bool translated,
                 spec.unnumbered_arg_count++;
               }
           }
-        else if (isdigit (*format))
+        else if (c_isdigit (*format))
           {
-            do format++; while (isdigit (*format));
+            do format++; while (c_isdigit (*format));
           }
 
         /* Parse precision.  */
@@ -355,7 +349,7 @@ format_parse_entrails (const char *format, bool translated,
 
                 format++;
 
-                if (isdigit (*format))
+                if (c_isdigit (*format))
                   {
                     const char *f = format;
                     unsigned int m = 0;
@@ -365,7 +359,7 @@ format_parse_entrails (const char *format, bool translated,
                         m = 10 * m + (*f - '0');
                         f++;
                       }
-                    while (isdigit (*f));
+                    while (c_isdigit (*f));
 
                     if (*f == '$')
                       {
@@ -425,9 +419,9 @@ format_parse_entrails (const char *format, bool translated,
                     spec.unnumbered_arg_count++;
                   }
               }
-            else if (isdigit (*format))
+            else if (c_isdigit (*format))
               {
-                do format++; while (isdigit (*format));
+                do format++; while (c_isdigit (*format));
               }
           }
 

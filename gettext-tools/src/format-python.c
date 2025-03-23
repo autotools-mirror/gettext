@@ -1,5 +1,5 @@
 /* Python format strings.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -95,12 +95,6 @@ struct spec
   struct named_arg *named;
   struct unnamed_arg *unnamed;
 };
-
-/* Locale independent test for a decimal digit.
-   Argument can be  'char' or 'unsigned char'.  (Whereas the argument of
-   <ctype.h> isdigit must be an 'unsigned char'.)  */
-#undef isdigit
-#define isdigit(c) ((unsigned int) ((c) - '0') < 10)
 
 
 static int
@@ -199,9 +193,9 @@ format_parse (const char *format, bool translated, char *fdi,
             spec.unnamed[spec.unnamed_arg_count].type = FAT_INTEGER;
             spec.unnamed_arg_count++;
           }
-        else if (isdigit (*format))
+        else if (c_isdigit (*format))
           {
-            do format++; while (isdigit (*format));
+            do format++; while (c_isdigit (*format));
           }
 
         if (*format == '.')
@@ -228,7 +222,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 spec.unnamed[spec.unnamed_arg_count].type = FAT_INTEGER;
                 spec.unnamed_arg_count++;
               }
-            else if (isdigit (*format))
+            else if (c_isdigit (*format))
               {
                 zero_precision = true;
                 do
@@ -237,7 +231,7 @@ format_parse (const char *format, bool translated, char *fdi,
                       zero_precision = false;
                     format++;
                   }
-                while (isdigit (*format));
+                while (c_isdigit (*format));
               }
           }
 
