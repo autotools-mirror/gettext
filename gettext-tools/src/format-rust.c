@@ -104,12 +104,6 @@ struct spec
 };
 
 
-/* All the parse_* functions (except parse_upto) follow the same
-   calling convention.  FORMATP shall point to the beginning of a token.
-   If parsing succeeds, FORMATP will point to the next character after
-   the token, and true is returned.  Otherwise, FORMATP will be
-   unchanged and false is returned.  */
-
 static int
 named_arg_compare (const void *p1, const void *p2)
 {
