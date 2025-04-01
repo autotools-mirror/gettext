@@ -99,7 +99,14 @@ EXTRA_DIST += \
   tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tsx-scanner.c \
   tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tree_sitter/alloc.h \
   tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tree_sitter/array.h \
-  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tree_sitter/parser.h
+  tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tree_sitter/parser.h \
+  build-aux/tree-sitter-d-portability.diff \
+  tree-sitter-d-$(TREE_SITTER_D_VERSION)/LICENSE \
+  tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/d-parser.c \
+  tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/d-scanner.c \
+  tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/tree_sitter/alloc.h \
+  tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/tree_sitter/array.h \
+  tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/tree_sitter/parser.h
 
 # Files installed for the user.
 

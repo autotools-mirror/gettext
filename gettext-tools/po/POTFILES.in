@@ -15,6 +15,7 @@ src/format-c++-brace.c
 src/format-c.c
 src/format-c-parse.h
 src/format-csharp.c
+src/format-d.c
 src/format-elisp.c
 src/format-gcc-internal.c
 src/format-gfc-internal.c
@@ -91,6 +92,7 @@ src/write-xml.c
 src/x-awk.c
 src/x-c.c
 src/x-csharp.c
+src/x-d.c
 src/x-desktop.c
 src/x-elisp.c
 src/xerror-handler.c

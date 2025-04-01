@@ -54,6 +54,7 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_awk */              &formatstring_awk,
   /* format_lua */              &formatstring_lua,
   /* format_pascal */           &formatstring_pascal,
+  /* format_d */                &formatstring_d,
   /* format_smalltalk */        &formatstring_smalltalk,
   /* format_qt */               &formatstring_qt,
   /* format_qt_plural */        &formatstring_qt_plural,

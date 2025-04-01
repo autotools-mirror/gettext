@@ -412,6 +412,7 @@ The Translator's View
 * awk-format::                  awk Format Strings
 * lua-format::                  Lua Format Strings
 * object-pascal-format::        Object Pascal Format Strings
+* d-format::                    D Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * qt-format::                   Qt Format Strings
 * qt-plural-format::            Qt Plural Format Strings
@@ -1750,6 +1751,12 @@ Likewise for Lua, see @ref{lua-format}.
 @kwindex no-object-pascal-format@r{ flag}
 Likewise for Object Pascal, see @ref{object-pascal-format}.
 
+@item d-format
+@kwindex d-format@r{ flag}
+@itemx no-d-format
+@kwindex no-d-format@r{ flag}
+Likewise for D, see @ref{d-format}.
+
 @item smalltalk-format
 @kwindex smalltalk-format@r{ flag}
 @itemx no-smalltalk-format
@@ -2329,6 +2336,7 @@ at runtime (or possibly at compile time, if the compiler supports that).
 @cindex Shell, string concatenation
 @cindex awk, string concatenation
 @cindex Lua, string concatenation
+@cindex D, string concatenation
 @cindex Smalltalk, string concatenation
 @cindex Vala, string concatenation
 @cindex Perl, string concatenation
@@ -2367,6 +2375,9 @@ In awk, string concatenation is denoted by mere juxtaposition of strings.
 @item
 In Lua, string concatenation is denoted by the @samp{..} operator.
 @c Reference: https://www.lua.org/pil/3.4.html
+@item
+In D, string concatenation is denoted by the @samp{~} operator.
+@c Reference: https://dlang.org/spec/expression.html#cat_expressions
 @item
 In Smalltalk, string concatenation is denoted by the @samp{,} operator.
 @c Reference: https://rmod-files.lille.inria.fr/FreeBooks/ByExample/14%20-%20Chapter%2012%20-%20Strings.pdf
@@ -2426,6 +2437,7 @@ but no formatting function is called.
 @cindex TypeScript, strings with embedded expressions
 @cindex Ruby, strings with embedded expressions
 @cindex Shell, strings with embedded expressions
+@cindex D, strings with embedded expressions
 @cindex Tcl, strings with embedded expressions
 @cindex Perl, strings with embedded expressions
 @cindex PHP, strings with embedded expressions
@@ -2458,6 +2470,10 @@ In Shell language, double-quoted strings can contain
 references to variables, along with default values and string operations.
 Such as @code{"Hello, $name!"} or @code{"Hello, $@{name@}!"}.
 @c Reference: https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html#tag_19_02_03
+@item
+In D, @emph{interpolation expression sequences} can contain expressions.
+Such as @code{i"Hello, $(name)!"}.
+@c Reference: https://dlang.org/spec/istring.html
 @item
 In Tcl, strings are subject to @emph{variable substitution}.
 Such as @code{"Hello, $name!"}.
@@ -9928,6 +9944,7 @@ strings.
 * awk-format::                  awk Format Strings
 * lua-format::                  Lua Format Strings
 * object-pascal-format::        Object Pascal Format Strings
+* d-format::                    D Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * qt-format::                   Qt Format Strings
 * qt-plural-format::            Qt Plural Format Strings
@@ -10221,6 +10238,13 @@ Object Pascal format strings are described in the documentation of the
 Free Pascal runtime library, section Format,
 @uref{https://www.freepascal.org/docs-html/rtl/sysutils/format.html}.
 
+@node d-format
+@subsection D Format Strings
+
+D format strings are described
+in the documentation of the D module @code{std.format},
+at @uref{https://dlang.org/library/std/format.html}.
+
 @node smalltalk-format
 @subsection Smalltalk Format Strings
 
@@ -10440,6 +10464,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * gawk::                        GNU awk
 * Lua::                         Lua
 * Pascal::                      Pascal - Free Pascal Compiler
+* D::                           D
 * Smalltalk::                   GNU Smalltalk
 * Vala::                        Vala
 * wxWidgets::                   wxWidgets library
@@ -10470,6 +10495,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @include lang-gawk.texi
 @include lang-lua.texi
 @include lang-pascal.texi
+@include lang-d.texi
 @include lang-smalltalk.texi
 @include lang-vala.texi
 @include lang-wxwidgets.texi

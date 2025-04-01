@@ -12,6 +12,9 @@ Version 0.25 - April 2025
   * D:
     - A new library libintl_d.a contains the runtime for using GNU gettext
       message catalogs in the D programming language.
+    - xgettext now supports D.
+    - 'msgfmt -c' now verifies the syntax of translations of D format
+      strings.
 
 Version 0.24 - February 2025
 

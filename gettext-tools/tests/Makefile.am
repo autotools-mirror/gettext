@@ -105,6 +105,8 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-csharp-7 xgettext-csharp-8 xgettext-csharp-9 \
 	xgettext-csharp-stackovfl-1 xgettext-csharp-stackovfl-2 \
 	xgettext-csharp-stackovfl-3 xgettext-csharp-stackovfl-4 \
+	xgettext-d-1 xgettext-d-2 xgettext-d-3 xgettext-d-4 xgettext-d-5 \
+	xgettext-d-6 \
 	xgettext-desktop-1 xgettext-desktop-2 xgettext-desktop-3 \
 	xgettext-docbook-1 \
 	xgettext-elisp-1 xgettext-elisp-2 xgettext-elisp-3 \
@@ -196,6 +198,7 @@ TESTS = gettext-1 gettext-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 \
 	format-c++-brace-1 format-c++-brace-2 \
 	format-csharp-1 format-csharp-2 \
+	format-d-1 format-d-2 \
 	format-elisp-1 format-elisp-2 \
 	format-gcc-internal-1 format-gcc-internal-2 \
 	format-gfc-internal-1 format-gfc-internal-2 \
@@ -278,6 +281,9 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	xgettext-c-1 xg-c-comment-6.c xg-c-escape-3.c xg-vala-2.vala \
 	common/supplemental/plurals.xml \
 	testdata/crlf.pot \
+	testdata/dprog.utf-8.d testdata/dprog.utf-8+bom.d \
+	testdata/dprog.utf-16be.d testdata/dprog.utf-16le.d \
+	testdata/dprog.utf-32be.d testdata/dprog.utf-32le.d \
 	testdata/nonascii.pot \
 	testdata/tcltest_pl.po testdata/tcltest_pl.msg \
 	testdata/tcltest_cs.po testdata/tcltest_cs.msg \

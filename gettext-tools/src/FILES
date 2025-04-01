@@ -243,6 +243,7 @@ format-sh.c            Format string handling for Shell.
 format-awk.c           Format string handling for awk.
 format-lua.c           Format string handling for Lua.
 format-pascal.c        Format string handling for Object Pascal.
+format-d.c             Format string handling for D.
 format-smalltalk.c     Format string handling for Smalltalk and YCP.
 format-qt.c            Format string handling for Qt.
 format-qt-plural.c     Format string handling for Qt plural forms.
@@ -412,6 +413,10 @@ msgl-check.c
 | x-lua.h
 | x-lua.c
 |               String extractor for Lua.
+| x-d.h
+| x-d.c
+| html5-entities.h
+|               String extractor for D.
 | x-smalltalk.h
 | x-smalltalk.c
 |               String extractor for Smalltalk.

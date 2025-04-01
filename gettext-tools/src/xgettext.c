@@ -119,6 +119,7 @@
 #include "x-sh.h"
 #include "x-awk.h"
 #include "x-lua.h"
+#include "x-d.h"
 #include "x-smalltalk.h"
 #include "x-vala.h"
 #include "x-tcl.h"
@@ -211,6 +212,7 @@ static flag_context_list_table_ty flag_table_ruby;
 static flag_context_list_table_ty flag_table_sh;
 static flag_context_list_table_ty flag_table_awk;
 static flag_context_list_table_ty flag_table_lua;
+static flag_context_list_table_ty flag_table_d;
 static flag_context_list_table_ty flag_table_vala;
 static flag_context_list_table_ty flag_table_tcl;
 static flag_context_list_table_ty flag_table_perl;
@@ -408,6 +410,7 @@ main (int argc, char *argv[])
   init_flag_table_sh ();
   init_flag_table_awk ();
   init_flag_table_lua ();
+  init_flag_table_d ();
   init_flag_table_vala ();
   init_flag_table_tcl ();
   init_flag_table_perl ();
@@ -425,26 +428,27 @@ main (int argc, char *argv[])
 
       case 'a':
         x_c_extract_all ();
-        x_sh_extract_all ();
         x_python_extract_all ();
-        x_lisp_extract_all ();
-        x_elisp_extract_all ();
-        x_librep_extract_all ();
-        x_scheme_extract_all ();
         x_java_extract_all ();
         x_csharp_extract_all ();
-        x_awk_extract_all ();
-        x_tcl_extract_all ();
-        x_perl_extract_all ();
-        x_php_extract_all ();
-        x_rust_extract_all ();
-        x_go_extract_all ();
-        x_ruby_extract_all ();
-        x_lua_extract_all ();
         x_javascript_extract_all ();
         x_typescript_extract_all ();
         x_typescriptx_extract_all ();
+        x_scheme_extract_all ();
+        x_lisp_extract_all ();
+        x_elisp_extract_all ();
+        x_librep_extract_all ();
+        x_rust_extract_all ();
+        x_go_extract_all ();
+        x_ruby_extract_all ();
+        x_sh_extract_all ();
+        x_awk_extract_all ();
+        x_lua_extract_all ();
+        x_d_extract_all ();
         x_vala_extract_all ();
+        x_tcl_extract_all ();
+        x_perl_extract_all ();
+        x_php_extract_all ();
         break;
 
       case 'c':
@@ -509,26 +513,27 @@ main (int argc, char *argv[])
           optarg = NULL;
         x_c_keyword (optarg);
         x_objc_keyword (optarg);
-        x_sh_keyword (optarg);
         x_python_keyword (optarg);
-        x_lisp_keyword (optarg);
-        x_elisp_keyword (optarg);
-        x_librep_keyword (optarg);
-        x_scheme_keyword (optarg);
         x_java_keyword (optarg);
         x_csharp_keyword (optarg);
-        x_awk_keyword (optarg);
-        x_tcl_keyword (optarg);
-        x_perl_keyword (optarg);
-        x_php_keyword (optarg);
-        x_rust_keyword (optarg);
-        x_go_keyword (optarg);
-        x_ruby_keyword (optarg);
-        x_lua_keyword (optarg);
         x_javascript_keyword (optarg);
         x_typescript_keyword (optarg);
         x_typescriptx_keyword (optarg);
+        x_scheme_keyword (optarg);
+        x_lisp_keyword (optarg);
+        x_elisp_keyword (optarg);
+        x_librep_keyword (optarg);
+        x_rust_keyword (optarg);
+        x_go_keyword (optarg);
+        x_ruby_keyword (optarg);
+        x_sh_keyword (optarg);
+        x_awk_keyword (optarg);
+        x_lua_keyword (optarg);
+        x_d_keyword (optarg);
         x_vala_keyword (optarg);
+        x_tcl_keyword (optarg);
+        x_perl_keyword (optarg);
+        x_php_keyword (optarg);
         x_desktop_keyword (optarg);
         if (optarg == NULL)
           no_default_keywords = true;
@@ -1149,9 +1154,9 @@ Choice of input file language:\n"));
                                 (C, C++, ObjectiveC, PO, Python, Java,\n\
                                 JavaProperties, C#, JavaScript, TypeScript, TSX,\n\
                                 Scheme, Guile, Lisp, EmacsLisp, librep, Rust,\n\
-                                Go, Ruby, Shell, awk, Lua, Smalltalk, Vala, Tcl,\n\
-                                Perl, PHP, GCC-source, YCP, NXStringTable, RST,\n\
-                                RSJ, Glade, GSettings, Desktop)\n"));
+                                Go, Ruby, Shell, awk, Lua, D, Smalltalk, Vala,\n\
+                                Tcl, Perl, PHP, GCC-source, YCP, NXStringTable,\n\
+                                RST, RSJ, Glade, GSettings, Desktop)\n"));
       printf (_("\
   -C, --c++                   shorthand for --language=C++\n"));
       printf (_("\
@@ -1193,7 +1198,7 @@ Language specific options:\n"));
                                 (only languages C, C++, ObjectiveC, Python,\n\
                                 Java, C#, JavaScript, TypeScript, TSX, Scheme,\n\
                                 Guile, Lisp, EmacsLisp, librep, Rust, Go, Shell,\n\
-                                awk, Lua, Vala, Tcl, Perl, PHP, GCC-source,\n\
+                                awk, Lua, D, Vala, Tcl, Perl, PHP, GCC-source,\n\
                                 Glade, GSettings)\n"));
       printf (_("\
   -kWORD, --keyword=WORD      look for WORD as an additional keyword\n\
@@ -1202,7 +1207,7 @@ Language specific options:\n"));
                                 (only languages C, C++, ObjectiveC, Python,\n\
                                 Java, C#, JavaScript, TypeScript, TSX, Scheme,\n\
                                 Guile, Lisp, EmacsLisp, librep, Rust, Go, Shell,\n\
-                                awk, Lua, Vala, Tcl, Perl, PHP, GCC-source,\n\
+                                awk, Lua, D, Vala, Tcl, Perl, PHP, GCC-source,\n\
                                 Glade, GSettings, Desktop)\n"));
       printf (_("\
       --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n\
@@ -1211,7 +1216,8 @@ Language specific options:\n"));
                                 (only languages C, C++, ObjectiveC, Python,\n\
                                 Java, C#, JavaScript, TypeScript, TSX, Scheme,\n\
                                 Guile, Lisp, EmacsLisp, librep, Rust, Go, Shell,\n\
-                                awk, Lua, Vala, Tcl, Perl, PHP, GCC-source, YCP)\n"));
+                                awk, Lua, D, Vala, Tcl, Perl, PHP, GCC-source,\n\
+                                YCP)\n"));
       printf (_("\
       --tag=WORD:FORMAT       defines the behaviour of tagged template literals\n\
                               with tag WORD\n"));
@@ -1619,6 +1625,12 @@ xgettext_record_flag (const char *optionstring)
                                                         name_start, name_end,
                                                         argnum, value, pass);
                       }
+                    if (backend == NULL || strcmp (backend, "D") == 0)
+                      {
+                        flag_context_list_table_insert (&flag_table_d, XFORMAT_PRIMARY,
+                                                        name_start, name_end,
+                                                        argnum, value, pass);
+                      }
                     if (backend == NULL || strcmp (backend, "Vala") == 0)
                       {
                         flag_context_list_table_insert (&flag_table_vala, XFORMAT_PRIMARY,
@@ -1737,6 +1749,11 @@ xgettext_record_flag (const char *optionstring)
                                                     argnum, value, pass);
                     break;
                   case format_pascal:
+                    break;
+                  case format_d:
+                    flag_context_list_table_insert (&flag_table_d, XFORMAT_SECONDARY,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
                     break;
                   case format_smalltalk:
                     break;
@@ -2347,6 +2364,7 @@ language_to_extractor (const char *name)
     SCANNERS_SH
     SCANNERS_AWK
     SCANNERS_LUA
+    SCANNERS_D
     SCANNERS_SMALLTALK
     SCANNERS_VALA
     SCANNERS_TCL
@@ -2444,6 +2462,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_SH
     EXTENSIONS_AWK
     EXTENSIONS_LUA
+    EXTENSIONS_D
     EXTENSIONS_SMALLTALK
     EXTENSIONS_VALA
     EXTENSIONS_TCL

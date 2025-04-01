@@ -275,7 +275,11 @@ if ! $skip_gnulib; then
     unistr/u8-mbtouc
     unistr/u8-mbtoucr
     unistr/u8-uctomb
+    unistr/u16-check
+    unistr/u16-to-u8
     unistr/u16-mbtouc
+    unistr/u32-check
+    unistr/u32-to-u8
     uniwidth/width
     unlocked-io
     unsetenv

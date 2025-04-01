@@ -90,6 +90,7 @@ Specifies the language of the input files.  The supported languages are
 @code{Shell},
 @code{awk},
 @code{Lua},
+@code{D},
 @code{Smalltalk},
 @code{Vala},
 @code{Tcl},
@@ -262,6 +263,7 @@ Go,
 Shell,
 awk,
 Lua,
+D,
 Vala,
 Tcl,
 Perl,
@@ -325,6 +327,7 @@ Go,
 Shell,
 awk,
 Lua,
+D,
 Vala,
 Tcl,
 Perl,
@@ -403,6 +406,10 @@ For Glade 1: @code{label}, @code{title}, @code{text}, @code{format},
 For Lua: @code{_}, @code{gettext.gettext}, @code{gettext.dgettext:2},
 @code{gettext.dcgettext:2}, @code{gettext.ngettext:1,2},
 @code{gettext.dngettext:2,3}, @code{gettext.dcngettext:2,3}.
+
+@item
+For D: @code{gettext}, @code{dgettext:2}, @code{dcgettext:2},
+@code{ngettext:1,2}, @code{dngettext:2,3}, @code{dcngettext:2,3}.
 
 @item
 For JavaScript, TypeScript, TSX:
@@ -484,6 +491,7 @@ Go,
 Shell,
 awk,
 Lua,
+D,
 Vala,
 Tcl,
 Perl,

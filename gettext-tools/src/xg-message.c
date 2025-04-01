@@ -1,5 +1,5 @@
 /* Extracting a message.  Accumulating the message list.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -136,6 +136,15 @@ decide_is_format (message_ty *mp)
 {
   size_t i;
 
+  bool already_c_format = possible_format_p (mp->is_format[format_c]);
+  bool already_qt_or_kde_or_boost_format =
+    (possible_format_p (mp->is_format[format_qt])
+     || possible_format_p (mp->is_format[format_qt_plural])
+     || possible_format_p (mp->is_format[format_kde])
+     || possible_format_p (mp->is_format[format_kde_kuit])
+     || possible_format_p (mp->is_format[format_boost]));
+  bool already_d_format = possible_format_p (mp->is_format[format_d]);
+
   /* If it is not already decided, through programmer comments, whether the
      msgid is a format string, examine the msgid.  This is a heuristic.  */
   for (i = 0; i < NFORMATS; i++)
@@ -148,12 +157,7 @@ decide_is_format (message_ty *mp)
           /* Avoid flagging a string as c-format when it's known to be a
              qt-format or qt-plural-format or kde-format or boost-format
              string.  */
-          && !(i == format_c
-               && (possible_format_p (mp->is_format[format_qt])
-                   || possible_format_p (mp->is_format[format_qt_plural])
-                   || possible_format_p (mp->is_format[format_kde])
-                   || possible_format_p (mp->is_format[format_kde_kuit])
-                   || possible_format_p (mp->is_format[format_boost])))
+          && !(i == format_c && already_qt_or_kde_or_boost_format)
           /* Avoid flagging a string as kde-format when it's known to
              be a kde-kuit-format string.  */
           && !(i == format_kde
@@ -164,7 +168,12 @@ decide_is_format (message_ty *mp)
              string will be marked as kde-format if both are
              undecided.  */
           && !(i == format_kde_kuit
-               && possible_format_p (mp->is_format[format_kde])))
+               && possible_format_p (mp->is_format[format_kde]))
+          /* Avoid flagging a string as c-format when it's known to be a
+             d-format, and vice versa.  So a string will be marked as both
+             c-format and d-format if both are undecided.  */
+          && !(i == format_d && already_c_format)
+          && !(i == format_c && already_d_format))
         {
           struct formatstring_parser *parser = formatstring_parsers[i];
           char *invalid_reason = NULL;
@@ -588,6 +597,15 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
          format string.  */
       set_format_flags_from_context (mp, true, pos, region);
 
+      bool already_c_format = possible_format_p (mp->is_format[format_c]);
+      bool already_qt_or_kde_or_boost_format =
+        (possible_format_p (mp->is_format[format_qt])
+         || possible_format_p (mp->is_format[format_qt_plural])
+         || possible_format_p (mp->is_format[format_kde])
+         || possible_format_p (mp->is_format[format_kde_kuit])
+         || possible_format_p (mp->is_format[format_boost]));
+      bool already_d_format = possible_format_p (mp->is_format[format_d]);
+
       /* If it is not already decided, through programmer comments or
          the msgid, whether the msgid is a format string, examine the
          msgid_plural.  This is a heuristic.  */
@@ -601,12 +619,7 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
                  && possible_format_p (mp->is_format[format_c]))
             /* Avoid flagging a string as c-format when it's known to be a
                qt-format or qt-plural-format or boost-format string.  */
-            && !(i == format_c
-                 && (possible_format_p (mp->is_format[format_qt])
-                     || possible_format_p (mp->is_format[format_qt_plural])
-                     || possible_format_p (mp->is_format[format_kde])
-                     || possible_format_p (mp->is_format[format_kde_kuit])
-                     || possible_format_p (mp->is_format[format_boost])))
+            && !(i == format_c && already_qt_or_kde_or_boost_format)
             /* Avoid flagging a string as kde-format when it's known
                to be a kde-kuit-format string.  */
             && !(i == format_kde
@@ -617,7 +630,12 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
                string will be marked as kde-format if both are
                undecided.  */
             && !(i == format_kde_kuit
-                 && possible_format_p (mp->is_format[format_kde])))
+                 && possible_format_p (mp->is_format[format_kde]))
+            /* Avoid flagging a string as c-format when it's known to be a
+               d-format, and vice versa.  So a string will be marked as both
+               c-format and d-format if both are undecided.  */
+            && !(i == format_d && already_c_format)
+            && !(i == format_c && already_d_format))
           {
             struct formatstring_parser *parser = formatstring_parsers[i];
             char *invalid_reason = NULL;

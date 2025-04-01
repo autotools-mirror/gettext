@@ -89,6 +89,7 @@ noinst_HEADERS = \
   x-sh.h \
   x-awk.h \
   x-lua.h \
+  x-d.h html5-entities.h \
   x-smalltalk.h \
   x-vala.h \
   x-tcl.h \
@@ -204,6 +205,7 @@ FORMAT_SOURCE += \
   format-awk.c \
   format-lua.c \
   format-pascal.c \
+  format-d.c \
   format-smalltalk.c \
   format-qt.c \
   format-qt-plural.c \
@@ -252,7 +254,9 @@ libxgettextts1_a_CPPFLAGS = \
 libxgettextts2_a_SOURCES = \
   ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-parser.c \
   ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-scanner.c \
-  ../tree-sitter-go-$(TREE_SITTER_GO_VERSION)/src/go-parser.c
+  ../tree-sitter-go-$(TREE_SITTER_GO_VERSION)/src/go-parser.c \
+  ../tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/d-parser.c \
+  ../tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/d-scanner.c
 libxgettextts2_a_CPPFLAGS = \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
 libxgettextts3_a_SOURCES = \
@@ -321,6 +325,7 @@ xgettext_SOURCES += \
   x-sh.c ../../gettext-runtime/src/escapes.h \
   x-awk.c \
   x-lua.c \
+  x-d.c \
   x-smalltalk.c \
   x-vala.c \
   x-tcl.c \
