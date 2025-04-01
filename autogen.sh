@@ -340,6 +340,8 @@ if ! $skip_gnulib; then
     ansi-c++-opt
     csharpcomp-script
     csharpexec-script
+    d
+    dcomp-script
     java
     javacomp-script
     javaexec-script

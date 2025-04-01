@@ -655,6 +655,7 @@ autom4te.cache/
 /gettext-tools/config.h
 /gettext-tools/csharpcomp.sh
 /gettext-tools/csharpexec.sh
+/gettext-tools/dcomp.sh
 /gettext-tools/gocomp.sh
 /gettext-tools/javacomp.sh
 /gettext-tools/javaexec.sh

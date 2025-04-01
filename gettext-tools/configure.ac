@@ -102,6 +102,20 @@ else
 fi
 AC_SUBST([TESTCSHARP])
 
+gt_D_CHOICE
+gt_DCOMP
+if test "$D_CHOICE" != no; then
+  AC_CHECK_TOOL([DC], [gdc ldc2 dmd])
+  if test -n "$DC"; then
+    BUILDD=yes
+  else
+    BUILDD=no
+  fi
+else
+  BUILDD=no
+fi
+AC_SUBST([BUILDD])
+
 dnl Check for host type.
 AC_CANONICAL_HOST
 
