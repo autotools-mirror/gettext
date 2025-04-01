@@ -70,3 +70,5 @@ fully portable
 @item po-mode marking
 ---
 @end table
+
+An example is available in the @file{examples} directory: @code{hello-d}.

@@ -400,6 +400,15 @@ EXAMPLESFILES = \
   hello-pascal/m4/Makefile.am \
   hello-pascal/po/Makefile.am \
   \
+  hello-d/INSTALL \
+  hello-d/autogen.sh \
+  hello-d/autoclean.sh \
+  hello-d/hello.d.in \
+  hello-d/Makefile.am \
+  hello-d/configure.ac \
+  hello-d/m4/Makefile.am \
+  hello-d/po/Makefile.am \
+  \
   hello-smalltalk/INSTALL \
   hello-smalltalk/autogen.sh \
   hello-smalltalk/autoclean.sh \
@@ -491,6 +500,7 @@ EXAMPLESDIRS = \
   hello-sh \
   hello-gawk \
   hello-pascal \
+  hello-d \
   hello-smalltalk \
   hello-tcl \
   hello-tcl-tk \

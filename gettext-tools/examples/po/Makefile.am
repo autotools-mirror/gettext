@@ -68,6 +68,7 @@ POTFILES = \
   hello-sh/hello.sh \
   hello-gawk/hello.awk \
   hello-pascal/hello.pas \
+  hello-d/hello.d.in \
   hello-smalltalk/hello.st.in \
   hello-tcl/hello.tcl \
   hello-tcl-tk/hello.tcl \
@@ -109,6 +110,7 @@ SMALLPOTS = \
   hello-sh.pot \
   hello-gawk.pot \
   hello-pascal.pot \
+  hello-d.pot \
   hello-smalltalk.pot \
   hello-tcl.pot \
   hello-tcl-tk.pot \
@@ -352,6 +354,9 @@ hello-gawk.pot : $(POTFILES_DEPS)
 hello-pascal.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-pascal
 
+hello-d.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-d
+
 hello-smalltalk.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-smalltalk
 
@@ -477,6 +482,7 @@ SMALLPOFILES_FOR_lang = \
   $(srcdir)/../hello-sh/po/$$lang.po \
   $(srcdir)/../hello-gawk/po/$$lang.po \
   $(srcdir)/../hello-pascal/po/$$lang.po \
+  $(srcdir)/../hello-d/po/$$lang.po \
   $(srcdir)/../hello-smalltalk/po/$$lang.po \
   $(srcdir)/../hello-tcl/po/$$lang.po \
   $(srcdir)/../hello-tcl-tk/po/$$lang.po \
@@ -576,6 +582,9 @@ $(srcdir)/../hello-gawk/po/$(LL).po: $(srcdir)/hello-gawk.pot $(srcdir)/$(LL).po
 
 $(srcdir)/../hello-pascal/po/$(LL).po: $(srcdir)/hello-pascal.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-pascal $(LL)
+
+$(srcdir)/../hello-d/po/$(LL).po: $(srcdir)/hello-d.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-d $(LL)
 
 $(srcdir)/../hello-smalltalk/po/$(LL).po: $(srcdir)/hello-smalltalk.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-smalltalk $(LL)

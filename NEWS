@@ -15,6 +15,7 @@ Version 0.25 - April 2025
     - xgettext now supports D.
     - 'msgfmt -c' now verifies the syntax of translations of D format
       strings.
+    - A new example 'hello-d' has been added.
 
 Version 0.24 - February 2025
 
