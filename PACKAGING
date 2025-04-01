@@ -85,6 +85,11 @@ is according to the following file list.
       $prefix/lib/gettext/GNU.Gettext.dll
       $prefix/share/doc/gettext/csharpdoc/*
 
+      $prefix/lib/libintl_d.a
+      $prefix/include/d/gnu/libintl/package.d
+      $prefix/include/d/gnu/libintl/libintl.d
+      $prefix/include/d/gnu/libintl/internal/low.d
+
       $prefix/lib/libasprintf.*
       $prefix/include/autosprintf.h
       $prefix/share/doc/libasprintf/autosprintf*.html

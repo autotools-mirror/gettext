@@ -1,3 +1,8 @@
+Version 0.25 - April 2025
+
+* New library: libintl_d.a contains the runtime for using GNU gettext
+  message catalogs in the D programming language.
+
 Version 0.23 - December 2023
 
 * In the C.UTF-8 locale, like in the C locale, the *gettext() functions

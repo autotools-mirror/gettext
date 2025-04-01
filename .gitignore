@@ -29,6 +29,7 @@
 /build-aux/config.rpath
 /build-aux/csharpcomp.sh.in
 /build-aux/csharpexec.sh.in
+/build-aux/dcomp.sh.in
 /build-aux/git-version-gen
 /build-aux/gitlog-to-changelog
 /build-aux/gocomp.sh.in
@@ -443,6 +444,7 @@
 /gettext-runtime/intl/Makefile.in
 /gettext-runtime/intl-csharp/Makefile.in
 /gettext-runtime/intl-java/Makefile.in
+/gettext-runtime/intl-d/Makefile.in
 /gettext-runtime/libasprintf/aclocal.m4
 /gettext-runtime/libasprintf/configure
 /gettext-runtime/libasprintf/config.h.in
@@ -623,6 +625,7 @@ autom4te.cache/
 /gettext-runtime/Makefile
 /gettext-runtime/config.h
 /gettext-runtime/csharpcomp.sh
+/gettext-runtime/dcomp.sh
 /gettext-runtime/javacomp.sh
 /gettext-runtime/libtool
 /gettext-runtime/stamp-h1
@@ -634,6 +637,7 @@ autom4te.cache/
 /gettext-runtime/intl/stamp-h1
 /gettext-runtime/intl-csharp/Makefile
 /gettext-runtime/intl-java/Makefile
+/gettext-runtime/intl-d/Makefile
 /gettext-runtime/libasprintf/Makefile
 /gettext-runtime/libasprintf/config.h
 /gettext-runtime/libasprintf/libtool
@@ -711,6 +715,7 @@ autom4te.cache/
 /gettext-runtime/intl-csharp/GNU.Gettext.pdb
 /gettext-runtime/intl-java/**/*.class
 /gettext-runtime/intl-java/libintl.jar
+/gettext-runtime/intl-d/libintl_d.a
 /gettext-runtime/libasprintf/libasprintf.la
 /gettext-runtime/man/gettext.1
 /gettext-runtime/man/gettext.1.html

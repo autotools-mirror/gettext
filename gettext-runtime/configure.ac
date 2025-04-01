@@ -60,6 +60,21 @@ else
 fi
 AC_SUBST([BUILDCSHARP])
 
+gt_D_CHOICE
+gt_DCOMP
+if test "$D_CHOICE" != no; then
+  AC_CHECK_TOOL([DC], [gdc ldc2 dmd])
+  if test -n "$DC"; then
+    BUILDD=yes
+  else
+    BUILDD=no
+  fi
+else
+  BUILDD=no
+fi
+AC_SUBST([BUILDD])
+AM_CONDITIONAL([BUILD_D], [test $BUILDD = yes])
+
 dnl Check for host type.
 AC_CANONICAL_HOST
 
@@ -210,6 +225,8 @@ AC_CONFIG_FILES([doc/Makefile])
 AC_CONFIG_FILES([intl-java/Makefile])
 
 AC_CONFIG_FILES([intl-csharp/Makefile])
+
+AC_CONFIG_FILES([intl-d/Makefile])
 
 AC_CONFIG_FILES([gnulib-lib/Makefile])
 

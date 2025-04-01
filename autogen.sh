@@ -123,6 +123,8 @@ if ! $skip_gnulib; then
     gettext-runtime-misc
     ansi-c++-opt
     csharpcomp-script
+    d
+    dcomp-script
     java
     javacomp-script
     manywarnings

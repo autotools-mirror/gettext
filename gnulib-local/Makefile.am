@@ -1,5 +1,5 @@
 ## Makefile for the gnulib-local directory of GNU gettext
-## Copyright (C) 2006-2024 Free Software Foundation, Inc.
+## Copyright (C) 2006-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -147,10 +147,12 @@ lib/unistd.in.h.diff \
 lib/xerror.c \
 lib/xerror.h \
 m4/backupfile.m4 \
+m4/d.m4 \
 m4/java.m4 \
 m4/libxml.m4 \
 modules/backupfile \
 modules/closeout \
+modules/d \
 modules/error-progname \
 modules/gettext-runtime-intl-misc \
 modules/gettext-runtime-misc \

@@ -121,6 +121,38 @@ The following packages should be installed before GNU gettext is installed
   + If more than one C# is installed, pass the option --enable-csharp=IMPL
     to 'configure', to disambiguate.
 
+* A D compiler and runtime (e.g. gdc, ldc2, or dmd).
+  + Recommended.
+    Needed for building libintl_d.a.
+  o gdc:
+    + Homepage:
+      https://wiki.dlang.org/GDC
+      https://gcc.gnu.org/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: gdc,
+      - On Red Hat distributions: gcc-gdc.
+      - Other: --
+  o ldc2:
+    + Homepage:
+      https://wiki.dlang.org/LDC
+    + Download:
+      https://github.com/ldc-developers/ldc/tags
+    + Pre-built package name:
+      - On Debian and Debian-based systems: ldc,
+      - On Red Hat distributions: ldc.
+      - Other: https://repology.org/project/ldc/versions
+  o dmd:
+    + Homepage:
+      https://wiki.dlang.org/DMD
+    + Download:
+      https://dlang.org/download.html
+    + Pre-built package name:
+      - On Debian and Debian-based systems: --,
+      - On Red Hat distributions: --.
+      - Other: https://repology.org/project/dmd/versions
+  + If more than one D compiler is installed, set the environment variable
+    DC, to disambiguate.
+
 * git 1.6 or newer
   + Recommended.
     Needed by the 'autopoint' program, if not configured with --without-git

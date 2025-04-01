@@ -1,4 +1,4 @@
-Version 0.25 - March 2025
+Version 0.25 - April 2025
 
 # Programming languages support:
   * Go:
@@ -9,6 +9,9 @@ Version 0.25 - March 2025
   * TypeScript:
     - xgettext now supports TypeScript and TSX (= TypeScript with JSX
       extensions).
+  * D:
+    - A new library libintl_d.a contains the runtime for using GNU gettext
+      message catalogs in the D programming language.
 
 Version 0.24 - February 2025
 
