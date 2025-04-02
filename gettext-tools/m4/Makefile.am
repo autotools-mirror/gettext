@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/m4 directory of GNU gettext
-## Copyright (C) 2003-2010, 2013, 2017-2023 Free Software Foundation, Inc.
+## Copyright (C) 2003-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -17,9 +17,14 @@
 ## Process this file with automake to produce Makefile.in.
 
 # Files installed for use by gettextize.
+# Note: We do *not* install them into $(datadir)/share/aclocal/ any more,
+# because there, 'aclocal --install' (possibly invoked from 'autoreconf')
+# would see the files and copy them into the user's package, destroying
+# the consistency between po.m4 and po/Makefile.in.in.
 
-aclocaldir = @aclocaldir@
-aclocal_DATA = \
+pkgdatadir = $(datadir)/gettext
+macrosdir = $(pkgdatadir)/m4
+macros_DATA = \
   ../../gettext-runtime/gnulib-m4/host-cpu-c-abi.m4 \
   ../../gettext-runtime/gnulib-m4/iconv.m4 \
   ../../gettext-runtime/gnulib-m4/intlmacosx.m4 \
@@ -47,3 +52,10 @@ EXTRA_DIST = \
   exported.m4 \
   hostname.m4 \
   locale-de.m4
+
+
+# We don't install the *.m4 files in $(aclocaldir) any more.
+install-data-local: uninstall-macros
+uninstall-local: uninstall-macros
+uninstall-macros:
+	rm -rf '$(DESTDIR)@aclocaldir@'

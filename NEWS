@@ -17,6 +17,11 @@ Version 0.25 - April 2025
       strings.
     - A new example 'hello-d' has been added.
 
+Version 0.24.1 - April 2025
+
+* Bug fixes:
+  - Fix bad interactions between autoreconf and autopoint.
+
 Version 0.24 - February 2025
 
 # Programming languages support:

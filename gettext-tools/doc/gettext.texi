@@ -8923,7 +8923,7 @@ the simplest is to concatenate the files @file{build-to-host.m4},
 @file{gettext.m4}, @file{host-cpu-c-abi.m4}, @file{intlmacosx.m4},
 @file{iconv.m4}, @file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4},
 @file{nls.m4}, @file{po.m4}, @file{progtest.m4} from GNU @code{gettext}'s
-@file{m4/} directory into a single file.
+@file{@var{prefix}/share/gettext/m4/} directory into a single file.
 
 If you already have an @file{aclocal.m4} file, then you will have
 to merge the said macro files into your @file{aclocal.m4}.  Note that if
@@ -8938,7 +8938,8 @@ You should be using GNU @code{automake} 1.9 or newer.  With it, you need
 to copy the files @file{build-to-host.m4}, @file{gettext.m4},
 @file{host-cpu-c-abi.m4}, @file{intlmacosx.m4}, @file{iconv.m4},
 @file{lib-ld.m4}, @file{lib-link.m4}, @file{lib-prefix.m4}, @file{nls.m4},
-@file{po.m4}, @file{progtest.m4} from GNU @code{gettext}'s @file{m4/}
+@file{po.m4}, @file{progtest.m4} from GNU @code{gettext}'s
+@file{@var{prefix}/share/gettext/m4/}
 directory to a subdirectory named @file{m4/} and add the line
 
 @example
@@ -8948,23 +8949,26 @@ ACLOCAL_AMFLAGS = -I m4
 @noindent
 to your top level @file{Makefile.am}.
 
-If you are using GNU @code{automake} 1.10 or newer, it is even easier:
+If you are using GNU @code{automake} 1.12 or newer, it is even easier:
 Add the line
 
 @example
-ACLOCAL_AMFLAGS = --install -I m4
+ACLOCAL_AMFLAGS = -I m4
 @end example
 
 @noindent
-to your top level @file{Makefile.am}, and run @samp{aclocal --install -I m4}.
+to your top level @file{Makefile.am}, and run
+@samp{aclocal --install --system-acdir=@var{prefix}/share/gettext/m4 -I m4}.
 This will copy the needed files to the @file{m4/} subdirectory automatically,
 before updating @file{aclocal.m4}.
 
+Note: This @code{--system-acdir} option should only be used here, once.
+If you were to use it after @code{autopoint} has been run,
+it would destroy the consistency that @code{autopoint} guarantees
+and lead to all sorts of malfunction at build time.
+
 These macros check for the internationalization support functions
-and related informations.  Hopefully, once stabilized, these macros
-might be integrated in the standard Autoconf set, because this
-piece of @code{m4} code will be the same for all projects using GNU
-@code{gettext}.
+and related information.
 
 @node config.h.in
 @subsection @file{config.h.in} at top level
