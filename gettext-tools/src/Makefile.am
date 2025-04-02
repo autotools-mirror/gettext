@@ -41,7 +41,7 @@ else
 noinst_LTLIBRARIES = libgettextsrc.la
 endif
 
-noinst_LIBRARIES = $(LIBXGETTEXTTS)
+noinst_LIBRARIES = $(LIBXGETTEXTX) $(LIBXGETTEXTTS)
 
 noinst_HEADERS = \
   pos.h message.h po-error.h xerror-handler.h po-xerror.h \
@@ -324,7 +324,6 @@ xgettext_SOURCES += \
   x-elisp.c \
   x-librep.c \
   x-rust.c \
-  x-go.c \
   x-ruby.c \
   x-sh.c ../../gettext-runtime/src/escapes.h \
   x-awk.c \
@@ -338,6 +337,13 @@ xgettext_SOURCES += \
   x-ycp.c \
   x-rst.c \
   x-desktop.c
+# x-go.c cannot be compiled by GCC 11 with '-fanalyzer' in 1 GB of RAM.
+# Therefore use special CFLAGS for this compilation unit.
+LIBXGETTEXTX = libxgettextx.a
+libxgettextx_a_SOURCES = \
+  x-go.c
+libxgettextx_a_CPPFLAGS = $(xgettext_CPPFLAGS)
+libxgettextx_a_CFLAGS = $(AM_CFLAGS) @NO_EXPENSIVE_WARN_CFLAGS@
 if !WOE32DLL
 msgattrib_SOURCES = msgattrib.c
 else
@@ -477,7 +483,7 @@ msgcmp_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @MSGMERGE_LIBM@ $(WOE32_LDADD
 msgfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgmerge_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ @MSGMERGE_LIBM@ $(WOE32_LDADD) $(OPENMP_CFLAGS)
 msgunfmt_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
-xgettext_LDADD = $(LIBXGETTEXTTS) libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBICONV@ $(WOE32_LDADD)
+xgettext_LDADD = $(LIBXGETTEXTX) $(LIBXGETTEXTTS) libgettextsrc.la @INTL_MACOSX_LIBS@ @LTLIBICONV@ $(WOE32_LDADD)
 msgattrib_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgcat_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgcomm_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
@@ -495,7 +501,7 @@ msgcmp_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LD
 msgfmt_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msgmerge_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msgunfmt_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
-xgettext_DEPENDENCIES = $(LIBXGETTEXTTS) libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
+xgettext_DEPENDENCIES = $(LIBXGETTEXTX) $(LIBXGETTEXTTS) libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msgattrib_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msgcat_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msgcomm_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
