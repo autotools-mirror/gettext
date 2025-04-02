@@ -251,6 +251,7 @@ libxgettextts1_a_SOURCES = \
 libxgettextts1_a_CPPFLAGS = \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/src
+libxgettextts1_a_CFLAGS = $(AM_CFLAGS) @FOREIGN_WARN_CFLAGS@ @NO_EXPENSIVE_WARN_CFLAGS@
 libxgettextts2_a_SOURCES = \
   ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-parser.c \
   ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-scanner.c \
@@ -259,18 +260,21 @@ libxgettextts2_a_SOURCES = \
   ../tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/d-scanner.c
 libxgettextts2_a_CPPFLAGS = \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
+libxgettextts2_a_CFLAGS = $(AM_CFLAGS) @FOREIGN_WARN_CFLAGS@ @NO_EXPENSIVE_WARN_CFLAGS@
 libxgettextts3_a_SOURCES = \
   ../tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/typescript/src/ts-parser.c \
   ../tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/typescript/src/ts-scanner.c
 libxgettextts3_a_CPPFLAGS = \
   -I$(top_srcdir)/tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/typescript/src \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
+libxgettextts3_a_CFLAGS = $(AM_CFLAGS) @FOREIGN_WARN_CFLAGS@ @NO_EXPENSIVE_WARN_CFLAGS@
 libxgettextts4_a_SOURCES = \
   ../tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tsx-parser.c \
   ../tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tsx-scanner.c
 libxgettextts4_a_CPPFLAGS = \
   -I$(top_srcdir)/tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
+libxgettextts4_a_CFLAGS = $(AM_CFLAGS) @FOREIGN_WARN_CFLAGS@ @NO_EXPENSIVE_WARN_CFLAGS@
 
 # msggrep needs pattern matching.
 LIBGREP = ../libgrep/libgrep.a
