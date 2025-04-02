@@ -244,11 +244,13 @@ libxgettextts1_a_SOURCES = \
 libxgettextts1_a_CPPFLAGS = \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/src
+libxgettextts1_a_CFLAGS = $(AM_CFLAGS) @FOREIGN_WARN_CFLAGS@ @NO_EXPENSIVE_WARN_CFLAGS@
 libxgettextts2_a_SOURCES = \
   ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-parser.c \
   ../tree-sitter-rust-$(TREE_SITTER_RUST_VERSION)/src/rust-scanner.c
 libxgettextts2_a_CPPFLAGS = \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
+libxgettextts2_a_CFLAGS = $(AM_CFLAGS) @FOREIGN_WARN_CFLAGS@ @NO_EXPENSIVE_WARN_CFLAGS@
 
 # msggrep needs pattern matching.
 LIBGREP = ../libgrep/libgrep.a
