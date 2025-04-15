@@ -61,9 +61,8 @@ fi
 AC_SUBST([BUILDCSHARP])
 
 gt_D_CHOICE
-gt_DCOMP
 if test "$D_CHOICE" != no; then
-  AC_CHECK_TOOL([DC], [gdc ldc2 dmd])
+  gt_DCOMP
   if test -n "$DC"; then
     BUILDD=yes
   else
