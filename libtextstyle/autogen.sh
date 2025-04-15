@@ -91,7 +91,6 @@ if test $skip_gnulib = false; then
     --makefile-name=Makefile.gnulib --libtool \
     --local-dir=gnulib-local --local-dir=../gnulib-local \
     --import \
-    --avoid=locale-h \
     $GNULIB_MODULES
   $GNULIB_TOOL --copy-file m4/init-package-version.m4
   $GNULIB_TOOL --copy-file build-aux/config.guess; chmod a+x build-aux/config.guess
