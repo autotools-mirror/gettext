@@ -1,11 +1,11 @@
 #! /bin/sh
 #
-# Copyright (C) 2019 Free Software Foundation, Inc.
+# Copyright (C) 2019-2025 Free Software Foundation, Inc.
 # Written by Bruno Haible <bruno@clisp.org>, 2019.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
-# the Free Software Foundation; either version 3 of the License, or
+# the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
 #
 # This program is distributed in the hope that it will be useful,
@@ -49,7 +49,7 @@
 #      subdirectory, let's call it a "subcheckout") are:
 #        - The simplicity: you are conceptually always using the newest revision
 #          of the dependency package.
-#        - You don't have to remember to periodially upgrade the dependency.
+#        - You don't have to remember to periodically upgrade the dependency.
 #          Upgrading the dependency is an implicit operation.
 
 # This program is meant to be copied to the top-level directory of the package,
@@ -59,18 +59,18 @@
 #   <https://git-scm.com/docs/gitmodules>.  For example:
 #
 #       [submodule "gnulib"]
-#               url = git://git.savannah.gnu.org/gnulib.git
+#               url = https://git.savannah.gnu.org/git/gnulib.git
 #               path = gnulib
 #
 #   You don't add this piece of configuration to .gitmodules manually.  Instead,
 #   you would invoke
-#     $ git submodule add --name "gnulib" -- git://git.savannah.gnu.org/gnulib.git gnulib
+#     $ git submodule add --name "gnulib" -- https://git.savannah.gnu.org/git/gnulib.git gnulib
 #
 # * The subdirectories that are not git submodules, in a similar syntax.  For
 #   example:
 #
 #       [subcheckout "gnulib"]
-#               url = git://git.savannah.gnu.org/gnulib.git
+#               url = https://git.savannah.gnu.org/git/gnulib.git
 #               path = gnulib
 #
 # Here the URL is the one used for anonymous checkouts of the dependency
@@ -354,9 +354,9 @@ func_pull ()
         fi
       else
         # The subdir does not yet exist. Create a plain checkout.
-        trap func_cleanup_current_git_clone 1 2 13 15
+        trap func_cleanup_current_git_clone HUP INT PIPE TERM
         git clone $2 "$url" "$path" || func_cleanup_current_git_clone
-        trap - 1 2 13 15
+        trap - HUP INT PIPE TERM
       fi
       ;;
     esac
@@ -392,7 +392,17 @@ func_upgrade ()
       case " $submodule_names " in *" $1 "*)
         # It's a submodule.
         if test -z "$needs_init"; then
-          (cd "$path" && git fetch && git merge origin/master) || func_fatal_error "git operation failed"
+          (cd "$path" \
+           && git fetch \
+           && branch=`git branch --show-current` \
+           && { test -n "$branch" || branch=HEAD; } \
+           && sed_escape_dots='s/\([.]\)/\\\1/g' \
+           && branch_escaped=`echo "$branch" | sed -e "${sed_escape_dots}"` \
+           && remote=`git branch -r | sed -n -e "s|  origin/${branch_escaped} -> ||p"` \
+           && { test -n "$remote" || remote="origin/${branch}"; } \
+           && echo "In subdirectory $path: Running \"git merge $remote\"" \
+           && git merge "$remote"
+          ) || func_fatal_error "git operation failed"
         fi
         ;;
       esac
