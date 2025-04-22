@@ -131,7 +131,6 @@ AM_GNU_GETTEXT([use-libtool], [need-ngettext], [\${top_builddir}/intl])
 dnl Checks for header files, functions and declarations.
 gl_INIT
 AC_TYPE_SIZE_T
-AC_CHECK_FUNCS([setlocale])
 
 dnl Compilation on native Windows and Cygwin needs special Makefile rules,
 dnl because
