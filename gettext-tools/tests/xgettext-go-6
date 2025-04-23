@@ -26,6 +26,21 @@ second line
 third line`))
 	// String literal concatenation
 	fmt.Println(gotext.Get(`Test 4` + "711"))
+	fmt.Println(
+		// a
+		gotext.Get("Test 5" + " part2"))
+	fmt.Println(gotext.Get(
+		// a
+		"Test 6" + " part2"))
+	fmt.Println( // a
+		gotext // b
+		. // c
+		Get // d
+		( // e
+		"Test 7" // f
+		+ // g
+		" part2"
+		));
 	// Empty string
 	fmt.Println(gotext.Get(""))
 }
@@ -44,7 +59,7 @@ cat <<\EOF > xg-go-6.ok
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #. Empty string
-#: xg-go-6.go:24
+#: xg-go-6.go:39
 #, fuzzy
 msgid ""
 msgstr ""
@@ -83,6 +98,22 @@ msgstr ""
 #. String literal concatenation
 #: xg-go-6.go:22
 msgid "Test 4711"
+msgstr ""
+
+#. a
+#: xg-go-6.go:25
+msgid "Test 5 part2"
+msgstr ""
+
+#. a
+#: xg-go-6.go:28
+msgid "Test 6 part2"
+msgstr ""
+
+#. d
+#. e
+#: xg-go-6.go:34
+msgid "Test 7 part2"
 msgstr ""
 EOF
 
