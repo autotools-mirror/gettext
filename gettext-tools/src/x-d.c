@@ -380,8 +380,48 @@ static void handle_comments (TSNode node)
 
 /* ---------------------------- String literals ---------------------------- */
 
+/* Determines whether NODE is an 'add_expression' with a '~' operator between
+   two operands.  If so, it returns the indices of the two operands.  */
+static bool
+is_add_expression_with_tilde (TSNode node,
+                              uint32_t *left_operand_index,
+                              uint32_t *right_operand_index)
+{
+  if (ts_node_symbol (node) == ts_symbol_add_expression)
+    {
+      uint32_t count = ts_node_child_count (node);
+      uint32_t other_subnodes = 0;
+      uint32_t i;
+      for (i = 0; i < count; i++)
+        {
+          TSNode subnode = ts_node_child (node, i);
+          if (!(ts_node_symbol (subnode) == ts_symbol_comment
+                || (ts_node_symbol (subnode) == ts_symbol_tilde
+                    && other_subnodes == 1)))
+            {
+              switch (other_subnodes)
+                {
+                case 0:
+                  *left_operand_index = i;
+                  break;
+                case 1:
+                  *right_operand_index = i;
+                  break;
+                case 2:
+                default:
+                  return false;
+                }
+              other_subnodes++;
+            }
+        }
+      return other_subnodes == 2;
+    }
+  else
+    return false;
+}
+
 /* Determines whether NODE represents a string literal or the concatenation
-   of string literals (via the '+' operator).  */
+   of string literals (via the '~' operator).  */
 static bool
 is_string_literal (TSNode node)
 {
@@ -430,14 +470,14 @@ is_string_literal (TSNode node)
       && ts_node_child_count (node) == 1)
     {
       TSNode subnode = ts_node_child (node, 0);
-      if (ts_node_symbol (subnode) == ts_symbol_add_expression
-          && ts_node_child_count (subnode) == 3
-          && ts_node_symbol (ts_node_child (subnode, 1)) == ts_symbol_tilde
+      uint32_t left_index;
+      uint32_t right_index;
+      if (is_add_expression_with_tilde (subnode, &left_index, &right_index)
           /* Recurse into the left and right subnodes.  */
-          && is_string_literal (ts_node_child (subnode, 2)))
+          && is_string_literal (ts_node_child (subnode, right_index)))
         {
-          /*return is_string_literal (ts_node_child (subnode, 0));*/
-          node = ts_node_child (subnode, 0);
+          /*return is_string_literal (ts_node_child (subnode, left_index));*/
+          node = ts_node_child (subnode, left_index);
           goto start;
         }
     }
@@ -750,14 +790,14 @@ string_literal_accumulate_pieces (TSNode node,
            && ts_node_child_count (node) == 1)
     {
       TSNode subnode = ts_node_child (node, 0);
-      if (ts_node_symbol (subnode) == ts_symbol_add_expression
-          && ts_node_child_count (subnode) == 3
-          && ts_node_symbol (ts_node_child (subnode, 1)) == ts_symbol_tilde)
+      uint32_t left_index;
+      uint32_t right_index;
+      if (is_add_expression_with_tilde (subnode, &left_index, &right_index))
         {
           /* Recurse into the left and right subnodes.  */
-          string_literal_accumulate_pieces (ts_node_child (subnode, 2), buffer);
-          /*string_literal_accumulate_pieces (ts_node_child (subnode, 0), buffer);*/
-          node = ts_node_child (subnode, 0);
+          string_literal_accumulate_pieces (ts_node_child (subnode, right_index), buffer);
+          /*string_literal_accumulate_pieces (ts_node_child (subnode, left_index), buffer);*/
+          node = ts_node_child (subnode, left_index);
           goto start;
         }
       else

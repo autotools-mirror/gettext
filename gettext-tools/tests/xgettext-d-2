@@ -29,8 +29,12 @@ void main ()
   string test7 = gettext("Test " ~
   "String "
   ~ "7");
+  // a
+  string test8 = /* b */ gettext /* c */ ( /* d */ "Test " /* e */ ~ /* f */
+  /* g */ "String " /* h */
+  ~ "8");
   // Empty string.
-  string test8 = gettext("");
+  string test9 = gettext("");
 
   // printf expects a C format string.
   printf(gettext("depth %f"), 3.4);
@@ -101,6 +105,13 @@ msgstr ""
 
 #. D has string literal concatenation.
 msgid "Test String 7"
+msgstr ""
+
+#. a
+#. b
+#. c
+#. d
+msgid "Test String 8"
 msgstr ""
 
 #. Empty string.
