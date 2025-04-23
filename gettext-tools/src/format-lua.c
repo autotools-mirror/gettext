@@ -72,8 +72,6 @@ struct spec
   enum format_arg_type *format_args;
 };
 
-static void format_free (void *descr);
-
 static void *
 format_parse (const char *format, bool translated, char *fdi,
               char **invalid_reason)
@@ -81,13 +79,13 @@ format_parse (const char *format, bool translated, char *fdi,
 
   const char *format_start = format;
   const char *fatstr = format;
-  struct spec *result = NULL;
+  struct spec spec;
+  struct spec *result;
   unsigned int format_args_allocated;
 
-  result = XMALLOC (struct spec);
-  result->directives = 0;
-  result->format_args_count = 0;
-  result->format_args = NULL;
+  spec.directives = 0;
+  spec.format_args_count = 0;
+  spec.format_args = NULL;
   format_args_allocated = 0;
 
   for (; *fatstr != '\0';)
@@ -95,7 +93,7 @@ format_parse (const char *format, bool translated, char *fdi,
       if (*fatstr++ == '%')
         {
           FDI_SET (fatstr - 1, FMTDIR_START);
-          result->directives++;
+          spec.directives++;
 
           if (*fatstr != '%')
             {
@@ -151,33 +149,35 @@ format_parse (const char *format, bool translated, char *fdi,
                   else
                     {
                       *invalid_reason =
-                        INVALID_CONVERSION_SPECIFIER (result->
-                                                      format_args_count + 1,
+                        INVALID_CONVERSION_SPECIFIER (spec.format_args_count + 1,
                                                       *fatstr);
                       FDI_SET (fatstr, FMTDIR_ERROR);
                     }
-                  goto fmt_error;
+                  goto bad_format;
                 }
 
-              if (result->format_args_count == format_args_allocated)
+              if (spec.format_args_count == format_args_allocated)
                 {
                   format_args_allocated = 2 * format_args_allocated + 10;
-                  result->format_args =
-                    xrealloc (result->format_args,
+                  spec.format_args =
+                    xrealloc (spec.format_args,
                               format_args_allocated *
                               sizeof (enum format_arg_type));
                 }
-              result->format_args[result->format_args_count++] = type;
+              spec.format_args[spec.format_args_count++] = type;
             }
           FDI_SET (fatstr, FMTDIR_END);
           fatstr++;
         }
     }
 
+  result = XMALLOC (struct spec);
+  *result = spec;
   return result;
 
-fmt_error:
-  format_free (result);
+ bad_format:
+  if (spec.format_args != NULL)
+    free (spec.format_args);
   return NULL;
 }
 
@@ -254,6 +254,7 @@ struct formatstring_parser formatstring_lua =
   NULL,
   format_check
 };
+
 
 #ifdef TEST
 
