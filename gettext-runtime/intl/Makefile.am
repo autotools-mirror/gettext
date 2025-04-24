@@ -240,6 +240,7 @@ libgnuintl.h: $(srcdir)/libgnuintl.in.h $(srcdir)/export.h
 	| sed -e 's,@''HAVE_VISIBILITY''@,@HAVE_VISIBILITY@,g' \
 	| sed -e 's,@''WOE32DLL''@,@WOE32DLL@,g' \
 	  > libgnuintl.h
+BUILT_SOURCES += libgnuintl.h
 MOSTLYCLEANFILES += libgnuintl.h
 
 libintl.h: $(srcdir)/libgnuintl.in.h

@@ -306,9 +306,6 @@ AH_VERBATIM([znoexport], [
 #define gl_locale_name_environ            _libintl_locale_name_environ
 #define gl_locale_name_default            _libintl_locale_name_default
 #define gl_locale_name_unsafe             _libintl_locale_name_unsafe
-#define rpl_newlocale                     _libintl_newlocale
-#define rpl_duplocale                     _libintl_duplocale
-#define rpl_freelocale                    _libintl_freelocale
 /* Symbols defined by gnulib module 'lock'.  */
 #if USE_ISOC_THREADS || USE_ISOC_AND_POSIX_THREADS
 #define glthread_lock_init                            _libintl_lock_init
@@ -454,6 +451,11 @@ if false; then
   AC_DEFINE([rpl_fprintf],      [_libintl_fprintf],   [Hidden symbol.])
   AC_DEFINE([rpl_vfprintf],     [_libintl_vfprintf],  [Hidden symbol.])
 fi
+
+dnl These symbols must not be hidden; they are exported via libgnuintl.in.h.
+AC_DEFINE([rpl_newlocale],      [libintl_newlocale],  [Exported symbol.])
+AC_DEFINE([rpl_duplocale],      [libintl_duplocale],  [Exported symbol.])
+AC_DEFINE([rpl_freelocale],     [libintl_freelocale], [Exported symbol.])
 
 AC_CONFIG_FILES([Makefile])
 AC_CONFIG_FILES([gnulib-lib/Makefile])
