@@ -30,6 +30,7 @@ lib/error.in.h.diff \
 lib/error-progname.c \
 lib/error-progname.h \
 lib/exitfail.h.diff \
+lib/getlocalename_l-unsafe.c.diff \
 lib/getopt-core.h.diff \
 lib/gettext.h \
 lib/gl_array_list.h.diff \
