@@ -153,6 +153,17 @@ The following packages should be installed before GNU gettext is installed
   + If more than one D compiler is installed, set the environment variable
     DC, to disambiguate.
 
+* The GNU Modula-2 compiler and runtime.
+  + Recommended.
+    Needed for building libintl_m2.so.
+  + Homepage:
+    https://www.nongnu.org/gm2/about.html
+    https://gcc.gnu.org/
+  + Pre-built package name:
+    - On Debian and Debian-based systems: gm2,
+    - On Red Hat distributions: gcc-gm2, libgm2.
+    - Other: https://repology.org/project/gcc-gm2/versions
+
 * git 1.6 or newer
   + Recommended.
     Needed by the 'autopoint' program, if not configured with --without-git

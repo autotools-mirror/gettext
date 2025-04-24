@@ -2,6 +2,8 @@ Version 0.25 - April 2025
 
 * New library: libintl_d.a contains the runtime for using GNU gettext
   message catalogs in the D programming language.
+* New library: libintl_m2.so contains the runtime for using GNU gettext
+  message catalogs in the Modula-2 programming language.
 
 Version 0.23 - December 2023
 

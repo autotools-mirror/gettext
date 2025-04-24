@@ -170,6 +170,40 @@ AH_BOTTOM([
 #endif
 ])
 
+gt_MODULA2_CHOICE
+if test "$MODULA2_CHOICE" != no; then
+  gt_MODULA2COMP
+  if test -n "$M2C"; then
+    BUILDMODULA2=yes
+    AC_COMPUTE_INT([VALUE_OF_LC_ALL],      [LC_ALL],      [#include <locale.h>])
+    AC_COMPUTE_INT([VALUE_OF_LC_CTYPE],    [LC_CTYPE],    [#include <locale.h>])
+    AC_COMPUTE_INT([VALUE_OF_LC_NUMERIC],  [LC_NUMERIC],  [#include <locale.h>])
+    AC_COMPUTE_INT([VALUE_OF_LC_TIME],     [LC_TIME],     [#include <locale.h>])
+    AC_COMPUTE_INT([VALUE_OF_LC_COLLATE],  [LC_COLLATE],  [#include <locale.h>])
+    AC_COMPUTE_INT([VALUE_OF_LC_MONETARY], [LC_MONETARY], [#include <locale.h>])
+    AC_COMPUTE_INT([VALUE_OF_LC_MESSAGES], [LC_MESSAGES], [
+      #include <locale.h>
+      #if defined _WIN32 && !defined __CYGWIN__
+      # define LC_MESSAGES 1729
+      #endif
+    ])
+    AC_SUBST([VALUE_OF_LC_ALL])
+    AC_SUBST([VALUE_OF_LC_CTYPE])
+    AC_SUBST([VALUE_OF_LC_NUMERIC])
+    AC_SUBST([VALUE_OF_LC_TIME])
+    AC_SUBST([VALUE_OF_LC_COLLATE])
+    AC_SUBST([VALUE_OF_LC_MONETARY])
+    AC_SUBST([VALUE_OF_LC_MESSAGES])
+  else
+    BUILDMODULA2=no
+  fi
+else
+  BUILDMODULA2=no
+fi
+AC_SUBST([BUILDMODULA2])
+AM_CONDITIONAL([BUILD_MODULA2], [test $BUILDMODULA2 = yes])
+AM_CONDITIONAL([USE_INCLUDED_LIBINTL], [test $USE_INCLUDED_LIBINTL = yes])
+
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
 AC_PATH_PROG([PERL], [perl], [$ac_aux_dir_abs/missing perl])
@@ -225,6 +259,9 @@ AC_CONFIG_FILES([intl-java/Makefile])
 AC_CONFIG_FILES([intl-csharp/Makefile])
 
 AC_CONFIG_FILES([intl-d/Makefile])
+
+AC_CONFIG_FILES([intl-modula2/Makefile])
+AC_CONFIG_FILES([intl-modula2/Libintl.def])
 
 AC_CONFIG_FILES([gnulib-lib/Makefile])
 

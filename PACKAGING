@@ -90,6 +90,9 @@ is according to the following file list.
       $prefix/include/d/gnu/libintl/libintl.d
       $prefix/include/d/gnu/libintl/internal/low.d
 
+      $prefix/lib/libintl_m2.*
+      $prefix/include/m2/Libintl.def
+
       $prefix/lib/libasprintf.*
       $prefix/include/autosprintf.h
       $prefix/share/doc/libasprintf/autosprintf*.html

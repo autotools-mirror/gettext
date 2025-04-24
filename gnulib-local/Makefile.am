@@ -151,6 +151,7 @@ m4/backupfile.m4 \
 m4/d.m4 \
 m4/java.m4 \
 m4/libxml.m4 \
+m4/modula2.m4 \
 modules/backupfile \
 modules/closeout \
 modules/d \
@@ -163,6 +164,7 @@ modules/libtextstyle-dummy \
 modules/libxml \
 modules/markup \
 modules/mem-hash-map \
+modules/modula2 \
 modules/xerror \
 modules/xgetcwd.diff
 

@@ -128,6 +128,8 @@ if ! $skip_gnulib; then
     java
     javacomp-script
     manywarnings
+    modula2
+    modula2comp-script
   '
   $GNULIB_TOOL --dir=gettext-runtime --lib=libgrt --source-base=gnulib-lib --m4-base=gnulib-m4 --no-libtool --local-dir=gnulib-local --local-symlink \
     --import $GNULIB_MODULES_RUNTIME_FOR_SRC $GNULIB_MODULES_RUNTIME_OTHER || exit $?
