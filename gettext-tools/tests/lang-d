@@ -86,7 +86,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 msgid "'Your command, please?', asked the waiter."
-msgstr "«Votre commande, s'il vous plait», dit le garçon."
+msgstr "�Votre commande, s'il vous plait�, dit le gar�on."
 
 # Les gateaux allemands sont les meilleurs du monde.
 #, d-format
@@ -130,12 +130,12 @@ ${CONFIG_SHELL} "$top_builddir"/libtool --quiet --tag=CC --mode=link \
 
 : ${DIFF=diff}
 cat <<\EOF > prog.ok
-«Votre commande, s'il vous plait», dit le garçon.
+�Votre commande, s'il vous plait�, dit le gar�on.
 2 morceaux de gateau
 EUR remplace FF.
 EOF
 cat <<\EOF > prog.oku
-Â«Votre commande, s'il vous plaitÂ», dit le garÃ§on.
+«Votre commande, s'il vous plait», dit le garçon.
 2 morceaux de gateau
 EUR remplace FF.
 EOF
