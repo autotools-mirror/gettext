@@ -124,7 +124,8 @@ examplesbuildauxdir = $(docdir)/examples/build-aux
 examplesbuildaux_DATA = \
   ../build-aux/javacomp.sh.in ../build-aux/javaexec.sh.in \
   ../build-aux/csharpcomp.sh.in ../build-aux/csharpexec.sh.in \
-  ../build-aux/gocomp.sh.in
+  ../build-aux/gocomp.sh.in \
+  ../build-aux/dcomp.sh.in
 
 
 # Files copied from other directories.
