@@ -143,6 +143,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-lua-1 xgettext-lua-2 xgettext-lua-3 \
 	xgettext-lua-stackovfl-1 xgettext-lua-stackovfl-2 \
 	xgettext-lua-stackovfl-3 xgettext-lua-stackovfl-4 \
+	xgettext-modula2-1 xgettext-modula2-2 \
 	xgettext-objc-1 xgettext-objc-2 \
 	xgettext-perl-1 xgettext-perl-2 xgettext-perl-3 xgettext-perl-4 \
 	xgettext-perl-5 xgettext-perl-6 xgettext-perl-7 xgettext-perl-8 \
@@ -211,6 +212,7 @@ TESTS = gettext-1 gettext-2 \
 	format-librep-1 format-librep-2 \
 	format-lisp-1 format-lisp-2 \
 	format-lua-1 format-lua-2 \
+	format-modula2-1 format-modula2-2 \
 	format-php-1 format-php-2 \
 	format-python-1 format-python-2 \
 	format-python-brace-1 format-python-brace-2 \

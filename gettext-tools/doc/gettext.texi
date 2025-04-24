@@ -412,6 +412,7 @@ The Translator's View
 * awk-format::                  awk Format Strings
 * lua-format::                  Lua Format Strings
 * object-pascal-format::        Object Pascal Format Strings
+* modula2-format::              Modula-2 Format Strings
 * d-format::                    D Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * qt-format::                   Qt Format Strings
@@ -447,6 +448,7 @@ Individual Programming Languages
 * gawk::                        GNU awk
 * Lua::                         Lua
 * Pascal::                      Pascal - Free Pascal Compiler
+* Modula-2::                    Modula-2
 * Smalltalk::                   GNU Smalltalk
 * Vala::                        Vala
 * wxWidgets::                   wxWidgets library
@@ -1751,6 +1753,12 @@ Likewise for Lua, see @ref{lua-format}.
 @kwindex no-object-pascal-format@r{ flag}
 Likewise for Object Pascal, see @ref{object-pascal-format}.
 
+@item modula2-format
+@kwindex modula2-format@r{ flag}
+@itemx no-modula2-format
+@kwindex no-modula2-format@r{ flag}
+Likewise for Modula-2, see @ref{modula2-format}.
+
 @item d-format
 @kwindex d-format@r{ flag}
 @itemx no-d-format
@@ -2336,6 +2344,7 @@ at runtime (or possibly at compile time, if the compiler supports that).
 @cindex Shell, string concatenation
 @cindex awk, string concatenation
 @cindex Lua, string concatenation
+@cindex Modula-2, string concatenation
 @cindex D, string concatenation
 @cindex Smalltalk, string concatenation
 @cindex Vala, string concatenation
@@ -2375,6 +2384,9 @@ In awk, string concatenation is denoted by mere juxtaposition of strings.
 @item
 In Lua, string concatenation is denoted by the @samp{..} operator.
 @c Reference: https://www.lua.org/pil/3.4.html
+@item
+In Modula-2, string concatenation is denoted by the @samp{+} operator.
+@c Reference: https://gcc.gnu.org/onlinedocs/gm2/EBNF.html
 @item
 In D, string concatenation is denoted by the @samp{~} operator.
 @c Reference: https://dlang.org/spec/expression.html#cat_expressions
@@ -9948,6 +9960,7 @@ strings.
 * awk-format::                  awk Format Strings
 * lua-format::                  Lua Format Strings
 * object-pascal-format::        Object Pascal Format Strings
+* modula2-format::              Modula-2 Format Strings
 * d-format::                    D Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * qt-format::                   Qt Format Strings
@@ -10242,6 +10255,38 @@ Object Pascal format strings are described in the documentation of the
 Free Pascal runtime library, section Format,
 @uref{https://www.freepascal.org/docs-html/rtl/sysutils/format.html}.
 
+@node modula2-format
+@subsection Modula-2 Format Strings
+
+Modula-2 format strings are defined as follows:
+@enumerate
+@item
+Escape sequences are processed.
+These escape sequences are understood:
+@samp{\a}, @samp{\b}, @samp{\e}, @samp{\f}, @samp{\n}, @samp{\r},
+@samp{\x@var{hex-digits}}, @samp{\@var{octal-digits}}.
+Other than that, a backslash is ignored.
+@item
+A directive consists of
+@itemize @bullet
+@item
+a @samp{%} character,
+@item
+optionally a flag character @samp{-},
+@item
+optionally a flag character @samp{0},
+@item
+optionally a width specification (a nonnegative integer),
+@item
+and finally a specifier:
+@samp{s} that formats a string, @samp{c} that formats a character,
+@samp{d} and @samp{u}, that format a (signed/unsigned) integer in decimal,
+or @samp{x}, that formats an unsigned integer in hexadecimal.
+@end itemize
+@noindent
+There is also the directive @samp{%%}, that produces a single percent character.
+@end enumerate
+
 @node d-format
 @subsection D Format Strings
 
@@ -10468,6 +10513,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * gawk::                        GNU awk
 * Lua::                         Lua
 * Pascal::                      Pascal - Free Pascal Compiler
+* Modula-2::                    Modula-2
 * D::                           D
 * Smalltalk::                   GNU Smalltalk
 * Vala::                        Vala
@@ -10499,6 +10545,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @include lang-gawk.texi
 @include lang-lua.texi
 @include lang-pascal.texi
+@include lang-modula2.texi
 @include lang-d.texi
 @include lang-smalltalk.texi
 @include lang-vala.texi

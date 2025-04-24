@@ -19,6 +19,9 @@ Version 0.25 - April 2025
   * Modula-2:
     - A new library libintl_m2.so contains the runtime for using GNU gettext
       message catalogs in the Modula-2 programming language.
+    - xgettext now supports Modula-2.
+    - 'msgfmt -c' now verifies the syntax of translations of Modula-2 format
+      strings.
 
 Version 0.24.1 - April 2025
 

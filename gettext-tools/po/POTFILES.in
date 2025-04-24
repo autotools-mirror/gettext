@@ -28,6 +28,7 @@ src/format-kde-kuit.c
 src/format-librep.c
 src/format-lisp.c
 src/format-lua.c
+src/format-modula2.c
 src/format-pascal.c
 src/format-perl-brace.c
 src/format-perl.c
@@ -107,6 +108,7 @@ src/x-javascript.c
 src/x-librep.c
 src/x-lisp.c
 src/x-lua.c
+src/x-modula2.c
 src/x-perl.c
 src/x-php.c
 src/x-po.c

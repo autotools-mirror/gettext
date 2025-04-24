@@ -120,6 +120,7 @@ extern DLL_VARIABLE struct formatstring_parser formatstring_sh;
 extern DLL_VARIABLE struct formatstring_parser formatstring_awk;
 extern DLL_VARIABLE struct formatstring_parser formatstring_lua;
 extern DLL_VARIABLE struct formatstring_parser formatstring_pascal;
+extern DLL_VARIABLE struct formatstring_parser formatstring_modula2;
 extern DLL_VARIABLE struct formatstring_parser formatstring_d;
 extern DLL_VARIABLE struct formatstring_parser formatstring_smalltalk;
 extern DLL_VARIABLE struct formatstring_parser formatstring_qt;

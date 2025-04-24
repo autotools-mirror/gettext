@@ -89,6 +89,7 @@ noinst_HEADERS = \
   x-sh.h \
   x-awk.h \
   x-lua.h \
+  x-modula2.h \
   x-d.h html5-entities.h \
   x-smalltalk.h \
   x-vala.h \
@@ -205,6 +206,7 @@ FORMAT_SOURCE += \
   format-awk.c \
   format-lua.c \
   format-pascal.c \
+  format-modula2.c \
   format-d.c \
   format-smalltalk.c \
   format-qt.c \
@@ -328,6 +330,7 @@ xgettext_SOURCES += \
   x-sh.c ../../gettext-runtime/src/escapes.h \
   x-awk.c \
   x-lua.c \
+  x-modula2.c \
   x-d.c \
   x-smalltalk.c \
   x-vala.c \

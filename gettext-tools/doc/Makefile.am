@@ -81,6 +81,7 @@ gettext_TEXINFOS = \
   lang-gawk.texi \
   lang-lua.texi \
   lang-pascal.texi \
+  lang-modula2.texi \
   lang-d.texi \
   lang-smalltalk.texi \
   lang-vala.texi \
