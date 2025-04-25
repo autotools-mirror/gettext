@@ -428,6 +428,19 @@ AH_BOTTOM([
 dnl Check for nm output filter that yields the exported symbols.
 gt_GLOBAL_SYMBOL_PIPE
 
+gt_MODULA2_CHOICE
+if test "$MODULA2_CHOICE" != no; then
+  gt_MODULA2COMP
+  if test -n "$M2C"; then
+    BUILDMODULA2=yes
+  else
+    BUILDMODULA2=no
+  fi
+else
+  BUILDMODULA2=no
+fi
+AC_SUBST([BUILDMODULA2])
+
 dnl Check for Emacs and where to install .elc files.
 dnl Sometimes Emacs is badly installed. Allow the user to work around it.
 AC_ARG_WITH([emacs],

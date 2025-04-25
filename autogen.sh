@@ -348,6 +348,8 @@ if ! $skip_gnulib; then
     javacomp-script
     javaexec-script
     manywarnings
+    modula2
+    modula2comp-script
     stdint-h
     test-xfail
   '

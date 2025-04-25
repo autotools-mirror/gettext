@@ -244,6 +244,7 @@ TESTS = gettext-1 gettext-2 \
 	lang-gawk \
 	lang-lua \
 	lang-pascal \
+	lang-modula2 \
 	lang-d \
 	lang-smalltalk \
 	lang-vala \
