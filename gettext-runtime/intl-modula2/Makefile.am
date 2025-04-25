@@ -96,8 +96,8 @@ uninstall-local: uninstall-modula2-sources
 install-modula2-sources:
 	$(MKDIR_P) $(DESTDIR)$(m2includedir)
 	@for f in Libintl.def; do \
-	  echo "$(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(m2includedir)/$$f"; \
-	  $(INSTALL_DATA) $(srcdir)/$$f $(DESTDIR)$(m2includedir)/$$f; \
+	  echo "$(INSTALL_DATA) $$f $(DESTDIR)$(m2includedir)/$$f"; \
+	  $(INSTALL_DATA) $$f $(DESTDIR)$(m2includedir)/$$f; \
 	done
 
 installdirs-modula2-sources:

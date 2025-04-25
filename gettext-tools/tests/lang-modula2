@@ -110,7 +110,7 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
-${M2C} ${M2FLAGS} -I"$abs_top_srcdir"/../gettext-runtime/intl-modula2 \
+${M2C} ${M2FLAGS} -I"$top_builddir"/../gettext-runtime/intl-modula2 \
        -c -fscaffold-main prog.mod \
   || Exit 1
 
