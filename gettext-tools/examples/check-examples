@@ -159,6 +159,7 @@ func_check_autoclean_all ()
   func_check_autoclean hello-sh
   func_check_autoclean hello-gawk
   func_check_autoclean hello-pascal
+  func_check_autoclean hello-modula2
   func_check_autoclean hello-d
   func_check_autoclean hello-smalltalk
   func_check_autoclean hello-tcl
@@ -238,6 +239,7 @@ func_check_distclean_all ()
   func_check_distclean hello-sh
   func_check_distclean hello-gawk
   func_check_distclean hello-pascal
+  func_check_distclean hello-modula2
   func_check_distclean hello-d
   func_check_distclean hello-smalltalk
   func_check_distclean hello-tcl
@@ -319,6 +321,7 @@ func_check_maintainerclean_all ()
   func_check_maintainerclean hello-sh
   func_check_maintainerclean hello-gawk
   func_check_maintainerclean hello-pascal
+  func_check_maintainerclean hello-modula2
   func_check_maintainerclean hello-d
   func_check_maintainerclean hello-smalltalk
   func_check_maintainerclean hello-tcl
@@ -403,6 +406,7 @@ func_check_maintainerclean_vpath_all ()
   func_check_maintainerclean_vpath hello-sh
   func_check_maintainerclean_vpath hello-gawk
   func_check_maintainerclean_vpath hello-pascal
+  func_check_maintainerclean_vpath hello-modula2
   func_check_maintainerclean_vpath hello-d
   func_check_maintainerclean_vpath hello-smalltalk
   func_check_maintainerclean_vpath hello-tcl
@@ -494,6 +498,7 @@ func_check_dist_all ()
   func_check_dist hello-sh
   func_check_dist hello-gawk
   func_check_dist hello-pascal
+  func_check_dist hello-modula2
   func_check_dist hello-d
   func_check_dist hello-smalltalk
   func_check_dist hello-tcl
@@ -585,6 +590,7 @@ func_check_dist_vpath_all ()
   func_check_dist_vpath hello-sh
   func_check_dist_vpath hello-gawk
   func_check_dist_vpath hello-pascal
+  func_check_dist_vpath hello-modula2
   func_check_dist_vpath hello-d
   func_check_dist_vpath hello-smalltalk
   func_check_dist_vpath hello-tcl
@@ -668,6 +674,7 @@ func_check_install_all ()
   func_check_install hello-sh
   func_check_install hello-gawk
   func_check_install hello-pascal
+  func_check_install hello-modula2
   func_check_install hello-d
   func_check_install hello-smalltalk
   func_check_install hello-tcl
@@ -748,6 +755,7 @@ func_check_uninstall_all ()
   func_check_uninstall hello-sh
   func_check_uninstall hello-gawk
   func_check_uninstall hello-pascal
+  func_check_uninstall hello-modula2
   func_check_uninstall hello-d
   func_check_uninstall hello-smalltalk
   func_check_uninstall hello-tcl
@@ -830,6 +838,7 @@ func_check_distcheck_all ()
   func_check_distcheck hello-sh
   func_check_distcheck hello-gawk
   func_check_distcheck hello-pascal
+  func_check_distcheck hello-modula2
   func_check_distcheck hello-d
   func_check_distcheck hello-smalltalk
   func_check_distcheck hello-tcl
@@ -895,6 +904,7 @@ func_check_all ()
   func_check hello-sh
   func_check hello-gawk
   func_check hello-pascal
+  func_check hello-modula2
   func_check hello-d
   func_check hello-smalltalk
   func_check hello-tcl

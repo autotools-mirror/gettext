@@ -53,3 +53,5 @@ fully portable to all platforms supported by GNU Modula-2
 @item po-mode marking
 ---
 @end table
+
+An example is available in the @file{examples} directory: @code{hello-modula2}.

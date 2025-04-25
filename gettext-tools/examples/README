@@ -36,6 +36,7 @@ environment.
     hello-sh                   Shell
     hello-gawk                 awk
     hello-pascal               Pascal
+    hello-modula2              Modula-2
     hello-d                    D
     hello-smalltalk            Smalltalk
     hello-tcl                  Tcl
@@ -84,6 +85,7 @@ Makefile types:
     hello-sh                   .gmo                    Makefile.am
     hello-gawk                 .gmo                    Makefile.am
     hello-pascal               .gmo                    Makefile.am
+    hello-modula2              .gmo                    Makefile.am
     hello-d                    .gmo                    Makefile.am
     hello-smalltalk            .gmo                    Makefile.am
     hello-perl                 .gmo                    Makefile.am
