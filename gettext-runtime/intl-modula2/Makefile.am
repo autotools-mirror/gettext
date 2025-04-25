@@ -45,6 +45,7 @@ if USE_INCLUDED_LIBINTL
 libintl_m2_la_LIBADD       += ../intl/libintl.la
 endif
 
+nodist_m2include_HEADERS = Libintl.def
 BUILT_SOURCES += Libintl.def
 
 # Rules for compiling a .mod file, that work even without a VPATH variable.
@@ -87,27 +88,6 @@ uninstall-local: uninstall-libintl
 uninstall-libintl:
 	$(LIBTOOL) --mode=uninstall \
 	  rm -f $(DESTDIR)$(libdir)/libintl_m2.la
-
-
-install-data-local: install-modula2-sources
-installdirs-local: installdirs-modula2-sources
-uninstall-local: uninstall-modula2-sources
-
-install-modula2-sources:
-	$(MKDIR_P) $(DESTDIR)$(m2includedir)
-	@for f in Libintl.def; do \
-	  echo "$(INSTALL_DATA) $$f $(DESTDIR)$(m2includedir)/$$f"; \
-	  $(INSTALL_DATA) $$f $(DESTDIR)$(m2includedir)/$$f; \
-	done
-
-installdirs-modula2-sources:
-	$(MKDIR_P) $(DESTDIR)$(m2includedir)
-
-uninstall-modula2-sources:
-	@for f in Libintl.def; do \
-	  echo "$(RM) $(DESTDIR)$(m2includedir)/$$f"; \
-	  $(RM) $(DESTDIR)$(m2includedir)/$$f; \
-	done
 
 endif
 
