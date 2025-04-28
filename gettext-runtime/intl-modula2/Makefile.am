@@ -64,7 +64,8 @@ LTV_AGE=0
 libintl_m2_la_LDFLAGS = \
   -no-undefined \
   -version-info $(LTV_CURRENT):$(LTV_REVISION):$(LTV_AGE) \
-  -rpath $(libdir)
+  -rpath $(libdir) \
+  `$(M2C) -print-file-name=libm2pim.la`
 
 # Installation of libintl_m2.la.
 
