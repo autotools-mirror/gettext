@@ -1,6 +1,6 @@
 # more-warnings.m4
-# serial 4 (gettext-0.24)
-dnl Copyright (C) 2023-2024 Free Software Foundation, Inc.
+# serial 5 (gettext-0.25)
+dnl Copyright (C) 2023-2025 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -110,6 +110,10 @@ AS_HELP_STRING([[--disable-more-warnings]], [obey exactly the warning options sp
     dnl Unused parameters are frequent in functions that are meant to implement
     dnl a given function type.
     nw="$nw -Wunused-parameter"
+    dnl If/else statements with two identical branches (after constant
+    dnl expression evaluation) can occur, when the code uses platform-dependent
+    dnl constants.
+    nw="$nw -Wduplicated-branches"
     dnl
     dnl Next, the warnings that are generated with -O2:
     dnl This warning option frequently produces false alarms.
