@@ -35,8 +35,6 @@ lib/getopt-core.h.diff \
 lib/gettext.h \
 lib/gl_array_list.h.diff \
 lib/gl_linkedhash_list.h.diff \
-lib/hash.c.diff \
-lib/hash.h.diff \
 lib/libxml/buf.c \
 lib/libxml/buf.h \
 lib/libxml/c14n.c \
