@@ -1,5 +1,5 @@
 /* Writing binary .mo files.
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -42,6 +42,7 @@
 #include "mem-hash-map.h"
 #include "message.h"
 #include "format.h"
+#include "next-prime.h"
 #include "xsize.h"
 #include "xalloc.h"
 #include "xmalloca.h"

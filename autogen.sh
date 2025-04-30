@@ -226,6 +226,7 @@ if ! $skip_gnulib; then
     memset
     minmax
     mkdir
+    next-prime
     noreturn
     obstack
     open
