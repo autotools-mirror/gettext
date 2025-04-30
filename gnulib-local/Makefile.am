@@ -137,8 +137,6 @@ lib/libxml/xpointer.c \
 lib/libxml/xpointer.in.h \
 lib/markup.c \
 lib/markup.h \
-lib/mem-hash-map.c \
-lib/mem-hash-map.h \
 lib/obstack.h.diff \
 lib/progname.h.diff \
 lib/regex_internal.h.diff \
@@ -158,7 +156,6 @@ modules/java \
 modules/libtextstyle-dummy \
 modules/libxml \
 modules/markup \
-modules/mem-hash-map \
 modules/xerror \
 modules/xgetcwd.diff
 
