@@ -87,6 +87,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-13 xgettext-14 xgettext-15 xgettext-16 xgettext-17 \
 	xgettext-18 \
 	xgettext-combine-1 xgettext-combine-2 xgettext-combine-3 \
+	xgettext-git-1 \
 	xgettext-appdata-1 xgettext-appdata-2 xgettext-appdata-3 \
 	xgettext-awk-1 xgettext-awk-2 xgettext-awk-3 \
 	xgettext-awk-stackovfl-1 xgettext-awk-stackovfl-2 \
@@ -289,6 +290,7 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	testdata/dprog.utf-16be.d testdata/dprog.utf-16le.d \
 	testdata/dprog.utf-32be.d testdata/dprog.utf-32le.d \
 	testdata/nonascii.pot \
+	testdata/repo.tar.gz \
 	testdata/tcltest_pl.po testdata/tcltest_pl.msg \
 	testdata/tcltest_cs.po testdata/tcltest_cs.msg \
 	testdata/xg-el-so-3.el testdata/xg-el-so-4.el \
