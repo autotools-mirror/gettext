@@ -234,10 +234,9 @@ static locating_rule_list_ty *its_locating_rules;
 /* If nonzero add comments used by itstool.  */
 static bool add_itstool_comments = false;
 
-/* Accumulating the version-controlled modification times of file names.  */
-static bool has_some_mtimes = false;
-static struct timespec max_of_mtimes;
-static bool some_mtimes_failed = false;
+/* The file names whose version-controlled modification times shall be
+   considered.  */
+static string_list_ty files_for_vc_mtime;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -327,7 +326,6 @@ struct extractor_ty
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
 static void read_exclusion_file (char *file_name);
-static void consider_vc_mtime (const char *file_name);
 static void extract_from_file (const char *file_name, extractor_ty extractor,
                                msgdomain_list_ty *mdlp);
 static void extract_from_xml_file (const char *file_name,
@@ -382,6 +380,7 @@ main (int argc, char *argv[])
 
   /* Set initial value of variables.  */
   default_domain = MESSAGE_DOMAIN_DEFAULT;
+  string_list_init (&files_for_vc_mtime);
   xgettext_global_source_encoding = NULL;
   init_flag_table_c ();
   init_flag_table_objc ();
@@ -704,7 +703,7 @@ main (int argc, char *argv[])
         break;
 
       case CHAR_MAX + 22: /* --reference */
-        consider_vc_mtime (optarg);
+        string_list_append (&files_for_vc_mtime, optarg);
         break;
 
       default:
@@ -823,7 +822,7 @@ xgettext cannot work without keywords to look for"));
   if (files_from != NULL)
     {
       if (strcmp (files_from, "-") != 0)
-        consider_vc_mtime (files_from);
+        string_list_append (&files_for_vc_mtime, files_from);
       file_list = read_names_from_file (files_from);
     }
   else
@@ -1310,29 +1309,6 @@ or by email to <%s>.\n"),
 
 
 static void
-consider_vc_mtime (const char *file_name)
-{
-  struct timespec mtime;
-  if (vc_mtime (&mtime, file_name) >= 0)
-    {
-      if (has_some_mtimes)
-        {
-          /* Compute the maximum of max_of_mtimes and mtime.  */
-          if (max_of_mtimes.tv_sec < mtime.tv_sec
-              || (max_of_mtimes.tv_sec == mtime.tv_sec
-                  && max_of_mtimes.tv_nsec < mtime.tv_nsec))
-           max_of_mtimes = mtime;
-        }
-      else
-        max_of_mtimes = mtime;
-    }
-  else
-    some_mtimes_failed = true;
-  has_some_mtimes = true;
-}
-
-
-static void
 exclude_directive_domain (abstract_catalog_reader_ty *catr,
                           char *name, lex_pos_ty *name_pos)
 {
@@ -1404,7 +1380,7 @@ read_exclusion_file (char *filename)
   char *real_filename;
   FILE *fp = open_catalog_file (filename, &real_filename, true);
 
-  consider_vc_mtime (real_filename);
+  string_list_append (&files_for_vc_mtime, real_filename);
 
   abstract_catalog_reader_ty *catr =
     catalog_reader_alloc (&exclude_methods, textmode_xerror_handler);
@@ -2018,7 +1994,7 @@ extract_from_file (const char *file_name, extractor_ty extractor,
     {
       FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
       if (fp != stdin)
-        consider_vc_mtime (real_file_name);
+        string_list_append (&files_for_vc_mtime, real_file_name);
 
       /* Set the default for the source file encoding.  May be overridden by
          the extractor function.  */
@@ -2040,7 +2016,7 @@ extract_from_file (const char *file_name, extractor_ty extractor,
       const char *found_in_dir;
       xgettext_find_file (file_name, &logical_file_name,
                           &found_in_dir, &real_file_name);
-      consider_vc_mtime (real_file_name);
+      string_list_append (&files_for_vc_mtime, real_file_name);
 
       extractor.extract_from_file (found_in_dir, real_file_name,
                                    logical_file_name,
@@ -2093,7 +2069,7 @@ extract_from_xml_file (const char *file_name,
   char *real_file_name;
   FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
   if (fp != stdin)
-    consider_vc_mtime (real_file_name);
+    string_list_append (&files_for_vc_mtime, real_file_name);
 
   /* The default encoding for XML is UTF-8.  It can be overridden by
      an XML declaration in the XML file itself, not through the
@@ -2110,7 +2086,7 @@ extract_from_xml_file (const char *file_name,
 
   if (fp != stdin)
     fclose (fp);
-  consider_vc_mtime (real_file_name);
+  string_list_append (&files_for_vc_mtime, real_file_name);
   free (logical_file_name);
   free (real_file_name);
 }
@@ -2197,7 +2173,11 @@ finalize_header (msgdomain_list_ty *mdlp)
   /* Set the POT-Creation-Date field.  */
   {
     time_t stamp;
-    if (has_some_mtimes && !some_mtimes_failed)
+    struct timespec max_of_mtimes;
+    if (files_for_vc_mtime.nitems > 0
+        && max_vc_mtime (&max_of_mtimes,
+                         files_for_vc_mtime.nitems, files_for_vc_mtime.item)
+           == 0)
       /* Use the maximum of the encountered mtimes.  */
       stamp = max_of_mtimes.tv_sec;
     else
