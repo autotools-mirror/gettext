@@ -80,6 +80,7 @@
 #include "msgl-ascii.h"
 #include "msgl-ofn.h"
 #include "xg-check.h"
+#include "stat-time.h"
 #include "vc-mtime.h"
 #include "po-time.h"
 #include "msgl-header.h"
@@ -179,6 +180,9 @@ static catalog_output_format_ty output_syntax = &output_format_po;
 /* If nonzero omit header with information about this run.  */
 int xgettext_omit_header;
 
+/* If nonzero, don't use 'git' to compute a reproducible POT-Creation-Date.  */
+static int xgettext_no_git;
+
 /* Be more verbose.  */
 int verbose = 0;
 
@@ -271,6 +275,7 @@ static const struct option long_options[] =
   { "msgstr-prefix", optional_argument, NULL, 'm' },
   { "msgstr-suffix", optional_argument, NULL, 'M' },
   { "no-escape", no_argument, NULL, 'e' },
+  { "no-git", no_argument, NULL, CHAR_MAX + 23 },
   { "no-location", no_argument, NULL, CHAR_MAX + 16 },
   { "no-wrap", no_argument, NULL, CHAR_MAX + 4 },
   { "omit-header", no_argument, &xgettext_omit_header, 1 },
@@ -704,6 +709,10 @@ main (int argc, char *argv[])
 
       case CHAR_MAX + 22: /* --reference */
         string_list_append (&files_for_vc_mtime, optarg);
+        break;
+
+      case CHAR_MAX + 23: /* --no-git */
+        xgettext_no_git = true;
         break;
 
       default:
@@ -1262,6 +1271,10 @@ Output details:\n"));
   -F, --sort-by-file          sort output by file location\n"));
       printf (_("\
       --omit-header           don't write header with 'msgid \"\"' entry\n"));
+      printf (_("\
+      --no-git                don't use the git program to produce a\n\
+                              reproducible 'POT-Creation-Date' field in the\n\
+                              output.\n"));
       printf (_("\
       --copyright-holder=STRING  set copyright holder in output\n"));
       printf (_("\
@@ -2167,6 +2180,59 @@ FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
   return mp;
 }
 
+/* Accumulating mtimes.  */
+struct accumulator
+{
+  bool has_some_mtimes;
+  struct timespec max_of_mtimes;
+};
+
+static void
+accumulate (struct accumulator *accu, struct timespec mtime)
+{
+  if (accu->has_some_mtimes)
+    {
+      /* Compute the maximum of accu->max_of_mtimes and mtime.  */
+      if (accu->max_of_mtimes.tv_sec < mtime.tv_sec
+          || (accu->max_of_mtimes.tv_sec == mtime.tv_sec
+              && accu->max_of_mtimes.tv_nsec < mtime.tv_nsec))
+       accu->max_of_mtimes = mtime;
+    }
+  else
+    {
+      accu->max_of_mtimes = mtime;
+      accu->has_some_mtimes = true;
+    }
+}
+
+static int
+max_mtime_without_git (struct timespec *max_of_mtimes,
+                       size_t nfiles, const char * const *filenames)
+{
+  if (nfiles == 0)
+    /* Invalid argument.  */
+    abort ();
+
+  struct accumulator accu = { false };
+
+  /* Always use the file's time stamp.  */
+  for (size_t n = 0; n < nfiles; n++)
+    {
+      struct stat statbuf;
+      if (stat (filenames[n], &statbuf) < 0)
+        return -1;
+
+      struct timespec mtime = get_stat_mtime (&statbuf);
+      accumulate (&accu, mtime);
+    }
+
+  /* Since nfiles > 0, we must have accumulated at least one mtime.  */
+  if (!accu.has_some_mtimes)
+    abort ();
+  *max_of_mtimes = accu.max_of_mtimes;
+  return 0;
+}
+
 static void
 finalize_header (msgdomain_list_ty *mdlp)
 {
@@ -2175,8 +2241,8 @@ finalize_header (msgdomain_list_ty *mdlp)
     time_t stamp;
     struct timespec max_of_mtimes;
     if (files_for_vc_mtime.nitems > 0
-        && max_vc_mtime (&max_of_mtimes,
-                         files_for_vc_mtime.nitems, files_for_vc_mtime.item)
+        && (xgettext_no_git ? max_mtime_without_git : max_vc_mtime)
+           (&max_of_mtimes, files_for_vc_mtime.nitems, files_for_vc_mtime.item)
            == 0)
       /* Use the maximum of the encountered mtimes.  */
       stamp = max_of_mtimes.tv_sec;
