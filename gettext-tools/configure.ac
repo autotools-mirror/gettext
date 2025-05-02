@@ -587,7 +587,7 @@ fi
 AC_SUBST([ARCHIVE_FORMAT])
 
 dnl Get versions of files brought in by autopull.sh.
-ARCHIVE_VERSION=0.24
+ARCHIVE_VERSION=0.24.1
 AC_SUBST([ARCHIVE_VERSION])
 dnl We don't offer a --with-tree-sitter-prefix option, but instead always use
 dnl the tree-sitter version included in the tarball. This is required because
