@@ -52,7 +52,7 @@ ${DIFF} xg-gi-test1-a.ok xg-gi-test1-a.pot || Exit 1
 : ${TAR=tar}
 gzip -d -c < "$wabs_srcdir"/testdata/repo.tar.gz | ${TAR} xf -
 cd repo || Exit 1
-git restore . || Exit 1
+git checkout -- . || Exit 1
 cd src || Exit 1
 
 # ==============================================================================
