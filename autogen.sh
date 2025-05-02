@@ -246,6 +246,7 @@ if ! $skip_gnulib; then
     sigpipe
     sigprocmask
     spawn-pipe
+    stat-time
     stdio-h
     stdlib-h
     stpcpy

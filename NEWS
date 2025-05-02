@@ -29,7 +29,8 @@ Version 0.24.1 - May 2025
 * Bug fixes:
   - Fix bad interactions between autoreconf and autopoint.
   - xgettext: Creating the POT file of a package under Git version control
-    is now faster.
+    is now faster. Also, the use of Git can be turned off by specifying
+    the option '--no-git'.
 
 Version 0.24 - February 2025
 

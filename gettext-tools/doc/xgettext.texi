@@ -710,6 +710,25 @@ options at different times are guaranteed to produce the same results.
 Note that using this option will lead to an error if the resulting file
 would not entirely be in ASCII.
 
+@item --no-git
+@opindex --no-git@r{, @code{xgettext} option}
+Don't use the @code{git} program
+to produce a reproducible @samp{POT-Creation-Date} field in the output.
+
+Use this option, for speed, if
+your project has a very long @code{Git} history
+(hundreds of thousands of commits)
+or you are specifying thousands of input files.
+
+By default, @code{xgettext} determines the @samp{POT-Creation-Date} as
+the maximum version-controlled modification time
+among all the given input files.
+With this option, you can specify that it should instead use
+the maximum modification time (time stamp on disk)
+among all the given input files.
+
+By ``version control'', here we mean the @code{Git} version control system.
+
 @item --copyright-holder=@var{string}
 @opindex --copyright-holder@r{, @code{xgettext} option}
 Set the copyright holder in the output.  @var{string} should be the
