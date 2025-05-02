@@ -206,6 +206,7 @@ if ! $skip_gnulib; then
     getaddrinfo
     getline
     getopt-gnu
+    getrusage
     gettext-h
     gocomp-script
     hash-map
