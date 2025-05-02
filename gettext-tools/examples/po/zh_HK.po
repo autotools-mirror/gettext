@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples 0.15-pre5\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-02-12 11:11+0100\n"
+"POT-Creation-Date: 2025-04-24 15:50+0200\n"
 "PO-Revision-Date: 2006-07-05 15:40+0800\n"
 "Last-Translator: Abel Cheung <abelcheung@gmail.com>\n"
 "Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
@@ -49,14 +49,12 @@ msgstr "本程式正在執行中，進程編號為 %d。"
 #: hello-c-gnome3/hello.c:78 hello-c-gnome3/hello2.c:86
 #: hello-c++-gnome3/hello.cc:69
 #, fuzzy
-#| msgid "Hello, world!"
 msgid "Hello world!"
 msgstr "你好！"
 
 #: hello-c-gnome3/hello.c:80 hello-c-gnome3/hello2.c:88
 #: hello-c++-gnome3/hello.cc:71
 #, fuzzy, c-format
-#| msgid "This program is running as process number %d."
 msgid "This program is running as process number %s."
 msgstr "本程式正在執行中，進程編號為 %d。"
 
@@ -95,7 +93,6 @@ msgstr ""
 
 #: hello-c++20/hello.cc:50 hello-c++20/hello.cc:53
 #, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number {:d}."
 msgstr "本程式正在執行中，進程編號為 {pid}。"
 
@@ -132,13 +129,11 @@ msgstr "本程式正在執行中，進程編號為 ~D。"
 
 #: hello-rust/src/main.rs.in:31
 #, fuzzy, rust-format
-#| msgid "This program is running as process number {0}."
 msgid "This program is running as process number {}."
 msgstr "本程式正在執行中，進程編號為 {0}。"
 
 #: hello-ruby/hello.rb:8
 #, fuzzy, ruby-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number %{pid}."
 msgstr "本程式正在執行中，進程編號為 {pid}。"
 

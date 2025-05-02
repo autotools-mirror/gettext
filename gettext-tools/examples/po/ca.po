@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-02-12 11:11+0100\n"
+"POT-Creation-Date: 2025-04-24 15:50+0200\n"
 "PO-Revision-Date: 2023-07-07 08:36+0200\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -51,28 +51,24 @@ msgstr "Aquest programa està corrent amb el número de procés %d."
 #: hello-c-gnome3/hello.c:78 hello-c-gnome3/hello2.c:86
 #: hello-c++-gnome3/hello.cc:69
 #, fuzzy
-#| msgid "Hello, world!"
 msgid "Hello world!"
 msgstr "Hola, món!"
 
 #: hello-c-gnome3/hello.c:80 hello-c-gnome3/hello2.c:88
 #: hello-c++-gnome3/hello.cc:71
 #, fuzzy, c-format
-#| msgid "This program is running as process number %d."
 msgid "This program is running as process number %s."
 msgstr "Aquest programa està corrent amb el número de procés %d."
 
 #: hello-c-gnome3/hello.c:84 hello-c-gnome3/hello2.c:92
 #: hello-c++-gnome3/hello.cc:75
 #, fuzzy
-#| msgid "<big><u>This is another text</u></big>"
 msgid "This is another text"
 msgstr "<big><u>Aquest és un altre text</u></big>"
 
 #: hello-c-gnome3/hello.c:86 hello-c-gnome3/hello2.c:94
 #: hello-c++-gnome3/hello.cc:77
 #, fuzzy
-#| msgid "<big><i>This is yet another text</i></big>"
 msgid "This is yet another text"
 msgstr "<big><i>Aquest és un altre text més</i></big>"
 
@@ -137,13 +133,11 @@ msgstr "Aquest programa està corrent amb el número de procés ~D."
 
 #: hello-rust/src/main.rs.in:31
 #, fuzzy, rust-format
-#| msgid "This program is running as process number {0}."
 msgid "This program is running as process number {}."
 msgstr "Aquest programa està corrent amb el número de procés {0}."
 
 #: hello-ruby/hello.rb:8
 #, fuzzy, ruby-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number %{pid}."
 msgstr "Aquest programa està corrent amb el número de procés {pid}."
 

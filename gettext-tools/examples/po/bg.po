@@ -1,14 +1,14 @@
 # Bulgarian translations for gettext-examples package.
 # Copyright (C) 2010 Yoyodyne, Inc. (msgids)
 # This file is distributed under the same license as the gettext package.
-# Roumen Petrov <transl@roumenpetrov.info>, 2010,2014,2015,2019,2023,2024.
+# Roumen Petrov <transl@roumenpetrov.info>, 2010,2014,2015,2019,2023,2024.2025.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-examples 0.23-pre1\n"
+"Project-Id-Version: GNU gettext-examples 0.24-pre1\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-02-12 11:11+0100\n"
-"PO-Revision-Date: 2024-10-17 19:41+0200\n"
+"POT-Creation-Date: 2025-04-24 15:50+0200\n"
+"PO-Revision-Date: 2025-03-08 19:09+0200\n"
 "Last-Translator: Roumen Petrov <transl@roumenpetrov.info>\n"
 "Language-Team: Bulgarian <dict@ludost.net>\n"
 "Language: bg\n"
@@ -49,31 +49,24 @@ msgstr "Програмата е пусната под процес номер %d
 
 #: hello-c-gnome3/hello.c:78 hello-c-gnome3/hello2.c:86
 #: hello-c++-gnome3/hello.cc:69
-#, fuzzy
-#| msgid "Hello, world!"
 msgid "Hello world!"
 msgstr "Здравейте всички!"
 
 #: hello-c-gnome3/hello.c:80 hello-c-gnome3/hello2.c:88
 #: hello-c++-gnome3/hello.cc:71
-#, fuzzy, c-format
-#| msgid "This program is running as process number %d."
+#, c-format
 msgid "This program is running as process number %s."
-msgstr "Програмата е пусната под процес номер %d."
+msgstr "Програмата е пусната под процес номер %s."
 
 #: hello-c-gnome3/hello.c:84 hello-c-gnome3/hello2.c:92
 #: hello-c++-gnome3/hello.cc:75
-#, fuzzy
-#| msgid "<big><u>This is another text</u></big>"
 msgid "This is another text"
-msgstr "<big><u>Това е друг текст</u></big>"
+msgstr "Това е друг текст"
 
 #: hello-c-gnome3/hello.c:86 hello-c-gnome3/hello2.c:94
 #: hello-c++-gnome3/hello.cc:77
-#, fuzzy
-#| msgid "<big><i>This is yet another text</i></big>"
 msgid "This is yet another text"
-msgstr "<big><i>А това е един друг текст</i></big>"
+msgstr "А това е един друг текст"
 
 #: hello-c-gnome3/hello.desktop.in.in:3 hello-c-gnome3/hello2.desktop.in.in:3
 #: hello-c++-gnome3/hello.desktop.in.in:3
@@ -135,16 +128,14 @@ msgid "This program is running as process number ~D."
 msgstr "Програмата е пусната под процес номер ~D."
 
 #: hello-rust/src/main.rs.in:31
-#, fuzzy, rust-format
-#| msgid "This program is running as process number {0}."
+#, rust-format
 msgid "This program is running as process number {}."
-msgstr "Програмата е пусната под процес номер {0}."
+msgstr "Програмата е пусната под процес номер {}."
 
 #: hello-ruby/hello.rb:8
-#, fuzzy, ruby-format
-#| msgid "This program is running as process number {pid}."
+#, ruby-format
 msgid "This program is running as process number %{pid}."
-msgstr "Програмата е пусната под процес номер {pid}."
+msgstr "Програмата е пусната под процес номер %{pid}."
 
 #: hello-sh/hello.sh:17
 #, sh-format
@@ -155,11 +146,3 @@ msgstr "Програмата е пусната под процес номер $p
 #, perl-brace-format
 msgid "This program is running as process number {pid}."
 msgstr "Програмата е пусната под процес номер {pid}."
-
-#, c-format
-#~ msgid ""
-#~ "<big>Hello world!</big>\n"
-#~ "This program is running as process number <b>%d</b>."
-#~ msgstr ""
-#~ "<big>Здравейте всички!</big>\n"
-#~ "Програмата е пусната под процес номер <b>%d</b>."

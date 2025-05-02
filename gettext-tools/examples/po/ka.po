@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-02-12 11:11+0100\n"
+"POT-Creation-Date: 2025-04-24 15:50+0200\n"
 "PO-Revision-Date: 2022-05-22 05:04+0200\n"
 "Last-Translator: Temuri Doghonadze <temuri.doghonadze@gmail.com>\n"
 "Language-Team: Georgian <(nothing)>\n"
@@ -52,28 +52,24 @@ msgstr "პროგრამა გაშვებულია პროცე�
 #: hello-c-gnome3/hello.c:78 hello-c-gnome3/hello2.c:86
 #: hello-c++-gnome3/hello.cc:69
 #, fuzzy
-#| msgid "Hello, world!"
 msgid "Hello world!"
 msgstr "გამარჯობა სამყაროვ!"
 
 #: hello-c-gnome3/hello.c:80 hello-c-gnome3/hello2.c:88
 #: hello-c++-gnome3/hello.cc:71
 #, fuzzy, c-format
-#| msgid "This program is running as process number %d."
 msgid "This program is running as process number %s."
 msgstr "პროგრამა გაშვებულია პროცესის ნომრით %d."
 
 #: hello-c-gnome3/hello.c:84 hello-c-gnome3/hello2.c:92
 #: hello-c++-gnome3/hello.cc:75
 #, fuzzy
-#| msgid "<big><u>This is another text</u></big>"
 msgid "This is another text"
 msgstr "<big><u>ეს კი სხვა ტექსტია</u></big>"
 
 #: hello-c-gnome3/hello.c:86 hello-c-gnome3/hello2.c:94
 #: hello-c++-gnome3/hello.cc:77
 #, fuzzy
-#| msgid "<big><i>This is yet another text</i></big>"
 msgid "This is yet another text"
 msgstr "<big><i>ეს კიდევ უფრო სხვაა</i></big>"
 
@@ -102,7 +98,6 @@ msgstr "გამოიყენოთ თუ არა XML მარკირ�
 
 #: hello-c++20/hello.cc:50 hello-c++20/hello.cc:53
 #, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number {:d}."
 msgstr "პროგრამა გაშვებულია პროცესის ნომრით {pid}."
 
@@ -139,13 +134,11 @@ msgstr "პროგრამა გაშვებულია პროცე�
 
 #: hello-rust/src/main.rs.in:31
 #, fuzzy, rust-format
-#| msgid "This program is running as process number {0}."
 msgid "This program is running as process number {}."
 msgstr "პროგრამა გაშვებულია პროცესის ნომრით {0}."
 
 #: hello-ruby/hello.rb:8
 #, fuzzy, ruby-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number %{pid}."
 msgstr "პროგრამა გაშვებულია პროცესის ნომრით {pid}."
 

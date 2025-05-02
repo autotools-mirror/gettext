@@ -2,14 +2,14 @@
 # Copyright (C) 2009 Yoyodyne, Inc. (msgids)
 # This file is distributed under the same license as the gettext package.
 # Arvis Lācis <arvis.lacis@inbox.lv>, 2009.
-# Rihards Priedītis <rprieditis@gmail>, 2023.
+# Rihards Priedītis <rprieditis@gmail>, 2023, 2025.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples-0.22\n"
+"Project-Id-Version: gettext-examples-0.24-pre1\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-02-12 11:11+0100\n"
-"PO-Revision-Date: 2023-12-24 15:52+0000\n"
+"POT-Creation-Date: 2025-04-24 15:50+0200\n"
+"PO-Revision-Date: 2025-03-09 11:44+0000\n"
 "Last-Translator: Rihards Priedītis <rprieditis@gmail.com>\n"
 "Language-Team: Latvian <translation-team-lv@lists.sourceforge.net>\n"
 "Language: lv\n"
@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
 "2);\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: hello-c/hello.c:35 hello-c-gnome2/hello.c:51
 #: hello-c-gnome3/hello.desktop.in.in:4 hello-c-gnome3/hello2.desktop.in.in:4
@@ -53,31 +53,24 @@ msgstr "Šī programma darbojas ar procesa numuru %d."
 
 #: hello-c-gnome3/hello.c:78 hello-c-gnome3/hello2.c:86
 #: hello-c++-gnome3/hello.cc:69
-#, fuzzy
-#| msgid "Hello, world!"
 msgid "Hello world!"
 msgstr "Sveika, pasaule!"
 
 #: hello-c-gnome3/hello.c:80 hello-c-gnome3/hello2.c:88
 #: hello-c++-gnome3/hello.cc:71
-#, fuzzy, c-format
-#| msgid "This program is running as process number %d."
+#, c-format
 msgid "This program is running as process number %s."
-msgstr "Šī programma darbojas ar procesa numuru %d."
+msgstr "Šī programma darbojas ar procesa numuru %s."
 
 #: hello-c-gnome3/hello.c:84 hello-c-gnome3/hello2.c:92
 #: hello-c++-gnome3/hello.cc:75
-#, fuzzy
-#| msgid "<big><u>This is another text</u></big>"
 msgid "This is another text"
-msgstr "<big><u>Šis ir vēl viens teksts</u></big>"
+msgstr "Šis ir vēl viens teksts"
 
 #: hello-c-gnome3/hello.c:86 hello-c-gnome3/hello2.c:94
 #: hello-c++-gnome3/hello.cc:77
-#, fuzzy
-#| msgid "<big><i>This is yet another text</i></big>"
 msgid "This is yet another text"
-msgstr "<big><i>Šis ir vēl viens teksts</i></big>"
+msgstr "Šis ir arī vēl viens teksts"
 
 #: hello-c-gnome3/hello.desktop.in.in:3 hello-c-gnome3/hello2.desktop.in.in:3
 #: hello-c++-gnome3/hello.desktop.in.in:3
@@ -139,16 +132,14 @@ msgid "This program is running as process number ~D."
 msgstr "Šī programma darbojas ar procesa numuru ~D."
 
 #: hello-rust/src/main.rs.in:31
-#, fuzzy, rust-format
-#| msgid "This program is running as process number {0}."
+#, rust-format
 msgid "This program is running as process number {}."
-msgstr "Šī programma darbojas ar procesa numuru {0}."
+msgstr "Šī programma darbojas ar procesa numuru {}."
 
 #: hello-ruby/hello.rb:8
-#, fuzzy, ruby-format
-#| msgid "This program is running as process number {pid}."
+#, ruby-format
 msgid "This program is running as process number %{pid}."
-msgstr "Šī programma darbojas ar procesa numuru {pid}."
+msgstr "Šī programma darbojas ar procesa numuru %{pid}."
 
 #: hello-sh/hello.sh:17
 #, sh-format

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples 0.19.4.73\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-02-12 11:11+0100\n"
+"POT-Creation-Date: 2025-04-24 15:50+0200\n"
 "PO-Revision-Date: 2015-06-23 20:31+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -53,28 +53,24 @@ msgstr "Ez a program a(z) %d folyamatazonosítóval fut."
 #: hello-c-gnome3/hello.c:78 hello-c-gnome3/hello2.c:86
 #: hello-c++-gnome3/hello.cc:69
 #, fuzzy
-#| msgid "Hello, world!"
 msgid "Hello world!"
 msgstr "Hello, világ!"
 
 #: hello-c-gnome3/hello.c:80 hello-c-gnome3/hello2.c:88
 #: hello-c++-gnome3/hello.cc:71
 #, fuzzy, c-format
-#| msgid "This program is running as process number %d."
 msgid "This program is running as process number %s."
 msgstr "Ez a program a(z) %d folyamatazonosítóval fut."
 
 #: hello-c-gnome3/hello.c:84 hello-c-gnome3/hello2.c:92
 #: hello-c++-gnome3/hello.cc:75
 #, fuzzy
-#| msgid "<big><u>This is another text</u></big>"
 msgid "This is another text"
 msgstr "<big><u>Ez egy másik szöveg</u></big>"
 
 #: hello-c-gnome3/hello.c:86 hello-c-gnome3/hello2.c:94
 #: hello-c++-gnome3/hello.cc:77
 #, fuzzy
-#| msgid "<big><i>This is yet another text</i></big>"
 msgid "This is yet another text"
 msgstr "<big><i>Ez megint egy másik szöveg</i></big>"
 
@@ -103,7 +99,6 @@ msgstr "Használjon-e XML-jelölőnyelvet a szövegben."
 
 #: hello-c++20/hello.cc:50 hello-c++20/hello.cc:53
 #, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number {:d}."
 msgstr "Ez a program a(z) {pid} folyamatazonosítóval fut."
 
@@ -140,13 +135,11 @@ msgstr "Ez a program a(z) ~D folyamatazonosítóval fut."
 
 #: hello-rust/src/main.rs.in:31
 #, fuzzy, rust-format
-#| msgid "This program is running as process number {0}."
 msgid "This program is running as process number {}."
 msgstr "Ez a program a(z) {0} folyamatazonosítóval fut."
 
 #: hello-ruby/hello.rb:8
 #, fuzzy, ruby-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number %{pid}."
 msgstr "Ez a program a(z) {pid} folyamatazonosítóval fut."
 

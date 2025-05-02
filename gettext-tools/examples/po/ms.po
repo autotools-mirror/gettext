@@ -1,15 +1,15 @@
 # gettext-examples Bahasa Melayu (Malay) (ms).
-# Copyright (C) 2006, 2015, 2023 Yoyodyne, Inc. (msgids)
-# Copyright (C) 2006, 2015, 2023 Free Software Foundation, Inc.
+# Copyright (C) 2006, 2015, 2023, 2025 Yoyodyne, Inc. (msgids)
+# Copyright (C) 2006, 2015, 2023, 2025 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
-# Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>, 2006, 2015, 2023.
+# Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>, 2006, 2015, 2023, 2025
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.22\n"
+"Project-Id-Version: gettext-examples 0.24-pre1\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-02-12 11:11+0100\n"
-"PO-Revision-Date: 2023-07-24 11:27+0800\n"
+"POT-Creation-Date: 2025-04-24 15:50+0200\n"
+"PO-Revision-Date: 2025-02-25 23:17+0800\n"
 "Last-Translator: Sharuzzaman Ahmat Raslan <sharuzzaman@gmail.com>\n"
 "Language-Team: Malay <translation-team-ms@lists.sourceforge.net>\n"
 "Language: ms\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.5\n"
 
 #: hello-c/hello.c:35 hello-c-gnome2/hello.c:51
 #: hello-c-gnome3/hello.desktop.in.in:4 hello-c-gnome3/hello2.desktop.in.in:4
@@ -51,31 +51,24 @@ msgstr "Program ini dilaksanakan sebagai proses bernombor %d."
 
 #: hello-c-gnome3/hello.c:78 hello-c-gnome3/hello2.c:86
 #: hello-c++-gnome3/hello.cc:69
-#, fuzzy
-#| msgid "Hello, world!"
 msgid "Hello world!"
-msgstr "Hello, dunia!"
+msgstr "Hello dunia!"
 
 #: hello-c-gnome3/hello.c:80 hello-c-gnome3/hello2.c:88
 #: hello-c++-gnome3/hello.cc:71
-#, fuzzy, c-format
-#| msgid "This program is running as process number %d."
+#, c-format
 msgid "This program is running as process number %s."
-msgstr "Program ini dilaksanakan sebagai proses bernombor %d."
+msgstr "Program ini dilaksanakan sebagai proses bernombor %s."
 
 #: hello-c-gnome3/hello.c:84 hello-c-gnome3/hello2.c:92
 #: hello-c++-gnome3/hello.cc:75
-#, fuzzy
-#| msgid "<big><u>This is another text</u></big>"
 msgid "This is another text"
-msgstr "<big><u>Ini adalah teks lain</u></big>"
+msgstr "Ini adalah teks lain"
 
 #: hello-c-gnome3/hello.c:86 hello-c-gnome3/hello2.c:94
 #: hello-c++-gnome3/hello.cc:77
-#, fuzzy
-#| msgid "<big><i>This is yet another text</i></big>"
 msgid "This is yet another text"
-msgstr "<big><i>Ini adalah satu lagi teks lain</i></big>"
+msgstr "Ini adalah satu lagi teks lain"
 
 #: hello-c-gnome3/hello.desktop.in.in:3 hello-c-gnome3/hello2.desktop.in.in:3
 #: hello-c++-gnome3/hello.desktop.in.in:3
@@ -137,16 +130,14 @@ msgid "This program is running as process number ~D."
 msgstr "Program ini dilaksanakan sebagai proses bernombor ~D."
 
 #: hello-rust/src/main.rs.in:31
-#, fuzzy, rust-format
-#| msgid "This program is running as process number {0}."
+#, rust-format
 msgid "This program is running as process number {}."
-msgstr "Program ini dilaksanakan sebagai proses bernombor {0}."
+msgstr "Program ini dilaksanakan sebagai proses bernombor {}."
 
 #: hello-ruby/hello.rb:8
-#, fuzzy, ruby-format
-#| msgid "This program is running as process number {pid}."
+#, ruby-format
 msgid "This program is running as process number %{pid}."
-msgstr "Program ini dilaksanakan sebagai proses bernombor {pid}."
+msgstr "Program ini dilaksanakan sebagai proses bernombor %{pid}."
 
 #: hello-sh/hello.sh:17
 #, sh-format
@@ -157,11 +148,3 @@ msgstr "Program ini dilaksanakan sebagai proses bernombor $pid."
 #, perl-brace-format
 msgid "This program is running as process number {pid}."
 msgstr "Program ini dilaksanakan sebagai proses bernombor {pid}."
-
-#, c-format
-#~ msgid ""
-#~ "<big>Hello world!</big>\n"
-#~ "This program is running as process number <b>%d</b>."
-#~ msgstr ""
-#~ "<big>Hello dunia!</big>\n"
-#~ "Program ini dilaksanakan sebagai proses bernombor <b>%d</b>."

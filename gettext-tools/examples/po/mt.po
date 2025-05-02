@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples 0.16.2-pre5\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-02-12 11:11+0100\n"
+"POT-Creation-Date: 2025-04-24 15:50+0200\n"
 "PO-Revision-Date: 2008-11-18 17:27+0100\n"
 "Last-Translator: Clyde Meli <cmeli@cis.um.edu.mt>\n"
 "Language-Team: Maltese <translation-team-mt@lists.sourceforge.net>\n"
@@ -51,14 +51,12 @@ msgstr "Dal-programm qed jaÄ§dem taÄ§t il-proÄess numru %d."
 #: hello-c-gnome3/hello.c:78 hello-c-gnome3/hello2.c:86
 #: hello-c++-gnome3/hello.cc:69
 #, fuzzy
-#| msgid "Hello, world!"
 msgid "Hello world!"
 msgstr "Hello, lil kulÄ§add!"
 
 #: hello-c-gnome3/hello.c:80 hello-c-gnome3/hello2.c:88
 #: hello-c++-gnome3/hello.cc:71
 #, fuzzy, c-format
-#| msgid "This program is running as process number %d."
 msgid "This program is running as process number %s."
 msgstr "Dal-programm qed jaÄ§dem taÄ§t il-proÄess numru %d."
 
@@ -97,7 +95,6 @@ msgstr ""
 
 #: hello-c++20/hello.cc:50 hello-c++20/hello.cc:53
 #, fuzzy, c++-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number {:d}."
 msgstr "Dal-programm qed jaÄ§dem taÄ§t il-proÄess numru {pid}."
 
@@ -134,13 +131,11 @@ msgstr "Dal-programm qed jaÄ§dem taÄ§t il-proÄess numru ~D."
 
 #: hello-rust/src/main.rs.in:31
 #, fuzzy, rust-format
-#| msgid "This program is running as process number {0}."
 msgid "This program is running as process number {}."
 msgstr "Dal-programm qed jaÄ§dem taÄ§t il-proÄess numru {0}."
 
 #: hello-ruby/hello.rb:8
 #, fuzzy, ruby-format
-#| msgid "This program is running as process number {pid}."
 msgid "This program is running as process number %{pid}."
 msgstr "Dal-programm qed jaÄ§dem taÄ§t il-proÄess numru {pid}."
 
