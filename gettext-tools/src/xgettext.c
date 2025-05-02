@@ -34,6 +34,7 @@
 #include <sys/stat.h>
 #include <locale.h>
 #include <limits.h>
+#include <sys/resource.h>
 
 #if HAVE_ICONV
 #include <iconv.h>
@@ -2233,6 +2234,52 @@ max_mtime_without_git (struct timespec *max_of_mtimes,
   return 0;
 }
 
+static int
+max_mtime (struct timespec *max_of_mtimes,
+           size_t nfiles, const char * const *filenames)
+{
+  if (xgettext_no_git)
+    return max_mtime_without_git (max_of_mtimes, nfiles, filenames);
+  else
+    {
+      /* Measure the time spent by the children processes (invocations of the
+         'git' program), and tell the user about the '--no-git' option if they
+         took more than 10 seconds.  */
+      struct rusage usage_before;
+      struct rusage usage_after;
+      bool usage_failed;
+      memset (&usage_before, '\0', sizeof (struct rusage));
+      usage_failed = getrusage (RUSAGE_CHILDREN, &usage_before) < 0;
+
+      int ret = max_vc_mtime (max_of_mtimes, nfiles, filenames);
+
+      memset (&usage_after, '\0', sizeof (struct rusage));
+      usage_failed |= getrusage (RUSAGE_CHILDREN, &usage_after) < 0;
+      if (!usage_failed)
+        {
+          long user_usec =
+            (usage_after.ru_utime.tv_sec - usage_before.ru_utime.tv_sec) * 1000000
+            + usage_after.ru_utime.tv_usec - usage_before.ru_utime.tv_usec;
+          long sys_usec =
+            (usage_after.ru_stime.tv_sec - usage_before.ru_stime.tv_sec) * 1000000
+            + usage_after.ru_stime.tv_usec - usage_before.ru_stime.tv_usec;
+          if (user_usec + sys_usec >= 10 * 1000000)
+            multiline_warning (xasprintf (_("warning: ")),
+                               xasprintf (_("\
+Determining the POT-Creation-Date through the\n\
+version-control (git) history took %.2f seconds.\n\
+If you want to speed this up and produce a less\n\
+reproducible POT-Creation-Date instead, without 'git',\n\
+pass the option '%s'.\n\
+"),
+                                          (user_usec + sys_usec) / 1000000.0,
+                                          "--no-git"));
+        }
+
+      return ret;
+    }
+}
+
 static void
 finalize_header (msgdomain_list_ty *mdlp)
 {
@@ -2241,8 +2288,8 @@ finalize_header (msgdomain_list_ty *mdlp)
     time_t stamp;
     struct timespec max_of_mtimes;
     if (files_for_vc_mtime.nitems > 0
-        && (xgettext_no_git ? max_mtime_without_git : max_vc_mtime)
-           (&max_of_mtimes, files_for_vc_mtime.nitems, files_for_vc_mtime.item)
+        && max_mtime (&max_of_mtimes,
+                      files_for_vc_mtime.nitems, files_for_vc_mtime.item)
            == 0)
       /* Use the maximum of the encountered mtimes.  */
       stamp = max_of_mtimes.tv_sec;

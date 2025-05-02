@@ -201,6 +201,7 @@ if ! $skip_gnulib; then
     getaddrinfo
     getline
     getopt-gnu
+    getrusage
     gettext-h
     iconv
     javacomp
