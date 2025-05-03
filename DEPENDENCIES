@@ -273,7 +273,7 @@ dependencies):
 
 * A C runtime, compiler, linker, etc.
   + Mandatory.
-    Either the platform's native 'cc', or GCC 3.1 or newer.
+    Either the platform's native 'cc', or GCC 4.4 or newer.
   + GCC Homepage:
     https://gcc.gnu.org/
   + Download:
