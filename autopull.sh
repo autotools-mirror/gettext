@@ -138,6 +138,7 @@ test -d gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION || 
 test -d gettext-tools/tree-sitter-d-$TREE_SITTER_D_VERSION || {
   func_git_clone_shallow tree-sitter-d https://github.com/gdamore/tree-sitter-d.git v$TREE_SITTER_D_VERSION
   (cd tree-sitter-d && patch -p1) < gettext-tools/build-aux/tree-sitter-d-portability.diff
+  (cd tree-sitter-d && patch -p1) < gettext-tools/build-aux/tree-sitter-d-optimization-bug.diff
   mkdir gettext-tools/tree-sitter-d-$TREE_SITTER_D_VERSION
   mv tree-sitter-d/LICENSE.txt gettext-tools/tree-sitter-d-$TREE_SITTER_D_VERSION/LICENSE
   mv tree-sitter-d/src gettext-tools/tree-sitter-d-$TREE_SITTER_D_VERSION/src
