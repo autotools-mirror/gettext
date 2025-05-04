@@ -24,6 +24,10 @@ Version 0.25 - May 2025
       strings.
     - A new example 'hello-modula2' has been added.
 
+# Improvements for maintainers:
+  * xgettext has a new option '--generated' that customizes the way the
+    'POT-Creation-Date' in the POT file is computed.
+
 Version 0.24.1 - May 2025
 
 * Bug fixes:

@@ -783,10 +783,21 @@ which the translators can contact you.
 The default value is empty, which means that translators will be clueless!
 Don't forget to specify this option.
 
+@item --generated=@var{file}
+@opindex --generated@r{, @code{xgettext} option}
+
+Declares that the given @var{file} is generated
+and therefore should not have
+an influence on the @samp{POT-Creation-Date} field in the output.
+
+When you specify this option,
+you should also specify one or @code{--reference} options,
+to indicate the files from which the given @var{file} was generated.
+
 @item --reference=@var{file}
 @opindex --reference@r{, @code{xgettext} option}
 
-Declares that the output depends on the contents of the given FILE.
+Declares that the output depends on the contents of the given @var{file}.
 This has an influence on the @samp{POT-Creation-Date} field in the output.
 
 By default, @code{xgettext} determines the @samp{POT-Creation-Date} as

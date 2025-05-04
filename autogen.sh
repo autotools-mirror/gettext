@@ -211,6 +211,7 @@ if ! $skip_gnulib; then
     gocomp-script
     hash-map
     hash-set
+    hashkey-string
     iconv
     javacomp
     javaexec
@@ -240,6 +241,7 @@ if ! $skip_gnulib; then
     readdir
     relocatable-prog
     relocatable-script
+    set
     setlocale
     sf-istream
     sh-filename

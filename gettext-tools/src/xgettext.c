@@ -53,6 +53,10 @@
 #include "dir-list.h"
 #include "file-list.h"
 #include "str-list.h"
+#include "gl_set.h"
+#include "gl_xset.h"
+#include "gl_hash_set.h"
+#include "hashkey-string.h"
 #include "error-progname.h"
 #include "progname.h"
 #include "relocatable.h"
@@ -252,6 +256,9 @@ static bool add_itstool_comments = false;
 /* The file names whose version-controlled modification times shall be
    considered.  */
 static string_list_ty files_for_vc_mtime;
+/* The file names whose (possibly version-controlled) modification times
+   shall be ignored.  */
+static gl_set_t generated_files;
 
 /* Long options.  */
 static const struct option long_options[] =
@@ -274,6 +281,7 @@ static const struct option long_options[] =
   { "force-po", no_argument, &force_po, 1 },
   { "foreign-user", no_argument, NULL, CHAR_MAX + 2 },
   { "from-code", required_argument, NULL, CHAR_MAX + 3 },
+  { "generated", required_argument, NULL, CHAR_MAX + 24 },
   { "help", no_argument, NULL, 'h' },
   { "indent", no_argument, NULL, 'i' },
   { "its", required_argument, NULL, CHAR_MAX + 20 },
@@ -397,6 +405,9 @@ main (int argc, char *argv[])
   /* Set initial value of variables.  */
   default_domain = MESSAGE_DOMAIN_DEFAULT;
   string_list_init (&files_for_vc_mtime);
+  generated_files =
+    gl_set_create_empty (GL_HASH_SET,
+                         hashkey_string_equals, hashkey_string_hash, NULL);
   xgettext_global_source_encoding = NULL;
   init_flag_table_c ();
   init_flag_table_objc ();
@@ -739,6 +750,10 @@ main (int argc, char *argv[])
 
       case CHAR_MAX + 23: /* --no-git */
         xgettext_no_git = true;
+        break;
+
+      case CHAR_MAX + 24: /* --generated */
+        gl_set_add (generated_files, optarg);
         break;
 
       default:
@@ -1314,6 +1329,10 @@ Output details:\n"));
       --package-version=VERSION  set package version in output\n"));
       printf (_("\
       --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"));
+      printf (_("\
+      --generated=FILE        Declares that the given FILE is generated and\n\
+                              therefore should not have an influence on the\n\
+                              'POT-Creation-Date' field in the output.\n"));
       printf (_("\
       --reference=FILE        Declares that the output depends on the contents\n\
                               of the given FILE.  This has an influence on the\n\
@@ -2340,17 +2359,34 @@ finalize_header (msgdomain_list_ty *mdlp)
 {
   /* Set the POT-Creation-Date field.  */
   {
+    /* First, filter out the generated files.  */
+    const char **filenames;
+    size_t nfiles;
+    {
+      const char **all_files = files_for_vc_mtime.item;
+      size_t num_all_files = files_for_vc_mtime.nitems;
+      filenames = XNMALLOC (num_all_files, const char *);
+      nfiles = 0;
+      for (size_t i = 0; i < num_all_files; i++)
+        {
+          const char *file = all_files[i];
+          if (!gl_set_search (generated_files, file))
+            filenames[nfiles++] = file;
+        }
+    }
+
+    /* Then, take the maximum of the (possibly version-controlled) modification
+       times of these files.  */
     time_t stamp;
     struct timespec max_of_mtimes;
-    if (files_for_vc_mtime.nitems > 0
-        && max_mtime (&max_of_mtimes,
-                      files_for_vc_mtime.nitems, files_for_vc_mtime.item)
-           == 0)
+    if (nfiles > 0 && max_mtime (&max_of_mtimes, nfiles, filenames) == 0)
       /* Use the maximum of the encountered mtimes.  */
       stamp = max_of_mtimes.tv_sec;
     else
       /* Use the current time.  */
       time (&stamp);
+    free (filenames);
+
     char *timestring = po_strftime (&stamp);
     msgdomain_list_set_header_field (mdlp, "POT-Creation-Date:", timestring);
     free (timestring);
