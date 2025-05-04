@@ -310,6 +310,9 @@ struct string_buffer_reversed_unicode
 /* Initializes a 'struct string_buffer_reversed_unicode'.  */
 static inline void
 sbru_init (struct string_buffer_reversed_unicode *buffer)
+  _GL_ATTRIBUTE_ACQUIRE_CAPABILITY (buffer->sbr.data);
+static inline void
+sbru_init (struct string_buffer_reversed_unicode *buffer)
 {
   sbr_init (&buffer->sbr);
   buffer->utf16_surr = 0;
@@ -432,7 +435,8 @@ sbru_xprepend_unicode (struct string_buffer_reversed_unicode *buffer,
 static char *
 sbru_xdupfree_c (struct string_buffer_reversed_unicode *buffer)
   _GL_ATTRIBUTE_MALLOC _GL_ATTRIBUTE_DEALLOC_FREE
-  _GL_ATTRIBUTE_RETURNS_NONNULL;
+  _GL_ATTRIBUTE_RETURNS_NONNULL
+  _GL_ATTRIBUTE_RELEASE_CAPABILITY (buffer->sbr.data);
 static char *
 sbru_xdupfree_c (struct string_buffer_reversed_unicode *buffer)
 {
