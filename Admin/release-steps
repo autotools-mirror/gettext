@@ -171,7 +171,7 @@ We assume that the following environment variables are set:
     cd gettext-runtime/po
     make update-po
     cd new
-    for f in *.po; do msgmerge --update --lang=${f%.po} --previous $f ../gettext-runtime.pot; done
+    for f in *.po; do msgmerge --update --lang=${f%.po} --previous --width=80 $f ../gettext-runtime.pot; done
     mv *.po ../
     cd ..; rm -rf new
 
@@ -181,7 +181,7 @@ We assume that the following environment variables are set:
     cd gettext-tools/po
     make update-po
     cd new
-    for f in *.po; do msgmerge --update --lang=${f%.po} --previous $f ../gettext-tools.pot; done
+    for f in *.po; do msgmerge --update --lang=${f%.po} --previous --width=80 $f ../gettext-tools.pot; done
     mv *.po ../
     cd ..; rm -rf new
 
@@ -191,7 +191,7 @@ We assume that the following environment variables are set:
     cd gettext-tools/examples/po
     make update-po
     cd new
-    for f in *.po; do msgmerge --update --lang=${f%.po} --previous $f ../gettext-examples.pot; done
+    for f in *.po; do msgmerge --update --lang=${f%.po} --previous --width=80 $f ../gettext-examples.pot; done
     mv *.po ../
     cd ..; rm -rf new
 
