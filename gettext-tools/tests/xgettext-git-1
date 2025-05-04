@@ -59,6 +59,13 @@ cd src || Exit 1
 # Verify the computation of a POT-Creation-Date from 1000 files
 # in a single commit.
 
+case "$host_os" in
+  mingw* | windows*)
+    # The xgettext invocation would fail with error "Argument list too long".
+    # It can be worked around by using the --files-from option.
+    # But this exercise is outside of the scope of this unit test.
+    ;;
+  *)
 TZ=UTC0 \
 ${XGETTEXT} -o xg-gi-test1-b.tmp --no-location \
             'Hadschi Halef Omar/ben/Hadschi Abul Abbas/ibn/Hadschi Dawuhd al Gossarah'/same*.c
@@ -91,10 +98,20 @@ EOF
 : ${DIFF=diff}
 ${DIFF} xg-gi-test1-b.ok xg-gi-test1-b.pot || Exit 1
 
+    ;;
+esac
+
 # ------------------------------------------------------------------------------
 # Verify the computation of a POT-Creation-Date from 1000 files
 # in different commits.
 
+case "$host_os" in
+  mingw* | windows*)
+    # The xgettext invocation would fail with error "Argument list too long".
+    # It can be worked around by using the --files-from option.
+    # But this exercise is outside of the scope of this unit test.
+    ;;
+  *)
 TZ=UTC0 \
 ${XGETTEXT} -o xg-gi-test1-c.tmp --no-location \
             'Hadschi Halef Omar/ben/Hadschi Abul Abbas/ibn/Hadschi Dawuhd al Gossarah'/sequence*.c
@@ -126,6 +143,9 @@ EOF
 
 : ${DIFF=diff}
 ${DIFF} xg-gi-test1-c.ok xg-gi-test1-c.pot || Exit 1
+
+    ;;
+esac
 
 # ------------------------------------------------------------------------------
 # Verify the computation of a POT-Creation-Date from a file
