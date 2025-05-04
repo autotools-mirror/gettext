@@ -61,16 +61,16 @@ fi
 AC_SUBST([BUILDCSHARP])
 
 gt_D_CHOICE
-if test "$D_CHOICE" != no; then
-  gt_DCOMP
-  if test -n "$DC"; then
-    BUILDD=yes
-  else
-    BUILDD=no
-  fi
-else
-  BUILDD=no
-fi
+AS_IF([test "$D_CHOICE" != no],
+  [gt_DCOMP
+   if test -n "$DC"; then
+     BUILDD=yes
+   else
+     BUILDD=no
+   fi
+  ],
+  [BUILDD=no
+  ])
 AC_SUBST([BUILDD])
 AM_CONDITIONAL([BUILD_D], [test $BUILDD = yes])
 
@@ -171,35 +171,35 @@ AH_BOTTOM([
 ])
 
 gt_MODULA2_CHOICE
-if test "$MODULA2_CHOICE" != no; then
-  gt_MODULA2COMP
-  if test -n "$M2C"; then
-    BUILDMODULA2=yes
-    AC_COMPUTE_INT([VALUE_OF_LC_ALL],      [LC_ALL],      [#include <locale.h>])
-    AC_COMPUTE_INT([VALUE_OF_LC_CTYPE],    [LC_CTYPE],    [#include <locale.h>])
-    AC_COMPUTE_INT([VALUE_OF_LC_NUMERIC],  [LC_NUMERIC],  [#include <locale.h>])
-    AC_COMPUTE_INT([VALUE_OF_LC_TIME],     [LC_TIME],     [#include <locale.h>])
-    AC_COMPUTE_INT([VALUE_OF_LC_COLLATE],  [LC_COLLATE],  [#include <locale.h>])
-    AC_COMPUTE_INT([VALUE_OF_LC_MONETARY], [LC_MONETARY], [#include <locale.h>])
-    AC_COMPUTE_INT([VALUE_OF_LC_MESSAGES], [LC_MESSAGES], [
-      #include <locale.h>
-      #if defined _WIN32 && !defined __CYGWIN__
-      # define LC_MESSAGES 1729
-      #endif
-    ])
-    AC_SUBST([VALUE_OF_LC_ALL])
-    AC_SUBST([VALUE_OF_LC_CTYPE])
-    AC_SUBST([VALUE_OF_LC_NUMERIC])
-    AC_SUBST([VALUE_OF_LC_TIME])
-    AC_SUBST([VALUE_OF_LC_COLLATE])
-    AC_SUBST([VALUE_OF_LC_MONETARY])
-    AC_SUBST([VALUE_OF_LC_MESSAGES])
-  else
-    BUILDMODULA2=no
-  fi
-else
-  BUILDMODULA2=no
-fi
+AS_IF([test "$MODULA2_CHOICE" != no],
+  [gt_MODULA2COMP
+   AS_IF([test -n "$M2C"],
+     [BUILDMODULA2=yes
+      AC_COMPUTE_INT([VALUE_OF_LC_ALL],      [LC_ALL],      [#include <locale.h>])
+      AC_COMPUTE_INT([VALUE_OF_LC_CTYPE],    [LC_CTYPE],    [#include <locale.h>])
+      AC_COMPUTE_INT([VALUE_OF_LC_NUMERIC],  [LC_NUMERIC],  [#include <locale.h>])
+      AC_COMPUTE_INT([VALUE_OF_LC_TIME],     [LC_TIME],     [#include <locale.h>])
+      AC_COMPUTE_INT([VALUE_OF_LC_COLLATE],  [LC_COLLATE],  [#include <locale.h>])
+      AC_COMPUTE_INT([VALUE_OF_LC_MONETARY], [LC_MONETARY], [#include <locale.h>])
+      AC_COMPUTE_INT([VALUE_OF_LC_MESSAGES], [LC_MESSAGES], [
+        #include <locale.h>
+        #if defined _WIN32 && !defined __CYGWIN__
+        # define LC_MESSAGES 1729
+        #endif
+      ])
+      AC_SUBST([VALUE_OF_LC_ALL])
+      AC_SUBST([VALUE_OF_LC_CTYPE])
+      AC_SUBST([VALUE_OF_LC_NUMERIC])
+      AC_SUBST([VALUE_OF_LC_TIME])
+      AC_SUBST([VALUE_OF_LC_COLLATE])
+      AC_SUBST([VALUE_OF_LC_MONETARY])
+      AC_SUBST([VALUE_OF_LC_MESSAGES])
+     ],
+     [BUILDMODULA2=no
+     ])
+  ],
+  [BUILDMODULA2=no
+  ])
 AC_SUBST([BUILDMODULA2])
 AM_CONDITIONAL([BUILD_MODULA2], [test $BUILDMODULA2 = yes])
 AM_CONDITIONAL([USE_INCLUDED_LIBINTL], [test $USE_INCLUDED_LIBINTL = yes])

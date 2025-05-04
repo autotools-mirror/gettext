@@ -103,16 +103,16 @@ fi
 AC_SUBST([TESTCSHARP])
 
 gt_D_CHOICE
-if test "$D_CHOICE" != no; then
-  gt_DCOMP
-  if test -n "$DC"; then
-    BUILDD=yes
-  else
-    BUILDD=no
-  fi
-else
-  BUILDD=no
-fi
+AS_IF([test "$D_CHOICE" != no],
+  [gt_DCOMP
+   if test -n "$DC"; then
+     BUILDD=yes
+   else
+     BUILDD=no
+   fi
+  ],
+  [BUILDD=no
+  ])
 AC_SUBST([BUILDD])
 
 dnl Check for host type.
@@ -429,16 +429,16 @@ dnl Check for nm output filter that yields the exported symbols.
 gt_GLOBAL_SYMBOL_PIPE
 
 gt_MODULA2_CHOICE
-if test "$MODULA2_CHOICE" != no; then
-  gt_MODULA2COMP
-  if test -n "$M2C"; then
-    BUILDMODULA2=yes
-  else
-    BUILDMODULA2=no
-  fi
-else
-  BUILDMODULA2=no
-fi
+AS_IF([test "$MODULA2_CHOICE" != no],
+  [gt_MODULA2COMP
+   if test -n "$M2C"; then
+     BUILDMODULA2=yes
+   else
+     BUILDMODULA2=no
+   fi
+  ],
+  [BUILDMODULA2=no
+  ])
 AC_SUBST([BUILDMODULA2])
 
 dnl Check for Emacs and where to install .elc files.
