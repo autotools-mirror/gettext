@@ -5,10 +5,6 @@
 # Assumes an fr_FR locale is installed.
 # Assumes the following packages are installed: gm2.
 
-# Note: This test fails on Ubuntu 22.04, with a compilation error
-# "error: the file containing the definition module 'Terminal' cannot be found",
-# apparently due to insufficient include paths in this version of gm2.
-
 # Test whether we can build and test Modula-2 programs.
 test "${MODULA2_CHOICE}" != no || {
   echo "Skipping test: configured with --disable-modula2"
@@ -16,6 +12,21 @@ test "${MODULA2_CHOICE}" != no || {
 }
 test "${BUILDMODULA2}" = yes || {
   echo "Skipping test: Modula-2 compiler not found"
+  Exit 77
+}
+
+# On Ubuntu 22.04, with gm2 version 11, we see a compilation error
+# "error: the file containing the definition module 'Terminal' cannot be found",
+# apparently due to insufficient include paths in this version of gm2.
+cat <<\EOF > foo.mod
+MODULE Prog;
+FROM Terminal IMPORT WriteLn;
+BEGIN
+  WriteLn;
+END Prog.
+EOF
+${M2C} ${M2FLAGS} -o foo foo.mod || {
+  echo "Skipping test: Modula-2 compiler cannot find module 'Terminal'"
   Exit 77
 }
 
