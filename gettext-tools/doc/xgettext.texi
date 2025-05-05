@@ -24,6 +24,9 @@ Input files.
 Read the names of the input files from @var{file} instead of getting
 them from the command line.
 
+Often @var{file} is a temporary file, generated during the build process.
+In this case, you should also pass the @code{--generated=@var{file}} option.
+
 @item -D @var{directory}
 @itemx --directory=@var{directory}
 @opindex -D@r{, @code{xgettext} option}
@@ -791,7 +794,7 @@ and therefore should not have
 an influence on the @samp{POT-Creation-Date} field in the output.
 
 When you specify this option,
-you should also specify one or @code{--reference} options,
+you should also specify one or more @code{--reference} options,
 to indicate the files from which the given @var{file} was generated.
 
 @item --reference=@var{file}
