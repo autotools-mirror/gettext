@@ -3,11 +3,23 @@ Packaging hints for binary package distributors
 
 Although the source of the gettext package comes as a single package,
 I recommend that in distributions of binary packages the installed files
-be split into three packages:
+be split into five packages:
 
    gettext-runtime
         Contents: Runtime libraries and programs.
         Audience: Anyone who wants to run internationalized programs.
+
+   gettext-runtime-d
+        Contents: Runtime libraries specifically for the D programming
+                  language.
+        Audience: Anyone who wants to run internationalized D programs.
+        Dependencies: requires gettext-runtime.
+
+   gettext-runtime-m2
+        Contents: Runtime libraries specifically for the Modula-2 programming
+                  language.
+        Audience: Anyone who wants to run internationalized Modula-2 programs.
+        Dependencies: requires gettext-runtime.
 
    libtextstyle
         Contents: Text styling library.
@@ -25,7 +37,7 @@ binary package (420 KB versus 5.5 MB). I recommend to include it in the default
 installation list, like GNU 'coreutils'; in fact, the runtime programs are
 utilities for sh programs.
 
-The 'gettext-runtime' binary package can be installed by doing
+The three 'gettext-runtime*' binary packages can be installed by doing
 
       cd gettext-runtime
       ./configure
@@ -47,15 +59,16 @@ The 'gettext-tools' binary package can be installed by building
       make
       make install
 
-If you want to install all three at the same time, you simply do at the
+If you want to install all five at the same time, you simply do at the
 top-level directory:
 
       ./configure
       make
       make install
 
-The precise split between gettext-runtime, libtextstyle, and gettext-tools
-is according to the following file list.
+The precise split between gettext-runtime, gettext-runtime-d,
+gettext-runtime-m2, libtextstyle, and gettext-tools is according to
+the following file list.
 
    gettext-runtime
 
@@ -85,18 +98,22 @@ is according to the following file list.
       $prefix/lib/gettext/GNU.Gettext.dll
       $prefix/share/doc/gettext/csharpdoc/*
 
+      $prefix/lib/libasprintf.*
+      $prefix/include/autosprintf.h
+      $prefix/share/doc/libasprintf/autosprintf*.html
+      $prefix/share/info/autosprintf.info
+
+   gettext-runtime-d
+
       $prefix/lib/libintl_d.a
       $prefix/include/d/gnu/libintl/package.d
       $prefix/include/d/gnu/libintl/libintl.d
       $prefix/include/d/gnu/libintl/internal/low.d
 
+   gettext-runtime-m2
+
       $prefix/lib/libintl_m2.*
       $prefix/include/m2/Libintl.def
-
-      $prefix/lib/libasprintf.*
-      $prefix/include/autosprintf.h
-      $prefix/share/doc/libasprintf/autosprintf*.html
-      $prefix/share/info/autosprintf.info
 
    libtextstyle
 
