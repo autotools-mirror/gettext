@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2023 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2025 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node C
@@ -62,6 +62,8 @@ yes
 @end table
 
 The following examples are available in the @file{examples} directory:
-@code{hello-c}, @code{hello-c-gnome}, @code{hello-c++}, @code{hello-c++-qt}, 
-@code{hello-c++-kde}, @code{hello-c++-gnome}, @code{hello-c++-wxwidgets},
-@code{hello-objc}, @code{hello-objc-gnustep}, @code{hello-objc-gnome}.
+@code{hello-c}, @code{hello-c-gnome2}, @code{hello-c-gnome3}, @code{hello-c-http},
+@code{hello-c++}, @code{hello-c++20},
+@code{hello-c++-qt}, @code{hello-c++-kde},
+@code{hello-c++-gnome2}, @code{hello-c++-gnome3}, @code{hello-c++-wxwidgets},
+@code{hello-objc}, @code{hello-objc-gnustep}, @code{hello-objc-gnome2}.

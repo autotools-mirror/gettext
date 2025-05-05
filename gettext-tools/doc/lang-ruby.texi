@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2020 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2025 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node Ruby
@@ -56,4 +56,4 @@ fully portable
 ---
 @end table
 
-@c An example is available in the @file{examples} directory: @code{hello-ruby}.
+An example is available in the @file{examples} directory: @code{hello-ruby}.
