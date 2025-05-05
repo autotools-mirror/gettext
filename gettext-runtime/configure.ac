@@ -194,6 +194,9 @@ AS_IF([test "$MODULA2_CHOICE" != no],
       AC_SUBST([VALUE_OF_LC_COLLATE])
       AC_SUBST([VALUE_OF_LC_MONETARY])
       AC_SUBST([VALUE_OF_LC_MESSAGES])
+      AC_REQUIRE([AC_LIB_RPATH])
+      M2SHLIBEXT="$acl_shlibext"
+      AC_SUBST([M2SHLIBEXT])
      ],
      [BUILDMODULA2=no
      ])
