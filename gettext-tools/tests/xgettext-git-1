@@ -289,7 +289,8 @@ ${DIFF} xg-gi-test1-h.ok xg-gi-test1-h.pot || Exit 1
 TZ=UTC0 \
 ${XGETTEXT} -o xg-gi-test1-i.tmp --no-location \
             --generated='Hadschi Halef Omar/ben/Hadschi Abul Abbas/ibn/Hadschi Dawuhd al Gossarah'/sequence999.c \
-            'Hadschi Halef Omar/ben/Hadschi Abul Abbas/ibn/Hadschi Dawuhd al Gossarah'/sequence{000,999}.c
+            'Hadschi Halef Omar/ben/Hadschi Abul Abbas/ibn/Hadschi Dawuhd al Gossarah'/sequence000.c \
+            'Hadschi Halef Omar/ben/Hadschi Abul Abbas/ibn/Hadschi Dawuhd al Gossarah'/sequence999.c
 LC_ALL=C tr -d '\r' < xg-gi-test1-i.tmp > xg-gi-test1-i.pot || Exit 1
 
 cat <<\EOF > xg-gi-test1-i.ok
