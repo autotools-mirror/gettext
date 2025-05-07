@@ -283,7 +283,7 @@ AM_CPPFLAGS += -DDEPENDS_ON_LIBICONV=1
 # Libtool's library version information for libtextstyle.
 # See the libtool documentation, section "Library interface versions".
 LTV_CURRENT=2
-LTV_REVISION=4
+LTV_REVISION=5
 LTV_AGE=2
 
 # How to build libtextstyle.la.
