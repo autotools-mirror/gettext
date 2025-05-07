@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-01-02 14:12+0100\n"
+"POT-Creation-Date: 2025-03-21 19:44+0100\n"
 "PO-Revision-Date: 2020-04-20 09:36+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "X-Generator: Virtaal 0.7.1\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 
-#: src/envsubst.c:113 src/gettext.c:136 src/ngettext.c:126
+#: src/envsubst.c:113 src/gettext.c:136 src/ngettext.c:127
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Ово је слободан софтвер: слободни сте да га мењате и расподељујете.\n"
 "Не постоји НИКАКВА ГАРАНЦИЈА, у оквирима дозвољеним законом.\n"
 
-#: src/envsubst.c:119 src/gettext.c:142 src/ngettext.c:132
+#: src/envsubst.c:119 src/gettext.c:142 src/ngettext.c:133
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Написао је %s.\n"
@@ -43,17 +43,17 @@ msgstr "Написао је %s.\n"
 msgid "Bruno Haible"
 msgstr "Бруно Хејбл"
 
-#: src/envsubst.c:128 src/gettext.c:160 src/ngettext.c:144
+#: src/envsubst.c:128 src/gettext.c:160 src/ngettext.c:145
 #, c-format
 msgid "too many arguments"
 msgstr "превише аргумената"
 
-#: src/envsubst.c:139 src/gettext.c:170 src/ngettext.c:156
+#: src/envsubst.c:139 src/gettext.c:170 src/ngettext.c:157
 #, c-format
 msgid "missing arguments"
 msgstr "недостају аргументи"
 
-#: src/envsubst.c:177 src/gettext.c:247 src/ngettext.c:213
+#: src/envsubst.c:177 src/gettext.c:247 src/ngettext.c:215
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Пробајте „%s --help“ за више података.\n"
@@ -78,7 +78,7 @@ msgstr "Начин рада:\n"
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             исписује променљиве из ФОРМАТА-ЉУСКЕ\n"
 
-#: src/envsubst.c:198 src/gettext.c:276 src/ngettext.c:243
+#: src/envsubst.c:198 src/gettext.c:276 src/ngettext.c:245
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Обавештајни излаз:\n"
@@ -123,7 +123,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:226 src/gettext.c:300 src/ngettext.c:264
+#: src/envsubst.c:226 src/gettext.c:300 src/ngettext.c:266
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -142,7 +142,7 @@ msgid "standard input"
 msgstr "стандардни улаз"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:142 src/ngettext.c:132
+#: src/gettext.c:142 src/ngettext.c:133
 msgid "Ulrich Drepper"
 msgstr "Улрих Дрепер"
 
@@ -165,12 +165,12 @@ msgstr "Приказује превод текстуалне поруке на �
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=ДОМЕН_ТЕКСТА   налази преведене поруке из ДОМЕНА_ТЕКСТА\n"
 
-#: src/gettext.c:264 src/ngettext.c:230
+#: src/gettext.c:264 src/ngettext.c:232
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=КОНТЕКСТ      наводи контекст за „MSGID“\n"
 
-#: src/gettext.c:266 src/ngettext.c:232
+#: src/gettext.c:266 src/ngettext.c:234
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr "  -e                          омогућава ширење неких низова прелаза\n"
@@ -180,7 +180,7 @@ msgstr "  -e                          омогућава ширење неких
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                          потискује пратећи нови ред\n"
 
-#: src/gettext.c:270 src/ngettext.c:234
+#: src/gettext.c:270 src/ngettext.c:236
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                          (занемарено зарад сагласности)\n"
@@ -194,12 +194,12 @@ msgstr ""
 "  [ДОМЕН_ТЕКСТА] MSGID        налази преведене поруке које одговарају\n"
 "                              „MSGID“-у из ДОМЕНА_ТЕКСТА\n"
 
-#: src/gettext.c:278 src/ngettext.c:245
+#: src/gettext.c:278 src/ngettext.c:247
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                  приказује ову помоћ и излази\n"
 
-#: src/gettext.c:280 src/ngettext.c:247
+#: src/gettext.c:280 src/ngettext.c:249
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version               исписује податке о издању и излази\n"
@@ -225,12 +225,12 @@ msgstr ""
 "које постоје у изабраном каталогу се преводе.\n"
 "Уобичајени директоријум за тражење је: %s\n"
 
-#: src/ngettext.c:218
+#: src/ngettext.c:220
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Употреба: %s [ОПЦИЈА] [ДОМЕНТЕКСТА] МСГИД БРОЈ МСГИД-МНОЖИНА\n"
 
-#: src/ngettext.c:223
+#: src/ngettext.c:225
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
@@ -239,19 +239,19 @@ msgstr ""
 "Приказује превод на матерњем језику за текстуалну поруку чији \n"
 "облик зависи од броја.\n"
 
-#: src/ngettext.c:228
+#: src/ngettext.c:230
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 msgstr "  -d, --domain=ДОМЕН_ТЕКСТА   налази преведену поруку из ДОМЕНА_ТЕКСТА\n"
 
-#: src/ngettext.c:236
+#: src/ngettext.c:238
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr ""
 "  [ДОМЕН_ТЕКСТА]              налази преведену поруку из ДОМЕНА_ТЕКСТА\n"
 
-#: src/ngettext.c:238
+#: src/ngettext.c:240
 #, c-format
 msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
@@ -260,7 +260,7 @@ msgstr ""
 "  MSGID MSGID-PLURAL          преводи „MSGID“ (једнина) / „MSGID-PLURAL“ "
 "(множина)\n"
 
-#: src/ngettext.c:240
+#: src/ngettext.c:242
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
@@ -268,7 +268,7 @@ msgstr ""
 "  БРОЈ                        бира облик једнине/множине на основу ове "
 "вредности\n"
 
-#: src/ngettext.c:251
+#: src/ngettext.c:253
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"

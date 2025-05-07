@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-01-02 14:12+0100\n"
+"POT-Creation-Date: 2025-03-21 19:44+0100\n"
 "PO-Revision-Date: 2021-04-04 11:35+02:00\n"
 "Last-Translator: Petr Pisar <petr.pisar@atlas.cz>\n"
 "Language-Team: Czech <translation-team-cs@lists.sourceforge.net>\n"
@@ -22,7 +22,7 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 
-#: src/envsubst.c:113 src/gettext.c:136 src/ngettext.c:126
+#: src/envsubst.c:113 src/gettext.c:136 src/ngettext.c:127
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -37,7 +37,7 @@ msgstr ""
 
 # src/gettextp.c:139 src/msgcmp.c:149 src/msgfmt.c:262 src/msgmerge.c:256
 # src/msgunfmt.c:180 src/xgettext.c:399
-#: src/envsubst.c:119 src/gettext.c:142 src/ngettext.c:132
+#: src/envsubst.c:119 src/gettext.c:142 src/ngettext.c:133
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Napsal %s.\n"
@@ -48,20 +48,20 @@ msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
 # src/gettextp.c:164
-#: src/envsubst.c:128 src/gettext.c:160 src/ngettext.c:144
+#: src/envsubst.c:128 src/gettext.c:160 src/ngettext.c:145
 #, c-format
 msgid "too many arguments"
 msgstr "příliš mnoho argumentů"
 
 # src/gettextp.c:154
-#: src/envsubst.c:139 src/gettext.c:170 src/ngettext.c:156
+#: src/envsubst.c:139 src/gettext.c:170 src/ngettext.c:157
 #, c-format
 msgid "missing arguments"
 msgstr "chybí argumenty"
 
 # src/gettextp.c:228 src/msgcmp.c:181 src/msgfmt.c:361 src/msgmerge.c:298
 # src/msgunfmt.c:210 src/xgettext.c:532
-#: src/envsubst.c:177 src/gettext.c:247 src/ngettext.c:213
+#: src/envsubst.c:177 src/gettext.c:247 src/ngettext.c:215
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Více informací získáte příkazem „%s --help“.\n"
@@ -86,7 +86,7 @@ msgstr "Operační režim:\n"
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             vypsat proměnné vyskytující se ve FORMÁTU_SHELLU\n"
 
-#: src/envsubst.c:198 src/gettext.c:276 src/ngettext.c:243
+#: src/envsubst.c:198 src/gettext.c:276 src/ngettext.c:245
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informační výstup:\n"
@@ -133,7 +133,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:226 src/gettext.c:300 src/ngettext.c:264
+#: src/envsubst.c:226 src/gettext.c:300 src/ngettext.c:266
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -156,7 +156,7 @@ msgid "standard input"
 msgstr "standardní vstup"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:142 src/ngettext.c:132
+#: src/gettext.c:142 src/ngettext.c:133
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
@@ -179,12 +179,12 @@ msgstr "Zobrazí v národním jazyce překlad textové zprávy.\n"
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEXTOVÁ_DOMÉNA  získá přeložené zprávy z TEXTOVÉ_DOMÉNY\n"
 
-#: src/gettext.c:264 src/ngettext.c:230
+#: src/gettext.c:264 src/ngettext.c:232
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=KONTEXT        určuje kontext ID_ZPRÁVY\n"
 
-#: src/gettext.c:266 src/ngettext.c:232
+#: src/gettext.c:266 src/ngettext.c:234
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
@@ -195,7 +195,7 @@ msgstr ""
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                           potlačí nové řádky na konci\n"
 
-#: src/gettext.c:270 src/ngettext.c:234
+#: src/gettext.c:270 src/ngettext.c:236
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                           (ignorován kvůli kompatibilitě)\n"
@@ -209,12 +209,12 @@ msgstr ""
 "  [TEXTOVÁ_DOMÉNA] ID_ZPRÁVY   vypíše přeloženou zprávu odpovídající\n"
 "                               ID_ZPRÁVY z TEXTOVÉ_DOMÉNY\n"
 
-#: src/gettext.c:278 src/ngettext.c:245
+#: src/gettext.c:278 src/ngettext.c:247
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                   zobrazí tuto nápovědu a skončí\n"
 
-#: src/gettext.c:280 src/ngettext.c:247
+#: src/gettext.c:280 src/ngettext.c:249
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version                vypíše údaje o verzi a skončí\n"
@@ -241,31 +241,31 @@ msgstr ""
 "zprávy nalezené ve vybraném katalogu napřed přeloží.\n"
 "Standardně prohledávaný adresář: %s\n"
 
-#: src/ngettext.c:218
+#: src/ngettext.c:220
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Použití: %s [PŘEPÍNAČE] [TEXTOVÁ_DOMÉNA] ID_ZPRÁVY ID_PLURÁLU_ZPRÁVY POČET\n"
 
-#: src/ngettext.c:223
+#: src/ngettext.c:225
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr "Zobrazí v národním jazyce překlad textové zprávy, která gramaticky závisí na počtu.\n"
 
-#: src/ngettext.c:228
+#: src/ngettext.c:230
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEXTOVÁ_DOMÉNA  získá přeloženou zprávu z TEXTOVÉ_DOMÉNY\n"
 
-#: src/ngettext.c:236
+#: src/ngettext.c:238
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr ""
 "  [TEXTOVÁ_DOMÉNA]             získá přeloženou zprávu z TEXTOVÉ_DOMÉNY\n"
 
-#: src/ngettext.c:238
+#: src/ngettext.c:240
 #, c-format
 msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
@@ -274,7 +274,7 @@ msgstr ""
 "  ID_ZPRÁVY ID_PLURÁLU_ZPRÁVY  přeloží ID_ZPRÁVY (jednotné číslo) /\n"
 "                               ID_PLURÁLU_ZPRÁVY (množné číslo)\n"
 
-#: src/ngettext.c:240
+#: src/ngettext.c:242
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
@@ -283,7 +283,7 @@ msgstr ""
 "hodnoty\n"
 
 # src/gettextp.c:245
-#: src/ngettext.c:251
+#: src/ngettext.c:253
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"

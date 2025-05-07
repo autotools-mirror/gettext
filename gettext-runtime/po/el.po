@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.34\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-01-02 14:12+0100\n"
+"POT-Creation-Date: 2025-03-21 19:44+0100\n"
 "PO-Revision-Date: 1998-05-17 13:12+0200\n"
 "Last-Translator: Simos KSenitellis <simos@teiath.gr>\n"
 "Language-Team: Greek <simos@teiath.gr>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/envsubst.c:113 src/gettext.c:136 src/ngettext.c:126
+#: src/envsubst.c:113 src/gettext.c:136 src/ngettext.c:127
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 
 #
-#: src/envsubst.c:119 src/gettext.c:142 src/ngettext.c:132
+#: src/envsubst.c:119 src/gettext.c:142 src/ngettext.c:133
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Γραμμένο από τον/την %s.\n"
@@ -38,19 +38,19 @@ msgid "Bruno Haible"
 msgstr ""
 
 #
-#: src/envsubst.c:128 src/gettext.c:160 src/ngettext.c:144
+#: src/envsubst.c:128 src/gettext.c:160 src/ngettext.c:145
 #, c-format
 msgid "too many arguments"
 msgstr "πάρα πολλά ορίσματα"
 
 #
-#: src/envsubst.c:139 src/gettext.c:170 src/ngettext.c:156
+#: src/envsubst.c:139 src/gettext.c:170 src/ngettext.c:157
 #, c-format
 msgid "missing arguments"
 msgstr "υπολείπονται ορίσματα"
 
 #
-#: src/envsubst.c:177 src/gettext.c:247 src/ngettext.c:213
+#: src/envsubst.c:177 src/gettext.c:247 src/ngettext.c:215
 #, fuzzy, c-format
 #| msgid "Try `%s --help' for more information.\n"
 msgid "Try '%s --help' for more information.\n"
@@ -76,7 +76,7 @@ msgstr ""
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr ""
 
-#: src/envsubst.c:198 src/gettext.c:276 src/ngettext.c:243
+#: src/envsubst.c:198 src/gettext.c:276 src/ngettext.c:245
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr ""
@@ -114,7 +114,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:226 src/gettext.c:300 src/ngettext.c:264
+#: src/envsubst.c:226 src/gettext.c:300 src/ngettext.c:266
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -133,7 +133,7 @@ msgid "standard input"
 msgstr "κανονική είσοδος"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:142 src/ngettext.c:132
+#: src/gettext.c:142 src/ngettext.c:133
 msgid "Ulrich Drepper"
 msgstr ""
 
@@ -154,12 +154,12 @@ msgstr ""
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr ""
 
-#: src/gettext.c:264 src/ngettext.c:230
+#: src/gettext.c:264 src/ngettext.c:232
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr ""
 
-#: src/gettext.c:266 src/ngettext.c:232
+#: src/gettext.c:266 src/ngettext.c:234
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
@@ -169,7 +169,7 @@ msgstr ""
 msgid "  -n                        suppress trailing newline\n"
 msgstr ""
 
-#: src/gettext.c:270 src/ngettext.c:234
+#: src/gettext.c:270 src/ngettext.c:236
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr ""
@@ -181,12 +181,12 @@ msgid ""
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
 
-#: src/gettext.c:278 src/ngettext.c:245
+#: src/gettext.c:278 src/ngettext.c:247
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr ""
 
-#: src/gettext.c:280 src/ngettext.c:247
+#: src/gettext.c:280 src/ngettext.c:249
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr ""
@@ -213,44 +213,44 @@ msgstr ""
 "Αντίθετα, τα μηνύματα που βρίσκονται στο επιλεγμένο κατάλογο, μεταφράζονται.\n"
 "Καθιερωμένος κατάλογος αναζήτησης: %s\n"
 
-#: src/ngettext.c:218
+#: src/ngettext.c:220
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr ""
 
-#: src/ngettext.c:223
+#: src/ngettext.c:225
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr ""
 
-#: src/ngettext.c:228
+#: src/ngettext.c:230
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 msgstr ""
 
-#: src/ngettext.c:236
+#: src/ngettext.c:238
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr ""
 
-#: src/ngettext.c:238
+#: src/ngettext.c:240
 #, c-format
 msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
 "(plural)\n"
 msgstr ""
 
-#: src/ngettext.c:240
+#: src/ngettext.c:242
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
 
 #
-#: src/ngettext.c:251
+#: src/ngettext.c:253
 #, fuzzy, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -532,8 +532,7 @@ msgstr ""
 #~ "      --force-po              write PO file even if empty\n"
 #~ "  -i, --indent                write the .po file using indented style\n"
 #~ "      --no-location           do not write '#: filename:line' lines\n"
-#~ "  -n, --add-location          generate '#: filename:line' lines "
-#~ "(default)\n"
+#~ "  -n, --add-location          generate '#: filename:line' lines (default)\n"
 #~ "      --strict                write out strict Uniforum conforming .po "
 #~ "file\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
@@ -599,10 +598,8 @@ msgstr ""
 #~ "                                   ορισμούς, εξ ορισμού σε ένα αν δεν "
 #~ "τεθεί\n"
 #~ "\n"
-#~ "Εύρεση μηνυμάτων που είναι κοινά σε δύο ή περισσότερα ορισμένα αρχεία "
-#~ "PO.\n"
-#~ "Με τη χρήση της επιλογής --more-than option, μπορεί να ζητηθεί "
-#~ "μεγαλύτερη\n"
+#~ "Εύρεση μηνυμάτων που είναι κοινά σε δύο ή περισσότερα ορισμένα αρχεία PO.\n"
+#~ "Με τη χρήση της επιλογής --more-than option, μπορεί να ζητηθεί μεγαλύτερη\n"
 #~ "συγγένεια πριν εμφανιστούν τα μηνύματα.  Αντίθετα, με την επιλογή --less-"
 #~ "than\n"
 #~ "μπορεί να οριστεί μικρότερη συγγένεια πριν εμφανιστούν τα μηνύματα (π.χ.\n"
@@ -619,8 +616,7 @@ msgstr ""
 #~ msgid ""
 #~ "Message selection:\n"
 #~ "  -<, --less-than=NUMBER         print messages with less than this many\n"
-#~ "                                 definitions, defaults to infinite if "
-#~ "not\n"
+#~ "                                 definitions, defaults to infinite if not\n"
 #~ "                                 set\n"
 #~ "  ->, --more-than=NUMBER         print messages with more than this many\n"
 #~ "                                 definitions, defaults to 0 if not set\n"
@@ -640,10 +636,8 @@ msgstr ""
 #~ "                                   ορισμούς, εξ ορισμού σε ένα αν δεν "
 #~ "τεθεί\n"
 #~ "\n"
-#~ "Εύρεση μηνυμάτων που είναι κοινά σε δύο ή περισσότερα ορισμένα αρχεία "
-#~ "PO.\n"
-#~ "Με τη χρήση της επιλογής --more-than option, μπορεί να ζητηθεί "
-#~ "μεγαλύτερη\n"
+#~ "Εύρεση μηνυμάτων που είναι κοινά σε δύο ή περισσότερα ορισμένα αρχεία PO.\n"
+#~ "Με τη χρήση της επιλογής --more-than option, μπορεί να ζητηθεί μεγαλύτερη\n"
 #~ "συγγένεια πριν εμφανιστούν τα μηνύματα.  Αντίθετα, με την επιλογή --less-"
 #~ "than\n"
 #~ "μπορεί να οριστεί μικρότερη συγγένεια πριν εμφανιστούν τα μηνύματα (π.χ.\n"
@@ -660,12 +654,10 @@ msgstr ""
 #~ msgid ""
 #~ "Output details:\n"
 #~ "  -t, --to-code=NAME             encoding for output\n"
-#~ "      --use-first                use first available translation for "
-#~ "each\n"
+#~ "      --use-first                use first available translation for each\n"
 #~ "                                 message, don't merge several "
 #~ "translations\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "      --force-po                 write PO file even if empty\n"
@@ -738,11 +730,9 @@ msgstr ""
 #~ "  -V, --version            εμφάνιση πληροφοριών έκδοσης προγράμματος και "
 #~ "έξοδος\n"
 #~ "\n"
-#~ "Σύγκριση δύο αρχείων .po της μορφής Uniforum για τον έλεγχο αν και τα "
-#~ "δύο\n"
+#~ "Σύγκριση δύο αρχείων .po της μορφής Uniforum για τον έλεγχο αν και τα δύο\n"
 #~ "περιέχουν το ίδιο σύνολο από msgid αλφαριθμιτικά. Το αρχείο def.po είναι\n"
-#~ "ένα προϋπάρχον αρχείο PO με τις παλιές μεταφράσεις. Το αρχείο ref.po "
-#~ "file\n"
+#~ "ένα προϋπάρχον αρχείο PO με τις παλιές μεταφράσεις. Το αρχείο ref.po file\n"
 #~ "είναι το πιο πρόσφατο αρχείο PO (γενικά δημιουργημένο από το πρόγραμμα\n"
 #~ "xgettext). Είναι χρήσιμο για το έλεγχο ότι όλα τα μηνύματα τους "
 #~ "προγράμματος\n"
@@ -800,10 +790,8 @@ msgstr ""
 #~ "                                   ορισμούς, εξ ορισμού σε ένα αν δεν "
 #~ "τεθεί\n"
 #~ "\n"
-#~ "Εύρεση μηνυμάτων που είναι κοινά σε δύο ή περισσότερα ορισμένα αρχεία "
-#~ "PO.\n"
-#~ "Με τη χρήση της επιλογής --more-than option, μπορεί να ζητηθεί "
-#~ "μεγαλύτερη\n"
+#~ "Εύρεση μηνυμάτων που είναι κοινά σε δύο ή περισσότερα ορισμένα αρχεία PO.\n"
+#~ "Με τη χρήση της επιλογής --more-than option, μπορεί να ζητηθεί μεγαλύτερη\n"
 #~ "συγγένεια πριν εμφανιστούν τα μηνύματα.  Αντίθετα, με την επιλογή --less-"
 #~ "than\n"
 #~ "μπορεί να οριστεί μικρότερη συγγένεια πριν εμφανιστούν τα μηνύματα (π.χ.\n"
@@ -820,8 +808,7 @@ msgstr ""
 #~ msgid ""
 #~ "Message selection:\n"
 #~ "  -<, --less-than=NUMBER         print messages with less than this many\n"
-#~ "                                 definitions, defaults to infinite if "
-#~ "not\n"
+#~ "                                 definitions, defaults to infinite if not\n"
 #~ "                                 set\n"
 #~ "  ->, --more-than=NUMBER         print messages with more than this many\n"
 #~ "                                 definitions, defaults to 1 if not set\n"
@@ -841,10 +828,8 @@ msgstr ""
 #~ "                                   ορισμούς, εξ ορισμού σε ένα αν δεν "
 #~ "τεθεί\n"
 #~ "\n"
-#~ "Εύρεση μηνυμάτων που είναι κοινά σε δύο ή περισσότερα ορισμένα αρχεία "
-#~ "PO.\n"
-#~ "Με τη χρήση της επιλογής --more-than option, μπορεί να ζητηθεί "
-#~ "μεγαλύτερη\n"
+#~ "Εύρεση μηνυμάτων που είναι κοινά σε δύο ή περισσότερα ορισμένα αρχεία PO.\n"
+#~ "Με τη χρήση της επιλογής --more-than option, μπορεί να ζητηθεί μεγαλύτερη\n"
 #~ "συγγένεια πριν εμφανιστούν τα μηνύματα.  Αντίθετα, με την επιλογή --less-"
 #~ "than\n"
 #~ "μπορεί να οριστεί μικρότερη συγγένεια πριν εμφανιστούν τα μηνύματα (π.χ.\n"
@@ -860,8 +845,7 @@ msgstr ""
 #, fuzzy
 #~ msgid ""
 #~ "Output details:\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "      --force-po                 write PO file even if empty\n"
@@ -915,8 +899,7 @@ msgstr ""
 #~ "      --force-po              write PO file even if empty\n"
 #~ "  -i, --indent                indented output style\n"
 #~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines "
-#~ "(default)\n"
+#~ "      --add-location          preserve '#: filename:line' lines (default)\n"
 #~ "      --strict                strict Uniforum output style\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
 #~ "      --no-wrap               do not break long message lines, longer "
@@ -985,8 +968,7 @@ msgstr ""
 #~ "      --keep-header           keep header entry unmodified, don't filter "
 #~ "it\n"
 #~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines "
-#~ "(default)\n"
+#~ "      --add-location          preserve '#: filename:line' lines (default)\n"
 #~ "      --strict                strict Uniforum output style\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
 #~ "      --no-wrap               do not break long message lines, longer "
@@ -1125,8 +1107,7 @@ msgstr ""
 
 #
 #~ msgid "domain name \"%s\" not suitable as file name"
-#~ msgstr ""
-#~ "το όνομα για τη περιοχή \"%s\" δεν είναι κατάλληλο για όνομα αρχείου"
+#~ msgstr "το όνομα για τη περιοχή \"%s\" δεν είναι κατάλληλο για όνομα αρχείου"
 
 #
 #~ msgid "domain name \"%s\" not suitable as file name: will use prefix"
@@ -1168,8 +1149,7 @@ msgstr ""
 #~ "      --force-po              write PO file even if empty\n"
 #~ "      --indent                indented output style\n"
 #~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines "
-#~ "(default)\n"
+#~ "      --add-location          preserve '#: filename:line' lines (default)\n"
 #~ "      --strict                strict Uniforum output style\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
 #~ "      --no-wrap               do not break long message lines, longer "
@@ -1209,8 +1189,7 @@ msgstr ""
 #~ "Merges two Uniforum style .po files together.  The def.po file is an\n"
 #~ "existing PO file with translations which will be taken over to the newly\n"
 #~ "created file as long as they still match; comments will be preserved,\n"
-#~ "but extracted comments and file positions will be discarded.  The "
-#~ "ref.pot\n"
+#~ "but extracted comments and file positions will be discarded.  The ref.pot\n"
 #~ "file is the last created PO file with up-to-date source references but\n"
 #~ "old translations, or a PO Template file (generally created by xgettext);\n"
 #~ "any translations or comments in the file will be discarded, however dot\n"
@@ -1423,8 +1402,8 @@ msgstr ""
 #
 #~ msgid "--join-existing cannot be used when output is written to stdout"
 #~ msgstr ""
-#~ "το --join-existing δε μπορεί να χρησιμοποιηθεί όταν η έξοδος γράφεται "
-#~ "στην κανονική έξοδο"
+#~ "το --join-existing δε μπορεί να χρησιμοποιηθεί όταν η έξοδος γράφεται στην "
+#~ "κανονική έξοδο"
 
 #
 #~ msgid "warning: file `%s' extension `%s' is unknown; will try C"
@@ -1436,8 +1415,7 @@ msgstr ""
 #, fuzzy
 #~ msgid ""
 #~ "Output details:\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "      --force-po                 write PO file even if empty\n"
@@ -1547,8 +1525,7 @@ msgstr ""
 #~ "messages.po)\n"
 #~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files "
 #~ "search\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "  -f, --files-from=FILE          get list of input files from FILE\n"
@@ -1572,8 +1549,7 @@ msgstr ""
 #~ "  -f, --files-from=ΑΡΧΕΙΟ        λήψη λίστας αρχείων εισόδου από ΑΡΧΕΙΟ\n"
 #~ "      --force-po                 δημιουργία αρχείου PO ακόμα και αν είναι "
 #~ "άδειο\n"
-#~ "  -F, --sort-by-file             ταξινόμηση εξόδου βάση της θέσης "
-#~ "αρχείου\n"
+#~ "  -F, --sort-by-file             ταξινόμηση εξόδου βάση της θέσης αρχείου\n"
 #~ "  -h, --help                     εμφάνιση αυτής της βοήθειας και έξοδος\n"
 
 #
@@ -1599,8 +1575,8 @@ msgstr ""
 #~ "έξοδο\n"
 #~ "      --no-location              αποφυγή εμφάνισης γραμμών '#: "
 #~ "filename:line'\n"
-#~ "  -n, --add-location             δημιουργία γραμμών '#: filename:line' "
-#~ "(εξ ορισμού)\n"
+#~ "  -n, --add-location             δημιουργία γραμμών '#: filename:line' (εξ "
+#~ "ορισμού)\n"
 #~ "      --omit-header              να μη γραφτεί κεφαλίδα με εγγραφή `msgid "
 #~ "\"\"'\n"
 #~ "  -o, --output=ΑΡΧΕΙΟ            εγγραφή εξόδου στο επιλεγμένο αρχείο\n"
@@ -1621,16 +1597,14 @@ msgstr ""
 #~ "Generate binary message catalog from textual translation description.\n"
 #~ "\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: "
-#~ "%d)\n"
+#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
 #~ "  -c, --check                 perform language dependent checks on "
 #~ "strings\n"
 #~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
 #~ "search\n"
 #~ "  -f, --use-fuzzy             use fuzzy entries in output\n"
 #~ "  -h, --help                  display this help and exit\n"
-#~ "      --no-hash               binary file will not include the hash "
-#~ "table\n"
+#~ "      --no-hash               binary file will not include the hash table\n"
 #~ "  -o, --output-file=FILE      specify output file name as FILE\n"
 #~ "      --statistics            print statistics about translations\n"
 #~ "      --strict                enable strict Uniforum mode\n"
@@ -1643,8 +1617,7 @@ msgstr ""
 #~ "output is written to standard output.\n"
 #~ msgstr ""
 #~ "Χρήση: %s [ΕΠΙΛΟΓΗ] filename.po ...\n"
-#~ "Δημιουργία δυαδικού καταλόγου μηνυμάτων από λεκτική μετάφραση "
-#~ "περιγραφών.\n"
+#~ "Δημιουργία δυαδικού καταλόγου μηνυμάτων από λεκτική μετάφραση περιγραφών.\n"
 #~ "\n"
 #~ "Οι υποχρεωτικοί παράμετροι στα περιφραστικά ορίσματα είναι υποχρεωτικοί\n"
 #~ "και για τα σύντομα ορίσματα.\n"
@@ -1694,8 +1667,7 @@ msgstr ""
 #~ "                           (εξ ορισμού)\n"
 #~ "  -E, --escape             χρήση κωδικών διαφυγής αλά C στην έξοδο,\n"
 #~ "                             όχι όμως και εκτεταμένους χαρακτήρες.\n"
-#~ "      --force-po           δημιουργία αρχείου PO ακόμα και αν είναι "
-#~ "άδειο\n"
+#~ "      --force-po           δημιουργία αρχείου PO ακόμα και αν είναι άδειο\n"
 #~ "  -h, --help               εμφάνιση αυτής της βοήθειας και έξοδος\n"
 #~ "  -i, --indent             μορφοποιημένη έξοδος\n"
 #~ "  -o, --output-file=ΑΡΧΕΙΟ  το αρχείο εξόδου θα είναι το ΑΡΧΕΙΟ\n"
@@ -1734,8 +1706,7 @@ msgstr ""
 #~ "messages.po)\n"
 #~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files "
 #~ "search\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "  -f, --files-from=FILE          get list of input files from FILE\n"
@@ -1753,8 +1724,8 @@ msgstr ""
 #~ "  -a, --extract-all              εξαγωγή όλων των αλφαριθμητικών\n"
 #~ "  -c, --add-comments[=TAG]       τοποθέτηση τμήμα σχολίων με TAG (ή αυτά "
 #~ "που\n"
-#~ "                                 ακολουθούν γραμμές με εντολές) στο "
-#~ "αρχείο εξόδου\n"
+#~ "                                 ακολουθούν γραμμές με εντολές) στο αρχείο "
+#~ "εξόδου\n"
 #~ "  -C, --c++                      συντομογραφία για --language=C++\n"
 #~ "      --debug                    περισσότερο λεπτομερής εμφάνιση "
 #~ "μηνυμάτων\n"
@@ -1774,8 +1745,7 @@ msgstr ""
 #~ "      --foreign-user             παράλειψη εμφάνισης πνευματικών "
 #~ "δικαιωμάτων της FSF\n"
 #~ "                                 στην έξοδο για ξένο χρήστη\n"
-#~ "  -F, --sort-by-file             ταξινόμηση εξόδου βάση της θέσης "
-#~ "αρχείου\n"
+#~ "  -F, --sort-by-file             ταξινόμηση εξόδου βάση της θέσης αρχείου\n"
 
 #
 #, fuzzy
@@ -1786,10 +1756,9 @@ msgstr ""
 #~ "  -k, --keyword[=WORD]           additonal keyword to be looked for "
 #~ "(without\n"
 #~ "                                 WORD means not to use default keywords)\n"
-#~ "  -L, --language=NAME            recognise the specified language (C, C+"
-#~ "+, PO),\n"
-#~ "                                 otherwise is guessed from file "
-#~ "extension\n"
+#~ "  -L, --language=NAME            recognise the specified language (C, C++, "
+#~ "PO),\n"
+#~ "                                 otherwise is guessed from file extension\n"
 #~ "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr "
 #~ "entries\n"
 #~ "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr "
@@ -1834,8 +1803,8 @@ msgstr ""
 #~ "\n"
 #~ "If INPUTFILE is -, standard input is read.\n"
 #~ msgstr ""
-#~ "  -n, --add-location             δημιουργία γραμμών '#: filename:line' "
-#~ "(εξ ορισμού)\n"
+#~ "  -n, --add-location             δημιουργία γραμμών '#: filename:line' (εξ "
+#~ "ορισμού)\n"
 #~ "      --omit-header              να μη γραφεί κεφαλίδα με εγγραφή `msgid "
 #~ "\"\"'\n"
 #~ "  -o, --output=ΑΡΧΕΙΟ            εγγραφή εξόδου στο επιλεγμένο αρχείο\n"

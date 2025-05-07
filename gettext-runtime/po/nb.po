@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-01-02 14:12+0100\n"
+"POT-Creation-Date: 2025-03-21 19:44+0100\n"
 "PO-Revision-Date: 2020-05-02 02:25+0200\n"
 "Last-Translator: Johnny A. Solbu <johnny@solbu.net>\n"
 "Language-Team: Norwegian Bokmaal <l10n-no@lister.huftis.org>\n"
@@ -20,7 +20,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: src/envsubst.c:113 src/gettext.c:136 src/ngettext.c:126
+#: src/envsubst.c:113 src/gettext.c:136 src/ngettext.c:127
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Dette er Fri programvare: du står fritt til å endre og redistribuere det.\n"
 "Det er INGEN GARANTI, i den grad loven tillater det.\n"
 
-#: src/envsubst.c:119 src/gettext.c:142 src/ngettext.c:132
+#: src/envsubst.c:119 src/gettext.c:142 src/ngettext.c:133
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Skrevet av %s.\n"
@@ -43,17 +43,17 @@ msgstr "Skrevet av %s.\n"
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:128 src/gettext.c:160 src/ngettext.c:144
+#: src/envsubst.c:128 src/gettext.c:160 src/ngettext.c:145
 #, c-format
 msgid "too many arguments"
 msgstr "for mange argumenter"
 
-#: src/envsubst.c:139 src/gettext.c:170 src/ngettext.c:156
+#: src/envsubst.c:139 src/gettext.c:170 src/ngettext.c:157
 #, c-format
 msgid "missing arguments"
 msgstr "mangler argumenter"
 
-#: src/envsubst.c:177 src/gettext.c:247 src/ngettext.c:213
+#: src/envsubst.c:177 src/gettext.c:247 src/ngettext.c:215
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Prøv «%s --help» for mer informasjon.\n"
@@ -78,7 +78,7 @@ msgstr "Driftsmodus:\n"
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             skriver ut variablene som forekommer i SHELL-FORMAT\n"
 
-#: src/envsubst.c:198 src/gettext.c:276 src/ngettext.c:243
+#: src/envsubst.c:198 src/gettext.c:276 src/ngettext.c:245
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informativ utskrift:\n"
@@ -124,7 +124,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:226 src/gettext.c:300 src/ngettext.c:264
+#: src/envsubst.c:226 src/gettext.c:300 src/ngettext.c:266
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -143,7 +143,7 @@ msgid "standard input"
 msgstr "standard inn"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:142 src/ngettext.c:132
+#: src/gettext.c:142 src/ngettext.c:133
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
@@ -166,24 +166,23 @@ msgstr "Vis morsmåloversettelse av en tekstmelding.\n"
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEXTDOMAIN   hent oversatte meldinger fra TEXTDOMAIN\n"
 
-#: src/gettext.c:264 src/ngettext.c:230
+#: src/gettext.c:264 src/ngettext.c:232
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=CONTEXT     spesifiser kontekst for MSGID\n"
 
-#: src/gettext.c:266 src/ngettext.c:232
+#: src/gettext.c:266 src/ngettext.c:234
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr ""
-"  -e                        muliggjøre ekspandering av noen escape-"
-"sekvenser\n"
+"  -e                        muliggjøre ekspandering av noen escape-sekvenser\n"
 
 #: src/gettext.c:268
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                        undertrykk etterfølgende linjeskift\n"
 
-#: src/gettext.c:270 src/ngettext.c:234
+#: src/gettext.c:270 src/ngettext.c:236
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr "  -E                        (ignorert for kompatibilitet)\n"
@@ -197,12 +196,12 @@ msgstr ""
 "  [TEXTDOMAIN] MSGID        hente oversatt melding som tilsvarer\n"
 "                            MSGID fra TEXTDOMAIN\n"
 
-#: src/gettext.c:278 src/ngettext.c:245
+#: src/gettext.c:278 src/ngettext.c:247
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                  vis denne hjelpeteksten og avslutt\n"
 
-#: src/gettext.c:280 src/ngettext.c:247
+#: src/gettext.c:280 src/ngettext.c:249
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version               vis versjonsinformasjon og avslutt\n"
@@ -228,12 +227,12 @@ msgstr ""
 "stedet blir meldinger funnet i den valgte katalogen oversatt.\n"
 "Standard søkekatalog er: %s\n"
 
-#: src/ngettext.c:218
+#: src/ngettext.c:220
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Bruk: %s [VALG] [TEKSTDOMENE] MSGID MSGID-FLERTALL ANTALL\n"
 
-#: src/ngettext.c:223
+#: src/ngettext.c:225
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
@@ -242,18 +241,18 @@ msgstr ""
 "Vis morsmåloversettelse av en tekstmelding hvis grammatiske\n"
 "form avhenger av et tall.\n"
 
-#: src/ngettext.c:228
+#: src/ngettext.c:230
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEXTDOMAIN   hent oversatt melding fra TEXTDOMAIN\n"
 
-#: src/ngettext.c:236
+#: src/ngettext.c:238
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr "  [TEXTDOMAIN]              hent oversatt melding fra TEXTDOMAIN\n"
 
-#: src/ngettext.c:238
+#: src/ngettext.c:240
 #, c-format
 msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
@@ -262,7 +261,7 @@ msgstr ""
 "  MSGID MSGID-PLURAL        oversett MSGID (entall) / MSGID-PLURAL "
 "(flertall)\n"
 
-#: src/ngettext.c:240
+#: src/ngettext.c:242
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
@@ -270,7 +269,7 @@ msgstr ""
 "  COUNT                     Velg entall/flertallsform basert på denne "
 "verdien\n"
 
-#: src/ngettext.c:251
+#: src/ngettext.c:253
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -359,8 +358,8 @@ msgstr ""
 #~ "  -h, --help                vis denne hjelpeteksten og avslutt\n"
 #~ "  -n                        undertrykk etterfølgende linjeskift\n"
 #~ "  -v, --version             vis programversjon og avslutt\n"
-#~ "  [TEKSTDOMENE] MSGID        hent oversatt melding som stemmer overens "
-#~ "med MSGID\n"
+#~ "  [TEKSTDOMENE] MSGID        hent oversatt melding som stemmer overens med "
+#~ "MSGID\n"
 #~ "                            fra TEKSTDOMENE\n"
 
 #~ msgid ""
@@ -401,8 +400,7 @@ msgstr ""
 #~ "Copyright (C) %s Free Software Foundation, Inc.\n"
 #~ "Dette er fri pogramvare; se kildekoden for kopieringsbetingelser.  Det "
 #~ "finnes\n"
-#~ "INGEN garanti; ikke engang for SALGBARHET eller SKIKKETHET FOR ET "
-#~ "BESTEMT\n"
+#~ "INGEN garanti; ikke engang for SALGBARHET eller SKIKKETHET FOR ET BESTEMT\n"
 #~ "FORMÅL.\n"
 
 #~ msgid "error while opening \"%s\" for reading"
@@ -510,8 +508,7 @@ msgstr ""
 #~ "      --force-po              write PO file even if empty\n"
 #~ "  -i, --indent                write the .po file using indented style\n"
 #~ "      --no-location           do not write '#: filename:line' lines\n"
-#~ "  -n, --add-location          generate '#: filename:line' lines "
-#~ "(default)\n"
+#~ "  -n, --add-location          generate '#: filename:line' lines (default)\n"
 #~ "      --strict                write out strict Uniforum conforming .po "
 #~ "file\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
@@ -582,8 +579,7 @@ msgstr ""
 #~ msgid ""
 #~ "Message selection:\n"
 #~ "  -<, --less-than=NUMBER         print messages with less than this many\n"
-#~ "                                 definitions, defaults to infinite if "
-#~ "not\n"
+#~ "                                 definitions, defaults to infinite if not\n"
 #~ "                                 set\n"
 #~ "  ->, --more-than=NUMBER         print messages with more than this many\n"
 #~ "                                 definitions, defaults to 0 if not set\n"
@@ -614,12 +610,10 @@ msgstr ""
 #~ msgid ""
 #~ "Output details:\n"
 #~ "  -t, --to-code=NAME             encoding for output\n"
-#~ "      --use-first                use first available translation for "
-#~ "each\n"
+#~ "      --use-first                use first available translation for each\n"
 #~ "                                 message, don't merge several "
 #~ "translations\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "      --force-po                 write PO file even if empty\n"
@@ -684,13 +678,11 @@ msgstr ""
 #~ "  -h, --help                  vise denne hjelpen og avslutte\n"
 #~ "  -V, --version               skrive ut programversjon og avslutte\n"
 #~ "\n"
-#~ "Sammenligne to Uniforum-aktige .po-filer for å sjekke at begge "
-#~ "inneholder\n"
+#~ "Sammenligne to Uniforum-aktige .po-filer for å sjekke at begge inneholder\n"
 #~ "det samme settet med msgid-strenger.  def.po-filen er en eksisterende PO-"
 #~ "fil\n"
 #~ "med de gamle oversettelsene.  ref.po-filen er det sist lagde PO(T)-filen\n"
-#~ "(som regel av xgettext).  Dette er nyttig for å sjekke at du har "
-#~ "oversatt\n"
+#~ "(som regel av xgettext).  Dette er nyttig for å sjekke at du har oversatt\n"
 #~ "alle meldingene i programmet ditt.  Når en eksakt overensstemmelse ikke\n"
 #~ "finnes, blir «fuzzy»-sammenligning brukt for å få en bedre diagnostikk.\n"
 
@@ -749,8 +741,7 @@ msgstr ""
 #~ msgid ""
 #~ "Message selection:\n"
 #~ "  -<, --less-than=NUMBER         print messages with less than this many\n"
-#~ "                                 definitions, defaults to infinite if "
-#~ "not\n"
+#~ "                                 definitions, defaults to infinite if not\n"
 #~ "                                 set\n"
 #~ "  ->, --more-than=NUMBER         print messages with more than this many\n"
 #~ "                                 definitions, defaults to 1 if not set\n"
@@ -780,8 +771,7 @@ msgstr ""
 #, fuzzy
 #~ msgid ""
 #~ "Output details:\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "      --force-po                 write PO file even if empty\n"
@@ -830,8 +820,7 @@ msgstr ""
 #~ "      --force-po              write PO file even if empty\n"
 #~ "  -i, --indent                indented output style\n"
 #~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines "
-#~ "(default)\n"
+#~ "      --add-location          preserve '#: filename:line' lines (default)\n"
 #~ "      --strict                strict Uniforum output style\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
 #~ "      --no-wrap               do not break long message lines, longer "
@@ -890,8 +879,7 @@ msgstr ""
 #~ "      --keep-header           keep header entry unmodified, don't filter "
 #~ "it\n"
 #~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines "
-#~ "(default)\n"
+#~ "      --add-location          preserve '#: filename:line' lines (default)\n"
 #~ "      --strict                strict Uniforum output style\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
 #~ "      --no-wrap               do not break long message lines, longer "
@@ -1036,8 +1024,7 @@ msgstr ""
 #~ "      --force-po              write PO file even if empty\n"
 #~ "      --indent                indented output style\n"
 #~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines "
-#~ "(default)\n"
+#~ "      --add-location          preserve '#: filename:line' lines (default)\n"
 #~ "      --strict                strict Uniforum output style\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
 #~ "      --no-wrap               do not break long message lines, longer "
@@ -1092,8 +1079,7 @@ msgstr ""
 #~ "Merges two Uniforum style .po files together.  The def.po file is an\n"
 #~ "existing PO file with translations which will be taken over to the newly\n"
 #~ "created file as long as they still match; comments will be preserved,\n"
-#~ "but extracted comments and file positions will be discarded.  The "
-#~ "ref.pot\n"
+#~ "but extracted comments and file positions will be discarded.  The ref.pot\n"
 #~ "file is the last created PO file with up-to-date source references but\n"
 #~ "old translations, or a PO Template file (generally created by xgettext);\n"
 #~ "any translations or comments in the file will be discarded, however dot\n"
@@ -1105,15 +1091,12 @@ msgstr ""
 #~ "PO-fil med gamle oversettelser, som vil bli overført til den nye filen\n"
 #~ "dersom de fremdeles stemmer.  Kommentarer blir tatt med, men kommentarer "
 #~ "om\n"
-#~ "selve ekstraheringen og fil-posisjoner blir slettet.  ref.po-filen er "
-#~ "den\n"
-#~ "sist genererte PO-filen (vanligvis generert med xgettext).  "
-#~ "Oversettelser\n"
+#~ "selve ekstraheringen og fil-posisjoner blir slettet.  ref.po-filen er den\n"
+#~ "sist genererte PO-filen (vanligvis generert med xgettext).  Oversettelser\n"
 #~ "eller kommentarer i denne filen blir slettet, men punktum-kommentarer og\n"
 #~ "fil-posisjoner blir ivaretatt.  Der det ikke lar seg gjøre å finne en\n"
 #~ "eksakt overensstemmelse, blir «fuzzy» sammenligning brukt for å få bedre\n"
-#~ "resultater.  Resultatet blir skrevet til standard ut, med mindre en "
-#~ "utfil\n"
+#~ "resultater.  Resultatet blir skrevet til standard ut, med mindre en utfil\n"
 #~ "er spesifisert.\n"
 
 #, fuzzy
@@ -1325,8 +1308,7 @@ msgstr ""
 #, fuzzy
 #~ msgid ""
 #~ "Output details:\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "      --force-po                 write PO file even if empty\n"
@@ -1420,8 +1402,7 @@ msgstr ""
 #~ "messages.po)\n"
 #~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files "
 #~ "search\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "  -f, --files-from=FILE          get list of input files from FILE\n"
@@ -1432,8 +1413,8 @@ msgstr ""
 #~ "Bruksmåte: %s [FLAGG] INNFIL ...\n"
 #~ "Obligatoriske argumenter til lange flagg er også obligatorisk for korte "
 #~ "flagg.\n"
-#~ "  -d, --default-domain=NAVN      bruk NAVN.po som resultatfil (istedet "
-#~ "for messages.po)\n"
+#~ "  -d, --default-domain=NAVN      bruk NAVN.po som resultatfil (istedet for "
+#~ "messages.po)\n"
 #~ "  -D, --directory=KATALOG        legge til KATALOG til søkelisten for "
 #~ "innfiler\n"
 #~ "  -e, --no-escape                ikke bruk C-escapekoder i utdata "
@@ -1472,8 +1453,7 @@ msgstr ""
 #~ "  -p, --output-dir=KAT           utfiler plasseres i katalogen KAT\n"
 #~ "  -s, --sort-output              generer sortert utdata og fjern "
 #~ "duplikater\n"
-#~ "      --strict                   skriv ut streng Uniforum-konform .po-"
-#~ "fil\n"
+#~ "      --strict                   skriv ut streng Uniforum-konform .po-fil\n"
 #~ "  -T, --trigraphs                forstå ANSI C trigraphs i inndata\n"
 #~ "  -u, --unique                   kortform --less-than=2, krever\n"
 #~ "                                 at bare unike meldinger blir skrevet ut\n"
@@ -1483,16 +1463,14 @@ msgstr ""
 #~ "Generate binary message catalog from textual translation description.\n"
 #~ "\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: "
-#~ "%d)\n"
+#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
 #~ "  -c, --check                 perform language dependent checks on "
 #~ "strings\n"
 #~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
 #~ "search\n"
 #~ "  -f, --use-fuzzy             use fuzzy entries in output\n"
 #~ "  -h, --help                  display this help and exit\n"
-#~ "      --no-hash               binary file will not include the hash "
-#~ "table\n"
+#~ "      --no-hash               binary file will not include the hash table\n"
 #~ "  -o, --output-file=FILE      specify output file name as FILE\n"
 #~ "      --statistics            print statistics about translations\n"
 #~ "      --strict                enable strict Uniforum mode\n"
@@ -1509,8 +1487,8 @@ msgstr ""
 #~ "\n"
 #~ "Obligatoriske argumenter for lange flagg er også obligatoriske for korte "
 #~ "flagg.\n"
-#~ "  -a, --alignment=ANTALL      juster strengene til ANTALL byter "
-#~ "(standard: %d)\n"
+#~ "  -a, --alignment=ANTALL      juster strengene til ANTALL byter (standard: "
+#~ "%d)\n"
 #~ "  -c, --check                 utfør språkavhengige tester på strengene\n"
 #~ "  -D, --directory=KATALOG     legge KATALOG til søkelisten for innfiler\n"
 #~ "  -f, --use-fuzzy             bruk antatte linjer i utdata\n"
@@ -1557,8 +1535,7 @@ msgstr ""
 #~ "messages.po)\n"
 #~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files "
 #~ "search\n"
-#~ "  -e, --no-escape                do not use C escapes in output "
-#~ "(default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "  -f, --files-from=FILE          get list of input files from FILE\n"
@@ -1582,8 +1559,7 @@ msgstr ""
 #~ "av formatstreng\n"
 #~ "  -d, --default-domain=NAVN      bruk NAVN.po for utdata (istedet for "
 #~ "messages.po)\n"
-#~ "  -D, --directory=KATALOG        legg KATALOG til søkelisten for "
-#~ "innfiler\n"
+#~ "  -D, --directory=KATALOG        legg KATALOG til søkelisten for innfiler\n"
 #~ "  -e, --no-escape                ikke bruk C-escapesekvenser i utdata "
 #~ "(standard)\n"
 #~ "  -E, --escape                   bruke C-escapekoder i utdata, ingen "
@@ -1601,10 +1577,9 @@ msgstr ""
 #~ "  -k, --keyword[=WORD]           additonal keyword to be looked for "
 #~ "(without\n"
 #~ "                                 WORD means not to use default keywords)\n"
-#~ "  -L, --language=NAME            recognise the specified language (C, C+"
-#~ "+, PO),\n"
-#~ "                                 otherwise is guessed from file "
-#~ "extension\n"
+#~ "  -L, --language=NAME            recognise the specified language (C, C++, "
+#~ "PO),\n"
+#~ "                                 otherwise is guessed from file extension\n"
 #~ "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr "
 #~ "entries\n"
 #~ "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr "

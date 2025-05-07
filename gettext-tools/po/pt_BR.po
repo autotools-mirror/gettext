@@ -9,10 +9,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-tools 0.24-pre1\n"
+"Project-Id-Version: gettext-tools 0.25-pre1\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-02-24 18:57+0100\n"
-"PO-Revision-Date: 2025-02-20 13:33-0300\n"
+"POT-Creation-Date: 2025-05-04 18:44+0200\n"
+"PO-Revision-Date: 2025-04-28 11:07-0300\n"
 "Last-Translator: Rafael Fontenelle <rafaelff@gnome.org>\n"
 "Language-Team: Brazilian Portuguese <ldpbr-"
 "translation@lists.sourceforge.net>\n"
@@ -20,8 +20,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
-"X-Generator: Gtranslator 47.1\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Gtranslator 48.0\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #: src/cldr-plurals.c:61
@@ -46,10 +46,10 @@ msgstr "O elemento <%s> não possui o atributo <%s>"
 
 #: src/cldr-plurals.c:170 src/hostname.c:221 src/msgattrib.c:418
 #: src/msgcat.c:364 src/msgcmp.c:209 src/msgcomm.c:356 src/msgconv.c:305
-#: src/msgen.c:309 src/msgexec.c:258 src/msgfilter.c:414 src/msgfmt.c:921
+#: src/msgen.c:309 src/msgexec.c:258 src/msgfilter.c:414 src/msgfmt.c:924
 #: src/msggrep.c:509 src/msginit.c:357 src/msgmerge.c:543 src/msgunfmt.c:423
 #: src/msguniq.c:323 src/recode-sr-latin.c:140 src/urlget.c:169
-#: src/xgettext.c:1090
+#: src/xgettext.c:1139
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Tente \"%s --help\" para mais informações.\n"
@@ -75,7 +75,7 @@ msgstr ""
 "Se nenhum argumento for fornecido, ele lê as regras de plural CLDR da\n"
 "entrada padrão.\n"
 
-#: src/cldr-plurals.c:188 src/msgfmt.c:934 src/xgettext.c:1103
+#: src/cldr-plurals.c:188 src/msgfmt.c:937 src/xgettext.c:1152
 #, c-format, no-wrap
 msgid ""
 "Mandatory arguments to long options are mandatory for short options too.\n"
@@ -87,25 +87,24 @@ msgstr ""
 #: src/cldr-plurals.c:193
 #, c-format
 msgid "  -c, --cldr                  print plural rules in the CLDR format\n"
-msgstr ""
-"  -c, --cldr                  mostra regras de plural no formato CLDR\n"
+msgstr "  -c, --cldr                  mostra regras de plural no formato CLDR\n"
 
 #: src/cldr-plurals.c:195 src/hostname.c:244 src/msgattrib.c:537
 #: src/msgcat.c:472 src/msgcmp.c:260 src/msgcomm.c:458 src/msgconv.c:389
-#: src/msgen.c:392 src/msgexec.c:307 src/msgfilter.c:514 src/msgfmt.c:1095
+#: src/msgen.c:392 src/msgexec.c:307 src/msgfilter.c:514 src/msgfmt.c:1098
 #: src/msggrep.c:627 src/msginit.c:421 src/msgmerge.c:673 src/msgunfmt.c:529
 #: src/msguniq.c:420 src/recode-sr-latin.c:161 src/urlget.c:185
-#: src/xgettext.c:1289
+#: src/xgettext.c:1349
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  exibe essa ajuda e sai\n"
 
 #: src/cldr-plurals.c:197 src/hostname.c:246 src/msgattrib.c:539
 #: src/msgcat.c:474 src/msgcmp.c:262 src/msgcomm.c:460 src/msgconv.c:391
-#: src/msgen.c:394 src/msgexec.c:309 src/msgfilter.c:516 src/msgfmt.c:1097
+#: src/msgen.c:394 src/msgexec.c:309 src/msgfilter.c:516 src/msgfmt.c:1100
 #: src/msggrep.c:629 src/msginit.c:423 src/msgmerge.c:675 src/msgunfmt.c:531
 #: src/msguniq.c:422 src/recode-sr-latin.c:164 src/urlget.c:187
-#: src/xgettext.c:1291
+#: src/xgettext.c:1351
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               exibe a informação da versão e sai\n"
@@ -117,10 +116,10 @@ msgstr "  -V, --version               exibe a informação da versão e sai\n"
 #. bugs (typically your translation team's web or email address).
 #: src/cldr-plurals.c:205 src/hostname.c:254 src/msgattrib.c:547
 #: src/msgcat.c:482 src/msgcmp.c:270 src/msgcomm.c:468 src/msgconv.c:399
-#: src/msgen.c:402 src/msgexec.c:317 src/msgfilter.c:524 src/msgfmt.c:1109
+#: src/msgen.c:402 src/msgexec.c:317 src/msgfilter.c:524 src/msgfmt.c:1112
 #: src/msggrep.c:637 src/msginit.c:431 src/msgmerge.c:687 src/msgunfmt.c:541
 #: src/msguniq.c:430 src/recode-sr-latin.c:172 src/urlget.c:197
-#: src/xgettext.c:1301
+#: src/xgettext.c:1361
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -133,10 +132,10 @@ msgstr ""
 
 #: src/cldr-plurals.c:275 src/hostname.c:192 src/msgattrib.c:355
 #: src/msgcat.c:294 src/msgcmp.c:172 src/msgcomm.c:285 src/msgconv.c:244
-#: src/msgen.c:245 src/msgexec.c:185 src/msgfilter.c:289 src/msgfmt.c:454
+#: src/msgen.c:245 src/msgexec.c:185 src/msgfilter.c:289 src/msgfmt.c:457
 #: src/msggrep.c:415 src/msginit.c:261 src/msgmerge.c:373 src/msgunfmt.c:261
 #: src/msguniq.c:264 src/recode-sr-latin.c:107 src/urlget.c:140
-#: src/xgettext.c:721
+#: src/xgettext.c:770
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -151,9 +150,9 @@ msgstr ""
 
 #: src/cldr-plurals.c:281 src/hostname.c:198 src/msgattrib.c:361
 #: src/msgcat.c:300 src/msgcmp.c:178 src/msgcomm.c:291 src/msgconv.c:250
-#: src/msgen.c:251 src/msgexec.c:191 src/msgfilter.c:295 src/msgfmt.c:460
+#: src/msgen.c:251 src/msgexec.c:191 src/msgfilter.c:295 src/msgfmt.c:463
 #: src/msggrep.c:421 src/msginit.c:267 src/msgmerge.c:379 src/msgunfmt.c:267
-#: src/msguniq.c:270 src/urlget.c:146 src/xgettext.c:727
+#: src/msguniq.c:270 src/urlget.c:146 src/xgettext.c:776
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Escrito por %s.\n"
@@ -183,22 +182,21 @@ msgstr "não foi possível analisar regra CLDR"
 msgid "extra operand %s"
 msgstr "operando extra %s"
 
-#: src/file-list.c:53 src/msggrep.c:243 src/open-catalog.c:124
-#: src/read-mo.c:270 src/read-tcl.c:127 src/urlget.c:217
-#: src/write-desktop.c:175 src/xgettext.c:1909 src/xgettext.c:1921
-#: src/xgettext.c:1937 src/xgettext.c:1970 src/xgettext.c:1980
-#: src/xgettext.c:1997
+#: src/file-list.c:53 src/msggrep.c:243 src/open-catalog.c:124 src/read-mo.c:270
+#: src/read-tcl.c:127 src/urlget.c:217 src/write-desktop.c:175
+#: src/xgettext.c:1973 src/xgettext.c:1985 src/xgettext.c:2001
+#: src/xgettext.c:2034 src/xgettext.c:2044 src/xgettext.c:2061
 #, c-format
 msgid "error while opening \"%s\" for reading"
 msgstr "erro ao abrir \"%s\" para leitura"
 
-#: src/format-awk.c:511 src/format-boost.c:620 src/format-c++-brace.c:956
-#: src/format-elisp.c:349 src/format-gcc-internal.c:629
-#: src/format-java-printf.c:580 src/format-javascript.c:357
-#: src/format-kde.c:224 src/format-librep.c:313 src/format-lua.c:229
-#: src/format-pascal.c:396 src/format-perl.c:583 src/format-php.c:351
-#: src/format-qt.c:176 src/format-rust.c:514 src/format-smalltalk.c:149
-#: src/format-tcl.c:392
+#: src/format-awk.c:505 src/format-boost.c:614 src/format-c++-brace.c:950
+#: src/format-elisp.c:343 src/format-gcc-internal.c:623
+#: src/format-java-printf.c:574 src/format-javascript.c:351 src/format-kde.c:224
+#: src/format-librep.c:307 src/format-lua.c:223 src/format-modula2.c:201
+#: src/format-pascal.c:390 src/format-perl.c:577 src/format-php.c:345
+#: src/format-qt.c:176 src/format-rust.c:508 src/format-smalltalk.c:149
+#: src/format-tcl.c:386
 #, c-format
 msgid ""
 "a format specification for argument %u, as in '%s', doesn't exist in '%s'"
@@ -206,52 +204,53 @@ msgstr ""
 "uma especificação de formato para o argumento %u, como em \"%s\", não existe "
 "em \"%s\""
 
-#: src/format-awk.c:523 src/format-boost.c:632 src/format-c++-brace.c:968
-#: src/format-elisp.c:361 src/format-gcc-internal.c:641
-#: src/format-java-printf.c:592 src/format-javascript.c:369
-#: src/format-kde.c:236 src/format-librep.c:325 src/format-lua.c:237
-#: src/format-pascal.c:408 src/format-perl.c:595 src/format-php.c:363
-#: src/format-qt.c:172 src/format-rust.c:526 src/format-smalltalk.c:145
-#: src/format-tcl.c:404
+#: src/format-awk.c:517 src/format-boost.c:626 src/format-c++-brace.c:962
+#: src/format-elisp.c:355 src/format-gcc-internal.c:635
+#: src/format-java-printf.c:586 src/format-javascript.c:363 src/format-kde.c:236
+#: src/format-librep.c:319 src/format-lua.c:231 src/format-modula2.c:209
+#: src/format-pascal.c:402 src/format-perl.c:589 src/format-php.c:357
+#: src/format-qt.c:172 src/format-rust.c:520 src/format-smalltalk.c:145
+#: src/format-tcl.c:398
 #, c-format
 msgid "a format specification for argument %u doesn't exist in '%s'"
 msgstr "uma especificação de formato para o argumento %u não existe em \"%s\""
 
-#: src/format-awk.c:544 src/format-boost.c:653 src/format-c.c:151
-#: src/format-elisp.c:382 src/format-gcc-internal.c:662
-#: src/format-gfc-internal.c:374 src/format-java-printf.c:613
-#: src/format-javascript.c:393 src/format-librep.c:346 src/format-lua.c:245
-#: src/format-pascal.c:429 src/format-perl.c:616 src/format-php.c:384
-#: src/format-python.c:534 src/format-ruby.c:969 src/format-tcl.c:425
+#: src/format-awk.c:538 src/format-boost.c:647 src/format-c.c:151
+#: src/format-elisp.c:376 src/format-gcc-internal.c:656
+#: src/format-gfc-internal.c:368 src/format-java-printf.c:607
+#: src/format-javascript.c:387 src/format-librep.c:340 src/format-lua.c:239
+#: src/format-modula2.c:225 src/format-pascal.c:423 src/format-perl.c:610
+#: src/format-php.c:378 src/format-python.c:528 src/format-ruby.c:963
+#: src/format-tcl.c:419
 #, c-format
 msgid "format specifications in '%s' and '%s' for argument %u are not the same"
 msgstr ""
 "especificações de formato em \"%s\" e \"%s\", para argumento %u, não são o "
 "mesmo"
 
-#: src/format-boost.c:451
+#: src/format-boost.c:445
 #, c-format
 msgid "The directive number %u starts with | but does not end with |."
 msgstr "A diretiva de número %u inicia com |, mas não termina com |."
 
-#: src/format.c:158
+#: src/format.c:161
 #, c-format
 msgid "'%s' is not a valid %s format string, unlike '%s'. Reason: %s"
 msgstr ""
 "\"%s\" não é um formato de string %s válido, ao contrário de \"%s\". Motivo: "
 "%s"
 
-#: src/format-c++-brace.c:270
+#: src/format-c++-brace.c:264
 #, c-format
 msgid "In the directive number %u, the arg-id is too large."
 msgstr "Na diretiva de número %u, o arg-id é grande demais."
 
-#: src/format-c++-brace.c:383 src/format-c++-brace.c:477
+#: src/format-c++-brace.c:377 src/format-c++-brace.c:471
 #, c-format
 msgid "In the directive number %u, the width's arg-id is too large."
 msgstr "Na diretiva de número %u, o arg-id da largura é grande demais."
 
-#: src/format-c++-brace.c:438
+#: src/format-c++-brace.c:432
 #, c-format
 msgid ""
 "In the directive number %u, the width's arg-id is not terminated through '}'."
@@ -259,16 +258,16 @@ msgstr ""
 "Na diretiva de número %u, o arg-id da largura não é terminado por meio de \"}"
 "\"."
 
-#: src/format-c++-brace.c:532
+#: src/format-c++-brace.c:526
 #, c-format
 msgid ""
 "In the directive number %u, the precision's arg-id is not terminated through "
 "'}'."
 msgstr ""
-"Na diretiva de número %u, o arg-id da precisão não é terminado por meio de "
-"\"}\"."
+"Na diretiva de número %u, o arg-id da precisão não é terminado por meio de \"}"
+"\"."
 
-#: src/format-c++-brace.c:593
+#: src/format-c++-brace.c:587
 #, c-format
 msgid ""
 "In the directive number %u, the character '%c' is not a standard type "
@@ -277,7 +276,7 @@ msgstr ""
 "Na diretiva de número %u, o caractere \"%c\" não é um especificador de tipo "
 "padrão."
 
-#: src/format-c++-brace.c:594
+#: src/format-c++-brace.c:588
 #, c-format
 msgid ""
 "The character that terminates the directive number %u is not a standard type "
@@ -286,7 +285,7 @@ msgstr ""
 "O caractere que termina a diretiva de número %u não é um especificador de "
 "tipo padrão."
 
-#: src/format-c++-brace.c:602
+#: src/format-c++-brace.c:596
 #, c-format
 msgid ""
 "In the directive number %u, the sign specification is incompatible with the "
@@ -295,25 +294,25 @@ msgstr ""
 "Na diretiva de número %u, a especificação do sinal é incompatível com o "
 "especificador de tipo \"%c\"."
 
-#: src/format-c++-brace.c:610
+#: src/format-c++-brace.c:604
 #, c-format
 msgid ""
 "In the directive number %u, the '#' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"Na diretiva de número %u, a opção \"#\" é incompatível com o especificador "
-"de tipo \"%c\"."
+"Na diretiva de número %u, a opção \"#\" é incompatível com o especificador de "
+"tipo \"%c\"."
 
-#: src/format-c++-brace.c:618
+#: src/format-c++-brace.c:612
 #, c-format
 msgid ""
 "In the directive number %u, the '0' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"Na diretiva de número %u, a opção \"0\" é incompatível com o especificador "
-"de tipo \"%c\"."
+"Na diretiva de número %u, a opção \"0\" é incompatível com o especificador de "
+"tipo \"%c\"."
 
-#: src/format-c++-brace.c:626
+#: src/format-c++-brace.c:620
 #, c-format
 msgid ""
 "In the directive number %u, the precision specification is incompatible with "
@@ -322,16 +321,16 @@ msgstr ""
 "Na diretiva de número %u, a especificação da precisão é incompatível com o "
 "especificador de tipo \"%c\"."
 
-#: src/format-c++-brace.c:634
+#: src/format-c++-brace.c:628
 #, c-format
 msgid ""
 "In the directive number %u, the 'L' option is incompatible with the type "
 "specifier '%c'."
 msgstr ""
-"Na diretiva de número %u, a opção \"L\" é incompatível com o especificador "
-"de tipo \"%c\"."
+"Na diretiva de número %u, a opção \"L\" é incompatível com o especificador de "
+"tipo \"%c\"."
 
-#: src/format-c++-brace.c:735
+#: src/format-c++-brace.c:729
 #, c-format
 msgid ""
 "The directive number %u, with all of its options, is not applicable to any "
@@ -340,17 +339,17 @@ msgstr ""
 "A diretiva de número %u, com todas as suas opções, não é aplicável a nenhum "
 "tipo."
 
-#: src/format-c++-brace.c:747
+#: src/format-c++-brace.c:741
 #, c-format
 msgid "The string ends in the middle of the directive number %u."
 msgstr "A string termina no meio da diretiva de número %u."
 
-#: src/format-c++-brace.c:755
+#: src/format-c++-brace.c:749
 #, c-format
 msgid "The directive number %u is not terminated through '}'."
 msgstr "A diretiva de número %u não é terminada por meio de \"}\"."
 
-#: src/format-c++-brace.c:777 src/format-csharp.c:158 src/format-java.c:347
+#: src/format-c++-brace.c:771 src/format-csharp.c:158 src/format-java.c:347
 msgid ""
 "The string starts in the middle of a directive: found '}' without matching "
 "'{'."
@@ -358,12 +357,12 @@ msgstr ""
 "A string inicia no meio de uma diretiva: encontrado \"}\" sem \"{\" "
 "correspondente."
 
-#: src/format-c++-brace.c:778 src/format-csharp.c:159
+#: src/format-c++-brace.c:772 src/format-csharp.c:159
 #, c-format
 msgid "The string contains a lone '}' after directive number %u."
 msgstr "A string contém \"}\" sozinho após diretiva de número %u."
 
-#: src/format-c++-brace.c:994
+#: src/format-c++-brace.c:988
 #, c-format
 msgid ""
 "The format specification for argument %u in '%s' is applicable to the types "
@@ -372,15 +371,14 @@ msgstr ""
 "A especificação de formato para o argumento %u em \"%s\" é aplicável aos "
 "tipos %s, mas a especificação de formato para o argumento %u em \"%s\" não"
 
-#: src/format-c++-brace.c:1007
+#: src/format-c++-brace.c:1001
 #, c-format
 msgid ""
 "The format specification for argument %u in '%s' uses a different "
 "presentation than the format specification for argument %u in '%s'."
 msgstr ""
-"A especificação de formato para o argumento %u em \"%s\" usa uma "
-"apresentação diferente da especificação de formato para o argumento %u em "
-"\"%s\"."
+"A especificação de formato para o argumento %u em \"%s\" usa uma apresentação "
+"diferente da especificação de formato para o argumento %u em \"%s\"."
 
 #: src/format-c.c:36
 #, c-format
@@ -389,8 +387,8 @@ msgid ""
 "specifier macro. The valid macro names are listed in ISO C 99 section 7.8.1."
 msgstr ""
 "Na diretiva de número %u, o token após \"<\" não é o nome de uma macro "
-"especificadora de formato. Os nomes de macro válidos são listados na ISO C "
-"99 seção 7.8.1."
+"especificadora de formato. Os nomes de macro válidos são listados na ISO C 99 "
+"seção 7.8.1."
 
 #: src/format-c.c:39
 #, c-format
@@ -404,14 +402,14 @@ msgid "In the directive number %u, the argument size specifier is invalid."
 msgstr ""
 "Na diretiva de número %u, o especificador de tamanho de argumento é inválido."
 
-#: src/format-c.c:45 src/format-gfc-internal.c:289
+#: src/format-c.c:45 src/format-gfc-internal.c:283
 #, c-format
 msgid "The string refers to argument number %u but ignores argument number %u."
 msgstr ""
 "A string refere-se ao argumento número %u, mas ignora o argumento número %u."
 
-#: src/format-c.c:141 src/format-csharp.c:204 src/format-gfc-internal.c:364
-#: src/format-python.c:521 src/format-qt-plural.c:111 src/format-ruby.c:959
+#: src/format-c.c:141 src/format-csharp.c:204 src/format-gfc-internal.c:358
+#: src/format-python.c:515 src/format-qt-plural.c:111 src/format-ruby.c:953
 #, c-format
 msgid "number of format specifications in '%s' and '%s' does not match"
 msgstr "número de especificações de formato em \"%s\" e \"%s\" não conferem"
@@ -448,17 +446,85 @@ msgid "The directive number %u ends with an invalid character instead of '}'."
 msgstr ""
 "A diretiva de número %u termina com um caractere inválido ao invés de \"}\"."
 
-#: src/format-gcc-internal.c:256
+#: src/format-d.c:1653
+#, c-format
+msgid ""
+"In the directive number %u, the first argument number is greater than the "
+"second argument number."
+msgstr ""
+"Na diretiva de número %u, o primeiro número de argumento é maior do que o "
+"segundo número de argumento."
+
+#: src/format-d.c:1656
+#, c-format
+msgid ""
+"In the directive number %u, the compound specifier consumes a variable number "
+"of arguments."
+msgstr ""
+"Na diretiva de número %u, o especificador composto consome um número variável "
+"de argumentos."
+
+#: src/format-d.c:1659
+#, c-format
+msgid ""
+"In the directive number %u, the compound specifier consumes %u arguments."
+msgstr ""
+"Na diretiva de número %u, o especificador composto consome %u argumentos."
+
+#: src/format-d.c:1662
+msgid "Found '%|' outside of '%(...%)'."
+msgstr "Encontrado \"%|\" fora de \"%(...%)\"."
+
+#: src/format-d.c:1665
+msgid "The string ends in the middle of a compound specifier."
+msgstr "A string termina no meio de um especificador composto."
+
+#: src/format-d.c:1668
+#, c-format
+msgid ""
+"In the directive number %u, there is an invalid directive in the delimiter "
+"part of a compound specifier."
+msgstr ""
+"Na diretiva de número %u, há um argumento inválido na parte de delimitador de "
+"um especificador composto."
+
+#: src/format-d.c:1671
+#, c-format
+msgid "Found '%%%c' without matching '%%%c'."
+msgstr "Encontrado \"%%%c\" sem \"%%%c\" correspondente."
+
+#: src/format-d.c:1674
+#, c-format
+msgid "The directive number %u references an argument after the last argument."
+msgstr ""
+"Na diretiva de número %u, referências a um argumento após o último argumento."
+
+#: src/format-d.c:1678 src/format-lisp.c:3450 src/format-scheme.c:3372
+msgid "The string refers to some argument in incompatible ways."
+msgstr "A string faz referência a alguns argumentos em formas incompatíveis."
+
+#: src/format-d.c:2233 src/format-lisp.c:3493 src/format-scheme.c:3415
+#, c-format
+msgid "format specifications in '%s' and '%s' are not equivalent"
+msgstr "especificações de formato em \"%s\" e \"%s\" não são equivalentes"
+
+#: src/format-d.c:2250 src/format-lisp.c:3510 src/format-scheme.c:3432
+#, c-format
+msgid "format specifications in '%s' are not a subset of those in '%s'"
+msgstr ""
+"especificações de formato em \"%s\" não são um subconjunto deles em \"%s\""
+
+#: src/format-gcc-internal.c:250
 #, c-format
 msgid "In the directive number %u, the flags combination is invalid."
 msgstr "Na diretiva de número %u, a combinação de flags é inválida."
 
-#: src/format-gcc-internal.c:293
+#: src/format-gcc-internal.c:287
 #, c-format
 msgid "In the directive number %u, a precision is not allowed before '%c'."
 msgstr "Na diretiva de número %u, a precisão não é permitida antes \"%c\"."
 
-#: src/format-gcc-internal.c:335
+#: src/format-gcc-internal.c:329
 #, c-format
 msgid ""
 "In the directive number %u, the argument number for the precision must be "
@@ -467,41 +533,41 @@ msgstr ""
 "Na diretiva de número %u, o número do argumento da precisão deve ser igual a "
 "%u."
 
-#: src/format-gcc-internal.c:399
+#: src/format-gcc-internal.c:393
 #, c-format
 msgid ""
 "In the directive number %u, a precision specification is not allowed before "
 "'%c'."
 msgstr ""
-"Na diretiva de número %u, uma especificação de precisão não é permitida "
-"antes de \"%c\"."
+"Na diretiva de número %u, uma especificação de precisão não é permitida antes "
+"de \"%c\"."
 
-#: src/format-gcc-internal.c:407
+#: src/format-gcc-internal.c:401
 #, c-format
 msgid "In the directive number %u, the precision specification is invalid."
 msgstr "Na diretiva de número %u, uma especificação de precisão é inválida."
 
-#: src/format-gcc-internal.c:464
+#: src/format-gcc-internal.c:458
 #, c-format
 msgid "In the directive number %u, flags are not allowed before '%c'."
 msgstr "Na diretiva de número %u, flags não são permitidas antes de \"%c\"."
 
-#: src/format-gcc-internal.c:682
+#: src/format-gcc-internal.c:676
 #, c-format
 msgid "'%s' uses %%m but '%s' doesn't"
 msgstr "\"%s\" usa %%m, mas \"%s\" não usa"
 
-#: src/format-gcc-internal.c:686
+#: src/format-gcc-internal.c:680
 #, c-format
 msgid "'%s' does not use %%m but '%s' uses %%m"
 msgstr "\"%s\" não usa %%m, mas \"%s\" usa %%m"
 
-#: src/format-gfc-internal.c:386
+#: src/format-gfc-internal.c:380
 #, c-format
 msgid "'%s' uses %%C but '%s' doesn't"
 msgstr "\"%s\" usa %%C, mas \"%s\" não usa"
 
-#: src/format-gfc-internal.c:390
+#: src/format-gfc-internal.c:384
 #, c-format
 msgid "'%s' does not use %%C but '%s' uses %%C"
 msgstr "\"%s\" não usa %%C, mas \"%s\" usa %%C"
@@ -531,8 +597,8 @@ msgid ""
 "In the directive number %u, the width's argument number 0 is not a positive "
 "integer."
 msgstr ""
-"Na diretiva de número %u, o argumento de número 0 da largura não é um "
-"inteiro positivo."
+"Na diretiva de número %u, o argumento de número 0 da largura não é um inteiro "
+"positivo."
 
 #: src/format-invalid.h:32
 #, c-format
@@ -595,8 +661,8 @@ msgid ""
 "In the directive number %u, the argument number is not followed by a comma "
 "and one of \"%s\", \"%s\", \"%s\", \"%s\"."
 msgstr ""
-"Na diretiva de número %u, o argumento de número não é seguido por uma "
-"vírgula e um de \"%s\", \"%s\", \"%s\" e \"%s\"."
+"Na diretiva de número %u, o argumento de número não é seguido por uma vírgula "
+"e um de \"%s\", \"%s\", \"%s\" e \"%s\"."
 
 #: src/format-java.c:573
 #, c-format
@@ -623,8 +689,7 @@ msgstr ""
 #: src/format-java.c:759
 #, c-format
 msgid "a format specification for argument {%u} doesn't exist in '%s'"
-msgstr ""
-"uma especificação de formato para o argumento {%u} não existe em \"%s\""
+msgstr "uma especificação de formato para o argumento {%u} não existe em \"%s\""
 
 #: src/format-java.c:780
 #, c-format
@@ -634,7 +699,7 @@ msgstr ""
 "especificações de formato em \"%s\" e \"%s\", para argumento {%u}, não são o "
 "mesmo"
 
-#: src/format-java-printf.c:138
+#: src/format-java-printf.c:132
 #, c-format
 msgid ""
 "In the directive number %u, the reference to the argument of the previous "
@@ -643,12 +708,12 @@ msgstr ""
 "Na diretiva de número %u, a referência ao argumento da diretiva anterior é "
 "inválida."
 
-#: src/format-java-printf.c:141
+#: src/format-java-printf.c:135
 #, c-format
 msgid "In the directive number %u, the precision is missing."
 msgstr "Na diretiva de número %u, a precisão está faltando."
 
-#: src/format-java-printf.c:144
+#: src/format-java-printf.c:138
 #, c-format
 msgid ""
 "In the directive number %u, the flag '%c' is invalid for the conversion '%c'."
@@ -656,20 +721,20 @@ msgstr ""
 "Na diretiva de número %u, a sinalização \"%c\" é inválida para a conversão "
 "\"%c\"."
 
-#: src/format-java-printf.c:147
+#: src/format-java-printf.c:141
 #, c-format
 msgid "In the directive number %u, a width is invalid for the conversion '%c'."
 msgstr ""
 "Na diretiva de número %u, uma largura é inválida para a conversão \"%c\"."
 
-#: src/format-java-printf.c:150
+#: src/format-java-printf.c:144
 #, c-format
 msgid ""
 "In the directive number %u, a precision is invalid for the conversion '%c'."
 msgstr ""
 "Na diretiva de número %u, uma precisão é inválida para a conversão \"%c\"."
 
-#: src/format-java-printf.c:154
+#: src/format-java-printf.c:148
 #, c-format
 msgid ""
 "In the directive number %u, for the conversion '%c', the character '%c' is "
@@ -678,14 +743,14 @@ msgstr ""
 "Na diretiva de número %u, para a conversão \"%c\", o caractere \"%c\" não é "
 "um sufixo de conversão válido."
 
-#: src/format-java-printf.c:155
+#: src/format-java-printf.c:149
 #, c-format
 msgid ""
 "The character that terminates the directive number %u, for the conversion "
 "'%c', is not a valid conversion suffix."
 msgstr ""
-"O caractere que termina a diretiva de número %u, para a conversão \"%c\", "
-"não é um sufixo de conversão válido."
+"O caractere que termina a diretiva de número %u, para a conversão \"%c\", não "
+"é um sufixo de conversão válido."
 
 #: src/format-kde.c:158
 #, c-format
@@ -694,7 +759,7 @@ msgid ""
 msgstr ""
 "A string refere-se ao argumento número %u, mas ignora o argumentos %u e %u."
 
-#: src/format-kde.c:245 src/format-rust.c:535
+#: src/format-kde.c:245 src/format-rust.c:529
 #, c-format
 msgid ""
 "a format specification for arguments %u and %u doesn't exist in '%s', only "
@@ -703,14 +768,13 @@ msgstr ""
 "uma especificação de formato para argumentos %u e %u não existem em \"%s\", "
 "apenas um argumento pode ser ignorado"
 
-#: src/format-kde-kuit.c:244 src/format-kde-kuit.c:264
-#: src/format-kde-kuit.c:274
+#: src/format-kde-kuit.c:244 src/format-kde-kuit.c:264 src/format-kde-kuit.c:274
 #, c-format
 msgid "error while parsing: %s"
 msgstr "erro na análise: %s"
 
-#: src/format-lisp.c:2355 src/format-lisp.c:2367 src/format-scheme.c:2382
-#: src/format-scheme.c:2394
+#: src/format-lisp.c:2354 src/format-lisp.c:2366 src/format-scheme.c:2380
+#: src/format-scheme.c:2392
 #, c-format
 msgid ""
 "In the directive number %u, parameter %u is of type '%s' but a parameter of "
@@ -719,7 +783,7 @@ msgstr ""
 "Na diretiva de número %u, parâmetro %u é do tipo \"%s\", mas um parâmetro do "
 "tipo \"%s\" é esperado."
 
-#: src/format-lisp.c:2390 src/format-scheme.c:2417
+#: src/format-lisp.c:2389 src/format-scheme.c:2415
 #, c-format
 msgid ""
 "In the directive number %u, too many parameters are given; expected at most "
@@ -734,70 +798,55 @@ msgstr[1] ""
 "Na diretiva de número %u, parâmetros demais foram passados; esperava no "
 "máximo %u parâmetros."
 
-#: src/format-lisp.c:2515 src/format-scheme.c:2518
+#: src/format-lisp.c:2514 src/format-scheme.c:2516
 #, c-format
 msgid "In the directive number %u, '%c' is not followed by a digit."
 msgstr "Na diretiva de número %u, \"%c\" não está seguido por um dígito."
 
-#: src/format-lisp.c:2755 src/format-scheme.c:2773
+#: src/format-lisp.c:2754 src/format-scheme.c:2771
 #, c-format
 msgid "In the directive number %u, the argument %d is negative."
 msgstr "Na diretiva de número %u, o argumento %d é negativo."
 
-#: src/format-lisp.c:2824
+#: src/format-lisp.c:2823
 msgid "The string ends in the middle of a ~/.../ directive."
 msgstr "A string termina no meio de uma diretiva ~/.../ ."
 
-#: src/format-lisp.c:2862 src/format-lisp.c:3127 src/format-lisp.c:3244
-#: src/format-lisp.c:3304 src/format-lisp.c:3416 src/format-scheme.c:2859
-#: src/format-scheme.c:3124 src/format-scheme.c:3241 src/format-scheme.c:3339
+#: src/format-lisp.c:2861 src/format-lisp.c:3126 src/format-lisp.c:3243
+#: src/format-lisp.c:3303 src/format-lisp.c:3415 src/format-scheme.c:2857
+#: src/format-scheme.c:3122 src/format-scheme.c:3239 src/format-scheme.c:3337
 #, c-format
 msgid "Found '~%c' without matching '~%c'."
 msgstr "Encontrado \"~%c\" sem \"~%c\" correspondente."
 
-#: src/format-lisp.c:2882 src/format-scheme.c:2879
+#: src/format-lisp.c:2881 src/format-scheme.c:2877
 #, c-format
 msgid "In the directive number %u, both the @ and the : modifiers are given."
 msgstr "Na diretiva de número %u, os modificadores @ e : foram passados."
 
-#: src/format-lisp.c:2995 src/format-scheme.c:2992
+#: src/format-lisp.c:2994 src/format-scheme.c:2990
 #, c-format
 msgid ""
 "In the directive number %u, '~:[' is not followed by two clauses, separated "
 "by '~;'."
 msgstr ""
-"Na diretiva de número %u, \"~:[\" não é seguido por duas cláusulas, "
-"separadas por \"~;\"."
+"Na diretiva de número %u, \"~:[\" não é seguido por duas cláusulas, separadas "
+"por \"~;\"."
 
-#: src/format-lisp.c:3345 src/format-scheme.c:3282
+#: src/format-lisp.c:3344 src/format-scheme.c:3280
 #, c-format
 msgid "In the directive number %u, '~;' is used in an invalid position."
 msgstr "Na diretiva de número %u, \"~;\" é usado em uma posição inválida."
 
-#: src/format-lisp.c:3451 src/format-scheme.c:3374
-msgid "The string refers to some argument in incompatible ways."
-msgstr "A string faz referência a alguns argumentos em formas incompatíveis."
-
-#: src/format-lisp.c:3494 src/format-scheme.c:3417
-#, c-format
-msgid "format specifications in '%s' and '%s' are not equivalent"
-msgstr "especificações de formato em \"%s\" e \"%s\" não são equivalentes"
-
-#: src/format-lisp.c:3511 src/format-scheme.c:3434
-#, c-format
-msgid "format specifications in '%s' are not a subset of those in '%s'"
-msgstr ""
-"especificações de formato em \"%s\" não são um subconjunto deles em \"%s\""
-
 #: src/format-perl-brace.c:200 src/format-python-brace.c:522
-#: src/format-python.c:475 src/format-ruby.c:916 src/format-rust.c:480
+#: src/format-python.c:469 src/format-ruby.c:910 src/format-rust.c:474
 #: src/format-sh.c:310
 #, c-format
 msgid "a format specification for argument '%s' doesn't exist in '%s'"
 msgstr ""
 "uma especificação de formato para o argumento \"%s\" não existe em \"%s\""
 
-#: src/format-perl.c:432
+#: src/format-perl.c:426
 #, c-format
 msgid ""
 "In the directive number %u, the size specifier is incompatible with the "
@@ -823,8 +872,7 @@ msgstr ""
 #: src/format-python-brace.c:199
 #, c-format
 msgid "In the directive number %u, '%c' cannot start a getattr argument."
-msgstr ""
-"Na diretiva de número %u, \"%c\" não pode iniciar um argumento getattr."
+msgstr "Na diretiva de número %u, \"%c\" não pode iniciar um argumento getattr."
 
 #: src/format-python-brace.c:201
 #, c-format
@@ -838,8 +886,7 @@ msgstr ""
 #: src/format-python-brace.c:225
 #, c-format
 msgid "In the directive number %u, '%c' cannot start a getitem argument."
-msgstr ""
-"Na diretiva de número %u, \"%c\" não pode iniciar um argumento getitem."
+msgstr "Na diretiva de número %u, \"%c\" não pode iniciar um argumento getitem."
 
 #: src/format-python-brace.c:227
 #, c-format
@@ -864,13 +911,13 @@ msgstr ""
 "especificador de formato."
 
 #: src/format-python-brace.c:293 src/format-python-brace.c:346
-#: src/format-rust.c:276 src/format-rust.c:333
+#: src/format-rust.c:270 src/format-rust.c:327
 #, c-format
 msgid "The directive number %u is unterminated."
 msgstr "A diretiva de número %u não está terminada."
 
-#: src/format-python-brace.c:510 src/format-python.c:463 src/format-ruby.c:904
-#: src/format-rust.c:468 src/format-sh.c:298
+#: src/format-python-brace.c:510 src/format-python.c:457 src/format-ruby.c:898
+#: src/format-rust.c:462 src/format-sh.c:298
 #, c-format
 msgid ""
 "a format specification for argument '%s', as in '%s', doesn't exist in '%s'"
@@ -878,7 +925,7 @@ msgstr ""
 "uma especificação de formato para o argumento \"%s\", como em \"%s\", não "
 "existe em \"%s\""
 
-#: src/format-python.c:114 src/format-ruby.c:131
+#: src/format-python.c:108 src/format-ruby.c:125
 msgid ""
 "The string refers to arguments both through argument names and through "
 "unnamed argument specifications."
@@ -886,13 +933,13 @@ msgstr ""
 "A string faz referência a argumentos de tanto nomes de argumentos quanto "
 "especificações de argumentos sem nome."
 
-#: src/format-python.c:354 src/format-ruby.c:795
+#: src/format-python.c:348 src/format-ruby.c:789
 #, c-format
 msgid "The string refers to the argument named '%s' in incompatible ways."
 msgstr ""
 "A string faz referência ao argumento chamado \"%s\" em formas incompatíveis."
 
-#: src/format-python.c:431
+#: src/format-python.c:425
 #, c-format
 msgid ""
 "format specifications in '%s' expect a mapping, those in '%s' expect a tuple"
@@ -900,7 +947,7 @@ msgstr ""
 "especificações de formatos em \"%s\" esperam um mapeamento, enquanto aqueles "
 "em \"%s\" esperam uma tupla"
 
-#: src/format-python.c:439
+#: src/format-python.c:433
 #, c-format
 msgid ""
 "format specifications in '%s' expect a tuple, those in '%s' expect a mapping"
@@ -908,7 +955,7 @@ msgstr ""
 "especificações de formatos em \"%s\" esperam um tupla, enquanto aqueles em "
 "\"%s\" esperam um mapeamento"
 
-#: src/format-python.c:499 src/format-ruby.c:937
+#: src/format-python.c:493 src/format-ruby.c:931
 #, c-format
 msgid ""
 "format specifications in '%s' and '%s' for argument '%s' are not the same"
@@ -919,53 +966,52 @@ msgstr ""
 #: src/format-qt.c:153
 #, c-format
 msgid ""
-"'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or "
-"a double-digit argument number"
+"'%s' is a simple format string, but '%s' is not: it contains an 'L' flag or a "
+"double-digit argument number"
 msgstr ""
 "\"%s\" é um formato de string simples, mas \"%s\" não é: ele contém uma flag "
 "\"L\" ou um número de argumento de dois dígitos"
 
-#: src/format-ruby.c:134
+#: src/format-ruby.c:128
 #, c-format
 msgid "In the directive number %u, two names are given for the same argument."
 msgstr ""
 "Na diretiva de número %u, dois parâmetros foram passados para o mesmo "
 "argumento."
 
-#: src/format-ruby.c:137
+#: src/format-ruby.c:131
 #, c-format
-msgid ""
-"In the directive number %u, two numbers are given for the same argument."
+msgid "In the directive number %u, two numbers are given for the same argument."
 msgstr ""
 "Na diretiva de número %u, dois parâmetros foram passados para o mesmo "
 "argumento."
 
-#: src/format-ruby.c:140
+#: src/format-ruby.c:134
 #, c-format
 msgid "In the directive number %u, a flag is given after the width."
 msgstr "Na diretiva de número %u, um sinalizador foi passado após a largura."
 
-#: src/format-ruby.c:143
+#: src/format-ruby.c:137
 #, c-format
 msgid "In the directive number %u, a flag is given after the precision."
 msgstr "Na diretiva de número %u, um sinalizador foi passado após a precisão."
 
-#: src/format-ruby.c:146
+#: src/format-ruby.c:140
 #, c-format
 msgid "In the directive number %u, the width is given after the precision."
 msgstr "Na diretiva de número %u, a largura foi passada após a precisão."
 
-#: src/format-ruby.c:149
+#: src/format-ruby.c:143
 #, c-format
 msgid "In the directive number %u, a width is given twice."
 msgstr "Na diretiva de número %u, a largura foi fornecida duas vezes."
 
-#: src/format-ruby.c:152
+#: src/format-ruby.c:146
 #, c-format
 msgid "In the directive number %u, a precision is given twice."
 msgstr "Na diretiva de número %u, a precisão foi fornecida duas vezes."
 
-#: src/format-ruby.c:872
+#: src/format-ruby.c:866
 #, c-format
 msgid ""
 "format specifications in '%s' expect a hash table, those in '%s' expect "
@@ -974,16 +1020,16 @@ msgstr ""
 "especificações de formatos em \"%s\" esperam um tabela de hashes, enquanto "
 "aqueles em \"%s\" esperam um mapeamento"
 
-#: src/format-ruby.c:880
+#: src/format-ruby.c:874
 #, c-format
 msgid ""
 "format specifications in '%s' expect individual arguments, those in '%s' "
 "expect a hash table"
 msgstr ""
-"especificações de formatos em \"%s\" esperam argumentos individuais, "
-"enquanto aqueles em \"%s\" esperam uma tabela de hashes"
+"especificações de formatos em \"%s\" esperam argumentos individuais, enquanto "
+"aqueles em \"%s\" esperam uma tabela de hashes"
 
-#: src/format-rust.c:185
+#: src/format-rust.c:179
 #, c-format
 msgid "In the directive number %u, the argument number is too large."
 msgstr "Na diretiva de número %u, o número de argumento é grande demais."
@@ -1015,8 +1061,7 @@ msgstr "A string faz referência a uma variável shell com um nome vazio."
 #: src/format-smalltalk.c:90
 #, c-format
 msgid ""
-"In the directive number %u, the character '%c' is not a digit between 1 and "
-"9."
+"In the directive number %u, the character '%c' is not a digit between 1 and 9."
 msgstr ""
 "Na diretiva de número %u, o caractere \"%c\" não é um dígito entre 1 e 9."
 
@@ -1078,9 +1123,9 @@ msgstr "  -i, --ip-address            endereços para o nome da máquina\n"
 
 #: src/hostname.c:242 src/msgattrib.c:535 src/msgcat.c:470 src/msgcmp.c:258
 #: src/msgcomm.c:456 src/msgconv.c:387 src/msgen.c:390 src/msgexec.c:305
-#: src/msgfilter.c:512 src/msgfmt.c:1093 src/msggrep.c:625 src/msginit.c:419
+#: src/msgfilter.c:512 src/msgfmt.c:1096 src/msggrep.c:625 src/msginit.c:419
 #: src/msgmerge.c:671 src/msgunfmt.c:527 src/msguniq.c:418
-#: src/recode-sr-latin.c:158 src/urlget.c:183 src/xgettext.c:1287
+#: src/recode-sr-latin.c:158 src/urlget.c:183 src/xgettext.c:1347
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Saída informativa:\n"
@@ -1092,8 +1137,8 @@ msgstr "não foi possível obter nome de máquina"
 
 #: src/if-error.c:45 src/msgl-cat.c:477 src/msgl-cat.c:483 src/msgl-cat.c:500
 #: src/msgl-charset.c:152 src/msgl-charset.c:187 src/xerror-handler.c:120
-#: src/xerror-handler.c:145 src/xgettext.c:611 src/xgettext.c:2147
-#: src/xg-message.c:328
+#: src/xerror-handler.c:145 src/xgettext.c:652 src/xgettext.c:2211
+#: src/xgettext.c:2341 src/xg-message.c:337
 #, c-format
 msgid "warning: "
 msgstr "aviso: "
@@ -1188,11 +1233,11 @@ msgid "at most one input file allowed"
 msgstr "no máximo um arquivo é permitido"
 
 #: src/msgattrib.c:382 src/msgcat.c:316 src/msgcomm.c:301 src/msgconv.c:271
-#: src/msgen.c:273 src/msgfilter.c:310 src/msgfmt.c:513 src/msgfmt.c:527
-#: src/msgfmt.c:542 src/msgfmt.c:564 src/msggrep.c:442 src/msgmerge.c:404
+#: src/msgen.c:273 src/msgfilter.c:310 src/msgfmt.c:516 src/msgfmt.c:530
+#: src/msgfmt.c:545 src/msgfmt.c:567 src/msggrep.c:442 src/msgmerge.c:404
 #: src/msgmerge.c:409 src/msgmerge.c:414 src/msgmerge.c:419 src/msgmerge.c:440
-#: src/msgunfmt.c:298 src/msguniq.c:291 src/xgettext.c:737 src/xgettext.c:744
-#: src/xgettext.c:747 src/xgettext.c:750 src/xgettext.c:774
+#: src/msgunfmt.c:298 src/msguniq.c:291 src/xgettext.c:786 src/xgettext.c:793
+#: src/xgettext.c:796 src/xgettext.c:799 src/xgettext.c:823
 #, c-format
 msgid "%s and %s are mutually exclusive"
 msgstr "%s e %s são mutuamente exclusivos"
@@ -1223,8 +1268,8 @@ msgstr ""
 
 #: src/msgattrib.c:434 src/msgcat.c:388 src/msgcmp.c:230 src/msgcomm.c:379
 #: src/msgconv.c:320 src/msgen.c:328 src/msgexec.c:289 src/msgfilter.c:429
-#: src/msgfmt.c:939 src/msggrep.c:526 src/msginit.c:374 src/msgmerge.c:567
-#: src/msgunfmt.c:449 src/msguniq.c:346 src/xgettext.c:1108
+#: src/msgfmt.c:942 src/msggrep.c:526 src/msginit.c:374 src/msgmerge.c:567
+#: src/msgunfmt.c:449 src/msguniq.c:346 src/xgettext.c:1157
 #, c-format
 msgid "Input file location:\n"
 msgstr "Localização do arquivo de entrada:\n"
@@ -1236,8 +1281,8 @@ msgstr "  ARQUIVO-ENTRADA             arquivo PO de entrada\n"
 
 #: src/msgattrib.c:438 src/msgcat.c:394 src/msgcmp.c:236 src/msgcomm.c:385
 #: src/msgconv.c:324 src/msgen.c:332 src/msgexec.c:293 src/msgfilter.c:433
-#: src/msgfmt.c:943 src/msggrep.c:530 src/msgmerge.c:573 src/msguniq.c:350
-#: src/xgettext.c:1114
+#: src/msgfmt.c:946 src/msggrep.c:530 src/msgmerge.c:573 src/msguniq.c:350
+#: src/xgettext.c:1163
 #, c-format
 msgid ""
 "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files search\n"
@@ -1254,16 +1299,16 @@ msgstr ""
 "lida.\n"
 
 #: src/msgattrib.c:443 src/msgcat.c:399 src/msgcomm.c:390 src/msgconv.c:329
-#: src/msgen.c:337 src/msgfilter.c:438 src/msgfmt.c:967 src/msggrep.c:535
+#: src/msgen.c:337 src/msgfilter.c:438 src/msgfmt.c:970 src/msggrep.c:535
 #: src/msginit.c:382 src/msgmerge.c:585 src/msgunfmt.c:489 src/msguniq.c:355
-#: src/xgettext.c:1119
+#: src/xgettext.c:1168
 #, c-format
 msgid "Output file location:\n"
 msgstr "Localização do arquivo de saída:\n"
 
 #: src/msgattrib.c:445 src/msgcat.c:401 src/msgcomm.c:392 src/msgconv.c:331
-#: src/msgen.c:339 src/msgfilter.c:440 src/msgfmt.c:969 src/msgfmt.c:1018
-#: src/msgfmt.c:1037 src/msggrep.c:537 src/msgmerge.c:587 src/msgunfmt.c:491
+#: src/msgen.c:339 src/msgfilter.c:440 src/msgfmt.c:972 src/msgfmt.c:1021
+#: src/msgfmt.c:1040 src/msggrep.c:537 src/msgmerge.c:587 src/msgunfmt.c:491
 #: src/msguniq.c:357
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified file\n"
@@ -1358,8 +1403,7 @@ msgid ""
 "      --previous              when setting 'fuzzy', keep previous msgids\n"
 "                              of translated messages.\n"
 msgstr ""
-"      --previous              ao definir \"fuzzy\", mantém msgids "
-"anteriores\n"
+"      --previous              ao definir \"fuzzy\", mantém msgids anteriores\n"
 "                              de mensagens traduzidas.\n"
 
 #: src/msgattrib.c:479
@@ -1410,7 +1454,7 @@ msgstr ""
 
 #: src/msgattrib.c:492 src/msgcat.c:419 src/msgcmp.c:250 src/msgcomm.c:410
 #: src/msgconv.c:344 src/msgen.c:345 src/msgexec.c:298 src/msgfilter.c:467
-#: src/msgfmt.c:1050 src/msggrep.c:582 src/msginit.c:390 src/msgmerge.c:625
+#: src/msgfmt.c:1053 src/msggrep.c:582 src/msginit.c:390 src/msgmerge.c:625
 #: src/msguniq.c:370
 #, c-format
 msgid "Input file syntax:\n"
@@ -1419,8 +1463,7 @@ msgstr "Sintaxe do arquivo de entrada:\n"
 #: src/msgattrib.c:494 src/msgconv.c:346 src/msgen.c:347 src/msgexec.c:300
 #: src/msgfilter.c:469 src/msggrep.c:584 src/msginit.c:392 src/msguniq.c:372
 #, c-format
-msgid ""
-"  -P, --properties-input      input file is in Java .properties syntax\n"
+msgid "  -P, --properties-input      input file is in Java .properties syntax\n"
 msgstr ""
 "  -P, --properties-input      arquivo de entrada está em sintaxe de\n"
 "                              .properties Java\n"
@@ -1436,16 +1479,16 @@ msgstr ""
 "                              .strings de NeXTstep/GNUstep\n"
 
 #: src/msgattrib.c:499 src/msgcat.c:427 src/msgcomm.c:418 src/msgconv.c:351
-#: src/msgen.c:352 src/msgfilter.c:474 src/msgfmt.c:1078 src/msggrep.c:589
+#: src/msgen.c:352 src/msgfilter.c:474 src/msgfmt.c:1081 src/msggrep.c:589
 #: src/msginit.c:397 src/msgmerge.c:633 src/msgunfmt.c:497 src/msguniq.c:377
-#: src/xgettext.c:1227
+#: src/xgettext.c:1279
 #, c-format
 msgid "Output details:\n"
 msgstr "Detalhes de entrada:\n"
 
 #: src/msgattrib.c:501 src/msgcat.c:436 src/msgcomm.c:420 src/msgconv.c:353
 #: src/msgen.c:356 src/msgfilter.c:476 src/msggrep.c:591 src/msginit.c:403
-#: src/msgmerge.c:637 src/msgunfmt.c:499 src/msguniq.c:384 src/xgettext.c:1229
+#: src/msgmerge.c:637 src/msgunfmt.c:499 src/msguniq.c:384 src/xgettext.c:1281
 #, c-format
 msgid ""
 "      --color                 use colors and other text attributes always\n"
@@ -1457,13 +1500,13 @@ msgstr ""
 "atributos\n"
 "      --color=QUANDO          usa cores e outros atributos de texto se "
 "QUANDO.\n"
-"                              QUANDO pode ser \"always\", \"never\", "
-"\"auto\" ou\n"
+"                              QUANDO pode ser \"always\", \"never\", \"auto\" "
+"ou\n"
 "                              \"html\".\n"
 
 #: src/msgattrib.c:505 src/msgcat.c:440 src/msgcomm.c:424 src/msgconv.c:357
 #: src/msgen.c:360 src/msgfilter.c:480 src/msggrep.c:595 src/msginit.c:407
-#: src/msgmerge.c:641 src/msgunfmt.c:503 src/msguniq.c:388 src/xgettext.c:1233
+#: src/msgmerge.c:641 src/msgunfmt.c:503 src/msguniq.c:388 src/xgettext.c:1285
 #, c-format
 msgid "      --style=STYLEFILE       specify CSS style rule file for --color\n"
 msgstr ""
@@ -1473,15 +1516,14 @@ msgstr ""
 
 #: src/msgattrib.c:507 src/msgcat.c:442 src/msgcomm.c:426 src/msgconv.c:359
 #: src/msgen.c:362 src/msgmerge.c:643 src/msgunfmt.c:505 src/msguniq.c:390
-#: src/xgettext.c:1235
+#: src/xgettext.c:1287
 #, c-format
-msgid ""
-"  -e, --no-escape             do not use C escapes in output (default)\n"
+msgid "  -e, --no-escape             do not use C escapes in output (default)\n"
 msgstr "  -e, --no-escape             não usa escapes de C na saída (padrão)\n"
 
 #: src/msgattrib.c:509 src/msgcat.c:444 src/msgcomm.c:428 src/msgconv.c:361
 #: src/msgen.c:364 src/msgfilter.c:484 src/msgmerge.c:645 src/msgunfmt.c:507
-#: src/msguniq.c:392 src/xgettext.c:1237
+#: src/msguniq.c:392 src/xgettext.c:1289
 #, c-format
 msgid ""
 "  -E, --escape                use C escapes in output, no extended chars\n"
@@ -1491,20 +1533,20 @@ msgstr ""
 
 #: src/msgattrib.c:511 src/msgcat.c:446 src/msgcomm.c:430 src/msgconv.c:363
 #: src/msgen.c:366 src/msgfilter.c:486 src/msggrep.c:601 src/msgmerge.c:647
-#: src/msgunfmt.c:509 src/msguniq.c:394 src/xgettext.c:1239
+#: src/msgunfmt.c:509 src/msguniq.c:394 src/xgettext.c:1291
 #, c-format
 msgid "      --force-po              write PO file even if empty\n"
 msgstr "      --force-po              escreve um arquivo PO mesmo se vazio\n"
 
 #: src/msgattrib.c:513 src/msgcat.c:448 src/msgcomm.c:432 src/msguniq.c:396
-#: src/xgettext.c:1241
+#: src/xgettext.c:1293
 #, c-format
 msgid "  -i, --indent                write the .po file using indented style\n"
 msgstr ""
 "  -i, --indent                escreve o arquivo .po usando estilo com recuo\n"
 
 #: src/msgattrib.c:515 src/msgcat.c:450 src/msgcomm.c:434 src/msguniq.c:398
-#: src/xgettext.c:1243
+#: src/xgettext.c:1295
 #, c-format
 msgid "      --no-location           do not write '#: filename:line' lines\n"
 msgstr ""
@@ -1512,7 +1554,7 @@ msgstr ""
 "arquivo:linha\"\n"
 
 #: src/msgattrib.c:517 src/msgcat.c:452 src/msgcomm.c:436 src/msguniq.c:400
-#: src/xgettext.c:1245
+#: src/xgettext.c:1297
 #, c-format
 msgid ""
 "  -n, --add-location          generate '#: filename:line' lines (default)\n"
@@ -1521,7 +1563,7 @@ msgstr ""
 "(padrão)\n"
 
 #: src/msgattrib.c:519 src/msgcat.c:454 src/msgcomm.c:438 src/msguniq.c:402
-#: src/xgettext.c:1247
+#: src/xgettext.c:1299
 #, c-format
 msgid ""
 "      --strict                write out strict Uniforum conforming .po file\n"
@@ -1538,7 +1580,7 @@ msgstr "  -p, --properties-output     escreve em arquivo .properties de Java\n"
 
 #: src/msgattrib.c:523 src/msgcat.c:458 src/msgcomm.c:442 src/msgconv.c:375
 #: src/msgen.c:378 src/msgfilter.c:500 src/msggrep.c:613 src/msginit.c:411
-#: src/msgmerge.c:659 src/msgunfmt.c:517 src/msguniq.c:406 src/xgettext.c:1251
+#: src/msgmerge.c:659 src/msgunfmt.c:517 src/msguniq.c:406 src/xgettext.c:1303
 #, c-format
 msgid ""
 "      --stringtable-output    write out a NeXTstep/GNUstep .strings file\n"
@@ -1548,23 +1590,21 @@ msgstr ""
 
 #: src/msgattrib.c:525 src/msgcat.c:460 src/msgcomm.c:444 src/msgconv.c:377
 #: src/msgen.c:380 src/msgfilter.c:502 src/msggrep.c:615 src/msginit.c:413
-#: src/msgmerge.c:661 src/msgunfmt.c:519 src/msguniq.c:408 src/xgettext.c:1255
+#: src/msgmerge.c:661 src/msgunfmt.c:519 src/msguniq.c:408 src/xgettext.c:1307
 #, c-format
 msgid "  -w, --width=NUMBER          set output page width\n"
 msgstr "  -w, --width=NÚMERO          define a largura da página de saída\n"
 
 #: src/msgattrib.c:527 src/msgcat.c:462 src/msgcomm.c:446 src/msgconv.c:379
 #: src/msgen.c:382 src/msgfilter.c:504 src/msggrep.c:617 src/msginit.c:415
-#: src/msgmerge.c:663 src/msgunfmt.c:521 src/msguniq.c:410 src/xgettext.c:1257
+#: src/msgmerge.c:663 src/msgunfmt.c:521 src/msguniq.c:410 src/xgettext.c:1309
 #, c-format
 msgid ""
 "      --no-wrap               do not break long message lines, longer than\n"
 "                              the output page width, into several lines\n"
 msgstr ""
-"      --no-wrap               não quebra linhas de mensagens longas, "
-"maiores\n"
-"                              do que a largura da página de saída, em "
-"várias\n"
+"      --no-wrap               não quebra linhas de mensagens longas, maiores\n"
+"                              do que a largura da página de saída, em várias\n"
 "                              linhas\n"
 
 #: src/msgattrib.c:530 src/msgcat.c:465 src/msgcomm.c:449 src/msgconv.c:382
@@ -1575,7 +1615,7 @@ msgstr "  -s, --sort-output           gera uma saída ordenada\n"
 
 #: src/msgattrib.c:532 src/msgcat.c:467 src/msgcomm.c:451 src/msgconv.c:384
 #: src/msgen.c:387 src/msgfilter.c:509 src/msgmerge.c:668 src/msguniq.c:415
-#: src/xgettext.c:1262
+#: src/xgettext.c:1314
 #, c-format
 msgid "  -F, --sort-by-file          sort output by file location\n"
 msgstr ""
@@ -1586,7 +1626,7 @@ msgstr ""
 msgid "impossible selection criteria specified (%d < n < %d)"
 msgstr "critério de seleção especificado impossível (%d < n < %d)"
 
-#: src/msgcat.c:368 src/msgcomm.c:360 src/xgettext.c:1094
+#: src/msgcat.c:368 src/msgcomm.c:360 src/xgettext.c:1143
 #, c-format
 msgid "Usage: %s [OPTION] [INPUTFILE]...\n"
 msgstr "Uso: %s [OPÇÃO] [ARQUIVO-ENTRADA]...\n"
@@ -1614,19 +1654,19 @@ msgstr ""
 "--use-first for especificado, eles vão ser obtidos do primeiro arquivo PO para\n"
 "defini-los.\n"
 
-#: src/msgcat.c:390 src/msgcomm.c:381 src/xgettext.c:1110
+#: src/msgcat.c:390 src/msgcomm.c:381 src/xgettext.c:1159
 #, c-format
 msgid "  INPUTFILE ...               input files\n"
 msgstr "  ARQUIVO-ENTRADA ...         arquivos de entrada\n"
 
-#: src/msgcat.c:392 src/msgcomm.c:383 src/xgettext.c:1112
+#: src/msgcat.c:392 src/msgcomm.c:383 src/xgettext.c:1161
 #, c-format
 msgid "  -f, --files-from=FILE       get list of input files from FILE\n"
 msgstr ""
 "  -f, --files-from=ARQUIVO    obtém lista de arquivos de entrada de ARQUIVO\n"
 
-#: src/msgcat.c:396 src/msgcomm.c:387 src/msgen.c:334 src/msgfmt.c:945
-#: src/xgettext.c:1116
+#: src/msgcat.c:396 src/msgcomm.c:387 src/msgen.c:334 src/msgfmt.c:948
+#: src/xgettext.c:1165
 #, c-format
 msgid "If input file is -, standard input is read.\n"
 msgstr "Se o arquivo de entrada for -, a entrada padrão é lida.\n"
@@ -1658,7 +1698,7 @@ msgstr ""
 "  -u, --unique                abreviação para --less-than=2, requer que\n"
 "                              apenas mensagens únicas sejam exibidas\n"
 
-#: src/msgcat.c:421 src/msgcmp.c:252 src/msgcomm.c:412 src/msgfmt.c:1052
+#: src/msgcat.c:421 src/msgcmp.c:252 src/msgcomm.c:412 src/msgfmt.c:1055
 #: src/msgmerge.c:627
 #, c-format
 msgid ""
@@ -1667,7 +1707,7 @@ msgstr ""
 "  -P, --properties-input      arquivos de entrada estão em sintaxe \n"
 "                              .properties do Java\n"
 
-#: src/msgcat.c:423 src/msgcmp.c:254 src/msgcomm.c:414 src/msgfmt.c:1054
+#: src/msgcat.c:423 src/msgcmp.c:254 src/msgcomm.c:414 src/msgfmt.c:1057
 #: src/msgmerge.c:629
 #, c-format
 msgid ""
@@ -1693,8 +1733,7 @@ msgstr ""
 
 #: src/msgcat.c:434 src/msgen.c:354 src/msgmerge.c:635
 #, c-format
-msgid ""
-"      --lang=CATALOGNAME      set 'Language' field in the header entry\n"
+msgid "      --lang=CATALOGNAME      set 'Language' field in the header entry\n"
 msgstr ""
 "      --lang=NOME-CATÁLOGO    define o campo \"Language\" na mensagem de \n"
 "                              cabeçalho\n"
@@ -1755,8 +1794,7 @@ msgstr "Modificadores de operação:\n"
 #: src/msgcmp.c:241 src/msgmerge.c:615
 #, c-format
 msgid ""
-"  -m, --multi-domain          apply ref.pot to each of the domains in "
-"def.po\n"
+"  -m, --multi-domain          apply ref.pot to each of the domains in def.po\n"
 msgstr ""
 "  -m, --multi-domain          aplica ref.pot a cada um dos domínios em "
 "def.po\n"
@@ -1801,7 +1839,7 @@ msgstr "esta mensagem é utilizada mas não definida em %s"
 msgid "warning: this message is not used"
 msgstr "atenção: esta mensagem não é utilizada"
 
-#: src/msgcmp.c:561 src/msgfmt.c:796 src/msgfmt.c:1640 src/xgettext.c:1062
+#: src/msgcmp.c:561 src/msgfmt.c:799 src/msgfmt.c:1643 src/xgettext.c:1111
 #, c-format
 msgid "found %d fatal error"
 msgid_plural "found %d fatal errors"
@@ -1840,11 +1878,10 @@ msgid ""
 "  ->, --more-than=NUMBER      print messages with more than this many\n"
 "                              definitions, defaults to 1 if not set\n"
 msgstr ""
-"  ->, --more-than=NÚMERO      imprime mensagens com mais do que estas "
-"várias\n"
+"  ->, --more-than=NÚMERO      imprime mensagens com mais do que estas várias\n"
 "                              definições, sendo 1 se não for definida\n"
 
-#: src/msgcomm.c:453 src/xgettext.c:1264
+#: src/msgcomm.c:453 src/xgettext.c:1316
 #, c-format
 msgid ""
 "      --omit-header           don't write header with 'msgid \"\"' entry\n"
@@ -1878,8 +1915,7 @@ msgstr "  -i, --indent                estilo de saída com recuo\n"
 #, c-format
 msgid "      --no-location           suppress '#: filename:line' lines\n"
 msgstr ""
-"      --no-location           suprime as linhas \"#: nome-de-"
-"arquivo:linha\"\n"
+"      --no-location           suprime as linhas \"#: nome-de-arquivo:linha\"\n"
 
 #: src/msgconv.c:369 src/msgen.c:372 src/msgfilter.c:494 src/msggrep.c:607
 #: src/msgmerge.c:653
@@ -1897,7 +1933,7 @@ msgstr ""
 msgid "      --strict                strict Uniforum output style\n"
 msgstr "      --strict                estilo de saída Uniforum estrita\n"
 
-#: src/msgen.c:262 src/msgfmt.c:473 src/xgettext.c:767
+#: src/msgen.c:262 src/msgfmt.c:476 src/xgettext.c:816
 #, c-format
 msgid "no input file given"
 msgstr "nenhum arquivo de entrada fornecido"
@@ -2049,8 +2085,7 @@ msgstr ""
 #: src/msgfilter.c:461
 #, c-format
 msgid ""
-"  -f, --file=SCRIPTFILE       add the contents of SCRIPTFILE to the "
-"commands\n"
+"  -f, --file=SCRIPTFILE       add the contents of SCRIPTFILE to the commands\n"
 "                                to be executed\n"
 msgstr ""
 "  -f, --file=ARQUIVO-SCRIPT\n"
@@ -2067,8 +2102,7 @@ msgstr ""
 
 #: src/msgfilter.c:482 src/msggrep.c:597
 #, c-format
-msgid ""
-"      --no-escape             do not use C escapes in output (default)\n"
+msgid "      --no-escape             do not use C escapes in output (default)\n"
 msgstr "      --no-escape             não usa escapes de C na saída (padrão)\n"
 
 #: src/msgfilter.c:488 src/msggrep.c:603
@@ -2089,125 +2123,125 @@ msgstr ""
 msgid "filter output is not terminated with a newline"
 msgstr "saída do filtro não terminado com uma nova linha"
 
-#: src/msgfmt.c:372
+#: src/msgfmt.c:375
 #, c-format
 msgid "the argument to %s should be a single punctuation character"
 msgstr "o argumento %s deveria ser um caractere singular de pontuação"
 
-#: src/msgfmt.c:419
+#: src/msgfmt.c:422
 #, c-format
 msgid "invalid endianness: %s"
 msgstr "extremidade inválida: %s"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/msgfmt.c:460 src/msgunfmt.c:267 src/xgettext.c:727
+#: src/msgfmt.c:463 src/msgunfmt.c:267 src/xgettext.c:776
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/msgfmt.c:481
+#: src/msgfmt.c:484
 #, c-format
 msgid "no input file should be given if %s and %s are specified"
 msgstr ""
 "nenhum arquivo de entrada deveria ser passado se %s e %s forem especificadas"
 
-#: src/msgfmt.c:519 src/msgmerge.c:427 src/msgmerge.c:433
+#: src/msgfmt.c:522 src/msgmerge.c:427 src/msgmerge.c:433
 #, c-format
 msgid "%s is only valid with %s"
 msgstr "%s é válida apenas com %s"
 
-#: src/msgfmt.c:533 src/msgfmt.c:555 src/msgfmt.c:577 src/msgunfmt.c:329
+#: src/msgfmt.c:536 src/msgfmt.c:558 src/msgfmt.c:580 src/msgunfmt.c:329
 #: src/msgunfmt.c:352
 #, c-format
 msgid "%s requires a \"-d directory\" specification"
 msgstr "%s requer especificação de um \"-d diretório\""
 
-#: src/msgfmt.c:548 src/msgfmt.c:570 src/msgfmt.c:605 src/msgfmt.c:637
+#: src/msgfmt.c:551 src/msgfmt.c:573 src/msgfmt.c:608 src/msgfmt.c:640
 #: src/msgunfmt.c:322 src/msgunfmt.c:345
 #, c-format
 msgid "%s requires a \"-l locale\" specification"
 msgstr "%s requer especificação de um \"-l localização\""
 
-#: src/msgfmt.c:587 src/msgfmt.c:615
+#: src/msgfmt.c:590 src/msgfmt.c:618
 #, c-format
 msgid "%s requires a \"--template template\" specification"
 msgstr "%s requer especificação de um \"--template modelo\""
 
-#: src/msgfmt.c:594 src/msgfmt.c:622
+#: src/msgfmt.c:597 src/msgfmt.c:625
 #, c-format
 msgid "%s requires a \"-o file\" specification"
 msgstr "%s requer especificação de um \"-o arquivo\""
 
-#: src/msgfmt.c:600 src/msgfmt.c:628 src/msgfmt.c:632
+#: src/msgfmt.c:603 src/msgfmt.c:631 src/msgfmt.c:635
 #, c-format
 msgid "%s and %s are mutually exclusive in %s"
 msgstr "%s e %s são mutuamente exclusivos em %s"
 
-#: src/msgfmt.c:646 src/msgunfmt.c:361 src/msgunfmt.c:367
+#: src/msgfmt.c:649 src/msgunfmt.c:361 src/msgunfmt.c:367
 #, c-format
 msgid "%s is only valid with %s or %s"
 msgstr "%s é válido apenas com %s ou %s"
 
-#: src/msgfmt.c:652 src/msgfmt.c:658
+#: src/msgfmt.c:655 src/msgfmt.c:661
 #, c-format
 msgid "%s is only valid with %s, %s or %s"
 msgstr "%s é válido apenas com %s, %s ou %s"
 
-#: src/msgfmt.c:731
+#: src/msgfmt.c:734
 #, c-format
 msgid "cannot locate ITS rules for %s"
 msgstr "não foi possível localizar regras ITS para %s"
 
 #. TRANSLATORS: The prefix before a statistics message.  The argument
 #. is a file name or a comma separated list of file names.
-#: src/msgfmt.c:892
+#: src/msgfmt.c:895
 #, c-format
 msgid "%s: "
 msgstr "%s: "
 
-#: src/msgfmt.c:895
+#: src/msgfmt.c:898
 #, c-format
 msgid "%d translated message"
 msgid_plural "%d translated messages"
 msgstr[0] "%d mensagem traduzida"
 msgstr[1] "%d mensagens traduzidas"
 
-#: src/msgfmt.c:900
+#: src/msgfmt.c:903
 #, c-format
 msgid ", %d fuzzy translation"
 msgid_plural ", %d fuzzy translations"
 msgstr[0] ", %d tradução aproximada (fuzzy)"
 msgstr[1] ", %d traduções aproximadas (fuzzy)"
 
-#: src/msgfmt.c:905
+#: src/msgfmt.c:908
 #, c-format
 msgid ", %d untranslated message"
 msgid_plural ", %d untranslated messages"
 msgstr[0] ", %d mensagem não traduzida"
 msgstr[1] ", %d mensagens não traduzidas"
 
-#: src/msgfmt.c:925
+#: src/msgfmt.c:928
 #, c-format
 msgid "Usage: %s [OPTION] filename.po ...\n"
 msgstr "Uso: %s [OPÇÕES] arquivo.po ...\n"
 
-#: src/msgfmt.c:929
+#: src/msgfmt.c:932
 #, c-format
 msgid "Generate binary message catalog from textual translation description.\n"
 msgstr ""
 "Gera um catálogo de mensagens binário a partir da descrição da tradução "
 "textual.\n"
 
-#: src/msgfmt.c:941
+#: src/msgfmt.c:944
 #, c-format
 msgid "  filename.po ...             input files\n"
 msgstr "  arquivo.po ...              arquivos de entrada\n"
 
-#: src/msgfmt.c:948 src/msgmerge.c:579 src/msgunfmt.c:438 src/xgettext.c:1153
+#: src/msgfmt.c:951 src/msgmerge.c:579 src/msgunfmt.c:438 src/xgettext.c:1203
 #, c-format
 msgid "Operation mode:\n"
 msgstr "Modo de operação:\n"
 
-#: src/msgfmt.c:950
+#: src/msgfmt.c:953
 #, c-format
 msgid ""
 "  -j, --java                  Java mode: generate a Java ResourceBundle "
@@ -2216,21 +2250,20 @@ msgstr ""
 "  -j, --java                  modo Java: gera uma classe ResourceBundle de "
 "Java\n"
 
-#: src/msgfmt.c:952
+#: src/msgfmt.c:955
 #, c-format
 msgid ""
 "      --java2                 like --java, and assume Java2 (JDK 1.2 or "
 "higher)\n"
 msgstr ""
-"      --java2                 semelhante a --java, e supõe Java2 (JDK 1.2 "
-"+)\n"
+"      --java2                 semelhante a --java, e supõe Java2 (JDK 1.2 +)\n"
 
-#: src/msgfmt.c:954
+#: src/msgfmt.c:957
 #, c-format
 msgid "      --csharp                C# mode: generate a .NET .dll file\n"
 msgstr "      --csharp                modo C#: gera um arquivo .dll de .NET\n"
 
-#: src/msgfmt.c:956
+#: src/msgfmt.c:959
 #, c-format
 msgid ""
 "      --csharp-resources      C# resources mode: generate a .NET .resources "
@@ -2240,52 +2273,52 @@ msgstr ""
 "arquivo .resources\n"
 "                                de .NET\n"
 
-#: src/msgfmt.c:958
+#: src/msgfmt.c:961
 #, c-format
 msgid ""
 "      --tcl                   Tcl mode: generate a tcl/msgcat .msg file\n"
 msgstr ""
 "      --tcl                   modo Tcl: gera um arquivo .msg de tcl/msgcat\n"
 
-#: src/msgfmt.c:960
+#: src/msgfmt.c:963
 #, c-format
 msgid "      --qt                    Qt mode: generate a Qt .qm file\n"
 msgstr "      --qt                    modo Qt: gera um arquivo .qm de Qt\n"
 
-#: src/msgfmt.c:962
+#: src/msgfmt.c:965
 #, c-format
 msgid ""
 "      --desktop               Desktop Entry mode: generate a .desktop file\n"
 msgstr ""
 "      --desktop               modo Desktop Entry: gera um arquivo .desktop\n"
 
-#: src/msgfmt.c:964
+#: src/msgfmt.c:967
 #, c-format
 msgid "      --xml                   XML mode: generate XML file\n"
 msgstr "      --xml                   modo XML: gera um arquivo XML\n"
 
-#: src/msgfmt.c:971
+#: src/msgfmt.c:974
 #, c-format
 msgid "      --strict                enable strict Uniforum mode\n"
 msgstr "      --strict                habilita modo Uniforum estrito\n"
 
-#: src/msgfmt.c:973 src/xgettext.c:1127
+#: src/msgfmt.c:976 src/xgettext.c:1176
 #, c-format
 msgid "If output file is -, output is written to standard output.\n"
 msgstr "Se o arquivo de saída for -, a saída é escrita na saída padrão.\n"
 
-#: src/msgfmt.c:976
+#: src/msgfmt.c:979
 #, c-format
 msgid "Output file location in Java mode:\n"
 msgstr "Localização do arquivo de saída em modo Java:\n"
 
-#: src/msgfmt.c:978 src/msgfmt.c:994 src/msgunfmt.c:458 src/msgunfmt.c:469
+#: src/msgfmt.c:981 src/msgfmt.c:997 src/msgunfmt.c:458 src/msgunfmt.c:469
 #, c-format
 msgid "  -r, --resource=RESOURCE     resource name\n"
 msgstr "  -r, --resource=RECURSO      nome do recurso\n"
 
-#: src/msgfmt.c:980 src/msgfmt.c:996 src/msgfmt.c:1006 src/msgfmt.c:1016
-#: src/msgfmt.c:1033 src/msgunfmt.c:460 src/msgunfmt.c:471 src/msgunfmt.c:481
+#: src/msgfmt.c:983 src/msgfmt.c:999 src/msgfmt.c:1009 src/msgfmt.c:1019
+#: src/msgfmt.c:1036 src/msgunfmt.c:460 src/msgunfmt.c:471 src/msgunfmt.c:481
 #, c-format
 msgid ""
 "  -l, --locale=LOCALE         locale name, either language or "
@@ -2294,17 +2327,16 @@ msgstr ""
 "  -l, --locale=LOCALIZAÇÃO    nome da localização, podendo ser o idioma ou\n"
 "                              também idioma_PAÍS\n"
 
-#: src/msgfmt.c:982
+#: src/msgfmt.c:985
 #, c-format
 msgid ""
-"      --source                produce a .java file, instead of a .class "
-"file\n"
+"      --source                produce a .java file, instead of a .class file\n"
 msgstr ""
 "      --source                produz um arquivo .java, ao invés de um "
 "arquivo\n"
 "                              .class\n"
 
-#: src/msgfmt.c:984
+#: src/msgfmt.c:987
 #, c-format
 msgid ""
 "  -d DIRECTORY                base directory of classes directory hierarchy\n"
@@ -2312,7 +2344,7 @@ msgstr ""
 "  -d DIRETÓRIO                diretório base de hierarquia de diretório de\n"
 "                              classes\n"
 
-#: src/msgfmt.c:986
+#: src/msgfmt.c:989
 #, c-format
 msgid ""
 "The class name is determined by appending the locale name to the resource "
@@ -2324,21 +2356,20 @@ msgstr ""
 "nome do recurso, separados por um sublinhado. A opção -d é obrigatória.\n"
 "A classe é escrita sob o diretório especificado.\n"
 
-#: src/msgfmt.c:992
+#: src/msgfmt.c:995
 #, c-format
 msgid "Output file location in C# mode:\n"
 msgstr "Localização do arquivo de saída em modo C#:\n"
 
-#: src/msgfmt.c:998 src/msgunfmt.c:473
+#: src/msgfmt.c:1001 src/msgunfmt.c:473
 #, c-format
 msgid ""
-"  -d DIRECTORY                base directory for locale dependent .dll "
-"files\n"
+"  -d DIRECTORY                base directory for locale dependent .dll files\n"
 msgstr ""
 "  -d DIRETÓRIO                diretório base para arquivos .dll dependentes\n"
 "                              da localização\n"
 
-#: src/msgfmt.c:1000
+#: src/msgfmt.c:1003
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .dll file is written in a\n"
@@ -2347,18 +2378,18 @@ msgstr ""
 "As opções -l e -d são obrigatórias. O arquivo .dll é escrito em um\n"
 "subdiretório do diretório especificado, cujo nome depende da localização.\n"
 
-#: src/msgfmt.c:1004
+#: src/msgfmt.c:1007
 #, c-format
 msgid "Output file location in Tcl mode:\n"
 msgstr "Localização do arquivo de saída em modo Tcl:\n"
 
-#: src/msgfmt.c:1008 src/msgunfmt.c:483
+#: src/msgfmt.c:1011 src/msgunfmt.c:483
 #, c-format
 msgid "  -d DIRECTORY                base directory of .msg message catalogs\n"
 msgstr ""
 "  -d DIRETÓRIO                diretório base de catálogos de mensagens .msg\n"
 
-#: src/msgfmt.c:1010
+#: src/msgfmt.c:1013
 #, c-format
 msgid ""
 "The -l and -d options are mandatory.  The .msg file is written in the\n"
@@ -2367,23 +2398,23 @@ msgstr ""
 "As opções -l e -d são obrigatórias. O arquivo .msg é escrito no\n"
 "diretório especificado.\n"
 
-#: src/msgfmt.c:1014
+#: src/msgfmt.c:1017
 #, c-format
 msgid "Desktop Entry mode options:\n"
 msgstr "Opções de modo Desktop Entry:\n"
 
-#: src/msgfmt.c:1020
+#: src/msgfmt.c:1023
 #, c-format
 msgid "  --template=TEMPLATE         a .desktop file used as a template\n"
 msgstr ""
 "  --template=MODELO           um arquivo .desktop usado como um modelo\n"
 
-#: src/msgfmt.c:1022 src/msgfmt.c:1041
+#: src/msgfmt.c:1025 src/msgfmt.c:1044
 #, c-format
 msgid "  -d DIRECTORY                base directory of .po files\n"
 msgstr "  -d DIRETÓRIO                diretório base de arquivos .po\n"
 
-#: src/msgfmt.c:1024 src/xgettext.c:1182
+#: src/msgfmt.c:1027 src/xgettext.c:1233
 #, c-format
 msgid ""
 "  -kWORD, --keyword=WORD      look for WORD as an additional keyword\n"
@@ -2394,33 +2425,32 @@ msgstr ""
 "                              adicional\n"
 "  -k, --keyword               não usa palavras-chaves padrões\n"
 
-#: src/msgfmt.c:1027 src/msgfmt.c:1046
+#: src/msgfmt.c:1030 src/msgfmt.c:1049
 #, c-format
 msgid ""
-"The -l, -o, and --template options are mandatory.  If -D is specified, "
-"input\n"
+"The -l, -o, and --template options are mandatory.  If -D is specified, input\n"
 "files are read from the directory instead of the command line arguments.\n"
 msgstr ""
 "As opções -l, -o e --template são obrigatórias. Se -D for especificada, os\n"
 "arquivos de entrada são lidos do diretório ao invés dos argumentos da linha\n"
 "de comando.\n"
 
-#: src/msgfmt.c:1031
+#: src/msgfmt.c:1034
 #, c-format
 msgid "XML mode options:\n"
 msgstr "Opções de modo XML:\n"
 
-#: src/msgfmt.c:1035
+#: src/msgfmt.c:1038
 #, c-format
 msgid "  -L, --language=NAME         recognise the specified XML language\n"
 msgstr "  -L, --language=NOME         reconhece a linguagem XML especificada\n"
 
-#: src/msgfmt.c:1039
+#: src/msgfmt.c:1042
 #, c-format
 msgid "  --template=TEMPLATE         an XML file used as a template\n"
 msgstr "  --template=MODELO           um arquivo XML usado como um modelo\n"
 
-#: src/msgfmt.c:1043
+#: src/msgfmt.c:1046
 #, c-format
 msgid ""
 "  --replace-text              output XML with translated text replacing the\n"
@@ -2430,12 +2460,12 @@ msgstr ""
 "  --replace-text              saída XML com texto traduzido substituindo o\n"
 "                              texto original, não aumentar o texto original\n"
 
-#: src/msgfmt.c:1058 src/xgettext.c:1145
+#: src/msgfmt.c:1061 src/xgettext.c:1195
 #, c-format
 msgid "Input file interpretation:\n"
 msgstr "Interpretação do arquivo de entrada:\n"
 
-#: src/msgfmt.c:1060
+#: src/msgfmt.c:1063
 #, c-format
 msgid ""
 "  -c, --check                 perform all the checks implied by\n"
@@ -2446,14 +2476,14 @@ msgstr ""
 "                                --check-format, --check-header, --check-"
 "domain\n"
 
-#: src/msgfmt.c:1063
+#: src/msgfmt.c:1066
 #, c-format
 msgid "      --check-format          check language dependent format strings\n"
 msgstr ""
 "      --check-format          verifica strings de formato dependente da\n"
 "                              localização\n"
 
-#: src/msgfmt.c:1065
+#: src/msgfmt.c:1068
 #, c-format
 msgid ""
 "      --check-header          verify presence and contents of the header "
@@ -2462,17 +2492,16 @@ msgstr ""
 "      --check-header          verifica presença e conteúdo da mensagem\n"
 "                              de cabeçalho\n"
 
-#: src/msgfmt.c:1067
+#: src/msgfmt.c:1070
 #, c-format
 msgid ""
 "      --check-domain          check for conflicts between domain directives\n"
 "                                and the --output-file option\n"
 msgstr ""
-"      --check-domain          verifica conflitos entre diretivas de "
-"domínios\n"
+"      --check-domain          verifica conflitos entre diretivas de domínios\n"
 "                              e a opção --output-file\n"
 
-#: src/msgfmt.c:1070
+#: src/msgfmt.c:1073
 #, c-format
 msgid ""
 "  -C, --check-compatibility   check that GNU msgfmt behaves like X/Open "
@@ -2481,7 +2510,7 @@ msgstr ""
 "  -C, --check-compatibility   verifica se o GNU msgfmt se comporta como\n"
 "                              X/Open msgfmt\n"
 
-#: src/msgfmt.c:1072
+#: src/msgfmt.c:1075
 #, c-format
 msgid ""
 "      --check-accelerators[=CHAR]  check presence of keyboard accelerators "
@@ -2492,19 +2521,18 @@ msgstr ""
 "                              verifica a presença de aceleradores de\n"
 "                              teclado para itens de menu\n"
 
-#: src/msgfmt.c:1075
+#: src/msgfmt.c:1078
 #, c-format
 msgid "  -f, --use-fuzzy             use fuzzy entries in output\n"
 msgstr "  -f, --use-fuzzy             usa entradas aproximadas na saída\n"
 
-#: src/msgfmt.c:1080
+#: src/msgfmt.c:1083
 #, c-format
 msgid ""
 "      --no-convert            don't convert the messages to UTF-8 encoding\n"
-msgstr ""
-"--no-convert            não converte mensagens para codificação UTF-8\n"
+msgstr "--no-convert            não converte mensagens para codificação UTF-8\n"
 
-#: src/msgfmt.c:1082
+#: src/msgfmt.c:1085
 #, c-format
 msgid ""
 "      --no-redundancy         don't pre-expand ISO C 99 <inttypes.h>\n"
@@ -2513,7 +2541,7 @@ msgstr ""
 "      --no-redundancy         não pré-expande macros de diretivas de\n"
 "                                string de formato ISO C 99 <inttypes.h>\n"
 
-#: src/msgfmt.c:1085
+#: src/msgfmt.c:1088
 #, c-format
 msgid ""
 "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
@@ -2521,13 +2549,12 @@ msgstr ""
 "  -a, --alignment=NÚMERO      alinha strings em NÚMERO bytes (padrão: %d)\n"
 
 # big e little são as opções de ORDEM-DE-BYTES, portanto não traduza.
-#: src/msgfmt.c:1087
+#: src/msgfmt.c:1090
 #, c-format
 msgid ""
 "      --endianness=BYTEORDER  write out 32-bit numbers in the given byte "
 "order\n"
-"                                (big or little, default depends on "
-"platform)\n"
+"                                (big or little, default depends on platform)\n"
 msgstr ""
 "      --endianness=ORDEM-DE-BYTES\n"
 "                              escreve números 32-bit na ordem de bytes dada\n"
@@ -2535,83 +2562,84 @@ msgstr ""
 "plataforma)\n"
 
 # "binary" de binário (compilado, .mo), e não de executável
-#: src/msgfmt.c:1090
+#: src/msgfmt.c:1093
 #, c-format
 msgid ""
 "      --no-hash               binary file will not include the hash table\n"
 msgstr ""
 "      --no-hash               arquivo binário não vai incluir a tabela hash\n"
 
-#: src/msgfmt.c:1099
+#: src/msgfmt.c:1102
 #, c-format
 msgid "      --statistics            print statistics about translations\n"
 msgstr "      --statistics            imprime estatísticas sobre traduções\n"
 
-#: src/msgfmt.c:1101 src/msgmerge.c:677 src/msgunfmt.c:533 src/xgettext.c:1293
+#: src/msgfmt.c:1104 src/msgmerge.c:677 src/msgunfmt.c:533 src/xgettext.c:1353
 #, c-format
 msgid "  -v, --verbose               increase verbosity level\n"
 msgstr "  -v, --verbose               aumenta o nível de detalhamento\n"
 
-#: src/msgfmt.c:1218
+#: src/msgfmt.c:1221
 #, c-format
 msgid "warning: PO file header missing or invalid\n"
 msgstr "aviso: cabeçalho do arquivo PO faltando ou inválido\n"
 
-#: src/msgfmt.c:1220
+#: src/msgfmt.c:1223
 #, c-format
 msgid "warning: charset conversion will not work\n"
 msgstr "aviso: conversão de conjunto de caracteres não vai funcionar\n"
 
-#: src/msgfmt.c:1245
+#: src/msgfmt.c:1248
 #, c-format
 msgid "domain name \"%s\" not suitable as file name"
 msgstr "nome do domínio \"%s\" não é válido como nome de arquivo"
 
-#: src/msgfmt.c:1250
+#: src/msgfmt.c:1253
 #, c-format
 msgid "domain name \"%s\" not suitable as file name: will use prefix"
 msgstr ""
 "nome do domínio \"%s\" não é válido como nome de arquivo: será usado um "
 "prefixo"
 
-#: src/msgfmt.c:1266
+#: src/msgfmt.c:1269
 #, c-format
 msgid "'domain %s' directive ignored"
 msgstr "diretiva \"domain %s\" ignorada"
 
-#: src/msgfmt.c:1326
+#: src/msgfmt.c:1329
 #, c-format
 msgid "empty 'msgstr' entry ignored"
 msgstr "mensagem \"msgstr\" vazia ignorada"
 
-#: src/msgfmt.c:1327
+#: src/msgfmt.c:1330
 #, c-format
 msgid "fuzzy 'msgstr' entry ignored"
 msgstr "mensagem \"msgstr\" aproximada (fuzzy) ignorada"
 
-#: src/msgfmt.c:1375
+#: src/msgfmt.c:1378
 #, c-format
 msgid "%s: warning: source file contains fuzzy translation"
 msgstr "%s: aviso: arquivo fonte contém traduções aproximadas"
 
-#: src/msgfmt.c:1491
+#: src/msgfmt.c:1494
 #, c-format
 msgid "%s does not exist"
 msgstr "%s não existe"
 
-#: src/msgfmt.c:1498
+#: src/msgfmt.c:1501
 #, c-format
 msgid "%s exists but cannot read"
 msgstr "%s existe, mas não pode ler"
 
 #: src/msggrep.c:254 src/read-desktop.c:122 src/read-mo.c:88
-#: src/read-po-lex.c:879 src/read-properties.c:600 src/read-stringtable.c:98
-#: src/x-awk.c:143 src/x-c.c:610 src/x-csharp.c:168 src/x-elisp.c:147
-#: src/x-java.c:208 src/x-javascript.c:282 src/x-librep.c:149 src/x-lisp.c:214
-#: src/x-lua.c:178 src/x-perl.c:369 src/x-perl.c:451 src/x-perl.c:534
-#: src/x-php.c:266 src/x-python.c:184 src/x-rst.c:223 src/x-rst.c:277
-#: src/x-rust.c:1140 src/x-scheme.c:195 src/x-sh.c:165 src/x-smalltalk.c:88
-#: src/x-tcl.c:154 src/x-vala.c:232 src/x-ycp.c:93
+#: src/read-po-lex.c:879 src/read-properties.c:600 src/read-stringtable.c:99
+#: src/x-awk.c:143 src/x-c.c:610 src/x-csharp.c:168 src/x-d.c:1719
+#: src/x-elisp.c:147 src/x-java.c:208 src/x-javascript.c:282 src/x-librep.c:149
+#: src/x-lisp.c:214 src/x-lua.c:178 src/x-modula2.c:156 src/x-perl.c:369
+#: src/x-perl.c:451 src/x-perl.c:534 src/x-php.c:266 src/x-python.c:184
+#: src/x-rst.c:223 src/x-rst.c:277 src/x-rust.c:1142 src/x-scheme.c:195
+#: src/x-sh.c:165 src/x-smalltalk.c:88 src/x-tcl.c:154 src/x-vala.c:232
+#: src/x-ycp.c:93
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "erro ao ler \"%s\""
@@ -2797,8 +2825,7 @@ msgstr ""
 #, c-format
 msgid "  -o, --output-file=FILE      write output to specified PO file\n"
 msgstr ""
-"  -o, --output-file=ARQUIVO   escreve a saída para o arquivo PO "
-"especificado\n"
+"  -o, --output-file=ARQUIVO   escreve a saída para o arquivo PO especificado\n"
 
 #: src/msginit.c:386
 #, c-format
@@ -2869,8 +2896,7 @@ msgstr "o subprocesso %s falhou com código de saída %d"
 
 #: src/msginit.c:1154
 msgid ""
-"The new message catalog should contain your email address, so that users "
-"can\n"
+"The new message catalog should contain your email address, so that users can\n"
 "give you feedback about the translations, and so that maintainers can "
 "contact\n"
 "you in case of unexpected technical problems.\n"
@@ -2891,8 +2917,7 @@ msgstr "Traduções em português brasileiro para o pacote %s"
 #, c-format
 msgid "present charset \"%s\" is not a portable encoding name"
 msgstr ""
-"o conjunto de caracteres presente \"%s\" não é um nome de codificação "
-"portável"
+"o conjunto de caracteres presente \"%s\" não é um nome de codificação portável"
 
 #: src/msgl-cat.c:192 src/msgl-iconv.c:287
 #, c-format
@@ -2918,7 +2943,7 @@ msgstr ""
 "domínio \"%s\" no arquivo de entrada \"%s\" não contém uma entrada de "
 "cabeçalho com uma especificação de conjunto de caracteres"
 
-#: src/msgl-cat.c:309 src/xg-message.c:330
+#: src/msgl-cat.c:309 src/xg-message.c:339
 #, c-format
 msgid "msgid '%s' is used without plural and with plural."
 msgstr "o msgid \"%s\" é usado sem plural e com plural."
@@ -2944,15 +2969,13 @@ msgid ""
 "Input files contain messages in different encodings, UTF-8 among others.\n"
 "Converting the output to UTF-8.\n"
 msgstr ""
-"Arquivos de entrada contêm mensagens em codificações distintas, UTF-8 "
-"junto.\n"
+"Arquivos de entrada contêm mensagens em codificações distintas, UTF-8 junto.\n"
 "Convertendo a saída para UTF-8.\n"
 
 #: src/msgl-cat.c:484
 #, c-format
 msgid ""
-"Input files contain messages in different encodings, %s and %s among "
-"others.\n"
+"Input files contain messages in different encodings, %s and %s among others.\n"
 "Converting the output to UTF-8.\n"
 "To select a different output encoding, use the --to-code option.\n"
 msgstr ""
@@ -2999,8 +3022,8 @@ msgid ""
 "%s: The file contains non-ASCII characters but the present charset \"%s\" is "
 "not %s."
 msgstr ""
-"%s: O arquivo contém caracteres não ASCII, mas o conjunto de caracteres "
-"atual \"%s\" não é %s."
+"%s: O arquivo contém caracteres não ASCII, mas o conjunto de caracteres atual "
+"\"%s\" não é %s."
 
 #: src/msgl-charset.c:153
 #, c-format
@@ -3202,7 +3225,7 @@ msgstr ""
 "conjunto de caracteres"
 
 #: src/msgl-iconv.c:317 src/recode-sr-latin.c:284 src/recode-sr-latin.c:288
-#: src/xgettext.c:847 src/x-python.c:628
+#: src/xgettext.c:896 src/x-python.c:628
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does "
@@ -3214,23 +3237,23 @@ msgstr ""
 #: src/msgl-iconv.c:345
 #, c-format
 msgid ""
-"Conversion from \"%s\" to \"%s\" introduces duplicates: some different "
-"msgids become equal."
+"Conversion from \"%s\" to \"%s\" introduces duplicates: some different msgids "
+"become equal."
 msgstr ""
 "Conversão de \"%s\" para \"%s\" introduz duplicatas: algumas msgids "
 "diferentes ficaram equal."
 
-#: src/msgl-iconv.c:349 src/recode-sr-latin.c:296 src/xgettext.c:853
+#: src/msgl-iconv.c:349 src/recode-sr-latin.c:296 src/xgettext.c:902
 #: src/x-python.c:634
 #, c-format
 msgid ""
 "Cannot convert from \"%s\" to \"%s\". %s relies on iconv(). This version was "
 "built without iconv()."
 msgstr ""
-"Não foi possível converter de \"%s\" para \"%s\". %s depende do iconv(). "
-"Esta versão foi compilada sem iconv()."
+"Não foi possível converter de \"%s\" para \"%s\". %s depende do iconv(). Esta "
+"versão foi compilada sem iconv()."
 
-#: src/msgmerge.c:445 src/xgettext.c:779
+#: src/msgmerge.c:445 src/xgettext.c:828
 #, c-format
 msgid "The option '%s' is deprecated."
 msgstr "A opção \"%s\" foi descontinuada."
@@ -3278,8 +3301,7 @@ msgid ""
 "  -C, --compendium=FILE       additional library of message translations,\n"
 "                              may be specified more than once\n"
 msgstr ""
-"  -C, --compendium=ARQUIVO    biblioteca adicional de traduções de "
-"mensagens\n"
+"  -C, --compendium=ARQUIVO    biblioteca adicional de traduções de mensagens\n"
 "                              pode ser especificada mais de uma vez\n"
 
 #: src/msgmerge.c:581
@@ -3356,11 +3378,10 @@ msgstr ""
 "      --previous              mantém msgids anteriores de mensagens "
 "traduzidas\n"
 
-#: src/msgmerge.c:666 src/xgettext.c:1260
+#: src/msgmerge.c:666 src/xgettext.c:1312
 #, c-format
 msgid "  -s, --sort-output           generate sorted output (deprecated)\n"
-msgstr ""
-"  -s, --sort-output           gera uma saída ordenada (descontinuada)\n"
+msgstr "  -s, --sort-output           gera uma saída ordenada (descontinuada)\n"
 
 #: src/msgmerge.c:679 src/urlget.c:189
 #, c-format
@@ -3528,8 +3549,7 @@ msgstr "  -d, --repeated              exibe apenas duplicados\n"
 #: src/msguniq.c:367
 #, c-format
 msgid ""
-"  -u, --unique                print only unique messages, discard "
-"duplicates\n"
+"  -u, --unique                print only unique messages, discard duplicates\n"
 msgstr ""
 "  -u, --unique                exibe apenas mensagens únicas, descarta\n"
 "                              duplicatas\n"
@@ -3538,7 +3558,7 @@ msgstr ""
 msgid "<stdin>"
 msgstr "<stdin>"
 
-#: src/read-catalog.c:330 src/xgettext.c:1341
+#: src/read-catalog.c:330 src/xgettext.c:1378
 msgid "this file may not contain domain directives"
 msgstr "este arquivo parece não conter diretivas de domínio"
 
@@ -3611,8 +3631,7 @@ msgstr ""
 #: src/read-mo.c:362
 #, c-format
 msgid ""
-"file \"%s\" is not in GNU .mo format: The hash table contains invalid "
-"entries."
+"file \"%s\" is not in GNU .mo format: The hash table contains invalid entries."
 msgstr ""
 "o arquivo \"%s\" não está no formato .mo de GNU: A tabela de hashes contém "
 "entradas inválidas."
@@ -3768,23 +3787,23 @@ msgstr "aviso: substituto solitário U+%04X"
 msgid "warning: invalid Unicode character"
 msgstr "aviso: caractere Unicode inválido"
 
-#: src/read-stringtable.c:803
+#: src/read-stringtable.c:804
 msgid "warning: unterminated string"
 msgstr "aviso: string não terminada"
 
-#: src/read-stringtable.c:811
+#: src/read-stringtable.c:812
 msgid "warning: syntax error"
 msgstr "aviso: erro de sintaxe"
 
-#: src/read-stringtable.c:874 src/read-stringtable.c:898
+#: src/read-stringtable.c:875 src/read-stringtable.c:899
 msgid "warning: unterminated key/value pair"
 msgstr "aviso: par chave/valor não terminado"
 
-#: src/read-stringtable.c:946
+#: src/read-stringtable.c:947
 msgid "warning: syntax error, expected ';' after string"
 msgstr "aviso: erro de sintaxe, esperava \";\" após string"
 
-#: src/read-stringtable.c:955
+#: src/read-stringtable.c:956
 msgid "warning: syntax error, expected '=' or ';' after string"
 msgstr "aviso: erro de sintaxe, esperava \"=\" ou \";\" após string"
 
@@ -3896,18 +3915,18 @@ msgid ""
 "message catalog has context dependent translations, but the output format "
 "does not support them."
 msgstr ""
-"catálogo de mensagens possui traduções dependentes de contexto, mas o "
-"formato de saída não tem suporte a elas."
+"catálogo de mensagens possui traduções dependentes de contexto, mas o formato "
+"de saída não tem suporte a elas."
 
 #: src/write-catalog.c:191
 msgid ""
 "message catalog has plural form translations, but the output format does not "
-"support them. Try generating a Java class using \"msgfmt --java\", instead "
-"of a properties file."
+"support them. Try generating a Java class using \"msgfmt --java\", instead of "
+"a properties file."
 msgstr ""
-"catálogo de mensagens possui traduções dependentes de contexto, mas o "
-"formato de saída não tem suporte a elas. Tente gerar uma classe Java usando "
-"\"msgfmt --java\", ao invés de um arquivo de propriedades."
+"catálogo de mensagens possui traduções dependentes de contexto, mas o formato "
+"de saída não tem suporte a elas. Tente gerar uma classe Java usando \"msgfmt "
+"--java\", ao invés de um arquivo de propriedades."
 
 #: src/write-catalog.c:196
 msgid ""
@@ -3928,7 +3947,7 @@ msgstr "saída padrão"
 
 #: src/write-catalog.c:248 src/write-catalog.c:320 src/write-csharp.c:756
 #: src/write-desktop.c:185 src/write-java.c:1168 src/write-java.c:1209
-#: src/write-mo.c:1216 src/write-mo.c:1238 src/write-qt.c:754
+#: src/write-mo.c:1217 src/write-mo.c:1239 src/write-qt.c:755
 #: src/write-tcl.c:327 src/write-xml.c:79
 #, c-format
 msgid "error while writing \"%s\" file"
@@ -3955,7 +3974,7 @@ msgstr "compilação de classe C# falhou, por favor tente --verbose"
 msgid "compilation of C# class failed"
 msgstr "compilação de classe C# falhou"
 
-#: src/write-desktop.c:165 src/write-mo.c:1229 src/write-qt.c:744
+#: src/write-desktop.c:165 src/write-mo.c:1230 src/write-qt.c:745
 #: src/write-tcl.c:317
 #, c-format
 msgid "error while opening \"%s\" for writing"
@@ -3984,8 +4003,7 @@ msgstr "sequência multi-byte incompleta"
 
 #: src/write-po.c:904
 #, c-format
-msgid ""
-"internationalized messages should not contain the '\\%c' escape sequence"
+msgid "internationalized messages should not contain the '\\%c' escape sequence"
 msgstr ""
 "mensagens internacionalizadas não devem conter o caractere de escape \"\\%c\""
 
@@ -4015,28 +4033,25 @@ msgstr ""
 "caracteres diferente do seu. Considere usar um msgid ASCII puro.\n"
 "%s\n"
 
-#: src/write-qt.c:670
+#: src/write-qt.c:671
 msgid ""
 "message catalog has plural form translations\n"
 "but the Qt message catalog format doesn't support plural handling\n"
 msgstr ""
 "catálogo de mensagens possui traduções em forma de plural,\n"
-"mas o formato de catálogo de mensagens Qt não tem suporte a manipular "
-"plural\n"
+"mas o formato de catálogo de mensagens Qt não tem suporte a manipular plural\n"
 
-#: src/write-qt.c:697
+#: src/write-qt.c:698
 msgid ""
-"message catalog has msgctxt strings containing characters outside "
-"ISO-8859-1\n"
+"message catalog has msgctxt strings containing characters outside ISO-8859-1\n"
 "but the Qt message catalog format supports Unicode only in the translated\n"
 "strings, not in the context strings\n"
 msgstr ""
-"catálogo de mensagens tem strings msgctxt contendo caracteres não "
-"ISO-8859-1\n"
+"catálogo de mensagens tem strings msgctxt contendo caracteres não ISO-8859-1\n"
 "mas o formato de catálogo de mensagens tem suporte a Unicode apenas nas\n"
 "strings traduzidas, não em strings de contexto\n"
 
-#: src/write-qt.c:721
+#: src/write-qt.c:722
 msgid ""
 "message catalog has msgid strings containing characters outside ISO-8859-1\n"
 "but the Qt message catalog format supports Unicode only in the translated\n"
@@ -4094,8 +4109,8 @@ msgstr "string não terminada"
 msgid "unterminated regular expression"
 msgstr "expressão regular não terminada"
 
-#: src/x-awk.c:803 src/x-c.c:2346 src/x-csharp.c:2030 src/x-java.c:1813
-#: src/x-javascript.c:1865 src/x-lua.c:1080 src/x-php.c:1770
+#: src/x-awk.c:803 src/x-c.c:2346 src/x-csharp.c:2028 src/x-java.c:1813
+#: src/x-javascript.c:1865 src/x-lua.c:1080 src/x-modula2.c:694 src/x-php.c:1768
 #: src/x-python.c:1775 src/x-vala.c:1421 src/x-ycp.c:664 src/x-ycp.c:740
 #, c-format
 msgid "too many open parentheses"
@@ -4107,15 +4122,15 @@ msgid ""
 "hexadecimal escape sequence in wide string literal is unsupported; use \\u "
 "instead of \\x if you meant to designate a Unicode character"
 msgstr ""
-"a sequência de escape hexadecimal em literal de string ampla não é "
-"suportada; use \\u em vez de \\x se você quis designar um caractere Unicode"
+"a sequência de escape hexadecimal em literal de string ampla não é suportada; "
+"use \\u em vez de \\x se você quis designar um caractere Unicode"
 
 #: src/x-c.c:1138 src/x-scheme.c:776 src/x-scheme.c:836 src/x-vala.c:564
 #, c-format
 msgid "hexadecimal escape sequence out of range"
 msgstr "sequência de escape em hexadecimal fora do intervalo"
 
-#: src/x-c.c:1228 src/x-csharp.c:1341 src/x-python.c:1137 src/x-tcl.c:804
+#: src/x-c.c:1228 src/x-csharp.c:1339 src/x-python.c:1137 src/x-tcl.c:804
 #: src/x-vala.c:650
 #, c-format
 msgid "invalid Unicode character"
@@ -4138,12 +4153,12 @@ msgstr "string literal raw não terminada"
 msgid "invalid raw string literal syntax"
 msgstr "sintaxe inválida de string literal raw"
 
-#: src/x-c.c:1703 src/x-csharp.c:1460 src/x-java.c:704 src/x-vala.c:884
+#: src/x-c.c:1703 src/x-csharp.c:1458 src/x-java.c:704 src/x-vala.c:884
 #, c-format
 msgid "unterminated character constant"
 msgstr "constante de caractere não terminada"
 
-#: src/x-c.c:1742 src/x-vala.c:983
+#: src/x-c.c:1742 src/x-modula2.c:445 src/x-vala.c:983
 #, c-format
 msgid "unterminated string literal"
 msgstr "string literal não terminada"
@@ -4198,26 +4213,50 @@ msgstr ""
 "%s:%d: Sequência multi-byte inválida.\n"
 "Por favor, especifique a codificação fonte por meio de --from-code.\n"
 
-#: src/x-csharp.c:1464 src/x-java.c:708
+#: src/x-csharp.c:1462 src/x-java.c:708
 #, c-format
 msgid "unterminated string constant"
 msgstr "constante de caractere não terminada"
 
-#: src/x-csharp.c:2055 src/x-java.c:1858
+#: src/x-csharp.c:2053 src/x-java.c:1858
 #, c-format
 msgid "')' found where '}' was expected"
 msgstr "\")\" encontrado quando \"}\" era esperado"
 
-#: src/x-csharp.c:2064 src/x-java.c:1867 src/x-javascript.c:1936
-#: src/x-tcl.c:896
+#: src/x-csharp.c:2062 src/x-java.c:1867 src/x-javascript.c:1936 src/x-tcl.c:896
 #, c-format
 msgid "too many open braces"
 msgstr "número excessivo de chaves abertas"
 
-#: src/x-csharp.c:2089 src/x-java.c:1892
+#: src/x-csharp.c:2087 src/x-java.c:1892
 #, c-format
 msgid "'}' found where ')' was expected"
 msgstr "\"}\" encontrado quando \")\" era esperado"
+
+#: src/x-d.c:669 src/x-rust.c:480
+#, c-format
+msgid "invalid escape sequence in string"
+msgstr "sequência de escape inválida na string"
+
+#: src/x-d.c:964 src/x-d.c:1057 src/x-d.c:1095 src/x-d.c:1151 src/x-d.c:1249
+#: src/x-d.c:1298 src/x-d.c:1432 src/x-d.c:1485 src/x-d.c:1524 src/x-d.c:1660
+#: src/x-rust.c:610 src/x-rust.c:648 src/x-rust.c:793 src/x-rust.c:883
+#: src/x-rust.c:1088
+#, c-format
+msgid "too many open parentheses, brackets, or braces"
+msgstr "número excessivo de parênteses, colchetes ou chaves abertos"
+
+#: src/x-d.c:1724 src/x-rust.c:1147
+#, c-format
+msgid "file \"%s\" is unsupported because too large"
+msgstr "arquivo \"%s\" não é suportado porque é grande demais"
+
+#: src/x-d.c:1806
+#, c-format
+msgid "file \"%s\" is unsupported because not UTF-8 or UTF-16 or UTF-32 encoded"
+msgstr ""
+"arquivo \"%s\" não é suportado porque não está codificado em UTF-8, UTF-16 ou "
+"UTF-32"
 
 #: src/x-elisp.c:452
 #, c-format
@@ -4310,38 +4349,38 @@ msgstr "String em %s%s não está codificado em UTF-8."
 msgid "XML tag at %s%s is not UTF-8 encoded."
 msgstr "Tag XML em %s%s não está codificado em UTF-8."
 
-#: src/xgettext.c:612
+#: src/xgettext.c:653
 #, c-format
 msgid "'%s' is not a valid encoding name.  Using ASCII as fallback.\n"
 msgstr "\"%s\" não é um nome de codificação válida. Usando ASCII.\n"
 
-#: src/xgettext.c:682
+#: src/xgettext.c:723
 #, c-format
 msgid "syntax check '%s' unknown"
 msgstr "verificação de sintaxe \"%s\" desconhecida"
 
-#: src/xgettext.c:691
+#: src/xgettext.c:732
 #, c-format
 msgid "sentence end type '%s' unknown"
 msgstr "tipo de fim de sentença \"%s\" desconhecido"
 
-#: src/xgettext.c:755
+#: src/xgettext.c:804
 #, c-format
 msgid "--join-existing cannot be used when output is written to stdout"
 msgstr ""
 "--join-existing não pode ser usada enquanto a saída é escrita na saída padrão"
 
-#: src/xgettext.c:759
+#: src/xgettext.c:808
 #, c-format
 msgid "xgettext cannot work without keywords to look for"
 msgstr "xgettext não pode funcionar sem as palavras-chaves para procurar"
 
-#: src/xgettext.c:901
+#: src/xgettext.c:950
 #, c-format
 msgid "warning: ITS rule file '%s' does not exist"
 msgstr "aviso: arquivo de regras ITS \"%s\" não existe"
 
-#: src/xgettext.c:979
+#: src/xgettext.c:1028
 #, c-format
 msgid ""
 "warning: a fallback ITS rule file '%s' is used; it may not be in sync with "
@@ -4350,7 +4389,7 @@ msgstr ""
 "aviso: o arquivo reserva de regras ITS \"%s\" foi usado; ela pode não estar "
 "em sincronia com upstream"
 
-#: src/xgettext.c:989
+#: src/xgettext.c:1038
 #, c-format
 msgid ""
 "warning: ITS rule file '%s' does not exist; check your gettext installation"
@@ -4358,18 +4397,18 @@ msgstr ""
 "aviso: arquivo de regras ITS \"%s\" não existe; verifique sua instalação "
 "gettext"
 
-#: src/xgettext.c:1007
+#: src/xgettext.c:1056
 #, c-format
 msgid "warning: file '%s' extension '%s' is unknown; will try C"
 msgstr "aviso: arquivo \"%s\", extensão \"%s\" é desconhecida; tentarei C"
 
-#: src/xgettext.c:1098
+#: src/xgettext.c:1147
 #, c-format
 msgid "Extract translatable strings from given input files.\n"
 msgstr "Extrai strings traduzíveis dos arquivos de entrada passados.\n"
 
 # "messages.po" é, de fato, um nome de um arquivo; não mude isso.
-#: src/xgettext.c:1121
+#: src/xgettext.c:1170
 #, c-format
 msgid ""
 "  -d, --default-domain=NAME   use NAME.po for output (instead of "
@@ -4378,13 +4417,13 @@ msgstr ""
 "  -d, --default-domain=NOME   usa NOME.po para saída (ao invés de "
 "messages.po)\n"
 
-#: src/xgettext.c:1123
+#: src/xgettext.c:1172
 #, c-format
 msgid "  -o, --output=FILE           write output to specified file\n"
 msgstr ""
 "  -o, --output=ARQUIVO        escreve a saída para o arquivo especificado\n"
 
-#: src/xgettext.c:1125
+#: src/xgettext.c:1174
 #, c-format
 msgid ""
 "  -p, --output-dir=DIR        output files will be placed in directory DIR\n"
@@ -4393,38 +4432,44 @@ msgstr ""
 "                              diretório DIR\n"
 
 # Não é idioma. É linguagem de programação (C, C# etc.), de formatação (HTML etc.), de scripts (Shell script) e por aí vai.
-#: src/xgettext.c:1130
+#: src/xgettext.c:1179
 #, c-format
 msgid "Choice of input file language:\n"
 msgstr "Escolha da linguagem do arquivo de entrada:\n"
 
-#: src/xgettext.c:1132
+#: src/xgettext.c:1181
 #, c-format
 msgid ""
 "  -L, --language=NAME         recognise the specified language\n"
 "                                (C, C++, ObjectiveC, PO, Python, Java,\n"
-"                                JavaProperties, C#, JavaScript, Scheme, "
-"Guile,\n"
-"                                Lisp, EmacsLisp, librep, Rust, Ruby, Shell,\n"
-"                                awk, Lua, Smalltalk, Vala, Tcl, Perl, PHP,\n"
-"                                GCC-source, YCP, NXStringTable, RST, RSJ,\n"
-"                                Glade, GSettings, Desktop)\n"
+"                                JavaProperties, C#, JavaScript, TypeScript, "
+"TSX,\n"
+"                                Scheme, Guile, Lisp, EmacsLisp, librep, "
+"Rust,\n"
+"                                Go, Ruby, Shell, awk, Lua, Modula-2, D,\n"
+"                                Smalltalk, Vala, Tcl, Perl, PHP, GCC-source,\n"
+"                                YCP, NXStringTable, RST, RSJ, Glade, "
+"GSettings,\n"
+"                                Desktop)\n"
 msgstr ""
 "  -L, --language=NOME         reconhece a linguagem especificada\n"
 "                                (C, C++, ObjectiveC, PO, Python, Java,\n"
-"                                JavaProperties, C#, JavaScript, Scheme, "
-"Guile,\n"
-"                                Lisp, EmacsLisp, librep, Rust, Ruby, Shell,\n"
-"                                awk, Lua, Smalltalk, Vala, Tcl, Perl, PHP,\n"
-"                                GCC-source, YCP, NXStringTable, RST, RSJ,\n"
-"                                Glade, GSettings, Desktop)\n"
+"                                JavaProperties, C#, JavaScript, TypeScript, "
+"TSX,\n"
+"                                Scheme, Guile, Lisp, EmacsLisp, librep, "
+"Rust,\n"
+"                                Go, Ruby, Shell, awk, Lua, Modula-2, D,\n"
+"                                Smalltalk, Vala, Tcl, Perl, PHP, GCC-source,\n"
+"                                YCP, NXStringTable, RST, RSJ, Glade, "
+"GSettings,\n"
+"                                Desktop)\n"
 
-#: src/xgettext.c:1140
+#: src/xgettext.c:1190
 #, c-format
 msgid "  -C, --c++                   shorthand for --language=C++\n"
 msgstr "  -C, --c++                   abreviação para --language=C++\n"
 
-#: src/xgettext.c:1142
+#: src/xgettext.c:1192
 #, c-format
 msgid ""
 "By default the language is guessed depending on the input file name "
@@ -4433,7 +4478,7 @@ msgstr ""
 "Por padrão, a linguagem é adivinhada dependendo da extensão do nome do\n"
 "arquivo de entrada.\n"
 
-#: src/xgettext.c:1147
+#: src/xgettext.c:1197
 #, c-format
 msgid ""
 "      --from-code=NAME        encoding of input files\n"
@@ -4442,24 +4487,24 @@ msgstr ""
 "      --from-code=NOME        codificação dos arquivos de entrada\n"
 "                                (exceto para Python, Tcl, Glade)\n"
 
-#: src/xgettext.c:1150
+#: src/xgettext.c:1200
 #, c-format
 msgid "By default the input files are assumed to be in ASCII.\n"
 msgstr "Por padrão, supõe-se que os arquivos de entrada estejam em ASCII.\n"
 
-#: src/xgettext.c:1155
+#: src/xgettext.c:1205
 #, c-format
 msgid "  -j, --join-existing         join messages with existing file\n"
 msgstr "  -j, --join-existing         junta mensagens com arquivo existente\n"
 
-#: src/xgettext.c:1157
+#: src/xgettext.c:1207
 #, c-format
 msgid "  -x, --exclude-file=FILE.po  entries from FILE.po are not extracted\n"
 msgstr ""
 "  -x, --exclude-file=arquivo.po\n"
 "                              entradas do ARQUIVO.po não são extraídas\n"
 
-#: src/xgettext.c:1159
+#: src/xgettext.c:1209
 #, c-format
 msgid ""
 "  -cTAG, --add-comments=TAG   place comment blocks starting with TAG and\n"
@@ -4478,7 +4523,7 @@ msgstr ""
 "                              as linhas de palavras-chaves no arquivo de "
 "saída\n"
 
-#: src/xgettext.c:1164
+#: src/xgettext.c:1214
 #, c-format
 msgid ""
 "      --check=NAME            perform syntax check on messages\n"
@@ -4489,7 +4534,7 @@ msgstr ""
 "                                (ellipsis-unicode, space-ellipsis,\n"
 "                                 quote-unicode, bullet-unicode)\n"
 
-#: src/xgettext.c:1168
+#: src/xgettext.c:1218
 #, c-format
 msgid ""
 "      --sentence-end=TYPE     type describing the end of sentence\n"
@@ -4500,55 +4545,57 @@ msgstr ""
 "                                (single-space, que é o padrão, \n"
 "                                 ou double-space)\n"
 
-#: src/xgettext.c:1173
+#: src/xgettext.c:1223
 #, c-format
 msgid "Language specific options:\n"
 msgstr "Opções específicas de linguagens:\n"
 
-#: src/xgettext.c:1175
+#: src/xgettext.c:1225
 #, c-format
 msgid "  -a, --extract-all           extract all strings\n"
 msgstr "  -a, --extract-all           extrai todas as strings\n"
 
-#: src/xgettext.c:1177
+#: src/xgettext.c:1227
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Python,\n"
-"                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n"
-"                                EmacsLisp, librep, Rust, Shell, awk, Lua, "
-"Vala,\n"
-"                                Tcl, Perl, PHP, GCC-source, Glade, "
-"GSettings)\n"
+"                                Java, C#, JavaScript, TypeScript, TSX, "
+"Scheme,\n"
+"                                Guile, Lisp, EmacsLisp, librep, Rust, Go, "
+"Shell,\n"
+"                                awk, Lua, Modula-2, D, Vala, Tcl, Perl, PHP,\n"
+"                                GCC-source, Glade, GSettings)\n"
 msgstr ""
 "                                (apenas linguagens C, C++, ObjectiveC, "
 "Python,\n"
-"                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n"
-"                                EmacsLisp, librep, Rust, Shell, awk, Lua, "
-"Vala,\n"
-"                                Tcl, Perl, PHP, GCC-source, Glade, "
-"GSettings)\n"
+"                                Java, C#, JavaScript, TypeScript, TSX, "
+"Scheme,\n"
+"                                Guile, Lisp, EmacsLisp, librep, Rust, Go, "
+"Shell,\n"
+"                                awk, Lua, Modula-2, D, Vala, Tcl, Perl, PHP,\n"
+"                                GCC-source, Glade, GSettings)\n"
 
-#: src/xgettext.c:1185
+#: src/xgettext.c:1236
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Python,\n"
-"                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n"
-"                                EmacsLisp, librep, Rust, Shell, awk, Lua, "
-"Vala,\n"
-"                                Tcl, Perl, PHP, GCC-source, Glade, "
-"GSettings,\n"
-"                                Desktop)\n"
+"                                Java, C#, JavaScript, TypeScript, TSX, "
+"Scheme,\n"
+"                                Guile, Lisp, EmacsLisp, librep, Rust, Go, "
+"Shell,\n"
+"                                awk, Lua, Modula-2, D, Vala, Tcl, Perl, PHP,\n"
+"                                GCC-source, Glade, GSettings, Desktop)\n"
 msgstr ""
 "                                (apenas linguagens C, C++, ObjectiveC, "
 "Python,\n"
-"                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n"
-"                                EmacsLisp, librep, Rust, Shell, awk, Lua, "
-"Vala,\n"
-"                                Tcl, Perl, PHP, GCC-source, Glade, "
-"GSettings,\n"
-"                                Desktop)\n"
+"                                Java, C#, JavaScript, TypeScript, TSX, "
+"Scheme,\n"
+"                                Guile, Lisp, EmacsLisp, librep, Rust, Go, "
+"Shell,\n"
+"                                awk, Lua, Modula-2, D, Vala, Tcl, Perl, PHP,\n"
+"                                GCC-source, Glade, GSettings, Desktop)\n"
 
-#: src/xgettext.c:1191
+#: src/xgettext.c:1242
 #, c-format
 msgid ""
 "      --flag=WORD:ARG:FLAG    additional flag for strings inside the "
@@ -4560,23 +4607,27 @@ msgstr ""
 "argumento\n"
 "                              de número ARG da palavra-chave PALAVRA\n"
 
-#: src/xgettext.c:1194
+#: src/xgettext.c:1245
 #, c-format
 msgid ""
 "                                (only languages C, C++, ObjectiveC, Python,\n"
-"                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n"
-"                                EmacsLisp, librep, Rust, Shell, awk, Lua, "
-"Vala,\n"
-"                                Tcl, Perl, PHP, GCC-source, YCP)\n"
+"                                Java, C#, JavaScript, TypeScript, TSX, "
+"Scheme,\n"
+"                                Guile, Lisp, EmacsLisp, librep, Rust, Go, "
+"Shell,\n"
+"                                awk, Lua, Modula-2, D, Vala, Tcl, Perl, PHP,\n"
+"                                GCC-source, YCP)\n"
 msgstr ""
 "                                (apenas linguagens C, C++, ObjectiveC, "
 "Python,\n"
-"                                Java, C#, JavaScript, Scheme, Guile, Lisp,\n"
-"                                EmacsLisp, librep, Rust, Shell, awk, Lua, "
-"Vala,\n"
-"                                Tcl, Perl, PHP, GCC-source, YCP)\n"
+"                                Java, C#, JavaScript, TypeScript, TSX, "
+"Scheme,\n"
+"                                Guile, Lisp, EmacsLisp, librep, Rust, Go, "
+"Shell,\n"
+"                                awk, Lua, Modula-2, D, Vala, Tcl, Perl, PHP,\n"
+"                                GCC-source, YCP)\n"
 
-#: src/xgettext.c:1199
+#: src/xgettext.c:1251
 #, c-format
 msgid ""
 "      --tag=WORD:FORMAT       defines the behaviour of tagged template "
@@ -4586,19 +4637,19 @@ msgstr ""
 "      --tag=PALAVRA:FORMATO   define o comportamento de literais de modelo\n"
 "                              marcados com a tag PALAVRA\n"
 
-#: src/xgettext.c:1202
+#: src/xgettext.c:1254
 #, c-format
 msgid "                                (only language JavaScript)\n"
 msgstr "                                (apenas a linguagem JavaScript)\n"
 
 # Trigrafos são sequências de três caracteres (introduzidos por dois pontos de interrogação consecutivos) que o compilador substitui com seus caracteres de pontuação correspondente
-#: src/xgettext.c:1204
+#: src/xgettext.c:1256
 #, c-format
 msgid "  -T, --trigraphs             understand ANSI C trigraphs for input\n"
 msgstr ""
 "  -T, --trigraphs             entende trigrafos de ANSI C para entrada\n"
 
-#: src/xgettext.c:1206
+#: src/xgettext.c:1258
 #, c-format
 msgid ""
 "                                (deprecated; only languages C, C++, "
@@ -4607,37 +4658,37 @@ msgstr ""
 "                                (descontinuado; apenas linguagens C, C++, "
 "ObjectiveC)\n"
 
-#: src/xgettext.c:1208
+#: src/xgettext.c:1260
 #, c-format
 msgid "      --its=FILE              apply ITS rules from FILE\n"
 msgstr "      --its=ARQUIVO           aplica regras ITS do ARQUIVO\n"
 
-#: src/xgettext.c:1210
+#: src/xgettext.c:1262
 #, c-format
 msgid "                                (only XML based languages)\n"
 msgstr "                                (apenas linguagens baseadas em XML)\n"
 
-#: src/xgettext.c:1212
+#: src/xgettext.c:1264
 #, c-format
 msgid "      --qt                    recognize Qt format strings\n"
 msgstr "      --qt                    reconhece strings no formato Qt\n"
 
-#: src/xgettext.c:1214 src/xgettext.c:1218 src/xgettext.c:1222
+#: src/xgettext.c:1266 src/xgettext.c:1270 src/xgettext.c:1274
 #, c-format
 msgid "                                (only language C++)\n"
 msgstr "                                (apenas a linguagem C++)\n"
 
-#: src/xgettext.c:1216
+#: src/xgettext.c:1268
 #, c-format
 msgid "      --kde                   recognize KDE 4 format strings\n"
 msgstr "      --kde                   reconhece as strings de formato KDE 4\n"
 
-#: src/xgettext.c:1220
+#: src/xgettext.c:1272
 #, c-format
 msgid "      --boost                 recognize Boost format strings\n"
 msgstr "      --boost                 reconhece strings no formato Boost\n"
 
-#: src/xgettext.c:1224
+#: src/xgettext.c:1276
 #, c-format
 msgid ""
 "      --debug                 more detailed formatstring recognition result\n"
@@ -4645,18 +4696,26 @@ msgstr ""
 "      --debug                 resultado de reconhecimento de string de\n"
 "                              formato mais detalhado\n"
 
-#: src/xgettext.c:1249
+#: src/xgettext.c:1301
 #, c-format
 msgid "      --properties-output     write out a Java .properties file\n"
 msgstr ""
 "      --properties-output     escreve em um arquivo .properties de Java\n"
 
-#: src/xgettext.c:1253
+#: src/xgettext.c:1305
 #, c-format
 msgid "      --itstool               write out itstool comments\n"
 msgstr "      --itstool               escreve comentários em itstool\n"
 
-#: src/xgettext.c:1266
+#: src/xgettext.c:1318
+#, c-format
+msgid ""
+"      --no-git                don't use the git program to produce a\n"
+"                              reproducible 'POT-Creation-Date' field in the\n"
+"                              output.\n"
+msgstr ""
+
+#: src/xgettext.c:1322
 #, c-format
 msgid "      --copyright-holder=STRING  set copyright holder in output\n"
 msgstr ""
@@ -4664,7 +4723,7 @@ msgstr ""
 "                              define o detentor dos direitos autorais\n"
 "                              na saída\n"
 
-#: src/xgettext.c:1268
+#: src/xgettext.c:1324
 #, c-format
 msgid ""
 "      --foreign-user          omit FSF copyright in output for foreign user\n"
@@ -4672,19 +4731,19 @@ msgstr ""
 "      --foreign-user          omite direitos autorais da FSF na saída para\n"
 "                              usuários de fora\n"
 
-#: src/xgettext.c:1270
+#: src/xgettext.c:1326
 #, c-format
 msgid "      --package-name=PACKAGE  set package name in output\n"
 msgstr "      --package-name=PACOTE   define o nome do pacote na saída\n"
 
-#: src/xgettext.c:1272
+#: src/xgettext.c:1328
 #, c-format
 msgid "      --package-version=VERSION  set package version in output\n"
 msgstr ""
 "      --package-version=VERSÃO\n"
 "                              define a versão do pacote na saída\n"
 
-#: src/xgettext.c:1274
+#: src/xgettext.c:1330
 #, c-format
 msgid ""
 "      --msgid-bugs-address=EMAIL@ADDRESS  set report address for msgid bugs\n"
@@ -4693,7 +4752,24 @@ msgstr ""
 "                              define o endereço para relatar erros de\n"
 "                              msgid\n"
 
-#: src/xgettext.c:1276
+#: src/xgettext.c:1332
+#, fuzzy, c-format
+#| msgid ""
+#| "      --reference=FILE        Declares that the output depends on the "
+#| "contents\n"
+#| "                              of the given FILE.  This has an influence on "
+#| "the\n"
+#| "                              'POT-Creation-Date' field in the output.\n"
+msgid ""
+"      --generated=FILE        Declares that the given FILE is generated and\n"
+"                              therefore should not have an influence on the\n"
+"                              'POT-Creation-Date' field in the output.\n"
+msgstr ""
+"      --reference=ARQUIVO     Declara que a saída depende do conteúdo do\n"
+"                              ARQUIVO fornecido. Isso influencia o campo\n"
+"                              \"POT-Creation-Date\" na saída.\n"
+
+#: src/xgettext.c:1336
 #, c-format
 msgid ""
 "      --reference=FILE        Declares that the output depends on the "
@@ -4702,8 +4778,11 @@ msgid ""
 "the\n"
 "                              'POT-Creation-Date' field in the output.\n"
 msgstr ""
+"      --reference=ARQUIVO     Declara que a saída depende do conteúdo do\n"
+"                              ARQUIVO fornecido. Isso influencia o campo\n"
+"                              \"POT-Creation-Date\" na saída.\n"
 
-#: src/xgettext.c:1280
+#: src/xgettext.c:1340
 #, c-format
 msgid ""
 "  -m[STRING], --msgstr-prefix[=STRING]  use STRING or \"\" as prefix for "
@@ -4715,7 +4794,7 @@ msgstr ""
 "de\n"
 "                              msgstr\n"
 
-#: src/xgettext.c:1283
+#: src/xgettext.c:1343
 #, c-format
 msgid ""
 "  -M[STRING], --msgstr-suffix[=STRING]  use STRING or \"\" as suffix for "
@@ -4723,24 +4802,22 @@ msgid ""
 "                                values\n"
 msgstr ""
 "  -M[STRING], --msgstr-suffix[=STRING]\n"
-"                              usa STRING ou \"\" como sufixo para valores "
-"de\n"
+"                              usa STRING ou \"\" como sufixo para valores de\n"
 "                              msgstr\n"
 
-#: src/xgettext.c:1789
+#: src/xgettext.c:1853
 #, c-format
 msgid ""
-"A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: "
-"%s"
+"A --flag argument doesn't have the <keyword>:<argnum>:[pass-]<flag> syntax: %s"
 msgstr ""
 "Um argumento de --flag não possui a sintaxe <palavra-chave>:<argnum>:"
 "[pass-]<flag>: %s"
 
-#: src/xgettext.c:1956
+#: src/xgettext.c:2020
 msgid "standard input"
 msgstr "entrada padrão"
 
-#: src/xgettext.c:2148
+#: src/xgettext.c:2212
 msgid ""
 "The option --msgid-bugs-address was not specified.\n"
 "If you are using a 'Makevars' file, please specify\n"
@@ -4752,7 +4829,17 @@ msgstr ""
 "especifique lá a variável MSGID_BUGS_ADDRESS; Senão por favor\n"
 "especifique uma opção de linha de comando --msgid-bugs-address.\n"
 
-#: src/xgettext.c:2376
+#: src/xgettext.c:2342
+#, c-format
+msgid ""
+"Determining the POT-Creation-Date through the\n"
+"version-control (git) history took %.2f seconds.\n"
+"If you want to speed this up and produce a less\n"
+"reproducible POT-Creation-Date instead, without 'git',\n"
+"pass the option '%s'.\n"
+msgstr ""
+
+#: src/xgettext.c:2565
 #, c-format
 msgid "language '%s' unknown"
 msgstr "idioma \"%s\" desconhecido"
@@ -4775,7 +4862,7 @@ msgstr ""
 "Apesar de estar declarada assim, o %s não é uma string de formato válida de "
 "%s. Motivo: %s\n"
 
-#: src/xg-message.c:243
+#: src/xg-message.c:252
 #, c-format
 msgid ""
 "'%s' format string with unnamed arguments cannot be properly localized:\n"
@@ -4783,14 +4870,13 @@ msgid ""
 "Please consider using a format string with named arguments,\n"
 "and a mapping instead of a tuple for the arguments.\n"
 msgstr ""
-"String de formato de \"%s\" com argumentos sem nome não podem ser "
-"localizada\n"
+"String de formato de \"%s\" com argumentos sem nome não podem ser localizada\n"
 "adequadamente:\n"
 "O tradutor não pode reordenar os argumentos.\n"
 "Por favor, considere usar uma string de formato com argumentos nomeados,\n"
 "e um mapeamento ao invés de uma tupla de argumentos.\n"
 
-#: src/xg-message.c:293
+#: src/xg-message.c:302
 #, c-format
 msgid ""
 "Empty msgid.  It is reserved by GNU gettext:\n"
@@ -4801,17 +4887,17 @@ msgstr ""
 "gettext(\"\") retorna a entrada de cabeçalho com\n"
 "informações meta, e não a string vazia.\n"
 
-#: src/xg-message.c:332
+#: src/xg-message.c:341
 #, c-format
 msgid "%s%s: Here is the occurrence without plural."
 msgstr "%s%s: Aqui está a ocorrência sem plural."
 
-#: src/xg-message.c:334
+#: src/xg-message.c:343
 #, c-format
 msgid "%s%s: Here is the occurrence with plural."
 msgstr "%s%s: Aqui está a ocorrência com plural."
 
-#: src/xg-message.c:336
+#: src/xg-message.c:345
 msgid ""
 "Workaround: If the msgid is a sentence, change the wording of the sentence; "
 "otherwise, use contexts for disambiguation."
@@ -4903,8 +4989,8 @@ msgstr "marcação XML não terminada"
 msgid "ignoring CDATA section"
 msgstr "ignorando seção CDATA"
 
-#: src/x-javascript.c:1906 src/x-lua.c:1111 src/x-php.c:1811
-#: src/x-python.c:1816 src/x-tcl.c:773
+#: src/x-javascript.c:1906 src/x-lua.c:1111 src/x-php.c:1809 src/x-python.c:1816
+#: src/x-tcl.c:773
 #, c-format
 msgid "too many open brackets"
 msgstr "número excessivo de colchetes abertos"
@@ -4956,22 +5042,22 @@ msgstr "interpolação (\"\\U\") sem suporte a caractere de 8 bits \"%c\""
 msgid "too deeply nested expressions"
 msgstr "expressões aninhadas com profundidade excessiva"
 
-#: src/x-php.c:1007
+#: src/x-php.c:1005
 #, c-format
 msgid "unterminated expression in heredoc, expected a '%c'"
 msgstr "expressão não terminada em heredoc, esperava-se um \"%c\""
 
-#: src/x-php.c:1008
+#: src/x-php.c:1006
 #, c-format
 msgid "unterminated expression in string literal, expected a '%c'"
 msgstr "expressão não terminada em string literal, esperava-se um \"%c\""
 
-#: src/x-php.c:1037
+#: src/x-php.c:1035
 #, c-format
 msgid "unterminated expression in heredoc contains unbalanced '%c'"
 msgstr "expressão não terminada em heredoc contém \"%c\" não balanceado"
 
-#: src/x-php.c:1038
+#: src/x-php.c:1036
 #, c-format
 msgid "unterminated expression in string literal contains unbalanced '%c'"
 msgstr "expressão não terminada em string literal contém \"%c\" não balanceado"
@@ -4981,8 +5067,8 @@ msgstr "expressão não terminada em string literal contém \"%c\" não balancea
 msgid ""
 "%s: input file doesn't contain a header entry with a charset specification"
 msgstr ""
-"%s: arquivo de entrada não contém uma entrada cabeçalho com uma "
-"especificação de conjunto de caracteres"
+"%s: arquivo de entrada não contém uma entrada cabeçalho com uma especificação "
+"de conjunto de caracteres"
 
 #: src/x-python.c:286
 msgid ""
@@ -5080,23 +5166,7 @@ msgstr "versão RSJ inválida. Só há suporte à versão 1."
 msgid "(output from '%s')"
 msgstr "(saída de \"%s\")"
 
-#: src/x-rust.c:478
-#, c-format
-msgid "invalid escape sequence in string"
-msgstr "sequência de escape inválida na string"
-
-#: src/x-rust.c:608 src/x-rust.c:646 src/x-rust.c:791 src/x-rust.c:881
-#: src/x-rust.c:1086
-#, c-format
-msgid "too many open parentheses, brackets, or braces"
-msgstr "número excessivo de parênteses, colchetes ou chaves abertos"
-
-#: src/x-rust.c:1145
-#, c-format
-msgid "file \"%s\" is unsupported because too large"
-msgstr "arquivo \"%s\" não é suportado porque é grande demais"
-
-#: src/x-rust.c:1152
+#: src/x-rust.c:1154
 #, c-format
 msgid "file \"%s\" is invalid because not UTF-8 encoded"
 msgstr "arquivo \"%s\" é inválido porque não está codificado em UTF-8"
@@ -5144,127 +5214,148 @@ msgstr "expressão regular literal terminada muito cedo"
 msgid "<unnamed>"
 msgstr "<sem nome>"
 
-#: libgettextpo/markup.c:367 libgettextpo/markup.c:447
+#: libgettextpo/markup.c:366 libgettextpo/markup.c:446
 msgid "invalid UTF-8 sequence"
 msgstr "sequência UTF-8 inválida"
 
-#: libgettextpo/markup.c:378
+#: libgettextpo/markup.c:377
 #, c-format
 msgid "'%s' is not a valid name: %c"
 msgstr "\"%s\" não é um nome válido: %c"
 
-#: libgettextpo/markup.c:395
+#: libgettextpo/markup.c:394
 #, c-format
 msgid "'%s' is not a valid name: '%c'"
 msgstr "\"%s\" não é um nome válido: \"%c\""
 
-#: libgettextpo/markup.c:521 libgettextpo/markup.c:532
-#: libgettextpo/markup.c:556
+#: libgettextpo/markup.c:522 libgettextpo/markup.c:531 libgettextpo/markup.c:553
 #, c-format
 msgid "invalid character reference: %s"
 msgstr "referência de caractere inválida: %s"
 
-#: libgettextpo/markup.c:524
+#: libgettextpo/markup.c:523
 msgid "not a valid number specification"
 msgstr "não é uma especificação de número válido"
 
-#: libgettextpo/markup.c:533 libgettextpo/markup.c:603
+#: libgettextpo/markup.c:532 libgettextpo/markup.c:599
 msgid "no ending ';'"
 msgstr "sem finalização com \";\""
 
-#: libgettextpo/markup.c:557
+#: libgettextpo/markup.c:554
 msgid "non-permitted character"
 msgstr "caractere não permitido"
 
-#: libgettextpo/markup.c:596
+#: libgettextpo/markup.c:592
 msgid "empty"
 msgstr "vazio"
 
-#: libgettextpo/markup.c:601
+#: libgettextpo/markup.c:597
 msgid "unknown"
 msgstr "desconhecido"
 
-#: libgettextpo/markup.c:605
+#: libgettextpo/markup.c:601
 #, c-format
 msgid "invalid entity reference: %s"
 msgstr "referência de entidade inválida: %s"
 
-#: libgettextpo/markup.c:954
+#: libgettextpo/markup.c:950
 msgid "document must begin with an element"
 msgstr "documento deve começar com um elemento"
 
-#: libgettextpo/markup.c:988 libgettextpo/markup.c:1295
-#: libgettextpo/markup.c:1326
+#: libgettextpo/markup.c:984 libgettextpo/markup.c:1291
+#: libgettextpo/markup.c:1322
 #, c-format
 msgid "invalid character after '%s'"
 msgstr "caractere inválido após \"%s\""
 
-#: libgettextpo/markup.c:1025 libgettextpo/markup.c:1101
+#: libgettextpo/markup.c:1021 libgettextpo/markup.c:1097
 #, c-format
 msgid "missing '%c'"
 msgstr "faltando \"%c\""
 
-#: libgettextpo/markup.c:1134 libgettextpo/markup.c:1170
+#: libgettextpo/markup.c:1130 libgettextpo/markup.c:1166
 #, c-format
 msgid "missing '%c' or '%c'"
 msgstr "faltando \"%c\" ou \"%c\""
 
-#: libgettextpo/markup.c:1327
+#: libgettextpo/markup.c:1323
 msgid "a close element name"
 msgstr "um nome de elemento de fechamento"
 
-#: libgettextpo/markup.c:1333 libgettextpo/markup.c:1338
+#: libgettextpo/markup.c:1329 libgettextpo/markup.c:1334
 msgid "element is closed"
 msgstr "elemento está fechado"
 
-#: libgettextpo/markup.c:1469
+#: libgettextpo/markup.c:1465
 msgid "empty document"
 msgstr "documento vazio"
 
-#: libgettextpo/markup.c:1482
+#: libgettextpo/markup.c:1478
 msgid "after '<'"
 msgstr "após \"<\""
 
-#: libgettextpo/markup.c:1489 libgettextpo/markup.c:1521
+#: libgettextpo/markup.c:1485 libgettextpo/markup.c:1517
 msgid "elements still open"
 msgstr "elemento permanece aberto"
 
-#: libgettextpo/markup.c:1494
+#: libgettextpo/markup.c:1490
 msgid "missing '>'"
 msgstr "faltando \">\""
 
-#: libgettextpo/markup.c:1498
+#: libgettextpo/markup.c:1494
 msgid "inside an element name"
 msgstr "dentro de um nome de elemento"
 
-#: libgettextpo/markup.c:1503
+#: libgettextpo/markup.c:1499
 msgid "inside an attribute name"
 msgstr "dentro de um nome de atributo"
 
-#: libgettextpo/markup.c:1507
+#: libgettextpo/markup.c:1503
 msgid "inside an open tag"
 msgstr "dentro de um tag aberto"
 
-#: libgettextpo/markup.c:1511
+#: libgettextpo/markup.c:1507
 msgid "after '='"
 msgstr "após \"=\""
 
-#: libgettextpo/markup.c:1516
+#: libgettextpo/markup.c:1512
 msgid "inside an attribute value"
 msgstr "dentro de um valor de atributo"
 
-#: libgettextpo/markup.c:1527
+#: libgettextpo/markup.c:1523
 msgid "inside the close tag"
 msgstr "dentro da tag de fechamento"
 
-#: libgettextpo/markup.c:1531
+#: libgettextpo/markup.c:1527
 msgid "inside a comment or processing instruction"
 msgstr "dentro de uma instrução de processamento ou comentário"
 
-#: libgettextpo/markup.c:1542
+#: libgettextpo/markup.c:1538
 #, c-format
 msgid "document ended unexpectedly: %s"
 msgstr "documento terminou inesperadamente: %s"
+
+#, c-format
+#~ msgid ""
+#~ "                                (only languages C, C++, ObjectiveC, "
+#~ "Python,\n"
+#~ "                                Java, C#, JavaScript, Scheme, Guile, "
+#~ "Lisp,\n"
+#~ "                                EmacsLisp, librep, Rust, Shell, awk, Lua, "
+#~ "Vala,\n"
+#~ "                                Tcl, Perl, PHP, GCC-source, Glade, "
+#~ "GSettings,\n"
+#~ "                                Desktop)\n"
+#~ msgstr ""
+#~ "                                (apenas linguagens C, C++, ObjectiveC, "
+#~ "Python,\n"
+#~ "                                Java, C#, JavaScript, Scheme, Guile, "
+#~ "Lisp,\n"
+#~ "                                EmacsLisp, librep, Rust, Shell, awk, Lua, "
+#~ "Vala,\n"
+#~ "                                Tcl, Perl, PHP, GCC-source, Glade, "
+#~ "GSettings,\n"
+#~ "                                Desktop)\n"
 
 #, c-format
 #~ msgid "invalid argument %s for %s"
@@ -5433,8 +5524,8 @@ msgstr "documento terminou inesperadamente: %s"
 
 #, c-format
 #~ msgid ""
-#~ "The java program is too old. Cannot compile Java code for this old "
-#~ "version any more."
+#~ "The java program is too old. Cannot compile Java code for this old version "
+#~ "any more."
 #~ msgstr ""
 #~ "O programa java é antigo demais. Não é possível compilar código Java para "
 #~ "esta versão antiga mais."
@@ -5538,16 +5629,14 @@ msgstr "documento terminou inesperadamente: %s"
 #~ "Shell,\n"
 #~ "                                Python, Lisp, EmacsLisp, librep, Scheme, "
 #~ "Java,\n"
-#~ "                                C#, awk, YCP, Tcl, Perl, PHP, GCC-"
-#~ "source,\n"
+#~ "                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source,\n"
 #~ "                                Lua, JavaScript, Vala)\n"
 #~ msgstr ""
 #~ "                                (apenas linguagens C, C++, ObjectiveC, "
 #~ "Shell,\n"
 #~ "                                Python, Lisp, EmacsLisp, librep, Scheme, "
 #~ "Java,\n"
-#~ "                                C#, awk, YCP, Tcl, Perl, PHP, GCC-"
-#~ "source,\n"
+#~ "                                C#, awk, YCP, Tcl, Perl, PHP, GCC-source,\n"
 #~ "                                Lua, JavaScript, Vala)\n"
 
 #~ msgid ""
@@ -5671,8 +5760,7 @@ msgstr "documento terminou inesperadamente: %s"
 
 #~ msgid "a format specification for argument {%u} doesn't exist in 'msgstr'"
 #~ msgstr ""
-#~ "uma especificação de formato para o argumento {%u} não existe no "
-#~ "\"msgstr\""
+#~ "uma especificação de formato para o argumento {%u} não existe no \"msgstr\""
 
 #~ msgid "a format specification for argument '%s' doesn't exist in 'msgstr'"
 #~ msgstr ""
@@ -5697,16 +5785,14 @@ msgstr "documento terminou inesperadamente: %s"
 #~ "Generate binary message catalog from textual translation description.\n"
 #~ "\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: "
-#~ "%d)\n"
+#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
 #~ "  -c, --check                 perform language dependent checks on "
 #~ "strings\n"
 #~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
 #~ "search\n"
 #~ "  -f, --use-fuzzy             use fuzzy entries in output\n"
 #~ "  -h, --help                  display this help and exit\n"
-#~ "      --no-hash               binary file will not include the hash "
-#~ "table\n"
+#~ "      --no-hash               binary file will not include the hash table\n"
 #~ "  -o, --output-file=FILE      specify output file name as FILE\n"
 #~ "      --statistics            print statistics about translations\n"
 #~ "      --strict                enable strict Uniforum mode\n"
@@ -5732,8 +5818,8 @@ msgstr "documento terminou inesperadamente: %s"
 #~ "arquivos de entrada\n"
 #~ "  -f, --use-fuzzy          use entradas aproximadas (fuzzy) na saída\n"
 #~ "  -h, --help               apresenta esta ajuda e finaliza\n"
-#~ "      --no-hash            arquivos binários não serão incluídos na "
-#~ "tabela hash\n"
+#~ "      --no-hash            arquivos binários não serão incluídos na tabela "
+#~ "hash\n"
 #~ "  -o, --output-file=ARQ    especifica o nome do arquivo de saída ARQ\n"
 #~ "      --statistics         mostra estatísticas das traduções\n"
 #~ "      --strict             habilita o modo Uniforum estrito\n"

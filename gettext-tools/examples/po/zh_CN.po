@@ -3,14 +3,14 @@
 # This file is distributed under the same license as the gettext package.
 # Funda Wang <fundawang@linux.net.cn>, 2003.
 # Ji ZhengYu <zhengyuji@gmail.com>, 2015.
-# Boyuan Yang <073plan@gmail.com>, 2019, 2023.
+# Boyuan Yang <073plan@gmail.com>, 2019, 2023, 2025.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-examples 0.22\n"
+"Project-Id-Version: gettext-examples 0.25-pre1\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-02-12 11:11+0100\n"
-"PO-Revision-Date: 2023-06-18 11:53-0400\n"
+"POT-Creation-Date: 2025-04-25 10:57+0200\n"
+"PO-Revision-Date: 2025-04-29 15:56-0400\n"
 "Last-Translator: Boyuan Yang <073plan@gmail.com>\n"
 "Language-Team: Chinese (simplified) <i18n-zh@googlegroups.com>\n"
 "Language: zh_CN\n"
@@ -18,24 +18,27 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.6\n"
 
 #: hello-c/hello.c:35 hello-c-gnome2/hello.c:51
 #: hello-c-gnome3/hello.desktop.in.in:4 hello-c-gnome3/hello2.desktop.in.in:4
-#: hello-c-http/hello-server.c:307 hello-c++/hello.cc:44
-#: hello-c++20/hello.cc:48 hello-c++-qt/hello.cc:50
-#: hello-c++-kde/hellowindow.cc:47 hello-c++-gnome2/hello.cc:55
-#: hello-c++-gnome3/hello.desktop.in.in:4 hello-c++-wxwidgets/hello.cc:73
-#: hello-objc/hello.m:35 hello-objc-gnustep/Hello.m:49
-#: hello-objc-gnome2/hello.m:52 hello-python/hello.py.in:12
-#: hello-java/Hello.java:14 hello-java-awt/Hello.java:23
-#: hello-java-swing/Hello.java:20 hello-java-qtjambi/Hello.java:27
-#: hello-csharp/hello.cs:14 hello-csharp-forms/hello.cs:29
-#: hello-guile/hello.scm:15 hello-clisp/hello.lisp.in:11
-#: hello-librep/hello.jl.in:12 hello-rust/src/main.rs.in:30
+#: hello-c-http/hello-server.c:307 hello-c++/hello.cc:44 hello-c++20/hello.cc:48
+#: hello-c++-qt/hello.cc:50 hello-c++-kde/hellowindow.cc:47
+#: hello-c++-gnome2/hello.cc:55 hello-c++-gnome3/hello.desktop.in.in:4
+#: hello-c++-wxwidgets/hello.cc:73 hello-objc/hello.m:35
+#: hello-objc-gnustep/Hello.m:49 hello-objc-gnome2/hello.m:52
+#: hello-python/hello.py.in:12 hello-java/Hello.java:14
+#: hello-java-awt/Hello.java:23 hello-java-swing/Hello.java:20
+#: hello-java-qtjambi/Hello.java:27 hello-csharp/hello.cs:14
+#: hello-csharp-forms/hello.cs:29 hello-guile/hello.scm:15
+#: hello-clisp/hello.lisp.in:11 hello-librep/hello.jl.in:12
+#: hello-rust/src/main.rs.in:30 hello-go/example1/hello1ml.go.in:42
+#: hello-go/example1/hello1sl.go.in:40 hello-go/example2/hello2sl.go.in:28
+#: hello-go/example3/hello3ml.go.in:44 hello-go-http/example1/hello1ml.go.in:59
 #: hello-ruby/hello.rb:7 hello-sh/hello.sh:14 hello-gawk/hello.awk:11
-#: hello-pascal/hello.hello_world hello-smalltalk/hello.st.in:31
-#: hello-tcl/hello.tcl:11 hello-tcl-tk/hello.tcl:13 hello-perl/hello-1.pl.in:17
+#: hello-pascal/hello.hello_world hello-modula2/hello.mod.in:34
+#: hello-d/hello.d.in:27 hello-smalltalk/hello.st.in:31 hello-tcl/hello.tcl:11
+#: hello-tcl-tk/hello.tcl:13 hello-perl/hello-1.pl.in:17
 #: hello-perl/hello-2.pl.in:12 hello-php/hello.php:12 hello-ycp/hello.ycp:15
 msgid "Hello, world!"
 msgstr "你好，世界！"
@@ -44,7 +47,10 @@ msgstr "你好，世界！"
 #: hello-c++-gnome2/hello.cc:60 hello-c++-wxwidgets/hello.cc:76
 #: hello-objc/hello.m:36 hello-objc-gnustep/Hello.m:58
 #: hello-objc-gnome2/hello.m:57 hello-librep/hello.jl.in:14
-#: hello-gawk/hello.awk:12 hello-pascal/hello.running_as hello-tcl/hello.tcl:12
+#: hello-go/example1/hello1ml.go.in:43 hello-go/example1/hello1sl.go.in:41
+#: hello-go/example2/hello2sl.go.in:29 hello-go/example3/hello3ml.go.in:45
+#: hello-gawk/hello.awk:12 hello-pascal/hello.running_as
+#: hello-modula2/hello.mod.in:37 hello-d/hello.d.in:28 hello-tcl/hello.tcl:12
 #: hello-tcl-tk/hello.tcl:16 hello-perl/hello-1.pl.in:19 hello-php/hello.php:14
 #, php-format
 msgid "This program is running as process number %d."
@@ -52,31 +58,24 @@ msgstr "此程序正以进程号 %d 运行。"
 
 #: hello-c-gnome3/hello.c:78 hello-c-gnome3/hello2.c:86
 #: hello-c++-gnome3/hello.cc:69
-#, fuzzy
-#| msgid "Hello, world!"
 msgid "Hello world!"
-msgstr "你好，世界！"
+msgstr "你好世界！"
 
 #: hello-c-gnome3/hello.c:80 hello-c-gnome3/hello2.c:88
 #: hello-c++-gnome3/hello.cc:71
-#, fuzzy, c-format
-#| msgid "This program is running as process number %d."
+#, c-format
 msgid "This program is running as process number %s."
-msgstr "此程序正以进程号 %d 运行。"
+msgstr "此程序正以进程号 %s 运行。"
 
 #: hello-c-gnome3/hello.c:84 hello-c-gnome3/hello2.c:92
 #: hello-c++-gnome3/hello.cc:75
-#, fuzzy
-#| msgid "<big><u>This is another text</u></big>"
 msgid "This is another text"
-msgstr "<big><u>这是另一段文本</u></big>"
+msgstr "这是另一段文本"
 
 #: hello-c-gnome3/hello.c:86 hello-c-gnome3/hello2.c:94
 #: hello-c++-gnome3/hello.cc:77
-#, fuzzy
-#| msgid "<big><i>This is yet another text</i></big>"
 msgid "This is yet another text"
-msgstr "<big><i>这还是另一段文本</i></big>"
+msgstr "这还是另一段文本"
 
 #: hello-c-gnome3/hello.desktop.in.in:3 hello-c-gnome3/hello2.desktop.in.in:3
 #: hello-c++-gnome3/hello.desktop.in.in:3
@@ -138,16 +137,19 @@ msgid "This program is running as process number ~D."
 msgstr "此程序正以进程号 ~D 运行。"
 
 #: hello-rust/src/main.rs.in:31
-#, fuzzy, rust-format
-#| msgid "This program is running as process number {0}."
+#, rust-format
 msgid "This program is running as process number {}."
-msgstr "此程序正以进程号 {0} 运行。"
+msgstr "此程序正以进程号 {} 运行。"
+
+#: hello-go-http/example1/hello1ml.go.in:60
+#, go-format
+msgid "Hello %s"
+msgstr "你好 %s"
 
 #: hello-ruby/hello.rb:8
-#, fuzzy, ruby-format
-#| msgid "This program is running as process number {pid}."
+#, ruby-format
 msgid "This program is running as process number %{pid}."
-msgstr "此程序正以进程号 {pid} 运行。"
+msgstr "此程序正以进程号 %{pid} 运行。"
 
 #: hello-sh/hello.sh:17
 #, sh-format
