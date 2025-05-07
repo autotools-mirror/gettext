@@ -995,6 +995,7 @@ core
 /gettext-tools/src/libxgettextts2.a
 /gettext-tools/src/libxgettextts3.a
 /gettext-tools/src/libxgettextts4.a
+/gettext-tools/src/libxgettextx.a
 /gettext-tools/src/textstyle.h
 /gettext-tools/src/textstyle/stdbool.h
 /gettext-tools/src/textstyle/version.h
