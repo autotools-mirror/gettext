@@ -9282,6 +9282,12 @@ package that needs it should contain a copy of it on its own.
 GNU @code{gettext} installs macros for use in a package's
 @file{configure.ac} or @file{configure.in}.
 @xref{Top, , Introduction, autoconf, The Autoconf Manual}.
+
+In order to copy these macros into your package,
+use the @code{gettextize} or @code{autopoint} programs.
+See @ref{gettextize Invocation} or @ref{autopoint Invocation}.
+Attempts to use the @code{autoreconf} program for this purpose are unreliable.
+
 The primary macro is, of course, @code{AM_GNU_GETTEXT}.
 
 @menu
