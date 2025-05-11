@@ -95,7 +95,7 @@ convert_string_directly (iconv_t cd, const char *string,
   return NULL;
 }
 
-string_desc_t
+rw_string_desc_t
 convert_string_desc_directly (iconv_t cd, string_desc_t string,
                               const struct conversion_context* context)
 {
@@ -108,7 +108,7 @@ convert_string_desc_directly (iconv_t cd, string_desc_t string,
 
   conversion_error (context, textmode_xerror_handler);
   /* NOTREACHED */
-  return sd_new_empty ();
+  return sd_readwrite (sd_new_empty ());
 }
 
 static char *

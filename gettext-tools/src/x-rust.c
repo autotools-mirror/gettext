@@ -282,7 +282,7 @@ static void handle_comments (TSNode node)
     {
       string_desc_t entire =
         sd_new_addr (ts_node_end_byte (node) - ts_node_start_byte (node),
-                     (char *) contents + ts_node_start_byte (node));
+                     contents + ts_node_start_byte (node));
       /* It should start with two slashes.  */
       if (!(sd_length (entire) >= 2
             && sd_char_at (entire, 0) == '/'
@@ -295,7 +295,7 @@ static void handle_comments (TSNode node)
     {
       string_desc_t entire =
         sd_new_addr (ts_node_end_byte (node) - ts_node_start_byte (node),
-                     (char *) contents + ts_node_start_byte (node));
+                     contents + ts_node_start_byte (node));
       /* It should start and end with the C comment markers.  */
       if (!(sd_length (entire) >= 4
             && sd_char_at (entire, 0) == '/'
@@ -342,7 +342,7 @@ string_literal_value (TSNode node)
              that is non-empty and has no escape sequences.  */
           string_desc_t subnode_string =
             sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
-                         (char *) contents + ts_node_start_byte (subnode));
+                         contents + ts_node_start_byte (subnode));
           return xsd_c (subnode_string);
         }
     }
@@ -360,7 +360,7 @@ string_literal_value (TSNode node)
         {
           string_desc_t subnode_string =
             sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
-                         (char *) contents + ts_node_start_byte (subnode));
+                         contents + ts_node_start_byte (subnode));
           if (skip_leading_whitespace)
             {
               /* After backslash-newline, skip ASCII whitespace.  */
@@ -433,7 +433,7 @@ string_literal_value (TSNode node)
                   uint8_t buf[6];
                   int n = u8_uctomb (buf, value, sizeof (buf));
                   if (n > 0)
-                    sb_xappend_desc (&buffer, sd_new_addr (n, (char *) buf));
+                    sb_xappend_desc (&buffer, sd_new_addr (n, (const char *) buf));
                   else
                     invalid = true;
                 }
@@ -465,7 +465,7 @@ string_literal_value (TSNode node)
                   uint8_t buf[6];
                   int n = u8_uctomb (buf, value, sizeof (buf));
                   if (n > 0)
-                    sb_xappend_desc (&buffer, sd_new_addr (n, (char *) buf));
+                    sb_xappend_desc (&buffer, sd_new_addr (n, (const char *) buf));
                   else
                     invalid = true;
                 }
@@ -530,7 +530,7 @@ extract_from_function_call (TSNode callee_node,
 
   string_desc_t callee_name =
     sd_new_addr (ts_node_end_byte (callee_node) - ts_node_start_byte (callee_node),
-                 (char *) contents + ts_node_start_byte (callee_node));
+                 contents + ts_node_start_byte (callee_node));
 
   /* Context iterator.  */
   flag_context_list_iterator_ty next_context_iter =
@@ -682,7 +682,7 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
     {
       string_desc_t callee_name =
         sd_new_addr (ts_node_end_byte (*callee_node) - ts_node_start_byte (*callee_node),
-                     (char *) contents + ts_node_start_byte (*callee_node));
+                     contents + ts_node_start_byte (*callee_node));
 
       next_context_iter =
         (args_count >= 2
@@ -1038,7 +1038,7 @@ extract_from_node (TSNode node,
         {
           string_desc_t subnode_string =
             sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
-                         (char *) contents + ts_node_start_byte (subnode));
+                         contents + ts_node_start_byte (subnode));
           if (sd_equals (subnode_string, sd_from_c ("gettext")))
             {
               TSNode argsnode = ts_node_child_by_field_id (node, ts_field_arguments);
@@ -1058,7 +1058,7 @@ extract_from_node (TSNode node,
         {
           string_desc_t subnode_string =
             sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
-                         (char *) contents + ts_node_start_byte (subnode));
+                         contents + ts_node_start_byte (subnode));
           fprintf (stderr, "identifier=%s\n", xsd_c (subnode_string));
           if (sd_equals (subnode_string, sd_from_c ("println")))
             {

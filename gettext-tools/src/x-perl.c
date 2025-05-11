@@ -509,7 +509,8 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
         my_linebuf[read_bytes - 1] = '\n';
 
       /* Append this line to the accumulator.  */
-      sb_xappend_desc (&buffer, sd_new_addr (read_bytes, my_linebuf));
+      sb_xappend_desc (&buffer,
+                       sd_new_addr (read_bytes, (const char *) my_linebuf));
     }
 
   /* Done accumulating the here document.  */
@@ -736,7 +737,7 @@ free_token (token_ty *tp)
    of the semantics of the construct.  Return the complete string,
    including the starting and the trailing delimiter, with backslashes
    removed where appropriate.  */
-static string_desc_t
+static rw_string_desc_t
 extract_quotelike_pass1 (struct perl_extractor *xp, int delim)
 {
   struct string_buffer buffer;
@@ -782,8 +783,8 @@ extract_quotelike_pass1 (struct perl_extractor *xp, int delim)
 
       if (nested && c == delim)
         {
-          string_desc_t inner = extract_quotelike_pass1 (xp, delim);
-          sb_xappend_desc (&buffer, inner);
+          rw_string_desc_t inner = extract_quotelike_pass1 (xp, delim);
+          sb_xappend_desc (&buffer, sd_readonly (inner));
           sd_free (inner);
         }
       else if (c == '\\')
@@ -814,12 +815,12 @@ extract_quotelike_pass1 (struct perl_extractor *xp, int delim)
 
 /* Like extract_quotelike_pass1, but return the complete string in UTF-8
    encoding.  */
-static string_desc_t
+static rw_string_desc_t
 extract_quotelike_pass1_utf8 (struct perl_extractor *xp, int delim)
 {
-  string_desc_t string = extract_quotelike_pass1 (xp, delim);
-  string_desc_t utf8_string =
-    string_desc_from_current_source_encoding (string, lc_string,
+  rw_string_desc_t string = extract_quotelike_pass1 (xp, delim);
+  rw_string_desc_t utf8_string =
+    string_desc_from_current_source_encoding (sd_readonly (string), lc_string,
                                               logical_file_name,
                                               xp->line_number);
   if (sd_data (utf8_string) != sd_data (string))
@@ -914,7 +915,7 @@ extract_oct (const char *string, size_t len, unsigned int *result)
 static void
 extract_quotelike (struct perl_extractor *xp, token_ty *tp, int delim)
 {
-  string_desc_t string = extract_quotelike_pass1_utf8 (xp, delim);
+  rw_string_desc_t string = extract_quotelike_pass1_utf8 (xp, delim);
   size_t len = sd_length (string);
 
   tp->type = token_type_string;
@@ -934,13 +935,13 @@ static void
 extract_triple_quotelike (struct perl_extractor *xp, token_ty *tp, int delim,
                           bool interpolate)
 {
-  string_desc_t string;
+  rw_string_desc_t string;
 
   tp->type = token_type_regex_op;
 
   string = extract_quotelike_pass1_utf8 (xp, delim);
   if (interpolate)
-    interpolate_keywords (xp, string, xp->line_number);
+    interpolate_keywords (xp, sd_readonly (string), xp->line_number);
   sd_free (string);
 
   if (delim == '(' || delim == '<' || delim == '{' || delim == '[')
@@ -957,7 +958,7 @@ extract_triple_quotelike (struct perl_extractor *xp, token_ty *tp, int delim,
     }
   string = extract_quotelike_pass1_utf8 (xp, delim);
   if (interpolate)
-    interpolate_keywords (xp, string, xp->line_number);
+    interpolate_keywords (xp, sd_readonly (string), xp->line_number);
   sd_free (string);
 }
 
@@ -1091,7 +1092,8 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                 int length =
                   u8_uctomb ((unsigned char *) tmpbuf, oct_number, 2);
                 if (length > 0)
-                  sb_xappend_desc (&buffer, sd_new_addr (length, tmpbuf));
+                  sb_xappend_desc (&buffer,
+                                   sd_new_addr (length, (const char *) tmpbuf));
               }
               continue;
             case 'x':
@@ -1140,7 +1142,8 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                 int length =
                   u8_uctomb ((unsigned char *) tmpbuf, hex_number, 6);
                 if (length > 0)
-                  sb_xappend_desc (&buffer, sd_new_addr (length, tmpbuf));
+                  sb_xappend_desc (&buffer,
+                                   sd_new_addr (length, (const char *) tmpbuf));
               }
               continue;
             case 'c':
@@ -1178,7 +1181,7 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                             u8_uctomb ((unsigned char *) tmpbuf, unicode, 6);
                           if (length > 0)
                             sb_xappend_desc (&buffer,
-                                             sd_new_addr (length, tmpbuf));
+                                             sd_new_addr (length, (const char *) tmpbuf));
                         }
 
                       free (name);
@@ -1878,7 +1881,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
               {
                 string_desc_t contents = sb_contents (&buffer);
                 if (!maybe_hash_deref)
-                  sd_set_char_at (contents, 0, '%');
+                  ((char *) sd_data (contents))[0] = '%';
                 if (hash_find_entry (&keywords,
                                      sd_data (contents),
                                      sd_length (contents),
