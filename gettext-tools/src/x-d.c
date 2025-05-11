@@ -1325,11 +1325,11 @@ extract_from_function_call_without_args (TSNode callee_node,
      - ARGS_NODE: a tree node of type 'template_arguments'.
    Extracted messages are added to MLP.  */
 static void
-extract_from_template_instantation (TSNode node,
-                                    TSNode identifier_node,
-                                    TSNode args_node,
-                                    flag_region_ty *outer_region,
-                                    message_list_ty *mlp)
+extract_from_template_instantiation (TSNode node,
+                                     TSNode identifier_node,
+                                     TSNode args_node,
+                                     flag_region_ty *outer_region,
+                                     message_list_ty *mlp)
 {
   uint32_t args_count = ts_node_child_count (args_node);
 
@@ -1608,10 +1608,10 @@ extract_from_node (TSNode node,
               TSNode args_node = ts_node_named_child (node, a);
               if (ts_node_symbol (args_node) != ts_symbol_template_arguments)
                 abort ();
-              extract_from_template_instantation (node,
-                                                  identifier_node, args_node,
-                                                  outer_region,
-                                                  mlp);
+              extract_from_template_instantiation (node,
+                                                   identifier_node, args_node,
+                                                   outer_region,
+                                                   mlp);
               return;
             }
         }
