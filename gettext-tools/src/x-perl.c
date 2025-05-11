@@ -338,7 +338,7 @@ perl_extractor_init_rest (struct perl_extractor *xp)
   xp->token_stack.items = NULL;
   xp->token_stack.nitems = 0;
   xp->token_stack.nitems_max = 0;
-};
+}
 
 
 /* ======================== Reading of characters.  ======================== */
