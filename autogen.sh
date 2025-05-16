@@ -21,9 +21,11 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Prerequisite (if not used from a released tarball): either
-#   - the GNULIB_SRCDIR environment variable pointing to a gnulib checkout, or
-#   - a preceding invocation of './autopull.sh'.
+# Prerequisite (if not used from a released tarball):
+#   - A preceding invocation of './autopull.sh'.
+#   - If the GNULIB_SRCDIR environment variable was set during the
+#     './autopull.sh' invocation, pointing to a gnulib checkout, it should
+#     still be set now, during the './autogen.sh' invocation.
 #
 # Usage: ./autogen.sh [--skip-gnulib]
 #
