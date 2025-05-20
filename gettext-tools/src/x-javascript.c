@@ -1075,37 +1075,79 @@ is_after_expression (void)
     }
 }
 
+/* Scans a regular expression literal.
+   The leading '/' has already been consumed.
+   See ECMA-262 15th edition sections
+   - § 12.9.5 Regular Expression Literals
+   - § 22.2.3.3 RegExpInitialize  */
 static void
 phase5_scan_regexp (void)
 {
+  bool at_start;
   int c;
 
   /* Scan for end of RegExp literal ('/').  */
-  for (;;)
+  for (at_start = true; ; at_start = false)
     {
       /* Must use phase2 as there can't be comments.  */
       c = phase2_getc ();
+      if (c == UEOF || c == '\n' || c == '\r' || c == 0x2028 || c == 0x2029)
+        goto unterminated;
+      if (at_start && c == '*')
+        {
+          if_error (IF_SEVERITY_WARNING,
+                    logical_file_name, line_number, (size_t)(-1), false,
+                    _("invalid RegExp literal"));
+          return;
+        }
       if (c == '/')
         break;
       if (c == '\\')
         {
           c = phase2_getc ();
-          if (c != UEOF)
-            continue;
+          if (c == UEOF || c == '\n' || c == '\r' || c == 0x2028 || c == 0x2029)
+            goto unterminated;
         }
-      if (c == UEOF)
+      else if (c == '[')
         {
-          if_error (IF_SEVERITY_WARNING,
-                    logical_file_name, line_number, (size_t)(-1), false,
-                    _("RegExp literal terminated too early"));
-          return;
+          for (;;)
+            {
+              c = phase2_getc ();
+              if (c == UEOF
+                  || c == '\n' || c == '\r' || c == 0x2028 || c == 0x2029)
+                goto unterminated_in_class;
+              if (c == ']')
+                break;
+              if (c == '\\')
+                {
+                  c = phase2_getc ();
+                  if (c == UEOF
+                      || c == '\n' || c == '\r' || c == 0x2028 || c == 0x2029)
+                    goto unterminated_in_class;
+                }
+            }
         }
     }
 
-  /* Scan for modifier flags (ECMA-262 5th section 15.10.4.1).  */
+  /* Scan for modifier flags (ECMA-262 15th edition § 22.2.3.3).  */
   c = phase2_getc ();
-  if (!(c == 'g' || c == 'i' || c == 'm'))
+  if (!(c == 'd' || c == 'g' || c == 'i' || c == 'm' || c == 's'
+        || c == 'u' || c == 'v' || c == 'y'))
     phase2_ungetc (c);
+
+  return;
+
+ unterminated:
+  if_error (IF_SEVERITY_WARNING,
+            logical_file_name, line_number, (size_t)(-1), false,
+            _("RegExp literal terminated too early"));
+  return;
+
+ unterminated_in_class:
+  if_error (IF_SEVERITY_WARNING,
+            logical_file_name, line_number, (size_t)(-1), false,
+            _("RegExp literal lacks a ']' to match the '['"));
+  return;
 }
 
 /* Various syntactic constructs can be nested:
