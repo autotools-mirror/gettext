@@ -176,6 +176,7 @@ There are three ways to create binaries of this package for Microsoft Windows:
       win32_target=_WIN32_WINNT_WIN8    # possibly for MSVC >= 10.0
 
       ./configure --host=i686-w64-mingw32 --prefix=/usr/local/msvc32 \
+            --with-included-libunistring \
             CC="$HOME/msvc/compile cl -nologo" \
             CFLAGS="-MD" \
             CXX="$HOME/msvc/compile cl -nologo" \
@@ -202,6 +203,7 @@ There are three ways to create binaries of this package for Microsoft Windows:
       win32_target=_WIN32_WINNT_WIN8    # possibly for MSVC >= 10.0
 
       ./configure --host=x86_64-w64-mingw32 --prefix=/usr/local/msvc64 \
+            --with-included-libunistring \
             CC="$HOME/msvc/compile cl -nologo" \
             CFLAGS="-MD" \
             CXX="$HOME/msvc/compile cl -nologo" \
