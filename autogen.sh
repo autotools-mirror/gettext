@@ -4,7 +4,7 @@
 # also regenerates all aclocal.m4, config.h.in, Makefile.in, configure files
 # with new versions of autoconf or automake.
 #
-# This script requires autoconf-2.64..2.72 and automake-1.13..1.17 in the PATH.
+# This script requires autoconf-2.64..2.72 and automake-1.13..1.18 in the PATH.
 
 # Copyright (C) 2003-2025 Free Software Foundation, Inc.
 #

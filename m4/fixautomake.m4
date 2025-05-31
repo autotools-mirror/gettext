@@ -1,6 +1,6 @@
 # fixautomake.m4
-# serial 9 (gettext-0.23)
-dnl Copyright (C) 2002-2024 Free Software Foundation, Inc.
+# serial 9 (gettext-0.26)
+dnl Copyright (C) 2002-2025 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -15,7 +15,7 @@ AC_DEFUN([FIX_MAKEFILE_DISTRIB], [
   mv $ac_file.tmp $ac_file
 ])
 
-dnl Fix an automake-1.9-1.17 bug: the distrib rule is not extensible.
+dnl Fix an automake-1.9-1.18 bug: the distrib rule is not extensible.
 dnl Insert a invocation of the distdir1 target inside the distdir commands,
 dnl after $(distdir) has been erased and re-created.
 AC_DEFUN([FIX_MAKEFILE_TOPDIR_DISTRIB], [
