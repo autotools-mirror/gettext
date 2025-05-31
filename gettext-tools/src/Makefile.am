@@ -568,7 +568,7 @@ endif
 # recursion depth of 1000, we need to increase the stack size. Cf.
 # <https://learn.microsoft.com/en-us/cpp/build/reference/f-set-stack-size>.
 if PLATFORM_IS_MSVC
-xgettext_LDFLAGS += -Wl,/F4000000
+xgettext_LDFLAGS += -Wl,-F4000000
 endif
 
 # Linking with C++ libraries is needed _only_ on mingw and Cygwin.
