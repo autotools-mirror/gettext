@@ -218,7 +218,7 @@ TESTS = gettext-1 gettext-2 \
 	format-python-1 format-python-2 \
 	format-python-brace-1 format-python-brace-2 \
 	format-pascal-1 format-pascal-2 \
-	format-perl-1 format-perl-2 \
+	format-perl-1 format-perl-2 format-perl-3 \
 	format-perl-brace-1 format-perl-brace-2 \
 	format-perl-mixed-1 format-perl-mixed-2 \
 	format-qt-1 format-qt-2 \
