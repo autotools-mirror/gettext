@@ -207,7 +207,7 @@ TESTS = gettext-1 gettext-2 \
 	format-go-1 format-go-2 format-go-3 \
 	format-java-1 format-java-2 \
 	format-java-printf-1 format-java-printf-2 \
-	format-javascript-1 format-javascript-2 \
+	format-javascript-1 format-javascript-2 format-javascript-3 \
 	format-kde-1 format-kde-2 \
 	format-kde-kuit-1 format-kde-kuit-2 \
 	format-librep-1 format-librep-2 \
