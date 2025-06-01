@@ -215,7 +215,7 @@ TESTS = gettext-1 gettext-2 \
 	format-lua-1 format-lua-2 \
 	format-modula2-1 format-modula2-2 \
 	format-php-1 format-php-2 format-php-3 \
-	format-python-1 format-python-2 \
+	format-python-1 format-python-2 format-python-3 \
 	format-python-brace-1 format-python-brace-2 \
 	format-pascal-1 format-pascal-2 \
 	format-perl-1 format-perl-2 format-perl-3 \
