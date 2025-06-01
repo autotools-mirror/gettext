@@ -98,6 +98,11 @@ struct numbered_arg
 struct spec
 {
   unsigned int directives;
+  /* We consider a directive as "likely intentional" if it does not contain a
+     space.  This prevents xgettext from flagging strings like "100% complete"
+     as 'ruby-format' if they don't occur in a context that requires a format
+     string.  */
+  unsigned int likely_intentional_directives;
   unsigned int named_arg_count;
   unsigned int numbered_arg_count;
   struct named_arg *named;
@@ -157,6 +162,7 @@ format_parse (const char *format, bool translated, char *fdi,
   struct spec *result;
 
   spec.directives = 0;
+  spec.likely_intentional_directives = 0;
   spec.named_arg_count = 0;
   spec.numbered_arg_count = 0;
   spec.named = NULL;
@@ -183,6 +189,8 @@ format_parse (const char *format, bool translated, char *fdi,
 
         enum format_arg_type type;
 
+        bool likely_intentional = true;
+
         FDI_SET (format - 1, FMTDIR_START);
         spec.directives++;
 
@@ -207,6 +215,8 @@ format_parse (const char *format, bool translated, char *fdi,
                     FDI_SET (format, FMTDIR_ERROR);
                     goto bad_format;
                   }
+                if (*format == ' ')
+                  likely_intentional = false;
                 format++;
                 continue;
               }
@@ -697,6 +707,8 @@ format_parse (const char *format, bool translated, char *fdi,
               }
           }
 
+        if (likely_intentional)
+          spec.likely_intentional_directives++;
         FDI_SET (format, FMTDIR_END);
 
         format++;
@@ -851,6 +863,14 @@ format_get_number_of_directives (void *descr)
 }
 
 static bool
+format_is_unlikely_intentional (void *descr)
+{
+  struct spec *spec = (struct spec *) descr;
+
+  return spec->likely_intentional_directives == 0;
+}
+
+static bool
 format_check (void *msgid_descr, void *msgstr_descr, bool equality,
               formatstring_error_logger_t error_logger, void *error_logger_data,
               const char *pretty_msgid, const char *pretty_msgstr)
@@ -976,7 +996,7 @@ struct formatstring_parser formatstring_ruby =
   format_parse,
   format_free,
   format_get_number_of_directives,
-  NULL,
+  format_is_unlikely_intentional,
   format_check
 };
 

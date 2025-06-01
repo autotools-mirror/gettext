@@ -223,7 +223,7 @@ TESTS = gettext-1 gettext-2 \
 	format-perl-mixed-1 format-perl-mixed-2 \
 	format-qt-1 format-qt-2 \
 	format-qt-plural-1 format-qt-plural-2 \
-	format-ruby-1 format-ruby-2 \
+	format-ruby-1 format-ruby-2 format-ruby-3 \
 	format-rust-1 format-rust-2 \
 	format-scheme-1 format-scheme-2 \
 	format-sh-1 format-sh-2 \
