@@ -210,7 +210,7 @@ TESTS = gettext-1 gettext-2 \
 	format-javascript-1 format-javascript-2 format-javascript-3 \
 	format-kde-1 format-kde-2 \
 	format-kde-kuit-1 format-kde-kuit-2 \
-	format-librep-1 format-librep-2 \
+	format-librep-1 format-librep-2 format-librep-3 \
 	format-lisp-1 format-lisp-2 \
 	format-lua-1 format-lua-2 \
 	format-modula2-1 format-modula2-2 \
