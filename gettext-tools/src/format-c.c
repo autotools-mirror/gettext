@@ -1,5 +1,5 @@
 /* C format strings.
-   Copyright (C) 2001-2004, 2006-2007, 2009-2010, 2019, 2023 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -105,20 +105,20 @@ format_free (void *descr)
   free (spec);
 }
 
-static bool
-format_is_unlikely_intentional (void *descr)
-{
-  struct spec *spec = (struct spec *) descr;
-
-  return spec->unlikely_intentional;
-}
-
 static int
 format_get_number_of_directives (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
 
   return spec->directives;
+}
+
+static bool
+format_is_unlikely_intentional (void *descr)
+{
+  struct spec *spec = (struct spec *) descr;
+
+  return spec->likely_intentional_directives == 0 || spec->unlikely_intentional;
 }
 
 static bool

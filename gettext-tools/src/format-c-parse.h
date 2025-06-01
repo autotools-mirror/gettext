@@ -142,6 +142,11 @@ struct unnumbered_arg
 struct spec
 {
   unsigned int directives;
+  /* We consider a directive as "likely intentional" if it does not contain a
+     space.  This prevents xgettext from flagging strings like "100% complete"
+     as 'c-format' if they don't occur in a context that requires a format
+     string.  */
+  unsigned int likely_intentional_directives;
   unsigned int unnumbered_arg_count;
   struct unnumbered_arg *unnumbered;
   bool unlikely_intentional;
@@ -182,6 +187,7 @@ format_parse_entrails (const char *format, bool translated,
   unsigned int allocated;
 
   spec.directives = 0;
+  spec.likely_intentional_directives = 0;
   spec.unnumbered_arg_count = 0;
   spec.unnumbered = NULL;
   spec.unlikely_intentional = false;
@@ -202,6 +208,7 @@ format_parse_entrails (const char *format, bool translated,
         format_arg_type_t integer_size;
         /* Relevant for the conversion characters a, A, e, E, f, F, g, G.  */
         format_arg_type_t floatingpoint_size;
+        bool likely_intentional = true;
 
         FDI_SET (format - 1, FMTDIR_START);
         spec.directives++;
@@ -236,7 +243,11 @@ format_parse_entrails (const char *format, bool translated,
           {
             if (*format == ' ' || *format == '+' || *format == '-'
                 || *format == '#' || *format == '0' || *format == '\'')
-              format++;
+              {
+                if (*format == ' ')
+                  likely_intentional = false;
+                format++;
+              }
 #if HANDLE_I_FLAG
             else if (translated && *format == 'I')
               {
@@ -858,6 +869,8 @@ format_parse_entrails (const char *format, bool translated,
               }
           }
 
+        if (likely_intentional)
+          spec.likely_intentional_directives++;
         FDI_SET (format, FMTDIR_END);
 
         format++;
