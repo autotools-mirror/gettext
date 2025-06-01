@@ -200,7 +200,7 @@ TESTS = gettext-1 gettext-2 \
 	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 format-c-6 \
 	format-c++-brace-1 format-c++-brace-2 \
 	format-csharp-1 format-csharp-2 \
-	format-d-1 format-d-2 \
+	format-d-1 format-d-2 format-d-3 \
 	format-elisp-1 format-elisp-2 \
 	format-gcc-internal-1 format-gcc-internal-2 \
 	format-gfc-internal-1 format-gfc-internal-2 \
