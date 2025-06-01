@@ -227,7 +227,7 @@ TESTS = gettext-1 gettext-2 \
 	format-rust-1 format-rust-2 \
 	format-scheme-1 format-scheme-2 \
 	format-sh-1 format-sh-2 \
-	format-tcl-1 format-tcl-2 \
+	format-tcl-1 format-tcl-2 format-tcl-3 \
 	format-ycp-1 format-ycp-2 \
 	plural-1 plural-2 plural-3 plural-4 \
 	gettextpo-1 sentence-1 \
