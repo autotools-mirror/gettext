@@ -204,7 +204,7 @@ TESTS = gettext-1 gettext-2 \
 	format-elisp-1 format-elisp-2 format-elisp-3 \
 	format-gcc-internal-1 format-gcc-internal-2 \
 	format-gfc-internal-1 format-gfc-internal-2 \
-	format-go-1 format-go-2 \
+	format-go-1 format-go-2 format-go-3 \
 	format-java-1 format-java-2 \
 	format-java-printf-1 format-java-printf-2 \
 	format-javascript-1 format-javascript-2 \
