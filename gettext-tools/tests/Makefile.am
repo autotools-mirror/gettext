@@ -196,7 +196,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-ycp-stackovfl-1 xgettext-ycp-stackovfl-2 \
 	xgettext-ycp-stackovfl-3 xgettext-ycp-stackovfl-4 \
 	format-awk-1 format-awk-2 format-awk-3 \
-	format-boost-1 format-boost-2 \
+	format-boost-1 format-boost-2 format-boost-3 \
 	format-c-1 format-c-2 format-c-3 format-c-4 format-c-5 format-c-6 \
 	format-c++-brace-1 format-c++-brace-2 \
 	format-csharp-1 format-csharp-2 \
