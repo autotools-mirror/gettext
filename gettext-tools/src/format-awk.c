@@ -71,6 +71,11 @@ struct numbered_arg
 struct spec
 {
   unsigned int directives;
+  /* We consider a directive as "likely intentional" if it does not contain a
+     space.  This prevents xgettext from flagging strings like "100% complete"
+     as 'awk-format' if they don't occur in a context that requires a format
+     string.  */
+  unsigned int likely_intentional_directives;
   unsigned int numbered_arg_count;
   struct numbered_arg *numbered;
 };
@@ -96,6 +101,7 @@ format_parse (const char *format, bool translated, char *fdi,
   struct spec *result;
 
   spec.directives = 0;
+  spec.likely_intentional_directives = 0;
   spec.numbered_arg_count = 0;
   spec.numbered = NULL;
   numbered_allocated = 0;
@@ -108,6 +114,7 @@ format_parse (const char *format, bool translated, char *fdi,
         /* A directive.  */
         unsigned int number = 0;
         enum format_arg_type type;
+        bool likely_intentional = true;
 
         FDI_SET (format - 1, FMTDIR_START);
         spec.directives++;
@@ -140,7 +147,11 @@ format_parse (const char *format, bool translated, char *fdi,
         /* Parse flags.  */
         while (*format == ' ' || *format == '+' || *format == '-'
                || *format == '#' || *format == '0')
-          format++;
+          {
+            if (*format == ' ')
+              likely_intentional = false;
+            format++;
+          }
 
         /* Parse width.  */
         if (*format == '*')
@@ -390,6 +401,8 @@ format_parse (const char *format, bool translated, char *fdi,
               }
           }
 
+        if (likely_intentional)
+          spec.likely_intentional_directives++;
         FDI_SET (format, FMTDIR_END);
 
         format++;
@@ -471,6 +484,14 @@ format_get_number_of_directives (void *descr)
   struct spec *spec = (struct spec *) descr;
 
   return spec->directives;
+}
+
+static bool
+format_is_unlikely_intentional (void *descr)
+{
+  struct spec *spec = (struct spec *) descr;
+
+  return spec->likely_intentional_directives == 0;
 }
 
 static bool
@@ -557,7 +578,7 @@ struct formatstring_parser formatstring_awk =
   format_parse,
   format_free,
   format_get_number_of_directives,
-  NULL,
+  format_is_unlikely_intentional,
   format_check
 };
 
