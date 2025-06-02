@@ -4,6 +4,13 @@ Version 0.26 - July 2025
   * JavaScript:
     - xgettext now parses regular expressions with character classes
       correctly.
+  * C, C++, Python, JavaScript, EmacsLisp, librep, Go, Ruby, awk, D, Tcl,
+    Perl, PHP:
+    - xgettext's heuristic recognition of format strings has been improved:
+      strings like "100% complete" (with a space flag in a format directive)
+      are no longer flagged as format strings by default, unless they occur
+      in a context that requires a format string.  You can override this
+      heuristic by using a comment of the form /* xgettext: c-format */.
 
 Version 0.25 - May 2025
 
