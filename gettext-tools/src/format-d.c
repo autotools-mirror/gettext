@@ -1714,7 +1714,7 @@ parse_upto (struct spec *spec,
             }
           if (*format == '%')
             /* A doubled percent-sign.  */
-            format++;
+            ;
           else
             {
               /* A directive.  */
@@ -2123,11 +2123,11 @@ parse_upto (struct spec *spec,
 
               if (type & FAT_ELEMENTWISE)
                 free_list (elementwise_list);
-
-              FDI_SET (format, FMTDIR_END);
-
-              format++;
             }
+
+          FDI_SET (format, FMTDIR_END);
+
+          format++;
         }
     }
 
