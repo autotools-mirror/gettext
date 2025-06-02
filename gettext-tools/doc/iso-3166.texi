@@ -423,7 +423,7 @@ Sint Maarten (Dutch part).
 @item SY
 Syrian Arab Republic.
 @item SZ
-Swaziland.
+Eswatini.
 @item TC
 Turks and Caicos Islands.
 @item TD
