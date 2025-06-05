@@ -1,5 +1,5 @@
 /* Error handling during reading and writing of textual message catalogs.
-   Copyright (C) 2005-2024 Free Software Foundation, Inc.
+   Copyright (C) 2005-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -70,7 +70,7 @@ typedef const struct xerror_handler *xerror_handler_ty;
 
 /* The default xerror_handler, that uses the global variable error_message_count
    from <error.h>, and therefore is not multithread-safe.  */
-extern DLL_VARIABLE const struct xerror_handler textmode_xerror_handler_struct;
+extern LIBGETTEXTSRC_DLL_VARIABLE const struct xerror_handler textmode_xerror_handler_struct;
 #define textmode_xerror_handler (&textmode_xerror_handler_struct)
 
 

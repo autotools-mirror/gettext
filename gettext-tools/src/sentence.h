@@ -1,5 +1,5 @@
 /* Sentence handling.
-   Copyright (C) 2015-2024 Free Software Foundation, Inc.
+   Copyright (C) 2015-2025 Free Software Foundation, Inc.
    Written by Daiki Ueno <ueno@gnu.org>, 2015.
 
    This program is free software: you can redistribute it and/or modify
@@ -26,7 +26,7 @@ extern "C" {
 
 /* The minimal number of white spaces which should follow after the
    end of sentence.  */
-extern DLL_VARIABLE int sentence_end_required_spaces;
+extern LIBGETTEXTSRC_DLL_VARIABLE int sentence_end_required_spaces;
 
 /* Locates the position of a sentence end marker (a period, a question
    mark, etc.) in a null-terminated string STR.

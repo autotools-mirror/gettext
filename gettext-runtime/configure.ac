@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-2024 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2025 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -135,6 +135,10 @@ else
   is_woe32dll=no
 fi
 AM_CONDITIONAL([WOE32DLL], [test $is_woe32dll = yes])
+if test $is_woe32dll = yes; then
+  AC_DEFINE([WOE32DLL], [1],
+    [Define when --enable-shared is used on Windows.])
+fi
 
 dnl Put some default definitions into config.h.
 AH_BOTTOM([
@@ -144,11 +148,9 @@ AH_BOTTOM([
    the C macro DLL_EXPORT (together with PIC) when compiling for a shared
    library (called DLL under Windows) and does not define it when compiling
    an object file meant to be linked statically into some executable.  */
-#if (defined _WIN32 || defined __CYGWIN__) && defined DLL_EXPORT && !defined IN_RELOCWRAPPER
-# define DLL_VARIABLE __declspec (dllimport)
-#else
-# define DLL_VARIABLE
-#endif
+/* But in the scope of this configure file (gettext-runtime/ without intl and
+   libasprintf), there is no shared library.  So it's simple.  */
+#define DLL_VARIABLE
 
 /* Extra OS/2 (emx+gcc) defines.  */
 #if defined __EMX__ && !defined __KLIBC__
