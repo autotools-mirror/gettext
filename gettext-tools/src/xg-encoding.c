@@ -184,8 +184,8 @@ from_current_source_encoding (const char *string,
       context.from_filename = file_name;
       context.message = NULL;
 
-      string = convert_string_directly (xgettext_current_source_iconv, string,
-                                        &context);
+      return convert_string_directly (xgettext_current_source_iconv, string,
+                                      &context);
 #else
       /* If we don't have iconv(), the only supported values for
          xgettext_global_source_encoding and thus also for
@@ -199,7 +199,7 @@ from_current_source_encoding (const char *string,
 }
 
 /* Like from_current_source_encoding, for a string that may contain NULs.  */
-string_desc_t
+rw_string_desc_t
 string_desc_from_current_source_encoding (string_desc_t string,
                                           lexical_context_ty lcontext,
                                           const char *file_name,
@@ -242,8 +242,8 @@ string_desc_from_current_source_encoding (string_desc_t string,
       context.from_filename = file_name;
       context.message = NULL;
 
-      string = convert_string_desc_directly (xgettext_current_source_iconv,
-                                             string, &context);
+      return convert_string_desc_directly (xgettext_current_source_iconv,
+                                           string, &context);
 #else
       /* If we don't have iconv(), the only supported values for
          xgettext_global_source_encoding and thus also for
@@ -253,5 +253,5 @@ string_desc_from_current_source_encoding (string_desc_t string,
 #endif
     }
 
-  return string;
+  return sd_readwrite (string);
 }

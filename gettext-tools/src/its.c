@@ -2341,7 +2341,7 @@ _its_is_valid_simple_gen_xml (const char *contents,
           if (add_to_node != NULL && !slash_before_tag)
             {
               string_desc_t name =
-                sd_new_addr (name_end - name_start, (char *) name_start);
+                sd_new_addr (name_end - name_start, name_start);
               char *name_c = xsd_c (name);
               if (ignore_case)
                 {
@@ -2434,10 +2434,10 @@ _its_is_valid_simple_gen_xml (const char *contents,
                     {
                       string_desc_t attr_name =
                         sd_new_addr (attr_name_end - attr_name_start,
-                                     (char *) attr_name_start);
+                                     attr_name_start);
                       string_desc_t attr_value =
                         sd_new_addr (attr_value_end - attr_value_start,
-                                     (char *) attr_value_start);
+                                     attr_value_start);
                       char *attr_name_c = xsd_c (attr_name);
                       char *attr_value_c = xsd_c (attr_value);
                       xmlAttr *attr =
@@ -2474,8 +2474,7 @@ _its_is_valid_simple_gen_xml (const char *contents,
             return false;
           /* Seen a complete <...> element start/end.  */
           /* Verify that the tag is allowed.  */
-          string_desc_t tag =
-            sd_new_addr (name_end - name_start, (char *) name_start);
+          string_desc_t tag = sd_new_addr (name_end - name_start, name_start);
           if (!(valid_element == NULL || valid_element (tag)))
             return false;
           if (slash_after_tag || (no_end_element != NULL && no_end_element (tag)))
@@ -2499,8 +2498,9 @@ _its_is_valid_simple_gen_xml (const char *contents,
               if (open_elements_count == 0)
                 /* The end of an element without a corresponding start.  */
                 return false;
-              if ((ignore_case ? sd_c_casecmp : sd_cmp)
-                  (open_elements[open_elements_count - 1], tag)
+              if ((ignore_case
+                   ? sd_c_casecmp (open_elements[open_elements_count - 1], tag)
+                   : sd_cmp (open_elements[open_elements_count - 1], tag))
                   != 0)
                 return false;
               open_elements_count--;

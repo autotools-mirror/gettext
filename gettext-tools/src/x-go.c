@@ -1063,7 +1063,7 @@ string_literal_accumulate_pieces (TSNode node,
             {
               string_desc_t subnode_string =
                 sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
-                             (char *) contents + ts_node_start_byte (subnode));
+                             contents + ts_node_start_byte (subnode));
               /* Eliminate '\r' characters.  */
               for (;;)
                 {
@@ -1081,7 +1081,7 @@ string_literal_accumulate_pieces (TSNode node,
             {
               string_desc_t subnode_string =
                 sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
-                             (char *) contents + ts_node_start_byte (subnode));
+                             contents + ts_node_start_byte (subnode));
               sbr_xprepend_desc (buffer, subnode_string);
             }
           else if (ts_node_symbol (subnode) == ts_symbol_escape_sequence)
@@ -1184,7 +1184,7 @@ string_literal_accumulate_pieces (TSNode node,
                           uint8_t buf[6];
                           int n = u8_uctomb (buf, value, sizeof (buf));
                           if (n > 0)
-                            sbr_xprepend_desc (buffer, sd_new_addr (n, (char *) buf));
+                            sbr_xprepend_desc (buffer, sd_new_addr (n, (const char *) buf));
                           else
                             invalid = true;
                         }
@@ -1233,7 +1233,7 @@ string_literal_value (TSNode node)
              that is non-empty and has no escape sequences.  */
           string_desc_t subnode_string =
             sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
-                         (char *) contents + ts_node_start_byte (subnode));
+                         contents + ts_node_start_byte (subnode));
           return xsd_c (subnode_string);
         }
     }
@@ -1283,7 +1283,7 @@ scan_import_spec (TSNode import_spec_node)
       /* A package is imported with a name.  */
       shortname =
         sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                     (char *) contents + ts_node_start_byte (name_node));
+                     contents + ts_node_start_byte (name_node));
     }
   else
     {
@@ -1469,7 +1469,7 @@ get_type_from_type_identifier_node (TSNode type_node, type_env_t tenv, bool use_
 {
   string_desc_t type_name =
     sd_new_addr (ts_node_end_byte (type_node) - ts_node_start_byte (type_node),
-                 (char *) contents + ts_node_start_byte (type_node));
+                 contents + ts_node_start_byte (type_node));
   return get_type_from_type_name (type_name, tenv, use_indirections);
 }
 
@@ -1534,7 +1534,7 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
   #if DEBUG_GO && 0
   string_desc_t type_node_name =
     sd_new_addr (ts_node_end_byte (type_node) - ts_node_start_byte (type_node),
-                 (char *) contents + ts_node_start_byte (type_node));
+                 contents + ts_node_start_byte (type_node));
   fprintf (stderr, "type_node = [%s]|%s| = %s\n", ts_node_type (type_node), ts_node_string (type_node), sd_c (type_node_name));
   #endif
   while (ts_node_symbol (type_node) == ts_symbol_parenthesized_type
@@ -1551,7 +1551,7 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
       TSNode shortname_node = ts_node_child_by_field_id (type_node, ts_field_package);
       string_desc_t shortname =
         sd_new_addr (ts_node_end_byte (shortname_node) - ts_node_start_byte (shortname_node),
-                     (char *) contents + ts_node_start_byte (shortname_node));
+                     contents + ts_node_start_byte (shortname_node));
       /* Look up the package's full name.  */
       void *found_package;
       if (hash_find_entry (&package_table,
@@ -1565,7 +1565,7 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
               TSNode name_node = ts_node_child_by_field_id (type_node, ts_field_name);
               string_desc_t name =
                 sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                             (char *) contents + ts_node_start_byte (name_node));
+                             contents + ts_node_start_byte (name_node));
               void *found_type;
               if (hash_find_entry (&gotext_package.defined_types,
                                    sd_data (name), sd_length (name),
@@ -1579,7 +1579,7 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
               TSNode name_node = ts_node_child_by_field_id (type_node, ts_field_name);
               string_desc_t name =
                 sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                             (char *) contents + ts_node_start_byte (name_node));
+                             contents + ts_node_start_byte (name_node));
               void *found_type;
               if (hash_find_entry (&snapcore_package.defined_types,
                                    sd_data (name), sd_length (name),
@@ -1652,7 +1652,7 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
                             members[n].name =
                               xsd_c (
                                 sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
-                                             (char *) contents + ts_node_start_byte (subnode)));
+                                             contents + ts_node_start_byte (subnode)));
                             members[n].type = eltype;
                             n++;
                           }
@@ -1701,7 +1701,7 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
                   abort ();
                 string_desc_t name =
                   sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                               (char *) contents + ts_node_start_byte (name_node));
+                               contents + ts_node_start_byte (name_node));
                 methods[nm].name = xsd_c (name);
                 methods[nm].type = get_type_from_function_or_method_node (subnode, tenv, use_indirections);
                 nm++;
@@ -1762,7 +1762,7 @@ store_type_declaration (TSNode node)
             abort ();
           string_desc_t name =
             sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                         (char *) contents + ts_node_start_byte (name_node));
+                         contents + ts_node_start_byte (name_node));
           #if DEBUG_GO && 0
           fprintf (stderr, "Type name = %s\n", sd_c (name));
           #endif
@@ -2232,7 +2232,7 @@ get_mvtypes_of_expression (unsigned int mvcount, go_type_t **result,
     {
       string_desc_t name =
         sd_new_addr (ts_node_end_byte (node) - ts_node_start_byte (node),
-                     (char *) contents + ts_node_start_byte (node));
+                     contents + ts_node_start_byte (node));
       return1 (variable_env_lookup (name, venv));
     }
   if (ts_node_symbol (node) == ts_symbol_unary_expression)
@@ -2240,7 +2240,7 @@ get_mvtypes_of_expression (unsigned int mvcount, go_type_t **result,
       TSNode operator_node = ts_node_child_by_field_id (node, ts_field_operator);
       string_desc_t operator =
         sd_new_addr (ts_node_end_byte (operator_node) - ts_node_start_byte (operator_node),
-                     (char *) contents + ts_node_start_byte (operator_node));
+                     contents + ts_node_start_byte (operator_node));
       if (sd_equals (operator, sd_from_c ("*")))
         {
           TSNode operand_node = ts_node_child_by_field_id (node, ts_field_operand);
@@ -2273,14 +2273,14 @@ get_mvtypes_of_expression (unsigned int mvcount, go_type_t **result,
         abort ();
       string_desc_t field_name =
         sd_new_addr (ts_node_end_byte (field_node) - ts_node_start_byte (field_node),
-                     (char *) contents + ts_node_start_byte (field_node));
+                     contents + ts_node_start_byte (field_node));
       TSNode operand_node = ts_node_child_by_field_id (node, ts_field_operand);
       /* If the operand is a package name, we have in fact a qualified identifier.  */
       if (ts_node_symbol (operand_node) == ts_symbol_identifier)
         {
           string_desc_t shortname =
             sd_new_addr (ts_node_end_byte (operand_node) - ts_node_start_byte (operand_node),
-                         (char *) contents + ts_node_start_byte (operand_node));
+                         contents + ts_node_start_byte (operand_node));
           /* Look up the package's full name.  */
           void *found_package;
           if (hash_find_entry (&package_table,
@@ -2401,7 +2401,7 @@ get_mvtypes_of_expression (unsigned int mvcount, go_type_t **result,
         {
           string_desc_t function_name =
             sd_new_addr (ts_node_end_byte (function_node) - ts_node_start_byte (function_node),
-                         (char *) contents + ts_node_start_byte (function_node));
+                         contents + ts_node_start_byte (function_node));
           if (sd_equals (function_name, sd_from_c ("new")))
             {
               TSNode args_node = ts_node_child_by_field_id (node, ts_field_arguments);
@@ -2496,7 +2496,7 @@ store_var_spec (TSNode node)
               TSNode name_node = subnode;
               string_desc_t name =
                 sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                             (char *) contents + ts_node_start_byte (name_node));
+                             contents + ts_node_start_byte (name_node));
               #if DEBUG_GO && 0
               fprintf (stderr, "Var name = %s\n", sd_c (name));
               #endif
@@ -2547,7 +2547,7 @@ store_var_spec (TSNode node)
                   TSNode name_node = subnode;
                   string_desc_t name =
                     sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                                 (char *) contents + ts_node_start_byte (name_node));
+                                 contents + ts_node_start_byte (name_node));
                   #if DEBUG_GO && 0
                   fprintf (stderr, "Var name = %s\n", sd_c (name));
                   #endif
@@ -2600,7 +2600,7 @@ store_const_spec (TSNode node)
   TSNode name_node = ts_node_child_by_field_id (node, ts_field_name);
   string_desc_t name =
     sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                 (char *) contents + ts_node_start_byte (name_node));
+                 contents + ts_node_start_byte (name_node));
   #if DEBUG_GO && 0
   fprintf (stderr, "Const name = %s\n", sd_c (name));
   #endif
@@ -2633,7 +2633,7 @@ store_function_declaration (TSNode node)
   TSNode name_node = ts_node_child_by_field_id (node, ts_field_name);
   string_desc_t name =
     sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                 (char *) contents + ts_node_start_byte (name_node));
+                 contents + ts_node_start_byte (name_node));
   #if DEBUG_GO && 0
   fprintf (stderr, "Func name = %s\n", sd_c (name));
   #endif
@@ -2692,7 +2692,7 @@ augment_for_type_declaration (TSNode node, type_env_t tenv)
             abort ();
           string_desc_t name =
             sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                         (char *) contents + ts_node_start_byte (name_node));
+                         contents + ts_node_start_byte (name_node));
           #if DEBUG_GO && 0
           fprintf (stderr, "Local type name = %s\n", sd_c (name));
           #endif
@@ -2726,7 +2726,7 @@ augment_for_parameter_list (TSNode node, type_env_t tenv, variable_env_t venv)
                   TSNode name_node = subsubnode;
                   string_desc_t name =
                     sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                                 (char *) contents + ts_node_start_byte (name_node));
+                                 contents + ts_node_start_byte (name_node));
                   #if DEBUG_GO && 0
                   fprintf (stderr, "Local parameter name = %s\n", sd_c (name));
                   #endif
@@ -2748,7 +2748,7 @@ augment_for_parameter_list (TSNode node, type_env_t tenv, variable_env_t venv)
                   TSNode name_node = subsubnode;
                   string_desc_t name =
                     sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                                 (char *) contents + ts_node_start_byte (name_node));
+                                 contents + ts_node_start_byte (name_node));
                   #if DEBUG_GO && 0
                   fprintf (stderr, "Local variadic parameter name = %s\n", sd_c (name));
                   #endif
@@ -2783,7 +2783,7 @@ augment_for_var_spec (TSNode node, type_env_t tenv, variable_env_t venv)
               TSNode name_node = subnode;
               string_desc_t name =
                 sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                             (char *) contents + ts_node_start_byte (name_node));
+                             contents + ts_node_start_byte (name_node));
               #if DEBUG_GO && 0
               fprintf (stderr, "Local var name = %s\n", sd_c (name));
               #endif
@@ -2831,7 +2831,7 @@ augment_for_var_spec (TSNode node, type_env_t tenv, variable_env_t venv)
                   TSNode name_node = subnode;
                   string_desc_t name =
                     sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                                 (char *) contents + ts_node_start_byte (name_node));
+                                 contents + ts_node_start_byte (name_node));
                   #if DEBUG_GO && 0
                   fprintf (stderr, "Local var name = %s\n", sd_c (name));
                   #endif
@@ -2887,7 +2887,7 @@ augment_for_const_spec (TSNode node, type_env_t tenv, variable_env_t venv)
   TSNode name_node = ts_node_child_by_field_id (node, ts_field_name);
   string_desc_t name =
     sd_new_addr (ts_node_end_byte (name_node) - ts_node_start_byte (name_node),
-                 (char *) contents + ts_node_start_byte (name_node));
+                 contents + ts_node_start_byte (name_node));
   #if DEBUG_GO && 0
   fprintf (stderr, "Local const name = %s\n", sd_c (name));
   #endif
@@ -2943,7 +2943,7 @@ augment_for_short_variable_declaration (TSNode node, type_env_t tenv, variable_e
           {
             string_desc_t left_var_name =
               sd_new_addr (ts_node_end_byte (left_var_node) - ts_node_start_byte (left_var_node),
-                           (char *) contents + ts_node_start_byte (left_var_node));
+                           contents + ts_node_start_byte (left_var_node));
             if (!sd_equals (left_var_name, sd_from_c ("_")))
               venv = variable_env_augment (venv, left_var_name, mvtypes[i]);
           }
@@ -2998,7 +2998,7 @@ static void handle_comments (TSNode node)
     {
       string_desc_t entire =
         sd_new_addr (ts_node_end_byte (node) - ts_node_start_byte (node),
-                     (char *) contents + ts_node_start_byte (node));
+                     contents + ts_node_start_byte (node));
       /* It should either start with two slashes, or start and end with
          the C comment markers.  */
       if (sd_length (entire) >= 2
@@ -3097,7 +3097,7 @@ extract_from_function_call (TSNode callee_node,
 
   string_desc_t function_name =
     sd_new_addr (ts_node_end_byte (function_node) - ts_node_start_byte (function_node),
-                 (char *) contents + ts_node_start_byte (function_node));
+                 contents + ts_node_start_byte (function_node));
 
   /* Context iterator.  */
   flag_context_list_iterator_ty next_context_iter =
@@ -3130,7 +3130,7 @@ extract_from_function_call (TSNode callee_node,
         {
           string_desc_t shortname =
             sd_new_addr (ts_node_end_byte (operand_node) - ts_node_start_byte (operand_node),
-                         (char *) contents + ts_node_start_byte (operand_node));
+                         contents + ts_node_start_byte (operand_node));
           /* Look up the package's full name.  */
           void *found_package;
           if (hash_find_entry (&package_table,
@@ -3344,13 +3344,13 @@ extract_from_node (TSNode node,
           TSNode operand_node = ts_node_child_by_field_id (callee_node, ts_field_operand);
           string_desc_t operand_name =
             sd_new_addr (ts_node_end_byte (operand_node) - ts_node_start_byte (operand_node),
-                         (char *) contents + ts_node_start_byte (operand_node));
+                         contents + ts_node_start_byte (operand_node));
           fprintf (stderr, "operand_node = [%s]|%s| = %s\n", ts_node_type (operand_node), ts_node_string (operand_node), sd_c (operand_name));
 
           TSNode field_node = ts_node_child_by_field_id (callee_node, ts_field_field);
           string_desc_t field_name =
             sd_new_addr (ts_node_end_byte (field_node) - ts_node_start_byte (field_node),
-                         (char *) contents + ts_node_start_byte (field_node));
+                         contents + ts_node_start_byte (field_node));
           fprintf (stderr, "field_node = [%s]|%s| = %s\n", ts_node_type (field_node), ts_node_string (field_node), sd_c (field_name));
         }
       #endif
@@ -3391,7 +3391,7 @@ extract_from_node (TSNode node,
         {
           string_desc_t subnode_string =
             sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
-                         (char *) contents + ts_node_start_byte (subnode));
+                         contents + ts_node_start_byte (subnode));
           if (sd_equals (subnode_string, sd_from_c ("gettext")))
             {
               TSNode argsnode = ts_node_child_by_field_id (node, ts_field_arguments);

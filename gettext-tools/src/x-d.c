@@ -333,7 +333,7 @@ static void handle_comments (TSNode node)
     {
       string_desc_t entire =
         sd_new_addr (ts_node_end_byte (node) - ts_node_start_byte (node),
-                     (char *) contents + ts_node_start_byte (node));
+                     contents + ts_node_start_byte (node));
       /* It should either start with two slashes...  */
       if (sd_length (entire) >= 2
           && sd_char_at (entire, 0) == '/'
@@ -430,7 +430,7 @@ is_string_literal (TSNode node)
     {
       string_desc_t node_contents =
         sd_new_addr (ts_node_end_byte (node) - ts_node_start_byte (node),
-                     (char *) contents + ts_node_start_byte (node));
+                     contents + ts_node_start_byte (node));
       #if DEBUG_D && 0
       fprintf (stderr, "[%s]|%s|%.*s|\n", ts_node_type (node), ts_node_string (node), (int) sd_length (node_contents), sd_data (node_contents));
       #if 0
@@ -441,7 +441,7 @@ is_string_literal (TSNode node)
           TSNode subnode = ts_node_named_child (node, i);
           string_desc_t subnode_contents =
             sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
-                         (char *) contents + ts_node_start_byte (subnode));
+                         contents + ts_node_start_byte (subnode));
           fprintf (stderr, "%u -> [%s]|%s|%.*s|\n", i, ts_node_type (subnode), ts_node_string (subnode), (int) sd_length (subnode_contents), sd_data (subnode_contents));
           uint32_t count2 = ts_node_child_count (subnode);
           uint32_t j;
@@ -509,7 +509,7 @@ string_literal_accumulate_pieces (TSNode node,
        */
       string_desc_t node_contents =
         sd_new_addr (ts_node_end_byte (node) - ts_node_start_byte (node),
-                     (char *) contents + ts_node_start_byte (node));
+                     contents + ts_node_start_byte (node));
       #if DEBUG_D && 0
       fprintf (stderr, "[%s]|%s|%.*s|\n", ts_node_type (node), ts_node_string (node), (int) sd_length (node_contents), sd_data (node_contents));
       #endif
@@ -543,7 +543,7 @@ string_literal_accumulate_pieces (TSNode node,
                   const char *escape_start = contents + ts_node_start_byte (escnode);
                   const char *escape_end = contents + ts_node_end_byte (escnode);
                   if (escape_end < ptr)
-                    sbr_xprepend_desc (buffer, sd_new_addr (ptr - escape_end, (char *) escape_end));
+                    sbr_xprepend_desc (buffer, sd_new_addr (ptr - escape_end, escape_end));
 
                   /* The escape sequence must start with a backslash.  */
                   if (!(escape_end - escape_start >= 2 && escape_start[0] == '\\'))
@@ -643,7 +643,7 @@ string_literal_accumulate_pieces (TSNode node,
                           int n = u8_uctomb (buf, value, sizeof (buf));
                           if (!(n > 0))
                             abort ();
-                          sbr_xprepend_desc (buffer, sd_new_addr (n, (char *) buf));
+                          sbr_xprepend_desc (buffer, sd_new_addr (n, (const char *) buf));
                         }
                       else
                         invalid = true;
@@ -652,7 +652,7 @@ string_literal_accumulate_pieces (TSNode node,
                     {
                       /* A named character entity.  */
                       string_desc_t entity =
-                        sd_new_addr (escape_end - escape_start - 3, (char *) escape_start + 2);
+                        sd_new_addr (escape_end - escape_start - 3, escape_start + 2);
                       const char *value = html5_lookup (entity);
                       if (value != NULL)
                         sbr_xprepend_c (buffer, value);
@@ -890,7 +890,7 @@ extract_from_function_call (TSNode node,
     {
       string_desc_t function_name =
         sd_new_addr (ts_node_end_byte (function_node) - ts_node_start_byte (function_node),
-                     (char *) contents + ts_node_start_byte (function_node));
+                     contents + ts_node_start_byte (function_node));
 
       /* Context iterator.  */
       next_context_iter =
@@ -1177,7 +1177,7 @@ extract_from_function_call_without_args (TSNode callee_node,
     {
       string_desc_t function_name =
         sd_new_addr (ts_node_end_byte (function_node) - ts_node_start_byte (function_node),
-                     (char *) contents + ts_node_start_byte (function_node));
+                     contents + ts_node_start_byte (function_node));
 
       /* Context iterator.  */
       next_context_iter =
@@ -1335,7 +1335,7 @@ extract_from_template_instantation (TSNode node,
 
   string_desc_t template_name =
     sd_new_addr (ts_node_end_byte (identifier_node) - ts_node_start_byte (identifier_node),
-                 (char *) contents + ts_node_start_byte (identifier_node));
+                 contents + ts_node_start_byte (identifier_node));
 
   /* Handle the potential comments in node, between
      identifier_node and args_node.  */
@@ -1626,7 +1626,7 @@ extract_from_node (TSNode node,
         {
           string_desc_t subnode_string =
             sd_new_addr (ts_node_end_byte (subnode) - ts_node_start_byte (subnode),
-                         (char *) contents + ts_node_start_byte (subnode));
+                         contents + ts_node_start_byte (subnode));
           if (sd_equals (subnode_string, sd_from_c ("gettext")))
             {
               TSNode argsnode = ts_node_named_child (node, 1);
