@@ -1,5 +1,5 @@
-## Makefile for libgrep directory in GNU gettext package.
-## Copyright (C) 2005-2025 Free Software Foundation, Inc.
+## Makefile for the gettext-tools/libgrep/gnulib-lib subdirectory of GNU gettext
+## Copyright (C) 2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -17,9 +17,6 @@
 ## Process this file with automake to produce Makefile.in.
 
 AUTOMAKE_OPTIONS = 1.5 gnits subdir-objects
-
-SUBDIRS = gnulib-lib
-
 EXTRA_DIST =
 BUILT_SOURCES =
 MOSTLYCLEANFILES = core *.stackdump
@@ -27,27 +24,14 @@ MOSTLYCLEANDIRS =
 CLEANFILES =
 DISTCLEANFILES =
 MAINTAINERCLEANFILES =
+SUFFIXES =
 
-noinst_LIBRARIES = libgrep.a
+noinst_LIBRARIES =
 
 # Note that Automake's $(DEFAULT_INCLUDES) already contains
 # -I. -I$(srcdir) -I$(top_builddir).
 AM_CPPFLAGS = \
-  -Ignulib-lib -I$(srcdir)/gnulib-lib \
-  -I../gnulib-lib -I$(top_srcdir)/gnulib-lib \
-  -I../../gettext-runtime/intl
+  -I../../gnulib-lib -I$(top_srcdir)/gnulib-lib
 
-# Enable more warning options in this directory.
-AM_CFLAGS = @WARN_CFLAGS@
-
-# Sources that are compiled on all platforms.
-
-libgrep_a_SOURCES = \
-  libgrep.h \
-  kwset.h kwset.c \
-  m-fgrep.c m-regex.c
-
-libgrep_a_DEPENDENCIES = gnulib-lib/libgnu.a
-
-# Allow users to use "gnulib-tool --update".
-EXTRA_DIST += gnulib-m4/gnulib-cache.m4
+# Rules generated and collected by gnulib-tool.
+include Makefile.gnulib

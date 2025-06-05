@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-2024 Free Software Foundation, Inc.
+## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -233,7 +233,7 @@ libgettextsrc_la_SOURCES = \
   search-path.c
 
 # msggrep needs pattern matching.
-LIBGREP = ../libgrep/libgrep.a
+LIBGREP = ../libgrep/libgrep.a ../libgrep/gnulib-lib/libgnu.a
 
 # Source dependencies.
 msgcmp_SOURCES = msgcmp.c
