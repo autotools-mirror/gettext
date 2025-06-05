@@ -3,7 +3,7 @@
 
 # Test Scheme support: #!fold-case and #!no-fold-case directives.
 
-cat <<\EOF > xg-sc-7.scm
+cat <<\EOF > xg-sc-6.scm
 (display (gettext "orange"))
 (Display (GetText "mango"))
 #!fold-case
@@ -19,9 +19,9 @@ cat <<\EOF > xg-sc-7.scm
 EOF
 
 : ${XGETTEXT=xgettext}
-${XGETTEXT} --omit-header --no-location -d xg-sc-7 xg-sc-7.scm || Exit 1
+${XGETTEXT} --omit-header --no-location -d xg-sc-6 xg-sc-6.scm || Exit 1
 
-cat <<\EOF > xg-sc-7.ok
+cat <<\EOF > xg-sc-6.ok
 msgid "orange"
 msgstr ""
 
@@ -43,7 +43,7 @@ msgstr ""
 EOF
 
 : ${DIFF=diff}
-${DIFF} xg-sc-7.ok xg-sc-7.po
+${DIFF} xg-sc-6.ok xg-sc-6.po
 result=$?
 
 exit $result
