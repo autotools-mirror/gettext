@@ -279,7 +279,7 @@ libxgettextts4_a_CPPFLAGS = \
 libxgettextts4_a_CFLAGS = $(AM_CFLAGS) @FOREIGN_WARN_CFLAGS@ @NO_EXPENSIVE_WARN_CFLAGS@
 
 # msggrep needs pattern matching.
-LIBGREP = ../libgrep/libgrep.a
+LIBGREP = ../libgrep/libgrep.a ../libgrep/gnulib-lib/libgnu.a
 
 # Source dependencies.
 msgcmp_SOURCES = msgcmp.c

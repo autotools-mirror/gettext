@@ -381,7 +381,7 @@ if ! $skip_gnulib; then
     mbrlen
     regex
   '
-  $GNULIB_TOOL --dir=gettext-tools --macro-prefix=grgl --lib=libgrep --source-base=libgrep --m4-base=libgrep/gnulib-m4 --witness-c-macro=IN_GETTEXT_TOOLS_LIBGREP --makefile-name=Makefile.gnulib --local-dir=gnulib-local --local-symlink \
+  $GNULIB_TOOL --dir=gettext-tools --macro-prefix=grgl --source-base=libgrep/gnulib-lib --m4-base=libgrep/gnulib-m4 --makefile-name=Makefile.gnulib --witness-c-macro=IN_GETTEXT_TOOLS_LIBGREP --local-dir=gnulib-local --local-symlink \
     --import \
     `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do \
        if test \`$GNULIB_TOOL --extract-applicability $m\` != all; then \

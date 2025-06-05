@@ -673,6 +673,7 @@ AC_CONFIG_FILES([its/Makefile])
 AC_CONFIG_FILES([gnulib-lib/Makefile])
 
 AC_CONFIG_FILES([libgrep/Makefile])
+AC_CONFIG_FILES([libgrep/gnulib-lib/Makefile])
 
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([src/user-email:src/user-email.sh.in])
