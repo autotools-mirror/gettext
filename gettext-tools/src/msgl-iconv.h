@@ -1,5 +1,5 @@
 /* Message list character set conversion.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -49,7 +49,7 @@ struct conversion_context
    Assumes that either FROM_CODE or TO_CODE is UTF-8.  */
 extern char *convert_string_directly (iconv_t cd, const char *string,
                                       const struct conversion_context* context);
-extern string_desc_t
+extern rw_string_desc_t
        convert_string_desc_directly (iconv_t cd, string_desc_t string,
                                      const struct conversion_context* context);
 
