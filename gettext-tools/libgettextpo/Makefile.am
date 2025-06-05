@@ -160,7 +160,7 @@ endif
 all check install: config.h
 config.h: $(BUILT_SOURCES)
 	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  : "Avoid double inclusion, to avoid a warning about redefinition of DLL_VARIABLE."; \
+	  : "Avoid double inclusion, to avoid a warning about redefinition of DLL_VARIABLE and LIBGETTEXTSRC_DLL_VARIABLE."; \
 	  echo '#ifndef GTPO_CONFIG_H'; \
 	  echo '#define GTPO_CONFIG_H'; \
 	  echo; \
@@ -173,6 +173,8 @@ config.h: $(BUILT_SOURCES)
 	  : "No references to variables in other libraries exist."; \
 	  echo '#undef DLL_VARIABLE'; \
 	  echo '#define DLL_VARIABLE'; \
+	  echo '#undef LIBGETTEXTSRC_DLL_VARIABLE'; \
+	  echo '#define LIBGETTEXTSRC_DLL_VARIABLE'; \
 	  echo; \
 	  echo '#endif /* GTPO_CONFIG_H */'; \
 	} > config.h && \

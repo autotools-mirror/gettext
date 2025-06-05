@@ -460,6 +460,9 @@ endif
 
 libgettextsrc_la_CPPFLAGS = $(AM_CPPFLAGS) $(INCXML)
 
+# Needed for the expansion of LIBGETTEXTSRC_DLL_VARIABLE on MSVC.
+libgettextsrc_la_CPPFLAGS += -DIN_LIBGETTEXTSRC
+
 # Tell the mingw or Cygwin linker which symbols to export.
 if WOE32DLL
 libgettextsrc_la_SOURCES += ../woe32dll/gettextsrc-exports.c

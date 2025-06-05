@@ -1,5 +1,5 @@
 /* Table of known plural form expressions.
-   Copyright (C) 2001-2003 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2002.
 
    This program is free software: you can redistribute it and/or modify
@@ -27,7 +27,7 @@ struct plural_table_entry
   const char *value;
 };
 
-extern DLL_VARIABLE struct plural_table_entry plural_table[];
-extern DLL_VARIABLE const size_t plural_table_size;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct plural_table_entry plural_table[];
+extern LIBGETTEXTSRC_DLL_VARIABLE const size_t plural_table_size;
 
 #endif /* _PLURAL_TABLE_H */

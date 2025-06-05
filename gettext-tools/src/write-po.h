@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-1998, 2000-2003, 2006, 2008, 2014, 2018-2019, 2021, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -83,7 +83,7 @@ extern bool handle_filepos_comment_option (const char *option);
 
 
 /* Describes a PO file in .po syntax.  */
-extern DLL_VARIABLE const struct catalog_output_format output_format_po;
+extern LIBGETTEXTSRC_DLL_VARIABLE const struct catalog_output_format output_format_po;
 
 
 #ifdef __cplusplus

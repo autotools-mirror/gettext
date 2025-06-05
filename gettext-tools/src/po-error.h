@@ -1,5 +1,5 @@
 /* Error handling during reading and writing of PO files.
-   Copyright (C) 2004, 2006, 2012 Free Software Foundation, Inc.
+   Copyright (C) 2004-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2004.
 
    This program is free software: you can redistribute it and/or modify
@@ -42,14 +42,14 @@ extern "C" {
      - The functions must increment the error_message_count variable declared
        in error.h.  */
 
-extern DLL_VARIABLE
+extern LIBGETTEXTSRC_DLL_VARIABLE
        void (*po_error) (int status, int errnum,
                          const char *format, ...)
 #if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3
        __attribute__ ((__format__ (__printf__, 3, 4)))
 #endif
        ;
-extern DLL_VARIABLE
+extern LIBGETTEXTSRC_DLL_VARIABLE
        void (*po_error_at_line) (int status, int errnum,
                                  const char *filename, unsigned int lineno,
                                  const char *format, ...)
@@ -63,9 +63,9 @@ extern DLL_VARIABLE
      - multiline_error must increment the error_message_count variable declared
        in error.h if prefix != NULL.  */
 
-extern DLL_VARIABLE
+extern LIBGETTEXTSRC_DLL_VARIABLE
        void (*po_multiline_warning) (char *prefix, char *message);
-extern DLL_VARIABLE
+extern LIBGETTEXTSRC_DLL_VARIABLE
        void (*po_multiline_error) (char *prefix, char *message);
 
 

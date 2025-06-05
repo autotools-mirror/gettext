@@ -128,6 +128,11 @@ gl_PROG_AR_RANLIB
 dnl Set preferences for the gnulib module 'threadlib'.
 gl_AVOID_WINPTHREAD
 
+dnl Customization of libunistring gnulib modules: The code of these modules
+dnl is compiled into libgettextlib, which is associated with the C macro
+dnl 'DLL_VARIABLE' (see below).
+GL_GNULIB_LIBUNISTRING_DLL_VARIABLE_NAME='DLL_VARIABLE'
+
 dnl Make sure we see all GNU and Solaris extensions.
 gl_EARLY
 grgl_EARLY
@@ -342,6 +347,10 @@ else
   is_woe32dll=no
 fi
 AM_CONDITIONAL([WOE32DLL], [test $is_woe32dll = yes])
+if test $is_woe32dll = yes; then
+  AC_DEFINE([WOE32DLL], [1],
+    [Define when --enable-shared is used on Windows.])
+fi
 
 GETTEXTLIB_EXPORTS_FLAGS=
 dnl woe32dll/gettextlib-exports.c needs to know whether the getopt facility
@@ -403,10 +412,38 @@ AH_BOTTOM([
    the C macro DLL_EXPORT (together with PIC) when compiling for a shared
    library (called DLL under Windows) and does not define it when compiling
    an object file meant to be linked statically into some executable.  */
-#if (defined _WIN32 || defined __CYGWIN__) && defined DLL_EXPORT && !defined IN_RELOCWRAPPER
+/* DLL_VARIABLE               is used for variables defined in libgettextlib.
+   LIBGETTEXTSRC_DLL_VARIABLE is used for variables defined in libgettextsrc.
+ */
+#if defined _MSC_VER && WOE32DLL && !defined IN_RELOCWRAPPER
+# if IN_LIBGETTEXTLIB
+#  if defined DLL_EXPORT
+#   define DLL_VARIABLE __declspec (dllexport)
+#  else
+#   define DLL_VARIABLE
+#  endif
+# else
+#  define DLL_VARIABLE __declspec (dllimport)
+# endif
+#elif (defined _WIN32 || defined __CYGWIN__) && defined DLL_EXPORT && !defined IN_RELOCWRAPPER
 # define DLL_VARIABLE __declspec (dllimport)
 #else
 # define DLL_VARIABLE
+#endif
+#if defined _MSC_VER && WOE32DLL && !defined IN_RELOCWRAPPER
+# if IN_LIBGETTEXTSRC
+#  if defined DLL_EXPORT
+#   define LIBGETTEXTSRC_DLL_VARIABLE __declspec (dllexport)
+#  else
+#   define LIBGETTEXTSRC_DLL_VARIABLE
+#  endif
+# else
+#  define LIBGETTEXTSRC_DLL_VARIABLE __declspec (dllimport)
+# endif
+#elif (defined _WIN32 || defined __CYGWIN__) && defined DLL_EXPORT && !defined IN_RELOCWRAPPER
+# define LIBGETTEXTSRC_DLL_VARIABLE __declspec (dllimport)
+#else
+# define LIBGETTEXTSRC_DLL_VARIABLE
 #endif
 
 /* Extra OS/2 (emx+gcc) defines.  */

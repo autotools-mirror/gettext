@@ -372,7 +372,8 @@ if ! $skip_gnulib; then
     --import \
     --avoid=hashcode-string1 \
     --avoid=fdutimensat-tests --avoid=futimens-tests --avoid=utime-tests --avoid=utimens-tests --avoid=utimensat-tests \
-    --avoid=array-list-tests --avoid=linked-list-tests --avoid=linkedhash-list-tests \
+    --avoid=array-list-tests --avoid=array-map-tests --avoid=array-oset-tests --avoid=carray-list-tests --avoid=linked-list-tests --avoid=linkedhash-list-tests \
+    --avoid=uninorm/decomposing-form-tests \
     `for m in $GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS; do echo --avoid=$m; done` \
     $GNULIB_MODULES_LIBGETTEXTLIB || exit $?
   $GNULIB_TOOL --copy-file m4/libtextstyle.m4 gettext-tools/gnulib-m4/libtextstyle.m4 || exit $?

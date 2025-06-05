@@ -1,5 +1,5 @@
 /* Charset handling while reading PO files.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -38,10 +38,10 @@ extern "C" {
 extern const char *po_charset_canonicalize (const char *charset);
 
 /* The canonicalized encoding name for ASCII.  */
-extern DLL_VARIABLE const char *po_charset_ascii;
+extern LIBGETTEXTSRC_DLL_VARIABLE const char *po_charset_ascii;
 
 /* The canonicalized encoding name for UTF-8.  */
-extern DLL_VARIABLE const char *po_charset_utf8;
+extern LIBGETTEXTSRC_DLL_VARIABLE const char *po_charset_utf8;
 
 /* Test for ASCII compatibility.  */
 extern bool po_charset_ascii_compatible (const char *canon_charset);
