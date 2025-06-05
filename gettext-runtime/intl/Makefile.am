@@ -464,7 +464,7 @@ install-exec-local: install-exec-libintl
 install-exec-libintl: libintl.la
 	$(mkdir_p) $(DESTDIR)$(libdir)
 	$(LIBTOOL) --mode=install \
-	  $(INSTALL_DATA) libintl.la $(DESTDIR)$(libdir)/libintl.la; \
+	  $(INSTALL) libintl.la $(DESTDIR)$(libdir)/libintl.la; \
 	if test "@RELOCATABLE@" = yes; then \
 	  dependencies=`sed -n -e 's,^dependency_libs=\(.*\),\1,p' < $(DESTDIR)$(libdir)/libintl.la | sed -e "s,^',," -e "s,'\$$,,"`; \
 	  if test -n "$$dependencies"; then \
