@@ -31,6 +31,9 @@ VARIABLE(error_print_progname)
 #endif
 VARIABLE(error_with_progname)
 VARIABLE(exit_failure)
+VARIABLE(gl_carray_list_implementation)
+VARIABLE(gl_hash_map_implementation)
+VARIABLE(gl_hash_set_implementation)
 VARIABLE(gl_linkedhash_list_implementation)
 VARIABLE(program_name)
 #if GNULIB_DEFINED_GETOPT

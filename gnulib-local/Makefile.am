@@ -34,6 +34,9 @@ lib/getlocalename_l-unsafe.c.diff \
 lib/getopt-core.h.diff \
 lib/gettext.h \
 lib/gl_array_list.h.diff \
+lib/gl_carray_list.h.diff \
+lib/gl_hash_map.h.diff \
+lib/gl_hash_set.h.diff \
 lib/gl_linkedhash_list.h.diff \
 lib/libxml/buf.c \
 lib/libxml/buf.h \
