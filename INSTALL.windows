@@ -78,10 +78,6 @@ There are three ways to create binaries of this package for Microsoft Windows:
    (api-ms-win*.dll) through the Windows Update mechanism, see
    https://support.microsoft.com/en-us/kb/2999226 .
 
-   Another constraint is that shared libraries built as part of this package
-   may not work (at least with MSVC 14.0).  Therefore, you will need to pass
-   the configure option '--disable-shared' when building this package.
-
    This recipe requires MS Visual C/C++ 9.0 or newer.
    You don't need the Visual Studio IDE, just the C/C++ tool chain.
    As of 2016, you can install the MS Visual C/C++ 14.0 tool chain from
