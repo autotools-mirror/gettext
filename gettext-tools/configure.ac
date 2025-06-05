@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-tools directory of GNU gettext
-dnl Copyright (C) 1995-2024 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2025 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -628,6 +628,7 @@ AC_CONFIG_FILES([its/Makefile])
 AC_CONFIG_FILES([gnulib-lib/Makefile])
 
 AC_CONFIG_FILES([libgrep/Makefile])
+AC_CONFIG_FILES([libgrep/gnulib-lib/Makefile])
 
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([src/user-email:src/user-email.sh.in])

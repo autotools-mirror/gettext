@@ -6,7 +6,7 @@
 #
 # This script requires autoconf-2.64..2.71 and automake-1.13..1.16 in the PATH.
 
-# Copyright (C) 2003-2023 Free Software Foundation, Inc.
+# Copyright (C) 2003-2025 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -314,7 +314,7 @@ if ! $skip_gnulib; then
     mbrlen
     regex
   '
-  $GNULIB_TOOL --dir=gettext-tools --macro-prefix=grgl --lib=libgrep --source-base=libgrep --m4-base=libgrep/gnulib-m4 --witness-c-macro=IN_GETTEXT_TOOLS_LIBGREP --makefile-name=Makefile.gnulib --local-dir=gnulib-local --local-symlink \
+  $GNULIB_TOOL --dir=gettext-tools --macro-prefix=grgl --source-base=libgrep/gnulib-lib --m4-base=libgrep/gnulib-m4 --makefile-name=Makefile.gnulib --witness-c-macro=IN_GETTEXT_TOOLS_LIBGREP --local-dir=gnulib-local --local-symlink \
     --import \
     `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do \
        if test \`$GNULIB_TOOL --extract-applicability $m\` != all; then \

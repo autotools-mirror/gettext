@@ -205,7 +205,7 @@ libgettextsrc_la_SOURCES = \
   search-path.c
 
 # msggrep needs pattern matching.
-LIBGREP = ../libgrep/libgrep.a
+LIBGREP = ../libgrep/libgrep.a ../libgrep/gnulib-lib/libgnu.a
 
 # Source dependencies.
 msgcmp_SOURCES = msgcmp.c
