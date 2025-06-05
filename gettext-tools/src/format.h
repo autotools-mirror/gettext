@@ -100,44 +100,44 @@ struct formatstring_parser
 };
 
 /* Format string parsers, each defined in its own file.  */
-extern DLL_VARIABLE struct formatstring_parser formatstring_c;
-extern DLL_VARIABLE struct formatstring_parser formatstring_objc;
-extern DLL_VARIABLE struct formatstring_parser formatstring_cplusplus_brace;
-extern DLL_VARIABLE struct formatstring_parser formatstring_python;
-extern DLL_VARIABLE struct formatstring_parser formatstring_python_brace;
-extern DLL_VARIABLE struct formatstring_parser formatstring_java;
-extern DLL_VARIABLE struct formatstring_parser formatstring_java_printf;
-extern DLL_VARIABLE struct formatstring_parser formatstring_csharp;
-extern DLL_VARIABLE struct formatstring_parser formatstring_javascript;
-extern DLL_VARIABLE struct formatstring_parser formatstring_scheme;
-extern DLL_VARIABLE struct formatstring_parser formatstring_lisp;
-extern DLL_VARIABLE struct formatstring_parser formatstring_elisp;
-extern DLL_VARIABLE struct formatstring_parser formatstring_librep;
-extern DLL_VARIABLE struct formatstring_parser formatstring_rust;
-extern DLL_VARIABLE struct formatstring_parser formatstring_go;
-extern DLL_VARIABLE struct formatstring_parser formatstring_ruby;
-extern DLL_VARIABLE struct formatstring_parser formatstring_sh;
-extern DLL_VARIABLE struct formatstring_parser formatstring_awk;
-extern DLL_VARIABLE struct formatstring_parser formatstring_lua;
-extern DLL_VARIABLE struct formatstring_parser formatstring_pascal;
-extern DLL_VARIABLE struct formatstring_parser formatstring_modula2;
-extern DLL_VARIABLE struct formatstring_parser formatstring_d;
-extern DLL_VARIABLE struct formatstring_parser formatstring_smalltalk;
-extern DLL_VARIABLE struct formatstring_parser formatstring_qt;
-extern DLL_VARIABLE struct formatstring_parser formatstring_qt_plural;
-extern DLL_VARIABLE struct formatstring_parser formatstring_kde;
-extern DLL_VARIABLE struct formatstring_parser formatstring_kde_kuit;
-extern DLL_VARIABLE struct formatstring_parser formatstring_boost;
-extern DLL_VARIABLE struct formatstring_parser formatstring_tcl;
-extern DLL_VARIABLE struct formatstring_parser formatstring_perl;
-extern DLL_VARIABLE struct formatstring_parser formatstring_perl_brace;
-extern DLL_VARIABLE struct formatstring_parser formatstring_php;
-extern DLL_VARIABLE struct formatstring_parser formatstring_gcc_internal;
-extern DLL_VARIABLE struct formatstring_parser formatstring_gfc_internal;
-extern DLL_VARIABLE struct formatstring_parser formatstring_ycp;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_c;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_objc;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_cplusplus_brace;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_python;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_python_brace;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_java;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_java_printf;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_csharp;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_javascript;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_scheme;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_lisp;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_elisp;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_librep;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_rust;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_go;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_ruby;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_sh;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_awk;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_lua;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_pascal;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_modula2;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_d;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_smalltalk;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_qt;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_qt_plural;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_kde;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_kde_kuit;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_boost;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_tcl;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_perl;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_perl_brace;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_php;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_gcc_internal;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_gfc_internal;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_ycp;
 
 /* Table of all format string parsers.  */
-extern DLL_VARIABLE struct formatstring_parser *formatstring_parsers[NFORMATS];
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser *formatstring_parsers[NFORMATS];
 
 /* Returns an array of the ISO C 99 <inttypes.h> format directives and other
    format flags or directives with a system dependent expansion contained in

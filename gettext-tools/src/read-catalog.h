@@ -1,5 +1,5 @@
 /* Reading textual message catalogs (such as PO files).
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
    This file was written by Bruno Haible <haible@clisp.cons.org>.
 
    This program is free software: you can redistribute it and/or modify
@@ -172,7 +172,7 @@ extern default_catalog_reader_ty *
 /* If false, duplicate msgids in the same domain and file generate an error.
    If true, such msgids are allowed; the caller should treat them
    appropriately.  Defaults to false.  */
-extern DLL_VARIABLE bool allow_duplicates;
+extern LIBGETTEXTSRC_DLL_VARIABLE bool allow_duplicates;
 
 /* Read the input file from a stream.  Returns a list of messages.  */
 extern msgdomain_list_ty *
