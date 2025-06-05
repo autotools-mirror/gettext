@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/gnulib-lib subdirectory of GNU gettext
-## Copyright (C) 1995-2024 Free Software Foundation, Inc.
+## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -43,6 +43,9 @@ AM_CPPFLAGS =
 AM_CPPFLAGS += -I../../gettext-runtime/intl
 # Needed so that woe32dll/export.h is found.
 AM_CPPFLAGS += -I$(top_srcdir)
+
+# Needed for the expansion of DLL_VARIABLE on MSVC.
+AM_CPPFLAGS += -DIN_LIBGETTEXTLIB
 
 # Parametrization of the 'relocatable' module.
 AM_CPPFLAGS += -DDEPENDS_ON_LIBICONV=1 -DDEPENDS_ON_LIBINTL=1
