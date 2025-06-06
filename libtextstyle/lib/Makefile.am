@@ -237,6 +237,7 @@ config.h: $(BUILT_SOURCES) libtextstyle.sym
 	    } 5>&1 1>&2 \
 	      | sed -e 's,.* ,,' | grep -v '@' | LC_ALL=C sort | LC_ALL=C uniq \
 	      | LC_ALL=C $(top_srcdir)/build-aux/join-v-1 - libtextstyle.sym \
+	      | grep -v 'gl_get_setlocale_null_lock' \
 	      | sed -e 's,^\(.*\)$$,#define \1 libtextstyle_\1,' > config.h-t; \
 	  } 6>&1 && \
 	  if test -f config.h; then \
