@@ -402,7 +402,7 @@ AH_BOTTOM([
 /* DLL_VARIABLE               is used for variables defined in libgettextlib.
    LIBGETTEXTSRC_DLL_VARIABLE is used for variables defined in libgettextsrc.
  */
-#if defined _MSC_VER && WOE32DLL && !defined IN_RELOCWRAPPER
+#if (defined _WIN32 || defined __CYGWIN__) && WOE32DLL && !defined IN_RELOCWRAPPER
 # if IN_LIBGETTEXTLIB
 #  if defined DLL_EXPORT
 #   define DLL_VARIABLE __declspec (dllexport)
@@ -412,12 +412,10 @@ AH_BOTTOM([
 # else
 #  define DLL_VARIABLE __declspec (dllimport)
 # endif
-#elif (defined _WIN32 || defined __CYGWIN__) && defined DLL_EXPORT && !defined IN_RELOCWRAPPER
-# define DLL_VARIABLE __declspec (dllimport)
 #else
 # define DLL_VARIABLE
 #endif
-#if defined _MSC_VER && WOE32DLL && !defined IN_RELOCWRAPPER
+#if (defined _WIN32 || defined __CYGWIN__) && WOE32DLL && !defined IN_RELOCWRAPPER
 # if IN_LIBGETTEXTSRC
 #  if defined DLL_EXPORT
 #   define LIBGETTEXTSRC_DLL_VARIABLE __declspec (dllexport)
@@ -427,8 +425,6 @@ AH_BOTTOM([
 # else
 #  define LIBGETTEXTSRC_DLL_VARIABLE __declspec (dllimport)
 # endif
-#elif (defined _WIN32 || defined __CYGWIN__) && defined DLL_EXPORT && !defined IN_RELOCWRAPPER
-# define LIBGETTEXTSRC_DLL_VARIABLE __declspec (dllimport)
 #else
 # define LIBGETTEXTSRC_DLL_VARIABLE
 #endif
