@@ -463,13 +463,6 @@ libgettextsrc_la_CPPFLAGS = $(AM_CPPFLAGS) $(INCXML)
 # Needed for the expansion of LIBGETTEXTSRC_DLL_VARIABLE on MSVC.
 libgettextsrc_la_CPPFLAGS += -DIN_LIBGETTEXTSRC
 
-# Tell the mingw or Cygwin linker which symbols to export.
-if WOE32DLL
-libgettextsrc_la_SOURCES += ../woe32dll/gettextsrc-exports.c
-libgettextsrc_la_LDFLAGS += -Wl,--export-all-symbols
-libgettextsrc_la_CPPFLAGS += $(GETTEXTLIB_EXPORTS_FLAGS)
-endif
-
 # Specify installation directory, for --enable-relocatable.
 if RELOCATABLE_VIA_LD
 # This is needed, because libgettextsrc depends on libgettextlib and libintl.

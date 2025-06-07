@@ -352,21 +352,6 @@ if test $is_woe32dll = yes; then
     [Define when --enable-shared is used on Windows.])
 fi
 
-GETTEXTLIB_EXPORTS_FLAGS=
-dnl woe32dll/gettextlib-exports.c needs to know whether the getopt facility
-dnl is replaced by gnulib. GETOPT_H is set by gl_FUNC_GETOPT_POSIX, inside
-dnl gl_INIT.
-if test -n "$GETOPT_H"; then
-  GETTEXTLIB_EXPORTS_FLAGS="-DGNULIB_DEFINED_GETOPT $GETTEXTLIB_EXPORTS_FLAGS"
-fi
-dnl woe32dll/gettextlib-exports.c needs to know whether the error
-dnl facility is replaced by gnulib. ac_cv_lib_error_at_line is set by
-dnl gl_ERROR, inside gl_INIT.
-if test "$ac_cv_lib_error_at_line" = no; then
-  GETTEXTLIB_EXPORTS_FLAGS="-DGNULIB_DEFINED_ERROR $GETTEXTLIB_EXPORTS_FLAGS"
-fi
-AC_SUBST([GETTEXTLIB_EXPORTS_FLAGS])
-
 dnl Tell the source files that the error facility is overridden by gnulib,
 dnl to make sure to prepend "rpl_" prefix to the error_* symbols.
 dnl This is only necessary on Cygwin and on Android.
