@@ -12,6 +12,10 @@ Version 0.26 - July 2025
       in a context that requires a format string.  You can override this
       heuristic by using a comment of the form /* xgettext: c-format */.
 
+# Bug fixes:
+  - The AM_GNU_GETTEXT macro now recognizes, on MSVC, the GNU libintl built
+    as a shared library.
+
 Version 0.25 - May 2025
 
 # Programming languages support:
