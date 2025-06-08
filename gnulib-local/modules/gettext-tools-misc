@@ -29,6 +29,13 @@ endif
 
 lib_LDFLAGS += -release @VERSION@
 
+# Tell the mingw or Cygwin linker which symbols to export.
+if WOE32DLL
+if !WINDOWS_MSVC
+lib_LDFLAGS += -Wl,--export-all-symbols
+endif
+endif
+
 Include:
 
 License:

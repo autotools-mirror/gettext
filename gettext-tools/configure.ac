@@ -178,6 +178,21 @@ case "$host_os" in
 esac
 AM_CONDITIONAL([WINDOWS_NATIVE], [test $is_windows_native = yes])
 
+dnl Linking a shared library works slightly differently on MSVC than on
+dnl Cygwin and mingw.
+is_msvc=false
+case "$host_os" in
+  windows*-msvc*) is_msvc=true ;;
+  mingw* | windows*)
+    AC_EGREP_CPP([Special], [
+#ifdef _MSC_VER
+ Special
+#endif
+], [is_msvc=true])
+    ;;
+esac
+gl_CONDITIONAL([WINDOWS_MSVC], [$is_msvc])
+
 dnl Package-private libraries do not need to be installed when we build only
 dnl static libraries. Don't install them in this case. This avoids a build
 dnl error on AIX with --enable-shared, when some other version of GNU gettext,
