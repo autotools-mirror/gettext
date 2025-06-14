@@ -220,17 +220,6 @@ AC_SUBST([CROSS_COMPILING])
 dnl Checks for optional programs for the tests/lang-* tests.
 gl_PROG_ANSI_CXX([CXX], [ANSICXX])
 
-dnl Checks for special libraries for the tests/test-lock test.
-dnl On some systems, sched_yield is in librt, rather than in libpthread.
-LIBSCHED=
-if test $gl_threads_api = posix; then
-  dnl Solaris has sched_yield in librt, not in libpthread or libc.
-  AC_CHECK_LIB([rt], [sched_yield], [LIBSCHED=-lrt],
-    [dnl Solaris 2.5.1, 2.6 has sched_yield in libposix4, not librt.
-     AC_CHECK_LIB([posix4], [sched_yield], [LIBSCHED=-lposix4])])
-fi
-AC_SUBST([LIBSCHED])
-
 dnl Determine whether to build libasprintf.
 AC_ARG_ENABLE([libasprintf],
   [  --disable-libasprintf   do not build libasprintf],
