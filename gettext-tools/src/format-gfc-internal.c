@@ -58,7 +58,10 @@
 
    When numbered argument specifications are used, specifying the Nth argument
    requires that all the leading arguments, from the first to the (N-1)th, are
-   specified in the format string.  */
+   specified in the format string.
+
+   These gfc-internal format strings were removed from GCC on 2024-10-11 (for
+   GCC 15.1.0).  */
 
 enum format_arg_type
 {
