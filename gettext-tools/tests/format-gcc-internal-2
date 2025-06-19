@@ -7,12 +7,21 @@ cat <<\EOF > f-gi-2.data
 # Valid: %% doesn't count
 msgid  "abc%%def"
 msgstr "xyz"
-# Valid: %< doesn't count
-msgid  "abc%<def"
+# Valid: %< %> doesn't count
+msgid  "abc%<def%>ghi"
 msgstr "xyz"
-# Valid: %> doesn't count
-msgid  "abc%>def"
-msgstr "xyz"
+# Invalid: use of %< without %>
+msgid  "abc%<def%>ghi"
+msgstr "xyz%<"
+# Invalid: use of %> without %<
+msgid  "abc%<def%>ghi"
+msgstr "xyz%>"
+# Invalid: use of %r without %R
+msgid  "abc%rdef%Rghi"
+msgstr "xyz%r"
+# Invalid: use of %{ without %}
+msgid  "abc%{def%}ghi"
+msgstr "xyz%{"
 # Valid: %' doesn't count
 msgid  "abc%'def"
 msgstr "xyz"
@@ -71,157 +80,157 @@ msgstr "xyz%u"
 msgid  "abc%u"
 msgstr "xyz%x"
 # Invalid: type incompatibility
-msgid  "abc%r"
-msgstr "xyz%{"
+msgid  "abc%r%R"
+msgstr "xyz%{%}"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%c"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%s"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%i"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%u"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%f"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%p"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%@"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%e"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%Z"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%D"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%E"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%F"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%T"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%V"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%v"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%A"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%H"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%I"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%O"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%P"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%Q"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%S"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%X"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%C"
 # Invalid: type incompatibility
-msgid  "abc%r"
+msgid  "abc%r%R"
 msgstr "xyz%L"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%c"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%s"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%i"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%u"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%f"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%p"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%@"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%e"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%Z"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%D"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%E"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%F"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%T"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%V"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%v"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%A"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%H"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%I"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%O"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%P"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%Q"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%S"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%X"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%C"
 # Invalid: type incompatibility
-msgid  "abc%{"
+msgid  "abc%{%}"
 msgstr "xyz%L"
 # Invalid: type incompatibility
 msgid  "abc%c"

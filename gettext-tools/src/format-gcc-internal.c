@@ -202,6 +202,9 @@ format_parse (const char *format, bool translated, char *fdi,
   struct spec spec;
   unsigned int numbered_allocated;
   unsigned int unnumbered_arg_count;
+  unsigned int in_quote_group;
+  unsigned int in_color_group;
+  unsigned int in_url_group;
   struct spec *result;
 
   spec.directives = 0;
@@ -211,6 +214,9 @@ format_parse (const char *format, bool translated, char *fdi,
   spec.uses_current_locus = false;
   numbered_allocated = 0;
   unnumbered_arg_count = 0;
+  in_quote_group = 0;
+  in_color_group = 0;
+  in_url_group = 0;
 
   for (; *format != '\0';)
     /* Invariant: spec.numbered_arg_count == 0 || unnumbered_arg_count == 0.  */
@@ -220,9 +226,48 @@ format_parse (const char *format, bool translated, char *fdi,
         FDI_SET (format - 1, FMTDIR_START);
         spec.directives++;
 
-        if (*format == '%' || *format == '<' || *format == '>'
-            || *format == '}' || *format == '\'' || *format == 'R')
+        if (*format == '%' || *format == '\'')
           ;
+        else if (*format == '<')
+          {
+            if (in_quote_group)
+              {
+                *invalid_reason = xasprintf (_("The directive number %u opens a quote group, but the previous one is not terminated."), spec.directives);
+                FDI_SET (format, FMTDIR_ERROR);
+                goto bad_format;
+              }
+            in_quote_group = spec.directives;
+          }
+        else if (*format == '>')
+          {
+            if (!in_quote_group)
+              {
+                *invalid_reason = xasprintf (_("The directive number %u does not match a preceding '%%%c'."), spec.directives, '<');
+                FDI_SET (format, FMTDIR_ERROR);
+                goto bad_format;
+              }
+            in_quote_group = 0;
+          }
+        else if (*format == 'R')
+          {
+            if (!in_color_group)
+              {
+                *invalid_reason = xasprintf (_("The directive number %u does not match a preceding '%%%c'."), spec.directives, 'r');
+                FDI_SET (format, FMTDIR_ERROR);
+                goto bad_format;
+              }
+            in_color_group = 0;
+          }
+        else if (*format == '}')
+          {
+            if (!in_url_group)
+              {
+                *invalid_reason = xasprintf (_("The directive number %u does not match a preceding '%%%c'."), spec.directives, '{');
+                FDI_SET (format, FMTDIR_ERROR);
+                goto bad_format;
+              }
+            in_url_group = 0;
+          }
         else if (*format == 'm')
           spec.uses_err_no = true;
         else if (*format == 'C')
@@ -482,9 +527,27 @@ format_parse (const char *format, bool translated, char *fdi,
             else if (*format == 'Z')
               type = FAT_INT_ARRAY_PART1;
             else if (*format == 'r')
-              type = FAT_COLOR;
+              {
+                if (in_color_group)
+                  {
+                    *invalid_reason = xasprintf (_("The directive number %u opens a color group, but the previous one is not terminated."), spec.directives);
+                    FDI_SET (format, FMTDIR_ERROR);
+                    goto bad_format;
+                  }
+                in_color_group = spec.directives;
+                type = FAT_COLOR;
+              }
             else if (*format == '{')
-              type = FAT_URL;
+              {
+                if (in_url_group)
+                  {
+                    *invalid_reason = xasprintf (_("The directive number %u opens a URL group, but the previous one is not terminated."), spec.directives);
+                    FDI_SET (format, FMTDIR_ERROR);
+                    goto bad_format;
+                  }
+                in_url_group = spec.directives;
+                type = FAT_URL;
+              }
             else if (*format == 'D')
               type = FAT_TREE | FAT_TREE_DECL;
             else if (*format == 'F')
@@ -603,6 +666,22 @@ format_parse (const char *format, bool translated, char *fdi,
 
         format++;
       }
+
+  if (in_quote_group)
+    {
+      *invalid_reason = xasprintf (_("The quote group opened by the directive number %u is not terminated."), in_quote_group);
+      goto bad_format;
+    }
+  if (in_color_group)
+    {
+      *invalid_reason = xasprintf (_("The color group opened by the directive number %u is not terminated."), in_color_group);
+      goto bad_format;
+    }
+  if (in_url_group)
+    {
+      *invalid_reason = xasprintf (_("The URL group opened by the directive number %u is not terminated."), in_url_group);
+      goto bad_format;
+    }
 
   /* Convert the unnumbered argument array to numbered arguments.  */
   if (unnumbered_arg_count > 0)

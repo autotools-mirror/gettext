@@ -7,20 +7,26 @@ cat <<\EOF > f-gi-1.data
 # Valid: no argument
 "abc%%"
 # Valid: no argument
+"abc%<def%>"
+# Invalid: unterminated quote group
 "abc%<"
-# Valid: no argument
+# Invalid: %> without %<
 "abc%>"
-# Valid: no argument
+# Invalid: %} without %{
 "abc%}"
 # Valid: no argument
 "abc%'"
-# Valid: no argument
+# Invalid: %R without %r
 "abc%R"
 # Valid: no argument
 "abc%m"
 # Valid: one color argument
+"abc%rdef%R"
+# Invalid: unterminated color group
 "abc%r"
 # Valid: one URL argument
+"abc%{def%}"
+# Invalid: unterminated URL group
 "abc%{"
 # Valid: one character argument
 "abc%c"
