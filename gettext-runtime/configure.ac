@@ -241,7 +241,7 @@ AC_SUBST([ENABLE_SHARED])
 dnl Test for features used in install-tests.
 dnl shlibpath_var and PATH_SEPARATOR are set by LT_INIT.
 if test $USE_INCLUDED_LIBINTL = yes; then
-  INSTALLED_LIBINTL="-lintl $INTL_MACOSX_LIBS"
+  INSTALLED_LIBINTL="-lintl $LIBICONV $INTL_MACOSX_LIBS"
 else
   INSTALLED_LIBINTL=
 fi
