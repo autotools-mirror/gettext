@@ -26,7 +26,7 @@ SUBDIR_libasprintf = libasprintf
 else
 SUBDIR_libasprintf =
 endif
-SUBDIRS = doc intl intl-java intl-csharp intl-d intl-modula2 gnulib-lib $(SUBDIR_libasprintf) src po man m4 tests
+SUBDIRS = doc intl intl-java intl-csharp intl-d intl-modula2 gnulib-lib $(SUBDIR_libasprintf) src po man m4 tests install-tests
 
 EXTRA_DIST = BUGS
 
