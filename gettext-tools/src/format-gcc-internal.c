@@ -32,28 +32,36 @@
 #define _(str) gettext (str)
 
 /* GCC internal format strings consist of language frontend independent
-   format directives, implemented in gcc-4.3.0/gcc/pretty-print.c (function
-   pp_base_format), plus some frontend dependent extensions:
+   format directives, implemented in gcc-15.1.0/gcc/pretty-print.cc (method
+   pretty_printer::format), plus some frontend dependent extensions, activated
+   through set_format_decoder invocations:
+     - for frontend independent diagnostics
+       in gcc-15.1.0/gcc/tree-diagnostic.cc (function default_tree_printer)
      - for the C/ObjC frontend
-       in gcc-4.3.0/gcc/c-objc-common.c (function c_tree_printer)
+       in gcc-15.1.0/gcc/c/c-objc-common.cc (function c_tree_printer)
      - for the C++ frontend
-       in gcc-4.3.0/gcc/cp/error.c (function cp_printer)
+       in gcc-15.1.0/gcc/cp/error.cc (function cp_printer)
+     - for the Fortran frontend
+       in gcc-15.1.0/gcc/fortran/error.cc (function gfc_format_decoder)
    Taking these together, GCC internal format strings are specified as follows.
 
    A directive
    - starts with '%',
    - either is finished by one of these:
-       - '%', '<', '>', "'", that need no argument,
+       - '%', '<', '>', '}', "'", 'R', that need no argument,
        - 'm', that needs no argument but looks at an err_no variable,
    - or is continued like this:
        - optionally 'm$' where m is a positive integer,
        - optionally any number of flags:
          'q' (once only),
-         'l' (up to twice) or 'w' (once only) (exclusive),
+         'l' (up to twice) or 'w' (once only) or 'z' (once only)
+             or 't' (once only) (exclusive),
          '+' (once only),
          '#' (once only),
        - finished by a specifier
 
+           - 'r', that needs a color argument and expects a '%R' later,
+           - '{', that needs a URL argument and expects a '%}' later,
            - 'c', that needs a character argument,
            - 's', that needs a string argument,
            - '.NNNs', where NNN is a nonempty digit sequence, that needs a
@@ -66,26 +74,47 @@
              size,
            - 'o', 'u', 'x', that need an unsigned integer argument of the
              specified size,
+           - 'f', that needs a floating-point argument,
            - 'p', that needs a 'void *' argument,
-           - 'H', that needs a 'location_t *' argument,
-           - 'J', that needs a general declaration argument,
-           - 'K', that needs a statement argument,
-             [see gcc/pretty-print.c]
+           - '@', that needs a 'diagnostic_event_id_t *' argument,
+           - 'e', that needs a 'pp_element *' argument,
+           - 'Z', that needs an 'int *' argument and an 'unsigned int' argument,
+             [see gcc/pretty-print.cc]
 
            - 'D', that needs a general declaration argument,
+           - 'E', that needs an expression argument,
            - 'F', that needs a function declaration argument,
            - 'T', that needs a type argument,
-           - 'E', that needs an expression argument,
-             [see gcc/c-objc-common.c and gcc/cp/error.c]
+             [see gcc/tree-diagnostic.cc and gcc/c/c-objc-common.cc and
+              gcc/cp/error.cc]
+
+           - 'V', that needs a tree argument with a list of type qualifiers,
+             [see gcc/c/c-objc-common.cc and gcc/cp/error.cc]
+
+           - 'v', that needs a list of type qualifiers,
+             [see gcc/c/c-objc-common.cc]
 
            - 'A', that needs a function argument list argument,
-           - 'C', that needs a tree code argument,
-           - 'L', that needs a language argument,
+           - 'H', that needs a type argument and prints it specially
+                  (as first type of a type difference),
+           - 'I', that needs a type argument and prints it specially
+                  (as second type of a type difference),
            - 'O', that needs a binary operator argument,
-           - 'P', that needs a function parameter argument,
+           - 'P', that needs a function parameter index argument,
            - 'Q', that needs an assignment operator argument,
-           - 'V', that needs a const/volatile qualifier argument.
-             [see gcc/cp/error.c]
+           - 'S', that needs a substitution,
+           - 'X', that needs an exception,
+             [see gcc/cp/error.cc]
+
+           - 'C', that needs a tree code argument in the cp/ front end [IGNORE!]
+                  but no argument in the fortran/ front end,
+           - 'L', that needs a language identifier argument in the cp/ front end
+                  or a locus argument in the fortran/ front end,
+             [see gcc/cp/error.cc and gcc/fortran/error.cc]
+
+   Directives %< and %> should come in pairs; these pairs cannot be nested.
+   Directives %r and %R should come in pairs; these pairs cannot be nested.
+   Directives %{ and %} should come in pairs; these pairs cannot be nested.
 
    Numbered ('%m$' or '*m$') and unnumbered argument specifications cannot
    be used in the same string.  */
@@ -96,29 +125,43 @@ enum format_arg_type
   /* Basic types */
   FAT_INTEGER           = 1,
   FAT_CHAR              = 2,
-  FAT_STRING            = 3,
-  FAT_POINTER           = 4,
-  FAT_LOCATION          = 5,
+  FAT_FLOAT             = 3,
+  FAT_STRING            = 4,
+  FAT_POINTER           = 5,
   FAT_TREE              = 6,
   FAT_TREE_CODE         = 7,
-  FAT_LANGUAGES         = 8,
+  FAT_EVENT_ID          = 8,
+  FAT_ELEMENT           = 9,
+  FAT_LANGUAGE_OR_LOCUS = 10,
+  FAT_CV                = 11,
+  FAT_INT_ARRAY_PART1   = 12,
+  FAT_INT_ARRAY_PART2   = 13,
+  FAT_COLOR             = 14,
+  FAT_URL               = 15,
   /* Flags */
   FAT_UNSIGNED          = 1 << 4,
   FAT_SIZE_LONG         = 1 << 5,
   FAT_SIZE_LONGLONG     = 2 << 5,
   FAT_SIZE_WIDE         = 3 << 5,
-  FAT_TREE_DECL         = 1 << 7,
-  FAT_TREE_STATEMENT    = 2 << 7,
-  FAT_TREE_FUNCDECL     = 3 << 7,
-  FAT_TREE_TYPE         = 4 << 7,
-  FAT_TREE_ARGUMENT     = 5 << 7,
-  FAT_TREE_EXPRESSION   = 6 << 7,
-  FAT_TREE_CV           = 7 << 7,
-  FAT_TREE_CODE_BINOP   = 1 << 10,
-  FAT_TREE_CODE_ASSOP   = 2 << 10,
-  FAT_FUNCPARAM         = 1 << 12,
+  FAT_SIZE_SIZE         = 4 << 5,
+  FAT_SIZE_PTRDIFF      = 5 << 5,
+  FAT_TREE_DECL         = 1 << 8,
+  FAT_TREE_STATEMENT    = 2 << 8,
+  FAT_TREE_FUNCDECL     = 3 << 8,
+  FAT_TREE_TYPE         = 4 << 8,
+  FAT_TREE_TYPE_DIFF1   = 5 << 8,
+  FAT_TREE_TYPE_DIFF2   = 6 << 8,
+  FAT_TREE_ARGUMENT     = 7 << 8,
+  FAT_TREE_EXPRESSION   = 8 << 8,
+  FAT_TREE_CV           = 9 << 8,
+  FAT_TREE_SUBSTITUTION = 10 << 8,
+  FAT_TREE_EXCEPTION    = 11 << 8,
+  FAT_TREE_CODE_BINOP   = 1 << 12,
+  FAT_TREE_CODE_ASSOP   = 2 << 12,
+  FAT_FUNCPARAM         = 1 << 14,
   /* Bitmasks */
-  FAT_SIZE_MASK         = (FAT_SIZE_LONG | FAT_SIZE_LONGLONG | FAT_SIZE_WIDE)
+  FAT_SIZE_MASK         = (FAT_SIZE_LONG | FAT_SIZE_LONGLONG
+                           | FAT_SIZE_WIDE | FAT_SIZE_SIZE | FAT_SIZE_PTRDIFF)
 };
 #ifdef __cplusplus
 typedef int format_arg_type_t;
@@ -138,6 +181,7 @@ struct spec
   unsigned int numbered_arg_count;
   struct numbered_arg *numbered;
   bool uses_err_no;
+  bool uses_current_locus;
 };
 
 
@@ -164,6 +208,7 @@ format_parse (const char *format, bool translated, char *fdi,
   spec.numbered_arg_count = 0;
   spec.numbered = NULL;
   spec.uses_err_no = false;
+  spec.uses_current_locus = false;
   numbered_allocated = 0;
   unnumbered_arg_count = 0;
 
@@ -176,16 +221,20 @@ format_parse (const char *format, bool translated, char *fdi,
         spec.directives++;
 
         if (*format == '%' || *format == '<' || *format == '>'
-            || *format == '\'')
+            || *format == '}' || *format == '\'' || *format == 'R')
           ;
         else if (*format == 'm')
           spec.uses_err_no = true;
+        else if (*format == 'C')
+          spec.uses_current_locus = true;
         else
           {
             unsigned int number = 0;
             unsigned int flag_q = 0;
             unsigned int flag_l = 0;
             unsigned int flag_w = 0;
+            unsigned int flag_z = 0;
+            unsigned int flag_t = 0;
             unsigned int flag_plus = 0;
             unsigned int flag_sharp = 0;
             format_arg_type_t size;
@@ -227,14 +276,24 @@ format_parse (const char *format, bool translated, char *fdi,
                     flag_q = 1;
                     continue;
                   case 'l':
-                    if (flag_l > 1 || flag_w)
+                    if (flag_l > 1 || flag_w || flag_z || flag_t)
                       goto invalid_flags;
                     flag_l++;
                     continue;
                   case 'w':
-                    if (flag_w > 0 || flag_l)
+                    if (flag_l || flag_w || flag_z || flag_t)
                       goto invalid_flags;
                     flag_w = 1;
+                    continue;
+                  case 'z':
+                    if (flag_l || flag_w || flag_z || flag_t)
+                      goto invalid_flags;
+                    flag_z = 1;
+                    continue;
+                  case 't':
+                    if (flag_l || flag_w || flag_z || flag_t)
+                      goto invalid_flags;
+                    flag_t = 1;
                     continue;
                   case '+':
                     if (flag_plus > 0)
@@ -258,6 +317,8 @@ format_parse (const char *format, bool translated, char *fdi,
             size = (flag_l == 2 ? FAT_SIZE_LONGLONG :
                     flag_l == 1 ? FAT_SIZE_LONG :
                     flag_w ? FAT_SIZE_WIDE :
+                    flag_z ? FAT_SIZE_SIZE :
+                    flag_t ? FAT_SIZE_PTRDIFF :
                     0);
 
             if (*format == 'c')
@@ -408,60 +469,66 @@ format_parse (const char *format, bool translated, char *fdi,
               type = FAT_INTEGER | size;
             else if (*format == 'o' || *format == 'u' || *format == 'x')
               type = FAT_INTEGER | FAT_UNSIGNED | size;
+            else if (*format == 'f')
+              type = FAT_FLOAT;
             else if (*format == 'p')
               type = FAT_POINTER;
-            else if (*format == 'H')
-              type = FAT_LOCATION;
-            else if (*format == 'J')
+            else if (*format == '@')
+              type = FAT_EVENT_ID;
+            else if (*format == 'e')
+              type = FAT_ELEMENT;
+            else if (*format == 'v')
+              type = FAT_CV;
+            else if (*format == 'Z')
+              type = FAT_INT_ARRAY_PART1;
+            else if (*format == 'r')
+              type = FAT_COLOR;
+            else if (*format == '{')
+              type = FAT_URL;
+            else if (*format == 'D')
               type = FAT_TREE | FAT_TREE_DECL;
-            else if (*format == 'K')
-              type = FAT_TREE | FAT_TREE_STATEMENT;
+            else if (*format == 'F')
+              type = FAT_TREE | FAT_TREE_FUNCDECL;
+            else if (*format == 'T')
+              type = FAT_TREE | FAT_TREE_TYPE;
+            else if (*format == 'H')
+              type = FAT_TREE | FAT_TREE_TYPE_DIFF1;
+            else if (*format == 'I')
+              type = FAT_TREE | FAT_TREE_TYPE_DIFF2;
+            else if (*format == 'E')
+              type = FAT_TREE | FAT_TREE_EXPRESSION;
+            else if (*format == 'A')
+              type = FAT_TREE | FAT_TREE_ARGUMENT;
+            else if (*format == 'C')
+              type = FAT_TREE_CODE;
+            else if (*format == 'L')
+              type = FAT_LANGUAGE_OR_LOCUS;
+            else if (*format == 'O')
+              type = FAT_TREE_CODE | FAT_TREE_CODE_BINOP;
+            else if (*format == 'P')
+              type = FAT_INTEGER | FAT_FUNCPARAM;
+            else if (*format == 'Q')
+              type = FAT_TREE_CODE | FAT_TREE_CODE_ASSOP;
+            else if (*format == 'V')
+              type = FAT_TREE | FAT_TREE_CV;
+            else if (*format == 'S')
+              type = FAT_TREE | FAT_TREE_SUBSTITUTION;
+            else if (*format == 'X')
+              type = FAT_TREE | FAT_TREE_EXCEPTION;
             else
               {
-                if (*format == 'D')
-                  type = FAT_TREE | FAT_TREE_DECL;
-                else if (*format == 'F')
-                  type = FAT_TREE | FAT_TREE_FUNCDECL;
-                else if (*format == 'T')
-                  type = FAT_TREE | FAT_TREE_TYPE;
-                else if (*format == 'E')
-                  type = FAT_TREE | FAT_TREE_EXPRESSION;
-                else if (*format == 'A')
-                  type = FAT_TREE | FAT_TREE_ARGUMENT;
-                else if (*format == 'C')
-                  type = FAT_TREE_CODE;
-                else if (*format == 'L')
-                  type = FAT_LANGUAGES;
-                else if (*format == 'O')
-                  type = FAT_TREE_CODE | FAT_TREE_CODE_BINOP;
-                else if (*format == 'P')
-                  type = FAT_INTEGER | FAT_FUNCPARAM;
-                else if (*format == 'Q')
-                  type = FAT_TREE_CODE | FAT_TREE_CODE_ASSOP;
-                else if (*format == 'V')
-                  type = FAT_TREE | FAT_TREE_CV;
+                if (*format == '\0')
+                  {
+                    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+                    FDI_SET (format - 1, FMTDIR_ERROR);
+                  }
                 else
                   {
-                    if (*format == '\0')
-                      {
-                        *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
-                        FDI_SET (format - 1, FMTDIR_ERROR);
-                      }
-                    else
-                      {
-                        *invalid_reason =
-                          (*format == 'c'
-                           || *format == 's'
-                           || *format == 'i' || *format == 'd'
-                           || *format == 'o' || *format == 'u' || *format == 'x'
-                           || *format == 'H'
-                           ? xasprintf (_("In the directive number %u, flags are not allowed before '%c'."), spec.directives, *format)
-                           : INVALID_CONVERSION_SPECIFIER (spec.directives,
-                                                           *format));
-                        FDI_SET (format, FMTDIR_ERROR);
-                      }
-                    goto bad_format;
+                    *invalid_reason =
+                      INVALID_CONVERSION_SPECIFIER (spec.directives, *format);
+                    FDI_SET (format, FMTDIR_ERROR);
                   }
+                goto bad_format;
               }
 
             if (number)
@@ -484,6 +551,18 @@ format_parse (const char *format, bool translated, char *fdi,
                 spec.numbered[spec.numbered_arg_count].number = number;
                 spec.numbered[spec.numbered_arg_count].type = type;
                 spec.numbered_arg_count++;
+
+                if (type == FAT_INT_ARRAY_PART1)
+                  {
+                    if (numbered_allocated == spec.numbered_arg_count)
+                      {
+                        numbered_allocated = 2 * numbered_allocated + 1;
+                        spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
+                      }
+                    spec.numbered[spec.numbered_arg_count].number = number + 1;
+                    spec.numbered[spec.numbered_arg_count].type = FAT_INT_ARRAY_PART2;
+                    spec.numbered_arg_count++;
+                  }
               }
             else
               {
@@ -505,6 +584,18 @@ format_parse (const char *format, bool translated, char *fdi,
                 spec.numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
                 spec.numbered[unnumbered_arg_count].type = type;
                 unnumbered_arg_count++;
+
+                if (type == FAT_INT_ARRAY_PART1)
+                  {
+                    if (numbered_allocated == unnumbered_arg_count)
+                      {
+                        numbered_allocated = 2 * numbered_allocated + 1;
+                        spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
+                      }
+                    spec.numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
+                    spec.numbered[unnumbered_arg_count].type = FAT_INT_ARRAY_PART2;
+                    unnumbered_arg_count++;
+                  }
               }
           }
 
@@ -683,6 +774,23 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       err = true;
     }
 
+  /* Check that the use of current_locus is the same.  */
+  if (spec1->uses_current_locus != spec2->uses_current_locus)
+    {
+      if (error_logger)
+        {
+          if (spec1->uses_current_locus)
+            error_logger (error_logger_data,
+                          _("'%s' uses %%C but '%s' doesn't"),
+                          pretty_msgid, pretty_msgstr);
+          else
+            error_logger (error_logger_data,
+                          _("'%s' does not use %%C but '%s' uses %%C"),
+                          pretty_msgid, pretty_msgstr);
+        }
+      err = true;
+    }
+
   return err;
 }
 
@@ -744,6 +852,12 @@ format_print (void *descr)
         case FAT_SIZE_WIDE:
           printf ("[host-wide]");
           break;
+        case FAT_SIZE_SIZE:
+          printf ("[host-size_t]");
+          break;
+        case FAT_SIZE_PTRDIFF:
+          printf ("[host-ptrdiff_t]");
+          break;
         default:
           abort ();
         }
@@ -758,14 +872,35 @@ format_print (void *descr)
         case FAT_CHAR:
           printf ("c");
           break;
+        case FAT_FLOAT:
+          printf ("f");
+          break;
         case FAT_STRING:
           printf ("s");
           break;
         case FAT_POINTER:
           printf ("p");
           break;
-        case FAT_LOCATION:
-          printf ("H");
+        case FAT_EVENT_ID:
+          printf ("@");
+          break;
+        case FAT_ELEMENT:
+          printf ("e");
+          break;
+        case FAT_CV:
+          printf ("v");
+          break;
+        case FAT_INT_ARRAY_PART1:
+          printf ("Z1");
+          break;
+        case FAT_INT_ARRAY_PART2:
+          printf ("Z2");
+          break;
+        case FAT_COLOR:
+          printf ("r");
+          break;
+        case FAT_URL:
+          printf ("{");
           break;
         case FAT_TREE | FAT_TREE_DECL:
           printf ("D");
@@ -779,6 +914,12 @@ format_print (void *descr)
         case FAT_TREE | FAT_TREE_TYPE:
           printf ("T");
           break;
+        case FAT_TREE | FAT_TREE_TYPE_DIFF1:
+          printf ("H");
+          break;
+        case FAT_TREE | FAT_TREE_TYPE_DIFF2:
+          printf ("I");
+          break;
         case FAT_TREE | FAT_TREE_ARGUMENT:
           printf ("A");
           break;
@@ -787,6 +928,12 @@ format_print (void *descr)
           break;
         case FAT_TREE | FAT_TREE_CV:
           printf ("V");
+          break;
+        case FAT_TREE | FAT_TREE_SUBSTITUTION:
+          printf ("S");
+          break;
+        case FAT_TREE | FAT_TREE_EXCEPTION:
+          printf ("X");
           break;
         case FAT_TREE_CODE:
           printf ("C");
@@ -797,7 +944,7 @@ format_print (void *descr)
         case FAT_TREE_CODE | FAT_TREE_CODE_ASSOP:
           printf ("Q");
           break;
-        case FAT_LANGUAGES:
+        case FAT_LANGUAGE_OR_LOCUS:
           printf ("L");
           break;
         default:
@@ -808,6 +955,8 @@ format_print (void *descr)
   printf (")");
   if (spec->uses_err_no)
     printf (" ERR_NO");
+  if (spec->uses_current_locus)
+    printf (" CURRENT_LOCUS");
 }
 
 int

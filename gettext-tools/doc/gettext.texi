@@ -10389,20 +10389,78 @@ PHP format strings are described in the documentation of the PHP function
 @node gcc-internal-format
 @subsection GCC internal Format Strings
 
-These format strings are used inside the GCC sources.  In such a format
-string, a directive starts with @samp{%}, is optionally followed by a
-size specifier @samp{l}, an optional flag @samp{+}, another optional flag
-@samp{#}, and is finished by a specifier: @samp{%} denotes a literal
-percent sign, @samp{c} denotes a character, @samp{s} denotes a string,
-@samp{i} and @samp{d} denote an integer, @samp{o}, @samp{u}, @samp{x}
-denote an unsigned integer, @samp{.*s} denotes a string preceded by a
-width specification, @samp{H} denotes a @samp{location_t *} pointer,
-@samp{D} denotes a general declaration, @samp{F} denotes a function
-declaration, @samp{T} denotes a type, @samp{A} denotes a function argument,
-@samp{C} denotes a tree code, @samp{E} denotes an expression, @samp{L}
-denotes a programming language, @samp{O} denotes a binary operator,
-@samp{P} denotes a function parameter, @samp{Q} denotes an assignment
-operator, @samp{V} denotes a const/volatile qualifier.
+These format strings are used inside the GCC sources.
+In such a format string,
+a directive starts with @samp{%},
+is optionally followed by a size specifier @samp{l} or @samp{ll}
+or @samp{w} or @samp{z} or @samp{t},
+an optional flag @samp{q} (indicates quotes),
+another optional flag @samp{+},
+another optional flag @samp{#},
+and is finished by a specifier:
+@itemize @bullet
+@item
+@samp{%} denotes a literal percent sign,
+@item
+@samp{<} denotes an opening quote,
+@item
+@samp{>} or @samp{'} denotes a closing quote,
+@item
+@samp{r} denotes the beginning of a colored text segment,
+@item
+@samp{R} denotes the end of a colored text segment,
+@item
+@samp{@{} denotes the beginning of a clickable text segment,
+@item
+@samp{@}} denotes the end of a clickable text segment,
+@item
+@samp{c} denotes a character,
+@item
+@samp{s} denotes a string,
+@item
+@samp{i} and @samp{d} denote an integer,
+@item
+@samp{o}, @samp{u}, @samp{x} denote an unsigned integer,
+@item
+@samp{f} denotes a floating-point number,
+@item
+@samp{.*s} denotes a string preceded by a width specification,
+@item
+@samp{D} denotes a general declaration,
+@item
+@samp{E} denotes an expression,
+@item
+@samp{F} denotes a function declaration,
+@item
+@samp{T} denotes a type,
+@item
+@samp{A} denotes a function argument,
+@item
+@samp{H} denotes the first type in a type difference,
+@item
+@samp{I} denotes the second type in a type difference,
+@item
+@samp{O} denotes a binary operator,
+@item
+@samp{P} denotes a function parameter index,
+@item
+@samp{Q} denotes an assignment operator,
+@item
+@samp{S} denotes a substitution,
+@item
+@samp{X} denotes an exception,
+@item
+@samp{V} or @samp{v} denotes a list of const/volatile qualifiers,
+@item
+@samp{C} denotes a tree code or the current locus,
+@item
+@samp{L} denotes a programming language or a locus,
+@item
+@samp{p}, @samp{@@}, @samp{e} denote
+various other types of compiler-internal objects,
+@item
+@samp{Z} denotes an array of integers.
+@end itemize
 
 @node gfc-internal-format
 @subsection GFC internal Format Strings
