@@ -78,11 +78,9 @@ else
   : ${LOCALE_FR=fr_FR}
   : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
   if test $LOCALE_FR != none; then
-    prepare_locale_ plural-1-dir/fr plural-1-dir/$LOCALE_FR
     func_do_test $LOCALE_FR
   fi
   if test $LOCALE_FR_UTF8 != none; then
-    prepare_locale_ plural-1-dir/fr plural-1-dir/$LOCALE_FR_UTF8
     func_do_test $LOCALE_FR_UTF8
   fi
   if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then

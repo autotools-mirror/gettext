@@ -105,13 +105,11 @@ case "$host_os" in
     ;;
 esac
 if test $LOCALE_FR != none; then
-  prepare_locale_ fr $LOCALE_FR
   LANGUAGE= LANG=$LOCALE_FR tclsh program.tcl > prog.tmp || Exit 1
   LC_ALL=C tr -d '\r' < prog.tmp > prog.out || Exit 1
   ${DIFF} prog.ok prog.out || Exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  prepare_locale_ fr $LOCALE_FR_UTF8
   LANGUAGE= LANG=$LOCALE_FR_UTF8 tclsh program.tcl > prog.tmp || Exit 1
   LC_ALL=C tr -d '\r' < prog.tmp > prog.out || Exit 1
   ${DIFF} prog.oku prog.out || Exit 1

@@ -40,8 +40,6 @@ fi
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
-  prepare_locale_ in-3-1/fr in-3-1/$LOCALE_FR
-  prepare_locale_ in-3-2/fr in-3-2/$LOCALE_FR
   ../intl-3-prg in-3-1 $LOCALE_FR ISO-8859-1 > in-3.tmp || Exit 1
   LC_ALL=C tr -d '\r' < in-3.tmp > in-3.out || Exit 1
   ${DIFF} in-3-1.ok in-3.out || Exit 1
@@ -56,8 +54,6 @@ if test $LOCALE_FR != none; then
   ${DIFF} in-3-2.ok in-3.out || Exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  prepare_locale_ in-3-1/fr in-3-1/$LOCALE_FR_UTF8
-  prepare_locale_ in-3-2/fr in-3-2/$LOCALE_FR_UTF8
   ../intl-3-prg in-3-1 $LOCALE_FR_UTF8 ISO-8859-1 > in-3.tmp || Exit 1
   LC_ALL=C tr -d '\r' < in-3.tmp > in-3.out || Exit 1
   ${DIFF} in-3-1.ok in-3.out || Exit 1

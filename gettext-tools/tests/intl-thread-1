@@ -14,7 +14,6 @@ ${MSGFMT} -o in-th-1/fr/LC_MESSAGES/tstthread.mo "$wabs_srcdir"/intl-thread-1.po
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
-  prepare_locale_ in-th-1/fr in-th-1/$LOCALE_FR
   ../intl-thread-1-prg $LOCALE_FR > in-th-1.out
   case $? in
     0) ;;
@@ -28,7 +27,6 @@ if test $LOCALE_FR != none; then
   esac
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  prepare_locale_ in-th-1/fr in-th-1/$LOCALE_FR_UTF8
   ../intl-thread-1-prg $LOCALE_FR_UTF8 > in-th-1.out
   case $? in
     0) ;;

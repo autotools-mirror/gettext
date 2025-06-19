@@ -142,7 +142,6 @@ EOF
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
-  prepare_locale_ fr $LOCALE_FR
   LANGUAGE= LC_ALL=$LOCALE_FR bash ./prog.bash 2 > prog.out || Exit 1
   : ${DIFF=diff}
   ${DIFF} prog.nok prog.out > /dev/null && {
@@ -152,7 +151,6 @@ if test $LOCALE_FR != none; then
   ${DIFF} prog.ok prog.out || Exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  prepare_locale_ fr $LOCALE_FR_UTF8
   LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 bash ./prog.bash 2 > prog.out || Exit 1
   : ${DIFF=diff}
   ${DIFF} prog.nok prog.out > /dev/null && {

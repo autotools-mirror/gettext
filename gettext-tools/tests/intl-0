@@ -19,7 +19,6 @@ EOF
 LC_ALL=C tr -d '\r' < in-0.tmp > in-0-1.out || Exit 1
 ${DIFF} in-0.ok in-0-1.out || Exit 1
 
-prepare_locale_ in-0/C in-0/C.UTF-8
 ../intl-1-prg in-0 C.UTF-8 > in-0.tmp || Exit 1
 LC_ALL=C tr -d '\r' < in-0.tmp > in-0-2.out || Exit 1
 ${DIFF} in-0.ok in-0-2.out || Exit 1

@@ -75,14 +75,12 @@ EOF
 : ${GETTEXT=gettext}
 : ${DIFF=diff}
 if test $LOCALE_FR != none; then
-  prepare_locale_ fr $LOCALE_FR
   LC_ALL=$LOCALE_FR LANGUAGE= TEXTDOMAINDIR=. TEXTDOMAIN=mf-20 \
   ${GETTEXT} -s 'Sunshine heats.' > mf-20.tmp
   LC_ALL=C tr -d '\r' < mf-20.tmp > mf-20.out
   ${DIFF} mf-20.ok mf-20.out || Exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  prepare_locale_ fr $LOCALE_FR_UTF8
   LC_ALL=$LOCALE_FR_UTF8 LANGUAGE= TEXTDOMAINDIR=. TEXTDOMAIN=mf-20 \
   ${GETTEXT} -s 'Sunshine heats.' > mf-20.tmp
   LC_ALL=C tr -d '\r' < mf-20.tmp > mf-20.out

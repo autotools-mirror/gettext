@@ -30,7 +30,6 @@ if test $LOCALE_FR != none; then
       # they are not supported in the fr_FR.ISO-8859-1 locale.
       ;;
     *)
-      prepare_locale_ in-6/fr in-6/$LOCALE_FR
       ../intl-6-prg in-6 $LOCALE_FR > in-6.tmp || Exit 1
       LC_ALL=C tr -d '\r' < in-6.tmp > in-6.out || Exit 1
       ${DIFF} in-6.ok in-6.out || Exit 1
@@ -38,7 +37,6 @@ if test $LOCALE_FR != none; then
   esac
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  prepare_locale_ in-6/fr in-6/$LOCALE_FR_UTF8
   ../intl-6-prg in-6 $LOCALE_FR_UTF8 > in-6.tmp || Exit 1
   LC_ALL=C tr -d '\r' < in-6.tmp > in-6.out || Exit 1
   ${DIFF} in-6.ok in-6.out || Exit 1

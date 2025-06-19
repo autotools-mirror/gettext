@@ -146,7 +146,6 @@ if test $LOCALE_FR_UTF8 = none; then
   Exit 77
 fi
 
-prepare_locale_ fr $LOCALE_FR_UTF8
 LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 ./program 2 > prog.out || Exit 1
 ${DIFF} prog.ok prog.out || Exit 1
 

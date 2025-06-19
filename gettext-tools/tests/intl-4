@@ -19,7 +19,6 @@ ${MSGFMT} -o in-4/fr/LC_MESSAGES/tstprog.mo "$wabs_srcdir"/intl-4.po
 # traditional german locale.
 : ${LOCALE_FR=fr_FR}
 if test $LOCALE_FR != none; then
-  prepare_locale_ in-4/fr in-4/$LOCALE_FR
   ../intl-4-prg $LOCALE_FR || Exit 1
 else
   if test -f /usr/bin/localedef; then

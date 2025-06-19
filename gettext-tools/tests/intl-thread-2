@@ -28,8 +28,6 @@ EOF
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 : ${LOCALE_DE_UTF8=de_DE.UTF-8}
 if test $LOCALE_FR_UTF8 != none && test $LOCALE_DE_UTF8 != none; then
-  prepare_locale_ in-th-2/fr in-th-2/$LOCALE_FR_UTF8
-  prepare_locale_ in-th-2/de in-th-2/$LOCALE_DE_UTF8
   ../intl-thread-2-prg $LOCALE_FR_UTF8 $LOCALE_DE_UTF8 > in-th-2.out
   case $? in
     0)

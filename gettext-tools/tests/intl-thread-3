@@ -18,8 +18,6 @@ ${MSGFMT} -o in-th-3/fr/LC_MESSAGES/tstthread.mo "$wabs_srcdir"/intl-thread-3.po
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none && test $LOCALE_FR_UTF8 != none; then
-  prepare_locale_ in-th-3/fr in-th-3/$LOCALE_FR
-  prepare_locale_ in-th-3/fr in-th-3/$LOCALE_FR_UTF8
   ../intl-thread-3-prg $LOCALE_FR $LOCALE_FR_UTF8 > in-th-3.out
   case $? in
     0) ;;

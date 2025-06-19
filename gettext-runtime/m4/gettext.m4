@@ -1,5 +1,5 @@
 # gettext.m4
-# serial 82 (gettext-0.26)
+# serial 83 (gettext-0.26)
 dnl Copyright (C) 1995-2025 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -193,7 +193,28 @@ $gt_revision_test_code
 bindtextdomain ("", "");
 return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
                ]])],
-            [eval "$gt_func_gnugettext_libc=yes"],
+            [dnl Solaris 11.[0-3] doesn't strip the CODESET part from the locale name,
+             dnl when looking for a message catalog. E.g. when the locale is fr_FR.UTF-8,
+             dnl on Solaris 11.[0-3] it looks for
+             dnl   <LOCALEDIR>/fr_FR.UTF-8/LC_MESSAGES/<domain>.mo
+             dnl   <LOCALEDIR>/fr.UTF-8/LC_MESSAGES/<domain>.mo
+             dnl Similarly, on Solaris 11 OpenIndiana and Solaris 11 OmniOS it looks only for
+             dnl   <LOCALEDIR>/fr_FR.UTF-8/LC_MESSAGES/<domain>.mo
+             dnl Reported at <https://www.illumos.org/issues/13423>.
+             dnl On Solaris 11.4 this is fixed: it looks for
+             dnl   <LOCALEDIR>/fr_FR.UTF-8/LC_MESSAGES/<domain>.mo
+             dnl   <LOCALEDIR>/fr.UTF-8/LC_MESSAGES/<domain>.mo
+             dnl   <LOCALEDIR>/fr_FR/LC_MESSAGES/<domain>.mo
+             dnl   <LOCALEDIR>/fr/LC_MESSAGES/<domain>.mo
+             if test "`uname -sr`" = 'SunOS 5.11'; then
+               case `uname -v` in
+                 11.4 | 11.4.*) eval "$gt_func_gnugettext_libc=yes" ;;
+                 *)             eval "$gt_func_gnugettext_libc=no" ;;
+               esac
+             else
+               eval "$gt_func_gnugettext_libc=yes"
+             fi
+            ],
             [eval "$gt_func_gnugettext_libc=no"])])
 
         if { eval "gt_val=\$$gt_func_gnugettext_libc"; test "$gt_val" != "yes"; }; then

@@ -211,12 +211,10 @@ if test $LOCALE_FR != none; then
   # locale_charset() or nl_langinfo(CODESET) [which is "ISO8859-1" in this case]
   # or "UTF-8" - depending on platform or build configuration. So, allow the
   # expected result in UTF-8 encoding here too.
-  prepare_locale_ fr $LOCALE_FR
   LANGUAGE= LC_ALL=$LOCALE_FR ${CSHARPEXEC} -L ../../../gettext-runtime/intl-csharp program.exe 2 > prog.out || Exit 1
   ${DIFF} prog.oku prog.out >/dev/null || ${DIFF} prog.ok prog.out || Exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  prepare_locale_ fr $LOCALE_FR_UTF8
   LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 ${CSHARPEXEC} -L ../../../gettext-runtime/intl-csharp program.exe 2 > prog.out || Exit 1
   ${DIFF} prog.oku prog.out || Exit 1
 fi

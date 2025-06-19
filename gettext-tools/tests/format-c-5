@@ -69,7 +69,6 @@ else
 
   skipped=true
 
-  prepare_locale_ fa fa_IR
   LANGUAGE= ../fc5 fa_IR
   case $? in
     0) skipped=false ;;
@@ -77,7 +76,6 @@ else
     *) Exit 1;;
   esac
 
-  prepare_locale_ fa fa_IR.UTF-8
   LANGUAGE= ../fc5 fa_IR.UTF-8
   case $? in
     0) skipped=false ;;
@@ -91,7 +89,6 @@ else
   test -d ar/LC_MESSAGES || mkdir ar/LC_MESSAGES
   cp fa/LC_MESSAGES/fc5.mo ar/LC_MESSAGES/fc5.mo
 
-  prepare_locale_ ar ar_EG
   LANGUAGE= ../fc5 ar_EG
   case $? in
     0) skipped=false ;;
@@ -99,7 +96,6 @@ else
     *) Exit 1;;
   esac
 
-  prepare_locale_ ar ar_EG.UTF-8
   LANGUAGE= ../fc5 ar_EG.UTF-8
   case $? in
     0) skipped=false ;;

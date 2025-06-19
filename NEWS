@@ -13,6 +13,8 @@ Version 0.26 - July 2025
       heuristic by using a comment of the form /* xgettext: c-format */.
 
 # Bug fixes:
+  - The AM_GNU_GETTEXT macro now rejects the dysfunctional gettext() function
+    in libc of Solaris 11.[0-3], Solaris OpenIndiana, and Solaris OmniOS.
   - The AM_GNU_GETTEXT macro now recognizes, on MSVC, the GNU libintl built
     as a shared library.
 

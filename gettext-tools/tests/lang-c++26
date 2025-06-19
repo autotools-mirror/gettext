@@ -155,7 +155,6 @@ EOF
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR != none; then
-  prepare_locale_ fr $LOCALE_FR
   LANGUAGE= ./prog $LOCALE_FR 2 > prog.tmp
   case $? in
     0) case "$host_os" in
@@ -168,7 +167,6 @@ if test $LOCALE_FR != none; then
   esac
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  prepare_locale_ fr $LOCALE_FR_UTF8
   LANGUAGE= ./prog $LOCALE_FR_UTF8 2 > prog.tmp
   case $? in
     0) case "$host_os" in
