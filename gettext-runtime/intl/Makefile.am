@@ -250,7 +250,13 @@ libintl.h: $(srcdir)/libgnuintl.in.h
 	    -e 's,@''HAVE_WPRINTF''@,@HAVE_WPRINTF@,g' \
 	    -e 's,@''HAVE_NEWLOCALE''@,@HAVE_NEWLOCALE@,g' \
 	    -e 's,@''ENHANCE_LOCALE_FUNCS''@,@ENHANCE_LOCALE_FUNCS@,g' \
-	  < $(srcdir)/libgnuintl.in.h > libintl.h
+	  < $(srcdir)/libgnuintl.in.h \
+	| if test '@WOE32DLL@' = 1; then \
+	    sed -e 's/extern \([^()]*\);/extern __declspec (dllimport) \1;/'; \
+	  else \
+	    cat; \
+	  fi \
+	| cat > libintl.h
 MOSTLYCLEANFILES += libintl.h
 
 # The Automake generated .y.c rule is broken: When executed in a VPATH build,
