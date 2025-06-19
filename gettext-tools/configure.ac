@@ -694,6 +694,20 @@ dnl Checks for optional programs for the its/* tests.
 AC_PATH_PROGS([XMLLINT], [xmllint], [:])
 AC_SUBST([HAVE_JAVAEXEC])
 
+dnl Test for features used in install-tests.
+dnl shlibpath_var and PATH_SEPARATOR are set by LT_INIT.
+AC_SUBST([PATH_SEPARATOR])
+if test -n "${shlibpath_var}"; then
+  if test "${shlibpath_var}" = PATH; then
+    AUGMENT_SHLIBPATH="PATH='\$(bindir)'${PATH_SEPARATOR}\"\$\$PATH\";"
+  else
+    AUGMENT_SHLIBPATH="${shlibpath_var}='\$(libdir)':\"\$\$${shlibpath_var}\"; export ${shlibpath_var};"
+  fi
+else
+  AUGMENT_SHLIBPATH=
+fi
+AC_SUBST([AUGMENT_SHLIBPATH])
+
 AC_CONFIG_SUBDIRS([examples])
 
 AC_CONFIG_FILES([Makefile],
@@ -739,6 +753,8 @@ AC_CONFIG_FILES([tests/gnulib-lib/Makefile])
 AC_CONFIG_FILES([system-tests/Makefile])
 
 AC_CONFIG_FILES([gnulib-tests/Makefile])
+
+AC_CONFIG_FILES([install-tests/Makefile])
 
 AC_CONFIG_FILES([build-aux/xml-validate-10],
                 [chmod a+x build-aux/xml-validate-10])
