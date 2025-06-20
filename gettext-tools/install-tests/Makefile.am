@@ -20,14 +20,14 @@ installcheck-local:
 	$(CC) -I$(includedir) -L$(libdir) \
 	      $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
 	      $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
-	      -o test-version $(srcdir)/test-version.c -lgettextpo
+	      -o test-version $(srcdir)/test-version.c -lgettextpo $(INSTALLED_LIBGETTEXTPO_DEPS)
 	@AUGMENT_SHLIBPATH@ ./test-version
 	rm -rf test-version test-version$(EXEEXT)
 	$(CC) -I$(includedir) -L$(libdir) \
 	      $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) \
 	      -DSRCDIR=\"$(srcdir)/\" \
 	      $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) \
-	      -o test-api $(srcdir)/test-api.c -lgettextpo
+	      -o test-api $(srcdir)/test-api.c -lgettextpo $(INSTALLED_LIBGETTEXTPO_DEPS)
 	@AUGMENT_SHLIBPATH@ ./test-api
 	rm -rf test-api test-api$(EXEEXT)
 	PATH='$(bindir)'@PATH_SEPARATOR@"$$PATH"; xgettext --version | grep 'GNU gettext' > /dev/null

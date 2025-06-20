@@ -696,6 +696,14 @@ AC_SUBST([HAVE_JAVAEXEC])
 
 dnl Test for features used in install-tests.
 dnl shlibpath_var and PATH_SEPARATOR are set by LT_INIT.
+if test $USE_INCLUDED_LIBINTL = yes; then
+  INSTALLED_LIBINTL="-lintl $LIBICONV $INTL_MACOSX_LIBS"
+  INSTALLED_LIBGETTEXTPO_DEPS="$INSTALLED_LIBINTL"
+else
+  INSTALLED_LIBINTL=
+  INSTALLED_LIBGETTEXTPO_DEPS="$LIBICONV"
+fi
+AC_SUBST([INSTALLED_LIBGETTEXTPO_DEPS])
 AC_SUBST([PATH_SEPARATOR])
 if test -n "${shlibpath_var}"; then
   if test "${shlibpath_var}" = PATH; then
