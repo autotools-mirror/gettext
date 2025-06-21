@@ -146,6 +146,8 @@ cat <<\EOF > f-d-1.data
 "abc%,*0g"
 # Invalid: precision after separator
 "abc%,4.2g"
+# Valid: null precision
+"abc%.f"
 # Invalid: twice precision
 "abc%.4.2g"
 # Invalid: twice separator
