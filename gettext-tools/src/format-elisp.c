@@ -31,8 +31,8 @@
 
 #define _(str) gettext (str)
 
-/* Emacs Lisp format strings are implemented in emacs-21.1/src/editfns.c,
-   xemacs-21.1.14/src/editfns.c and xemacs-21.1.14/src/doprnt.c.
+/* Emacs Lisp format strings are implemented in emacs-21.4/src/editfns.c and
+   emacs-21.4/src/doprnt.c.
    A directive
    - starts with '%' or '%m$' where m is a positive integer,
    - is optionally followed by any of the characters '#', '0', '-', ' ', '+',
@@ -40,7 +40,7 @@
    - is optionally followed by a width specification: '*' (reads an argument)
      or a nonempty digit sequence,
    - is optionally followed by '.' and a precision specification: '*' (reads
-     an argument) or a nonempty digit sequence,
+     an argument) or an optional nonempty digit sequence,
    - is finished by a specifier
        - '%', that needs no argument,
        - 'c', that need a character argument,
