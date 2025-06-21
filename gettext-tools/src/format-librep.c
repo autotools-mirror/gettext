@@ -38,8 +38,8 @@
      each of which acts as a flag,
    - is optionally followed by a width specification: a nonempty digit
      sequence,
-   - is optionally followed by '.' and a precision specification: a nonempty
-     digit sequence,
+   - is optionally followed by '.' and a precision specification: an optional
+     nonempty digit sequence,
    - is finished by a specifier
        - '%', that needs no argument,
        - 'c', that need a character argument,
