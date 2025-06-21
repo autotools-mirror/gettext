@@ -159,12 +159,27 @@ format_parse (const char *format, bool translated, char *fdi,
         while (c_isdigit (*format))
           format++;
 
+        /* Parse precision.  */
         if (*format == '.')
           {
             format++;
 
-            while (c_isdigit (*format))
-              format++;
+            if (!c_isdigit (*format))
+              {
+                if (*format == '\0')
+                  {
+                    *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+                    FDI_SET (format - 1, FMTDIR_ERROR);
+                  }
+                else
+                  {
+                    *invalid_reason = INVALID_PRECISION_MISSING (spec.directives);
+                    FDI_SET (format, FMTDIR_ERROR);
+                  }
+                goto bad_format;
+              }
+
+            do format++; while (c_isdigit (*format));
           }
 
         switch (*format)
