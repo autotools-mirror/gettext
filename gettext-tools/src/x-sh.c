@@ -1090,7 +1090,7 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                                   }
                                 if (j > 0)
                                   {
-                                    if (n < 0x110000)
+                                    if (n < 0x110000 && !(n >= 0xD800 && n <= 0xDFFF))
                                       {
                                         if (wp->type == t_string)
                                           mixed_string_buffer_append_unicode (wp->token, n);
