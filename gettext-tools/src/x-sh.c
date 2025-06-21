@@ -1,5 +1,5 @@
 /* xgettext sh backend.
-   Copyright (C) 2003-2024 Free Software Foundation, Inc.
+   Copyright (C) 2003-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -64,6 +64,9 @@
    - Strings are enclosed in "..."; command substitution, variable
      substitution and arithmetic substitution are performed here as well.
    - '...' is a string without substitutions.
+   - $'...' is a string with escapes but without substitutions.
+     <https://pubs.opengroup.org/onlinepubs/9799919799/utilities/V3_chap02.html#tag_19_02_04>
+     <https://www.gnu.org/software/bash/manual/html_node/ANSI_002dC-Quoting.html>
    - The list of resulting words is split into commands by semicolon and
      newline.
    - '#' at the beginning of a word introduces a comment until end of line.
@@ -985,7 +988,8 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
 
               if (c2 == '\'' && !open_singlequote)
                 {
-                  /* Bash builtin for string with ANSI-C escape sequences.  */
+                  /* $'...': POSIX dollar-single-quoted string.  Also known as
+                     bash builtin for string with ANSI-C escape sequences.  */
                   for (;;)
                     {
                       /* We have to use phase1 throughout this loop,
@@ -1038,6 +1042,41 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                               break;
                             case 'v':
                               c = '\v';
+                              break;
+
+                            case 'c':
+                              c = phase1_getc ();
+                              if (c >= 'A' && c <= 'Z')
+                                c = c - 'A' + 0x01;
+                              else if (c >= 'a' && c <= 'z')
+                                c = c - 'a' + 0x01;
+                              else if (c == '[')
+                                c = 0x1b; /* ESC */
+                              else if (c == '\\')
+                                {
+                                  c = phase1_getc ();
+                                  if (c == '\\')
+                                    c = 0x1c; /* FS */
+                                  else
+                                    {
+                                      phase1_ungetc (c);
+                                      phase1_ungetc ('\\');
+                                      c = 'c';
+                                    }
+                                }
+                              else if (c == ']')
+                                c = 0x1d; /* GS */
+                              else if (c == '^')
+                                c = 0x1e; /* RS */
+                              else if (c == '_')
+                                c = 0x1f; /* US */
+                              else if (c == '?')
+                                c = 0x7f; /* DEL */
+                              else
+                                {
+                                  phase1_ungetc (c);
+                                  c = 'c';
+                                }
                               break;
 
                             case 'x':
@@ -1120,7 +1159,7 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                 }
               else if (c2 == '"' && !open_doublequote)
                 {
-                  /* Bash builtin for internationalized string.  */
+                  /* $"...": Bash builtin for internationalized string.  */
                   lex_pos_ty pos;
                   struct token string;
 

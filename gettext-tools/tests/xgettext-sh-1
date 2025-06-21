@@ -4,6 +4,8 @@
 # Test of Shell support: escape sequences, string concatenation,
 # strings with embedded expressions.
 
+# Note! This file contains unescaped ASCII control characters. Edit carefully!
+
 cat <<\EOF > xg-sh-1.sh
 # Test escape sequences expansion.
 
@@ -478,6 +480,20 @@ echo "`echo "\`ngettext 'depth_2_11_squote_5_semi \\\\\;'\`"`"
 echo "`echo "\`ngettext 'depth_2_11_squote_6_semi \\\\\\;'\`"`"
 echo "`echo "\`ngettext 'depth_2_11_squote_7_semi \\\\\\\;'\`"`"
 echo "`echo "\`ngettext 'depth_2_11_squote_8_semi \\\\\\\\;'\`"`"
+
+# Test dollar-single-quote strings.
+
+gettext $'depth_0_dollar_posix_0_"ab\"cd\'ef\\gh\eij\fkl\nmn\rop\tqr\vst'
+gettext $'depth_0_dollar_posix_1_\cvab\cVcd\c[ef\c\\gh\c]ij\c?kl'
+gettext $'depth_0_dollar_bash_0_\Eab'
+
+echo `gettext $'depth_1_dollar_posix_0_"ab\"cd\'ef\\gh\eij\fkl\nmn\rop\tqr\vst'`
+echo `gettext $'depth_1_dollar_posix_1_\cvab\cVcd\c[ef\c\\gh\c]ij\c?kl'`
+echo `gettext $'depth_1_dollar_bash_0_\Eab'`
+
+echo `echo \`gettext $'depth_2_dollar_posix_0_"ab\"cd\'ef\\gh\eij\fkl\nmn\rop\tqr\vst'\``
+echo `echo \`gettext $'depth_2_dollar_posix_1_\cvab\cVcd\c[ef\c\\gh\c]ij\c?kl'\``
+echo `echo \`gettext $'depth_2_dollar_bash_0_\Eab'\``
 
 # Test string concatenation.
 
@@ -1868,6 +1884,39 @@ msgid "depth_2_11_squote_7_semi \\\\;"
 msgstr ""
 
 msgid "depth_2_11_squote_8_semi \\\\;"
+msgstr ""
+
+msgid ""
+"depth_0_dollar_posix_0_\"ab\"cd'ef\\ghij\fkl\n"
+"mn\rop\tqr\vst"
+msgstr ""
+
+msgid "depth_0_dollar_posix_1_abcdefghijkl"
+msgstr ""
+
+msgid "depth_0_dollar_bash_0_ab"
+msgstr ""
+
+msgid ""
+"depth_1_dollar_posix_0_\"ab\"cd'ef\\ghij\fkl\n"
+"mn\rop\tqr\vst"
+msgstr ""
+
+msgid "depth_1_dollar_posix_1_abcdefghijkl"
+msgstr ""
+
+msgid "depth_1_dollar_bash_0_ab"
+msgstr ""
+
+msgid ""
+"depth_2_dollar_posix_0_\"ab\"cd'ef\\ghij\fkl\n"
+"mn\rop\tqr\vst"
+msgstr ""
+
+msgid "depth_2_dollar_posix_1_abcdefghijkl"
+msgstr ""
+
+msgid "depth_2_dollar_bash_0_ab"
 msgstr ""
 
 msgid "concat_0_part2"
