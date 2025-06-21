@@ -49,7 +49,7 @@
            - optional: a width specification: '*' (reads an argument) or '*m$'
              or a nonempty digit sequence,
            - optional: a '.' and a precision specification: '*' (reads an
-             argument) or '*m$' or a nonempty digit sequence,
+             argument) or '*m$' or an optional nonempty digit sequence,
            - optional: any of the characters 'h', 'l', 'L',
            - if the directive started with '%|':
                an optional specifier and a final '|',
