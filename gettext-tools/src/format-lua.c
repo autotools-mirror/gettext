@@ -34,15 +34,16 @@
 /* The Lua format strings are described in the Lua manual,
    which can be found at:
    https://www.lua.org/manual/5.2/manual.html
+   They are implemented in lua-5.2.4/src/lstrlib.c.
 
    A directive
    - starts with '%'
    - is optionally followed by any of the characters '0', '-', ' ', or
      each of which acts as a flag,
    - is optionally followed by a width specification: a nonempty digit
-     sequence,
-   - is optionally followed by '.' and a precision specification: a nonempty
-     digit sequence,
+     sequence with at most 2 digits,
+   - is optionally followed by '.' and a precision specification: an optional
+     nonempty digit sequence with at most 2 digits,
    - is finished by a specifier
        - 's', 'q', that needs a string argument,
        - 'd', 'i', 'o', 'u', 'X', 'x', that need an integer argument,
@@ -99,17 +100,25 @@ format_parse (const char *format, bool translated, char *fdi,
             {
               enum format_arg_type type;
 
-              /* Remove width. */
-              while (c_isdigit (*fatstr))
-                fatstr++;
+              /* Parse width. */
+              if (c_isdigit (*fatstr))
+                {
+                  fatstr++;
+                  if (c_isdigit (*fatstr))
+                    fatstr++;
+                }
 
               if (*fatstr == '.')
                 {
                   fatstr++;
 
-                  /* Remove precision. */
-                  while (c_isdigit (*fatstr))
-                    fatstr++;
+                  /* Parse precision. */
+                  if (c_isdigit (*fatstr))
+                    {
+                      fatstr++;
+                      if (c_isdigit (*fatstr))
+                        fatstr++;
+                    }
                 }
 
               switch (*fatstr)
