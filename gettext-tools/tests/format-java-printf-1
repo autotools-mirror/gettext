@@ -66,6 +66,8 @@ cat <<\EOF > f-jp-1.data
 "abc%y"
 # Invalid: flags after width
 "abc%2#d"
+# Invalid: null precision
+"abc%.f"
 # Invalid: twice precision
 "abc%.4.2g"
 # Valid: three arguments
