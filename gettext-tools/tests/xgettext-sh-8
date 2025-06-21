@@ -5,6 +5,10 @@
 
 cat <<\EOF > xg-sh-8.sh
 echo `gettext $'\'\x'`
+gettext $'\u#'
+gettext $'\U#'
+gettext $'\U123456'
+gettext $'\U12345678'
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -13,6 +17,18 @@ LC_ALL=C tr -d '\r' < xg-sh-8.tmp.po > xg-sh-8.po || Exit 1
 
 cat <<\EOF > xg-sh-8.ok
 msgid "'\\x"
+msgstr ""
+
+msgid "\\u#"
+msgstr ""
+
+msgid "\\U#"
+msgstr ""
+
+msgid "\\U123456"
+msgstr ""
+
+msgid "\\U12345678"
 msgstr ""
 EOF
 

@@ -185,7 +185,7 @@ do_ungetc (int c)
 
 /* Remove backslash followed by newline from the input stream.  */
 
-static int phase1_pushback[2];
+static int phase1_pushback[9];
 static int phase1_pushback_length;
 
 static int
@@ -215,7 +215,7 @@ phase1_getc ()
     }
 }
 
-/* Supports only one pushback character.  */
+/* Supports 9 pushback characters.  */
 static void
 phase1_ungetc (int c)
 {
