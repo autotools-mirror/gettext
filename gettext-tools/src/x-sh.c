@@ -237,59 +237,6 @@ phase1_ungetc (int c)
 }
 
 
-/* ========================== Reading of tokens.  ========================== */
-
-
-/* A token consists of a sequence of characters.  */
-struct token
-{
-  int allocated;                /* number of allocated 'token_char's */
-  int charcount;                /* number of used 'token_char's */
-  char *chars;                  /* the token's constituents */
-};
-
-/* Initialize a 'struct token'.  */
-static inline void
-init_token (struct token *tp)
-{
-  tp->allocated = 10;
-  tp->chars = XNMALLOC (tp->allocated, char);
-  tp->charcount = 0;
-}
-
-/* Free the memory pointed to by a 'struct token'.  */
-static inline void
-free_token (struct token *tp)
-{
-  free (tp->chars);
-}
-
-/* Ensure there is enough room in the token for one more character.  */
-static inline void
-grow_token (struct token *tp)
-{
-  if (tp->charcount == tp->allocated)
-    {
-      tp->allocated *= 2;
-      tp->chars = (char *) xrealloc (tp->chars, tp->allocated * sizeof (char));
-    }
-}
-
-/* Convert a struct token * to a char*.  */
-static char *
-string_of_token (const struct token *tp)
-{
-  char *str;
-  int n;
-
-  n = tp->charcount;
-  str = XNMALLOC (n + 1, char);
-  memcpy (str, tp->chars, n);
-  str[n] = '\0';
-  return str;
-}
-
-
 /* ========================= Accumulating messages ========================= */
 
 
@@ -450,8 +397,8 @@ enum word_type
 struct word
 {
   enum word_type type;
-  struct token *token;          /* for t_string */
-  int line_number_at_start;     /* for t_string */
+  struct mixed_string_buffer *token; /* for t_string */
+  int line_number_at_start;          /* for t_string */
 };
 
 /* Free the memory pointed to by a 'struct word'.  */
@@ -460,43 +407,9 @@ free_word (struct word *wp)
 {
   if (wp->type == t_string)
     {
-      free_token (wp->token);
+      mixed_string_buffer_destroy (wp->token);
       free (wp->token);
     }
-}
-
-/* Convert a t_string token to a char*.  */
-static char *
-string_of_word (const struct word *wp)
-{
-  char *str;
-  int n;
-
-  if (!(wp->type == t_string))
-    abort ();
-  n = wp->token->charcount;
-  str = XNMALLOC (n + 1, char);
-  memcpy (str, wp->token->chars, n);
-  str[n] = '\0';
-  return str;
-}
-
-/* Convert a t_string token to a char*, ignoring the first OFFSET bytes.  */
-static char *
-substring_of_word (const struct word *wp, size_t offset)
-{
-  char *str;
-  int n;
-
-  if (!(wp->type == t_string))
-    abort ();
-  n = wp->token->charcount;
-  if (!(offset <= n))
-    abort ();
-  str = XNMALLOC (n - offset + 1, char);
-  memcpy (str, wp->token->chars + offset, n - offset);
-  str[n - offset] = '\0';
-  return str;
 }
 
 
@@ -862,8 +775,9 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
     }
 
   wp->type = t_string;
-  wp->token = XMALLOC (struct token);
-  init_token (wp->token);
+  wp->token = XMALLOC (struct mixed_string_buffer);
+  mixed_string_buffer_init (wp->token, lc_string,
+                            logical_file_name, line_number);
   wp->line_number_at_start = line_number;
   /* True while all characters in the token seen so far are digits.  */
   all_unquoted_digits = true;
@@ -897,7 +811,7 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
             phase2_ungetc (c2);
 
           wp->type = t_redirect;
-          free_token (wp->token);
+          mixed_string_buffer_destroy (wp->token);
           free (wp->token);
 
           last_non_comment_line = line_number;
@@ -907,7 +821,9 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
 
       all_unquoted_digits = all_unquoted_digits && (c >= '0' && c <= '9');
 
-      if (all_unquoted_name_characters && wp->token->charcount > 0 && c == '=')
+      if (all_unquoted_name_characters
+          && !mixed_string_buffer_is_empty (wp->token)
+          && c == '=')
         {
           wp->type = t_assignment;
           continue;
@@ -916,7 +832,8 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
       all_unquoted_name_characters =
          all_unquoted_name_characters
          && ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_'
-             || (wp->token->charcount > 0 && c >= '0' && c <= '9'));
+             || (!mixed_string_buffer_is_empty (wp->token)
+                 && c >= '0' && c <= '9'));
 
       if (c == '$')
         {
@@ -1145,14 +1062,56 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                                 c = n;
                               }
                               break;
+
+                            case 'u': case 'U':
+                              {
+                                unsigned char buf[8];
+                                int j;
+                                unsigned int n;
+
+                                n = 0;
+                                for (j = 0; j < (c == 'u' ? 4 : 8); j++)
+                                  {
+                                    int c1 = phase1_getc ();
+
+                                    if (c1 >= '0' && c1 <= '9')
+                                      n = (n << 4) + (c1 - '0');
+                                    else if (c1 >= 'A' && c1 <= 'F')
+                                      n = (n << 4) + (c1 - 'A' + 10);
+                                    else if (c1 >= 'a' && c1 <= 'f')
+                                      n = (n << 4) + (c1 - 'a' + 10);
+                                    else
+                                      {
+                                        phase1_ungetc (c1);
+                                        break;
+                                      }
+
+                                    buf[j] = c1;
+                                  }
+                                if (j > 0)
+                                  {
+                                    if (n < 0x110000)
+                                      {
+                                        if (wp->type == t_string)
+                                          mixed_string_buffer_append_unicode (wp->token, n);
+                                        goto done_escape_sequence;
+                                      }
+                                    if_error (IF_SEVERITY_WARNING,
+                                              logical_file_name, line_number, (size_t)(-1), false,
+                                               _("invalid Unicode character"));
+                                    while (--j >= 0)
+                                      phase1_ungetc (buf[j]);
+                                  }
+                                phase1_ungetc (c);
+                                c = '\\';
+                                break;
+                              }
                             }
                         }
                       if (wp->type == t_string)
-                        {
-                          grow_token (wp->token);
-                          wp->token->chars[wp->token->charcount++] =
-                            (unsigned char) c;
-                        }
+                        mixed_string_buffer_append_char (wp->token,
+                                                         (unsigned char) c);
+                     done_escape_sequence: ;
                     }
                   /* The result is a literal string.  Don't change wp->type.  */
                   continue;
@@ -1161,13 +1120,14 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                 {
                   /* $"...": Bash builtin for internationalized string.  */
                   lex_pos_ty pos;
-                  struct token string;
+                  struct mixed_string_buffer string;
 
                   saw_opening_singlequote ();
                   open_singlequote_terminator = '"';
                   pos.file_name = logical_file_name;
                   pos.line_number = line_number;
-                  init_token (&string);
+                  mixed_string_buffer_init (&string, lc_string,
+                                            logical_file_name, line_number);
                   for (;;)
                     {
                       c = phase2_getc ();
@@ -1178,13 +1138,13 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                           saw_closing_singlequote ();
                           break;
                         }
-                      grow_token (&string);
-                      string.chars[string.charcount++] = (unsigned char) c;
+                      mixed_string_buffer_append_char (&string, (unsigned char) c);
                     }
-                  remember_a_message (mlp, NULL, string_of_token (&string),
-                                      false, false, region, &pos,
+                  remember_a_message (mlp, NULL,
+                                      mixed_string_contents_free1 (
+                                        mixed_string_buffer_result (&string)),
+                                      true, false, region, &pos,
                                       NULL, savable_comment, false);
-                  free_token (&string);
 
                   if_error (IF_SEVERITY_WARNING,
                             pos.file_name, pos.line_number, (size_t)(-1), false,
@@ -1278,17 +1238,14 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
         break;
 
       if (wp->type == t_string)
-        {
-          grow_token (wp->token);
-          wp->token->chars[wp->token->charcount++] = (unsigned char) c;
-        }
+        mixed_string_buffer_append_char (wp->token, (unsigned char) c);
     }
 
   phase2_ungetc (c);
 
   if (wp->type != t_string)
     {
-      free_token (wp->token);
+      mixed_string_buffer_destroy (wp->token);
       free (wp->token);
     }
   last_non_comment_line = line_number;
@@ -1354,8 +1311,10 @@ read_command (int looking_for, flag_region_ty *outer_region)
 
               pos.file_name = logical_file_name;
               pos.line_number = inner.line_number_at_start;
-              remember_a_message (mlp, NULL, string_of_word (&inner), false,
-                                  false, inner_region, &pos,
+              remember_a_message (mlp, NULL,
+                                  mixed_string_contents_free1 (
+                                    mixed_string_buffer_cloned_result (inner.token)),
+                                  true, false, inner_region, &pos,
                                   NULL, savable_comment, false);
             }
         }
@@ -1387,7 +1346,9 @@ read_command (int looking_for, flag_region_ty *outer_region)
                 }
               else if (inner.type == t_string)
                 {
-                  char *function_name = string_of_word (&inner);
+                  char *function_name =
+                    mixed_string_contents_free1 (
+                      mixed_string_buffer_cloned_result (inner.token));
 
                   if (strcmp (function_name, "env") == 0)
                     {
@@ -1438,12 +1399,7 @@ read_command (int looking_for, flag_region_ty *outer_region)
                          && memcmp (argparser->keyword, "ngettext", 8) == 0));
                   if (accepts_context && argparser->next_is_msgctxt)
                     {
-                      char *s = string_of_word (&inner);
-                      mixed_string_ty *ms =
-                        mixed_string_alloc_simple (s, lc_string,
-                                                   logical_file_name,
-                                                   inner.line_number_at_start);
-                      free (s);
+                      mixed_string_ty *ms = mixed_string_buffer_cloned_result (inner.token);
                       argparser->next_is_msgctxt = false;
                       arglist_parser_remember_msgctxt (argparser, ms,
                                                        inner_region,
@@ -1452,24 +1408,17 @@ read_command (int looking_for, flag_region_ty *outer_region)
                       matters_for_argparser = false;
                     }
                   else if (accepts_context
-                           && ((inner.token->charcount == 2
-                                && memcmp (inner.token->chars, "-c", 2) == 0)
-                               || (inner.token->charcount == 9
-                                   && memcmp (inner.token->chars, "--context", 9) == 0)))
+                           && (mixed_string_buffer_equals (inner.token, "-c")
+                               || mixed_string_buffer_equals (inner.token, "--context")))
                     {
                       argparser->next_is_msgctxt = true;
                       matters_for_argparser = false;
                     }
                   else if (accepts_context
-                           && (inner.token->charcount >= 10
-                               && memcmp (inner.token->chars, "--context=", 10) == 0))
+                           && mixed_string_buffer_startswith (inner.token, "--context="))
                     {
-                      char *s = substring_of_word (&inner, 10);
-                      mixed_string_ty *ms =
-                        mixed_string_alloc_simple (s, lc_string,
-                                                   logical_file_name,
-                                                   inner.line_number_at_start);
-                      free (s);
+                      mixed_string_ty *ms = mixed_string_buffer_cloned_result (inner.token);
+                      mixed_string_remove_prefix (ms, 10);
                       argparser->next_is_msgctxt = false;
                       arglist_parser_remember_msgctxt (argparser, ms,
                                                        inner_region,
@@ -1478,20 +1427,19 @@ read_command (int looking_for, flag_region_ty *outer_region)
                       matters_for_argparser = false;
                     }
                   else if (accepts_expand
-                           && inner.token->charcount == 2
-                           && memcmp (inner.token->chars, "-e", 2) == 0)
+                           && mixed_string_buffer_equals (inner.token, "-e"))
                     {
                       must_expand_arg_strings = true;
                       matters_for_argparser = false;
                     }
                   else
                     {
-                      char *s = string_of_word (&inner);
-                      mixed_string_ty *ms;
+                      mixed_string_ty *ms = mixed_string_buffer_cloned_result (inner.token);
 
                       /* When '-e' was specified, expand escape sequences in s.  */
                       if (accepts_expand && must_expand_arg_strings)
                         {
+                          char *s = mixed_string_contents (ms);
                           bool expands_backslash_c =
                             (argparser->keyword_len == 7
                              && memcmp (argparser->keyword, "gettext", 7) == 0);
@@ -1502,14 +1450,17 @@ read_command (int looking_for, flag_region_ty *outer_region)
                           /* We can ignore the value of expands_backslash_c, because
                              here we don't support the gettext '-s' option.  */
                           if (expanded != s)
-                            free (s);
-                          s = expanded;
+                            {
+                              mixed_string_ty *expanded_ms =
+                                mixed_string_alloc_utf8 (expanded, ms->lcontext,
+                                                         ms->logical_file_name,
+                                                         ms->line_number);
+                              mixed_string_free (ms);
+                              ms = expanded_ms;
+                            }
+                          free (s);
                         }
 
-                      ms = mixed_string_alloc_simple (s, lc_string,
-                                                      logical_file_name,
-                                                      inner.line_number_at_start);
-                      free (s);
                       arglist_parser_remember (argparser, arg, ms,
                                                inner_region,
                                                logical_file_name,

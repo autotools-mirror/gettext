@@ -11,6 +11,9 @@ Version 0.26 - July 2025
       are no longer flagged as format strings by default, unless they occur
       in a context that requires a format string.  You can override this
       heuristic by using a comment of the form /* xgettext: c-format */.
+  * Shell:
+    - xgettext now recognizes the \c, \u, and \U escape sequences in dollar-
+      single-quoted strings $'...'.
 
 # Bug fixes:
   - The AM_GNU_GETTEXT macro now rejects the dysfunctional gettext() function

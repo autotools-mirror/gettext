@@ -1,6 +1,6 @@
 /* Handling strings that are given partially in the source encoding and
    partially in Unicode.
-   Copyright (C) 2001-2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -99,6 +99,10 @@ extern mixed_string_ty *
        mixed_string_concat_free1 (mixed_string_ty *ms1,
                                   const mixed_string_ty *ms2);
 
+/* Removes a known prefix of prefix_length ASCII bytes from a mixed_string.  */
+extern void
+       mixed_string_remove_prefix (mixed_string_ty *ms, size_t prefix_length);
+
 
 /* A string buffer type that allows appending bytes (in the
    xgettext_current_source_encoding) or Unicode characters.
@@ -134,6 +138,18 @@ extern void
 extern bool
        mixed_string_buffer_is_empty (const struct mixed_string_buffer *bp);
 
+/* Determines whether the accumulated string is equal to a given ASCII
+   string.  */
+extern bool
+       mixed_string_buffer_equals (const struct mixed_string_buffer *bp,
+                                   const char *other);
+
+/* Determines whether the accumulated string starts with a given ASCII
+   string.  */
+extern bool
+       mixed_string_buffer_startswith (const struct mixed_string_buffer *bp,
+                                       const char *prefix);
+
 /* Appends a character to a mixed_string_buffer.  */
 extern void
        mixed_string_buffer_append_char (struct mixed_string_buffer *bp, int c);
@@ -152,6 +168,11 @@ extern void
    and returns the accumulated string.  */
 extern mixed_string_ty *
        mixed_string_buffer_result (struct mixed_string_buffer *bp);
+
+/* Returns the accumulated string.
+   Does *not* free the memory pointed to by BP.  */
+extern mixed_string_ty *
+       mixed_string_buffer_cloned_result (struct mixed_string_buffer *bp);
 
 
 #ifdef __cplusplus

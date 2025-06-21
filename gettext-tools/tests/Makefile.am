@@ -176,7 +176,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-scheme-format-1 xgettext-scheme-format-2 \
 	xgettext-scheme-stackovfl-1 xgettext-scheme-stackovfl-2 \
 	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 xgettext-sh-4 xgettext-sh-5 \
-	xgettext-sh-6 xgettext-sh-7 xgettext-sh-8 \
+	xgettext-sh-6 xgettext-sh-7 xgettext-sh-8 xgettext-sh-9 \
 	xgettext-sh-stackovfl-1 xgettext-sh-stackovfl-2 \
 	xgettext-sh-stackovfl-3 xgettext-sh-stackovfl-4 \
 	xgettext-sh-stackovfl-5 \

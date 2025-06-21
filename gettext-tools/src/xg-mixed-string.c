@@ -1,6 +1,6 @@
 /* Handling strings that are given partially in the source encoding and
    partially in Unicode.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -394,6 +394,25 @@ mixed_string_concat_free1 (mixed_string_ty *ms1, const mixed_string_ty *ms2)
   }
 }
 
+void
+mixed_string_remove_prefix (mixed_string_ty *ms, size_t prefix_length)
+{
+  if (prefix_length > 0)
+    {
+      if (ms->nsegments == 0)
+        abort ();
+      struct mixed_string_segment *old_segment0 = ms->segments[0];
+      if (!(old_segment0->length >= prefix_length))
+        abort ();
+      struct mixed_string_segment *new_segment0 =
+        segment_alloc (old_segment0->type,
+                       old_segment0->contents + prefix_length,
+                       old_segment0->length - prefix_length);
+      free (old_segment0);
+      ms->segments[0] = new_segment0;
+    }
+}
+
 
 void
 mixed_string_buffer_init (struct mixed_string_buffer *bp,
@@ -417,7 +436,31 @@ mixed_string_buffer_init (struct mixed_string_buffer *bp,
 bool
 mixed_string_buffer_is_empty (const struct mixed_string_buffer *bp)
 {
-  return (bp->nsegments == 0 && bp->curr_buflen == 0);
+  return (bp->nsegments == 0 && bp->curr_buflen == 0 && bp->utf16_surr == 0);
+}
+
+bool
+mixed_string_buffer_equals (const struct mixed_string_buffer *bp,
+                            const char *other)
+{
+  size_t other_len = strlen (other);
+  return (bp->nsegments == 0
+          && bp->curr_buflen == other_len
+          && (other_len == 0 || memcmp (bp->curr_buffer, other, other_len) == 0)
+          && bp->utf16_surr == 0);
+}
+
+bool
+mixed_string_buffer_startswith (const struct mixed_string_buffer *bp,
+                                const char *prefix)
+{
+  size_t prefix_len = strlen (prefix);
+  return prefix_len == 0
+         || (bp->nsegments == 0
+             ? bp->curr_buflen >= prefix_len
+               && memcmp (bp->curr_buffer, prefix, prefix_len) == 0
+             : bp->segments[0]->length >= prefix_len
+               && memcmp (bp->segments[0]->contents, prefix, prefix_len) == 0);
 }
 
 /* Auxiliary function: Ensure count more bytes are available in
@@ -638,6 +681,37 @@ mixed_string_buffer_result (struct mixed_string_buffer *bp)
     ms->line_number = bp->line_number;
 
     free (bp->curr_buffer);
+
+    return ms;
+  }
+}
+
+mixed_string_ty *
+mixed_string_buffer_cloned_result (struct mixed_string_buffer *bp)
+{
+  mixed_string_buffer_flush_curr (bp);
+
+  {
+    struct mixed_string *ms = XMALLOC (struct mixed_string);
+    size_t nsegments = bp->nsegments;
+
+    if (nsegments > 0)
+      {
+        size_t i;
+
+        ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
+        for (i = 0; i < nsegments; i++)
+          ms->segments[i] = segment_clone (bp->segments[i]);
+      }
+    else
+      {
+        assert (bp->segments == NULL);
+        ms->segments = NULL;
+      }
+    ms->nsegments = nsegments;
+    ms->lcontext = bp->lcontext;
+    ms->logical_file_name = bp->logical_file_name;
+    ms->line_number = bp->line_number;
 
     return ms;
   }
