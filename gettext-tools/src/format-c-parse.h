@@ -28,10 +28,10 @@
    - is optionally followed by a width specification: '*' (reads an argument)
      or '*m$' or a nonempty digit sequence,
    - is optionally followed by '.' and a precision specification: '*' (reads
-     an argument) or '*m$' or a nonempty digit sequence,
+     an argument) or '*m$' or an optional nonempty digit sequence,
    - is either continued like this:
        - is optionally followed by a size specifier, one of 'hh' 'h' 'l' 'll'
-         'L' 'q' 'j' 'z' 't',
+         'L' 'q' 'j' 'z' 't' 'w8' 'w16' 'w32' 'w64' 'wf8' 'wf16' 'wf32' 'wf64',
        - is finished by a specifier
            - '%', that needs no argument,
            - 'c', 'C', that need a character argument,
