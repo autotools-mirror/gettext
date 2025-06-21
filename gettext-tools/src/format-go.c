@@ -44,7 +44,7 @@
      sequence with value <= 1000000,
    - is optionally followed by '.' and a precision specification: '*' (reads an
      argument) or '[m]*' (moves to the m-th argument and reads that argument) or
-     a digit sequence with value <= 1000000,
+     optionally a nonempty digit sequence with value <= 1000000,
    - is optionally followed by '[m]', where m is a digit sequence with a
      positive value <= 1000000,
    - is finished by a specifier
@@ -252,11 +252,12 @@ format_parse (const char *format, bool translated, char *fdi,
         /* Parse precision.  */
         if (*format == '.')
           {
-            if (format[1] == '[')
+            format++;
+            if (*format == '[')
               {
-                if (c_isdigit (format[2]))
+                if (c_isdigit (format[1]))
                   {
-                    const char *f = format + 2;
+                    const char *f = format + 1;
                     unsigned int m = 0;
 
                     do
@@ -312,9 +313,9 @@ format_parse (const char *format, bool translated, char *fdi,
               }
 
             /* Parse precision other than [m]*.  */
-            if (c_isdigit (format[1]))
+            if (c_isdigit (*format))
               {
-                const char *f = format + 1;
+                const char *f = format;
                 unsigned int precision = 0;
 
                 do
@@ -335,7 +336,7 @@ format_parse (const char *format, bool translated, char *fdi,
                   }
                 format = f;
               }
-            else if (format[1] == '*')
+            else if (*format == '*')
               {
                 unsigned int precision_number = number;
 
@@ -349,7 +350,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 spec.numbered_arg_count++;
 
                 number++;
-                format += 2;
+                format++;
               }
           }
 
