@@ -41,7 +41,7 @@
    - is optionally followed by a width specification: '*' (reads an argument)
      or a nonempty digit sequence,
    - is optionally followed by '.' and a precision specification: '*' (reads
-     an argument) or a nonempty digit sequence,
+     an argument) or an optional nonempty digit sequence,
    - is optionally followed by a size specifier, 'h' or 'l'. 'l' is ignored.
    - is finished by a specifier
        - '%', that needs no argument,
