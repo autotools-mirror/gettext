@@ -46,7 +46,7 @@
      a nonempty digit sequence starting with a nonzero digit,
    - is optionally followed by '.' and a precision specification: '*' (reads
      an argument) or '*m$' where m is a positive integer starting with a
-     nonzero digit or a digit sequence,
+     nonzero digit or an optional nonempty digit sequence,
    - is optionally followed by a size specifier, one of 'h' 'l' 'll' 'L' 'q'
      'V' 'I32' 'I64' 'I',
    - is finished by a specifier
