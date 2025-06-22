@@ -40,8 +40,10 @@
      "'<anychar>", each of which acts as a flag,
    - is optionally followed by a width specification: a nonempty digit
      sequence,
-   - is optionally followed by '.' and a precision specification: a nonempty
-     digit sequence,
+   - is optionally followed by '.' and a precision specification: an [optional?]
+     nonempty digit sequence,
+     (It's optional per <https://www.php.net/manual/en/function.sprintf.php>,
+     but this is actually buggy: <https://github.com/php/php-src/issues/18897>.)
    - is optionally followed by a size specifier 'l', which is ignored,
    - is finished by a specifier
        - 's', that needs a string argument,

@@ -54,6 +54,8 @@ cat <<\EOF > f-ph-1.data
 "abc%y"
 # Invalid: flags after width
 "abc%5-f"
+# Invalid: null precision
+"abc%.f"
 # Invalid: twice precision
 "abc%.4.2f"
 # Valid: three arguments
