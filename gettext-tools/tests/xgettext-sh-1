@@ -1,7 +1,7 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test of Shell support: escape sequences, string concatenation,
+# Test of Shell support: escape sequences, format strings, string concatenation,
 # strings with embedded expressions.
 
 # Note! This file contains unescaped ASCII control characters. Edit carefully!
@@ -494,6 +494,10 @@ echo `gettext $'depth_1_dollar_bash_0_\Eab'`
 echo `echo \`gettext $'depth_2_dollar_posix_0_"ab\"cd\'ef\\gh\eij\fkl\nmn\rop\tqr\vst'\``
 echo `echo \`gettext $'depth_2_dollar_posix_1_\cvab\cVcd\c[ef\c\\gh\c]ij\c?kl'\``
 echo `echo \`gettext $'depth_2_dollar_bash_0_\Eab'\``
+
+# Test format strings.
+
+printf "`gettext 'User name: %s\nUser ID: %u'`"'\n' "$USER" `id -u`
 
 # Test string concatenation.
 
@@ -1917,6 +1921,10 @@ msgid "depth_2_dollar_posix_1_abcdefghijkl"
 msgstr ""
 
 msgid "depth_2_dollar_bash_0_ab"
+msgstr ""
+
+#, sh-printf-format
+msgid "User name: %s\\nUser ID: %u"
 msgstr ""
 
 msgid "concat_0_part2"

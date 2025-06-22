@@ -12,6 +12,8 @@ Version 0.26 - July 2025
       in a context that requires a format string.  You can override this
       heuristic by using a comment of the form /* xgettext: c-format */.
   * Shell:
+    - xgettext now recognizes format strings in the 'printf' command syntax.
+      They are marked as 'sh-printf-format' in POT and PO files.
     - xgettext now recognizes the \c, \u, and \U escape sequences in dollar-
       single-quoted strings $'...'.
 

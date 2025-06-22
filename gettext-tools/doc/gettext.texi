@@ -1733,7 +1733,13 @@ Likewise for Ruby, see @ref{ruby-format}.
 @kwindex sh-format@r{ flag}
 @itemx no-sh-format
 @kwindex no-sh-format@r{ flag}
-Likewise for Shell, see @ref{sh-format}.
+Likewise for Shell format strings, see @ref{sh-format}.
+
+@item sh-printf-format
+@kwindex sh-printf-format@r{ flag}
+@itemx no-sh-printf-format
+@kwindex no-sh-printf-format@r{ flag}
+Likewise for Shell @code{printf} format strings, see @ref{sh-format}.
 
 @item awk-format
 @kwindex awk-format@r{ flag}
@@ -10227,6 +10233,14 @@ equivalent to @code{%<@var{name}>s}.
 @node sh-format
 @subsection Shell Format Strings
 
+There are two kinds of format strings in shell scripts:
+those with dollar notation for placeholders,
+called @emph{Shell format strings}
+and labelled as @samp{sh-format},
+and those acceptable to the @samp{printf} command (or shell built-in command),
+called @emph{Shell @code{printf} format strings}
+and labelled as @samp{sh-printf-format}.
+
 Shell format strings, as supported by GNU gettext and the @samp{envsubst}
 program, are strings with references to shell variables in the form
 @code{$@var{variable}} or @code{$@{@var{variable}@}}.  References of the form
@@ -10242,6 +10256,28 @@ that would be valid inside shell scripts, are not supported.  The
 @var{variable} names must consist solely of alphanumeric or underscore
 ASCII characters, not start with a digit and be nonempty; otherwise such
 a variable reference is ignored.
+
+Shell @code{printf} format strings are the format strings supported
+by the POSIX @samp{printf} command
+(@url{https://pubs.opengroup.org/onlinepubs/9799919799/utilities/printf.html}),
+including the floating-point conversion specifiers
+@code{a}, @code{A}, @code{e}, @code{E}, @code{f}, @code{F}, @code{g}, @code{G},
+but without the obsolescent @code{b} conversion specifier.
+Extensions by the GNU coreutils @samp{printf} command
+(@url{https://www.gnu.org/software/coreutils/manual/html_node/printf-invocation.html})
+are not supported:
+use of @samp{*} or @samp{*@var{m}$} as width or precision;
+use of size specifiers @code{h}, @code{l}, @code{j}, @code{z}, @code{t} (ignored);
+and the escape sequences @code{\c},
+@code{\x@var{nn}}, @code{\u@var{nnnn}}, @code{\U@var{nnnnnnnn}}.
+Extensions by the GNU bash @samp{printf} built-in
+(@url{https://www.gnu.org/software/bash/manual/html_node/Bash-Builtins.html#index-printf})
+are not supported either:
+use of @samp{*} as width or precision;
+use of size specifiers @code{h}, @code{l}, @code{j}, @code{z}, @code{t} (ignored);
+the @code{%b}, @code{%q}, @code{%Q}, @code{%T}, @code{%n} directives;
+and the escape sequences
+@code{\x@var{nn}}, @code{\u@var{nnnn}}, @code{\U@var{nnnnnnnn}}.
 
 @node awk-format
 @subsection awk Format Strings

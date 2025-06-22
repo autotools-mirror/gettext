@@ -138,14 +138,18 @@ void
 init_flag_table_sh ()
 {
   xgettext_record_flag ("gettext:1:pass-sh-format");
+  xgettext_record_flag ("gettext:1:pass-sh-printf-format");
   xgettext_record_flag ("ngettext:1:pass-sh-format");
+  xgettext_record_flag ("ngettext:1:pass-sh-printf-format");
   xgettext_record_flag ("ngettext:2:pass-sh-format");
+  xgettext_record_flag ("ngettext:2:pass-sh-printf-format");
   xgettext_record_flag ("eval_gettext:1:sh-format");
   xgettext_record_flag ("eval_ngettext:1:sh-format");
   xgettext_record_flag ("eval_ngettext:2:sh-format");
   xgettext_record_flag ("eval_pgettext:2:sh-format");
   xgettext_record_flag ("eval_npgettext:2:sh-format");
   xgettext_record_flag ("eval_npgettext:3:sh-format");
+  xgettext_record_flag ("printf:1:sh-printf-format");
 }
 
 

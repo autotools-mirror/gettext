@@ -203,6 +203,7 @@ FORMAT_SOURCE += \
   format-go.c \
   format-ruby.c \
   format-sh.c \
+  format-sh-printf.c \
   format-awk.c \
   format-lua.c \
   format-pascal.c \

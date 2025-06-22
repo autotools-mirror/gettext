@@ -83,6 +83,7 @@ libgettextpo_la_AUXSOURCES = \
   ../src/format-go.c \
   ../src/format-ruby.c \
   ../src/format-sh.c \
+  ../src/format-sh-printf.c \
   ../src/format-awk.c \
   ../src/format-lua.c \
   ../src/format-pascal.c \

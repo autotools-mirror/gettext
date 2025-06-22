@@ -117,6 +117,7 @@ extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_rust;
 extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_go;
 extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_ruby;
 extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_sh;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_sh_printf;
 extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_awk;
 extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_lua;
 extern LIBGETTEXTSRC_DLL_VARIABLE struct formatstring_parser formatstring_pascal;

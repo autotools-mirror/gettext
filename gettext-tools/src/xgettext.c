@@ -1753,6 +1753,11 @@ xgettext_record_flag (const char *optionstring)
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;
+                  case format_sh_printf:
+                    flag_context_list_table_insert (&flag_table_sh, XFORMAT_SECONDARY,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
                   case format_awk:
                     flag_context_list_table_insert (&flag_table_awk, XFORMAT_PRIMARY,
                                                     name_start, name_end,

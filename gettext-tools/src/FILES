@@ -240,6 +240,7 @@ format-rust.c          Format string handling for Rust.
 format-go.c            Format string handling for Go.
 format-ruby.c          Format string handling for Ruby.
 format-sh.c            Format string handling for Shell.
+format-sh-printf.c     Format string handling for Shell, printf syntax.
 format-awk.c           Format string handling for awk.
 format-lua.c           Format string handling for Lua.
 format-pascal.c        Format string handling for Object Pascal.

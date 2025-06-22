@@ -51,6 +51,7 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_go */               &formatstring_go,
   /* format_ruby */             &formatstring_ruby,
   /* format_sh */               &formatstring_sh,
+  /* format_sh_printf */        &formatstring_sh_printf,
   /* format_awk */              &formatstring_awk,
   /* format_lua */              &formatstring_lua,
   /* format_pascal */           &formatstring_pascal,

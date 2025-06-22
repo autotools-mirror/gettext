@@ -60,6 +60,7 @@ enum format_type
   format_go,
   format_ruby,
   format_sh,
+  format_sh_printf,
   format_awk,
   format_lua,
   format_pascal,
@@ -79,7 +80,7 @@ enum format_type
   format_gfc_internal,
   format_ycp
 };
-#define NFORMATS 35     /* Number of format_type enum values.  */
+#define NFORMATS 36     /* Number of format_type enum values.  */
 extern LIBGETTEXTSRC_DLL_VARIABLE const char *const format_language[NFORMATS];
 extern LIBGETTEXTSRC_DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 
