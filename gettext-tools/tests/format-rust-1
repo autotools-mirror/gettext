@@ -42,9 +42,13 @@ cat <<\EOF > f-rs-1.data
 "abc{1:<<-#012.34e}"
 # Invalid: conversion in format specifier
 "abc{value:<<-#012.34e}"
-# Invalid: empty precision
+# Invalid: null precision
+"abc{1:.}"
+# Invalid: null precision
 "abc{1:8.}"
-# Invalid: empty precision
+# Invalid: null precision
+"abc{value:.}"
+# Invalid: null precision
 "abc{value:8.}"
 # Invalid: invalid format specifier
 "abc{1:<c>}"
