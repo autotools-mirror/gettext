@@ -241,6 +241,10 @@ cat <<\EOF > f-r-1.data
 "abc%2$2*1$g"
 # Invalid: twice width (numbered)
 "abc%2$*1$2g"
+# Valid: null precision (unnumbered)
+"abc%.f"
+# Valid: null precision (numbered)
+"abc%1$.f"
 # Invalid: twice precision (unnumbered)
 "abc%.4.2g"
 # Invalid: twice precision (numbered)

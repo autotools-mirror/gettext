@@ -50,7 +50,7 @@
      - '*', indicating a width, taken from the argument list,
      - '*' and a digit sequence, followed by '$', indicating a width, taken
        from a positional argument,
-     - '.' and a digit sequence, indicating a precision,
+     - '.' and an optional nonempty digit sequence, indicating a precision,
      - '.' '*', indicating a precision, taken from the argument list,
      - '.' '*' and a digit sequence, followed by '$', indicating a precision,
        taken from a positional argument.
