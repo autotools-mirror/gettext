@@ -49,8 +49,8 @@
        - is optionally followed by a width specification: '*' (reads an
          argument, must be of type integer) or a nonempty digit sequence,
        - is optionally followed by '.' and a precision specification: '*'
-         (reads an argument, must be of type integer) or a nonempty digit
-         sequence,
+         (reads an argument, must be of type integer) or an optional nonempty
+         digit sequence,
        - is finished by a case-insensitive specifier. If no index was
          specified, it reads an argument; otherwise is uses the index-th
          argument, 0-based.
@@ -216,8 +216,6 @@ format_parse (const char *format, bool translated, char *fdi,
 
                     format++;
                   }
-                else
-                  --format;     /* will jump to bad_format */
               }
 
             switch (c_tolower (*format))
