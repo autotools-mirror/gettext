@@ -41,6 +41,7 @@ src/format-ruby.c
 src/format-rust.c
 src/format-scheme.c
 src/format-sh.c
+src/format-sh-printf.c
 src/format-smalltalk.c
 src/format-tcl.c
 src/hostname.c

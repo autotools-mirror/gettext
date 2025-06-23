@@ -145,7 +145,7 @@ while read comment; do
   n=`expr $n + 1`
   escape_backslashes='s/\\/\\\\/g'
   escape_dollars='s/\$/\\\$/g'
-  string=`echo "$string" | LC_ALL=C sed -e "$escape_backslashes" -e "$escape_dollars"`
+  string=`printf '%s\n' "$string" | LC_ALL=C sed -e "$escape_backslashes" -e "$escape_dollars"`
   cat <<EOF > f-sp-1-$n.in
 gettext ${string};
 EOF
