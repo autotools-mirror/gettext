@@ -342,13 +342,13 @@ struct formatstring_parser formatstring_kde_kuit =
 
 struct kde_numbered_arg
 {
-  unsigned int number;
+  size_t number;
 };
 
 struct kde_spec
 {
-  unsigned int directives;
-  unsigned int numbered_arg_count;
+  size_t directives;
+  size_t numbered_arg_count;
   struct kde_numbered_arg *numbered;
 };
 
@@ -357,8 +357,8 @@ format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
   struct kde_spec *kspec;
-  unsigned int last;
-  unsigned int i;
+  size_t last;
+  size_t i;
 
   if (spec == NULL)
     {
@@ -378,7 +378,7 @@ format_print (void *descr)
   last = 1;
   for (i = 0; i < kspec->numbered_arg_count; i++)
     {
-      unsigned int number = kspec->numbered[i].number;
+      size_t number = kspec->numbered[i].number;
 
       if (i > 0)
         printf (" ");

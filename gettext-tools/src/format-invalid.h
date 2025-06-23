@@ -25,22 +25,22 @@
   xstrdup (_("The string refers to arguments both through absolute argument numbers and through unnumbered argument specifications."))
 
 #define INVALID_PRECISION_MISSING(directive_number) \
-  xasprintf (_("In the directive number %u, the precision is missing."), directive_number)
+  xasprintf (_("In the directive number %zu, the precision is missing."), directive_number)
 
 #define INVALID_ARGNO_0(directive_number) \
-  xasprintf (_("In the directive number %u, the argument number 0 is not a positive integer."), directive_number)
+  xasprintf (_("In the directive number %zu, the argument number 0 is not a positive integer."), directive_number)
 #define INVALID_WIDTH_ARGNO_0(directive_number) \
-  xasprintf (_("In the directive number %u, the width's argument number 0 is not a positive integer."), directive_number)
+  xasprintf (_("In the directive number %zu, the width's argument number 0 is not a positive integer."), directive_number)
 #define INVALID_PRECISION_ARGNO_0(directive_number) \
-  xasprintf (_("In the directive number %u, the precision's argument number 0 is not a positive integer."), directive_number)
+  xasprintf (_("In the directive number %zu, the precision's argument number 0 is not a positive integer."), directive_number)
 
 #define INVALID_CONVERSION_SPECIFIER(directive_number,conv_char) \
   (c_isprint (conv_char) \
-   ? xasprintf (_("In the directive number %u, the character '%c' is not a valid conversion specifier."), directive_number, conv_char) \
-   : xasprintf (_("The character that terminates the directive number %u is not a valid conversion specifier."), directive_number))
+   ? xasprintf (_("In the directive number %zu, the character '%c' is not a valid conversion specifier."), directive_number, conv_char) \
+   : xasprintf (_("The character that terminates the directive number %zu is not a valid conversion specifier."), directive_number))
 
 #define INVALID_FLAG_FOR(directive_number,flag_char,conv_char) \
-  xasprintf (_("In the directive number %u, the flag '%c' is invalid for the conversion '%c'."), directive_number, flag_char, conv_char)
+  xasprintf (_("In the directive number %zu, the flag '%c' is invalid for the conversion '%c'."), directive_number, flag_char, conv_char)
 
 #define INVALID_INCOMPATIBLE_ARG_TYPES(arg_number) \
-  xasprintf (_("The string refers to argument number %u in incompatible ways."), arg_number)
+  xasprintf (_("The string refers to argument number %zu in incompatible ways."), arg_number)

@@ -385,6 +385,9 @@ AH_TOP([
 #define DEFAULT_OUTPUT_ALIGNMENT 1
 ])
 AH_BOTTOM([
+/* Parameterization of the 'gcd' module.  */
+#define GCD_WORD_T size_t
+
 /* A file name cannot consist of any character possible.  INVALID_PATH_CHAR
    contains the characters not allowed.  */
 #if defined _MSC_VER || defined __MINGW32__

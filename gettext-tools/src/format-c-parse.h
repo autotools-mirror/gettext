@@ -130,7 +130,7 @@ typedef enum format_arg_type format_arg_type_t;
 
 struct numbered_arg
 {
-  unsigned int number;
+  size_t number;
   format_arg_type_t type;
 };
 
@@ -141,16 +141,16 @@ struct unnumbered_arg
 
 struct spec
 {
-  unsigned int directives;
+  size_t directives;
   /* We consider a directive as "likely intentional" if it does not contain a
      space.  This prevents xgettext from flagging strings like "100% complete"
      as 'c-format' if they don't occur in a context that requires a format
      string.  */
-  unsigned int likely_intentional_directives;
-  unsigned int unnumbered_arg_count;
+  size_t likely_intentional_directives;
+  size_t unnumbered_arg_count;
   struct unnumbered_arg *unnumbered;
   bool unlikely_intentional;
-  unsigned int sysdep_directives_count;
+  size_t sysdep_directives_count;
   const char **sysdep_directives;
 };
 
@@ -169,8 +169,8 @@ struct spec
 static int
 numbered_arg_compare (const void *p1, const void *p2)
 {
-  unsigned int n1 = ((const struct numbered_arg *) p1)->number;
-  unsigned int n2 = ((const struct numbered_arg *) p2)->number;
+  size_t n1 = ((const struct numbered_arg *) p1)->number;
+  size_t n2 = ((const struct numbered_arg *) p2)->number;
 
   return (n1 > n2 ? 1 : n1 < n2 ? -1 : 0);
 }
@@ -182,9 +182,9 @@ format_parse_entrails (const char *format, bool translated,
 {
   const char *const format_start = format;
   struct spec spec;
-  unsigned int numbered_arg_count;
+  size_t numbered_arg_count;
   struct numbered_arg *numbered;
-  unsigned int allocated;
+  size_t allocated;
 
   spec.directives = 0;
   spec.likely_intentional_directives = 0;
@@ -202,7 +202,7 @@ format_parse_entrails (const char *format, bool translated,
     if (*format++ == '%')
       {
         /* A directive.  */
-        unsigned int number = 0;
+        size_t number = 0;
         format_arg_type_t type;
         /* Relevant for the conversion characters d, i, b, o, u, x, X, n.  */
         format_arg_type_t integer_size;
@@ -216,7 +216,7 @@ format_parse_entrails (const char *format, bool translated,
         if (c_isdigit (*format))
           {
             const char *f = format;
-            unsigned int m = 0;
+            size_t m = 0;
 
             do
               {
@@ -270,14 +270,14 @@ format_parse_entrails (const char *format, bool translated,
         /* Parse width.  */
         if (*format == '*')
           {
-            unsigned int width_number = 0;
+            size_t width_number = 0;
 
             format++;
 
             if (c_isdigit (*format))
               {
                 const char *f = format;
-                unsigned int m = 0;
+                size_t m = 0;
 
                 do
                   {
@@ -356,14 +356,14 @@ format_parse_entrails (const char *format, bool translated,
 
             if (*format == '*')
               {
-                unsigned int precision_number = 0;
+                size_t precision_number = 0;
 
                 format++;
 
                 if (c_isdigit (*format))
                   {
                     const char *f = format;
-                    unsigned int m = 0;
+                    size_t m = 0;
 
                     do
                       {
@@ -879,7 +879,7 @@ format_parse_entrails (const char *format, bool translated,
   /* Sort the numbered argument array, and eliminate duplicates.  */
   if (numbered_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
       bool err;
 
       qsort (numbered, numbered_arg_count,
@@ -927,7 +927,7 @@ format_parse_entrails (const char *format, bool translated,
      numbered one.  */
   if (numbered_arg_count > 0)
     {
-      unsigned int i;
+      size_t i;
 
       for (i = 0; i < numbered_arg_count; i++)
         if (numbered[i].number != i + 1)

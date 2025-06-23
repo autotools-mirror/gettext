@@ -114,15 +114,15 @@ enum format_arg_type
 
 struct numbered_arg
 {
-  unsigned int number;
+  size_t number;
   enum format_arg_type type;
 };
 
 struct spec
 {
-  unsigned int directives;
-  unsigned int numbered_arg_count;
-  unsigned int allocated;
+  size_t directives;
+  size_t numbered_arg_count;
+  size_t allocated;
   struct numbered_arg *numbered;
 };
 
@@ -166,7 +166,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
           size_t n;
           char *element_alloced;
           char *element;
-          unsigned int number;
+          size_t number;
           enum format_arg_type type;
 
           FDI_SET (format, FMTDIR_START);
@@ -203,7 +203,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
           if (!c_isdigit (*element))
             {
               *invalid_reason =
-                xasprintf (_("In the directive number %u, '{' is not followed by an argument number."), spec->directives);
+                xasprintf (_("In the directive number %zu, '{' is not followed by an argument number."), spec->directives);
               FDI_SET (format - 1, FMTDIR_ERROR);
               freea (element_alloced);
               return false;
@@ -238,7 +238,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
                   else
                     {
                       *invalid_reason =
-                        xasprintf (_("In the directive number %u, the substring \"%s\" is not a valid date/time style."), spec->directives, element);
+                        xasprintf (_("In the directive number %zu, the substring \"%s\" is not a valid date/time style."), spec->directives, element);
                       FDI_SET (format - 1, FMTDIR_ERROR);
                       freea (element_alloced);
                       return false;
@@ -249,7 +249,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
                   *element = '\0';
                   element -= 4;
                   *invalid_reason =
-                    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+                    xasprintf (_("In the directive number %zu, \"%s\" is not followed by a comma."), spec->directives, element);
                   FDI_SET (format - 1, FMTDIR_ERROR);
                   freea (element_alloced);
                   return false;
@@ -272,7 +272,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
                   else
                     {
                       *invalid_reason =
-                        xasprintf (_("In the directive number %u, the substring \"%s\" is not a valid number style."), spec->directives, element);
+                        xasprintf (_("In the directive number %zu, the substring \"%s\" is not a valid number style."), spec->directives, element);
                       FDI_SET (format - 1, FMTDIR_ERROR);
                       freea (element_alloced);
                       return false;
@@ -283,7 +283,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
                   *element = '\0';
                   element -= 6;
                   *invalid_reason =
-                    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+                    xasprintf (_("In the directive number %zu, \"%s\" is not followed by a comma."), spec->directives, element);
                   FDI_SET (format - 1, FMTDIR_ERROR);
                   freea (element_alloced);
                   return false;
@@ -312,7 +312,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
                   *element = '\0';
                   element -= 6;
                   *invalid_reason =
-                    xasprintf (_("In the directive number %u, \"%s\" is not followed by a comma."), spec->directives, element);
+                    xasprintf (_("In the directive number %zu, \"%s\" is not followed by a comma."), spec->directives, element);
                   FDI_SET (format - 1, FMTDIR_ERROR);
                   freea (element_alloced);
                   return false;
@@ -321,7 +321,7 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
           else
             {
               *invalid_reason =
-                xasprintf (_("In the directive number %u, the argument number is not followed by a comma and one of \"%s\", \"%s\", \"%s\", \"%s\"."), spec->directives, "time", "date", "number", "choice");
+                xasprintf (_("In the directive number %zu, the argument number is not followed by a comma and one of \"%s\", \"%s\", \"%s\", \"%s\"."), spec->directives, "time", "date", "number", "choice");
               FDI_SET (format - 1, FMTDIR_ERROR);
               freea (element_alloced);
               return false;
@@ -570,7 +570,7 @@ choice_format_parse (const char *format, struct spec *spec,
       if (!number_nonempty)
         {
           *invalid_reason =
-            xasprintf (_("In the directive number %u, a choice contains no number."), spec->directives);
+            xasprintf (_("In the directive number %zu, a choice contains no number."), spec->directives);
           return false;
         }
 
@@ -581,7 +581,7 @@ choice_format_parse (const char *format, struct spec *spec,
       else
         {
           *invalid_reason =
-            xasprintf (_("In the directive number %u, a choice contains a number that is not followed by '<', '#' or '%s'."), spec->directives, "\\u2264");
+            xasprintf (_("In the directive number %zu, a choice contains a number that is not followed by '<', '#' or '%s'."), spec->directives, "\\u2264");
           return false;
         }
       HANDLE_QUOTE;
@@ -617,8 +617,8 @@ choice_format_parse (const char *format, struct spec *spec,
 static int
 numbered_arg_compare (const void *p1, const void *p2)
 {
-  unsigned int n1 = ((const struct numbered_arg *) p1)->number;
-  unsigned int n2 = ((const struct numbered_arg *) p2)->number;
+  size_t n1 = ((const struct numbered_arg *) p1)->number;
+  size_t n2 = ((const struct numbered_arg *) p2)->number;
 
   return (n1 > n2 ? 1 : n1 < n2 ? -1 : 0);
 }
@@ -641,7 +641,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the numbered argument array, and eliminate duplicates.  */
   if (spec.numbered_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
       bool err;
 
       qsort (spec.numbered, spec.numbered_arg_count,
@@ -726,9 +726,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
   if (spec1->numbered_arg_count + spec2->numbered_arg_count > 0)
     {
-      unsigned int i, j;
-      unsigned int n1 = spec1->numbered_arg_count;
-      unsigned int n2 = spec2->numbered_arg_count;
+      size_t i, j;
+      size_t n1 = spec1->numbered_arg_count;
+      size_t n2 = spec2->numbered_arg_count;
 
       /* Check that the argument numbers are the same.
          Both arrays are sorted.  We search for the first difference.  */
@@ -744,7 +744,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
             {
               if (error_logger)
                 error_logger (error_logger_data,
-                              _("a format specification for argument {%u}, as in '%s', doesn't exist in '%s'"),
+                              _("a format specification for argument {%zu}, as in '%s', doesn't exist in '%s'"),
                               spec2->numbered[j].number, pretty_msgstr,
                               pretty_msgid);
               err = true;
@@ -756,7 +756,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                 {
                   if (error_logger)
                     error_logger (error_logger_data,
-                                  _("a format specification for argument {%u} doesn't exist in '%s'"),
+                                  _("a format specification for argument {%zu} doesn't exist in '%s'"),
                                   spec1->numbered[i].number, pretty_msgstr);
                   err = true;
                   break;
@@ -777,7 +777,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                   {
                     if (error_logger)
                       error_logger (error_logger_data,
-                                    _("format specifications in '%s' and '%s' for argument {%u} are not the same"),
+                                    _("format specifications in '%s' and '%s' for argument {%zu} are not the same"),
                                     pretty_msgid, pretty_msgstr,
                                     spec2->numbered[j].number);
                     err = true;
@@ -815,8 +815,8 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int last;
-  unsigned int i;
+  size_t last;
+  size_t i;
 
   if (spec == NULL)
     {
@@ -828,7 +828,7 @@ format_print (void *descr)
   last = 0;
   for (i = 0; i < spec->numbered_arg_count; i++)
     {
-      unsigned int number = spec->numbered[i].number;
+      size_t number = spec->numbered[i].number;
 
       if (i > 0)
         printf (" ");

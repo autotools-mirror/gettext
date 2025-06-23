@@ -91,14 +91,14 @@ struct named_arg
 struct numbered_arg
 {
   /* The number of the argument, 0-based.  */
-  unsigned int number;
+  size_t number;
 };
 
 struct spec
 {
-  unsigned int directives;
-  unsigned int named_arg_count;
-  unsigned int numbered_arg_count;
+  size_t directives;
+  size_t named_arg_count;
+  size_t numbered_arg_count;
   struct named_arg *named;
   struct numbered_arg *numbered;
 };
@@ -114,8 +114,8 @@ named_arg_compare (const void *p1, const void *p2)
 static int
 numbered_arg_compare (const void *p1, const void *p2)
 {
-  unsigned int n1 = ((const struct numbered_arg *) p1)->number;
-  unsigned int n2 = ((const struct numbered_arg *) p2)->number;
+  size_t n1 = ((const struct numbered_arg *) p1)->number;
+  size_t n2 = ((const struct numbered_arg *) p2)->number;
 
   return (n1 > n2 ? 1 : n1 < n2 ? -1 : 0);
 }
@@ -125,10 +125,10 @@ format_parse (const char *format, bool translated, char *fdi,
               char **invalid_reason)
 {
   struct spec spec;
-  unsigned int named_allocated;
-  unsigned int numbered_allocated;
+  size_t named_allocated;
+  size_t numbered_allocated;
   bool seen_numbered_args;
-  unsigned int unnumbered_arg_count;
+  size_t unnumbered_arg_count;
   struct spec *result;
 
   spec.directives = 0;
@@ -176,7 +176,7 @@ format_parse (const char *format, bool translated, char *fdi,
                       if (arg_id >= UINT_MAX / 10)
                         {
                           *invalid_reason =
-                            xasprintf (_("In the directive number %u, the argument number is too large."), spec.directives);
+                            xasprintf (_("In the directive number %zu, the argument number is too large."), spec.directives);
                           FDI_SET (format, FMTDIR_ERROR);
                           goto bad_format;
                         }
@@ -267,7 +267,7 @@ format_parse (const char *format, bool translated, char *fdi,
                   if (c1 == '\0')
                     {
                       *invalid_reason =
-                        xasprintf (_("The directive number %u is unterminated."),
+                        xasprintf (_("The directive number %zu is unterminated."),
                                    spec.directives);
                       FDI_SET (format - 1, FMTDIR_ERROR);
                       goto bad_format;
@@ -324,7 +324,7 @@ format_parse (const char *format, bool translated, char *fdi,
               if (*format != '}')
                 {
                   *invalid_reason =
-                    xasprintf (_("The directive number %u is unterminated."),
+                    xasprintf (_("The directive number %zu is unterminated."),
                                spec.directives);
                   FDI_SET (format - 1, FMTDIR_ERROR);
                   goto bad_format;
@@ -352,7 +352,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the numbered argument array, and eliminate duplicates.  */
   if (spec.numbered_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
 
       qsort (spec.numbered, spec.numbered_arg_count,
              sizeof (struct numbered_arg), numbered_arg_compare);
@@ -373,7 +373,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the named argument array, and eliminate duplicates.  */
   if (spec.named_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
 
       qsort (spec.named, spec.named_arg_count, sizeof (struct named_arg),
              named_arg_compare);
@@ -398,7 +398,7 @@ format_parse (const char *format, bool translated, char *fdi,
  bad_format:
   if (spec.named != NULL)
     {
-      unsigned int i;
+      size_t i;
       for (i = 0; i < spec.named_arg_count; i++)
         free (spec.named[i].name);
       free (spec.named);
@@ -415,7 +415,7 @@ format_free (void *descr)
 
   if (spec->named != NULL)
     {
-      unsigned int i;
+      size_t i;
       for (i = 0; i < spec->named_arg_count; i++)
         free (spec->named[i].name);
       free (spec->named);
@@ -443,9 +443,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
   if (spec1->named_arg_count + spec2->named_arg_count > 0)
     {
-      unsigned int i, j;
-      unsigned int n1 = spec1->named_arg_count;
-      unsigned int n2 = spec2->named_arg_count;
+      size_t i, j;
+      size_t n1 = spec1->named_arg_count;
+      size_t n2 = spec2->named_arg_count;
 
       /* Check the argument names in spec2 are contained in those of spec1.
          Both arrays are sorted.  We search for the first difference.  */
@@ -486,10 +486,10 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
   if (spec1->numbered_arg_count + spec2->numbered_arg_count > 0)
     {
-      unsigned int i, j;
-      unsigned int n1 = spec1->numbered_arg_count;
-      unsigned int n2 = spec2->numbered_arg_count;
-      unsigned int missing = 0; /* only used if !equality */
+      size_t i, j;
+      size_t n1 = spec1->numbered_arg_count;
+      size_t n2 = spec2->numbered_arg_count;
+      size_t missing = 0; /* only used if !equality */
 
       /* Check that the argument numbers are the same.
          Both arrays are sorted.  We search for the first difference.  */
@@ -505,7 +505,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
             {
               if (error_logger)
                 error_logger (error_logger_data,
-                              _("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+                              _("a format specification for argument %zu, as in '%s', doesn't exist in '%s'"),
                               spec2->numbered[j].number, pretty_msgstr,
                               pretty_msgid);
               err = true;
@@ -517,7 +517,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                 {
                   if (error_logger)
                     error_logger (error_logger_data,
-                                  _("a format specification for argument %u doesn't exist in '%s'"),
+                                  _("a format specification for argument %zu doesn't exist in '%s'"),
                                   spec1->numbered[i].number, pretty_msgstr);
                   err = true;
                   break;
@@ -526,7 +526,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                 {
                   if (error_logger)
                     error_logger (error_logger_data,
-                                  _("a format specification for arguments %u and %u doesn't exist in '%s', only one argument may be ignored"),
+                                  _("a format specification for arguments %zu and %zu doesn't exist in '%s', only one argument may be ignored"),
                                   missing, spec1->numbered[i].number,
                                   pretty_msgstr);
                   err = true;
@@ -568,8 +568,8 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int last;
-  unsigned int i, j;
+  size_t last;
+  size_t i, j;
 
   if (spec == NULL)
     {
@@ -581,7 +581,7 @@ format_print (void *descr)
   last = 0;
   for (i = 0; i < spec->numbered_arg_count; i++)
     {
-      unsigned int number = spec->numbered[i].number;
+      size_t number = spec->numbered[i].number;
 
       if (i > 0)
         printf (" ");

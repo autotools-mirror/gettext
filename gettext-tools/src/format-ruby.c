@@ -19,8 +19,8 @@
 # include <config.h>
 #endif
 
-#include <limits.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -91,20 +91,20 @@ struct named_arg
 
 struct numbered_arg
 {
-  unsigned int number;
+  size_t number;
   enum format_arg_type type;
 };
 
 struct spec
 {
-  unsigned int directives;
+  size_t directives;
   /* We consider a directive as "likely intentional" if it does not contain a
      space.  This prevents xgettext from flagging strings like "100% complete"
      as 'ruby-format' if they don't occur in a context that requires a format
      string.  */
-  unsigned int likely_intentional_directives;
-  unsigned int named_arg_count;
-  unsigned int numbered_arg_count;
+  size_t likely_intentional_directives;
+  size_t named_arg_count;
+  size_t numbered_arg_count;
   struct named_arg *named;
   struct numbered_arg *numbered;
 };
@@ -120,8 +120,8 @@ named_arg_compare (const void *p1, const void *p2)
 static int
 numbered_arg_compare (const void *p1, const void *p2)
 {
-  unsigned int n1 = ((const struct numbered_arg *) p1)->number;
-  unsigned int n2 = ((const struct numbered_arg *) p2)->number;
+  size_t n1 = ((const struct numbered_arg *) p1)->number;
+  size_t n2 = ((const struct numbered_arg *) p2)->number;
 
   return (n1 > n2 ? 1 : n1 < n2 ? -1 : 0);
 }
@@ -130,25 +130,25 @@ numbered_arg_compare (const void *p1, const void *p2)
   xstrdup (_("The string refers to arguments both through argument names and through unnamed argument specifications."))
 
 #define INVALID_TWO_ARG_NAMES(directive_number) \
-  xasprintf (_("In the directive number %u, two names are given for the same argument."), directive_number)
+  xasprintf (_("In the directive number %zu, two names are given for the same argument."), directive_number)
 
 #define INVALID_TWO_ARG_NUMBERS(directive_number) \
-  xasprintf (_("In the directive number %u, two numbers are given for the same argument."), directive_number)
+  xasprintf (_("In the directive number %zu, two numbers are given for the same argument."), directive_number)
 
 #define INVALID_FLAG_AFTER_WIDTH(directive_number) \
-  xasprintf (_("In the directive number %u, a flag is given after the width."), directive_number)
+  xasprintf (_("In the directive number %zu, a flag is given after the width."), directive_number)
 
 #define INVALID_FLAG_AFTER_PRECISION(directive_number) \
-  xasprintf (_("In the directive number %u, a flag is given after the precision."), directive_number)
+  xasprintf (_("In the directive number %zu, a flag is given after the precision."), directive_number)
 
 #define INVALID_WIDTH_AFTER_PRECISION(directive_number) \
-  xasprintf (_("In the directive number %u, the width is given after the precision."), directive_number)
+  xasprintf (_("In the directive number %zu, the width is given after the precision."), directive_number)
 
 #define INVALID_WIDTH_TWICE(directive_number) \
-  xasprintf (_("In the directive number %u, a width is given twice."), directive_number)
+  xasprintf (_("In the directive number %zu, a width is given twice."), directive_number)
 
 #define INVALID_PRECISION_TWICE(directive_number) \
-  xasprintf (_("In the directive number %u, a precision is given twice."), directive_number)
+  xasprintf (_("In the directive number %zu, a precision is given twice."), directive_number)
 
 static void *
 format_parse (const char *format, bool translated, char *fdi,
@@ -156,9 +156,9 @@ format_parse (const char *format, bool translated, char *fdi,
 {
   const char *const format_start = format;
   struct spec spec;
-  unsigned int unnumbered_arg_count;
-  unsigned int named_allocated;
-  unsigned int numbered_allocated;
+  size_t unnumbered_arg_count;
+  size_t named_allocated;
+  size_t numbered_allocated;
   struct spec *result;
 
   spec.directives = 0;
@@ -177,14 +177,14 @@ format_parse (const char *format, bool translated, char *fdi,
       {
         /* A directive.  */
         char *name = NULL;
-        unsigned int number = 0;
+        size_t number = 0;
 
         bool seen_width = false;
-        unsigned int width_number = 0;
+        size_t width_number = 0;
         bool width_takenext = false;
 
         bool seen_precision = false;
-        unsigned int precision_number = 0;
+        size_t precision_number = 0;
         bool precision_takenext = false;
 
         enum format_arg_type type;
@@ -265,14 +265,14 @@ format_parse (const char *format, bool translated, char *fdi,
 
             if (c_isdigit (*format))
               {
-                unsigned int m = 0;
+                size_t m = 0;
 
                 do
                   {
-                    if (m < UINT_MAX / 10)
+                    if (m < SIZE_MAX / 10)
                       m = 10 * m + (*format - '0');
                     else
-                      m = UINT_MAX - 1;
+                      m = SIZE_MAX - 1;
                     format++;
                   }
                 while (c_isdigit (*format));
@@ -329,14 +329,14 @@ format_parse (const char *format, bool translated, char *fdi,
                 if (c_isdigit (*format))
                   {
                     const char *f = format;
-                    unsigned int m = 0;
+                    size_t m = 0;
 
                     do
                       {
-                        if (m < UINT_MAX / 10)
+                        if (m < SIZE_MAX / 10)
                           m = 10 * m + (*f - '0');
                         else
-                          m = UINT_MAX - 1;
+                          m = SIZE_MAX - 1;
                         f++;
                       }
                     while (c_isdigit (*f));
@@ -424,14 +424,14 @@ format_parse (const char *format, bool translated, char *fdi,
                     if (c_isdigit (*format))
                       {
                         const char *f = format;
-                        unsigned int m = 0;
+                        size_t m = 0;
 
                         do
                           {
-                            if (m < UINT_MAX / 10)
+                            if (m < SIZE_MAX / 10)
                               m = 10 * m + (*f - '0');
                             else
-                              m = UINT_MAX - 1;
+                              m = SIZE_MAX - 1;
                             f++;
                           }
                         while (c_isdigit (*f));
@@ -728,7 +728,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the numbered argument array, and eliminate duplicates.  */
   else if (spec.numbered_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
       bool err;
 
       qsort (spec.numbered, spec.numbered_arg_count,
@@ -775,7 +775,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the named argument array, and eliminate duplicates.  */
   if (spec.named_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
       bool err;
 
       qsort (spec.named, spec.named_arg_count, sizeof (struct named_arg),
@@ -827,7 +827,7 @@ format_parse (const char *format, bool translated, char *fdi,
  bad_format:
   if (spec.named != NULL)
     {
-      unsigned int i;
+      size_t i;
       for (i = 0; i < spec.named_arg_count; i++)
         free (spec.named[i].name);
       free (spec.named);
@@ -844,7 +844,7 @@ format_free (void *descr)
 
   if (spec->named != NULL)
     {
-      unsigned int i;
+      size_t i;
       for (i = 0; i < spec->named_arg_count; i++)
         free (spec->named[i].name);
       free (spec->named);
@@ -899,9 +899,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
     {
       if (spec1->named_arg_count + spec2->named_arg_count > 0)
         {
-          unsigned int i, j;
-          unsigned int n1 = spec1->named_arg_count;
-          unsigned int n2 = spec2->named_arg_count;
+          size_t i, j;
+          size_t n1 = spec1->named_arg_count;
+          size_t n2 = spec2->named_arg_count;
 
           /* Check the argument names in spec2 are contained in those of spec1.
              Both arrays are sorted.  We search for the first difference.  */
@@ -963,7 +963,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
       if (spec1->numbered_arg_count + spec2->numbered_arg_count > 0)
         {
-          unsigned int i;
+          size_t i;
 
           /* Check the argument types are the same.  */
           if (spec1->numbered_arg_count != spec2->numbered_arg_count)
@@ -980,7 +980,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                 {
                   if (error_logger)
                     error_logger (error_logger_data,
-                                  _("format specifications in '%s' and '%s' for argument %u are not the same"),
+                                  _("format specifications in '%s' and '%s' for argument %zu are not the same"),
                                   pretty_msgid, pretty_msgstr, i + 1);
                   err = true;
                 }
@@ -1012,7 +1012,7 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int i;
+  size_t i;
 
   if (spec == NULL)
     {
@@ -1056,13 +1056,13 @@ format_print (void *descr)
     }
   else
     {
-      unsigned int last;
+      size_t last;
 
       printf ("(");
       last = 1;
       for (i = 0; i < spec->numbered_arg_count; i++)
         {
-          unsigned int number = spec->numbered[i].number;
+          size_t number = spec->numbered[i].number;
 
           if (i > 0)
             printf (" ");

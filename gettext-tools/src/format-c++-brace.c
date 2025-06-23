@@ -155,7 +155,7 @@ enum format_arg_type
 struct numbered_arg
 {
   /* The number of the argument, 0-based.  */
-  unsigned int number;
+  size_t number;
 
   /* The type is a bit mask that is the logical OR of the 'enum format_arg_type'
      values that represent each possible argument types for the argument.
@@ -190,8 +190,8 @@ struct numbered_arg
 
 struct spec
 {
-  unsigned int directives;
-  unsigned int numbered_arg_count;
+  size_t directives;
+  size_t numbered_arg_count;
   struct numbered_arg *numbered;
 };
 
@@ -199,8 +199,8 @@ struct spec
 static int
 numbered_arg_compare (const void *p1, const void *p2)
 {
-  unsigned int n1 = ((const struct numbered_arg *) p1)->number;
-  unsigned int n2 = ((const struct numbered_arg *) p2)->number;
+  size_t n1 = ((const struct numbered_arg *) p1)->number;
+  size_t n2 = ((const struct numbered_arg *) p2)->number;
 
   return (n1 > n2 ? 1 : n1 < n2 ? -1 : 0);
 }
@@ -211,8 +211,8 @@ format_parse (const char *format, bool translated, char *fdi,
 {
   const char *const format_start = format;
   struct spec spec;
-  unsigned int numbered_allocated;
-  unsigned int unnumbered_arg_count;
+  size_t numbered_allocated;
+  size_t unnumbered_arg_count;
   struct spec *result;
 
   spec.directives = 0;
@@ -234,7 +234,7 @@ format_parse (const char *format, bool translated, char *fdi,
         else
           {
             /* A replacement field.  */
-            unsigned int arg_array_index;
+            size_t arg_array_index;
             bool have_sign = false;
             bool have_hash_flag = false;
             bool have_zero_flag = false;
@@ -261,7 +261,7 @@ format_parse (const char *format, bool translated, char *fdi,
                         if (arg_id >= UINT_MAX / 10)
                           {
                             *invalid_reason =
-                              xasprintf (_("In the directive number %u, the arg-id is too large."), spec.directives);
+                              xasprintf (_("In the directive number %zu, the arg-id is too large."), spec.directives);
                             FDI_SET (format, FMTDIR_ERROR);
                             goto bad_format;
                           }
@@ -374,7 +374,7 @@ format_parse (const char *format, bool translated, char *fdi,
                                 if (width_arg_id >= UINT_MAX / 10)
                                   {
                                     *invalid_reason =
-                                      xasprintf (_("In the directive number %u, the width's arg-id is too large."), spec.directives);
+                                      xasprintf (_("In the directive number %zu, the width's arg-id is too large."), spec.directives);
                                     FDI_SET (format, FMTDIR_ERROR);
                                     goto bad_format;
                                   }
@@ -429,7 +429,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     if (*format != '}')
                       {
                         *invalid_reason =
-                          xasprintf (_("In the directive number %u, the width's arg-id is not terminated through '}'."), spec.directives);
+                          xasprintf (_("In the directive number %zu, the width's arg-id is not terminated through '}'."), spec.directives);
                         FDI_SET (format - 1, FMTDIR_ERROR);
                         goto bad_format;
                       }
@@ -468,7 +468,7 @@ format_parse (const char *format, bool translated, char *fdi,
                                     if (precision_arg_id >= UINT_MAX / 10)
                                       {
                                         *invalid_reason =
-                                          xasprintf (_("In the directive number %u, the width's arg-id is too large."), spec.directives);
+                                          xasprintf (_("In the directive number %zu, the width's arg-id is too large."), spec.directives);
                                         FDI_SET (format, FMTDIR_ERROR);
                                         goto bad_format;
                                       }
@@ -523,7 +523,7 @@ format_parse (const char *format, bool translated, char *fdi,
                         if (*format != '}')
                           {
                             *invalid_reason =
-                              xasprintf (_("In the directive number %u, the precision's arg-id is not terminated through '}'."), spec.directives);
+                              xasprintf (_("In the directive number %zu, the precision's arg-id is not terminated through '}'."), spec.directives);
                             FDI_SET (format - 1, FMTDIR_ERROR);
                             goto bad_format;
                           }
@@ -584,8 +584,8 @@ format_parse (const char *format, bool translated, char *fdi,
                       default:
                         *invalid_reason =
                           (c_isprint (type_spec)
-                           ? xasprintf (_("In the directive number %u, the character '%c' is not a standard type specifier."), spec.directives, type_spec)
-                           : xasprintf (_("The character that terminates the directive number %u is not a standard type specifier."), spec.directives));
+                           ? xasprintf (_("In the directive number %zu, the character '%c' is not a standard type specifier."), spec.directives, type_spec)
+                           : xasprintf (_("The character that terminates the directive number %zu is not a standard type specifier."), spec.directives));
                         FDI_SET (format, FMTDIR_ERROR);
                         goto bad_format;
                       }
@@ -593,7 +593,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     if (have_sign && (type & (FAT_INTEGER | FAT_FLOAT)) == 0)
                       {
                         *invalid_reason =
-                          xasprintf (_("In the directive number %u, the sign specification is incompatible with the type specifier '%c'."), spec.directives, type_spec);
+                          xasprintf (_("In the directive number %zu, the sign specification is incompatible with the type specifier '%c'."), spec.directives, type_spec);
                         FDI_SET (format, FMTDIR_ERROR);
                         goto bad_format;
                       }
@@ -601,7 +601,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     if (have_hash_flag && (type & (FAT_INTEGER | FAT_FLOAT)) == 0)
                       {
                         *invalid_reason =
-                          xasprintf (_("In the directive number %u, the '#' option is incompatible with the type specifier '%c'."), spec.directives, type_spec);
+                          xasprintf (_("In the directive number %zu, the '#' option is incompatible with the type specifier '%c'."), spec.directives, type_spec);
                         FDI_SET (format, FMTDIR_ERROR);
                         goto bad_format;
                       }
@@ -609,7 +609,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     if (have_zero_flag && (type & (FAT_INTEGER | FAT_FLOAT)) == 0)
                       {
                         *invalid_reason =
-                          xasprintf (_("In the directive number %u, the '0' option is incompatible with the type specifier '%c'."), spec.directives, type_spec);
+                          xasprintf (_("In the directive number %zu, the '0' option is incompatible with the type specifier '%c'."), spec.directives, type_spec);
                         FDI_SET (format, FMTDIR_ERROR);
                         goto bad_format;
                       }
@@ -617,7 +617,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     if (have_precision && (type & (FAT_FLOAT | FAT_STRING)) == 0)
                       {
                         *invalid_reason =
-                          xasprintf (_("In the directive number %u, the precision specification is incompatible with the type specifier '%c'."), spec.directives, type_spec);
+                          xasprintf (_("In the directive number %zu, the precision specification is incompatible with the type specifier '%c'."), spec.directives, type_spec);
                         FDI_SET (format, FMTDIR_ERROR);
                         goto bad_format;
                       }
@@ -625,7 +625,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     if (have_L_flag && (type & (FAT_INTEGER | FAT_FLOAT | FAT_CHARACTER | FAT_BOOL)) == 0)
                       {
                         *invalid_reason =
-                          xasprintf (_("In the directive number %u, the 'L' option is incompatible with the type specifier '%c'."), spec.directives, type_spec);
+                          xasprintf (_("In the directive number %zu, the 'L' option is incompatible with the type specifier '%c'."), spec.directives, type_spec);
                         FDI_SET (format, FMTDIR_ERROR);
                         goto bad_format;
                       }
@@ -726,7 +726,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 if (type == FAT_NONE)
                   {
                     *invalid_reason =
-                      xasprintf (_("The directive number %u, with all of its options, is not applicable to any type."), spec.directives);
+                      xasprintf (_("The directive number %zu, with all of its options, is not applicable to any type."), spec.directives);
                     FDI_SET (format - 1, FMTDIR_ERROR);
                     goto bad_format;
                   }
@@ -738,7 +738,7 @@ format_parse (const char *format, bool translated, char *fdi,
             if (*format == '\0')
               {
                 *invalid_reason =
-                  xasprintf (_("The string ends in the middle of the directive number %u."), spec.directives);
+                  xasprintf (_("The string ends in the middle of the directive number %zu."), spec.directives);
                 FDI_SET (format - 1, FMTDIR_ERROR);
                 goto bad_format;
               }
@@ -746,7 +746,7 @@ format_parse (const char *format, bool translated, char *fdi,
             if (*format != '}')
               {
                 *invalid_reason =
-                  xasprintf (_("The directive number %u is not terminated through '}'."), spec.directives);
+                  xasprintf (_("The directive number %zu is not terminated through '}'."), spec.directives);
                 FDI_SET (format - 1, FMTDIR_ERROR);
                 goto bad_format;
               }
@@ -769,7 +769,7 @@ format_parse (const char *format, bool translated, char *fdi,
             *invalid_reason =
               (spec.directives == 0
                ? xstrdup (_("The string starts in the middle of a directive: found '}' without matching '{'."))
-               : xasprintf (_("The string contains a lone '}' after directive number %u."), spec.directives));
+               : xasprintf (_("The string contains a lone '}' after directive number %zu."), spec.directives));
             FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
             goto bad_format;
           }
@@ -787,7 +787,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the numbered argument array, and eliminate duplicates.  */
   else if (spec.numbered_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
       bool err;
 
       qsort (spec.numbered, spec.numbered_arg_count,
@@ -929,9 +929,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
   if (spec1->numbered_arg_count + spec2->numbered_arg_count > 0)
     {
-      unsigned int i, j;
-      unsigned int n1 = spec1->numbered_arg_count;
-      unsigned int n2 = spec2->numbered_arg_count;
+      size_t i, j;
+      size_t n1 = spec1->numbered_arg_count;
+      size_t n2 = spec2->numbered_arg_count;
 
       /* Check that the argument numbers are the same.
          Both arrays are sorted.  We search for the first difference.  */
@@ -947,7 +947,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
             {
               if (error_logger)
                 error_logger (error_logger_data,
-                              _("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+                              _("a format specification for argument %zu, as in '%s', doesn't exist in '%s'"),
                               spec2->numbered[j].number, pretty_msgstr,
                               pretty_msgid);
               err = true;
@@ -959,7 +959,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                 {
                   if (error_logger)
                     error_logger (error_logger_data,
-                                  _("a format specification for argument %u doesn't exist in '%s'"),
+                                  _("a format specification for argument %zu doesn't exist in '%s'"),
                                   spec1->numbered[i].number, pretty_msgstr);
                   err = true;
                   break;
@@ -985,7 +985,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                         char buf[MAX_TYPE_DESCRIPTION_LEN];
                         get_type_description (buf, type_difference);
                         error_logger (error_logger_data,
-                                      _("The format specification for argument %u in '%s' is applicable to the types %s, but the format specification for argument %u in '%s' is not."),
+                                      _("The format specification for argument %zu in '%s' is applicable to the types %s, but the format specification for argument %zu in '%s' is not."),
                                       spec1->numbered[i].number, pretty_msgid, buf,
                                       spec2->numbered[j].number, pretty_msgstr);
                       }
@@ -998,7 +998,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                   {
                     if (error_logger)
                       error_logger (error_logger_data,
-                                    _("The format specification for argument %u in '%s' uses a different presentation than the format specification for argument %u in '%s'."),
+                                    _("The format specification for argument %zu in '%s' uses a different presentation than the format specification for argument %zu in '%s'."),
                                     spec2->numbered[j].number, pretty_msgstr,
                                     spec1->numbered[i].number, pretty_msgid);
                     err = true;
@@ -1036,8 +1036,8 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int last;
-  unsigned int i;
+  size_t last;
+  size_t i;
 
   if (spec == NULL)
     {
@@ -1049,7 +1049,7 @@ format_print (void *descr)
   last = 1;
   for (i = 0; i < spec->numbered_arg_count; i++)
     {
-      unsigned int number = spec->numbered[i].number;
+      size_t number = spec->numbered[i].number;
       char buf[MAX_TYPE_DESCRIPTION_LEN];
 
       if (i > 0)

@@ -89,14 +89,14 @@ struct unnamed_arg
 
 struct spec
 {
-  unsigned int directives;
+  size_t directives;
   /* We consider a directive as "likely intentional" if it does not contain a
      space.  This prevents xgettext from flagging strings like "100% complete"
      as 'python-format' if they don't occur in a context that requires a format
      string.  */
-  unsigned int likely_intentional_directives;
-  unsigned int named_arg_count;
-  unsigned int unnamed_arg_count;
+  size_t likely_intentional_directives;
+  size_t named_arg_count;
+  size_t unnamed_arg_count;
   struct named_arg *named;
   struct unnamed_arg *unnamed;
 };
@@ -118,7 +118,7 @@ format_parse (const char *format, bool translated, char *fdi,
 {
   const char *const format_start = format;
   struct spec spec;
-  unsigned int allocated;
+  size_t allocated;
   struct spec *result;
 
   spec.directives = 0;
@@ -143,7 +143,7 @@ format_parse (const char *format, bool translated, char *fdi,
 
         if (*format == '(')
           {
-            unsigned int depth;
+            size_t depth;
             const char *name_start;
             const char *name_end;
             size_t n;
@@ -333,7 +333,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the named argument array, and eliminate duplicates.  */
   if (spec.named_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
       bool err;
 
       qsort (spec.named, spec.named_arg_count, sizeof (struct named_arg),
@@ -387,7 +387,7 @@ format_parse (const char *format, bool translated, char *fdi,
  bad_format:
   if (spec.named != NULL)
     {
-      unsigned int i;
+      size_t i;
       for (i = 0; i < spec.named_arg_count; i++)
         free (spec.named[i].name);
       free (spec.named);
@@ -404,7 +404,7 @@ format_free (void *descr)
 
   if (spec->named != NULL)
     {
-      unsigned int i;
+      size_t i;
       for (i = 0; i < spec->named_arg_count; i++)
         free (spec->named[i].name);
       free (spec->named);
@@ -459,9 +459,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
     {
       if (spec1->named_arg_count + spec2->named_arg_count > 0)
         {
-          unsigned int i, j;
-          unsigned int n1 = spec1->named_arg_count;
-          unsigned int n2 = spec2->named_arg_count;
+          size_t i, j;
+          size_t n1 = spec1->named_arg_count;
+          size_t n2 = spec2->named_arg_count;
 
           /* Check the argument names in spec2 are contained in those of spec1.
              Both arrays are sorted.  We search for the first difference.  */
@@ -526,7 +526,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
       if (spec1->unnamed_arg_count + spec2->unnamed_arg_count > 0)
         {
-          unsigned int i;
+          size_t i;
 
           /* Check the argument types are the same.  */
           if (spec1->unnamed_arg_count != spec2->unnamed_arg_count)
@@ -546,7 +546,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                 {
                   if (error_logger)
                     error_logger (error_logger_data,
-                                  _("format specifications in '%s' and '%s' for argument %u are not the same"),
+                                  _("format specifications in '%s' and '%s' for argument %zu are not the same"),
                                   pretty_msgid, pretty_msgstr, i + 1);
                   err = true;
                 }
@@ -567,7 +567,7 @@ struct formatstring_parser formatstring_python =
 };
 
 
-unsigned int
+size_t
 get_python_format_unnamed_arg_count (const char *string)
 {
   /* Parse the format string.  */
@@ -577,7 +577,7 @@ get_python_format_unnamed_arg_count (const char *string)
 
   if (descr != NULL)
     {
-      unsigned int result = descr->unnamed_arg_count;
+      size_t result = descr->unnamed_arg_count;
 
       format_free (descr);
       return result;
@@ -601,7 +601,7 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int i;
+  size_t i;
 
   if (spec == NULL)
     {

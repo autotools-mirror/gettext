@@ -1,5 +1,5 @@
 /* C# format strings.
-   Copyright (C) 2003-2023 Free Software Foundation, Inc.
+   Copyright (C) 2003-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -48,8 +48,8 @@
 
 struct spec
 {
-  unsigned int directives;
-  unsigned int numbered_arg_count;
+  size_t directives;
+  size_t numbered_arg_count;
 };
 
 static void *
@@ -75,14 +75,14 @@ format_parse (const char *format, bool translated, char *fdi,
           else
             {
               /* A directive.  */
-              unsigned int number;
+              size_t number;
 
               spec.directives++;
 
               if (!c_isdigit (*format))
                 {
                   *invalid_reason =
-                    xasprintf (_("In the directive number %u, '{' is not followed by an argument number."), spec.directives);
+                    xasprintf (_("In the directive number %zu, '{' is not followed by an argument number."), spec.directives);
                   FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
                   return NULL;
                 }
@@ -103,7 +103,7 @@ format_parse (const char *format, bool translated, char *fdi,
                   if (!c_isdigit (*format))
                     {
                       *invalid_reason =
-                        xasprintf (_("In the directive number %u, ',' is not followed by a number."), spec.directives);
+                        xasprintf (_("In the directive number %zu, ',' is not followed by a number."), spec.directives);
                       FDI_SET (*format == '\0' ? format - 1 : format,
                                FMTDIR_ERROR);
                       return NULL;
@@ -133,8 +133,8 @@ format_parse (const char *format, bool translated, char *fdi,
                 {
                   *invalid_reason =
                     (c_isprint (*format)
-                     ? xasprintf (_("The directive number %u ends with an invalid character '%c' instead of '}'."), spec.directives, *format)
-                     : xasprintf (_("The directive number %u ends with an invalid character instead of '}'."), spec.directives));
+                     ? xasprintf (_("The directive number %zu ends with an invalid character '%c' instead of '}'."), spec.directives, *format)
+                     : xasprintf (_("The directive number %zu ends with an invalid character instead of '}'."), spec.directives));
                   FDI_SET (format, FMTDIR_ERROR);
                   return NULL;
                 }
@@ -156,7 +156,7 @@ format_parse (const char *format, bool translated, char *fdi,
               *invalid_reason =
                 (spec.directives == 0
                  ? xstrdup (_("The string starts in the middle of a directive: found '}' without matching '{'."))
-                 : xasprintf (_("The string contains a lone '}' after directive number %u."), spec.directives));
+                 : xasprintf (_("The string contains a lone '}' after directive number %zu."), spec.directives));
               FDI_SET (*format == '\0' ? format - 1 : format, FMTDIR_ERROR);
               return NULL;
             }
@@ -231,7 +231,7 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int i;
+  size_t i;
 
   if (spec == NULL)
     {

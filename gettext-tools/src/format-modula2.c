@@ -63,8 +63,8 @@ enum format_arg_type
 
 struct spec
 {
-  unsigned int directives;
-  unsigned int arg_count;
+  size_t directives;
+  size_t arg_count;
   enum format_arg_type *args;
 };
 
@@ -74,7 +74,7 @@ format_parse (const char *format, bool translated, char *fdi,
 {
   const char *const format_start = format;
   struct spec spec;
-  unsigned int args_allocated;
+  size_t args_allocated;
   struct spec *result;
 
   spec.directives = 0;
@@ -190,15 +190,15 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
   if (spec1->arg_count + spec2->arg_count > 0)
     {
-      unsigned int n1 = spec1->arg_count;
-      unsigned int n2 = spec2->arg_count;
+      size_t n1 = spec1->arg_count;
+      size_t n2 = spec2->arg_count;
 
       /* Check that the argument counts are the same.  */
       if (n1 < n2)
         {
           if (error_logger)
             error_logger (error_logger_data,
-                          _("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+                          _("a format specification for argument %zu, as in '%s', doesn't exist in '%s'"),
                           n1 + 1, pretty_msgstr, pretty_msgid);
           err = true;
         }
@@ -206,13 +206,13 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
         {
           if (error_logger)
             error_logger (error_logger_data,
-                          _("a format specification for argument %u doesn't exist in '%s'"),
+                          _("a format specification for argument %zu doesn't exist in '%s'"),
                           n1 + 1, pretty_msgstr);
           err = true;
         }
       else
         {
-          unsigned int i;
+          size_t i;
 
           /* Check that the argument types are the same.  */
           if (!err)
@@ -222,7 +222,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                   {
                     if (error_logger)
                       error_logger (error_logger_data,
-                                    _("format specifications in '%s' and '%s' for argument %u are not the same"),
+                                    _("format specifications in '%s' and '%s' for argument %zu are not the same"),
                                     pretty_msgid, pretty_msgstr, i + 1);
                     err = true;
                     break;
@@ -257,7 +257,7 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int i;
+  size_t i;
 
   if (spec == NULL)
     {

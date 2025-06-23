@@ -70,9 +70,9 @@ struct named_arg
 
 struct spec
 {
-  unsigned int directives;
-  unsigned int named_arg_count;
-  unsigned int allocated;
+  size_t directives;
+  size_t named_arg_count;
+  size_t allocated;
   struct named_arg *named;
 };
 
@@ -165,9 +165,9 @@ parse_directive (struct spec *spec,
         {
           *invalid_reason =
             (c_isprint (*format)
-             ? xasprintf (_("In the directive number %u, '%c' cannot start a field name."),
+             ? xasprintf (_("In the directive number %zu, '%c' cannot start a field name."),
                           spec->directives, *format)
-             : xasprintf (_("In the directive number %u, a field name starts with a character that is not alphanumerical or underscore."),
+             : xasprintf (_("In the directive number %zu, a field name starts with a character that is not alphanumerical or underscore."),
                           spec->directives));
           FDI_SET (format, FMTDIR_ERROR);
         }
@@ -196,9 +196,9 @@ parse_directive (struct spec *spec,
                 {
                   *invalid_reason =
                     (c_isprint (*format)
-                     ? xasprintf (_("In the directive number %u, '%c' cannot start a getattr argument."),
+                     ? xasprintf (_("In the directive number %zu, '%c' cannot start a getattr argument."),
                                   spec->directives, *format)
-                     : xasprintf (_("In the directive number %u, a getattr argument starts with a character that is not alphabetical or underscore."),
+                     : xasprintf (_("In the directive number %zu, a getattr argument starts with a character that is not alphabetical or underscore."),
                                   spec->directives));
                   FDI_SET (format, FMTDIR_ERROR);
                 }
@@ -222,9 +222,9 @@ parse_directive (struct spec *spec,
                 {
                   *invalid_reason =
                     (c_isprint (*format)
-                     ? xasprintf (_("In the directive number %u, '%c' cannot start a getitem argument."),
+                     ? xasprintf (_("In the directive number %zu, '%c' cannot start a getitem argument."),
                                   spec->directives, *format)
-                     : xasprintf (_("In the directive number %u, a getitem argument starts with a character that is not alphanumerical or underscore."),
+                     : xasprintf (_("In the directive number %zu, a getitem argument starts with a character that is not alphanumerical or underscore."),
                                   spec->directives));
                   FDI_SET (format, FMTDIR_ERROR);
                 }
@@ -234,7 +234,7 @@ parse_directive (struct spec *spec,
           if (*format != ']')
             {
               *invalid_reason =
-                xasprintf (_("In the directive number %u, there is an unterminated getitem argument."),
+                xasprintf (_("In the directive number %zu, there is an unterminated getitem argument."),
                            spec->directives);
               FDI_SET (format - 1, FMTDIR_ERROR);
               return false;
@@ -251,7 +251,7 @@ parse_directive (struct spec *spec,
       if (!is_toplevel)
         {
           *invalid_reason =
-            xasprintf (_("In the directive number %u, no more nesting is allowed in a format specifier."),
+            xasprintf (_("In the directive number %zu, no more nesting is allowed in a format specifier."),
                        spec->directives);
           FDI_SET (format, FMTDIR_ERROR);
           return false;
@@ -290,7 +290,7 @@ parse_directive (struct spec *spec,
           if (c1 == '\0')
             {
               *invalid_reason =
-                xasprintf (_("The directive number %u is unterminated."),
+                xasprintf (_("The directive number %zu is unterminated."),
                            spec->directives);
               FDI_SET (format - 1, FMTDIR_ERROR);
               return false;
@@ -343,7 +343,7 @@ parse_directive (struct spec *spec,
   if (*format != '}')
     {
       *invalid_reason =
-        xasprintf (_("The directive number %u is unterminated."),
+        xasprintf (_("The directive number %zu is unterminated."),
                    spec->directives);
       FDI_SET (format - 1, FMTDIR_ERROR);
       return false;
@@ -428,7 +428,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the named argument array, and eliminate duplicates.  */
   if (spec.named_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
 
       qsort (spec.named, spec.named_arg_count, sizeof (struct named_arg),
              named_arg_compare);
@@ -456,7 +456,7 @@ free_named_args (struct spec *spec)
 {
   if (spec->named != NULL)
     {
-      unsigned int i;
+      size_t i;
       for (i = 0; i < spec->named_arg_count; i++)
         free (spec->named[i].name);
       free (spec->named);
@@ -491,9 +491,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
   if (spec1->named_arg_count + spec2->named_arg_count > 0)
     {
-      unsigned int i, j;
-      unsigned int n1 = spec1->named_arg_count;
-      unsigned int n2 = spec2->named_arg_count;
+      size_t i, j;
+      size_t n1 = spec1->named_arg_count;
+      size_t n2 = spec2->named_arg_count;
 
       /* Check the argument names in spec2 are contained in those of spec1.
          Both arrays are sorted.  We search for the first difference.  */
@@ -557,7 +557,7 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int i;
+  size_t i;
 
   if (spec == NULL)
     {

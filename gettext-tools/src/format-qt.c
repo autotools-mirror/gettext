@@ -1,5 +1,5 @@
 /* Qt format strings.
-   Copyright (C) 2003-2023 Free Software Foundation, Inc.
+   Copyright (C) 2003-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -52,14 +52,14 @@
 struct spec
 {
   /* Number of format directives.  */
-  unsigned int directives;
+  size_t directives;
 
   /* True if the string supports the multi-argument .arg() methods, i.e. if it
      contains no 'L' flags and only single-digit argument designators.  */
   bool simple;
 
   /* Booleans telling which %nn was seen.  */
-  unsigned int arg_count;
+  size_t arg_count;
   bool args_used[100];
 };
 
@@ -90,7 +90,7 @@ format_parse (const char *format, bool translated, char *fdi,
         if (*format >= '0' && *format <= '9')
           {
             /* A directive.  */
-            unsigned int number;
+            size_t number;
 
             FDI_SET (dir_start, FMTDIR_START);
             spec.directives++;
@@ -144,7 +144,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
   bool err = false;
-  unsigned int i;
+  size_t i;
 
   if (spec1->simple && !spec2->simple)
     {
@@ -169,11 +169,11 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
               {
                 if (arg_used1)
                   error_logger (error_logger_data,
-                                _("a format specification for argument %u doesn't exist in '%s'"),
+                                _("a format specification for argument %zu doesn't exist in '%s'"),
                                 i, pretty_msgstr);
                 else
                   error_logger (error_logger_data,
-                                _("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+                                _("a format specification for argument %zu, as in '%s', doesn't exist in '%s'"),
                                 i, pretty_msgstr, pretty_msgid);
               }
             err = true;
@@ -206,7 +206,7 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int i;
+  size_t i;
 
   if (spec == NULL)
     {

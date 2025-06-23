@@ -1,5 +1,5 @@
 /* Qt plural format strings.
-   Copyright (C) 2003-2023 Free Software Foundation, Inc.
+   Copyright (C) 2003-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2009.
 
    This program is free software: you can redistribute it and/or modify
@@ -40,7 +40,7 @@
 struct spec
 {
   /* Number of format directives.  */
-  unsigned int directives;
+  size_t directives;
 };
 
 

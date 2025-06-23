@@ -156,7 +156,7 @@ extern void
 
 /* Returns the number of unnamed arguments consumed by a Python format
    string.  */
-extern unsigned int get_python_format_unnamed_arg_count (const char *string);
+extern size_t get_python_format_unnamed_arg_count (const char *string);
 
 /* Check whether both formats strings contain compatible format
    specifications for format type i (0 <= i < NFORMATS).

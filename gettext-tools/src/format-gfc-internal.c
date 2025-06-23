@@ -86,7 +86,7 @@ typedef enum format_arg_type format_arg_type_t;
 
 struct numbered_arg
 {
-  unsigned int number;
+  size_t number;
   format_arg_type_t type;
 };
 
@@ -97,8 +97,8 @@ struct unnumbered_arg
 
 struct spec
 {
-  unsigned int directives;
-  unsigned int unnumbered_arg_count;
+  size_t directives;
+  size_t unnumbered_arg_count;
   struct unnumbered_arg *unnumbered;
   bool uses_currentloc;
 };
@@ -107,8 +107,8 @@ struct spec
 static int
 numbered_arg_compare (const void *p1, const void *p2)
 {
-  unsigned int n1 = ((const struct numbered_arg *) p1)->number;
-  unsigned int n2 = ((const struct numbered_arg *) p2)->number;
+  size_t n1 = ((const struct numbered_arg *) p1)->number;
+  size_t n2 = ((const struct numbered_arg *) p2)->number;
 
   return (n1 > n2 ? 1 : n1 < n2 ? -1 : 0);
 }
@@ -119,11 +119,11 @@ format_parse (const char *format, bool translated, char *fdi,
 {
   const char *const format_start = format;
   struct spec spec;
-  unsigned int numbered_arg_count;
-  unsigned int numbered_allocated;
+  size_t numbered_arg_count;
+  size_t numbered_allocated;
   struct numbered_arg *numbered;
   struct spec *result;
-  unsigned int number;
+  size_t number;
 
   spec.directives = 0;
   numbered_arg_count = 0;
@@ -146,7 +146,7 @@ format_parse (const char *format, bool translated, char *fdi,
             if (c_isdigit (*format))
               {
                 const char *f = format;
-                unsigned int m = 0;
+                size_t m = 0;
 
                 do
                   {
@@ -230,7 +230,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the numbered argument array, and eliminate duplicates.  */
   if (numbered_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
       bool err;
 
       qsort (numbered, numbered_arg_count,
@@ -277,13 +277,13 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Verify that the format string uses all arguments up to the highest
      numbered one.  */
   {
-    unsigned int i;
+    size_t i;
 
     for (i = 0; i < numbered_arg_count; i++)
       if (numbered[i].number != i + 1)
         {
           *invalid_reason =
-            xasprintf (_("The string refers to argument number %u but ignores argument number %u."), numbered[i].number, i + 1);
+            xasprintf (_("The string refers to argument number %zu but ignores argument number %zu."), numbered[i].number, i + 1);
           goto bad_format;
         }
   }
@@ -291,7 +291,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* So now the numbered arguments array is equivalent to a sequence
      of unnumbered arguments.  Eliminate the FAT_VOID placeholders.  */
   {
-    unsigned int i;
+    size_t i;
 
     spec.unnumbered_arg_count = 0;
     for (i = 0; i < numbered_arg_count; i++)
@@ -300,7 +300,7 @@ format_parse (const char *format, bool translated, char *fdi,
 
     if (spec.unnumbered_arg_count > 0)
       {
-        unsigned int j;
+        size_t j;
 
         spec.unnumbered = XNMALLOC (spec.unnumbered_arg_count, struct unnumbered_arg);
         j = 0;
@@ -349,7 +349,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
   bool err = false;
-  unsigned int i;
+  size_t i;
 
   /* Check the argument types are the same.  */
   if (equality
@@ -368,7 +368,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
         {
           if (error_logger)
             error_logger (error_logger_data,
-                          _("format specifications in '%s' and '%s' for argument %u are not the same"),
+                          _("format specifications in '%s' and '%s' for argument %zu are not the same"),
                           pretty_msgid, pretty_msgstr, i + 1);
           err = true;
         }
@@ -415,7 +415,7 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int i;
+  size_t i;
 
   if (spec == NULL)
     {

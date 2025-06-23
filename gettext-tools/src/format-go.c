@@ -86,19 +86,19 @@ typedef unsigned int format_arg_type_t;
 
 struct numbered_arg
 {
-  unsigned int number;
+  size_t number;
   format_arg_type_t type;
 };
 
 struct spec
 {
-  unsigned int directives;
+  size_t directives;
   /* We consider a directive as "likely intentional" if it does not contain a
      space.  This prevents xgettext from flagging strings like "100% complete"
      as 'go-format' if they don't occur in a context that requires a format
      string.  */
-  unsigned int likely_intentional_directives;
-  unsigned int numbered_arg_count;
+  size_t likely_intentional_directives;
+  size_t numbered_arg_count;
   struct numbered_arg *numbered;
 };
 
@@ -106,14 +106,14 @@ struct spec
 static int
 numbered_arg_compare (const void *p1, const void *p2)
 {
-  unsigned int n1 = ((const struct numbered_arg *) p1)->number;
-  unsigned int n2 = ((const struct numbered_arg *) p2)->number;
+  size_t n1 = ((const struct numbered_arg *) p1)->number;
+  size_t n2 = ((const struct numbered_arg *) p2)->number;
 
   return (n1 > n2 ? 1 : n1 < n2 ? -1 : 0);
 }
 
 #define INVALID_ARGNO_TOO_LARGE(directive_number) \
-  xasprintf (_("In the directive number %u, the argument number is too large."), directive_number)
+  xasprintf (_("In the directive number %zu, the argument number is too large."), directive_number)
 
 static void *
 format_parse (const char *format, bool translated, char *fdi,
@@ -121,9 +121,9 @@ format_parse (const char *format, bool translated, char *fdi,
 {
   const char *const format_start = format;
   struct spec spec;
-  unsigned int allocated;
+  size_t allocated;
   struct spec *result;
-  unsigned int number;
+  size_t number;
 
   spec.directives = 0;
   spec.likely_intentional_directives = 0;
@@ -156,7 +156,7 @@ format_parse (const char *format, bool translated, char *fdi,
             if (c_isdigit (format[1]))
               {
                 const char *f = format + 1;
-                unsigned int m = 0;
+                size_t m = 0;
 
                 do
                   {
@@ -186,7 +186,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     /* Parse width.  */
                     if (*format == '*')
                       {
-                        unsigned int width_number = number;
+                        size_t width_number = number;
 
                         if (allocated == spec.numbered_arg_count)
                           {
@@ -211,7 +211,7 @@ format_parse (const char *format, bool translated, char *fdi,
         if (c_isdigit (*format))
           {
             const char *f = format;
-            unsigned int width = 0;
+            size_t width = 0;
 
             do
               {
@@ -224,7 +224,7 @@ format_parse (const char *format, bool translated, char *fdi,
             if (width > 1000000)
               {
                 *invalid_reason =
-                  xasprintf (_("In the directive number %u, the width is too large."),
+                  xasprintf (_("In the directive number %zu, the width is too large."),
                              spec.directives);
                 FDI_SET (f - 1, FMTDIR_ERROR);
                 goto bad_format;
@@ -233,7 +233,7 @@ format_parse (const char *format, bool translated, char *fdi,
           }
         else if (*format == '*')
           {
-            unsigned int width_number = number;
+            size_t width_number = number;
 
             if (allocated == spec.numbered_arg_count)
               {
@@ -258,7 +258,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 if (c_isdigit (format[1]))
                   {
                     const char *f = format + 1;
-                    unsigned int m = 0;
+                    size_t m = 0;
 
                     do
                       {
@@ -288,7 +288,7 @@ format_parse (const char *format, bool translated, char *fdi,
                         /* Finish parsing precision.  */
                         if (*format == '*')
                           {
-                            unsigned int precision_number = number;
+                            size_t precision_number = number;
 
                             if (allocated == spec.numbered_arg_count)
                               {
@@ -316,7 +316,7 @@ format_parse (const char *format, bool translated, char *fdi,
             if (c_isdigit (*format))
               {
                 const char *f = format;
-                unsigned int precision = 0;
+                size_t precision = 0;
 
                 do
                   {
@@ -329,7 +329,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 if (precision > 1000000)
                   {
                     *invalid_reason =
-                      xasprintf (_("In the directive number %u, the precision is too large."),
+                      xasprintf (_("In the directive number %zu, the precision is too large."),
                                  spec.directives);
                     FDI_SET (f - 1, FMTDIR_ERROR);
                     goto bad_format;
@@ -338,7 +338,7 @@ format_parse (const char *format, bool translated, char *fdi,
               }
             else if (*format == '*')
               {
-                unsigned int precision_number = number;
+                size_t precision_number = number;
 
                 if (allocated == spec.numbered_arg_count)
                   {
@@ -360,7 +360,7 @@ format_parse (const char *format, bool translated, char *fdi,
             if (c_isdigit (format[1]))
               {
                 const char *f = format + 1;
-                unsigned int m = 0;
+                size_t m = 0;
 
                 do
                   {
@@ -474,7 +474,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the numbered argument array, and eliminate duplicates.  */
   if (spec.numbered_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
       bool err;
 
       qsort (spec.numbered, spec.numbered_arg_count,
@@ -568,9 +568,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
   if (spec1->numbered_arg_count + spec2->numbered_arg_count > 0)
     {
-      unsigned int i, j;
-      unsigned int n1 = spec1->numbered_arg_count;
-      unsigned int n2 = spec2->numbered_arg_count;
+      size_t i, j;
+      size_t n1 = spec1->numbered_arg_count;
+      size_t n2 = spec2->numbered_arg_count;
 
       /* Check that the argument numbers are the same.
          Both arrays are sorted.  We search for the first difference.  */
@@ -586,7 +586,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
             {
               if (error_logger)
                 error_logger (error_logger_data,
-                              _("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+                              _("a format specification for argument %zu, as in '%s', doesn't exist in '%s'"),
                               spec2->numbered[j].number, pretty_msgstr,
                               pretty_msgid);
               err = true;
@@ -598,7 +598,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                 {
                   if (error_logger)
                     error_logger (error_logger_data,
-                                  _("a format specification for argument %u doesn't exist in '%s'"),
+                                  _("a format specification for argument %zu doesn't exist in '%s'"),
                                   spec1->numbered[i].number, pretty_msgstr);
                   err = true;
                   break;
@@ -619,7 +619,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                   {
                     if (error_logger)
                       error_logger (error_logger_data,
-                                    _("format specifications in '%s' and '%s' for argument %u are not the same"),
+                                    _("format specifications in '%s' and '%s' for argument %zu are not the same"),
                                     pretty_msgid, pretty_msgstr,
                                     spec2->numbered[j].number);
                     err = true;
@@ -657,8 +657,8 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int last;
-  unsigned int i;
+  size_t last;
+  size_t i;
 
   if (spec == NULL)
     {
@@ -670,7 +670,7 @@ format_print (void *descr)
   last = 1;
   for (i = 0; i < spec->numbered_arg_count; i++)
     {
-      unsigned int number = spec->numbered[i].number;
+      size_t number = spec->numbered[i].number;
 
       if (i > 0)
         printf (" ");

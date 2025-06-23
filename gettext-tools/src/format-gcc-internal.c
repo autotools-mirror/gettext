@@ -171,14 +171,14 @@ typedef enum format_arg_type format_arg_type_t;
 
 struct numbered_arg
 {
-  unsigned int number;
+  size_t number;
   format_arg_type_t type;
 };
 
 struct spec
 {
-  unsigned int directives;
-  unsigned int numbered_arg_count;
+  size_t directives;
+  size_t numbered_arg_count;
   struct numbered_arg *numbered;
   bool uses_err_no;
   bool uses_current_locus;
@@ -188,8 +188,8 @@ struct spec
 static int
 numbered_arg_compare (const void *p1, const void *p2)
 {
-  unsigned int n1 = ((const struct numbered_arg *) p1)->number;
-  unsigned int n2 = ((const struct numbered_arg *) p2)->number;
+  size_t n1 = ((const struct numbered_arg *) p1)->number;
+  size_t n2 = ((const struct numbered_arg *) p2)->number;
 
   return (n1 > n2 ? 1 : n1 < n2 ? -1 : 0);
 }
@@ -200,11 +200,11 @@ format_parse (const char *format, bool translated, char *fdi,
 {
   const char *const format_start = format;
   struct spec spec;
-  unsigned int numbered_allocated;
-  unsigned int unnumbered_arg_count;
-  unsigned int in_quote_group;
-  unsigned int in_color_group;
-  unsigned int in_url_group;
+  size_t numbered_allocated;
+  size_t unnumbered_arg_count;
+  size_t in_quote_group;
+  size_t in_color_group;
+  size_t in_url_group;
   struct spec *result;
 
   spec.directives = 0;
@@ -232,7 +232,7 @@ format_parse (const char *format, bool translated, char *fdi,
           {
             if (in_quote_group)
               {
-                *invalid_reason = xasprintf (_("The directive number %u opens a quote group, but the previous one is not terminated."), spec.directives);
+                *invalid_reason = xasprintf (_("The directive number %zu opens a quote group, but the previous one is not terminated."), spec.directives);
                 FDI_SET (format, FMTDIR_ERROR);
                 goto bad_format;
               }
@@ -242,7 +242,7 @@ format_parse (const char *format, bool translated, char *fdi,
           {
             if (!in_quote_group)
               {
-                *invalid_reason = xasprintf (_("The directive number %u does not match a preceding '%%%c'."), spec.directives, '<');
+                *invalid_reason = xasprintf (_("The directive number %zu does not match a preceding '%%%c'."), spec.directives, '<');
                 FDI_SET (format, FMTDIR_ERROR);
                 goto bad_format;
               }
@@ -252,7 +252,7 @@ format_parse (const char *format, bool translated, char *fdi,
           {
             if (!in_color_group)
               {
-                *invalid_reason = xasprintf (_("The directive number %u does not match a preceding '%%%c'."), spec.directives, 'r');
+                *invalid_reason = xasprintf (_("The directive number %zu does not match a preceding '%%%c'."), spec.directives, 'r');
                 FDI_SET (format, FMTDIR_ERROR);
                 goto bad_format;
               }
@@ -262,7 +262,7 @@ format_parse (const char *format, bool translated, char *fdi,
           {
             if (!in_url_group)
               {
-                *invalid_reason = xasprintf (_("The directive number %u does not match a preceding '%%%c'."), spec.directives, '{');
+                *invalid_reason = xasprintf (_("The directive number %zu does not match a preceding '%%%c'."), spec.directives, '{');
                 FDI_SET (format, FMTDIR_ERROR);
                 goto bad_format;
               }
@@ -274,7 +274,7 @@ format_parse (const char *format, bool translated, char *fdi,
           spec.uses_current_locus = true;
         else
           {
-            unsigned int number = 0;
+            size_t number = 0;
             unsigned int flag_q = 0;
             unsigned int flag_l = 0;
             unsigned int flag_w = 0;
@@ -288,7 +288,7 @@ format_parse (const char *format, bool translated, char *fdi,
             if (c_isdigit (*format))
               {
                 const char *f = format;
-                unsigned int m = 0;
+                size_t m = 0;
 
                 do
                   {
@@ -351,7 +351,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     flag_sharp = 1;
                     continue;
                   invalid_flags:
-                    *invalid_reason = xasprintf (_("In the directive number %u, the flags combination is invalid."), spec.directives);
+                    *invalid_reason = xasprintf (_("In the directive number %zu, the flags combination is invalid."), spec.directives);
                     FDI_SET (format, FMTDIR_ERROR);
                     goto bad_format;
                   default:
@@ -390,7 +390,7 @@ format_parse (const char *format, bool translated, char *fdi,
                         else
                           {
                             *invalid_reason =
-                              xasprintf (_("In the directive number %u, a precision is not allowed before '%c'."), spec.directives, *format);
+                              xasprintf (_("In the directive number %zu, a precision is not allowed before '%c'."), spec.directives, *format);
                             FDI_SET (format, FMTDIR_ERROR);
                           }
                         goto bad_format;
@@ -400,14 +400,14 @@ format_parse (const char *format, bool translated, char *fdi,
                   }
                 else if (*format == '*')
                   {
-                    unsigned int precision_number = 0;
+                    size_t precision_number = 0;
 
                     format++;
 
                     if (c_isdigit (*format))
                       {
                         const char *f = format;
-                        unsigned int m = 0;
+                        size_t m = 0;
 
                         do
                           {
@@ -432,7 +432,7 @@ format_parse (const char *format, bool translated, char *fdi,
                               }
                             if (m != number - 1)
                               {
-                                *invalid_reason = xasprintf (_("In the directive number %u, the argument number for the precision must be equal to %u."), spec.directives, number - 1);
+                                *invalid_reason = xasprintf (_("In the directive number %zu, the argument number for the precision must be equal to %zu."), spec.directives, number - 1);
                                 FDI_SET (f, FMTDIR_ERROR);
                                 goto bad_format;
                               }
@@ -496,7 +496,7 @@ format_parse (const char *format, bool translated, char *fdi,
                         else
                           {
                             *invalid_reason =
-                              xasprintf (_("In the directive number %u, a precision specification is not allowed before '%c'."), spec.directives, *format);
+                              xasprintf (_("In the directive number %zu, a precision specification is not allowed before '%c'."), spec.directives, *format);
                             FDI_SET (format, FMTDIR_ERROR);
                           }
                         goto bad_format;
@@ -504,7 +504,7 @@ format_parse (const char *format, bool translated, char *fdi,
                   }
                 else
                   {
-                    *invalid_reason = xasprintf (_("In the directive number %u, the precision specification is invalid."), spec.directives);
+                    *invalid_reason = xasprintf (_("In the directive number %zu, the precision specification is invalid."), spec.directives);
                     FDI_SET (*format == '\0' ? format - 1 : format,
                              FMTDIR_ERROR);
                     goto bad_format;
@@ -530,7 +530,7 @@ format_parse (const char *format, bool translated, char *fdi,
               {
                 if (in_color_group)
                   {
-                    *invalid_reason = xasprintf (_("The directive number %u opens a color group, but the previous one is not terminated."), spec.directives);
+                    *invalid_reason = xasprintf (_("The directive number %zu opens a color group, but the previous one is not terminated."), spec.directives);
                     FDI_SET (format, FMTDIR_ERROR);
                     goto bad_format;
                   }
@@ -541,7 +541,7 @@ format_parse (const char *format, bool translated, char *fdi,
               {
                 if (in_url_group)
                   {
-                    *invalid_reason = xasprintf (_("The directive number %u opens a URL group, but the previous one is not terminated."), spec.directives);
+                    *invalid_reason = xasprintf (_("The directive number %zu opens a URL group, but the previous one is not terminated."), spec.directives);
                     FDI_SET (format, FMTDIR_ERROR);
                     goto bad_format;
                   }
@@ -669,17 +669,17 @@ format_parse (const char *format, bool translated, char *fdi,
 
   if (in_quote_group)
     {
-      *invalid_reason = xasprintf (_("The quote group opened by the directive number %u is not terminated."), in_quote_group);
+      *invalid_reason = xasprintf (_("The quote group opened by the directive number %zu is not terminated."), in_quote_group);
       goto bad_format;
     }
   if (in_color_group)
     {
-      *invalid_reason = xasprintf (_("The color group opened by the directive number %u is not terminated."), in_color_group);
+      *invalid_reason = xasprintf (_("The color group opened by the directive number %zu is not terminated."), in_color_group);
       goto bad_format;
     }
   if (in_url_group)
     {
-      *invalid_reason = xasprintf (_("The URL group opened by the directive number %u is not terminated."), in_url_group);
+      *invalid_reason = xasprintf (_("The URL group opened by the directive number %zu is not terminated."), in_url_group);
       goto bad_format;
     }
 
@@ -689,7 +689,7 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the numbered argument array, and eliminate duplicates.  */
   else if (spec.numbered_arg_count > 1)
     {
-      unsigned int i, j;
+      size_t i, j;
       bool err;
 
       qsort (spec.numbered, spec.numbered_arg_count,
@@ -772,9 +772,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
   if (spec1->numbered_arg_count + spec2->numbered_arg_count > 0)
     {
-      unsigned int i, j;
-      unsigned int n1 = spec1->numbered_arg_count;
-      unsigned int n2 = spec2->numbered_arg_count;
+      size_t i, j;
+      size_t n1 = spec1->numbered_arg_count;
+      size_t n2 = spec2->numbered_arg_count;
 
       /* Check that the argument numbers are the same.
          Both arrays are sorted.  We search for the first difference.  */
@@ -790,7 +790,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
             {
               if (error_logger)
                 error_logger (error_logger_data,
-                              _("a format specification for argument %u, as in '%s', doesn't exist in '%s'"),
+                              _("a format specification for argument %zu, as in '%s', doesn't exist in '%s'"),
                               spec2->numbered[j].number, pretty_msgstr,
                               pretty_msgid);
               err = true;
@@ -802,7 +802,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                 {
                   if (error_logger)
                     error_logger (error_logger_data,
-                                  _("a format specification for argument %u doesn't exist in '%s'"),
+                                  _("a format specification for argument %zu doesn't exist in '%s'"),
                                   spec1->numbered[i].number, pretty_msgstr);
                   err = true;
                   break;
@@ -823,7 +823,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
                   {
                     if (error_logger)
                       error_logger (error_logger_data,
-                                    _("format specifications in '%s' and '%s' for argument %u are not the same"),
+                                    _("format specifications in '%s' and '%s' for argument %zu are not the same"),
                                     pretty_msgid, pretty_msgstr,
                                     spec2->numbered[j].number);
                     err = true;
@@ -895,8 +895,8 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  unsigned int last;
-  unsigned int i;
+  size_t last;
+  size_t i;
 
   if (spec == NULL)
     {
@@ -908,7 +908,7 @@ format_print (void *descr)
   last = 1;
   for (i = 0; i < spec->numbered_arg_count; i++)
     {
-      unsigned int number = spec->numbered[i].number;
+      size_t number = spec->numbered[i].number;
 
       if (i > 0)
         printf (" ");
