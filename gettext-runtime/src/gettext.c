@@ -290,7 +290,7 @@ When used with the -s option the program behaves like the 'echo' command.\n\
 But it does not simply copy its arguments to stdout.  Instead those messages\n\
 found in the selected catalog are translated.\n\
 Standard search directory: %s\n"),
-              getenv ("IN_HELP2MAN") == NULL ? LOCALEDIR : "@localedir@");
+              getenv ("IN_HELP2MAN") == NULL ? relocate (LOCALEDIR) : "@localedir@");
       printf ("\n");
       /* TRANSLATORS: The first placeholder is the web address of the Savannah
          project of this package.  The second placeholder is the bug-reporting

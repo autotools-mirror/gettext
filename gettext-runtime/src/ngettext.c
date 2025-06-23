@@ -256,7 +256,7 @@ environment variable TEXTDOMAIN.  If the message catalog is not found in the\n\
 regular directory, another location can be specified with the environment\n\
 variable TEXTDOMAINDIR.\n\
 Standard search directory: %s\n"),
-              getenv ("IN_HELP2MAN") == NULL ? LOCALEDIR : "@localedir@");
+              getenv ("IN_HELP2MAN") == NULL ? relocate (LOCALEDIR) : "@localedir@");
       printf ("\n");
       /* TRANSLATORS: The first placeholder is the web address of the Savannah
          project of this package.  The second placeholder is the bug-reporting
