@@ -223,11 +223,11 @@ of the environment variables that are referenced in SHELL-FORMAT, one per line.\
          email address for this package.  Please add _another line_ saying
          "Report translation bugs to <...>\n" with the address for translation
          bugs (typically your translation team's web or email address).  */
-      printf(_("\
+      printf (_("\
 Report bugs in the bug tracker at <%s>\n\
 or by email to <%s>.\n"),
-             "https://savannah.gnu.org/projects/gettext",
-             "bug-gettext@gnu.org");
+              "https://savannah.gnu.org/projects/gettext",
+              "bug-gettext@gnu.org");
     }
 
   exit (status);
