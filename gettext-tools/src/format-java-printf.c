@@ -131,9 +131,6 @@ numbered_arg_compare (const void *p1, const void *p2)
 #define INVALID_LAST_ARG(directive_number) \
   xasprintf (_("In the directive number %u, the reference to the argument of the previous directive is invalid."), directive_number)
 
-#define INVALID_FLAG_FOR(directive_number,flag_char,conv_char) \
-  xasprintf (_("In the directive number %u, the flag '%c' is invalid for the conversion '%c'."), directive_number, flag_char, conv_char)
-
 #define INVALID_WIDTH_FOR(directive_number,conv_char) \
   xasprintf (_("In the directive number %u, a width is invalid for the conversion '%c'."), directive_number, conv_char)
 

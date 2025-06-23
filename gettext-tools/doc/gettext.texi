@@ -10266,6 +10266,9 @@ but without the obsolescent @code{b} conversion specifier.
 Extensions by the GNU coreutils @samp{printf} command
 (@url{https://www.gnu.org/software/coreutils/manual/html_node/printf-invocation.html})
 are not supported:
+use of the @samp{'} flag in the
+@code{%i}, @code{%d}, @code{%u}, @code{%f}, @code{%F}, @code{%g}, @code{%G}
+directives;
 use of @samp{*} or @samp{*@var{m}$} as width or precision;
 use of size specifiers @code{h}, @code{l}, @code{j}, @code{z}, @code{t} (ignored);
 and the escape sequences @code{\c},

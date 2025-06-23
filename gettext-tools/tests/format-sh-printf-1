@@ -103,6 +103,28 @@ LC_ALL=C sed -e "$escape_backslashes" <<\EOF > f-sp-1.data
 "abc%3$*2$.*1$g"
 # Invalid: zero
 "abc%2$*0$.*1$g"
+# Invalid: flag not valid
+"abc%'d"
+# Invalid: flag not valid
+"abc%'u"
+# Invalid: flag not valid
+"abc%'f"
+# Invalid: flag not valid
+"abc%'g"
+# Invalid: flag not valid for specifier
+"abc%#c"
+# Invalid: flag not valid for specifier
+"abc%#s"
+# Invalid: flag not valid for specifier
+"abc%#i"
+# Invalid: flag not valid for specifier
+"abc%#d"
+# Invalid: flag not valid for specifier
+"abc%#u"
+# Invalid: flag not valid for specifier
+"abc%0c"
+# Invalid: flag not valid for specifier
+"abc%0s"
 # Valid: escape sequence
 "abc%%def\\"
 # Valid: escape sequence

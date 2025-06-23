@@ -65,6 +65,9 @@
        - 'u', 'o', 'x', 'X', that need an unsigned integer argument,
        - [optional in POSIX, but supported here:] 'e', 'E', 'f', 'F', 'g', 'G',
          'a', 'A', that need a floating-point argument.
+   Some flag+specifier combinations are invalid:
+     - The '#' flag with the specifiers 'c', 's', 'i', 'd', 'u'.
+     - The '0' flag with the specifiers 'c', 's'.
    Additionally there is the directive '%%', which takes no argument.
    Numbered ('%m$' or '*m$') and unnumbered argument specifications cannot
    be used in the same string.
@@ -172,11 +175,17 @@ format_parse (const char *format, bool translated, char *fdi,
               }
 
             /* Parse flags.  */
+            bool have_hash_flag = false;
+            bool have_zero_flag = false;
             while (*format == ' ' || *format == '+' || *format == '-'
                    || *format == '#' || *format == '0')
               {
                 if (*format == ' ')
                   likely_intentional = false;
+                if (*format == '#')
+                  have_hash_flag = true;
+                if (*format == '0')
+                  have_zero_flag = true;
                 format++;
               }
 
@@ -225,6 +234,23 @@ format_parse (const char *format, bool translated, char *fdi,
                       INVALID_CONVERSION_SPECIFIER (spec.directives, *format);
                     FDI_SET (format, FMTDIR_ERROR);
                   }
+                goto bad_format;
+              }
+
+            if (have_hash_flag
+                && (*format == 'c' || *format == 's'
+                    || *format == 'i' || *format == 'd' || *format == 'u'))
+              {
+                *invalid_reason =
+                  INVALID_FLAG_FOR (spec.directives, '#', *format);
+                FDI_SET (format, FMTDIR_ERROR);
+                goto bad_format;
+              }
+            if (have_zero_flag && (*format == 'c' || *format == 's'))
+              {
+                *invalid_reason =
+                  INVALID_FLAG_FOR (spec.directives, '0', *format);
+                FDI_SET (format, FMTDIR_ERROR);
                 goto bad_format;
               }
 

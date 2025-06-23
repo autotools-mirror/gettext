@@ -39,5 +39,8 @@
    ? xasprintf (_("In the directive number %u, the character '%c' is not a valid conversion specifier."), directive_number, conv_char) \
    : xasprintf (_("The character that terminates the directive number %u is not a valid conversion specifier."), directive_number))
 
+#define INVALID_FLAG_FOR(directive_number,flag_char,conv_char) \
+  xasprintf (_("In the directive number %u, the flag '%c' is invalid for the conversion '%c'."), directive_number, flag_char, conv_char)
+
 #define INVALID_INCOMPATIBLE_ARG_TYPES(arg_number) \
   xasprintf (_("The string refers to argument number %u in incompatible ways."), arg_number)
