@@ -1,15 +1,21 @@
 #! /bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
 
-# Test of gettext facilities in the Python language.
+# Test of gettext facilities (including plural handling) in the Python
+# language.
 
 cat <<\EOF > prog1.py
+import sys
 import gettext
+
+n = int(sys.argv[1])
 
 gettext.textdomain('prog')
 gettext.bindtextdomain('prog', '.')
 
 print(gettext.gettext("'Your command, please?', asked the waiter."))
+print(gettext.ngettext("a piece of cake","%(count)d pieces of cake",n) \
+      % { 'count': n })
 print(gettext.gettext("%(oldCurrency)s is replaced by %(newCurrency)s.") \
       % { 'oldCurrency': "FF", 'newCurrency' : "EUR" })
 EOF
@@ -21,6 +27,12 @@ LC_ALL=C tr -d '\r' < prog.tmp > prog.pot || Exit 1
 cat <<\EOF > prog.ok
 msgid "'Your command, please?', asked the waiter."
 msgstr ""
+
+#, python-format
+msgid "a piece of cake"
+msgid_plural "%(count)d pieces of cake"
+msgstr[0] ""
+msgstr[1] ""
 
 #, python-format
 msgid "%(oldCurrency)s is replaced by %(newCurrency)s."
@@ -38,6 +50,13 @@ msgstr ""
 
 msgid "'Your command, please?', asked the waiter."
 msgstr "«Votre commande, s'il vous plait», dit le garçon."
+
+# Les gateaux allemands sont les meilleurs du monde.
+#, python-format
+msgid "a piece of cake"
+msgid_plural "%(count)d pieces of cake"
+msgstr[0] "un morceau de gateau"
+msgstr[1] "%(count)d morceaux de gateau"
 
 # Reverse the arguments.
 #, python-format
@@ -58,7 +77,7 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -o fr/LC_MESSAGES/prog.mo fr.po
 
-# Test for presence of python version 2.0 or newer.
+# Test for presence of python version 2.3 or newer.
 if (python3 -V) >/dev/null 2>/dev/null; then
   PYTHON=python3
 else
@@ -70,7 +89,7 @@ else
     echo "Skipping test: python not found"; Exit 77
   fi
 fi
-case `$PYTHON -c 'import sys; print(sys.hexversion >= 0x20000F0)'` in
+case `$PYTHON -c 'import sys; print(sys.hexversion >= 0x20300F0)'` in
   1 | True) ;;
   *) echo "Skipping test: python version too old"; Exit 77;;
 esac
@@ -78,22 +97,24 @@ esac
 : ${DIFF=diff}
 cat <<\EOF > prog.ok
 «Votre commande, s'il vous plait», dit le garçon.
+2 morceaux de gateau
 EUR remplace FF.
 EOF
 cat <<\EOF > prog.oku
 Â«Votre commande, s'il vous plaitÂ», dit le garÃ§on.
+2 morceaux de gateau
 EUR remplace FF.
 EOF
 
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 if test $LOCALE_FR_UTF8 != none; then
-  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 PYTHONIOENCODING=UTF-8 $PYTHON prog1.py > prog.out || Exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 PYTHONIOENCODING=UTF-8 $PYTHON prog1.py 2 > prog.out || Exit 1
   ${DIFF} prog.oku prog.out || Exit 1
 fi
 if test -z "$ISO8859_LOCALE_UNSUPPORTED"; then
   if test $LOCALE_FR != none; then
-    LANGUAGE= LC_ALL=$LOCALE_FR PYTHONIOENCODING=ISO-8859-1 $PYTHON prog1.py > prog.out || Exit 1
+    LANGUAGE= LC_ALL=$LOCALE_FR PYTHONIOENCODING=ISO-8859-1 $PYTHON prog1.py 2 > prog.out || Exit 1
     ${DIFF} prog.ok prog.out || Exit 1
   fi
   if test $LOCALE_FR = none && test $LOCALE_FR_UTF8 = none; then
