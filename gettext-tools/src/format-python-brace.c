@@ -37,13 +37,15 @@
    Documentation:
      https://peps.python.org/pep-3101/
      https://docs.python.org/3/library/string.html#formatstrings
+   Here we assume Python >= 3.1, which allows unnamed argument specifications.
    A format string directive here consists of
      - an opening brace '{',
-     - an identifier [_A-Za-z][_0-9A-Za-z]*|[0-9]+,
-     - an optional sequence of
-         - getattr ('.' identifier) or
-         - getitem ('[' identifier ']')
-       operators,
+     - optionally:
+       - an identifier [_A-Za-z][_0-9A-Za-z]*|[0-9]+,
+       - an optional sequence of
+           - getattr ('.' identifier) or
+           - getitem ('[' identifier ']')
+         operators,
      - optionally, a ':' and a format specifier, where a format specifier is
        - either a format directive of the form '{' ... '}' without a format
          specifier, or
@@ -60,6 +62,8 @@
              - 'b', 'c', 'd', 'o', 'x', 'X', 'n' for integers,
              - 'e', 'E', 'f', 'F', 'g', 'G', 'n', '%' for floating-point values,
      - a closing brace '}'.
+   Numbered (identifier being a number) and unnamed argument specifications
+   cannot be used in the same string.
    Brace characters '{' and '}' can be escaped by doubling them: '{{' and '}}'.
 */
 
@@ -79,6 +83,15 @@ struct spec
 
 /* Forward declaration of local functions.  */
 static void free_named_args (struct spec *spec);
+
+
+struct toplevel_counters
+{
+  /* Number of arguments seen whose identifier is a number.  */
+  size_t numbered_arg_counter;
+  /* Number of arguments with a missing identifier.  */
+  size_t unnamed_arg_counter;
+};
 
 
 /* All the parse_* functions (except parse_upto) follow the same
@@ -136,7 +149,7 @@ parse_numeric_field (struct spec *spec,
  */
 static bool
 parse_directive (struct spec *spec,
-                 const char **formatp, bool is_toplevel,
+                 const char **formatp, struct toplevel_counters *toplevel,
                  bool translated, char *fdi, char **invalid_reason)
 {
   const char *format = *formatp;
@@ -154,15 +167,89 @@ parse_directive (struct spec *spec,
     }
 
   name_start = format;
-  if (!parse_named_field (spec, &format, translated, fdi, invalid_reason)
-      && !parse_numeric_field (spec, &format, translated, fdi, invalid_reason))
+  if (parse_named_field (spec, &format, translated, fdi, invalid_reason)
+      || parse_numeric_field (spec, &format, translated, fdi, invalid_reason))
+    {
+      /* Parse '.' (getattr) or '[..]' (getitem) operators followed by a
+         name.  If must not recurse, but can be specifed in a chain, such
+         as "foo.bar.baz[0]".  */
+      for (;;)
+        {
+          c = *format;
+
+          if (c == '.')
+            {
+              format++;
+              if (!parse_named_field (spec, &format, translated, fdi,
+                                      invalid_reason))
+                {
+                  if (*format == '\0')
+                    {
+                      *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+                      FDI_SET (format - 1, FMTDIR_ERROR);
+                    }
+                  else
+                    {
+                      *invalid_reason =
+                        (c_isprint (*format)
+                         ? xasprintf (_("In the directive number %zu, '%c' cannot start a getattr argument."),
+                                      spec->directives, *format)
+                         : xasprintf (_("In the directive number %zu, a getattr argument starts with a character that is not alphabetical or underscore."),
+                                      spec->directives));
+                      FDI_SET (format, FMTDIR_ERROR);
+                    }
+                  return false;
+                }
+            }
+          else if (c == '[')
+            {
+              format++;
+              if (!parse_named_field (spec, &format, translated, fdi,
+                                      invalid_reason)
+                  && !parse_numeric_field (spec, &format, translated, fdi,
+                                           invalid_reason))
+                {
+                  if (*format == '\0')
+                    {
+                      *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
+                      FDI_SET (format - 1, FMTDIR_ERROR);
+                    }
+                  else
+                    {
+                      *invalid_reason =
+                        (c_isprint (*format)
+                         ? xasprintf (_("In the directive number %zu, '%c' cannot start a getitem argument."),
+                                      spec->directives, *format)
+                         : xasprintf (_("In the directive number %zu, a getitem argument starts with a character that is not alphanumerical or underscore."),
+                                      spec->directives));
+                      FDI_SET (format, FMTDIR_ERROR);
+                    }
+                  return false;
+                }
+
+              if (*format != ']')
+                {
+                  *invalid_reason =
+                    xasprintf (_("In the directive number %zu, there is an unterminated getitem argument."),
+                               spec->directives);
+                  FDI_SET (format - 1, FMTDIR_ERROR);
+                  return false;
+                }
+              format++;
+            }
+          else
+            break;
+        }
+    }
+  else
     {
       if (*format == '\0')
         {
           *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
           FDI_SET (format - 1, FMTDIR_ERROR);
+          return false;
         }
-      else
+      if (!(toplevel != NULL && (*format == ':' || *format == '}')))
         {
           *invalid_reason =
             (c_isprint (*format)
@@ -171,87 +258,14 @@ parse_directive (struct spec *spec,
              : xasprintf (_("In the directive number %zu, a field name starts with a character that is not alphanumerical or underscore."),
                           spec->directives));
           FDI_SET (format, FMTDIR_ERROR);
+          return false;
         }
-      return false;
     }
-
-  /* Parse '.' (getattr) or '[..]' (getitem) operators followed by a
-     name.  If must not recurse, but can be specifed in a chain, such
-     as "foo.bar.baz[0]".  */
-  for (;;)
-    {
-      c = *format;
-
-      if (c == '.')
-        {
-          format++;
-          if (!parse_named_field (spec, &format, translated, fdi,
-                                  invalid_reason))
-            {
-              if (*format == '\0')
-                {
-                  *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
-                  FDI_SET (format - 1, FMTDIR_ERROR);
-                }
-              else
-                {
-                  *invalid_reason =
-                    (c_isprint (*format)
-                     ? xasprintf (_("In the directive number %zu, '%c' cannot start a getattr argument."),
-                                  spec->directives, *format)
-                     : xasprintf (_("In the directive number %zu, a getattr argument starts with a character that is not alphabetical or underscore."),
-                                  spec->directives));
-                  FDI_SET (format, FMTDIR_ERROR);
-                }
-              return false;
-            }
-        }
-      else if (c == '[')
-        {
-          format++;
-          if (!parse_named_field (spec, &format, translated, fdi,
-                                  invalid_reason)
-              && !parse_numeric_field (spec, &format, translated, fdi,
-                                       invalid_reason))
-            {
-              if (*format == '\0')
-                {
-                  *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
-                  FDI_SET (format - 1, FMTDIR_ERROR);
-                }
-              else
-                {
-                  *invalid_reason =
-                    (c_isprint (*format)
-                     ? xasprintf (_("In the directive number %zu, '%c' cannot start a getitem argument."),
-                                  spec->directives, *format)
-                     : xasprintf (_("In the directive number %zu, a getitem argument starts with a character that is not alphanumerical or underscore."),
-                                  spec->directives));
-                  FDI_SET (format, FMTDIR_ERROR);
-                }
-              return false;
-            }
-
-          if (*format != ']')
-            {
-              *invalid_reason =
-                xasprintf (_("In the directive number %zu, there is an unterminated getitem argument."),
-                           spec->directives);
-              FDI_SET (format - 1, FMTDIR_ERROR);
-              return false;
-            }
-          format++;
-        }
-      else
-        break;
-    }
-
   name_end = format;
 
-  /* Here c == *format.  */
-  if (c == ':')
+  if (*format == ':')
     {
-      if (!is_toplevel)
+      if (toplevel == NULL)
         {
           *invalid_reason =
             xasprintf (_("In the directive number %zu, no more nesting is allowed in a format specifier."),
@@ -352,16 +366,42 @@ parse_directive (struct spec *spec,
       return false;
     }
 
-  if (is_toplevel)
+  if (toplevel != NULL)
     {
       char *name;
       size_t n = name_end - name_start;
 
       FDI_SET (name_start - 1, FMTDIR_START);
 
-      name = XNMALLOC (n + 1, char);
-      memcpy (name, name_start, n);
-      name[n] = '\0';
+      if (n == 0)
+        {
+          if (toplevel->numbered_arg_counter > 0)
+            {
+              *invalid_reason =
+                xstrdup (_("The string refers to arguments both through absolute argument numbers and through unnamed argument specifications."));
+              FDI_SET (format, FMTDIR_ERROR);
+              return false;
+            }
+          name = xasprintf ("%zu", toplevel->unnamed_arg_counter);
+          toplevel->unnamed_arg_counter++;
+        }
+      else
+        {
+          name = XNMALLOC (n + 1, char);
+          memcpy (name, name_start, n);
+          name[n] = '\0';
+          if (name_start[0] >= '0' && name_start[0] <= '9')
+            {
+              if (toplevel->unnamed_arg_counter > 0)
+                {
+                  *invalid_reason =
+                    xstrdup (_("The string refers to arguments both through absolute argument numbers and through unnamed argument specifications."));
+                  FDI_SET (format, FMTDIR_ERROR);
+                  return false;
+                }
+              toplevel->numbered_arg_counter++;
+            }
+        }
 
       spec->directives++;
 
@@ -382,8 +422,8 @@ parse_directive (struct spec *spec,
 
 static bool
 parse_upto (struct spec *spec,
-            const char **formatp, bool is_toplevel, char terminator,
-            bool translated, char *fdi, char **invalid_reason)
+            const char **formatp, struct toplevel_counters *toplevel,
+            char terminator, bool translated, char *fdi, char **invalid_reason)
 {
   const char *format = *formatp;
 
@@ -391,7 +431,7 @@ parse_upto (struct spec *spec,
     {
       if (*format == '{')
         {
-          if (!parse_directive (spec, &format, is_toplevel, translated, fdi,
+          if (!parse_directive (spec, &format, toplevel, translated, fdi,
                                 invalid_reason))
             return false;
         }
@@ -415,6 +455,7 @@ format_parse (const char *format, bool translated, char *fdi,
               char **invalid_reason)
 {
   struct spec spec;
+  struct toplevel_counters toplevel;
   struct spec *result;
 
   spec.directives = 0;
@@ -422,7 +463,10 @@ format_parse (const char *format, bool translated, char *fdi,
   spec.allocated = 0;
   spec.named = NULL;
 
-  if (!parse_upto (&spec, &format, true, '\0', translated, fdi, invalid_reason))
+  toplevel.numbered_arg_counter = 0;
+  toplevel.unnamed_arg_counter = 0;
+  if (!parse_upto (&spec, &format, &toplevel, '\0', translated, fdi,
+                   invalid_reason))
     {
       free_named_args (&spec);
       return NULL;

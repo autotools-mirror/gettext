@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2024 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2025 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node Python
@@ -52,7 +52,9 @@ emulate
 
 @item Formatting with positions
 @code{'...%(ident)d...' % @{ 'ident': value @}}
-@*@code{'...@{ident@}...'.format(ident=value)} (see PEP 3101)
+@*@code{'...@{ident@}...'.format(ident=value)}
+@*@code{'...@{0@}...@{1@}...'.format(value0,value1)}
+@*@code{'...@{@}...@{@}...'.format(value0,value1)}
 
 @item Portability
 fully portable

@@ -12,12 +12,22 @@ cat <<\EOF > f-pyb-1.data
 "abc{0}"
 # Valid: a named argument
 "abc{value}"
-# Invalid: an empty name
+# Valid: an empty name
 "abc{}"
 # Invalid: unterminated name
 "abc{value"
 # Valid: three arguments, two with equal names
 "abc{addr},{char},{addr}"
+# Valid: empty name and non-numeric name
+"abc{},{value}"
+# Valid: empty name and non-numeric name
+"abc{value},{}"
+# Invalid: empty name and numeric name
+"abc{},{1}"
+# Invalid: empty name and numeric name
+"abc{1},{}"
+# Valid: multiple empty names
+"abc{},{},{}"
 # Valid: getattr operator
 "abc{value.name}"
 # Invalid: getattr operator with numeric field name
