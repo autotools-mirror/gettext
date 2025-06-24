@@ -47,12 +47,14 @@ Use
 
 @item Extractor
 @code{xgettext -k_}
+@*For C++ with the Boost library: @code{xgettext --boost -k_}
 
 @item Formatting with positions
 @code{fprintf "%2$d %1$d"}
 @*In C++: @code{autosprintf "%2$d %1$d"}
 (@pxref{Top, , Introduction, autosprintf, GNU autosprintf})
 @*In C++ 20 or newer: @code{std::vformat "@{1@} @{0@}"}
+@*In C++ with the Boost library: @code{boost::format "%2% %1%"}
 
 @item Portability
 autoconf (gettext.m4) and #if ENABLE_NLS

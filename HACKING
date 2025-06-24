@@ -163,6 +163,12 @@ are skipped. To this effect, you need to install also:
       - On Debian and Debian-based systems: gobjc,
       - On Red Hat distributions: gcc-objc.
       - Other: https://repology.org/project/gcc/versions
+  * The Boost C++ library
+    + Homepage: https://www.boost.org/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: libboost1.83-dev,
+      - On Red Hat distributions: boost.
+      - Other: https://repology.org/project/boost/versions
 
   * Python
     + Homepage: https://www.python.org/

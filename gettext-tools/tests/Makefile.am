@@ -233,7 +233,7 @@ TESTS = gettext-1 gettext-2 \
 	plural-1 plural-2 plural-3 plural-4 \
 	gettextpo-1 sentence-1 \
 	lang-po \
-	lang-c lang-c++ lang-c++20 lang-c++26 lang-objc \
+	lang-c lang-c++ lang-c++-boost lang-c++20 lang-c++26 lang-objc \
 	lang-python-1 lang-python-2 \
 	lang-java \
 	lang-csharp \
