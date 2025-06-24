@@ -142,6 +142,7 @@ parse_directive (struct spec *spec,
   const char *format = *formatp;
   const char *const format_start = format;
   const char *name_start;
+  const char *name_end;
   char c;
 
   c = *++format;
@@ -244,6 +245,8 @@ parse_directive (struct spec *spec,
       else
         break;
     }
+
+  name_end = format;
 
   /* Here c == *format.  */
   if (c == ':')
@@ -352,7 +355,7 @@ parse_directive (struct spec *spec,
   if (is_toplevel)
     {
       char *name;
-      size_t n = format - name_start;
+      size_t n = name_end - name_start;
 
       FDI_SET (name_start - 1, FMTDIR_START);
 
