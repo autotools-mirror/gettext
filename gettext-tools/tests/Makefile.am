@@ -242,7 +242,7 @@ TESTS = gettext-1 gettext-2 \
 	lang-rust \
 	lang-go \
 	lang-ruby \
-	lang-sh lang-bash \
+	lang-sh-1 lang-sh-2 lang-bash \
 	lang-gawk \
 	lang-lua \
 	lang-pascal \

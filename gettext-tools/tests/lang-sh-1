@@ -3,7 +3,6 @@
 
 # Test of gettext facilities in the sh language.
 # Assumes an fr_FR locale is installed.
-# Assumes the following packages are installed: bash.
 
 # Note: This test fails on BeOS because there all locales use the UTF-8
 # encoding, even the locale fr_FR, thus the output comes out in UTF-8.
