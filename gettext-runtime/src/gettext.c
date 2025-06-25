@@ -96,36 +96,36 @@ main (int argc, char *argv[])
   while ((optchar = getopt_long (argc, argv, "+c:d:eEhnsV", long_options, NULL))
          != EOF)
     switch (optchar)
-    {
-    case '\0':          /* Long option.  */
-      break;
-    case 'c':
-      context = optarg;
-      break;
-    case 'd':
-      domain = optarg;
-      break;
-    case 'e':
-      do_expand = true;
-      break;
-    case 'E':
-      /* Ignore.  Just for compatibility.  */
-      break;
-    case 'h':
-      do_help = true;
-      break;
-    case 'n':
-      inhibit_added_newline = true;
-      break;
-    case 's':
-      do_shell = true;
-      break;
-    case 'V':
-      do_version = true;
-      break;
-    default:
-      usage (EXIT_FAILURE);
-    }
+      {
+      case '\0':          /* Long option.  */
+        break;
+      case 'c':
+        context = optarg;
+        break;
+      case 'd':
+        domain = optarg;
+        break;
+      case 'e':
+        do_expand = true;
+        break;
+      case 'E':
+        /* Ignore.  Just for compatibility.  */
+        break;
+      case 'h':
+        do_help = true;
+        break;
+      case 'n':
+        inhibit_added_newline = true;
+        break;
+      case 's':
+        do_shell = true;
+        break;
+      case 'V':
+        do_version = true;
+        break;
+      default:
+        usage (EXIT_FAILURE);
+      }
 
   /* Version information is requested.  */
   if (do_version)
@@ -258,6 +258,8 @@ or:    %s [OPTION] -s [MSGID]...\n\
       printf (_("\
 Display native language translation of a textual message.\n"));
       printf ("\n");
+      printf (_("\
+Options and arguments:\n"));
       /* xgettext: no-wrap */
       printf (_("\
   -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"));

@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2019 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2025 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @pindex ngettext
@@ -12,7 +12,7 @@ ngettext [@var{option}] [@var{textdomain}] @var{msgid} @var{msgid-plural} @var{c
 The @code{ngettext} program displays the native language translation of a
 textual message whose grammatical form depends on a number.
 
-@noindent @strong{Arguments}
+@noindent @strong{Options and arguments}
 
 @table @samp
 @item -c @var{context}
@@ -42,6 +42,20 @@ interpreted like the System V @samp{echo} program did.
 This option is only for compatibility with the @samp{gettext} program.  It has
 no effect.
 
+@item @var{textdomain}
+Retrieve translated message from @var{textdomain}.
+
+@item @var{msgid} @var{msgid-plural}
+Translate @var{msgid} (English singular) / @var{msgid-plural} (English plural).
+
+@item @var{count}
+Choose singular/plural form based on this value.
+
+@end table
+
+@noindent @strong{Informative output}
+
+@table @samp
 @item -h
 @itemx --help
 @opindex -h@r{, @code{ngettext} option}
@@ -53,15 +67,6 @@ Display this help and exit.
 @opindex -V@r{, @code{ngettext} option}
 @opindex --version@r{, @code{ngettext} option}
 Output version information and exit.
-
-@item @var{textdomain}
-Retrieve translated message from @var{textdomain}.
-
-@item @var{msgid} @var{msgid-plural}
-Translate @var{msgid} (English singular) / @var{msgid-plural} (English plural).
-
-@item @var{count}
-Choose singular/plural form based on this value.
 
 @end table
 
