@@ -16,6 +16,9 @@ Version 0.26 - July 2025
       They are marked as 'sh-printf-format' in POT and PO files.
     - xgettext now recognizes the \c, \u, and \U escape sequences in dollar-
       single-quoted strings $'...'.
+    - Two new programs 'printf_gettext' and 'printf_ngettext' are provided,
+      that do formatted output with a localized format string in a more
+      efficient way (without spawning a subshell).
 
 # Bug fixes:
   - The AM_GNU_GETTEXT macro now rejects the dysfunctional gettext() function

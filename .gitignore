@@ -473,6 +473,10 @@
 /gettext-runtime/man/gettext.1.html.in
 /gettext-runtime/man/ngettext.1.in
 /gettext-runtime/man/ngettext.1.html.in
+/gettext-runtime/man/printf_gettext.1.in
+/gettext-runtime/man/printf_gettext.1.html.in
+/gettext-runtime/man/printf_ngettext.1.in
+/gettext-runtime/man/printf_ngettext.1.html.in
 /gettext-runtime/man/bind_textdomain_codeset.3
 /gettext-runtime/man/bind_textdomain_codeset.3.html
 /gettext-runtime/man/bindtextdomain.3
@@ -699,6 +703,10 @@ autom4te.cache/
 /gettext-runtime/man/gettext.1.html
 /gettext-runtime/man/ngettext.1
 /gettext-runtime/man/ngettext.1.html
+/gettext-runtime/man/printf_gettext.1
+/gettext-runtime/man/printf_gettext.1.html
+/gettext-runtime/man/printf_ngettext.1
+/gettext-runtime/man/printf_ngettext.1.html
 /gettext-tools/libgrep/libgrep.a
 /gettext-tools/src/**/*.class
 /gettext-tools/src/gettext.jar
@@ -716,6 +724,10 @@ autom4te.cache/
 /gettext-runtime/src/gettext.exe
 /gettext-runtime/src/ngettext
 /gettext-runtime/src/ngettext.exe
+/gettext-runtime/src/printf_gettext
+/gettext-runtime/src/printf_gettext.exe
+/gettext-runtime/src/printf_ngettext
+/gettext-runtime/src/printf_ngettext.exe
 /gettext-runtime/tests/test-lock
 /gettext-runtime/tests/test-lock.exe
 /gettext-tools/libgettextpo/gettext-po.h

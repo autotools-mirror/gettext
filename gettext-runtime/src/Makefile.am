@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/src subdirectory of GNU gettext
-## Copyright (C) 1995-2024 Free Software Foundation, Inc.
+## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -24,7 +24,9 @@ DISTCLEANFILES =
 
 RM = rm -f
 
-bin_PROGRAMS = gettext ngettext envsubst
+bin_PROGRAMS = gettext ngettext printf_gettext printf_ngettext envsubst
+
+noinst_LIBRARIES = libgrtsrc.a
 
 # Note that Automake's $(DEFAULT_INCLUDES) already contains
 # -I. -I$(srcdir) -I$(top_builddir).
@@ -39,19 +41,29 @@ AM_CFLAGS = @WARN_CFLAGS@
 # Source dependencies.
 gettext_SOURCES = gettext.c escapes.h
 ngettext_SOURCES = ngettext.c escapes.h
+printf_gettext_SOURCES = printf_gettext.c
+printf_ngettext_SOURCES = printf_ngettext.c
 envsubst_SOURCES = envsubst.c
+
+# libgrtsrc contains all code that is needed by at least two programs.
+libgrtsrc_a_SOURCES = \
+  printf-command.h printf-command.c
 
 # Link dependencies.
 # Need @LTLIBICONV@ because striconv.c uses iconv().
-LDADD = ../gnulib-lib/libgrt.a @LTLIBINTL@ @LTLIBICONV@ $(WOE32_LDADD)
+LDADD = libgrtsrc.a ../gnulib-lib/libgrt.a @LTLIBINTL@ @LTLIBICONV@ $(WOE32_LDADD)
 
 # Specify installation directory, for --enable-relocatable.
 gettext_CFLAGS = -DINSTALLDIR=$(bindir_c_make)
 ngettext_CFLAGS = -DINSTALLDIR=$(bindir_c_make)
+printf_gettext_CFLAGS = -DINSTALLDIR=$(bindir_c_make)
+printf_ngettext_CFLAGS = -DINSTALLDIR=$(bindir_c_make)
 envsubst_CFLAGS = -DINSTALLDIR=$(bindir_c_make)
 if RELOCATABLE_VIA_LD
 gettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 ngettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+printf_gettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+printf_ngettext_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 envsubst_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 endif
 

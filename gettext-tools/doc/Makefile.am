@@ -76,6 +76,8 @@ gettext_TEXINFOS = \
   lang-sh.texi \
     $(top_srcdir)/../gettext-runtime/doc/rt-gettext.texi \
     $(top_srcdir)/../gettext-runtime/doc/rt-ngettext.texi \
+    $(top_srcdir)/../gettext-runtime/doc/rt-printf_gettext.texi \
+    $(top_srcdir)/../gettext-runtime/doc/rt-printf_ngettext.texi \
     $(top_srcdir)/../gettext-runtime/doc/rt-envsubst.texi \
   lang-bash.texi \
   lang-gawk.texi \

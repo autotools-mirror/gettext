@@ -52,15 +52,17 @@ EXTRA_DIST += INSTALL.windows
 # Hidden from automake, but really activated. Works around an automake bug.
 #distdir: distdir1
 .PHONY: distdir1
-distdir1: man/gettext.1 man/ngettext.1 man/envsubst.1
-man/gettext.1 man/ngettext.1 man/envsubst.1: gen-man1
+distdir1: man/gettext.1 man/ngettext.1 man/printf_gettext.1 man/printf_ngettext.1 man/envsubst.1
+man/gettext.1 man/ngettext.1 man/printf_gettext.1 man/printf_ngettext.1 man/envsubst.1: gen-man1
 .PHONY: gen-man1
 gen-man1: src/gettext.c man/gettext.x \
           src/ngettext.c man/ngettext.x \
+          src/printf_gettext.c man/printf_gettext.x \
+          src/printf_ngettext.c man/printf_ngettext.x \
           src/envsubst.c man/envsubst.x
 	cd gnulib-lib && $(MAKE) $(AM_MAKEFLAGS)
-	cd src && $(MAKE) $(AM_MAKEFLAGS) gettext$(EXEEXT) ngettext$(EXEEXT) envsubst$(EXEEXT)
-	cd man && $(MAKE) $(AM_MAKEFLAGS) gettext.1 ngettext.1 envsubst.1
+	cd src && $(MAKE) $(AM_MAKEFLAGS) gettext$(EXEEXT) ngettext$(EXEEXT) printf_gettext$(EXEEXT) printf_ngettext$(EXEEXT) envsubst$(EXEEXT)
+	cd man && $(MAKE) $(AM_MAKEFLAGS) gettext.1 ngettext.1 printf_gettext.1 printf_ngettext.1 envsubst.1
 
 
 maintainer-update-po: $(top_builddir)/config.status

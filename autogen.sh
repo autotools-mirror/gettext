@@ -101,25 +101,36 @@ if ! $skip_gnulib; then
     basename-lgpl
     binary-io
     bool
+    c-ctype
+    c-strtold
     closeout
     error
+    fzprintf-posix
     getopt-gnu
     gettext-h
     havelib
+    mbrtoc32
+    mbszero
     memmove
     noreturn
     progname
     propername
+    quote
     relocatable-prog
     setlocale
     sigpipe
+    stdint-h
     stdio-h
     stdlib-h
+    strtoimax
+    strtold
     strtoul
+    strtoumax
     unistd-h
     unlocked-io
     xalloc
     xstring-buffer
+    xstrtold
   '
   GNULIB_MODULES_RUNTIME_OTHER='
     gettext-runtime-misc

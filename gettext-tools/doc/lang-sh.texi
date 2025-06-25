@@ -70,6 +70,8 @@ An example is available in the @file{examples} directory: @code{hello-sh}.
 * gettext.sh::                  Contents of @code{gettext.sh}
 * gettext Invocation::          Invoking the @code{gettext} program
 * ngettext Invocation::         Invoking the @code{ngettext} program
+* printf_gettext Invocation::   Invoking the @code{printf_gettext} program
+* printf_ngettext Invocation::  Invoking the @code{printf_ngettext} program
 * envsubst Invocation::         Invoking the @code{envsubst} program
 * eval_gettext Invocation::     Invoking the @code{eval_gettext} function
 * eval_ngettext Invocation::    Invoking the @code{eval_ngettext} function
@@ -237,6 +239,16 @@ Note: @code{xgettext} supports only the one-argument form of the
 Note: @code{xgettext} supports only the three-arguments form of the
 @code{ngettext} invocation, where no options are present and the
 @var{textdomain} is implicit, from the environment.
+
+@node printf_gettext Invocation
+@subsubsection Invoking the @code{printf_gettext} program
+
+@include rt-printf_gettext.texi
+
+@node printf_ngettext Invocation
+@subsubsection Invoking the @code{printf_ngettext} program
+
+@include rt-printf_ngettext.texi
 
 @node envsubst Invocation
 @subsubsection Invoking the @code{envsubst} program

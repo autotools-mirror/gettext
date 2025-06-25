@@ -80,6 +80,8 @@
 * msgunfmt: (gettext)msgunfmt Invocation.      Uncompile MO file into PO file.
 * msguniq: (gettext)msguniq Invocation.        Unify duplicates for PO file.
 * ngettext: (gettext)ngettext Invocation.      Translate a message with plural.
+* printf_gettext: (gettext)printf_gettext Invocation. Translate a format string.
+* printf_ngettext: (gettext)printf_ngettext Invocation. Translate a format string with plural.
 * xgettext: (gettext)xgettext Invocation.      Extract strings into a PO file.
 * ISO639: (gettext)Language Codes.             ISO 639 language codes.
 * ISO3166: (gettext)Country Codes.             ISO 3166 country codes.
@@ -466,6 +468,8 @@ sh - Shell Script
 * gettext Invocation::          Invoking the @code{gettext} program
 * ngettext Invocation::         Invoking the @code{ngettext} program
 * envsubst Invocation::         Invoking the @code{envsubst} program
+* printf_gettext Invocation::   Invoking the @code{printf_gettext} program
+* printf_ngettext Invocation::  Invoking the @code{printf_ngettext} program
 * eval_gettext Invocation::     Invoking the @code{eval_gettext} function
 * eval_ngettext Invocation::    Invoking the @code{eval_ngettext} function
 * eval_pgettext Invocation::    Invoking the @code{eval_pgettext} function

@@ -1,3 +1,9 @@
+Version 0.26 - July 2025
+
+* Two new programs 'printf_gettext' and 'printf_ngettext' are provided,
+  that do formatted output with a localized format string in a more
+  efficient way (without spawning a subshell).
+
 Version 0.25 - April 2025
 
 * New library: libintl_d.a contains the runtime for using GNU gettext

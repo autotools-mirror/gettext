@@ -1,5 +1,5 @@
 # List of files which contain translatable strings.
-# Copyright (C) 1995-2024 Free Software Foundation, Inc.
+# Copyright (C) 1995-2025 Free Software Foundation, Inc.
 # This file is free software, distributed under GNU GPL v3+.
 
 # For updating this file, look at the result of:
@@ -9,3 +9,6 @@
 src/envsubst.c
 src/gettext.c
 src/ngettext.c
+src/printf-command.c
+src/printf_gettext.c
+src/printf_ngettext.c

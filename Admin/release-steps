@@ -121,6 +121,8 @@ We assume that the following environment variables are set:
     gettext-runtime/src/gettext.c
     gettext-runtime/src/gettext.sh.in
     gettext-runtime/src/ngettext.c
+    gettext-runtime/src/printf_gettext.c
+    gettext-runtime/src/printf_ngettext.c
     gettext-tools/misc/autopoint.in
     gettext-tools/misc/convert-archive.in
     gettext-tools/misc/gettextize.in
