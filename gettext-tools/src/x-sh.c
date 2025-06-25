@@ -124,6 +124,8 @@ init_keywords ()
          xgettext.texi!  */
       x_sh_keyword ("gettext");
       x_sh_keyword ("ngettext:1,2");
+      x_sh_keyword ("printf_gettext");
+      x_sh_keyword ("printf_ngettext:1,2");
       /* Note: There is also special handling for 'gettext' and 'ngettext'
          in read_command, below.  */
       x_sh_keyword ("eval_gettext");
@@ -150,6 +152,9 @@ init_flag_table_sh ()
   xgettext_record_flag ("eval_npgettext:2:sh-format");
   xgettext_record_flag ("eval_npgettext:3:sh-format");
   xgettext_record_flag ("printf:1:sh-printf-format");
+  xgettext_record_flag ("printf_gettext:1:sh-printf-format");
+  xgettext_record_flag ("printf_ngettext:1:sh-printf-format");
+  xgettext_record_flag ("printf_ngettext:2:sh-printf-format");
 }
 
 
@@ -1395,7 +1400,11 @@ read_command (int looking_for, flag_region_ty *outer_region)
                     ((argparser->keyword_len == 7
                       && memcmp (argparser->keyword, "gettext", 7) == 0)
                      || (argparser->keyword_len == 8
-                         && memcmp (argparser->keyword, "ngettext", 8) == 0));
+                         && memcmp (argparser->keyword, "ngettext", 8) == 0)
+                     || (argparser->keyword_len == 14
+                         && memcmp (argparser->keyword, "printf_gettext", 14) == 0)
+                     || (argparser->keyword_len == 15
+                         && memcmp (argparser->keyword, "printf_ngettext", 15) == 0));
                   bool accepts_expand =
                     ((argparser->keyword_len == 7
                       && memcmp (argparser->keyword, "gettext", 7) == 0)

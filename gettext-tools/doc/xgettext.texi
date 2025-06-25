@@ -359,9 +359,11 @@ For Objective C: Like for C, and also @code{NSLocalizedString}, @code{_},
 @code{NSLocalizedStaticString}, @code{__}.
 
 @item
-For Shell scripts: @code{gettext}, @code{ngettext:1,2}, @code{eval_gettext},
-@code{eval_ngettext:1,2}, @code{eval_pgettext:1c,2},
-@code{eval_npgettext:1c,2,3}.
+For Shell scripts:
+@code{gettext}, @code{ngettext:1,2},
+@code{printf_gettext}, @code{printf_ngettext:1,2},
+@code{eval_gettext}, @code{eval_ngettext:1,2},
+@code{eval_pgettext:1c,2}, @code{eval_npgettext:1c,2,3}.
 
 @item
 For Python: @code{gettext}, @code{ugettext}, @code{dgettext:2},

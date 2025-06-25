@@ -499,6 +499,10 @@ echo `echo \`gettext $'depth_2_dollar_bash_0_\Eab'\``
 
 printf "`gettext 'User name: %s\nUser ID: %u'`"'\n' "$USER" `id -u`
 
+printf_gettext 'User name: %s\nUser id: %u\n' "$USER" `id -u`
+
+printf_ngettext 'Delete the file?' 'Delete %u files?' $n $n
+
 # Test string concatenation.
 
 gettext "concat_0_""part2"
@@ -1926,6 +1930,16 @@ msgstr ""
 #, sh-printf-format
 msgid "User name: %s\\nUser ID: %u"
 msgstr ""
+
+#, sh-printf-format
+msgid "User name: %s\\nUser id: %u\\n"
+msgstr ""
+
+#, sh-printf-format
+msgid "Delete the file?"
+msgid_plural "Delete %u files?"
+msgstr[0] ""
+msgstr[1] ""
 
 msgid "concat_0_part2"
 msgstr ""
