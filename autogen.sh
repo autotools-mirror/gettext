@@ -327,19 +327,42 @@ if ! $skip_gnulib; then
   # Common dependencies of GNULIB_MODULES_TOOLS_FOR_SRC and GNULIB_MODULES_TOOLS_FOR_LIBGREP.
   GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES='
     absolute-header
+    alignasof
+    alloca-opt
     assert-h
     attribute
+    basename-lgpl
     bool
     btowc
     builtin-expect
     c99
+    calloc-gnu
+    calloc-posix
+    cloexec
+    close
+    double-slash-root
+    dup2
+    errno-h
+    error
+    error-h
+    exitfail
     extensions
     extensions-aix
     extern-inline
+    fcntl
     fcntl-h
+    fd-hook
+    filename
+    flexmember
+    fstat
     gen-header
+    getdtablesize
+    getprogname
+    gettext-h
     gnulib-i18n
     hard-locale
+    ialloc
+    idx
     include_next
     intprops
     inttypes-h-incomplete
@@ -348,24 +371,36 @@ if ! $skip_gnulib; then
     iswdigit
     iswpunct
     iswxdigit
+    largefile
     libc-config
     limits-h
     localcharset
     localeconv
     locale-h
     lock
+    lstat
+    malloca
     malloc-gnu
     malloc-posix
     mbrtowc
     mbsinit
     mbszero
     mbtowc
+    memchr
     memcmp
     memmove
+    minmax
+    msvc-inval
+    msvc-nothrow
     multiarch
+    obstack
     once
+    open
+    pathmax
     pthread-h
     pthread-once
+    reallocarray
+    realloc-posix
     sched-h
     setlocale-null
     setlocale-null-unlocked
@@ -374,13 +409,19 @@ if ! $skip_gnulib; then
     snippet/_Noreturn
     snippet/warn-on-use
     ssize_t
+    stat
+    stat-time
     stdckdint-h
     stddef-h
     std-gnu11
     stdint-h
+    stdio-h
     stdlib-h
     streq
+    strerror
+    strerror-override
     string-h
+    sys_stat-h
     sys_types-h
     threadlib
     time-h
@@ -394,6 +435,9 @@ if ! $skip_gnulib; then
     windows-once
     windows-recmutex
     windows-rwlock
+    xalloc
+    xalloc-die
+    xalloc-oversized
   '
   GNULIB_MODULES_TOOLS_OTHER='
     gettext-tools-misc
@@ -431,6 +475,7 @@ if ! $skip_gnulib; then
   $GNULIB_TOOL --copy-file m4/libtextstyle.m4 gettext-tools/gnulib-m4/libtextstyle.m4 || exit $?
   # In gettext-tools/libgrep:
   GNULIB_MODULES_TOOLS_FOR_LIBGREP='
+    kwset
     mbrlen
     regex
   '

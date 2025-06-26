@@ -44,7 +44,6 @@ AM_CFLAGS = @WARN_CFLAGS@
 
 libgrep_a_SOURCES = \
   libgrep.h \
-  kwset.h kwset.c \
   m-fgrep.c m-regex.c
 
 libgrep_a_DEPENDENCIES = gnulib-lib/libgnu.a
