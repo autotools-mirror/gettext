@@ -326,29 +326,69 @@ if ! $skip_gnulib; then
   '
   # Common dependencies of GNULIB_MODULES_TOOLS_FOR_SRC and GNULIB_MODULES_TOOLS_FOR_LIBGREP.
   GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES='
-    alloca-opt
+    absolute-header
+    assert-h
+    attribute
     bool
+    btowc
+    builtin-expect
+    c99
     extensions
-    gettext-h
+    extensions-aix
+    extern-inline
+    fcntl-h
+    gen-header
+    gnulib-i18n
+    hard-locale
     include_next
-    locale-h
+    intprops
+    inttypes-h-incomplete
+    iswblank
+    iswctype
+    iswdigit
+    iswpunct
+    iswxdigit
+    libc-config
+    limits-h
     localcharset
+    localeconv
+    locale-h
+    lock
+    malloc-gnu
     malloc-posix
     mbrtowc
     mbsinit
+    mbszero
+    mbtowc
+    memcmp
+    memmove
     multiarch
+    once
+    pthread-h
+    pthread-once
+    sched-h
     setlocale-null
+    setlocale-null-unlocked
     snippet/arg-nonnull
     snippet/c++defs
+    snippet/_Noreturn
     snippet/warn-on-use
     ssize_t
+    stdckdint-h
     stddef-h
+    std-gnu11
     stdint-h
     stdlib-h
     streq
+    string-h
+    sys_types-h
+    threadlib
+    time-h
     unistd-h
+    vararrays
     verify
     wchar-h
+    wctype
     wctype-h
     windows-mutex
     windows-once
