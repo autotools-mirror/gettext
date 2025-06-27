@@ -12,13 +12,15 @@ Version 0.26 - July 2025
       in a context that requires a format string.  You can override this
       heuristic by using a comment of the form /* xgettext: c-format */.
   * Shell:
+    - The documentation now mentions two other approaches for
+      internationalizing messages with parameters in shell scripts.
     - xgettext now recognizes format strings in the 'printf' command syntax.
       They are marked as 'sh-printf-format' in POT and PO files.
-    - xgettext now recognizes the \c, \u, and \U escape sequences in dollar-
-      single-quoted strings $'...'.
     - Two new programs 'printf_gettext' and 'printf_ngettext' are provided,
       that do formatted output with a localized format string in a more
       efficient way (without spawning a subshell).
+    - xgettext now recognizes the \c, \u, and \U escape sequences in dollar-
+      single-quoted strings $'...'.
 
 # Bug fixes:
   - The AM_GNU_GETTEXT macro now rejects the dysfunctional gettext() function

@@ -463,13 +463,18 @@ Individual Programming Languages
 
 sh - Shell Script
 
-* Preparing Shell Scripts::     Preparing Shell Scripts for Internationalization
-* gettext.sh::                  Contents of @code{gettext.sh}
+* sh - Three approaches::       Three approaches for Shell Scripts
+* The gettext.sh approach::     The @code{gettext.sh} approach
+* The printf approach::         The @code{printf} approach
+* The printf_gettext approach:: The @code{printf_gettext} approach
+* Preparing for gettext.sh::    Preparing Shell Scripts for the @code{gettext.sh} approach
+* Preparing for printf::        Preparing Shell Scripts for the @code{printf} approach
+* Preparing for printf_gettext:: Preparing Shell Scripts for the @code{printf_gettext} approach
 * gettext Invocation::          Invoking the @code{gettext} program
 * ngettext Invocation::         Invoking the @code{ngettext} program
-* envsubst Invocation::         Invoking the @code{envsubst} program
 * printf_gettext Invocation::   Invoking the @code{printf_gettext} program
 * printf_ngettext Invocation::  Invoking the @code{printf_ngettext} program
+* envsubst Invocation::         Invoking the @code{envsubst} program
 * eval_gettext Invocation::     Invoking the @code{eval_gettext} function
 * eval_ngettext Invocation::    Invoking the @code{eval_ngettext} function
 * eval_pgettext Invocation::    Invoking the @code{eval_pgettext} function
