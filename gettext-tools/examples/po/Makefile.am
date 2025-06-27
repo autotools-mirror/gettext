@@ -65,7 +65,9 @@ POTFILES = \
   hello-go/example3/hello3ml.go.in \
   hello-go-http/example1/hello1ml.go.in \
   hello-ruby/hello.rb \
-  hello-sh/hello.sh \
+  hello-sh/hello-1.sh \
+  hello-sh/hello-2.sh \
+  hello-sh/hello-3.sh \
   hello-gawk/hello.awk \
   hello-pascal/hello.pas \
   hello-modula2/hello.mod.in \

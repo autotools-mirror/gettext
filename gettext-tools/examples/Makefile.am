@@ -376,7 +376,9 @@ EXAMPLESFILES = \
   hello-sh/INSTALL \
   hello-sh/autogen.sh \
   hello-sh/autoclean.sh \
-  hello-sh/hello.sh \
+  hello-sh/hello-1.sh \
+  hello-sh/hello-2.sh \
+  hello-sh/hello-3.sh \
   hello-sh/Makefile.am \
   hello-sh/configure.ac \
   hello-sh/m4/Makefile.am \

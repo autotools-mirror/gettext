@@ -2,7 +2,7 @@
 # Example for use of GNU gettext.
 # This file is in the public domain.
 #
-# Source code of the POSIX sh program.
+# Source code of the POSIX sh program that uses the gettext.sh API.
 
 . gettext.sh
 
