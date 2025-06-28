@@ -438,7 +438,7 @@ main (int argc, char *argv[])
   init_flag_table_ycp ();
 
   while ((optchar = getopt_long (argc, argv,
-                                 "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTvVw:W:x:",
+                                 "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTvVw:x:",
                                  long_options, NULL)) != EOF)
     switch (optchar)
       {
