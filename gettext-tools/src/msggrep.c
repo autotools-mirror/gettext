@@ -191,7 +191,7 @@ main (int argc, char **argv)
       gt->case_insensitive = false;
     }
 
-  while ((opt = getopt_long (argc, argv, "CD:e:Ef:FhiJKM:n:N:o:pPTvVw:X",
+  while ((opt = getopt_long (argc, argv, "CD:e:Ef:FhiJKM:nN:o:pPTvVw:X",
                              long_options, NULL))
          != EOF)
     switch (opt)

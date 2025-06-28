@@ -218,7 +218,7 @@ main (int argc, char **argv)
   output_file = NULL;
   color = NULL;
 
-  while ((opt = getopt_long (argc, argv, "C:D:eEFhimn:No:pPqsUvVw:",
+  while ((opt = getopt_long (argc, argv, "C:D:eEFhimnNo:pPqsUvVw:",
                              long_options, NULL))
          != EOF)
     switch (opt)

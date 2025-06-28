@@ -166,7 +166,7 @@ main (int argc, char **argv)
 
   /* The '+' in the options string causes option parsing to terminate when
      the first non-option, i.e. the subprogram name, is encountered.  */
-  while ((opt = getopt_long (argc, argv, "+D:EFhi:n:o:pPsVw:", long_options,
+  while ((opt = getopt_long (argc, argv, "+D:EFhi:no:pPsVw:", long_options,
                              NULL))
          != EOF)
     switch (opt)

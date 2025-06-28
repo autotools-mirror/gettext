@@ -132,7 +132,7 @@ main (int argc, char **argv)
   output_file = NULL;
 
   while ((opt = getopt_long (argc, argv,
-                             "D:eEFhin:o:pPsVw:",
+                             "D:eEFhino:pPsVw:",
                              long_options, NULL)) != EOF)
     switch (opt)
       {
