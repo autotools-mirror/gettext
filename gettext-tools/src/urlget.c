@@ -114,22 +114,22 @@ main (int argc, char *argv[])
   /* Parse command line options.  */
   while ((optchar = getopt_long (argc, argv, "hqV", long_options, NULL)) != EOF)
     switch (optchar)
-    {
-    case '\0':          /* Long option.  */
-      break;
-    case 'h':           /* --help */
-      do_help = true;
-      break;
-    case 'q':           /* --quiet / --silent */
-      verbose = false;
-      break;
-    case 'V':           /* --version */
-      do_version = true;
-      break;
-    default:
-      usage (EXIT_FAILURE);
-      /* NOTREACHED */
-    }
+      {
+      case '\0':          /* Long option.  */
+        break;
+      case 'h':           /* --help */
+        do_help = true;
+        break;
+      case 'q':           /* --quiet / --silent */
+        verbose = false;
+        break;
+      case 'V':           /* --version */
+        do_version = true;
+        break;
+      default:
+        usage (EXIT_FAILURE);
+        /* NOTREACHED */
+      }
 
   /* Version information requested.  */
   if (do_version)

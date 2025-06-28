@@ -119,49 +119,49 @@ main (int argc, char *argv[])
   while ((optchar = getopt_long (argc, argv, "+d:eEhnstV", long_options, NULL))
          != EOF)
     switch (optchar)
-    {
-    case '\0':          /* Long option.  */
-      break;
-    case 'd':
-      context.domain = optarg;
-      break;
-    case 'e':
-      context.do_expand = true;
-      break;
-    case 'E':
-      /* Ignore.  Just for compatibility.  */
-      break;
-    case 'h':
-      do_help = true;
-      break;
-    case 'n':
-      context.inhibit_added_newline = true;
-      break;
-    case 's':
-      context.do_shell = true;
-      break;
-    case 't':
-      do_thread = true;
-      break;
-    case 'V':
-      do_version = true;
-      break;
-    case '=':
       {
-        /* Undocumented option --env sets an environment variable.  */
-        char *separator = strchr (optarg, '=');
-        if (separator != NULL)
-          {
-            *separator = '\0';
-            xsetenv (optarg, separator + 1, 1);
-            environ_changed = true;
-            break;
-          }
+      case '\0':          /* Long option.  */
+        break;
+      case 'd':
+        context.domain = optarg;
+        break;
+      case 'e':
+        context.do_expand = true;
+        break;
+      case 'E':
+        /* Ignore.  Just for compatibility.  */
+        break;
+      case 'h':
+        do_help = true;
+        break;
+      case 'n':
+        context.inhibit_added_newline = true;
+        break;
+      case 's':
+        context.do_shell = true;
+        break;
+      case 't':
+        do_thread = true;
+        break;
+      case 'V':
+        do_version = true;
+        break;
+      case '=':
+        {
+          /* Undocumented option --env sets an environment variable.  */
+          char *separator = strchr (optarg, '=');
+          if (separator != NULL)
+            {
+              *separator = '\0';
+              xsetenv (optarg, separator + 1, 1);
+              environ_changed = true;
+              break;
+            }
+        }
+        FALLTHROUGH;
+      default:
+        usage (EXIT_FAILURE);
       }
-      FALLTHROUGH;
-    default:
-      usage (EXIT_FAILURE);
-    }
 
   if (environ_changed)
     /* Set locale again via LC_ALL.  */

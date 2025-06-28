@@ -160,28 +160,28 @@ main (int argc, char *argv[])
   while ((optchar = getopt_long (argc, argv, "fhisV", long_options, NULL))
          != EOF)
     switch (optchar)
-    {
-    case '\0':          /* Long option.  */
-      break;
-    case 'f':
-      format = long_format;
-      break;
-    case 's':
-      format = short_format;
-      break;
-    case 'i':
-      format = ip_format;
-      break;
-    case 'h':
-      do_help = true;
-      break;
-    case 'V':
-      do_version = true;
-      break;
-    default:
-      usage (EXIT_FAILURE);
-      /* NOTREACHED */
-    }
+      {
+      case '\0':          /* Long option.  */
+        break;
+      case 'f':
+        format = long_format;
+        break;
+      case 's':
+        format = short_format;
+        break;
+      case 'i':
+        format = ip_format;
+        break;
+      case 'h':
+        do_help = true;
+        break;
+      case 'V':
+        do_version = true;
+        break;
+      default:
+        usage (EXIT_FAILURE);
+        /* NOTREACHED */
+      }
 
   /* Version information requested.  */
   if (do_version)
