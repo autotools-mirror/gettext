@@ -20,7 +20,6 @@
 #endif
 
 #include <errno.h>
-#include <getopt.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,6 +30,7 @@
 #endif
 
 #include <error.h>
+#include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "progname.h"
@@ -47,14 +47,6 @@
 #define _(str) gettext (str)
 
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "help", no_argument, NULL, 'h' },
-  { "version", no_argument, NULL, 'V' },
-  { NULL, 0, NULL, 0 }
-};
-
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
 static void process (FILE *stream);
@@ -65,8 +57,6 @@ main (int argc, char *argv[])
   /* Default values for command line options.  */
   bool do_help = false;
   bool do_version = false;
-
-  int opt;
 
   /* Set program name for message texts.  */
   set_program_name (argv[0]);
@@ -83,10 +73,19 @@ main (int argc, char *argv[])
   atexit (close_stdout);
 
   /* Parse command line options.  */
-  while ((opt = getopt_long (argc, argv, "hV", long_options, NULL)) != EOF)
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "help",    'h', no_argument },
+    { "version", 'V', no_argument },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
+  int opt;
+  while ((opt = get_next_option ()) != -1)
     switch (opt)
       {
-      case '\0':          /* Long option.  */
+      case '\0':          /* Long option with key == 0.  */
         break;
       case 'h':
         do_help = true;

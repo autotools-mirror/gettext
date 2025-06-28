@@ -18,7 +18,7 @@
 # include <config.h>
 #endif
 
-#include <getopt.h>
+#include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,6 +28,7 @@
 #include <errno.h>
 
 #include <error.h>
+#include "options.h"
 #include "attribute.h"
 #include "noreturn.h"
 #include "closeout.h"
@@ -50,17 +51,6 @@ extern char *setlocale (int category, const char *locale);
 
 #define _(str) gettext (str)
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "domain", required_argument, NULL, 'd' },
-  { "env", required_argument, NULL, '=' },
-  { "help", no_argument, NULL, 'h' },
-  { "thread", no_argument, NULL, 't' },
-  { "version", no_argument, NULL, 'V' },
-  { NULL, 0, NULL, 0 }
-};
-
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void *worker_thread (void *arg);
 _GL_NORETURN_FUNC static void usage (int __status);
@@ -77,8 +67,6 @@ struct worker_context
 int
 main (int argc, char *argv[])
 {
-  int optchar;
-
   /* Default values for command line options.  */
   bool do_help = false;
   bool do_thread = false;
@@ -104,11 +92,22 @@ main (int argc, char *argv[])
   atexit (close_stdout);
 
   /* Parse command line options.  */
-  while ((optchar = getopt_long (argc, argv, "+d:htV", long_options, NULL))
-         != EOF)
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "domain",  'd',          required_argument },
+    { "env",     CHAR_MAX + 1, required_argument },
+    { "help",    'h',          no_argument       },
+    { "thread",  't',          no_argument       },
+    { "version", 'V',          no_argument       },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, NON_OPTION_TERMINATES_OPTIONS, 0);
+  int optchar;
+  while ((optchar = get_next_option ()) != -1)
     switch (optchar)
       {
-      case '\0':          /* Long option.  */
+      case '\0':          /* Long option with key == 0.  */
         break;
       case 'd':
         context.domain = optarg;
@@ -122,7 +121,7 @@ main (int argc, char *argv[])
       case 'V':
         do_version = true;
         break;
-      case '=':
+      case CHAR_MAX + 1: /* --env */
         {
           /* Undocumented option --env sets an environment variable.  */
           char *separator = strchr (optarg, '=');

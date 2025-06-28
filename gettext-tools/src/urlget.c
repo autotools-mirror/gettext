@@ -22,7 +22,6 @@
 
 #include <errno.h>
 #include <fcntl.h>
-#include <getopt.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -30,6 +29,7 @@
 #include <unistd.h>
 
 #include <error.h>
+#include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "error-progname.h"
@@ -69,16 +69,6 @@
    produces no output for more than 10 seconds for no apparent reason.  */
 static bool verbose = true;
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "help", no_argument, NULL, 'h' },
-  { "quiet", no_argument, NULL, 'q' },
-  { "silent", no_argument, NULL, 'q' },
-  { "version", no_argument, NULL, 'V' },
-  { NULL, 0, NULL, 0 }
-};
-
 
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
@@ -88,7 +78,6 @@ static void fetch (const char *url, const char *file);
 int
 main (int argc, char *argv[])
 {
-  int optchar;
   bool do_help;
   bool do_version;
 
@@ -112,10 +101,21 @@ main (int argc, char *argv[])
   do_version = false;
 
   /* Parse command line options.  */
-  while ((optchar = getopt_long (argc, argv, "hqV", long_options, NULL)) != EOF)
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "help",    'h', no_argument },
+    { "quiet",   'q', no_argument },
+    { "silent",  'q', no_argument },
+    { "version", 'V', no_argument },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
+  int optchar;
+  while ((optchar = get_next_option ()) != -1)
     switch (optchar)
       {
-      case '\0':          /* Long option.  */
+      case '\0':          /* Long option with key == 0.  */
         break;
       case 'h':           /* --help */
         do_help = true;

@@ -20,7 +20,6 @@
 # include "config.h"
 #endif
 
-#include <getopt.h>
 #include <limits.h>
 #include <locale.h>
 #include <stdio.h>
@@ -33,6 +32,7 @@
 #include <textstyle.h>
 
 #include <error.h>
+#include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "dir-list.h"
@@ -89,36 +89,6 @@ static bool newline;
 /* Filter function.  */
 static void (*filter) (const char *str, size_t len, char **resultp, size_t *lengthp);
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "add-location", optional_argument, NULL, 'n' },
-  { "color", optional_argument, NULL, CHAR_MAX + 6 },
-  { "directory", required_argument, NULL, 'D' },
-  { "escape", no_argument, NULL, 'E' },
-  { "force-po", no_argument, &force_po, 1 },
-  { "help", no_argument, NULL, 'h' },
-  { "indent", no_argument, NULL, CHAR_MAX + 1 },
-  { "input", required_argument, NULL, 'i' },
-  { "keep-header", no_argument, &keep_header, 1 },
-  { "newline", no_argument, NULL, CHAR_MAX + 9 },
-  { "no-escape", no_argument, NULL, CHAR_MAX + 2 },
-  { "no-location", no_argument, NULL, CHAR_MAX + 8 },
-  { "no-wrap", no_argument, NULL, CHAR_MAX + 3 },
-  { "output-file", required_argument, NULL, 'o' },
-  { "properties-input", no_argument, NULL, 'P' },
-  { "properties-output", no_argument, NULL, 'p' },
-  { "sort-by-file", no_argument, NULL, 'F' },
-  { "sort-output", no_argument, NULL, 's' },
-  { "strict", no_argument, NULL, 'S' },
-  { "stringtable-input", no_argument, NULL, CHAR_MAX + 4 },
-  { "stringtable-output", no_argument, NULL, CHAR_MAX + 5 },
-  { "style", required_argument, NULL, CHAR_MAX + 7 },
-  { "version", no_argument, NULL, 'V' },
-  { "width", required_argument, NULL, 'w' },
-  { NULL, 0, NULL, 0 }
-};
-
 
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
@@ -129,7 +99,6 @@ static msgdomain_list_ty *process_msgdomain_list (msgdomain_list_ty *mdlp);
 int
 main (int argc, char **argv)
 {
-  int opt;
   bool do_help;
   bool do_version;
   char *output_file;
@@ -164,14 +133,45 @@ main (int argc, char **argv)
   output_file = NULL;
   input_file = NULL;
 
-  /* The '+' in the options string causes option parsing to terminate when
-     the first non-option, i.e. the subprogram name, is encountered.  */
-  while ((opt = getopt_long (argc, argv, "+D:EFhi:no:pPsVw:", long_options,
-                             NULL))
-         != EOF)
+  /* Parse command line options.  */
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "add-location",      CHAR_MAX + 'n', optional_argument },
+    { NULL,                'n',            no_argument       },
+    { "color",             CHAR_MAX + 6,   optional_argument },
+    { "directory",         'D',            required_argument },
+    { "escape",            'E',            no_argument       },
+    { "force-po",           0,             no_argument,      &force_po, 1 },
+    { "help",               'h',           no_argument       },
+    { "indent",             CHAR_MAX + 1,  no_argument       },
+    { "input",              'i',           required_argument },
+    { "keep-header",        0,             no_argument,      &keep_header, 1 },
+    { "newline",            CHAR_MAX + 9,  no_argument       },
+    { "no-escape",          CHAR_MAX + 2,  no_argument       },
+    { "no-location",        CHAR_MAX + 8,  no_argument       },
+    { "no-wrap",            CHAR_MAX + 3,  no_argument       },
+    { "output-file",        'o',           required_argument },
+    { "properties-input",   'P',           no_argument       },
+    { "properties-output",  'p',           no_argument       },
+    { "sort-by-file",       'F',           no_argument       },
+    { "sort-output",        's',           no_argument       },
+    { "strict",             CHAR_MAX + 10, no_argument       },
+    { "stringtable-input",  CHAR_MAX + 4,  no_argument       },
+    { "stringtable-output", CHAR_MAX + 5,  no_argument       },
+    { "style",              CHAR_MAX + 7,  required_argument },
+    { "version",            'V',           no_argument       },
+    { "width",              'w',           required_argument },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  /* The flag NON_OPTION_TERMINATES_OPTIONS causes option parsing to terminate
+     when the first non-option, i.e. the subprogram name, is encountered.  */
+  start_options (argc, argv, options, NON_OPTION_TERMINATES_OPTIONS, 0);
+  int opt;
+  while ((opt = get_next_option ()) != -1)
     switch (opt)
       {
-      case '\0':                /* Long option.  */
+      case '\0':                /* Long option with key == 0.  */
         break;
 
       case 'D':
@@ -199,7 +199,8 @@ main (int argc, char **argv)
         input_file = optarg;
         break;
 
-      case 'n':
+      case 'n':            /* -n */
+      case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
         if (handle_filepos_comment_option (optarg))
           usage (EXIT_FAILURE);
         break;
@@ -220,7 +221,7 @@ main (int argc, char **argv)
         sort_by_msgid = true;
         break;
 
-      case 'S':
+      case CHAR_MAX + 10: /* --strict */
         message_print_style_uniforum ();
         break;
 

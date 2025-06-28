@@ -106,13 +106,13 @@ if ! $skip_gnulib; then
     closeout
     error
     fzprintf-posix
-    getopt-gnu
     gettext-h
     havelib
     mbrtoc32
     mbszero
     memmove
     noreturn
+    options
     progname
     propername
     quote
@@ -218,7 +218,6 @@ if ! $skip_gnulib; then
     gcd
     getaddrinfo
     getline
-    getopt-gnu
     getrusage
     gettext-h
     gocomp-script
@@ -247,6 +246,7 @@ if ! $skip_gnulib; then
     open
     opendir
     openmp-init
+    options
     pipe-filter-ii
     progname
     propername

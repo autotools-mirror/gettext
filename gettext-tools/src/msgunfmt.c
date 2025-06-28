@@ -19,7 +19,6 @@
 # include <config.h>
 #endif
 
-#include <getopt.h>
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -29,6 +28,7 @@
 #include <textstyle.h>
 
 #include <error.h>
+#include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "error-progname.h"
@@ -78,34 +78,6 @@ static const char *tcl_base_directory;
 /* Force output of PO file even if empty.  */
 static int force_po;
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "color", optional_argument, NULL, CHAR_MAX + 6 },
-  { "csharp", no_argument, NULL, CHAR_MAX + 4 },
-  { "csharp-resources", no_argument, NULL, CHAR_MAX + 5 },
-  { "escape", no_argument, NULL, 'E' },
-  { "force-po", no_argument, &force_po, 1 },
-  { "help", no_argument, NULL, 'h' },
-  { "indent", no_argument, NULL, 'i' },
-  { "java", no_argument, NULL, 'j' },
-  { "locale", required_argument, NULL, 'l' },
-  { "no-escape", no_argument, NULL, 'e' },
-  { "no-wrap", no_argument, NULL, CHAR_MAX + 2 },
-  { "output-file", required_argument, NULL, 'o' },
-  { "properties-output", no_argument, NULL, 'p' },
-  { "resource", required_argument, NULL, 'r' },
-  { "sort-output", no_argument, NULL, 's' },
-  { "strict", no_argument, NULL, 'S' },
-  { "stringtable-output", no_argument, NULL, CHAR_MAX + 3 },
-  { "style", required_argument, NULL, CHAR_MAX + 7 },
-  { "tcl", no_argument, NULL, CHAR_MAX + 1 },
-  { "verbose", no_argument, NULL, 'v' },
-  { "version", no_argument, NULL, 'V' },
-  { "width", required_argument, NULL, 'w' },
-  { NULL, 0, NULL, 0 }
-};
-
 
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
@@ -115,7 +87,6 @@ static void read_one_file (message_list_ty *mlp, const char *filename);
 int
 main (int argc, char **argv)
 {
-  int optchar;
   bool do_help = false;
   bool do_version = false;
   const char *output_file = "-";
@@ -139,13 +110,41 @@ main (int argc, char **argv)
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  while ((optchar = getopt_long (argc, argv, "d:eEhijl:o:pr:svVw:",
-                                 long_options, NULL))
-         != EOF)
+  /* Parse command line options.  */
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "color",              CHAR_MAX + 6, optional_argument },
+    { "csharp",             CHAR_MAX + 4, no_argument       },
+    { "csharp-resources",   CHAR_MAX + 5, no_argument       },
+    { "escape",             'E',          no_argument       },
+    { "force-po",           0,            no_argument,      &force_po, 1 },
+    { "help",               'h',          no_argument       },
+    { "indent",             'i',          no_argument       },
+    { "java",               'j',          no_argument       },
+    { "locale",             'l',          required_argument },
+    { "no-escape",          'e',          no_argument       },
+    { "no-wrap",            CHAR_MAX + 2, no_argument       },
+    { "output-file",        'o',          required_argument },
+    { "properties-output",  'p',          no_argument       },
+    { "resource",           'r',          required_argument },
+    { "sort-output",        's',          no_argument       },
+    { "strict",             CHAR_MAX + 8, no_argument       },
+    { "stringtable-output", CHAR_MAX + 3, no_argument       },
+    { "style",              CHAR_MAX + 7, required_argument },
+    { "tcl",                CHAR_MAX + 1, no_argument       },
+    { "verbose",            'v',          no_argument       },
+    { "version",            'V',          no_argument       },
+    { "width",              'w',          required_argument },
+    { NULL,                 'd',          required_argument },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
+  int optchar;
+  while ((optchar = get_next_option ()) != -1)
     switch (optchar)
       {
-      case '\0':
-        /* long option */
+      case '\0':                /* Long option with key == 0.  */
         break;
 
       case 'd':
@@ -196,7 +195,7 @@ main (int argc, char **argv)
         sort_by_msgid = true;
         break;
 
-      case 'S':
+      case CHAR_MAX + 8: /* --strict */
         message_print_style_uniforum ();
         break;
 

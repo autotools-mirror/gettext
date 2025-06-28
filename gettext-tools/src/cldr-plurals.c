@@ -26,7 +26,7 @@
 #include "c-ctype.h"
 #include <errno.h>
 #include <error.h>
-#include <getopt.h>
+#include "options.h"
 #include "gettext.h"
 #include <libxml/tree.h>
 #include <libxml/parser.h>
@@ -211,22 +211,12 @@ or by email to <%s>.\n"),
   exit (status);
 }
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "cldr", no_argument, NULL, 'c' },
-  { "help", no_argument, NULL, 'h' },
-  { "version", no_argument, NULL, 'V' },
-  { NULL, 0, NULL, 0 }
-};
-
 int
 main (int argc, char **argv)
 {
   bool opt_cldr_format = false;
   bool do_help = false;
   bool do_version = false;
-  int optchar;
 
   /* Set program name for messages.  */
   set_program_name (argv[0]);
@@ -243,10 +233,21 @@ main (int argc, char **argv)
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  while ((optchar = getopt_long (argc, argv, "chV", long_options, NULL)) != EOF)
+  /* Parse command line options.  */
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "cldr",    'c', no_argument },
+    { "help",    'h', no_argument },
+    { "version", 'V', no_argument },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
+  int optchar;
+  while ((optchar = get_next_option ()) != -1)
     switch (optchar)
       {
-      case '\0':                /* Long option.  */
+      case '\0':          /* Long option with key == 0.  */
         break;
 
       case 'c':

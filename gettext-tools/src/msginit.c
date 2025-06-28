@@ -24,7 +24,6 @@
 #include <dirent.h>
 #include <errno.h>
 #include <fcntl.h>
-#include <getopt.h>
 #include <limits.h>
 #include <locale.h>
 #include <stdint.h>
@@ -42,7 +41,7 @@
 #include <textstyle.h>
 
 #include <error.h>
-
+#include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "error-progname.h"
@@ -106,26 +105,6 @@ static const char *language;
 /* If true, the user is not considered to be the translator.  */
 static bool no_translator;
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "color", optional_argument, NULL, CHAR_MAX + 5 },
-  { "help", no_argument, NULL, 'h' },
-  { "input", required_argument, NULL, 'i' },
-  { "locale", required_argument, NULL, 'l' },
-  { "no-translator", no_argument, NULL, CHAR_MAX + 1 },
-  { "no-wrap", no_argument, NULL, CHAR_MAX + 2 },
-  { "output-file", required_argument, NULL, 'o' },
-  { "properties-input", no_argument, NULL, 'P' },
-  { "properties-output", no_argument, NULL, 'p' },
-  { "stringtable-input", no_argument, NULL, CHAR_MAX + 3 },
-  { "stringtable-output", no_argument, NULL, CHAR_MAX + 4 },
-  { "style", required_argument, NULL, CHAR_MAX + 6 },
-  { "version", no_argument, NULL, 'V' },
-  { "width", required_argument, NULL, 'w' },
-  { NULL, 0, NULL, 0 }
-};
-
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
 static const char *find_pot (void);
@@ -139,7 +118,6 @@ static msgdomain_list_ty *update_msgstr_plurals (msgdomain_list_ty *mdlp);
 int
 main (int argc, char **argv)
 {
-  int opt;
   bool do_help;
   bool do_version;
   char *output_file;
@@ -172,11 +150,32 @@ main (int argc, char **argv)
   input_file = NULL;
   locale = NULL;
 
-  while ((opt = getopt_long (argc, argv, "hi:l:o:pPVw:", long_options, NULL))
-         != EOF)
+  /* Parse command line options.  */
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "color",              CHAR_MAX + 5, optional_argument },
+    { "help",               'h',          no_argument       },
+    { "input",              'i',          required_argument },
+    { "locale",             'l',          required_argument },
+    { "no-translator",      CHAR_MAX + 1, no_argument       },
+    { "no-wrap",            CHAR_MAX + 2, no_argument       },
+    { "output-file",        'o',          required_argument },
+    { "properties-input",   'P',          no_argument       },
+    { "properties-output",  'p',          no_argument       },
+    { "stringtable-input",  CHAR_MAX + 3, no_argument       },
+    { "stringtable-output", CHAR_MAX + 4, no_argument       },
+    { "style",              CHAR_MAX + 6, required_argument },
+    { "version",            'V',          no_argument       },
+    { "width",              'w',          required_argument },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
+  int opt;
+  while ((opt = get_next_option ()) != -1)
     switch (opt)
       {
-      case '\0':                /* Long option.  */
+      case '\0':                /* Long option with key == 0.  */
         break;
 
       case 'h':

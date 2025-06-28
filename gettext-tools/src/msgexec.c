@@ -21,7 +21,6 @@
 #endif
 
 #include <errno.h>
-#include <getopt.h>
 #include <limits.h>
 #include <locale.h>
 #include <signal.h>
@@ -32,6 +31,7 @@
 #include <unistd.h>
 
 #include <error.h>
+#include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "dir-list.h"
@@ -77,19 +77,6 @@ static bool newline;
 /* Maximum exit code encountered.  */
 static int exitcode;
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "directory", required_argument, NULL, 'D' },
-  { "help", no_argument, NULL, 'h' },
-  { "input", required_argument, NULL, 'i' },
-  { "newline", no_argument, NULL, CHAR_MAX + 2 },
-  { "properties-input", no_argument, NULL, 'P' },
-  { "stringtable-input", no_argument, NULL, CHAR_MAX + 1 },
-  { "version", no_argument, NULL, 'V' },
-  { NULL, 0, NULL, 0 }
-};
-
 
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
@@ -99,7 +86,6 @@ static void process_msgdomain_list (const msgdomain_list_ty *mdlp);
 int
 main (int argc, char **argv)
 {
-  int opt;
   bool do_help;
   bool do_version;
   const char *input_file;
@@ -129,13 +115,27 @@ main (int argc, char **argv)
   do_version = false;
   input_file = NULL;
 
-  /* The '+' in the options string causes option parsing to terminate when
-     the first non-option, i.e. the subprogram name, is encountered.  */
-  while ((opt = getopt_long (argc, argv, "+D:hi:PV", long_options, NULL))
-         != EOF)
+  /* Parse command line options.  */
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "directory",         'D',          required_argument },
+    { "help",              'h',          no_argument       },
+    { "input",             'i',          required_argument },
+    { "newline",           CHAR_MAX + 2, no_argument       },
+    { "properties-input",  'P',          no_argument       },
+    { "stringtable-input", CHAR_MAX + 1, no_argument       },
+    { "version",           'V',          no_argument       },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  /* The flag NON_OPTION_TERMINATES_OPTIONS causes option parsing to terminate
+     when the first non-option, i.e. the subprogram name, is encountered.  */
+  start_options (argc, argv, options, NON_OPTION_TERMINATES_OPTIONS, 0);
+  int opt;
+  while ((opt = get_next_option ()) != -1)
     switch (opt)
       {
-      case '\0':                /* Long option.  */
+      case '\0':                /* Long option with key == 0.  */
         break;
 
       case 'D':

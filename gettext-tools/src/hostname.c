@@ -21,7 +21,6 @@
 #endif
 
 #include <errno.h>
-#include <getopt.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -96,6 +95,7 @@
 #include <stdbool.h>
 
 #include <error.h>
+#include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "error-progname.h"
@@ -112,18 +112,6 @@
 /* Output format.  */
 static enum { default_format, short_format, long_format, ip_format } format;
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "fqdn", no_argument, NULL, 'f' },
-  { "help", no_argument, NULL, 'h' },
-  { "ip-address", no_argument, NULL, 'i' },
-  { "long", no_argument, NULL, 'f' },
-  { "short", no_argument, NULL, 's' },
-  { "version", no_argument, NULL, 'V' },
-  { NULL, 0, NULL, 0 }
-};
-
 
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
@@ -132,7 +120,6 @@ static void print_hostname (void);
 int
 main (int argc, char *argv[])
 {
-  int optchar;
   bool do_help;
   bool do_version;
 
@@ -157,11 +144,23 @@ main (int argc, char *argv[])
   format = default_format;
 
   /* Parse command line options.  */
-  while ((optchar = getopt_long (argc, argv, "fhisV", long_options, NULL))
-         != EOF)
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "fqdn",       'f', no_argument },
+    { "help",       'h', no_argument },
+    { "ip-address", 'i', no_argument },
+    { "long",       'f', no_argument },
+    { "short",      's', no_argument },
+    { "version",    'V', no_argument },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
+  int optchar;
+  while ((optchar = get_next_option ()) != -1)
     switch (optchar)
       {
-      case '\0':          /* Long option.  */
+      case '\0':          /* Long option with key == 0.  */
         break;
       case 'f':
         format = long_format;

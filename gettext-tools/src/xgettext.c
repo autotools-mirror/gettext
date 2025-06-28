@@ -25,7 +25,6 @@
 
 #include <ctype.h>
 #include <errno.h>
-#include <getopt.h>
 #include <stdio.h>
 #include <time.h>
 #include <stdlib.h>
@@ -43,6 +42,7 @@
 #include <textstyle.h>
 
 #include <error.h>
+#include "options.h"
 #include "noreturn.h"
 #include "rc-str-list.h"
 #include "xg-encoding.h"
@@ -260,66 +260,6 @@ static string_list_ty files_for_vc_mtime;
    shall be ignored.  */
 static gl_set_t generated_files;
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "add-comments", optional_argument, NULL, 'c' },
-  { "add-location", optional_argument, NULL, 'n' },
-  { "boost", no_argument, NULL, CHAR_MAX + 11 },
-  { "c++", no_argument, NULL, 'C' },
-  { "check", required_argument, NULL, CHAR_MAX + 17 },
-  { "color", optional_argument, NULL, CHAR_MAX + 14 },
-  { "copyright-holder", required_argument, NULL, CHAR_MAX + 1 },
-  { "debug", no_argument, &do_debug, 1 },
-  { "default-domain", required_argument, NULL, 'd' },
-  { "directory", required_argument, NULL, 'D' },
-  { "escape", no_argument, NULL, 'E' },
-  { "exclude-file", required_argument, NULL, 'x' },
-  { "extract-all", no_argument, NULL, 'a' },
-  { "files-from", required_argument, NULL, 'f' },
-  { "flag", required_argument, NULL, CHAR_MAX + 8 },
-  { "force-po", no_argument, &force_po, 1 },
-  { "foreign-user", no_argument, NULL, CHAR_MAX + 2 },
-  { "from-code", required_argument, NULL, CHAR_MAX + 3 },
-  { "generated", required_argument, NULL, CHAR_MAX + 24 },
-  { "help", no_argument, NULL, 'h' },
-  { "indent", no_argument, NULL, 'i' },
-  { "its", required_argument, NULL, CHAR_MAX + 20 },
-  { "itstool", no_argument, NULL, CHAR_MAX + 19 },
-  { "join-existing", no_argument, NULL, 'j' },
-  { "kde", no_argument, NULL, CHAR_MAX + 10 },
-  { "keyword", optional_argument, NULL, 'k' },
-  { "language", required_argument, NULL, 'L' },
-  { "msgid-bugs-address", required_argument, NULL, CHAR_MAX + 5 },
-  { "msgstr-prefix", optional_argument, NULL, 'm' },
-  { "msgstr-suffix", optional_argument, NULL, 'M' },
-  { "no-escape", no_argument, NULL, 'e' },
-  { "no-git", no_argument, NULL, CHAR_MAX + 23 },
-  { "no-location", no_argument, NULL, CHAR_MAX + 16 },
-  { "no-wrap", no_argument, NULL, CHAR_MAX + 4 },
-  { "omit-header", no_argument, &xgettext_omit_header, 1 },
-  { "output", required_argument, NULL, 'o' },
-  { "output-dir", required_argument, NULL, 'p' },
-  { "package-name", required_argument, NULL, CHAR_MAX + 12 },
-  { "package-version", required_argument, NULL, CHAR_MAX + 13 },
-  { "properties-output", no_argument, NULL, CHAR_MAX + 6 },
-  { "qt", no_argument, NULL, CHAR_MAX + 9 },
-  { "reference", required_argument, NULL, CHAR_MAX + 22 },
-  { "sentence-end", required_argument, NULL, CHAR_MAX + 18 },
-  { "sort-by-file", no_argument, NULL, 'F' },
-  { "sort-output", no_argument, NULL, 's' },
-  { "strict", no_argument, NULL, 'S' },
-  { "string-limit", required_argument, NULL, 'l' },
-  { "stringtable-output", no_argument, NULL, CHAR_MAX + 7 },
-  { "style", required_argument, NULL, CHAR_MAX + 15 },
-  { "tag", required_argument, NULL, CHAR_MAX + 21 },
-  { "trigraphs", no_argument, NULL, 'T' },
-  { "verbose", no_argument, NULL, 'v' },
-  { "version", no_argument, NULL, 'V' },
-  { "width", required_argument, NULL, 'w' },
-  { NULL, 0, NULL, 0 }
-};
-
 
 /* The extractors must all be functions returning void and taking as arguments
    - the file name or file stream,
@@ -364,7 +304,6 @@ static const char *extension_to_language (const char *extension);
 int
 main (int argc, char *argv[])
 {
-  int optchar;
   bool do_help = false;
   bool do_version = false;
   msgdomain_list_ty *mdlp;
@@ -437,12 +376,74 @@ main (int argc, char *argv[])
   init_flag_table_gcc_internal ();
   init_flag_table_ycp ();
 
-  while ((optchar = getopt_long (argc, argv,
-                                 "ac::Cd:D:eEf:Fhijk::l:L:m::M::no:p:sTvVw:x:",
-                                 long_options, NULL)) != EOF)
+  /* Parse command line options.  */
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "add-comments",       'c',            optional_argument },
+    { "add-location",       CHAR_MAX + 'n', optional_argument },
+    { NULL,                 'n',            no_argument       },
+    { "boost",              CHAR_MAX + 11,  no_argument       },
+    { "c++",                'C',            no_argument       },
+    { "check",              CHAR_MAX + 17,  required_argument },
+    { "color",              CHAR_MAX + 14,  optional_argument },
+    { "copyright-holder",   CHAR_MAX + 1,   required_argument },
+    { "debug",              0,              no_argument,      &do_debug, 1 },
+    { "default-domain",     'd',            required_argument },
+    { "directory",          'D',            required_argument },
+    { "escape",             'E',            no_argument       },
+    { "exclude-file",       'x',            required_argument },
+    { "extract-all",        'a',            no_argument       },
+    { "files-from",         'f',            required_argument },
+    { "flag",               CHAR_MAX + 8,   required_argument },
+    { "force-po",           0,              no_argument,      &force_po, 1 },
+    { "foreign-user",       CHAR_MAX + 2,   no_argument       },
+    { "from-code",          CHAR_MAX + 3,   required_argument },
+    { "generated",          CHAR_MAX + 24,  required_argument },
+    { "help",               'h',            no_argument       },
+    { "indent",             'i',            no_argument       },
+    { "its",                CHAR_MAX + 20,  required_argument },
+    { "itstool",            CHAR_MAX + 19,  no_argument       },
+    { "join-existing",      'j',            no_argument       },
+    { "kde",                CHAR_MAX + 10,  no_argument       },
+    { "keyword",            'k',            optional_argument },
+    { "language",           'L',            required_argument },
+    { "msgid-bugs-address", CHAR_MAX + 5,   required_argument },
+    { "msgstr-prefix",      'm',            optional_argument },
+    { "msgstr-suffix",      'M',            optional_argument },
+    { "no-escape",          'e',            no_argument       },
+    { "no-git",             CHAR_MAX + 23,  no_argument       },
+    { "no-location",        CHAR_MAX + 16,  no_argument       },
+    { "no-wrap",            CHAR_MAX + 4,   no_argument       },
+    { "omit-header",        0,              no_argument,      &xgettext_omit_header, 1 },
+    { "output",             'o',            required_argument },
+    { "output-dir",         'p',            required_argument },
+    { "package-name",       CHAR_MAX + 12,  required_argument },
+    { "package-version",    CHAR_MAX + 13,  required_argument },
+    { "properties-output",  CHAR_MAX + 6,   no_argument       },
+    { "qt",                 CHAR_MAX + 9,   no_argument       },
+    { "reference",          CHAR_MAX + 22,  required_argument },
+    { "sentence-end",       CHAR_MAX + 18,  required_argument },
+    { "sort-by-file",       'F',            no_argument       },
+    { "sort-output",        's',            no_argument       },
+    { "strict",             CHAR_MAX + 25,  no_argument       },
+    { "string-limit",       'l',            required_argument },
+    { "stringtable-output", CHAR_MAX + 7,   no_argument       },
+    { "style",              CHAR_MAX + 15,  required_argument },
+    { "tag",                CHAR_MAX + 21,  required_argument },
+    { "trigraphs",          'T',            no_argument       },
+    { "verbose",            'v',            no_argument       },
+    { "version",            'V',            no_argument       },
+    { "width",              'w',            required_argument },
+    { NULL,                 'W',            required_argument },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
+  int optchar;
+  while ((optchar = get_next_option ()) != -1)
     switch (optchar)
       {
-      case '\0':                /* Long option.  */
+      case '\0':                /* Long option with key == 0.  */
         break;
 
       case 'a':
@@ -580,7 +581,8 @@ main (int argc, char *argv[])
         msgstr_suffix = optarg == NULL ? "" : optarg;
         break;
 
-      case 'n':
+      case 'n':            /* -n */
+      case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
         if (handle_filepos_comment_option (optarg))
           usage (EXIT_FAILURE);
         break;
@@ -607,7 +609,7 @@ main (int argc, char *argv[])
         sort_by_msgid = true;
         break;
 
-      case 'S':
+      case CHAR_MAX + 25: /* --strict */
         message_print_style_uniforum ();
         break;
 

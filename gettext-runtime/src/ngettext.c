@@ -18,7 +18,6 @@
 # include <config.h>
 #endif
 
-#include <getopt.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -28,6 +27,7 @@
 #include <errno.h>
 
 #include <error.h>
+#include "options.h"
 #include "attribute.h"
 #include "noreturn.h"
 #include "closeout.h"
@@ -45,23 +45,12 @@
    message catalog.  */
 static int do_expand;
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "context", required_argument, NULL, 'c' },
-  { "domain", required_argument, NULL, 'd' },
-  { "help", no_argument, NULL, 'h' },
-  { "version", no_argument, NULL, 'V' },
-  { NULL, 0, NULL, 0 }
-};
-
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
 
 int
 main (int argc, char *argv[])
 {
-  int optchar;
   const char *msgid;
   const char *msgid_plural;
   const char *count;
@@ -90,11 +79,23 @@ main (int argc, char *argv[])
   atexit (close_stdout);
 
   /* Parse command line options.  */
-  while ((optchar = getopt_long (argc, argv, "+c:d:eEhV", long_options, NULL))
-         != EOF)
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "context", 'c', required_argument },
+    { "domain",  'd', required_argument },
+    { "help",    'h', no_argument       },
+    { "version", 'V', no_argument       },
+    { NULL,      'e', no_argument       },
+    { NULL,      'E', no_argument       },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, NON_OPTION_TERMINATES_OPTIONS, 0);
+  int optchar;
+  while ((optchar = get_next_option ()) != -1)
     switch (optchar)
       {
-      case '\0':          /* Long option.  */
+      case '\0':          /* Long option with key == 0.  */
         break;
       case 'c':
         context = optarg;

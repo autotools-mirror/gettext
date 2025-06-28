@@ -19,7 +19,6 @@
 # include <config.h>
 #endif
 
-#include <getopt.h>
 #include <limits.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -27,6 +26,7 @@
 #include <locale.h>
 
 #include <error.h>
+#include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "dir-list.h"
@@ -66,21 +66,6 @@ static bool include_fuzzies = false;
 /* Whether to consider untranslated messages as translations.  */
 static bool include_untranslated = false;
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "directory", required_argument, NULL, 'D' },
-  { "help", no_argument, NULL, 'h' },
-  { "multi-domain", no_argument, NULL, 'm' },
-  { "no-fuzzy-matching", no_argument, NULL, 'N' },
-  { "properties-input", no_argument, NULL, 'P' },
-  { "stringtable-input", no_argument, NULL, CHAR_MAX + 1 },
-  { "use-fuzzy", no_argument, NULL, CHAR_MAX + 2 },
-  { "use-untranslated", no_argument, NULL, CHAR_MAX + 3 },
-  { "version", no_argument, NULL, 'V' },
-  { NULL, 0, NULL, 0 }
-};
-
 
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
@@ -91,7 +76,6 @@ static void compare (const char *fn1, const char *fn2,
 int
 main (int argc, char *argv[])
 {
-  int optchar;
   bool do_help;
   bool do_version;
   catalog_input_format_ty input_syntax = &input_format_po;
@@ -115,11 +99,28 @@ main (int argc, char *argv[])
 
   do_help = false;
   do_version = false;
-  while ((optchar = getopt_long (argc, argv, "D:hmNPV", long_options, NULL))
-         != EOF)
+
+  /* Parse command line options.  */
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "directory",         'D',          required_argument },
+    { "help",              'h',          no_argument },
+    { "multi-domain",      'm',          no_argument },
+    { "no-fuzzy-matching", 'N',          no_argument },
+    { "properties-input",  'P',          no_argument },
+    { "stringtable-input", CHAR_MAX + 1, no_argument },
+    { "use-fuzzy",         CHAR_MAX + 2, no_argument },
+    { "use-untranslated",  CHAR_MAX + 3, no_argument },
+    { "version",           'V',          no_argument },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
+  int optchar;
+  while ((optchar = get_next_option ()) != -1)
     switch (optchar)
       {
-      case '\0':                /* long option */
+      case '\0':                /* Long option with key == 0.  */
         break;
 
       case 'D':

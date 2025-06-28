@@ -23,7 +23,6 @@
 
 #include <assert.h>
 #include <errno.h>
-#include <getopt.h>
 #include <limits.h>
 #include <locale.h>
 #include <stdio.h>
@@ -40,6 +39,7 @@
 #include <textstyle.h>
 
 #include <error.h>
+#include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "dir-list.h"
@@ -91,46 +91,6 @@ struct grep_task {
 };
 static struct grep_task grep_task[5];
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "add-location", optional_argument, NULL, 'n' },
-  { "color", optional_argument, NULL, CHAR_MAX + 9 },
-  { "comment", no_argument, NULL, 'C' },
-  { "directory", required_argument, NULL, 'D' },
-  { "domain", required_argument, NULL, 'M' },
-  { "escape", no_argument, NULL, CHAR_MAX + 1 },
-  { "extended-regexp", no_argument, NULL, 'E' },
-  { "extracted-comment", no_argument, NULL, 'X' },
-  { "file", required_argument, NULL, 'f' },
-  { "fixed-strings", no_argument, NULL, 'F' },
-  { "force-po", no_argument, &force_po, 1 },
-  { "help", no_argument, NULL, 'h' },
-  { "ignore-case", no_argument, NULL, 'i' },
-  { "indent", no_argument, NULL, CHAR_MAX + 2 },
-  { "invert-match", no_argument, NULL, 'v' },
-  { "location", required_argument, NULL, 'N' },
-  { "msgctxt", no_argument, NULL, 'J' },
-  { "msgid", no_argument, NULL, 'K' },
-  { "msgstr", no_argument, NULL, 'T' },
-  { "no-escape", no_argument, NULL, CHAR_MAX + 3 },
-  { "no-location", no_argument, NULL, CHAR_MAX + 11 },
-  { "no-wrap", no_argument, NULL, CHAR_MAX + 6 },
-  { "output-file", required_argument, NULL, 'o' },
-  { "properties-input", no_argument, NULL, 'P' },
-  { "properties-output", no_argument, NULL, 'p' },
-  { "regexp", required_argument, NULL, 'e' },
-  { "sort-by-file", no_argument, NULL, CHAR_MAX + 4 },
-  { "sort-output", no_argument, NULL, CHAR_MAX + 5 },
-  { "strict", no_argument, NULL, 'S' },
-  { "stringtable-input", no_argument, NULL, CHAR_MAX + 7 },
-  { "stringtable-output", no_argument, NULL, CHAR_MAX + 8 },
-  { "style", required_argument, NULL, CHAR_MAX + 10 },
-  { "version", no_argument, NULL, 'V' },
-  { "width", required_argument, NULL, 'w' },
-  { NULL, 0, NULL, 0 }
-};
-
 
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void no_pass (int opt);
@@ -141,7 +101,6 @@ static msgdomain_list_ty *process_msgdomain_list (msgdomain_list_ty *mdlp);
 int
 main (int argc, char **argv)
 {
-  int opt;
   bool do_help;
   bool do_version;
   char *output_file;
@@ -191,12 +150,53 @@ main (int argc, char **argv)
       gt->case_insensitive = false;
     }
 
-  while ((opt = getopt_long (argc, argv, "CD:e:Ef:FhiJKM:nN:o:pPTvVw:X",
-                             long_options, NULL))
-         != EOF)
+  /* Parse command line options.  */
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "add-location",       CHAR_MAX + 'n', optional_argument },
+    { NULL,                 'n',            no_argument       },
+    { "color",              CHAR_MAX + 9,   optional_argument },
+    { "comment",            'C',            no_argument       },
+    { "directory",          'D',            required_argument },
+    { "domain",             'M',            required_argument },
+    { "escape",             CHAR_MAX + 1,   no_argument       },
+    { "extended-regexp",    'E',            no_argument       },
+    { "extracted-comment",  'X',            no_argument       },
+    { "file",               'f',            required_argument },
+    { "fixed-strings",      'F',            no_argument       },
+    { "force-po",           0,              no_argument,      &force_po, 1 },
+    { "help",               'h',            no_argument       },
+    { "ignore-case",        'i',            no_argument       },
+    { "indent",             CHAR_MAX + 2,   no_argument       },
+    { "invert-match",       'v',            no_argument       },
+    { "location",           'N',            required_argument },
+    { "msgctxt",            'J',            no_argument       },
+    { "msgid",              'K',            no_argument       },
+    { "msgstr",             'T',            no_argument       },
+    { "no-escape",          CHAR_MAX + 3,   no_argument       },
+    { "no-location",        CHAR_MAX + 11,  no_argument       },
+    { "no-wrap",            CHAR_MAX + 6,   no_argument       },
+    { "output-file",        'o',            required_argument },
+    { "properties-input",   'P',            no_argument       },
+    { "properties-output",  'p',            no_argument       },
+    { "regexp",             'e',            required_argument },
+    { "sort-by-file",       CHAR_MAX + 4,   no_argument       },
+    { "sort-output",        CHAR_MAX + 5,   no_argument       },
+    { "strict",             CHAR_MAX + 12,  no_argument       },
+    { "stringtable-input",  CHAR_MAX + 7,   no_argument       },
+    { "stringtable-output", CHAR_MAX + 8,   no_argument       },
+    { "style",              CHAR_MAX + 10,  required_argument },
+    { "version",            'V',            no_argument       },
+    { "width",              'w',            required_argument },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
+  int opt;
+  while ((opt = get_next_option ()) != -1)
     switch (opt)
       {
-      case '\0':                /* Long option.  */
+      case '\0':                /* Long option with key == 0.  */
         break;
 
       case 'C':
@@ -305,7 +305,8 @@ main (int argc, char **argv)
         string_list_append (domain_names, optarg);
         break;
 
-      case 'n':
+      case 'n':            /* -n */
+      case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
         if (handle_filepos_comment_option (optarg))
           usage (EXIT_FAILURE);
         break;
@@ -326,7 +327,7 @@ main (int argc, char **argv)
         input_syntax = &input_format_properties;
         break;
 
-      case 'S':
+      case CHAR_MAX + 12: /* --strict */
         message_print_style_uniforum ();
         break;
 

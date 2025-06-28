@@ -20,7 +20,6 @@
 #endif
 
 #include <ctype.h>
-#include <getopt.h>
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,6 +30,7 @@
 #include <assert.h>
 
 #include <error.h>
+#include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
 #include "str-list.h"
@@ -178,49 +178,6 @@ static int msgs_fuzzy;
 /* If not zero print statistics about translation at the end.  */
 static int do_statistics;
 
-/* Long options.  */
-static const struct option long_options[] =
-{
-  { "alignment", required_argument, NULL, 'a' },
-  { "check", no_argument, NULL, 'c' },
-  { "check-accelerators", optional_argument, NULL, CHAR_MAX + 1 },
-  { "check-compatibility", no_argument, NULL, 'C' },
-  { "check-domain", no_argument, NULL, CHAR_MAX + 2 },
-  { "check-format", no_argument, NULL, CHAR_MAX + 3 },
-  { "check-header", no_argument, NULL, CHAR_MAX + 4 },
-  { "csharp", no_argument, NULL, CHAR_MAX + 10 },
-  { "csharp-resources", no_argument, NULL, CHAR_MAX + 11 },
-  { "desktop", no_argument, NULL, CHAR_MAX + 15 },
-  { "directory", required_argument, NULL, 'D' },
-  { "endianness", required_argument, NULL, CHAR_MAX + 13 },
-  { "help", no_argument, NULL, 'h' },
-  { "java", no_argument, NULL, 'j' },
-  { "java2", no_argument, NULL, CHAR_MAX + 5 },
-  { "keyword", optional_argument, NULL, 'k' },
-  { "language", required_argument, NULL, 'L' },
-  { "locale", required_argument, NULL, 'l' },
-  { "no-convert", no_argument, NULL, CHAR_MAX + 17 },
-  { "no-hash", no_argument, NULL, CHAR_MAX + 6 },
-  { "no-redundancy", no_argument, NULL, CHAR_MAX + 18 },
-  { "output-file", required_argument, NULL, 'o' },
-  { "properties-input", no_argument, NULL, 'P' },
-  { "qt", no_argument, NULL, CHAR_MAX + 9 },
-  { "replace-text", no_argument, NULL, CHAR_MAX + 19 },
-  { "resource", required_argument, NULL, 'r' },
-  { "source", no_argument, NULL, CHAR_MAX + 14 },
-  { "statistics", no_argument, &do_statistics, 1 },
-  { "strict", no_argument, NULL, 'S' },
-  { "stringtable-input", no_argument, NULL, CHAR_MAX + 8 },
-  { "tcl", no_argument, NULL, CHAR_MAX + 7 },
-  { "template", required_argument, NULL, CHAR_MAX + 16 },
-  { "use-fuzzy", no_argument, NULL, 'f' },
-  { "use-untranslated", no_argument, NULL, CHAR_MAX + 12 },
-  { "verbose", no_argument, NULL, 'v' },
-  { "version", no_argument, NULL, 'V' },
-  { "xml", no_argument, NULL, 'x' },
-  { NULL, 0, NULL, 0 }
-};
-
 
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void usage (int status);
@@ -242,7 +199,6 @@ static int msgfmt_xml_bulk (const char *directory,
 int
 main (int argc, char *argv[])
 {
-  int opt;
   bool do_help = false;
   bool do_version = false;
   bool strict_uniforum = false;
@@ -274,12 +230,56 @@ main (int argc, char *argv[])
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  while ((opt = getopt_long (argc, argv, "a:cCd:D:fhjk::l:L:o:Pr:vVx",
-                             long_options, NULL))
-         != EOF)
+  /* Parse command line options.  */
+  BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
+  static const struct program_option options[] =
+  {
+    { "alignment",           'a',           required_argument },
+    { "check",               'c',           no_argument       },
+    { "check-accelerators",  CHAR_MAX + 1,  optional_argument },
+    { "check-compatibility", 'C',           no_argument       },
+    { "check-domain",        CHAR_MAX + 2,  no_argument       },
+    { "check-format",        CHAR_MAX + 3,  no_argument       },
+    { "check-header",        CHAR_MAX + 4,  no_argument       },
+    { "csharp",              CHAR_MAX + 10, no_argument       },
+    { "csharp-resources",    CHAR_MAX + 11, no_argument       },
+    { "desktop",             CHAR_MAX + 15, no_argument       },
+    { "directory",           'D',           required_argument },
+    { "endianness",          CHAR_MAX + 13, required_argument },
+    { "help",                'h',           no_argument       },
+    { "java",                'j',           no_argument       },
+    { "java2",               CHAR_MAX + 5,  no_argument       },
+    { "keyword",             'k',           optional_argument },
+    { "language",            'L',           required_argument },
+    { "locale",              'l',           required_argument },
+    { "no-convert",          CHAR_MAX + 17, no_argument       },
+    { "no-hash",             CHAR_MAX + 6,  no_argument       },
+    { "no-redundancy",       CHAR_MAX + 18, no_argument       },
+    { "output-file",         'o',           required_argument },
+    { "properties-input",    'P',           no_argument       },
+    { "qt",                  CHAR_MAX + 9,  no_argument       },
+    { "replace-text",        CHAR_MAX + 19, no_argument       },
+    { "resource",            'r',           required_argument },
+    { "source",              CHAR_MAX + 14, no_argument       },
+    { "statistics",          0,             no_argument,      &do_statistics, 1 },
+    { "strict",              CHAR_MAX + 20, no_argument       },
+    { "stringtable-input",   CHAR_MAX + 8,  no_argument       },
+    { "tcl",                 CHAR_MAX + 7,  no_argument       },
+    { "template",            CHAR_MAX + 16, required_argument },
+    { "use-fuzzy",           'f',           no_argument       },
+    { "use-untranslated",    CHAR_MAX + 12, no_argument       },
+    { "verbose",             'v',           no_argument       },
+    { "version",             'V',           no_argument       },
+    { "xml",                 'x',           no_argument       },
+    { NULL,                  'd',           required_argument },
+  };
+  END_ALLOW_OMITTING_FIELD_INITIALIZERS
+  start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
+  int opt;
+  while ((opt = get_next_option ()) != -1)
     switch (opt)
       {
-      case '\0':                /* Long option.  */
+      case '\0':                /* Long option with key == 0.  */
         break;
       case 'a':
         if (isdigit ((unsigned char) optarg[0]))
@@ -351,7 +351,7 @@ main (int argc, char *argv[])
         java_resource_name = optarg;
         csharp_resource_name = optarg;
         break;
-      case 'S':
+      case CHAR_MAX + 20: /* --strict */
         strict_uniforum = true;
         break;
       case 'v':
