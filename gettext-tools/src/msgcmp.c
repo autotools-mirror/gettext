@@ -105,14 +105,14 @@ main (int argc, char *argv[])
   static const struct program_option options[] =
   {
     { "directory",         'D',          required_argument },
-    { "help",              'h',          no_argument },
-    { "multi-domain",      'm',          no_argument },
-    { "no-fuzzy-matching", 'N',          no_argument },
-    { "properties-input",  'P',          no_argument },
-    { "stringtable-input", CHAR_MAX + 1, no_argument },
-    { "use-fuzzy",         CHAR_MAX + 2, no_argument },
-    { "use-untranslated",  CHAR_MAX + 3, no_argument },
-    { "version",           'V',          no_argument },
+    { "help",              'h',          no_argument       },
+    { "multi-domain",      'm',          no_argument       },
+    { "no-fuzzy-matching", 'N',          no_argument       },
+    { "properties-input",  'P',          no_argument       },
+    { "stringtable-input", CHAR_MAX + 1, no_argument       },
+    { "use-fuzzy",         CHAR_MAX + 2, no_argument       },
+    { "use-untranslated",  CHAR_MAX + 3, no_argument       },
+    { "version",           'V',          no_argument       },
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
