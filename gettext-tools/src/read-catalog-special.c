@@ -1,5 +1,5 @@
 /* Parsing of special comments (#, comments) in textual message catalogs.
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -29,12 +29,12 @@
 
 
 /* Parse a special comment and put the result in *fuzzyp, formatp, *rangep,
-   *wrapp, scp.  */
+   *wrapp, and, if scp != NULL, scp[0..NSYNTAXCHECKS-1].  */
 void
 parse_comment_special (const char *s,
                        bool *fuzzyp, enum is_format formatp[NFORMATS],
                        struct argument_range *rangep, enum is_wrap *wrapp,
-                       enum is_syntax_check scp[NSYNTAXCHECKS])
+                       enum is_syntax_check *scp)
 {
   size_t i;
 
@@ -44,8 +44,11 @@ parse_comment_special (const char *s,
   rangep->min = -1;
   rangep->max = -1;
   *wrapp = undecided;
-  for (i = 0; i < NSYNTAXCHECKS; i++)
-    scp[i] = undecided;
+  if (scp != NULL)
+    {
+      for (i = 0; i < NSYNTAXCHECKS; i++)
+        scp[i] = undecided;
+    }
 
   while (*s != '\0')
     {
@@ -180,7 +183,7 @@ parse_comment_special (const char *s,
             }
 
           /* Accept syntax check description.  */
-          if (len >= 6 && memcmp (t + len - 6, "-check", 6) == 0)
+          if (scp != NULL && len >= 6 && memcmp (t + len - 6, "-check", 6) == 0)
             {
               const char *p;
               size_t n;

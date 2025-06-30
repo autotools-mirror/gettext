@@ -1,5 +1,5 @@
 /* Message list concatenation and duplicate handling.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -322,8 +322,6 @@ catenate_msgdomain_list (string_list_ty *file_list,
                   tmp->range.min = - INT_MAX;
                   tmp->range.max = - INT_MAX;
                   tmp->do_wrap = yes; /* may be set to no later */
-                  for (i = 0; i < NSYNTAXCHECKS; i++)
-                    tmp->do_syntax_check[i] = undecided; /* may be set to yes/no later */
                   tmp->obsolete = true; /* may be set to false later */
                   tmp->alternative_count = 0;
                   tmp->alternative = NULL;
@@ -586,8 +584,6 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
                     tmp->is_format[i] = mp->is_format[i];
                   tmp->range = mp->range;
                   tmp->do_wrap = mp->do_wrap;
-                  for (i = 0; i < NSYNTAXCHECKS; i++)
-                    tmp->do_syntax_check[i] = mp->do_syntax_check[i];
                   tmp->prev_msgctxt = mp->prev_msgctxt;
                   tmp->prev_msgid = mp->prev_msgid;
                   tmp->prev_msgid_plural = mp->prev_msgid_plural;
@@ -636,9 +632,6 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
                     }
                   if (tmp->do_wrap == undecided)
                     tmp->do_wrap = mp->do_wrap;
-                  for (i = 0; i < NSYNTAXCHECKS; i++)
-                    if (tmp->do_syntax_check[i] == undecided)
-                      tmp->do_syntax_check[i] = mp->do_syntax_check[i];
                   tmp->obsolete = false;
                 }
               else
@@ -691,12 +684,6 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
                     }
                   if (mp->do_wrap == no)
                     tmp->do_wrap = no;
-                  for (i = 0; i < NSYNTAXCHECKS; i++)
-                    if (mp->do_syntax_check[i] == yes)
-                      tmp->do_syntax_check[i] = yes;
-                    else if (mp->do_syntax_check[i] == no
-                             && tmp->do_syntax_check[i] == undecided)
-                      tmp->do_syntax_check[i] = no;
                   /* Don't fill tmp->prev_msgid in this case.  */
                   if (!mp->obsolete)
                     tmp->obsolete = false;

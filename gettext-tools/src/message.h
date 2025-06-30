@@ -123,7 +123,7 @@ enum is_wrap
 #endif
 
 
-/* Kinds of syntax checks which apply to strings.  */
+/* Kinds of syntax checks which apply to an msgid.  */
 enum syntax_check_type
 {
   sc_ellipsis_unicode,
@@ -208,7 +208,8 @@ struct message_ty
   /* Do we want the string to be wrapped in the emitted PO file?  */
   enum is_wrap do_wrap;
 
-  /* Do we want to apply extra syntax checks on the string?  */
+  /* Do we want to apply or inhibit extra syntax checks on the string?
+     This is only relevant within xgettext.  */
   enum is_syntax_check do_syntax_check[NSYNTAXCHECKS];
 
   /* The prev_msgctxt, prev_msgid and prev_msgid_plural strings appearing
