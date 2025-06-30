@@ -223,6 +223,7 @@ The Format of PO Files
 * Entries with Context::        Entries with Context
 * Entries with Plural Forms::   Entries with Plural Forms
 * More Details::                Further details on the PO file format
+* PO File Format Evolution::    The PO File Format is evolving
 
 Preparing Program Sources
 
@@ -1550,6 +1551,7 @@ the format of PO files.
 * Entries with Context::        Entries with Context
 * Entries with Plural Forms::   Entries with Plural Forms
 * More Details::                Further details on the PO file format
+* PO File Format Evolution::    The PO File Format is evolving
 @end menu
 
 @node PO File Entries
@@ -2081,6 +2083,82 @@ For a PO file to be valid, no two entries without @code{msgctxt} may have
 the same @var{untranslated-string} or @var{untranslated-string-singular}.
 Similarly, no two entries may have the same @code{msgctxt} and the same
 @var{untranslated-string} or @var{untranslated-string-singular}.
+
+@node PO File Format Evolution
+@section Evolution of the PO File Format
+
+It is planned that after 2027-01-01, entries in PO files support
+additional workflow flags and also custom sticky flags.
+
+Additional workflow flags are useful to support
+workflows with other steps than translation proper,
+such as pretranslation (based on translation memory or done through AI)
+or review or approval by a different person than the translator.
+
+Custom sticky flags are useful for projects
+which have extra capabilities in their tooling,
+such as project specific checks on the translations.
+
+In order to support both reliably, the PO file format is being extended
+in two steps.
+
+Effective @strong{now (June 2025)},
+the character sequence @samp{#=} at the beginning of a line
+introduces a line of flags,
+like the characters @samp{#,} already do.
+
+All applications that @emph{read} (consume) PO files are encouraged to
+support @samp{#=} as an alternative to @samp{#,}.
+
+All applications that @emph{modify} (read, modify, then write) PO files should
+@itemize @bullet
+@item
+when not changing the flags:
+@itemize @bullet
+@item
+either keep the @samp{#,} line unchanged and the @samp{#=} line unchanged,
+@item
+or emit all flags in a @samp{#,} line and no @samp{#=} line at all.
+@end itemize
+@item
+when adding flags:
+add these flags in the @samp{#,} line (@strong{not} in the @samp{#=} line),
+@item
+when removing flags that were specified in the @samp{#=} line:
+@itemize @bullet
+@item
+either remove the flag from the @samp{#=} line, emitting a @samp{#=} line with fewer flags,
+@item
+or emit all flags in a @samp{#,} line and no @samp{#=} line at all.
+@end itemize
+@end itemize
+
+@strong{On 2027-01-01}, the PO file format will be revised again:
+it will be decided that either
+@display
+@samp{#,} should be followed by workflow flags,
+and @samp{#=} should be followed by sticky flags,
+@end display
+@noindent
+or the other way around:
+@display
+@samp{#=} should be followed by workflow flags,
+and @samp{#,} should be followed by sticky flags.
+@end display
+
+From that moment on, applications that @emph{write} (produce) PO files are
+@itemize @bullet
+@item
+allowed to emit @samp{#=} lines,
+@item
+allowed to emit custom sticky flags.
+@end itemize
+
+And applications that @emph{read and write} PO files are
+@itemize @bullet
+@item
+required to keep unknown sticky flags in place, i.e.@: not drop them.
+@end itemize
 
 @node Sources
 @chapter Preparing Program Sources
