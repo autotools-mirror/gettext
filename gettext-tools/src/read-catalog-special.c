@@ -1,4 +1,4 @@
-/* Parsing of special comments (#, comments) in textual message catalogs.
+/* Parsing of special comments (#, and #= comments) in textual message catalogs.
    Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>

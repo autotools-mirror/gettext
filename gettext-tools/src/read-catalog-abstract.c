@@ -581,7 +581,7 @@ catalog_reader_seen_generic_comment (abstract_catalog_reader_ty *catr,
          invoked.  */
       parse_comment_filepos (catr, s + 1);
     }
-  else if (*s == ',' || *s == '!')
+  else if (*s == ',' || *s == '=' || *s == '!')
     {
       /* Get all entries in the special comment line.  */
       catalog_reader_seen_comment_special (catr, s + 1);

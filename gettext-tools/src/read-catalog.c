@@ -295,14 +295,39 @@ default_comment_filepos (abstract_catalog_reader_ty *catr,
 }
 
 
-/* Test for '#, fuzzy' comments and warn.  */
+/* Test for '#, fuzzy' or '#= fuzzy' comments and warn.  */
 void
 default_comment_special (abstract_catalog_reader_ty *catr, const char *s)
 {
   default_catalog_reader_ty *dcatr = (default_catalog_reader_ty *) catr;
+  bool tmp_fuzzy;
+  enum is_format tmp_format[NFORMATS];
+  struct argument_range tmp_range;
+  enum is_wrap tmp_wrap;
+  size_t i;
 
-  parse_comment_special (s, &dcatr->is_fuzzy, dcatr->is_format, &dcatr->range,
-                         &dcatr->do_wrap, NULL);
+  parse_comment_special (s, &tmp_fuzzy, tmp_format, &tmp_range, &tmp_wrap,
+                         NULL);
+
+  if (tmp_fuzzy)
+    dcatr->is_fuzzy = true;
+  for (i = 0; i < NFORMATS; i++)
+    if (tmp_format[i] != undecided)
+      dcatr->is_format[i] = tmp_format[i];
+  if (has_range_p (tmp_range))
+    {
+      if (has_range_p (dcatr->range))
+        {
+          if (tmp_range.min < dcatr->range.min)
+            dcatr->range.min = tmp_range.min;
+          if (tmp_range.max > dcatr->range.max)
+            dcatr->range.max = tmp_range.max;
+        }
+      else
+        dcatr->range = tmp_range;
+    }
+  if (tmp_wrap != undecided)
+    dcatr->do_wrap = tmp_wrap;
 }
 
 
