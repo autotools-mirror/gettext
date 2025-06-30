@@ -215,6 +215,15 @@ Setting the Locale through Environment Variables
 * Locale Environment Variables::  Which Environment Variable Specfies What
 * The LANGUAGE variable::       How to Specify a Priority List of Languages
 
+The Format of PO Files
+
+* PO File Entries::             What an entry looks like
+* Workflow flags::              Workflow flags
+* Sticky flags::                Sticky flags
+* Entries with Context::        Entries with Context
+* Entries with Plural Forms::   Entries with Plural Forms
+* More Details::                Further details on the PO file format
+
 Preparing Program Sources
 
 * Importing::                   Importing the @code{gettext} declaration
@@ -1534,6 +1543,18 @@ at producing, updating and using translation files, mainly those
 PO files which are textual, editable files.  This chapter explains
 the format of PO files.
 
+@menu
+* PO File Entries::             What an entry looks like
+* Workflow flags::              Workflow flags
+* Sticky flags::                Sticky flags
+* Entries with Context::        Entries with Context
+* Entries with Plural Forms::   Entries with Plural Forms
+* More Details::                Further details on the PO file format
+@end menu
+
+@node PO File Entries
+@section What an entry looks like
+
 A PO file is made up of many entries, each entry holding the relation
 between an original untranslated string and its corresponding
 translation.  All entries in a given PO file usually pertain
@@ -1612,11 +1633,29 @@ On the other hand, the @code{msgstr} string, as well as translator
 comments, are really meant for the translator, and PO mode gives her
 the full control she needs.
 
+The @var{previous-untranslated-string} is optionally inserted by the
+@code{msgmerge} program, at the same time when it marks a message fuzzy.
+It helps the translator to see which changes were done by the developers
+on the @var{untranslated-string}.
+
 The comment lines beginning with @code{#,} are special because they are
 not completely ignored by the programs as comments generally are.  The
 comma separated list of @var{flag}s is used by the @code{msgfmt}
 program to give the user some better diagnostic messages.  Currently
-there are two forms of flags defined:
+there are two forms of flags defined: workflow flags and sticky flags.
+
+@node Workflow flags
+@section Workflow flags
+
+@cindex flags, workflow
+@cindex workflow flags
+Workflow flags are flags that can be added or removed
+by the translator,
+by the PO file editor that the translator uses,
+or by tools that are part of the workflow.
+These flags represent the state of the entry in the workflow.
+
+Currently, only one workflow flag is defined:
 
 @table @code
 @item fuzzy
@@ -1629,7 +1668,31 @@ acceptable as is.  Once satisfied with the translation, she then removes
 this @code{fuzzy} attribute.  The @code{msgmerge} program inserts this
 when it combined the @code{msgid} and @code{msgstr} entries after fuzzy
 search only.  @xref{Fuzzy Entries}.
+@end table
 
+@node Sticky flags
+@section Sticky flags
+
+@cindex flags, sticky
+@cindex sticky flags
+Sticky flags are flags that are
+set on an entry when the PO template file is created,
+and that remain attached to it throughout the workflow.
+
+There are two kinds of sticky flags:
+@itemize @bullet
+@item
+The @code{*-format} flags,
+that are inferred from the @code{msgid}
+and from the source code that surrounds the @code{msgid}.
+@item
+Other flags, assigned by the programmer.
+@end itemize
+
+The following @code{*-format} flags exist.
+More can be added in future GNU gettext releases.
+
+@table @code
 @item c-format
 @kwindex c-format@r{ flag}
 @itemx no-c-format
@@ -1856,6 +1919,23 @@ Likewise for YCP, see @ref{ycp-format}.
 
 @end table
 
+Other flags, assigned by the programmer, are:
+
+@table @code
+@item no-wrap
+@kwindex no-wrap@r{ flag}
+This flag influences the presentation of the entry in the PO file.
+By default, when a PO file is output by a GNU gettext program
+and the option @samp{--no-wrap} is not specified,
+message lines that exceed the output page width are split into several lines.
+This flag inhibits this line breaking for the entry.
+This is useful for entries whose lines are close to 80 columns wide.
+
+@end table
+
+@node Entries with Context
+@section Entries with Context
+
 @kwindex msgctxt
 @cindex context, in PO files
 It is also possible to have entries with a context specifier. They look like
@@ -1879,6 +1959,9 @@ The context serves to disambiguate messages with the same
 the same @var{untranslated-string} in a PO file, provided that they each
 have a different @var{context}.  Note that an empty @var{context} string
 and an absent @code{msgctxt} line do not mean the same thing.
+
+@node Entries with Plural Forms
+@section Entries with Plural Forms
 
 @kwindex msgid_plural
 @cindex plural forms, in PO files
@@ -1914,7 +1997,7 @@ msgstr[1] "s'han trobat %d errors fatals"
 Here also, a @code{msgctxt} context can be specified before @code{msgid},
 like above.
 
-Here, additional kinds of flags can be used:
+Here, additional kinds of sticky flags can be used:
 
 @table @code
 @item range:
@@ -1926,10 +2009,8 @@ languages, translators may produce slightly better translations if they know
 that the value can only take on values between 0 and 10, for example.
 @end table
 
-The @var{previous-untranslated-string} is optionally inserted by the
-@code{msgmerge} program, at the same time when it marks a message fuzzy.
-It helps the translator to see which changes were done by the developers
-on the @var{untranslated-string}.
+@node More Details
+@section Further details on the PO file format
 
 It happens that some lines, usually whitespace or comments, follow the
 very last entry of a PO file.  Such lines are not part of any entry,
