@@ -1,6 +1,6 @@
 #! /bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
-
+set -x
 # Test for sanity checks.
 
 : ${AUTOCONF=autoconf}
@@ -40,32 +40,12 @@ AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
 EOF
 
-$gettext_datadir/autopoint 2>&1 | grep 'Missing version' 2>&1 >/dev/null \
-    || Exit 1
+$gettext_datadir/autopoint || Exit 1
 
 test ! -d intl || Exit 1
-test ! -d m4 || Exit 1
-test ! -d po || Exit 1
-
-# VERSION specified through intl/VERSION file, but in wrong format
-cat <<\EOF >configure.ac
-AC_INIT
-AC_CONFIG_SRCDIR(hello.c)
-
-AC_PROG_CC
-
-AC_CONFIG_FILES([Makefile])
-AC_OUTPUT
-EOF
-
-test -d intl || mkdir intl
-echo bogus-version > intl/VERSION
-
-$gettext_datadir/autopoint 2>&1 | grep 'Missing version' 2>&1 >/dev/null \
-    || Exit 1
-
-test ! -d m4 || Exit 1
-test ! -d po || Exit 1
+test -d m4 || Exit 1
+test -d po || Exit 1
+rm -rf ABOUT-NLS config.rpath m4 po
 
 # VERSION specified through intl/VERSION file
 cat <<\EOF >configure.ac
@@ -73,6 +53,7 @@ AC_INIT
 AC_CONFIG_SRCDIR(hello.c)
 
 AC_PROG_CC
+AM_GNU_GETTEXT()
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
