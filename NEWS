@@ -1,3 +1,12 @@
+Version 0.25.1 - July 2025
+
+* Bug fixes:
+  - autopoint no longer fails if configure.ac contains no
+    AM_GNU_GETTEXT_VERSION or AM_GNU_GETTEXT_REQUIRE_VERSION invocation.
+  - nls.m4 is installed again under $PREFIX/share/aclocal/.
+* Portability:
+  - Building on native Windows with MSVC and --enable-shared is now supported.
+
 Version 0.25 - May 2025
 
 # Programming languages support:
