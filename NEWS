@@ -27,6 +27,12 @@ Version 0.26 - July 2025
     in libc of Solaris 11.[0-3], Solaris OpenIndiana, and Solaris OmniOS.
   - The AM_GNU_GETTEXT macro now recognizes, on MSVC, the GNU libintl built
     as a shared library.
+  - autopoint no longer fails if configure.ac contains no
+    AM_GNU_GETTEXT_VERSION or AM_GNU_GETTEXT_REQUIRE_VERSION invocation.
+  - nls.m4 is installed again under $PREFIX/share/aclocal/.
+
+# Portability:
+  - Building on native Windows with MSVC and --enable-shared is now supported.
 
 Version 0.25 - May 2025
 
