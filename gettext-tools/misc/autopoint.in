@@ -159,11 +159,13 @@ m4_pushdef([m4_esyscmd])
 
 # func_trace_sed macro configure.ac
 # traces an Autoconf macro call and outputs the arguments to stdout,
-# using sed.
+# using sed. For a macro call without arguments, print just a blank line.
 func_trace_sed ()
 {
   sed_extract_arguments='
-s,#.*$,,; s,^dnl .*$,,; s, dnl .*$,,;
+s,#.*$,,
+s,^dnl .*$,,
+s, dnl .*$,,
 /'"$1"'(/ {
   ta
   :a
@@ -175,6 +177,8 @@ s,#.*$,,; s,^dnl .*$,,; s, dnl .*$,,;
   :b
   s,^.*'"$1"'([[ ]*\([^]"$`\\)]*\).*$,\1,p
 }
+/'"$1"'[^A-Za-z0-9_(]/ s,^.*$,,p
+/'"$1"'$/ s,^.*$,,p
 d'
   sed -e "$sed_extract_arguments" "$2"
 }
