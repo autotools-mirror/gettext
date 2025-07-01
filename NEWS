@@ -1,3 +1,11 @@
+Version 0.23.2 - July 2025
+
+* Bug fixes:
+  - autopoint no longer fails if configure.ac contains no
+    AM_GNU_GETTEXT_VERSION or AM_GNU_GETTEXT_REQUIRE_VERSION invocation.
+* Portability:
+  - Building on native Windows with MSVC and --enable-shared is now supported.
+
 Version 0.23.1 - December 2024
 
 * Bug fixes:

@@ -401,7 +401,7 @@ case "$ver" in
   0.20 | 0.20.2 | \
   0.21 | 0.21.1 | \
   0.22 | 0.22.1 | 0.22.2 | 0.22.3 | 0.22.4 | 0.22.5 | \
-  0.23 | 0.23.1 )
+  0.23 | 0.23.1 | 0.23.2 )
     ;;
   *)
     func_fatal_error "The AM_GNU_GETTEXT_VERSION declaration in your $configure_in
