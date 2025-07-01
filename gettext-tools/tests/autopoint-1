@@ -1,6 +1,6 @@
 #! /bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
-set -x
+
 # Test for sanity checks.
 
 : ${AUTOCONF=autoconf}
