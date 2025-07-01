@@ -57,7 +57,17 @@ EXTRA_DIST = \
   locale-de.m4
 
 
-# List of all file names that we ever stored in $(aclocaldir).
+# Files installed for use by the old intltool.m4.
+# Listing nls.m4 is OK here, since it has essentially not changed over 20 years
+# and probably won't change in the future either.
+
+aclocaldir = @aclocaldir@
+aclocal_DATA = \
+  ../../gettext-runtime/m4/nls.m4
+
+
+# List of all file names that we ever stored in $(aclocaldir),
+# minus those that we still store in $(aclocaldir).
 OLD_M4_FILES = \
   build-to-host.m4 \
   codeset.m4 \
@@ -85,7 +95,6 @@ OLD_M4_FILES = \
   lock.m4 \
   longdouble.m4 \
   longlong.m4 \
-  nls.m4 \
   po.m4 \
   printf-posix.m4 \
   progtest.m4 \
