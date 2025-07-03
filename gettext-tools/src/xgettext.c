@@ -1104,7 +1104,7 @@ xgettext cannot work without keywords to look for"));
     for (i = 0; i < mdlp->nitems; i++)
       {
         message_list_ty *mlp = mdlp->item[i]->messages;
-        nerrors = syntax_check_message_list (mlp);
+        nerrors += syntax_check_message_list (mlp);
       }
 
     /* Exit with status 1 on any error.  */
