@@ -3425,7 +3425,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
       if (!(intersection != NULL
             && (normalize_list (intersection),
-                equal_list (intersection, spec2->list))))
+                equal_list (intersection, spec1->list))))
         {
           if (error_logger)
             error_logger (error_logger_data,
