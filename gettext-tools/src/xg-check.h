@@ -1,5 +1,5 @@
 /* Checking of messages in POT files: so-called "syntax checks".
-   Copyright (C) 2015-2023 Free Software Foundation, Inc.
+   Copyright (C) 2015-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -27,9 +27,9 @@ extern "C" {
 #endif
 
 
-/* Perform all syntax checks on a message list.
+/* Perform all checks on a message list.
    Return the number of errors that were seen.  */
-extern int syntax_check_message_list (message_list_ty *mlp);
+extern int xgettext_check_message_list (message_list_ty *mlp);
 
 
 #ifdef __cplusplus

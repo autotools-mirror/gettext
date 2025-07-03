@@ -22,6 +22,15 @@ Version 0.26 - July 2025
     - xgettext now recognizes the \c, \u, and \U escape sequences in dollar-
       single-quoted strings $'...'.
 
+# Improvements for maintainers:
+  * xgettext:
+    - When extracting a message with plural that is some format string,
+      xgettext now verifies that the msgid and msgid_plural are compatible
+      as format strings.  For most format string types, this still allows
+      omitting from msgid a placeholder that is used in msgid_plural.  But
+      when a placeholder is used in both msgid and msgid_plural, its type
+      must be the same in both.
+
 # Improvements for translators:
   * msggrep:
     - msggrep accepts two new options -W/--workflow-flags and -S/--sticky-flags

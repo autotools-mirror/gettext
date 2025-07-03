@@ -1,5 +1,5 @@
 /* Error handling during reading of input files.
-   Copyright (C) 2023-2024 Free Software Foundation, Inc.
+   Copyright (C) 2023-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -37,15 +37,13 @@
 
 
 void
-if_error (int severity,
-          const char *filename, size_t lineno, size_t column,
-          bool multiline, const char *format, ...)
+if_verror (int severity,
+           const char *filename, size_t lineno, size_t column,
+           bool multiline, const char *format, va_list args)
 {
   const char *prefix_tail =
     (severity == IF_SEVERITY_WARNING ? _("warning: ") : _("error: "));
 
-  va_list args;
-  va_start (args, format);
   char *message_text = xvasprintf (format, args);
   if (message_text == NULL)
     message_text = xstrdup (severity == IF_SEVERITY_WARNING
@@ -104,7 +102,18 @@ if_error (int severity,
     }
   error_with_progname = true;
 
-  va_end (args);
   if (severity == IF_SEVERITY_FATAL_ERROR)
     exit (EXIT_FAILURE);
+}
+
+void
+if_error (int severity,
+          const char *filename, size_t lineno, size_t column,
+          bool multiline, const char *format, ...)
+{
+  va_list args;
+
+  va_start (args, format);
+  if_verror (severity, filename, lineno, column, multiline, format, args);
+  va_end (args);
 }

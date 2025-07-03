@@ -1,5 +1,5 @@
 /* Checking of messages in POT files: so-called "syntax checks".
-   Copyright (C) 2015-2023 Free Software Foundation, Inc.
+   Copyright (C) 2015-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-/* Written by Daiki Ueno <ueno@gnu.org>.  */
+/* Written by Daiki Ueno <ueno@gnu.org> and Bruno Haible <bruno@clisp.org>.  */
 
 #ifdef HAVE_CONFIG_H
 # include <config.h>
@@ -29,7 +29,9 @@
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "message.h"
+#include "format.h"
 #include "po-xerror.h"
+#include "if-error.h"
 #include "sentence.h"
 #include "c-ctype.h"
 #include "unictype.h"
@@ -340,10 +342,84 @@ syntax_check_message (const message_ty *mp)
 }
 
 
-/* Perform all syntax checks on a message list.
+/* Signal an error when checking format strings.  */
+struct formatstring_error_logger_locals
+{
+  const lex_pos_ty *pos;
+};
+static void
+formatstring_error_logger (void *data, const char *format, ...)
+#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 7) || __GNUC__ > 2)
+     __attribute__ ((__format__ (__printf__, 2, 3)))
+#endif
+;
+static void
+formatstring_error_logger (void *data, const char *format, ...)
+{
+  struct formatstring_error_logger_locals *l =
+    (struct formatstring_error_logger_locals *) data;
+  va_list args;
+
+  va_start (args, format);
+  if_verror (IF_SEVERITY_ERROR,
+             l->pos->file_name, l->pos->line_number, (size_t)(-1), false,
+             format, args);
+  va_end (args);
+}
+
+
+/* Perform all format checks on a non-obsolete message.
+   Return the number of errors that were seen.  */
+static int
+format_check_message (const message_ty *mp)
+{
+  int seen_errors = 0;
+  size_t i;
+
+  if (mp->msgid_plural != NULL)
+    {
+      /* Look for format string incompatibilities between msgid and
+         msgid_plural.  */
+      for (i = 0; i < NFORMATS; i++)
+        if (possible_format_p (mp->is_format[i]))
+          {
+            struct formatstring_parser *parser = formatstring_parsers[i];
+            char *invalid_reason1 = NULL;
+            void *descr1 =
+              parser->parse (mp->msgid, false, NULL, &invalid_reason1);
+            char *invalid_reason2 = NULL;
+            void *descr2 =
+              parser->parse (mp->msgid_plural, false, NULL, &invalid_reason2);
+
+            if (descr1 != NULL && descr2 != NULL)
+              {
+                struct formatstring_error_logger_locals locals;
+                locals.pos = &mp->pos;
+                if (parser->check (descr2, descr1, false,
+                                   formatstring_error_logger, &locals,
+                                   "msgid_plural", "msgid"))
+                  seen_errors++;
+              }
+
+            if (descr2 != NULL)
+              parser->free (descr2);
+            else
+              free (invalid_reason2);
+            if (descr1 != NULL)
+              parser->free (descr1);
+            else
+              free (invalid_reason1);
+          }
+      }
+
+  return seen_errors;
+}
+
+
+/* Perform all checks on a message list.
    Return the number of errors that were seen.  */
 int
-syntax_check_message_list (message_list_ty *mlp)
+xgettext_check_message_list (message_list_ty *mlp)
 {
   int seen_errors = 0;
   size_t j;
@@ -353,7 +429,7 @@ syntax_check_message_list (message_list_ty *mlp)
       message_ty *mp = mlp->item[j];
 
       if (!is_header (mp))
-        seen_errors += syntax_check_message (mp);
+        seen_errors += syntax_check_message (mp) + format_check_message (mp);
     }
 
   return seen_errors;

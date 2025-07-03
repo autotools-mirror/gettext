@@ -1097,14 +1097,14 @@ xgettext cannot work without keywords to look for"));
   else if (sort_by_msgid)
     msgdomain_list_sort_by_msgid (mdlp);
 
-  /* Check syntax of messages.  */
+  /* Check msgid and msgid_plural of messages.  */
   {
     int nerrors = 0;
 
     for (i = 0; i < mdlp->nitems; i++)
       {
         message_list_ty *mlp = mdlp->item[i]->messages;
-        nerrors += syntax_check_message_list (mlp);
+        nerrors += xgettext_check_message_list (mlp);
       }
 
     /* Exit with status 1 on any error.  */
