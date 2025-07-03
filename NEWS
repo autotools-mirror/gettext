@@ -22,6 +22,11 @@ Version 0.26 - July 2025
     - xgettext now recognizes the \c, \u, and \U escape sequences in dollar-
       single-quoted strings $'...'.
 
+# Improvements for translators:
+  * msggrep:
+    - msggrep accepts two new options -W/--workflow-flags and -S/--sticky-flags
+      that allow to select only messages that have a specified flag.
+
 # Bug fixes:
   - The AM_GNU_GETTEXT macro now rejects the dysfunctional gettext() function
     in libc of Solaris 11.[0-3], Solaris OpenIndiana, and Solaris OmniOS.

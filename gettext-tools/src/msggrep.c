@@ -91,6 +91,12 @@ struct grep_task {
 };
 static struct grep_task grep_task[5];
 
+/* Selected workflow flags.  */
+static string_list_ty *workflow_flags;
+
+/* Selected sticky flags.  */
+static string_list_ty *sticky_flags;
+
 
 /* Forward declaration of local functions.  */
 _GL_NORETURN_FUNC static void no_pass (int opt);
@@ -138,6 +144,8 @@ main (int argc, char **argv)
   grep_pass = -1;
   location_files = string_list_alloc ();
   domain_names = string_list_alloc ();
+  workflow_flags = string_list_alloc ();
+  sticky_flags = string_list_alloc ();
 
   for (i = 0; i < 5; i++)
     {
@@ -183,12 +191,14 @@ main (int argc, char **argv)
     { "regexp",             'e',            required_argument },
     { "sort-by-file",       CHAR_MAX + 4,   no_argument       },
     { "sort-output",        CHAR_MAX + 5,   no_argument       },
+    { "sticky-flag",        'S',            required_argument },
     { "strict",             CHAR_MAX + 12,  no_argument       },
     { "stringtable-input",  CHAR_MAX + 7,   no_argument       },
     { "stringtable-output", CHAR_MAX + 8,   no_argument       },
     { "style",              CHAR_MAX + 10,  required_argument },
     { "version",            'V',            no_argument       },
     { "width",              'w',            required_argument },
+    { "workflow-flag",      'W',            required_argument },
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
@@ -331,6 +341,10 @@ main (int argc, char **argv)
         message_print_style_uniforum ();
         break;
 
+      case 'S':
+        string_list_append (sticky_flags, optarg);
+        break;
+
       case 'T':
         grep_pass = 2;
         break;
@@ -351,6 +365,10 @@ main (int argc, char **argv)
           if (endp != optarg)
             message_page_width_set (value);
         }
+        break;
+
+      case 'W':
+        string_list_append (workflow_flags, optarg);
         break;
 
       case 'X':
@@ -547,13 +565,16 @@ Message selection:\n\
   [-N SOURCEFILE]... [-M DOMAINNAME]...\n\
   [-J MSGCTXT-PATTERN] [-K MSGID-PATTERN] [-T MSGSTR-PATTERN]\n\
   [-C COMMENT-PATTERN] [-X EXTRACTED-COMMENT-PATTERN]\n\
+  [-W WORKFLOW-FLAG] [-S STICKY-FLAG]\n\
 A message is selected if it comes from one of the specified source files,\n\
 or if it comes from one of the specified domains,\n\
 or if -J is given and its context (msgctxt) matches MSGCTXT-PATTERN,\n\
 or if -K is given and its key (msgid or msgid_plural) matches MSGID-PATTERN,\n\
 or if -T is given and its translation (msgstr) matches MSGSTR-PATTERN,\n\
 or if -C is given and the translator's comment matches COMMENT-PATTERN,\n\
-or if -X is given and the extracted comment matches EXTRACTED-COMMENT-PATTERN.\n\
+or if -X is given and the extracted comment matches EXTRACTED-COMMENT-PATTERN,\n\
+or if -W is given and its flags contain WORKFLOW-FLAG,\n\
+or if -S is given and its flags contain STICKY-FLAG.\n\
 \n\
 When more than one selection criterion is specified, the set of selected\n\
 messages is the union of the selected messages of each criterion.\n\
@@ -576,6 +597,8 @@ expressions if -E is given, or fixed strings if -F is given.\n\
   -e, --regexp=PATTERN        use PATTERN as a regular expression\n\
   -f, --file=FILE             obtain PATTERN from FILE\n\
   -i, --ignore-case           ignore case distinctions\n\
+  -W, --workflow-flag=FLAG    select messages with FLAG\n\
+  -S, --sticky-flag=FLAG      select messages with FLAG\n\
   -v, --invert-match          output only the messages that do not match any\n\
                               selection criterion\n\
 "));
@@ -696,6 +719,41 @@ is_message_selected_no_invert (const message_ty *mp)
   for (i = 0; i < mp->filepos_count; i++)
     if (filename_list_match (location_files, mp->filepos[i].file_name))
       return true;
+
+  /* Test whether one of the workflow flags is selected.  */
+  if (mp->is_fuzzy && string_list_member (workflow_flags, "fuzzy"))
+    return true;
+
+  /* Test whether one of the sticky flags is selected.  */
+  /* Recognize flag "[no-]wrap".  */
+  if ((mp->do_wrap == yes && string_list_member (sticky_flags, "wrap"))
+      || (mp->do_wrap == no && string_list_member (sticky_flags, "no-wrap")))
+    return true;
+  /* Recognize flag "[no-]<language>-format".  */
+  for (i = 0; i < sticky_flags->nitems; i++)
+    {
+      const char *flag = sticky_flags->item[i];
+      size_t flag_len = strlen (flag);
+      if (flag_len >= 7 && memcmp (flag + flag_len - 7, "-format", 7) == 0)
+        {
+          flag_len -= 7;
+          bool has_no_prefix = (flag_len >= 3 && memcmp (flag, "no-", 3) == 0);
+          if (has_no_prefix)
+            {
+              flag += 3;
+              flag_len -= 3;
+            }
+          size_t j;
+          for (j = 0; j < NFORMATS; j++)
+            if (strlen (format_language[j]) == flag_len
+                && memcmp (format_language[j], flag, flag_len) == 0)
+              {
+                /* The value of the flag is stored in mp->is_format[j].  */
+                if (mp->is_format[j] == (has_no_prefix ? no : yes))
+                  return true;
+              }
+        }
+    }
 
   /* Test msgctxt using the --msgctxt arguments.  */
   if (mp->msgctxt != NULL
