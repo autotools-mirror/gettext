@@ -3885,6 +3885,5 @@ extract_perl (FILE *f, const char *real_filename, const char *logical_filename,
   token_stack_free (&xp->token_stack);
   free (xp);
   real_file_name = NULL;
-  free (logical_file_name);
   logical_file_name = NULL;
 }
