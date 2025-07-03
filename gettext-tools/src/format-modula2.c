@@ -207,7 +207,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
           if (error_logger)
             error_logger (error_logger_data,
                           _("a format specification for argument %zu doesn't exist in '%s'"),
-                          n1 + 1, pretty_msgstr);
+                          n2 + 1, pretty_msgstr);
           err = true;
         }
       else
@@ -216,7 +216,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
           /* Check that the argument types are the same.  */
           if (!err)
-            for (i = 0; i < n1; i++)
+            for (i = 0; i < n2; i++)
               {
                 if (spec1->args[i] != spec2->args[i])
                   {
