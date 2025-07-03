@@ -284,15 +284,15 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* Add English translations.  */
   result = msgdomain_list_english (result);
 
+  /* Set the Language field in the header.  */
+  if (catalogname != NULL)
+    msgdomain_list_set_header_field (result, "Language:", catalogname);
+
   /* Sort the results.  */
   if (sort_by_filepos)
     msgdomain_list_sort_by_filepos (result);
   else if (sort_by_msgid)
     msgdomain_list_sort_by_msgid (result);
-
-  /* Set the Language field in the header.  */
-  if (catalogname != NULL)
-    msgdomain_list_set_header_field (result, "Language:", catalogname);
 
   /* Write the merged message list out.  */
   msgdomain_list_print (result, output_file, output_syntax,

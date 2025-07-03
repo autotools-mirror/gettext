@@ -1091,12 +1091,6 @@ xgettext cannot work without keywords to look for"));
     iconv_close (xgettext_global_source_iconv);
 #endif
 
-  /* Sorting the list of messages.  */
-  if (sort_by_filepos)
-    msgdomain_list_sort_by_filepos (mdlp);
-  else if (sort_by_msgid)
-    msgdomain_list_sort_by_msgid (mdlp);
-
   /* Check msgid and msgid_plural of messages.  */
   {
     int nerrors = 0;
@@ -1114,6 +1108,12 @@ xgettext cannot work without keywords to look for"));
                        nerrors),
              nerrors);
   }
+
+  /* Sorting the list of messages.  */
+  if (sort_by_filepos)
+    msgdomain_list_sort_by_filepos (mdlp);
+  else if (sort_by_msgid)
+    msgdomain_list_sort_by_msgid (mdlp);
 
   /* Write the PO file.  */
   msgdomain_list_print (mdlp, file_name, output_syntax, textmode_xerror_handler,

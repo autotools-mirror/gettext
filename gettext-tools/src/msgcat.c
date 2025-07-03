@@ -340,15 +340,15 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
   string_list_free (file_list);
 
+  /* Set the Language field in the header.  */
+  if (catalogname != NULL)
+    msgdomain_list_set_header_field (result, "Language:", catalogname);
+
   /* Sorting the list of messages.  */
   if (sort_by_filepos)
     msgdomain_list_sort_by_filepos (result);
   else if (sort_by_msgid)
     msgdomain_list_sort_by_msgid (result);
-
-  /* Set the Language field in the header.  */
-  if (catalogname != NULL)
-    msgdomain_list_set_header_field (result, "Language:", catalogname);
 
   /* Write the PO file.  */
   msgdomain_list_print (result, output_file, output_syntax,
