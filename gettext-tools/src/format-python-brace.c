@@ -287,7 +287,7 @@ parse_directive (struct spec *spec,
       if (*format == '{')
         {
           /* Nested format directive.  */
-          if (!parse_directive (spec, &format, false, translated, fdi,
+          if (!parse_directive (spec, &format, NULL, translated, fdi,
                                 invalid_reason))
             {
               /* FDI and INVALID_REASON will be set by a recursive call of
