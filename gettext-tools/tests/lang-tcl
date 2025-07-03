@@ -64,7 +64,7 @@ ${DIFF} fr.po fr.po.new || Exit 1
 test -d msgs || mkdir msgs
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} --tcl -d msgs -l fr fr.po || Exit 1
+${MSGFMT} -c --tcl -d msgs -l fr fr.po || Exit 1
 
 # Test for presence of tclsh with msgcat extension.
 cat <<\EOF > version.tcl

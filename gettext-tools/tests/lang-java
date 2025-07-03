@@ -160,7 +160,7 @@ LC_ALL=C tr -d '\r' < fr.po.tmp > fr.po.new || Exit 1
 ${DIFF} fr.po fr.po.new || Exit 1
 
 : ${MSGFMT=msgfmt}
-${MSGFMT} -j -d . -r prog -l fr fr.po || Exit 1
+${MSGFMT} -c -j -d . -r prog -l fr fr.po || Exit 1
 
 # Test which of the fr_FR locales are installed.
 : ${LOCALE_FR=fr_FR}

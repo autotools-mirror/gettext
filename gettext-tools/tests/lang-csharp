@@ -154,7 +154,7 @@ ${DIFF} fr.po fr.po.new || Exit 1
 
 : ${MSGFMT=msgfmt}
 GETTEXTCSHARPLIBDIR=../../../gettext-runtime/intl-csharp \
-${MSGFMT} --csharp -d . -r prog -l fr fr.po || Exit 1
+${MSGFMT} -c --csharp -d . -r prog -l fr fr.po || Exit 1
 
 # Test which of the fr_FR locales are installed.
 : ${LOCALE_FR=fr_FR}
