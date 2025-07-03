@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2019 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2025 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @pindex msggrep
@@ -49,7 +49,7 @@ or if it is @samp{-}.
 @example
   [-N @var{sourcefile}]... [-M @var{domainname}]...
   [-J @var{msgctxt-pattern}] [-K @var{msgid-pattern}] [-T @var{msgstr-pattern}]
-  [-C @var{comment-pattern}]
+  [-C @var{comment-pattern}] [-X @var{extracted-comment-pattern}]
 @end example
 
 A message is selected if
@@ -63,7 +63,9 @@ A message is selected if
 @item or if @samp{-T} is given and its translation (msgstr) matches
 @var{msgstr-pattern},
 @item or if @samp{-C} is given and the translator's comment matches
-@var{comment-pattern}.
+@var{comment-pattern},
+@item or if @samp{-X} is given and the extracted comment matches
+@var{extracted-comment-pattern}.
 @end itemize
 
 When more than one selection criterion is specified, the set of selected
