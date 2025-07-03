@@ -215,44 +215,52 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 {
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
+  bool err = false;
 
   if (spec1->format_args_count + spec2->format_args_count > 0)
     {
-      size_t i, n1, n2;
+      size_t n1 = spec1->format_args_count;
+      size_t n2 = spec2->format_args_count;
 
-      n1 = spec1->format_args_count;
-      n2 = spec2->format_args_count;
-
-      for (i = 0; i < n1 || i < n2; i++)
+      /* Check that the argument counts are the same.  */
+      if (n1 < n2)
         {
-          if (i >= n1)
-            {
-              if (error_logger)
-                error_logger (error_logger_data,
-                              _("a format specification for argument %zu, as in '%s', doesn't exist in '%s'"),
-                              i + 1, pretty_msgstr, pretty_msgid);
-              return true;
-            }
-          else if (i >= n2)
-            {
-              if (error_logger)
-                error_logger (error_logger_data,
-                              _("a format specification for argument %zu doesn't exist in '%s'"),
-                              i + 1, pretty_msgstr);
-              return true;
-            }
-          else if (spec1->format_args[i] != spec2->format_args[i])
-            {
-              if (error_logger)
-                error_logger (error_logger_data,
-                              _("format specifications in '%s' and '%s' for argument %zu are not the same"),
-                              pretty_msgid, pretty_msgstr, i + 1);
-              return true;
-            }
+          if (error_logger)
+            error_logger (error_logger_data,
+                          _("a format specification for argument %zu, as in '%s', doesn't exist in '%s'"),
+                          n1 + 1, pretty_msgstr, pretty_msgid);
+          err = true;
+        }
+      else if (n1 > n2 && equality)
+        {
+          if (error_logger)
+            error_logger (error_logger_data,
+                          _("a format specification for argument %zu doesn't exist in '%s'"),
+                          n2 + 1, pretty_msgstr);
+          err = true;
+        }
+      else
+        {
+          size_t i;
+
+          /* Check that the argument types are the same.  */
+          if (!err)
+            for (i = 0; i < n2; i++)
+              {
+                if (spec1->format_args[i] != spec2->format_args[i])
+                  {
+                    if (error_logger)
+                      error_logger (error_logger_data,
+                                    _("format specifications in '%s' and '%s' for argument %zu are not the same"),
+                                    pretty_msgid, pretty_msgstr, i + 1);
+                    err = true;
+                    break;
+                  }
+              }
         }
     }
 
-  return false;
+  return err;
 }
 
 struct formatstring_parser formatstring_lua =
