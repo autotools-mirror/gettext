@@ -30,6 +30,8 @@ Version 0.26 - July 2025
       omitting from msgid a placeholder that is used in msgid_plural.  But
       when a placeholder is used in both msgid and msgid_plural, its type
       must be the same in both.
+    - xgettext now suggests a refactoring when a translatable string
+      contains an URL or email address.
 
 # Improvements for translators:
   * msggrep:

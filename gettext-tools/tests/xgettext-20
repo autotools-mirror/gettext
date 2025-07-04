@@ -1,0 +1,24 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+set -x
+# Test checking for URL.
+# <https://savannah.gnu.org/bugs/?67000>
+
+cat <<\EOF > xg-test20.c
+  gettext ("Using the browser to open a mailto: URI");
+  gettext ("Report bugs to <mailto:foobar@example.com>");
+  gettext ("Report bugs to: bug-foobar@gnu.org");
+  gettext ("Report bugs in the bug tracker at <https://savannah.gnu.org/projects/foobar>");
+EOF
+
+: ${XGETTEXT=xgettext}
+LANGUAGE= LC_ALL=C ${XGETTEXT} --omit-header --add-comments -d xg-test20.tmp xg-test20.c 2>xg-test20.err \
+  || Exit 1
+
+if grep "xg-test20.c:1:.*No-embedded-URLs.html" xg-test20.err; then
+  Exit 1
+fi
+
+grep "xg-test20.c:2:.*No-embedded-URLs.html" xg-test20.err || Exit 1
+grep "xg-test20.c:3:.*No-embedded-URLs.html" xg-test20.err || Exit 1
+grep "xg-test20.c:4:.*No-embedded-URLs.html" xg-test20.err || Exit 1
