@@ -19,6 +19,7 @@ src/format-d.c
 src/format-elisp.c
 src/format-gcc-internal.c
 src/format-gfc-internal.c
+src/format-go.c
 src/format-invalid.h
 src/format-java.c
 src/format-java-printf.c
@@ -104,6 +105,7 @@ src/xg-encoding.c
 src/xgettext.c
 src/xg-message.c
 src/xg-mixed-string.c
+src/x-go.c
 src/x-java.c
 src/x-javascript.c
 src/x-librep.c
@@ -121,6 +123,7 @@ src/x-scheme.c
 src/x-sh.c
 src/x-smalltalk.c
 src/x-tcl.c
+src/x-typescript-impl.h
 src/x-vala.c
 src/x-ycp.c
 src/user-email.sh.in
