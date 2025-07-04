@@ -175,9 +175,15 @@ Portability:
 A POSIX compliant
 @url{https://pubs.opengroup.org/onlinepubs/9799919799/utilities/printf.html,
      @code{printf}}
-command, such as the one from GNU coreutils 9.6 or newer, is required.
+command is required, such as the one
+@c Test case:  $ env printf 'abc %2$5.3g %1$s\n' foo 3.1415926
+from GNU coreutils 9.6 or newer,
+from FreeBSD 11 or newer,
+or from Solaris 11 OpenIndiana or Solaris 11 OmniOS. @c since 2014.
 At the time of this writing (2025),
-no shell is known whose @code{printf} built-in is POSIX compliant.
+the only known shells whose @code{printf} built-in is POSIX compliant
+are @code{ksh93} and @code{zsh};
+@code{bash} and @code{dash} are not.
 For this reason, the code needs to use @code{env printf}, not @code{printf},
 so as to avoid invoking the shell's @code{printf} built-in.
 @item
