@@ -303,6 +303,7 @@ XGETTEXT = ../src/xgettext
 # For debugging memory leaks and memory allocation bugs.
 # You should build with --disable-shared when using valgrind.
 CHECKER =
+#CHECKER = valgrind --tool=memcheck --error-exitcode=9 --suppressions=$(abs_srcdir)/../gnulib-lib/libunistring.valgrind --num-callers=20
 #CHECKER = valgrind --tool=memcheck --suppressions=$(abs_srcdir)/../gnulib-lib/libunistring.valgrind --num-callers=20 --leak-check=yes --leak-resolution=high --show-reachable=yes
 #CHECKER = valgrind --tool=massif --format=html --depth=10 --alloc-fn=xmalloc --alloc-fn=xrealloc --stacks=no
 
