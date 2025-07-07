@@ -558,7 +558,6 @@ phase2_getc (struct perl_extractor *xp)
 {
   int lineno;
   int c;
-  char *utf8_string;
 
   c = phase1_getc (xp);
   if (c == '#')
@@ -587,12 +586,13 @@ phase2_getc (struct perl_extractor *xp)
           sb_xappend1 (&buffer, c);
         }
       /* Convert it to UTF-8.  */
-      utf8_string =
-        from_current_source_encoding (sb_xcontents_c (&buffer), lc_comment,
+      const char *contents = sb_xcontents_c (&buffer);
+      char *utf8_contents =
+        from_current_source_encoding (contents, lc_comment,
                                       logical_file_name, lineno);
-      sb_free (&buffer);
       /* Save it until we encounter the corresponding string.  */
-      savable_comment_add (utf8_string);
+      savable_comment_add (utf8_contents);
+      sb_free (&buffer);
       xp->last_comment_line = lineno;
     }
   return c;
