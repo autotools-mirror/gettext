@@ -592,6 +592,8 @@ phase2_getc (struct perl_extractor *xp)
                                       logical_file_name, lineno);
       /* Save it until we encounter the corresponding string.  */
       savable_comment_add (utf8_contents);
+      if (utf8_contents != contents)
+        free (utf8_contents);
       sb_free (&buffer);
       xp->last_comment_line = lineno;
     }
