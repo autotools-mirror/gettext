@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
-## Copyright (C) 2002-2024 Free Software Foundation, Inc.
+## Copyright (C) 2002-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -24,6 +24,7 @@ SUBDIRS = gnulib-lib
 EXTRA_DIST =
 BUILT_SOURCES =
 MOSTLYCLEANFILES =
+MAINTAINERCLEANFILES =
 
 RM = rm -f
 
@@ -225,6 +226,7 @@ uninstall-html:
 	$(RM) $(DESTDIR)$(htmldir)/autosprintf.html
 
 EXTRA_DIST += autosprintf_all.html
+MAINTAINERCLEANFILES += autosprintf_all.html
 
 
 # Windows support.
