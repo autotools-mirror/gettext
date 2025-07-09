@@ -639,10 +639,11 @@ AC_SUBST([TREE_SITTER_RUST_VERSION])
 AC_SUBST([TREE_SITTER_TYPESCRIPT_VERSION])
 AC_SUBST([TREE_SITTER_D_VERSION])
 
-PACKAGE_SUFFIX="-$ARCHIVE_VERSION"
+dnl Determine the directory name to use for version-specific data files.
+PACKAGE_SUFFIX="-$PACKAGE_VERSION"
 AC_SUBST([PACKAGE_SUFFIX])
 AC_DEFINE_UNQUOTED(PACKAGE_SUFFIX, "$PACKAGE_SUFFIX",
-  [Define to the suffix of this package])
+  [Define to the suffix of the directory name for version-specific data files.])
 
 dnl Check for tools needed for formatting the documentation.
 ac_aux_dir_abs=`cd $ac_aux_dir && pwd`
