@@ -480,6 +480,16 @@ endif
 # Compile-time flags for particular source files.
 msgmerge_CFLAGS = $(AM_CFLAGS) $(OPENMP_CFLAGS)
 msgmerge_CXXFLAGS = $(AM_CXXFLAGS) $(OPENMP_CFLAGS)
+# On mingw, the compiler option '-fno-threadsafe-statics' avoids requiring
+# the symbols __cxa_guard_acquire and __cxa_guard_release, which in turn
+# avoids a dependency towards libstdc++.
+if WOE32DLL
+if WINDOWS_NATIVE
+if !WINDOWS_MSVC
+xgettext_CXXFLAGS = $(AM_CXXFLAGS) -fno-threadsafe-statics
+endif
+endif
+endif
 
 # Link dependencies.
 # INTL_MACOSX_LIBS is needed because the programs depend on libintl.la
