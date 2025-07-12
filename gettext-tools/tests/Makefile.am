@@ -52,7 +52,7 @@ TESTS = gettext-1 gettext-2 \
 	msgfilter-sr-latin-1 msgfilter-quote-1 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
 	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 msgfmt-12 msgfmt-13 msgfmt-14 \
-	msgfmt-15 msgfmt-16 msgfmt-17 msgfmt-18 msgfmt-19 msgfmt-20 \
+	msgfmt-15 msgfmt-16 msgfmt-17 msgfmt-18 msgfmt-19 msgfmt-20 msgfmt-21 \
 	msgfmt-properties-1 \
 	msgfmt-tcl-1 msgfmt-tcl-2 \
 	msgfmt-qt-1 msgfmt-qt-2 \
@@ -290,6 +290,7 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	testdata/dprog.utf-8.d testdata/dprog.utf-8+bom.d \
 	testdata/dprog.utf-16be.d testdata/dprog.utf-16le.d \
 	testdata/dprog.utf-32be.d testdata/dprog.utf-32le.d \
+	testdata/mf-21.mo \
 	testdata/nonascii.pot \
 	testdata/repo.tar.gz \
 	testdata/tcltest_pl.po testdata/tcltest_pl.msg \
