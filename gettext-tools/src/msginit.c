@@ -781,6 +781,8 @@ language_of_locale (const char *locale)
 }
 
 
+/* ---------------------- fill_header and subroutines ---------------------- */
+
 /* Return the most likely desired charset for the PO file, as a portable
    charset name.  */
 static const char *
@@ -820,6 +822,11 @@ canonical_locale_charset ()
 
   return charset;
 }
+
+
+/* The desired charset for the PO file.
+   Determined at the beginning of fill_header().  */
+static const char *output_charset;
 
 
 /* Return the English name of the language.  */
@@ -1355,27 +1362,7 @@ mime_version ()
 static const char *
 content_type (const char *header)
 {
-  bool was_utf8;
-  const char *old_field;
-
-  /* If the POT file contains charset=UTF-8, it means that the POT file
-     contains non-ASCII characters, and we keep the UTF-8 encoding.
-     Otherwise, when the POT file is plain ASCII, we use the locale's
-     encoding.  */
-  was_utf8 = false;
-  old_field = get_field (header, "Content-Type");
-  if (old_field != NULL)
-    {
-      const char *charsetstr = c_strstr (old_field, "charset=");
-
-      if (charsetstr != NULL)
-        {
-          charsetstr += strlen ("charset=");
-          was_utf8 = (c_strcasecmp (charsetstr, "UTF-8") == 0);
-        }
-    }
-  return xasprintf ("text/plain; charset=%s",
-                    was_utf8 ? "UTF-8" : canonical_locale_charset ());
+  return xasprintf ("text/plain; charset=%s", output_charset);
 }
 
 
@@ -1648,15 +1635,12 @@ get_title ()
      We could avoid the use of xstr_iconv() by using a separate message catalog
      and bind_textdomain_codeset(), but that doesn't seem worth the trouble
      for one single message.  */
-  const char *encoding;
   const char *tmp;
   char *old_LC_ALL;
   char *old_LANGUAGE;
   const char *msgid;
   const char *english;
   const char *result;
-
-  encoding = canonical_locale_charset ();
 
   /* First, the English title.  */
   english = xasprintf ("%s translations for %%s package",
@@ -1687,7 +1671,8 @@ get_title ()
       if (result != msgid && strcmp (result, msgid) != 0)
         /* Use the English and the foreign title.  */
         result = xasprintf ("%s\n%s", english,
-                            xstr_iconv (result, locale_charset (), encoding));
+                            xstr_iconv (result, locale_charset (),
+                                        output_charset));
       else
         /* No translation found.  Use the English title.  */
         result = english;
@@ -1782,10 +1767,56 @@ subst_string_list (string_list_ty *slp,
 static msgdomain_list_ty *
 fill_header (msgdomain_list_ty *mdlp)
 {
+  /* Determine the desired encoding to the PO file.
+     If the POT file contains charset=UTF-8, it means that the POT file
+     contains non-ASCII characters, and we keep the UTF-8 encoding.
+     Otherwise, when the POT file is plain ASCII, we use the locale's
+     encoding.  */
+  bool was_utf8;
+  size_t k, j;
+
+  was_utf8 = false;
+  for (k = 0; k < mdlp->nitems; k++)
+    {
+      message_list_ty *mlp = mdlp->item[k]->messages;
+
+      if (mlp->nitems > 0)
+        {
+          message_ty *header_mp = NULL;
+
+          /* Search the header entry.  */
+          for (j = 0; j < mlp->nitems; j++)
+            if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
+              {
+                header_mp = mlp->item[j];
+                break;
+              }
+
+          if (header_mp != NULL)
+            {
+              const char *header = header_mp->msgstr;
+              const char *old_field = get_field (header, "Content-Type");
+
+              if (old_field != NULL)
+                {
+                  const char *charsetstr = c_strstr (old_field, "charset=");
+                  if (charsetstr != NULL)
+                    {
+                      charsetstr += strlen ("charset=");
+                      if (c_strcasecmp (charsetstr, "UTF-8") == 0)
+                        was_utf8 = true;
+                    }
+                }
+            }
+        }
+    }
+
+  output_charset = (was_utf8 ? "UTF-8" : canonical_locale_charset ());
+
   /* Cache the strings filled in, for use when there are multiple domains
      and a header entry for each domain.  */
   const char *field_value[NFIELDS];
-  size_t k, j, i;
+  size_t i;
 
   for (i = 0; i < NFIELDS; i++)
     field_value[i] = NULL;
@@ -1867,6 +1898,8 @@ fill_header (msgdomain_list_ty *mdlp)
 
   return mdlp;
 }
+
+/* ------------------------------------------------------------------------- */
 
 
 /* Update the msgstr plural entries according to the nplurals count.  */
