@@ -77,6 +77,7 @@
 #include "spawn-pipe.h"
 #include "wait-process.h"
 #include "xsetenv.h"
+#include "xstriconv.h"
 #include "str-list.h"
 #include "propername.h"
 #include "gettext.h"
@@ -1644,14 +1645,13 @@ get_title ()
   /* This is tricky.  We want the translation in the given locale specified by
      the command line, not the current locale.  But we want it in the encoding
      that we put into the header entry, not the encoding of that locale.
-     We could avoid the use of OUTPUT_CHARSET by using a separate message
-     catalog and bind_textdomain_codeset(), but that doesn't seem worth the
-     trouble for one single message.  */
+     We could avoid the use of xstr_iconv() by using a separate message catalog
+     and bind_textdomain_codeset(), but that doesn't seem worth the trouble
+     for one single message.  */
   const char *encoding;
   const char *tmp;
   char *old_LC_ALL;
   char *old_LANGUAGE;
-  char *old_OUTPUT_CHARSET;
   const char *msgid;
   const char *english;
   const char *result;
@@ -1662,7 +1662,7 @@ get_title ()
   english = xasprintf ("%s translations for %%s package",
                        englishname_of_language ());
 
-  /* Save LC_ALL, LANGUAGE, OUTPUT_CHARSET environment variables.  */
+  /* Save LC_ALL, LANGUAGE environment variables.  */
 
   tmp = getenv ("LC_ALL");
   old_LC_ALL = (tmp != NULL ? xstrdup (tmp) : NULL);
@@ -1670,12 +1670,8 @@ get_title ()
   tmp = getenv ("LANGUAGE");
   old_LANGUAGE = (tmp != NULL ? xstrdup (tmp) : NULL);
 
-  tmp = getenv ("OUTPUT_CHARSET");
-  old_OUTPUT_CHARSET = (tmp != NULL ? xstrdup (tmp) : NULL);
-
   xsetenv ("LC_ALL", locale, 1);
   unsetenv ("LANGUAGE");
-  xsetenv ("OUTPUT_CHARSET", encoding, 1);
 
   if (setlocale (LC_ALL, "") == NULL)
     /* Nonexistent locale.  Use the English title.  */
@@ -1690,13 +1686,14 @@ get_title ()
       result = gettext (msgid);
       if (result != msgid && strcmp (result, msgid) != 0)
         /* Use the English and the foreign title.  */
-        result = xasprintf ("%s\n%s", english, result);
+        result = xasprintf ("%s\n%s", english,
+                            xstr_iconv (result, locale_charset (), encoding));
       else
         /* No translation found.  Use the English title.  */
         result = english;
     }
 
-  /* Restore LC_ALL, LANGUAGE, OUTPUT_CHARSET environment variables.  */
+  /* Restore LC_ALL, LANGUAGE environment variables.  */
 
   if (old_LC_ALL != NULL)
     xsetenv ("LC_ALL", old_LC_ALL, 1), free (old_LC_ALL);
@@ -1707,11 +1704,6 @@ get_title ()
     xsetenv ("LANGUAGE", old_LANGUAGE, 1), free (old_LANGUAGE);
   else
     unsetenv ("LANGUAGE");
-
-  if (old_OUTPUT_CHARSET != NULL)
-    xsetenv ("OUTPUT_CHARSET", old_OUTPUT_CHARSET, 1), free (old_OUTPUT_CHARSET);
-  else
-    unsetenv ("OUTPUT_CHARSET");
 
   setlocale (LC_ALL, "");
 
