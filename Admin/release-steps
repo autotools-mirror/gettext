@@ -258,6 +258,8 @@ We assume that the following environment variables are set:
     Then check the build infrastructure of the examples by running
       $ cd gettext-tools/examples
       $ ./check-examples
+    (This currently does not work with GCC 15 for the hello-go* examples,
+    due to <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=119098>.)
 
   Finally really make the release tarball:
 
