@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-examples 0.19.4.73\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-04-25 10:57+0200\n"
+"POT-Creation-Date: 2025-07-08 12:24+0200\n"
 "PO-Revision-Date: 2015-06-23 20:31+0200\n"
 "Last-Translator: Balázs Úr <urbalazs@gmail.com>\n"
 "Language-Team: Hungarian <translation-team-hu@lists.sourceforge.net>\n"
@@ -35,9 +35,10 @@ msgstr ""
 #: hello-rust/src/main.rs.in:30 hello-go/example1/hello1ml.go.in:42
 #: hello-go/example1/hello1sl.go.in:40 hello-go/example2/hello2sl.go.in:28
 #: hello-go/example3/hello3ml.go.in:44 hello-go-http/example1/hello1ml.go.in:59
-#: hello-ruby/hello.rb:7 hello-sh/hello.sh:14 hello-gawk/hello.awk:11
-#: hello-pascal/hello.hello_world hello-modula2/hello.mod.in:34
-#: hello-d/hello.d.in:27 hello-smalltalk/hello.st.in:31 hello-tcl/hello.tcl:11
+#: hello-ruby/hello.rb:7 hello-sh/hello-1.sh:14 hello-sh/hello-2.sh:12
+#: hello-sh/hello-3.sh:12 hello-gawk/hello.awk:11 hello-pascal/hello.hello_world
+#: hello-modula2/hello.mod.in:34 hello-d/hello.d.in:27
+#: hello-smalltalk/hello.st.in:31 hello-tcl/hello.tcl:11
 #: hello-tcl-tk/hello.tcl:13 hello-perl/hello-1.pl.in:17
 #: hello-perl/hello-2.pl.in:12 hello-php/hello.php:12 hello-ycp/hello.ycp:15
 msgid "Hello, world!"
@@ -162,10 +163,16 @@ msgstr "Helló"
 msgid "This program is running as process number %{pid}."
 msgstr "Ez a program a(z) {pid} folyamatazonosítóval fut."
 
-#: hello-sh/hello.sh:17
+#: hello-sh/hello-1.sh:17
 #, sh-format
 msgid "This program is running as process number $pid."
 msgstr "Ez a program a(z) $pid folyamatazonosítóval fut."
+
+#: hello-sh/hello-2.sh:15 hello-sh/hello-3.sh:15
+#, fuzzy, sh-printf-format
+#| msgid "This program is running as process number %d."
+msgid "This program is running as process number %u."
+msgstr "Ez a program a(z) %d folyamatazonosítóval fut."
 
 #: hello-perl/hello-2.pl.in:14
 #, perl-brace-format

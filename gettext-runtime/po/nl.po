@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime-0.20.2\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-03-21 19:44+0100\n"
+"POT-Creation-Date: 2025-06-28 23:48+0200\n"
 "PO-Revision-Date: 2023-05-23 16:50+0200\n"
 "Last-Translator: Benno Schulenberg <vertaling@coevern.nl>\n"
 "Language-Team: Dutch <vertaling@vrijschrift.org>\n"
@@ -22,7 +22,8 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/envsubst.c:113 src/gettext.c:136 src/ngettext.c:127
+#: src/envsubst.c:112 src/gettext.c:138 src/ngettext.c:128
+#: src/printf_gettext.c:111 src/printf_ngettext.c:116
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -37,67 +38,71 @@ msgstr ""
 "Zie %s voor de volledige (Engelse) tekst.\n"
 "Deze software kent GEEN GARANTIE, voor zover de wet dit toestaat.\n"
 
-#: src/envsubst.c:119 src/gettext.c:142 src/ngettext.c:133
+#: src/envsubst.c:118 src/gettext.c:144 src/ngettext.c:134
+#: src/printf_gettext.c:117 src/printf_ngettext.c:122
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Geschreven door %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:119
+#: src/envsubst.c:118 src/printf_gettext.c:117 src/printf_ngettext.c:122
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:128 src/gettext.c:160 src/ngettext.c:145
+#: src/envsubst.c:127 src/gettext.c:162 src/ngettext.c:146
 #, c-format
 msgid "too many arguments"
 msgstr "te veel argumenten"
 
-#: src/envsubst.c:139 src/gettext.c:170 src/ngettext.c:157
+#: src/envsubst.c:138 src/gettext.c:172 src/ngettext.c:158
+#: src/printf_ngettext.c:133
 #, c-format
 msgid "missing arguments"
 msgstr "ontbrekende argumenten"
 
-#: src/envsubst.c:177 src/gettext.c:247 src/ngettext.c:215
+#: src/envsubst.c:176 src/gettext.c:249 src/ngettext.c:216
+#: src/printf_gettext.c:165 src/printf_ngettext.c:197
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Typ '%s --help' voor meer informatie.\n"
 
-#: src/envsubst.c:182
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Gebruik:  %s [OPTIE] [SHELL-OPMAAK]\n"
 
-#: src/envsubst.c:187
+#: src/envsubst.c:186
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Vervangt de waarden van omgevingsvariabelen.\n"
 
-#: src/envsubst.c:191
+#: src/envsubst.c:190
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Werkingsmodus:\n"
 
-#: src/envsubst.c:194
+#: src/envsubst.c:193
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables     de variabelen die voorkomen in SHELL-OPMAAK tonen\n"
 
-#: src/envsubst.c:198 src/gettext.c:276 src/ngettext.c:245
+#: src/envsubst.c:197 src/gettext.c:280 src/ngettext.c:248
+#: src/printf_gettext.c:188 src/printf_ngettext.c:224
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Informatieve uitvoer:\n"
 
-#: src/envsubst.c:201
+#: src/envsubst.c:200
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help          deze hulptekst tonen en stoppen\n"
 
-#: src/envsubst.c:204
+#: src/envsubst.c:203
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version       programmaversie tonen en stoppen\n"
 
-#: src/envsubst.c:208
+#: src/envsubst.c:207
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -114,7 +119,7 @@ msgstr ""
 "waarnaar verwezen wordt in SHELL-OPMAAK; anders worden alle verwijzingen\n"
 "naar omgevingsvariabelen die in standaardinvoer voorkomen vervangen.\n"
 
-#: src/envsubst.c:217
+#: src/envsubst.c:216
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -129,7 +134,8 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:226 src/gettext.c:300 src/ngettext.c:266
+#: src/envsubst.c:225 src/gettext.c:304 src/ngettext.c:269
+#: src/printf_gettext.c:277 src/printf_ngettext.c:313
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -139,21 +145,21 @@ msgstr ""
 "of via een e-mail aan <%s>;\n"
 "meld fouten in de vertaling aan <vertaling@vrijschrift.org>.\n"
 
-#: src/envsubst.c:454
+#: src/envsubst.c:453
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "fout tijdens lezen van '%s'"
 
-#: src/envsubst.c:454
+#: src/envsubst.c:453
 msgid "standard input"
 msgstr "standaardinvoer"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:142 src/ngettext.c:133
+#: src/gettext.c:144 src/ngettext.c:134
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:252
+#: src/gettext.c:254
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -162,38 +168,45 @@ msgstr ""
 "Gebruik:  %s [OPTIE] [[TEKSTDOMEIN] MSGID]\n"
 "     of:  %s [OPTIE] -s [MSGID]...\n"
 
-#: src/gettext.c:258
+#: src/gettext.c:260
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Toont de vertaling van een tekstbericht.\n"
 
-#: src/gettext.c:262
+#: src/gettext.c:263 src/ngettext.c:230 src/printf_gettext.c:179
+#: src/printf_ngettext.c:211
+#, fuzzy, c-format
+#| msgid "too many arguments"
+msgid "Options and arguments:\n"
+msgstr "te veel argumenten"
+
+#: src/gettext.c:266
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEKSTDOMEIN  vertalingen opzoeken in TEKSTDOMEIN\n"
 
-#: src/gettext.c:264 src/ngettext.c:232
+#: src/gettext.c:268 src/ngettext.c:235
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr "  -c, --context=CONTEXT     de context waarin MSGID gebruikt wordt\n"
 
-#: src/gettext.c:266 src/ngettext.c:234
+#: src/gettext.c:270 src/ngettext.c:237
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
 msgstr "  -e                        sommige stuurcodereeksen interpreteren\n"
 
-#: src/gettext.c:268
+#: src/gettext.c:272
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                        afsluitend regeleindeteken onderdrukken\n"
 
-#: src/gettext.c:270 src/ngettext.c:236
+#: src/gettext.c:274 src/ngettext.c:239
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
 msgstr ""
 "  -E                        (genegeerd, maar herkend wegens compatibiliteit)\n"
 
-#: src/gettext.c:272
+#: src/gettext.c:276
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
@@ -201,17 +214,19 @@ msgid ""
 msgstr ""
 "  [TEKSTDOMEIN] MSGID       vertaling van MSGID opzoeken (in TEKSTDOMEIN)\n"
 
-#: src/gettext.c:278 src/ngettext.c:247
+#: src/gettext.c:282 src/ngettext.c:250 src/printf_gettext.c:190
+#: src/printf_ngettext.c:226
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help                deze hulptekst tonen en stoppen\n"
 
-#: src/gettext.c:280 src/ngettext.c:249
+#: src/gettext.c:284 src/ngettext.c:252 src/printf_gettext.c:192
+#: src/printf_ngettext.c:228
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version             programmaversie tonen en stoppen\n"
 
-#: src/gettext.c:284
+#: src/gettext.c:288
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -233,12 +248,12 @@ msgstr ""
 "in de gekozen catalogus gevonden worden.\n"
 "De standaard zoekmap is: %s\n"
 
-#: src/ngettext.c:220
+#: src/ngettext.c:221
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Gebruik:  %s [OPTIE] [TEKSTDOMEIN] MSGID MSGID-MEERVOUD AANTAL\n"
 
-#: src/ngettext.c:225
+#: src/ngettext.c:226
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
@@ -247,18 +262,18 @@ msgstr ""
 "Toont de vertaling van een tekstbericht waarvan de grammaticale vorm\n"
 "afhangt van een getal.\n"
 
-#: src/ngettext.c:230
+#: src/ngettext.c:233
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 msgstr "  -d, --domain=TEKSTDOMEIN  de vertaling opzoeken in TEKSTDOMEIN\n"
 
-#: src/ngettext.c:238
+#: src/ngettext.c:241
 #, c-format
 msgid ""
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr "  [TEKSTDOMEIN]             de vertaling opzoeken in TEKSTDOMEIN\n"
 
-#: src/ngettext.c:240
+#: src/ngettext.c:243
 #, c-format
 msgid ""
 "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
@@ -266,7 +281,7 @@ msgid ""
 msgstr ""
 "  MSGID MSGID-MEERVOUD      deze MSGID (enkelvoud) / MSGID-MEERVOUD vertalen\n"
 
-#: src/ngettext.c:242
+#: src/ngettext.c:245 src/printf_ngettext.c:219
 #, c-format
 msgid ""
 "  COUNT                     choose singular/plural form based on this value\n"
@@ -274,7 +289,7 @@ msgstr ""
 "  AANTAL                    enkelvoud/meervoud kiezen op basis van deze "
 "waarde\n"
 
-#: src/ngettext.c:253
+#: src/ngettext.c:256
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -289,8 +304,242 @@ msgstr ""
 "omgevingsvariabele TEXTDOMAINDIR.\n"
 "De standaard zoekmap is: %s\n"
 
-#~ msgid "write error"
-#~ msgstr "schrijffout"
+#: src/printf-command.c:154
+#, c-format
+msgid ""
+"In the directive number %zu, the argument number 0 is not a positive integer."
+msgstr ""
+
+#: src/printf-command.c:237
+#, c-format
+msgid "The string ends in the middle of a directive."
+msgstr ""
+
+#: src/printf-command.c:242
+#, c-format
+msgid ""
+"In the directive number %zu, the character '%c' is not a valid conversion "
+"specifier."
+msgstr ""
+
+#: src/printf-command.c:246
+#, c-format
+msgid ""
+"The character that terminates the directive number %zu is not a valid "
+"conversion specifier."
+msgstr ""
+
+#: src/printf-command.c:255 src/printf-command.c:259
+#, c-format
+msgid ""
+"In the directive number %zu, the flag '%c' is invalid for the conversion '%c'."
+msgstr ""
+
+#: src/printf-command.c:278 src/printf-command.c:292
+#, c-format
+msgid ""
+"The string refers to arguments both through absolute argument numbers and "
+"through unnumbered argument specifications."
+msgstr ""
+
+#: src/printf-command.c:394
+#, c-format
+msgid "The string ends in the middle of an escape sequence."
+msgstr ""
+
+#: src/printf-command.c:402
+#, c-format
+msgid "The escape sequence '%c%c' is unsupported (not in POSIX)."
+msgstr ""
+
+#: src/printf-command.c:403
+#, c-format
+msgid "The escape sequence '%c%c' is invalid."
+msgstr ""
+
+#: src/printf-command.c:407
+#, c-format
+msgid "This escape sequence is invalid."
+msgstr ""
+
+#: src/printf-command.c:455 src/printf-command.c:501 src/printf-command.c:568
+#: src/printf-command.c:638 src/printf-command.c:691
+#, c-format
+msgid "write error"
+msgstr "schrijffout"
+
+#: src/printf-command.c:529 src/printf-command.c:556 src/printf-command.c:597
+#: src/printf-command.c:626 src/printf-command.c:679
+#, c-format
+msgid "%s: expected a numeric value"
+msgstr ""
+
+#: src/printf-command.c:550 src/printf-command.c:620 src/printf-command.c:673
+#, c-format
+msgid "%s: value not completely converted"
+msgstr ""
+
+#: src/printf-command.c:717
+#, c-format
+msgid ""
+"The translated format string consumes %zu arguments, whereas the original "
+"format string consumes only %zu arguments."
+msgstr ""
+
+#: src/printf-command.c:728
+#, c-format
+msgid "warning: ignoring excess arguments, starting with %s"
+msgstr ""
+
+#: src/printf_gettext.c:128
+#, fuzzy, c-format
+#| msgid "missing arguments"
+msgid "missing format string"
+msgstr "ontbrekende argumenten"
+
+#: src/printf_gettext.c:170
+#, fuzzy, c-format, no-wrap
+#| msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
+msgid "Usage: %s [OPTION] FORMAT [ARGUMENT]...\n"
+msgstr "Gebruik:  %s [OPTIE] [SHELL-OPMAAK]\n"
+
+#: src/printf_gettext.c:175
+#, c-format, no-wrap
+msgid ""
+"Produces formatted output, applying the native language translation of FORMAT\n"
+"to the ARGUMENTs.\n"
+msgstr ""
+
+#: src/printf_gettext.c:181 src/printf_ngettext.c:213
+#, fuzzy, c-format
+#| msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
+msgid "  -c, --context=CONTEXT     specify context for FORMAT\n"
+msgstr "  -c, --context=CONTEXT     de context waarin MSGID gebruikt wordt\n"
+
+#: src/printf_gettext.c:183
+#, fuzzy, c-format
+#| msgid "  -n                        suppress trailing newline\n"
+msgid "  FORMAT                    format string\n"
+msgstr "  -n                        afsluitend regeleindeteken onderdrukken\n"
+
+#: src/printf_gettext.c:185 src/printf_ngettext.c:221
+#, c-format
+msgid "  ARGUMENT                  string or numeric argument\n"
+msgstr ""
+
+#: src/printf_gettext.c:196
+#, c-format, no-wrap
+msgid ""
+"The format string consists of\n"
+"  - plain text,\n"
+"  - directives, that start with '%c',\n"
+"  - escape sequences, that start with a backslash.\n"
+msgstr ""
+
+#: src/printf_gettext.c:204 src/printf_ngettext.c:240
+#, c-format, no-wrap
+msgid ""
+"A directive that consumes an argument\n"
+"  - starts with '%s' or '%s' where %s is a positive integer,\n"
+"  - is optionally followed by any of the characters '%c', '%c', '%c', '%c', '%c',\n"
+"    each of which acts as a flag,\n"
+"  - is optionally followed by a width specification (a nonnegative integer),\n"
+"  - is optionally followed by '%c' and a precision specification (an optional\n"
+"    nonnegative integer),\n"
+"  - is finished by a specifier\n"
+"      - '%c', that prints a character,\n"
+"      - '%c', that prints a string,\n"
+"      - '%c', '%c', that print an integer,\n"
+"      - '%c', '%c', '%c', '%c', that print an unsigned (nonnegative) integer,\n"
+"      - '%c', '%c', that print a floating-point number in scientific notation,\n"
+"      - '%c', '%c', that print a floating-point number without an exponent,\n"
+"      - '%c', '%c', that print a floating-point number in general notation,\n"
+"      - '%c', '%c', that print a floating-point number in hexadecimal notation.\n"
+"Additionally there is the directive '%s', that prints a single '%c'.\n"
+msgstr ""
+
+#: src/printf_gettext.c:233 src/printf_ngettext.c:269
+#, c-format, no-wrap
+msgid ""
+"If a directive specifies the argument by its number ('%s' notation),\n"
+"all directives that consume an argument must do so.\n"
+msgstr ""
+
+#. TRANSLATORS: Most of the placeholders expand to 2 characters.
+#. The last placeholder expands to 4 characters.
+#: src/printf_gettext.c:240 src/printf_ngettext.c:276
+#, c-format
+msgid ""
+"The escape sequences are:\n"
+"\n"
+"  %s      backslash\n"
+"  %s      alert (BEL)\n"
+"  %s      backspace (BS)\n"
+"  %s      form feed (FF)\n"
+"  %s      new line (LF)\n"
+"  %s      carriage return (CR)\n"
+"  %s      horizontal tab (HT)\n"
+"  %s      vertical tab (VT)\n"
+"  %s    octal number with 1 to 3 octal digits\n"
+msgstr ""
+
+#: src/printf_gettext.c:255 src/printf_ngettext.c:291
+#, c-format
+msgid "Environment variables:\n"
+msgstr ""
+
+#: src/printf_gettext.c:259 src/printf_ngettext.c:295
+#, c-format, no-wrap
+msgid ""
+"The translation of the format string is looked up in the translation domain\n"
+"given by the environment variable %s.\n"
+msgstr ""
+
+#: src/printf_gettext.c:264 src/printf_ngettext.c:300
+#, c-format, no-wrap
+msgid ""
+"It is looked up in the catalogs directory given by the environment variable\n"
+"%s or, if not present, in the default catalogs directory.\n"
+"This binary is configured to use the default catalogs directory:\n"
+"%s\n"
+msgstr ""
+
+#: src/printf_ngettext.c:202
+#, fuzzy, c-format, no-wrap
+#| msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+msgid "Usage: %s [OPTION] FORMAT FORMAT-PLURAL COUNT [ARGUMENT]...\n"
+msgstr "Gebruik:  %s [OPTIE] [TEKSTDOMEIN] MSGID MSGID-MEERVOUD AANTAL\n"
+
+#: src/printf_ngettext.c:207
+#, c-format, no-wrap
+msgid ""
+"Produces formatted output, applying the native language translation of FORMAT\n"
+"and FORMAT-PLURAL, depending on COUNT, to the ARGUMENTs.\n"
+msgstr ""
+
+#: src/printf_ngettext.c:215
+#, fuzzy, c-format
+#| msgid ""
+#| "  COUNT                     choose singular/plural form based on this "
+#| "value\n"
+msgid "  FORMAT                    English singular form of format string\n"
+msgstr ""
+"  AANTAL                    enkelvoud/meervoud kiezen op basis van deze "
+"waarde\n"
+
+#: src/printf_ngettext.c:217
+#, c-format
+msgid "  FORMAT-PLURAL             English plural form of format string\n"
+msgstr ""
+
+#: src/printf_ngettext.c:232
+#, c-format, no-wrap
+msgid ""
+"Each format string consists of\n"
+"  - plain text,\n"
+"  - directives, that start with '%c',\n"
+"  - escape sequences, that start with a backslash.\n"
+msgstr ""
 
 #~ msgid "Unknown system error"
 #~ msgstr "Onbekende systeemfout"
