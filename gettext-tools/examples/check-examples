@@ -522,14 +522,15 @@ func_check__hello_c_gnome2 ()
 func_check__hello_c_gnome3 ()
 {
   func_check_autoclean hello-c-gnome3
- #func_check_distclean hello-c-gnome3
- #func_check_maintainerclean hello-c-gnome3
- #func_check_maintainerclean_vpath hello-c-gnome3
- #func_check_dist hello-c-gnome3
+  func_check_distclean hello-c-gnome3
+  func_check_maintainerclean hello-c-gnome3
+  func_check_maintainerclean_vpath hello-c-gnome3
+  func_check_dist hello-c-gnome3
+ # This sample has some MAINTAINERCLEANFILES that are distributed.
  #func_check_dist_vpath hello-c-gnome3
- #func_check_install hello-c-gnome3
- #func_check_uninstall hello-c-gnome3
- #func_check_distcheck hello-c-gnome3
+  func_check_install hello-c-gnome3
+  func_check_uninstall hello-c-gnome3
+  func_check_distcheck hello-c-gnome3
 }
 
 func_check__hello_c_http ()
@@ -589,14 +590,15 @@ func_check__hello_cxx_gnome2 ()
 func_check__hello_cxx_gnome3 ()
 {
   func_check_autoclean hello-c++-gnome3
- #func_check_distclean hello-c++-gnome3
- #func_check_maintainerclean hello-c++-gnome3
- #func_check_maintainerclean_vpath hello-c++-gnome3
- #func_check_dist hello-c++-gnome3
+  func_check_distclean hello-c++-gnome3
+  func_check_maintainerclean hello-c++-gnome3
+  func_check_maintainerclean_vpath hello-c++-gnome3
+  func_check_dist hello-c++-gnome3
+ # This sample has some MAINTAINERCLEANFILES that are distributed.
  #func_check_dist_vpath hello-c++-gnome3
- #func_check_install hello-c++-gnome3
- #func_check_uninstall hello-c++-gnome3
- #func_check_distcheck hello-c++-gnome3
+  func_check_install hello-c++-gnome3
+  func_check_uninstall hello-c++-gnome3
+  func_check_distcheck hello-c++-gnome3
 }
 
 func_check__hello_cxx_wxwidgets ()
@@ -771,42 +773,46 @@ func_check__hello_ycp ()
 
 # Top-level code.
 
-func_check__hello_c
+# For checking a single example:
+#func_check__hello_...
+#exit 0
+
+func_check__hello_c               #   47 s
 func_check__hello_c_gnome2
-func_check__hello_c_gnome3
-func_check__hello_c_http
-func_check__hello_cxx
-func_check__hello_cxx20
+func_check__hello_c_gnome3        #   48 s
+func_check__hello_c_http          #   48 s
+func_check__hello_cxx             #   50 s
+func_check__hello_cxx20           #   94 s
 func_check__hello_cxx_qt
 func_check__hello_cxx_kde
 func_check__hello_cxx_gnome2
-func_check__hello_cxx_gnome3
-func_check__hello_cxx_wxwidgets
-func_check__hello_objc
-func_check__hello_objc_gnustep
+func_check__hello_cxx_gnome3      #   58 s
+func_check__hello_cxx_wxwidgets   #   62 s
+func_check__hello_objc            #   48 s
+func_check__hello_objc_gnustep    #    3 s
 func_check__hello_objc_gnome2
-func_check__hello_python
-func_check__hello_java
-func_check__hello_java_awt
-func_check__hello_java_swing
+func_check__hello_python          #   34 s
+func_check__hello_java            #   96 s
+func_check__hello_java_awt        #  102 s
+func_check__hello_java_swing      #   99 s
 func_check__hello_java_qtjambi
-func_check__hello_csharp
-func_check__hello_csharp_forms
-func_check__hello_guile
-func_check__hello_clisp
-func_check__hello_librep
-func_check__hello_rust
-func_check__hello_go
-func_check__hello_go_http
-func_check__hello_ruby
-func_check__hello_sh
-func_check__hello_gawk
-func_check__hello_pascal
-func_check__hello_modula2
-func_check__hello_d
-func_check__hello_smalltalk
-func_check__hello_tcl
-func_check__hello_tcl_tk
-func_check__hello_perl
-func_check__hello_php
+func_check__hello_csharp          #  133 s
+func_check__hello_csharp_forms    #  136 s
+func_check__hello_guile           #   33 s
+func_check__hello_clisp           #   32 s
+func_check__hello_librep          #   32 s
+func_check__hello_rust            # 2379 s
+func_check__hello_go              #   57 s  # requires GCC 14 or older, does not work with GCC 15.1
+func_check__hello_go_http         #   41 s  # likewise
+func_check__hello_ruby            #   34 s
+func_check__hello_sh              #   34 s
+func_check__hello_gawk            #   32 s
+func_check__hello_pascal          #   33 s
+func_check__hello_modula2         #   46 s
+func_check__hello_d               #   70 s
+func_check__hello_smalltalk       #   32 s
+func_check__hello_tcl             #   36 s
+func_check__hello_tcl_tk          #   36 s
+func_check__hello_perl            #   32 s
+func_check__hello_php             #   32 s
 func_check__hello_ycp
