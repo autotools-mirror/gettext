@@ -1,5 +1,5 @@
 /* xgettext Scheme backend.
-   Copyright (C) 2004-2024 Free Software Foundation, Inc.
+   Copyright (C) 2004-2025 Free Software Foundation, Inc.
 
    This file was written by Bruno Haible <bruno@clisp.org>, 2004-2005.
 
@@ -1301,7 +1301,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
                         phase1_ungetc (c);
                       if (c == '(')
                         {
-                          /* Homogenous vector syntax:
+                          /* Homogeneous vector syntax:
                                #a(...) - vector of char
                                #c(...) - vector of complex (old)
                                #c32(...) - vector of complex of single-float
@@ -1371,7 +1371,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
                             phase1_ungetc (c);
                           if (c == '(')
                             {
-                              /* Homogenous vector syntax:
+                              /* Homogeneous vector syntax:
                                    #e(...) - vector of long (old)
                                    #i(...) - vector of double-float (old)
                                */

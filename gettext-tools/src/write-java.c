@@ -1,5 +1,5 @@
 /* Writing Java ResourceBundles.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -255,7 +255,7 @@ compute_hashsize (message_list_ty *mlp, bool *collisionp)
           unsigned int incr;
 
           /* Since the set { idx0, idx0 + incr, ... } depends only on idx0
-             and gcd(hashsize,incr), we only need to conside incr that
+             and gcd(hashsize,incr), we only need to consider incr that
              divides hashsize.  */
           for (incr = 1; incr <= hashsize / 2; incr++)
             if ((hashsize % incr) == 0)

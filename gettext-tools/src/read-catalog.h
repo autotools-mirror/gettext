@@ -80,7 +80,7 @@ struct default_catalog_reader_class_ty
   /* If true, pay attention to comments and filepos comments.  */       \
   bool handle_comments;                                                 \
                                                                         \
-  /* If false, domain directives lead to an error messsage.  */         \
+  /* If false, domain directives lead to an error message.  */          \
   bool allow_domain_directives;                                         \
                                                                         \
   /* If false, duplicate msgids in the same domain and file generate an \

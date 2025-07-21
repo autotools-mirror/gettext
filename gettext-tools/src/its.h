@@ -1,5 +1,5 @@
 /* Internationalization Tag Set (ITS) handling
-   Copyright (C) 2015-2024 Free Software Foundation, Inc.
+   Copyright (C) 2015-2025 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -67,7 +67,7 @@ typedef message_ty *
                                     const char *marker,
                                     enum its_whitespace_type_ty whitespace);
 
-/* Extracts messages from FP, accoding to the loaded ITS rules.  */
+/* Extracts messages from FP, according to the loaded ITS rules.  */
 extern void its_rule_list_extract (its_rule_list_ty *rules,
                                    FILE *fp, const char *real_filename,
                                    const char *logical_filename,

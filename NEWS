@@ -732,7 +732,7 @@ Version 0.18.3 - July 2013
     set of formatting methods nor translation functions, the
     implementation supports only a limited set of formatting methods
     and translation functions commonly used in Gjs and other popular
-    JavaScript implemenations and libraries.
+    JavaScript implementations and libraries.
 
   - Lua:
     xgettext now supports Lua, using Ľubomír Remák's lua-gettext.
@@ -848,7 +848,7 @@ Version 0.18 - May 2010
   version 0.12.
 
 * msgfilter now sets environment variables during the invocation of the
-  filter, indicating the msgid and location of the messge being processed.
+  filter, indicating the msgid and location of the message being processed.
 
 * xgettext now can extract plural forms from Qt 4 programs. The recommended
   xgettext command-line options for this case are:

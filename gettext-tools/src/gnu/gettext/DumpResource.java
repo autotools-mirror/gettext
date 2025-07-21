@@ -1,5 +1,5 @@
 /* GNU gettext for Java
- * Copyright (C) 2001-2003, 2007 Free Software Foundation, Inc.
+ * Copyright (C) 2001-2025 Free Software Foundation, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -211,7 +211,7 @@ public class DumpResource {
     Locale locale = new Locale(language,country,variant);
     // Get the resource.
     ResourceBundle catalog = ResourceBundle.getBundle(resource_name,locale);
-    // We are only interested in the messsages belonging to the locale
+    // We are only interested in the messages belonging to the locale
     // itself, not in the inherited messages. But catalog.getLocale() exists
     // only in Java2 and sometimes differs from the given locale.
     try {

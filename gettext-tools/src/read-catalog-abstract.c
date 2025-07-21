@@ -558,7 +558,7 @@ parse_comment_solaris_filepos (abstract_catalog_reader_ty *catr, const char *s)
 }
 
 
-/* This callback is called whenever a generic comment line has been seeen.
+/* This callback is called whenever a generic comment line has been seen.
    It parses s and invokes the appropriate method: call_comment,
    call_comment_dot, call_comment_filepos (via parse_comment_filepos), or
    call_comment_special.  */

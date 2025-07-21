@@ -466,7 +466,7 @@ static int phase2_pushback_length;
    The result is QUOTED(c) for some unsigned char c, if the next character
    is escaped sufficiently often to make it a regular constituent character,
    or simply an 'unsigned char' if it has its special meaning (of special,
-   whitespace or operator charcter), or OPENING_BACKQUOTE, CLOSING_BACKQUOTE,
+   whitespace or operator character), or OPENING_BACKQUOTE, CLOSING_BACKQUOTE,
    EOF.
    It's the caller's responsibility to update the state.  */
 static int

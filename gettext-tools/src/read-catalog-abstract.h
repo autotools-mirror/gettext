@@ -1,5 +1,5 @@
 /* Reading textual message catalogs (such as PO files), abstract class.
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -229,7 +229,7 @@ extern void
 extern void
        catalog_reader_seen_comment_special (abstract_catalog_reader_ty *catr,
                                             const char *s);
-/* This callback is called whenever a generic comment line has been seeen.
+/* This callback is called whenever a generic comment line has been seen.
    It parses s and invokes the appropriate method.  */
 extern void
        catalog_reader_seen_generic_comment (abstract_catalog_reader_ty *catr,

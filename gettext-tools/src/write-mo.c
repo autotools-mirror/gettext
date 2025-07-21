@@ -172,7 +172,7 @@ struct pre_sysdep_message
      * None of these PO files uses the 'I' format string flag.
 
    There are few possible <inttypes.h> flavours.  Each such flavour gives rise
-   to an instantation rule.  We ran this test program on various platforms:
+   to an instantiation rule.  We ran this test program on various platforms:
    =============================================================================
    #include <inttypes.h>
    #include <stdio.h>
@@ -300,7 +300,7 @@ concat_prefix_cs (const char *prefix, char conversion)
   return result;
 }
 
-/* Expand a system dependent string segment for a specific instantation.
+/* Expand a system dependent string segment for a specific instantiation.
    Return NULL if unsupported.  */
 static const char *
 get_sysdep_segment_value (struct pre_sysdep_segment segment,

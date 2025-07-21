@@ -171,7 +171,7 @@ parse_directive (struct spec *spec,
       || parse_numeric_field (spec, &format, translated, fdi, invalid_reason))
     {
       /* Parse '.' (getattr) or '[..]' (getitem) operators followed by a
-         name.  If must not recurse, but can be specifed in a chain, such
+         name.  If must not recurse, but can be specified in a chain, such
          as "foo.bar.baz[0]".  */
       for (;;)
         {

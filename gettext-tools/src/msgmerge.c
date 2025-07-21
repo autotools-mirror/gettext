@@ -1169,7 +1169,7 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
               }
 
               /* The rest of the Language-Team field should be the english name
-                 of the languge.  Convert to ISO 639 and ISO 3166 syntax.  */
+                 of the language.  Convert to ISO 639 and ISO 3166 syntax.  */
               {
                 size_t i;
 

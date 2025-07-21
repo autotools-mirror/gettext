@@ -212,7 +212,7 @@ The User's View
 Setting the Locale through Environment Variables
 
 * Locale Names::                How a Locale Specification Looks Like
-* Locale Environment Variables::  Which Environment Variable Specfies What
+* Locale Environment Variables::  Which Environment Variable Specifies What
 * The LANGUAGE variable::       How to Specify a Priority List of Languages
 
 The Format of PO Files
@@ -1298,7 +1298,7 @@ prompt, merely execute
 
 @menu
 * Locale Names::                How a Locale Specification Looks Like
-* Locale Environment Variables::  Which Environment Variable Specfies What
+* Locale Environment Variables::  Which Environment Variable Specifies What
 * The LANGUAGE variable::       How to Specify a Priority List of Languages
 @end menu
 
@@ -5805,7 +5805,7 @@ you therefore normally don't need to save output produced with the
 
 @vindex TERM@r{, environment variable}
 The environment variable @code{TERM} contains a identifier for the text
-window's capabilities.  You can get a detailed list of these cababilities
+window's capabilities.  You can get a detailed list of these capabilities
 by using the @samp{infocmp} command, using @samp{man 5 terminfo} as a
 reference.
 

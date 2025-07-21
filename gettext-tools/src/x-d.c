@@ -1320,7 +1320,7 @@ extract_from_function_call_without_args (TSNode callee_node,
   unref_region (arg_region);
 }
 
-/* Extracts messages from the template instantation NODE consisting of
+/* Extracts messages from the template instantiation NODE consisting of
      - IDENTIFIER_NODE: a tree node of type 'identifier',
      - ARGS_NODE: a tree node of type 'template_arguments'.
    Extracted messages are added to MLP.  */

@@ -55,7 +55,7 @@
 
    The encoding of Java .properties files is:
      - ASCII with Java \uxxxx escape sequences,
-     - ISO-8859-1 if non-ASCII bytes are encounterd,
+     - ISO-8859-1 if non-ASCII bytes are encountered,
      - UTF-8 if non-ASCII bytes are encountered and the entire file is
        valid UTF-8 (in Java 9 or newer), see
        https://docs.oracle.com/javase/9/intl/internationalization-enhancements-jdk-9.htm */
