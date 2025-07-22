@@ -77,7 +77,7 @@ EOF
 
 : ${MSGFILTER=msgfilter}
 case "$host_os" in
-  mingw*) CONFIG_SHELL='sh' ;;
+  mingw* | windows*) CONFIG_SHELL='sh' ;;
   *) : ${CONFIG_SHELL=${SHELL-/bin/sh}} ;;
 esac
 LC_ALL=C ${MSGFILTER} --newline -i mfi-test8.po -o mfi-test8.out \

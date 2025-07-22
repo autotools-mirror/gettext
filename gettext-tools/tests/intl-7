@@ -6,7 +6,7 @@
 
 # Try to find a writable absolute directory name.
 case "$host_os" in
-  mingw*)
+  mingw* | windows*)
     # On native Windows, it is important that ${ldir} is an absolute directory,
     # so that the test exercises a mix between directories specified as 'char *'
     # and directories specified as 'wchar_t *'. (If we used a relative

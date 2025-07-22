@@ -41,7 +41,7 @@ ARCHIVE_VERSION="@ARCHIVE_VERSION@"
 wabs_srcdir="$abs_srcdir"
 wabs_top_srcdir="$abs_top_srcdir"
 case "$host_os" in
-  mingw*)
+  mingw* | windows*)
     if (cygpath --version) >/dev/null 2>/dev/null; then
       wabs_srcdir=`cygpath -w "$abs_srcdir"`
       wabs_top_srcdir=`cygpath -w "$abs_top_srcdir"`

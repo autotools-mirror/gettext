@@ -153,7 +153,8 @@ if test $LOCALE_FR != none; then
   LANGUAGE= ./prog $LOCALE_FR 2 > prog.tmp
   case $? in
     0) case "$host_os" in
-         mingw*) LC_ALL=C tr -d '\r' < prog.tmp > prog.out || Exit 1 ;;
+         mingw* | windows*)
+           LC_ALL=C tr -d '\r' < prog.tmp > prog.out || Exit 1 ;;
          *) cp prog.tmp prog.out || Exit 1 ;;
        esac
        ${DIFF} prog.ok prog.out || Exit 1;;
@@ -165,7 +166,8 @@ if test $LOCALE_FR_UTF8 != none; then
   LANGUAGE= ./prog $LOCALE_FR_UTF8 2 > prog.tmp
   case $? in
     0) case "$host_os" in
-         mingw*) LC_ALL=C tr -d '\r' < prog.tmp > prog.out || Exit 1 ;;
+         mingw* | windows*)
+           LC_ALL=C tr -d '\r' < prog.tmp > prog.out || Exit 1 ;;
          *) cp prog.tmp prog.out || Exit 1 ;;
        esac
        ${DIFF} prog.oku prog.out || Exit 1;;
