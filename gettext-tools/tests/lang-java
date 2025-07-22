@@ -214,11 +214,21 @@ EOF
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
 : ${JAVAEXEC="/bin/sh ../../javaexec.sh"}
 if test $LOCALE_FR != none; then
-  LANGUAGE= LC_ALL=$LOCALE_FR CLASSPATH=".${CLASSPATH_SEPARATOR}../../../gettext-runtime/intl-java/libintl.jar" ${JAVAEXEC} Program 2 ISO-8859-1 > prog.out || Exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR CLASSPATH=".${CLASSPATH_SEPARATOR}../../../gettext-runtime/intl-java/libintl.jar" ${JAVAEXEC} Program 2 ISO-8859-1 > prog.tmp || Exit 1
+  case "$host_os" in
+    mingw* | windows*)
+      LC_ALL=C tr -d '\r' < prog.tmp > prog.out || Exit 1 ;;
+    *) cp prog.tmp prog.out || Exit 1 ;;
+  esac
   ${DIFF} prog.ok prog.out || Exit 1
 fi
 if test $LOCALE_FR_UTF8 != none; then
-  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 CLASSPATH=".${CLASSPATH_SEPARATOR}../../../gettext-runtime/intl-java/libintl.jar" ${JAVAEXEC} Program 2 UTF-8 > prog.out || Exit 1
+  LANGUAGE= LC_ALL=$LOCALE_FR_UTF8 CLASSPATH=".${CLASSPATH_SEPARATOR}../../../gettext-runtime/intl-java/libintl.jar" ${JAVAEXEC} Program 2 UTF-8 > prog.tmp || Exit 1
+  case "$host_os" in
+    mingw* | windows*)
+      LC_ALL=C tr -d '\r' < prog.tmp > prog.out || Exit 1 ;;
+    *) cp prog.tmp prog.out || Exit 1 ;;
+  esac
   ${DIFF} prog.oku prog.out || Exit 1
 fi
 
