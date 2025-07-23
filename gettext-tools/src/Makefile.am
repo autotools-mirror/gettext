@@ -91,6 +91,7 @@ noinst_HEADERS = \
   x-lua.h \
   x-modula2.h \
   x-d.h html5-entities.h \
+  x-ocaml.h \
   x-smalltalk.h \
   x-vala.h \
   x-tcl.h \
@@ -333,6 +334,7 @@ xgettext_SOURCES += \
   x-lua.c \
   x-modula2.c \
   x-d.c \
+  x-ocaml.c \
   x-smalltalk.c \
   x-vala.c \
   x-tcl.c \

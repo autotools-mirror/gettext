@@ -95,6 +95,7 @@ Specifies the language of the input files.  The supported languages are
 @code{Lua},
 @code{Modula-2},
 @code{D},
+@code{OCaml},
 @code{Smalltalk},
 @code{Vala},
 @code{Tcl},

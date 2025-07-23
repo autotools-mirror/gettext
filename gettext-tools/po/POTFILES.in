@@ -112,6 +112,7 @@ src/x-librep.c
 src/x-lisp.c
 src/x-lua.c
 src/x-modula2.c
+src/x-ocaml.c
 src/x-perl.c
 src/x-php.c
 src/x-po.c

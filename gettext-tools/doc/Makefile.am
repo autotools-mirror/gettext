@@ -85,6 +85,7 @@ gettext_TEXINFOS = \
   lang-pascal.texi \
   lang-modula2.texi \
   lang-d.texi \
+  lang-ocaml.texi \
   lang-smalltalk.texi \
   lang-vala.texi \
   lang-wxwidgets.texi \

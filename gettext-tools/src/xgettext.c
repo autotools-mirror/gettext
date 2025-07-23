@@ -127,6 +127,7 @@
 #include "x-lua.h"
 #include "x-modula2.h"
 #include "x-d.h"
+#include "x-ocaml.h"
 #include "x-smalltalk.h"
 #include "x-vala.h"
 #include "x-tcl.h"
@@ -369,6 +370,7 @@ main (int argc, char *argv[])
   init_flag_table_lua ();
   init_flag_table_modula2 ();
   init_flag_table_d ();
+  init_flag_table_ocaml ();
   init_flag_table_vala ();
   init_flag_table_tcl ();
   init_flag_table_perl ();
@@ -466,6 +468,7 @@ main (int argc, char *argv[])
         x_lua_extract_all ();
         x_modula2_extract_all ();
         x_d_extract_all ();
+        x_ocaml_extract_all ();
         x_vala_extract_all ();
         x_tcl_extract_all ();
         x_perl_extract_all ();
@@ -552,6 +555,7 @@ main (int argc, char *argv[])
         x_lua_keyword (optarg);
         x_modula2_keyword (optarg);
         x_d_keyword (optarg);
+        x_ocaml_keyword (optarg);
         x_vala_keyword (optarg);
         x_tcl_keyword (optarg);
         x_perl_keyword (optarg);
@@ -1185,7 +1189,7 @@ Choice of input file language:\n"));
                                 (C, C++, ObjectiveC, PO, Python, Java,\n\
                                 JavaProperties, C#, JavaScript, TypeScript, TSX,\n\
                                 Scheme, Guile, Lisp, EmacsLisp, librep, Rust,\n\
-                                Go, Ruby, Shell, awk, Lua, Modula-2, D,\n\
+                                Go, Ruby, Shell, awk, Lua, Modula-2, D, OCaml,\n\
                                 Smalltalk, Vala, Tcl, Perl, PHP, GCC-source,\n\
                                 YCP, NXStringTable, RST, RSJ, Glade, GSettings,\n\
                                 Desktop)\n"));
@@ -2513,6 +2517,7 @@ language_to_extractor (const char *name)
     SCANNERS_LUA
     SCANNERS_MODULA2
     SCANNERS_D
+    SCANNERS_OCAML
     SCANNERS_SMALLTALK
     SCANNERS_VALA
     SCANNERS_TCL
@@ -2612,6 +2617,7 @@ extension_to_language (const char *extension)
     EXTENSIONS_LUA
     EXTENSIONS_MODULA2
     EXTENSIONS_D
+    EXTENSIONS_OCAML
     EXTENSIONS_SMALLTALK
     EXTENSIONS_VALA
     EXTENSIONS_TCL

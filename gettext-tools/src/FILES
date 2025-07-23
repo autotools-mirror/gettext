@@ -422,6 +422,9 @@ msgl-check.c
 | x-d.c
 | html5-entities.h
 |               String extractor for D.
+| x-ocaml.h
+| x-ocaml.c
+|               String extractor for OCaml.
 | x-smalltalk.h
 | x-smalltalk.c
 |               String extractor for Smalltalk.
