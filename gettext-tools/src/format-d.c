@@ -53,8 +53,8 @@
    - starts with '%',
    - is optionally followed by
        a positive integer m, then '$', or
-       a positive integer m, then ':', then a positive integer m₂ ≥ m, then '$',
-       a positive integer m, then ':', then '$', or
+       a positive integer m, then ':', then a positive integer m₂ ≥ m, then '$', or
+       a positive integer m, then ':', then '$',
    - is optionally followed by a sequence of flags, each being one of
        '+', '-', ' ', '0', '#', '=',
    - is optionally followed by a width specification:

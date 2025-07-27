@@ -37,7 +37,7 @@
    They are implemented in lua-5.2.4/src/lstrlib.c.
 
    A directive
-   - starts with '%'
+   - starts with '%',
    - is optionally followed by any of the characters '0', '-', ' ', or
      each of which acts as a flag,
    - is optionally followed by a width specification: a nonempty digit
@@ -45,7 +45,7 @@
    - is optionally followed by '.' and a precision specification: an optional
      nonempty digit sequence with at most 2 digits,
    - is finished by a specifier
-       - 's', 'q', that needs a string argument,
+       - 's', 'q', that need a string argument,
        - 'd', 'i', 'o', 'u', 'X', 'x', that need an integer argument,
        - 'A', 'a', 'E', 'e', 'f', 'G', 'g', that need a floating-point argument,
        - 'c', that needs a character argument.
