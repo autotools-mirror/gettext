@@ -102,8 +102,8 @@ struct toplevel_counters
 
 static bool
 parse_named_field (struct spec *spec,
-                   const char **formatp, bool translated, char *fdi,
-                   char **invalid_reason)
+                   const char **formatp,
+                   char *fdi, char **invalid_reason)
 {
   const char *format = *formatp;
   char c;
@@ -123,8 +123,8 @@ parse_named_field (struct spec *spec,
 
 static bool
 parse_numeric_field (struct spec *spec,
-                     const char **formatp, bool translated, char *fdi,
-                     char **invalid_reason)
+                     const char **formatp,
+                     char *fdi, char **invalid_reason)
 {
   const char *format = *formatp;
   char c;
@@ -150,7 +150,7 @@ parse_numeric_field (struct spec *spec,
 static bool
 parse_directive (struct spec *spec,
                  const char **formatp, struct toplevel_counters *toplevel,
-                 bool translated, char *fdi, char **invalid_reason)
+                 char *fdi, char **invalid_reason)
 {
   const char *format = *formatp;
   const char *const format_start = format;
@@ -167,8 +167,8 @@ parse_directive (struct spec *spec,
     }
 
   name_start = format;
-  if (parse_named_field (spec, &format, translated, fdi, invalid_reason)
-      || parse_numeric_field (spec, &format, translated, fdi, invalid_reason))
+  if (parse_named_field (spec, &format, fdi, invalid_reason)
+      || parse_numeric_field (spec, &format, fdi, invalid_reason))
     {
       /* Parse '.' (getattr) or '[..]' (getitem) operators followed by a
          name.  If must not recurse, but can be specified in a chain, such
@@ -180,8 +180,7 @@ parse_directive (struct spec *spec,
           if (c == '.')
             {
               format++;
-              if (!parse_named_field (spec, &format, translated, fdi,
-                                      invalid_reason))
+              if (!parse_named_field (spec, &format, fdi, invalid_reason))
                 {
                   if (*format == '\0')
                     {
@@ -204,10 +203,8 @@ parse_directive (struct spec *spec,
           else if (c == '[')
             {
               format++;
-              if (!parse_named_field (spec, &format, translated, fdi,
-                                      invalid_reason)
-                  && !parse_numeric_field (spec, &format, translated, fdi,
-                                           invalid_reason))
+              if (!parse_named_field (spec, &format, fdi, invalid_reason)
+                  && !parse_numeric_field (spec, &format, fdi, invalid_reason))
                 {
                   if (*format == '\0')
                     {
@@ -287,8 +284,7 @@ parse_directive (struct spec *spec,
       if (*format == '{')
         {
           /* Nested format directive.  */
-          if (!parse_directive (spec, &format, NULL, translated, fdi,
-                                invalid_reason))
+          if (!parse_directive (spec, &format, NULL, fdi, invalid_reason))
             {
               /* FDI and INVALID_REASON will be set by a recursive call of
                  parse_directive.  */
@@ -423,7 +419,7 @@ parse_directive (struct spec *spec,
 static bool
 parse_upto (struct spec *spec,
             const char **formatp, struct toplevel_counters *toplevel,
-            char terminator, bool translated, char *fdi, char **invalid_reason)
+            char terminator, char *fdi, char **invalid_reason)
 {
   const char *format = *formatp;
 
@@ -431,8 +427,7 @@ parse_upto (struct spec *spec,
     {
       if (*format == '{')
         {
-          if (!parse_directive (spec, &format, toplevel, translated, fdi,
-                                invalid_reason))
+          if (!parse_directive (spec, &format, toplevel, fdi, invalid_reason))
             return false;
         }
       else
@@ -451,8 +446,8 @@ named_arg_compare (const void *p1, const void *p2)
 }
 
 static void *
-format_parse (const char *format, bool translated, char *fdi,
-              char **invalid_reason)
+format_parse (const char *format, bool translated,
+              char *fdi, char **invalid_reason)
 {
   struct spec spec;
   struct toplevel_counters toplevel;
@@ -465,8 +460,7 @@ format_parse (const char *format, bool translated, char *fdi,
 
   toplevel.numbered_arg_counter = 0;
   toplevel.unnamed_arg_counter = 0;
-  if (!parse_upto (&spec, &format, &toplevel, '\0', translated, fdi,
-                   invalid_reason))
+  if (!parse_upto (&spec, &format, &toplevel, '\0', fdi, invalid_reason))
     {
       free_named_args (&spec);
       return NULL;
