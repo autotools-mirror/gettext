@@ -225,6 +225,7 @@ static flag_context_list_table_ty flag_table_awk;
 static flag_context_list_table_ty flag_table_lua;
 static flag_context_list_table_ty flag_table_modula2;
 static flag_context_list_table_ty flag_table_d;
+static flag_context_list_table_ty flag_table_ocaml;
 static flag_context_list_table_ty flag_table_vala;
 static flag_context_list_table_ty flag_table_tcl;
 static flag_context_list_table_ty flag_table_perl;
@@ -1234,8 +1235,8 @@ Language specific options:\n"));
                                 (only languages C, C++, ObjectiveC, Python,\n\
                                 Java, C#, JavaScript, TypeScript, TSX, Scheme,\n\
                                 Guile, Lisp, EmacsLisp, librep, Rust, Go, Shell,\n\
-                                awk, Lua, Modula-2, D, Vala, Tcl, Perl, PHP,\n\
-                                GCC-source, Glade, GSettings)\n"));
+                                awk, Lua, Modula-2, D, OCaml, Vala, Tcl, Perl,\n\
+                                PHP, GCC-source, Glade, GSettings)\n"));
       printf (_("\
   -kWORD, --keyword=WORD      look for WORD as an additional keyword\n\
   -k, --keyword               do not to use default keywords\n"));
@@ -1243,8 +1244,8 @@ Language specific options:\n"));
                                 (only languages C, C++, ObjectiveC, Python,\n\
                                 Java, C#, JavaScript, TypeScript, TSX, Scheme,\n\
                                 Guile, Lisp, EmacsLisp, librep, Rust, Go, Shell,\n\
-                                awk, Lua, Modula-2, D, Vala, Tcl, Perl, PHP,\n\
-                                GCC-source, Glade, GSettings, Desktop)\n"));
+                                awk, Lua, Modula-2, D, OCaml, Vala, Tcl, Perl,\n\
+                                PHP, GCC-source, Glade, GSettings, Desktop)\n"));
       printf (_("\
       --flag=WORD:ARG:FLAG    additional flag for strings inside the argument\n\
                               number ARG of keyword WORD\n"));
@@ -1252,8 +1253,8 @@ Language specific options:\n"));
                                 (only languages C, C++, ObjectiveC, Python,\n\
                                 Java, C#, JavaScript, TypeScript, TSX, Scheme,\n\
                                 Guile, Lisp, EmacsLisp, librep, Rust, Go, Shell,\n\
-                                awk, Lua, Modula-2, D, Vala, Tcl, Perl, PHP,\n\
-                                GCC-source, YCP)\n"));
+                                awk, Lua, Modula-2, D, OCaml, Vala, Tcl, Perl,\n\
+                                PHP, GCC-source, YCP)\n"));
       printf (_("\
       --tag=WORD:FORMAT       defines the behaviour of tagged template literals\n\
                               with tag WORD\n"));
@@ -1783,6 +1784,11 @@ xgettext_record_flag (const char *optionstring)
                     break;
                   case format_d:
                     flag_context_list_table_insert (&flag_table_d, XFORMAT_SECONDARY,
+                                                    name_start, name_end,
+                                                    argnum, value, pass);
+                    break;
+                  case format_ocaml:
+                    flag_context_list_table_insert (&flag_table_ocaml, XFORMAT_PRIMARY,
                                                     name_start, name_end,
                                                     argnum, value, pass);
                     break;

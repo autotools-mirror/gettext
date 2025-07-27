@@ -246,6 +246,7 @@ format-lua.c           Format string handling for Lua.
 format-pascal.c        Format string handling for Object Pascal.
 format-modula2.c       Format string handling for Modula-2.
 format-d.c             Format string handling for D.
+format-ocaml.c         Format string handling for OCaml.
 format-smalltalk.c     Format string handling for Smalltalk and YCP.
 format-qt.c            Format string handling for Qt.
 format-qt-plural.c     Format string handling for Qt plural forms.

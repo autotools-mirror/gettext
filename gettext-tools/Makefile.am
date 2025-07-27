@@ -100,6 +100,14 @@ EXTRA_DIST += \
   tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tree_sitter/alloc.h \
   tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tree_sitter/array.h \
   tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src/tree_sitter/parser.h \
+  build-aux/tree-sitter-ocaml-portability.diff \
+  tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/LICENSE \
+  tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/common/scanner.h \
+  tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/grammars/ocaml/src/ocaml-parser.c \
+  tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/grammars/ocaml/src/ocaml-scanner.c \
+  tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/grammars/ocaml/src/tree_sitter/alloc.h \
+  tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/grammars/ocaml/src/tree_sitter/array.h \
+  tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/grammars/ocaml/src/tree_sitter/parser.h \
   build-aux/tree-sitter-d-portability.diff \
   tree-sitter-d-$(TREE_SITTER_D_VERSION)/LICENSE \
   tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/d-parser.c \

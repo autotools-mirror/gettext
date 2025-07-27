@@ -57,6 +57,7 @@ struct formatstring_parser *formatstring_parsers[NFORMATS] =
   /* format_pascal */           &formatstring_pascal,
   /* format_modula2 */          &formatstring_modula2,
   /* format_d */                &formatstring_d,
+  /* format_ocaml */            &formatstring_ocaml,
   /* format_smalltalk */        &formatstring_smalltalk,
   /* format_qt */               &formatstring_qt,
   /* format_qt_plural */        &formatstring_qt_plural,

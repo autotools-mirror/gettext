@@ -24,7 +24,13 @@ ocaml, opam
 @code{(s_ "abc")} or, for format strings, @code{(f_ "abc")}
 
 @item gettext/ngettext functions
-@code{s_}, @code{f_}, @code{sn_}, @code{fn_}
+@code{s_}, @code{f_}, @code{sn_}, @code{fn_}, and also
+@code{gettext}, @code{fgettext},
+@code{dgettext}, @code{fdgettext},
+@code{dcgettext}, @code{fdcgettext},
+@code{ngettext}, @code{fngettext},
+@code{dngettext}, @code{fdngettext},
+@code{dcngettext}, @code{fdcngettext}.
 
 @item textdomain
 @code{textdomain} field in first parameter of @code{Gettext.Program}
@@ -47,7 +53,7 @@ as second parameter of @code{Gettext.Program})
 @code{xgettext}
 
 @item Formatting with positions
----
+@code{Printf.fprintf "%2$d %1$d"}
 
 @item Portability
 fully portable

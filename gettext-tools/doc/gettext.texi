@@ -426,6 +426,7 @@ The Translator's View
 * object-pascal-format::        Object Pascal Format Strings
 * modula2-format::              Modula-2 Format Strings
 * d-format::                    D Format Strings
+* ocaml-format::                OCaml Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * qt-format::                   Qt Format Strings
 * qt-plural-format::            Qt Plural Format Strings
@@ -1845,6 +1846,12 @@ Likewise for Modula-2, see @ref{modula2-format}.
 @itemx no-d-format
 @kwindex no-d-format@r{ flag}
 Likewise for D, see @ref{d-format}.
+
+@item ocaml-format
+@kwindex ocaml-format@r{ flag}
+@itemx no-ocaml-format
+@kwindex no-ocaml-format@r{ flag}
+Likewise for OCaml, see @ref{ocaml-format}.
 
 @item smalltalk-format
 @kwindex smalltalk-format@r{ flag}
@@ -10149,6 +10156,7 @@ strings.
 * object-pascal-format::        Object Pascal Format Strings
 * modula2-format::              Modula-2 Format Strings
 * d-format::                    D Format Strings
+* ocaml-format::                OCaml Format Strings
 * smalltalk-format::            Smalltalk Format Strings
 * qt-format::                   Qt Format Strings
 * qt-plural-format::            Qt Plural Format Strings
@@ -10513,6 +10521,18 @@ There is also the directive @samp{%%}, that produces a single percent character.
 D format strings are described
 in the documentation of the D module @code{std.format},
 at @uref{https://dlang.org/library/std/format.html}.
+
+@node ocaml-format
+@subsection OCaml Format Strings
+
+OCaml format strings are described
+in the documentation of the @code{Printf} module,
+at @uref{https://ocaml.org/manual/5.3/api/Printf.html#VALfprintf}.
+In translated strings (@code{msgstr} values),
+arguments can be specified through a number,
+using the syntax @samp{%@var{m}$} instead of @samp{%}
+and @samp{*@var{m}$} instead of @samp{*}
+to designate the argument number @var{m}.
 
 @node smalltalk-format
 @subsection Smalltalk Format Strings

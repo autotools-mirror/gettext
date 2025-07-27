@@ -66,6 +66,7 @@ enum format_type
   format_pascal,
   format_modula2,
   format_d,
+  format_ocaml,
   format_smalltalk,
   format_qt,
   format_qt_plural,
@@ -80,7 +81,7 @@ enum format_type
   format_gfc_internal,
   format_ycp
 };
-#define NFORMATS 36     /* Number of format_type enum values.  */
+#define NFORMATS 37     /* Number of format_type enum values.  */
 extern LIBGETTEXTSRC_DLL_VARIABLE const char *const format_language[NFORMATS];
 extern LIBGETTEXTSRC_DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
 

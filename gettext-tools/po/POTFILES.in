@@ -30,6 +30,7 @@ src/format-librep.c
 src/format-lisp.c
 src/format-lua.c
 src/format-modula2.c
+src/format-ocaml.c
 src/format-pascal.c
 src/format-perl-brace.c
 src/format-perl.c

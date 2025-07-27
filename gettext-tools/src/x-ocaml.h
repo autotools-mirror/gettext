@@ -31,10 +31,11 @@ extern "C" {
   { "ml",     "OCaml"  },                                               \
 
 #define SCANNERS_OCAML \
-  { "OCaml",            NULL, extract_ocaml,                            \
-                        NULL, NULL, NULL },                             \
+  { "OCaml",            extract_ocaml, NULL,                            \
+                        &flag_table_ocaml, &formatstring_ocaml, NULL }, \
 
-extern void extract_ocaml (const char *found_in_dir, const char *real_filename,
+/* Scan a OCaml file and add its translatable strings to mdlp.  */
+extern void extract_ocaml (FILE *fp, const char *real_filename,
                            const char *logical_filename,
                            flag_context_list_table_ty *flag_table,
                            msgdomain_list_ty *mdlp);

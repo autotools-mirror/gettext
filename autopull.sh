@@ -89,6 +89,7 @@ TREE_SITTER_VERSION=0.23.2
 TREE_SITTER_GO_VERSION=0.23.4
 TREE_SITTER_RUST_VERSION=0.23.2
 TREE_SITTER_TYPESCRIPT_VERSION=0.23.2
+TREE_SITTER_OCAML_VERSION=0.23.2
 TREE_SITTER_D_VERSION=0.8.2
 # Cache the relevant source code. Erase the rest of the tree-sitter projects.
 test -d gettext-tools/tree-sitter-$TREE_SITTER_VERSION || {
@@ -135,6 +136,20 @@ test -d gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION || 
   mv gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/tsx/src/scanner.c gettext-tools/tree-sitter-typescript-$TREE_SITTER_TYPESCRIPT_VERSION/tsx/src/tsx-scanner.c
   rm -rf tree-sitter-typescript
 }
+test -d gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION || {
+  func_git_clone_shallow tree-sitter-ocaml https://github.com/tree-sitter/tree-sitter-ocaml.git v$TREE_SITTER_OCAML_VERSION
+  (cd tree-sitter-ocaml && patch -p1) < gettext-tools/build-aux/tree-sitter-ocaml-portability.diff
+  mkdir gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION
+  mkdir gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION/common
+  mkdir gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION/grammars
+  mkdir gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION/grammars/ocaml
+  mv tree-sitter-ocaml/LICENSE gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION/LICENSE
+  mv tree-sitter-ocaml/common/scanner.h gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION/common/scanner.h
+  mv tree-sitter-ocaml/grammars/ocaml/src gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION/grammars/ocaml/src
+  mv gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION/grammars/ocaml/src/parser.c gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION/grammars/ocaml/src/ocaml-parser.c
+  mv gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION/grammars/ocaml/src/scanner.c gettext-tools/tree-sitter-ocaml-$TREE_SITTER_OCAML_VERSION/grammars/ocaml/src/ocaml-scanner.c
+  rm -rf tree-sitter-ocaml
+}
 test -d gettext-tools/tree-sitter-d-$TREE_SITTER_D_VERSION || {
   func_git_clone_shallow tree-sitter-d https://github.com/gdamore/tree-sitter-d.git v$TREE_SITTER_D_VERSION
   (cd tree-sitter-d && patch -p1) < gettext-tools/build-aux/tree-sitter-d-portability.diff
@@ -151,6 +166,7 @@ TREE_SITTER_VERSION=$TREE_SITTER_VERSION
 TREE_SITTER_GO_VERSION=$TREE_SITTER_GO_VERSION
 TREE_SITTER_RUST_VERSION=$TREE_SITTER_RUST_VERSION
 TREE_SITTER_TYPESCRIPT_VERSION=$TREE_SITTER_TYPESCRIPT_VERSION
+TREE_SITTER_OCAML_VERSION=$TREE_SITTER_OCAML_VERSION
 TREE_SITTER_D_VERSION=$TREE_SITTER_D_VERSION
 EOF
 

@@ -210,6 +210,7 @@ FORMAT_SOURCE += \
   format-pascal.c \
   format-modula2.c \
   format-d.c \
+  format-ocaml.c \
   format-smalltalk.c \
   format-qt.c \
   format-qt-plural.c \
@@ -249,7 +250,7 @@ libgettextsrc_la_SOURCES = \
   search-path.c
 
 # xgettext has some tree-sitter based backends.
-LIBXGETTEXTTS = libxgettextts2.a libxgettextts3.a libxgettextts4.a libxgettextts1.a
+LIBXGETTEXTTS = libxgettextts2.a libxgettextts3.a libxgettextts4.a libxgettextts5.a libxgettextts1.a
 libxgettextts1_a_SOURCES = \
   ../tree-sitter-$(TREE_SITTER_VERSION)/lib/src/lib.c
 libxgettextts1_a_CPPFLAGS = \
@@ -279,6 +280,13 @@ libxgettextts4_a_CPPFLAGS = \
   -I$(top_srcdir)/tree-sitter-typescript-$(TREE_SITTER_TYPESCRIPT_VERSION)/tsx/src \
   -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
 libxgettextts4_a_CFLAGS = $(AM_CFLAGS) @FOREIGN_WARN_CFLAGS@ @NO_EXPENSIVE_WARN_CFLAGS@
+libxgettextts5_a_SOURCES = \
+  ../tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/grammars/ocaml/src/ocaml-parser.c \
+  ../tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/grammars/ocaml/src/ocaml-scanner.c
+libxgettextts5_a_CPPFLAGS = \
+  -I$(top_srcdir)/tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/grammars/ocaml/src \
+  -I$(top_srcdir)/tree-sitter-$(TREE_SITTER_VERSION)/lib/include
+libxgettextts5_a_CFLAGS = $(AM_CFLAGS) @FOREIGN_WARN_CFLAGS@ @NO_EXPENSIVE_WARN_CFLAGS@
 
 # msggrep needs pattern matching.
 LIBGREP = ../libgrep/libgrep.a ../libgrep/gnulib-lib/libgnu.a

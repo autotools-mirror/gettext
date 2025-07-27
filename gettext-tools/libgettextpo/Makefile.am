@@ -89,6 +89,7 @@ libgettextpo_la_AUXSOURCES = \
   ../src/format-pascal.c \
   ../src/format-modula2.c \
   ../src/format-d.c \
+  ../src/format-ocaml.c \
   ../src/format-smalltalk.c \
   ../src/format-qt.c \
   ../src/format-qt-plural.c \
