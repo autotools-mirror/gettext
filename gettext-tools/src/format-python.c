@@ -191,6 +191,7 @@ format_parse (const char *format, bool translated, char *fdi,
             /* Named and unnamed specifications are exclusive.  */
             if (spec.named_arg_count > 0)
               {
+                free (name);
                 *invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
                 FDI_SET (format - 1, FMTDIR_ERROR);
                 goto bad_format;
@@ -220,6 +221,7 @@ format_parse (const char *format, bool translated, char *fdi,
                 /* Named and unnamed specifications are exclusive.  */
                 if (spec.named_arg_count > 0)
                   {
+                    free (name);
                     *invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
                     FDI_SET (format - 1, FMTDIR_ERROR);
                     goto bad_format;
@@ -267,6 +269,7 @@ format_parse (const char *format, bool translated, char *fdi,
             type = FAT_FLOAT;
             break;
           default:
+            free (name);
             if (*format == '\0')
               {
                 *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
@@ -288,6 +291,7 @@ format_parse (const char *format, bool translated, char *fdi,
             /* Named and unnamed specifications are exclusive.  */
             if (spec.unnamed_arg_count > 0)
               {
+                free (name);
                 *invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
                 FDI_SET (format, FMTDIR_ERROR);
                 goto bad_format;
@@ -309,6 +313,7 @@ format_parse (const char *format, bool translated, char *fdi,
             /* Named and unnamed specifications are exclusive.  */
             if (spec.named_arg_count > 0)
               {
+                free (name);
                 *invalid_reason = INVALID_MIXES_NAMED_UNNAMED ();
                 FDI_SET (format, FMTDIR_ERROR);
                 goto bad_format;
