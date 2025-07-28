@@ -507,4 +507,6 @@ print_hostname ()
     default:
       abort ();
     }
+
+  free (hostname);
 }
