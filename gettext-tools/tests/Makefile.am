@@ -250,6 +250,7 @@ TESTS = gettext-1 gettext-2 \
 	lang-pascal \
 	lang-modula2 \
 	lang-d \
+	lang-ocaml \
 	lang-smalltalk \
 	lang-vala \
 	lang-tcl \

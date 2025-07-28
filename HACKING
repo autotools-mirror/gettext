@@ -316,6 +316,19 @@ are skipped. To this effect, you need to install also:
       - On Red Hat distributions: --.
       - Other: https://repology.org/project/fpc/versions
 
+  * OCaml
+    + Homepage: https://ocaml.org/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: ocaml,
+      - On Red Hat distributions: ocaml.
+      - Other: https://repology.org/project/ocaml/versions
+  * The OCaml package manager
+    + Homepage: https://opam.ocaml.org/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: opam,
+      - On Red Hat distributions: --.
+      - Other: https://repology.org/project/opam/versions
+
   * GNU smalltalk
     + Homepage: http://smalltalk.gnu.org/
     + Pre-built package name:
