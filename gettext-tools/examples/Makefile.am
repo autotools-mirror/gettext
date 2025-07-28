@@ -420,6 +420,17 @@ EXAMPLESFILES = \
   hello-d/m4/Makefile.am \
   hello-d/po/Makefile.am \
   \
+  hello-ocaml/INSTALL \
+  hello-ocaml/autogen.sh \
+  hello-ocaml/autoclean.sh \
+  hello-ocaml/dune.in \
+  hello-ocaml/dune-project.in \
+  hello-ocaml/hello.ml.in \
+  hello-ocaml/Makefile.am \
+  hello-ocaml/configure.ac \
+  hello-ocaml/m4/Makefile.am \
+  hello-ocaml/po/Makefile.am \
+  \
   hello-smalltalk/INSTALL \
   hello-smalltalk/autogen.sh \
   hello-smalltalk/autoclean.sh \
@@ -513,6 +524,7 @@ EXAMPLESDIRS = \
   hello-pascal \
   hello-modula2 \
   hello-d \
+  hello-ocaml \
   hello-smalltalk \
   hello-tcl \
   hello-tcl-tk \

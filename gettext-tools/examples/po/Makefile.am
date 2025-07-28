@@ -72,6 +72,7 @@ POTFILES = \
   hello-pascal/hello.pas \
   hello-modula2/hello.mod.in \
   hello-d/hello.d.in \
+  hello-ocaml/hello.ml.in \
   hello-smalltalk/hello.st.in \
   hello-tcl/hello.tcl \
   hello-tcl-tk/hello.tcl \
@@ -115,6 +116,7 @@ SMALLPOTS = \
   hello-pascal.pot \
   hello-modula2.pot \
   hello-d.pot \
+  hello-ocaml.pot \
   hello-smalltalk.pot \
   hello-tcl.pot \
   hello-tcl-tk.pot \
@@ -364,6 +366,9 @@ hello-modula2.pot : $(POTFILES_DEPS)
 hello-d.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-d
 
+hello-ocaml.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-ocaml
+
 hello-smalltalk.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-smalltalk
 
@@ -491,6 +496,7 @@ SMALLPOFILES_FOR_lang = \
   $(srcdir)/../hello-pascal/po/$$lang.po \
   $(srcdir)/../hello-modula2/po/$$lang.po \
   $(srcdir)/../hello-d/po/$$lang.po \
+  $(srcdir)/../hello-ocaml/po/$$lang.po \
   $(srcdir)/../hello-smalltalk/po/$$lang.po \
   $(srcdir)/../hello-tcl/po/$$lang.po \
   $(srcdir)/../hello-tcl-tk/po/$$lang.po \
@@ -596,6 +602,9 @@ $(srcdir)/../hello-modula2/po/$(LL).po: $(srcdir)/hello-modula2.pot $(srcdir)/$(
 
 $(srcdir)/../hello-d/po/$(LL).po: $(srcdir)/hello-d.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-d $(LL)
+
+$(srcdir)/../hello-ocaml/po/$(LL).po: $(srcdir)/hello-ocaml.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-ocaml $(LL)
 
 $(srcdir)/../hello-smalltalk/po/$(LL).po: $(srcdir)/hello-smalltalk.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-smalltalk $(LL)

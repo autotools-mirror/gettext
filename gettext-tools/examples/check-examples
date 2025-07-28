@@ -732,6 +732,11 @@ func_check__hello_d ()
   func_check hello-d
 }
 
+func_check__hello_ocaml ()
+{
+  func_check hello-ocaml
+}
+
 func_check__hello_smalltalk ()
 {
   func_check hello-smalltalk
@@ -810,6 +815,7 @@ func_check__hello_gawk            #   32 s
 func_check__hello_pascal          #   33 s
 func_check__hello_modula2         #   46 s
 func_check__hello_d               #   70 s
+func_check__hello_ocaml           #   33 s
 func_check__hello_smalltalk       #   32 s
 func_check__hello_tcl             #   36 s
 func_check__hello_tcl_tk          #   36 s

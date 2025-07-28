@@ -62,4 +62,4 @@ fully portable
 ---
 @end table
 
-@c An example is available in the @file{examples} directory: @code{hello-ocaml}.
+An example is available in the @file{examples} directory: @code{hello-ocaml}.
