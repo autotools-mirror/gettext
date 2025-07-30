@@ -212,6 +212,12 @@ EOF
 
 : ${LOCALE_FR=fr_FR}
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
+# Java on Windows (a native Windows program) does not support the native Windows
+# locale name French_France.65001. It produces ISO-8859-1 encoded output
+# nevertheless.
+case "$host_os" in
+  mingw* | windows*) LOCALE_FR_UTF8=none ;;
+esac
 : ${JAVAEXEC="/bin/sh ../../javaexec.sh"}
 if test $LOCALE_FR != none; then
   LANGUAGE= LC_ALL=$LOCALE_FR CLASSPATH=".${CLASSPATH_SEPARATOR}../../../gettext-runtime/intl-java/libintl.jar" ${JAVAEXEC} Program 2 ISO-8859-1 > prog.tmp || Exit 1
