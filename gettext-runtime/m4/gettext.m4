@@ -330,7 +330,11 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
         fi
       fi
 
-      if test "$gt_cv_use_gnu_libintl" = "yes"; then
+      AC_REQUIRE([AC_CANONICAL_HOST])
+      if test "$gt_cv_use_gnu_libintl" = "yes" \
+         || case "$host_os" in cygwin*) true;; *) false;; esac; then
+        dnl GNU gettext is not found in the C library or is,
+        dnl like on Cygwin, a component of the C library.
         dnl Mark actions used to generate GNU NLS library.
         USE_INCLUDED_LIBINTL=yes
         LIBINTL="m4_if([$3],[],\${top_builddir}/intl,[$3])/libintl.la $LIBICONV $LIBTHREAD"
