@@ -1,5 +1,5 @@
 # gettext.m4
-# serial 83 (gettext-0.26)
+# serial 84 (gettext-0.27)
 dnl Copyright (C) 1995-2025 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
@@ -17,7 +17,7 @@ dnl They are *not* in the public domain.
 
 dnl Authors:
 dnl   Ulrich Drepper <drepper@cygnus.com>, 1995-2000.
-dnl   Bruno Haible <bruno@clisp.org>, 2000-2024.
+dnl   Bruno Haible <bruno@clisp.org>, 2000-2025.
 
 dnl Macro to add for using GNU gettext.
 
@@ -119,15 +119,15 @@ AC_DEFUN([AM_GNU_GETTEXT],
   if test "$USE_NLS" = "yes"; then
     gt_use_preinstalled_gnugettext=no
     m4_if(gt_building_libintl_in_same_build_tree, yes, [
-      AC_MSG_CHECKING([whether included gettext is requested])
-      AC_ARG_WITH([included-gettext],
-        [  --with-included-gettext use the GNU gettext library included here],
-        nls_cv_force_use_gnu_gettext=$withval,
-        nls_cv_force_use_gnu_gettext=no)
-      AC_MSG_RESULT([$nls_cv_force_use_gnu_gettext])
+      AC_MSG_CHECKING([whether included libintl is requested])
+      AC_ARG_WITH([included-libintl],
+        [  --with-included-libintl use the GNU libintl library included here],
+        gt_cv_force_use_gnu_libintl=$withval,
+        gt_cv_force_use_gnu_libintl=no)
+      AC_MSG_RESULT([$gt_cv_force_use_gnu_libintl])
 
-      nls_cv_use_gnu_gettext="$nls_cv_force_use_gnu_gettext"
-      if test "$nls_cv_force_use_gnu_gettext" != "yes"; then
+      gt_cv_use_gnu_libintl="$gt_cv_force_use_gnu_libintl"
+      if test "$gt_cv_force_use_gnu_libintl" != "yes"; then
     ])
         dnl User does not insist on using GNU NLS library.  Figure out what
         dnl to use.  If GNU gettext is available we use this.  Else we have
@@ -326,11 +326,11 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
         if test "$gt_use_preinstalled_gnugettext" != "yes"; then
           dnl GNU gettext is not found in the C library.
           dnl Fall back on included GNU gettext library.
-          nls_cv_use_gnu_gettext=yes
+          gt_cv_use_gnu_libintl=yes
         fi
       fi
 
-      if test "$nls_cv_use_gnu_gettext" = "yes"; then
+      if test "$gt_cv_use_gnu_libintl" = "yes"; then
         dnl Mark actions used to generate GNU NLS library.
         USE_INCLUDED_LIBINTL=yes
         LIBINTL="m4_if([$3],[],\${top_builddir}/intl,[$3])/libintl.la $LIBICONV $LIBTHREAD"
@@ -340,7 +340,7 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
 
       CATOBJEXT=
       if test "$gt_use_preinstalled_gnugettext" = "yes" \
-         || test "$nls_cv_use_gnu_gettext" = "yes"; then
+         || test "$gt_cv_use_gnu_libintl" = "yes"; then
         dnl Mark actions to use GNU gettext tools.
         CATOBJEXT=.gmo
       fi
@@ -348,7 +348,7 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
 
     if test -n "$INTL_MACOSX_LIBS"; then
       if test "$gt_use_preinstalled_gnugettext" = "yes" \
-         || test "$nls_cv_use_gnu_gettext" = "yes"; then
+         || test "$gt_cv_use_gnu_libintl" = "yes"; then
         dnl Some extra flags are needed during linking.
         LIBINTL="$LIBINTL $INTL_MACOSX_LIBS"
         LTLIBINTL="$LTLIBINTL $INTL_MACOSX_LIBS"
@@ -356,7 +356,7 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
     fi
 
     if test "$gt_use_preinstalled_gnugettext" = "yes" \
-       || test "$nls_cv_use_gnu_gettext" = "yes"; then
+       || test "$gt_cv_use_gnu_libintl" = "yes"; then
       AC_DEFINE([ENABLE_NLS], [1],
         [Define to 1 if translation of program messages to the user's native language
    is requested.])
