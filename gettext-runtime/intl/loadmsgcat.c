@@ -1,5 +1,5 @@
 /* Load needed message catalogs.
-   Copyright (C) 1995-2024 Free Software Foundation, Inc.
+   Copyright (C) 1995-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -1018,7 +1018,10 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 		    /* Allocate additional memory.  */
 		    mem = (char *) malloc (memneed);
 		    if (mem == NULL)
-		      goto invalid;
+		      {
+			free (sysdep_segment_values);
+			goto invalid;
+		      }
 
 		    domain->malloced = mem;
 		    inmem_orig_sysdep_tab = (struct sysdep_string_desc *) mem;
