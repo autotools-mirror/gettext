@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode:nil; c-basic-offset: 8-*- */
 
 /* libcroco - Library for parsing and applying CSS
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2025 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -1206,8 +1206,7 @@ cr_sel_eng_unregister_pseudo_class_sel_handler (CRSelEng * a_this,
                                                 guchar * a_name,
                                                 enum CRPseudoType a_type)
 {
-        GList *elem = NULL,
-                *deleted_elem = NULL;
+        GList *elem = NULL;
         gboolean found = FALSE;
         struct CRPseudoClassSelHandlerEntry *entry = NULL;
 
@@ -1224,13 +1223,11 @@ cr_sel_eng_unregister_pseudo_class_sel_handler (CRSelEng * a_this,
         }
         if (found == FALSE)
                 return CR_PSEUDO_CLASS_SEL_HANDLER_NOT_FOUND_ERROR;
-        PRIVATE (a_this)->pcs_handlers = g_list_delete_link
-                (PRIVATE (a_this)->pcs_handlers, elem);
         entry = elem->data;
         if (entry->name)
                 g_free (entry->name);
-        g_free (elem);
-        g_list_free (deleted_elem);
+        PRIVATE (a_this)->pcs_handlers =
+          g_list_delete_link (PRIVATE (a_this)->pcs_handlers, elem); /* free()s elem ! */
 
         return CR_OK;
 }
