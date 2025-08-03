@@ -1,5 +1,5 @@
 /* GNU gettext for Java
- * Copyright (C) 2001-2024 Free Software Foundation, Inc.
+ * Copyright (C) 2001-2025 Free Software Foundation, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -99,7 +99,6 @@ public abstract class GettextResource extends ResourceBundle {
     // is that we want the generated ResourceBundles to be completely
     // standalone, so that migration from the Sun approach to the GNU gettext
     // approach (without use of plurals) is as straightforward as possible.
-    ResourceBundle origCatalog = catalog;
     do {
       // Try catalog itself.
       if (verbose)
