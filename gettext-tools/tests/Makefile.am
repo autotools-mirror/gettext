@@ -334,6 +334,13 @@ TESTS_ENVIRONMENT = top_srcdir=$(top_srcdir) \
 		    RECODE="$(CHECKER) recode" \
 		    CONFIG_SHELL='$(SHELL)'
 
+# The value of top_builddir, determined by Autoconf and stored in the Makefile,
+# consists of n times '..', where n is the depth of the $(srcdir) under
+# $(top_srcdir). Here we need one more '..', because the test framework
+# (init.sh) arranges to run the tests in a subdirectory of depth 1 under the
+# directory where the Makefile sits.
+TESTS_ENVIRONMENT += top_builddir='../@top_builddir@'
+
 # Invoke the shell explicitly, because the execute-permission bit on the scripts
 # may get lost in particular circumstances (e.g. when unpacking a tarball, or
 # under Cygwin).

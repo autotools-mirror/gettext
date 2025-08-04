@@ -1,5 +1,5 @@
-# Variable needed by LTLIBINTL.
-top_builddir=../..
+# Note: LTLIBINTL uses the variable ${top_builddir}, whose value is set
+# as an environment variable by the 'test-framework-sh' module.
 
 OBJEXT="@OBJEXT@"
 EXEEXT="@EXEEXT@"
