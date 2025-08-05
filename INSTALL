@@ -26,7 +26,7 @@ Here, you can give as arguments to 'configure'
     described in the INSTALL.generic file.
 
 If you are in a 64-bit multilib system with support for building 32-bit
-binaries, you can build a 32-bit poke configuring like this:
+binaries, you can build 32-bit binaries by configuring like this:
 
   $ ../configure CC="gcc -m32"
 
