@@ -612,7 +612,7 @@ if ! $skip_gnulib; then
   done
 
   # Fetch INSTALL.generic.
-  $GNULIB_TOOL --copy-file doc/INSTALL.UTF-8 INSTALL.generic
+  $GNULIB_TOOL --copy-file doc/INSTALL.UTF-8 INSTALL.generic || exit $?
 fi
 
 # Make sure we get new versions of files brought in by automake.
