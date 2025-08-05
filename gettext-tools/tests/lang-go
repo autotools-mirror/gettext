@@ -57,7 +57,16 @@ func main () {
 }
 EOF
 
-${GO} mod download github.com/leonelquinteros/gotext
+${GO} mod download github.com/leonelquinteros/gotext || {
+  # Attempt to fix an error
+  # "go: GOPROXY list is not the empty string, but contains no entries"
+  # The precise cause of this error is not known, but it appears to be a
+  # version mismatch. (Between what? The 'go' command? A nonexistent go.env
+  # file? The $HOME/go/ cache?) The workaround is from
+  # <https://github.com/golang/go/issues/61928#issuecomment-2053877087>.
+  unset GOROOT
+  ${GO} mod download github.com/leonelquinteros/gotext
+}
 
 : ${GOCOMP="/bin/sh ../../gocomp.sh"}
 ${GOCOMP} program.go 2>prog.err \
