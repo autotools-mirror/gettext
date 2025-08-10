@@ -25,9 +25,7 @@
    the language of the message catalog where the translation was found, and
    applies that translated format string to the arguments.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include <ctype.h>
 #include <errno.h>

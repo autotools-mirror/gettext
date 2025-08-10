@@ -22,9 +22,7 @@
    variables TEXTDOMAIN and TEXTDOMAINDIR), and applies that translated format
    string to the arguments.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include <locale.h>
 #include <stdbool.h>

@@ -1,5 +1,5 @@
 /* Test program, used by the intl-setlocale-1 test.
-   Copyright (C) 2000, 2005, 2007, 2013, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2000-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,9 +17,7 @@
 /* Contributed to the GNU C Library by
    Thorsten Kukuk <kukuk@suse.de> and Andreas Jaeger <aj@suse.de>, 2000.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include <locale.h>
 #include <stdlib.h>

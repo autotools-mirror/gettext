@@ -28,7 +28,7 @@
  * see <https://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
+#include <config.h>
 
 #include <assert.h>
 #include <stdarg.h>

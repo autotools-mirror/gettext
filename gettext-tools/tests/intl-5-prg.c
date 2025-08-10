@@ -1,5 +1,5 @@
 /* Test that gettext() does not crash by stack overflow when msgid is very long.
-   Copyright (C) 2007, 2014, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2007-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,9 +16,7 @@
 
 /* Written by Bruno Haible <haible@clisp.cons.org>, 2007.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include <stdio.h>
 #include <stdlib.h>

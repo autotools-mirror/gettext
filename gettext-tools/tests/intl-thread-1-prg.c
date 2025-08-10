@@ -1,5 +1,5 @@
 /* Test program, used by the intl-thread-1 test.
-   Copyright (C) 2005-2007, 2009-2010, 2013, 2018-2019 Free Software Foundation, Inc.
+   Copyright (C) 2005-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -16,9 +16,7 @@
 
 /* Written by Bruno Haible <haible@clisp.cons.org>, 2005, 2018.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include <locale.h>
 #include <stdlib.h>

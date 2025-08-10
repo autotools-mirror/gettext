@@ -16,9 +16,7 @@
 
 /* Written by Daiki Ueno <ueno@gnu.org> and Bruno Haible <bruno@clisp.org>.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 /* Specification.  */
 #include "xg-check.h"

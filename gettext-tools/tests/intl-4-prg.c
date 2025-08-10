@@ -1,5 +1,5 @@
 /* Test program, used by the intl-4 test.
-   Copyright (C) 2001, 2005-2006, 2013, 2018 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -17,9 +17,7 @@
 /* Contributed to the GNU C Library by
    Bruno Haible <haible@clisp.cons.org>, 2001.  */
 
-#ifdef HAVE_CONFIG_H
-# include <config.h>
-#endif
+#include <config.h>
 
 #include <locale.h>
 #include <stdlib.h>
