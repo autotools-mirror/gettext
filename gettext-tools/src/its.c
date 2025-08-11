@@ -90,7 +90,7 @@ structured_error (void *data, const xmlError *err)
 structured_error (void *data, xmlError *err)
 #endif
 {
-  error (0, err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0,
+  error (err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0, 0,
          _("%s error: %s"), "libxml2", err->message);
 }
 
@@ -1598,7 +1598,7 @@ its_rule_list_add_from_file (struct its_rule_list_ty *rules,
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
-      error (0, err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0,
+      error (err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0, 0,
              _("cannot read %s: %s"), filename, err->message);
       return false;
     }
@@ -1629,7 +1629,7 @@ its_rule_list_add_from_string (struct its_rule_list_ty *rules,
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
-      error (0, err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0,
+      error (err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0, 0,
              _("cannot read %s: %s"), "(internal)", err->message);
       return false;
     }
@@ -2042,7 +2042,7 @@ its_rule_list_extract (its_rule_list_ty *rules,
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
-      error (0, err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0,
+      error (err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0, 0,
              _("cannot read %s: %s"), logical_filename, err->message);
       return;
     }
@@ -3052,7 +3052,7 @@ its_merge_context_alloc (its_rule_list_ty *rules,
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
-      error (0, err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0,
+      error (err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0, 0,
              _("cannot read %s: %s"), filename, err->message);
       return NULL;
     }
