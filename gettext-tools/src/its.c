@@ -23,6 +23,8 @@
 
 #include <assert.h>
 #include <errno.h>
+#include <setjmp.h>
+#include <stdarg.h>
 #include <stdint.h>
 #include <stdlib.h>
 
@@ -81,6 +83,9 @@
 
 /* ----------------------------- Error handling ----------------------------- */
 
+/* The non-local exit to invoke when a non-fatal libxml error occurs.  */
+static jmp_buf xml_error_exit;
+
 static void
 /* Adapt to API change in libxml 2.12.0.
    See <https://gitlab.gnome.org/GNOME/libxml2/-/issues/622>.  */
@@ -92,6 +97,22 @@ structured_error (void *data, xmlError *err)
 {
   error (err->level == XML_ERR_FATAL ? EXIT_FAILURE : 0, 0,
          _("%s error: %s"), "libxml2", err->message);
+  longjmp (xml_error_exit, 1);
+}
+
+/* Generic errors are marked "deprecated" in the documentation, but functions
+   like xmlDocFormatDump actually do produce them.  */
+static void generic_error (void *data, const char *message, ...)
+     LIBXML_ATTR_FORMAT (2, 3);
+static void
+generic_error (void *data, const char *message, ...)
+{
+  va_list args;
+
+  va_start (args, message);
+  vfprintf (stderr, message, args);
+  va_end (args);
+  longjmp (xml_error_exit, 1);
 }
 
 /* --------------------------------- Values --------------------------------- */
@@ -1603,11 +1624,20 @@ its_rule_list_add_from_file (struct its_rule_list_ty *rules,
       return false;
     }
 
-  xmlSetStructuredErrorFunc (NULL, structured_error);
+  if (setjmp (xml_error_exit) == 0)
+    {
+      xmlSetStructuredErrorFunc (NULL, structured_error);
+      xmlSetGenericErrorFunc (NULL, generic_error);
 
-  result = its_rule_list_add_from_doc (rules, doc);
+      result = its_rule_list_add_from_doc (rules, doc);
+    }
+  else
+    /* Caught a libxml error.  */
+    result = false;
+
   xmlFreeDoc (doc);
 
+  xmlSetGenericErrorFunc (NULL, NULL);
   xmlSetStructuredErrorFunc (NULL, NULL);
   return result;
 }
@@ -1634,11 +1664,20 @@ its_rule_list_add_from_string (struct its_rule_list_ty *rules,
       return false;
     }
 
-  xmlSetStructuredErrorFunc (NULL, structured_error);
+  if (setjmp (xml_error_exit) == 0)
+    {
+      xmlSetStructuredErrorFunc (NULL, structured_error);
+      xmlSetGenericErrorFunc (NULL, generic_error);
 
-  result = its_rule_list_add_from_doc (rules, doc);
+      result = its_rule_list_add_from_doc (rules, doc);
+    }
+  else
+    /* Caught a libxml error.  */
+    result = false;
+
   xmlFreeDoc (doc);
 
+  xmlSetGenericErrorFunc (NULL, NULL);
   xmlSetStructuredErrorFunc (NULL, NULL);
   return result;
 }
@@ -2031,8 +2070,6 @@ its_rule_list_extract (its_rule_list_ty *rules,
                        its_extract_callback_ty callback)
 {
   xmlDoc *doc;
-  struct its_node_list_ty nodes;
-  size_t i;
 
   doc = xmlReadFd (fileno (fp), logical_filename, NULL,
                    XML_PARSE_NONET
@@ -2047,24 +2084,35 @@ its_rule_list_extract (its_rule_list_ty *rules,
       return;
     }
 
-  xmlSetStructuredErrorFunc (NULL, structured_error);
+  if (setjmp (xml_error_exit) == 0)
+    {
+      xmlSetStructuredErrorFunc (NULL, structured_error);
+      xmlSetGenericErrorFunc (NULL, generic_error);
 
-  its_rule_list_apply (rules, doc);
+      its_rule_list_apply (rules, doc);
 
-  memset (&nodes, 0, sizeof (struct its_node_list_ty));
-  its_rule_list_extract_nodes (rules,
-                               &nodes,
-                               xmlDocGetRootElement (doc));
+      struct its_node_list_ty nodes;
+      memset (&nodes, 0, sizeof (struct its_node_list_ty));
+      its_rule_list_extract_nodes (rules,
+                                   &nodes,
+                                   xmlDocGetRootElement (doc));
 
-  for (i = 0; i < nodes.nitems; i++)
-    its_rule_list_extract_text (rules, nodes.items[i],
-                                logical_filename,
-                                mdlp->item[0]->messages,
-                                callback);
+      size_t i;
+      for (i = 0; i < nodes.nitems; i++)
+        its_rule_list_extract_text (rules, nodes.items[i],
+                                    logical_filename,
+                                    mdlp->item[0]->messages,
+                                    callback);
 
-  free (nodes.items);
+      free (nodes.items);
+    }
+  else
+    /* Caught a libxml error.  */
+    ;
+
   xmlFreeDoc (doc);
 
+  xmlSetGenericErrorFunc (NULL, NULL);
   xmlSetStructuredErrorFunc (NULL, NULL);
 }
 
@@ -3024,16 +3072,23 @@ its_merge_context_merge (its_merge_context_ty *context,
                          message_list_ty *mlp,
                          bool replace_text)
 {
-  size_t i;
+  if (setjmp (xml_error_exit) == 0)
+    {
+      xmlSetStructuredErrorFunc (NULL, structured_error);
+      xmlSetGenericErrorFunc (NULL, generic_error);
 
-  xmlSetStructuredErrorFunc (NULL, structured_error);
+      size_t i;
+      for (i = 0; i < context->nodes.nitems; i++)
+        its_merge_context_merge_node (context, context->nodes.items[i],
+                                      language,
+                                      mlp,
+                                      replace_text);
+    }
+  else
+    /* Caught a libxml error.  */
+    ;
 
-  for (i = 0; i < context->nodes.nitems; i++)
-    its_merge_context_merge_node (context, context->nodes.items[i],
-                                  language,
-                                  mlp,
-                                  replace_text);
-
+  xmlSetGenericErrorFunc (NULL, NULL);
   xmlSetStructuredErrorFunc (NULL, NULL);
 }
 
@@ -3057,20 +3112,33 @@ its_merge_context_alloc (its_rule_list_ty *rules,
       return NULL;
     }
 
-  xmlSetStructuredErrorFunc (NULL, structured_error);
+  if (setjmp (xml_error_exit) == 0)
+    {
+      xmlSetStructuredErrorFunc (NULL, structured_error);
+      xmlSetGenericErrorFunc (NULL, generic_error);
 
-  its_rule_list_apply (rules, doc);
+      its_rule_list_apply (rules, doc);
 
-  result = XMALLOC (struct its_merge_context_ty);
-  result->rules = rules;
-  result->doc = doc;
+      result = XMALLOC (struct its_merge_context_ty);
+      result->rules = rules;
+      result->doc = doc;
 
-  /* Collect translatable nodes.  */
-  memset (&result->nodes, 0, sizeof (struct its_node_list_ty));
-  its_rule_list_extract_nodes (result->rules,
-                               &result->nodes,
-                               xmlDocGetRootElement (result->doc));
+      /* Collect translatable nodes.  */
+      memset (&result->nodes, 0, sizeof (struct its_node_list_ty));
+      its_rule_list_extract_nodes (result->rules,
+                                   &result->nodes,
+                                   xmlDocGetRootElement (result->doc));
+    }
+  else
+    {
+      /* Caught a libxml error.  */
+      if (result != NULL)
+        free (result);
+      result = NULL;
+      xmlFreeDoc (doc);
+    }
 
+  xmlSetGenericErrorFunc (NULL, NULL);
   xmlSetStructuredErrorFunc (NULL, NULL);
   return result;
 }
@@ -3079,10 +3147,18 @@ void
 its_merge_context_write (struct its_merge_context_ty *context,
                          FILE *fp)
 {
-  xmlSetStructuredErrorFunc (NULL, structured_error);
+  if (setjmp (xml_error_exit) == 0)
+    {
+      xmlSetStructuredErrorFunc (NULL, structured_error);
+      xmlSetGenericErrorFunc (NULL, generic_error);
 
-  xmlDocFormatDump (fp, context->doc, 1);
+      xmlDocFormatDump (fp, context->doc, 1);
+    }
+  else
+    /* Caught a libxml error.  */
+    ;
 
+  xmlSetGenericErrorFunc (NULL, NULL);
   xmlSetStructuredErrorFunc (NULL, NULL);
 }
 
