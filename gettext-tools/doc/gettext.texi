@@ -10751,10 +10751,10 @@ that language, and to combine the resulting files using @code{msgcat}.
 @c   Unix Shell               357     *
 @c   Tcl                      266     *
 @c   SQL                      174
-@c   JavaScript               118
+@c   JavaScript               118     *
 @c   Assembly                 108
-@c   Scheme                    51
-@c   Ruby                      47
+@c   Scheme                    51     *
+@c   Ruby                      47     *
 @c   Lisp                      45     *
 @c   Objective C               39     *
 @c   PL/SQL                    29
@@ -10776,7 +10776,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @c   Smalltalk                  6     *
 @c   Basic                      5
 @c   Erlang                     5
-@c   Modula                     5
+@c   Modula                     5     *
 @c   Object Pascal              5     *
 @c   Rexx                       5
 @c   Dylan                      4
