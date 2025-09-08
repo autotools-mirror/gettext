@@ -280,16 +280,6 @@ We assume that the following environment variables are set:
     gnulib/build-aux/gnupload --to ftp.gnu.org:gettext \
                               gettext-$CURRENT_VERSION.tar.{gz,xz,lz}
 
-** Upload autopoint archive to alpha.gnu.org:
-
-  This is needed to compile git master after the release (as
-  autopull.sh fetches the archive).
-
-    xz -c -e < gettext-tools/misc/archive.dir.tar > archive.dir-$CURRENT_VERSION.tar.xz
-    gnulib/build-aux/gnupload \
-      --to alpha.gnu.org:gettext \
-      --symlink-regex archive.dir-$CURRENT_VERSION.tar.xz
-
 ** Finally:
 
     rm -f .tarball-version

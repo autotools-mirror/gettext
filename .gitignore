@@ -15,7 +15,6 @@
 /gettext-runtime/doc/Admin/jdom-1.0.jar
 /gettext-runtime/doc/Admin/Matrix*.class
 /gettext-runtime/doc/Admin/matrix.xml
-/gettext-tools/misc/archive.dir.tar
 
 # Files brought in by autopull.sh:
 /gettext-tools/tree-sitter-*

@@ -20,10 +20,6 @@
 # This script requires:
 #   - Wget
 #   - XZ Utils
-#
-# In addition, it fetches the archive.dir.tar.gz file, which contains
-# data files used by the autopoint program.  If you already have the
-# file, place it under gettext-tools/misc, before running this script.
 
 # Usage: ./autopull.sh
 
@@ -31,23 +27,6 @@
 (unset CDPATH) >/dev/null 2>&1 && unset CDPATH
 
 ./gitsub.sh pull || exit 1
-
-# Fetch gettext-tools/misc/archive.dir.tar.
-if ! test -f gettext-tools/misc/archive.dir.tar; then
-  if ! test -f gettext-tools/misc/archive.dir.tar.xz; then
-    echo "$0: getting gettext-tools/misc/archive.dir.tar..."
-    wget -q --timeout=5 -O gettext-tools/misc/archive.dir.tar.xz-t "https://alpha.gnu.org/gnu/gettext/archive.dir-latest.tar.xz" \
-      && mv gettext-tools/misc/archive.dir.tar.xz-t gettext-tools/misc/archive.dir.tar.xz
-    retval=$?
-    rm -f gettext-tools/misc/archive.dir.tar.xz-t
-    test $retval -eq 0 || exit $retval
-  fi
-  xz -d -c < gettext-tools/misc/archive.dir.tar.xz > gettext-tools/misc/archive.dir.tar-t \
-    && mv gettext-tools/misc/archive.dir.tar-t gettext-tools/misc/archive.dir.tar
-  retval=$?
-  rm -f gettext-tools/misc/archive.dir.tar-t
-  test $retval -eq 0 || exit $retval
-fi
 
 # func_git_clone_shallow SUBDIR URL REVISION
 func_git_clone_shallow ()
