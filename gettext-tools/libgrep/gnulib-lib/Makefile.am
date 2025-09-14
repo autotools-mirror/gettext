@@ -31,6 +31,7 @@ noinst_LIBRARIES =
 # Note that Automake's $(DEFAULT_INCLUDES) already contains
 # -I. -I$(srcdir) -I$(top_builddir).
 AM_CPPFLAGS = \
+  -I../../../gettext-runtime/intl \
   -I../../gnulib-lib -I$(top_srcdir)/gnulib-lib
 
 # Rules generated and collected by gnulib-tool.
