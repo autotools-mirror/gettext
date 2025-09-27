@@ -298,6 +298,13 @@ extern void po_message_set_fuzzy (po_message_t message, int fuzzy);
    type (e.g. "c-format").  */
 extern int po_message_is_format (po_message_t message, const char *format_type);
 
+/* Return the format string mark for a given type (e.g. "c-format") of a
+   message.
+   Returns 1 if the the mark is set,
+   0 if the opposite mark ("no-*") is set,
+   -1 if neither the mark nor the opposite mark is set.  */
+extern int po_message_get_format (po_message_t message, const char *format_type);
+
 /* Change the format string mark for a given type of a message.
    Pass value = 1 to assert the format string mark (e.g. "c-format"),
    value = 0 to assert the opposite (leading to e.g. "no-c-format"),

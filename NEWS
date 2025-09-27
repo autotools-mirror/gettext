@@ -7,6 +7,10 @@ Version 0.27 - September 2025
       strings.
     - A new example 'hello-ocaml' has been added.
 
+# libgettextpo library:
+  * The function 'po_message_get_format' now supports distinguishing whether
+    a negative format string mark, such as 'no-c-format', is set or not.
+
 Version 0.26 - July 2025
 
 # Programming languages support:

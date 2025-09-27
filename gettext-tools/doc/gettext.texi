@@ -6557,6 +6557,16 @@ The @code{po_message_is_format} function returns true when the message
 is marked as being a format string of @var{format_type}.
 @end deftypefun
 
+@deftypefun {int} po_message_get_format (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{format_type})
+The @code{po_message_get_format} function returns an indicator
+whether the message is marked as being a format string of @var{format_type}
+or the opposite (@code{no-@var{format_type}}).
+More precisely,
+it returns 1 if the @var{format_type} mark is set,
+0 if the @code{no-@var{format_type}} mark is set,
+or -1 of neither the mark nor the opposite mark is set.
+@end deftypefun
+
 @deftypefun {void} po_message_set_format (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{format_type}, int@tie{}@var{value})
 The @code{po_message_set_format} function changes
 the format string mark of the message for the @var{format_type} provided.

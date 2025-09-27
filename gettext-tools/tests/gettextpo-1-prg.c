@@ -254,6 +254,8 @@ main (int argc, char *argv[])
         ASSERT (!po_message_is_fuzzy (msg));
         ASSERT (!po_message_is_format (msg, "c-format"));
         ASSERT (!po_message_is_format (msg, "java-format"));
+        ASSERT (po_message_get_format (msg, "c-format") == -1);
+        ASSERT (po_message_get_format (msg, "java-format") == -1);
         ASSERT (!po_message_is_range (msg, &min, &max));
       }
       {
@@ -283,6 +285,8 @@ main (int argc, char *argv[])
         ASSERT (po_message_is_fuzzy (msg));
         ASSERT (po_message_is_format (msg, "c-format"));
         ASSERT (!po_message_is_format (msg, "java-format"));
+        ASSERT (po_message_get_format (msg, "c-format") == 1);
+        ASSERT (po_message_get_format (msg, "java-format") == -1);
         ASSERT (!po_message_is_range (msg, &min, &max));
       }
       {
@@ -324,6 +328,8 @@ main (int argc, char *argv[])
         ASSERT (!po_message_is_fuzzy (msg));
         ASSERT (po_message_is_format (msg, "c-format"));
         ASSERT (!po_message_is_format (msg, "java-format"));
+        ASSERT (po_message_get_format (msg, "c-format") == 1);
+        ASSERT (po_message_get_format (msg, "java-format") == -1);
         ASSERT (!po_message_is_range (msg, &min, &max));
       }
       {
@@ -346,6 +352,8 @@ main (int argc, char *argv[])
         ASSERT (!po_message_is_fuzzy (msg));
         ASSERT (!po_message_is_format (msg, "c-format"));
         ASSERT (!po_message_is_format (msg, "java-format"));
+        ASSERT (po_message_get_format (msg, "c-format") == -1);
+        ASSERT (po_message_get_format (msg, "java-format") == -1);
         ASSERT (!po_message_is_range (msg, &min, &max));
       }
       {
@@ -375,6 +383,8 @@ main (int argc, char *argv[])
         ASSERT (!po_message_is_fuzzy (msg));
         ASSERT (!po_message_is_format (msg, "c-format"));
         ASSERT (po_message_is_format (msg, "java-format"));
+        ASSERT (po_message_get_format (msg, "c-format") == -1);
+        ASSERT (po_message_get_format (msg, "java-format") == 1);
         ASSERT (!po_message_is_range (msg, &min, &max));
       }
       {
@@ -396,6 +406,8 @@ main (int argc, char *argv[])
         ASSERT (!po_message_is_fuzzy (msg));
         ASSERT (!po_message_is_format (msg, "c-format"));
         ASSERT (!po_message_is_format (msg, "java-format"));
+        ASSERT (po_message_get_format (msg, "c-format") == -1);
+        ASSERT (po_message_get_format (msg, "java-format") == -1);
         ASSERT (!po_message_is_range (msg, &min, &max));
       }
       {
@@ -910,26 +922,57 @@ main (int argc, char *argv[])
     ASSERT (!po_message_is_format (msg, "c-format"));
     ASSERT (!po_message_is_format (msg, "java-format"));
     ASSERT (!po_message_is_format (msg, "xyzzy-format"));
+    ASSERT (po_message_get_format (msg, "c-format") == -1);
+    ASSERT (po_message_get_format (msg, "java-format") == -1);
+    ASSERT (po_message_get_format (msg, "xyzzy-format") == -1);
+
     po_message_set_format (msg, "c-format", 1);
     ASSERT (po_message_is_format (msg, "c-format"));
     ASSERT (!po_message_is_format (msg, "java-format"));
     ASSERT (!po_message_is_format (msg, "xyzzy-format"));
+    ASSERT (po_message_get_format (msg, "c-format") == 1);
+    ASSERT (po_message_get_format (msg, "java-format") == -1);
+    ASSERT (po_message_get_format (msg, "xyzzy-format") == -1);
+
     po_message_set_format (msg, "c-format", 1);
     ASSERT (po_message_is_format (msg, "c-format"));
     ASSERT (!po_message_is_format (msg, "java-format"));
     ASSERT (!po_message_is_format (msg, "xyzzy-format"));
+    ASSERT (po_message_get_format (msg, "c-format") == 1);
+    ASSERT (po_message_get_format (msg, "java-format") == -1);
+    ASSERT (po_message_get_format (msg, "xyzzy-format") == -1);
+
     po_message_set_format (msg, "java-format", 1);
     ASSERT (po_message_is_format (msg, "c-format"));
     ASSERT (po_message_is_format (msg, "java-format"));
     ASSERT (!po_message_is_format (msg, "xyzzy-format"));
+    ASSERT (po_message_get_format (msg, "c-format") == 1);
+    ASSERT (po_message_get_format (msg, "java-format") == 1);
+    ASSERT (po_message_get_format (msg, "xyzzy-format") == -1);
+
     po_message_set_format (msg, "c-format", 0);
     ASSERT (!po_message_is_format (msg, "c-format"));
     ASSERT (po_message_is_format (msg, "java-format"));
     ASSERT (!po_message_is_format (msg, "xyzzy-format"));
+    ASSERT (po_message_get_format (msg, "c-format") == 0);
+    ASSERT (po_message_get_format (msg, "java-format") == 1);
+    ASSERT (po_message_get_format (msg, "xyzzy-format") == -1);
+
     po_message_set_format (msg, "xyzzy-format", 1);
     ASSERT (!po_message_is_format (msg, "c-format"));
     ASSERT (po_message_is_format (msg, "java-format"));
     ASSERT (!po_message_is_format (msg, "xyzzy-format"));
+    ASSERT (po_message_get_format (msg, "c-format") == 0);
+    ASSERT (po_message_get_format (msg, "java-format") == 1);
+    ASSERT (po_message_get_format (msg, "xyzzy-format") == -1);
+
+    po_message_set_format (msg, "java-format", -1);
+    ASSERT (!po_message_is_format (msg, "c-format"));
+    ASSERT (!po_message_is_format (msg, "java-format"));
+    ASSERT (!po_message_is_format (msg, "xyzzy-format"));
+    ASSERT (po_message_get_format (msg, "c-format") == 0);
+    ASSERT (po_message_get_format (msg, "java-format") == -1);
+    ASSERT (po_message_get_format (msg, "xyzzy-format") == -1);
   }
 
   /* Test po_message_set_range.  */

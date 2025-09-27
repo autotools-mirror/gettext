@@ -950,8 +950,38 @@ po_message_is_format (po_message_t message, const char *format_type)
       if (strlen (format_language[i]) == len - 7
           && memcmp (format_language[i], format_type, len - 7) == 0)
         /* The given format_type corresponds to (enum format_type) i.  */
+        /* See make_format_description_string in write-po.c.  */
         return (possible_format_p (mp->is_format[i]) ? 1 : 0);
   return 0;
+}
+
+
+/* Return the format string mark for a given type (e.g. "c-format") of a
+   message.  Returns 1 if the the mark is set, 0 if the opposite mark ("no-*")
+   is set, -1 if neither the mark nor the opposite mark is set.  */
+
+int
+po_message_get_format (po_message_t message, const char *format_type)
+{
+  message_ty *mp = (message_ty *) message;
+  size_t len = strlen (format_type);
+  size_t i;
+
+  if (len >= 7 && memcmp (format_type + len - 7, "-format", 7) == 0)
+    for (i = 0; i < NFORMATS; i++)
+      if (strlen (format_language[i]) == len - 7
+          && memcmp (format_language[i], format_type, len - 7) == 0)
+        /* The given format_type corresponds to (enum format_type) i.  */
+        {
+          enum is_format is_format = mp->is_format[i];
+          /* See significant_format_p and make_format_description_string
+             in write-po.c.  */
+          if (is_format != undecided && is_format != impossible)
+            return (possible_format_p (is_format) ? 1 : 0);
+          else
+            return -1;
+        }
+  return -1;
 }
 
 
