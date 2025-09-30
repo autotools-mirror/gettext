@@ -6206,6 +6206,7 @@ without caring about the other threads.
 * PO Header Entry API::         Meta information of the file
 * po_filepos_t API::            References to the sources
 * Format Type API::             Supported format types
+* po_flag_iterator_t API::      Flag iteration
 * Checking API::                Enforcing constraints
 @end menu
 
@@ -6552,6 +6553,34 @@ The @code{po_message_set_fuzzy} function changes the fuzzy mark of
 @var{message}.
 @end deftypefun
 
+@deftypefun {int} po_message_has_workflow_flag (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{workflow_flag})
+The @code{po_message_has_workflow_flag} function returns true
+when @var{message} is marked with a given workflow flag.
+
+When the argument @var{workflow_flag} is @code{"fuzzy"},
+this function corresponds to the @code{po_message_is_fuzzy} function.
+@end deftypefun
+
+@deftypefun {void} po_message_set_workflow_flag (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{workflow_flag}, int@tie{}@var{value})
+The @code{po_message_set_workflow_flag} function changes
+a given workflow flag on @var{message}:
+If the @var{value} argument is non-zero, it sets it.
+If the @var{value} argument is zero, it unsets it.
+
+When the argument @var{workflow_flag} is @code{"fuzzy"},
+this function corresponds to the @code{po_message_set_fuzzy} function.
+@end deftypefun
+
+@deftypefun {po_flag_iterator_t} po_message_workflow_flags_iterator (po_message_t@tie{}@var{message})
+The @code{po_message_workflow_flags_iterator} function returns an iterator
+across the workflow flags of @var{message}.
+This includes the @code{"fuzzy"} flag.
+This iterator returns the workflow flags set on @var{message},
+one by one, through the function @code{po_flag_next}.
+When done, you should free the iterator,
+through the function @code{po_flag_iterator_free}.
+@end deftypefun
+
 @deftypefun {int} po_message_is_format (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{format_type})
 The @code{po_message_is_format} function returns true when the message
 is marked as being a format string of @var{format_type}.
@@ -6576,6 +6605,43 @@ to assert the format string mark (leading to e.g. @samp{c-format}),
 to assert the opposite (leading to e.g. @samp{no-c-format}),
 or @var{value} = -1
 to remove the format string mark and its opposite.
+@end deftypefun
+
+@deftypefun {int} po_message_has_sticky_flag (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{sticky_flag})
+The @code{po_message_has_sticky_flag} function returns true
+when @var{message} is marked with a given sticky flag.
+
+This function is a generalization of the
+@code{po_message_is_format} and @code{po_message_get_format} format functions.
+@end deftypefun
+
+@deftypefun {void} po_message_set_sticky_flag (po_message_t@tie{}@var{message}, const@tie{}char@tie{}*@var{sticky_flag}, int@tie{}@var{value})
+The @code{po_message_set_sticky_flag} function changes
+a given sticky flag on @var{message}:
+If the @var{value} argument is non-zero, it sets it.
+If the @var{value} argument is zero, it unsets it.
+
+This function is a generalization of the @code{po_message_set_format} function.
+
+Note that a message cannot have the sticky flags
+@code{@var{language}-format} and @code{no-@var{language}-format}
+at the same time.
+Therefore, setting the @code{@var{language}-format} flag for some @var{language}
+has the side effect of unsetting the @code{no-@var{language}-format} flag,
+and vice versa.
+@end deftypefun
+
+@deftypefun {po_flag_iterator_t} po_message_sticky_flags_iterator (po_message_t@tie{}@var{message})
+The @code{po_message_sticky_flags_iterator} function returns an iterator
+across the sticky flags of @var{message}.
+This includes the various
+@code{@var{language}-format} and @code{no-@var{language}-format} flags,
+as well as the @code{no-wrap} flag.
+It does @emph{not} include the @code{"range"}, because that is not a flag.
+This iterator returns the sticky flags set on @var{message},
+one by one, through the function @code{po_flag_next}.
+When done, you should free the iterator,
+through the function @code{po_flag_iterator_free}.
 @end deftypefun
 
 @deftypefun {int} po_message_is_range (po_message_t@tie{}@var{message}, int@tie{}*@var{minp}, int@tie{}*@var{maxp})
@@ -6656,6 +6722,23 @@ Returns a @code{NULL} terminated array of the supported format types.
 Returns the pretty name associated with @var{format_type}.  For example,
 it returns ``C#'' when @var{format_type} is ``csharp_format''.
 Return @code{NULL} if @var{format_type} is not a supported format type.
+@end deftypefun
+
+@node po_flag_iterator_t API
+@subsection po_flag_iterator_t API
+
+The following functions apply to a @code{po_flag_iterator_t} object,
+as returned by the functions @code{po_message_workflow_flags_iterator}
+and @code{po_message_sticky_flags_iterator}.
+
+@deftypefun {void} po_flag_iterator_free (po_flag_iterator_t@tie{}@var{iterator})
+The @code{po_flag_iterator_free} function frees the given @var{iterator}.
+@end deftypefun
+
+@deftypefun {const char *} po_flag_next (po_flag_iterator_t@tie{}@var{iterator})
+The @code{po_flag_next} function returns
+the next flag of the given kind on the given message.
+At the end of the list of flags, it returns @code{NULL}.
 @end deftypefun
 
 @node Checking API

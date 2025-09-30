@@ -112,6 +112,47 @@ const char *const format_language_pretty[NFORMATS] =
   /* format_ycp */              "YCP"
 };
 
+const char *const format_flag[NFORMATS] =
+{
+  /* format_c */                "no-" "c"             "-format",
+  /* format_objc */             "no-" "objc"          "-format",
+  /* format_cplusplus_brace */  "no-" "c++"           "-format",
+  /* format_python */           "no-" "python"        "-format",
+  /* format_python_brace */     "no-" "python-brace"  "-format",
+  /* format_java */             "no-" "java"          "-format",
+  /* format_java_printf */      "no-" "java-printf"   "-format",
+  /* format_csharp */           "no-" "csharp"        "-format",
+  /* format_javascript */       "no-" "javascript"    "-format",
+  /* format_scheme */           "no-" "scheme"        "-format",
+  /* format_lisp */             "no-" "lisp"          "-format",
+  /* format_elisp */            "no-" "elisp"         "-format",
+  /* format_librep */           "no-" "librep"        "-format",
+  /* format_rust */             "no-" "rust"          "-format",
+  /* format_go */               "no-" "go"            "-format",
+  /* format_ruby */             "no-" "ruby"          "-format",
+  /* format_sh */               "no-" "sh"            "-format",
+  /* format_sh_printf */        "no-" "sh-printf"     "-format",
+  /* format_awk */              "no-" "awk"           "-format",
+  /* format_lua */              "no-" "lua"           "-format",
+  /* format_pascal */           "no-" "object-pascal" "-format",
+  /* format_modula2 */          "no-" "modula2"       "-format",
+  /* format_d */                "no-" "d"             "-format",
+  /* format_ocaml */            "no-" "ocaml"         "-format",
+  /* format_smalltalk */        "no-" "smalltalk"     "-format",
+  /* format_qt */               "no-" "qt"            "-format",
+  /* format_qt_plursl */        "no-" "qt-plural"     "-format",
+  /* format_kde */              "no-" "kde"           "-format",
+  /* format_kde_kuit */         "no-" "kde-kuit"      "-format",
+  /* format_boost */            "no-" "boost"         "-format",
+  /* format_tcl */              "no-" "tcl"           "-format",
+  /* format_perl */             "no-" "perl"          "-format",
+  /* format_perl_brace */       "no-" "perl-brace"    "-format",
+  /* format_php */              "no-" "php"           "-format",
+  /* format_gcc_internal */     "no-" "gcc-internal"  "-format",
+  /* format_gfc_internal */     "no-" "gfc-internal"  "-format",
+  /* format_ycp */              "no-" "ycp"           "-format"
+};
+
 
 bool
 possible_format_p (enum is_format is_format)
@@ -119,6 +160,13 @@ possible_format_p (enum is_format is_format)
   return is_format == possible
          || is_format == yes_according_to_context
          || is_format == yes;
+}
+
+
+bool
+not_format_p (enum is_format is_format)
+{
+  return is_format == no;
 }
 
 

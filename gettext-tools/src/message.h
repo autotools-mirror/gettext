@@ -84,6 +84,7 @@ enum format_type
 #define NFORMATS 37     /* Number of format_type enum values.  */
 extern LIBGETTEXTSRC_DLL_VARIABLE const char *const format_language[NFORMATS];
 extern LIBGETTEXTSRC_DLL_VARIABLE const char *const format_language_pretty[NFORMATS];
+extern LIBGETTEXTSRC_DLL_VARIABLE const char *const format_flag[NFORMATS];
 
 /* Is current msgid a format string?  */
 enum is_format
@@ -98,6 +99,9 @@ enum is_format
 
 extern bool
        possible_format_p (enum is_format);
+
+extern bool
+       not_format_p (enum is_format);
 
 
 /* Range of an unsigned integer argument.  */

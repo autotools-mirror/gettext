@@ -68,6 +68,7 @@ make_format_description_string (enum is_format is_format, const char *lang,
 
   switch (is_format)
     {
+    /* Cf. possible_format_p.  */
     case possible:
       if (debug)
         {
@@ -79,6 +80,7 @@ make_format_description_string (enum is_format is_format, const char *lang,
     case yes:
       result = xasprintf ("%s-format", lang);
       break;
+    /* Cf. not_format_p.  */
     case no:
       result = xasprintf ("no-%s-format", lang);
       break;
@@ -92,7 +94,9 @@ make_format_description_string (enum is_format is_format, const char *lang,
 }
 
 
-/* Return true if IS_FORMAT is worth mentioning in a #, flags list.  */
+/* Return true if IS_FORMAT is worth mentioning in a #, flags list.
+   This is the same as
+     possible_format_p (is_format) || not_format_p (is_format).  */
 
 bool
 significant_format_p (enum is_format is_format)

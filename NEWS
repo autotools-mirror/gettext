@@ -10,6 +10,16 @@ Version 0.27 - September 2025
 # libgettextpo library:
   * The function 'po_message_get_format' now supports distinguishing whether
     a negative format string mark, such as 'no-c-format', is set or not.
+  * The new functions
+      po_message_has_workflow_flag
+      po_message_set_workflow_flag
+      po_message_workflow_flags_iterator, po_flag_next, po_flag_iterator_free
+    can be used to manipulate or inspect the workflow flags of a message.
+  * The new functions
+      po_message_has_sticky_flag
+      po_message_set_sticky_flag
+      po_message_sticky_flags_iterator, po_flag_next, po_flag_iterator_free
+    can be used to manipulate or inspect the sticky flags of a messsage.
 
 Version 0.26 - July 2025
 
