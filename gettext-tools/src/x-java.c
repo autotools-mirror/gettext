@@ -1,5 +1,5 @@
 /* xgettext Java backend.
-   Copyright (C) 2003-2024 Free Software Foundation, Inc.
+   Copyright (C) 2003-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -1979,7 +1979,16 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
         case token_type_semicolon:
           arglist_parser_done (argparser, arg);
           unref_region (inner_region);
-          return false;
+          if (terminator == token_type_rbrace)
+            {
+              argparser = arglist_parser_alloc (mlp, NULL);
+              inner_region = new_sub_region (outer_region, curr_context);
+              next_context_iter = null_context_list_iterator;
+              state = 0;
+              continue;
+            }
+          else
+            return false;
 
         case token_type_eof:
           arglist_parser_done (argparser, arg);
