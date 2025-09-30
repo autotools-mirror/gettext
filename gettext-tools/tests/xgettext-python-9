@@ -13,6 +13,7 @@ ${XGETTEXT} --omit-header --no-location -d xg-py-9-1 xg-py-9-1.py 2>xg-py-9-1.tm
 grep -v '^==' xg-py-9-1.tmp > xg-py-9-1.err
 # Expect no warning here (because the format string has only one placeholder).
 if test -s xg-py-9-1.err; then
+  cat xg-py-9-1.err
   Exit 1
 fi
 
