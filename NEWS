@@ -1,4 +1,4 @@
-Version 0.27 - September 2025
+Version 0.27 - October 2025
 
 # Programming languages support:
   * OCaml:
@@ -20,6 +20,9 @@ Version 0.27 - September 2025
       po_message_set_sticky_flag
       po_message_sticky_flags_iterator, po_flag_next, po_flag_iterator_free
     can be used to manipulate or inspect the sticky flags of a messsage.
+
+# Emacs PO mode:
+  Restore syntax highlighting in Emacs version 30 or newer.
 
 Version 0.26 - July 2025
 

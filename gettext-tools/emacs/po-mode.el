@@ -62,7 +62,7 @@
 
 ;;; Code:
 
-(defconst po-mode-version-string "2.30" "\
+(defconst po-mode-version-string "2.31" "\
 Version number of this version of po-mode.el.")
 
 ;;; Emacs portability matters - part I.
@@ -1002,7 +1002,7 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
 
   (add-hook 'write-contents-functions 'po-replace-revision-date)
 
-  (run-hooks 'po-mode-hook)
+  (run-mode-hooks 'po-mode-hook)
   (message (_"You may type 'h' or '?' for a short PO mode reminder.")))
 
 (defvar po-subedit-mode-map
