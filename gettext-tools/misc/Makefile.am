@@ -56,26 +56,6 @@ ARCHIVE_cvs = archive.cvs.tar.gz
 #    source directory."
 # Therefore we put this file in the source directory, not the build directory.
 
-# The archive.dir.tar is not stored in the version control repository.
-# Alpha-testers must use the one from an already installed release or from
-# https://alpha.gnu.org/gnu/gettext/ .
-$(srcdir)/archive.dir.tar:
-	if test -f $(gettextsrcdir)/archive.dir.tar.gz; then \
-	  gzip -d -c < $(gettextsrcdir)/archive.dir.tar.gz > $@-t && mv $@-t $@; \
-	else \
-	  if test -f $(gettextsrcdir)/archive.dir.tar.bz2; then \
-	    bzip2 -d -c < $(gettextsrcdir)/archive.dir.tar.bz2 > $@-t && mv $@-t $@; \
-	  else \
-	    if test -f $(gettextsrcdir)/archive.dir.tar.xz; then \
-	      xz -d -c < $(gettextsrcdir)/archive.dir.tar.xz > $@-t && mv $@-t $@; \
-	    else \
-	      echo "archive.dir.tar is not under version control. Please copy the archive.dir.tar.{gz,bz2,xz} from an already installed release to gettext-tools/misc/ and decompress it there." 1>&2; \
-	      exit 1; \
-	    fi; \
-	  fi; \
-	fi
-MOSTLYCLEANFILES += archive.dir.tar-t
-
 # The archive.dir.tar.gz is generated from archive.dir.tar.
 archive.dir.tar.gz: $(srcdir)/archive.dir.tar
 	gzip -c -9 < '$(srcdir)'/archive.dir.tar > $@-t && mv $@-t $@
