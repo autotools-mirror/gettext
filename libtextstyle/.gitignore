@@ -83,6 +83,8 @@
 /lib/free.c
 /lib/frexp.c
 /lib/frexpl.c
+/lib/fseterr.c
+/lib/fseterr.h
 /lib/fstat.c
 /lib/fsync.c
 /lib/full-write.c
@@ -233,6 +235,8 @@
 /lib/stdckdint.in.h
 /lib/stddef.in.h
 /lib/stdint.in.h
+/lib/stdio-consolesafe.c
+/lib/stdio-impl.h
 /lib/stdio-read.c
 /lib/stdio-write.c
 /lib/stdio.in.h
@@ -245,6 +249,7 @@
 /lib/strerror.c
 /lib/strerror-override.c
 /lib/strerror-override.h
+/lib/string.c
 /lib/string.in.h
 /lib/styled-ostream.oo.c
 /lib/styled-ostream.oo.h

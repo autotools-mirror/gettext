@@ -131,6 +131,8 @@
 /gettext-tools/libgettextpo/free.c
 /gettext-tools/libgettextpo/frexp.c
 /gettext-tools/libgettextpo/frexpl.c
+/gettext-tools/libgettextpo/fseterr.c
+/gettext-tools/libgettextpo/fseterr.h
 /gettext-tools/libgettextpo/fstat.c
 /gettext-tools/libgettextpo/fstrcmp.c
 /gettext-tools/libgettextpo/fstrcmp.h
@@ -274,6 +276,8 @@
 /gettext-tools/libgettextpo/stdckdint.in.h
 /gettext-tools/libgettextpo/stddef.in.h
 /gettext-tools/libgettextpo/stdint.in.h
+/gettext-tools/libgettextpo/stdio-consolesafe.c
+/gettext-tools/libgettextpo/stdio-impl.h
 /gettext-tools/libgettextpo/stdio-read.c
 /gettext-tools/libgettextpo/stdio-write.c
 /gettext-tools/libgettextpo/stdio.in.h
@@ -299,6 +303,7 @@
 /gettext-tools/libgettextpo/string-desc-contains.c
 /gettext-tools/libgettextpo/string-desc.c
 /gettext-tools/libgettextpo/string-desc.h
+/gettext-tools/libgettextpo/string.c
 /gettext-tools/libgettextpo/string.in.h
 /gettext-tools/libgettextpo/strnlen.c
 /gettext-tools/libgettextpo/strstr.c
