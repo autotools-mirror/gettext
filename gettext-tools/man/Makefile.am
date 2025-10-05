@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/man subdirectory of GNU gettext
-## Copyright (C) 2001-2003, 2006-2007, 2013-2015, 2018, 2021 Free Software Foundation, Inc.
+## Copyright (C) 2001-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 EXTRA_DIST =
 
 # A manual page for each of the bin_PROGRAMS in src/Makefile.am
-# and for each of the bin_SCRIPTS in misc/Makefile.am.
+# and for each of the bin_SCRIPTS in wizard/Makefile.am, misc/Makefile.am.
 
 man_aux = \
 msgcmp.x msgfmt.x msgmerge.x msgunfmt.x xgettext.x \
@@ -38,9 +38,11 @@ msgcmp.1 msgfmt.1 msgmerge.1 msgunfmt.1 xgettext.1 \
 msgattrib.1 msgcat.1 msgcomm.1 msgconv.1 msgen.1 msgexec.1 msgfilter.1 \
 msggrep.1 msginit.1 msguniq.1 \
 recode-sr-latin.1
+man_MAN1WIZARD = \
+gettextize.1
 man_MAN1MISC = \
-gettextize.1 autopoint.1
-man_MAN1 = $(man_MAN1SRC) $(man_MAN1MISC)
+autopoint.1
+man_MAN1 = $(man_MAN1SRC) $(man_MAN1WIZARD) $(man_MAN1MISC)
 man_MANS = $(man_MAN1)
 
 man_HTML = \
@@ -118,13 +120,18 @@ msginit.1: msginit.x ../src/msginit.c
 msguniq.1: msguniq.x ../src/msguniq.c
 recode-sr-latin.1: recode-sr-latin.x ../src/recode-sr-latin.c
 
+$(man_MAN1WIZARD): help2man $(top_srcdir)/../.version
+	progname=`echo $@ | sed -e 's/\.in$$//' -e 's/\.1$$//'`; \
+	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" \
+	  ../wizard/$${progname}$(EXEEXT) $(srcdir)/$${progname}.x $@
+
+gettextize.1: gettextize.x ../wizard/gettextize.in
+
 $(man_MAN1MISC): help2man $(top_srcdir)/../.version
 	progname=`echo $@ | sed -e 's/\.in$$//' -e 's/\.1$$//'`; \
-	if test "$$progname" = autopoint; then option='--version-option=--version-without-config'; else option=''; fi; \
-	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN) $$option" \
+	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN) --version-option=--version-without-config" \
 	  ../misc/$${progname}$(EXEEXT) $(srcdir)/$${progname}.x $@
 
-gettextize.1: gettextize.x ../misc/gettextize.in
 autopoint.1: autopoint.x ../misc/autopoint.in
 
 

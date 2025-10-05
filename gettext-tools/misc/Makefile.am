@@ -1,6 +1,5 @@
 ## Makefile for the gettext-tools/misc subdirectory of GNU gettext
-## Copyright (C) 1995-1997, 2000-2003, 2005-2007, 2009-2010, 2019-2021 Free
-## Software Foundation, Inc.
+## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -26,9 +25,9 @@ DISTCLEANFILES =
 
 # Scripts for maintainers.
 
-bin_SCRIPTS = gettextize autopoint
+bin_SCRIPTS = autopoint
 
-DISTCLEANFILES += gettextize autopoint convert-archive
+DISTCLEANFILES += autopoint convert-archive
 
 CLEANFILES += \
   archive.dir.tar.gz \
@@ -99,10 +98,3 @@ archive.git.tar.gz: $(srcdir)/archive.dir.tar
 # The archive.cvs.tar.gz is generated from archive.dir.tar.
 archive.cvs.tar.gz: $(srcdir)/archive.dir.tar
 	./convert-archive dir cvs '$(srcdir)'/archive.dir.tar $@
-
-
-# We don't install the source code in unpacked form any more.
-install-data-local: uninstall-sources
-uninstall-local: uninstall-sources
-uninstall-sources:
-	rm -rf $(DESTDIR)$(datadir)/gettext/intl
