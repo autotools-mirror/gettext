@@ -445,6 +445,7 @@
 /gettext-tools/styles/Makefile.in
 /gettext-tools/system-tests/Makefile.in
 /gettext-tools/tests/Makefile.in
+/gettext-tools/wizard/Makefile.in
 /gettext-tools/install-tests/Makefile.in
 /gnulib-local/Makefile.in
 
@@ -667,6 +668,7 @@ autom4te.cache/
 /gettext-tools/system-tests/Makefile
 /gettext-tools/tests/Makefile
 /gettext-tools/tests/init-env
+/gettext-tools/wizard/Makefile
 /gettext-tools/wizard/gettextize
 /gettext-tools/install-tests/Makefile
 /gnulib-local/Makefile
