@@ -19,7 +19,7 @@
 AUTOMAKE_OPTIONS = 1.5 gnu
 ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4 -I tests/gnulib-m4
 
-SUBDIRS = gnulib-lib libgrep src libgettextpo po its projects styles wizard emacs misc man m4 tests system-tests gnulib-tests install-tests examples doc
+SUBDIRS = gnulib-lib libgrep src libgettextpo po its projects styles wizard autotools emacs man m4 tests system-tests gnulib-tests install-tests examples doc
 
 EXTRA_DIST = misc/disclaim-translations.txt
 MOSTLYCLEANFILES = core *.stackdump
@@ -265,7 +265,7 @@ gen-man1: programs-for-distdir \
 .PHONY: distdir2
 distdir2: programs-for-distdir
 	cd wizard && $(MAKE) $(AM_MAKEFLAGS)
-	cd misc && $(MAKE) $(AM_MAKEFLAGS)
+	cd autotools && $(MAKE) $(AM_MAKEFLAGS)
 	cd examples && $(MAKE) $(AM_MAKEFLAGS)
 
 

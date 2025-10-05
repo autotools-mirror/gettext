@@ -263,8 +263,8 @@ $(DOMAIN).pot-update: $(POTFILES_DEPS) $(SMALLPOTS)
 # The environment variable 'gettext_datadir' is used by autopoint.
 # The environment variable 'GETTEXTDATADIR' is used by xgettext.
 USE_BUILT_PROGS = \
-  PATH="`pwd`/../../src$(PATH_SEPARATOR)`pwd`/../../misc$(PATH_SEPARATOR)$$PATH"; \
-  gettext_datadir="`pwd`/../../misc"; export gettext_datadir; \
+  PATH="`pwd`/../../src$(PATH_SEPARATOR)`pwd`/../../autotools$(PATH_SEPARATOR)$$PATH"; \
+  gettext_datadir="`pwd`/../../autotools"; export gettext_datadir; \
   GETTEXTDATADIR="`cd '$(srcdir)/../..' && pwd`"; export GETTEXTDATADIR;
 
 hello-c.pot : $(POTFILES_DEPS)

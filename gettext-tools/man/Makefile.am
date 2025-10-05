@@ -22,7 +22,7 @@ AUTOMAKE_OPTIONS = 1.2 gnits
 EXTRA_DIST =
 
 # A manual page for each of the bin_PROGRAMS in src/Makefile.am
-# and for each of the bin_SCRIPTS in wizard/Makefile.am, misc/Makefile.am.
+# and for each of the bin_SCRIPTS in wizard/Makefile.am, autotools/Makefile.am.
 
 man_aux = \
 msgcmp.x msgfmt.x msgmerge.x msgunfmt.x xgettext.x \
@@ -40,9 +40,9 @@ msggrep.1 msginit.1 msguniq.1 \
 recode-sr-latin.1
 man_MAN1WIZARD = \
 gettextize.1
-man_MAN1MISC = \
+man_MAN1AUTOTOOLS = \
 autopoint.1
-man_MAN1 = $(man_MAN1SRC) $(man_MAN1WIZARD) $(man_MAN1MISC)
+man_MAN1 = $(man_MAN1SRC) $(man_MAN1WIZARD) $(man_MAN1AUTOTOOLS)
 man_MANS = $(man_MAN1)
 
 man_HTML = \
@@ -127,12 +127,12 @@ $(man_MAN1WIZARD): help2man $(top_srcdir)/../.version
 
 gettextize.1: gettextize.x ../wizard/gettextize.in
 
-$(man_MAN1MISC): help2man $(top_srcdir)/../.version
+$(man_MAN1AUTOTOOLS): help2man $(top_srcdir)/../.version
 	progname=`echo $@ | sed -e 's/\.in$$//' -e 's/\.1$$//'`; \
 	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN) --version-option=--version-without-config" \
-	  ../misc/$${progname}$(EXEEXT) $(srcdir)/$${progname}.x $@
+	  ../autotools/$${progname}$(EXEEXT) $(srcdir)/$${progname}.x $@
 
-autopoint.1: autopoint.x ../misc/autopoint.in
+autopoint.1: autopoint.x ../autotools/autopoint.in
 
 
 # Man pages in HTML format.

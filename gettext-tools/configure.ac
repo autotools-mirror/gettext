@@ -750,11 +750,11 @@ AC_CONFIG_FILES([styles/Makefile])
 AC_CONFIG_FILES([wizard/Makefile])
 AC_CONFIG_FILES([wizard/gettextize], [chmod a+x wizard/gettextize])
 
-AC_CONFIG_FILES([emacs/Makefile])
+AC_CONFIG_FILES([autotools/Makefile])
+AC_CONFIG_FILES([autotools/autopoint], [chmod a+x autotools/autopoint])
+AC_CONFIG_FILES([autotools/convert-archive], [chmod a+x autotools/convert-archive])
 
-AC_CONFIG_FILES([misc/Makefile])
-AC_CONFIG_FILES([misc/autopoint], [chmod a+x misc/autopoint])
-AC_CONFIG_FILES([misc/convert-archive], [chmod a+x misc/convert-archive])
+AC_CONFIG_FILES([emacs/Makefile])
 
 AC_CONFIG_FILES([man/Makefile])
 AC_CONFIG_FILES([man/x-to-1])

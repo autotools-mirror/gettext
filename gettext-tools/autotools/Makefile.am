@@ -1,4 +1,4 @@
-## Makefile for the gettext-tools/misc subdirectory of GNU gettext
+## Makefile for the gettext-tools/autotools subdirectory of GNU gettext
 ## Copyright (C) 1995-2025 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify

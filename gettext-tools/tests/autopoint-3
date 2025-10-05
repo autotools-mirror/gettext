@@ -42,7 +42,7 @@ ${AUTOMAKE} --add-missing >/dev/null 2>/dev/null \
 
 rm -f configure.ac Makefile.am
 
-gettext_datadir=$top_builddir/misc
+gettext_datadir=$top_builddir/autotools
 export gettext_datadir
 
 cat <<EOF >configure.ac

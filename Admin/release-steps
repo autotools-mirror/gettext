@@ -123,9 +123,9 @@ We assume that the following environment variables are set:
     gettext-runtime/src/ngettext.c
     gettext-runtime/src/printf_gettext.c
     gettext-runtime/src/printf_ngettext.c
-    gettext-tools/misc/autopoint.in
-    gettext-tools/misc/convert-archive.in
-    gettext-tools/misc/gettextize.in
+    gettext-tools/wizard/gettextize.in
+    gettext-tools/autotools/autopoint.in
+    gettext-tools/autotools/convert-archive.in
     gettext-tools/src/cldr-plurals.c
     gettext-tools/src/hostname.c
     gettext-tools/src/msgattrib.c
@@ -161,7 +161,7 @@ We assume that the following environment variables are set:
 
     Update ARCHIVE_VERSION.
 
-  - gettext-tools/misc/autopoint.in
+  - gettext-tools/autotools/autopoint.in
 
     Update the 'case' statement around line 395 to include the latest release.
 
@@ -219,7 +219,7 @@ We assume that the following environment variables are set:
 
   Make 'autopoint' work in the new release:
 
-    (cd gettext-tools/misc
+    (cd gettext-tools/autotools
      ./add-to-archive ../../gettext-$CURRENT_VERSION.tar.gz)
 
   Update the examples:
