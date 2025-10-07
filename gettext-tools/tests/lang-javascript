@@ -70,6 +70,13 @@ ${MSGFMT} -c -o fr/LC_MESSAGES/prog.mo fr.po
 # Test for presence of gjs version 1.40 or newer.
 (gjs -c 'print(imports.format.vprintf("%3$s%2$s%1$s", ["x","y","z"]))') 2>/dev/null | grep zyx >/dev/null \
   || { echo "Skipping test: gjs version is older than 1.40"; Exit 77; }
+# On some versions of macOS, gjs from Homebrew is installed without a working 'textdomain' binding, leading to an error
+#   Gjs-CRITICAL **: 11:03:06.647: JS ERROR: GIRepository.InvokeError: Could not locate gjs_textdomain: dlopen(libgjs.0.dylib, 0x0009): tried: 'libgjs.0.dylib' (no such file), '/System/Volumes/Preboot/Cryptexes/OSlibgjs.0.dylib' (no such file), '/opt/homebrew/Cellar/gjs/1.86.0/bin/../../../../opt/glib/lib/libgjs.0.dylib' (no such file), '/usr/lib/libgjs.0.dylib' (no such file, not in dyld cache), 'libgjs.0.dylib' (no such file)
+#   textdomain@resource:///org/gnome/gjs/modules/core/_gettext.js:31:5
+#   @prog.js:7:9
+case "$host_os" in
+  darwin*) echo "Skipping test: gjs gettext module possibly broken"; Exit 77;;
+esac
 
 # Test which of the fr_FR locales are installed.
 : ${LOCALE_FR=fr_FR}
