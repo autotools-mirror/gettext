@@ -53,7 +53,11 @@ as second parameter of @code{Gettext.Program})
 @code{xgettext}
 
 @item Formatting with positions
-@code{Printf.fprintf "%2$d %1$d"}
+In the source code: @code{Printf.fprintf "%d %d"}
+@*In the msgid: @code{"%d %d"}
+@*In the msgstr: @code{"%2$d %1$d"}
+@*Note: This does not work yet; it depends on the completion of
+@uref{https://github.com/gildor478/ocaml-gettext/issues/39}.
 
 @item Portability
 fully portable
