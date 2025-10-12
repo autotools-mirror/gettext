@@ -787,7 +787,7 @@ func_check__hello_c_gnome2
 func_check__hello_c_gnome3        #   48 s
 func_check__hello_c_http          #   48 s
 func_check__hello_cxx             #   50 s
-func_check__hello_cxx20           #   94 s
+func_check__hello_cxx20           #   94 s  # requires GCC 14 or newer
 func_check__hello_cxx_qt
 func_check__hello_cxx_kde
 func_check__hello_cxx_gnome2
@@ -806,16 +806,16 @@ func_check__hello_csharp_forms    #  136 s
 func_check__hello_guile           #   33 s
 func_check__hello_clisp           #   32 s
 func_check__hello_librep          #   32 s
-func_check__hello_rust            # 2379 s
+func_check__hello_rust            #  385 s
 func_check__hello_go              #   57 s  # requires GCC 14 or older, does not work with GCC 15.1
 func_check__hello_go_http         #   41 s  # likewise
 func_check__hello_ruby            #   34 s
 func_check__hello_sh              #   34 s
 func_check__hello_gawk            #   32 s
 func_check__hello_pascal          #   33 s
-func_check__hello_modula2         #   46 s
+func_check__hello_modula2         #   46 s  # requires GCC 15 or newer
 func_check__hello_d               #   70 s
-func_check__hello_ocaml           #   33 s
+func_check__hello_ocaml           #   33 s  # requires "eval $(opam env)"
 func_check__hello_smalltalk       #   32 s
 func_check__hello_tcl             #   36 s
 func_check__hello_tcl_tk          #   36 s
