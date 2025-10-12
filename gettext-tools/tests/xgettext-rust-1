@@ -4,7 +4,7 @@
 # Test Rust support: Simple things.
 
 cat <<\EOF > xg-rs-1.rs
-use gettext_rs::gettext;
+use gettextrs::gettext;
 
 pub trait TestCase {
   fn TestCase() {
@@ -26,6 +26,8 @@ pub trait TestCase {
     String test5 = gettext(r#"first line
 second line
 third line"#);
+    // scoped identifier
+    String test6 = gettextrs::gettext("Test String 6");
   }
 }
 EOF
@@ -60,6 +62,10 @@ msgid ""
 "first line\n"
 "second line\n"
 "third line"
+msgstr ""
+
+#. scoped identifier
+msgid "Test String 6"
 msgstr ""
 EOF
 

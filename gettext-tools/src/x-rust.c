@@ -212,6 +212,7 @@ static TSSymbol ts_symbol_raw_string_literal;
 static TSSymbol ts_symbol_string_content;
 static TSSymbol ts_symbol_escape_sequence;
 static TSSymbol ts_symbol_identifier;
+static TSSymbol ts_symbol_scoped_identifier;
 static TSSymbol ts_symbol_call_expression;
 static TSSymbol ts_symbol_macro_invocation;
 static TSSymbol ts_symbol_arguments;
@@ -515,7 +516,8 @@ static void extract_from_node (TSNode node,
                                message_list_ty *mlp);
 
 /* Extracts messages from the function call consisting of
-     - CALLEE_NODE: a tree node of type 'identifier',
+     - CALLEE_NODE: a tree node of type 'identifier' or
+       a tree node of type 'scoped_identifier' with at least 1 named child,
      - ARGS_NODE: a tree node of type 'arguments'.
    Extracted messages are added to MLP.  */
 static void
@@ -526,9 +528,17 @@ extract_from_function_call (TSNode callee_node,
 {
   uint32_t args_count = ts_node_child_count (args_node);
 
+  TSNode callee_last_identifier_node;
+  if (ts_node_symbol (callee_node) == ts_symbol_identifier)
+    callee_last_identifier_node = callee_node;
+  else
+    /* Here ts_node_named_child_count (callee_node) >= 1.  */
+    callee_last_identifier_node =
+      ts_node_named_child (callee_node, ts_node_named_child_count (callee_node) - 1);
+
   string_desc_t callee_name =
-    sd_new_addr (ts_node_end_byte (callee_node) - ts_node_start_byte (callee_node),
-                 contents + ts_node_start_byte (callee_node));
+    sd_new_addr (ts_node_end_byte (callee_last_identifier_node) - ts_node_start_byte (callee_last_identifier_node),
+                 contents + ts_node_start_byte (callee_last_identifier_node));
 
   /* Context iterator.  */
   flag_context_list_iterator_ty next_context_iter =
@@ -960,7 +970,9 @@ extract_from_node (TSNode node,
       if (! ts_node_eq (ts_node_child_by_field_id (node, ts_field_function),
                         callee_node))
         abort ();
-      if (ts_node_symbol (callee_node) == ts_symbol_identifier)
+      if (ts_node_symbol (callee_node) == ts_symbol_identifier
+          || (ts_node_symbol (callee_node) == ts_symbol_scoped_identifier
+              && ts_node_named_child_count (callee_node) >= 1))
         {
           TSNode args_node = ts_node_child_by_field_id (node, ts_field_arguments);
           /* This is the field called 'arguments'.  */
@@ -1119,6 +1131,7 @@ extract_rust (FILE *f,
       ts_symbol_string_content     = ts_language_symbol ("string_content", true);
       ts_symbol_escape_sequence    = ts_language_symbol ("escape_sequence", true);
       ts_symbol_identifier         = ts_language_symbol ("identifier", true);
+      ts_symbol_scoped_identifier  = ts_language_symbol ("scoped_identifier", true);
       ts_symbol_call_expression    = ts_language_symbol ("call_expression", true);
       ts_symbol_macro_invocation   = ts_language_symbol ("macro_invocation", true);
       ts_symbol_arguments          = ts_language_symbol ("arguments", true);

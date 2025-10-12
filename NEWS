@@ -12,6 +12,9 @@ Version 0.27 - October 2025
     - 'msgfmt -c' now verifies the syntax of translations of OCaml format
       strings.
     - A new example 'hello-ocaml' has been added.
+  * Rust:
+    - xgettext now recognizes 'gettextrs::gettext' invocations, like 'gettext'
+      invocations.
 
 # libgettextpo library:
   * The function 'po_message_get_format' now supports distinguishing whether

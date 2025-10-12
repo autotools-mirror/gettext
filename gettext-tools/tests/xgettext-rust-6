@@ -9,8 +9,9 @@ fn main ()
   tr! ("Hello {}");
   tr! (gettext /*x*/ ("Hello1"));
   tr! [foo(), gettext ("Hello2")];
-  tr ! (tr ! ("Hello3"));
-  tr! (foo(), tr! ("Hello4"));
+  tr! (gettextrs::gettext ("Hello3"));
+  tr ! (tr ! ("Hello4"));
+  tr! (foo(), tr! ("Hello5"));
 }
 EOF
 
@@ -23,6 +24,9 @@ msgid "Hello1"
 msgstr ""
 
 msgid "Hello2"
+msgstr ""
+
+msgid "Hello3"
 msgstr ""
 EOF
 
@@ -48,6 +52,9 @@ msgid "Hello3"
 msgstr ""
 
 msgid "Hello4"
+msgstr ""
+
+msgid "Hello5"
 msgstr ""
 EOF
 
