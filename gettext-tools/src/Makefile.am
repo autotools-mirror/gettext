@@ -54,7 +54,8 @@ noinst_HEADERS = \
   dir-list.h file-list.h read-po-gram.h cldr-plural.h \
   cldr-plural-exp.h locating-rules.h its.h search-path.h \
   msgl-charset.h msgl-equal.h msgl-iconv.h msgl-ascii.h msgl-ofn.h msgl-cat.h \
-  msgl-header.h msgl-english.h msgl-check.h msgl-fsearch.h msgfmt.h msgunfmt.h \
+  msgl-header.h msgl-english.h msgl-check.h msgl-fsearch.h msgl-merge.h \
+  msgfmt.h msgunfmt.h \
   plural-count.h plural-eval.h plural-distrib.h \
   read-mo.h write-mo.h \
   read-java.h write-java.h \
@@ -304,7 +305,7 @@ msgmerge_SOURCES = msgmerge.c
 else
 msgmerge_SOURCES = ../woe32dll/c++msgmerge.cc
 endif
-msgmerge_SOURCES += msgl-fsearch.c lang-table.c plural-count.c
+msgmerge_SOURCES += msgl-fsearch.c msgl-merge.c lang-table.c plural-count.c
 msgunfmt_SOURCES = msgunfmt.c
 msgunfmt_SOURCES += \
   read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c \

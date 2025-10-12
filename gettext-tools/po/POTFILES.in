@@ -65,6 +65,7 @@ src/msgl-cat.c
 src/msgl-charset.c
 src/msgl-check.c
 src/msgl-iconv.c
+src/msgl-merge.c
 src/msgmerge.c
 src/msgunfmt.c
 src/msguniq.c

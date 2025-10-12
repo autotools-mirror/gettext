@@ -149,6 +149,9 @@ msgl-charset.c
 | plural-count.h
 | plural-count.c
 |               Extracting the plural count of a header of a lists-of-messages.
+| msgl-merge.h
+| msgl-merge.c
+|               Merging a definitions file with a references file.
 | msgmerge.c
 |               Main source for the 'msgmerge' program.
 |
