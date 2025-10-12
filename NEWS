@@ -1,5 +1,11 @@
 Version 0.27 - October 2025
 
+# Improvements for translators:
+  * msginit:
+    - When the PO file already exists, 'msginit' now updates it w.r.t. the
+      POT file, like 'msgmerge' would do. Previously, 'msginit' failed with
+      an error message in this situation.
+
 # Programming languages support:
   * OCaml:
     - xgettext now supports OCaml.

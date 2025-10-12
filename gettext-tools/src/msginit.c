@@ -35,6 +35,9 @@
 #if HAVE_PWD_H
 # include <pwd.h>
 #endif
+#ifdef _OPENMP
+# include <omp.h>
+#endif
 
 #include <textstyle.h>
 
@@ -49,6 +52,7 @@
 #include "c-strstr.h"
 #include "c-strcase.h"
 #include "message.h"
+#include "msgl-merge.h"
 #include "read-catalog-file.h"
 #include "read-po.h"
 #include "read-properties.h"
@@ -74,6 +78,8 @@
 #include "plural-count.h"
 #include "spawn-pipe.h"
 #include "wait-process.h"
+#include "backupfile.h"
+#include "copy-file.h"
 #include "xsetenv.h"
 #include "xstriconv.h"
 #include "str-list.h"
@@ -95,9 +101,6 @@ extern const char * _nl_expand_alias (const char *name);
 /* Locale name.  */
 static const char *locale;
 
-/* Language (ISO-639 code) and optional territory (ISO-3166 code).  */
-static const char *catalogname;
-
 /* Language (ISO-639 code).  */
 static const char *language;
 
@@ -110,7 +113,7 @@ static const char *find_pot (void);
 static const char *catalogname_for_locale (const char *locale);
 static const char *language_of_locale (const char *locale);
 static char *get_field (const char *header, const char *field);
-static msgdomain_list_ty *fill_header (msgdomain_list_ty *mdlp);
+static msgdomain_list_ty *fill_header (msgdomain_list_ty *mdlp, bool fresh);
 static msgdomain_list_ty *update_msgstr_plurals (msgdomain_list_ty *mdlp);
 
 
@@ -306,34 +309,54 @@ This is necessary so you can test your translations.\n"),
 
   /* Default output file name is CATALOGNAME.po.  */
   if (output_file == NULL)
+    output_file = xasprintf ("%s.po", catalogname);
+
+  if (strcmp (output_file, "-") != 0
+      && access (output_file, F_OK) == 0)
     {
-      output_file = xasprintf ("%s.po", catalogname);
+      /* The output PO file already exists.  Assume the translator wants to
+         continue, based on these translations.  */
 
-      /* But don't overwrite existing PO files.  */
-      if (access (output_file, F_OK) == 0)
-        {
-          multiline_error (xstrdup (""),
-                           xasprintf (_("\
-Output file %s already exists.\n\
-Please specify the locale through the --locale option or\n\
-the output .po file through the --output-file option.\n"),
-                                      output_file));
-          exit (EXIT_FAILURE);
-        }
+      /* First, create a backup file.  */
+      {
+        const char *backup_suffix_string = getenv ("SIMPLE_BACKUP_SUFFIX");
+        if (backup_suffix_string != NULL && backup_suffix_string[0] != '\0')
+          simple_backup_suffix = backup_suffix_string;
+      }
+      {
+        char *backup_file = find_backup_file_name (output_file, simple);
+        xcopy_file_preserving (output_file, backup_file);
+      }
+
+      /* Initialize OpenMP.  */
+      #ifdef _OPENMP
+      openmp_init ();
+      #endif
+
+      /* Read both files and merge them.  */
+      quiet = true;
+      keep_previous = true;
+      msgdomain_list_ty *def;
+      result = merge (output_file, input_file, input_syntax, &def);
+
+      /* Update the header entry.  */
+      result = fill_header (result, false);
     }
-
-  /* Read input file.  */
-  result = read_catalog_file (input_file, input_syntax);
-  check_pot_charset (result, input_file);
-
-  /* Fill the header entry.  */
-  result = fill_header (result);
-
-  /* Initialize translations.  */
-  if (strcmp (language, "en") == 0)
-    result = msgdomain_list_english (result);
   else
-    result = update_msgstr_plurals (result);
+    {
+      /* Read input file.  */
+      result = read_catalog_file (input_file, input_syntax);
+      check_pot_charset (result, input_file);
+
+      /* Fill the header entry.  */
+      result = fill_header (result, true);
+
+      /* Initialize translations.  */
+      if (strcmp (language, "en") == 0)
+        result = msgdomain_list_english (result);
+      else
+        result = update_msgstr_plurals (result);
+    }
 
   /* Write the modified message list out.  */
   msgdomain_list_print (result, output_file, output_syntax,
@@ -383,7 +406,11 @@ Output file location:\n"));
   -o, --output-file=FILE      write output to specified PO file\n"));
       printf (_("\
 If no output file is given, it depends on the --locale option or the user's\n\
-locale setting.  If it is -, the results are written to standard output.\n"));
+locale setting.\n\
+If the output file already exists, it is merged with the input file,\n\
+as if through '%s'.\n\
+If it is -, the results are written to standard output.\n"),
+              "msgmerge");
       printf ("\n");
       printf (_("\
 Input file syntax:\n"));
@@ -1491,13 +1518,14 @@ plural_forms ()
 }
 
 
-static struct
+struct header_entry_field
 {
   const char *name;
   const char * (*getter0) (void);
   const char * (*getter1) (const char *header);
-}
-fields[] =
+};
+
+static struct header_entry_field fresh_fields[] =
   {
     { "Project-Id-Version", NULL, project_id_version },
     { "PO-Revision-Date", NULL, po_revision_date },
@@ -1509,9 +1537,13 @@ fields[] =
     { "Content-Transfer-Encoding", content_transfer_encoding, NULL },
     { "Plural-Forms", plural_forms, NULL }
   };
+#define FRESH_FIELDS_LAST_TRANSLATOR 2
 
-#define NFIELDS SIZEOF (fields)
-#define FIELD_LAST_TRANSLATOR 2
+static struct header_entry_field update_fields[] =
+  {
+    { "Last-Translator", last_translator, NULL }
+  };
+#define UPDATE_FIELDS_LAST_TRANSLATOR 0
 
 
 /* Retrieve a freshly allocated copy of a field's value.  */
@@ -1763,7 +1795,7 @@ subst_string_list (string_list_ty *slp,
 
 /* Fill the templates in all fields of the header entry.  */
 static msgdomain_list_ty *
-fill_header (msgdomain_list_ty *mdlp)
+fill_header (msgdomain_list_ty *mdlp, bool fresh)
 {
   /* Determine the desired encoding to the PO file.
      If the POT file contains charset=UTF-8, it means that the POT file
@@ -1813,10 +1845,25 @@ fill_header (msgdomain_list_ty *mdlp)
 
   /* Cache the strings filled in, for use when there are multiple domains
      and a header entry for each domain.  */
-  const char *field_value[NFIELDS];
+  struct header_entry_field *fields;
+  size_t nfields;
+  size_t field_last_translator;
+  if (fresh)
+    {
+      fields = fresh_fields;
+      nfields = SIZEOF (fresh_fields);
+      field_last_translator = FRESH_FIELDS_LAST_TRANSLATOR;
+    }
+  else
+    {
+      fields = update_fields;
+      nfields = SIZEOF (update_fields);
+      field_last_translator = UPDATE_FIELDS_LAST_TRANSLATOR;
+    }
+  const char **field_value = XNMALLOC (nfields, const char *);
   size_t i;
 
-  for (i = 0; i < NFIELDS; i++)
+  for (i = 0; i < nfields; i++)
     field_value[i] = NULL;
 
   for (k = 0; k < mdlp->nitems; k++)
@@ -1848,7 +1895,7 @@ fill_header (msgdomain_list_ty *mdlp)
           header = xstrdup (header_mp->msgstr);
 
           /* Fill in the fields.  */
-          for (i = 0; i < NFIELDS; i++)
+          for (i = 0; i < nfields; i++)
             {
               if (field_value[i] == NULL)
                 field_value[i] =
@@ -1881,7 +1928,7 @@ fill_header (msgdomain_list_ty *mdlp)
               subst[1][0] = "PACKAGE";
               subst[1][1] = id;
               subst[2][0] = "FIRST AUTHOR <EMAIL@ADDRESS>";
-              subst[2][1] = field_value[FIELD_LAST_TRANSLATOR];
+              subst[2][1] = field_value[field_last_translator];
               subst[3][0] = "YEAR";
               subst[3][1] =
                 xasprintf ("%d",
@@ -1893,6 +1940,8 @@ fill_header (msgdomain_list_ty *mdlp)
           header_mp->is_fuzzy = false;
         }
     }
+
+  free (field_value);
 
   return mdlp;
 }

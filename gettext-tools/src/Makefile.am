@@ -397,7 +397,7 @@ else
 msggrep_SOURCES = ../woe32dll/c++msggrep.cc
 endif
 msginit_SOURCES = msginit.c
-msginit_SOURCES += lang-table.c plural-count.c
+msginit_SOURCES += msgl-fsearch.c msgl-merge.c lang-table.c plural-count.c
 msginit_SOURCES += ../../gettext-runtime/intl/localealias.c
 if !WOE32DLL
 msguniq_SOURCES = msguniq.c
@@ -491,6 +491,8 @@ endif
 # Compile-time flags for particular source files.
 msgmerge_CFLAGS = $(AM_CFLAGS) $(OPENMP_CFLAGS)
 msgmerge_CXXFLAGS = $(AM_CXXFLAGS) $(OPENMP_CFLAGS)
+msginit_CFLAGS = $(AM_CFLAGS) $(OPENMP_CFLAGS)
+msginit_CXXFLAGS = $(AM_CXXFLAGS) $(OPENMP_CFLAGS)
 # On mingw, the compiler option '-fno-threadsafe-statics' avoids requiring
 # the symbols __cxa_guard_acquire and __cxa_guard_release, which in turn
 # avoids a dependency towards libstdc++.

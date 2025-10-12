@@ -75,7 +75,7 @@
 * msgfilter: (gettext)msgfilter Invocation.    Pipe a PO file through a filter.
 * msgfmt: (gettext)msgfmt Invocation.          Make MO files out of PO files.
 * msggrep: (gettext)msggrep Invocation.        Select part of a PO file.
-* msginit: (gettext)msginit Invocation.        Create a fresh PO file.
+* msginit: (gettext)msginit Invocation.        Start translating a PO file.
 * msgmerge: (gettext)msgmerge Invocation.      Update a PO file from template.
 * msgunfmt: (gettext)msgunfmt Invocation.      Uncompile MO file into PO file.
 * msguniq: (gettext)msguniq Invocation.        Unify duplicates for PO file.
@@ -3746,15 +3746,23 @@ This is because @code{msgcat} generally is meant to produce PO files that
 are to be reviewed and edited by a translator; this is not desired here.
 
 @node Creating
-@chapter Creating a New PO File
+@chapter Creating or preparing for translating a PO file
 @cindex creating a new PO file
+@cindex preparing for translating a PO file
 
 When starting a new translation, the translator creates a file called
 @file{@var{LANG}.po}, as a copy of the @file{@var{package}.pot} template
 file with modifications in the initial comments (at the beginning of the file)
 and in the header entry (the first entry, near the beginning of the file).
 
-The easiest way to do so is by use of the @samp{msginit} program.
+Before continuing an existing translation,
+after a new release of the package @var{package} was made,
+the translator updates the file called @file{@var{LANG}.po},
+with respect to the new @file{@var{package}.pot} template file,
+and adds her name in the @code{Last-Translator} field of the header entry.
+
+The easiest way to do so, in either case,
+is by use of the @samp{msginit} program.
 For example:
 
 @example
@@ -3763,10 +3771,20 @@ $ cd po
 $ msginit
 @end example
 
-The alternative way is to do the copy and modifications by hand.
-To do so, the translator copies @file{@var{package}.pot} to
-@file{@var{LANG}.po}.  Then she modifies the initial comments and
-the header entry of this file.
+The alternative way, without @code{msginit}, is as follows:
+@itemize @bullet
+@item
+When starting a new translation,
+the translator does the copy and modifications by hand.
+She copies @file{@var{package}.pot} to @file{@var{LANG}.po}.
+Then she modifies the initial comments and the header entry of this file.
+
+@item
+When continuing an existing translation,
+the translator invokes
+@code{msgmerge --previous -o @var{lang}.new.po @var{lang}.po @var{package}.pot}
+and @code{mv @var{lang}.new.po @var{lang}.po}.
+@end itemize
 
 @menu
 * msginit Invocation::          Invoking the @code{msginit} Program
