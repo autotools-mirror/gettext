@@ -225,7 +225,8 @@ FORMAT_SOURCE += \
   format-gcc-internal.c \
   format-gfc-internal.c
 
-# libgettextsrc contains all code that is needed by at least two programs.
+# libgettextsrc contains all code that is needed by at least two programs
+# and that does not use OpenMP.
 libgettextsrc_la_SOURCES = \
   $(COMMON_SOURCE) \
   read-catalog-special.c \
@@ -241,8 +242,11 @@ libgettextsrc_la_SOURCES = \
   msgl-check.c \
   file-list.c \
   msgl-charset.c \
+  msgl-fsearch.c \
+  lang-table.c \
   po-time.c \
   plural-exp.c plural-eval.c plural-table.c \
+  plural-count.c \
   quote.h \
   sentence.h sentence.c \
   $(FORMAT_SOURCE) \
@@ -305,7 +309,7 @@ msgmerge_SOURCES = msgmerge.c
 else
 msgmerge_SOURCES = ../woe32dll/c++msgmerge.cc
 endif
-msgmerge_SOURCES += msgl-fsearch.c msgl-merge.c lang-table.c plural-count.c
+msgmerge_SOURCES += msgl-merge.c
 msgunfmt_SOURCES = msgunfmt.c
 msgunfmt_SOURCES += \
   read-mo.c read-java.c read-csharp.c read-resources.c read-tcl.c \
@@ -397,7 +401,7 @@ else
 msggrep_SOURCES = ../woe32dll/c++msggrep.cc
 endif
 msginit_SOURCES = msginit.c
-msginit_SOURCES += msgl-fsearch.c msgl-merge.c lang-table.c plural-count.c
+msginit_SOURCES += msgl-merge.c
 msginit_SOURCES += ../../gettext-runtime/intl/localealias.c
 if !WOE32DLL
 msguniq_SOURCES = msguniq.c

@@ -1,5 +1,5 @@
 /* Table of languages.
-   Copyright (C) 2001-2007, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2005.
 
    This program is free software: you can redistribute it and/or modify
@@ -32,11 +32,11 @@ struct language_table_entry
   const char *english;
 };
 
-extern struct language_table_entry language_table[];
-extern const size_t language_table_size;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct language_table_entry language_table[];
+extern LIBGETTEXTSRC_DLL_VARIABLE const size_t language_table_size;
 
-extern struct language_table_entry language_variant_table[];
-extern const size_t language_variant_table_size;
+extern LIBGETTEXTSRC_DLL_VARIABLE struct language_table_entry language_variant_table[];
+extern LIBGETTEXTSRC_DLL_VARIABLE const size_t language_variant_table_size;
 
 
 #ifdef __cplusplus
