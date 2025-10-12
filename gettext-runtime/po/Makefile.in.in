@@ -569,10 +569,6 @@ Makefile: Makefile.in.in Makevars $(top_builddir)/config.status
 
 force:
 
-# Tell versions [3.59,3.63) of GNU make not to export all variables.
-# Otherwise a system limit (for SysV at least) may be exceeded.
-.NOEXPORT:
-
 # This Makefile contains rules which don't work with parallel make,
 # namely dist2.
 # See <https://lists.gnu.org/archive/html/bug-gettext/2022-06/msg00022.html>.
