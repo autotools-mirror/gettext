@@ -342,12 +342,12 @@ update-properties: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
 	fi
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
-	  echo "$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot"; \
-	  $(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot || exit 1; \
-	  echo "$(GMSGFMT) -c --statistics --verbose -o /dev/null $${lang}.1po"; \
-	  $(GMSGFMT) -c --statistics --verbose -o /dev/null $${lang}.1po || exit 1; \
-	  echo "$(MSGCAT) --properties-output -o $(srcdir)/$(DOMAIN)_$$lang.properties $${lang}.1po"; \
-	  $(MSGCAT) --properties-output -o $(DOMAIN)_$$lang.properties.tmp $${lang}.1po || exit 1; \
+	  echo "$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.gpo $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot"; \
+	  $(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.gpo $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot || exit 1; \
+	  echo "$(GMSGFMT) -c --statistics --verbose -o /dev/null $${lang}.gpo"; \
+	  $(GMSGFMT) -c --statistics --verbose -o /dev/null $${lang}.gpo || exit 1; \
+	  echo "$(MSGCAT) --properties-output -o $(srcdir)/$(DOMAIN)_$$lang.properties $${lang}.gpo"; \
+	  $(MSGCAT) --properties-output -o $(DOMAIN)_$$lang.properties.tmp $${lang}.gpo || exit 1; \
 	  if test '$(srcdir)' = .; then \
 	    mv -f $(DOMAIN)_$$lang.properties.tmp $(DOMAIN)_$$lang.properties || exit 1; \
 	  else \
@@ -357,7 +357,7 @@ update-properties: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
 	      mv -f $(DOMAIN)_$$lang.properties.tmp $(srcdir)/$(DOMAIN)_$$lang.properties || exit 1; \
 	    fi; \
 	  fi; \
-	  rm -f $${lang}.1po; \
+	  rm -f $${lang}.gpo; \
 	done
 
 # Alternatively, we could create classes instead of properties files.
@@ -375,10 +375,10 @@ update-classes: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
 	fi
 	@for f in $(POFILES); do \
 	  lang=`echo $$f | sed -e 's,.*/,,' -e 's,\.po$$,,'`; \
-	  echo "$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot"; \
-	  $(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot || exit 1; \
-	  echo "$(GMSGFMT) -c --statistics --verbose -j -d $(srcdir) -r $(DOMAIN) -l $${lang} $${lang}.1po"; \
-	  $(GMSGFMT) -c --statistics --verbose -j -d . -r $(DOMAIN) -l $${lang} $${lang}.1po || exit 1; \
+	  echo "$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.gpo $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot"; \
+	  $(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.gpo $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot || exit 1; \
+	  echo "$(GMSGFMT) -c --statistics --verbose -j -d $(srcdir) -r $(DOMAIN) -l $${lang} $${lang}.gpo"; \
+	  $(GMSGFMT) -c --statistics --verbose -j -d . -r $(DOMAIN) -l $${lang} $${lang}.gpo || exit 1; \
 	  if test '$(srcdir)' != .; then \
 	    if test -f $(srcdir)/$(DOMAIN)_$$lang.class && cmp $(DOMAIN)_$$lang.class $(srcdir)/$(DOMAIN)_$$lang.class >/dev/null; then \
 	      rm -f $(DOMAIN)_$$lang.class; \
@@ -386,7 +386,7 @@ update-classes: Makefile $(srcdir)/$(DOMAIN).pot $(POFILES)
 	      mv -f $(DOMAIN)_$$lang.class $(srcdir)/$(DOMAIN)_$$lang.class || exit 1; \
 	    fi; \
 	  fi; \
-	  rm -f $${lang}.1po; \
+	  rm -f $${lang}.gpo; \
 	done
 
 echo-catalogs:

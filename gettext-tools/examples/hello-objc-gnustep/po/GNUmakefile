@@ -246,10 +246,10 @@ update-strings: $(CATALOGS)
 # under version control.
 $(STRINGSFILES): $(DOMAIN).pot $(POFILES)
 	mkdir -p $(patsubst %/,%, $(dir $@))
-	$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $@.1po $(UNIXLOCALE_$(patsubst %.lproj,%, $(notdir $(patsubst %/,%, $(dir $@))))).po $(DOMAIN).pot
-	msgcat --stringtable-output -o $@.tmp $@.1po
+	$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $@.gpo $(UNIXLOCALE_$(patsubst %.lproj,%, $(notdir $(patsubst %/,%, $(dir $@))))).po $(DOMAIN).pot
+	msgcat --stringtable-output -o $@.tmp $@.gpo
 	mv $@.tmp $@
-	rm -f $@.1po
+	rm -f $@.gpo
 
 $(ENSTRINGSFILES): $(DOMAIN).pot
 	mkdir -p $(patsubst %/,%, $(dir $@))

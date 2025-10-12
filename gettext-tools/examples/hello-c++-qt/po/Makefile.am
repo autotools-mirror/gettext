@@ -131,13 +131,13 @@ $(QMFILES): $(srcdir)/$(DOMAIN).pot
 .po.qm:
 	@lang=`echo $* | sed -e 's,.*/,,'`; \
 	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}rm -f $${lang}.qm && $(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $${lang}.po $(DOMAIN).pot && $(GMSGFMT) -c --qt --statistics --verbose -o $${lang}.qm $${lang}.1po && rm -f $${lang}.1po"; \
+	echo "$${cdcmd}rm -f $${lang}.qm && $(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.gpo $${lang}.po $(DOMAIN).pot && $(GMSGFMT) -c --qt --statistics --verbose -o $${lang}.qm $${lang}.gpo && rm -f $${lang}.gpo"; \
 	cd $(srcdir) && \
 	rm -f $${lang}.qm && \
-	$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.1po $${lang}.po $(DOMAIN).pot && \
-	$(GMSGFMT) -c --qt --statistics --verbose -o t-$${lang}.qm $${lang}.1po && \
+	$(MSGMERGE) $(MSGMERGE_FOR_MSGFMT_OPTION) -o $${lang}.gpo $${lang}.po $(DOMAIN).pot && \
+	$(GMSGFMT) -c --qt --statistics --verbose -o t-$${lang}.qm $${lang}.gpo && \
 	mv t-$${lang}.qm $${lang}.qm && \
-	rm -f $${lang}.1po
+	rm -f $${lang}.gpo
 
 
 all-local: all-local-@USE_NLS@
