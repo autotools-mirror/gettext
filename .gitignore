@@ -901,6 +901,7 @@ core
 /gettext-tools/doc/gettext.pgs
 /gettext-tools/doc/gettext.vr
 /gettext-tools/doc/gettext.vrs
+/gettext-tools/examples/po/*.gpo
 /gettext-tools/libgettextpo/config.h
 /gettext-tools/libgettextpo/alloca.h
 /gettext-tools/libgettextpo/assert.h

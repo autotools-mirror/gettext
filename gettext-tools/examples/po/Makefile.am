@@ -164,10 +164,9 @@ EXTRA_LOCALE_CATEGORIES =
 # These options get passed to msgmerge.
 # Useful options are in particular:
 #   --previous            to keep previous msgids of translated messages
-MSGMERGE_OPTIONS =
+MSGMERGE_OPTIONS = --no-fuzzy-matching --quiet
 
 MSGMERGE = msgmerge
-MSGMERGE_UPDATE = @MSGMERGE@ --update
 MSGINIT = msginit
 MSGCONV = msgconv
 MSGFILTER = msgfilter
@@ -183,12 +182,12 @@ ALL_LINGUAS != if test -f $(srcdir)/LINGUAS; then \
                fi
 # This is computed as $(foreach lang, $(ALL_LINGUAS), $(srcdir)/$(lang).po)
 POFILES != for lang in $(ALL_LINGUAS); do echo $(srcdir)/$$lang.po; done
-# This is computed as $(foreach lang, $(ALL_LINGUAS), $(lang).po-update)
-UPDATEPOFILES != for lang in $(ALL_LINGUAS); do echo $$lang.po-update; done
+# This is computed as $(foreach lang, $(ALL_LINGUAS), $(lang).gpo)
+GPOFILES != for lang in $(ALL_LINGUAS); do echo $$lang.gpo; done
 # This is computed as $(foreach lang, $(ALL_LINGUAS), $(lang).nop)
 DUMMYPOFILES != for lang in $(ALL_LINGUAS); do echo $$lang.nop; done
 
-SUFFIXES = .po .nop .po-update
+SUFFIXES = .po .gpo
 
 # The .pot file, stamp-po, and .po files appear in release tarballs.
 # The GNU Coding Standards say in
@@ -199,6 +198,14 @@ SUFFIXES = .po .nop .po-update
 #    So Makefile rules to update them should put the updated files in the
 #    source directory."
 # Therefore we put these files in the source directory, not the build directory.
+
+# This target creates a merged PO file.
+$(GPOFILES): $(srcdir)/$(DOMAIN).pot
+.po.gpo:
+	@lang=`echo $* | sed -e 's,.*/,,'`; \
+	echo "rm -f $${lang}.gpo && $(MSGMERGE) $(MSGMERGE_OPTIONS) -o $${lang}.gpo $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot"; \
+	rm -f $${lang}.gpo && \
+	$(MSGMERGE) $(MSGMERGE_OPTIONS) -o $${lang}.gpo $(srcdir)/$${lang}.po $(srcdir)/$(DOMAIN).pot
 
 
 all-local: all-local-@USE_NLS@
@@ -218,8 +225,12 @@ all-local-no:
 # file is not under version control, "make" will update the $(DOMAIN).pot and
 # the $(CATALOGS), but subsequent invocations of "make" will do nothing. This
 # timestamp would not be necessary if updating the $(CATALOGS) would always
-# touch them; however, the rule for $(POFILES) has been designed to not touch
-# files that don't need to be changed.
+# touch them; however, the rule for $(DOMAIN).pot-update has been designed to
+# not touch $(srcdir)/$(DOMAIN).pot if it doesn't need to be changed.
+#
+# Note: The name 'stamp-po' is a bit misleading. It does *not* designate a
+# timestamp for the *.po files. Rather it is a timestamp for all generated
+# files in this directory.
 $(srcdir)/stamp-po: $(srcdir)/$(DOMAIN).pot
 	@test ! -f $(srcdir)/$(DOMAIN).pot || { \
 	  echo "touch $(srcdir)/stamp-po" && \
@@ -394,14 +405,6 @@ hello-ycp.pot : $(POTFILES_DEPS)
 $(srcdir)/$(DOMAIN).pot:
 	$(MAKE) $(DOMAIN).pot-update
 
-# This target rebuilds a PO file if $(DOMAIN).pot has changed.
-# Note that a PO file is not touched if it doesn't need to be changed.
-$(POFILES): $(srcdir)/$(DOMAIN).pot
-	@lang=`echo $@ | sed -e 's,.*/,,' -e 's/\.po$$//'`; \
-	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE_UPDATE) --quiet $(MSGMERGE_OPTIONS) --lang=$${lang} --previous $${lang}.po $(DOMAIN).pot"; \
-	cd $(srcdir) && $(MSGMERGE_UPDATE) --quiet $(MSGMERGE_OPTIONS) --lang=$${lang} --previous $${lang}.po $(DOMAIN).pot
-
 
 html ID:
 
@@ -409,6 +412,8 @@ MOSTLYCLEANFILES =
 MOSTLYCLEANFILES += stamp-poT
 MOSTLYCLEANFILES += core core.* *.stackdump $(DOMAIN).po $(DOMAIN).1po $(DOMAIN).2po *.new.po
 MOSTLYCLEANFILES += *.o
+
+DISTCLEANFILES = $(GPOFILES)
 
 MAINTAINERCLEANFILES = $(DOMAIN).pot stamp-po $(SMALLPOTS)
 
@@ -425,36 +430,16 @@ distdir1: $(srcdir)/$(DOMAIN).pot
 	  done; \
 	fi
 
+# This rule updates all generated files in this directory.
+# Note: The name 'update-po' is a bit misleading. It does *not* modify the *.po
+# files. But we can't rename it easily, because it's a documented target.
 update-po: Makefile
 	$(MAKE) $(DOMAIN).pot-update
-	test -z "$(UPDATEPOFILES)" || $(MAKE) $(UPDATEPOFILES)
-
-# General rule for updating PO files.
-
-.nop.po-update:
-	@lang=`echo $@ | sed -e 's/\.po-update$$//'`; \
-	tmpdir=`pwd`; \
-	echo "$$lang:"; \
-	test "$(srcdir)" = . && cdcmd="" || cdcmd="cd $(srcdir) && "; \
-	echo "$${cdcmd}$(MSGMERGE) --quiet $(MSGMERGE_OPTIONS) --lang=$${lang} --previous $$lang.po $(DOMAIN).pot -o $$lang.new.po"; \
-	(cd $(srcdir) && \
-	 if $(MSGMERGE) --quiet $(MSGMERGE_OPTIONS) --lang=$${lang} --previous $$lang.po $(DOMAIN).pot -o $$tmpdir/$$lang.new.po; then \
-	   if cmp $$lang.po $$tmpdir/$$lang.new.po >/dev/null 2>&1; then \
-	     rm -f $$tmpdir/$$lang.new.po; \
-	   else \
-	     if mv -f $$tmpdir/$$lang.new.po $$lang.po; then \
-	       :; \
-	     else \
-	       echo "msgmerge for $$lang.po failed: cannot move $$tmpdir/$$lang.new.po to $$lang.po" 1>&2; \
-	       exit 1; \
-	     fi; \
-	   fi; \
-	 else \
-	   echo "msgmerge for $$lang.po failed!" 1>&2; \
-	   rm -f $$tmpdir/$$lang.new.po; \
-	   exit 1; \
-	 fi) && \
-	$(MAKE) $(SMALLPOFILES_FOR_lang) LL=$$lang
+	test -z "$(GPOFILES)" || $(MAKE) $(GPOFILES)
+	for file in $(GPOFILES); do \
+	  lang=`echo $$file | sed -e 's,.*/,,' -e 's,\.gpo$$,,'`; \
+	  $(MAKE) $(SMALLPOFILES_FOR_lang) LL=$$lang || exit 1; \
+	done
 
 $(DUMMYPOFILES):
 

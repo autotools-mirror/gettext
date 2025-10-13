@@ -171,31 +171,22 @@ We assume that the following environment variables are set:
          https://translationproject.org/latest/gettext-runtime/
   Optionally merge:
     cd gettext-runtime/po
-    make update-po
-    cd new
-    for f in *.po; do msgmerge --update --lang=${f%.po} --previous --width=80 $f ../gettext-runtime.pot; done
-    mv *.po ../
-    cd ..; rm -rf new
+    mv new/*.po .
+    rm -rf new
 
     wget --mirror --level=1 -nd -nv -A.po -P gettext-tools/po/new \
          https://translationproject.org/latest/gettext-tools/
   Optionally merge:
     cd gettext-tools/po
-    make update-po
-    cd new
-    for f in *.po; do msgmerge --update --lang=${f%.po} --previous --width=80 $f ../gettext-tools.pot; done
-    mv *.po ../
-    cd ..; rm -rf new
+    mv new/*.po .
+    rm -rf new
 
     wget --mirror --level=1 -nd -nv -A.po -P gettext-tools/examples/po/new \
          https://translationproject.org/latest/gettext-examples/
   Optionally merge:
     cd gettext-tools/examples/po
-    make update-po
-    cd new
-    for f in *.po; do msgmerge --update --lang=${f%.po} --previous --width=80 $f ../gettext-examples.pot; done
-    mv *.po ../
-    cd ..; rm -rf new
+    mv new/*.po .
+    rm -rf new
 
   Adjust LINGUAS files if any of the languages has been added or
   removed since the last release.  Commit the changes.

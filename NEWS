@@ -1,4 +1,26 @@
-Version 0.27 - October 2025
+Version 1.0 - October 2025
+
+# Improvements for maintainers and distributors:
+  * In a po/ directory, the PO files are now exactly those that the
+    translators submitted or committed in version control, or a
+    translation project's daemon committed on behalf of the translators.
+    They are no longer regularly updated with respect to the POT file
+    in the same directory.
+
+    The advantage for maintainers is that the maintainer may commit the
+    PO files in version control, without getting
+      - lots of modified files shown by "git status",
+      - frequent merge conflicts when merging between branches,
+      - a voluminous version control history.
+
+    The advantage for distributors is that the role of files in a
+    release tarball are clearer: The PO files are source code, whereas
+    the POT file and the *.gmo files are generated files.
+
+    ATTENTION translators!
+    Translators who work directly on a package's source code (without
+    going through a translation project) now need to run "msginit"
+    before starting work on a PO file.
 
 # Improvements for translators:
   * msginit:

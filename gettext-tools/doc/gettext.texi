@@ -9984,13 +9984,6 @@ Special advices for particular version control systems:
 
 @itemize @bullet
 @item
-Recent version control systems, Git for instance, ignore file's
-timestamp.  In that case, PO files can be accidentally updated even if
-a POT file is not updated.  To prevent this, you can set
-@samp{PO_DEPENDS_ON_POT} variable to @code{no} in the @file{Makevars}
-file and do @code{make update-po} manually.
-
-@item
 Location comments such as @code{#: lib/error.c:116} are sometimes
 annoying, since these comments are volatile and may introduce unwanted
 change to the working copy when building.  To mitigate this, you can
@@ -10016,7 +10009,8 @@ recover the location comments by running @code{msgmerge} again.
 @cindex distribution tarball
 In projects that use GNU @code{automake}, the usual commands for creating
 a distribution tarball, @samp{make dist} or @samp{make distcheck},
-automatically update the PO files as needed.
+automatically update the generated files in the @file{po/} directories
+as needed.
 
 If GNU @code{automake} is not used, the maintainer needs to perform this
 update before making a release:
