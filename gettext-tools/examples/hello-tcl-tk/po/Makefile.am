@@ -114,7 +114,7 @@ INST_LINGUAS != for presentlang in $(ALL_LINGUAS); do \
 # This is computed as $(foreach lang, $(INST_LINGUAS), $(frob $(lang)).msg)
 CATALOGS != for lang in $(INST_LINGUAS); do \
               frobbedlang=`echo $$lang | sed -e 's/\..*$$//' -e 'y/ABCDEFGHIJKLMNOPQRSTUVWXYZ/abcdefghijklmnopqrstuvwxyz/'`; \
-              echo $$frobbedlang.gmo; \
+              echo $$frobbedlang.msg; \
             done
 
 SUFFIXES = .nop .po-create .po-update
