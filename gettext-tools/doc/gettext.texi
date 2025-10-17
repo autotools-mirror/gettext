@@ -11009,6 +11009,36 @@ that language, and to combine the resulting files using @code{msgcat}.
 While the GNU gettext tools deal mainly with POT and PO files, they can
 also manipulate a couple of other data formats.
 
+For support for many document formats, such as
+plain text, MarkDown, manual pages,
+XML, DocBook, and others,
+you can use the @code{po4a} tools (@url{https://www.po4a.org}).
+
+@cindex LibreOffice
+@cindex OpenDocument files
+For LibreOffice document formats, such as @code{.odt} files,
+there are no PO file based workflows.
+Instead, you can use
+@itemize @bullet
+@item
+Lokalize (@url{https://apps.kde.org/lokalize/}) with the menu actions
+@emph{Project > Create OpenDocument translation project} and
+@emph{File > Merge translation into OpenDocument}, or
+@item
+OmegaT
+(Wikipedia: @url{https://en.wikipedia.org/wiki/OmegaT},
+home page: @url{https://omegat.org/},
+code: @url{https://github.com/omegat-org/omegat}).
+@end itemize
+@noindent
+With these tools, a translator can translate LibreOffice document
+directly, without going through the workflow with POT and PO files.
+(Internally, they use XLIFF or TMX files for storage of the translations.)
+Alternatively, you can have a workflow with an XLIFF file instead of a PO file,
+@cindex Translate Toolkit
+through the Translate Toolkit @url{https://toolkit.translatehouse.org/}
+(see @uref{https://docs.translatehouse.org/projects/translate-toolkit/en/latest/formats/odf.html,,its documentation}).
+
 @menu
 * Internationalizable Data::    Internationalizable Data Formats
 * Localized Data::              Localized Data Formats
