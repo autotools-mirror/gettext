@@ -30,8 +30,28 @@ bin_SCRIPTS = gettextize
 DISTCLEANFILES += gettextize
 
 
+# gettextize copies these files into packages.
+
+pkgdatadir = $(datadir)/gettext
+podir = $(pkgdatadir)/po
+po_DATA = \
+  po-templates/traditional/Makefile.in.in \
+  po-templates/traditional/remove-potcdate.sed \
+  po-templates/traditional/Makevars.template \
+  po-templates/traditional/Rules-quot \
+  po-templates/traditional/quot.sed \
+  po-templates/traditional/boldquot.sed \
+  po-templates/traditional/en@quot.header \
+  po-templates/traditional/en@boldquot.header \
+  po-templates/traditional/insert-header.sed
+
+EXTRA_DIST += $(po_DATA)
+
+
 # We don't install the source code in unpacked form any more.
+# We don't install the Makevars file any more either.
 install-data-local: uninstall-sources
 uninstall-local: uninstall-sources
 uninstall-sources:
-	rm -rf $(DESTDIR)$(datadir)/gettext/intl
+	rm -rf $(DESTDIR)$(pkgdatadir)/intl \
+	       $(DESTDIR)$(podir)/Makevars

@@ -392,7 +392,15 @@
 /gettext-runtime/libasprintf/ChangeLog
 /gettext-tools/ChangeLog
 /gettext-tools/examples/ChangeLog
-# Files copied from gettext-runtime:
+# Files copied:
+/gettext-runtime/po/Makefile.in.in
+/gettext-runtime/po/Rules-quot
+/gettext-runtime/po/boldquot.sed
+/gettext-runtime/po/en@boldquot.header
+/gettext-runtime/po/en@quot.header
+/gettext-runtime/po/insert-header.sed
+/gettext-runtime/po/quot.sed
+/gettext-runtime/po/remove-potcdate.sed
 /gettext-tools/ABOUT-NLS
 /gettext-tools/po/Makefile.in.in
 /gettext-tools/po/Rules-quot

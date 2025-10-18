@@ -646,6 +646,16 @@ aclocal -I ../../m4 -I ../m4 -I gnulib-m4 \
   || exit $?
 cd "$dir0"
 
+echo "$0: copying common files to gettext-runtime..."
+cp -p gettext-tools/wizard/po-templates/traditional/Makefile.in.in gettext-runtime/po/Makefile.in.in
+cp -p gettext-tools/wizard/po-templates/traditional/Rules-quot gettext-runtime/po/Rules-quot
+cp -p gettext-tools/wizard/po-templates/traditional/boldquot.sed gettext-runtime/po/boldquot.sed
+cp -p gettext-tools/wizard/po-templates/traditional/quot.sed gettext-runtime/po/quot.sed
+cp -p gettext-tools/wizard/po-templates/traditional/en@quot.header gettext-runtime/po/en@quot.header
+cp -p gettext-tools/wizard/po-templates/traditional/en@boldquot.header gettext-runtime/po/en@boldquot.header
+cp -p gettext-tools/wizard/po-templates/traditional/insert-header.sed gettext-runtime/po/insert-header.sed
+cp -p gettext-tools/wizard/po-templates/traditional/remove-potcdate.sed gettext-runtime/po/remove-potcdate.sed
+
 echo "$0: generating configure in gettext-runtime..."
 cd gettext-runtime
 aclocal -I m4 -I ../m4 -I gnulib-m4 \
@@ -674,16 +684,16 @@ aclocal -I ../../gettext-runtime/m4 -I ../../m4 \
   || exit $?
 cd "$dir0"
 
-echo "$0: copying common files from gettext-runtime to gettext-tools..."
+echo "$0: copying common files to gettext-tools..."
 cp -p gettext-runtime/ABOUT-NLS gettext-tools/ABOUT-NLS
-cp -p gettext-runtime/po/Makefile.in.in gettext-tools/po/Makefile.in.in
-cp -p gettext-runtime/po/Rules-quot gettext-tools/po/Rules-quot
-cp -p gettext-runtime/po/boldquot.sed gettext-tools/po/boldquot.sed
-cp -p gettext-runtime/po/quot.sed gettext-tools/po/quot.sed
-cp -p gettext-runtime/po/en@quot.header gettext-tools/po/en@quot.header
-cp -p gettext-runtime/po/en@boldquot.header gettext-tools/po/en@boldquot.header
-cp -p gettext-runtime/po/insert-header.sed gettext-tools/po/insert-header.sed
-cp -p gettext-runtime/po/remove-potcdate.sed gettext-tools/po/remove-potcdate.sed
+cp -p gettext-tools/wizard/po-templates/traditional/Makefile.in.in gettext-tools/po/Makefile.in.in
+cp -p gettext-tools/wizard/po-templates/traditional/Rules-quot gettext-tools/po/Rules-quot
+cp -p gettext-tools/wizard/po-templates/traditional/boldquot.sed gettext-tools/po/boldquot.sed
+cp -p gettext-tools/wizard/po-templates/traditional/quot.sed gettext-tools/po/quot.sed
+cp -p gettext-tools/wizard/po-templates/traditional/en@quot.header gettext-tools/po/en@quot.header
+cp -p gettext-tools/wizard/po-templates/traditional/en@boldquot.header gettext-tools/po/en@boldquot.header
+cp -p gettext-tools/wizard/po-templates/traditional/insert-header.sed gettext-tools/po/insert-header.sed
+cp -p gettext-tools/wizard/po-templates/traditional/remove-potcdate.sed gettext-tools/po/remove-potcdate.sed
 
 echo "$0: generating configure in gettext-tools..."
 cd gettext-tools

@@ -66,15 +66,23 @@ $(srcdir)/configure: $(srcdir)/gettext-runtime/configure.ac $(srcdir)/gettext-to
 
 distcheck-hook:
 # Verify that some files are the same.
-	cmp -s $(srcdir)/gettext-runtime/po/Makefile.in.in $(srcdir)/gettext-tools/po/Makefile.in.in
-	cmp -s $(srcdir)/gettext-runtime/po/Rules-quot $(srcdir)/gettext-tools/po/Rules-quot
-	cmp -s $(srcdir)/gettext-runtime/po/boldquot.sed $(srcdir)/gettext-tools/po/boldquot.sed
-	cmp -s $(srcdir)/gettext-runtime/po/quot.sed $(srcdir)/gettext-tools/po/quot.sed
-	cmp -s $(srcdir)/gettext-runtime/po/en@quot.header $(srcdir)/gettext-tools/po/en@quot.header
-	cmp -s $(srcdir)/gettext-runtime/po/en@boldquot.header $(srcdir)/gettext-tools/po/en@boldquot.header
-	cmp -s $(srcdir)/gettext-runtime/po/insert-header.sed $(srcdir)/gettext-tools/po/insert-header.sed
-	cmp -s $(srcdir)/gettext-runtime/po/remove-potcdate.sed $(srcdir)/gettext-tools/po/remove-potcdate.sed
-	cmp -s $(srcdir)/gettext-runtime/po/remove-potcdate.sed $(srcdir)/gettext-tools/examples/po/remove-potcdate.sed
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/Makefile.in.in $(srcdir)/gettext-runtime/po/Makefile.in.in
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/Rules-quot $(srcdir)/gettext-runtime/po/Rules-quot
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/boldquot.sed $(srcdir)/gettext-runtime/po/boldquot.sed
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/quot.sed $(srcdir)/gettext-runtime/po/quot.sed
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/en@quot.header $(srcdir)/gettext-runtime/po/en@quot.header
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/en@boldquot.header $(srcdir)/gettext-runtime/po/en@boldquot.header
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/insert-header.sed $(srcdir)/gettext-runtime/po/insert-header.sed
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/remove-potcdate.sed $(srcdir)/gettext-runtime/po/remove-potcdate.sed
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/Makefile.in.in $(srcdir)/gettext-tools/po/Makefile.in.in
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/Rules-quot $(srcdir)/gettext-tools/po/Rules-quot
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/boldquot.sed $(srcdir)/gettext-tools/po/boldquot.sed
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/quot.sed $(srcdir)/gettext-tools/po/quot.sed
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/en@quot.header $(srcdir)/gettext-tools/po/en@quot.header
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/en@boldquot.header $(srcdir)/gettext-tools/po/en@boldquot.header
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/insert-header.sed $(srcdir)/gettext-tools/po/insert-header.sed
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/remove-potcdate.sed $(srcdir)/gettext-tools/po/remove-potcdate.sed
+	cmp -s $(srcdir)/gettext-tools/wizard/po-templates/traditional/remove-potcdate.sed $(srcdir)/gettext-tools/examples/po/remove-potcdate.sed
 	cmp -s $(srcdir)/gettext-runtime/m4/build-to-host.m4 $(srcdir)/gettext-tools/gnulib-m4/build-to-host.m4
 	cmp -s $(srcdir)/gettext-runtime/m4/gettext.m4 $(srcdir)/gettext-tools/gnulib-m4/gettext.m4
 	cmp -s $(srcdir)/gettext-runtime/man/help2man $(srcdir)/gettext-tools/man/help2man
