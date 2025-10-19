@@ -34,7 +34,7 @@ installcheck-local:
 
 EXTRA_DIST = \
   test-version.c \
-  test-api.c locale/en_US/LC_MESSAGES/itest.mo
+  test-api.c itest.pot locale/en_US/LC_MESSAGES/itest.mo
 CLEANFILES = \
   test-version test-version$(EXEEXT) \
   test-api test-api$(EXEEXT)
