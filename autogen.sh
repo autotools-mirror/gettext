@@ -694,6 +694,7 @@ cp -p gettext-tools/wizard/po-templates/traditional/en@quot.header gettext-tools
 cp -p gettext-tools/wizard/po-templates/traditional/en@boldquot.header gettext-tools/po/en@boldquot.header
 cp -p gettext-tools/wizard/po-templates/traditional/insert-header.sed gettext-tools/po/insert-header.sed
 cp -p gettext-tools/wizard/po-templates/traditional/remove-potcdate.sed gettext-tools/po/remove-potcdate.sed
+cp -p gettext-tools/wizard/po-templates/traditional/remove-potcdate.sed gettext-tools/examples/po/remove-potcdate.sed
 
 echo "$0: generating configure in gettext-tools..."
 cd gettext-tools
