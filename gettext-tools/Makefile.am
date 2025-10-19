@@ -109,6 +109,7 @@ EXTRA_DIST += \
   tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/grammars/ocaml/src/tree_sitter/array.h \
   tree-sitter-ocaml-$(TREE_SITTER_OCAML_VERSION)/grammars/ocaml/src/tree_sitter/parser.h \
   build-aux/tree-sitter-d-portability.diff \
+  build-aux/tree-sitter-d-optimization-bug.diff \
   tree-sitter-d-$(TREE_SITTER_D_VERSION)/LICENSE \
   tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/d-parser.c \
   tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/d-scanner.c \
