@@ -19,9 +19,9 @@
 AUTOMAKE_OPTIONS = 1.5 gnu
 ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4 -I tests/gnulib-m4
 
-SUBDIRS = gnulib-lib libgrep src libgettextpo po its projects styles wizard autotools emacs man m4 tests system-tests gnulib-tests install-tests examples doc
+SUBDIRS = gnulib-lib libgrep src libgettextpo po its projects styles wizard autotools misc emacs man m4 tests system-tests gnulib-tests install-tests examples doc
 
-EXTRA_DIST = misc/disclaim-translations.txt
+EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
 DISTCLEANFILES = build-aux/xml-validate-10 build-aux/xml-validate-11
 
@@ -116,10 +116,6 @@ EXTRA_DIST += \
   tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/tree_sitter/alloc.h \
   tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/tree_sitter/array.h \
   tree-sitter-d-$(TREE_SITTER_D_VERSION)/src/tree_sitter/parser.h
-
-# Files installed for the user.
-
-pkgdata_DATA = misc/disclaim-translations.txt
 
 
 # Files installed for use by gettextize.

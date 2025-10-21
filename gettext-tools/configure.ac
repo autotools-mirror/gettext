@@ -754,6 +754,9 @@ AC_CONFIG_FILES([autotools/Makefile])
 AC_CONFIG_FILES([autotools/autopoint], [chmod a+x autotools/autopoint])
 AC_CONFIG_FILES([autotools/convert-archive], [chmod a+x autotools/convert-archive])
 
+AC_CONFIG_FILES([misc/Makefile])
+AC_CONFIG_FILES([misc/po-fetch], [chmod a+x misc/po-fetch])
+
 AC_CONFIG_FILES([emacs/Makefile])
 
 AC_CONFIG_FILES([man/Makefile])

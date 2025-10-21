@@ -80,6 +80,7 @@
 * msgunfmt: (gettext)msgunfmt Invocation.      Uncompile MO file into PO file.
 * msguniq: (gettext)msguniq Invocation.        Unify duplicates for PO file.
 * ngettext: (gettext)ngettext Invocation.      Translate a message with plural.
+* po-fetch: (gettext)po-fetch Invocation.      Fetches a set of PO files.
 * printf_gettext: (gettext)printf_gettext Invocation. Translate a format string.
 * printf_ngettext: (gettext)printf_ngettext Invocation. Translate a format string with plural.
 * xgettext: (gettext)xgettext Invocation.      Extract strings into a PO file.
@@ -395,6 +396,7 @@ Integrating with Version Control Systems
 * Files under Version Control::  Files to put under version control
 * Translations under Version Control::  Put PO Files under Version Control
 * autopoint Invocation::        Invoking the @code{autopoint} Program
+* po-fetch Invocation::         Invoking the @code{po-fetch} Program
 
 Other Programming Languages
 
@@ -9834,6 +9836,7 @@ version controlled files.
 * Files under Version Control::  Files to put under version control
 * Translations under Version Control::  Put PO Files under Version Control
 * autopoint Invocation::        Invoking the @code{autopoint} Program
+* po-fetch Invocation::         Invoking the @code{po-fetch} Program
 @end menu
 
 @node Distributed Development
@@ -10001,6 +10004,11 @@ recover the location comments by running @code{msgmerge} again.
 @subsection Invoking the @code{autopoint} Program
 
 @include autopoint.texi
+
+@node po-fetch Invocation
+@subsection Invoking the @code{po-fetch} Program
+
+@include po-fetch.texi
 
 @node Release Management
 @section Creating a Distribution Tarball

@@ -454,6 +454,7 @@
 /gettext-tools/libgrep/Makefile.in
 /gettext-tools/m4/Makefile.in
 /gettext-tools/man/Makefile.in
+/gettext-tools/misc/Makefile.in
 /gettext-tools/projects/Makefile.in
 /gettext-tools/src/Makefile.in
 /gettext-tools/styles/Makefile.in
@@ -673,6 +674,8 @@ autom4te.cache/
 /gettext-tools/m4/Makefile
 /gettext-tools/man/Makefile
 /gettext-tools/man/x-to-1
+/gettext-tools/misc/Makefile
+/gettext-tools/misc/po-fetch
 /gettext-tools/po/Makefile.in
 /gettext-tools/po/Makefile
 /gettext-tools/projects/Makefile

@@ -59,6 +59,7 @@ gettext_TEXINFOS = \
   msgunfmt.texi \
   gettextize.texi \
   autopoint.texi \
+  po-fetch.texi \
   lang-c.texi \
   lang-python.texi \
   lang-java.texi \

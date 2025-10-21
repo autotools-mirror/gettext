@@ -22,6 +22,10 @@ Version 1.0 - October 2025
     going through a translation project) now need to run "msginit"
     before starting work on a PO file.
 
+  * A new program 'po-fetch' is provided, that fetches the translated
+    PO files from a translation project's site on the internet, and
+    updates the LINGUAS file accordingly.
+
 # Improvements for translators:
   * msginit:
     - When the PO file already exists, 'msginit' now updates it w.r.t. the
