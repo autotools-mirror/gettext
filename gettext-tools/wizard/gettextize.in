@@ -760,6 +760,20 @@ You can then remove $podir/Makevars.template.
 "
         fi
         ;;
+      fetch-po)
+        if test -f "$srcdir/$podir/$file"; then
+          # This file may already be customized. Don't overwrite it.
+          :
+        else
+          if $do_changelog; then
+            func_poChangeLog_add_entry "	* $file: New file, from gettext-${version}."
+          fi
+          func_linkorcopy $file "$gettext_datadir/po/$file" "$podir/$file"
+          please="$please
+Please customize $podir/fetch-po, if appropriate.
+"
+        fi
+        ;;
       *)
         same=no
         if test -f "$srcdir/$podir/$file"; then

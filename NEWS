@@ -26,6 +26,10 @@ Version 1.0 - October 2025
     PO files from a translation project's site on the internet, and
     updates the LINGUAS file accordingly.
 
+  * In a po/ directory, a new script 'fetch-po' is now added by 'gettextize'.
+    It provides the standard interface for fetching the translated PO files.
+    It typically either invokes the 'po-fetch' program or does nothing.
+
 # Improvements for translators:
   * msginit:
     - When the PO file already exists, 'msginit' now updates it w.r.t. the

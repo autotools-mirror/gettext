@@ -182,6 +182,15 @@ SUFFIXES = .po .gmo .gpo .nop .po-create
 #    source directory."
 # Therefore we put these files in the source directory, not the build directory.
 
+# This target fetches the PO files, produced by translators, from a
+# translations project's site on the internet, and generates the associated
+# LINGUAS file (for packages that use such a translations project and where
+# this translation project does not already commit the PO files and the LINGUAS
+# file into the version control repository of the package automatically).
+.PHONY: fetch-po
+fetch-po:
+	cd $(srcdir) && @SHELL@ ./fetch-po
+
 # This target creates a merged PO file (mostly for debugging purposes).
 .po.gpo:
 	@lang=`echo $* | sed -e 's,.*/,,'`; \

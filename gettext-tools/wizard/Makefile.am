@@ -44,8 +44,10 @@ po_DATA = \
   po-templates/traditional/en@quot.header \
   po-templates/traditional/en@boldquot.header \
   po-templates/traditional/insert-header.sed
+po_SCRIPTS = \
+  po-templates/traditional/fetch-po
 
-EXTRA_DIST += $(po_DATA)
+EXTRA_DIST += $(po_DATA) $(po_SCRIPTS)
 
 
 # We don't install the source code in unpacked form any more.
