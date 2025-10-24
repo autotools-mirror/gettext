@@ -111,6 +111,11 @@ func_check_file ()
       # These are a mostly data.  They don't have much programmer expression.
       return 0 ;;
 
+    */LINGUAS )
+      # These are generated files that contain only data.
+      # They don't have any programmer expression.
+      return 0 ;;
+
     */ChangeLog* )
       # ChangeLog files are convenience information, not worth sueing for.
       return 0 ;;

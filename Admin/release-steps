@@ -167,29 +167,11 @@ We assume that the following environment variables are set:
 
 ** If you got any translation updates, update translations:
 
-    wget --mirror --level=1 -nd -nv -A.po -P gettext-runtime/po/new \
-         https://translationproject.org/latest/gettext-runtime/
-  Optionally merge:
-    cd gettext-runtime/po
-    mv new/*.po .
-    rm -rf new
+    (cd gettext-runtime/po && ./fetch-po)
+    (cd gettext-tools/po && ./fetch-po)
+    (cd gettext-tools/examples/po && ./fetch-po)
 
-    wget --mirror --level=1 -nd -nv -A.po -P gettext-tools/po/new \
-         https://translationproject.org/latest/gettext-tools/
-  Optionally merge:
-    cd gettext-tools/po
-    mv new/*.po .
-    rm -rf new
-
-    wget --mirror --level=1 -nd -nv -A.po -P gettext-tools/examples/po/new \
-         https://translationproject.org/latest/gettext-examples/
-  Optionally merge:
-    cd gettext-tools/examples/po
-    mv new/*.po .
-    rm -rf new
-
-  Adjust LINGUAS files if any of the languages has been added or
-  removed since the last release.  Commit the changes.
+    Commit the changes.
 
 ** Create a release:
 
