@@ -4,94 +4,157 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext 0.10.37\n"
-"Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-06-28 23:48+0200\n"
+"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
+"POT-Creation-Date: 2007-11-02 03:22+0100\n"
 "PO-Revision-Date: 2001-04-30 16:25+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <et@li.org>\n"
-"Language: et\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-15\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/envsubst.c:112 src/gettext.c:138 src/ngettext.c:128
-#: src/printf_gettext.c:111 src/printf_ngettext.c:116
+#: gnulib-lib/closeout.c:66
+msgid "write error"
+msgstr ""
+
+#: gnulib-lib/error.c:125
+msgid "Unknown system error"
+msgstr "Tundmatu süsteemne viga"
+
+#: gnulib-lib/getopt.c:530 gnulib-lib/getopt.c:546
+#, c-format
+msgid "%s: option `%s' is ambiguous\n"
+msgstr "%s: võti `%s' on mitmetähenduslik\n"
+
+#: gnulib-lib/getopt.c:579 gnulib-lib/getopt.c:583
+#, c-format
+msgid "%s: option `--%s' doesn't allow an argument\n"
+msgstr "%s: võtmel `--%s' ei tohi olla argumente\n"
+
+#: gnulib-lib/getopt.c:592 gnulib-lib/getopt.c:597
+#, c-format
+msgid "%s: option `%c%s' doesn't allow an argument\n"
+msgstr "%s: võtmel `%c%s' ei tohi olla argumente\n"
+
+#: gnulib-lib/getopt.c:640 gnulib-lib/getopt.c:659 gnulib-lib/getopt.c:975
+#: gnulib-lib/getopt.c:994
+#, c-format
+msgid "%s: option `%s' requires an argument\n"
+msgstr "%s: võtme `%s' järel peab olema argument\n"
+
+#: gnulib-lib/getopt.c:697 gnulib-lib/getopt.c:700
+#, c-format
+msgid "%s: unrecognized option `--%s'\n"
+msgstr "%s: tundmatu võti `--%s'\n"
+
+#: gnulib-lib/getopt.c:708 gnulib-lib/getopt.c:711
+#, c-format
+msgid "%s: unrecognized option `%c%s'\n"
+msgstr "%s: tundmatu võti `%c%s'\n"
+
+#: gnulib-lib/getopt.c:763 gnulib-lib/getopt.c:766
+#, c-format
+msgid "%s: illegal option -- %c\n"
+msgstr "%s: lubamatu võti -- %c\n"
+
+#: gnulib-lib/getopt.c:772 gnulib-lib/getopt.c:775
+#, c-format
+msgid "%s: invalid option -- %c\n"
+msgstr "%s: vigane võti -- %c\n"
+
+#: gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:843 gnulib-lib/getopt.c:1047
+#: gnulib-lib/getopt.c:1065
+#, c-format
+msgid "%s: option requires an argument -- %c\n"
+msgstr "%s: võtme järel peab olema argument -- %c\n"
+
+#: gnulib-lib/getopt.c:896 gnulib-lib/getopt.c:912
+#, c-format
+msgid "%s: option `-W %s' is ambiguous\n"
+msgstr "%s: võti `-W %s' on mitmetähenduslik\n"
+
+#: gnulib-lib/getopt.c:936 gnulib-lib/getopt.c:954
+#, c-format
+msgid "%s: option `-W %s' doesn't allow an argument\n"
+msgstr "%s: võtmel `-W %s' ei tohi olla argumente\n"
+
+#: gnulib-lib/xmalloc.c:37
+#, c-format
+msgid "memory exhausted"
+msgstr "mälu sai otsa"
+
+#: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"License GPLv3+: GNU GPL version 3 or later <%s>\n"
+"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
 
-#: src/envsubst.c:118 src/gettext.c:144 src/ngettext.c:134
-#: src/printf_gettext.c:117 src/printf_ngettext.c:122
+#: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Selle programmi on kirjutanud %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:118 src/printf_gettext.c:117 src/printf_ngettext.c:122
+#: src/envsubst.c:118
 msgid "Bruno Haible"
 msgstr ""
 
-#: src/envsubst.c:127 src/gettext.c:162 src/ngettext.c:146
+#: src/envsubst.c:127 src/gettext.c:157 src/ngettext.c:141
 #, c-format
 msgid "too many arguments"
 msgstr "liiga palju argumente"
 
-#: src/envsubst.c:138 src/gettext.c:172 src/ngettext.c:158
-#: src/printf_ngettext.c:133
+#: src/envsubst.c:138 src/gettext.c:167 src/ngettext.c:153
 #, c-format
 msgid "missing arguments"
 msgstr "argumendid on puudu"
 
-#: src/envsubst.c:176 src/gettext.c:249 src/ngettext.c:216
-#: src/printf_gettext.c:165 src/printf_ngettext.c:197
-#, fuzzy, c-format
-#| msgid "Try `%s --help' for more information.\n"
-msgid "Try '%s --help' for more information.\n"
+#: src/envsubst.c:171 src/gettext.c:238 src/ngettext.c:207
+#, c-format
+msgid "Try `%s --help' for more information.\n"
 msgstr "Täiendava info saamiseks proovi `%s --help'.\n"
 
-#: src/envsubst.c:181
+#: src/envsubst.c:176
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr ""
 
-#: src/envsubst.c:186
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr ""
 
-#: src/envsubst.c:190
+#: src/envsubst.c:185
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr ""
 
-#: src/envsubst.c:193
+#: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr ""
 
-#: src/envsubst.c:197 src/gettext.c:280 src/ngettext.c:248
-#: src/printf_gettext.c:188 src/printf_ngettext.c:224
+#: src/envsubst.c:192
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr ""
 
-#: src/envsubst.c:200
+#: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr ""
 
-#: src/envsubst.c:203
+#: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr ""
 
-#: src/envsubst.c:207
+#: src/envsubst.c:202
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -102,111 +165,81 @@ msgid ""
 "standard input are substituted.\n"
 msgstr ""
 
-#: src/envsubst.c:216
+#: src/envsubst.c:211
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
 "of the environment variables that are referenced in SHELL-FORMAT, one per line.\n"
 msgstr ""
 
-#. TRANSLATORS: The first placeholder is the web address of the Savannah
-#. project of this package.  The second placeholder is the bug-reporting
-#. email address for this package.  Please add _another line_ saying
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:225 src/gettext.c:304 src/ngettext.c:269
-#: src/printf_gettext.c:277 src/printf_ngettext.c:313
-#, c-format
-msgid ""
-"Report bugs in the bug tracker at <%s>\n"
-"or by email to <%s>.\n"
-msgstr ""
+#: src/envsubst.c:219 src/gettext.c:279 src/ngettext.c:245
+#, fuzzy
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr "Vigadest teata aadressile <bug-gnu-utils@gnu.org>.\n"
 
-#: src/envsubst.c:453
+#: src/envsubst.c:442
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "viga \"%s\" lugemisel"
 
-#: src/envsubst.c:453
+#: src/envsubst.c:443
 msgid "standard input"
 msgstr "standardsisend"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:144 src/ngettext.c:134
+#: src/gettext.c:139 src/ngettext.c:129
 msgid "Ulrich Drepper"
 msgstr ""
 
-#: src/gettext.c:254
+#: src/gettext.c:243
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
 "or:    %s [OPTION] -s [MSGID]...\n"
 msgstr ""
 
-#: src/gettext.c:260
+#: src/gettext.c:249
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr ""
 
-#: src/gettext.c:263 src/ngettext.c:230 src/printf_gettext.c:179
-#: src/printf_ngettext.c:211
-#, fuzzy, c-format
-#| msgid "too many arguments"
-msgid "Options and arguments:\n"
-msgstr "liiga palju argumente"
-
-#: src/gettext.c:266
-#, c-format, no-wrap
-msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-msgstr ""
-
-#: src/gettext.c:268 src/ngettext.c:235
-#, c-format
-msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
-msgstr ""
-
-#: src/gettext.c:270 src/ngettext.c:237
-#, c-format
-msgid "  -e                        enable expansion of some escape sequences\n"
-msgstr ""
-
-#: src/gettext.c:272
-#, c-format
-msgid "  -n                        suppress trailing newline\n"
-msgstr ""
-
-#: src/gettext.c:274 src/ngettext.c:239
-#, c-format
-msgid "  -E                        (ignored for compatibility)\n"
-msgstr ""
-
-#: src/gettext.c:276
-#, c-format
+#: src/gettext.c:253
+#, fuzzy, c-format, no-wrap
 msgid ""
+"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -n                        suppress trailing newline\n"
+"  -V, --version             display version information and exit\n"
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
+"Kasutamine: %s [VÕTI] [[[TEKSTIPIIRKOND] STRID] | [-s [STRID]...]]\n"
+"  -d, --domain=TEKSTIPIIRKOND   võtab tõlgitud stringid sellest piirkonnast\n"
+"  -e                            lubab erimärkide kasutamise\n"
+"  -E                            (eiratakse, kasutusel ühilduvuse pärast)\n"
+"  -h, --help                    väljastab käesoleva abiinfo ja lõpetab\n"
+"                                programmi töö\n"
+"  -n                            eemaldab relõpurunnused\n"
+"  -V, --version                 väljastab versiooniinfo ja lõpetab programmi\n"
+"                                töö\n"
+"  [TEKSTIPIIRKOND] STRID        võtab ainult tõlgitud stringid, mis asuvad\n"
+"                                määratud piirkonnas ja omavad identifikaatorit\n"
+"                                STRID\n"
 
-#: src/gettext.c:282 src/ngettext.c:250 src/printf_gettext.c:190
-#: src/printf_ngettext.c:226
-#, c-format
-msgid "  -h, --help                display this help and exit\n"
-msgstr ""
-
-#: src/gettext.c:284 src/ngettext.c:252 src/printf_gettext.c:192
-#: src/printf_ngettext.c:228
-#, c-format
-msgid "  -V, --version             display version information and exit\n"
-msgstr ""
-
-#: src/gettext.c:288
+#: src/gettext.c:264
 #, fuzzy, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
 "regular directory, another location can be specified with the environment\n"
 "variable TEXTDOMAINDIR.\n"
-"When used with the -s option the program behaves like the 'echo' command.\n"
+"When used with the -s option the program behaves like the `echo' command.\n"
 "But it does not simply copy its arguments to stdout.  Instead those messages\n"
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
@@ -222,43 +255,45 @@ msgstr ""
 "found in the selected catalog are translated.!!!\n"
 "Standardne otsinukataloog: %s\n"
 
-#: src/ngettext.c:221
+#: src/ngettext.c:212
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr ""
 
-#: src/ngettext.c:226
+#: src/ngettext.c:217
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
 "form depends on a number.\n"
 msgstr ""
 
-#: src/ngettext.c:233
-#, c-format, no-wrap
-msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
-
-#: src/ngettext.c:241
-#, c-format
+#: src/ngettext.c:222
+#, fuzzy, c-format, no-wrap
 msgid ""
+"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -V, --version             display version information and exit\n"
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
-
-#: src/ngettext.c:243
-#, c-format
-msgid ""
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
-"(plural)\n"
-msgstr ""
-
-#: src/ngettext.c:245 src/printf_ngettext.c:219
-#, c-format
-msgid ""
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
+"Kasutamine: %s [VÕTI] [TEKSTIPIIRKOND] STRID STRID-MITMUS ARV\n"
+"  -d, --domain=TEKSTIPIIRKOND   võtab tõlgitud stringid sellest piirkonnast\n"
+"  -e                            lubab erimärkide kasutamise\n"
+"  -E                            (eiratakse, kasutusel ühilduvuse pärast)\n"
+"  -h, --help                    väljastab käesoleva abiinfo ja lõpetab\n"
+"                                programmi töö\n"
+"  -n                            eemaldab realõputunnused\n"
+"  -V, --version                 väljastab versiooniinfo ja lõpetab programmi\n"
+"                                töö\n"
+"  [TEKSTIPIIRKOND]              võtab ainult tõlgitud stringid, mis asuvad\n"
+"                                määratud piirkonnas\n"
+"  STRID STRID-MITMUS            tõlgib STRID (ainsus) / STRID-MITMUS (mitmus)\n"
+"  ARV                           valib ainsuse/mitmuse vormi sellele arvule\n"
 
-#: src/ngettext.c:256
+#: src/ngettext.c:233
 #, fuzzy, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -273,338 +308,6 @@ msgstr ""
 "tavakataloogist, proovitakse teist kataloogi, mille väärtust üritatakse\n"
 "lugeda keskkonnamuutujast TEXTDOMAINDIR.\n"
 "Standardne otsinukataloog: %s\n"
-
-#: src/printf-command.c:154
-#, c-format
-msgid ""
-"In the directive number %zu, the argument number 0 is not a positive integer."
-msgstr ""
-
-#: src/printf-command.c:237
-#, c-format
-msgid "The string ends in the middle of a directive."
-msgstr ""
-
-#: src/printf-command.c:242
-#, c-format
-msgid ""
-"In the directive number %zu, the character '%c' is not a valid conversion "
-"specifier."
-msgstr ""
-
-#: src/printf-command.c:246
-#, c-format
-msgid ""
-"The character that terminates the directive number %zu is not a valid "
-"conversion specifier."
-msgstr ""
-
-#: src/printf-command.c:255 src/printf-command.c:259
-#, c-format
-msgid ""
-"In the directive number %zu, the flag '%c' is invalid for the conversion '%c'."
-msgstr ""
-
-#: src/printf-command.c:278 src/printf-command.c:292
-#, c-format
-msgid ""
-"The string refers to arguments both through absolute argument numbers and "
-"through unnumbered argument specifications."
-msgstr ""
-
-#: src/printf-command.c:394
-#, c-format
-msgid "The string ends in the middle of an escape sequence."
-msgstr ""
-
-#: src/printf-command.c:402
-#, c-format
-msgid "The escape sequence '%c%c' is unsupported (not in POSIX)."
-msgstr ""
-
-#: src/printf-command.c:403
-#, c-format
-msgid "The escape sequence '%c%c' is invalid."
-msgstr ""
-
-#: src/printf-command.c:407
-#, c-format
-msgid "This escape sequence is invalid."
-msgstr ""
-
-#: src/printf-command.c:455 src/printf-command.c:501 src/printf-command.c:568
-#: src/printf-command.c:638 src/printf-command.c:691
-#, c-format
-msgid "write error"
-msgstr ""
-
-#: src/printf-command.c:529 src/printf-command.c:556 src/printf-command.c:597
-#: src/printf-command.c:626 src/printf-command.c:679
-#, c-format
-msgid "%s: expected a numeric value"
-msgstr ""
-
-#: src/printf-command.c:550 src/printf-command.c:620 src/printf-command.c:673
-#, c-format
-msgid "%s: value not completely converted"
-msgstr ""
-
-#: src/printf-command.c:717
-#, c-format
-msgid ""
-"The translated format string consumes %zu arguments, whereas the original "
-"format string consumes only %zu arguments."
-msgstr ""
-
-#: src/printf-command.c:728
-#, c-format
-msgid "warning: ignoring excess arguments, starting with %s"
-msgstr ""
-
-#: src/printf_gettext.c:128
-#, fuzzy, c-format
-#| msgid "missing `msgstr' section"
-msgid "missing format string"
-msgstr "puudub `msgstr' sektsioon"
-
-#: src/printf_gettext.c:170
-#, c-format, no-wrap
-msgid "Usage: %s [OPTION] FORMAT [ARGUMENT]...\n"
-msgstr ""
-
-#: src/printf_gettext.c:175
-#, c-format, no-wrap
-msgid ""
-"Produces formatted output, applying the native language translation of FORMAT\n"
-"to the ARGUMENTs.\n"
-msgstr ""
-
-#: src/printf_gettext.c:181 src/printf_ngettext.c:213
-#, c-format
-msgid "  -c, --context=CONTEXT     specify context for FORMAT\n"
-msgstr ""
-
-#: src/printf_gettext.c:183
-#, c-format
-msgid "  FORMAT                    format string\n"
-msgstr ""
-
-#: src/printf_gettext.c:185 src/printf_ngettext.c:221
-#, c-format
-msgid "  ARGUMENT                  string or numeric argument\n"
-msgstr ""
-
-#: src/printf_gettext.c:196
-#, c-format, no-wrap
-msgid ""
-"The format string consists of\n"
-"  - plain text,\n"
-"  - directives, that start with '%c',\n"
-"  - escape sequences, that start with a backslash.\n"
-msgstr ""
-
-#: src/printf_gettext.c:204 src/printf_ngettext.c:240
-#, c-format, no-wrap
-msgid ""
-"A directive that consumes an argument\n"
-"  - starts with '%s' or '%s' where %s is a positive integer,\n"
-"  - is optionally followed by any of the characters '%c', '%c', '%c', '%c', '%c',\n"
-"    each of which acts as a flag,\n"
-"  - is optionally followed by a width specification (a nonnegative integer),\n"
-"  - is optionally followed by '%c' and a precision specification (an optional\n"
-"    nonnegative integer),\n"
-"  - is finished by a specifier\n"
-"      - '%c', that prints a character,\n"
-"      - '%c', that prints a string,\n"
-"      - '%c', '%c', that print an integer,\n"
-"      - '%c', '%c', '%c', '%c', that print an unsigned (nonnegative) integer,\n"
-"      - '%c', '%c', that print a floating-point number in scientific notation,\n"
-"      - '%c', '%c', that print a floating-point number without an exponent,\n"
-"      - '%c', '%c', that print a floating-point number in general notation,\n"
-"      - '%c', '%c', that print a floating-point number in hexadecimal notation.\n"
-"Additionally there is the directive '%s', that prints a single '%c'.\n"
-msgstr ""
-
-#: src/printf_gettext.c:233 src/printf_ngettext.c:269
-#, c-format, no-wrap
-msgid ""
-"If a directive specifies the argument by its number ('%s' notation),\n"
-"all directives that consume an argument must do so.\n"
-msgstr ""
-
-#. TRANSLATORS: Most of the placeholders expand to 2 characters.
-#. The last placeholder expands to 4 characters.
-#: src/printf_gettext.c:240 src/printf_ngettext.c:276
-#, c-format
-msgid ""
-"The escape sequences are:\n"
-"\n"
-"  %s      backslash\n"
-"  %s      alert (BEL)\n"
-"  %s      backspace (BS)\n"
-"  %s      form feed (FF)\n"
-"  %s      new line (LF)\n"
-"  %s      carriage return (CR)\n"
-"  %s      horizontal tab (HT)\n"
-"  %s      vertical tab (VT)\n"
-"  %s    octal number with 1 to 3 octal digits\n"
-msgstr ""
-
-#: src/printf_gettext.c:255 src/printf_ngettext.c:291
-#, c-format
-msgid "Environment variables:\n"
-msgstr ""
-
-#: src/printf_gettext.c:259 src/printf_ngettext.c:295
-#, c-format, no-wrap
-msgid ""
-"The translation of the format string is looked up in the translation domain\n"
-"given by the environment variable %s.\n"
-msgstr ""
-
-#: src/printf_gettext.c:264 src/printf_ngettext.c:300
-#, c-format, no-wrap
-msgid ""
-"It is looked up in the catalogs directory given by the environment variable\n"
-"%s or, if not present, in the default catalogs directory.\n"
-"This binary is configured to use the default catalogs directory:\n"
-"%s\n"
-msgstr ""
-
-#: src/printf_ngettext.c:202
-#, c-format, no-wrap
-msgid "Usage: %s [OPTION] FORMAT FORMAT-PLURAL COUNT [ARGUMENT]...\n"
-msgstr ""
-
-#: src/printf_ngettext.c:207
-#, c-format, no-wrap
-msgid ""
-"Produces formatted output, applying the native language translation of FORMAT\n"
-"and FORMAT-PLURAL, depending on COUNT, to the ARGUMENTs.\n"
-msgstr ""
-
-#: src/printf_ngettext.c:215
-#, c-format
-msgid "  FORMAT                    English singular form of format string\n"
-msgstr ""
-
-#: src/printf_ngettext.c:217
-#, c-format
-msgid "  FORMAT-PLURAL             English plural form of format string\n"
-msgstr ""
-
-#: src/printf_ngettext.c:232
-#, c-format, no-wrap
-msgid ""
-"Each format string consists of\n"
-"  - plain text,\n"
-"  - directives, that start with '%c',\n"
-"  - escape sequences, that start with a backslash.\n"
-msgstr ""
-
-#~ msgid "Unknown system error"
-#~ msgstr "Tundmatu süsteemne viga"
-
-#, c-format
-#~ msgid "%s: option `%s' is ambiguous\n"
-#~ msgstr "%s: võti `%s' on mitmetähenduslik\n"
-
-#, c-format
-#~ msgid "%s: option `--%s' doesn't allow an argument\n"
-#~ msgstr "%s: võtmel `--%s' ei tohi olla argumente\n"
-
-#, c-format
-#~ msgid "%s: option `%c%s' doesn't allow an argument\n"
-#~ msgstr "%s: võtmel `%c%s' ei tohi olla argumente\n"
-
-#, c-format
-#~ msgid "%s: option `%s' requires an argument\n"
-#~ msgstr "%s: võtme `%s' järel peab olema argument\n"
-
-#, c-format
-#~ msgid "%s: unrecognized option `--%s'\n"
-#~ msgstr "%s: tundmatu võti `--%s'\n"
-
-#, c-format
-#~ msgid "%s: unrecognized option `%c%s'\n"
-#~ msgstr "%s: tundmatu võti `%c%s'\n"
-
-#, c-format
-#~ msgid "%s: illegal option -- %c\n"
-#~ msgstr "%s: lubamatu võti -- %c\n"
-
-#, c-format
-#~ msgid "%s: invalid option -- %c\n"
-#~ msgstr "%s: vigane võti -- %c\n"
-
-#, c-format
-#~ msgid "%s: option requires an argument -- %c\n"
-#~ msgstr "%s: võtme järel peab olema argument -- %c\n"
-
-#, c-format
-#~ msgid "%s: option `-W %s' is ambiguous\n"
-#~ msgstr "%s: võti `-W %s' on mitmetähenduslik\n"
-
-#, c-format
-#~ msgid "%s: option `-W %s' doesn't allow an argument\n"
-#~ msgstr "%s: võtmel `-W %s' ei tohi olla argumente\n"
-
-#, c-format
-#~ msgid "memory exhausted"
-#~ msgstr "mälu sai otsa"
-
-#, fuzzy
-#~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-#~ msgstr "Vigadest teata aadressile <bug-gnu-utils@gnu.org>.\n"
-
-#, fuzzy, c-format, no-wrap
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -n                        suppress trailing newline\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
-#~ "                            to MSGID from TEXTDOMAIN\n"
-#~ msgstr ""
-#~ "Kasutamine: %s [VÕTI] [[[TEKSTIPIIRKOND] STRID] | [-s [STRID]...]]\n"
-#~ "  -d, --domain=TEKSTIPIIRKOND   võtab tõlgitud stringid sellest piirkonnast\n"
-#~ "  -e                            lubab erimärkide kasutamise\n"
-#~ "  -E                            (eiratakse, kasutusel ühilduvuse pärast)\n"
-#~ "  -h, --help                    väljastab käesoleva abiinfo ja lõpetab\n"
-#~ "                                programmi töö\n"
-#~ "  -n                            eemaldab relõpurunnused\n"
-#~ "  -V, --version                 väljastab versiooniinfo ja lõpetab programmi\n"
-#~ "                                töö\n"
-#~ "  [TEKSTIPIIRKOND] STRID        võtab ainult tõlgitud stringid, mis asuvad\n"
-#~ "                                määratud piirkonnas ja omavad identifikaatorit\n"
-#~ "                                STRID\n"
-
-#, fuzzy, c-format, no-wrap
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
-#~ "  COUNT                     choose singular/plural form based on this value\n"
-#~ msgstr ""
-#~ "Kasutamine: %s [VÕTI] [TEKSTIPIIRKOND] STRID STRID-MITMUS ARV\n"
-#~ "  -d, --domain=TEKSTIPIIRKOND   võtab tõlgitud stringid sellest piirkonnast\n"
-#~ "  -e                            lubab erimärkide kasutamise\n"
-#~ "  -E                            (eiratakse, kasutusel ühilduvuse pärast)\n"
-#~ "  -h, --help                    väljastab käesoleva abiinfo ja lõpetab\n"
-#~ "                                programmi töö\n"
-#~ "  -n                            eemaldab realõputunnused\n"
-#~ "  -V, --version                 väljastab versiooniinfo ja lõpetab programmi\n"
-#~ "                                töö\n"
-#~ "  [TEKSTIPIIRKOND]              võtab ainult tõlgitud stringid, mis asuvad\n"
-#~ "                                määratud piirkonnas\n"
-#~ "  STRID STRID-MITMUS            tõlgib STRID (ainsus) / STRID-MITMUS (mitmus)\n"
-#~ "  ARV                           valib ainsuse/mitmuse vormi sellele arvule\n"
 
 #~ msgid ""
 #~ "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -725,7 +428,8 @@ msgstr ""
 #~ "      --force-po              write PO file even if empty\n"
 #~ "  -i, --indent                write the .po file using indented style\n"
 #~ "      --no-location           do not write '#: filename:line' lines\n"
-#~ "  -n, --add-location          generate '#: filename:line' lines (default)\n"
+#~ "  -n, --add-location          generate '#: filename:line' lines "
+#~ "(default)\n"
 #~ "      --strict                write out strict Uniforum conforming .po "
 #~ "file\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
@@ -736,7 +440,8 @@ msgstr ""
 #~ "  -F, --sort-by-file          sort output by file location\n"
 #~ msgstr ""
 #~ "Kasutamine: %s [VÕTI] def.po ref.po\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
 #~ "  -C, --compendium=FAIL      lisatõlgete teek, neid võib esineda rohkem\n"
 #~ "                             kui üks\n"
@@ -777,8 +482,8 @@ msgstr ""
 #~ "is specified, they will be taken from the first PO file to define them.\n"
 #~ "File positions from all PO files will be cumulated.\n"
 #~ msgstr ""
-#~ "  -V, --version               väljastab versiooniinfo ja lõpetab programmi "
-#~ "töö\n"
+#~ "  -V, --version               väljastab versiooniinfo ja lõpetab "
+#~ "programmi töö\n"
 #~ "  -w, --width=NUMBER          määrab väljastatava lehekülje laiuse\n"
 #~ "  -<, --less-than=NUMBER      trükib stringid, mida esineb vähem kui "
 #~ "NUMBER\n"
@@ -801,15 +506,16 @@ msgstr ""
 #~ msgid ""
 #~ "Message selection:\n"
 #~ "  -<, --less-than=NUMBER         print messages with less than this many\n"
-#~ "                                 definitions, defaults to infinite if not\n"
+#~ "                                 definitions, defaults to infinite if "
+#~ "not\n"
 #~ "                                 set\n"
 #~ "  ->, --more-than=NUMBER         print messages with more than this many\n"
 #~ "                                 definitions, defaults to 0 if not set\n"
 #~ "  -u, --unique                   shorthand for --less-than=2, requests\n"
 #~ "                                 that only unique messages be printed\n"
 #~ msgstr ""
-#~ "  -V, --version               väljastab versiooniinfo ja lõpetab programmi "
-#~ "töö\n"
+#~ "  -V, --version               väljastab versiooniinfo ja lõpetab "
+#~ "programmi töö\n"
 #~ "  -w, --width=NUMBER          määrab väljastatava lehekülje laiuse\n"
 #~ "  -<, --less-than=NUMBER      trükib stringid, mida esineb vähem kui "
 #~ "NUMBER\n"
@@ -832,10 +538,12 @@ msgstr ""
 #~ msgid ""
 #~ "Output details:\n"
 #~ "  -t, --to-code=NAME             encoding for output\n"
-#~ "      --use-first                use first available translation for each\n"
+#~ "      --use-first                use first available translation for "
+#~ "each\n"
 #~ "                                 message, don't merge several "
 #~ "translations\n"
-#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output "
+#~ "(default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "      --force-po                 write PO file even if empty\n"
@@ -854,7 +562,8 @@ msgstr ""
 #~ "  -F, --sort-by-file             sort output by file location\n"
 #~ msgstr ""
 #~ "Kasutamine: %s [VÕTI] def.po ref.po\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
 #~ "  -C, --compendium=FAIL      lisatõlgete teek, neid võib esineda rohkem\n"
 #~ "                             kui üks\n"
@@ -898,7 +607,8 @@ msgstr ""
 #~ "diagnostics.\n"
 #~ msgstr ""
 #~ "Kasutamine: %s [VÕTI] def.po ref.po\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
 #~ "  -D, --directory=KATALOOG   lisab kataloogi sisendfailide otsinguteede\n"
 #~ "                             nimekirja\n"
@@ -951,8 +661,8 @@ msgstr ""
 #~ "PO file to define them.  File positions from all PO files will be\n"
 #~ "cumulated.\n"
 #~ msgstr ""
-#~ "  -V, --version               väljastab versiooniinfo ja lõpetab programmi "
-#~ "töö\n"
+#~ "  -V, --version               väljastab versiooniinfo ja lõpetab "
+#~ "programmi töö\n"
 #~ "  -w, --width=NUMBER          määrab väljastatava lehekülje laiuse\n"
 #~ "  -<, --less-than=NUMBER      trükib stringid, mida esineb vähem kui "
 #~ "NUMBER\n"
@@ -975,15 +685,16 @@ msgstr ""
 #~ msgid ""
 #~ "Message selection:\n"
 #~ "  -<, --less-than=NUMBER         print messages with less than this many\n"
-#~ "                                 definitions, defaults to infinite if not\n"
+#~ "                                 definitions, defaults to infinite if "
+#~ "not\n"
 #~ "                                 set\n"
 #~ "  ->, --more-than=NUMBER         print messages with more than this many\n"
 #~ "                                 definitions, defaults to 1 if not set\n"
 #~ "  -u, --unique                   shorthand for --less-than=2, requests\n"
 #~ "                                 that only unique messages be printed\n"
 #~ msgstr ""
-#~ "  -V, --version               väljastab versiooniinfo ja lõpetab programmi "
-#~ "töö\n"
+#~ "  -V, --version               väljastab versiooniinfo ja lõpetab "
+#~ "programmi töö\n"
 #~ "  -w, --width=NUMBER          määrab väljastatava lehekülje laiuse\n"
 #~ "  -<, --less-than=NUMBER      trükib stringid, mida esineb vähem kui "
 #~ "NUMBER\n"
@@ -1005,7 +716,8 @@ msgstr ""
 #, fuzzy
 #~ msgid ""
 #~ "Output details:\n"
-#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output "
+#~ "(default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "      --force-po                 write PO file even if empty\n"
@@ -1026,7 +738,8 @@ msgstr ""
 #~ "entry\n"
 #~ msgstr ""
 #~ "Kasutamine: %s [VÕTI] def.po ref.po\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
 #~ "  -C, --compendium=FAIL      lisatõlgete teek, neid võib esineda rohkem\n"
 #~ "                             kui üks\n"
@@ -1059,7 +772,8 @@ msgstr ""
 #~ "      --force-po              write PO file even if empty\n"
 #~ "  -i, --indent                indented output style\n"
 #~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines (default)\n"
+#~ "      --add-location          preserve '#: filename:line' lines "
+#~ "(default)\n"
 #~ "      --strict                strict Uniforum output style\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
 #~ "      --no-wrap               do not break long message lines, longer "
@@ -1069,7 +783,8 @@ msgstr ""
 #~ "  -F, --sort-by-file          sort output by file location\n"
 #~ msgstr ""
 #~ "Kasutamine: %s [VÕTI] def.po ref.po\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
 #~ "  -C, --compendium=FAIL      lisatõlgete teek, neid võib esineda rohkem\n"
 #~ "                             kui üks\n"
@@ -1123,7 +838,8 @@ msgstr ""
 #~ "      --keep-header           keep header entry unmodified, don't filter "
 #~ "it\n"
 #~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines (default)\n"
+#~ "      --add-location          preserve '#: filename:line' lines "
+#~ "(default)\n"
 #~ "      --strict                strict Uniforum output style\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
 #~ "      --no-wrap               do not break long message lines, longer "
@@ -1133,7 +849,8 @@ msgstr ""
 #~ "  -F, --sort-by-file          sort output by file location\n"
 #~ msgstr ""
 #~ "Kasutamine: %s [VÕTI] def.po ref.po\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
 #~ "  -C, --compendium=FAIL      lisatõlgete teek, neid võib esineda rohkem\n"
 #~ "                             kui üks\n"
@@ -1274,7 +991,8 @@ msgstr ""
 #~ "      --force-po              write PO file even if empty\n"
 #~ "      --indent                indented output style\n"
 #~ "      --no-location           suppress '#: filename:line' lines\n"
-#~ "      --add-location          preserve '#: filename:line' lines (default)\n"
+#~ "      --add-location          preserve '#: filename:line' lines "
+#~ "(default)\n"
 #~ "      --strict                strict Uniforum output style\n"
 #~ "  -w, --width=NUMBER          set output page width\n"
 #~ "      --no-wrap               do not break long message lines, longer "
@@ -1284,7 +1002,8 @@ msgstr ""
 #~ "      --sort-by-file          sort output by file location\n"
 #~ msgstr ""
 #~ "Kasutamine: %s [VÕTI] def.po ref.po\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
 #~ "  -C, --compendium=FAIL      lisatõlgete teek, neid võib esineda rohkem\n"
 #~ "                             kui üks\n"
@@ -1334,7 +1053,8 @@ msgstr ""
 #~ "Merges two Uniforum style .po files together.  The def.po file is an\n"
 #~ "existing PO file with translations which will be taken over to the newly\n"
 #~ "created file as long as they still match; comments will be preserved,\n"
-#~ "but extracted comments and file positions will be discarded.  The ref.pot\n"
+#~ "but extracted comments and file positions will be discarded.  The ref."
+#~ "pot\n"
 #~ "file is the last created PO file with up-to-date source references but\n"
 #~ "old translations, or a PO Template file (generally created by xgettext);\n"
 #~ "any translations or comments in the file will be discarded, however dot\n"
@@ -1367,8 +1087,8 @@ msgstr ""
 #~ "%sRead %ld old + %ld reference, merged %ld, fuzzied %ld, missing %ld, "
 #~ "obsolete %ld.\n"
 #~ msgstr ""
-#~ "%sLoetud %ld vana + %ld viidet, ühendatud %ld, kahtlaseid %ld, puuduvaid "
-#~ "%ld, vananenuid %ld.\n"
+#~ "%sLoetud %ld vana + %ld viidet, ühendatud %ld, kahtlaseid %ld, puuduvaid %"
+#~ "ld, vananenuid %ld.\n"
 
 #~ msgid " done.\n"
 #~ msgstr " valmis.\n"
@@ -1391,7 +1111,8 @@ msgstr ""
 #~ "  -s, --sort-output        generate sorted output\n"
 #~ msgstr ""
 #~ "Kasutamine: %s [VÕTI] [FAIL]...\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
 #~ "  -e, --no-escape          keelab C erimärkide kasutamise tulemuses "
 #~ "(vaikimisi)\n"
@@ -1466,6 +1187,9 @@ msgstr ""
 
 #~ msgid "missing `msgid_plural' section"
 #~ msgstr "puudub `msgid_plural' sektsioon"
+
+#~ msgid "missing `msgstr' section"
+#~ msgstr "puudub `msgstr' sektsioon"
 
 #~ msgid "first plural form has nonzero index"
 #~ msgstr "esimene mitmuse vormi indeks erineb nullist"
@@ -1552,8 +1276,8 @@ msgstr ""
 
 #~ msgid "--join-existing cannot be used when output is written to stdout"
 #~ msgstr ""
-#~ "võtit `--join-existing' ei ole võimalik pruukida kui väljunit kirjutatakse "
-#~ "standardväljundisse"
+#~ "võtit `--join-existing' ei ole võimalik pruukida kui väljunit "
+#~ "kirjutatakse standardväljundisse"
 
 #~ msgid "xgettext cannot work without keywords to look for"
 #~ msgstr "xgettext ei tööta ilma vajalike võtmesõnadeta"
@@ -1564,7 +1288,8 @@ msgstr ""
 #, fuzzy
 #~ msgid ""
 #~ "Output details:\n"
-#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output "
+#~ "(default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "      --force-po                 write PO file even if empty\n"
@@ -1592,7 +1317,8 @@ msgstr ""
 #~ "entries\n"
 #~ msgstr ""
 #~ "Kasutamine: %s [VÕTI] def.po ref.po\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
 #~ "  -C, --compendium=FAIL      lisatõlgete teek, neid võib esineda rohkem\n"
 #~ "                             kui üks\n"
@@ -1659,7 +1385,8 @@ msgstr ""
 #~ "messages.po)\n"
 #~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files "
 #~ "search\n"
-#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output "
+#~ "(default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "  -f, --files-from=FILE          get list of input files from FILE\n"
@@ -1668,7 +1395,8 @@ msgstr ""
 #~ "  -h, --help                     display this help and exit\n"
 #~ msgstr ""
 #~ "Kasutamine: %s [VÕTI] SISENDFAIL ...\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
 #~ "  -d, --default-domain=NIMI   kasutab väljundiks faili NIMI.po\n"
 #~ "                              (messages.po asemel)\n"
@@ -1726,14 +1454,16 @@ msgstr ""
 #~ "Generate binary message catalog from textual translation description.\n"
 #~ "\n"
 #~ "Mandatory arguments to long options are mandatory for short options too.\n"
-#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %d)\n"
+#~ "  -a, --alignment=NUMBER      align strings to NUMBER bytes (default: %"
+#~ "d)\n"
 #~ "  -c, --check                 perform language dependent checks on "
 #~ "strings\n"
 #~ "  -D, --directory=DIRECTORY   add DIRECTORY to list for input files "
 #~ "search\n"
 #~ "  -f, --use-fuzzy             use fuzzy entries in output\n"
 #~ "  -h, --help                  display this help and exit\n"
-#~ "      --no-hash               binary file will not include the hash table\n"
+#~ "      --no-hash               binary file will not include the hash "
+#~ "table\n"
 #~ "  -o, --output-file=FILE      specify output file name as FILE\n"
 #~ "      --statistics            print statistics about translations\n"
 #~ "      --strict                enable strict Uniforum mode\n"
@@ -1748,10 +1478,11 @@ msgstr ""
 #~ "Kasutamine: %s [VÕTI] failinimi.po ...\n"
 #~ "Teisendab tekstikujul oleva tõlkefaili masinloetavale kujule.\n"
 #~ "\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
-#~ "  -a, --alignment=NUMBER     joondab stringi NUMBER baidisteks (vaikimisi: "
-#~ "%d)\n"
+#~ "  -a, --alignment=NUMBER     joondab stringi NUMBER baidisteks "
+#~ "(vaikimisi: %d)\n"
 #~ "  -c, --check                rakendab stringidele keelespetsiifilisi\n"
 #~ "                             kontrolle\n"
 #~ "  -D, --directory=KATALOOG   lisab kataloogi sisendfailide otsinguteede\n"
@@ -1771,7 +1502,8 @@ msgstr ""
 #~ "Andes -v võtme rohkem kui üks kord, suureneb ka väljastatava info "
 #~ "põhjalikkus.\n"
 #~ "\n"
-#~ "Kui sisendfailiks on määratud -, kasutatakse sisendfaili asemel standard-\n"
+#~ "Kui sisendfailiks on määratud -, kasutatakse sisendfaili asemel "
+#~ "standard-\n"
 #~ "sisendit.  Kui väljundfailiks on määratud -, kirjutatakse väljund "
 #~ "standard-\n"
 #~ "väljundisse.\n"
@@ -1805,7 +1537,8 @@ msgstr ""
 #~ "messages.po)\n"
 #~ "  -D, --directory=DIRECTORY      add DIRECTORY to list for input files "
 #~ "search\n"
-#~ "  -e, --no-escape                do not use C escapes in output (default)\n"
+#~ "  -e, --no-escape                do not use C escapes in output "
+#~ "(default)\n"
 #~ "  -E, --escape                   use C escapes in output, no extended "
 #~ "chars\n"
 #~ "  -f, --files-from=FILE          get list of input files from FILE\n"
@@ -1817,22 +1550,26 @@ msgstr ""
 #~ "Kasutamine: %s [VÕTI] SISENDFAIL ...\n"
 #~ "Ekstraktib tõlgitavad stringid etteantud sisendfailidest.\n"
 #~ "\n"
-#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud ka\n"
+#~ "Argumendid, mis on kohustuslikud pikkadele võtmetele, on kohustuslikud "
+#~ "ka\n"
 #~ "lühikesetele.\n"
 #~ "  -a, --extract-all              ekstraktib kõik stringid\n"
 #~ "  -c, --add-comments[=TAG]       place comment block with TAG (or those\n"
 #~ "                                 preceding keyword lines) in output file\n"
 #~ "  -C, --c++                      lühend --language=C++ jaoks\n"
-#~ "      --debug                    suurema detailsusastmega stringivormingu\n"
+#~ "      --debug                    suurema detailsusastmega "
+#~ "stringivormingu\n"
 #~ "                                 tuvastamise tulemus\n"
 #~ "  -d, --default-domain=NIMI      kasutab väljundiks faili NIMI.po\n"
 #~ "                                 (messages.po asemel)\n"
 #~ "  -D, --directory=KATALOOG       lisab kataloogi sisendfailide "
 #~ "otsinguteede\n"
 #~ "                                 nimekirja\n"
-#~ "  -e, --no-escape                keelab C erimärkide kasutamise tulemuses\n"
+#~ "  -e, --no-escape                keelab C erimärkide kasutamise "
+#~ "tulemuses\n"
 #~ "                                 (vaikimisi)\n"
-#~ "  -E, --escape                   määrab C erimärkide kasutamise tulemuses\n"
+#~ "  -E, --escape                   määrab C erimärkide kasutamise "
+#~ "tulemuses\n"
 #~ "  -f, --files-from=FAIL          võtab sisenfailide nimekirja failist "
 #~ "FAIL\n"
 #~ "      --force-po                 kirjutab PO faili isegi siis, kui see on "
@@ -1851,9 +1588,10 @@ msgstr ""
 #~ "  -k, --keyword[=WORD]           additonal keyword to be looked for "
 #~ "(without\n"
 #~ "                                 WORD means not to use default keywords)\n"
-#~ "  -L, --language=NAME            recognise the specified language (C, C++, "
-#~ "PO),\n"
-#~ "                                 otherwise is guessed from file extension\n"
+#~ "  -L, --language=NAME            recognise the specified language (C, C+"
+#~ "+, PO),\n"
+#~ "                                 otherwise is guessed from file "
+#~ "extension\n"
 #~ "  -m, --msgstr-prefix[=STRING]   use STRING or \"\" as prefix for msgstr "
 #~ "entries\n"
 #~ "  -M, --msgstr-suffix[=STRING]   use STRING or \"\" as suffix for msgstr "

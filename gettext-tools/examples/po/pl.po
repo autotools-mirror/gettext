@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU gettext-examples 0.25-pre1\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-07-08 12:24+0200\n"
+"POT-Creation-Date: 2025-04-25 10:57+0200\n"
 "PO-Revision-Date: 2025-04-25 17:16+0200\n"
 "Last-Translator: Rafał Maszkowski <rzm@icm.edu.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -15,26 +15,25 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8-bit\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
-"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #: hello-c/hello.c:35 hello-c-gnome2/hello.c:51
 #: hello-c-gnome3/hello.desktop.in.in:4 hello-c-gnome3/hello2.desktop.in.in:4
-#: hello-c-http/hello-server.c:307 hello-c++/hello.cc:44 hello-c++20/hello.cc:48
-#: hello-c++-qt/hello.cc:50 hello-c++-kde/hellowindow.cc:47
-#: hello-c++-gnome2/hello.cc:55 hello-c++-gnome3/hello.desktop.in.in:4
-#: hello-c++-wxwidgets/hello.cc:73 hello-objc/hello.m:35
-#: hello-objc-gnustep/Hello.m:49 hello-objc-gnome2/hello.m:52
-#: hello-python/hello.py.in:12 hello-java/Hello.java:14
-#: hello-java-awt/Hello.java:23 hello-java-swing/Hello.java:20
-#: hello-java-qtjambi/Hello.java:27 hello-csharp/hello.cs:14
-#: hello-csharp-forms/hello.cs:29 hello-guile/hello.scm:15
-#: hello-clisp/hello.lisp.in:11 hello-librep/hello.jl.in:12
-#: hello-rust/src/main.rs.in:30 hello-go/example1/hello1ml.go.in:42
-#: hello-go/example1/hello1sl.go.in:40 hello-go/example2/hello2sl.go.in:28
-#: hello-go/example3/hello3ml.go.in:44 hello-go-http/example1/hello1ml.go.in:59
-#: hello-ruby/hello.rb:7 hello-sh/hello-1.sh:14 hello-sh/hello-2.sh:12
-#: hello-sh/hello-3.sh:12 hello-gawk/hello.awk:11 hello-pascal/hello.hello_world
+#: hello-c-http/hello-server.c:307 hello-c++/hello.cc:44
+#: hello-c++20/hello.cc:48 hello-c++-qt/hello.cc:50
+#: hello-c++-kde/hellowindow.cc:47 hello-c++-gnome2/hello.cc:55
+#: hello-c++-gnome3/hello.desktop.in.in:4 hello-c++-wxwidgets/hello.cc:73
+#: hello-objc/hello.m:35 hello-objc-gnustep/Hello.m:49
+#: hello-objc-gnome2/hello.m:52 hello-python/hello.py.in:12
+#: hello-java/Hello.java:14 hello-java-awt/Hello.java:23
+#: hello-java-swing/Hello.java:20 hello-java-qtjambi/Hello.java:27
+#: hello-csharp/hello.cs:14 hello-csharp-forms/hello.cs:29
+#: hello-guile/hello.scm:15 hello-clisp/hello.lisp.in:11
+#: hello-librep/hello.jl.in:12 hello-rust/src/main.rs.in:30
+#: hello-go/example1/hello1ml.go.in:42 hello-go/example1/hello1sl.go.in:40
+#: hello-go/example2/hello2sl.go.in:28 hello-go/example3/hello3ml.go.in:44
+#: hello-go-http/example1/hello1ml.go.in:59 hello-ruby/hello.rb:7
+#: hello-sh/hello.sh:14 hello-gawk/hello.awk:11 hello-pascal/hello.hello_world
 #: hello-modula2/hello.mod.in:34 hello-d/hello.d.in:27
 #: hello-smalltalk/hello.st.in:31 hello-tcl/hello.tcl:11
 #: hello-tcl-tk/hello.tcl:13 hello-perl/hello-1.pl.in:17
@@ -100,7 +99,6 @@ msgid "Whether to use XML markup in the text."
 msgstr "Czy użyć znaczników XML w tekście."
 
 #: hello-c++20/hello.cc:50 hello-c++20/hello.cc:53
-#, c++-format
 msgid "This program is running as process number {:d}."
 msgstr "Ten program działa jako proces o numerze {:d}."
 
@@ -136,12 +134,10 @@ msgid "This program is running as process number ~D."
 msgstr "Ten program działa jako proces o numerze ~D."
 
 #: hello-rust/src/main.rs.in:31
-#, rust-format
 msgid "This program is running as process number {}."
 msgstr "Ten program działa jako proces o numerze {}."
 
 #: hello-go-http/example1/hello1ml.go.in:60
-#, go-format
 msgid "Hello %s"
 msgstr "Cześć, %s"
 
@@ -150,16 +146,10 @@ msgstr "Cześć, %s"
 msgid "This program is running as process number %{pid}."
 msgstr "Ten program działa jako proces o numerze %{pid}."
 
-#: hello-sh/hello-1.sh:17
+#: hello-sh/hello.sh:17
 #, sh-format
 msgid "This program is running as process number $pid."
 msgstr "Ten program działa jako proces o numerze $pid."
-
-#: hello-sh/hello-2.sh:15 hello-sh/hello-3.sh:15
-#, fuzzy, sh-printf-format
-#| msgid "This program is running as process number %d."
-msgid "This program is running as process number %u."
-msgstr "Ten program działa jako proces o numerze %d."
 
 #: hello-perl/hello-2.pl.in:14
 #, perl-brace-format

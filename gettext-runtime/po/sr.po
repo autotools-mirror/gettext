@@ -2,22 +2,21 @@
 # Copyright © 2020 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 # Danilo Segan <dsegan@gmx.net>, 2003.
-# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011—2020.
+# Мирослав Николић <miroslavnikolic@rocketmail.com>, 2011-2025.
 msgid ""
 msgstr ""
-"Project-Id-Version: gettext-runtime 0.20.2\n"
+"Project-Id-Version: gettext-runtime 0.26-pre1\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
 "POT-Creation-Date: 2025-06-28 23:48+0200\n"
-"PO-Revision-Date: 2020-04-20 09:36+0200\n"
+"PO-Revision-Date: 2025-08-31 09:31+0200\n"
 "Last-Translator: Мирослав Николић <miroslavnikolic@rocketmail.com>\n"
 "Language-Team: Serbian <(nothing)>\n"
 "Language: sr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Virtaal 0.7.1\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"X-Generator: Poedit 3.5\n"
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 
 #: src/envsubst.c:112 src/gettext.c:138 src/ngettext.c:128
@@ -168,10 +167,9 @@ msgstr "Приказује превод текстуалне поруке на �
 
 #: src/gettext.c:263 src/ngettext.c:230 src/printf_gettext.c:179
 #: src/printf_ngettext.c:211
-#, fuzzy, c-format
-#| msgid "too many arguments"
+#, c-format
 msgid "Options and arguments:\n"
-msgstr "превише аргумената"
+msgstr "Опције и аргументи:\n"
 
 #: src/gettext.c:266
 #, c-format, no-wrap
@@ -261,27 +259,18 @@ msgstr "  -d, --domain=ДОМЕН_ТЕКСТА   налази преведену
 
 #: src/ngettext.c:241
 #, c-format
-msgid ""
-"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
-"  [ДОМЕН_ТЕКСТА]              налази преведену поруку из ДОМЕНА_ТЕКСТА\n"
+msgid "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+msgstr "  [ДОМЕН_ТЕКСТА]              налази преведену поруку из ДОМЕНА_ТЕКСТА\n"
 
 #: src/ngettext.c:243
 #, c-format
-msgid ""
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
-"(plural)\n"
-msgstr ""
-"  MSGID MSGID-PLURAL          преводи „MSGID“ (једнина) / „MSGID-PLURAL“ "
-"(множина)\n"
+msgid "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+msgstr "  MSGID MSGID-PLURAL          преводи „MSGID“ (једнина) / „MSGID-PLURAL“ (множина)\n"
 
 #: src/ngettext.c:245 src/printf_ngettext.c:219
 #, c-format
-msgid ""
-"  COUNT                     choose singular/plural form based on this value\n"
-msgstr ""
-"  БРОЈ                        бира облик једнине/множине на основу ове "
-"вредности\n"
+msgid "  COUNT                     choose singular/plural form based on this value\n"
+msgstr "  БРОЈ                        бира облик једнине/множине на основу ове вредности\n"
 
 #: src/ngettext.c:256
 #, c-format, no-wrap
@@ -300,61 +289,53 @@ msgstr ""
 
 #: src/printf-command.c:154
 #, c-format
-msgid ""
-"In the directive number %zu, the argument number 0 is not a positive integer."
-msgstr ""
+msgid "In the directive number %zu, the argument number 0 is not a positive integer."
+msgstr "У смерници број %zu, број аргумента 0 није позитиван цео број."
 
 #: src/printf-command.c:237
 #, c-format
 msgid "The string ends in the middle of a directive."
-msgstr ""
+msgstr "Ниска се завршава у сред смернице"
 
 #: src/printf-command.c:242
 #, c-format
-msgid ""
-"In the directive number %zu, the character '%c' is not a valid conversion "
-"specifier."
-msgstr ""
+msgid "In the directive number %zu, the character '%c' is not a valid conversion specifier."
+msgstr "У смерници број %zu, знак „%c“ није исправан одредник претварања."
 
 #: src/printf-command.c:246
 #, c-format
-msgid ""
-"The character that terminates the directive number %zu is not a valid "
-"conversion specifier."
-msgstr ""
+msgid "The character that terminates the directive number %zu is not a valid conversion specifier."
+msgstr "Знак који окончава смерницу број %zu није исправан одредник претварања."
 
 #: src/printf-command.c:255 src/printf-command.c:259
 #, c-format
-msgid ""
-"In the directive number %zu, the flag '%c' is invalid for the conversion '%c'."
-msgstr ""
+msgid "In the directive number %zu, the flag '%c' is invalid for the conversion '%c'."
+msgstr "У смерници број %zu, заставица „%c“ је неисправна за претварање „%c“."
 
 #: src/printf-command.c:278 src/printf-command.c:292
 #, c-format
-msgid ""
-"The string refers to arguments both through absolute argument numbers and "
-"through unnumbered argument specifications."
-msgstr ""
+msgid "The string refers to arguments both through absolute argument numbers and through unnumbered argument specifications."
+msgstr "Ниска се односи на аргументе и кроз апсолутне бројеве аргумента и кроз ненабројене одредбе аргумента."
 
 #: src/printf-command.c:394
 #, c-format
 msgid "The string ends in the middle of an escape sequence."
-msgstr ""
+msgstr "Ниска се завршава у сред низа промене реда."
 
 #: src/printf-command.c:402
 #, c-format
 msgid "The escape sequence '%c%c' is unsupported (not in POSIX)."
-msgstr ""
+msgstr "Низ промене реда „%c%c“ није подржан (није у POSIX-у)."
 
 #: src/printf-command.c:403
 #, c-format
 msgid "The escape sequence '%c%c' is invalid."
-msgstr ""
+msgstr "Низ промене реда „%c%c“ није исправан."
 
 #: src/printf-command.c:407
 #, c-format
 msgid "This escape sequence is invalid."
-msgstr ""
+msgstr "Овај низ промене реда није исправан."
 
 #: src/printf-command.c:455 src/printf-command.c:501 src/printf-command.c:568
 #: src/printf-command.c:638 src/printf-command.c:691
@@ -366,36 +347,32 @@ msgstr "грешка писања"
 #: src/printf-command.c:626 src/printf-command.c:679
 #, c-format
 msgid "%s: expected a numeric value"
-msgstr ""
+msgstr "%s: очекивах бројевну вредност"
 
 #: src/printf-command.c:550 src/printf-command.c:620 src/printf-command.c:673
 #, c-format
 msgid "%s: value not completely converted"
-msgstr ""
+msgstr "%s: вредност није потпуно претворена"
 
 #: src/printf-command.c:717
 #, c-format
-msgid ""
-"The translated format string consumes %zu arguments, whereas the original "
-"format string consumes only %zu arguments."
-msgstr ""
+msgid "The translated format string consumes %zu arguments, whereas the original format string consumes only %zu arguments."
+msgstr "Преведена ниска формата троши %zu аргумента, при чему изворна ниска формата троши само %zu аргумента."
 
 #: src/printf-command.c:728
 #, c-format
 msgid "warning: ignoring excess arguments, starting with %s"
-msgstr ""
+msgstr "упозорење: занемарујем сувишне аргументе, почевши са „%s“"
 
 #: src/printf_gettext.c:128
-#, fuzzy, c-format
-#| msgid "missing arguments"
+#, c-format
 msgid "missing format string"
-msgstr "недостају аргументи"
+msgstr "недостаје ниска формата"
 
 #: src/printf_gettext.c:170
-#, fuzzy, c-format, no-wrap
-#| msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
+#, c-format, no-wrap
 msgid "Usage: %s [OPTION] FORMAT [ARGUMENT]...\n"
-msgstr "Употреба: %s [ОПЦИЈА] [ФОРМАТ-ЉУСКЕ]\n"
+msgstr "Коришћење: %s [ОПЦИЈА] ФОРМАТ [АРГУМЕНТ]...\n"
 
 #: src/printf_gettext.c:175
 #, c-format, no-wrap
@@ -403,23 +380,23 @@ msgid ""
 "Produces formatted output, applying the native language translation of FORMAT\n"
 "to the ARGUMENTs.\n"
 msgstr ""
+"Даје форматиран излаз, примењујући превод у изворном језику ФОРМАТА\n"
+" у АРГУМЕНТЕ.\n"
 
 #: src/printf_gettext.c:181 src/printf_ngettext.c:213
-#, fuzzy, c-format
-#| msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
+#, c-format
 msgid "  -c, --context=CONTEXT     specify context for FORMAT\n"
-msgstr "  -c, --context=КОНТЕКСТ      наводи контекст за „MSGID“\n"
+msgstr "  -c, --context=КОНТЕКСТ      наводи контекст за „ФОРМАТ“\n"
 
 #: src/printf_gettext.c:183
-#, fuzzy, c-format
-#| msgid "  -n                        suppress trailing newline\n"
+#, c-format
 msgid "  FORMAT                    format string\n"
-msgstr "  -n                          потискује пратећи нови ред\n"
+msgstr "  ФОРМАТ                    ниска формата\n"
 
 #: src/printf_gettext.c:185 src/printf_ngettext.c:221
 #, c-format
 msgid "  ARGUMENT                  string or numeric argument\n"
-msgstr ""
+msgstr "  АРГУМЕНТ                  ниска или бројевни аргумент\n"
 
 #: src/printf_gettext.c:196
 #, c-format, no-wrap
@@ -429,6 +406,10 @@ msgid ""
 "  - directives, that start with '%c',\n"
 "  - escape sequences, that start with a backslash.\n"
 msgstr ""
+"Ниска формата се састоји од\n"
+"  – обичног текста,\n"
+"  – смерница, које почињу са „%c“,\n"
+"  – низова промене реда, који почињу контра косом цртом.\n"
 
 #: src/printf_gettext.c:204 src/printf_ngettext.c:240
 #, c-format, no-wrap
@@ -451,6 +432,22 @@ msgid ""
 "      - '%c', '%c', that print a floating-point number in hexadecimal notation.\n"
 "Additionally there is the directive '%s', that prints a single '%c'.\n"
 msgstr ""
+"Смерница која садржи аргумент\n"
+"  - почиње са „%s“ или „%s“ где је „%s“ позитиван цео број,\n"
+"  - је опционално праћена било којим од знакова „%c“, „%c“, „%c“, „%c“, „%c“,\n"
+"    од којих сваки делује као заставица,\n"
+"  - је опционално праћена одредбом ширине (ненегативан цео број),\n"
+"  - је опционално праћена са „%c“ и одредбом прецизности (опционални ненегативан цео број),\n"
+"  - се завршава одредником\n"
+"      - „%c“, који исписује знак,\n"
+"      - „%c“, који исписује ниску,\n"
+"      - „%c“, „%c“, који исписује цео број,\n"
+"      - „%c“, „%c“, „%c“, „%c“, који исписује неозначени (ненегативан) цео број,\n"
+"      - „%c“, „%c“, који исписује број са покретним зарезом у научном запису,\n"
+"      - „%c“, „%c“, који исписује број са покретним зарезом без изложиоца,\n"
+"      - „%c“, „%c“, који исписује број са покретним зарезом у уобичајеном запису,\n"
+"      - „%c“, „%c“, који исписује број са покретним зарезом у хексадецималном запису.\n"
+"Додатно постоји смерница „%s“, која исписује једно „%c“.\n"
 
 #: src/printf_gettext.c:233 src/printf_ngettext.c:269
 #, c-format, no-wrap
@@ -458,6 +455,8 @@ msgid ""
 "If a directive specifies the argument by its number ('%s' notation),\n"
 "all directives that consume an argument must do so.\n"
 msgstr ""
+"Ако смерница наводи аргумент његовим бројем („%s“ напомена),\n"
+"све смернице које садрже аргумент морају тако да ураде.\n"
 
 #. TRANSLATORS: Most of the placeholders expand to 2 characters.
 #. The last placeholder expands to 4 characters.
@@ -476,11 +475,22 @@ msgid ""
 "  %s      vertical tab (VT)\n"
 "  %s    octal number with 1 to 3 octal digits\n"
 msgstr ""
+"Низови промене реда су:\n"
+"\n"
+"  %s      контра коса црта\n"
+"  %s      узбуна (BEL)\n"
+"  %s      повратница (BS)\n"
+"  %s      ток форме (FF)\n"
+"  %s      нови ред (LF)\n"
+"  %s      поврат носиоца (CR)\n"
+"  %s      водоравни таб (HT)\n"
+"  %s      усправни таб (VT)\n"
+"  %s    октални број са 1 до 3 окталне цифре\n"
 
 #: src/printf_gettext.c:255 src/printf_ngettext.c:291
 #, c-format
 msgid "Environment variables:\n"
-msgstr ""
+msgstr "Променљиве окружења:\n"
 
 #: src/printf_gettext.c:259 src/printf_ngettext.c:295
 #, c-format, no-wrap
@@ -488,6 +498,8 @@ msgid ""
 "The translation of the format string is looked up in the translation domain\n"
 "given by the environment variable %s.\n"
 msgstr ""
+"Превод ниске формата је потражен у домену превода\n"
+"према променљиви окружења „%s“.\n"
 
 #: src/printf_gettext.c:264 src/printf_ngettext.c:300
 #, c-format, no-wrap
@@ -497,12 +509,15 @@ msgid ""
 "This binary is configured to use the default catalogs directory:\n"
 "%s\n"
 msgstr ""
+"Потражено је у директоријуму каталога према променљивој окружења\n"
+"%s или, ако га нема, у основном директоријуму каталога.\n"
+"Ова извршна је подешена да користи основни директоријум каталога:\n"
+"%s\n"
 
 #: src/printf_ngettext.c:202
-#, fuzzy, c-format, no-wrap
-#| msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+#, c-format, no-wrap
 msgid "Usage: %s [OPTION] FORMAT FORMAT-PLURAL COUNT [ARGUMENT]...\n"
-msgstr "Употреба: %s [ОПЦИЈА] [ДОМЕНТЕКСТА] МСГИД БРОЈ МСГИД-МНОЖИНА\n"
+msgstr "Коришћење: %s [ОПЦИЈА] ФОРМАТ ФОРМАТ-МНОЖИНЕ УКУПНОСТ [АРГУМЕНТ]...\n"
 
 #: src/printf_ngettext.c:207
 #, c-format, no-wrap
@@ -510,21 +525,18 @@ msgid ""
 "Produces formatted output, applying the native language translation of FORMAT\n"
 "and FORMAT-PLURAL, depending on COUNT, to the ARGUMENTs.\n"
 msgstr ""
+"Даје форматиран излаз, примењујући превод у изворном језику ФОРМАТА\n"
+"и ФОРМАТА-МНОЖИНЕ, у зависности од БРОЈА, у АРГУМЕНТЕ.\n"
 
 #: src/printf_ngettext.c:215
-#, fuzzy, c-format
-#| msgid ""
-#| "  COUNT                     choose singular/plural form based on this "
-#| "value\n"
+#, c-format
 msgid "  FORMAT                    English singular form of format string\n"
-msgstr ""
-"  БРОЈ                        бира облик једнине/множине на основу ове "
-"вредности\n"
+msgstr "  ФОРМАТ                     Енглески облик једнине ниске формата\n"
 
 #: src/printf_ngettext.c:217
 #, c-format
 msgid "  FORMAT-PLURAL             English plural form of format string\n"
-msgstr ""
+msgstr "  ФОРМАТ-МНОЖИНЕ             Енглески облик множине ниске формата\n"
 
 #: src/printf_ngettext.c:232
 #, c-format, no-wrap
@@ -534,6 +546,10 @@ msgid ""
 "  - directives, that start with '%c',\n"
 "  - escape sequences, that start with a backslash.\n"
 msgstr ""
+"Свака ниска формата се састоји од\n"
+"  – обичног текста,\n"
+"  – смерница, које почињу са „%c“,\n"
+"  – низова промене реда, који почињу контра косом цртом.\n"
 
 #~ msgid "Unknown system error"
 #~ msgstr "Непозната системска грешка"
@@ -614,10 +630,8 @@ msgstr ""
 #~ "  -h, --help                display this help and exit\n"
 #~ "  -V, --version             display version information and exit\n"
 #~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
-#~ "(plural)\n"
-#~ "  COUNT                     choose singular/plural form based on this "
-#~ "value\n"
+#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+#~ "  COUNT                     choose singular/plural form based on this value\n"
 #~ msgstr ""
 #~ "  -d, --domain=ДОМЕНТЕКСТА  користи преведене поруке из ДОМЕНТЕКСТА\n"
 #~ "  -e                        укључује употребу неких нарочитих низова\n"
@@ -627,5 +641,4 @@ msgstr ""
 #~ "  -V, --version             приказује податке о издању и излази\n"
 #~ "  [ДОМЕНТЕКСТА]             довлачи преведену поруку из ДОМЕНТЕКСТА\n"
 #~ "  МСГИД МСГИД-МНОЖИНА       преводи облик једнине/множине\n"
-#~ "  БРОЈ                      бира облик једнине/множине према овој "
-#~ "вредности\n"
+#~ "  БРОЈ                      бира облик једнине/множине према овој вредности\n"

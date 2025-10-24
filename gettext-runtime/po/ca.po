@@ -52,7 +52,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.22\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-06-28 23:48+0200\n"
+"POT-Creation-Date: 2023-06-15 20:33+0200\n"
 "PO-Revision-Date: 2023-07-07 09:02+0200\n"
 "Last-Translator: Ivan Vilata i Balaguer <ivan@selidor.net>\n"
 "Language-Team: Catalan <ca@dodds.net>\n"
@@ -63,8 +63,55 @@ msgstr ""
 "X-Bugs: Report translation errors to the Language-Team address.\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: src/envsubst.c:112 src/gettext.c:138 src/ngettext.c:128
-#: src/printf_gettext.c:111 src/printf_ngettext.c:116
+#: gnulib-lib/closeout.c:66
+msgid "write error"
+msgstr "error d’escriptura"
+
+# Amb el mateix format que els errors de la libc.  ivb
+#: gnulib-lib/error.c:194
+msgid "Unknown system error"
+msgstr "Error desconegut del sistema"
+
+#: gnulib-lib/getopt.c:278
+#, c-format
+msgid "%s: option '%s%s' is ambiguous\n"
+msgstr "%s: l’opció «%s%s» és ambígua\n"
+
+#: gnulib-lib/getopt.c:284
+#, c-format
+msgid "%s: option '%s%s' is ambiguous; possibilities:"
+msgstr "%s: l’opció «%s%s» és ambígua; possibilitats:"
+
+#: gnulib-lib/getopt.c:319
+#, c-format
+msgid "%s: unrecognized option '%s%s'\n"
+msgstr "%s: l’opció «%s%s» no és reconeguda\n"
+
+#: gnulib-lib/getopt.c:345
+#, c-format
+msgid "%s: option '%s%s' doesn't allow an argument\n"
+msgstr "%s: l’opció «%s%s» no admet arguments\n"
+
+#: gnulib-lib/getopt.c:360
+#, c-format
+msgid "%s: option '%s%s' requires an argument\n"
+msgstr "%s: l’opció «%s%s» necessita un argument\n"
+
+#: gnulib-lib/getopt.c:621
+#, c-format
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: l’opció «%c» no és vàlida\n"
+
+#: gnulib-lib/getopt.c:636 gnulib-lib/getopt.c:682
+#, c-format
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: l’opció «%c» necessita un argument\n"
+
+#: gnulib-lib/xalloc-die.c:34
+msgid "memory exhausted"
+msgstr "la memòria s’ha exhaurit"
+
+#: src/envsubst.c:110 src/gettext.c:135 src/ngettext.c:125
 #, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
@@ -77,73 +124,69 @@ msgstr ""
 "Aquest és programari lliure: podeu modificar‐lo i redistribuir‐lo si voleu.\n"
 "No hi ha CAP GARANTIA, en la mesura que ho permeta la llei.\n"
 
-#: src/envsubst.c:118 src/gettext.c:144 src/ngettext.c:134
-#: src/printf_gettext.c:117 src/printf_ngettext.c:122
+#: src/envsubst.c:116 src/gettext.c:141 src/ngettext.c:131
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Escrit per %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:118 src/printf_gettext.c:117 src/printf_ngettext.c:122
+#: src/envsubst.c:116
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:127 src/gettext.c:162 src/ngettext.c:146
+#: src/envsubst.c:125 src/gettext.c:159 src/ngettext.c:143
 #, c-format
 msgid "too many arguments"
 msgstr "sobren arguments"
 
-#: src/envsubst.c:138 src/gettext.c:172 src/ngettext.c:158
-#: src/printf_ngettext.c:133
+#: src/envsubst.c:136 src/gettext.c:169 src/ngettext.c:155
 #, c-format
 msgid "missing arguments"
 msgstr "manquen arguments"
 
-#: src/envsubst.c:176 src/gettext.c:249 src/ngettext.c:216
-#: src/printf_gettext.c:165 src/printf_ngettext.c:197
+#: src/envsubst.c:174 src/gettext.c:246 src/ngettext.c:212
 #, c-format
 msgid "Try '%s --help' for more information.\n"
 msgstr "Proveu «%s --help» per a obtenir més informació.\n"
 
 # Molt més clar que l’original…  ivb
-#: src/envsubst.c:181
+#: src/envsubst.c:179
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Forma d’ús: %s [OPCIÓ] [CADENA]…\n"
 
 # No és literal però queda més clar.  ivb
-#: src/envsubst.c:186
+#: src/envsubst.c:184
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Substitueix variables d’entorn pels seus valors.\n"
 
-#: src/envsubst.c:190
+#: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Mode de funcionament:\n"
 
-#: src/envsubst.c:193
+#: src/envsubst.c:191
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables      Mostra les variables que es troben a la CADENA.\n"
 
-#: src/envsubst.c:197 src/gettext.c:280 src/ngettext.c:248
-#: src/printf_gettext.c:188 src/printf_ngettext.c:224
+#: src/envsubst.c:195 src/gettext.c:275 src/ngettext.c:242
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Eixida informativa:\n"
 
-#: src/envsubst.c:200
+#: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help           Mostra aquesta ajuda i ix.\n"
 
-#: src/envsubst.c:203
+#: src/envsubst.c:201
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version        Mostra informació sobre la versió i ix.\n"
 
-#: src/envsubst.c:207
+#: src/envsubst.c:205
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -160,7 +203,7 @@ msgstr ""
 "es substituiran totes les variables d’entorn que apareguen a l’entrada\n"
 "estàndard.\n"
 
-#: src/envsubst.c:216
+#: src/envsubst.c:214
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -174,8 +217,7 @@ msgstr ""
 #. email address for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:225 src/gettext.c:304 src/ngettext.c:269
-#: src/printf_gettext.c:277 src/printf_ngettext.c:313
+#: src/envsubst.c:223 src/gettext.c:299 src/ngettext.c:263
 #, c-format
 msgid ""
 "Report bugs in the bug tracker at <%s>\n"
@@ -186,22 +228,22 @@ msgstr ""
 "\n"
 "Informeu dels error de traducció a <ca@dodds.net>.\n"
 
-#: src/envsubst.c:453
+#: src/envsubst.c:451
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "error en llegir «%s»"
 
-#: src/envsubst.c:453
+#: src/envsubst.c:451
 msgid "standard input"
 msgstr "entrada estàndard"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:144 src/ngettext.c:134
+#: src/gettext.c:141 src/ngettext.c:131
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
 # FIXME: The first syntax is badly described.  ivb
-#: src/gettext.c:254
+#: src/gettext.c:251
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -210,50 +252,41 @@ msgstr ""
 "Forma d’ús: %s [OPCIÓ] [DOMINI_TEXTUAL] IDMSG\n"
 "         o: %s [OPCIÓ] -s [IDMSG]…\n"
 
-#: src/gettext.c:260
+#: src/gettext.c:257
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Mostra la traducció a idioma natiu d’un missatge textual.\n"
 
-#: src/gettext.c:263 src/ngettext.c:230 src/printf_gettext.c:179
-#: src/printf_ngettext.c:211
-#, fuzzy, c-format
-#| msgid "too many arguments"
-msgid "Options and arguments:\n"
-msgstr "sobren arguments"
-
-#: src/gettext.c:266
+#: src/gettext.c:261
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
 msgstr ""
 "  -d, --domain=DOMINI_TEXTUAL\n"
 "                       Obté del DOMINI_TEXTUAL els missatges traduïts.\n"
 
-#: src/gettext.c:268 src/ngettext.c:235
+#: src/gettext.c:263 src/ngettext.c:229
 #, c-format
 msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
 msgstr ""
 "  -c, --context=CONTEXT\n"
 "                       Especifica el CONTEXT del missatge amb IDMSG.\n"
 
-#: src/gettext.c:270 src/ngettext.c:237
+#: src/gettext.c:265 src/ngettext.c:231
 #, c-format
 msgid "  -e                        enable expansion of some escape sequences\n"
-msgstr ""
-"  -e                   Habilita l’expansió d’algunes seqüències d’escapada.\n"
+msgstr "  -e                   Habilita l’expansió d’algunes seqüències d’escapada.\n"
 
-#: src/gettext.c:272
+#: src/gettext.c:267
 #, c-format
 msgid "  -n                        suppress trailing newline\n"
 msgstr "  -n                   Elimina el caràcter de nova línia final.\n"
 
-#: src/gettext.c:274 src/ngettext.c:239
+#: src/gettext.c:269 src/ngettext.c:233
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
-msgstr ""
-"  -E                   (No es té en compte, s’accepta per compatibilitat).\n"
+msgstr "  -E                   (No es té en compte, s’accepta per compatibilitat).\n"
 
-#: src/gettext.c:276
+#: src/gettext.c:271
 #, c-format
 msgid ""
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
@@ -263,19 +296,17 @@ msgstr ""
 "                       Obté del DOMINI_TEXTUAL el missatge traduït\n"
 "                       corresponent a l’IDMSG.\n"
 
-#: src/gettext.c:282 src/ngettext.c:250 src/printf_gettext.c:190
-#: src/printf_ngettext.c:226
+#: src/gettext.c:277 src/ngettext.c:244
 #, c-format
 msgid "  -h, --help                display this help and exit\n"
 msgstr "  -h, --help           Mostra aquesta ajuda i ix.\n"
 
-#: src/gettext.c:284 src/ngettext.c:252 src/printf_gettext.c:192
-#: src/printf_ngettext.c:228
+#: src/gettext.c:279 src/ngettext.c:246
 #, c-format
 msgid "  -V, --version             display version information and exit\n"
 msgstr "  -V, --version        Mostra informació sobre la versió i ix.\n"
 
-#: src/gettext.c:288
+#: src/gettext.c:283
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -296,12 +327,12 @@ msgstr ""
 "missatges que troba al catàleg seleccionat.\n"
 "Directori estàndard de cerca: %s\n"
 
-#: src/ngettext.c:221
+#: src/ngettext.c:217
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Forma d’ús: %s [OPCIÓ] [DOMINI_TEXTUAL] IDMSG IDMSG_PLURAL NOMBRE\n"
 
-#: src/ngettext.c:226
+#: src/ngettext.c:222
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
@@ -310,36 +341,31 @@ msgstr ""
 "Mostra la traducció a idioma natiu d’un missatge textual la forma gramatical\n"
 "del qual depén del nombre.\n"
 
-#: src/ngettext.c:233
+#: src/ngettext.c:227
 #, c-format, no-wrap
 msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
 msgstr ""
 "  -d, --domain=DOMINI_TEXTUAL\n"
 "                       Obté del DOMINI_TEXTUAL els missatges traduïts.\n"
 
-#: src/ngettext.c:241
+#: src/ngettext.c:235
 #, c-format
-msgid ""
-"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+msgid "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr "  [DOMINI_TEXTUAL]     Obté del DOMINI_TEXTUAL el missatge traduït.\n"
 
-#: src/ngettext.c:243
+#: src/ngettext.c:237
 #, c-format
-msgid ""
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
-"(plural)\n"
-msgstr ""
-"  IDMSG IDMSG_PLURAL   Tradueix IDMSG (singular) / IDMSG_PLURAL (plural).\n"
+msgid "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
+msgstr "  IDMSG IDMSG_PLURAL   Tradueix IDMSG (singular) / IDMSG_PLURAL (plural).\n"
 
-#: src/ngettext.c:245 src/printf_ngettext.c:219
+#: src/ngettext.c:239
 #, c-format
-msgid ""
-"  COUNT                     choose singular/plural form based on this value\n"
+msgid "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
 "  NOMBRE               Escull la forma singular o la plural basant‐se en\n"
 "                       aquest valor.\n"
 
-#: src/ngettext.c:256
+#: src/ngettext.c:250
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -353,278 +379,3 @@ msgstr ""
 "troba al directori habitual, es pot especificar una altra ubicació amb la\n"
 "variable d’entorn TEXTDOMAINDIR.\n"
 "Directori estàndard de cerca: %s\n"
-
-#: src/printf-command.c:154
-#, c-format
-msgid ""
-"In the directive number %zu, the argument number 0 is not a positive integer."
-msgstr ""
-
-#: src/printf-command.c:237
-#, c-format
-msgid "The string ends in the middle of a directive."
-msgstr ""
-
-#: src/printf-command.c:242
-#, c-format
-msgid ""
-"In the directive number %zu, the character '%c' is not a valid conversion "
-"specifier."
-msgstr ""
-
-#: src/printf-command.c:246
-#, c-format
-msgid ""
-"The character that terminates the directive number %zu is not a valid "
-"conversion specifier."
-msgstr ""
-
-#: src/printf-command.c:255 src/printf-command.c:259
-#, c-format
-msgid ""
-"In the directive number %zu, the flag '%c' is invalid for the conversion '%c'."
-msgstr ""
-
-#: src/printf-command.c:278 src/printf-command.c:292
-#, c-format
-msgid ""
-"The string refers to arguments both through absolute argument numbers and "
-"through unnumbered argument specifications."
-msgstr ""
-
-#: src/printf-command.c:394
-#, c-format
-msgid "The string ends in the middle of an escape sequence."
-msgstr ""
-
-#: src/printf-command.c:402
-#, c-format
-msgid "The escape sequence '%c%c' is unsupported (not in POSIX)."
-msgstr ""
-
-#: src/printf-command.c:403
-#, c-format
-msgid "The escape sequence '%c%c' is invalid."
-msgstr ""
-
-#: src/printf-command.c:407
-#, c-format
-msgid "This escape sequence is invalid."
-msgstr ""
-
-#: src/printf-command.c:455 src/printf-command.c:501 src/printf-command.c:568
-#: src/printf-command.c:638 src/printf-command.c:691
-#, c-format
-msgid "write error"
-msgstr "error d’escriptura"
-
-#: src/printf-command.c:529 src/printf-command.c:556 src/printf-command.c:597
-#: src/printf-command.c:626 src/printf-command.c:679
-#, c-format
-msgid "%s: expected a numeric value"
-msgstr ""
-
-#: src/printf-command.c:550 src/printf-command.c:620 src/printf-command.c:673
-#, c-format
-msgid "%s: value not completely converted"
-msgstr ""
-
-#: src/printf-command.c:717
-#, c-format
-msgid ""
-"The translated format string consumes %zu arguments, whereas the original "
-"format string consumes only %zu arguments."
-msgstr ""
-
-#: src/printf-command.c:728
-#, c-format
-msgid "warning: ignoring excess arguments, starting with %s"
-msgstr ""
-
-#: src/printf_gettext.c:128
-#, fuzzy, c-format
-#| msgid "missing arguments"
-msgid "missing format string"
-msgstr "manquen arguments"
-
-# Molt més clar que l’original…  ivb
-#: src/printf_gettext.c:170
-#, fuzzy, c-format, no-wrap
-#| msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
-msgid "Usage: %s [OPTION] FORMAT [ARGUMENT]...\n"
-msgstr "Forma d’ús: %s [OPCIÓ] [CADENA]…\n"
-
-#: src/printf_gettext.c:175
-#, c-format, no-wrap
-msgid ""
-"Produces formatted output, applying the native language translation of FORMAT\n"
-"to the ARGUMENTs.\n"
-msgstr ""
-
-#: src/printf_gettext.c:181 src/printf_ngettext.c:213
-#, fuzzy, c-format
-#| msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
-msgid "  -c, --context=CONTEXT     specify context for FORMAT\n"
-msgstr ""
-"  -c, --context=CONTEXT\n"
-"                       Especifica el CONTEXT del missatge amb IDMSG.\n"
-
-#: src/printf_gettext.c:183
-#, fuzzy, c-format
-#| msgid "  -n                        suppress trailing newline\n"
-msgid "  FORMAT                    format string\n"
-msgstr "  -n                   Elimina el caràcter de nova línia final.\n"
-
-#: src/printf_gettext.c:185 src/printf_ngettext.c:221
-#, c-format
-msgid "  ARGUMENT                  string or numeric argument\n"
-msgstr ""
-
-#: src/printf_gettext.c:196
-#, c-format, no-wrap
-msgid ""
-"The format string consists of\n"
-"  - plain text,\n"
-"  - directives, that start with '%c',\n"
-"  - escape sequences, that start with a backslash.\n"
-msgstr ""
-
-#: src/printf_gettext.c:204 src/printf_ngettext.c:240
-#, c-format, no-wrap
-msgid ""
-"A directive that consumes an argument\n"
-"  - starts with '%s' or '%s' where %s is a positive integer,\n"
-"  - is optionally followed by any of the characters '%c', '%c', '%c', '%c', '%c',\n"
-"    each of which acts as a flag,\n"
-"  - is optionally followed by a width specification (a nonnegative integer),\n"
-"  - is optionally followed by '%c' and a precision specification (an optional\n"
-"    nonnegative integer),\n"
-"  - is finished by a specifier\n"
-"      - '%c', that prints a character,\n"
-"      - '%c', that prints a string,\n"
-"      - '%c', '%c', that print an integer,\n"
-"      - '%c', '%c', '%c', '%c', that print an unsigned (nonnegative) integer,\n"
-"      - '%c', '%c', that print a floating-point number in scientific notation,\n"
-"      - '%c', '%c', that print a floating-point number without an exponent,\n"
-"      - '%c', '%c', that print a floating-point number in general notation,\n"
-"      - '%c', '%c', that print a floating-point number in hexadecimal notation.\n"
-"Additionally there is the directive '%s', that prints a single '%c'.\n"
-msgstr ""
-
-#: src/printf_gettext.c:233 src/printf_ngettext.c:269
-#, c-format, no-wrap
-msgid ""
-"If a directive specifies the argument by its number ('%s' notation),\n"
-"all directives that consume an argument must do so.\n"
-msgstr ""
-
-#. TRANSLATORS: Most of the placeholders expand to 2 characters.
-#. The last placeholder expands to 4 characters.
-#: src/printf_gettext.c:240 src/printf_ngettext.c:276
-#, c-format
-msgid ""
-"The escape sequences are:\n"
-"\n"
-"  %s      backslash\n"
-"  %s      alert (BEL)\n"
-"  %s      backspace (BS)\n"
-"  %s      form feed (FF)\n"
-"  %s      new line (LF)\n"
-"  %s      carriage return (CR)\n"
-"  %s      horizontal tab (HT)\n"
-"  %s      vertical tab (VT)\n"
-"  %s    octal number with 1 to 3 octal digits\n"
-msgstr ""
-
-#: src/printf_gettext.c:255 src/printf_ngettext.c:291
-#, c-format
-msgid "Environment variables:\n"
-msgstr ""
-
-#: src/printf_gettext.c:259 src/printf_ngettext.c:295
-#, c-format, no-wrap
-msgid ""
-"The translation of the format string is looked up in the translation domain\n"
-"given by the environment variable %s.\n"
-msgstr ""
-
-#: src/printf_gettext.c:264 src/printf_ngettext.c:300
-#, c-format, no-wrap
-msgid ""
-"It is looked up in the catalogs directory given by the environment variable\n"
-"%s or, if not present, in the default catalogs directory.\n"
-"This binary is configured to use the default catalogs directory:\n"
-"%s\n"
-msgstr ""
-
-#: src/printf_ngettext.c:202
-#, fuzzy, c-format, no-wrap
-#| msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgid "Usage: %s [OPTION] FORMAT FORMAT-PLURAL COUNT [ARGUMENT]...\n"
-msgstr "Forma d’ús: %s [OPCIÓ] [DOMINI_TEXTUAL] IDMSG IDMSG_PLURAL NOMBRE\n"
-
-#: src/printf_ngettext.c:207
-#, c-format, no-wrap
-msgid ""
-"Produces formatted output, applying the native language translation of FORMAT\n"
-"and FORMAT-PLURAL, depending on COUNT, to the ARGUMENTs.\n"
-msgstr ""
-
-#: src/printf_ngettext.c:215
-#, fuzzy, c-format
-#| msgid ""
-#| "  COUNT                     choose singular/plural form based on this "
-#| "value\n"
-msgid "  FORMAT                    English singular form of format string\n"
-msgstr ""
-"  NOMBRE               Escull la forma singular o la plural basant‐se en\n"
-"                       aquest valor.\n"
-
-#: src/printf_ngettext.c:217
-#, c-format
-msgid "  FORMAT-PLURAL             English plural form of format string\n"
-msgstr ""
-
-#: src/printf_ngettext.c:232
-#, c-format, no-wrap
-msgid ""
-"Each format string consists of\n"
-"  - plain text,\n"
-"  - directives, that start with '%c',\n"
-"  - escape sequences, that start with a backslash.\n"
-msgstr ""
-
-# Amb el mateix format que els errors de la libc.  ivb
-#~ msgid "Unknown system error"
-#~ msgstr "Error desconegut del sistema"
-
-#, c-format
-#~ msgid "%s: option '%s%s' is ambiguous\n"
-#~ msgstr "%s: l’opció «%s%s» és ambígua\n"
-
-#, c-format
-#~ msgid "%s: option '%s%s' is ambiguous; possibilities:"
-#~ msgstr "%s: l’opció «%s%s» és ambígua; possibilitats:"
-
-#, c-format
-#~ msgid "%s: unrecognized option '%s%s'\n"
-#~ msgstr "%s: l’opció «%s%s» no és reconeguda\n"
-
-#, c-format
-#~ msgid "%s: option '%s%s' doesn't allow an argument\n"
-#~ msgstr "%s: l’opció «%s%s» no admet arguments\n"
-
-#, c-format
-#~ msgid "%s: option '%s%s' requires an argument\n"
-#~ msgstr "%s: l’opció «%s%s» necessita un argument\n"
-
-#, c-format
-#~ msgid "%s: invalid option -- '%c'\n"
-#~ msgstr "%s: l’opció «%c» no és vàlida\n"
-
-#, c-format
-#~ msgid "%s: option requires an argument -- '%c'\n"
-#~ msgstr "%s: l’opció «%c» necessita un argument\n"
-
-#~ msgid "memory exhausted"
-#~ msgstr "la memòria s’ha exhaurit"

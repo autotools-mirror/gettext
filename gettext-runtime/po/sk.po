@@ -1,15 +1,15 @@
 # Slovak translations for GNU gettext-runtime package.
-# Copyright (C) 1999, 2001, 2002, 2003, 2004, 2007, 2008, 2010, 2013, 2015, 2019, 2020 Free Software Foundation, Inc.
+# Copyright (C) 1999, 2001, 2002, 2003, 2004, 2007, 2008, 2010, 2013, 2015, 2019, 2020, 2025 Free Software Foundation, Inc.
 # This file is distributed under the same license as the gettext package.
 # Štefan Ondrejička <ondrej@idata.sk>, 1999.
-# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003, 2004, 2007, 2008, 2010, 2013, 2015, 2019, 2020.
+# Marcel Telka <marcel@telka.sk>, 2001, 2002, 2003, 2004, 2007, 2008, 2010, 2013, 2015, 2019, 2020, 2025.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU gettext-runtime 0.20.2\n"
+"Project-Id-Version: GNU gettext-runtime 0.26-pre1\n"
 "Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
 "POT-Creation-Date: 2025-06-28 23:48+0200\n"
-"PO-Revision-Date: 2020-04-17 15:38+0200\n"
+"PO-Revision-Date: 2025-08-10 23:08+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "Language: sk\n"
@@ -137,8 +137,7 @@ msgid ""
 msgstr ""
 "Chyby oznamujte do databázy chýb na <%s> (iba anglicky)\n"
 "alebo zasielajte na adresu <%s> (iba anglicky).\n"
-"Komentáre k slovenskému prekladu zasielajte na adresu <sk-"
-"i18n@lists.linux.sk>.\n"
+"Komentáre k slovenskému prekladu zasielajte na adresu <sk-i18n@lists.linux.sk>.\n"
 
 #: src/envsubst.c:453
 #, c-format
@@ -170,10 +169,9 @@ msgstr "Zobraziť preklad textovej správy do natívneho jazyka.\n"
 
 #: src/gettext.c:263 src/ngettext.c:230 src/printf_gettext.c:179
 #: src/printf_ngettext.c:211
-#, fuzzy, c-format
-#| msgid "too many arguments"
+#, c-format
 msgid "Options and arguments:\n"
-msgstr "príliš veľa parametrov"
+msgstr "Voľby a parametre:\n"
 
 #: src/gettext.c:266
 #, c-format, no-wrap
@@ -200,8 +198,7 @@ msgstr "  -n                        potlačiť prázdny riadok na konci\n"
 #: src/gettext.c:274 src/ngettext.c:239
 #, c-format
 msgid "  -E                        (ignored for compatibility)\n"
-msgstr ""
-"  -E                        (bez významu; kvôli spätnej kompatibilite)\n"
+msgstr "  -E                        (bez významu; kvôli spätnej kompatibilite)\n"
 
 #: src/gettext.c:276
 #, c-format
@@ -265,27 +262,20 @@ msgstr "  -d, --domain=DOMÉNA       vybrať preložené správy z DOMÉNY\n"
 
 #: src/ngettext.c:241
 #, c-format
-msgid ""
-"  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
+msgid "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
 msgstr "  [DOMÉNA]                  vybrať preloženú správu z DOMÉNY\n"
 
 #: src/ngettext.c:243
 #, c-format
-msgid ""
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
-"(plural)\n"
+msgid "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 msgstr ""
-"  ID_SPRÁVY ID_SPRÁVY-MNČ   preložiť ID_SPRÁVY (jednotné číslo) / ID_SPRÁVY-"
-"MNČ\n"
+"  ID_SPRÁVY ID_SPRÁVY-MNČ   preložiť ID_SPRÁVY (jednotné číslo) / ID_SPRÁVY-MNČ\n"
 "                            (množné číslo)\n"
 
 #: src/ngettext.c:245 src/printf_ngettext.c:219
 #, c-format
-msgid ""
-"  COUNT                     choose singular/plural form based on this value\n"
-msgstr ""
-"  POČET                     vybrať jednotné/množné číslo na základe tejto "
-"hodnoty\n"
+msgid "  COUNT                     choose singular/plural form based on this value\n"
+msgstr "  POČET                     vybrať jednotné/množné číslo na základe tejto hodnoty\n"
 
 #: src/ngettext.c:256
 #, c-format, no-wrap
@@ -303,61 +293,53 @@ msgstr ""
 
 #: src/printf-command.c:154
 #, c-format
-msgid ""
-"In the directive number %zu, the argument number 0 is not a positive integer."
-msgstr ""
+msgid "In the directive number %zu, the argument number 0 is not a positive integer."
+msgstr "V direktíve číslo %zu parameter číslo 0 nie je kladné číslo."
 
 #: src/printf-command.c:237
 #, c-format
 msgid "The string ends in the middle of a directive."
-msgstr ""
+msgstr "Reťazec končí v strede direktívy."
 
 #: src/printf-command.c:242
 #, c-format
-msgid ""
-"In the directive number %zu, the character '%c' is not a valid conversion "
-"specifier."
-msgstr ""
+msgid "In the directive number %zu, the character '%c' is not a valid conversion specifier."
+msgstr "V direktíve číslo %zu znak '%c' nie je platný špecifikátor konverzie."
 
 #: src/printf-command.c:246
 #, c-format
-msgid ""
-"The character that terminates the directive number %zu is not a valid "
-"conversion specifier."
-msgstr ""
+msgid "The character that terminates the directive number %zu is not a valid conversion specifier."
+msgstr "Znak, ktorý ukončuje direktívu číslo %zu, nie je platný špecifikátor konverzie."
 
 #: src/printf-command.c:255 src/printf-command.c:259
 #, c-format
-msgid ""
-"In the directive number %zu, the flag '%c' is invalid for the conversion '%c'."
-msgstr ""
+msgid "In the directive number %zu, the flag '%c' is invalid for the conversion '%c'."
+msgstr "V direktíve číslo %zu je príznak '%c' neplatný pre konverziu '%c'."
 
 #: src/printf-command.c:278 src/printf-command.c:292
 #, c-format
-msgid ""
-"The string refers to arguments both through absolute argument numbers and "
-"through unnumbered argument specifications."
-msgstr ""
+msgid "The string refers to arguments both through absolute argument numbers and through unnumbered argument specifications."
+msgstr "Reťazec sa odkazuje na parametre cez absolútne čísla parametrov aj cez nečíslované špecifikácie parametrov."
 
 #: src/printf-command.c:394
 #, c-format
 msgid "The string ends in the middle of an escape sequence."
-msgstr ""
+msgstr "Reťazec končí v strede riadiacej sekvencie."
 
 #: src/printf-command.c:402
 #, c-format
 msgid "The escape sequence '%c%c' is unsupported (not in POSIX)."
-msgstr ""
+msgstr "Riadiaca sekvencia '%c%c' je nepodporovaná (nie je v POSIXe)."
 
 #: src/printf-command.c:403
 #, c-format
 msgid "The escape sequence '%c%c' is invalid."
-msgstr ""
+msgstr "Riadiaca sekvencia '%c%c' je neplatná."
 
 #: src/printf-command.c:407
 #, c-format
 msgid "This escape sequence is invalid."
-msgstr ""
+msgstr "Táto riadiaca sekvencia je neplatná."
 
 #: src/printf-command.c:455 src/printf-command.c:501 src/printf-command.c:568
 #: src/printf-command.c:638 src/printf-command.c:691
@@ -369,36 +351,32 @@ msgstr "chyba zápisu"
 #: src/printf-command.c:626 src/printf-command.c:679
 #, c-format
 msgid "%s: expected a numeric value"
-msgstr ""
+msgstr "%s: očakáva číselnú hodnotu"
 
 #: src/printf-command.c:550 src/printf-command.c:620 src/printf-command.c:673
 #, c-format
 msgid "%s: value not completely converted"
-msgstr ""
+msgstr "%s: hodnota nebola úplne skonvertovaná"
 
 #: src/printf-command.c:717
 #, c-format
-msgid ""
-"The translated format string consumes %zu arguments, whereas the original "
-"format string consumes only %zu arguments."
-msgstr ""
+msgid "The translated format string consumes %zu arguments, whereas the original format string consumes only %zu arguments."
+msgstr "Preložený formátovací reťazec spotrebuje %zu parametrov, ale pôvodný formátovací reťazec ich spotrebuje len %zu."
 
 #: src/printf-command.c:728
 #, c-format
 msgid "warning: ignoring excess arguments, starting with %s"
-msgstr ""
+msgstr "upozornenie: ignorované nadbytočné parametre začínajúce %s"
 
 #: src/printf_gettext.c:128
-#, fuzzy, c-format
-#| msgid "missing arguments"
+#, c-format
 msgid "missing format string"
-msgstr "chýbajúce parametre"
+msgstr "chýbajúci formátovací reťazec"
 
 #: src/printf_gettext.c:170
-#, fuzzy, c-format, no-wrap
-#| msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
+#, c-format, no-wrap
 msgid "Usage: %s [OPTION] FORMAT [ARGUMENT]...\n"
-msgstr "Použitie: %s [VOĽBA] [SHELL-FORMAT]\n"
+msgstr "Použitie: %s [VOĽBA] FORMÁT [PARAMETER]...\n"
 
 #: src/printf_gettext.c:175
 #, c-format, no-wrap
@@ -406,23 +384,23 @@ msgid ""
 "Produces formatted output, applying the native language translation of FORMAT\n"
 "to the ARGUMENTs.\n"
 msgstr ""
+"Vytvorí formátovaný výstup s použitím FORMÁTu preloženého do vášho jazyka na\n"
+"PARAMETRE.\n"
 
 #: src/printf_gettext.c:181 src/printf_ngettext.c:213
-#, fuzzy, c-format
-#| msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
+#, c-format
 msgid "  -c, --context=CONTEXT     specify context for FORMAT\n"
-msgstr "  -c, --context=KONTEXT     zadať kontext pre ID_SPRÁVY\n"
+msgstr "  -c, --context=KONTEXT     zadať kontext pre FORMÁT\n"
 
 #: src/printf_gettext.c:183
-#, fuzzy, c-format
-#| msgid "  -n                        suppress trailing newline\n"
+#, c-format
 msgid "  FORMAT                    format string\n"
-msgstr "  -n                        potlačiť prázdny riadok na konci\n"
+msgstr "  FORMÁT                    formátovací reťazec\n"
 
 #: src/printf_gettext.c:185 src/printf_ngettext.c:221
 #, c-format
 msgid "  ARGUMENT                  string or numeric argument\n"
-msgstr ""
+msgstr "  PARAMETER                 reťazec alebo číselný parameter\n"
 
 #: src/printf_gettext.c:196
 #, c-format, no-wrap
@@ -432,6 +410,10 @@ msgid ""
 "  - directives, that start with '%c',\n"
 "  - escape sequences, that start with a backslash.\n"
 msgstr ""
+"Formátovací reťazec pozostáva z\n"
+"  - obyčajného textu,\n"
+"  - direktív, ktoré začínajú '%c',\n"
+"  - riadiacich sekvencií, ktoré začínajú spätnou lomkou '\\'.\n"
 
 #: src/printf_gettext.c:204 src/printf_ngettext.c:240
 #, c-format, no-wrap
@@ -454,6 +436,23 @@ msgid ""
 "      - '%c', '%c', that print a floating-point number in hexadecimal notation.\n"
 "Additionally there is the directive '%s', that prints a single '%c'.\n"
 msgstr ""
+"Direktíva, ktorá spotrebuje parameter\n"
+"  - začína s '%s' alebo '%s', kde %s je kladné celé číslo,\n"
+"  - je voliteľne nasledovaná jedným zo znakov '%c', '%c', '%c', '%c', '%c',\n"
+"    z ktorých každý funguje ako príznak,\n"
+"  - je voliteľne nasledovaná určením šírky (nenegatívne celé číslo),\n"
+"  - je voliteľne nasledovaná '%c' určením presnosti (voliteľné\n"
+"    nenegatívne celé číslo),\n"
+"  - a ukončená\n"
+"      - '%c', ktoré vytlačí znak,\n"
+"      - '%c', ktoré vytlačí reťazec,\n"
+"      - '%c', '%c', ktoré vytlačí celé číslo,\n"
+"      - '%c', '%c', '%c', '%c', ktoré vytlačí celé číslo bez znamienka (nenegatívne),\n"
+"      - '%c', '%c', ktoré vytlačí desatinné číslo vo vedeckom zápise,\n"
+"      - '%c', '%c', ktoré vytlačí desatinné číslo bez exponentu,\n"
+"      - '%c', '%c', ktoré vytlačí desatinné číslo vo všeobecnom zápise,\n"
+"      - '%c', '%c', ktoré vytlačí desatinné číslo v hexadecimálnom zápise.\n"
+"Navyše existuje direktíva '%s', ktorá vytlačí jedno '%c'.\n"
 
 #: src/printf_gettext.c:233 src/printf_ngettext.c:269
 #, c-format, no-wrap
@@ -461,6 +460,9 @@ msgid ""
 "If a directive specifies the argument by its number ('%s' notation),\n"
 "all directives that consume an argument must do so.\n"
 msgstr ""
+"Ak nejaká direktíva špecifikuje parameter podľa jeho poradia (zápis\n"
+"typu '%s'), tak všetky direktívy, ktoré spotrebujú parameter, to musia\n"
+"robiť rovnako.\n"
 
 #. TRANSLATORS: Most of the placeholders expand to 2 characters.
 #. The last placeholder expands to 4 characters.
@@ -479,11 +481,22 @@ msgid ""
 "  %s      vertical tab (VT)\n"
 "  %s    octal number with 1 to 3 octal digits\n"
 msgstr ""
+"Riadiace sekvencie sú:\n"
+"\n"
+"  %s      spätná lomka\n"
+"  %s      výstraha (BEL)\n"
+"  %s      backspace (BS)\n"
+"  %s      nová strana (FF)\n"
+"  %s      nový riadok (LF)\n"
+"  %s      návrat vozíka (CR)\n"
+"  %s      horizontalálny tabulátor (HT)\n"
+"  %s      vertikálny tabulátor (VT)\n"
+"  %s    osmičkové číslo s 1 až 3 osmičkovými číslicami\n"
 
 #: src/printf_gettext.c:255 src/printf_ngettext.c:291
 #, c-format
 msgid "Environment variables:\n"
-msgstr ""
+msgstr "Premenné prostredia:\n"
 
 #: src/printf_gettext.c:259 src/printf_ngettext.c:295
 #, c-format, no-wrap
@@ -491,6 +504,8 @@ msgid ""
 "The translation of the format string is looked up in the translation domain\n"
 "given by the environment variable %s.\n"
 msgstr ""
+"Preklad formátovacie reťazca je vyhľadaný v prekladovej doméne určenej\n"
+"premennou prostredia %s.\n"
 
 #: src/printf_gettext.c:264 src/printf_ngettext.c:300
 #, c-format, no-wrap
@@ -500,12 +515,16 @@ msgid ""
 "This binary is configured to use the default catalogs directory:\n"
 "%s\n"
 msgstr ""
+"Je vyhľadané v adresári s katalógmi určenom premennou prostredia\n"
+"%s alebo ak neexistuje, tak v predvolenom adresári s katalógmi.\n"
+"Tento binárny súbor je nakonfigurovaný, aby používal predvolený\n"
+"adresár s katalógmi:\n"
+"%s\n"
 
 #: src/printf_ngettext.c:202
-#, fuzzy, c-format, no-wrap
-#| msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
+#, c-format, no-wrap
 msgid "Usage: %s [OPTION] FORMAT FORMAT-PLURAL COUNT [ARGUMENT]...\n"
-msgstr "Použitie: %s [VOĽBA] [DOMÉNA] ID_SPRÁVY ID_SPRÁVY-MNČ POČET\n"
+msgstr "Použitie: %s [VOĽBA] FORMÁT FORMÁT-MNČ POČET [PARAMETER]...\n"
 
 #: src/printf_ngettext.c:207
 #, c-format, no-wrap
@@ -513,21 +532,18 @@ msgid ""
 "Produces formatted output, applying the native language translation of FORMAT\n"
 "and FORMAT-PLURAL, depending on COUNT, to the ARGUMENTs.\n"
 msgstr ""
+"Vytvorí formátovaný výstup s použitím FORMÁT a FORMÁT-MNČ preložených do vášho\n"
+"jazyka, v závislosti od POČET, na PARAMETRE.\n"
 
 #: src/printf_ngettext.c:215
-#, fuzzy, c-format
-#| msgid ""
-#| "  COUNT                     choose singular/plural form based on this "
-#| "value\n"
+#, c-format
 msgid "  FORMAT                    English singular form of format string\n"
-msgstr ""
-"  POČET                     vybrať jednotné/množné číslo na základe tejto "
-"hodnoty\n"
+msgstr "  FORMÁT                    anglický formátovací reťazec v jednotnom čísle\n"
 
 #: src/printf_ngettext.c:217
 #, c-format
 msgid "  FORMAT-PLURAL             English plural form of format string\n"
-msgstr ""
+msgstr "  FORMÁT-MNČ                anglický formátovací reťazec v množnom čísle\n"
 
 #: src/printf_ngettext.c:232
 #, c-format, no-wrap
@@ -537,6 +553,10 @@ msgid ""
 "  - directives, that start with '%c',\n"
 "  - escape sequences, that start with a backslash.\n"
 msgstr ""
+"Každý formátovací reťazec pozostáva z\n"
+"  - obyčajného textu,\n"
+"  - direktív, ktoré začínajú na '%c',\n"
+"  - riadiacich sekvencií, ktoré začínajú spätnou lomkou.\n"
 
 #~ msgid "Unknown system error"
 #~ msgstr "Neznáma systémová chyba"

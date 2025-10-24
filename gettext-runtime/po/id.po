@@ -9,28 +9,90 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: gettext-runtime 0.18\n"
-"Report-Msgid-Bugs-To: bug-gettext@gnu.org\n"
-"POT-Creation-Date: 2025-06-28 23:48+0200\n"
+"Report-Msgid-Bugs-To: bug-gnu-gettext@gnu.org\n"
+"POT-Creation-Date: 2010-05-09 13:18+0200\n"
 "PO-Revision-Date: 2010-05-24 13:00+0700\n"
 "Last-Translator: Arif E. Nugroho <arif_endro@yahoo.com>\n"
 "Language-Team: Indonesian <translation-team-id@lists.sourceforge.net>\n"
-"Language: id\n"
+"X-Bugs: Report translation errors to the Language-Team address.\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=ISO-8859-1\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Bugs: Report translation errors to the Language-Team address.\n"
 
-#: src/envsubst.c:112 src/gettext.c:138 src/ngettext.c:128
-#: src/printf_gettext.c:111 src/printf_ngettext.c:116
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "Copyright (C) %s Free Software Foundation, Inc.\n"
-#| "License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
-#| "This is free software: you are free to change and redistribute it.\n"
-#| "There is NO WARRANTY, to the extent permitted by law.\n"
+#: gnulib-lib/closeout.c:66
+msgid "write error"
+msgstr "kesalahan penulisan"
+
+#: gnulib-lib/error.c:181
+msgid "Unknown system error"
+msgstr "Kesalahan sistem tak dikenal"
+
+#: gnulib-lib/getopt.c:527 gnulib-lib/getopt.c:543
+#, c-format
+msgid "%s: option '%s' is ambiguous\n"
+msgstr "%s: pilihan '%s' rancu\n"
+
+#: gnulib-lib/getopt.c:576 gnulib-lib/getopt.c:580
+#, c-format
+msgid "%s: option '--%s' doesn't allow an argument\n"
+msgstr "%s: pilihan '--%s' tidak membolehkan argumen\n"
+
+#: gnulib-lib/getopt.c:589 gnulib-lib/getopt.c:594
+#, c-format
+msgid "%s: option '%c%s' doesn't allow an argument\n"
+msgstr "%s: pilihan '%c%s' tidak membolehkan argumen\n"
+
+#: gnulib-lib/getopt.c:637 gnulib-lib/getopt.c:656
+#, c-format
+msgid "%s: option '--%s' requires an argument\n"
+msgstr "%s: pilihan '--%s' memerlukan sebuah argumen\n"
+
+#: gnulib-lib/getopt.c:694 gnulib-lib/getopt.c:697
+#, c-format
+msgid "%s: unrecognized option '--%s'\n"
+msgstr "%s: pilihan tak dikenal '--%s'\n"
+
+#: gnulib-lib/getopt.c:705 gnulib-lib/getopt.c:708
+#, c-format
+msgid "%s: unrecognized option '%c%s'\n"
+msgstr "%s: pilihan tak dikenal '%c%s'\n"
+
+#: gnulib-lib/getopt.c:757 gnulib-lib/getopt.c:760
+#, c-format
+msgid "%s: invalid option -- '%c'\n"
+msgstr "%s: pilihan tidak valid -- '%c'\n"
+
+#: gnulib-lib/getopt.c:810 gnulib-lib/getopt.c:827 gnulib-lib/getopt.c:1035
+#: gnulib-lib/getopt.c:1053
+#, c-format
+msgid "%s: option requires an argument -- '%c'\n"
+msgstr "%s: pilihan membutuhkan sebuah argumen -- '%c'\n"
+
+#: gnulib-lib/getopt.c:883 gnulib-lib/getopt.c:899
+#, c-format
+msgid "%s: option '-W %s' is ambiguous\n"
+msgstr "%s: pilihan '-W %s' rancu\n"
+
+#: gnulib-lib/getopt.c:923 gnulib-lib/getopt.c:941
+#, c-format
+msgid "%s: option '-W %s' doesn't allow an argument\n"
+msgstr "%s: pilihan '-W %s' tidak membolehkan sebuah argumen\n"
+
+#: gnulib-lib/getopt.c:962 gnulib-lib/getopt.c:980
+#, c-format
+msgid "%s: option '-W %s' requires an argument\n"
+msgstr "%s: pilihan '-W %s' memerlukan sebuah argumen\n"
+
+#: gnulib-lib/xmalloc.c:37
+#, c-format
+msgid "memory exhausted"
+msgstr "kehabisan memori"
+
+#: src/envsubst.c:112 src/gettext.c:133 src/ngettext.c:123
+#, c-format, no-wrap
 msgid ""
 "Copyright (C) %s Free Software Foundation, Inc.\n"
-"License GPLv3+: GNU GPL version 3 or later <%s>\n"
+"License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>\n"
 "This is free software: you are free to change and redistribute it.\n"
 "There is NO WARRANTY, to the extent permitted by law.\n"
 msgstr ""
@@ -39,72 +101,67 @@ msgstr ""
 "Ini adalah piranti lunak bebas: anda bebas untuk mengubah dan meredistribusikannya.\n"
 "TIDAK ADA GARANSI, sampai batas yang diijinkan oleh hukum yang berlaku.\n"
 
-#: src/envsubst.c:118 src/gettext.c:144 src/ngettext.c:134
-#: src/printf_gettext.c:117 src/printf_ngettext.c:122
+#: src/envsubst.c:118 src/gettext.c:139 src/ngettext.c:129
 #, c-format
 msgid "Written by %s.\n"
 msgstr "Ditulis oleh %s.\n"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/envsubst.c:118 src/printf_gettext.c:117 src/printf_ngettext.c:122
+#: src/envsubst.c:118
 msgid "Bruno Haible"
 msgstr "Bruno Haible"
 
-#: src/envsubst.c:127 src/gettext.c:162 src/ngettext.c:146
+#: src/envsubst.c:127 src/gettext.c:157 src/ngettext.c:141
 #, c-format
 msgid "too many arguments"
 msgstr "terlalu banyak argumen"
 
-#: src/envsubst.c:138 src/gettext.c:172 src/ngettext.c:158
-#: src/printf_ngettext.c:133
+#: src/envsubst.c:138 src/gettext.c:167 src/ngettext.c:153
 #, c-format
 msgid "missing arguments"
 msgstr "Argumen hilang"
 
-#: src/envsubst.c:176 src/gettext.c:249 src/ngettext.c:216
-#: src/printf_gettext.c:165 src/printf_ngettext.c:197
-#, fuzzy, c-format
-#| msgid "Try `%s --help' for more information.\n"
-msgid "Try '%s --help' for more information.\n"
+#: src/envsubst.c:171 src/gettext.c:238 src/ngettext.c:207
+#, c-format
+msgid "Try `%s --help' for more information.\n"
 msgstr "Coba `%s --help' untuk informasi lebih jauh.\n"
 
-#: src/envsubst.c:181
+#: src/envsubst.c:176
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
 msgstr "Penggunaan: %s [PILIHAN] [SHELL-FORMAT]\n"
 
-#: src/envsubst.c:186
+#: src/envsubst.c:181
 #, c-format, no-wrap
 msgid "Substitutes the values of environment variables.\n"
 msgstr "Gantilah nilai variabel lingkungan.\n"
 
-#: src/envsubst.c:190
+#: src/envsubst.c:185
 #, c-format, no-wrap
 msgid "Operation mode:\n"
 msgstr "Mode operasi:\n"
 
-#: src/envsubst.c:193
+#: src/envsubst.c:188
 #, c-format, no-wrap
 msgid "  -v, --variables             output the variables occurring in SHELL-FORMAT\n"
 msgstr "  -v, --variables             hasilkan variabel yang muncul dalam SHELL-FORMAT\n"
 
-#: src/envsubst.c:197 src/gettext.c:280 src/ngettext.c:248
-#: src/printf_gettext.c:188 src/printf_ngettext.c:224
+#: src/envsubst.c:192
 #, c-format, no-wrap
 msgid "Informative output:\n"
 msgstr "Output informatif:\n"
 
-#: src/envsubst.c:200
+#: src/envsubst.c:195
 #, c-format, no-wrap
 msgid "  -h, --help                  display this help and exit\n"
 msgstr "  -h, --help                  tampilkan bantuan ini dan keluar\n"
 
-#: src/envsubst.c:203
+#: src/envsubst.c:198
 #, c-format, no-wrap
 msgid "  -V, --version               output version information and exit\n"
 msgstr "  -V, --version               informasi versi dan keluar\n"
 
-#: src/envsubst.c:207
+#: src/envsubst.c:202
 #, c-format, no-wrap
 msgid ""
 "In normal operation mode, standard input is copied to standard output,\n"
@@ -122,7 +179,7 @@ msgstr ""
 "; bila tidak semua variabel lingkungan yang diacu yang muncul dalam \n"
 "input standar akan diganti.\n"
 
-#: src/envsubst.c:216
+#: src/envsubst.c:211
 #, c-format, no-wrap
 msgid ""
 "When --variables is used, standard input is ignored, and the output consists\n"
@@ -131,34 +188,29 @@ msgstr ""
 "Ketika digunakan --variables, input standar diabaikan, dan hasilnya\n"
 "terdiri dari variabel lingkungan yang direfer dalam SHELL FORMAT, satu perbaris.\n"
 
-#. TRANSLATORS: The first placeholder is the web address of the Savannah
-#. project of this package.  The second placeholder is the bug-reporting
-#. email address for this package.  Please add _another line_ saying
+#. TRANSLATORS: The placeholder indicates the bug-reporting address
+#. for this package.  Please add _another line_ saying
 #. "Report translation bugs to <...>\n" with the address for translation
 #. bugs (typically your translation team's web or email address).
-#: src/envsubst.c:225 src/gettext.c:304 src/ngettext.c:269
-#: src/printf_gettext.c:277 src/printf_ngettext.c:313
-#, c-format
-msgid ""
-"Report bugs in the bug tracker at <%s>\n"
-"or by email to <%s>.\n"
-msgstr ""
+#: src/envsubst.c:219 src/gettext.c:279 src/ngettext.c:245
+msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
+msgstr "Laporkan kesalahan ke <bug-gnu-gettext@gnu.org>.\n"
 
-#: src/envsubst.c:453
+#: src/envsubst.c:442
 #, c-format
 msgid "error while reading \"%s\""
 msgstr "kesalahan ketika membaca \"%s\""
 
-#: src/envsubst.c:453
+#: src/envsubst.c:443
 msgid "standard input"
 msgstr "standard input"
 
 #. This is a proper name. See the gettext manual, section Names.
-#: src/gettext.c:144 src/ngettext.c:134
+#: src/gettext.c:139 src/ngettext.c:129
 msgid "Ulrich Drepper"
 msgstr "Ulrich Drepper"
 
-#: src/gettext.c:254
+#: src/gettext.c:243
 #, c-format, no-wrap
 msgid ""
 "Usage: %s [OPTION] [[TEXTDOMAIN] MSGID]\n"
@@ -167,81 +219,40 @@ msgstr ""
 "Pemakaian: %s [PILIHAN] [[TEXTDOMAIN] ID-PESAN]\n"
 "atau:    %s [PILIHAN] -s [ID-PESAN]...\n"
 
-#: src/gettext.c:260
+#: src/gettext.c:249
 #, c-format, no-wrap
 msgid "Display native language translation of a textual message.\n"
 msgstr "Tampilkan terjemahan bahasa asli pesan tekstual.\n"
 
-#: src/gettext.c:263 src/ngettext.c:230 src/printf_gettext.c:179
-#: src/printf_ngettext.c:211
-#, fuzzy, c-format
-#| msgid "too many arguments"
-msgid "Options and arguments:\n"
-msgstr "terlalu banyak argumen"
-
-#: src/gettext.c:266
+#: src/gettext.c:253
 #, c-format, no-wrap
-msgid "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-msgstr ""
-
-#: src/gettext.c:268 src/ngettext.c:235
-#, c-format
-msgid "  -c, --context=CONTEXT     specify context for MSGID\n"
-msgstr ""
-
-#: src/gettext.c:270 src/ngettext.c:237
-#, c-format
-msgid "  -e                        enable expansion of some escape sequences\n"
-msgstr ""
-
-#: src/gettext.c:272
-#, c-format
-msgid "  -n                        suppress trailing newline\n"
-msgstr ""
-
-#: src/gettext.c:274 src/ngettext.c:239
-#, c-format
-msgid "  -E                        (ignored for compatibility)\n"
-msgstr ""
-
-#: src/gettext.c:276
-#, c-format
 msgid ""
+"  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -n                        suppress trailing newline\n"
+"  -V, --version             display version information and exit\n"
 "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
 "                            to MSGID from TEXTDOMAIN\n"
 msgstr ""
+"  -d, --domain=TEXTDOMAIN   mengambil pesan terjemahan dari TEXTDOMAIN\n"
+"  -e                        memungkinkan ekspansi beberapa escape sequence\n"
+"  -E                        (abaikan kompatibilitas)\n"
+"  -h, --help                tampilkan bantuan ini dan keluar\n"
+"  -n                        hilangkan newline yang mengekor\n"
+"  -V, --version             tampilkan informasi versi dan keluar\n"
+"  [TEXTDOMAIN] ID-PESAN     mengambil pesan terjemahan yang sesuai\n"
+"                            untuk ID-PESAN dari TEXTDOMAIN\n"
 
-#: src/gettext.c:282 src/ngettext.c:250 src/printf_gettext.c:190
-#: src/printf_ngettext.c:226
-#, fuzzy, c-format
-#| msgid "  -h, --help                  display this help and exit\n"
-msgid "  -h, --help                display this help and exit\n"
-msgstr "  -h, --help                  tampilkan bantuan ini dan keluar\n"
-
-#: src/gettext.c:284 src/ngettext.c:252 src/printf_gettext.c:192
-#: src/printf_ngettext.c:228
-#, fuzzy, c-format
-#| msgid "  -V, --version               output version information and exit\n"
-msgid "  -V, --version             display version information and exit\n"
-msgstr "  -V, --version               informasi versi dan keluar\n"
-
-#: src/gettext.c:288
-#, fuzzy, c-format, no-wrap
-#| msgid ""
-#| "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
-#| "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
-#| "regular directory, another location can be specified with the environment\n"
-#| "variable TEXTDOMAINDIR.\n"
-#| "When used with the -s option the program behaves like the `echo' command.\n"
-#| "But it does not simply copy its arguments to stdout.  Instead those messages\n"
-#| "found in the selected catalog are translated.\n"
-#| "Standard search directory: %s\n"
+#: src/gettext.c:264
+#, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
 "environment variable TEXTDOMAIN.  If the message catalog is not found in the\n"
 "regular directory, another location can be specified with the environment\n"
 "variable TEXTDOMAINDIR.\n"
-"When used with the -s option the program behaves like the 'echo' command.\n"
+"When used with the -s option the program behaves like the `echo' command.\n"
 "But it does not simply copy its arguments to stdout.  Instead those messages\n"
 "found in the selected catalog are translated.\n"
 "Standard search directory: %s\n"
@@ -255,12 +266,12 @@ msgstr ""
 "diterjemahkan.\n"
 "Direktori pencarian standar: %s\n"
 
-#: src/ngettext.c:221
+#: src/ngettext.c:212
 #, c-format, no-wrap
 msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
 msgstr "Pemakaian: %s [PILIHAN] [TEXTDOMAIN] ID-PESAN ID-PESAN-PLURAL JUMLAH\n"
 
-#: src/ngettext.c:226
+#: src/ngettext.c:217
 #, c-format, no-wrap
 msgid ""
 "Display native language translation of a textual message whose grammatical\n"
@@ -269,31 +280,29 @@ msgstr ""
 "Tampilkan terjemahan bahasa asli pesan tekstual yang bentuk gramatikalnya\n"
 "tergantung pada suatu angka.\n"
 
-#: src/ngettext.c:233
+#: src/ngettext.c:222
 #, c-format, no-wrap
-msgid "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
-
-#: src/ngettext.c:241
-#, c-format
 msgid ""
+"  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
+"  -e                        enable expansion of some escape sequences\n"
+"  -E                        (ignored for compatibility)\n"
+"  -h, --help                display this help and exit\n"
+"  -V, --version             display version information and exit\n"
 "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-msgstr ""
-
-#: src/ngettext.c:243
-#, c-format
-msgid ""
-"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL "
-"(plural)\n"
-msgstr ""
-
-#: src/ngettext.c:245 src/printf_ngettext.c:219
-#, c-format
-msgid ""
+"  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
 "  COUNT                     choose singular/plural form based on this value\n"
 msgstr ""
+"  -d, --domain=TEXTDOMAIN   mengambil pesan terjemahan dari TEXTDOMAIN\n"
+"  -e                        memungkinkan ekspansi beberapa escape sequence\n"
+"  -E                        (abaikan kompatibilitas)\n"
+"  -h, --help                tampilkan bantuan ini dan keluar\n"
+"  -n                        hilangkan newline yang mengekor\n"
+"  -V, --version             tampilkan informasi versi dan keluar\n"
+"  [TEXTDOMAIN]              mengambil pesan terjemahan dari TEXTDOMAIN\n"
+"  ID-PESAN ID-PESAN-PLURAL  terjemahkan ID-PESAN (tunggal) / ID-PESAN-PLURAL (plural)\n"
+"  JUMLAH                    pilih bentuk tunggal/plural berdasarkan nilai ini\n"
 
-#: src/ngettext.c:256
+#: src/ngettext.c:233
 #, c-format, no-wrap
 msgid ""
 "If the TEXTDOMAIN parameter is not given, the domain is determined from the\n"
@@ -308,343 +317,15 @@ msgstr ""
 "lingkungan TEXTDOMAINDIR.\n"
 "Direktori pencarian standar: %s\n"
 
-#: src/printf-command.c:154
-#, c-format
-msgid ""
-"In the directive number %zu, the argument number 0 is not a positive integer."
-msgstr ""
-
-#: src/printf-command.c:237
-#, c-format
-msgid "The string ends in the middle of a directive."
-msgstr ""
-
-#: src/printf-command.c:242
-#, c-format
-msgid ""
-"In the directive number %zu, the character '%c' is not a valid conversion "
-"specifier."
-msgstr ""
-
-#: src/printf-command.c:246
-#, c-format
-msgid ""
-"The character that terminates the directive number %zu is not a valid "
-"conversion specifier."
-msgstr ""
-
-#: src/printf-command.c:255 src/printf-command.c:259
-#, c-format
-msgid ""
-"In the directive number %zu, the flag '%c' is invalid for the conversion '%c'."
-msgstr ""
-
-#: src/printf-command.c:278 src/printf-command.c:292
-#, c-format
-msgid ""
-"The string refers to arguments both through absolute argument numbers and "
-"through unnumbered argument specifications."
-msgstr ""
-
-#: src/printf-command.c:394
-#, c-format
-msgid "The string ends in the middle of an escape sequence."
-msgstr ""
-
-#: src/printf-command.c:402
-#, c-format
-msgid "The escape sequence '%c%c' is unsupported (not in POSIX)."
-msgstr ""
-
-#: src/printf-command.c:403
-#, c-format
-msgid "The escape sequence '%c%c' is invalid."
-msgstr ""
-
-#: src/printf-command.c:407
-#, c-format
-msgid "This escape sequence is invalid."
-msgstr ""
-
-#: src/printf-command.c:455 src/printf-command.c:501 src/printf-command.c:568
-#: src/printf-command.c:638 src/printf-command.c:691
-#, c-format
-msgid "write error"
-msgstr "kesalahan penulisan"
-
-#: src/printf-command.c:529 src/printf-command.c:556 src/printf-command.c:597
-#: src/printf-command.c:626 src/printf-command.c:679
-#, c-format
-msgid "%s: expected a numeric value"
-msgstr ""
-
-#: src/printf-command.c:550 src/printf-command.c:620 src/printf-command.c:673
-#, c-format
-msgid "%s: value not completely converted"
-msgstr ""
-
-#: src/printf-command.c:717
-#, c-format
-msgid ""
-"The translated format string consumes %zu arguments, whereas the original "
-"format string consumes only %zu arguments."
-msgstr ""
-
-#: src/printf-command.c:728
-#, c-format
-msgid "warning: ignoring excess arguments, starting with %s"
-msgstr ""
-
-#: src/printf_gettext.c:128
-#, fuzzy, c-format
-#| msgid "missing arguments"
-msgid "missing format string"
-msgstr "Argumen hilang"
-
-#: src/printf_gettext.c:170
-#, fuzzy, c-format, no-wrap
-#| msgid "Usage: %s [OPTION] [SHELL-FORMAT]\n"
-msgid "Usage: %s [OPTION] FORMAT [ARGUMENT]...\n"
-msgstr "Penggunaan: %s [PILIHAN] [SHELL-FORMAT]\n"
-
-#: src/printf_gettext.c:175
-#, c-format, no-wrap
-msgid ""
-"Produces formatted output, applying the native language translation of FORMAT\n"
-"to the ARGUMENTs.\n"
-msgstr ""
-
-#: src/printf_gettext.c:181 src/printf_ngettext.c:213
-#, c-format
-msgid "  -c, --context=CONTEXT     specify context for FORMAT\n"
-msgstr ""
-
-#: src/printf_gettext.c:183
-#, c-format
-msgid "  FORMAT                    format string\n"
-msgstr ""
-
-#: src/printf_gettext.c:185 src/printf_ngettext.c:221
-#, c-format
-msgid "  ARGUMENT                  string or numeric argument\n"
-msgstr ""
-
-#: src/printf_gettext.c:196
-#, c-format, no-wrap
-msgid ""
-"The format string consists of\n"
-"  - plain text,\n"
-"  - directives, that start with '%c',\n"
-"  - escape sequences, that start with a backslash.\n"
-msgstr ""
-
-#: src/printf_gettext.c:204 src/printf_ngettext.c:240
-#, c-format, no-wrap
-msgid ""
-"A directive that consumes an argument\n"
-"  - starts with '%s' or '%s' where %s is a positive integer,\n"
-"  - is optionally followed by any of the characters '%c', '%c', '%c', '%c', '%c',\n"
-"    each of which acts as a flag,\n"
-"  - is optionally followed by a width specification (a nonnegative integer),\n"
-"  - is optionally followed by '%c' and a precision specification (an optional\n"
-"    nonnegative integer),\n"
-"  - is finished by a specifier\n"
-"      - '%c', that prints a character,\n"
-"      - '%c', that prints a string,\n"
-"      - '%c', '%c', that print an integer,\n"
-"      - '%c', '%c', '%c', '%c', that print an unsigned (nonnegative) integer,\n"
-"      - '%c', '%c', that print a floating-point number in scientific notation,\n"
-"      - '%c', '%c', that print a floating-point number without an exponent,\n"
-"      - '%c', '%c', that print a floating-point number in general notation,\n"
-"      - '%c', '%c', that print a floating-point number in hexadecimal notation.\n"
-"Additionally there is the directive '%s', that prints a single '%c'.\n"
-msgstr ""
-
-#: src/printf_gettext.c:233 src/printf_ngettext.c:269
-#, c-format, no-wrap
-msgid ""
-"If a directive specifies the argument by its number ('%s' notation),\n"
-"all directives that consume an argument must do so.\n"
-msgstr ""
-
-#. TRANSLATORS: Most of the placeholders expand to 2 characters.
-#. The last placeholder expands to 4 characters.
-#: src/printf_gettext.c:240 src/printf_ngettext.c:276
-#, c-format
-msgid ""
-"The escape sequences are:\n"
-"\n"
-"  %s      backslash\n"
-"  %s      alert (BEL)\n"
-"  %s      backspace (BS)\n"
-"  %s      form feed (FF)\n"
-"  %s      new line (LF)\n"
-"  %s      carriage return (CR)\n"
-"  %s      horizontal tab (HT)\n"
-"  %s      vertical tab (VT)\n"
-"  %s    octal number with 1 to 3 octal digits\n"
-msgstr ""
-
-#: src/printf_gettext.c:255 src/printf_ngettext.c:291
-#, c-format
-msgid "Environment variables:\n"
-msgstr ""
-
-#: src/printf_gettext.c:259 src/printf_ngettext.c:295
-#, c-format, no-wrap
-msgid ""
-"The translation of the format string is looked up in the translation domain\n"
-"given by the environment variable %s.\n"
-msgstr ""
-
-#: src/printf_gettext.c:264 src/printf_ngettext.c:300
-#, c-format, no-wrap
-msgid ""
-"It is looked up in the catalogs directory given by the environment variable\n"
-"%s or, if not present, in the default catalogs directory.\n"
-"This binary is configured to use the default catalogs directory:\n"
-"%s\n"
-msgstr ""
-
-#: src/printf_ngettext.c:202
-#, fuzzy, c-format, no-wrap
-#| msgid "Usage: %s [OPTION] [TEXTDOMAIN] MSGID MSGID-PLURAL COUNT\n"
-msgid "Usage: %s [OPTION] FORMAT FORMAT-PLURAL COUNT [ARGUMENT]...\n"
-msgstr "Pemakaian: %s [PILIHAN] [TEXTDOMAIN] ID-PESAN ID-PESAN-PLURAL JUMLAH\n"
-
-#: src/printf_ngettext.c:207
-#, c-format, no-wrap
-msgid ""
-"Produces formatted output, applying the native language translation of FORMAT\n"
-"and FORMAT-PLURAL, depending on COUNT, to the ARGUMENTs.\n"
-msgstr ""
-
-#: src/printf_ngettext.c:215
-#, c-format
-msgid "  FORMAT                    English singular form of format string\n"
-msgstr ""
-
-#: src/printf_ngettext.c:217
-#, c-format
-msgid "  FORMAT-PLURAL             English plural form of format string\n"
-msgstr ""
-
-#: src/printf_ngettext.c:232
-#, c-format, no-wrap
-msgid ""
-"Each format string consists of\n"
-"  - plain text,\n"
-"  - directives, that start with '%c',\n"
-"  - escape sequences, that start with a backslash.\n"
-msgstr ""
-
-#~ msgid "Unknown system error"
-#~ msgstr "Kesalahan sistem tak dikenal"
-
-#, c-format
-#~ msgid "%s: option '%s' is ambiguous\n"
-#~ msgstr "%s: pilihan '%s' rancu\n"
-
-#, c-format
-#~ msgid "%s: option '--%s' doesn't allow an argument\n"
-#~ msgstr "%s: pilihan '--%s' tidak membolehkan argumen\n"
-
-#, c-format
-#~ msgid "%s: option '%c%s' doesn't allow an argument\n"
-#~ msgstr "%s: pilihan '%c%s' tidak membolehkan argumen\n"
-
-#, c-format
-#~ msgid "%s: option '--%s' requires an argument\n"
-#~ msgstr "%s: pilihan '--%s' memerlukan sebuah argumen\n"
-
-#, c-format
-#~ msgid "%s: unrecognized option '--%s'\n"
-#~ msgstr "%s: pilihan tak dikenal '--%s'\n"
-
-#, c-format
-#~ msgid "%s: unrecognized option '%c%s'\n"
-#~ msgstr "%s: pilihan tak dikenal '%c%s'\n"
-
-#, c-format
-#~ msgid "%s: invalid option -- '%c'\n"
-#~ msgstr "%s: pilihan tidak valid -- '%c'\n"
-
-#, c-format
-#~ msgid "%s: option requires an argument -- '%c'\n"
-#~ msgstr "%s: pilihan membutuhkan sebuah argumen -- '%c'\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' is ambiguous\n"
-#~ msgstr "%s: pilihan '-W %s' rancu\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' doesn't allow an argument\n"
-#~ msgstr "%s: pilihan '-W %s' tidak membolehkan sebuah argumen\n"
-
-#, c-format
-#~ msgid "%s: option '-W %s' requires an argument\n"
-#~ msgstr "%s: pilihan '-W %s' memerlukan sebuah argumen\n"
-
-#, c-format
-#~ msgid "memory exhausted"
-#~ msgstr "kehabisan memori"
-
-#~ msgid "Report bugs to <bug-gnu-gettext@gnu.org>.\n"
-#~ msgstr "Laporkan kesalahan ke <bug-gnu-gettext@gnu.org>.\n"
-
-#, c-format, no-wrap
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated messages from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -n                        suppress trailing newline\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN] MSGID        retrieve translated message corresponding\n"
-#~ "                            to MSGID from TEXTDOMAIN\n"
-#~ msgstr ""
-#~ "  -d, --domain=TEXTDOMAIN   mengambil pesan terjemahan dari TEXTDOMAIN\n"
-#~ "  -e                        memungkinkan ekspansi beberapa escape sequence\n"
-#~ "  -E                        (abaikan kompatibilitas)\n"
-#~ "  -h, --help                tampilkan bantuan ini dan keluar\n"
-#~ "  -n                        hilangkan newline yang mengekor\n"
-#~ "  -V, --version             tampilkan informasi versi dan keluar\n"
-#~ "  [TEXTDOMAIN] ID-PESAN     mengambil pesan terjemahan yang sesuai\n"
-#~ "                            untuk ID-PESAN dari TEXTDOMAIN\n"
-
-#, c-format, no-wrap
-#~ msgid ""
-#~ "  -d, --domain=TEXTDOMAIN   retrieve translated message from TEXTDOMAIN\n"
-#~ "  -e                        enable expansion of some escape sequences\n"
-#~ "  -E                        (ignored for compatibility)\n"
-#~ "  -h, --help                display this help and exit\n"
-#~ "  -V, --version             display version information and exit\n"
-#~ "  [TEXTDOMAIN]              retrieve translated message from TEXTDOMAIN\n"
-#~ "  MSGID MSGID-PLURAL        translate MSGID (singular) / MSGID-PLURAL (plural)\n"
-#~ "  COUNT                     choose singular/plural form based on this value\n"
-#~ msgstr ""
-#~ "  -d, --domain=TEXTDOMAIN   mengambil pesan terjemahan dari TEXTDOMAIN\n"
-#~ "  -e                        memungkinkan ekspansi beberapa escape sequence\n"
-#~ "  -E                        (abaikan kompatibilitas)\n"
-#~ "  -h, --help                tampilkan bantuan ini dan keluar\n"
-#~ "  -n                        hilangkan newline yang mengekor\n"
-#~ "  -V, --version             tampilkan informasi versi dan keluar\n"
-#~ "  [TEXTDOMAIN]              mengambil pesan terjemahan dari TEXTDOMAIN\n"
-#~ "  ID-PESAN ID-PESAN-PLURAL  terjemahkan ID-PESAN (tunggal) / ID-PESAN-PLURAL (plural)\n"
-#~ "  JUMLAH                    pilih bentuk tunggal/plural berdasarkan nilai ini\n"
-
 #~ msgid "%s: illegal option -- %c\n"
 #~ msgstr "%s: pilihan ilegal -- %c\n"
 
 # )
 #~ msgid ""
 #~ "Copyright (C) %s Free Software Foundation, Inc.\n"
-#~ "This is free software; see the source for copying conditions.  There is "
-#~ "NO\n"
-#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR "
-#~ "PURPOSE.\n"
+#~ "This is free software; see the source for copying conditions.  There is NO\n"
+#~ "warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.\n"
 #~ msgstr ""
 #~ "Hak Cipta (C) %s Free Software Foundation, Inc.\n"
-#~ "Ini adalah free software; lihat source untuk kondisi penyalinan. Tidak "
-#~ "ada\n"
+#~ "Ini adalah free software; lihat source untuk kondisi penyalinan. Tidak ada\n"
 #~ "jaminan; bahkan untuk PENJUALAN atau KESESUAIAN UNTUK TUJUAN TERTENTU.\n"
