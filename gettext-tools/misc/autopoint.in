@@ -341,10 +341,18 @@ func_version_prereq ()
 # If AM_GNU_GETTEXT_REQUIRE_VERSION is used and archive_version is newer than
 # that, use archive_version.
 xreq=`func_trace_sed AM_GNU_GETTEXT_REQUIRE_VERSION "$configure_in"`
+case "$xreq" in
+  *'
+'*) func_fatal_error "found more than one invocation of AM_GNU_GETTEXT_REQUIRE_VERSION" ;;
+esac
 
 # Need to use func_trace_sed instead of $func_trace, since
 # AM_GNU_GETTEXT_VERSION is not a standard Autoconf trace.
 xver=`func_trace_sed AM_GNU_GETTEXT_VERSION "$configure_in"`
+case "$xver" in
+  *'
+'*) func_fatal_error "found more than one invocation of AM_GNU_GETTEXT_VERSION" ;;
+esac
 
 # Prefer AM_GNU_GETTEXT_REQUIRE_VERSION over AM_GNU_GETTEXT_VERSION if both are
 # specified.
