@@ -36,7 +36,7 @@
 This file provides documentation for GNU @code{autosprintf} library.
 
 @copying
-Copyright (C) 2002-2003, 2006-2007, 2018-2019 Free Software Foundation, Inc.
+Copyright (C) 2002-2003, 2006-2007, 2018-2019, 2025 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -172,21 +172,46 @@ given @code{ostream}.
 @node Using autosprintf
 @chapter Using @code{autosprintf} in own programs
 
-To use the @code{autosprintf} class in your programs, you need to add
+To use the @code{autosprintf} class in your programs, you need to make
+changes in the source code and in the build system.
+
+@node Source code changes
+@section Source code changes
+
+In source code files that shall use @code{autosprintf}, add
 
 @smallexample
 #include "autosprintf.h"
 using gnu::autosprintf;
 @end smallexample
 
-@noindent
-to your source code.
 The include file defines the class @code{autosprintf}, in a namespace called
 @code{gnu}. The @samp{using} statement makes it possible to use the class
 without the (otherwise natural) @code{gnu::} prefix.
 
+@node Build system changes
+@section Build system changes
+
+When compiling your program with @code{g++}, use the warning option @code{-Wall}.
+@c g++ does not warn by default,
+@c see https://gcc.gnu.org/bugzilla/show_bug.cgi?id=64867
+This is needed so that you get a compiler warning when attempting to pass
+an @code{std::string} as argument.
+For example, if you accidentally write
+@smallexample
+std::string s = ...;
+cout << autosprintf ("Look at %s\n", s);
+@end smallexample
+@noindent
+you want to get a compiler warning about passing an @code{std::string} through
+a variadic argument list, so that you can correct your code to
+@smallexample
+std::string s = ...;
+cout << autosprintf ("Look at %s\n", s.c_str ());
+@end smallexample
+
 When linking your program, you need to link with @code{libasprintf}, because
-that's where the class is defined. In projects using GNU @code{autoconf},
+that's where the class is defined.  In projects that use GNU @code{autoconf},
 this means adding @samp{AC_LIB_LINKFLAGS([asprintf])} to @code{configure.in}
 or @code{configure.ac}, and using the @@LIBASPRINTF@@ Makefile variable that
 it provides.
