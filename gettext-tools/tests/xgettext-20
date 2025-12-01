@@ -1,6 +1,6 @@
 #!/bin/sh
 . "${srcdir=.}/init.sh"; path_prepend_ . ../src
-set -x
+
 # Test checking for URL.
 # <https://savannah.gnu.org/bugs/?67000>
 
