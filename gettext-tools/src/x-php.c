@@ -1757,7 +1757,7 @@ extract_balanced (struct php_extractor *xp,
                 flag_context_list_table,
                 token.string, strlen (token.string)));
           free (token.string);
-          continue;
+          break;
 
         case token_type_lparen:
           if (++(xp->paren_nesting_depth) > MAX_NESTING_DEPTH)
@@ -1776,7 +1776,7 @@ extract_balanced (struct php_extractor *xp,
           xp->paren_nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_rparen:
           if (delim == token_type_rparen || delim == token_type_eof)
@@ -1787,7 +1787,7 @@ extract_balanced (struct php_extractor *xp,
             }
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_comma:
           arg++;
@@ -1798,7 +1798,7 @@ extract_balanced (struct php_extractor *xp,
                                  &context_iter));
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_lbracket:
           if (++(xp->bracket_nesting_depth) > MAX_NESTING_DEPTH)
@@ -1817,7 +1817,7 @@ extract_balanced (struct php_extractor *xp,
           xp->bracket_nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_rbracket:
           if (delim == token_type_rbracket || delim == token_type_eof)
@@ -1828,7 +1828,7 @@ extract_balanced (struct php_extractor *xp,
             }
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_string_literal:
           {
@@ -1854,7 +1854,7 @@ extract_balanced (struct php_extractor *xp,
           }
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_dot:
         case token_type_operator1:
@@ -1862,7 +1862,7 @@ extract_balanced (struct php_extractor *xp,
         case token_type_other:
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_eof:
           arglist_parser_done (argparser, arg);

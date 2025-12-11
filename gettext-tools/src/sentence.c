@@ -80,10 +80,8 @@ sentence_end (const char *string, ucs4_t *ending_charp)
             }
 
           str += length;
-          continue;
         }
-
-      if (state == 1)
+      else if (state == 1)
         {
           switch (uc)
             {
@@ -118,10 +116,8 @@ sentence_end (const char *string, ucs4_t *ending_charp)
             }
 
           str += length;
-          continue;
         }
-
-      if (state == 2)
+      else if (state == 2)
         {
           switch (uc)
             {
@@ -155,10 +151,8 @@ sentence_end (const char *string, ucs4_t *ending_charp)
             }
 
           str += length;
-          continue;
         }
-
-      if (state == 4)
+      else if (state == 4)
         {
           switch (uc)
             {
@@ -183,7 +177,6 @@ sentence_end (const char *string, ucs4_t *ending_charp)
             }
 
           str += length;
-          continue;
         }
     }
 

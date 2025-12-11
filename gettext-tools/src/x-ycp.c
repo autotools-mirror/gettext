@@ -669,7 +669,7 @@ extract_parenthesized (message_list_ty *mlp,
           nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_string_literal:
           if (state == 1)
@@ -719,7 +719,7 @@ extract_parenthesized (message_list_ty *mlp,
               state = 0;
             }
           next_context_iter = null_context_list_iterator;
-          continue;
+          break;
 
         case token_type_symbol:
           next_context_iter =
@@ -729,7 +729,7 @@ extract_parenthesized (message_list_ty *mlp,
                 token.string, strlen (token.string)));
           free_token (&token);
           state = 0;
-          continue;
+          break;
 
         case token_type_lparen:
           if (++nesting_depth > MAX_NESTING_DEPTH)
@@ -745,7 +745,7 @@ extract_parenthesized (message_list_ty *mlp,
           nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_rparen:
           unref_region (inner_region);
@@ -762,12 +762,12 @@ extract_parenthesized (message_list_ty *mlp,
                                flag_context_list_iterator_advance (
                                  &context_iter));
           next_context_iter = passthrough_context_list_iterator;
-          continue;
+          break;
 
         case token_type_other:
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_eof:
           unref_region (inner_region);

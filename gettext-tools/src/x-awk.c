@@ -792,7 +792,7 @@ extract_parenthesized (message_list_ty *mlp,
                 flag_context_list_table,
                 token.string, strlen (token.string)));
           free (token.string);
-          continue;
+          break;
 
         case token_type_lparen:
           if (++nesting_depth > MAX_NESTING_DEPTH)
@@ -811,7 +811,7 @@ extract_parenthesized (message_list_ty *mlp,
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_rparen:
           arglist_parser_done (argparser, arg);
@@ -828,7 +828,7 @@ extract_parenthesized (message_list_ty *mlp,
           next_is_argument = false;
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_string:
           {
@@ -855,7 +855,7 @@ extract_parenthesized (message_list_ty *mlp,
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_i18nstring:
           {
@@ -870,7 +870,7 @@ extract_parenthesized (message_list_ty *mlp,
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_semicolon:
           /* An argument list ends, and a new statement begins.  */
@@ -889,7 +889,7 @@ extract_parenthesized (message_list_ty *mlp,
                                flag_context_list_iterator_advance (
                                  &context_iter));
           state = 0;
-          continue;
+          break;
 
         case token_type_eof:
           arglist_parser_done (argparser, arg);
@@ -900,7 +900,7 @@ extract_parenthesized (message_list_ty *mlp,
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         default:
           abort ();

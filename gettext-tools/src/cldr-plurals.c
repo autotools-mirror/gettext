@@ -90,61 +90,60 @@ extract_rules (FILE *fp,
       xmlNodePtr n2;
       bool found = false;
 
-      if (n->type != XML_ELEMENT_NODE
-          || !xmlStrEqual (n->name, BAD_CAST "pluralRules"))
-        continue;
-
-      if (!xmlHasProp (n, BAD_CAST "locales"))
+      if (n->type == XML_ELEMENT_NODE
+          && xmlStrEqual (n->name, BAD_CAST "pluralRules"))
         {
-          error_at_line (0, 0,
-                         logical_filename,
-                         xmlGetLineNo (n),
-                         _("The element <%s> does not have attribute <%s>"),
-                         "pluralRules", "locales");
-          continue;
-        }
-
-      cp = locales = xmlGetProp (n, BAD_CAST "locales");
-      while (*cp != '\0')
-        {
-          while (c_isspace (*cp))
-            cp++;
-          if (xmlStrncmp (cp, BAD_CAST locale, locale_length) == 0
-              && (*(cp + locale_length) == '\0'
-                  || c_isspace (*(cp + locale_length))))
-            {
-              found = true;
-              break;
-            }
-          while (*cp && !c_isspace (*cp))
-            cp++;
-        }
-      xmlFree (locales);
-
-      if (!found)
-        continue;
-
-      for (n2 = n->children; n2; n2 = n2->next)
-        {
-          if (n2->type != XML_ELEMENT_NODE
-              || !xmlStrEqual (n2->name, BAD_CAST "pluralRule"))
-            continue;
-
-          if (!xmlHasProp (n2, BAD_CAST "count"))
+          if (!xmlHasProp (n, BAD_CAST "locales"))
             {
               error_at_line (0, 0,
                              logical_filename,
-                             xmlGetLineNo (n2),
+                             xmlGetLineNo (n),
                              _("The element <%s> does not have attribute <%s>"),
-                             "pluralRule", "count");
-              break;
+                             "pluralRules", "locales");
             }
+          else
+            {
+              cp = locales = xmlGetProp (n, BAD_CAST "locales");
+              while (*cp != '\0')
+                {
+                  while (c_isspace (*cp))
+                    cp++;
+                  if (xmlStrncmp (cp, BAD_CAST locale, locale_length) == 0
+                      && (*(cp + locale_length) == '\0'
+                          || c_isspace (*(cp + locale_length))))
+                    {
+                      found = true;
+                      break;
+                    }
+                  while (*cp && !c_isspace (*cp))
+                    cp++;
+                }
+              xmlFree (locales);
 
-          xmlChar *count = xmlGetProp (n2, BAD_CAST "count");
-          xmlChar *content = xmlNodeGetContent (n2);
-          sb_xappendf (&buffer, "%s: %s; ", count, content);
-          xmlFree (count);
-          xmlFree (content);
+              if (found)
+                for (n2 = n->children; n2; n2 = n2->next)
+                  {
+                    if (n2->type == XML_ELEMENT_NODE
+                        && xmlStrEqual (n2->name, BAD_CAST "pluralRule"))
+                      {
+                        if (!xmlHasProp (n2, BAD_CAST "count"))
+                          {
+                            error_at_line (0, 0,
+                                           logical_filename,
+                                           xmlGetLineNo (n2),
+                                           _("The element <%s> does not have attribute <%s>"),
+                                           "pluralRule", "count");
+                            break;
+                          }
+
+                        xmlChar *count = xmlGetProp (n2, BAD_CAST "count");
+                        xmlChar *content = xmlNodeGetContent (n2);
+                        sb_xappendf (&buffer, "%s: %s; ", count, content);
+                        xmlFree (count);
+                        xmlFree (content);
+                      }
+                  }
+            }
         }
     }
 

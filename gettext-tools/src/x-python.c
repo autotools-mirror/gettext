@@ -1764,7 +1764,7 @@ extract_balanced (message_list_ty *mlp,
                 flag_context_list_table,
                 token.string, strlen (token.string)));
           free (token.string);
-          continue;
+          break;
 
         case token_type_lparen:
           if (++paren_nesting_depth > MAX_NESTING_DEPTH)
@@ -1783,7 +1783,7 @@ extract_balanced (message_list_ty *mlp,
           paren_nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_rparen:
           if (delim == token_type_rparen || delim == token_type_eof)
@@ -1794,7 +1794,7 @@ extract_balanced (message_list_ty *mlp,
             }
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_comma:
           arg++;
@@ -1805,7 +1805,7 @@ extract_balanced (message_list_ty *mlp,
                                  &context_iter));
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_lbracket:
           if (++bracket_nesting_depth > MAX_NESTING_DEPTH)
@@ -1824,7 +1824,7 @@ extract_balanced (message_list_ty *mlp,
           bracket_nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_rbracket:
           if (delim == token_type_rbracket || delim == token_type_eof)
@@ -1835,7 +1835,7 @@ extract_balanced (message_list_ty *mlp,
             }
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_string:
         case token_type_498:
@@ -1862,7 +1862,7 @@ extract_balanced (message_list_ty *mlp,
           drop_reference (token.comment);
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_eof:
           arglist_parser_done (argparser, arg);
@@ -1876,7 +1876,7 @@ extract_balanced (message_list_ty *mlp,
         case token_type_other:
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         default:
           abort ();

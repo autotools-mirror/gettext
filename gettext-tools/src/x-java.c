@@ -1801,7 +1801,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
               }
 
             free (sum);
-            continue;
+            break;
           }
 
         case token_type_lparen:
@@ -1841,7 +1841,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
           }
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_rparen:
           if (terminator == token_type_rparen)
@@ -1856,7 +1856,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
                       _("')' found where '}' was expected"));
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_lbrace:
           if (++brace_nesting_depth > MAX_NESTING_DEPTH)
@@ -1875,7 +1875,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
           brace_nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_rbrace:
           if (terminator == token_type_rbrace)
@@ -1890,7 +1890,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
                       _("'}' found where ')' was expected"));
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_comma:
           arg++;
@@ -1899,7 +1899,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
           inner_region = new_sub_region (outer_region, curr_context);
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_conditional:
           /* In an expression A ? B : C, each of A, B, C is a distinct
@@ -1912,7 +1912,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
           inner_region = new_sub_region (outer_region, curr_context);
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_colon:
           /* In an expression A ? B : C, each of A, B, C is a distinct
@@ -1921,7 +1921,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
           inner_region = new_sub_region (outer_region, curr_context);
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_assign:
           /* In an expression A = B, A and B are distinct sub-regions.
@@ -1931,7 +1931,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
           inner_region = new_sub_region (outer_region, curr_context);
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_plus:
         case token_type_operator:
@@ -1947,7 +1947,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
           inner_region->inherit_from_parent_region = false;
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_string_literal:
           {
@@ -1973,7 +1973,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
           drop_reference (token.comment);
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_semicolon:
           arglist_parser_done (argparser, arg);
@@ -1984,7 +1984,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
               inner_region = new_sub_region (outer_region, curr_context);
               next_context_iter = null_context_list_iterator;
               state = 0;
-              continue;
+              break;
             }
           else
             return false;
@@ -1999,7 +1999,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
         case token_type_other:
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         default:
           abort ();

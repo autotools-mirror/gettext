@@ -1217,14 +1217,13 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                 if (mb_iseq (mbc, '"'))
                   break;
                 if (mb_iseq (mbc, '\\'))
+                  buf[bufpos++] = control_sequence (ps);
+                else
                   {
-                    buf[bufpos++] = control_sequence (ps);
-                    continue;
+                    /* Add mbc to the accumulator.  */
+                    memcpy_small (&buf[bufpos], mb_ptr (mbc), mb_len (mbc));
+                    bufpos += mb_len (mbc);
                   }
-
-                /* Add mbc to the accumulator.  */
-                memcpy_small (&buf[bufpos], mb_ptr (mbc), mb_len (mbc));
-                bufpos += mb_len (mbc);
               }
             buf[bufpos] = '\0';
 

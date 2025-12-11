@@ -1641,14 +1641,15 @@ msgfmt_operand_list_add_from_directory (msgfmt_operand_list_ty *operands,
                  ngettext ("found %d fatal error", "found %d fatal errors",
                            nerrors),
                  nerrors);
-          continue;
         }
+      else
+        {
+          /* Convert the messages to Unicode.  */
+          iconv_message_list (mlp, NULL, po_charset_utf8, NULL,
+                              textmode_xerror_handler);
 
-      /* Convert the messages to Unicode.  */
-      iconv_message_list (mlp, NULL, po_charset_utf8, NULL,
-                          textmode_xerror_handler);
-
-      msgfmt_operand_list_append (operands, language, mlp);
+          msgfmt_operand_list_append (operands, language, mlp);
+        }
     }
 
   string_list_destroy (&languages);

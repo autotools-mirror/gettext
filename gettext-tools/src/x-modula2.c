@@ -683,7 +683,7 @@ extract_parenthesized (message_list_ty *mlp,
                 flag_context_list_table,
                 token.string, strlen (token.string)));
           free (token.string);
-          continue;
+          break;
 
         case token_type_lparen:
           if (++nesting_depth > MAX_NESTING_DEPTH)
@@ -701,7 +701,7 @@ extract_parenthesized (message_list_ty *mlp,
           nesting_depth--;
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_rparen:
           arglist_parser_done (argparser, arg);
@@ -717,7 +717,7 @@ extract_parenthesized (message_list_ty *mlp,
                                  &context_iter));
           next_context_iter = passthrough_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_string_literal:
           {
@@ -743,7 +743,7 @@ extract_parenthesized (message_list_ty *mlp,
           }
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case token_type_eof:
           arglist_parser_done (argparser, arg);
@@ -755,7 +755,7 @@ extract_parenthesized (message_list_ty *mlp,
         case token_type_other:
           next_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         default:
           abort ();

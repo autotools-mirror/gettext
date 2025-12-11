@@ -2335,7 +2335,7 @@ extract_parenthesized (message_list_ty *mlp,
                     token.string, token_string_len + 1));
             }
           free (token.string);
-          continue;
+          break;
 
         case xgettext_token_type_lparen:
           if (++nesting_depth > MAX_NESTING_DEPTH)
@@ -2354,7 +2354,7 @@ extract_parenthesized (message_list_ty *mlp,
           next_context_iter = null_context_list_iterator;
           selectorcall_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case xgettext_token_type_rparen:
           arglist_parser_done (argparser, arg);
@@ -2371,7 +2371,7 @@ extract_parenthesized (message_list_ty *mlp,
           next_context_iter = passthrough_context_list_iterator;
           selectorcall_context_iter = passthrough_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case xgettext_token_type_colon:
           if (objc_extensions)
@@ -2390,7 +2390,7 @@ extract_parenthesized (message_list_ty *mlp,
               selectorcall_context_iter = null_context_list_iterator;
             }
           state = 0;
-          continue;
+          break;
 
         case xgettext_token_type_string_literal:
           {
@@ -2413,13 +2413,13 @@ extract_parenthesized (message_list_ty *mlp,
           next_context_iter = null_context_list_iterator;
           selectorcall_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case xgettext_token_type_other:
           next_context_iter = null_context_list_iterator;
           selectorcall_context_iter = null_context_list_iterator;
           state = 0;
-          continue;
+          break;
 
         case xgettext_token_type_eof:
           arglist_parser_done (argparser, arg);
