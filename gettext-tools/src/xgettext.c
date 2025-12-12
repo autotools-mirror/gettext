@@ -2189,7 +2189,6 @@ extract_from_xml_file (const char *file_name,
 
   if (fp != stdin)
     fclose (fp);
-  string_list_append (&files_for_vc_mtime, real_file_name);
   free (logical_file_name);
   free (real_file_name);
 }
