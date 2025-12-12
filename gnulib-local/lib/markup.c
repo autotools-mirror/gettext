@@ -833,13 +833,13 @@ emit_start_element (markup_parse_context_ty *context)
   for (i = 0; i < context->cur_attr + 1; i++)
     {
       /* Possibly omit qualified attribute names from the list */
-      if ((context->flags & MARKUP_IGNORE_QUALIFIED)
-          && strchr (context->attr_names[i], ':'))
-        continue;
-
-      attr_names[j] = context->attr_names[i];
-      attr_values[j] = context->attr_values[i];
-      j++;
+      if (!((context->flags & MARKUP_IGNORE_QUALIFIED)
+            && strchr (context->attr_names[i], ':')))
+        {
+          attr_names[j] = context->attr_names[i];
+          attr_values[j] = context->attr_values[i];
+          j++;
+        }
     }
   attr_names[j] = NULL;
   attr_values[j] = NULL;

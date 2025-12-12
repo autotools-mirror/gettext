@@ -1,5 +1,5 @@
 /* backupfile.c -- make Emacs style backup file names
-   Copyright (C) 1990-2003, 2005-2006, 2012, 2020 Free Software Foundation, Inc.
+   Copyright (C) 1990-2003, 2005-2006, 2012, 2020, 2025 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -149,12 +149,12 @@ max_backup_version (const char *file, const char *dir)
 
   while ((dp = readdir (dirp)) != 0)
     {
-      if (!REAL_DIR_ENTRY (dp) || strlen (dp->d_name) < file_name_length + 4)
-        continue;
-
-      this_version = version_number (file, dp->d_name, file_name_length);
-      if (this_version > highest_version)
-        highest_version = this_version;
+      if (REAL_DIR_ENTRY (dp) && strlen (dp->d_name) >= file_name_length + 4)
+        {
+          this_version = version_number (file, dp->d_name, file_name_length);
+          if (this_version > highest_version)
+            highest_version = this_version;
+        }
     }
   if (closedir (dirp))
     return 0;
