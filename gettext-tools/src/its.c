@@ -553,7 +553,6 @@ _its_encode_special_chars (const char *content, bool is_attribute)
     }
 
   char *result = XNMALLOC (amount + 1, char);
-  *result = '\0';
   {
     char *p = result;
     for (const char *str = content; *str != '\0'; str++)
@@ -2183,7 +2182,6 @@ _its_encode_special_chars_for_merge (const char *content)
     }
 
   char *result = XNMALLOC (amount + 1, char);
-  *result = '\0';
   {
     char *p = result;
     for (const char *str = content; *str != '\0'; str++)
