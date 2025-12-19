@@ -44,7 +44,6 @@ msgl-ofn.c
 po-error.h
 po-error.c
 po-xerror.h
-po-xerror.c
 xerror-handler.h
 xerror-handler.c
                 Error handling during writing and reading of PO files.
@@ -169,7 +168,16 @@ msgconv.c       Main source for the 'msgconv' program.
 msguniq.c       Main source for the 'msguniq' program.
 
 msgexec.c       Main source for the 'msgexec' program.
-msgfilter.c     Main source for the 'msgfilter' program.
+
++-------------- The 'msgfilter' program
+| filters.h
+| filter-quote.c
+| filter-sr-latin.c
+|               Particular filters.
+| msgfilter.c
+|               Main source for the 'msgfilter' program.
++-------------- The 'msgfilter' program
+
 msggrep.c       Main source for the 'msggrep' program.
 
 +-------------- The 'msgen' program
