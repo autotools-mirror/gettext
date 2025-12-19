@@ -99,13 +99,9 @@ convert_ascii_quote_to_unicode (const char *input, size_t input_len,
                                 char **output_p, size_t *output_len_p,
                                 bool bold)
 {
-  const char *p;
-  size_t quote_count;
-  struct result result;
-
   /* Count the number of quotation characters.  */
-  quote_count = 0;
-  for (p = input; p < input + input_len; p++)
+  size_t quote_count = 0;
+  for (const char *p = input; p < input + input_len; p++)
     {
       size_t len;
 
@@ -119,6 +115,7 @@ convert_ascii_quote_to_unicode (const char *input, size_t input_len,
     }
 
   /* Large enough.  */
+  struct result result;
   result.output = XNMALLOC (input_len - quote_count
                             + (bold ? 7 : 3) * quote_count + 1,
                             char);

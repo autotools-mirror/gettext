@@ -42,9 +42,8 @@ abstract_catalog_reader_ty *
 catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table,
                       xerror_handler_ty xerror_handler)
 {
-  abstract_catalog_reader_ty *catr;
-
-  catr = (abstract_catalog_reader_ty *) xmalloc (method_table->size);
+  abstract_catalog_reader_ty *catr =
+    (abstract_catalog_reader_ty *) xmalloc (method_table->size);
   catr->methods = method_table;
   catr->xeh = xerror_handler;
   catr->pass_comments = false;
@@ -264,8 +263,8 @@ parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
             s += strlen (catr->po_lex_isolate_start);
 
           const char *filename_start = s;
-          const char *filename_end;
 
+          const char *filename_end;
           if (isolated_filename)
             {
               for (;; s++)
@@ -322,8 +321,8 @@ parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
                       {
                         /* Parsed a GNU style file comment with spaces.  */
                         size_t filename_length = filename_end - filename_start;
-                        char *filename = XNMALLOC (filename_length + 1, char);
 
+                        char *filename = XNMALLOC (filename_length + 1, char);
                         memcpy (filename, filename_start, filename_length);
                         filename[filename_length] = '\0';
 
@@ -364,8 +363,8 @@ parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
                       /* Parsed a GNU style file comment with spaces.  */
                       filename_end = s - 1;
                       size_t filename_length = filename_end - filename_start;
-                      char *filename = XNMALLOC (filename_length + 1, char);
 
+                      char *filename = XNMALLOC (filename_length + 1, char);
                       memcpy (filename, filename_start, filename_length);
                       filename[filename_length] = '\0';
 
@@ -418,8 +417,8 @@ parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
                   {
                     filename_end = string_end;
                     size_t filename_length = filename_end - filename_start;
-                    char *filename = XNMALLOC (filename_length + 1, char);
 
+                    char *filename = XNMALLOC (filename_length + 1, char);
                     memcpy (filename, filename_start, filename_length);
                     filename[filename_length] = '\0';
 
@@ -436,8 +435,8 @@ parse_comment_filepos (abstract_catalog_reader_ty *catr, const char *s)
           /* Parsed a file comment without line number.  */
           {
             size_t filename_length = filename_end - filename_start;
-            char *filename = XNMALLOC (filename_length + 1, char);
 
+            char *filename = XNMALLOC (filename_length + 1, char);
             memcpy (filename, filename_start, filename_length);
             filename[filename_length] = '\0';
 
@@ -472,7 +471,6 @@ parse_comment_solaris_filepos (abstract_catalog_reader_ty *catr, const char *s)
       && s[5] == ':')
     {
       const char *string_start;
-      const char *string_end;
 
       {
         const char *p = s + 6;
@@ -482,7 +480,7 @@ parse_comment_solaris_filepos (abstract_catalog_reader_ty *catr, const char *s)
         string_start = p;
       }
 
-      for (string_end = string_start; *string_end != '\0'; string_end++)
+      for (const char *string_end = string_start; *string_end != '\0'; string_end++)
         {
           const char *p = string_end;
 
@@ -534,9 +532,9 @@ parse_comment_solaris_filepos (abstract_catalog_reader_ty *catr, const char *s)
                             {
                               /* Parsed a Sun style file comment.  */
                               size_t string_length = string_end - string_start;
+
                               char *string =
                                 XNMALLOC (string_length + 1, char);
-
                               memcpy (string, string_start, string_length);
                               string[string_length] = '\0';
 

@@ -114,8 +114,8 @@ extract_desktop_handle_pair (struct desktop_reader_ty *reader,
 {
   extract_desktop_reader_ty *extract_reader =
     (extract_desktop_reader_ty *) reader;
-  void *keyword_value;
 
+  void *keyword_value;
   if (!locale                   /* Skip already translated entry.  */
       && hash_find_entry (&keywords, key, strlen (key), &keyword_value) == 0)
     {
@@ -186,6 +186,4 @@ extract_desktop (FILE *f,
 
   desktop_parse (reader, f, real_filename, logical_filename);
   desktop_reader_free (reader);
-
-  reader = NULL;
 }

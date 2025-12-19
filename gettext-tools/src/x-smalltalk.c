@@ -194,8 +194,6 @@ static int phase2_pushback_length;
 static void
 phase2_get (token_ty *tp)
 {
-  int c;
-
   if (phase2_pushback_length)
     {
       *tp = phase2_pushback[--phase2_pushback_length];
@@ -206,6 +204,8 @@ phase2_get (token_ty *tp)
 
   for (;;)
     {
+      int c;
+
       tp->line_number = line_number;
       c = phase1_getc ();
       switch (c)
@@ -217,10 +217,8 @@ phase2_get (token_ty *tp)
         case '"':
           {
             /* Comment.  */
-            int lineno;
-
             comment_start ();
-            lineno = line_number;
+            int lineno = line_number;
             for (;;)
               {
                 c = phase1_getc ();
@@ -301,7 +299,6 @@ phase2_get (token_ty *tp)
         case '%':
         case '\\':
           {
-            char *name;
             int c2 = phase1_getc ();
             switch (c2)
               {
@@ -319,18 +316,20 @@ phase2_get (token_ty *tp)
               case '@':
               case '?':
               case '%':
-                name = XNMALLOC (3, char);
-                name[0] = c;
-                name[1] = c2;
-                name[2] = '\0';
-                tp->type = token_type_symbol;
-                tp->string = name;
-                return;
+                {
+                  char *name = XNMALLOC (3, char);
+                  name[0] = c;
+                  name[1] = c2;
+                  name[2] = '\0';
+                  tp->type = token_type_symbol;
+                  tp->string = name;
+                  return;
+                }
               default:
                 phase1_ungetc (c2);
                 break;
               }
-            name = XNMALLOC (2, char);
+            char *name = XNMALLOC (2, char);
             name[0] = c;
             name[1] = '\0';
             tp->type = token_type_symbol;
@@ -453,8 +452,8 @@ phase3_get (token_ty *tp)
   if (tp->type == token_type_uniq)
     {
       token_ty token2;
-
       phase2_get (&token2);
+
       if (token2.type == token_type_symbol
           || token2.type == token_type_string_literal)
         {
@@ -519,14 +518,14 @@ phase4_get (token_ty *tp)
       for (;;)
         {
           token_ty token2;
-
           phase3_get (&token2);
+
           if (token2.type == token_type_symbol
               && strcmp (token2.string, ",") == 0)
             {
               token_ty token3;
-
               phase3_get (&token3);
+
               if (token3.type == token_type_string_literal)
                 {
                   sum = string_concat_free1 (sum, token3.string);
@@ -609,7 +608,6 @@ extract_smalltalk (FILE *f,
     for (;;)
       {
         token_ty token;
-
         phase4_get (&token);
 
         switch (token.type)
@@ -638,11 +636,10 @@ extract_smalltalk (FILE *f,
             if (state == 3)
               {
                 lex_pos_ty pos;
-                token_ty token2;
-
                 pos.file_name = logical_file_name;
                 pos.line_number = token.line_number;
 
+                token_ty token2;
                 phase4_get (&token2);
 
                 plural_mp =

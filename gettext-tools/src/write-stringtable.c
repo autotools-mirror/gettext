@@ -79,12 +79,14 @@ write_escaped_string (ostream_t stream, const char *str)
           char seq[2];
           seq[0] = '\\';
           seq[1] = c;
+
           ostream_write_mem (stream, seq, 2);
         }
       else
         {
           char seq[1];
           seq[0] = c;
+
           ostream_write_mem (stream, seq, 1);
         }
     }
@@ -99,9 +101,7 @@ write_message (ostream_t stream, const message_ty *mp,
   /* Print translator comment if available.  */
   if (mp->comment != NULL)
     {
-      size_t j;
-
-      for (j = 0; j < mp->comment->nitems; ++j)
+      for (size_t j = 0; j < mp->comment->nitems; ++j)
         {
           const char *s = mp->comment->item[j];
 
@@ -118,11 +118,10 @@ write_message (ostream_t stream, const message_ty *mp,
           else
             do
               {
-                const char *e;
                 ostream_write_str (stream, "//");
                 if (*s != '\0' && *s != '\n')
                   ostream_write_str (stream, " ");
-                e = strchr (s, '\n');
+                const char *e = strchr (s, '\n');
                 if (e == NULL)
                   {
                     ostream_write_str (stream, s);
@@ -142,9 +141,7 @@ write_message (ostream_t stream, const message_ty *mp,
   /* Print xgettext extracted comments.  */
   if (mp->comment_dot != NULL)
     {
-      size_t j;
-
-      for (j = 0; j < mp->comment_dot->nitems; ++j)
+      for (size_t j = 0; j < mp->comment_dot->nitems; ++j)
         {
           const char *s = mp->comment_dot->item[j];
 
@@ -161,13 +158,12 @@ write_message (ostream_t stream, const message_ty *mp,
               bool first = true;
               do
                 {
-                  const char *e;
                   ostream_write_str (stream, "//");
                   if (first || (*s != '\0' && *s != '\n'))
                     ostream_write_str (stream, " ");
                   if (first)
                     ostream_write_str (stream, "Comment: ");
-                  e = strchr (s, '\n');
+                  const char *e = strchr (s, '\n');
                   if (e == NULL)
                     {
                       ostream_write_str (stream, s);
@@ -189,17 +185,15 @@ write_message (ostream_t stream, const message_ty *mp,
   /* Print the file position comments.  */
   if (mp->filepos_count != 0)
     {
-      size_t j;
-
-      for (j = 0; j < mp->filepos_count; ++j)
+      for (size_t j = 0; j < mp->filepos_count; ++j)
         {
           lex_pos_ty *pp = &mp->filepos[j];
-          const char *cp = pp->file_name;
-          char *str;
 
+          const char *cp = pp->file_name;
           while (cp[0] == '.' && cp[1] == '/')
             cp += 2;
-          str = xasprintf ("/* File: %s:%ld */\n", cp, (long) pp->line_number);
+
+          char *str = xasprintf ("/* File: %s:%ld */\n", cp, (long) pp->line_number);
           ostream_write_str (stream, str);
           free (str);
         }
@@ -210,27 +204,21 @@ write_message (ostream_t stream, const message_ty *mp,
     ostream_write_str (stream, "/* Flag: untranslated */\n");
   if (mp->obsolete)
     ostream_write_str (stream, "/* Flag: unmatched */\n");
-  {
-    size_t i;
-    for (i = 0; i < NFORMATS; i++)
-      if (significant_format_p (mp->is_format[i]))
-        {
-          char *string;
-
-          ostream_write_str (stream, "/* Flag: ");
-          string = make_format_description_string (mp->is_format[i],
-                                                   format_language[i], debug);
-          ostream_write_str (stream, string);
-          free (string);
-          ostream_write_str (stream, " */\n");
-        }
-  }
+  for (size_t i = 0; i < NFORMATS; i++)
+    if (significant_format_p (mp->is_format[i]))
+      {
+        ostream_write_str (stream, "/* Flag: ");
+        char *string =
+          make_format_description_string (mp->is_format[i],
+                                          format_language[i], debug);
+        ostream_write_str (stream, string);
+        free (string);
+        ostream_write_str (stream, " */\n");
+      }
   if (has_range_p (mp->range))
     {
-      char *string;
-
       ostream_write_str (stream, "/* Flag: ");
-      string = make_range_description_string (mp->range);
+      char *string = make_range_description_string (mp->range);
       ostream_write_str (stream, string);
       free (string);
       ostream_write_str (stream, " */\n");
@@ -281,9 +269,6 @@ write_stringtable (ostream_t stream, message_list_ty *mlp,
                    const char *canon_encoding, size_t page_width,
                    xerror_handler_ty xeh, bool debug)
 {
-  bool blank_line;
-  size_t j;
-
   /* Convert the messages to Unicode.  */
   iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL, xeh);
 
@@ -292,8 +277,8 @@ write_stringtable (ostream_t stream, message_list_ty *mlp,
     ostream_write_str (stream, "\xef\xbb\xbf");
 
   /* Loop through the messages.  */
-  blank_line = false;
-  for (j = 0; j < mlp->nitems; ++j)
+  bool blank_line = false;
+  for (size_t j = 0; j < mlp->nitems; ++j)
     {
       const message_ty *mp = mlp->item[j];
 
@@ -316,11 +301,11 @@ msgdomain_list_print_stringtable (msgdomain_list_ty *mdlp, ostream_t stream,
                                   bool debug)
 {
   message_list_ty *mlp;
-
   if (mdlp->nitems == 1)
     mlp = mdlp->item[0]->messages;
   else
     mlp = message_list_alloc (false);
+
   write_stringtable (stream, mlp, mdlp->encoding, page_width, xeh, debug);
 }
 

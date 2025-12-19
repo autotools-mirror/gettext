@@ -118,9 +118,6 @@ static void print_hostname (void);
 int
 main (int argc, char *argv[])
 {
-  bool do_help;
-  bool do_version;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
@@ -136,9 +133,9 @@ main (int argc, char *argv[])
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  /* Set default values for variables.  */
-  do_help = false;
-  do_version = false;
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
   format = default_format;
 
   /* Parse command line options.  */
@@ -154,31 +151,33 @@ main (int argc, char *argv[])
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int optchar;
-  while ((optchar = get_next_option ()) != -1)
-    switch (optchar)
-      {
-      case '\0':          /* Long option with key == 0.  */
-        break;
-      case 'f':
-        format = long_format;
-        break;
-      case 's':
-        format = short_format;
-        break;
-      case 'i':
-        format = ip_format;
-        break;
-      case 'h':
-        do_help = true;
-        break;
-      case 'V':
-        do_version = true;
-        break;
-      default:
-        usage (EXIT_FAILURE);
-        /* NOTREACHED */
-      }
+  {
+    int optchar;
+    while ((optchar = get_next_option ()) != -1)
+      switch (optchar)
+        {
+        case '\0':          /* Long option with key == 0.  */
+          break;
+        case 'f':
+          format = long_format;
+          break;
+        case 's':
+          format = short_format;
+          break;
+        case 'i':
+          format = ip_format;
+          break;
+        case 'h':
+          do_help = true;
+          break;
+        case 'V':
+          do_version = true;
+          break;
+        default:
+          usage (EXIT_FAILURE);
+          /* NOTREACHED */
+        }
+  }
 
   /* Version information requested.  */
   if (do_version)
@@ -265,22 +264,22 @@ xgethostname ()
 #ifdef WIN32_NATIVE
   char hostname[MAX_COMPUTERNAME_LENGTH+1];
   DWORD size = sizeof (hostname);
-
   if (!GetComputerName (hostname, &size))
     error (EXIT_FAILURE, 0, _("could not get host name"));
+
   return xstrdup (hostname);
 #elif HAVE_GETHOSTNAME
   char hostname[MAXHOSTNAMELEN+1];
-
   if (gethostname (hostname, MAXHOSTNAMELEN) < 0)
     error (EXIT_FAILURE, errno, _("could not get host name"));
   hostname[MAXHOSTNAMELEN] = '\0';
+
   return xstrdup (hostname);
 #else
   struct utsname utsname;
-
   if (uname (&utsname) < 0)
     error (EXIT_FAILURE, errno, _("could not get host name"));
+
   return xstrdup (utsname.nodename);
 #endif
 }
@@ -349,10 +348,7 @@ ipv6_is_linklocal (const struct in6_addr *addr)
 static void
 print_hostname ()
 {
-  char *hostname;
-  char *dot;
-
-  hostname = xgethostname ();
+  char *hostname = xgethostname ();
 
   switch (format)
     {
@@ -363,9 +359,11 @@ print_hostname ()
 
     case short_format:
       /* Print only the part before the first dot.  */
-      dot = strchr (hostname, '.');
-      if (dot != NULL)
-        *dot = '\0';
+      {
+        char *dot = strchr (hostname, '.');
+        if (dot != NULL)
+          *dot = '\0';
+      }
       printf ("%s\n", hostname);
       break;
 
@@ -375,21 +373,17 @@ print_hostname ()
          getnameinfo() is not even needed.  */
       {
         struct addrinfo hints;
-        struct addrinfo *res;
-        int ret;
-
         memset (&hints, 0, sizeof (hints));
         hints.ai_family = AF_UNSPEC; /* either AF_INET or AF_INET6 is ok */
         hints.ai_socktype = SOCK_STREAM; /* or SOCK_DGRAM or 0 */
         hints.ai_protocol = 0; /* any protocol is ok */
         hints.ai_flags = AI_CANONNAME;
 
-        ret = getaddrinfo (hostname, NULL, &hints, &res);
+        struct addrinfo *res;
+        int ret = getaddrinfo (hostname, NULL, &hints, &res);
         if (ret == 0)
           {
-            struct addrinfo *p;
-
-            for (p = res; p != NULL; p = p->ai_next)
+            for (struct addrinfo *p = res; p != NULL; p = p->ai_next)
               {
                 /* Typically p->ai_socktype == SOCK_STREAM, p->ai_protocol == IPPROTO_TCP,
                    or        p->ai_socktype == SOCK_DGRAM, p->ai_protocol == IPPROTO_UDP.  */
@@ -406,15 +400,12 @@ print_hostname ()
 #elif HAVE_GETHOSTBYNAME
       /* Look for netwide usable hostname and aliases using gethostbyname().  */
       {
-        struct hostent *h;
-        size_t i;
-
-        h = gethostbyname (hostname);
+        struct hostent *h = gethostbyname (hostname);
         if (h != NULL)
           {
             printf ("%s\n", h->h_name);
             if (h->h_aliases != NULL)
-              for (i = 0; h->h_aliases[i] != NULL; i++)
+              for (size_t i = 0; h->h_aliases[i] != NULL; i++)
                 printf ("%s\n", h->h_aliases[i]);
           }
         else
@@ -431,22 +422,17 @@ print_hostname ()
          getnameinfo().  */
       {
         struct addrinfo hints;
-        struct addrinfo *res;
-        int ret;
-        char host[1025];
-
         memset (&hints, 0, sizeof (hints));
         hints.ai_family = AF_UNSPEC; /* either AF_INET or AF_INET6 is ok */
         hints.ai_socktype = SOCK_STREAM; /* or SOCK_DGRAM */
         hints.ai_protocol = 0; /* any protocol is ok */
         hints.ai_flags = 0;
 
-        ret = getaddrinfo (hostname, NULL, &hints, &res);
+        struct addrinfo *res;
+        int ret = getaddrinfo (hostname, NULL, &hints, &res);
         if (ret == 0)
           {
-            struct addrinfo *p;
-
-            for (p = res; p != NULL; p = p->ai_next)
+            for (struct addrinfo *p = res; p != NULL; p = p->ai_next)
               {
                 /* Typically p->ai_socktype == SOCK_STREAM, p->ai_protocol == IPPROTO_TCP,
                    or        p->ai_socktype == SOCK_DGRAM, p->ai_protocol == IPPROTO_UDP.  */
@@ -459,14 +445,17 @@ print_hostname ()
                           && ipv6_is_linklocal (&((const struct sockaddr_in6 *) p->ai_addr)->sin6_addr))
 # endif
                    ) )
-                  if (getnameinfo (p->ai_addr, p->ai_addrlen,
-                                   host, sizeof (host),
-                                   NULL, 0,
-                                   NI_NUMERICHOST)
-                      == 0)
-                    {
-                      printf ("[%.*s]\n", (int) sizeof (host), host);
-                    }
+                  {
+                    char host[1025];
+                    if (getnameinfo (p->ai_addr, p->ai_addrlen,
+                                     host, sizeof (host),
+                                     NULL, 0,
+                                     NI_NUMERICHOST)
+                        == 0)
+                      {
+                        printf ("[%.*s]\n", (int) sizeof (host), host);
+                      }
+                  }
               }
 
             freeaddrinfo (res);
@@ -475,12 +464,9 @@ print_hostname ()
 #elif HAVE_GETHOSTBYNAME
       /* Look for netwide usable IP addresses using gethostbyname().  */
       {
-        struct hostent *h;
-        size_t i;
-
-        h = gethostbyname (hostname);
+        struct hostent *h = gethostbyname (hostname);
         if (h != NULL && h->h_addr_list != NULL)
-          for (i = 0; h->h_addr_list[i] != NULL; i++)
+          for (size_t i = 0; h->h_addr_list[i] != NULL; i++)
             {
 # if HAVE_IPV6
               if (h->h_addrtype == AF_INET6)

@@ -33,18 +33,18 @@ header_set_charset (message_ty *header_mp, const char *charsetstr,
                     const char *value)
 {
   const char *msgstr = header_mp->msgstr;
-  size_t len, len1, len2, len3;
-  char *new_msgstr;
 
-  len = strcspn (charsetstr, " \t\n");
+  size_t len = strcspn (charsetstr, " \t\n");
 
-  len1 = charsetstr - msgstr;
-  len2 = strlen (value);
-  len3 = (msgstr + strlen (msgstr)) - (charsetstr + len);
-  new_msgstr = XNMALLOC (len1 + len2 + len3 + 1, char);
+  size_t len1 = charsetstr - msgstr;
+  size_t len2 = strlen (value);
+  size_t len3 = (msgstr + strlen (msgstr)) - (charsetstr + len);
+
+  char *new_msgstr = XNMALLOC (len1 + len2 + len3 + 1, char);
   memcpy (new_msgstr, msgstr, len1);
   memcpy (new_msgstr + len1, value, len2);
   memcpy (new_msgstr + len1 + len2, charsetstr + len, len3 + 1);
+
   header_mp->msgstr = new_msgstr;
   header_mp->msgstr_len = len1 + len2 + len3 + 1;
 }
@@ -75,28 +75,23 @@ void
 msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
                                  const char *field, const char *value)
 {
-  size_t field_len;
-  int field_index;
-  size_t k, i;
-
-  field_len = strlen (field);
+  size_t field_len = strlen (field);
 
   /* Search the field in known_fields[].  */
-  field_index = -1;
-  for (k = 0; k < SIZEOF (known_fields); k++)
+  int field_index = -1;
+  for (size_t k = 0; k < SIZEOF (known_fields); k++)
     if (strcmp (known_fields[k].name, field) == 0)
       {
         field_index = k;
         break;
       }
 
-  for (i = 0; i < mdlp->nitems; i++)
+  for (size_t i = 0; i < mdlp->nitems; i++)
     {
       message_list_ty *mlp = mdlp->item[i]->messages;
-      size_t j;
 
       /* Search the header entry.  */
-      for (j = 0; j < mlp->nitems; j++)
+      for (size_t j = 0; j < mlp->nitems; j++)
         if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
           {
             message_ty *mp = mlp->item[j];
@@ -152,6 +147,7 @@ msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
                   {
                     /* Test whether h starts with a field name whose index is
                        > field_index.  */
+                    size_t k;
                     for (k = field_index + 1; k < SIZEOF (known_fields); k++)
                       if (strncmp (h, known_fields[k].name, known_fields[k].len)
                           == 0)
@@ -197,10 +193,9 @@ message_list_delete_header_field (message_list_ty *mlp,
                                   const char *field)
 {
   size_t field_len = strlen (field);
-  size_t j;
 
   /* Search the header entry.  */
-  for (j = 0; j < mlp->nitems; j++)
+  for (size_t j = 0; j < mlp->nitems; j++)
     if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
       {
         message_ty *mp = mlp->item[j];

@@ -82,18 +82,16 @@ x_php_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -527,10 +525,10 @@ skip_html (struct php_extractor *xp)
 static int
 phase2_getc (struct php_extractor *xp)
 {
-  int c;
-
   if (xp->phase2_pushback_length)
     return xp->phase2_pushback[--(xp->phase2_pushback_length)];
+
+  int c;
 
   c = phase1_getc (xp);
   switch (c)
@@ -659,7 +657,6 @@ comment_line_end (struct php_extractor *xp, size_t chars_to_remove)
 static int
 phase3_getc (struct php_extractor *xp)
 {
-  int lineno;
   int c;
 
   if (xp->phase3_pushback_length)
@@ -670,10 +667,9 @@ phase3_getc (struct php_extractor *xp)
   if (c == '#')
     {
       /* sh comment.  */
-      bool last_was_qmark = false;
-
       comment_start (xp);
-      lineno = xp->line_number;
+      int lineno = xp->line_number;
+      bool last_was_qmark = false;
       for (;;)
         {
           c = phase1_getc (xp);
@@ -709,11 +705,9 @@ phase3_getc (struct php_extractor *xp)
         case '*':
           {
             /* C comment.  */
-            bool last_was_star;
-
             comment_start (xp);
-            lineno = xp->line_number;
-            last_was_star = false;
+            int lineno = xp->line_number;
+            bool last_was_star = false;
             for (;;)
               {
                 c = phase1_getc (xp);
@@ -757,10 +751,9 @@ phase3_getc (struct php_extractor *xp)
         case '/':
           {
             /* C++ comment.  */
-            bool last_was_qmark = false;
-
             comment_start (xp);
-            lineno = xp->line_number;
+            int lineno = xp->line_number;
+            bool last_was_qmark = false;
             for (;;)
               {
                 c = phase1_getc (xp);
@@ -877,8 +870,6 @@ process_dquote_or_heredoc (struct php_extractor *xp, bool heredoc)
           }
         if (c == '\\')
           {
-            int n, j;
-
             c = phase1_getc (xp);
             switch (c)
               {
@@ -888,60 +879,65 @@ process_dquote_or_heredoc (struct php_extractor *xp, bool heredoc)
 
               case '0': case '1': case '2': case '3':
               case '4': case '5': case '6': case '7':
-                n = 0;
-                for (j = 0; j < 3; ++j)
-                  {
-                    n = n * 8 + c - '0';
-                    c = phase1_getc (xp);
-                    switch (c)
-                      {
-                      default:
-                        break;
+                {
+                  int n = 0;
+                  for (int j = 0; j < 3; ++j)
+                    {
+                      n = n * 8 + c - '0';
+                      c = phase1_getc (xp);
+                      switch (c)
+                        {
+                        default:
+                          break;
 
-                      case '0': case '1': case '2': case '3':
-                      case '4': case '5': case '6': case '7':
-                        continue;
-                      }
-                    break;
-                  }
-                phase1_ungetc (xp, c);
-                c = n;
+                        case '0': case '1': case '2': case '3':
+                        case '4': case '5': case '6': case '7':
+                          continue;
+                        }
+                      break;
+                    }
+                  phase1_ungetc (xp, c);
+                  c = n;
+                }
                 break;
 
               case 'x':
-                n = 0;
-                for (j = 0; j < 2; ++j)
-                  {
-                    c = phase1_getc (xp);
-                    switch (c)
-                      {
-                      case '0': case '1': case '2': case '3': case '4':
-                      case '5': case '6': case '7': case '8': case '9':
-                        n = n * 16 + c - '0';
+                {
+                  int j;
+                  int n = 0;
+                  for (j = 0; j < 2; ++j)
+                    {
+                      c = phase1_getc (xp);
+                      switch (c)
+                        {
+                        case '0': case '1': case '2': case '3': case '4':
+                        case '5': case '6': case '7': case '8': case '9':
+                          n = n * 16 + c - '0';
+                          break;
+                        case 'A': case 'B': case 'C': case 'D': case 'E':
+                        case 'F':
+                          n = n * 16 + 10 + c - 'A';
+                          break;
+                        case 'a': case 'b': case 'c': case 'd': case 'e':
+                        case 'f':
+                          n = n * 16 + 10 + c - 'a';
+                          break;
+                        default:
+                          phase1_ungetc (xp, c);
+                          c = 0;
+                          break;
+                        }
+                      if (c == 0)
                         break;
-                      case 'A': case 'B': case 'C': case 'D': case 'E':
-                      case 'F':
-                        n = n * 16 + 10 + c - 'A';
-                        break;
-                      case 'a': case 'b': case 'c': case 'd': case 'e':
-                      case 'f':
-                        n = n * 16 + 10 + c - 'a';
-                        break;
-                      default:
-                        phase1_ungetc (xp, c);
-                        c = 0;
-                        break;
-                      }
-                    if (c == 0)
-                      break;
-                  }
-                if (j == 0)
-                  {
-                    phase1_ungetc (xp, 'x');
-                    c = '\\';
-                  }
-                else
-                  c = n;
+                    }
+                  if (j == 0)
+                    {
+                      phase1_ungetc (xp, 'x');
+                      c = '\\';
+                    }
+                  else
+                    c = n;
+                }
                 break;
 
               case 'n':
@@ -1058,8 +1054,6 @@ process_dquote_or_heredoc (struct php_extractor *xp, bool heredoc)
 static void
 phase4_get (struct php_extractor *xp, token_ty *tp)
 {
-  int c;
-
   if (xp->phase4_pushback_length)
     {
       *tp = xp->phase4_pushback[--(xp->phase4_pushback_length)];
@@ -1069,6 +1063,8 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
 
   for (;;)
     {
+      int c;
+
       tp->line_number = xp->line_number;
       c = phase3_getc (xp);
       switch (c)
@@ -1448,11 +1444,10 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
                     if (end_label_indent > 0)
                       {
                         /* Scan through the doc string, copying *q = *p.  */
-                        const char *p;
                         char *q = doc;
                         int curr_line_indent = 0;
 
-                        for (p = doc; p < doc + doc_len; p++)
+                        for (const char *p = doc; p < doc + doc_len; p++)
                           {
                             /* Invariant: doc <= q <= p <= doc + doc_len.  */
                             char d = *p;
@@ -1640,18 +1635,18 @@ x_php_lex (struct php_extractor *xp, token_ty *tp)
       for (;;)
         {
           token_ty token2;
-
           phase4_get (xp, &token2);
+
           if (token2.type == token_type_dot)
             {
               token_ty token3;
-
               phase4_get (xp, &token3);
+
               if (token3.type == token_type_string_literal)
                 {
                   token_ty token_after;
-
                   phase4_get (xp, &token_after);
+
                   if (token_after.type != token_type_operator1)
                     {
                       char *addend = token3.string;
@@ -1733,14 +1728,13 @@ extract_balanced (struct php_extractor *xp,
   for (;;)
     {
       token_ty token;
-
       x_php_lex (xp, &token);
+
       switch (token.type)
         {
         case token_type_symbol:
           {
             void *keyword_value;
-
             if (hash_find_entry (&keywords, token.string, strlen (token.string),
                                  &keyword_value)
                 == 0)

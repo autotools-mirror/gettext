@@ -120,14 +120,6 @@ static msgdomain_list_ty *update_msgstr_plurals (msgdomain_list_ty *mdlp);
 int
 main (int argc, char **argv)
 {
-  bool do_help;
-  bool do_version;
-  char *output_file;
-  const char *input_file;
-  msgdomain_list_ty *result;
-  catalog_input_format_ty input_syntax = &input_format_po;
-  catalog_output_format_ty output_syntax = &output_format_po;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
@@ -145,11 +137,13 @@ main (int argc, char **argv)
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  /* Set default values for variables.  */
-  do_help = false;
-  do_version = false;
-  output_file = NULL;
-  input_file = NULL;
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+  char *output_file = NULL;
+  const char *input_file = NULL;
+  catalog_input_format_ty input_syntax = &input_format_po;
+  catalog_output_format_ty output_syntax = &output_format_po;
   locale = NULL;
 
   /* Parse command line options.  */
@@ -173,85 +167,86 @@ main (int argc, char **argv)
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int opt;
-  while ((opt = get_next_option ()) != -1)
-    switch (opt)
-      {
-      case '\0':                /* Long option with key == 0.  */
-        break;
-
-      case 'h':
-        do_help = true;
-        break;
-
-      case 'i':
-        if (input_file != NULL)
-          {
-            error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
-            usage (EXIT_FAILURE);
-          }
-        input_file = optarg;
-        break;
-
-      case 'l':
-        locale = optarg;
-        break;
-
-      case 'o':
-        output_file = optarg;
-        break;
-
-      case 'p':
-        output_syntax = &output_format_properties;
-        break;
-
-      case 'P':
-        input_syntax = &input_format_properties;
-        break;
-
-      case 'V':
-        do_version = true;
-        break;
-
-      case 'w':
+  {
+    int opt;
+    while ((opt = get_next_option ()) != -1)
+      switch (opt)
         {
-          int value;
-          char *endp;
-          value = strtol (optarg, &endp, 10);
-          if (endp != optarg)
-            message_page_width_set (value);
-        }
-        break;
+        case '\0':                /* Long option with key == 0.  */
+          break;
 
-      case CHAR_MAX + 1:
-        no_translator = true;
-        break;
+        case 'h':
+          do_help = true;
+          break;
 
-      case CHAR_MAX + 2: /* --no-wrap */
-        message_page_width_ignore ();
-        break;
+        case 'i':
+          if (input_file != NULL)
+            {
+              error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
+              usage (EXIT_FAILURE);
+            }
+          input_file = optarg;
+          break;
 
-      case CHAR_MAX + 3: /* --stringtable-input */
-        input_syntax = &input_format_stringtable;
-        break;
+        case 'l':
+          locale = optarg;
+          break;
 
-      case CHAR_MAX + 4: /* --stringtable-output */
-        output_syntax = &output_format_stringtable;
-        break;
+        case 'o':
+          output_file = optarg;
+          break;
 
-      case CHAR_MAX + 5: /* --color */
-        if (handle_color_option (optarg) || color_test_mode)
+        case 'p':
+          output_syntax = &output_format_properties;
+          break;
+
+        case 'P':
+          input_syntax = &input_format_properties;
+          break;
+
+        case 'V':
+          do_version = true;
+          break;
+
+        case 'w':
+          {
+            char *endp;
+            int value = strtol (optarg, &endp, 10);
+            if (endp != optarg)
+              message_page_width_set (value);
+          }
+          break;
+
+        case CHAR_MAX + 1:
+          no_translator = true;
+          break;
+
+        case CHAR_MAX + 2: /* --no-wrap */
+          message_page_width_ignore ();
+          break;
+
+        case CHAR_MAX + 3: /* --stringtable-input */
+          input_syntax = &input_format_stringtable;
+          break;
+
+        case CHAR_MAX + 4: /* --stringtable-output */
+          output_syntax = &output_format_stringtable;
+          break;
+
+        case CHAR_MAX + 5: /* --color */
+          if (handle_color_option (optarg) || color_test_mode)
+            usage (EXIT_FAILURE);
+          break;
+
+        case CHAR_MAX + 6: /* --style */
+          handle_style_option (optarg);
+          break;
+
+        default:
           usage (EXIT_FAILURE);
-        break;
-
-      case CHAR_MAX + 6: /* --style */
-        handle_style_option (optarg);
-        break;
-
-      default:
-        usage (EXIT_FAILURE);
-        break;
-      }
+          break;
+        }
+  }
 
   /* Version information is requested.  */
   if (do_version)
@@ -311,6 +306,7 @@ This is necessary so you can test your translations.\n"),
   if (output_file == NULL)
     output_file = xasprintf ("%s.po", catalogname);
 
+  msgdomain_list_ty *result;
   if (strcmp (output_file, "-") != 0
       && access (output_file, F_OK) == 0)
     {
@@ -468,18 +464,15 @@ or by email to <%s>.\n"),
 static const char *
 find_pot ()
 {
-  DIR *dirp;
-  char *found = NULL;
-
-  dirp = opendir (".");
+  DIR *dirp = opendir (".");
   if (dirp != NULL)
     {
+      char *found = NULL;
+
       for (;;)
         {
-          struct dirent *dp;
-
           errno = 0;
-          dp = readdir (dirp);
+          struct dirent *dp = readdir (dirp);
           if (dp != NULL)
             {
               const char *name = dp->d_name;
@@ -738,40 +731,33 @@ catalogname_for_locale (const char *locale)
     "yao_MW",   /* Yao          Malawi */
     "zap_MX"    /* Zapotec      Mexico */
   };
-  const char *dot;
-  size_t i;
 
   /* Remove the ".codeset" part from the locale.  */
-  dot = strchr (locale, '.');
-  if (dot != NULL)
-    {
-      const char *codeset_end;
-      char *shorter_locale;
+  {
+    const char *dot = strchr (locale, '.');
+    if (dot != NULL)
+      {
+        const char *codeset_end = strpbrk (dot + 1, "_@");
+        if (codeset_end == NULL)
+          codeset_end = dot + strlen (dot);
 
-      codeset_end = strpbrk (dot + 1, "_@");
-      if (codeset_end == NULL)
-        codeset_end = dot + strlen (dot);
-
-      shorter_locale = XNMALLOC (strlen (locale), char);
-      memcpy (shorter_locale, locale, dot - locale);
-      strcpy (shorter_locale + (dot - locale), codeset_end);
-      locale = shorter_locale;
-    }
+        char *shorter_locale = XNMALLOC (strlen (locale), char);
+        memcpy (shorter_locale, locale, dot - locale);
+        strcpy (shorter_locale + (dot - locale), codeset_end);
+        locale = shorter_locale;
+      }
+  }
 
   /* If the territory is the language's principal territory, drop it.  */
-  for (i = 0; i < SIZEOF (locales_with_principal_territory); i++)
+  for (size_t i = 0; i < SIZEOF (locales_with_principal_territory); i++)
     if (strcmp (locale, locales_with_principal_territory[i]) == 0)
       {
-        const char *language_end;
-        size_t len;
-        char *shorter_locale;
-
-        language_end = strchr (locale, '_');
+        const char *language_end = strchr (locale, '_');
         if (language_end == NULL)
           abort ();
 
-        len = language_end - locale;
-        shorter_locale = XNMALLOC (len + 1, char);
+        size_t len = language_end - locale;
+        char *shorter_locale = XNMALLOC (len + 1, char);
         memcpy (shorter_locale, locale, len);
         shorter_locale[len] = '\0';
         locale = shorter_locale;
@@ -786,16 +772,11 @@ catalogname_for_locale (const char *locale)
 static const char *
 language_of_locale (const char *locale)
 {
-  const char *language_end;
-
-  language_end = strpbrk (locale, "_.@");
+  const char *language_end = strpbrk (locale, "_.@");
   if (language_end != NULL)
     {
-      size_t len;
-      char *result;
-
-      len = language_end - locale;
-      result = XNMALLOC (len + 1, char);
+      size_t len = language_end - locale;
+      char *result = XNMALLOC (len + 1, char);
       memcpy (result, locale, len);
       result[len] = '\0';
 
@@ -813,17 +794,16 @@ language_of_locale (const char *locale)
 static const char *
 canonical_locale_charset ()
 {
-  const char *tmp;
-  char *old_LC_ALL;
-  const char *charset;
-
   /* Save LC_ALL environment variable.  */
-
-  tmp = getenv ("LC_ALL");
-  old_LC_ALL = (tmp != NULL ? xstrdup (tmp) : NULL);
+  char *old_LC_ALL;
+  {
+    const char *tmp = getenv ("LC_ALL");
+    old_LC_ALL = (tmp != NULL ? xstrdup (tmp) : NULL);
+  }
 
   xsetenv ("LC_ALL", locale, 1);
 
+  const char *charset;
   if (setlocale (LC_ALL, "") == NULL)
     /* Nonexistent locale.  Use anything.  */
     charset = "";
@@ -858,9 +838,7 @@ static const char *output_charset;
 static const char *
 englishname_of_language ()
 {
-  size_t i;
-
-  for (i = 0; i < language_table_size; i++)
+  for (size_t i = 0; i < language_table_size; i++)
     if (strcmp (language_table[i].code, language) == 0)
       return language_table[i].english;
 
@@ -872,76 +850,67 @@ englishname_of_language ()
 static const char *
 project_id (const char *header)
 {
-  const char *old_field;
-
   /* Return the first part of the Project-Id-Version field if present, assuming
      it was already filled in by xgettext.  */
-  old_field = get_field (header, "Project-Id-Version");
-  if (old_field != NULL && strcmp (old_field, "PACKAGE VERSION") != 0)
-    {
-      /* Remove the last word from old_field.  */
-      const char *last_space;
+  {
+    const char *old_field = get_field (header, "Project-Id-Version");
+    if (old_field != NULL && strcmp (old_field, "PACKAGE VERSION") != 0)
+      {
+        /* Remove the last word from old_field.  */
+        const char *last_space = strrchr (old_field, ' ');
+        if (last_space != NULL)
+          {
+            while (last_space > old_field && last_space[-1] == ' ')
+              last_space--;
+            if (last_space > old_field)
+              {
+                size_t package_len = last_space - old_field;
+                char *package = XNMALLOC (package_len + 1, char);
+                memcpy (package, old_field, package_len);
+                package[package_len] = '\0';
 
-      last_space = strrchr (old_field, ' ');
-      if (last_space != NULL)
-        {
-          while (last_space > old_field && last_space[-1] == ' ')
-            last_space--;
-          if (last_space > old_field)
-            {
-              size_t package_len = last_space - old_field;
-              char *package = XNMALLOC (package_len + 1, char);
-              memcpy (package, old_field, package_len);
-              package[package_len] = '\0';
-
-              return package;
-            }
-        }
-      /* It contains no version, just a package name.  */
-      return old_field;
-    }
+                return package;
+              }
+          }
+        /* It contains no version, just a package name.  */
+        return old_field;
+      }
+  }
 
   /* On native Windows, a Bourne shell is generally not available.
      Avoid error messages such as
      "msginit.exe: subprocess ... failed: No such file or directory"  */
 #if !(defined _WIN32 && ! defined __CYGWIN__)
   {
-    const char *gettextlibdir;
-    char *prog;
-    const char *argv[3];
-    pid_t child;
-    int fd[1];
-    FILE *fp;
-    char *line;
-    size_t linesize;
-    size_t linelen;
-    int exitstatus;
-
-    gettextlibdir = getenv ("GETTEXTLIBEXECDIR_SRCDIR");
+    const char *gettextlibdir = getenv ("GETTEXTLIBEXECDIR_SRCDIR");
     if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
       gettextlibdir = relocate (LIBEXECDIR "/gettext");
 
-    prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
+    char *prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
 
     /* Call the project-id shell script.  */
+    const char *argv[3];
     argv[0] = BOURNE_SHELL;
     argv[1] = prog;
     argv[2] = NULL;
-    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL, NULL,
-                            DEV_NULL, false, true, false, fd);
+
+    int fd[1];
+    pid_t child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL, NULL,
+                                  DEV_NULL, false, true, false, fd);
     if (child == -1)
       goto failed;
 
     /* Retrieve its result.  */
-    fp = fdopen (fd[0], "r");
+    FILE *fp = fdopen (fd[0], "r");
     if (fp == NULL)
       {
         error (0, errno, _("fdopen() failed"));
         goto failed;
       }
 
-    line = NULL; linesize = 0;
-    linelen = getline (&line, &linesize, fp);
+    char *line = NULL;
+    size_t linesize = 0;
+    size_t linelen = getline (&line, &linesize, fp);
     if (linelen == (size_t)(-1))
       {
         error (0, 0, _("%s subprocess I/O error"), prog);
@@ -954,7 +923,8 @@ project_id (const char *header)
     fclose (fp);
 
     /* Remove zombie process from process list, and retrieve exit status.  */
-    exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
+    int exitstatus =
+      wait_subprocess (child, prog, false, false, true, false, NULL);
     if (exitstatus != 0)
       {
         error (0, 0, _("%s subprocess failed with exit code %d"),
@@ -975,56 +945,49 @@ failed:
 static const char *
 project_id_version (const char *header)
 {
-  const char *old_field;
-
   /* Return the old value if present, assuming it was already filled in by
      xgettext.  */
-  old_field = get_field (header, "Project-Id-Version");
-  if (old_field != NULL && strcmp (old_field, "PACKAGE VERSION") != 0)
-    return old_field;
+  {
+    const char *old_field = get_field (header, "Project-Id-Version");
+    if (old_field != NULL && strcmp (old_field, "PACKAGE VERSION") != 0)
+      return old_field;
+  }
 
   /* On native Windows, a Bourne shell is generally not available.
      Avoid error messages such as
      "msginit.exe: subprocess ... failed: No such file or directory"  */
 #if !(defined _WIN32 && ! defined __CYGWIN__)
   {
-    const char *gettextlibdir;
-    char *prog;
-    const char *argv[4];
-    pid_t child;
-    int fd[1];
-    FILE *fp;
-    char *line;
-    size_t linesize;
-    size_t linelen;
-    int exitstatus;
-
-    gettextlibdir = getenv ("GETTEXTLIBEXECDIR_SRCDIR");
+    const char *gettextlibdir = getenv ("GETTEXTLIBEXECDIR_SRCDIR");
     if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
       gettextlibdir = relocate (LIBEXECDIR "/gettext");
 
-    prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
+    char *prog = xconcatenated_filename (gettextlibdir, "project-id", NULL);
 
     /* Call the project-id shell script.  */
+    const char *argv[4];
     argv[0] = BOURNE_SHELL;
     argv[1] = prog;
     argv[2] = "yes";
     argv[3] = NULL;
-    child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL, NULL,
-                            DEV_NULL, false, true, false, fd);
+
+    int fd[1];
+    pid_t child = create_pipe_in (prog, BOURNE_SHELL, argv, NULL, NULL,
+                                  DEV_NULL, false, true, false, fd);
     if (child == -1)
       goto failed;
 
     /* Retrieve its result.  */
-    fp = fdopen (fd[0], "r");
+    FILE *fp = fdopen (fd[0], "r");
     if (fp == NULL)
       {
         error (0, errno, _("fdopen() failed"));
         goto failed;
       }
 
-    line = NULL; linesize = 0;
-    linelen = getline (&line, &linesize, fp);
+    char *line = NULL;
+    size_t linesize = 0;
+    size_t linelen = getline (&line, &linesize, fp);
     if (linelen == (size_t)(-1))
       {
         error (0, 0, _("%s subprocess I/O error"), prog);
@@ -1037,7 +1000,8 @@ project_id_version (const char *header)
     fclose (fp);
 
     /* Remove zombie process from process list, and retrieve exit status.  */
-    exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
+    int exitstatus =
+      wait_subprocess (child, prog, false, false, true, false, NULL);
     if (exitstatus != 0)
       {
         error (0, 0, _("%s subprocess failed with exit code %d"),
@@ -1066,8 +1030,8 @@ po_revision_date (const char *header)
     {
       /* Assume the translator will modify the PO file now.  */
       time_t now;
-
       time (&now);
+
       return po_strftime (&now);
     }
 }
@@ -1079,36 +1043,37 @@ po_revision_date (const char *header)
 static struct passwd *
 get_user_pwd ()
 {
-  const char *username;
-  struct passwd *userpasswd;
-
   /* 1. attempt: getpwnam(getenv("USER"))  */
-  username = getenv ("USER");
-  if (username != NULL)
-    {
-      errno = 0;
-      userpasswd = getpwnam (username);
-      if (userpasswd != NULL)
-        return userpasswd;
-      if (errno != 0)
-        error (EXIT_FAILURE, errno, "getpwnam(\"%s\")", username);
-    }
+  {
+    const char *username = getenv ("USER");
+    if (username != NULL)
+      {
+        errno = 0;
+        struct passwd *userpasswd = getpwnam (username);
+        if (userpasswd != NULL)
+          return userpasswd;
+        if (errno != 0)
+          error (EXIT_FAILURE, errno, "getpwnam(\"%s\")", username);
+      }
+  }
 
   /* 2. attempt: getpwnam(getlogin())  */
-  username = getlogin ();
-  if (username != NULL)
-    {
-      errno = 0;
-      userpasswd = getpwnam (username);
-      if (userpasswd != NULL)
-        return userpasswd;
-      if (errno != 0)
-        error (EXIT_FAILURE, errno, "getpwnam(\"%s\")", username);
-    }
+  {
+    const char *username = getlogin ();
+    if (username != NULL)
+      {
+        errno = 0;
+        struct passwd *userpasswd = getpwnam (username);
+        if (userpasswd != NULL)
+          return userpasswd;
+        if (errno != 0)
+          error (EXIT_FAILURE, errno, "getpwnam(\"%s\")", username);
+      }
+  }
 
   /* 3. attempt: getpwuid(getuid())  */
   errno = 0;
-  userpasswd = getpwuid (getuid ());
+  struct passwd *userpasswd = getpwuid (getuid ());
   if (userpasswd != NULL)
     return userpasswd;
   if (errno != 0)
@@ -1125,22 +1090,16 @@ static const char *
 get_user_fullname ()
 {
 #if HAVE_PWD_H
-  struct passwd *pwd;
-
-  pwd = get_user_pwd ();
+  struct passwd *pwd = get_user_pwd ();
   if (pwd != NULL)
     {
-      const char *fullname;
-      const char *fullname_end;
-      char *result;
-
       /* Return the pw_gecos field, up to the first comma (if any).  */
-      fullname = pwd->pw_gecos;
-      fullname_end = strchr (fullname, ',');
+      const char *fullname = pwd->pw_gecos;
+      const char *fullname_end = strchr (fullname, ',');
       if (fullname_end == NULL)
         fullname_end = fullname + strlen (fullname);
 
-      result = XNMALLOC (fullname_end - fullname + 1, char);
+      char *result = XNMALLOC (fullname_end - fullname + 1, char);
       memcpy (result, fullname, fullname_end - fullname);
       result[fullname_end - fullname] = '\0';
 
@@ -1162,25 +1121,18 @@ get_user_email ()
 #if !(defined _WIN32 && ! defined __CYGWIN__)
   {
     const char *prog = relocate (LIBEXECDIR "/gettext/user-email");
-    const char *dll_dirs[2];
-    const char *argv[4];
-    pid_t child;
-    int fd[1];
-    FILE *fp;
-    char *line;
-    size_t linesize;
-    size_t linelen;
-    int exitstatus;
 
     /* The program 'hostname', that 'user-email' may invoke, is installed in
        gettextlibdir and depends on libintl and libgettextlib.  On Windows,
        in installations with shared libraries, these DLLs are installed in
        ${bindir}.  Make sure that the program can find them, even if
        ${bindir} is not in $PATH.  */
+    const char *dll_dirs[2];
     dll_dirs[0] = relocate (BINDIR);
     dll_dirs[1] = NULL;
 
     /* Ask the user for his email address.  */
+    const char *argv[4];
     argv[0] = BOURNE_SHELL;
     argv[1] = prog;
     argv[2] = _("\
@@ -1188,21 +1140,24 @@ The new message catalog should contain your email address, so that users can\n\
 give you feedback about the translations, and so that maintainers can contact\n\
 you in case of unexpected technical problems.\n");
     argv[3] = NULL;
-    child = create_pipe_in (prog, BOURNE_SHELL, argv, dll_dirs, NULL,
-                            DEV_NULL, false, true, false, fd);
+
+    int fd[1];
+    pid_t child = create_pipe_in (prog, BOURNE_SHELL, argv, dll_dirs, NULL,
+                                  DEV_NULL, false, true, false, fd);
     if (child == -1)
       goto failed;
 
     /* Retrieve his answer.  */
-    fp = fdopen (fd[0], "r");
+    FILE *fp = fdopen (fd[0], "r");
     if (fp == NULL)
       {
         error (0, errno, _("fdopen() failed"));
         goto failed;
       }
 
-    line = NULL; linesize = 0;
-    linelen = getline (&line, &linesize, fp);
+    char *line = NULL;
+    size_t linesize = 0;
+    size_t linelen = getline (&line, &linesize, fp);
     if (linelen == (size_t)(-1))
       {
         error (0, 0, _("%s subprocess I/O error"), prog);
@@ -1215,7 +1170,8 @@ you in case of unexpected technical problems.\n");
     fclose (fp);
 
     /* Remove zombie process from process list, and retrieve exit status.  */
-    exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
+    int exitstatus =
+      wait_subprocess (child, prog, false, false, true, false, NULL);
     if (exitstatus != 0)
       {
         error (0, 0, _("%s subprocess failed with exit code %d"),
@@ -1255,10 +1211,8 @@ last_translator ()
 static const char *
 language_team_englishname ()
 {
-  size_t i;
-
   /* Search for a name depending on the catalogname.  */
-  for (i = 0; i < language_variant_table_size; i++)
+  for (size_t i = 0; i < language_variant_table_size; i++)
     if (strcmp (language_variant_table[i].code, catalogname) == 0)
       return language_variant_table[i].english;
 
@@ -1277,26 +1231,18 @@ language_team_address ()
 #if !(defined _WIN32 && ! defined __CYGWIN__)
   {
     const char *prog = relocate (PROJECTSDIR "/team-address");
-    const char *dll_dirs[2];
-    const char *argv[7];
-    pid_t child;
-    int fd[1];
-    FILE *fp;
-    char *line;
-    size_t linesize;
-    size_t linelen;
-    const char *result;
-    int exitstatus;
 
     /* The program 'urlget', that 'team-address' may invoke, is installed in
        gettextlibdir and depends on libintl and libgettextlib.  On Windows,
        in installations with shared libraries, these DLLs are installed in
        ${bindir}.  Make sure that the program can find them, even if
        ${bindir} is not in $PATH.  */
+    const char *dll_dirs[2];
     dll_dirs[0] = relocate (BINDIR);
     dll_dirs[1] = NULL;
 
     /* Call the team-address shell script.  */
+    const char *argv[7];
     argv[0] = BOURNE_SHELL;
     argv[1] = prog;
     argv[2] = relocate (PROJECTSDIR);
@@ -1304,21 +1250,25 @@ language_team_address ()
     argv[4] = catalogname;
     argv[5] = language;
     argv[6] = NULL;
-    child = create_pipe_in (prog, BOURNE_SHELL, argv, dll_dirs, NULL,
-                            DEV_NULL, false, true, false, fd);
+
+    int fd[1];
+    pid_t child = create_pipe_in (prog, BOURNE_SHELL, argv, dll_dirs, NULL,
+                                  DEV_NULL, false, true, false, fd);
     if (child == -1)
       goto failed;
 
     /* Retrieve its result.  */
-    fp = fdopen (fd[0], "r");
+    FILE *fp = fdopen (fd[0], "r");
     if (fp == NULL)
       {
         error (0, errno, _("fdopen() failed"));
         goto failed;
       }
 
-    line = NULL; linesize = 0;
-    linelen = getline (&line, &linesize, fp);
+    char *line = NULL;
+    size_t linesize = 0;
+    size_t linelen = getline (&line, &linesize, fp);
+    const char *result;
     if (linelen == (size_t)(-1))
       result = "";
     else
@@ -1331,7 +1281,8 @@ language_team_address ()
     fclose (fp);
 
     /* Remove zombie process from process list, and retrieve exit status.  */
-    exitstatus = wait_subprocess (child, prog, false, false, true, false, NULL);
+    int exitstatus =
+      wait_subprocess (child, prog, false, false, true, false, NULL);
     if (exitstatus != 0)
       {
         error (0, 0, _("%s subprocess failed with exit code %d"),
@@ -1403,58 +1354,47 @@ content_transfer_encoding ()
 static const char *
 plural_forms ()
 {
-  const char *gettextcldrdir;
-  char *prog = NULL;
-  size_t i;
-
   /* Search for a formula depending on the catalogname.  */
-  for (i = 0; i < plural_table_size; i++)
+  for (size_t i = 0; i < plural_table_size; i++)
     if (strcmp (plural_table[i].lang, catalogname) == 0)
       return plural_table[i].value;
 
   /* Search for a formula depending on the language only.  */
-  for (i = 0; i < plural_table_size; i++)
+  for (size_t i = 0; i < plural_table_size; i++)
     if (strcmp (plural_table[i].lang, language) == 0)
       return plural_table[i].value;
 
-  gettextcldrdir = getenv ("GETTEXTCLDRDIR");
+  const char *gettextcldrdir = getenv ("GETTEXTCLDRDIR");
   if (gettextcldrdir != NULL && gettextcldrdir[0] != '\0')
     {
-      const char *gettextlibdir;
-      const char *dirs[3];
-      char *last_dir;
-      const char *dll_dirs[2];
-      const char *argv[4];
-      pid_t child;
-      int fd[1];
-      FILE *fp;
-      char *line;
-      size_t linesize;
-      size_t linelen;
-      int exitstatus;
-
-      gettextlibdir = getenv ("GETTEXTLIBEXECDIR_BUILDDIR");
+      const char *gettextlibdir = getenv ("GETTEXTLIBEXECDIR_BUILDDIR");
       if (gettextlibdir == NULL || gettextlibdir[0] == '\0')
         gettextlibdir = relocate (LIBEXECDIR "/gettext");
 
-      prog = xconcatenated_filename (gettextlibdir, "cldr-plurals", EXEEXT);
+      char *prog =
+        xconcatenated_filename (gettextlibdir, "cldr-plurals", EXEEXT);
 
-      last_dir = xstrdup (gettextcldrdir);
-      dirs[0] = "common";
-      dirs[1] = "supplemental";
-      dirs[2] = "plurals.xml";
-      for (i = 0; i < SIZEOF (dirs); i++)
-        {
-          char *dir = xconcatenated_filename (last_dir, dirs[i], NULL);
-          free (last_dir);
-          last_dir = dir;
-        }
+      char *last_dir;
+      {
+        last_dir = xstrdup (gettextcldrdir);
+        const char *dirs[3];
+        dirs[0] = "common";
+        dirs[1] = "supplemental";
+        dirs[2] = "plurals.xml";
+        for (size_t i = 0; i < SIZEOF (dirs); i++)
+          {
+            char *dir = xconcatenated_filename (last_dir, dirs[i], NULL);
+            free (last_dir);
+            last_dir = dir;
+          }
+      }
 
       /* The program 'cldr-plurals', that we invoke here, is installed in
          gettextlibdir and depends on libintl and libgettextlib.  On Windows,
          in installations with shared libraries, these DLLs are installed in
          ${bindir}.  Make sure that the program can find them, even if
          ${bindir} is not in $PATH.  */
+      const char *dll_dirs[2];
       dll_dirs[0] = relocate (BINDIR);
       dll_dirs[1] = NULL;
 
@@ -1462,26 +1402,30 @@ plural_forms ()
          argv[0] must be prog, not just the base name "cldr-plurals",
          because on Cygwin in a build with --enable-shared, the libtool
          wrapper of cldr-plurals.exe apparently needs this.  */
+      const char *argv[4];
       argv[0] = prog;
       argv[1] = language;
       argv[2] = last_dir;
       argv[3] = NULL;
-      child = create_pipe_in (prog, prog, argv, dll_dirs, NULL,
-                              DEV_NULL, false, true, false, fd);
+
+      int fd[1];
+      pid_t child = create_pipe_in (prog, prog, argv, dll_dirs, NULL,
+                                    DEV_NULL, false, true, false, fd);
       free (last_dir);
       if (child == -1)
         goto failed;
 
       /* Retrieve its result.  */
-      fp = fdopen (fd[0], "r");
+      FILE *fp = fdopen (fd[0], "r");
       if (fp == NULL)
         {
           error (0, errno, _("fdopen() failed"));
           goto failed;
         }
 
-      line = NULL; linesize = 0;
-      linelen = getline (&line, &linesize, fp);
+      char *line = NULL;
+      size_t linesize = 0;
+      size_t linelen = getline (&line, &linesize, fp);
       if (linelen == (size_t)(-1))
         {
           error (0, 0, _("%s subprocess I/O error"), prog);
@@ -1500,8 +1444,8 @@ plural_forms ()
       fclose (fp);
 
       /* Remove zombie process from process list, and retrieve exit status.  */
-      exitstatus = wait_subprocess (child, prog, false, false, true, false,
-                                    NULL);
+      int exitstatus =
+        wait_subprocess (child, prog, false, false, true, false, NULL);
       if (exitstatus != 0)
         {
           error (0, 0, _("%s subprocess failed with exit code %d"),
@@ -1510,10 +1454,10 @@ plural_forms ()
         }
 
       return line;
-    }
 
- failed:
-  free (prog);
+     failed:
+      free (prog);
+    }
   return NULL;
 }
 
@@ -1551,24 +1495,20 @@ static char *
 get_field (const char *header, const char *field)
 {
   size_t len = strlen (field);
-  const char *line;
 
-  for (line = header;;)
+  for (const char *line = header;;)
     {
       if (strncmp (line, field, len) == 0 && line[len] == ':')
         {
-          const char *value_start;
-          const char *value_end;
-          char *value;
-
-          value_start = line + len + 1;
+          const char *value_start = line + len + 1;
           if (*value_start == ' ')
             value_start++;
-          value_end = strchr (value_start, '\n');
+
+          const char *value_end = strchr (value_start, '\n');
           if (value_end == NULL)
             value_end = value_start + strlen (value_start);
 
-          value = XNMALLOC (value_end - value_start + 1, char);
+          char *value = XNMALLOC (value_end - value_start + 1, char);
           memcpy (value, value_start, value_end - value_start);
           value[value_end - value_start] = '\0';
 
@@ -1590,38 +1530,35 @@ static char *
 put_field (const char *old_header, const char *field, const char *value)
 {
   size_t len = strlen (field);
-  const char *line;
-  char *new_header;
-  char *p;
 
-  for (line = old_header;;)
+  for (const char *line = old_header;;)
     {
       if (strncmp (line, field, len) == 0 && line[len] == ':')
         {
-          const char *value_start;
-          const char *value_end;
-
-          value_start = line + len + 1;
+          const char *value_start = line + len + 1;
           if (*value_start == ' ')
             value_start++;
-          value_end = strchr (value_start, '\n');
+
+          const char *value_end = strchr (value_start, '\n');
           if (value_end == NULL)
             value_end = value_start + strlen (value_start);
 
-          new_header = XNMALLOC (strlen (old_header)
-                                 - (value_end - value_start)
-                                 + strlen (value)
-                                 + (*value_end != '\n' ? 1 : 0)
-                                 + 1,
-                                 char);
-          p = new_header;
-          memcpy (p, old_header, value_start - old_header);
-          p += value_start - old_header;
-          memcpy (p, value, strlen (value));
-          p += strlen (value);
-          if (*value_end != '\n')
-            *p++ = '\n';
-          strcpy (p, value_end);
+          char *new_header = XNMALLOC (strlen (old_header)
+                                       - (value_end - value_start)
+                                       + strlen (value)
+                                       + (*value_end != '\n' ? 1 : 0)
+                                       + 1,
+                                       char);
+          {
+            char *p = new_header;
+            memcpy (p, old_header, value_start - old_header);
+            p += value_start - old_header;
+            memcpy (p, value, strlen (value));
+            p += strlen (value);
+            if (*value_end != '\n')
+              *p++ = '\n';
+            strcpy (p, value_end);
+          }
 
           return new_header;
         }
@@ -1633,23 +1570,25 @@ put_field (const char *old_header, const char *field, const char *value)
         break;
     }
 
-  new_header = XNMALLOC (strlen (old_header) + 1
-                         + len + 2 + strlen (value) + 1
-                         + 1,
-                         char);
-  p = new_header;
-  memcpy (p, old_header, strlen (old_header));
-  p += strlen (old_header);
-  if (p > new_header && p[-1] != '\n')
+  char *new_header = XNMALLOC (strlen (old_header) + 1
+                               + len + 2 + strlen (value) + 1
+                               + 1,
+                               char);
+  {
+    char *p = new_header;
+    memcpy (p, old_header, strlen (old_header));
+    p += strlen (old_header);
+    if (p > new_header && p[-1] != '\n')
+      *p++ = '\n';
+    memcpy (p, field, len);
+    p += len;
+    *p++ = ':';
+    *p++ = ' ';
+    memcpy (p, value, strlen (value));
+    p += strlen (value);
     *p++ = '\n';
-  memcpy (p, field, len);
-  p += len;
-  *p++ = ':';
-  *p++ = ' ';
-  memcpy (p, value, strlen (value));
-  p += strlen (value);
-  *p++ = '\n';
-  *p = '\0';
+    *p = '\0';
+  }
 
   return new_header;
 }
@@ -1665,28 +1604,27 @@ get_title ()
      We could avoid the use of xstr_iconv() by using a separate message catalog
      and bind_textdomain_codeset(), but that doesn't seem worth the trouble
      for one single message.  */
-  const char *tmp;
-  char *old_LC_ALL;
-  char *old_LANGUAGE;
-  const char *msgid;
-  const char *english;
-  const char *result;
 
   /* First, the English title.  */
-  english = xasprintf ("%s translations for %%s package",
-                       englishname_of_language ());
+  const char *english = xasprintf ("%s translations for %%s package",
+                                   englishname_of_language ());
 
   /* Save LC_ALL, LANGUAGE environment variables.  */
-
-  tmp = getenv ("LC_ALL");
-  old_LC_ALL = (tmp != NULL ? xstrdup (tmp) : NULL);
-
-  tmp = getenv ("LANGUAGE");
-  old_LANGUAGE = (tmp != NULL ? xstrdup (tmp) : NULL);
+  char *old_LC_ALL;
+  {
+    const char *tmp = getenv ("LC_ALL");
+    old_LC_ALL = (tmp != NULL ? xstrdup (tmp) : NULL);
+  }
+  char *old_LANGUAGE;
+  {
+    const char *tmp = getenv ("LANGUAGE");
+    old_LANGUAGE = (tmp != NULL ? xstrdup (tmp) : NULL);
+  }
 
   xsetenv ("LC_ALL", locale, 1);
   unsetenv ("LANGUAGE");
 
+  const char *result;
   if (setlocale (LC_ALL, "") == NULL)
     /* Nonexistent locale.  Use the English title.  */
     result = english;
@@ -1696,7 +1634,7 @@ get_title ()
       /* TRANSLATORS: "English" needs to be replaced by your language.
          For example in it.po write "Traduzioni italiani ...",
          *not* "Traduzioni inglesi ...".  */
-      msgid = N_("English translations for %s package");
+      const char *msgid = N_("English translations for %s package");
       result = gettext (msgid);
       if (result != msgid && strcmp (result, msgid) != 0)
         /* Use the English and the foreign title.  */
@@ -1735,23 +1673,21 @@ subst_string (const char *str,
 {
   if (nsubst > 0)
     {
-      char *malloced = NULL;
-      size_t *substlen;
-      size_t i;
-      unsigned int j;
-
-      substlen = (size_t *) xmalloca (nsubst * sizeof (size_t));
-      for (j = 0; j < nsubst; j++)
+      size_t *substlen = (size_t *) xmalloca (nsubst * sizeof (size_t));
+      for (unsigned int j = 0; j < nsubst; j++)
         {
           substlen[j] = strlen (subst[j][0]);
           if (substlen[j] == 0)
             abort ();
         }
 
-      for (i = 0;;)
+      char *malloced = NULL;
+
+      for (size_t i = 0;;)
         {
           if (str[i] == '\0')
             break;
+          unsigned int j;
           for (j = 0; j < nsubst; j++)
             if (*(str + i) == *subst[j][0]
                 && strncmp (str + i, subst[j][0], substlen[j]) == 0)
@@ -1786,9 +1722,7 @@ static void
 subst_string_list (string_list_ty *slp,
                    unsigned int nsubst, const char *(*subst)[2])
 {
-  size_t j;
-
-  for (j = 0; j < slp->nitems; j++)
+  for (size_t j = 0; j < slp->nitems; j++)
     slp->item[j] = subst_string (slp->item[j], nsubst, subst);
 }
 
@@ -1802,11 +1736,8 @@ fill_header (msgdomain_list_ty *mdlp, bool fresh)
      contains non-ASCII characters, and we keep the UTF-8 encoding.
      Otherwise, when the POT file is plain ASCII, we use the locale's
      encoding.  */
-  bool was_utf8;
-  size_t k, j;
-
-  was_utf8 = false;
-  for (k = 0; k < mdlp->nitems; k++)
+  bool was_utf8 = false;
+  for (size_t k = 0; k < mdlp->nitems; k++)
     {
       message_list_ty *mlp = mdlp->item[k]->messages;
 
@@ -1815,7 +1746,7 @@ fill_header (msgdomain_list_ty *mdlp, bool fresh)
           message_ty *header_mp = NULL;
 
           /* Search the header entry.  */
-          for (j = 0; j < mlp->nitems; j++)
+          for (size_t j = 0; j < mlp->nitems; j++)
             if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
               {
                 header_mp = mlp->item[j];
@@ -1860,23 +1791,21 @@ fill_header (msgdomain_list_ty *mdlp, bool fresh)
       nfields = SIZEOF (update_fields);
       field_last_translator = UPDATE_FIELDS_LAST_TRANSLATOR;
     }
-  const char **field_value = XNMALLOC (nfields, const char *);
-  size_t i;
 
-  for (i = 0; i < nfields; i++)
+  const char **field_value = XNMALLOC (nfields, const char *);
+  for (size_t i = 0; i < nfields; i++)
     field_value[i] = NULL;
 
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     {
       message_list_ty *mlp = mdlp->item[k]->messages;
 
       if (mlp->nitems > 0)
         {
           message_ty *header_mp = NULL;
-          char *header;
 
           /* Search the header entry.  */
-          for (j = 0; j < mlp->nitems; j++)
+          for (size_t j = 0; j < mlp->nitems; j++)
             if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
               {
                 header_mp = mlp->item[j];
@@ -1892,10 +1821,10 @@ fill_header (msgdomain_list_ty *mdlp, bool fresh)
               message_list_prepend (mlp, header_mp);
             }
 
-          header = xstrdup (header_mp->msgstr);
+          char *header = xstrdup (header_mp->msgstr);
 
           /* Fill in the fields.  */
-          for (i = 0; i < nfields; i++)
+          for (size_t i = 0; i < nfields; i++)
             {
               if (field_value[i] == NULL)
                 field_value[i] =
@@ -1918,11 +1847,9 @@ fill_header (msgdomain_list_ty *mdlp, bool fresh)
           /* Update the comments in the header entry.  */
           if (header_mp->comment != NULL)
             {
-              const char *subst[4][2];
-              const char *id;
-              time_t now;
+              const char *id = project_id (header);
 
-              id = project_id (header);
+              const char *subst[4][2];
               subst[0][0] = "SOME DESCRIPTIVE TITLE";
               subst[0][1] = xasprintf (get_title (), id, id);
               subst[1][0] = "PACKAGE";
@@ -1930,9 +1857,13 @@ fill_header (msgdomain_list_ty *mdlp, bool fresh)
               subst[2][0] = "FIRST AUTHOR <EMAIL@ADDRESS>";
               subst[2][1] = field_value[field_last_translator];
               subst[3][0] = "YEAR";
-              subst[3][1] =
-                xasprintf ("%d",
-                           (time (&now), (localtime (&now))->tm_year + 1900));
+              {
+                time_t now;
+                subst[3][1] =
+                  xasprintf ("%d",
+                             (time (&now), (localtime (&now))->tm_year + 1900));
+              }
+
               subst_string_list (header_mp->comment, SIZEOF (subst), subst);
             }
 
@@ -1953,38 +1884,36 @@ fill_header (msgdomain_list_ty *mdlp, bool fresh)
 static msgdomain_list_ty *
 update_msgstr_plurals (msgdomain_list_ty *mdlp)
 {
-  size_t k;
-
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     {
       message_list_ty *mlp = mdlp->item[k]->messages;
-      message_ty *header_entry;
-      unsigned long int nplurals;
-      char *untranslated_plural_msgstr;
-      size_t j;
 
-      header_entry = message_list_search (mlp, NULL, "");
-      nplurals = get_plural_count (header_entry ? header_entry->msgstr : NULL);
-      untranslated_plural_msgstr = XNMALLOC (nplurals, char);
+      message_ty *header_entry = message_list_search (mlp, NULL, "");
+
+      unsigned long int nplurals =
+        get_plural_count (header_entry ? header_entry->msgstr : NULL);
+
+      char *untranslated_plural_msgstr = XNMALLOC (nplurals, char);
       memset (untranslated_plural_msgstr, '\0', nplurals);
 
-      for (j = 0; j < mlp->nitems; j++)
+      for (size_t j = 0; j < mlp->nitems; j++)
         {
           message_ty *mp = mlp->item[j];
-          bool is_untranslated;
-          const char *p;
-          const char *pend;
 
           if (mp->msgid_plural != NULL)
             {
               /* Test if mp is untranslated.  (It most likely is.)  */
-              is_untranslated = true;
-              for (p = mp->msgstr, pend = p + mp->msgstr_len; p < pend; p++)
-                if (*p != '\0')
-                  {
-                    is_untranslated = false;
-                    break;
-                  }
+              bool is_untranslated = true;
+              {
+                const char *p = mp->msgstr;
+                const char *pend = p + mp->msgstr_len;
+                for (; p < pend; p++)
+                  if (*p != '\0')
+                    {
+                      is_untranslated = false;
+                      break;
+                    }
+              }
               if (is_untranslated)
                 {
                   /* Change mp->msgstr_len consecutive empty strings into

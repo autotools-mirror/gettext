@@ -1,5 +1,5 @@
 /* Output stream that converts the output to another encoding.
-   Copyright (C) 2006-2024 Free Software Foundation, Inc.
+   Copyright (C) 2006-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -65,9 +65,7 @@ iconv_ostream::write_mem (iconv_ostream_t stream, const void *data, size_t len)
     {
       #define BUFFERSIZE 256
       char inbuffer[BUFFERSIZE];
-      size_t inbufcount;
-
-      inbufcount = stream->buflen;
+      size_t inbufcount = stream->buflen;
       if (inbufcount > 0)
         memcpy (inbuffer, stream->buf, inbufcount);
       for (;;)
@@ -182,7 +180,6 @@ iconv_ostream_create (const char *from_encoding, const char *to_encoding,
                       ostream_t destination)
 {
   iconv_ostream_t stream = XMALLOC (struct iconv_ostream_representation);
-
   stream->base.vtable = &iconv_ostream_vtable;
   stream->destination = destination;
   stream->from_encoding = xstrdup (from_encoding);

@@ -44,21 +44,17 @@ extract_rules (FILE *fp,
                const char *real_filename, const char *logical_filename,
                const char *locale)
 {
-  xmlDocPtr doc;
-  xmlNodePtr node, n;
-  size_t locale_length;
-  struct string_buffer buffer;
-
-  sb_init (&buffer);
-
-  doc = xmlReadFd (fileno (fp), logical_filename, NULL,
-                   XML_PARSE_NONET
-                   | XML_PARSE_NOWARNING
-                   | XML_PARSE_NOBLANKS);
+  xmlDocPtr doc = xmlReadFd (fileno (fp), logical_filename, NULL,
+                             XML_PARSE_NONET
+                             | XML_PARSE_NOWARNING
+                             | XML_PARSE_NOBLANKS);
   if (doc == NULL)
     error (EXIT_FAILURE, 0, _("Could not parse file %s as XML"), logical_filename);
 
-  node = xmlDocGetRootElement (doc);
+  struct string_buffer buffer;
+  sb_init (&buffer);
+
+  xmlNode *node = xmlDocGetRootElement (doc);
   if (!node || !xmlStrEqual (node->name, BAD_CAST "supplementalData"))
     {
       error_at_line (0, 0,
@@ -69,83 +65,84 @@ extract_rules (FILE *fp,
       goto out;
     }
 
-  for (n = node->children; n; n = n->next)
-    {
-      if (n->type == XML_ELEMENT_NODE
-          && xmlStrEqual (n->name, BAD_CAST "plurals"))
-        break;
-    }
-  if (!n)
-    {
-      error (0, 0, _("The element <%s> does not contain a <%s> element"),
-             "supplementalData", "plurals");
-      goto out;
-    }
+  {
+    xmlNode *n;
 
-  locale_length = strlen (locale);
-  for (n = n->children; n; n = n->next)
-    {
-      xmlChar *locales;
-      xmlChar *cp;
-      xmlNodePtr n2;
-      bool found = false;
+    for (n = node->children; n; n = n->next)
+      {
+        if (n->type == XML_ELEMENT_NODE
+            && xmlStrEqual (n->name, BAD_CAST "plurals"))
+          break;
+      }
+    if (!n)
+      {
+        error (0, 0, _("The element <%s> does not contain a <%s> element"),
+               "supplementalData", "plurals");
+        goto out;
+      }
 
-      if (n->type == XML_ELEMENT_NODE
-          && xmlStrEqual (n->name, BAD_CAST "pluralRules"))
-        {
-          if (!xmlHasProp (n, BAD_CAST "locales"))
-            {
+    size_t locale_length = strlen (locale);
+    for (n = n->children; n; n = n->next)
+      {
+        if (n->type == XML_ELEMENT_NODE
+            && xmlStrEqual (n->name, BAD_CAST "pluralRules"))
+          {
+            if (!xmlHasProp (n, BAD_CAST "locales"))
               error_at_line (0, 0,
                              logical_filename,
                              xmlGetLineNo (n),
                              _("The element <%s> does not have attribute <%s>"),
                              "pluralRules", "locales");
-            }
-          else
-            {
-              cp = locales = xmlGetProp (n, BAD_CAST "locales");
-              while (*cp != '\0')
+            else
+              {
+                xmlChar *locales = xmlGetProp (n, BAD_CAST "locales");
+                bool found = false;
                 {
-                  while (c_isspace (*cp))
-                    cp++;
-                  if (xmlStrncmp (cp, BAD_CAST locale, locale_length) == 0
-                      && (*(cp + locale_length) == '\0'
-                          || c_isspace (*(cp + locale_length))))
+                  xmlChar *cp = locales;
+                  while (*cp != '\0')
                     {
-                      found = true;
-                      break;
+                      while (c_isspace (*cp))
+                        cp++;
+                      if (xmlStrncmp (cp, BAD_CAST locale, locale_length) == 0
+                          && (*(cp + locale_length) == '\0'
+                              || c_isspace (*(cp + locale_length))))
+                        {
+                          found = true;
+                          break;
+                        }
+                      while (*cp && !c_isspace (*cp))
+                        cp++;
                     }
-                  while (*cp && !c_isspace (*cp))
-                    cp++;
                 }
-              xmlFree (locales);
+                xmlFree (locales);
 
-              if (found)
-                for (n2 = n->children; n2; n2 = n2->next)
-                  {
-                    if (n2->type == XML_ELEMENT_NODE
-                        && xmlStrEqual (n2->name, BAD_CAST "pluralRule"))
-                      {
-                        if (!xmlHasProp (n2, BAD_CAST "count"))
-                          {
-                            error_at_line (0, 0,
-                                           logical_filename,
-                                           xmlGetLineNo (n2),
-                                           _("The element <%s> does not have attribute <%s>"),
-                                           "pluralRule", "count");
-                            break;
-                          }
+                if (found)
+                  for (xmlNode *n2 = n->children; n2; n2 = n2->next)
+                    {
+                      if (n2->type == XML_ELEMENT_NODE
+                          && xmlStrEqual (n2->name, BAD_CAST "pluralRule"))
+                        {
+                          if (!xmlHasProp (n2, BAD_CAST "count"))
+                            {
+                              error_at_line (0, 0,
+                                             logical_filename,
+                                             xmlGetLineNo (n2),
+                                             _("The element <%s> does not have attribute <%s>"),
+                                             "pluralRule", "count");
+                              break;
+                            }
 
-                        xmlChar *count = xmlGetProp (n2, BAD_CAST "count");
-                        xmlChar *content = xmlNodeGetContent (n2);
-                        sb_xappendf (&buffer, "%s: %s; ", count, content);
-                        xmlFree (count);
-                        xmlFree (content);
-                      }
-                  }
-            }
-        }
-    }
+                          xmlChar *count = xmlGetProp (n2, BAD_CAST "count");
+                          xmlChar *content = xmlNodeGetContent (n2);
+                          sb_xappendf (&buffer, "%s: %s; ", count, content);
+                          xmlFree (count);
+                          xmlFree (content);
+                        }
+                    }
+              }
+          }
+      }
+  }
 
   {
     /* Scrub the last semicolon, if any.  */
@@ -211,10 +208,6 @@ or by email to <%s>.\n"),
 int
 main (int argc, char **argv)
 {
-  bool opt_cldr_format = false;
-  bool do_help = false;
-  bool do_version = false;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
 
@@ -230,6 +223,11 @@ main (int argc, char **argv)
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
+  /* Default values for command line options.  */
+  bool opt_cldr_format = false;
+  bool do_help = false;
+  bool do_version = false;
+
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
   static const struct program_option options[] =
@@ -240,29 +238,31 @@ main (int argc, char **argv)
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int optchar;
-  while ((optchar = get_next_option ()) != -1)
-    switch (optchar)
-      {
-      case '\0':          /* Long option with key == 0.  */
-        break;
+  {
+    int optchar;
+    while ((optchar = get_next_option ()) != -1)
+      switch (optchar)
+        {
+        case '\0':          /* Long option with key == 0.  */
+          break;
 
-      case 'c':
-        opt_cldr_format = true;
-        break;
+        case 'c':
+          opt_cldr_format = true;
+          break;
 
-      case 'h':
-        do_help = true;
-        break;
+        case 'h':
+          do_help = true;
+          break;
 
-      case 'V':
-        do_version = true;
-        break;
+        case 'V':
+          do_version = true;
+          break;
 
-      default:
-        usage (EXIT_FAILURE);
-        /* NOTREACHED */
-      }
+        default:
+          usage (EXIT_FAILURE);
+          /* NOTREACHED */
+        }
+  }
 
   /* Version information requested.  */
   if (do_version)
@@ -289,30 +289,27 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       /* Two arguments: Read CLDR rules from a file.  */
       const char *locale = argv[optind];
       const char *logical_filename = argv[optind + 1];
-      char *extracted_rules;
-      FILE *fp;
 
       LIBXML_TEST_VERSION
 
-      fp = fopen (logical_filename, "r");
+      FILE *fp = fopen (logical_filename, "r");
       if (fp == NULL)
-        error (1, 0, _("%s cannot be read"), logical_filename);
+        error (EXIT_FAILURE, 0, _("%s cannot be read"), logical_filename);
 
-      extracted_rules = extract_rules (fp, logical_filename, logical_filename,
-                                       locale);
+      char *extracted_rules =
+        extract_rules (fp, logical_filename, logical_filename, locale);
       fclose (fp);
       if (extracted_rules == NULL)
-        error (1, 0, _("cannot extract rules for %s"), locale);
+        error (EXIT_FAILURE, 0, _("cannot extract rules for %s"), locale);
 
       if (opt_cldr_format)
         printf ("%s\n", extracted_rules);
       else
         {
-          struct cldr_plural_rule_list_ty *result;
-
-          result = cldr_plural_parse (extracted_rules);
+          struct cldr_plural_rule_list_ty *result =
+            cldr_plural_parse (extracted_rules);
           if (result == NULL)
-            error (1, 0, _("cannot parse CLDR rule"));
+            error (EXIT_FAILURE, 0, _("cannot parse CLDR rule"));
 
           cldr_plural_rule_list_print (result, stdout);
           cldr_plural_rule_list_free (result);
@@ -326,16 +323,13 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       size_t line_size = 0;
       for (;;)
         {
-          int line_len;
-          struct cldr_plural_rule_list_ty *result;
-
-          line_len = getline (&line, &line_size, stdin);
+          int line_len = getline (&line, &line_size, stdin);
           if (line_len < 0)
             break;
           if (line_len > 0 && line[line_len - 1] == '\n')
             line[--line_len] = '\0';
 
-          result = cldr_plural_parse (line);
+          struct cldr_plural_rule_list_ty *result = cldr_plural_parse (line);
           if (result)
             {
               cldr_plural_rule_list_print (result, stdout);
@@ -347,7 +341,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     }
   else
     {
-      error (1, 0, _("extra operand %s"), argv[optind]);
+      error (EXIT_FAILURE, 0, _("extra operand %s"), argv[optind]);
     }
 
   return 0;

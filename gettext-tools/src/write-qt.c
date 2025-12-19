@@ -194,7 +194,6 @@ MAYBE_UNUSED static inline void
 write_u16 (FILE *output_file, unsigned short value)
 {
   unsigned char data[2];
-
   data[0] = (value >> 8) & 0xff;
   data[1] = value & 0xff;
 
@@ -206,7 +205,6 @@ static inline void
 write_u32 (FILE *output_file, unsigned int value)
 {
   unsigned char data[4];
-
   data[0] = (value >> 24) & 0xff;
   data[1] = (value >> 16) & 0xff;
   data[2] = (value >> 8) & 0xff;
@@ -224,7 +222,6 @@ static void
 append_u8 (struct obstack *mempool, unsigned char value)
 {
   unsigned char data[1];
-
   data[0] = value;
 
   obstack_grow (mempool, data, 1);
@@ -235,7 +232,6 @@ static void
 append_u16 (struct obstack *mempool, unsigned short value)
 {
   unsigned char data[2];
-
   data[0] = (value >> 8) & 0xff;
   data[1] = value & 0xff;
 
@@ -247,7 +243,6 @@ static void
 append_u32 (struct obstack *mempool, unsigned int value)
 {
   unsigned char data[4];
-
   data[0] = (value >> 24) & 0xff;
   data[1] = (value >> 16) & 0xff;
   data[2] = (value >> 8) & 0xff;
@@ -291,20 +286,21 @@ conv_to_iso_8859_1 (const char *string)
   const char *str_limit = string + length;
   /* Conversion to ISO-8859-1 can only reduce the number of bytes.  */
   char *result = XNMALLOC (length + 1, char);
-  char *q = result;
-
-  while (str < str_limit)
-    {
-      ucs4_t uc;
-      str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
-      /* It has already been verified that the string fits in ISO-8859-1.  */
-      if (!(uc < 0x100))
-        abort ();
-      /* Store as ISO-8859-1.  */
-      *q++ = (unsigned char) uc;
-    }
-  *q = '\0';
-  assert (q - result <= length);
+  {
+    char *q = result;
+    while (str < str_limit)
+      {
+        ucs4_t uc;
+        str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
+        /* It has already been verified that the string fits in ISO-8859-1.  */
+        if (!(uc < 0x100))
+          abort ();
+        /* Store as ISO-8859-1.  */
+        *q++ = (unsigned char) uc;
+      }
+    *q = '\0';
+    assert (q - result <= length);
+  }
 
   return result;
 }
@@ -319,25 +315,25 @@ conv_to_utf16 (const char *string, size_t *sizep)
   const char *str_limit = string + length;
   /* Conversion to UTF-16 can at most double the number of bytes.  */
   unsigned short *result = XNMALLOC (length, unsigned short);
-  unsigned short *q = result;
-
-  while (str < str_limit)
-    {
-      ucs4_t uc;
-      str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
-      if (uc < 0x10000)
-        /* UCS-2 character.  */
-        *q++ = (unsigned short) uc;
-      else
-        {
-          /* UTF-16 surrogate.  */
-          *q++ = 0xd800 + ((uc - 0x10000) >> 10);
-          *q++ = 0xdc00 + ((uc - 0x10000) & 0x3ff);
-        }
-    }
-  assert (q - result <= 2 * length);
-
-  *sizep = q - result;
+  {
+    unsigned short *q = result;
+    while (str < str_limit)
+      {
+        ucs4_t uc;
+        str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
+        if (uc < 0x10000)
+          /* UCS-2 character.  */
+          *q++ = (unsigned short) uc;
+        else
+          {
+            /* UTF-16 surrogate.  */
+            *q++ = 0xd800 + ((uc - 0x10000) >> 10);
+            *q++ = 0xdc00 + ((uc - 0x10000) & 0x3ff);
+          }
+      }
+    assert (q - result <= 2 * length);
+    *sizep = q - result;
+  }
   return result;
 }
 
@@ -345,11 +341,10 @@ conv_to_utf16 (const char *string, size_t *sizep)
 static unsigned int
 string_hashcode (const char *str)
 {
-  unsigned int h;
-
-  h = hash_string (str);
+  unsigned int h = hash_string (str);
   if (h == 0)
     h = 1;
+
   return h;
 }
 
@@ -400,15 +395,15 @@ write_qm (FILE *output_file, message_list_ty *mlp)
       0x3C, 0xB8, 0x64, 0x18, 0xCA, 0xEF, 0x9C, 0x95,
       0xCD, 0x21, 0x1C, 0xBF, 0x60, 0xA1, 0xBD, 0xDD
     };
-  struct obstack hashes_pool;
-  struct obstack messages_pool;
-  size_t j;
 
+  struct obstack hashes_pool;
   obstack_init (&hashes_pool);
+
+  struct obstack messages_pool;
   obstack_init (&messages_pool);
 
   /* Prepare the hashes section and the messages section.  */
-  for (j = 0; j < mlp->nitems; j++)
+  for (size_t j = 0; j < mlp->nitems; j++)
     {
       message_ty *mp = mlp->item[j];
 
@@ -474,8 +469,7 @@ write_qm (FILE *output_file, message_list_ty *mlp)
   /* Decide whether to write a contexts section.  */
   {
     bool can_write_contexts = true;
-
-    for (j = 0; j < mlp->nitems; j++)
+    for (size_t j = 0; j < mlp->nitems; j++)
       {
         message_ty *mp = mlp->item[j];
 
@@ -490,13 +484,10 @@ write_qm (FILE *output_file, message_list_ty *mlp)
 
     if (can_write_contexts)
       {
-        hash_table all_contexts;
-        size_t num_contexts;
-        unsigned long table_size;
-
         /* Collect the contexts, removing duplicates.  */
+        hash_table all_contexts;
         hash_init (&all_contexts, 10);
-        for (j = 0; j < mlp->nitems; j++)
+        for (size_t j = 0; j < mlp->nitems; j++)
           {
             message_ty *mp = mlp->item[j];
 
@@ -507,26 +498,23 @@ write_qm (FILE *output_file, message_list_ty *mlp)
           }
 
         /* Compute the number of different contexts.  */
-        num_contexts = all_contexts.size;
+        size_t num_contexts = all_contexts.size;
 
         /* Compute a suitable hash table size.  */
-        table_size = next_prime (num_contexts * 1.7);
+        unsigned long table_size = next_prime (num_contexts * 1.7);
         if (table_size >= 0x10000)
           table_size = 65521;
 
         /* Put the contexts into a hash table of size table_size.  */
         {
           struct list_cell { const char *context; struct list_cell *next; };
-          struct list_cell *list_memory =
-            XNMALLOC (table_size, struct list_cell);
-          struct list_cell *freelist;
+          struct list_cell *list_memory = XNMALLOC (table_size, struct list_cell);
+
+          struct list_cell *freelist = list_memory;
+
           struct bucket { struct list_cell *head; struct list_cell **tail; };
           struct bucket *buckets = XNMALLOC (table_size, struct bucket);
-          size_t i;
-
-          freelist = list_memory;
-
-          for (i = 0; i < table_size; i++)
+          for (size_t i = 0; i < table_size; i++)
             {
               buckets[i].head = NULL;
               buckets[i].tail = &buckets[i].head;
@@ -543,7 +531,7 @@ write_qm (FILE *output_file, message_list_ty *mlp)
                    == 0)
               {
                 const char *context = (const char *)key;
-                i = string_hashcode (context) % table_size;
+                size_t i = string_hashcode (context) % table_size;
                 freelist->context = context;
                 freelist->next = NULL;
                 *buckets[i].tail = freelist;
@@ -554,71 +542,65 @@ write_qm (FILE *output_file, message_list_ty *mlp)
 
           /* Determine the total context pool size.  */
           {
-            size_t pool_size;
-
-            pool_size = 2;
-            for (i = 0; i < table_size; i++)
+            size_t pool_size = 2;
+            for (size_t i = 0; i < table_size; i++)
               if (buckets[i].head != NULL)
                 {
-                  const struct list_cell *p;
-
-                  for (p = buckets[i].head; p != NULL; p = p->next)
+                  for (const struct list_cell *p = buckets[i].head; p != NULL; p = p->next)
                     pool_size += 1 + strlen (p->context);
                   pool_size++;
                   if ((pool_size % 2) != 0)
                     pool_size++;
                 }
+
             if (pool_size <= 0x20000)
               {
                 /* Prepare the contexts section.  */
                 struct obstack contexts_pool;
-                size_t pool_offset;
-
                 obstack_init (&contexts_pool);
 
-                append_u16 (&contexts_pool, table_size);
-                pool_offset = 2;
-                for (i = 0; i < table_size; i++)
-                  if (buckets[i].head != NULL)
-                    {
-                      const struct list_cell *p;
-
-                      append_u16 (&contexts_pool, pool_offset / 2);
-                      for (p = buckets[i].head; p != NULL; p = p->next)
-                        pool_offset += 1 + strlen (p->context);
-                      pool_offset++;
-                      if ((pool_offset % 2) != 0)
-                        pool_offset++;
-                    }
-                  else
-                    append_u16 (&contexts_pool, 0);
-                if (!(pool_offset == pool_size))
-                  abort ();
-
-                append_u16 (&contexts_pool, 0);
-                pool_offset = 2;
-                for (i = 0; i < table_size; i++)
-                  if (buckets[i].head != NULL)
-                    {
-                      const struct list_cell *p;
-
-                      for (p = buckets[i].head; p != NULL; p = p->next)
-                        {
-                          append_u8 (&contexts_pool, strlen (p->context));
-                          obstack_grow (&contexts_pool,
-                                        p->context, strlen (p->context));
+                {
+                  append_u16 (&contexts_pool, table_size);
+                  size_t pool_offset = 2;
+                  for (size_t i = 0; i < table_size; i++)
+                    if (buckets[i].head != NULL)
+                      {
+                        append_u16 (&contexts_pool, pool_offset / 2);
+                        for (const struct list_cell *p = buckets[i].head; p != NULL; p = p->next)
                           pool_offset += 1 + strlen (p->context);
-                        }
-                      append_u8 (&contexts_pool, 0);
-                      pool_offset++;
-                      if ((pool_offset % 2) != 0)
-                        {
-                          append_u8 (&contexts_pool, 0);
+                        pool_offset++;
+                        if ((pool_offset % 2) != 0)
                           pool_offset++;
-                        }
-                    }
-                if (!(pool_offset == pool_size))
-                  abort ();
+                      }
+                    else
+                      append_u16 (&contexts_pool, 0);
+                  if (!(pool_offset == pool_size))
+                    abort ();
+                }
+                {
+                  append_u16 (&contexts_pool, 0);
+                  size_t pool_offset = 2;
+                  for (size_t i = 0; i < table_size; i++)
+                    if (buckets[i].head != NULL)
+                      {
+                        for (const struct list_cell *p = buckets[i].head; p != NULL; p = p->next)
+                          {
+                            append_u8 (&contexts_pool, strlen (p->context));
+                            obstack_grow (&contexts_pool,
+                                          p->context, strlen (p->context));
+                            pool_offset += 1 + strlen (p->context);
+                          }
+                        append_u8 (&contexts_pool, 0);
+                        pool_offset++;
+                        if ((pool_offset % 2) != 0)
+                          {
+                            append_u8 (&contexts_pool, 0);
+                            pool_offset++;
+                          }
+                      }
+                  if (!(pool_offset == pool_size))
+                    abort ();
+                }
 
                 if (!(obstack_object_size (&contexts_pool)
                       == 2 + 2 * table_size + pool_size))
@@ -652,17 +634,13 @@ msgdomain_write_qt (message_list_ty *mlp, const char *canon_encoding,
   /* If no entry for this domain don't even create the file.  */
   if (mlp->nitems != 0)
     {
-      FILE *output_file;
-
       /* Determine whether mlp has plural entries.  */
       {
-        bool has_plural;
-        size_t j;
-
-        has_plural = false;
-        for (j = 0; j < mlp->nitems; j++)
+        bool has_plural = false;
+        for (size_t j = 0; j < mlp->nitems; j++)
           if (mlp->item[j]->msgid_plural != NULL)
             has_plural = true;
+
         if (has_plural)
           {
             multiline_error (xstrdup (""),
@@ -678,58 +656,51 @@ but the Qt message catalog format doesn't support plural handling\n")));
                           textmode_xerror_handler);
 
       /* Determine whether mlp has non-ISO-8859-1 msgctxt entries.  */
-      {
-        size_t j;
+      for (size_t j = 0; j < mlp->nitems; j++)
+        {
+          const char *string = mlp->item[j]->msgctxt;
 
-        for (j = 0; j < mlp->nitems; j++)
-          {
-            const char *string = mlp->item[j]->msgctxt;
-
-            if (string != NULL)
-              {
-                /* An UTF-8 encoded string fits in ISO-8859-1 if and only if
-                   all its bytes are < 0xc4.  */
-                for (; *string; string++)
-                  if ((unsigned char) *string >= 0xc4)
-                    {
-                      multiline_error (xstrdup (""),
-                                       xstrdup (_("\
+          if (string != NULL)
+            {
+              /* An UTF-8 encoded string fits in ISO-8859-1 if and only if
+                 all its bytes are < 0xc4.  */
+              for (; *string; string++)
+                if ((unsigned char) *string >= 0xc4)
+                  {
+                    multiline_error (xstrdup (""),
+                                     xstrdup (_("\
 message catalog has msgctxt strings containing characters outside ISO-8859-1\n\
 but the Qt message catalog format supports Unicode only in the translated\n\
 strings, not in the context strings\n")));
-                      return 1;
-                    }
-              }
-          }
-      }
+                    return 1;
+                  }
+            }
+        }
 
       /* Determine whether mlp has non-ISO-8859-1 msgid entries.  */
-      {
-        size_t j;
+      for (size_t j = 0; j < mlp->nitems; j++)
+        {
+          const char *string = mlp->item[j]->msgid;
 
-        for (j = 0; j < mlp->nitems; j++)
-          {
-            const char *string = mlp->item[j]->msgid;
-
-            /* An UTF-8 encoded string fits in ISO-8859-1 if and only if all
-               its bytes are < 0xc4.  */
-            for (; *string; string++)
-              if ((unsigned char) *string >= 0xc4)
-                {
-                  multiline_error (xstrdup (""),
-                                   xstrdup (_("\
+          /* An UTF-8 encoded string fits in ISO-8859-1 if and only if all
+             its bytes are < 0xc4.  */
+          for (; *string; string++)
+            if ((unsigned char) *string >= 0xc4)
+              {
+                multiline_error (xstrdup (""),
+                                 xstrdup (_("\
 message catalog has msgid strings containing characters outside ISO-8859-1\n\
 but the Qt message catalog format supports Unicode only in the translated\n\
 strings, not in the untranslated strings\n")));
-                  return 1;
-                }
-          }
-      }
+                return 1;
+              }
+        }
 
       /* Support for "reproducible builds": Delete information that may vary
          between builds in the same conditions.  */
       message_list_delete_header_field (mlp, "POT-Creation-Date:");
 
+      FILE *output_file;
       if (strcmp (domain_name, "-") == 0)
         {
           output_file = stdout;

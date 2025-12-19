@@ -63,9 +63,8 @@ format_parse (const char *format, bool translated, bool objc_extensions,
               char *fdi, char **invalid_reason)
 {
   struct spec result_buf;
-  struct spec *result;
-
-  result = format_parse_entrails (format, translated, objc_extensions, fdi, invalid_reason, &result_buf);
+  struct spec *result =
+    format_parse_entrails (format, translated, objc_extensions, fdi, invalid_reason, &result_buf);
 
   if (result != NULL)
     {
@@ -127,7 +126,6 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
   bool err = false;
-  size_t i;
 
   /* Check the argument types are the same.  */
   if (equality
@@ -141,7 +139,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       err = true;
     }
   else
-    for (i = 0; i < spec2->unnumbered_arg_count; i++)
+    for (size_t i = 0; i < spec2->unnumbered_arg_count; i++)
       if (spec1->unnumbered[i].type != spec2->unnumbered[i].type)
         {
           if (error_logger)
@@ -191,9 +189,8 @@ get_sysdep_c_format_directives (const char *string, bool translated,
     {
       size_t n = descr->sysdep_directives_count;
       struct interval *intervals = XNMALLOC (n, struct interval);
-      size_t i;
 
-      for (i = 0; i < n; i++)
+      for (size_t i = 0; i < n; i++)
         {
           intervals[i].startpos = descr->sysdep_directives[2 * i] - string;
           intervals[i].endpos = descr->sysdep_directives[2 * i + 1] - string;
@@ -225,7 +222,6 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  size_t i;
 
   if (spec == NULL)
     {
@@ -234,7 +230,7 @@ format_print (void *descr)
     }
 
   printf ("(");
-  for (i = 0; i < spec->unnumbered_arg_count; i++)
+  for (size_t i = 0; i < spec->unnumbered_arg_count; i++)
     {
       if (i > 0)
         printf (" ");
@@ -344,18 +340,14 @@ main ()
     {
       char *line = NULL;
       size_t line_size = 0;
-      int line_len;
-      char *invalid_reason;
-      void *descr;
-
-      line_len = getline (&line, &line_size, stdin);
+      int line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
         break;
       if (line_len > 0 && line[line_len - 1] == '\n')
         line[--line_len] = '\0';
 
-      invalid_reason = NULL;
-      descr = format_c_parse (line, false, NULL, &invalid_reason);
+      char *invalid_reason = NULL;
+      void *descr = format_c_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

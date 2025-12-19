@@ -73,9 +73,8 @@ void
 po_gram_error (struct po_parser_state *ps, const char *fmt, ...)
 {
   va_list ap;
-  char *buffer;
-
   va_start (ap, fmt);
+  char *buffer;
   if (vasprintf (&buffer, fmt, ap) < 0)
     ps->catr->xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
                            _("memory exhausted"));
@@ -95,9 +94,8 @@ po_gram_error_at_line (abstract_catalog_reader_ty *catr, const lex_pos_ty *pp,
                        const char *fmt, ...)
 {
   va_list ap;
-  char *buffer;
-
   va_start (ap, fmt);
+  char *buffer;
   if (vasprintf (&buffer, fmt, ap) < 0)
     catr->xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
                        _("memory exhausted"));
@@ -144,17 +142,14 @@ po_lex_charset_set (struct po_parser_state *ps,
 
   if (charsetstr != NULL)
     {
-      size_t len;
-      char *charset;
-      const char *canon_charset;
-
       charsetstr += strlen ("charset=");
-      len = strcspn (charsetstr, " \t\n");
-      charset = (char *) xmalloca (len + 1);
+      size_t len = strcspn (charsetstr, " \t\n");
+
+      char *charset = (char *) xmalloca (len + 1);
       memcpy (charset, charsetstr, len);
       charset[len] = '\0';
 
-      canon_charset = po_charset_canonicalize (charset);
+      const char *canon_charset = po_charset_canonicalize (charset);
       if (canon_charset == NULL)
         {
           /* Don't warn for POT files, because POT files usually contain
@@ -179,8 +174,6 @@ Message conversion to user's charset might not work.\n"),
         }
       else
         {
-          const char *envval;
-
           ps->po_lex_charset = canon_charset;
 
           if (strcmp (canon_charset, "UTF-8") == 0)
@@ -211,7 +204,7 @@ Message conversion to user's charset might not work.\n"),
              0x5C.  Some programs, like vim, distribute PO files in this
              broken format.  GNU msgfmt must continue to support this old
              PO file format when the Makefile requests it.  */
-          envval = getenv ("OLD_PO_FILE_INPUT");
+          const char *envval = getenv ("OLD_PO_FILE_INPUT");
           if (envval != NULL && *envval != '\0')
             {
               /* Assume the PO file is in old format, with extraneous
@@ -229,23 +222,19 @@ Message conversion to user's charset might not work.\n"),
               if (ps->po_lex_iconv == (iconv_t)(-1))
                 {
                   const char *progname;
-                  char *warning_message;
-                  const char *recommendation;
-                  const char *note;
-                  char *whole_message;
-
 # if IN_LIBGETTEXTPO
                   progname = "libgettextpo";
 # else
                   progname = last_component (program_name);
 # endif
 
-                  warning_message =
+                  char *warning_message =
                     xasprintf (_("\
 Charset \"%s\" is not supported. %s relies on iconv(),\n\
 and iconv() does not support \"%s\".\n"),
                                ps->po_lex_charset, progname, ps->po_lex_charset);
 
+                  const char *recommendation;
 # if !defined _LIBICONV_VERSION || (_LIBICONV_VERSION == 0x10b && defined __APPLE__)
                   recommendation = _("\
 Installing GNU libiconv and then reinstalling GNU gettext\n\
@@ -259,13 +248,14 @@ would fix this problem.\n");
                      is likely to be confused if it can't see the character
                      boundaries.  */
                   ps->po_lex_weird_cjk = po_is_charset_weird_cjk (ps->po_lex_charset);
+                  const char *note;
                   if (po_is_charset_weird (ps->po_lex_charset)
                       && !ps->po_lex_weird_cjk)
                     note = _("Continuing anyway, expect parse errors.");
                   else
                     note = _("Continuing anyway.");
 
-                  whole_message =
+                  char *whole_message =
                     xasprintf ("%s%s%s\n",
                                warning_message, recommendation, note);
 
@@ -285,30 +275,25 @@ would fix this problem.\n");
               if (po_is_charset_weird (ps->po_lex_charset) && !ps->po_lex_weird_cjk)
                 {
                   const char *progname;
-                  char *warning_message;
-                  const char *recommendation;
-                  const char *note;
-                  char *whole_message;
-
 # if IN_LIBGETTEXTPO
                   progname = "libgettextpo";
 # else
                   progname = last_component (program_name);
 # endif
 
-                  warning_message =
+                  char *warning_message =
                     xasprintf (_("\
 Charset \"%s\" is not supported. %s relies on iconv().\n\
 This version was built without iconv().\n"),
                                ps->po_lex_charset, progname);
 
-                  recommendation = _("\
+                  const char *recommendation = _("\
 Installing GNU libiconv and then reinstalling GNU gettext\n\
 would fix this problem.\n");
 
-                  note = _("Continuing anyway, expect parse errors.");
+                  const char *note = _("Continuing anyway, expect parse errors.");
 
-                  whole_message =
+                  char *whole_message =
                     xasprintf ("%s%s%s\n",
                                warning_message, recommendation, note);
 
@@ -578,8 +563,6 @@ mbfile_init (mbfile_t mbf, FILE *stream)
 static void
 mbfile_getc (struct po_parser_state *ps, mbchar_t mbc, mbfile_t mbf)
 {
-  size_t bytes;
-
   /* Return character pushed back, if there is one.  */
   if (mbf->pushback_count > 0)
     {
@@ -605,6 +588,8 @@ mbfile_getc (struct po_parser_state *ps, mbchar_t mbc, mbfile_t mbf)
       mbf->buf[0] = (unsigned char) c;
       mbf->bufcount++;
     }
+
+  size_t bytes;
 
 #if HAVE_ICONV
   if (ps->po_lex_iconv != (iconv_t)(-1))
@@ -838,8 +823,8 @@ mbfile_getc_normalized (struct po_parser_state *ps, mbchar_t mbc, mbfile_t mbf)
   if (!mb_iseof (mbc) && mb_iseq (mbc, '\r'))
     {
       mbchar_t mbc2;
-
       mbfile_getc (ps, mbc2, ps->mbf);
+
       if (!mb_iseof (mbc2))
         {
           if (mb_iseq (mbc2, '\n'))
@@ -893,7 +878,6 @@ lex_getc (struct po_parser_state *ps, mbchar_t mbc)
       if (mb_iseq (mbc, '\\'))
         {
           mbchar_t mbc2;
-
           mbfile_getc_normalized (ps, mbc2, ps->mbf);
 
           if (mb_iseof (mbc2))
@@ -971,10 +955,8 @@ static int
 control_sequence (struct po_parser_state *ps)
 {
   mbchar_t mbc;
-  int val;
-  int max;
-
   lex_getc (ps, mbc);
+
   if (mb_len (mbc) == 1)
     switch (mb_ptr (mbc) [0])
       {
@@ -1005,69 +987,73 @@ control_sequence (struct po_parser_state *ps)
 
       case '0': case '1': case '2': case '3':
       case '4': case '5': case '6': case '7':
-        val = 0;
-        max = 0;
-        for (;;)
-          {
-            char c = mb_ptr (mbc) [0];
-            /* Warning: not portable, can't depend on '0'..'7' ordering.  */
-            val = val * 8 + (c - '0');
-            if (++max == 3)
-              break;
-            lex_getc (ps, mbc);
-            if (mb_len (mbc) == 1)
-              switch (mb_ptr (mbc) [0])
-                {
-                case '0': case '1': case '2': case '3':
-                case '4': case '5': case '6': case '7':
-                  continue;
+        {
+          int val = 0;
+          int max = 0;
+          for (;;)
+            {
+              char c = mb_ptr (mbc) [0];
+              /* Warning: not portable, can't depend on '0'..'7' ordering.  */
+              val = val * 8 + (c - '0');
+              if (++max == 3)
+                break;
+              lex_getc (ps, mbc);
+              if (mb_len (mbc) == 1)
+                switch (mb_ptr (mbc) [0])
+                  {
+                  case '0': case '1': case '2': case '3':
+                  case '4': case '5': case '6': case '7':
+                    continue;
 
-                default:
-                  break;
-                }
-            lex_ungetc (ps, mbc);
-            break;
-          }
-        return val;
+                  default:
+                    break;
+                  }
+              lex_ungetc (ps, mbc);
+              break;
+            }
+          return val;
+        }
 
       case 'x':
-        lex_getc (ps, mbc);
-        if (mb_iseof (mbc) || mb_len (mbc) != 1
-            || !c_isxdigit (mb_ptr (mbc) [0]))
-          break;
-
-        val = 0;
-        for (;;)
-          {
-            char c = mb_ptr (mbc) [0];
-            val *= 16;
-            if (c_isdigit (c))
-              /* Warning: not portable, can't depend on '0'..'9' ordering */
-              val += c - '0';
-            else if (c_isupper (c))
-              /* Warning: not portable, can't depend on 'A'..'F' ordering */
-              val += c - 'A' + 10;
-            else
-              /* Warning: not portable, can't depend on 'a'..'f' ordering */
-              val += c - 'a' + 10;
-
-            lex_getc (ps, mbc);
-            if (mb_len (mbc) == 1)
-              switch (mb_ptr (mbc) [0])
-                {
-                case '0': case '1': case '2': case '3': case '4':
-                case '5': case '6': case '7': case '8': case '9':
-                case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
-                case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
-                  continue;
-
-                default:
-                  break;
-                }
-            lex_ungetc (ps, mbc);
+        {
+          lex_getc (ps, mbc);
+          if (mb_iseof (mbc) || mb_len (mbc) != 1
+              || !c_isxdigit (mb_ptr (mbc) [0]))
             break;
-          }
-        return val;
+
+          int val = 0;
+          for (;;)
+            {
+              char c = mb_ptr (mbc) [0];
+              val *= 16;
+              if (c_isdigit (c))
+                /* Warning: not portable, can't depend on '0'..'9' ordering */
+                val += c - '0';
+              else if (c_isupper (c))
+                /* Warning: not portable, can't depend on 'A'..'F' ordering */
+                val += c - 'A' + 10;
+              else
+                /* Warning: not portable, can't depend on 'a'..'f' ordering */
+                val += c - 'a' + 10;
+
+              lex_getc (ps, mbc);
+              if (mb_len (mbc) == 1)
+                switch (mb_ptr (mbc) [0])
+                  {
+                  case '0': case '1': case '2': case '3': case '4':
+                  case '5': case '6': case '7': case '8': case '9':
+                  case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
+                  case 'A': case 'B': case 'C': case 'D': case 'E': case 'F':
+                    continue;
+
+                  default:
+                    break;
+                  }
+              lex_ungetc (ps, mbc);
+              break;
+            }
+          return val;
+        }
 
       /* FIXME: \u and \U are not handled.  */
       }
@@ -1086,11 +1072,9 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
   char *buf = ps->buf;
   size_t bufmax = ps->bufmax;
 
-  mbchar_t mbc;
-  size_t bufpos;
-
   for (;;)
     {
+      mbchar_t mbc;
       lex_getc (ps, mbc);
 
       if (mb_iseof (mbc))
@@ -1150,25 +1134,27 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
             ps->signal_eilseq = false;
             if (ps->catr->pass_comments)
               {
-                bufpos = 0;
-                for (;;)
-                  {
-                    while (bufpos + mb_len (mbc) >= bufmax)
-                      {
-                        bufmax += 100;
-                        buf = xrealloc (buf, bufmax);
-                        ps->bufmax = bufmax;
-                        ps->buf = buf;
-                      }
-                    if (mb_iseof (mbc) || mb_iseq (mbc, '\n'))
-                      break;
+                {
+                  size_t bufpos = 0;
+                  for (;;)
+                    {
+                      while (bufpos + mb_len (mbc) >= bufmax)
+                        {
+                          bufmax += 100;
+                          buf = xrealloc (buf, bufmax);
+                          ps->bufmax = bufmax;
+                          ps->buf = buf;
+                        }
+                      if (mb_iseof (mbc) || mb_iseq (mbc, '\n'))
+                        break;
 
-                    memcpy_small (&buf[bufpos], mb_ptr (mbc), mb_len (mbc));
-                    bufpos += mb_len (mbc);
+                      memcpy_small (&buf[bufpos], mb_ptr (mbc), mb_len (mbc));
+                      bufpos += mb_len (mbc);
 
-                    lex_getc (ps, mbc);
-                  }
-                buf[bufpos] = '\0';
+                      lex_getc (ps, mbc);
+                    }
+                  buf[bufpos] = '\0';
+                }
 
                 lval->string.string = buf;
                 lval->string.pos = ps->gram_pos;
@@ -1191,41 +1177,43 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
 
           case '"':
             /* Accumulate a string.  */
-            bufpos = 0;
-            for (;;)
-              {
-                lex_getc (ps, mbc);
-                while (bufpos + mb_len (mbc) >= bufmax)
-                  {
-                    bufmax += 100;
-                    buf = xrealloc (buf, bufmax);
-                    ps->bufmax = bufmax;
-                    ps->buf = buf;
-                  }
-                if (mb_iseof (mbc))
-                  {
-                    po_gram_error_at_line (ps->catr, &ps->gram_pos,
-                                           _("end-of-file within string"));
+            {
+              size_t bufpos = 0;
+              for (;;)
+                {
+                  lex_getc (ps, mbc);
+                  while (bufpos + mb_len (mbc) >= bufmax)
+                    {
+                      bufmax += 100;
+                      buf = xrealloc (buf, bufmax);
+                      ps->bufmax = bufmax;
+                      ps->buf = buf;
+                    }
+                  if (mb_iseof (mbc))
+                    {
+                      po_gram_error_at_line (ps->catr, &ps->gram_pos,
+                                             _("end-of-file within string"));
+                      break;
+                    }
+                  if (mb_iseq (mbc, '\n'))
+                    {
+                      po_gram_error_at_line (ps->catr, &ps->gram_pos,
+                                             _("end-of-line within string"));
+                      break;
+                    }
+                  if (mb_iseq (mbc, '"'))
                     break;
-                  }
-                if (mb_iseq (mbc, '\n'))
-                  {
-                    po_gram_error_at_line (ps->catr, &ps->gram_pos,
-                                           _("end-of-line within string"));
-                    break;
-                  }
-                if (mb_iseq (mbc, '"'))
-                  break;
-                if (mb_iseq (mbc, '\\'))
-                  buf[bufpos++] = control_sequence (ps);
-                else
-                  {
-                    /* Add mbc to the accumulator.  */
-                    memcpy_small (&buf[bufpos], mb_ptr (mbc), mb_len (mbc));
-                    bufpos += mb_len (mbc);
-                  }
-              }
-            buf[bufpos] = '\0';
+                  if (mb_iseq (mbc, '\\'))
+                    buf[bufpos++] = control_sequence (ps);
+                  else
+                    {
+                      /* Add mbc to the accumulator.  */
+                      memcpy_small (&buf[bufpos], mb_ptr (mbc), mb_len (mbc));
+                      bufpos += mb_len (mbc);
+                    }
+                }
+              buf[bufpos] = '\0';
+            }
 
             /* Strings cannot contain the msgctxt separator, because it cannot
                be faithfully represented in the msgid of a .mo file.  */
@@ -1250,47 +1238,48 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
           case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
           case 'Y': case 'Z':
           case '_': case '$':
-            bufpos = 0;
-            for (;;)
-              {
-                char c = mb_ptr (mbc) [0];
-                if (bufpos + 1 >= bufmax)
-                  {
-                    bufmax += 100;
-                    buf = xrealloc (buf, bufmax);
-                    ps->bufmax = bufmax;
-                    ps->buf = buf;
-                  }
-                buf[bufpos++] = c;
-                lex_getc (ps, mbc);
-                if (mb_len (mbc) == 1)
-                  switch (mb_ptr (mbc) [0])
+            {
+              size_t bufpos = 0;
+              for (;;)
+                {
+                  char c = mb_ptr (mbc) [0];
+                  if (bufpos + 1 >= bufmax)
                     {
-                    default:
-                      break;
-                    case 'a': case 'b': case 'c': case 'd': case 'e':
-                    case 'f': case 'g': case 'h': case 'i': case 'j':
-                    case 'k': case 'l': case 'm': case 'n': case 'o':
-                    case 'p': case 'q': case 'r': case 's': case 't':
-                    case 'u': case 'v': case 'w': case 'x': case 'y':
-                    case 'z':
-                    case 'A': case 'B': case 'C': case 'D': case 'E':
-                    case 'F': case 'G': case 'H': case 'I': case 'J':
-                    case 'K': case 'L': case 'M': case 'N': case 'O':
-                    case 'P': case 'Q': case 'R': case 'S': case 'T':
-                    case 'U': case 'V': case 'W': case 'X': case 'Y':
-                    case 'Z':
-                    case '_': case '$':
-                    case '0': case '1': case '2': case '3': case '4':
-                    case '5': case '6': case '7': case '8': case '9':
-                      continue;
+                      bufmax += 100;
+                      buf = xrealloc (buf, bufmax);
+                      ps->bufmax = bufmax;
+                      ps->buf = buf;
                     }
-                break;
-              }
-            lex_ungetc (ps, mbc);
+                  buf[bufpos++] = c;
+                  lex_getc (ps, mbc);
+                  if (mb_len (mbc) == 1)
+                    switch (mb_ptr (mbc) [0])
+                      {
+                      default:
+                        break;
+                      case 'a': case 'b': case 'c': case 'd': case 'e':
+                      case 'f': case 'g': case 'h': case 'i': case 'j':
+                      case 'k': case 'l': case 'm': case 'n': case 'o':
+                      case 'p': case 'q': case 'r': case 's': case 't':
+                      case 'u': case 'v': case 'w': case 'x': case 'y':
+                      case 'z':
+                      case 'A': case 'B': case 'C': case 'D': case 'E':
+                      case 'F': case 'G': case 'H': case 'I': case 'J':
+                      case 'K': case 'L': case 'M': case 'N': case 'O':
+                      case 'P': case 'Q': case 'R': case 'S': case 'T':
+                      case 'U': case 'V': case 'W': case 'X': case 'Y':
+                      case 'Z':
+                      case '_': case '$':
+                      case '0': case '1': case '2': case '3': case '4':
+                      case '5': case '6': case '7': case '8': case '9':
+                        continue;
+                      }
+                  break;
+                }
+              lex_ungetc (ps, mbc);
 
-            buf[bufpos] = '\0';
-
+              buf[bufpos] = '\0';
+            }
             {
               int k = keyword_p (ps, buf);
               if (k == NAME)
@@ -1309,34 +1298,36 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
 
           case '0': case '1': case '2': case '3': case '4':
           case '5': case '6': case '7': case '8': case '9':
-            bufpos = 0;
-            for (;;)
-              {
-                char c = mb_ptr (mbc) [0];
-                if (bufpos + 1 >= bufmax)
-                  {
-                    bufmax += 100;
-                    buf = xrealloc (buf, bufmax + 1);
-                    ps->bufmax = bufmax;
-                    ps->buf = buf;
-                  }
-                buf[bufpos++] = c;
-                lex_getc (ps, mbc);
-                if (mb_len (mbc) == 1)
-                  switch (mb_ptr (mbc) [0])
+            {
+              size_t bufpos = 0;
+              for (;;)
+                {
+                  char c = mb_ptr (mbc) [0];
+                  if (bufpos + 1 >= bufmax)
                     {
-                    default:
-                      break;
-
-                    case '0': case '1': case '2': case '3': case '4':
-                    case '5': case '6': case '7': case '8': case '9':
-                      continue;
+                      bufmax += 100;
+                      buf = xrealloc (buf, bufmax + 1);
+                      ps->bufmax = bufmax;
+                      ps->buf = buf;
                     }
-                break;
-              }
-            lex_ungetc (ps, mbc);
+                  buf[bufpos++] = c;
+                  lex_getc (ps, mbc);
+                  if (mb_len (mbc) == 1)
+                    switch (mb_ptr (mbc) [0])
+                      {
+                      default:
+                        break;
 
-            buf[bufpos] = '\0';
+                      case '0': case '1': case '2': case '3': case '4':
+                      case '5': case '6': case '7': case '8': case '9':
+                        continue;
+                      }
+                  break;
+                }
+              lex_ungetc (ps, mbc);
+
+              buf[bufpos] = '\0';
+            }
 
             lval->number.number = atol (buf);
             lval->number.pos = ps->gram_pos;

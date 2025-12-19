@@ -68,20 +68,6 @@ _GL_NORETURN_FUNC static void usage (int status);
 int
 main (int argc, char **argv)
 {
-  int cnt;
-  bool do_help;
-  bool do_version;
-  char *output_file;
-  const char *files_from;
-  string_list_ty *file_list;
-  msgdomain_list_ty *result;
-  catalog_input_format_ty input_syntax = &input_format_po;
-  catalog_output_format_ty output_syntax = &output_format_po;
-  bool sort_by_msgid = false;
-  bool sort_by_filepos = false;
-  /* Language (ISO-639 code) and optional territory (ISO-3166 code).  */
-  const char *catalogname = NULL;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
@@ -99,14 +85,20 @@ main (int argc, char **argv)
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  /* Set default values for variables.  */
-  do_help = false;
-  do_version = false;
-  output_file = NULL;
-  files_from = NULL;
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+  char *output_file = NULL;
+  const char *files_from = NULL;
   more_than = 0;
   less_than = INT_MAX;
   use_first = false;
+  catalog_input_format_ty input_syntax = &input_format_po;
+  catalog_output_format_ty output_syntax = &output_format_po;
+  bool sort_by_msgid = false;
+  bool sort_by_filepos = false;
+  /* Language (ISO-639 code) and optional territory (ISO-3166 code).  */
+  const char *catalogname = NULL;
 
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
@@ -144,146 +136,145 @@ main (int argc, char **argv)
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int optchar;
-  while ((optchar = get_next_option ()) != -1)
-    switch (optchar)
-      {
-      case '\0':                /* Long option with key == 0.  */
-        break;
-
-      case '>':
+  {
+    int optchar;
+    while ((optchar = get_next_option ()) != -1)
+      switch (optchar)
         {
-          int value;
-          char *endp;
-          value = strtol (optarg, &endp, 10);
-          if (endp != optarg)
-            more_than = value;
-        }
-        break;
+        case '\0':                /* Long option with key == 0.  */
+          break;
 
-      case '<':
-        {
-          int value;
-          char *endp;
-          value = strtol (optarg, &endp, 10);
-          if (endp != optarg)
-            less_than = value;
-        }
-        break;
+        case '>':
+          {
+            char *endp;
+            int value = strtol (optarg, &endp, 10);
+            if (endp != optarg)
+              more_than = value;
+          }
+          break;
 
-      case 'D':
-        dir_list_append (optarg);
-        break;
+        case '<':
+          {
+            char *endp;
+            int value = strtol (optarg, &endp, 10);
+            if (endp != optarg)
+              less_than = value;
+          }
+          break;
 
-      case 'e':
-        message_print_style_escape (false);
-        break;
+        case 'D':
+          dir_list_append (optarg);
+          break;
 
-      case 'E':
-        message_print_style_escape (true);
-        break;
+        case 'e':
+          message_print_style_escape (false);
+          break;
 
-      case 'f':
-        files_from = optarg;
-        break;
+        case 'E':
+          message_print_style_escape (true);
+          break;
 
-      case 'F':
-        sort_by_filepos = true;
-        break;
+        case 'f':
+          files_from = optarg;
+          break;
 
-      case 'h':
-        do_help = true;
-        break;
+        case 'F':
+          sort_by_filepos = true;
+          break;
 
-      case 'i':
-        message_print_style_indent ();
-        break;
+        case 'h':
+          do_help = true;
+          break;
 
-      case 'n':            /* -n */
-      case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
-        if (handle_filepos_comment_option (optarg))
+        case 'i':
+          message_print_style_indent ();
+          break;
+
+        case 'n':            /* -n */
+        case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
+          if (handle_filepos_comment_option (optarg))
+            usage (EXIT_FAILURE);
+          break;
+
+        case 'o':
+          output_file = optarg;
+          break;
+
+        case 'p':
+          output_syntax = &output_format_properties;
+          break;
+
+        case 'P':
+          input_syntax = &input_format_properties;
+          break;
+
+        case 's':
+          sort_by_msgid = true;
+          break;
+
+        case CHAR_MAX + 9: /* --strict */
+          message_print_style_uniforum ();
+          break;
+
+        case 't':
+          to_code = optarg;
+          break;
+
+        case 'u':
+          less_than = 2;
+          break;
+
+        case 'V':
+          do_version = true;
+          break;
+
+        case 'w':
+          {
+            char *endp;
+            int value = strtol (optarg, &endp, 10);
+            if (endp != optarg)
+              message_page_width_set (value);
+          }
+          break;
+
+        case CHAR_MAX + 1:
+          use_first = true;
+          break;
+
+        case CHAR_MAX + 2: /* --no-wrap */
+          message_page_width_ignore ();
+          break;
+
+        case CHAR_MAX + 3: /* --stringtable-input */
+          input_syntax = &input_format_stringtable;
+          break;
+
+        case CHAR_MAX + 4: /* --stringtable-output */
+          output_syntax = &output_format_stringtable;
+          break;
+
+        case CHAR_MAX + 5: /* --color */
+          if (handle_color_option (optarg))
+            usage (EXIT_FAILURE);
+          break;
+
+        case CHAR_MAX + 6: /* --style */
+          handle_style_option (optarg);
+          break;
+
+        case CHAR_MAX + 7: /* --lang */
+          catalogname = optarg;
+          break;
+
+        case CHAR_MAX + 8: /* --no-location */
+          message_print_style_filepos (filepos_comment_none);
+          break;
+
+        default:
           usage (EXIT_FAILURE);
-        break;
-
-      case 'o':
-        output_file = optarg;
-        break;
-
-      case 'p':
-        output_syntax = &output_format_properties;
-        break;
-
-      case 'P':
-        input_syntax = &input_format_properties;
-        break;
-
-      case 's':
-        sort_by_msgid = true;
-        break;
-
-      case CHAR_MAX + 9: /* --strict */
-        message_print_style_uniforum ();
-        break;
-
-      case 't':
-        to_code = optarg;
-        break;
-
-      case 'u':
-        less_than = 2;
-        break;
-
-      case 'V':
-        do_version = true;
-        break;
-
-      case 'w':
-        {
-          int value;
-          char *endp;
-          value = strtol (optarg, &endp, 10);
-          if (endp != optarg)
-            message_page_width_set (value);
+          /* NOTREACHED */
         }
-        break;
-
-      case CHAR_MAX + 1:
-        use_first = true;
-        break;
-
-      case CHAR_MAX + 2: /* --no-wrap */
-        message_page_width_ignore ();
-        break;
-
-      case CHAR_MAX + 3: /* --stringtable-input */
-        input_syntax = &input_format_stringtable;
-        break;
-
-      case CHAR_MAX + 4: /* --stringtable-output */
-        output_syntax = &output_format_stringtable;
-        break;
-
-      case CHAR_MAX + 5: /* --color */
-        if (handle_color_option (optarg))
-          usage (EXIT_FAILURE);
-        break;
-
-      case CHAR_MAX + 6: /* --style */
-        handle_style_option (optarg);
-        break;
-
-      case CHAR_MAX + 7: /* --lang */
-        catalogname = optarg;
-        break;
-
-      case CHAR_MAX + 8: /* --no-location */
-        message_print_style_filepos (filepos_comment_none);
-        break;
-
-      default:
-        usage (EXIT_FAILURE);
-        /* NOTREACHED */
-      }
+  }
 
   /* Version information requested.  */
   if (do_version)
@@ -323,16 +314,17 @@ There is NO WARRANTY, to the extent permitted by law.\n\
            more_than, less_than);
 
   /* Determine list of files we have to process.  */
+  string_list_ty *file_list;
   if (files_from != NULL)
     file_list = read_names_from_file (files_from);
   else
     file_list = string_list_alloc ();
   /* Append names from command line.  */
-  for (cnt = optind; cnt < argc; ++cnt)
+  for (int cnt = optind; cnt < argc; ++cnt)
     string_list_append_unique (file_list, argv[cnt]);
 
   /* Read input files, then filter, convert and merge messages.  */
-  result =
+  msgdomain_list_ty *result =
     catenate_msgdomain_list (file_list, input_syntax,
                              output_syntax->requires_utf8 ? "UTF-8" : to_code);
 

@@ -304,26 +304,6 @@ static const char *extension_to_language (const char *extension);
 int
 main (int argc, char *argv[])
 {
-  bool do_help = false;
-  bool do_version = false;
-  msgdomain_list_ty *mdlp;
-  bool join_existing = false;
-  bool no_default_keywords = false;
-  bool some_additional_keywords = false;
-  bool sort_by_msgid = false;
-  bool sort_by_filepos = false;
-  char **dirs;
-  char **its_dirs = NULL;
-  char *explicit_its_filename = NULL;
-  const char *file_name;
-  const char *files_from = NULL;
-  string_list_ty *file_list;
-  char *output_file = NULL;
-  const char *language = NULL;
-  extractor_ty extractor = { NULL, NULL, NULL, { NULL, NULL, NULL, NULL } };
-  int cnt;
-  size_t i;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
@@ -341,7 +321,18 @@ main (int argc, char *argv[])
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  /* Set initial value of variables.  */
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+  bool join_existing = false;
+  bool no_default_keywords = false;
+  bool some_additional_keywords = false;
+  bool sort_by_msgid = false;
+  bool sort_by_filepos = false;
+  char *explicit_its_filename = NULL;
+  const char *files_from = NULL;
+  char *output_file = NULL;
+  const char *language = NULL;
   default_domain = MESSAGE_DOMAIN_DEFAULT;
   string_list_init (&files_for_vc_mtime);
   generated_files =
@@ -440,331 +431,335 @@ main (int argc, char *argv[])
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int optchar;
-  while ((optchar = get_next_option ()) != -1)
-    switch (optchar)
-      {
-      case '\0':                /* Long option with key == 0.  */
-        break;
-
-      case 'a':
-        x_c_extract_all ();
-        x_python_extract_all ();
-        x_java_extract_all ();
-        x_csharp_extract_all ();
-        x_javascript_extract_all ();
-        x_typescript_extract_all ();
-        x_typescriptx_extract_all ();
-        x_scheme_extract_all ();
-        x_lisp_extract_all ();
-        x_elisp_extract_all ();
-        x_librep_extract_all ();
-        x_rust_extract_all ();
-        x_go_extract_all ();
-        x_ruby_extract_all ();
-        x_sh_extract_all ();
-        x_awk_extract_all ();
-        x_lua_extract_all ();
-        x_modula2_extract_all ();
-        x_d_extract_all ();
-        x_ocaml_extract_all ();
-        x_vala_extract_all ();
-        x_tcl_extract_all ();
-        x_perl_extract_all ();
-        x_php_extract_all ();
-        break;
-
-      case 'c':
-        if (optarg == NULL)
-          {
-            add_all_comments = true;
-            comment_tag = NULL;
-          }
-        else
-          {
-            add_all_comments = false;
-            comment_tag = optarg;
-            /* We ignore leading white space.  */
-            while (isspace ((unsigned char) *comment_tag))
-              ++comment_tag;
-          }
-        break;
-
-      case 'C':
-        language = "C++";
-        break;
-
-      case 'd':
-        default_domain = optarg;
-        break;
-
-      case 'D':
-        dir_list_append (optarg);
-        break;
-
-      case 'e':
-        message_print_style_escape (false);
-        break;
-
-      case 'E':
-        message_print_style_escape (true);
-        break;
-
-      case 'f':
-        files_from = optarg;
-        break;
-
-      case 'F':
-        sort_by_filepos = true;
-        break;
-
-      case 'h':
-        do_help = true;
-        break;
-
-      case 'i':
-        message_print_style_indent ();
-        break;
-
-      case 'j':
-        join_existing = true;
-        break;
-
-      case 'k':
-        if (optarg != NULL && *optarg == '\0')
-          /* Make "--keyword=" work like "--keyword" and "-k".  */
-          optarg = NULL;
-        x_c_keyword (optarg);
-        x_objc_keyword (optarg);
-        x_python_keyword (optarg);
-        x_java_keyword (optarg);
-        x_csharp_keyword (optarg);
-        x_javascript_keyword (optarg);
-        x_typescript_keyword (optarg);
-        x_typescriptx_keyword (optarg);
-        x_scheme_keyword (optarg);
-        x_lisp_keyword (optarg);
-        x_elisp_keyword (optarg);
-        x_librep_keyword (optarg);
-        x_rust_keyword (optarg);
-        x_go_keyword (optarg);
-        x_ruby_keyword (optarg);
-        x_sh_keyword (optarg);
-        x_awk_keyword (optarg);
-        x_lua_keyword (optarg);
-        x_modula2_keyword (optarg);
-        x_d_keyword (optarg);
-        x_ocaml_keyword (optarg);
-        x_vala_keyword (optarg);
-        x_tcl_keyword (optarg);
-        x_perl_keyword (optarg);
-        x_php_keyword (optarg);
-        x_desktop_keyword (optarg);
-        if (optarg == NULL)
-          no_default_keywords = true;
-        else
-          some_additional_keywords = true;
-        break;
-
-      case 'l':
-        /* Accepted for backward compatibility with 0.10.35.  */
-        break;
-
-      case 'L':
-        language = optarg;
-        break;
-
-      case 'm':
-        /* -m takes an optional argument.  If none is given "" is assumed. */
-        msgstr_prefix = optarg == NULL ? "" : optarg;
-        break;
-
-      case 'M':
-        /* -M takes an optional argument.  If none is given "" is assumed. */
-        msgstr_suffix = optarg == NULL ? "" : optarg;
-        break;
-
-      case 'n':            /* -n */
-      case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
-        if (handle_filepos_comment_option (optarg))
-          usage (EXIT_FAILURE);
-        break;
-
-      case 'o':
-        output_file = optarg;
-        break;
-
-      case 'p':
+  {
+    int optchar;
+    while ((optchar = get_next_option ()) != -1)
+      switch (optchar)
         {
-          size_t len = strlen (optarg);
+        case '\0':                /* Long option with key == 0.  */
+          break;
 
-          if (output_dir != NULL)
-            free (output_dir);
+        case 'a':
+          x_c_extract_all ();
+          x_python_extract_all ();
+          x_java_extract_all ();
+          x_csharp_extract_all ();
+          x_javascript_extract_all ();
+          x_typescript_extract_all ();
+          x_typescriptx_extract_all ();
+          x_scheme_extract_all ();
+          x_lisp_extract_all ();
+          x_elisp_extract_all ();
+          x_librep_extract_all ();
+          x_rust_extract_all ();
+          x_go_extract_all ();
+          x_ruby_extract_all ();
+          x_sh_extract_all ();
+          x_awk_extract_all ();
+          x_lua_extract_all ();
+          x_modula2_extract_all ();
+          x_d_extract_all ();
+          x_ocaml_extract_all ();
+          x_vala_extract_all ();
+          x_tcl_extract_all ();
+          x_perl_extract_all ();
+          x_php_extract_all ();
+          break;
 
-          if (optarg[len - 1] == '/')
-            output_dir = xstrdup (optarg);
+        case 'c':
+          if (optarg == NULL)
+            {
+              add_all_comments = true;
+              comment_tag = NULL;
+            }
           else
-            output_dir = xasprintf ("%s/", optarg);
-        }
-        break;
+            {
+              add_all_comments = false;
+              comment_tag = optarg;
+              /* We ignore leading white space.  */
+              while (isspace ((unsigned char) *comment_tag))
+                ++comment_tag;
+            }
+          break;
 
-      case 's':
-        sort_by_msgid = true;
-        break;
+        case 'C':
+          language = "C++";
+          break;
 
-      case CHAR_MAX + 25: /* --strict */
-        message_print_style_uniforum ();
-        break;
+        case 'd':
+          default_domain = optarg;
+          break;
 
-      case 'T':
-        x_c_trigraphs ();
-        break;
+        case 'D':
+          dir_list_append (optarg);
+          break;
 
-      case 'v':
-        verbose++;
-        break;
+        case 'e':
+          message_print_style_escape (false);
+          break;
 
-      case 'V':
-        do_version = true;
-        break;
+        case 'E':
+          message_print_style_escape (true);
+          break;
 
-      case 'w':
-        {
-          int value;
-          char *endp;
-          value = strtol (optarg, &endp, 10);
-          if (endp != optarg)
-            message_page_width_set (value);
-        }
-        break;
+        case 'f':
+          files_from = optarg;
+          break;
 
-      case 'x':
-        read_exclusion_file (optarg);
-        break;
+        case 'F':
+          sort_by_filepos = true;
+          break;
 
-      case CHAR_MAX + 1:        /* --copyright-holder */
-        copyright_holder = optarg;
-        break;
+        case 'h':
+          do_help = true;
+          break;
 
-      case CHAR_MAX + 2:        /* --foreign-user */
-        copyright_holder = "";
-        break;
+        case 'i':
+          message_print_style_indent ();
+          break;
 
-      case CHAR_MAX + 3:        /* --from-code */
-        xgettext_global_source_encoding = po_charset_canonicalize (optarg);
-        if (xgettext_global_source_encoding == NULL)
+        case 'j':
+          join_existing = true;
+          break;
+
+        case 'k':
+          if (optarg != NULL && *optarg == '\0')
+            /* Make "--keyword=" work like "--keyword" and "-k".  */
+            optarg = NULL;
+          x_c_keyword (optarg);
+          x_objc_keyword (optarg);
+          x_python_keyword (optarg);
+          x_java_keyword (optarg);
+          x_csharp_keyword (optarg);
+          x_javascript_keyword (optarg);
+          x_typescript_keyword (optarg);
+          x_typescriptx_keyword (optarg);
+          x_scheme_keyword (optarg);
+          x_lisp_keyword (optarg);
+          x_elisp_keyword (optarg);
+          x_librep_keyword (optarg);
+          x_rust_keyword (optarg);
+          x_go_keyword (optarg);
+          x_ruby_keyword (optarg);
+          x_sh_keyword (optarg);
+          x_awk_keyword (optarg);
+          x_lua_keyword (optarg);
+          x_modula2_keyword (optarg);
+          x_d_keyword (optarg);
+          x_ocaml_keyword (optarg);
+          x_vala_keyword (optarg);
+          x_tcl_keyword (optarg);
+          x_perl_keyword (optarg);
+          x_php_keyword (optarg);
+          x_desktop_keyword (optarg);
+          if (optarg == NULL)
+            no_default_keywords = true;
+          else
+            some_additional_keywords = true;
+          break;
+
+        case 'l':
+          /* Accepted for backward compatibility with 0.10.35.  */
+          break;
+
+        case 'L':
+          language = optarg;
+          break;
+
+        case 'm':
+          /* -m takes an optional argument.  If none is given "" is assumed. */
+          msgstr_prefix = optarg == NULL ? "" : optarg;
+          break;
+
+        case 'M':
+          /* -M takes an optional argument.  If none is given "" is assumed. */
+          msgstr_suffix = optarg == NULL ? "" : optarg;
+          break;
+
+        case 'n':            /* -n */
+        case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
+          if (handle_filepos_comment_option (optarg))
+            usage (EXIT_FAILURE);
+          break;
+
+        case 'o':
+          output_file = optarg;
+          break;
+
+        case 'p':
           {
-            multiline_warning (xasprintf (_("warning: ")),
-                               xasprintf (_("'%s' is not a valid encoding name.  Using ASCII as fallback.\n"),
-                                          optarg));
-            xgettext_global_source_encoding = po_charset_ascii;
+            size_t len = strlen (optarg);
+
+            if (output_dir != NULL)
+              free (output_dir);
+
+            if (optarg[len - 1] == '/')
+              output_dir = xstrdup (optarg);
+            else
+              output_dir = xasprintf ("%s/", optarg);
           }
-        break;
+          break;
 
-      case CHAR_MAX + 4:        /* --no-wrap */
-        message_page_width_ignore ();
-        break;
+        case 's':
+          sort_by_msgid = true;
+          break;
 
-      case CHAR_MAX + 5:        /* --msgid-bugs-address */
-        msgid_bugs_address = optarg;
-        break;
+        case CHAR_MAX + 25: /* --strict */
+          message_print_style_uniforum ();
+          break;
 
-      case CHAR_MAX + 6:        /* --properties-output */
-        output_syntax = &output_format_properties;
-        break;
+        case 'T':
+          x_c_trigraphs ();
+          break;
 
-      case CHAR_MAX + 7:        /* --stringtable-output */
-        output_syntax = &output_format_stringtable;
-        break;
+        case 'v':
+          verbose++;
+          break;
 
-      case CHAR_MAX + 8:        /* --flag */
-        xgettext_record_flag (optarg);
-        break;
+        case 'V':
+          do_version = true;
+          break;
 
-      case CHAR_MAX + 9:        /* --qt */
-        recognize_format_qt = true;
-        break;
-
-      case CHAR_MAX + 10:       /* --kde */
-        recognize_format_kde = true;
-        activate_additional_keywords_kde ();
-        break;
-
-      case CHAR_MAX + 11:       /* --boost */
-        recognize_format_boost = true;
-        break;
-
-      case CHAR_MAX + 12:       /* --package-name */
-        package_name = optarg;
-        break;
-
-      case CHAR_MAX + 13:       /* --package-version */
-        package_version = optarg;
-        break;
-
-      case CHAR_MAX + 14: /* --color */
-        if (handle_color_option (optarg) || color_test_mode)
-          usage (EXIT_FAILURE);
-        break;
-
-      case CHAR_MAX + 15: /* --style */
-        handle_style_option (optarg);
-        break;
-
-      case CHAR_MAX + 16: /* --no-location */
-        message_print_style_filepos (filepos_comment_none);
-        break;
-
-      case CHAR_MAX + 17: /* --check */
-        for (i = 0; i < NSYNTAXCHECKS; i++)
+        case 'w':
           {
-            if (strcmp (optarg, syntax_check_name[i]) == 0)
+            char *endp;
+            int value = strtol (optarg, &endp, 10);
+            if (endp != optarg)
+              message_page_width_set (value);
+          }
+          break;
+
+        case 'x':
+          read_exclusion_file (optarg);
+          break;
+
+        case CHAR_MAX + 1:        /* --copyright-holder */
+          copyright_holder = optarg;
+          break;
+
+        case CHAR_MAX + 2:        /* --foreign-user */
+          copyright_holder = "";
+          break;
+
+        case CHAR_MAX + 3:        /* --from-code */
+          xgettext_global_source_encoding = po_charset_canonicalize (optarg);
+          if (xgettext_global_source_encoding == NULL)
+            {
+              multiline_warning (xasprintf (_("warning: ")),
+                                 xasprintf (_("'%s' is not a valid encoding name.  Using ASCII as fallback.\n"),
+                                            optarg));
+              xgettext_global_source_encoding = po_charset_ascii;
+            }
+          break;
+
+        case CHAR_MAX + 4:        /* --no-wrap */
+          message_page_width_ignore ();
+          break;
+
+        case CHAR_MAX + 5:        /* --msgid-bugs-address */
+          msgid_bugs_address = optarg;
+          break;
+
+        case CHAR_MAX + 6:        /* --properties-output */
+          output_syntax = &output_format_properties;
+          break;
+
+        case CHAR_MAX + 7:        /* --stringtable-output */
+          output_syntax = &output_format_stringtable;
+          break;
+
+        case CHAR_MAX + 8:        /* --flag */
+          xgettext_record_flag (optarg);
+          break;
+
+        case CHAR_MAX + 9:        /* --qt */
+          recognize_format_qt = true;
+          break;
+
+        case CHAR_MAX + 10:       /* --kde */
+          recognize_format_kde = true;
+          activate_additional_keywords_kde ();
+          break;
+
+        case CHAR_MAX + 11:       /* --boost */
+          recognize_format_boost = true;
+          break;
+
+        case CHAR_MAX + 12:       /* --package-name */
+          package_name = optarg;
+          break;
+
+        case CHAR_MAX + 13:       /* --package-version */
+          package_version = optarg;
+          break;
+
+        case CHAR_MAX + 14: /* --color */
+          if (handle_color_option (optarg) || color_test_mode)
+            usage (EXIT_FAILURE);
+          break;
+
+        case CHAR_MAX + 15: /* --style */
+          handle_style_option (optarg);
+          break;
+
+        case CHAR_MAX + 16: /* --no-location */
+          message_print_style_filepos (filepos_comment_none);
+          break;
+
+        case CHAR_MAX + 17: /* --check */
+          {
+            size_t i;
+            for (i = 0; i < NSYNTAXCHECKS; i++)
               {
-                default_syntax_check[i] = yes;
-                break;
+                if (strcmp (optarg, syntax_check_name[i]) == 0)
+                  {
+                    default_syntax_check[i] = yes;
+                    break;
+                  }
               }
+            if (i == NSYNTAXCHECKS)
+              error (EXIT_FAILURE, 0, _("syntax check '%s' unknown"), optarg);
           }
-        if (i == NSYNTAXCHECKS)
-          error (EXIT_FAILURE, 0, _("syntax check '%s' unknown"), optarg);
-        break;
+          break;
 
-      case CHAR_MAX + 18: /* --sentence-end */
-        if (strcmp (optarg, "single-space") == 0)
-          sentence_end_required_spaces = 1;
-        else if (strcmp (optarg, "double-space") == 0)
-          sentence_end_required_spaces = 2;
-        else
-          error (EXIT_FAILURE, 0, _("sentence end type '%s' unknown"), optarg);
-        break;
+        case CHAR_MAX + 18: /* --sentence-end */
+          if (strcmp (optarg, "single-space") == 0)
+            sentence_end_required_spaces = 1;
+          else if (strcmp (optarg, "double-space") == 0)
+            sentence_end_required_spaces = 2;
+          else
+            error (EXIT_FAILURE, 0, _("sentence end type '%s' unknown"), optarg);
+          break;
 
-      case CHAR_MAX + 19: /* --itstool */
-        add_itstool_comments = true;
-        break;
+        case CHAR_MAX + 19: /* --itstool */
+          add_itstool_comments = true;
+          break;
 
-      case CHAR_MAX + 20: /* --its */
-        explicit_its_filename = optarg;
-        break;
+        case CHAR_MAX + 20: /* --its */
+          explicit_its_filename = optarg;
+          break;
 
-      case CHAR_MAX + 21: /* --tag */
-        x_javascript_tag (optarg);
-        break;
+        case CHAR_MAX + 21: /* --tag */
+          x_javascript_tag (optarg);
+          break;
 
-      case CHAR_MAX + 22: /* --reference */
-        string_list_append (&files_for_vc_mtime, optarg);
-        break;
+        case CHAR_MAX + 22: /* --reference */
+          string_list_append (&files_for_vc_mtime, optarg);
+          break;
 
-      case CHAR_MAX + 23: /* --no-git */
-        xgettext_no_git = true;
-        break;
+        case CHAR_MAX + 23: /* --no-git */
+          xgettext_no_git = true;
+          break;
 
-      case CHAR_MAX + 24: /* --generated */
-        gl_set_add (generated_files, optarg);
-        break;
+        case CHAR_MAX + 24: /* --generated */
+          gl_set_add (generated_files, optarg);
+          break;
 
-      default:
-        usage (EXIT_FAILURE);
-        /* NOTREACHED */
-      }
+        default:
+          usage (EXIT_FAILURE);
+          /* NOTREACHED */
+        }
+  }
 
   /* Version information requested.  */
   if (do_version)
@@ -833,15 +828,17 @@ xgettext cannot work without keywords to look for"));
     error (EXIT_SUCCESS, 0, _("The option '%s' is deprecated."),
            "--sort-output");
 
+  char **its_dirs = NULL;
   if (explicit_its_filename == NULL)
     {
       its_dirs = get_search_path ("its");
       its_locating_rules = locating_rule_list_alloc ();
-      for (dirs = its_dirs; *dirs != NULL; dirs++)
+      for (char **dirs = its_dirs; *dirs != NULL; dirs++)
         locating_rule_list_add_from_directory (its_locating_rules, *dirs);
     }
 
   /* Determine extractor from language.  */
+  extractor_ty extractor = { NULL, NULL, NULL, { NULL, NULL, NULL, NULL } };
   if (language != NULL)
     extractor = language_to_extractor (language);
 
@@ -851,6 +848,8 @@ xgettext cannot work without keywords to look for"));
   else if (msgstr_prefix == NULL && msgstr_suffix != NULL)
     msgstr_prefix = "";
 
+  /* Determine the name of the output file.  */
+  const char *file_name;
   {
     /* Default output directory is the current directory.  */
     const char *defaulted_output_dir = (output_dir != NULL ? output_dir : ".");
@@ -874,6 +873,7 @@ xgettext cannot work without keywords to look for"));
   }
 
   /* Determine list of files we have to process.  */
+  string_list_ty *file_list;
   if (files_from != NULL)
     {
       if (strcmp (files_from, "-") != 0)
@@ -883,7 +883,7 @@ xgettext cannot work without keywords to look for"));
   else
     file_list = string_list_alloc ();
   /* Append names from command line.  */
-  for (cnt = optind; cnt < argc; ++cnt)
+  for (int cnt = optind; cnt < argc; ++cnt)
     string_list_append_unique (file_list, argv[cnt]);
 
   /* Allocate converter from xgettext_global_source_encoding to UTF-8 (except
@@ -911,7 +911,7 @@ xgettext cannot work without keywords to look for"));
     }
 
   /* Allocate a message list to remember all the messages.  */
-  mdlp = msgdomain_list_alloc (true);
+  msgdomain_list_ty *mdlp = msgdomain_list_alloc (true);
 
   /* Generate a header, so that we know how and when this PO file was
      created.  */
@@ -924,10 +924,11 @@ xgettext cannot work without keywords to look for"));
       /* Temporarily reset the directory list to empty, because file_name
          is an output file and therefore should not be searched for.  */
       void *saved_directory_list = dir_list_save_reset ();
+
       extractor_ty po_extractor =
         { extract_po, NULL, NULL, { NULL, NULL, NULL, NULL } };
-
       extract_from_file (file_name, po_extractor, mdlp);
+
       if (!is_ascii_msgdomain_list (mdlp))
         mdlp = iconv_msgdomain_list (mdlp, po_charset_utf8, true, file_name,
                                      textmode_xerror_handler);
@@ -936,14 +937,12 @@ xgettext cannot work without keywords to look for"));
     }
 
   /* Process all input files.  */
-  for (i = 0; i < file_list->nitems; i++)
+  for (size_t i = 0; i < file_list->nitems; i++)
     {
-      const char *filename;
+      const char *filename = file_list->item[i];
+
       extractor_ty this_file_extractor;
       its_rule_list_ty *its_rules = NULL;
-
-      filename = file_list->item[i];
-
       if (extractor.extract_from_stream || extractor.extract_from_file)
         this_file_extractor = extractor;
       else if (explicit_its_filename != NULL)
@@ -957,27 +956,22 @@ xgettext cannot work without keywords to look for"));
         }
       else
         {
-          const char *language_from_extension = NULL;
-          const char *base;
-          char *reduced;
-
-          base = strrchr (filename, '/');
+          const char *base = strrchr (filename, '/');
           if (!base)
             base = filename;
 
-          reduced = xstrdup (base);
+          char *reduced = xstrdup (base);
           /* Remove a trailing ".in" - it's a generic suffix.  */
           while (strlen (reduced) >= 3
                  && memcmp (reduced + strlen (reduced) - 3, ".in", 3) == 0)
             reduced[strlen (reduced) - 3] = '\0';
 
           /* If no language is specified with -L, deduce it the extension.  */
+          const char *language_from_extension = NULL;
           if (language == NULL)
             {
-              const char *p;
-
               /* Work out what the file extension is.  */
-              p = reduced + strlen (reduced);
+              const char *p = reduced + strlen (reduced);
               for (; p > reduced && language_from_extension == NULL; p--)
                 {
                   if (*p == '.')
@@ -997,16 +991,12 @@ xgettext cannot work without keywords to look for"));
           if (language_from_extension == NULL
               && strcmp (filename, "-") != 0)
             {
-              const char *its_basename;
-
-              its_basename = locating_rule_list_locate (its_locating_rules,
-                                                        filename,
-                                                        language);
+              const char *its_basename =
+                locating_rule_list_locate (its_locating_rules,
+                                           filename, language);
 
               if (its_basename != NULL)
                 {
-                  size_t j;
-
                   its_rules = its_rule_list_alloc ();
 
                   /* If the ITS file is identified by the name,
@@ -1015,6 +1005,7 @@ xgettext cannot work without keywords to look for"));
                     its_rule_list_add_from_string (its_rules,
                                                    ITS_ROOT_UNTRANSLATABLE);
 
+                  size_t j;
                   for (j = 0; its_dirs[j] != NULL; j++)
                     {
                       char *its_filename =
@@ -1098,7 +1089,7 @@ xgettext cannot work without keywords to look for"));
   {
     int nerrors = 0;
 
-    for (i = 0; i < mdlp->nitems; i++)
+    for (size_t i = 0; i < mdlp->nitems; i++)
       {
         message_list_ty *mlp = mdlp->item[i]->messages;
         nerrors += xgettext_check_message_list (mlp);
@@ -1127,7 +1118,7 @@ xgettext cannot work without keywords to look for"));
 
   if (its_dirs != NULL)
     {
-      for (i = 0; its_dirs[i] != NULL; i++)
+      for (size_t i = 0; its_dirs[i] != NULL; i++)
         free (its_dirs[i]);
       free (its_dirs);
     }
@@ -1397,12 +1388,10 @@ exclude_directive_message (abstract_catalog_reader_ty *catr,
                            char *prev_msgid_plural,
                            bool force_fuzzy, bool obsolete)
 {
-  message_ty *mp;
-
   /* See if this message ID has been seen before.  */
   if (exclude == NULL)
     exclude = message_list_alloc (true);
-  mp = message_list_search (exclude, msgctxt, msgid);
+  message_ty *mp = message_list_search (exclude, msgctxt, msgid);
   if (mp != NULL)
     free (msgid);
   else
@@ -1471,9 +1460,8 @@ flag_context_list_table_insert (flag_context_list_table_ty *table,
       /* Convert NAME to upper case.  */
       size_t name_len = name_end - name_start;
       char *name = allocated_name = (char *) xmalloca (name_len);
-      size_t i;
 
-      for (i = 0; i < name_len; i++)
+      for (size_t i = 0; i < name_len; i++)
         name[i] = (name_start[i] >= 'a' && name_start[i] <= 'z'
                    ? name_start[i] - 'a' + 'A'
                    : name_start[i]);
@@ -1525,15 +1513,13 @@ xgettext_record_flag (const char *optionstring)
     const char *argnum_start = colon1 + 1;
     const char *argnum_end = colon2;
     const char *flag_start = colon2 + 1;
-    const char *flag_end;
-    const char *backend;
-    int argnum;
 
     /* Check the parts' syntax.  */
     if (name_end == name_start)
       goto err;
     if (argnum_end == argnum_start)
       goto err;
+    int argnum;
     {
       char *endp;
       argnum = strtol (argnum_start, &endp, 10);
@@ -1543,7 +1529,8 @@ xgettext_record_flag (const char *optionstring)
     if (argnum <= 0)
       goto err;
 
-    flag_end = strchr (flag_start, '!');
+    const char *flag_end = strchr (flag_start, '!');
+    const char *backend;
     if (flag_end != NULL)
       backend = flag_end + 1;
     else
@@ -1554,9 +1541,7 @@ xgettext_record_flag (const char *optionstring)
 
     /* Analyze the flag part.  */
     {
-      bool pass;
-
-      pass = false;
+      bool pass = false;
       if (flag_end - flag_start >= 5 && memcmp (flag_start, "pass-", 5) == 0)
         {
           pass = true;
@@ -1568,14 +1553,10 @@ xgettext_record_flag (const char *optionstring)
       if (flag_end - flag_start >= 7
           && memcmp (flag_end - 7, "-format", 7) == 0)
         {
-          const char *p;
-          size_t n;
+          const char *p = flag_start;
+          size_t n = flag_end - flag_start - 7;
+
           enum is_format value;
-          size_t type;
-
-          p = flag_start;
-          n = flag_end - flag_start - 7;
-
           if (n >= 3 && memcmp (p, "no-", 3) == 0)
             {
               p += 3;
@@ -1603,7 +1584,7 @@ xgettext_record_flag (const char *optionstring)
           else
             value = yes_according_to_context;
 
-          for (type = 0; type < NFORMATS; type++)
+          for (size_t type = 0; type < NFORMATS; type++)
             if (strlen (format_language[type]) == n
                 && memcmp (format_language[type], p, n) == 0)
               {
@@ -1916,16 +1897,13 @@ savable_comment_add (const char *str)
   else if (savable_comment->refcount > 1)
     {
       /* Unshare the list by making copies.  */
-      struct string_list_ty *oldcontents;
-      size_t i;
-
       savable_comment->refcount--;
-      oldcontents = &savable_comment->contents;
+      struct string_list_ty *oldcontents = &savable_comment->contents;
 
       savable_comment = XMALLOC (refcounted_string_list_ty);
       savable_comment->refcount = 1;
       string_list_init (&savable_comment->contents);
-      for (i = 0; i < oldcontents->nitems; i++)
+      for (size_t i = 0; i < oldcontents->nitems; i++)
         string_list_append (&savable_comment->contents, oldcontents->item[i]);
     }
   string_list_append (&savable_comment->contents, str);
@@ -1944,9 +1922,7 @@ savable_comment_to_xgettext_comment (refcounted_string_list_ty *rslp)
   xgettext_comment_reset ();
   if (rslp != NULL)
     {
-      size_t i;
-
-      for (i = 0; i < rslp->contents.nitems; i++)
+      for (size_t i = 0; i < rslp->contents.nitems; i++)
         xgettext_comment_add (rslp->contents.item[i]);
     }
 }
@@ -1966,20 +1942,15 @@ xgettext_find_file (const char *fn,
                     const char **found_in_dir_p,
                     char **real_file_name_p)
 {
-  char *new_name;
-  const char *found_in_dir;
   char *logical_file_name;
-  struct stat statbuf;
-
-  found_in_dir = NULL;
+  const char *found_in_dir = NULL;
+  char *new_name;
 
   /* We cannot handle "-" here.  "/dev/fd/0" is not portable, and it cannot
      be opened multiple times.  */
   if (IS_RELATIVE_FILE_NAME (fn))
     {
-      int j;
-
-      for (j = 0; ; ++j)
+      for (int j = 0; ; ++j)
         {
           const char *dir = dir_list_nth (j);
 
@@ -1989,6 +1960,7 @@ xgettext_find_file (const char *fn,
 
           new_name = xconcatenated_filename (dir, fn, NULL);
 
+          struct stat statbuf;
           if (stat (new_name, &statbuf) == 0)
             {
               found_in_dir = dir;
@@ -2011,6 +1983,7 @@ xgettext_find_file (const char *fn,
   else
     {
       new_name = xstrdup (fn);
+      struct stat statbuf;
       if (stat (fn, &statbuf) != 0)
         error (EXIT_FAILURE, errno,
                _("error while opening \"%s\" for reading"), fn);
@@ -2027,8 +2000,8 @@ xgettext_open (const char *fn,
                char **logical_file_name_p, char **real_file_name_p)
 {
   FILE *fp;
-  char *new_name;
   char *logical_file_name;
+  char *new_name;
 
   if (strcmp (fn, "-") == 0)
     {
@@ -2038,9 +2011,7 @@ xgettext_open (const char *fn,
     }
   else if (IS_RELATIVE_FILE_NAME (fn))
     {
-      int j;
-
-      for (j = 0; ; ++j)
+      for (int j = 0; ; ++j)
         {
           const char *dir = dir_list_nth (j);
 
@@ -2087,12 +2058,11 @@ static void
 extract_from_file (const char *file_name, extractor_ty extractor,
                    msgdomain_list_ty *mdlp)
 {
-  char *logical_file_name;
-  char *real_file_name;
-
   for (size_t fi = 0; fi < NXFORMATS; fi++)
     current_formatstring_parser[fi] = extractor.formatstring_parser[fi];
 
+  char *logical_file_name;
+  char *real_file_name;
   if (extractor.extract_from_stream)
     {
       FILE *fp = xgettext_open (file_name, &logical_file_name, &real_file_name);
@@ -2141,14 +2111,13 @@ xgettext_its_extract_callback (message_list_ty *mlp,
                                const char *marker,
                                enum its_whitespace_type_ty whitespace)
 {
-  message_ty *message;
-
-  message = remember_a_message (mlp,
-                                msgctxt == NULL ? NULL : xstrdup (msgctxt),
-                                xstrdup (msgid),
-                                false, false,
-                                null_context_region (), pos,
-                                extracted_comment, NULL, false);
+  message_ty *message =
+    remember_a_message (mlp,
+                        msgctxt == NULL ? NULL : xstrdup (msgctxt),
+                        xstrdup (msgid),
+                        false, false,
+                        null_context_region (), pos,
+                        extracted_comment, NULL, false);
 
   if (add_itstool_comments)
     {
@@ -2206,11 +2175,6 @@ static message_ty *
 construct_header ()
 {
   char *project_id_version;
-  message_ty *mp;
-  char *msgstr;
-  char *comment;
-  static lex_pos_ty pos = { __FILE__, __LINE__ };
-
   if (package_name != NULL)
     {
       if (package_version != NULL)
@@ -2230,7 +2194,7 @@ the MSGID_BUGS_ADDRESS variable there; otherwise please\n\
 specify an --msgid-bugs-address command line option.\n\
 ")));
 
-  msgstr = xasprintf ("\
+  char *msgstr = xasprintf ("\
 Project-Id-Version: %s\n\
 Report-Msgid-Bugs-To: %s\n\
 POT-Creation-Date: \n\
@@ -2246,8 +2210,11 @@ Content-Transfer-Encoding: 8bit\n",
   assume (msgstr != NULL);
   free (project_id_version);
 
-  mp = message_alloc (NULL, "", NULL, msgstr, strlen (msgstr) + 1, &pos);
+  static lex_pos_ty pos = { __FILE__, __LINE__ };
+  message_ty *mp =
+    message_alloc (NULL, "", NULL, msgstr, strlen (msgstr) + 1, &pos);
 
+  char *comment;
   if (copyright_holder[0] != '\0')
     comment = xasprintf ("\
 SOME DESCRIPTIVE TITLE.\n\
@@ -2409,15 +2376,12 @@ finalize_header (msgdomain_list_ty *mdlp)
   /* If the generated PO file has plural forms, add a Plural-Forms template
      to the constructed header.  */
   {
-    bool has_plural;
-    size_t i, j;
-
-    has_plural = false;
-    for (i = 0; i < mdlp->nitems; i++)
+    bool has_plural = false;
+    for (size_t i = 0; i < mdlp->nitems; i++)
       {
         message_list_ty *mlp = mdlp->item[i]->messages;
 
-        for (j = 0; j < mlp->nitems; j++)
+        for (size_t j = 0; j < mlp->nitems; j++)
           {
             message_ty *mp = mlp->item[j];
 
@@ -2439,15 +2403,14 @@ finalize_header (msgdomain_list_ty *mdlp)
             && c_strstr (header->msgstr, "Plural-Forms:") == NULL)
           {
             size_t insertpos = strlen (header->msgstr);
-            const char *suffix;
-            size_t suffix_len;
-            char *new_msgstr;
 
-            suffix = "\nPlural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n";
+            const char *suffix =
+              "\nPlural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n";
             if (insertpos == 0 || header->msgstr[insertpos-1] == '\n')
               suffix++;
-            suffix_len = strlen (suffix);
-            new_msgstr = XNMALLOC (header->msgstr_len + suffix_len, char);
+            size_t suffix_len = strlen (suffix);
+
+            char *new_msgstr = XNMALLOC (header->msgstr_len + suffix_len, char);
             memcpy (new_msgstr, header->msgstr, insertpos);
             memcpy (new_msgstr + insertpos, suffix, suffix_len);
             memcpy (new_msgstr + insertpos + suffix_len,
@@ -2536,13 +2499,10 @@ language_to_extractor (const char *name)
        Make sure new scanners honor the --exclude-file option.  */
   };
 
-  table_ty *tp;
-
-  for (tp = table; tp < ENDOF(table); ++tp)
+  for (table_ty *tp = table; tp < ENDOF(table); ++tp)
     if (c_strcasecmp (name, tp->name) == 0)
       {
         extractor_ty result;
-
         result.extract_from_stream = tp->extract_from_stream;
         result.extract_from_file = tp->extract_from_file;
         result.flag_table = tp->flag_table;
@@ -2635,9 +2595,7 @@ extension_to_language (const char *extension)
     /* Here may follow more file extensions... */
   };
 
-  table_ty *tp;
-
-  for (tp = table; tp < ENDOF(table); ++tp)
+  for (table_ty *tp = table; tp < ENDOF(table); ++tp)
     if (strcmp (extension, tp->extension) == 0)
       return tp->language;
   return NULL;

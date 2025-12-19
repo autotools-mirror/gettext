@@ -87,21 +87,19 @@ x_rust_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (function_keywords.table == NULL)
         hash_init (&function_keywords, 100);
       if (macro_keywords.table == NULL)
         hash_init (&macro_keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid Rust
          identifier, possibly with a trailing '!'.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         {
           if (end > name && end[-1] == '!')
@@ -351,8 +349,7 @@ string_literal_value (TSNode node)
   sb_init (&buffer);
   uint32_t count = ts_node_named_child_count (node);
   bool skip_leading_whitespace = false;
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode subnode = ts_node_named_child (node, i);
       if (ts_node_symbol (subnode) == ts_symbol_string_content)
@@ -412,8 +409,7 @@ string_literal_value (TSNode node)
           else if (escape_start[1] == 'x')
             {
               unsigned int value = 0;
-              const char *p;
-              for (p = escape_start + 2; p < escape_end; p++)
+              for (const char *p = escape_start + 2; p < escape_end; p++)
                 {
                   /* Only 2 hexadecimal digits are accepted.
                      No overflow is possible.  */
@@ -442,8 +438,7 @@ string_literal_value (TSNode node)
                    && escape_start[2] == '{' && escape_end[-1] == '}')
             {
               unsigned int value = 0;
-              const char *p;
-              for (p = escape_start + 3; p < escape_end - 1; p++)
+              for (const char *p = escape_start + 3; p < escape_end - 1; p++)
                 {
                   char c = *p;
                   if (c >= '0' && c <= '9')
@@ -564,10 +559,9 @@ extract_from_function_call (TSNode callee_node,
 
       /* Current argument number.  */
       uint32_t arg;
-      uint32_t i;
 
       arg = 0;
-      for (i = 0; i < args_count; i++)
+      for (uint32_t i = 0; i < args_count; i++)
         {
           TSNode arg_node = ts_node_child (args_node, i);
           handle_comments (arg_node);
@@ -633,10 +627,9 @@ extract_from_function_call (TSNode callee_node,
 
   /* Current argument number.  */
   uint32_t arg;
-  uint32_t i;
 
   arg = 0;
-  for (i = 0; i < args_count; i++)
+  for (uint32_t i = 0; i < args_count; i++)
     {
       TSNode arg_node = ts_node_child (args_node, i);
       handle_comments (arg_node);
@@ -684,8 +677,8 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
 
   /* Context iterator.  */
   flag_context_list_iterator_ty next_context_iter;
-  void *keyword_value;
 
+  void *keyword_value;
   if (callee_node != NULL)
     {
       string_desc_t callee_name =
@@ -725,8 +718,7 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
       #if DEBUG_RUST
       {
         fprintf (stderr, "children:\n");
-        uint32_t i;
-        for (i = 0; i < args_count; i++)
+        for (uint32_t i = 0; i < args_count; i++)
           fprintf (stderr, "%u -> [%s]|%s|\n", i, ts_node_type (ts_node_child (args_node, i)), ts_node_string (ts_node_child (args_node, i)));
       }
       #endif
@@ -742,12 +734,11 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
           /* Current argument number.  */
           uint32_t arg;
           flag_region_ty *arg_region;
-          uint32_t i;
           uint32_t prev2_token_in_same_arg;
           uint32_t prev1_token_in_same_arg;
 
           arg = 0;
-          for (i = 0; i < args_count; i++)
+          for (uint32_t i = 0; i < args_count; i++)
             {
               TSNode arg_node = ts_node_child (args_node, i);
               handle_comments (arg_node);
@@ -861,12 +852,11 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
   /* Current argument number.  */
   uint32_t arg;
   flag_region_ty *arg_region;
-  uint32_t i;
   uint32_t prev2_token_in_same_arg;
   uint32_t prev1_token_in_same_arg;
 
   arg = 0;
-  for (i = 0; i < args_count; i++)
+  for (uint32_t i = 0; i < args_count; i++)
     {
       TSNode arg_node = ts_node_child (args_node, i);
       handle_comments (arg_node);
@@ -981,8 +971,7 @@ extract_from_node (TSNode node,
               /* Handle the potential comments between 'function' and 'arguments'.  */
               {
                 uint32_t count = ts_node_child_count (node);
-                uint32_t i;
-                for (i = 0; i < count; i++)
+                for (uint32_t i = 0; i < count; i++)
                   {
                     TSNode subnode = ts_node_child (node, i);
                     if (ts_node_eq (subnode, args_node))
@@ -1012,23 +1001,19 @@ extract_from_node (TSNode node,
              It is not always = ts_node_named_child (node, 1),
              namely when there are comments before it.  */
           uint32_t count = ts_node_child_count (node);
-          uint32_t args_index;
-          for (args_index = 0; args_index < count; args_index++)
+          for (uint32_t args_index = 0; args_index < count; args_index++)
             {
               TSNode args_node = ts_node_child (node, args_index);
               if (ts_node_symbol (args_node) == ts_symbol_token_tree)
                 {
                   /* Handle the potential comments between 'macro' and the args_node.  */
-                  {
-                    uint32_t i;
-                    for (i = 0; i < count; i++)
-                      {
-                        TSNode subnode = ts_node_child (node, i);
-                        if (ts_node_eq (subnode, args_node))
-                          break;
-                        handle_comments (subnode);
-                      }
-                  }
+                  for (uint32_t i = 0; i < count; i++)
+                    {
+                      TSNode subnode = ts_node_child (node, i);
+                      if (ts_node_eq (subnode, args_node))
+                        break;
+                      handle_comments (subnode);
+                    }
                   extract_from_function_call_like (&callee_node, true,
                                                    args_node,
                                                    outer_region,
@@ -1055,8 +1040,7 @@ extract_from_node (TSNode node,
               fprintf (stderr, "gettext arguments: %s\n", ts_node_string (argsnode));
               fprintf (stderr, "gettext children:\n");
               uint32_t count = ts_node_named_child_count (node);
-              uint32_t i;
-              for (i = 0; i < count; i++)
+              for (uint32_t i = 0; i < count; i++)
                 fprintf (stderr, "%u -> %s\n", i, ts_node_string (ts_node_named_child (node, i)));
             }
         }
@@ -1074,8 +1058,7 @@ extract_from_node (TSNode node,
             {
               fprintf (stderr, "children:\n");
               uint32_t count = ts_node_child_count (node);
-              uint32_t i;
-              for (i = 0; i < count; i++)
+              for (uint32_t i = 0; i < count; i++)
                 fprintf (stderr, "%u -> [%s]|%s|\n", i, ts_node_type (ts_node_child (node, i)), ts_node_string (ts_node_child (node, i)));
             }
         }
@@ -1087,8 +1070,7 @@ extract_from_node (TSNode node,
         || ts_node_symbol (node) == ts_symbol_block_comment))
     {
       uint32_t count = ts_node_child_count (node);
-      uint32_t i;
-      for (i = 0; i < count; i++)
+      for (uint32_t i = 0; i < count; i++)
         {
           TSNode subnode = ts_node_child (node, i);
           handle_comments (subnode);
@@ -1146,9 +1128,8 @@ extract_rust (FILE *f,
     }
 
   /* Read the file into memory.  */
-  char *contents_data;
   size_t contents_length;
-  contents_data = read_file (real_filename, 0, &contents_length);
+  char *contents_data = read_file (real_filename, 0, &contents_length);
   if (contents_data == NULL)
     error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
            real_filename);

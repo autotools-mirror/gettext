@@ -188,19 +188,20 @@ conv_from_iso_8859_1 (char *string)
       size_t length = strlen (string);
       /* Each ISO-8859-1 character needs 2 bytes at worst.  */
       unsigned char *utf8_string = XNMALLOC (2 * length + 1, unsigned char);
-      unsigned char *q = utf8_string;
-      const char *str = string;
-      const char *str_limit = str + length;
-
-      while (str < str_limit)
-        {
-          unsigned int uc = (unsigned char) *str++;
-          int n = u8_uctomb (q, uc, 6);
-          assert (n > 0);
-          q += n;
-        }
-      *q = '\0';
-      assert (q - utf8_string <= 2 * length);
+      {
+        unsigned char *q = utf8_string;
+        const char *str = string;
+        const char *str_limit = str + length;
+        while (str < str_limit)
+          {
+            unsigned int uc = (unsigned char) *str++;
+            int n = u8_uctomb (q, uc, 6);
+            assert (n > 0);
+            q += n;
+          }
+        *q = '\0';
+        assert (q - utf8_string <= 2 * length);
+      }
 
       return (char *) utf8_string;
     }
@@ -247,10 +248,11 @@ conv_from_java (char *string)
                   if (p[6] == '\\' && p[7] == 'u')
                     {
                       unsigned int m = 0;
+                      int i2;
 
-                      for (i = 0; i < 4; i++)
+                      for (i2 = 0; i2 < 4; i2++)
                         {
-                          int c1 = (unsigned char) p[8 + i];
+                          int c1 = (unsigned char) p[8 + i2];
 
                           if (c1 >= '0' && c1 <= '9')
                             m = (m << 4) + (c1 - '0');
@@ -262,7 +264,7 @@ conv_from_java (char *string)
                             goto just_one_byte;
                         }
 
-                      if (i == 4 && (m >= 0xdc00 && m < 0xe000))
+                      if (i2 == 4 && (m >= 0xdc00 && m < 0xe000))
                         {
                           /* Combine two UTF-16 words to a character.  */
                           uc = 0x10000 + ((n - 0xd800) << 10) + (m - 0xdc00);
@@ -332,9 +334,8 @@ phase4_getuc (abstract_catalog_reader_ty *catr)
       if (c2 == 'u')
         {
           unsigned int n = 0;
-          int i;
 
-          for (i = 0; i < 4; i++)
+          for (int i = 0; i < 4; i++)
             {
               int c1 = phase3_getc ();
 
@@ -476,16 +477,15 @@ read_escaped_string (abstract_catalog_reader_ty *catr, bool in_key)
               && (c >= UNICODE (0xdc00) && c < UNICODE (0xe000)))
             {
               unsigned short utf16buf[2];
-              ucs4_t uc;
-              int len;
-
               utf16buf[0] = utf16_surr;
               utf16buf[1] = UTF16_VALUE (c);
+
+              ucs4_t uc;
               if (u16_mbtouc (&uc, utf16buf, 2) != 2)
                 abort ();
 
               utf8_buffer_ensure_available (6);
-              len = u8_uctomb (utf8_buffer + utf8_buflen, uc, 6);
+              int len = u8_uctomb (utf8_buffer + utf8_buflen, uc, 6);
               if (len < 0)
                 catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
                                    real_file_name, pos.line_number, (size_t)(-1),
@@ -514,10 +514,9 @@ read_escaped_string (abstract_catalog_reader_ty *catr, bool in_key)
               else
                 {
                   ucs4_t uc = UTF16_VALUE (c);
-                  int len;
 
                   utf8_buffer_ensure_available (3);
-                  len = u8_uctomb (utf8_buffer + utf8_buflen, uc, 3);
+                  int len = u8_uctomb (utf8_buffer + utf8_buflen, uc, 3);
                   if (len < 0)
                     catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,
                                        real_file_name, pos.line_number, (size_t)(-1),
@@ -547,10 +546,9 @@ read_escaped_string (abstract_catalog_reader_ty *catr, bool in_key)
             {
               /* Convert the byte from ISO-8859-1 to UTF-8 on the fly.  */
               ucs4_t uc = c;
-              int len;
 
               utf8_buffer_ensure_available (2);
-              len = u8_uctomb (utf8_buffer + utf8_buflen, uc, 2);
+              int len = u8_uctomb (utf8_buffer + utf8_buflen, uc, 2);
               if (len < 0)
                 abort ();
               utf8_buflen += len;
@@ -612,16 +610,14 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
   for (;;)
     {
       int c;
-      bool comment;
-      bool hidden;
 
       c = phase2_getc ();
 
       if (c == EOF)
         break;
 
-      comment = false;
-      hidden = false;
+      bool comment = false;
+      bool hidden = false;
       if (c == '#')
         comment = true;
       else if (c == '!')
@@ -642,7 +638,6 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
         {
           /* A comment line.  */
           struct string_buffer buffer;
-
           sb_init (&buffer);
           for (;;)
             {
@@ -662,28 +657,21 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
       else
         {
           /* A key/value pair.  */
-          char *msgid;
-          lex_pos_ty msgid_pos;
-
-          msgid_pos = pos;
-          msgid = read_escaped_string (catr, true);
+          lex_pos_ty msgid_pos = pos;
+          char *msgid = read_escaped_string (catr, true);
           if (msgid == NULL)
             /* Skip blank line.  */
             ;
           else
             {
-              char *msgstr;
-              lex_pos_ty msgstr_pos;
-              bool force_fuzzy;
-
-              msgstr_pos = pos;
-              msgstr = read_escaped_string (catr, false);
+              lex_pos_ty msgstr_pos = pos;
+              char *msgstr = read_escaped_string (catr, false);
               if (msgstr == NULL)
                 msgstr = xstrdup ("");
 
               /* Be sure to make the message fuzzy if it was commented out
                  and if it is not already header/fuzzy/untranslated.  */
-              force_fuzzy = (hidden && msgid[0] != '\0' && msgstr[0] != '\0');
+              bool force_fuzzy = (hidden && msgid[0] != '\0' && msgstr[0] != '\0');
 
               catalog_reader_seen_message (catr,
                                            NULL, msgid, &msgid_pos, NULL,

@@ -90,17 +90,14 @@ struct locating_rule_list_ty
 static char *
 get_attribute (xmlNode *node, const char *attr)
 {
-  xmlChar *value;
-  char *result;
-
-  value = xmlGetProp (node, BAD_CAST attr);
+  xmlChar *value = xmlGetProp (node, BAD_CAST attr);
   if (!value)
     {
       error (0, 0, _("cannot find attribute %s on %s"), attr, node->name);
       return NULL;
     }
 
-  result = xstrdup ((const char *) value);
+  char *result = xstrdup ((const char *) value);
   xmlFree (value);
 
   return result;
@@ -110,9 +107,7 @@ static const char *
 document_locating_rule_match (struct document_locating_rule_ty *rule,
                               xmlDoc *doc)
 {
-  xmlNode *root;
-
-  root = xmlDocGetRootElement (doc);
+  xmlNode *root = xmlDocGetRootElement (doc);
   if (!root)
     {
       error (0, 0, _("cannot locate root element"));
@@ -149,21 +144,17 @@ locating_rule_match (struct locating_rule_ty *rule,
     }
   else
     {
-      const char *base;
-      char *reduced;
-      int err;
-
-      base = strrchr (filename, '/');
+      const char *base = strrchr (filename, '/');
       if (!base)
         base = filename;
 
-      reduced = xstrdup (base);
+      char *reduced = xstrdup (base);
       /* Remove a trailing ".in" - it's a generic suffix.  */
       while (strlen (reduced) >= 3
              && memcmp (reduced + strlen (reduced) - 3, ".in", 3) == 0)
         reduced[strlen (reduced) - 3] = '\0';
 
-      err = fnmatch (rule->pattern, last_component (reduced), FNM_PATHNAME);
+      int err = fnmatch (rule->pattern, last_component (reduced), FNM_PATHNAME);
       free (reduced);
       if (err != 0)
         return NULL;
@@ -172,15 +163,11 @@ locating_rule_match (struct locating_rule_ty *rule,
   /* Check documentRules.  */
   if (rule->doc_rules.nitems > 0)
     {
-      const char *target;
-      xmlDoc *doc;
-      size_t i;
-
-      doc = xmlReadFile (filename, NULL,
-                         XML_PARSE_NONET
-                         | XML_PARSE_NOWARNING
-                         | XML_PARSE_NOBLANKS
-                         | XML_PARSE_NOERROR);
+      xmlDoc *doc = xmlReadFile (filename, NULL,
+                                 XML_PARSE_NONET
+                                 | XML_PARSE_NOWARNING
+                                 | XML_PARSE_NOBLANKS
+                                 | XML_PARSE_NOERROR);
       if (doc == NULL)
         {
           const xmlError *err = xmlGetLastError ();
@@ -188,7 +175,8 @@ locating_rule_match (struct locating_rule_ty *rule,
           return NULL;
         }
 
-      for (i = 0, target = NULL; i < rule->doc_rules.nitems; i++)
+      const char *target = NULL;
+      for (size_t i = 0; i < rule->doc_rules.nitems; i++)
         {
           target =
             document_locating_rule_match (&rule->doc_rules.items[i], doc);
@@ -211,26 +199,19 @@ locating_rule_list_locate (const struct locating_rule_list_ty *rules,
                            const char *filename,
                            const char *name)
 {
-  size_t i;
-
-  for (i = 0; i < rules->nitems; i++)
+  for (size_t i = 0; i < rules->nitems; i++)
     {
       if (IS_RELATIVE_FILE_NAME (filename))
         {
-          int j;
-
-          for (j = 0; ; ++j)
+          for (int j = 0; ; ++j)
             {
               const char *dir = dir_list_nth (j);
-              char *new_filename;
-              const char *target;
-
               if (dir == NULL)
                 break;
               
-              new_filename = xconcatenated_filename (dir, filename, NULL);
-              target = locating_rule_match (&rules->items[i], new_filename,
-                                            name);
+              char *new_filename = xconcatenated_filename (dir, filename, NULL);
+              const char *target =
+                locating_rule_match (&rules->items[i], new_filename, name);
               free (new_filename);
               if (target != NULL)
                 return target;
@@ -267,16 +248,14 @@ static void
 document_locating_rule_list_add (struct document_locating_rule_list_ty *rules,
                                  xmlNode *node)
 {
-  struct document_locating_rule_ty rule;
-
   if (!xmlHasProp (node, BAD_CAST "target"))
     {
       missing_attribute (node, "target");
       return;
     }
 
+  struct document_locating_rule_ty rule;
   memset (&rule, 0, sizeof (struct document_locating_rule_ty));
-
   if (xmlHasProp (node, BAD_CAST "ns"))
     rule.ns = get_attribute (node, "ns");
   if (xmlHasProp (node, BAD_CAST "localName"))
@@ -298,9 +277,7 @@ document_locating_rule_list_add (struct document_locating_rule_list_ty *rules,
 static void
 locating_rule_destroy (struct locating_rule_ty *rule)
 {
-  size_t i;
-
-  for (i = 0; i < rule->doc_rules.nitems; i++)
+  for (size_t i = 0; i < rule->doc_rules.nitems; i++)
     document_locating_rule_destroy (&rule->doc_rules.items[i]);
   free (rule->doc_rules.items);
 
@@ -313,21 +290,18 @@ static bool
 locating_rule_list_add_from_file (struct locating_rule_list_ty *rules,
                                   const char *rule_file_name)
 {
-  xmlDoc *doc;
-  xmlNode *root, *node;
-
-  doc = xmlReadFile (rule_file_name, "utf-8",
-                     XML_PARSE_NONET
-                     | XML_PARSE_NOWARNING
-                     | XML_PARSE_NOBLANKS
-                     | XML_PARSE_NOERROR);
+  xmlDoc *doc = xmlReadFile (rule_file_name, "utf-8",
+                             XML_PARSE_NONET
+                             | XML_PARSE_NOWARNING
+                             | XML_PARSE_NOBLANKS
+                             | XML_PARSE_NOERROR);
   if (doc == NULL)
     {
       error (0, 0, _("cannot read XML file %s"), rule_file_name);
       return false;
     }
 
-  root = xmlDocGetRootElement (doc);
+  xmlNode *root = xmlDocGetRootElement (doc);
   if (!root)
     {
       error (0, 0, _("cannot locate root element"));
@@ -347,12 +321,10 @@ locating_rule_list_add_from_file (struct locating_rule_list_ty *rules,
       return false;
     }
 
-  for (node = root->children; node; node = node->next)
+  for (xmlNode *node = root->children; node; node = node->next)
     {
       if (xmlStrEqual (node->name, BAD_CAST "locatingRule"))
         {
-          struct locating_rule_ty rule;
-
           if (!xmlHasProp (node, BAD_CAST "pattern"))
             {
               missing_attribute (node, "pattern");
@@ -360,6 +332,7 @@ locating_rule_list_add_from_file (struct locating_rule_list_ty *rules,
             }
           else
             {
+              struct locating_rule_ty rule;
               memset (&rule, 0, sizeof (struct locating_rule_ty));
               rule.pattern = get_attribute (node, "pattern");
               if (xmlHasProp (node, BAD_CAST "name"))
@@ -368,9 +341,7 @@ locating_rule_list_add_from_file (struct locating_rule_list_ty *rules,
                 rule.target = get_attribute (node, "target");
               else
                 {
-                  xmlNode *n;
-
-                  for (n = node->children; n; n = n->next)
+                  for (xmlNode *n = node->children; n; n = n->next)
                     {
                       if (xmlStrEqual (n->name, BAD_CAST "documentRule"))
                         document_locating_rule_list_add (&rule.doc_rules, n);
@@ -397,18 +368,14 @@ bool
 locating_rule_list_add_from_directory (struct locating_rule_list_ty *rules,
                                        const char *directory)
 {
-  DIR *dirp;
-
-  dirp = opendir (directory);
+  DIR *dirp = opendir (directory);
   if (dirp == NULL)
     return false;
 
   for (;;)
     {
-      struct dirent *dp;
-
       errno = 0;
-      dp = readdir (dirp);
+      struct dirent *dp = readdir (dirp);
       if (dp != NULL)
         {
           const char *name = dp->d_name;
@@ -436,11 +403,10 @@ locating_rule_list_add_from_directory (struct locating_rule_list_ty *rules,
 struct locating_rule_list_ty *
 locating_rule_list_alloc (void)
 {
-  struct locating_rule_list_ty *result;
-
   xmlCheckVersion (LIBXML_VERSION);
 
-  result = XCALLOC (1, struct locating_rule_list_ty);
+  struct locating_rule_list_ty *result =
+    XCALLOC (1, struct locating_rule_list_ty);
 
   return result;
 }

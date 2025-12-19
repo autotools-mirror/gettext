@@ -76,9 +76,6 @@ static void fetch (const char *url, const char *file);
 int
 main (int argc, char *argv[])
 {
-  bool do_help;
-  bool do_version;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
@@ -94,9 +91,9 @@ main (int argc, char *argv[])
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  /* Set default values for variables.  */
-  do_help = false;
-  do_version = false;
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
 
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
@@ -109,25 +106,27 @@ main (int argc, char *argv[])
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int optchar;
-  while ((optchar = get_next_option ()) != -1)
-    switch (optchar)
-      {
-      case '\0':          /* Long option with key == 0.  */
-        break;
-      case 'h':           /* --help */
-        do_help = true;
-        break;
-      case 'q':           /* --quiet / --silent */
-        verbose = false;
-        break;
-      case 'V':           /* --version */
-        do_version = true;
-        break;
-      default:
-        usage (EXIT_FAILURE);
-        /* NOTREACHED */
-      }
+  {
+    int optchar;
+    while ((optchar = get_next_option ()) != -1)
+      switch (optchar)
+        {
+        case '\0':          /* Long option with key == 0.  */
+          break;
+        case 'h':           /* --help */
+          do_help = true;
+          break;
+        case 'q':           /* --quiet / --silent */
+          verbose = false;
+          break;
+        case 'V':           /* --version */
+          do_version = true;
+          break;
+        default:
+          usage (EXIT_FAILURE);
+          /* NOTREACHED */
+        }
+  }
 
   /* Version information requested.  */
   if (do_version)
@@ -206,17 +205,16 @@ or by email to <%s>.\n"),
 static void
 cat_file (const char *src_filename)
 {
-  int src_fd;
-  char buf[4096];
-  const int buf_size = sizeof (buf);
-
-  src_fd = open (src_filename, O_RDONLY | O_BINARY);
+  int src_fd = open (src_filename, O_RDONLY | O_BINARY);
   if (src_fd < 0)
     error (EXIT_FAILURE, errno, _("error while opening \"%s\" for reading"),
            src_filename);
 
   for (;;)
     {
+      char buf[4096];
+      const int buf_size = sizeof (buf);
+
       ssize_t n_read = read (src_fd, buf, buf_size);
       if (n_read < 0)
         {
@@ -272,16 +270,15 @@ fetch (const char *url, const char *file)
   /* First try: using Java.  */
   {
     const char *class_name = "gnu.gettext.GetURL";
-    const char *gettextjar;
-    const char *args[2];
 
     /* Make it possible to override the gettext.jar location.  This is
        necessary for running the testsuite before "make install".  */
-    gettextjar = getenv ("GETTEXTJAR");
+    const char *gettextjar = getenv ("GETTEXTJAR");
     if (gettextjar == NULL || gettextjar[0] == '\0')
       gettextjar = relocate (GETTEXTJAR);
 
     /* Prepare arguments.  */
+    const char *args[2];
     args[0] = url;
     args[1] = NULL;
 
@@ -313,13 +310,12 @@ fetch (const char *url, const char *file)
       {
         /* Test for presence of wget: "wget --version > /dev/null"  */
         const char *argv[3];
-        int exitstatus;
-
         argv[0] = "wget";
         argv[1] = "--version";
         argv[2] = NULL;
-        exitstatus = execute ("wget", "wget", argv, NULL, NULL,
-                              false, false, true, true, true, false, NULL);
+
+        int exitstatus = execute ("wget", "wget", argv, NULL, NULL,
+                                  false, false, true, true, true, false, NULL);
         wget_present = (exitstatus == 0);
         wget_tested = true;
       }
@@ -327,8 +323,6 @@ fetch (const char *url, const char *file)
     if (wget_present)
       {
         const char *argv[10];
-        int exitstatus;
-
         argv[0] = "wget";
         argv[1] = "--quiet";
         argv[2] = "--output-document"; argv[3] = "-";
@@ -336,8 +330,9 @@ fetch (const char *url, const char *file)
         argv[6] = "--user-agent"; argv[7] = "urlget";
         argv[8] = url;
         argv[9] = NULL;
-        exitstatus = execute ("wget", "wget", argv, NULL, NULL,
-                              true, false, false, false, true, false, NULL);
+
+        int exitstatus = execute ("wget", "wget", argv, NULL, NULL,
+                                  true, false, false, false, true, false, NULL);
         if (exitstatus != 127)
           {
             if (exitstatus != 0)
@@ -358,13 +353,12 @@ fetch (const char *url, const char *file)
       {
         /* Test for presence of lynx: "lynx --version > /dev/null"  */
         const char *argv[3];
-        int exitstatus;
-
         argv[0] = "lynx";
         argv[1] = "--version";
         argv[2] = NULL;
-        exitstatus = execute ("lynx", "lynx", argv, NULL, NULL,
-                              false, false, true, true, true, false, NULL);
+
+        int exitstatus = execute ("lynx", "lynx", argv, NULL, NULL,
+                                  false, false, true, true, true, false, NULL);
         lynx_present = (exitstatus == 0);
         lynx_tested = true;
       }
@@ -372,15 +366,14 @@ fetch (const char *url, const char *file)
     if (lynx_present)
       {
         const char *argv[5];
-        int exitstatus;
-
         argv[0] = "lynx";
         argv[1] = "-useragent=urlget";
         argv[2] = "-source";
         argv[3] = url;
         argv[4] = NULL;
-        exitstatus = execute ("lynx", "lynx", argv, NULL, NULL,
-                              true, false, false, false, true, false, NULL);
+
+        int exitstatus = execute ("lynx", "lynx", argv, NULL, NULL,
+                                  true, false, false, false, true, false, NULL);
         if (exitstatus != 127)
           {
             if (exitstatus != 0)
@@ -401,13 +394,12 @@ fetch (const char *url, const char *file)
       {
         /* Test for presence of curl: "curl --version > /dev/null"  */
         const char *argv[3];
-        int exitstatus;
-
         argv[0] = "curl";
         argv[1] = "--version";
         argv[2] = NULL;
-        exitstatus = execute ("curl", "curl", argv, NULL, NULL,
-                              false, false, true, true, true, false, NULL);
+
+        int exitstatus = execute ("curl", "curl", argv, NULL, NULL,
+                                  false, false, true, true, true, false, NULL);
         curl_present = (exitstatus == 0 || exitstatus == 2);
         curl_tested = true;
       }
@@ -415,15 +407,14 @@ fetch (const char *url, const char *file)
     if (curl_present)
       {
         const char *argv[6];
-        int exitstatus;
-
         argv[0] = "curl";
         argv[1] = "--silent";
         argv[2] = "--user-agent"; argv[3] = "urlget";
         argv[4] = url;
         argv[5] = NULL;
-        exitstatus = execute ("curl", "curl", argv, NULL, NULL,
-                              true, false, false, false, true, false, NULL);
+
+        int exitstatus = execute ("curl", "curl", argv, NULL, NULL,
+                                  true, false, false, false, true, false, NULL);
         if (exitstatus != 127)
           {
             if (exitstatus != 0)

@@ -1,5 +1,5 @@
 /* Miscellaneous public API.
-   Copyright (C) 2019, 2021 Free Software Foundation, Inc.
+   Copyright (C) 2019, 2021, 2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2019.
 
    This program is free software: you can redistribute it and/or modify
@@ -30,9 +30,8 @@ styled_ostream_t
 styled_ostream_create (int fd, const char *filename, ttyctl_t tty_control,
                        const char *css_filename)
 {
-  styled_ostream_t stream;
-
-  stream = term_styled_ostream_create (fd, filename, tty_control, css_filename);
+  styled_ostream_t stream =
+    term_styled_ostream_create (fd, filename, tty_control, css_filename);
   if (stream == NULL)
     stream =
       noop_styled_ostream_create (fd_ostream_create (fd, filename, true), true);

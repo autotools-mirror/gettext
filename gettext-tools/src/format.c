@@ -104,24 +104,22 @@ check_msgid_msgstr_format_i (const char *msgid, const char *msgid_plural,
     {
       const char *pretty_msgid =
         (msgid_plural != NULL ? "msgid_plural" : "msgid");
-      char buf[18+1];
-      const char *pretty_msgstr = "msgstr";
       bool has_plural_translations = (strlen (msgstr) + 1 < msgstr_len);
       const char *p_end = msgstr + msgstr_len;
+
       const char *p;
       unsigned int j;
-
       for (p = msgstr, j = 0; p < p_end; p += strlen (p) + 1, j++)
         {
-          void *msgstr_descr;
-
+          char buf[18+1];
+          const char *pretty_msgstr = "msgstr";
           if (msgid_plural != NULL)
             {
               sprintf (buf, "msgstr[%u]", j);
               pretty_msgstr = buf;
             }
 
-          msgstr_descr = parser->parse (p, true, NULL, &invalid_reason);
+          void *msgstr_descr = parser->parse (p, true, NULL, &invalid_reason);
 
           if (msgstr_descr != NULL)
             {
@@ -186,7 +184,6 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
                            formatstring_error_logger_t error_logger, void *error_logger_data)
 {
   int seen_errors = 0;
-  size_t i;
 
   /* We check only those messages for which the msgid's is_format flag
      is one of 'yes' or 'possible'.  We don't check msgids with is_format
@@ -194,7 +191,7 @@ check_msgid_msgstr_format (const char *msgid, const char *msgid_plural,
      msgids with is_format 'undecided' because that would introduce too
      many checks, thus forcing the programmer to add "xgettext: no-c-format"
      anywhere where a translator wishes to use a percent sign.  */
-  for (i = 0; i < NFORMATS; i++)
+  for (size_t i = 0; i < NFORMATS; i++)
     if (possible_format_p (is_format[i]))
       seen_errors += check_msgid_msgstr_format_i (msgid, msgid_plural,
                                                   msgstr, msgstr_len, i,

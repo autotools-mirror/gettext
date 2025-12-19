@@ -45,8 +45,8 @@ xerror (int severity, const char *prefix_tail,
   if (multiline_p)
     {
       bool old_error_with_progname = error_with_progname;
-      char *prefix;
 
+      char *prefix;
       if (filename != NULL)
         {
           if (lineno != (size_t)(-1))

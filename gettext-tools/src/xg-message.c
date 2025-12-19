@@ -132,8 +132,6 @@ is_relevant (struct formatstring_parser *parser)
 void
 decide_is_format (message_ty *mp)
 {
-  size_t i;
-
   bool already_c_format = possible_format_p (mp->is_format[format_c]);
   bool already_qt_or_kde_or_boost_format =
     (possible_format_p (mp->is_format[format_qt])
@@ -145,7 +143,7 @@ decide_is_format (message_ty *mp)
 
   /* If it is not already decided, through programmer comments, whether the
      msgid is a format string, examine the msgid.  This is a heuristic.  */
-  for (i = 0; i < NFORMATS; i++)
+  for (size_t i = 0; i < NFORMATS; i++)
     {
       if (mp->is_format[i] == undecided
           && is_relevant (formatstring_parsers[i])
@@ -231,9 +229,7 @@ decide_do_wrap (message_ty *mp)
 void
 decide_syntax_check (message_ty *mp)
 {
-  size_t i;
-
-  for (i = 0; i < NSYNTAXCHECKS; i++)
+  for (size_t i = 0; i < NSYNTAXCHECKS; i++)
     if (mp->do_syntax_check[i] == undecided)
       mp->do_syntax_check[i] = default_syntax_check[i] == yes ? yes : no;
 }
@@ -263,10 +259,6 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
                     const char *extracted_comment,
                     refcounted_string_list_ty *comment, bool comment_is_utf8)
 {
-  struct argument_range range;
-  message_ty *mp;
-  size_t i;
-
   /* See whether we shall exclude this message.  */
   if (exclude != NULL && message_list_search (exclude, msgctxt, msgid) != NULL)
     {
@@ -284,6 +276,7 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
 
   savable_comment_to_xgettext_comment (comment);
 
+  struct argument_range range;
   range.min = -1;
   range.max = -1;
 
@@ -303,15 +296,13 @@ gettext(\"\") returns the header entry with\n\
 meta information, not the empty string.\n"));
 
   /* See if we have seen this message before.  */
-  mp = message_list_search (mlp, msgctxt, msgid);
+  message_ty *mp = message_list_search (mlp, msgctxt, msgid);
   if (mp != NULL)
     {
       if (pluralp != (mp->msgid_plural != NULL))
         {
           lex_pos_ty pos1;
           lex_pos_ty pos2;
-          char buffer1[22];
-          char buffer2[22];
 
           if (pluralp)
             {
@@ -324,10 +315,12 @@ meta information, not the empty string.\n"));
               pos2 = mp->pos;
             }
 
+          char buffer1[22];
           if (pos1.line_number == (size_t)(-1))
             buffer1[0] = '\0';
           else
             sprintf (buffer1, ":%ld", (long) pos1.line_number);
+          char buffer2[22];
           if (pos2.line_number == (size_t)(-1))
             buffer2[0] = '\0';
           else
@@ -374,48 +367,44 @@ meta information, not the empty string.\n"));
 
   /* Ask the lexer for the comments it has seen.  */
   {
-    size_t nitems_before;
-    size_t nitems_after;
-    int j;
-    bool add_all_remaining_comments;
+    size_t nitems_before =
+      (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
+
+    if (extracted_comment != NULL)
+      {
+        char *copy = xstrdup (extracted_comment);
+        {
+          char *rest = copy;
+          while (*rest != '\0')
+            {
+              char *newline = strchr (rest, '\n');
+
+              if (newline != NULL)
+                {
+                  *newline = '\0';
+                  message_comment_dot_append (mp, rest);
+                  rest = newline + 1;
+                }
+              else
+                {
+                  message_comment_dot_append (mp, rest);
+                  break;
+                }
+            }
+        }
+        free (copy);
+      }
+
     /* The string before the comment tag.  For example, If "** TRANSLATORS:"
        is seen and the comment tag is "TRANSLATORS:",
        then comment_tag_prefix is set to "** ".  */
     const char *comment_tag_prefix = "";
     size_t comment_tag_prefix_length = 0;
 
-    nitems_before = (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
-
-    if (extracted_comment != NULL)
-      {
-        char *copy = xstrdup (extracted_comment);
-        char *rest;
-
-        rest = copy;
-        while (*rest != '\0')
-          {
-            char *newline = strchr (rest, '\n');
-
-            if (newline != NULL)
-              {
-                *newline = '\0';
-                message_comment_dot_append (mp, rest);
-                rest = newline + 1;
-              }
-            else
-              {
-                message_comment_dot_append (mp, rest);
-                break;
-              }
-          }
-        free (copy);
-      }
-
-    add_all_remaining_comments = add_all_comments;
-    for (j = 0; ; ++j)
+    bool add_all_remaining_comments = add_all_comments;
+    for (int j = 0; ; ++j)
       {
         const char *s = xgettext_comment (j);
-        const char *t;
         if (s == NULL)
           break;
 
@@ -425,56 +414,58 @@ meta information, not the empty string.\n"));
         /* To reduce the possibility of unwanted matches we do a two
            step match: the line must contain 'xgettext:' and one of
            the possible format description strings.  */
-        if ((t = c_strstr (s, "xgettext:")) != NULL)
-          {
-            bool tmp_fuzzy;
-            enum is_format tmp_format[NFORMATS];
-            struct argument_range tmp_range;
-            enum is_wrap tmp_wrap;
-            enum is_syntax_check tmp_syntax_check[NSYNTAXCHECKS];
-            bool interesting;
+        {
+          const char *t = c_strstr (s, "xgettext:");
+          if (t != NULL)
+            {
+              t += strlen ("xgettext:");
 
-            t += strlen ("xgettext:");
+              bool tmp_fuzzy;
+              enum is_format tmp_format[NFORMATS];
+              struct argument_range tmp_range;
+              enum is_wrap tmp_wrap;
+              enum is_syntax_check tmp_syntax_check[NSYNTAXCHECKS];
+              parse_comment_special (t, &tmp_fuzzy, tmp_format, &tmp_range,
+                                     &tmp_wrap, tmp_syntax_check);
 
-            parse_comment_special (t, &tmp_fuzzy, tmp_format, &tmp_range,
-                                   &tmp_wrap, tmp_syntax_check);
-
-            interesting = false;
-            for (i = 0; i < NFORMATS; i++)
-              if (tmp_format[i] != undecided)
+              bool interesting = false;
+              for (size_t i = 0; i < NFORMATS; i++)
+                if (tmp_format[i] != undecided)
+                  {
+                    mp->is_format[i] = tmp_format[i];
+                    interesting = true;
+                  }
+              if (has_range_p (tmp_range))
                 {
-                  mp->is_format[i] = tmp_format[i];
+                  range = tmp_range;
                   interesting = true;
                 }
-            if (has_range_p (tmp_range))
-              {
-                range = tmp_range;
-                interesting = true;
-              }
-            if (tmp_wrap != undecided)
-              {
-                mp->do_wrap = tmp_wrap;
-                interesting = true;
-              }
-            for (i = 0; i < NSYNTAXCHECKS; i++)
-              if (tmp_syntax_check[i] != undecided)
+              if (tmp_wrap != undecided)
                 {
-                  mp->do_syntax_check[i] = tmp_syntax_check[i];
+                  mp->do_wrap = tmp_wrap;
                   interesting = true;
                 }
+              for (size_t i = 0; i < NSYNTAXCHECKS; i++)
+                if (tmp_syntax_check[i] != undecided)
+                  {
+                    mp->do_syntax_check[i] = tmp_syntax_check[i];
+                    interesting = true;
+                  }
 
-            /* If the "xgettext:" marker was followed by an interesting
-               keyword, and we updated our mp->is_format/mp->do_wrap variables,
-               we don't print the comment as a #. comment.  */
-            if (interesting)
-              continue;
-          }
+              /* If the "xgettext:" marker was followed by an interesting
+                 keyword, and we updated our mp->is_format/mp->do_wrap
+                 variables, we don't print the comment as a #. comment.  */
+              if (interesting)
+                continue;
+            }
+        }
 
         if (!add_all_remaining_comments && comment_tag != NULL)
           {
             /* When the comment tag is seen, it drags in not only the line
                which it starts, but all remaining comment lines.  */
-            if ((t = c_strstr (s, comment_tag)) != NULL)
+            const char *t = c_strstr (s, comment_tag);
+            if (t != NULL)
               {
                 add_all_remaining_comments = true;
                 comment_tag_prefix = s;
@@ -490,7 +481,8 @@ meta information, not the empty string.\n"));
           }
       }
 
-    nitems_after = (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
+    size_t nitems_after =
+      (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
 
     /* Don't add the comments if they are a repetition of the tail of the
        already present comments.  This avoids unneeded duplication if the
@@ -502,8 +494,7 @@ meta information, not the empty string.\n"));
         if (added <= nitems_before)
           {
             bool repeated = true;
-
-            for (i = 0; i < added; i++)
+            for (size_t i = 0; i < added; i++)
               if (strcmp (mp->comment_dot->item[nitems_before - added + i],
                           mp->comment_dot->item[nitems_before + i]) != 0)
                 {
@@ -513,7 +504,7 @@ meta information, not the empty string.\n"));
 
             if (repeated)
               {
-                for (i = 0; i < added; i++)
+                for (size_t i = 0; i < added; i++)
                   free ((char *) mp->comment_dot->item[nitems_before + i]);
                 mp->comment_dot->nitems = nitems_before;
               }
@@ -551,9 +542,7 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
                            refcounted_string_list_ty *comment,
                            bool comment_is_utf8)
 {
-  char *msgid_plural;
-
-  msgid_plural = string;
+  char *msgid_plural = string;
 
   savable_comment_to_xgettext_comment (comment);
 
@@ -563,17 +552,13 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
   /* See if the message is already a plural message.  */
   if (mp->msgid_plural == NULL)
     {
-      char *msgstr1_malloc = NULL;
-      const char *msgstr1;
-      size_t msgstr1_len;
-      char *msgstr;
-      size_t i;
-
       mp->msgid_plural = msgid_plural;
 
       /* Construct the first plural form from the prefix and suffix,
          otherwise use the empty string.  The translator will have to
          provide additional plural forms.  */
+      char *msgstr1_malloc = NULL;
+      const char *msgstr1;
       if (msgstr_prefix)
         {
           msgstr1_malloc =
@@ -583,12 +568,15 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
         }
       else
         msgstr1 = "";
-      msgstr1_len = strlen (msgstr1) + 1;
-      msgstr = XNMALLOC (mp->msgstr_len + msgstr1_len, char);
+      size_t msgstr1_len = strlen (msgstr1) + 1;
+
+      char *msgstr = XNMALLOC (mp->msgstr_len + msgstr1_len, char);
       memcpy (msgstr, mp->msgstr, mp->msgstr_len);
       memcpy (msgstr + mp->msgstr_len, msgstr1, msgstr1_len);
+
       mp->msgstr = msgstr;
       mp->msgstr_len = mp->msgstr_len + msgstr1_len;
+
       free (msgstr1_malloc);
 
       /* Determine whether the context specifies that the msgid_plural is a
@@ -607,7 +595,7 @@ remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
       /* If it is not already decided, through programmer comments or
          the msgid, whether the msgid is a format string, examine the
          msgid_plural.  This is a heuristic.  */
-      for (i = 0; i < NFORMATS; i++)
+      for (size_t i = 0; i < NFORMATS; i++)
         if (is_relevant (formatstring_parsers[i])
             && (mp->is_format[i] == undecided || mp->is_format[i] == possible)
             /* But avoid redundancy: objc-format is stronger than c-format.  */

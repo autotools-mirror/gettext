@@ -118,13 +118,13 @@ flag_context_list_ty *
 flag_context_list_table_lookup (flag_context_list_table_ty *flag_table,
                                 const void *key, size_t keylen)
 {
-  void *entry;
-
-  if (flag_table->table != NULL
-      && hash_find_entry (flag_table, key, keylen, &entry) == 0)
-    return (flag_context_list_ty *) entry;
-  else
-    return NULL;
+  if (flag_table->table != NULL)
+    {
+      void *entry;
+      if (hash_find_entry (flag_table, key, keylen, &entry) == 0)
+        return (flag_context_list_ty *) entry;
+    }
+  return NULL;
 }
 
 
@@ -158,6 +158,7 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
         memset (&list->flags, '\0', sizeof (list->flags));
         set_flags_for_formatstring_type (&list->flags, fi, value, pass);
         list->next = NULL;
+
         hash_insert_entry (table, name_start, name_end - name_start, list);
       }
     else
@@ -186,6 +187,7 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
             list->argnum = argnum;
             memset (&list->flags, '\0', sizeof (list->flags));
             set_flags_for_formatstring_type (&list->flags, fi, value, pass);
+
             list->next = *lastp;
             *lastp = list;
           }
@@ -201,6 +203,7 @@ flag_context_list_table_add (flag_context_list_table_ty *table,
             list->argnum = argnum;
             memset (&list->flags, '\0', sizeof (list->flags));
             set_flags_for_formatstring_type (&list->flags, fi, value, pass);
+
             list->next = copy;
           }
       }
@@ -225,10 +228,8 @@ remembered_message_list_append (struct remembered_message_list_ty *list,
 {
   if (list->nitems >= list->nitems_max)
     {
-      size_t nbytes;
-
       list->nitems_max = list->nitems_max * 2 + 4;
-      nbytes = list->nitems_max * sizeof (struct remembered_message_ty);
+      size_t nbytes = list->nitems_max * sizeof (struct remembered_message_ty);
       list->item = xrealloc (list->item, nbytes);
     }
   list->item[list->nitems++] = element;
@@ -283,7 +284,6 @@ inheriting_region (flag_region_ty *outer_region,
                    flag_context_ty modifier_context)
 {
   flag_region_ty *region = XMALLOC (flag_region_ty);
-
   region->refcount = 1;
   for (size_t fi = 0; fi < NXFORMATS; fi++)
     {
@@ -321,7 +321,6 @@ new_sub_region (flag_region_ty *outer_region, flag_context_ty modifier_context)
 {
   /* Create the new region.  */
   flag_region_ty *region = XMALLOC (flag_region_ty);
-
   region->refcount = 1;
   for (size_t fi = 0; fi < NXFORMATS; fi++)
     {
@@ -346,10 +345,8 @@ new_sub_region (flag_region_ty *outer_region, flag_context_ty modifier_context)
       /* Register it as child of outer_region.  */
       if (outer_region->nsubregions >= outer_region->nsubregions_max)
         {
-          size_t nbytes;
-
           outer_region->nsubregions_max = outer_region->nsubregions_max * 2 + 4;
-          nbytes = outer_region->nsubregions_max * sizeof (struct flag_region_ty *);
+          size_t nbytes = outer_region->nsubregions_max * sizeof (struct flag_region_ty *);
           outer_region->subregion = xrealloc (outer_region->subregion, nbytes);
         }
       outer_region->subregion[outer_region->nsubregions++] = region;
@@ -392,13 +389,11 @@ void
 set_format_flag_on_region (flag_region_ty *region,
                            size_t fi, enum is_format value)
 {
-  size_t i;
-
   /* First, on this region.  */
   region->for_formatstring[fi].is_format = value;
   struct remembered_message_list_ty *rmlp =
     region->for_formatstring[fi].remembered;
-  for (i = 0; i < rmlp->nitems; i++)
+  for (size_t i = 0; i < rmlp->nitems; i++)
     {
       struct remembered_message_ty *rmp = &rmlp->item[i];
       set_format_flag_from_context (rmp->mp, rmp->plural, &rmp->pos,
@@ -406,7 +401,7 @@ set_format_flag_on_region (flag_region_ty *region,
     }
 
   /* Then, recurse through the sub-regions that inherit.  */
-  for (i = 0; i < region->nsubregions; i++)
+  for (size_t i = 0; i < region->nsubregions; i++)
     {
       flag_region_ty *sub_region = region->subregion[i];
       if (sub_region->inherit_from_parent_region

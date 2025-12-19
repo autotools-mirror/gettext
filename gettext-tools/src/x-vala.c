@@ -86,18 +86,16 @@ add_keyword (const char *name, hash_table *keywords)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords->table == NULL)
         hash_init (keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (keywords, name, end - name, &shape);
     }
@@ -307,7 +305,6 @@ static int
 phase2_getc ()
 {
   int c;
-  bool last_was_star;
 
   c = phase1_getc ();
   if (c != '/')
@@ -322,41 +319,43 @@ phase2_getc ()
     case '*':
       /* C comment.  */
       comment_start ();
-      last_was_star = false;
-      for (;;)
-        {
-          c = phase1_getc ();
-          if (c == EOF)
+      {
+        bool last_was_star = false;
+        for (;;)
+          {
+            c = phase1_getc ();
+            if (c == EOF)
+              break;
+            /* We skip all leading white space, but not EOLs.  */
+            if (!(buflen == 0 && (c == ' ' || c == '\t')))
+              comment_add (c);
+            switch (c)
+              {
+              case '\n':
+                comment_line_end (1);
+                comment_start ();
+                last_was_star = false;
+                continue;
+
+              case '*':
+                last_was_star = true;
+                continue;
+
+              case '/':
+                if (last_was_star)
+                  {
+                    comment_line_end (2);
+                    break;
+                  }
+                FALLTHROUGH;
+
+              default:
+                last_was_star = false;
+                continue;
+              }
             break;
-          /* We skip all leading white space, but not EOLs.  */
-          if (!(buflen == 0 && (c == ' ' || c == '\t')))
-            comment_add (c);
-          switch (c)
-            {
-            case '\n':
-              comment_line_end (1);
-              comment_start ();
-              last_was_star = false;
-              continue;
-
-            case '*':
-              last_was_star = true;
-              continue;
-
-            case '/':
-              if (last_was_star)
-                {
-                  comment_line_end (2);
-                  break;
-                }
-              FALLTHROUGH;
-
-            default:
-              last_was_star = false;
-              continue;
-            }
-          break;
-        }
+          }
+      }
       last_comment_line = line_number;
       return ' ';
 
@@ -465,7 +464,7 @@ free_token (token_ty *tp)
 static int
 get_string_element ()
 {
-  int c, j;
+  int c;
 
   /* Use phase 1, because phase 2 elides comments.  */
   c = phase1_getc ();
@@ -544,12 +543,8 @@ get_string_element ()
           break;
         }
       {
-        int n;
-        bool overflow;
-
-        n = 0;
-        overflow = false;
-
+        int n = 0;
+        bool overflow = false;
         for (;;)
           {
             switch (c)
@@ -590,10 +585,8 @@ get_string_element ()
 
     case '0':
       {
-        int n;
-
-        n = 0;
-        for (j = 0; j < 3; ++j)
+        int n = 0;
+        for (int j = 0; j < 3; ++j)
           {
             n = n * 8 + c - '0';
             c = phase1_getc ();
@@ -615,9 +608,9 @@ get_string_element ()
     case 'u':
       {
         unsigned char buf[8];
-        int n;
+        int j;
 
-        n = 0;
+        int n = 0;
         for (j = 0; j < 4; j++)
           {
             int c1 = phase1_getc ();
@@ -718,8 +711,6 @@ phase3_get (token_ty *tp)
 
   for (;;)
     {
-      bool template;
-      bool verbatim;
       int c;
 
       tp->line_number = line_number;
@@ -745,8 +736,8 @@ phase3_get (token_ty *tp)
         }
 
       last_non_comment_line = tp->line_number;
-      template = false;
-      verbatim = false;
+      bool template = false;
+      bool verbatim = false;
 
       switch (c)
         {
@@ -923,7 +914,6 @@ phase3_get (token_ty *tp)
             struct mixed_string_buffer msb;
             {
               int c2 = phase1_getc ();
-
               if (c2 == '"')
                 {
                   int c3 = phase1_getc ();
@@ -1273,13 +1263,13 @@ phase4_get (token_ty *tp)
       for (;;)
         {
           token_ty token2;
-
           phase3_get (&token2);
+
           if (token2.type == token_type_plus)
             {
               token_ty token3;
-
               phase3_get (&token3);
+
               if (token3.type == token_type_string_literal)
                 {
                   sum = mixed_string_concat_free1 (sum, token3.mixed_string);
@@ -1385,7 +1375,6 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
   for (;;)
     {
       token_ty token;
-
       x_vala_lex (&token);
 
       switch (token.type)
@@ -1393,7 +1382,6 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
         case token_type_symbol:
           {
             void *keyword_value;
-
             if (hash_find_entry (&keywords, token.string, strlen (token.string),
                                  &keyword_value)
                 == 0)
@@ -1538,7 +1526,6 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
         case token_type_string_literal:
           {
             lex_pos_ty pos;
-
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 

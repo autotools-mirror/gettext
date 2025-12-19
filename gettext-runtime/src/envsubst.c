@@ -53,11 +53,6 @@ static void subst_from_stdin (void);
 int
 main (int argc, char *argv[])
 {
-  /* Default values for command line options.  */
-  bool show_variables = false;
-  bool do_help = false;
-  bool do_version = false;
-
   /* Set program name for message texts.  */
   set_program_name (argv[0]);
 
@@ -72,6 +67,11 @@ main (int argc, char *argv[])
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
+  /* Default values for command line options.  */
+  bool show_variables = false;
+  bool do_help = false;
+  bool do_version = false;
+
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
   static const struct program_option options[] =
@@ -82,24 +82,26 @@ main (int argc, char *argv[])
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int opt;
-  while ((opt = get_next_option ()) != -1)
-    switch (opt)
-      {
-      case '\0':          /* Long option with key == 0.  */
-        break;
-      case 'h':
-        do_help = true;
-        break;
-      case 'v':
-        show_variables = true;
-        break;
-      case 'V':
-        do_version = true;
-        break;
-      default:
-        usage (EXIT_FAILURE);
-      }
+  {
+    int opt;
+    while ((opt = get_next_option ()) != -1)
+      switch (opt)
+        {
+        case '\0':          /* Long option with key == 0.  */
+          break;
+        case 'h':
+          do_help = true;
+          break;
+        case 'v':
+          show_variables = true;
+          break;
+        case 'V':
+          do_version = true;
+          break;
+        default:
+          usage (EXIT_FAILURE);
+        }
+  }
 
   /* Version information is requested.  */
   if (do_version)
@@ -247,15 +249,12 @@ find_variables (const char *string,
   for (; *string != '\0';)
     if (*string++ == '$')
       {
-        const char *variable_start;
-        const char *variable_end;
-        bool valid;
-        char c;
-
         if (*string == '{')
           string++;
 
-        variable_start = string;
+        const char *variable_start = string;
+        char c;
+
         c = *string;
         if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
           {
@@ -263,8 +262,9 @@ find_variables (const char *string,
               c = *++string;
             while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
                    || (c >= '0' && c <= '9') || c == '_');
-            variable_end = string;
+            const char *variable_end = string;
 
+            bool valid;
             if (variable_start[-1] == '{')
               {
                 if (*string == '}')
@@ -328,10 +328,8 @@ string_list_append (string_list_ty *slp, const char *s)
   /* Grow the list.  */
   if (slp->nitems >= slp->nitems_max)
     {
-      size_t nbytes;
-
       slp->nitems_max = slp->nitems_max * 2 + 4;
-      nbytes = slp->nitems_max * sizeof (slp->item[0]);
+      size_t nbytes = slp->nitems_max * sizeof (slp->item[0]);
       slp->item = (const char **) xrealloc (slp->item, nbytes);
     }
 
@@ -361,9 +359,7 @@ string_list_sort (string_list_ty *slp)
 MAYBE_UNUSED static inline int
 string_list_member (const string_list_ty *slp, const char *s)
 {
-  size_t j;
-
-  for (j = 0; j < slp->nitems; ++j)
+  for (size_t j = 0; j < slp->nitems; ++j)
     if (strcmp (slp->item[j], s) == 0)
       return 1;
   return 0;
@@ -373,10 +369,8 @@ string_list_member (const string_list_ty *slp, const char *s)
 static int
 sorted_string_list_member (const string_list_ty *slp, const char *s)
 {
-  size_t j1, j2;
-
-  j1 = 0;
-  j2 = slp->nitems;
+  size_t j1 = 0;
+  size_t j2 = slp->nitems;
   if (j2 > 0)
     {
       /* Binary search.  */
@@ -405,9 +399,7 @@ sorted_string_list_member (const string_list_ty *slp, const char *s)
 MAYBE_UNUSED static inline void
 string_list_destroy (string_list_ty *slp)
 {
-  size_t j;
-
-  for (j = 0; j < slp->nitems; ++j)
+  for (size_t j = 0; j < slp->nitems; ++j)
     free ((char *) slp->item[j]);
   if (slp->item != NULL)
     free (slp->item);
@@ -465,10 +457,10 @@ do_ungetc (int c)
 static void
 subst_from_stdin ()
 {
-  int c;
-
   for (;;)
     {
+      int c;
+
       c = do_getc ();
       if (c == EOF)
         break;
@@ -486,10 +478,8 @@ subst_from_stdin ()
             }
           if ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || c == '_')
             {
-              struct string_buffer buffer;
-              bool valid;
-
               /* Accumulate the VARIABLE in buffer.  */
+              struct string_buffer buffer;
               sb_init (&buffer);
               do
                 {
@@ -499,6 +489,7 @@ subst_from_stdin ()
               while ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
                      || (c >= '0' && c <= '9') || c == '_');
 
+              bool valid;
               if (opening_brace)
                 {
                   if (c == '}')

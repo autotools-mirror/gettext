@@ -121,18 +121,16 @@ x_scheme_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid Lisp symbol.
          Extract the symbol name part.  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon != NULL && colon < end)
         {
           name = colon + 1;
@@ -366,8 +364,6 @@ is_other_number_syntax (const char *str, int len, int radix, bool unconstrained)
 {
   const char *p = str;
   const char *p_end = str + len;
-  bool seen_sign;
-  bool seen_digits;
 
   /* The accepted syntaxes are:
      for a floating-point number:
@@ -386,8 +382,9 @@ is_other_number_syntax (const char *str, int len, int radix, bool unconstrained)
    */
   if (p == p_end)
     return false;
+
   /* Parse leading sign.  */
-  seen_sign = false;
+  bool seen_sign = false;
   if (*p == '+' || *p == '-')
     {
       p++;
@@ -398,8 +395,9 @@ is_other_number_syntax (const char *str, int len, int radix, bool unconstrained)
       if (unconstrained && (*p == 'I' || *p == 'i') && p + 1 == p_end)
         return true;
     }
+
   /* Parse digits before dot or exponent or slash.  */
-  seen_digits = false;
+  bool seen_digits = false;
   do
     {
       int c = *p;
@@ -426,6 +424,7 @@ is_other_number_syntax (const char *str, int len, int radix, bool unconstrained)
       p++;
     }
   while (p < p_end);
+
   /* If p == p_end, we know that seen_digits = true, and the number is an
      integer without exponent.  */
   if (p < p_end)
@@ -564,13 +563,14 @@ is_number (const struct token *tp)
 {
   const char *str = tp->chars;
   int len = tp->charcount;
-  enum { unknown, exact, inexact } exactness = unknown;
-  bool seen_radix_prefix = false;
-  bool seen_exactness_prefix = false;
 
   if (len == 1)
     if (*str == '+' || *str == '-')
       return false;
+
+  enum { unknown, exact, inexact } exactness = unknown;
+  bool seen_radix_prefix = false;
+  bool seen_exactness_prefix = false;
   while (len >= 2 && *str == '#')
     {
       switch (str[1])
@@ -718,12 +718,8 @@ accumulate_escaped (struct mixed_string_buffer *literal)
                   break;
                 }
               {
-                unsigned int n;
-                bool overflow;
-
-                n = 0;
-                overflow = false;
-
+                unsigned int n = 0;
+                bool overflow = false;
                 for (;;)
                   {
                     switch (c)
@@ -784,14 +780,10 @@ accumulate_escaped (struct mixed_string_buffer *literal)
                  digits and then a semicolon.  See
                  R6RS § 4.2.7, R7RS § 6.7 and § 7.1.1.  */
               unsigned int const n_limit = 0x110000;
-              unsigned int count;
-              unsigned int n;
-              bool overflow;
 
-              count = 0;
-              n = 0;
-              overflow = false;
-
+              unsigned int count = 0;
+              unsigned int n = 0;
+              bool overflow = false;
               for (;;)
                 {
                   c = phase1_getc ();
@@ -1042,10 +1034,9 @@ read_object (struct object *op, flag_region_ty *outer_region)
 
         case ';':
           {
-            bool all_semicolons = true;
-
             last_comment_line = line_number;
             comment_start ();
+            bool all_semicolons = true;
             for (;;)
               {
                 int c = phase1_getc ();
@@ -1073,9 +1064,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
 
             for (;; arg++)
               {
-                struct object inner;
                 flag_region_ty *inner_region;
-
                 if (arg == 0)
                   inner_region = null_context_region ();
                 else
@@ -1085,6 +1074,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
                                          &context_iter));
 
                 ++nesting_depth;
+                struct object inner;
                 read_object (&inner, inner_region);
                 nesting_depth--;
 
@@ -1138,7 +1128,6 @@ read_object (struct object *op, flag_region_ty *outer_region)
                           }
 
                         void *keyword_value;
-
                         if (hash_find_entry (&keywords,
                                              symbol_name, strlen (symbol_name),
                                              &keyword_value)
@@ -1208,9 +1197,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
         case '\'':
         case '`':
           {
-            struct object inner;
-
             ++nesting_depth;
+            struct object inner;
             read_object (&inner, null_context_region ());
             nesting_depth--;
 
@@ -1239,8 +1227,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
               case '(': /* Vector */
                 phase1_ungetc (dmc);
                 {
-                  struct object inner;
                   ++nesting_depth;
+                  struct object inner;
                   read_object (&inner, null_context_region ());
                   nesting_depth--;
                   /* Dots and EOF are not allowed here.
@@ -1267,8 +1255,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
               case 'v':
               case 'y':
                 {
-                  struct token token;
                   phase1_ungetc (dmc);
+                  struct token token;
                   read_token (&token, '#');
                   if ((token.charcount == 2
                        && (token.chars[1] == 'a' || token.chars[1] == 'c'
@@ -1321,8 +1309,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
                                #vu8(...) - vector of byte
                                #y(...) - vector of byte (old)
                            */
-                          struct object inner;
                           ++nesting_depth;
+                          struct object inner;
                           read_object (&inner, null_context_region ());
                           nesting_depth--;
                           /* Dots and EOF are not allowed here.
@@ -1348,8 +1336,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
               case 'E': case 'e':
               case 'I': case 'i':
                 {
-                  struct token token;
                   phase1_ungetc (dmc);
+                  struct token token;
                   read_token (&token, '#');
                   if (is_number (&token))
                     {
@@ -1373,8 +1361,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
                                    #e(...) - vector of long (old)
                                    #i(...) - vector of double-float (old)
                                */
-                              struct object inner;
                               ++nesting_depth;
+                              struct object inner;
                               read_object (&inner, null_context_region ());
                               nesting_depth--;
                               /* Dots and EOF are not allowed here.
@@ -1398,10 +1386,10 @@ read_object (struct object *op, flag_region_ty *outer_region)
                 /* Datum comment '#; <datum>'.
                    See R6RS § 4.2.3, R7RS § 2.2.  */
                 {
-                  struct object inner;
                   int saved_last_non_comment_line = last_non_comment_line;
                   ++datum_comment_nesting_depth;
                   ++nesting_depth;
+                  struct object inner;
                   read_object (&inner, null_context_region ());
                   nesting_depth--;
                   datum_comment_nesting_depth--;
@@ -1427,8 +1415,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
                   int num_directives = SIZEOF (directives);
                   enum { max_directive_len = 29 };
                   bool seen_directive = false;
-                  int d;
-                  for (d = 0; d < num_directives; d++)
+                  for (int d = 0; d < num_directives; d++)
                     {
                       const char *directive = directives[d];
                       int directive_len = strlen (directive);
@@ -1658,10 +1645,10 @@ read_object (struct object *op, flag_region_ty *outer_region)
               case '\\':
                 /* Character.  */
                 {
-                  struct token token;
                   int c = phase1_getc ();
                   if (c != EOF)
                     {
+                      struct token token;
                       read_token (&token, c);
                       free_token (&token);
                     }
@@ -1703,8 +1690,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
               case '.': /* boot-9.scm */
               case ',': /* srfi-10.scm */
                 {
-                  struct object inner;
                   ++nesting_depth;
+                  struct object inner;
                   read_object (&inner, null_context_region ());
                   nesting_depth--;
                   /* Dots and EOF are not allowed here.
@@ -1768,9 +1755,9 @@ read_object (struct object *op, flag_region_ty *outer_region)
             if (seen_underscore_prefix || extract_all)
               {
                 lex_pos_ty pos;
-
                 pos.file_name = logical_file_name;
                 pos.line_number = op->line_number_at_start;
+
                 remember_a_message (mlp, NULL, string_of_object (op), true,
                                     false, null_context_region (), &pos,
                                     NULL, savable_comment, false);

@@ -75,18 +75,16 @@ x_lua_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -268,7 +266,6 @@ static int
 phase2_getc ()
 {
   int c;
-  int lineno;
 
   c = phase1_getc ();
 
@@ -300,7 +297,7 @@ phase2_getc ()
                   bool end = false;
                   int esigns2 = 0;
 
-                  lineno = line_number;
+                  int lineno = line_number;
                   comment_start ();
                   while (!end)
                     {
@@ -353,7 +350,7 @@ phase2_getc ()
               else
                 {
                   /* One line (short) comment, starting with '--[=...='.  */
-                  lineno = last_comment_line;
+                  int lineno = last_comment_line;
                   comment_start ();
                   comment_add ('[');
                   while (esigns--)
@@ -367,7 +364,7 @@ phase2_getc ()
           else
             {
               /* One line (short) comment.  */
-              lineno = line_number;
+              int lineno = line_number;
               comment_start ();
               phase1_ungetc (c);
               eat_comment_line ();
@@ -448,15 +445,13 @@ phase3_unget (token_ty *tp)
 static void
 phase3_get (token_ty *tp)
 {
-  int c;
-  int c2;
-  int c_start;
-
   if (phase3_pushback_length)
     {
       *tp = phase3_pushback[--phase3_pushback_length];
       return;
     }
+
+  int c;
 
   tp->string = NULL;
 
@@ -492,21 +487,25 @@ phase3_get (token_ty *tp)
         case '<':
         case '>':
         case '=':
-          c2 = phase1_getc ();
-          if (c2 != '=')
-            phase1_ungetc (c2);
-          tp->type = token_type_operator2;
-          return;
+          {
+            int c2 = phase1_getc ();
+            if (c2 != '=')
+              phase1_ungetc (c2);
+            tp->type = token_type_operator2;
+            return;
+          }
         case '~':
-          c2 = phase1_getc ();
-          if (c2 == '=')
-            {
-              tp->type = token_type_operator2;
-              return;
-            }
-          else
-            phase1_ungetc (c2);
-          continue;
+          {
+            int c2 = phase1_getc ();
+            if (c2 == '=')
+              {
+                tp->type = token_type_operator2;
+                return;
+              }
+            else
+              phase1_ungetc (c2);
+            continue;
+          }
         case '(':
           tp->type = token_type_lparen;
           return;
@@ -559,7 +558,7 @@ phase3_get (token_ty *tp)
         case '"':
         case '\'':
           {
-            c_start = c;
+            int c_start = c;
             struct string_buffer buffer;
             sb_init (&buffer);
 
@@ -607,7 +606,7 @@ phase3_get (token_ty *tp)
                       case 'x':
                         {
                           int num = 0;
-                          int i = 0;
+                          int i;
 
                           for (i = 0; i < 2; i++)
                             {
@@ -681,42 +680,42 @@ phase3_get (token_ty *tp)
           break;
 
         case '[':
-          c = phase1_getc ();
-
-          /* Count the number of equal signs.  */
-          int esigns = 0;
-          while (c == '=')
-            {
-              esigns++;
-              c = phase1_getc ();
-            }
-
-          if (c != '[')
-            {
-              /* We did not find what we were looking for, ungetc it.  */
-              phase1_ungetc (c);
-              if (esigns == 0)
-                {
-                  /* Our current character isn't '[' and we got 0 equal
-                     signs, so the first '[' must have been a left
-                     bracket.  */
-                  tp->type = token_type_lbracket;
-                  return;
-                }
-              else
-                /* Lexical error, ignore it.  */
-                continue;
-            }
-
-          /* Found an opening long bracket.  */
           {
-            struct string_buffer buffer;
-            sb_init (&buffer);
+            c = phase1_getc ();
 
+            /* Count the number of equal signs.  */
+            int esigns = 0;
+            while (c == '=')
+              {
+                esigns++;
+                c = phase1_getc ();
+              }
+
+            if (c != '[')
+              {
+                /* We did not find what we were looking for, ungetc it.  */
+                phase1_ungetc (c);
+                if (esigns == 0)
+                  {
+                    /* Our current character isn't '[' and we got 0 equal
+                       signs, so the first '[' must have been a left
+                       bracket.  */
+                    tp->type = token_type_lbracket;
+                    return;
+                  }
+                else
+                  /* Lexical error, ignore it.  */
+                  continue;
+              }
+
+            /* Found an opening long bracket.  */
             /* See if it is immediately followed by a newline.  */
             c = phase1_getc ();
             if (c != '\n')
               phase1_ungetc (c);
+
+            struct string_buffer buffer;
+            sb_init (&buffer);
 
             for (;;)
               {
@@ -890,18 +889,18 @@ phase4_get (token_ty *tp)
       for (;;)
         {
           token_ty token2;
-
           phase3_get (&token2);
+
           if (token2.type == token_type_doubledot)
             {
               token_ty token3;
-
               phase3_get (&token3);
+
               if (token3.type == token_type_string)
                 {
                   token_ty token_after;
-
                   phase3_get (&token_after);
+
                   if (token_after.type != token_type_operator1)
                     {
                       char *addend = token3.string;
@@ -946,13 +945,13 @@ phase5_get (token_ty *tp)
       for (;;)
         {
           token_ty token2;
-
           phase4_get (&token2);
+
           if (token2.type == token_type_dot)
             {
               token_ty token3;
-
               phase4_get (&token3);
+
               if (token3.type == token_type_symbol)
                 {
                   char *addend = token3.string;
@@ -1044,7 +1043,6 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
   for (;;)
     {
       token_ty token;
-
       x_lua_lex (&token);
 
       switch (token.type)
@@ -1052,7 +1050,6 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
         case token_type_symbol:
           {
             void *keyword_value;
-
             if (hash_find_entry (&keywords, token.string, strlen (token.string),
                                  &keyword_value)
                 == 0)

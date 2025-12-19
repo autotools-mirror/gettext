@@ -152,8 +152,7 @@ parse_directive (struct spec *spec,
 {
   const char *format = *formatp;
   const char *const format_start = format;
-  const char *name_start;
-  const char *name_end;
+
   char c;
 
   c = *++format;
@@ -164,7 +163,7 @@ parse_directive (struct spec *spec,
       return true;
     }
 
-  name_start = format;
+  const char *name_start = format;
   if (parse_named_field (spec, &format, fdi, invalid_reason)
       || parse_numeric_field (spec, &format, fdi, invalid_reason))
     {
@@ -256,7 +255,7 @@ parse_directive (struct spec *spec,
           return false;
         }
     }
-  name_end = format;
+  const char *name_end = format;
 
   if (*format == ':')
     {
@@ -295,9 +294,7 @@ parse_directive (struct spec *spec,
              [[fill]align][sign][#][0][minimumwidth][.precision][type]  */
 
           /* Look ahead two characters to skip [[fill]align].  */
-          int c1, c2;
-
-          c1 = format[0];
+          int c1 = format[0];
           if (c1 == '\0')
             {
               *invalid_reason =
@@ -307,7 +304,7 @@ parse_directive (struct spec *spec,
               return false;
             }
 
-          c2 = format[1];
+          int c2 = format[1];
 
           if (c2 == '<' || c2 == '>' || c2 == '=' || c2 == '^')
             format += 2;
@@ -362,11 +359,10 @@ parse_directive (struct spec *spec,
 
   if (toplevel != NULL)
     {
-      char *name;
-      size_t n = name_end - name_start;
-
       FDI_SET (name_start - 1, FMTDIR_START);
 
+      size_t n = name_end - name_start;
+      char *name;
       if (n == 0)
         {
           if (toplevel->numbered_arg_counter > 0)
@@ -448,14 +444,12 @@ format_parse (const char *format, bool translated,
               char *fdi, char **invalid_reason)
 {
   struct spec spec;
-  struct toplevel_counters toplevel;
-  struct spec *result;
-
   spec.directives = 0;
   spec.named_arg_count = 0;
   spec.allocated = 0;
   spec.named = NULL;
 
+  struct toplevel_counters toplevel;
   toplevel.numbered_arg_counter = 0;
   toplevel.unnamed_arg_counter = 0;
   if (!parse_upto (&spec, &format, &toplevel, '\0', fdi, invalid_reason))
@@ -467,12 +461,11 @@ format_parse (const char *format, bool translated,
   /* Sort the named argument array, and eliminate duplicates.  */
   if (spec.named_arg_count > 1)
     {
-      size_t i, j;
-
       qsort (spec.named, spec.named_arg_count, sizeof (struct named_arg),
              named_arg_compare);
 
       /* Remove duplicates: Copy from i to j, keeping 0 <= j <= i.  */
+      size_t i, j;
       for (i = j = 0; i < spec.named_arg_count; i++)
         if (j > 0 && strcmp (spec.named[i].name, spec.named[j-1].name) == 0)
           free (spec.named[i].name);
@@ -485,7 +478,7 @@ format_parse (const char *format, bool translated,
       spec.named_arg_count = j;
     }
 
-  result = XMALLOC (struct spec);
+  struct spec *result = XMALLOC (struct spec);
   *result = spec;
   return result;
 }
@@ -530,12 +523,12 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
   if (spec1->named_arg_count + spec2->named_arg_count > 0)
     {
-      size_t i, j;
       size_t n1 = spec1->named_arg_count;
       size_t n2 = spec2->named_arg_count;
 
       /* Check the argument names in spec2 are contained in those of spec1.
          Both arrays are sorted.  We search for the first difference.  */
+      size_t i, j;
       for (i = 0, j = 0; i < n1 || j < n2; )
         {
           int cmp = (i >= n1 ? 1 :
@@ -596,7 +589,6 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  size_t i;
 
   if (spec == NULL)
     {
@@ -605,7 +597,7 @@ format_print (void *descr)
     }
 
   printf ("{");
-  for (i = 0; i < spec->named_arg_count; i++)
+  for (size_t i = 0; i < spec->named_arg_count; i++)
     {
       if (i > 0)
         printf (", ");
@@ -621,18 +613,14 @@ main ()
     {
       char *line = NULL;
       size_t line_size = 0;
-      int line_len;
-      char *invalid_reason;
-      void *descr;
-
-      line_len = getline (&line, &line_size, stdin);
+      int line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
         break;
       if (line_len > 0 && line[line_len - 1] == '\n')
         line[--line_len] = '\0';
 
-      invalid_reason = NULL;
-      descr = format_parse (line, false, NULL, &invalid_reason);
+      char *invalid_reason = NULL;
+      void *descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

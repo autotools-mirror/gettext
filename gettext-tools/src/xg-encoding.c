@@ -61,13 +61,12 @@ non_ascii_error_message (lexical_context_ty lcontext,
                          const char *file_name, size_t line_number)
 {
   char buffer[22];
-  char *errmsg;
-
   if (line_number == (size_t)(-1))
     buffer[0] = '\0';
   else
     sprintf (buffer, ":%ld", (long) line_number);
 
+  char *errmsg;
   switch (lcontext)
     {
     case lc_outside:
@@ -101,13 +100,12 @@ non_utf8_error_message (lexical_context_ty lcontext,
                         const char *file_name, size_t line_number)
 {
   char buffer[22];
-  char *errmsg;
-
   if (line_number == (size_t)(-1))
     buffer[0] = '\0';
   else
     sprintf (buffer, ":%ld", (long) line_number);
 
+  char *errmsg;
   switch (lcontext)
     {
     case lc_outside:
@@ -176,7 +174,6 @@ from_current_source_encoding (const char *string,
     {
 #if HAVE_ICONV
       struct conversion_context context;
-
       context.from_code = xgettext_current_source_encoding;
       context.to_code = po_charset_utf8;
       context.from_filename = file_name;
@@ -234,7 +231,6 @@ string_desc_from_current_source_encoding (string_desc_t string,
     {
 #if HAVE_ICONV
       struct conversion_context context;
-
       context.from_code = xgettext_current_source_encoding;
       context.to_code = po_charset_utf8;
       context.from_filename = file_name;

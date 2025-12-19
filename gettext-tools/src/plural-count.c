@@ -29,7 +29,6 @@ get_plural_count (const char *header)
 {
   const struct expression *plural;
   unsigned long int nplurals;
-
   extract_plural_expression (header, &plural, &nplurals);
 
   return nplurals;

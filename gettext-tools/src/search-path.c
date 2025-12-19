@@ -86,10 +86,10 @@ static void
 fill (const char *dir, size_t len, void *data)
 {
   struct path_array_ty *array = data;
-  char *base;
-  char *name;
 
-  base = xmemdup0 (dir, len);
+  char *base = xmemdup0 (dir, len);
+
+  char *name;
   if (array->sub == NULL)
     name = base;
   else
@@ -121,29 +121,25 @@ fill (const char *dir, size_t len, void *data)
 char **
 get_search_path (const char *sub)
 {
-  const char *gettextdatadir;
-  const char *gettextdatadirs;
-  const char *xdgdatadirs;
-  struct path_array_ty array;
-
   /* Count how many array elements are needed.  */
   size_t count = 2;
 
-  gettextdatadirs = getenv ("GETTEXTDATADIRS");
+  const char *gettextdatadirs = getenv ("GETTEXTDATADIRS");
   if (gettextdatadirs != NULL)
     foreach_elements (gettextdatadirs, increment, &count);
 
-  xdgdatadirs = getenv ("XDG_DATA_DIRS");
+  const char *xdgdatadirs = getenv ("XDG_DATA_DIRS");
   if (xdgdatadirs != NULL)
     foreach_elements (xdgdatadirs, increment, &count);
 
   /* Allocate the array.  */
+  struct path_array_ty array;
   array.ptr = XNMALLOC (count + 1, char *);
   array.len = 0;
 
   /* Fill the array.  */
   {
-    gettextdatadir = getenv ("GETTEXTDATADIR");
+    const char *gettextdatadir = getenv ("GETTEXTDATADIR");
     if (gettextdatadir == NULL || gettextdatadir[0] == '\0')
       /* Make it possible to override the locator file location.  This
          is necessary for running the testsuite before "make

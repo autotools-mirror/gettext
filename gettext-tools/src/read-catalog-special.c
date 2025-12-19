@@ -34,30 +34,26 @@ parse_comment_special (const char *s,
                        struct argument_range *rangep, enum is_wrap *wrapp,
                        enum is_syntax_check *scp)
 {
-  size_t i;
-
   *fuzzyp = false;
-  for (i = 0; i < NFORMATS; i++)
+  for (size_t i = 0; i < NFORMATS; i++)
     formatp[i] = undecided;
   rangep->min = -1;
   rangep->max = -1;
   *wrapp = undecided;
   if (scp != NULL)
     {
-      for (i = 0; i < NSYNTAXCHECKS; i++)
+      for (size_t i = 0; i < NSYNTAXCHECKS; i++)
         scp[i] = undecided;
     }
 
   while (*s != '\0')
     {
-      const char *t;
-
       /* Skip whitespace.  */
       while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) != NULL)
         s++;
 
       /* Collect a token.  */
-      t = s;
+      const char *t = s;
       while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) == NULL)
         s++;
       if (s != t)
@@ -74,13 +70,10 @@ parse_comment_special (const char *s,
           /* Accept format description.  */
           if (len >= 7 && memcmp (t + len - 7, "-format", 7) == 0)
             {
-              const char *p;
-              size_t n;
+              const char *p = t;
+              size_t n = len - 7;
+
               enum is_format value;
-
-              p = t;
-              n = len - 7;
-
               if (n >= 3 && memcmp (p, "no-", 3) == 0)
                 {
                   p += 3;
@@ -102,6 +95,7 @@ parse_comment_special (const char *s,
               else
                 value = yes;
 
+              size_t i;
               for (i = 0; i < NFORMATS; i++)
                 if (strlen (format_language[i]) == n
                     && memcmp (format_language[i], p, n) == 0)
@@ -120,20 +114,20 @@ parse_comment_special (const char *s,
               while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) != NULL)
                 s++;
 
-              /* Collect a token.  */
-              t = s;
+              /* Collect an interval token.  */
+              const char *it = s;
               while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) == NULL)
                 s++;
               /* Parse it.  */
-              if (*t >= '0' && *t <= '9')
+              if (*it >= '0' && *it <= '9')
                 {
                   unsigned int min = 0;
 
-                  for (; *t >= '0' && *t <= '9'; t++)
+                  for (; *it >= '0' && *it <= '9'; it++)
                     {
                       if (min <= INT_MAX / 10)
                         {
-                          min = 10 * min + (*t - '0');
+                          min = 10 * min + (*it - '0');
                           if (min > INT_MAX)
                             min = INT_MAX;
                         }
@@ -141,16 +135,16 @@ parse_comment_special (const char *s,
                         /* Avoid integer overflow.  */
                         min = INT_MAX;
                     }
-                  if (*t++ == '.')
-                    if (*t++ == '.')
-                      if (*t >= '0' && *t <= '9')
+                  if (*it++ == '.')
+                    if (*it++ == '.')
+                      if (*it >= '0' && *it <= '9')
                         {
                           unsigned int max = 0;
-                          for (; *t >= '0' && *t <= '9'; t++)
+                          for (; *it >= '0' && *it <= '9'; it++)
                             {
                               if (max <= INT_MAX / 10)
                                 {
-                                  max = 10 * max + (*t - '0');
+                                  max = 10 * max + (*it - '0');
                                   if (max > INT_MAX)
                                     max = INT_MAX;
                                 }
@@ -183,13 +177,10 @@ parse_comment_special (const char *s,
           /* Accept syntax check description.  */
           if (scp != NULL && len >= 6 && memcmp (t + len - 6, "-check", 6) == 0)
             {
-              const char *p;
-              size_t n;
+              const char *p = t;
+              size_t n = len - 6;
+
               enum is_syntax_check value;
-
-              p = t;
-              n = len - 6;
-
               if (n >= 3 && memcmp (p, "no-", 3) == 0)
                 {
                   p += 3;
@@ -199,6 +190,7 @@ parse_comment_special (const char *s,
               else
                 value = yes;
 
+              size_t i;
               for (i = 0; i < NSYNTAXCHECKS; i++)
                 if (strlen (syntax_check_name[i]) == n
                     && memcmp (syntax_check_name[i], p, n) == 0)

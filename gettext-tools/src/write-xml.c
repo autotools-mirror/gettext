@@ -45,10 +45,7 @@ msgdomain_write_xml_bulk (msgfmt_operand_list_ty *operands,
                           bool replace_text,
                           const char *file_name)
 {
-  its_merge_context_ty *context;
-  size_t i;
   FILE *fp;
-
   if (strcmp (file_name, "-") == 0)
     fp = stdout;
   else
@@ -62,8 +59,9 @@ msgdomain_write_xml_bulk (msgfmt_operand_list_ty *operands,
         }
     }
 
-  context = its_merge_context_alloc (its_rules, template_file_name);
-  for (i = 0; i < operands->nitems; i++)
+  its_merge_context_ty *context =
+    its_merge_context_alloc (its_rules, template_file_name);
+  for (size_t i = 0; i < operands->nitems; i++)
     its_merge_context_merge (context,
                              operands->items[i].language,
                              operands->items[i].mlp,
@@ -91,9 +89,6 @@ msgdomain_write_xml (message_list_ty *mlp,
                      bool replace_text,
                      const char *file_name)
 {
-  msgfmt_operand_ty operand;
-  msgfmt_operand_list_ty operands;
-
   /* Convert the messages to Unicode.  */
   iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL,
                       textmode_xerror_handler);
@@ -103,8 +98,10 @@ msgdomain_write_xml (message_list_ty *mlp,
   message_list_delete_header_field (mlp, "POT-Creation-Date:");
 
   /* Create a single-element operands and run the bulk operation on it.  */
+  msgfmt_operand_ty operand;
   operand.language = (char *) locale_name;
   operand.mlp = mlp;
+  msgfmt_operand_list_ty operands;
   operands.nitems = 1;
   operands.items = &operand;
 

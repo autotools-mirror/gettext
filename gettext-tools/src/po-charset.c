@@ -94,9 +94,8 @@ po_charset_canonicalize (const char *charset)
     "GEORGIAN-PS",
     utf8
   };
-  size_t i;
 
-  for (i = 0; i < SIZEOF (standard_charsets); i++)
+  for (size_t i = 0; i < SIZEOF (standard_charsets); i++)
     if (c_strcasecmp (charset, standard_charsets[i]) == 0)
       return standard_charsets[i < 3 ? 0 : i < 27 ? ((i - 3) & ~1) + 3 : i];
   return NULL;
@@ -128,9 +127,8 @@ bool po_is_charset_weird (const char *canon_charset)
     "SHIFT_JIS",
     "JOHAB"
   };
-  size_t i;
 
-  for (i = 0; i < SIZEOF (weird_charsets); i++)
+  for (size_t i = 0; i < SIZEOF (weird_charsets); i++)
     if (strcmp (canon_charset, weird_charsets[i]) == 0)
       return true;
   return false;
@@ -151,9 +149,8 @@ bool po_is_charset_weird_cjk (const char *canon_charset)
     "SHIFT_JIS",        /* 0x{00..7F},    0x{81..F9}{40..FC} */
     "JOHAB"             /* 0x{00..7F},    0x{84..F9}{31..FE} */
   };
-  size_t i;
 
-  for (i = 0; i < SIZEOF (weird_cjk_charsets); i++)
+  for (size_t i = 0; i < SIZEOF (weird_cjk_charsets); i++)
     if (strcmp (canon_charset, weird_cjk_charsets[i]) == 0)
       return true;
   return false;

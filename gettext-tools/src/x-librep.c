@@ -89,18 +89,16 @@ x_librep_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid Lisp
          symbol.  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -206,7 +204,15 @@ grow_token (struct token *tp)
 static bool
 read_token (struct token *tp, const int *first)
 {
+  init_token (tp);
+
   int c;
+
+  if (first)
+    c = *first;
+  else
+    c = do_getc ();
+
   /* Variables for speculative number parsing:  */
   int radix = -1;
   int nfirst = 0;
@@ -215,13 +221,6 @@ read_token (struct token *tp, const int *first)
   bool exponent = false;
   bool had_sign = false;
   bool expecting_prefix = false;
-
-  init_token (tp);
-
-  if (first)
-    c = *first;
-  else
-    c = do_getc ();
 
   for (;; c = do_getc ())
     {
@@ -494,15 +493,14 @@ free_object (struct object *op)
 static char *
 string_of_object (const struct object *op)
 {
-  char *str;
-  int n;
-
   if (!(op->type == t_symbol || op->type == t_string))
     abort ();
-  n = op->token->charcount;
-  str = XNMALLOC (n + 1, char);
+  int n = op->token->charcount;
+
+  char *str = XNMALLOC (n + 1, char);
   memcpy (str, op->token->chars, n);
   str[n] = '\0';
+
   return str;
 }
 
@@ -634,9 +632,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
 
             for (;; arg++)
               {
-                struct object inner;
                 flag_region_ty *inner_region;
-
                 if (arg == 0)
                   inner_region = null_context_region ();
                 else
@@ -646,6 +642,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
                                          &context_iter));
 
                 ++nesting_depth;
+                struct object inner;
                 read_object (&inner, inner_region);
                 nesting_depth--;
 
@@ -674,8 +671,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
                     if (inner.type == t_symbol)
                       {
                         char *symbol_name = string_of_object (&inner);
-                        void *keyword_value;
 
+                        void *keyword_value;
                         if (hash_find_entry (&keywords,
                                              symbol_name, strlen (symbol_name),
                                              &keyword_value)
@@ -729,9 +726,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
           {
             for (;;)
               {
-                struct object inner;
-
                 ++nesting_depth;
+                struct object inner;
                 read_object (&inner, null_context_region ());
                 nesting_depth--;
 
@@ -775,9 +771,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
         case '\'':
         case '`':
           {
-            struct object inner;
-
             ++nesting_depth;
+            struct object inner;
             read_object (&inner, null_context_region ());
             nesting_depth--;
 
@@ -792,10 +787,9 @@ read_object (struct object *op, flag_region_ty *outer_region)
 
         case ';':
           {
-            bool all_semicolons = true;
-
             last_comment_line = line_number;
             comment_start ();
+            bool all_semicolons = true;
             for (;;)
               {
                 int c = do_getc ();
@@ -857,9 +851,9 @@ read_object (struct object *op, flag_region_ty *outer_region)
             if (extract_all)
               {
                 lex_pos_ty pos;
-
                 pos.file_name = logical_file_name;
                 pos.line_number = op->line_number_at_start;
+
                 remember_a_message (mlp, NULL, string_of_object (op), false,
                                     false, null_context_region (), &pos,
                                     NULL, savable_comment, false);
@@ -938,8 +932,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
               case '\'':
               case ':':
                 {
-                  struct object inner;
                   ++nesting_depth;
+                  struct object inner;
                   read_object (&inner, null_context_region ());
                   nesting_depth--;
                   /* Dots and EOF are not allowed here.
@@ -953,9 +947,9 @@ read_object (struct object *op, flag_region_ty *outer_region)
               case '[':
               case '(':
                 {
-                  struct object inner;
                   do_ungetc (dmc);
                   ++nesting_depth;
+                  struct object inner;
                   read_object (&inner, null_context_region ());
                   nesting_depth--;
                   /* Dots and EOF are not allowed here.
@@ -1057,11 +1051,10 @@ read_object (struct object *op, flag_region_ty *outer_region)
               case 'E': case 'e':
               case 'I': case 'i':
                 {
-                  struct token token;
                   do_ungetc (dmc);
                   {
-                    int c;
-                    c = '#';
+                    struct token token;
+                    int c = '#';
                     read_token (&token, &c);
                     free_token (&token);
                   }
@@ -1084,10 +1077,8 @@ read_object (struct object *op, flag_region_ty *outer_region)
         default:
           /* Read a token.  */
           {
-            bool symbol;
-
             op->token = XMALLOC (struct token);
-            symbol = read_token (op->token, &ch);
+            bool symbol = read_token (op->token, &ch);
             if (op->token->charcount == 1 && op->token->chars[0] == '.')
               {
                 free_token (op->token);
@@ -1109,10 +1100,9 @@ read_object (struct object *op, flag_region_ty *outer_region)
               int c = do_getc ();
               if (c == '#')
                 {
-                  struct token second_token;
-
                   free_token (op->token);
                   free (op->token);
+                  struct token second_token;
                   read_token (&second_token, NULL);
                   free_token (&second_token);
                   op->type = t_other;

@@ -197,23 +197,10 @@ static int msgfmt_xml_bulk (const char *directory,
 int
 main (int argc, char *argv[])
 {
-  bool do_help = false;
-  bool do_version = false;
-  bool strict_uniforum = false;
-  catalog_input_format_ty input_syntax = &input_format_po;
-  int arg_i;
-  const char *canon_encoding;
-  struct msg_domain *domain;
-
-  /* Set default value for global variables.  */
-  alignment = DEFAULT_OUTPUT_ALIGNMENT;
-  byteswap = 0 ^ ENDIANNESS;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
   error_one_per_line = 1;
-  exit_status = EXIT_SUCCESS;
   gram_max_allowed_errors = 20;
 
   /* Set locale via LC_ALL.  */
@@ -227,6 +214,14 @@ main (int argc, char *argv[])
 
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
+
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+  bool strict_uniforum = false;
+  catalog_input_format_ty input_syntax = &input_format_po;
+  alignment = DEFAULT_OUTPUT_ALIGNMENT;
+  byteswap = 0 ^ ENDIANNESS;
 
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
@@ -273,178 +268,179 @@ main (int argc, char *argv[])
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int opt;
-  while ((opt = get_next_option ()) != -1)
-    switch (opt)
-      {
-      case '\0':                /* Long option with key == 0.  */
-        break;
-      case 'a':
-        if (isdigit ((unsigned char) optarg[0]))
-          {
-            char *endp;
-            size_t new_align = strtoul (optarg, &endp, 0);
-
-            if (endp != optarg)
-              /* Check whether new_align is a power of 2.  */
-              if (new_align > 0 && (new_align & (new_align - 1)) == 0)
-                alignment = new_align;
-          }
-        break;
-      case 'c':
-        check_domain = true;
-        check_format_strings = true;
-        check_header = true;
-        break;
-      case 'C':
-        check_compatibility = true;
-        break;
-      case 'd':
-        java_class_directory = optarg;
-        csharp_base_directory = optarg;
-        tcl_base_directory = optarg;
-        desktop_base_directory = optarg;
-        xml_base_directory = optarg;
-        break;
-      case 'D':
-        dir_list_append (optarg);
-        break;
-      case 'f':
-        include_fuzzies = true;
-        break;
-      case 'h':
-        do_help = true;
-        break;
-      case 'j':
-        java_mode = true;
-        break;
-      case 'k':
-        if (optarg == NULL || *optarg == '\0')
-          desktop_default_keywords = false;
-        else
-          {
-            /* Ensure that desktop_keywords is initialized.  */
-            if (desktop_keywords.table == NULL)
-              hash_init (&desktop_keywords, 100);
-            desktop_add_keyword (&desktop_keywords, optarg, false);
-          }
-        break;
-      case 'l':
-        java_locale_name = optarg;
-        csharp_locale_name = optarg;
-        tcl_locale_name = optarg;
-        desktop_locale_name = optarg;
-        xml_locale_name = optarg;
-        break;
-      case 'L':
-        xml_language = optarg;
-        break;
-      case 'o':
-        output_file_name = optarg;
-        break;
-      case 'P':
-        input_syntax = &input_format_properties;
-        break;
-      case 'r':
-        java_resource_name = optarg;
-        csharp_resource_name = optarg;
-        break;
-      case CHAR_MAX + 20: /* --strict */
-        strict_uniforum = true;
-        break;
-      case 'v':
-        verbose++;
-        break;
-      case 'V':
-        do_version = true;
-        break;
-      case 'x':
-        xml_mode = true;
-        break;
-      case CHAR_MAX + 1: /* --check-accelerators */
-        check_accelerators = true;
-        if (optarg != NULL)
-          {
-            if (optarg[0] != '\0' && ispunct ((unsigned char) optarg[0])
-                && optarg[1] == '\0')
-              accelerator_char = optarg[0];
-            else
-              error (EXIT_FAILURE, 0,
-                     _("the argument to %s should be a single punctuation character"),
-                     "--check-accelerators");
-          }
-        break;
-      case CHAR_MAX + 2: /* --check-domain */
-        check_domain = true;
-        break;
-      case CHAR_MAX + 3: /* --check-format */
-        check_format_strings = true;
-        break;
-      case CHAR_MAX + 4: /* --check-header */
-        check_header = true;
-        break;
-      case CHAR_MAX + 5: /* --java2 */
-        java_mode = true;
-        assume_java2 = true;
-        break;
-      case CHAR_MAX + 6: /* --no-hash */
-        no_hash_table = true;
-        break;
-      case CHAR_MAX + 7: /* --tcl */
-        tcl_mode = true;
-        break;
-      case CHAR_MAX + 8: /* --stringtable-input */
-        input_syntax = &input_format_stringtable;
-        break;
-      case CHAR_MAX + 9: /* --qt */
-        qt_mode = true;
-        break;
-      case CHAR_MAX + 10: /* --csharp */
-        csharp_mode = true;
-        break;
-      case CHAR_MAX + 11: /* --csharp-resources */
-        csharp_resources_mode = true;
-        break;
-      case CHAR_MAX + 12: /* --use-untranslated (undocumented) */
-        include_untranslated = true;
-        break;
-      case CHAR_MAX + 13: /* --endianness={big|little} */
+  {
+    int opt;
+    while ((opt = get_next_option ()) != -1)
+      switch (opt)
         {
-          int endianness;
+        case '\0':                /* Long option with key == 0.  */
+          break;
+        case 'a':
+          if (isdigit ((unsigned char) optarg[0]))
+            {
+              char *endp;
+              size_t new_align = strtoul (optarg, &endp, 0);
 
-          if (strcmp (optarg, "big") == 0)
-            endianness = 1;
-          else if (strcmp (optarg, "little") == 0)
-            endianness = 0;
+              if (endp != optarg)
+                /* Check whether new_align is a power of 2.  */
+                if (new_align > 0 && (new_align & (new_align - 1)) == 0)
+                  alignment = new_align;
+            }
+          break;
+        case 'c':
+          check_domain = true;
+          check_format_strings = true;
+          check_header = true;
+          break;
+        case 'C':
+          check_compatibility = true;
+          break;
+        case 'd':
+          java_class_directory = optarg;
+          csharp_base_directory = optarg;
+          tcl_base_directory = optarg;
+          desktop_base_directory = optarg;
+          xml_base_directory = optarg;
+          break;
+        case 'D':
+          dir_list_append (optarg);
+          break;
+        case 'f':
+          include_fuzzies = true;
+          break;
+        case 'h':
+          do_help = true;
+          break;
+        case 'j':
+          java_mode = true;
+          break;
+        case 'k':
+          if (optarg == NULL || *optarg == '\0')
+            desktop_default_keywords = false;
           else
-            error (EXIT_FAILURE, 0, _("invalid endianness: %s"), optarg);
+            {
+              /* Ensure that desktop_keywords is initialized.  */
+              if (desktop_keywords.table == NULL)
+                hash_init (&desktop_keywords, 100);
+              desktop_add_keyword (&desktop_keywords, optarg, false);
+            }
+          break;
+        case 'l':
+          java_locale_name = optarg;
+          csharp_locale_name = optarg;
+          tcl_locale_name = optarg;
+          desktop_locale_name = optarg;
+          xml_locale_name = optarg;
+          break;
+        case 'L':
+          xml_language = optarg;
+          break;
+        case 'o':
+          output_file_name = optarg;
+          break;
+        case 'P':
+          input_syntax = &input_format_properties;
+          break;
+        case 'r':
+          java_resource_name = optarg;
+          csharp_resource_name = optarg;
+          break;
+        case CHAR_MAX + 20: /* --strict */
+          strict_uniforum = true;
+          break;
+        case 'v':
+          verbose++;
+          break;
+        case 'V':
+          do_version = true;
+          break;
+        case 'x':
+          xml_mode = true;
+          break;
+        case CHAR_MAX + 1: /* --check-accelerators */
+          check_accelerators = true;
+          if (optarg != NULL)
+            {
+              if (optarg[0] != '\0' && ispunct ((unsigned char) optarg[0])
+                  && optarg[1] == '\0')
+                accelerator_char = optarg[0];
+              else
+                error (EXIT_FAILURE, 0,
+                       _("the argument to %s should be a single punctuation character"),
+                       "--check-accelerators");
+            }
+          break;
+        case CHAR_MAX + 2: /* --check-domain */
+          check_domain = true;
+          break;
+        case CHAR_MAX + 3: /* --check-format */
+          check_format_strings = true;
+          break;
+        case CHAR_MAX + 4: /* --check-header */
+          check_header = true;
+          break;
+        case CHAR_MAX + 5: /* --java2 */
+          java_mode = true;
+          assume_java2 = true;
+          break;
+        case CHAR_MAX + 6: /* --no-hash */
+          no_hash_table = true;
+          break;
+        case CHAR_MAX + 7: /* --tcl */
+          tcl_mode = true;
+          break;
+        case CHAR_MAX + 8: /* --stringtable-input */
+          input_syntax = &input_format_stringtable;
+          break;
+        case CHAR_MAX + 9: /* --qt */
+          qt_mode = true;
+          break;
+        case CHAR_MAX + 10: /* --csharp */
+          csharp_mode = true;
+          break;
+        case CHAR_MAX + 11: /* --csharp-resources */
+          csharp_resources_mode = true;
+          break;
+        case CHAR_MAX + 12: /* --use-untranslated (undocumented) */
+          include_untranslated = true;
+          break;
+        case CHAR_MAX + 13: /* --endianness={big|little} */
+          {
+            int endianness;
+            if (strcmp (optarg, "big") == 0)
+              endianness = 1;
+            else if (strcmp (optarg, "little") == 0)
+              endianness = 0;
+            else
+              error (EXIT_FAILURE, 0, _("invalid endianness: %s"), optarg);
 
-          byteswap = endianness ^ ENDIANNESS;
+            byteswap = endianness ^ ENDIANNESS;
+          }
+          break;
+        case CHAR_MAX + 14: /* --source */
+          java_output_source = true;
+          break;
+        case CHAR_MAX + 15: /* --desktop */
+          desktop_mode = true;
+          break;
+        case CHAR_MAX + 16: /* --template=TEMPLATE */
+          desktop_template_name = optarg;
+          xml_template_name = optarg;
+          break;
+        case CHAR_MAX + 17: /* --no-convert */
+          no_convert_to_utf8 = true;
+          break;
+        case CHAR_MAX + 18: /* --no-redundancy */
+          no_redundancy = true;
+          break;
+        case CHAR_MAX + 19: /* --replace-text */
+          xml_replace_text = true;
+          break;
+        default:
+          usage (EXIT_FAILURE);
+          break;
         }
-        break;
-      case CHAR_MAX + 14: /* --source */
-        java_output_source = true;
-        break;
-      case CHAR_MAX + 15: /* --desktop */
-        desktop_mode = true;
-        break;
-      case CHAR_MAX + 16: /* --template=TEMPLATE */
-        desktop_template_name = optarg;
-        xml_template_name = optarg;
-        break;
-      case CHAR_MAX + 17: /* --no-convert */
-        no_convert_to_utf8 = true;
-        break;
-      case CHAR_MAX + 18: /* --no-redundancy */
-        no_redundancy = true;
-        break;
-      case CHAR_MAX + 19: /* --replace-text */
-        xml_replace_text = true;
-        break;
-      default:
-        usage (EXIT_FAILURE);
-        break;
-      }
+  }
 
   /* Version information is requested.  */
   if (do_version)
@@ -502,15 +498,17 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       {
         const char *first_option;
         const char *second_option;
-        unsigned int i;
-        for (i = 0; ; i++)
-          if (modes & (1 << i))
-            break;
-        first_option = mode_options[i];
-        for (i = i + 1; ; i++)
-          if (modes & (1 << i))
-            break;
-        second_option = mode_options[i];
+        {
+          unsigned int i;
+          for (i = 0; ; i++)
+            if (modes & (1 << i))
+              break;
+          first_option = mode_options[i];
+          for (i = i + 1; ; i++)
+            if (modes & (1 << i))
+              break;
+          second_option = mode_options[i];
+        }
         error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
                first_option, second_option);
       }
@@ -662,6 +660,8 @@ There is NO WARRANTY, to the extent permitted by law.\n\
         }
     }
 
+  exit_status = EXIT_SUCCESS;
+
   if (desktop_mode)
     {
       /* Ensure that desktop_keywords is initialized.  */
@@ -684,35 +684,36 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
   if (xml_mode)
     {
-      char **its_dirs;
-      char **dirs;
-      locating_rule_list_ty *its_locating_rules;
-      const char *its_basename;
+      char **its_dirs = get_search_path ("its");
 
-      its_dirs = get_search_path ("its");
-      its_locating_rules = locating_rule_list_alloc ();
-      for (dirs = its_dirs; *dirs != NULL; dirs++)
+      locating_rule_list_ty *its_locating_rules = locating_rule_list_alloc ();
+      for (char **dirs = its_dirs; *dirs != NULL; dirs++)
         locating_rule_list_add_from_directory (its_locating_rules, *dirs);
 
-      its_basename = locating_rule_list_locate (its_locating_rules,
-                                                xml_template_name,
-                                                xml_language);
+      const char *its_basename =
+        locating_rule_list_locate (its_locating_rules,
+                                   xml_template_name, xml_language);
 
       if (its_basename != NULL)
         {
-          size_t j;
-
           xml_its_rules = its_rule_list_alloc ();
+
+          size_t j;
           for (j = 0; its_dirs[j] != NULL; j++)
             {
               char *its_filename =
                 xconcatenated_filename (its_dirs[j], its_basename, NULL);
-              struct stat statbuf;
-              bool ok = false;
 
-              if (stat (its_filename, &statbuf) == 0)
-                ok = its_rule_list_add_from_file (xml_its_rules, its_filename);
+              bool ok = false;
+              {
+                struct stat statbuf;
+                if (stat (its_filename, &statbuf) == 0)
+                  ok = its_rule_list_add_from_file (xml_its_rules,
+                                                    its_filename);
+              }
+
               free (its_filename);
+
               if (ok)
                 break;
             }
@@ -722,9 +723,10 @@ There is NO WARRANTY, to the extent permitted by law.\n\
               xml_its_rules = NULL;
             }
         }
+
       locating_rule_list_free (its_locating_rules);
 
-      for (dirs = its_dirs; *dirs != NULL; dirs++)
+      for (char **dirs = its_dirs; *dirs != NULL; dirs++)
         free (*dirs);
       free (its_dirs);
 
@@ -754,7 +756,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
                   : output_file_name);
 
   /* Process all given .po files.  */
-  for (arg_i = optind; arg_i < argc; arg_i++)
+  for (int arg_i = optind; arg_i < argc; arg_i++)
     {
       /* Remember that we currently have not specified any domain.  This
          is of course not true when we saw the -o option.  */
@@ -767,18 +769,23 @@ There is NO WARRANTY, to the extent permitted by law.\n\
 
   /* We know a priori that some input_syntax->parse() functions convert
      strings to UTF-8.  */
-  canon_encoding = (input_syntax->produces_utf8 ? po_charset_utf8 : NULL);
+  const char *canon_encoding =
+    (input_syntax->produces_utf8 ? po_charset_utf8 : NULL);
 
   /* Remove obsolete messages.  They were only needed for duplicate
      checking.  */
-  for (domain = domain_list; domain != NULL; domain = domain->next)
+  for (struct msg_domain *domain = domain_list;
+       domain != NULL;
+       domain = domain->next)
     message_list_remove_if_not (domain->mlp, is_nonobsolete);
 
   /* Perform all kinds of checks: plural expressions, format strings, ...  */
   {
     int nerrors = 0;
 
-    for (domain = domain_list; domain != NULL; domain = domain->next)
+    for (struct msg_domain *domain = domain_list;
+         domain != NULL;
+         domain = domain->next)
       nerrors +=
         check_message_list (domain->mlp,
                             /* Untranslated and fuzzy messages have already
@@ -806,17 +813,20 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   char *all_input_file_names;
   {
     string_list_ty input_file_names;
-
     string_list_init (&input_file_names);;
-    for (arg_i = optind; arg_i < argc; arg_i++)
+    for (int arg_i = optind; arg_i < argc; arg_i++)
       string_list_append (&input_file_names, argv[arg_i]);
+
     all_input_file_names =
       string_list_join (&input_file_names, ", ", '\0', false);
+
     string_list_destroy (&input_file_names);
   }
 
   /* Now write out all domains.  */
-  for (domain = domain_list; domain != NULL; domain = domain->next)
+  for (struct msg_domain *domain = domain_list;
+       domain != NULL;
+       domain = domain->next)
     {
       if (java_mode)
         {
@@ -1121,15 +1131,12 @@ or by email to <%s>.\n"),
 static const char *
 add_mo_suffix (const char *fname)
 {
-  size_t len;
-  char *result;
-
-  len = strlen (fname);
+  size_t len = strlen (fname);
   if (len > 3 && memcmp (fname + len - 3, ".mo", 3) == 0)
     return fname;
   if (len > 4 && memcmp (fname + len - 4, ".gmo", 4) == 0)
     return fname;
-  result = XNMALLOC (len + 4, char);
+  char *result = XNMALLOC (len + 4, char);
   stpcpy (stpcpy (result, fname), ".mo");
   return result;
 }
@@ -1146,12 +1153,12 @@ new_domain (const char *name, const char *file_name)
   if (*p_dom == NULL)
     {
       struct msg_domain *domain;
-
       domain = XMALLOC (struct msg_domain);
       domain->mlp = message_list_alloc (true);
       domain->domain_name = name;
       domain->file_name = file_name;
       domain->next = NULL;
+
       *p_dom = domain;
     }
 
@@ -1234,9 +1241,7 @@ msgfmt_set_domain (default_catalog_reader_ty *dcatr,
   if (!java_mode && !csharp_mode && !csharp_resources_mode && !tcl_mode
       && !qt_mode && !desktop_mode && !xml_mode && output_file_name == NULL)
     {
-      size_t correct;
-
-      correct = strcspn (name, INVALID_PATH_CHAR);
+      size_t correct = strcspn (name, INVALID_PATH_CHAR);
       if (name[correct] != '\0')
         {
           exit_status = EXIT_FAILURE;
@@ -1413,8 +1418,8 @@ read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
 {
   char *real_filename;
   FILE *fp = open_catalog_file (filename, &real_filename, true);
-  default_catalog_reader_ty *dcatr;
 
+  default_catalog_reader_ty *dcatr;
   dcatr = default_catalog_reader_alloc (&msgfmt_methods,
                                         textmode_xerror_handler);
   dcatr->pass_obsolete_entries = true;
@@ -1431,8 +1436,10 @@ read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
       dcatr->domain = current_domain->domain_name;
       dcatr->mlp = current_domain->mlp;
     }
+
   catalog_reader_parse ((abstract_catalog_reader_ty *) dcatr, fp, real_filename,
                         filename, false, input_syntax);
+
   catalog_reader_free ((abstract_catalog_reader_ty *) dcatr);
 
   if (fp != stdin)
@@ -1443,18 +1450,14 @@ static void
 add_languages (string_list_ty *languages, string_list_ty *desired_languages,
                const char *line, size_t length)
 {
-  const char *start;
-
   /* Split the line by whitespace and build the languages list.  */
-  for (start = line; start - line < length; )
+  for (const char *start = line; start - line < length; )
     {
-      const char *p;
-
       /* Skip whitespace before the string.  */
       while (*start == ' ' || *start == '\t')
         start++;
 
-      p = start;
+      const char *p = start;
       while (*p != '\0' && *p != ' ' && *p != '\t')
         p++;
 
@@ -1470,33 +1473,37 @@ add_languages (string_list_ty *languages, string_list_ty *desired_languages,
 static void
 get_languages (string_list_ty *languages, const char *directory)
 {
-  char *envval;
-  string_list_ty real_desired_languages, *desired_languages = NULL;
-  char *linguas_file_name = NULL;
-  struct stat statbuf;
-  FILE *fp;
-  size_t line_len = 0;
-  char *line_buf = NULL;
+  string_list_ty real_desired_languages;
+  string_list_ty *desired_languages = NULL;
 
-  envval = getenv ("LINGUAS");
-  if (envval)
-    {
-      string_list_init (&real_desired_languages);
-      add_languages (&real_desired_languages, NULL, envval, strlen (envval));
-      desired_languages = &real_desired_languages;
-    }
+  {
+    char *envval = getenv ("LINGUAS");
+    if (envval)
+      {
+        string_list_init (&real_desired_languages);
+        add_languages (&real_desired_languages, NULL, envval, strlen (envval));
+        desired_languages = &real_desired_languages;
+      }
+  }
 
-  linguas_file_name = xconcatenated_filename (directory, "LINGUAS", NULL);
-  if (stat (linguas_file_name, &statbuf) < 0)
+  char *linguas_file_name = xconcatenated_filename (directory, "LINGUAS", NULL);
+  bool linguas_file_exists;
+  {
+    struct stat statbuf;
+    linguas_file_exists = (stat (linguas_file_name, &statbuf) >= 0);
+  }
+  if (!linguas_file_exists)
     error (EXIT_SUCCESS, 0, _("%s does not exist"), linguas_file_name);
   else
     {
-      fp = fopen (linguas_file_name, "r");
+      FILE *fp = fopen (linguas_file_name, "r");
       if (fp == NULL)
         error (EXIT_SUCCESS, 0, _("%s exists but cannot read"),
                linguas_file_name);
       else
         {
+          size_t line_len = 0;
+          char *line_buf = NULL;
           while (!feof (fp))
             {
               /* Read next line from file.  */
@@ -1542,9 +1549,7 @@ msgfmt_operand_list_init (msgfmt_operand_list_ty *operands)
 static void
 msgfmt_operand_list_destroy (msgfmt_operand_list_ty *operands)
 {
-  size_t i;
-
-  for (i = 0; i < operands->nitems; i++)
+  for (size_t i = 0; i < operands->nitems; i++)
     {
       free (operands->items[i].language);
       message_list_free (operands->items[i].mlp, 0);
@@ -1557,8 +1562,6 @@ msgfmt_operand_list_append (msgfmt_operand_list_ty *operands,
                             const char *language,
                             message_list_ty *messages)
 {
-  msgfmt_operand_ty *operand;
-
   if (operands->nitems == operands->nitems_max)
     {
       operands->nitems_max = operands->nitems_max * 2 + 1;
@@ -1567,7 +1570,7 @@ msgfmt_operand_list_append (msgfmt_operand_list_ty *operands,
                                   * operands->nitems_max);
     }
 
-  operand = &operands->items[operands->nitems++];
+  msgfmt_operand_ty *operand = &operands->items[operands->nitems++];
   operand->language = xstrdup (language);
   operand->mlp = messages;
 }
@@ -1577,10 +1580,6 @@ msgfmt_operand_list_add_from_directory (msgfmt_operand_list_ty *operands,
                                         const char *directory)
 {
   string_list_ty languages;
-  void *saved_dir_list;
-  int retval = 0;
-  size_t i;
-
   string_list_init (&languages);
   get_languages (&languages, directory);
 
@@ -1589,28 +1588,29 @@ msgfmt_operand_list_add_from_directory (msgfmt_operand_list_ty *operands,
 
   /* Reset the directory search list so only .po files under DIRECTORY
      will be read.  */
-  saved_dir_list = dir_list_save_reset ();
+  void *saved_dir_list = dir_list_save_reset ();
   dir_list_append (directory);
 
+  int retval = 0;
+
   /* Read all .po files.  */
-  for (i = 0; i < languages.nitems; i++)
+  for (size_t i = 0; i < languages.nitems; i++)
     {
       const char *language = languages.item[i];
-      message_list_ty *mlp;
-      char *input_file_name;
-      int nerrors;
 
       current_domain = new_domain (MESSAGE_DOMAIN_DEFAULT,
                                    add_mo_suffix (MESSAGE_DOMAIN_DEFAULT));
 
-      input_file_name = xconcatenated_filename ("", language, ".po");
-      read_catalog_file_msgfmt (input_file_name, &input_format_po);
-      free (input_file_name);
+      {
+        char *input_file_name = xconcatenated_filename ("", language, ".po");
+        read_catalog_file_msgfmt (input_file_name, &input_format_po);
+        free (input_file_name);
+      }
 
       /* The domain directive is not supported in the bulk execution mode.
          Thus, domain_list should always contain a single domain.  */
       assert (current_domain == domain_list && domain_list->next == NULL);
-      mlp = current_domain->mlp;
+      message_list_ty *mlp = current_domain->mlp;
       free (current_domain);
       current_domain = domain_list = NULL;
 
@@ -1620,7 +1620,7 @@ msgfmt_operand_list_add_from_directory (msgfmt_operand_list_ty *operands,
 
       /* Perform all kinds of checks: plural expressions, format
          strings, ...  */
-      nerrors =
+      int nerrors =
         check_message_list (mlp,
                             /* Untranslated and fuzzy messages have already
                                been dealt with during parsing, see below in
@@ -1666,12 +1666,11 @@ msgfmt_desktop_bulk (const char *directory,
                      const char *file_name)
 {
   msgfmt_operand_list_ty operands;
-  int nerrors, status;
-
   msgfmt_operand_list_init (&operands);
 
   /* Read all .po files.  */
-  nerrors = msgfmt_operand_list_add_from_directory (&operands, directory);
+  int nerrors = msgfmt_operand_list_add_from_directory (&operands, directory);
+  int status;
   if (nerrors > 0)
     status = 1;
   else
@@ -1697,12 +1696,10 @@ msgfmt_xml_bulk (const char *directory,
                  const char *file_name)
 {
   msgfmt_operand_list_ty operands;
-  int nerrors, status;
-
   msgfmt_operand_list_init (&operands);
 
   /* Read all .po files.  */
-  nerrors = msgfmt_operand_list_add_from_directory (&operands, directory);
+  int nerrors = msgfmt_operand_list_add_from_directory (&operands, directory);
   if (nerrors > 0)
     {
       msgfmt_operand_list_destroy (&operands);
@@ -1710,11 +1707,11 @@ msgfmt_xml_bulk (const char *directory,
     }
 
   /* Write the messages into .xml file.  */
-  status = msgdomain_write_xml_bulk (&operands,
-                                     template_file_name,
-                                     its_rules,
-                                     false,
-                                     file_name);
+  int status = msgdomain_write_xml_bulk (&operands,
+                                         template_file_name,
+                                         its_rules,
+                                         false,
+                                         file_name);
 
   msgfmt_operand_list_destroy (&operands);
 

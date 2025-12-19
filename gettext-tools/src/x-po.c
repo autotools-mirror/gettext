@@ -76,12 +76,10 @@ extract_add_message (default_catalog_reader_ty *this,
 
         if (charsetstr != NULL)
           {
-            size_t len;
-            char *charset;
-
             charsetstr += strlen ("charset=");
-            len = strcspn (charsetstr, " \t\n");
-            charset = XNMALLOC (len + 1, char);
+            size_t len = strcspn (charsetstr, " \t\n");
+
+            char *charset = XNMALLOC (len + 1, char);
             memcpy (charset, charsetstr, len);
             charset[len] = '\0';
 

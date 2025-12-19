@@ -369,54 +369,27 @@ get_sysdep_segment_value (struct pre_sysdep_segment segment,
 static void
 write_table (FILE *output_file, message_list_ty *mlp)
 {
-  char **msgctid_arr;
-  size_t nstrings;
-  size_t msg_arr_allocated;
-  struct pre_message *msg_arr;
-  size_t n_sysdep_strings;
-  struct pre_sysdep_message *sysdep_msg_arr;
-  size_t n_sysdep_segments;
-  struct pre_sysdep_segment *sysdep_segments;
-  bool have_outdigits;
-  int major_revision;
-  int minor_revision;
-  bool omit_hash_table;
-  nls_uint32 hash_tab_size;
-  struct mo_file_header header; /* Header of the .mo file to be written.  */
-  size_t header_size;
-  size_t offset;
-  struct string_desc *orig_tab;
-  struct string_desc *trans_tab;
-  size_t sysdep_tab_offset = 0;
-  size_t end_offset;
-  char *null;
-
   /* First pass: Move the static string pairs into an array, for sorting,
      and at the same time, compute the segments of the system dependent
      strings.  */
-  msgctid_arr = XNMALLOC (mlp->nitems, char *);
-  nstrings = 0;
-  msg_arr_allocated = mlp->nitems;
-  msg_arr = XNMALLOC (msg_arr_allocated, struct pre_message);
-  n_sysdep_strings = 0;
-  sysdep_msg_arr = XNMALLOC (mlp->nitems, struct pre_sysdep_message);
-  n_sysdep_segments = 0;
-  sysdep_segments = NULL;
-  have_outdigits = false;
+  char **msgctid_arr = XNMALLOC (mlp->nitems, char *);
+  size_t nstrings = 0;
+  size_t msg_arr_allocated = mlp->nitems;
+  struct pre_message *msg_arr = XNMALLOC (msg_arr_allocated, struct pre_message);
+  size_t n_sysdep_strings = 0;
+  struct pre_sysdep_message *sysdep_msg_arr =
+    XNMALLOC (mlp->nitems, struct pre_sysdep_message);
+  size_t n_sysdep_segments = 0;
+  struct pre_sysdep_segment *sysdep_segments = NULL;
+  bool have_outdigits = false;
   {
-    size_t j;
-
-    for (j = 0; j < mlp->nitems; j++)
+    for (size_t j = 0; j < mlp->nitems; j++)
       {
         message_ty *mp = mlp->item[j];
-        size_t msgctlen;
-        char *msgctid;
-        struct interval *intervals[2];
-        size_t nintervals[2];
 
         /* Concatenate mp->msgctxt and mp->msgid into msgctid.  */
-        msgctlen = (mp->msgctxt != NULL ? strlen (mp->msgctxt) + 1 : 0);
-        msgctid = XNMALLOC (msgctlen + strlen (mp->msgid) + 1, char);
+        size_t msgctlen = (mp->msgctxt != NULL ? strlen (mp->msgctxt) + 1 : 0);
+        char *msgctid = XNMALLOC (msgctlen + strlen (mp->msgid) + 1, char);
         if (mp->msgctxt != NULL)
           {
             memcpy (msgctid, mp->msgctxt, msgctlen - 1);
@@ -425,6 +398,8 @@ write_table (FILE *output_file, message_list_ty *mlp)
         strcpy (msgctid + msgctlen, mp->msgid);
         msgctid_arr[j] = msgctid;
 
+        struct interval *intervals[2];
+        size_t nintervals[2];
         intervals[M_ID] = NULL;
         nintervals[M_ID] = 0;
         intervals[M_STR] = NULL;
@@ -438,9 +413,6 @@ write_table (FILE *output_file, message_list_ty *mlp)
             /* Check whether msgid or msgstr contain ISO C 99 <inttypes.h>
                format string directives.  No need to check msgid_plural, because
                it is not accessed by the [n]gettext() function family.  */
-            const char *p_end;
-            const char *p;
-
             get_sysdep_c_format_directives (mp->msgid, false,
                                             &intervals[M_ID], &nintervals[M_ID]);
             if (msgctlen > 0)
@@ -450,9 +422,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
                 if (id_nintervals > 0)
                   {
-                    unsigned int i;
-
-                    for (i = 0; i < id_nintervals; i++)
+                    for (unsigned int i = 0; i < id_nintervals; i++)
                       {
                         id_intervals[i].startpos += msgctlen;
                         id_intervals[i].endpos += msgctlen;
@@ -460,26 +430,24 @@ write_table (FILE *output_file, message_list_ty *mlp)
                   }
               }
 
-            p_end = mp->msgstr + mp->msgstr_len;
-            for (p = mp->msgstr; p < p_end; p += strlen (p) + 1)
+            const char *p_end = mp->msgstr + mp->msgstr_len;
+            for (const char *p = mp->msgstr; p < p_end; p += strlen (p) + 1)
               {
                 struct interval *part_intervals;
                 size_t part_nintervals;
-
                 get_sysdep_c_format_directives (p, true,
                                                 &part_intervals,
                                                 &part_nintervals);
                 if (part_nintervals > 0)
                   {
                     size_t d = p - mp->msgstr;
-                    unsigned int i;
 
                     intervals[M_STR] =
                       (struct interval *)
                       xrealloc (intervals[M_STR],
                                 (nintervals[M_STR] + part_nintervals)
                                 * sizeof (struct interval));
-                    for (i = 0; i < part_nintervals; i++)
+                    for (unsigned int i = 0; i < part_nintervals; i++)
                       {
                         intervals[M_STR][nintervals[M_STR] + i].startpos =
                           d + part_intervals[i].startpos;
@@ -494,20 +462,16 @@ write_table (FILE *output_file, message_list_ty *mlp)
         if (nintervals[M_ID] > 0 || nintervals[M_STR] > 0)
           {
             /* System dependent string pair.  */
-            size_t m;
-
-            for (m = 0; m < 2; m++)
+            for (size_t m = 0; m < 2; m++)
               {
                 struct pre_sysdep_string *pre =
                   (struct pre_sysdep_string *)
                   xmalloc (xsum (sizeof (struct pre_sysdep_string),
                                  xtimes (nintervals[m],
                                          sizeof (struct pre_segment_pair))));
+
                 const char *str;
                 size_t str_len;
-                size_t lastpos;
-                unsigned int i;
-
                 if (m == M_ID)
                   {
                     str = msgctid; /* concatenation of mp->msgctxt + mp->msgid  */
@@ -519,19 +483,16 @@ write_table (FILE *output_file, message_list_ty *mlp)
                     str_len = mp->msgstr_len;
                   }
 
-                lastpos = 0;
+                size_t lastpos = 0;
                 pre->segmentcount = nintervals[m];
+                unsigned int i;
                 for (i = 0; i < nintervals[m]; i++)
                   {
-                    size_t length;
-                    const char *pointer;
-                    size_t r;
-
                     pre->segments[i].segptr = str + lastpos;
                     pre->segments[i].segsize = intervals[m][i].startpos - lastpos;
 
-                    length = intervals[m][i].endpos - intervals[m][i].startpos;
-                    pointer = str + intervals[m][i].startpos;
+                    size_t length = intervals[m][i].endpos - intervals[m][i].startpos;
+                    const char *pointer = str + intervals[m][i].startpos;
                     if (length >= 2
                         && pointer[0] == '<' && pointer[length - 1] == '>')
                       {
@@ -540,6 +501,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
                         pointer += 1;
                       }
 
+                    size_t r;
                     for (r = 0; r < n_sysdep_segments; r++)
                       if (sysdep_segments[r].length == length
                           && memcmp (sysdep_segments[r].pointer, pointer, length)
@@ -589,13 +551,9 @@ write_table (FILE *output_file, message_list_ty *mlp)
             nstrings++;
           }
 
-        {
-          size_t m;
-
-          for (m = 0; m < 2; m++)
-            if (intervals[m] != NULL)
-              free (intervals[m]);
-        }
+        for (size_t m = 0; m < 2; m++)
+          if (intervals[m] != NULL)
+            free (intervals[m]);
       }
   }
 
@@ -606,69 +564,57 @@ write_table (FILE *output_file, message_list_ty *mlp)
       /* Create a temporary hash table of msg_arr[*].str[M_ID], to guarantee
          fast lookups.  */
       hash_table static_msgids;
-
       hash_init (&static_msgids, 10);
-      {
-        size_t i;
+      for (size_t i = 0; i < nstrings; i++)
+        hash_insert_entry (&static_msgids,
+                           msg_arr[i].str[M_ID].pointer,
+                           msg_arr[i].str[M_ID].length,
+                           NULL);
 
-        for (i = 0; i < nstrings; i++)
-          hash_insert_entry (&static_msgids,
-                             msg_arr[i].str[M_ID].pointer,
-                             msg_arr[i].str[M_ID].length,
-                             NULL);
-      }
-
-      size_t ss;
-
-      for (ss = 0; ss < n_sysdep_strings; ss++)
+      for (size_t ss = 0; ss < n_sysdep_strings; ss++)
         {
-          size_t u;
-
-          for (u = 0; u < SIZEOF (useful_instantiation_rules); u++)
+          for (size_t u = 0; u < SIZEOF (useful_instantiation_rules); u++)
             {
               const struct sysdep_instantiation_rule *instrule =
                 &useful_instantiation_rules[u];
               bool supported = true;
               struct pre_string expansion[2];
-              size_t m;
 
-              for (m = 0; m < 2; m++)
+              for (size_t m = 0; m < 2; m++)
                 {
                   struct pre_sysdep_string *pre = sysdep_msg_arr[ss].str[m];
                   unsigned int segmentcount = pre->segmentcount;
-                  size_t expansion_length;
-                  char *expansion_pointer;
-                  unsigned int i;
 
                   /* Compute the length of the expansion.  */
-                  expansion_length = 0;
-                  i = 0;
-                  do
-                    {
-                      expansion_length += pre->segments[i].segsize;
+                  size_t expansion_length = 0;
+                  {
+                    unsigned int i = 0;
+                    do
+                      {
+                        expansion_length += pre->segments[i].segsize;
 
-                      size_t r = pre->segments[i].sysdepref;
-                      if (r == SEGMENTS_END)
-                        break;
-                      const char *segment_expansion =
-                        get_sysdep_segment_value (sysdep_segments[r], instrule);
-                      if (segment_expansion == NULL)
-                        {
-                          supported = false;
+                        size_t r = pre->segments[i].sysdepref;
+                        if (r == SEGMENTS_END)
                           break;
-                        }
-                      expansion_length += strlen (segment_expansion);
-                    }
-                  while (i++ < segmentcount);
+                        const char *segment_expansion =
+                          get_sysdep_segment_value (sysdep_segments[r], instrule);
+                        if (segment_expansion == NULL)
+                          {
+                            supported = false;
+                            break;
+                          }
+                        expansion_length += strlen (segment_expansion);
+                      }
+                    while (i++ < segmentcount);
+                  }
                   if (!supported)
                     break;
 
                   /* Compute the expansion.  */
-                  expansion_pointer = (char *) xmalloc (expansion_length);
+                  char *expansion_pointer = (char *) xmalloc (expansion_length);
                   {
                     char *p = expansion_pointer;
-
-                    i = 0;
+                    unsigned int i = 0;
                     do
                       {
                         memcpy (p, pre->segments[i].segptr, pre->segments[i].segsize);
@@ -732,16 +678,16 @@ write_table (FILE *output_file, message_list_ty *mlp)
   /* We need major revision 1 if there are system dependent strings that use
      "I" because older versions of gettext() crash when this occurs in a .mo
      file.  Otherwise use major revision 0.  */
-  major_revision =
+  int major_revision =
     (have_outdigits ? MO_REVISION_NUMBER_WITH_SYSDEP_I : MO_REVISION_NUMBER);
 
   /* We need minor revision 1 if there are system dependent strings.
      Otherwise we choose minor revision 0 because it's supported by older
      versions of libintl and revision 1 isn't.  */
-  minor_revision = (n_sysdep_strings > 0 ? 1 : 0);
+  int minor_revision = (n_sysdep_strings > 0 ? 1 : 0);
 
   /* In minor revision >= 1, the hash table is obligatory.  */
-  omit_hash_table = (no_hash_table && minor_revision == 0);
+  bool omit_hash_table = (no_hash_table && minor_revision == 0);
 
   /* This should be explained:
      Each string has an associate hashing value V, computed by a fixed
@@ -763,6 +709,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
      Because unsuccessful searches are unlikely this is a good value.
      Formulas: [Knuth, The Art of Computer Programming, Volume 3,
                 Sorting and Searching, 1973, Addison Wesley]  */
+  nls_uint32 hash_tab_size;
   if (!omit_hash_table)
     {
       /* N is the number of static string pairs (filled in here, below)
@@ -778,17 +725,18 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
   /* Third pass: Fill the structure describing the header.  At the same time,
      compute the sizes and offsets of the non-string parts of the file.  */
+  struct mo_file_header header; /* Header of the .mo file to be written.  */
 
   /* Magic number.  */
   header.magic = _MAGIC;
   /* Revision number of file format.  */
   header.revision = (major_revision << 16) + minor_revision;
 
-  header_size =
+  size_t header_size =
     (minor_revision == 0
      ? offsetof (struct mo_file_header, n_sysdep_segments)
      : sizeof (struct mo_file_header));
-  offset = header_size;
+  size_t offset = header_size;
 
   /* Number of static string pairs.  */
   header.nstrings = nstrings;
@@ -796,12 +744,12 @@ write_table (FILE *output_file, message_list_ty *mlp)
   /* Offset of table for original string offsets.  */
   header.orig_tab_offset = offset;
   offset += nstrings * sizeof (struct string_desc);
-  orig_tab = XNMALLOC (nstrings, struct string_desc);
+  struct string_desc *orig_tab = XNMALLOC (nstrings, struct string_desc);
 
   /* Offset of table for translated string offsets.  */
   header.trans_tab_offset = offset;
   offset += nstrings * sizeof (struct string_desc);
-  trans_tab = XNMALLOC (nstrings, struct string_desc);
+  struct string_desc *trans_tab = XNMALLOC (nstrings, struct string_desc);
 
   /* Size of hash table.  */
   header.hash_tab_size = hash_tab_size;
@@ -809,6 +757,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
   header.hash_tab_offset = offset;
   offset += hash_tab_size * sizeof (nls_uint32);
 
+  size_t sysdep_tab_offset = 0;
   if (minor_revision >= 1)
     {
       /* Size of table describing system dependent segments.  */
@@ -830,19 +779,14 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
       /* System dependent string descriptors.  */
       sysdep_tab_offset = offset;
-      {
-        size_t m;
-        size_t j;
-
-        for (m = 0; m < 2; m++)
-          for (j = 0; j < n_sysdep_strings; j++)
-            offset += sizeof (struct sysdep_string)
-                      + sysdep_msg_arr[j].str[m]->segmentcount
-                        * sizeof (struct segment_pair);
-      }
+      for (size_t m = 0; m < 2; m++)
+        for (size_t j = 0; j < n_sysdep_strings; j++)
+          offset += sizeof (struct sysdep_string)
+                    + sysdep_msg_arr[j].str[m]->segmentcount
+                      * sizeof (struct segment_pair);
     }
 
-  end_offset = offset;
+  size_t end_offset = offset;
 
 
   /* Fourth pass: Write the non-string parts of the file.  At the same time,
@@ -873,9 +817,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
   /* Here output_file is at position header.orig_tab_offset.  */
 
   {
-    size_t j;
-
-    for (j = 0; j < nstrings; j++)
+    for (size_t j = 0; j < nstrings; j++)
       {
         offset = roundup (offset, alignment);
         orig_tab[j].length =
@@ -886,7 +828,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
         orig_tab[j].length--;
       }
     if (byteswap)
-      for (j = 0; j < nstrings; j++)
+      for (size_t j = 0; j < nstrings; j++)
         {
           BSWAP32 (orig_tab[j].length);
           BSWAP32 (orig_tab[j].offset);
@@ -898,9 +840,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
   /* Here output_file is at position header.trans_tab_offset.  */
 
   {
-    size_t j;
-
-    for (j = 0; j < nstrings; j++)
+    for (size_t j = 0; j < nstrings; j++)
       {
         offset = roundup (offset, alignment);
         trans_tab[j].length = msg_arr[j].str[M_STR].length;
@@ -910,7 +850,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
         trans_tab[j].length--;
       }
     if (byteswap)
-      for (j = 0; j < nstrings; j++)
+      for (size_t j = 0; j < nstrings; j++)
         {
           BSWAP32 (trans_tab[j].length);
           BSWAP32 (trans_tab[j].offset);
@@ -921,18 +861,15 @@ write_table (FILE *output_file, message_list_ty *mlp)
   /* Skip this part when no hash table is needed.  */
   if (!omit_hash_table)
     {
-      nls_uint32 *hash_tab;
-      size_t j;
-
       /* Here output_file is at position header.hash_tab_offset.  */
 
       /* Allocate room for the hashing table to be written out.  */
-      hash_tab = XNMALLOC (hash_tab_size, nls_uint32);
+      nls_uint32 *hash_tab = XNMALLOC (hash_tab_size, nls_uint32);
       memset (hash_tab, '\0', hash_tab_size * sizeof (nls_uint32));
 
       /* Insert all values in the hash table, following the algorithm described
          above.  */
-      for (j = 0; j < nstrings; j++)
+      for (size_t j = 0; j < nstrings; j++)
         {
           nls_uint32 hash_val = hash_string (msg_arr[j].str[M_ID].pointer);
           nls_uint32 idx = hash_val % hash_tab_size;
@@ -955,7 +892,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
       /* Write the hash table out.  */
       if (byteswap)
-        for (j = 0; j < hash_tab_size; j++)
+        for (size_t j = 0; j < hash_tab_size; j++)
           BSWAP32 (hash_tab[j]);
       fwrite (hash_tab, hash_tab_size * sizeof (nls_uint32), 1, output_file);
 
@@ -967,12 +904,9 @@ write_table (FILE *output_file, message_list_ty *mlp)
       /* Here output_file is at position header.sysdep_segments_offset.  */
 
       {
-        struct sysdep_segment *sysdep_segments_tab;
-        unsigned int i;
-
-        sysdep_segments_tab =
+        struct sysdep_segment *sysdep_segments_tab =
           XNMALLOC (n_sysdep_segments, struct sysdep_segment);
-        for (i = 0; i < n_sysdep_segments; i++)
+        for (unsigned int i = 0; i < n_sysdep_segments; i++)
           {
             offset = roundup (offset, alignment);
             /* The "+ 1" accounts for the trailing NUL byte.  */
@@ -982,7 +916,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
           }
 
         if (byteswap)
-          for (i = 0; i < n_sysdep_segments; i++)
+          for (unsigned int i = 0; i < n_sysdep_segments; i++)
             {
               BSWAP32 (sysdep_segments_tab[i].length);
               BSWAP32 (sysdep_segments_tab[i].offset);
@@ -995,21 +929,16 @@ write_table (FILE *output_file, message_list_ty *mlp)
       }
 
       {
-        nls_uint32 *sysdep_tab;
-        size_t stoffset;
-        size_t m;
-        size_t j;
+        nls_uint32 *sysdep_tab = XNMALLOC (n_sysdep_strings, nls_uint32);
+        size_t stoffset = sysdep_tab_offset;
 
-        sysdep_tab = XNMALLOC (n_sysdep_strings, nls_uint32);
-        stoffset = sysdep_tab_offset;
-
-        for (m = 0; m < 2; m++)
+        for (size_t m = 0; m < 2; m++)
           {
             /* Here output_file is at position
                m == M_ID  -> header.orig_sysdep_tab_offset,
                m == M_STR -> header.trans_sysdep_tab_offset.  */
 
-            for (j = 0; j < n_sysdep_strings; j++)
+            for (size_t j = 0; j < n_sysdep_strings; j++)
               {
                 sysdep_tab[j] = stoffset;
                 stoffset += sizeof (struct sysdep_string)
@@ -1018,7 +947,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
               }
             /* Write the table for original/translated sysdep string offsets.  */
             if (byteswap)
-              for (j = 0; j < n_sysdep_strings; j++)
+              for (size_t j = 0; j < n_sysdep_strings; j++)
                 BSWAP32 (sysdep_tab[j]);
             fwrite (sysdep_tab, n_sysdep_strings * sizeof (nls_uint32), 1,
                     output_file);
@@ -1029,51 +958,45 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
       /* Here output_file is at position sysdep_tab_offset.  */
 
-      {
-        size_t m;
-        size_t j;
+      for (size_t m = 0; m < 2; m++)
+        for (size_t j = 0; j < n_sysdep_strings; j++)
+          {
+            struct pre_sysdep_message *msg = &sysdep_msg_arr[j];
+            struct pre_sysdep_string *pre = msg->str[m];
+            struct sysdep_string *str =
+              (struct sysdep_string *)
+              xmalloca (sizeof (struct sysdep_string)
+                        + pre->segmentcount * sizeof (struct segment_pair));
 
-        for (m = 0; m < 2; m++)
-          for (j = 0; j < n_sysdep_strings; j++)
-            {
-              struct pre_sysdep_message *msg = &sysdep_msg_arr[j];
-              struct pre_sysdep_string *pre = msg->str[m];
-              struct sysdep_string *str =
-                (struct sysdep_string *)
-                xmalloca (sizeof (struct sysdep_string)
-                          + pre->segmentcount * sizeof (struct segment_pair));
-              unsigned int i;
+            offset = roundup (offset, alignment);
+            str->offset = offset;
+            for (unsigned int i = 0; i <= pre->segmentcount; i++)
+              {
+                str->segments[i].segsize = pre->segments[i].segsize;
+                str->segments[i].sysdepref = pre->segments[i].sysdepref;
+                offset += str->segments[i].segsize;
+              }
+            if (m == M_ID && msg->id_plural_len > 0)
+              {
+                str->segments[pre->segmentcount].segsize += msg->id_plural_len;
+                offset += msg->id_plural_len;
+              }
+            if (byteswap)
+              {
+                BSWAP32 (str->offset);
+                for (unsigned int i = 0; i <= pre->segmentcount; i++)
+                  {
+                    BSWAP32 (str->segments[i].segsize);
+                    BSWAP32 (str->segments[i].sysdepref);
+                  }
+              }
+            fwrite (str,
+                    sizeof (struct sysdep_string)
+                    + pre->segmentcount * sizeof (struct segment_pair),
+                    1, output_file);
 
-              offset = roundup (offset, alignment);
-              str->offset = offset;
-              for (i = 0; i <= pre->segmentcount; i++)
-                {
-                  str->segments[i].segsize = pre->segments[i].segsize;
-                  str->segments[i].sysdepref = pre->segments[i].sysdepref;
-                  offset += str->segments[i].segsize;
-                }
-              if (m == M_ID && msg->id_plural_len > 0)
-                {
-                  str->segments[pre->segmentcount].segsize += msg->id_plural_len;
-                  offset += msg->id_plural_len;
-                }
-              if (byteswap)
-                {
-                  BSWAP32 (str->offset);
-                  for (i = 0; i <= pre->segmentcount; i++)
-                    {
-                      BSWAP32 (str->segments[i].segsize);
-                      BSWAP32 (str->segments[i].sysdepref);
-                    }
-                }
-              fwrite (str,
-                      sizeof (struct sysdep_string)
-                      + pre->segmentcount * sizeof (struct segment_pair),
-                      1, output_file);
-
-              freea (str);
-            }
-      }
+            freea (str);
+          }
     }
 
   /* Here output_file is at position end_offset.  */
@@ -1087,49 +1010,37 @@ write_table (FILE *output_file, message_list_ty *mlp)
   offset = end_offset;
 
   /* A few zero bytes for padding.  */
-  null = (char *) alloca (alignment);
+  char *null = (char *) alloca (alignment);
   memset (null, '\0', alignment);
 
   /* Now write the original strings.  */
-  {
-    size_t j;
+  for (size_t j = 0; j < nstrings; j++)
+    {
+      fwrite (null, roundup (offset, alignment) - offset, 1, output_file);
+      offset = roundup (offset, alignment);
 
-    for (j = 0; j < nstrings; j++)
-      {
-        fwrite (null, roundup (offset, alignment) - offset, 1, output_file);
-        offset = roundup (offset, alignment);
-
-        fwrite (msg_arr[j].str[M_ID].pointer, msg_arr[j].str[M_ID].length, 1,
+      fwrite (msg_arr[j].str[M_ID].pointer, msg_arr[j].str[M_ID].length, 1,
+              output_file);
+      if (msg_arr[j].id_plural_len > 0)
+        fwrite (msg_arr[j].id_plural, msg_arr[j].id_plural_len, 1,
                 output_file);
-        if (msg_arr[j].id_plural_len > 0)
-          fwrite (msg_arr[j].id_plural, msg_arr[j].id_plural_len, 1,
-                  output_file);
-        offset += msg_arr[j].str[M_ID].length + msg_arr[j].id_plural_len;
-      }
-  }
+      offset += msg_arr[j].str[M_ID].length + msg_arr[j].id_plural_len;
+    }
 
   /* Now write the translated strings.  */
-  {
-    size_t j;
+  for (size_t j = 0; j < nstrings; j++)
+    {
+      fwrite (null, roundup (offset, alignment) - offset, 1, output_file);
+      offset = roundup (offset, alignment);
 
-    for (j = 0; j < nstrings; j++)
-      {
-        fwrite (null, roundup (offset, alignment) - offset, 1, output_file);
-        offset = roundup (offset, alignment);
-
-        fwrite (msg_arr[j].str[M_STR].pointer, msg_arr[j].str[M_STR].length, 1,
-                output_file);
-        offset += msg_arr[j].str[M_STR].length;
-      }
-  }
+      fwrite (msg_arr[j].str[M_STR].pointer, msg_arr[j].str[M_STR].length, 1,
+              output_file);
+      offset += msg_arr[j].str[M_STR].length;
+    }
 
   if (minor_revision >= 1)
     {
-      unsigned int i;
-      size_t m;
-      size_t j;
-
-      for (i = 0; i < n_sysdep_segments; i++)
+      for (unsigned int i = 0; i < n_sysdep_segments; i++)
         {
           fwrite (null, roundup (offset, alignment) - offset, 1, output_file);
           offset = roundup (offset, alignment);
@@ -1140,8 +1051,8 @@ write_table (FILE *output_file, message_list_ty *mlp)
           offset += sysdep_segments[i].length + 1;
         }
 
-      for (m = 0; m < 2; m++)
-        for (j = 0; j < n_sysdep_strings; j++)
+      for (size_t m = 0; m < 2; m++)
+        for (size_t j = 0; j < n_sysdep_strings; j++)
           {
             struct pre_sysdep_message *msg = &sysdep_msg_arr[j];
             struct pre_sysdep_string *pre = msg->str[m];
@@ -1150,7 +1061,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
                     output_file);
             offset = roundup (offset, alignment);
 
-            for (i = 0; i <= pre->segmentcount; i++)
+            for (unsigned int i = 0; i <= pre->segmentcount; i++)
               {
                 fwrite (pre->segments[i].segptr, pre->segments[i].segsize, 1,
                         output_file);
@@ -1168,8 +1079,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
 
   freea (null);
   {
-    size_t j;
-    for (j = 0; j < mlp->nitems; j++)
+    for (size_t j = 0; j < mlp->nitems; j++)
       free (msgctid_arr[j]);
   }
   free (sysdep_msg_arr);

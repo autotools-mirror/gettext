@@ -77,19 +77,17 @@ x_modula2_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid Modula-2
          identifier.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -198,10 +196,10 @@ static int phase2_pushback_length;
 static int
 phase2_getc ()
 {
-  int c;
-
   if (phase2_pushback_length)
     return phase2_pushback[--phase2_pushback_length];
+
+  int c;
 
   c = phase1_getc ();
   if (c == '(')
@@ -210,17 +208,12 @@ phase2_getc ()
       if (c == '*')
         {
           /* A comment.  */
-          int lineno;
           struct string_buffer buffer;
-          unsigned int nesting;
-          bool last_was_star;
-          bool last_was_opening_paren;
-
-          lineno = line_number;
           sb_init (&buffer);
-          nesting = 0;
-          last_was_star = false;
-          last_was_opening_paren = false;
+          int lineno = line_number;
+          unsigned int nesting = 0;
+          bool last_was_star = false;
+          bool last_was_opening_paren = false;
           for (;;)
             {
               c = phase1_getc ();
@@ -338,8 +331,6 @@ static int phase3_pushback_length;
 static void
 phase3_get (token_ty *tp)
 {
-  int c;
-
   if (phase3_pushback_length)
     {
       *tp = phase3_pushback[--phase3_pushback_length];
@@ -347,6 +338,8 @@ phase3_get (token_ty *tp)
     }
   for (;;)
     {
+      int c;
+
       tp->line_number = line_number;
       c = phase2_getc ();
 
@@ -549,13 +542,13 @@ phase4_get (token_ty *tp)
       for (;;)
         {
           token_ty token2;
-
           phase3_get (&token2);
+
           if (token2.type == token_type_plus)
             {
               token_ty token3;
-
               phase3_get (&token3);
+
               if (token3.type == token_type_string_literal)
                 {
                   sum = string_concat_free1 (sum, token3.string);
@@ -658,7 +651,6 @@ extract_parenthesized (message_list_ty *mlp,
   for (;;)
     {
       token_ty token;
-
       x_modula2_lex (&token);
 
       switch (token.type)
@@ -666,7 +658,6 @@ extract_parenthesized (message_list_ty *mlp,
         case token_type_symbol:
           {
             void *keyword_value;
-
             if (hash_find_entry (&keywords, token.string, strlen (token.string),
                                  &keyword_value)
                 == 0)

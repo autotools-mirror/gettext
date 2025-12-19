@@ -40,8 +40,7 @@ bool
 is_ascii_string_desc (string_desc_t string)
 {
   size_t len = sd_length (string);
-  size_t i;
-  for (i = 0; i < len; i++)
+  for (size_t i = 0; i < len; i++)
     if (!c_isascii ((unsigned char) sd_char_at (string, i)))
       return false;
   return true;
@@ -50,10 +49,8 @@ is_ascii_string_desc (string_desc_t string)
 bool
 is_ascii_string_list (const string_list_ty *slp)
 {
-  size_t i;
-
   if (slp != NULL)
-    for (i = 0; i < slp->nitems; i++)
+    for (size_t i = 0; i < slp->nitems; i++)
       if (!is_ascii_string (slp->item[i]))
         return false;
   return true;
@@ -62,12 +59,14 @@ is_ascii_string_list (const string_list_ty *slp)
 bool
 is_ascii_message (const message_ty *mp)
 {
-  const char *p = mp->msgstr;
-  const char *p_end = p + mp->msgstr_len;
+  {
+    const char *p = mp->msgstr;
+    const char *p_end = p + mp->msgstr_len;
 
-  for (; p < p_end; p++)
-    if (!c_isascii ((unsigned char) *p))
-      return false;
+    for (; p < p_end; p++)
+      if (!c_isascii ((unsigned char) *p))
+        return false;
+  }
 
   if (!is_ascii_string_list (mp->comment))
     return false;
@@ -99,9 +98,7 @@ is_ascii_message (const message_ty *mp)
 bool
 is_ascii_message_list (const message_list_ty *mlp)
 {
-  size_t j;
-
-  for (j = 0; j < mlp->nitems; j++)
+  for (size_t j = 0; j < mlp->nitems; j++)
     if (!is_ascii_message (mlp->item[j]))
       return false;
 
@@ -111,9 +108,7 @@ is_ascii_message_list (const message_list_ty *mlp)
 bool
 is_ascii_msgdomain_list (const msgdomain_list_ty *mdlp)
 {
-  size_t k;
-
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     if (!is_ascii_message_list (mdlp->item[k]->messages))
       return false;
 

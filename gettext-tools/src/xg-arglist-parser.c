@@ -43,7 +43,6 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
       struct arglist_parser *ap =
         (struct arglist_parser *)
         xmalloc (FLEXNSIZEOF (struct arglist_parser, alternative, 0));
-
       ap->mlp = mlp;
       ap->keyword = NULL;
       ap->keyword_len = 0;
@@ -58,14 +57,12 @@ arglist_parser_alloc (message_list_ty *mlp, const struct callshapes *shapes)
         (struct arglist_parser *)
         xmalloc (FLEXNSIZEOF (struct arglist_parser, alternative,
                               shapes->nshapes));
-      size_t i;
-
       ap->mlp = mlp;
       ap->keyword = shapes->keyword;
       ap->keyword_len = shapes->keyword_len;
       ap->next_is_msgctxt = false;
       ap->nalternatives = shapes->nshapes;
-      for (i = 0; i < shapes->nshapes; i++)
+      for (size_t i = 0; i < shapes->nshapes; i++)
         {
           ap->alternative[i].argnumc = shapes->shapes[i].argnumc;
           ap->alternative[i].argnum1 = shapes->shapes[i].argnum1;
@@ -103,14 +100,12 @@ arglist_parser_clone (struct arglist_parser *ap)
     (struct arglist_parser *)
     xmalloc (FLEXNSIZEOF (struct arglist_parser, alternative,
                           ap->nalternatives));
-  size_t i;
-
   copy->mlp = ap->mlp;
   copy->keyword = ap->keyword;
   copy->keyword_len = ap->keyword_len;
   copy->next_is_msgctxt = ap->next_is_msgctxt;
   copy->nalternatives = ap->nalternatives;
-  for (i = 0; i < ap->nalternatives; i++)
+  for (size_t i = 0; i < ap->nalternatives; i++)
     {
       const struct partial_call *cp = &ap->alternative[i];
       struct partial_call *ccp = &copy->alternative[i];
@@ -148,13 +143,12 @@ arglist_parser_remember (struct arglist_parser *ap,
                          refcounted_string_list_ty *comment,
                          bool comment_is_utf8)
 {
-  bool stored_string = false;
-  size_t nalternatives = ap->nalternatives;
-  size_t i;
-
   if (!(argnum > 0))
     abort ();
-  for (i = 0; i < nalternatives; i++)
+
+  bool stored_string = false;
+  size_t nalternatives = ap->nalternatives;
+  for (size_t i = 0; i < nalternatives; i++)
     {
       struct partial_call *cp = &ap->alternative[i];
 
@@ -208,12 +202,9 @@ arglist_parser_remember_msgctxt (struct arglist_parser *ap,
 {
   bool stored_string = false;
   size_t nalternatives = ap->nalternatives;
-  size_t i;
-
-  for (i = 0; i < nalternatives; i++)
+  for (size_t i = 0; i < nalternatives; i++)
     {
       struct partial_call *cp = &ap->alternative[i];
-
       cp->msgctxt = string;
       cp->msgctxt_pos.file_name = file_name;
       cp->msgctxt_pos.line_number = line_number;
@@ -231,8 +222,6 @@ arglist_parser_remember_msgctxt (struct arglist_parser *ap,
 bool
 arglist_parser_decidedp (struct arglist_parser *ap, int argnum)
 {
-  size_t i;
-
   /* Test whether all alternatives are decided.
      Note: A decided alternative can be complete
        cp->argnumc == 0 && cp->argnum1 == 0 && cp->argnum2 == 0
@@ -243,7 +232,7 @@ arglist_parser_decidedp (struct arglist_parser *ap, int argnum)
      or it can be failed if the number of arguments is exceeded:
        cp->argtotal > 0 && cp->argtotal < argnum
    */
-  for (i = 0; i < ap->nalternatives; i++)
+  for (size_t i = 0; i < ap->nalternatives; i++)
     {
       struct partial_call *cp = &ap->alternative[i];
 
@@ -261,12 +250,9 @@ arglist_parser_decidedp (struct arglist_parser *ap, int argnum)
 void
 arglist_parser_done (struct arglist_parser *ap, int argnum)
 {
-  size_t ncomplete;
-  size_t i;
-
   /* Determine the number of complete calls.  */
-  ncomplete = 0;
-  for (i = 0; i < ap->nalternatives; i++)
+  size_t ncomplete = 0;
+  for (size_t i = 0; i < ap->nalternatives; i++)
     {
       struct partial_call *cp = &ap->alternative[i];
 
@@ -282,7 +268,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 
       /* Find complete calls where msgctxt, msgid, msgid_plural are all
          provided.  */
-      for (i = 0; i < ap->nalternatives; i++)
+      for (size_t i = 0; i < ap->nalternatives; i++)
         {
           struct partial_call *cp = &ap->alternative[i];
 
@@ -307,7 +293,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
           struct partial_call *best_cp2 = NULL;
 
           /* Find complete calls where msgctxt, msgid are provided.  */
-          for (i = 0; i < ap->nalternatives; i++)
+          for (size_t i = 0; i < ap->nalternatives; i++)
             {
               struct partial_call *cp = &ap->alternative[i];
 
@@ -326,7 +312,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
             }
 
           /* Find complete calls where msgid, msgid_plural are provided.  */
-          for (i = 0; i < ap->nalternatives; i++)
+          for (size_t i = 0; i < ap->nalternatives; i++)
             {
               struct partial_call *cp = &ap->alternative[i];
 
@@ -358,7 +344,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
       if (best_cp == NULL)
         {
           /* Find complete calls where msgid is provided.  */
-          for (i = 0; i < ap->nalternatives; i++)
+          for (size_t i = 0; i < ap->nalternatives; i++)
             {
               struct partial_call *cp = &ap->alternative[i];
 
@@ -388,15 +374,9 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
         {
           /* best_cp indicates the best found complete call.
              Now call remember_a_message.  */
-          flag_region_ty *msgid_region;
-          flag_region_ty *msgid_plural_region;
-          char *best_msgctxt;
-          char *best_msgid;
-          char *best_msgid_plural;
-          message_ty *mp;
 
-          msgid_region = best_cp->msgid_region;
-          msgid_plural_region = best_cp->msgid_plural_region;
+          flag_region_ty *msgid_region = best_cp->msgid_region;
+          flag_region_ty *msgid_plural_region = best_cp->msgid_plural_region;
 
           /* Special support for the 3-argument tr operator in Qt:
              When --qt and --keyword=tr:1,1,2c,3t are specified, add to the
@@ -409,15 +389,15 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
               msgid_plural_region->for_formatstring[XFORMAT_FOURTH].is_format = yes_according_to_context;
             }
 
-          best_msgctxt =
+          char *best_msgctxt =
             (best_cp->msgctxt != NULL
              ? mixed_string_contents_free1 (best_cp->msgctxt)
              : NULL);
-          best_msgid =
+          char *best_msgid =
             (best_cp->msgid != NULL
              ? mixed_string_contents_free1 (best_cp->msgid)
              : NULL);
-          best_msgid_plural =
+          char *best_msgid_plural =
             (best_cp->msgid_plural != NULL
              ? /* Special support for the 3-argument tr operator in Qt.  */
                (best_cp->msgid_plural == best_cp->msgid
@@ -468,9 +448,9 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                 {
                   size_t ctxt_len = separator - best_msgid_plural;
                   char *ctxt = XNMALLOC (ctxt_len + 1, char);
-
                   memcpy (ctxt, best_msgid_plural, ctxt_len);
                   ctxt[ctxt_len] = '\0';
+
                   if (best_msgctxt == NULL)
                     best_msgctxt = ctxt;
                   else
@@ -487,12 +467,13 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                 }
             }
 
-          mp = remember_a_message (ap->mlp, best_msgctxt, best_msgid, true,
-                                   best_msgid_plural != NULL,
-                                   msgid_region,
-                                   &best_cp->msgid_pos,
-                                   NULL, best_cp->msgid_comment,
-                                   best_cp->msgid_comment_is_utf8);
+          message_ty *mp =
+            remember_a_message (ap->mlp, best_msgctxt, best_msgid, true,
+                                best_msgid_plural != NULL,
+                                msgid_region,
+                                &best_cp->msgid_pos,
+                                NULL, best_cp->msgid_comment,
+                                best_cp->msgid_comment_is_utf8);
           if (mp != NULL && best_msgid_plural != NULL)
             remember_a_message_plural (mp, best_msgid_plural, true,
                                        msgid_plural_region,
@@ -503,24 +484,21 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
             {
               /* Add best_cp->xcomments to mp->comment_dot, unless already
                  present.  */
-              size_t j;
-
-              for (j = 0; j < best_cp->xcomments.nitems; j++)
+              for (size_t j = 0; j < best_cp->xcomments.nitems; j++)
                 {
                   const char *xcomment = best_cp->xcomments.item[j];
-                  bool found = false;
 
+                  bool found = false;
                   if (mp != NULL && mp->comment_dot != NULL)
                     {
-                      size_t k;
-
-                      for (k = 0; k < mp->comment_dot->nitems; k++)
+                      for (size_t k = 0; k < mp->comment_dot->nitems; k++)
                         if (strcmp (xcomment, mp->comment_dot->item[k]) == 0)
                           {
                             found = true;
                             break;
                           }
                     }
+
                   if (!found)
                     message_comment_dot_append (mp, xcomment);
                 }
@@ -544,7 +522,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
         }
     }
 
-  for (i = 0; i < ap->nalternatives; i++)
+  for (size_t i = 0; i < ap->nalternatives; i++)
     {
       drop_reference (ap->alternative[i].msgid_comment);
       unref_region (ap->alternative[i].msgid_region);

@@ -135,10 +135,8 @@ convert_string_list (const iconveh_t *cd, string_list_ty *slp,
                      const struct conversion_context* context,
                      xerror_handler_ty xeh)
 {
-  size_t i;
-
   if (slp != NULL)
-    for (i = 0; i < slp->nitems; i++)
+    for (size_t i = 0; i < slp->nitems; i++)
       slp->item[i] = convert_string (cd, slp->item[i], context, xeh);
 }
 
@@ -173,11 +171,11 @@ convert_msgstr (const iconveh_t *cd, message_ty *mp,
                 const struct conversion_context* context,
                 xerror_handler_ty xeh)
 {
-  char *result = NULL;
-  size_t resultlen = 0;
-
   if (!(mp->msgstr_len > 0 && mp->msgstr[mp->msgstr_len - 1] == '\0'))
     abort ();
+
+  char *result = NULL;
+  size_t resultlen = 0;
 
   if (xmem_cd_iconveh (mp->msgstr, mp->msgstr_len, cd, iconveh_error, NULL,
                        &result, &resultlen) == 0)
@@ -185,17 +183,27 @@ convert_msgstr (const iconveh_t *cd, message_ty *mp,
     if (resultlen > 0 && result[resultlen - 1] == '\0')
       /* Verify the result has the same number of NUL bytes.  */
       {
-        const char *p;
-        const char *pend;
         int nulcount1;
-        int nulcount2;
+        {
+          nulcount1 = 0;
+          const char *p;
+          const char *pend;
+          for (p = mp->msgstr, pend = p + mp->msgstr_len;
+               p < pend;
+               p += strlen (p) + 1)
+            nulcount1++;
+        }
 
-        for (p = mp->msgstr, pend = p + mp->msgstr_len, nulcount1 = 0;
-             p < pend;
-             p += strlen (p) + 1, nulcount1++);
-        for (p = result, pend = p + resultlen, nulcount2 = 0;
-             p < pend;
-             p += strlen (p) + 1, nulcount2++);
+        int nulcount2;
+        {
+          nulcount2 = 0;
+          const char *p;
+          const char *pend;
+          for (p = result, pend = p + resultlen;
+               p < pend;
+               p += strlen (p) + 1)
+            nulcount2++;
+        }
 
         if (nulcount1 == nulcount2)
           {
@@ -219,16 +227,14 @@ iconv_message_list_internal (message_list_ty *mlp,
                              const char *from_filename,
                              xerror_handler_ty xeh)
 {
-  bool canon_from_code_overridden = (canon_from_code != NULL);
-  bool msgids_changed;
-  size_t j;
-
   /* If the list is empty, nothing to do.  */
   if (mlp->nitems == 0)
     return false;
 
+  bool canon_from_code_overridden = (canon_from_code != NULL);
+
   /* Search the header entry, and extract and replace the charset name.  */
-  for (j = 0; j < mlp->nitems; j++)
+  for (size_t j = 0; j < mlp->nitems; j++)
     if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
       {
         const char *header = mlp->item[j]->msgstr;
@@ -301,26 +307,25 @@ iconv_message_list_internal (message_list_ty *mlp,
                      _("input file doesn't contain a header entry with a charset specification"));
     }
 
-  msgids_changed = false;
+  bool msgids_changed = false;
 
   /* If the two encodings are the same, nothing to do.  */
   if (canon_from_code != canon_to_code)
     {
 #if HAVE_ICONV
       iconveh_t cd;
-      struct conversion_context context;
-
       if (iconveh_open (canon_to_code, canon_from_code, &cd) < 0)
         xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
                      xasprintf (_("Cannot convert from \"%s\" to \"%s\". %s relies on iconv(), and iconv() does not support this conversion."),
                                 canon_from_code, canon_to_code,
                                 last_component (program_name)));
 
+      struct conversion_context context;
       context.from_code = canon_from_code;
       context.to_code = canon_to_code;
       context.from_filename = from_filename;
 
-      for (j = 0; j < mlp->nitems; j++)
+      for (size_t j = 0; j < mlp->nitems; j++)
         {
           message_ty *mp = mlp->item[j];
 
@@ -370,11 +375,8 @@ iconv_msgdomain_list (msgdomain_list_ty *mdlp,
                       const char *from_filename,
                       xerror_handler_ty xeh)
 {
-  const char *canon_to_code;
-  size_t k;
-
   /* Canonicalize target encoding.  */
-  canon_to_code = po_charset_canonicalize (to_code);
+  const char *canon_to_code = po_charset_canonicalize (to_code);
   if (canon_to_code == NULL)
     xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
                  xasprintf (_("target charset \"%s\" is not a portable encoding name."),
@@ -389,7 +391,7 @@ iconv_msgdomain_list (msgdomain_list_ty *mdlp,
                  xasprintf (_("Cannot write the control characters that protect file names with spaces in the %s encoding"),
                             canon_to_code));
 
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     iconv_message_list_internal (mdlp->item[k]->messages,
                                  mdlp->encoding, canon_to_code, update_header,
                                  from_filename, xeh);
@@ -422,10 +424,8 @@ iconvable_string (const iconveh_t *cd, const char *string)
 static bool
 iconvable_string_list (const iconveh_t *cd, string_list_ty *slp)
 {
-  size_t i;
-
   if (slp != NULL)
-    for (i = 0; i < slp->nitems; i++)
+    for (size_t i = 0; i < slp->nitems; i++)
       if (!iconvable_string (cd, slp->item[i]))
         return false;
   return true;
@@ -463,11 +463,11 @@ iconvable_msgid (const iconveh_t *cd, message_ty *mp)
 static bool
 iconvable_msgstr (const iconveh_t *cd, message_ty *mp)
 {
-  char *result = NULL;
-  size_t resultlen = 0;
-
   if (!(mp->msgstr_len > 0 && mp->msgstr[mp->msgstr_len - 1] == '\0'))
     abort ();
+
+  char *result = NULL;
+  size_t resultlen = 0;
 
   if (xmem_cd_iconveh (mp->msgstr, mp->msgstr_len, cd, iconveh_error, NULL,
                        &result, &resultlen) == 0)
@@ -478,17 +478,27 @@ iconvable_msgstr (const iconveh_t *cd, message_ty *mp)
       if (resultlen > 0 && result[resultlen - 1] == '\0')
         /* Test if the result has the same number of NUL bytes.  */
         {
-          const char *p;
-          const char *pend;
           int nulcount1;
-          int nulcount2;
+          {
+            nulcount1 = 0;
+            const char *p;
+            const char *pend;
+            for (p = mp->msgstr, pend = p + mp->msgstr_len;
+                 p < pend;
+                 p += strlen (p) + 1)
+              nulcount1++;
+          }
 
-          for (p = mp->msgstr, pend = p + mp->msgstr_len, nulcount1 = 0;
-               p < pend;
-               p += strlen (p) + 1, nulcount1++);
-          for (p = result, pend = p + resultlen, nulcount2 = 0;
-               p < pend;
-               p += strlen (p) + 1, nulcount2++);
+          int nulcount2;
+          {
+            nulcount2 = 0;
+            const char *p;
+            const char *pend;
+            for (p = result, pend = p + resultlen;
+                 p < pend;
+                 p += strlen (p) + 1)
+              nulcount2++;
+          }
 
           if (nulcount1 == nulcount2)
             ok = true;
@@ -507,15 +517,14 @@ is_message_list_iconvable (message_list_ty *mlp,
                            const char *canon_from_code,
                            const char *canon_to_code)
 {
-  bool canon_from_code_overridden = (canon_from_code != NULL);
-  size_t j;
-
   /* If the list is empty, nothing to check.  */
   if (mlp->nitems == 0)
     return true;
 
+  bool canon_from_code_overridden = (canon_from_code != NULL);
+
   /* Search the header entry, and extract the charset name.  */
-  for (j = 0; j < mlp->nitems; j++)
+  for (size_t j = 0; j < mlp->nitems; j++)
     if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
       {
         const char *header = mlp->item[j]->msgstr;
@@ -526,17 +535,14 @@ is_message_list_iconvable (message_list_ty *mlp,
 
             if (charsetstr != NULL)
               {
-                size_t len;
-                char *charset;
-                const char *canon_charset;
-
                 charsetstr += strlen ("charset=");
-                len = strcspn (charsetstr, " \t\n");
-                charset = (char *) xmalloca (len + 1);
+                size_t len = strcspn (charsetstr, " \t\n");
+
+                char *charset = (char *) xmalloca (len + 1);
                 memcpy (charset, charsetstr, len);
                 charset[len] = '\0';
 
-                canon_charset = po_charset_canonicalize (charset);
+                const char *canon_charset = po_charset_canonicalize (charset);
                 if (canon_charset == NULL)
                   {
                     if (!canon_from_code_overridden)
@@ -582,12 +588,11 @@ is_message_list_iconvable (message_list_ty *mlp,
     {
 #if HAVE_ICONV
       iconveh_t cd;
-
       if (iconveh_open (canon_to_code, canon_from_code, &cd) < 0)
         /* iconv() doesn't support this conversion.  */
         return false;
 
-      for (j = 0; j < mlp->nitems; j++)
+      for (size_t j = 0; j < mlp->nitems; j++)
         {
           message_ty *mp = mlp->item[j];
 

@@ -94,18 +94,16 @@ print_color_test ()
       { "white",   -2, 255, 255, 255 },
       { "default", COLOR_DEFAULT, /* unused: */ -1, -1, -1 }
     };
-  term_ostream_t stream;
-  int i, row, col;
 
-  stream = term_ostream_create (1, "stdout", TTYCTL_AUTO);
+  term_ostream_t stream = term_ostream_create (1, "stdout", TTYCTL_AUTO);
 
-  for (i = 0; i < 8; i++)
+  for (int i = 0; i < 8; i++)
     colors[i].c =
       term_ostream_rgb_to_color (stream, colors[i].r, colors[i].g, colors[i].b);
 
   ostream_write_str (stream, "Colors (foreground/background):\n");
   ostream_write_str (stream, "       ");
-  for (col = 0; col <= 8; col++)
+  for (int col = 0; col <= 8; col++)
     {
       const char *name = colors[col].name;
       ostream_write_str (stream, "|");
@@ -113,12 +111,12 @@ print_color_test ()
       ostream_write_mem (stream, "        ", 7 - strlen (name));
     }
   ostream_write_str (stream, "\n");
-  for (row = 0; row <= 8; row++)
+  for (int row = 0; row <= 8; row++)
     {
       const char *name = colors[row].name;
       ostream_write_str (stream, name);
       ostream_write_mem (stream, "        ", 7 - strlen (name));
-      for (col = 0; col <= 8; col++)
+      for (int col = 0; col <= 8; col++)
         {
           term_color_t row_color = colors[row].c;
           term_color_t col_color = colors[col].c;
@@ -142,10 +140,10 @@ print_color_test ()
 
   ostream_write_str (stream, "Colors (hue/saturation):\n");
   /* Hue from 0 to 1.  */
-  for (row = 0; row <= 17; row++)
+  for (int row = 0; row <= 17; row++)
     {
       ostream_write_str (stream, row == 0 ? "red:     " : "         ");
-      for (col = 0; col <= 64; col++)
+      for (int col = 0; col <= 64; col++)
         {
           int r = 255;
           int b = (int) (255.0f / 64.0f * col + 0.5f);
@@ -158,10 +156,10 @@ print_color_test ()
       ostream_write_str (stream, "\n");
     }
   /* Hue from 1 to 2.  */
-  for (row = 17; row >= 0; row--)
+  for (int row = 17; row >= 0; row--)
     {
       ostream_write_str (stream, row == 17 ? "yellow:  " : "         ");
-      for (col = 0; col <= 64; col++)
+      for (int col = 0; col <= 64; col++)
         {
           int g = 255;
           int b = (int) (255.0f / 64.0f * col + 0.5f);
@@ -174,10 +172,10 @@ print_color_test ()
       ostream_write_str (stream, "\n");
     }
   /* Hue from 2 to 3.  */
-  for (row = 0; row <= 17; row++)
+  for (int row = 0; row <= 17; row++)
     {
       ostream_write_str (stream, row == 0 ? "green:   " : "         ");
-      for (col = 0; col <= 64; col++)
+      for (int col = 0; col <= 64; col++)
         {
           int g = 255;
           int r = (int) (255.0f / 64.0f * col + 0.5f);
@@ -190,10 +188,10 @@ print_color_test ()
       ostream_write_str (stream, "\n");
     }
   /* Hue from 3 to 4.  */
-  for (row = 17; row >= 0; row--)
+  for (int row = 17; row >= 0; row--)
     {
       ostream_write_str (stream, row == 17 ? "cyan:    " : "         ");
-      for (col = 0; col <= 64; col++)
+      for (int col = 0; col <= 64; col++)
         {
           int b = 255;
           int r = (int) (255.0f / 64.0f * col + 0.5f);
@@ -206,10 +204,10 @@ print_color_test ()
       ostream_write_str (stream, "\n");
     }
   /* Hue from 4 to 5.  */
-  for (row = 0; row <= 17; row++)
+  for (int row = 0; row <= 17; row++)
     {
       ostream_write_str (stream, row == 0 ? "blue:    " : "         ");
-      for (col = 0; col <= 64; col++)
+      for (int col = 0; col <= 64; col++)
         {
           int b = 255;
           int g = (int) (255.0f / 64.0f * col + 0.5f);
@@ -222,11 +220,11 @@ print_color_test ()
       ostream_write_str (stream, "\n");
     }
   /* Hue from 5 to 6.  */
-  for (row = 17; row >= 0; row--)
+  for (int row = 17; row >= 0; row--)
     {
       ostream_write_str (stream, row == 17 ? "magenta: " :
                                  row == 0 ? "red:     " : "         ");
-      for (col = 0; col <= 64; col++)
+      for (int col = 0; col <= 64; col++)
         {
           int r = 255;
           int g = (int) (255.0f / 64.0f * col + 0.5f);
@@ -286,7 +284,7 @@ print_color_test ()
   ostream_write_str (stream, "\n");
 
   ostream_write_str (stream, "Colors (foreground) mixed with attributes:\n");
-  for (row = 0; row <= 8; row++)
+  for (int row = 0; row <= 8; row++)
     {
       const char *name = colors[row].name;
       ostream_write_str (stream, name);
@@ -333,7 +331,7 @@ print_color_test ()
   ostream_write_str (stream, "\n");
 
   ostream_write_str (stream, "Colors (background) mixed with attributes:\n");
-  for (row = 0; row <= 8; row++)
+  for (int row = 0; row <= 8; row++)
     {
       const char *name = colors[row].name;
       ostream_write_str (stream, name);
@@ -421,18 +419,15 @@ style_file_prepare (const char *style_file_envvar,
   if (style_file_name == NULL)
     {
       const char *user_preference = getenv (style_file_envvar);
-
       if (user_preference != NULL && user_preference[0] != '\0')
         style_file_name =
           style_file_lookup (xstrdup (user_preference),
                              stylesdir_after_install);
       else
         {
-          const char *stylesdir;
-
           /* Make it possible to override the default style file location.  This
              is necessary for running the testsuite before "make install".  */
-          stylesdir = getenv (stylesdir_envvar);
+          const char *stylesdir = getenv (stylesdir_envvar);
           if (stylesdir == NULL || stylesdir[0] == '\0')
             stylesdir = stylesdir_after_install;
 

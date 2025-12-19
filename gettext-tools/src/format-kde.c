@@ -70,14 +70,12 @@ format_parse (const char *format, bool translated, char *fdi,
               char **invalid_reason)
 {
   const char *const format_start = format;
-  struct spec spec;
-  size_t numbered_allocated;
-  struct spec *result;
 
+  struct spec spec;
   spec.directives = 0;
   spec.numbered_arg_count = 0;
   spec.numbered = NULL;
-  numbered_allocated = 0;
+  size_t numbered_allocated = 0;
 
   for (; *format != '\0';)
     if (*format++ == '%')
@@ -87,12 +85,10 @@ format_parse (const char *format, bool translated, char *fdi,
         if (*format > '0' && *format <= '9')
           {
             /* A directive.  */
-            size_t number;
-
             FDI_SET (dir_start, FMTDIR_START);
             spec.directives++;
 
-            number = *format - '0';
+            size_t number = *format - '0';
             while (format[1] >= '0' && format[1] <= '9')
               {
                 number = 10 * number + (format[1] - '0');
@@ -116,12 +112,11 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the numbered argument array, and eliminate duplicates.  */
   if (spec.numbered_arg_count > 1)
     {
-      size_t i, j;
-
       qsort (spec.numbered, spec.numbered_arg_count,
              sizeof (struct numbered_arg), numbered_arg_compare);
 
       /* Remove duplicates: Copy from i to j, keeping 0 <= j <= i.  */
+      size_t i, j;
       for (i = j = 0; i < spec.numbered_arg_count; i++)
         if (j > 0 && spec.numbered[i].number == spec.numbered[j-1].number)
           ;
@@ -141,10 +136,7 @@ format_parse (const char *format, bool translated, char *fdi,
      {1,...,n} \ {m}.  */
   if (spec.numbered_arg_count > 0)
     {
-      size_t i;
-
-      i = 0;
-      for (; i < spec.numbered_arg_count; i++)
+      for (size_t i = 0; i < spec.numbered_arg_count; i++)
         if (spec.numbered[i].number > i + 1)
           {
             size_t first_gap = i + 1;
@@ -161,7 +153,7 @@ format_parse (const char *format, bool translated, char *fdi,
           }
     }
 
-  result = XMALLOC (struct spec);
+  struct spec *result = XMALLOC (struct spec);
   *result = spec;
   return result;
 
@@ -200,13 +192,13 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
   if (spec1->numbered_arg_count + spec2->numbered_arg_count > 0)
     {
-      size_t i, j;
       size_t n1 = spec1->numbered_arg_count;
       size_t n2 = spec2->numbered_arg_count;
       size_t missing = 0; /* only used if !equality */
 
       /* Check that the argument numbers are the same.
          Both arrays are sorted.  We search for the first difference.  */
+      size_t i, j;
       for (i = 0, j = 0; i < n1 || j < n2; )
         {
           int cmp = (i >= n1 ? 1 :
@@ -282,8 +274,6 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  size_t last;
-  size_t i;
 
   if (spec == NULL)
     {
@@ -292,8 +282,8 @@ format_print (void *descr)
     }
 
   printf ("(");
-  last = 1;
-  for (i = 0; i < spec->numbered_arg_count; i++)
+  size_t last = 1;
+  for (size_t i = 0; i < spec->numbered_arg_count; i++)
     {
       size_t number = spec->numbered[i].number;
 
@@ -316,18 +306,14 @@ main ()
     {
       char *line = NULL;
       size_t line_size = 0;
-      int line_len;
-      char *invalid_reason;
-      void *descr;
-
-      line_len = getline (&line, &line_size, stdin);
+      int line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
         break;
       if (line_len > 0 && line[line_len - 1] == '\n')
         line[--line_len] = '\0';
 
-      invalid_reason = NULL;
-      descr = format_parse (line, false, NULL, &invalid_reason);
+      char *invalid_reason = NULL;
+      void *descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

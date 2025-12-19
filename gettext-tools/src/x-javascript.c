@@ -96,18 +96,16 @@ x_javascript_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -182,13 +180,12 @@ static char *
 gnome_step1 (string_list_ty *parts)
 {
   size_t n = parts->nitems - 1;
-  string_list_ty pieces;
-  unsigned long i;
 
+  string_list_ty pieces;
   pieces.nitems = 2 * n + 1;
   pieces.nitems_max = pieces.nitems;
   pieces.item = XNMALLOC (pieces.nitems, const char *);
-  for (i = 0; i <= n; i++)
+  for (unsigned long i = 0; i <= n; i++)
     {
       pieces.item[2 * i] = parts->item[i];
       if (i < n)
@@ -197,7 +194,7 @@ gnome_step1 (string_list_ty *parts)
 
   char *result = string_list_concat (&pieces);
 
-  for (i = 0; i < n; i++)
+  for (unsigned long i = 0; i < n; i++)
     free ((char *) pieces.item[2 * i + 1]);
 
   return result;
@@ -392,8 +389,6 @@ Please specify the correct source encoding through --from-code\n"),
               else if (errno == EINVAL)
                 {
                   /* An incomplete multibyte character.  */
-                  int c;
-
                   if (bufcount == MAX_PHASE1_PUSHBACK)
                     {
                       /* An overlong incomplete multibyte sequence was
@@ -407,7 +402,7 @@ Please specify the correct source encoding through --from-code\n"),
                     }
 
                   /* Read one more byte and retry iconv.  */
-                  c = phase1_getc ();
+                  int c = phase1_getc ();
                   if (c == EOF)
                     {
                       multiline_error (xstrdup (""),
@@ -437,7 +432,6 @@ Please specify the correct source encoding through --from-code\n"),
             {
               size_t outbytes = sizeof (scratchbuf) - outsize;
               size_t bytes = bufcount - insize;
-              ucs4_t uc;
 
               /* We expect that one character has been produced.  */
               if (bytes == 0)
@@ -448,6 +442,7 @@ Please specify the correct source encoding through --from-code\n"),
               while (insize > 0)
                 phase1_ungetc (buf[--insize]);
               /* Convert the character from UTF-8 to UCS-4.  */
+              ucs4_t uc;
               if (u8_mbtoucr (&uc, scratchbuf, outbytes) < (int) outbytes)
                 {
                   /* scratchbuf contains an out-of-range Unicode character
@@ -475,7 +470,6 @@ Please specify the source encoding through --from-code\n"),
       unsigned char buf[6];
       unsigned int count;
       int c;
-      ucs4_t uc;
 
       c = phase1_getc ();
       if (c == EOF)
@@ -538,6 +532,7 @@ Please specify the source encoding through --from-code\n"),
           count = 6;
         }
 
+      ucs4_t uc;
       u8_mbtouc (&uc, buf, count);
       return uc;
     }
@@ -633,10 +628,10 @@ static bool continuation_or_nonblank_line;
 static int
 phase3_getc ()
 {
-  int c;
-
   for (;;)
     {
+      int c;
+
       c = phase2_getc ();
       if (c == '\\')
         {
@@ -677,9 +672,9 @@ phase3_getc ()
           else if (c == '*')
             {
               /* C style comment.  */
-              bool last_was_star = false;
               last_comment_line = line_number;
               comment_start ();
+              bool last_was_star = false;
               for (;;)
                 {
                   c = phase2_getc ();
@@ -851,10 +846,10 @@ free_token (token_ty *tp)
 static int
 phase7_getuc (int quote_char)
 {
-  int c;
-
   for (;;)
     {
+      int c;
+
       /* Use phase 2, because phase 3 elides comments.  */
       c = phase2_getc ();
 
@@ -950,8 +945,8 @@ phase7_getuc (int quote_char)
         case 'x':
           {
             int c1 = phase2_getc ();
-            int n1;
 
+            int n1;
             if (c1 >= '0' && c1 <= '9')
               n1 = c1 - '0';
             else if (c1 >= 'A' && c1 <= 'F')
@@ -964,8 +959,8 @@ phase7_getuc (int quote_char)
             if (n1 >= 0)
               {
                 int c2 = phase2_getc ();
-                int n2;
 
+                int n2;
                 if (c2 >= '0' && c2 <= '9')
                   n2 = c2 - '0';
                 else if (c2 >= 'A' && c2 <= 'F')
@@ -990,9 +985,7 @@ phase7_getuc (int quote_char)
           {
             unsigned char buf[4];
             unsigned int n = 0;
-            int i;
-
-            for (i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
               {
                 int c1 = phase2_getc ();
 
@@ -1081,11 +1074,10 @@ is_after_expression (void)
 static void
 phase5_scan_regexp (void)
 {
-  bool at_start;
   int c;
 
   /* Scan for end of RegExp literal ('/').  */
-  for (at_start = true; ; at_start = false)
+  for (bool at_start = true; ; at_start = false)
     {
       /* Must use phase2 as there can't be comments.  */
       c = phase2_getc ();
@@ -1221,9 +1213,8 @@ phase5_scan_xml_markup (token_ty *tp)
       { "![CDATA[", "]]" },
       { "?", "?" }
     };
-  int i;
 
-  for (i = 0; i < SIZEOF (markers); i++)
+  for (int i = 0; i < SIZEOF (markers); i++)
     {
       const char *start = markers[i].start;
       const char *end = markers[i].end;
@@ -1232,10 +1223,8 @@ phase5_scan_xml_markup (token_ty *tp)
       /* Look for a start marker.  */
       for (j = 0; start[j] != '\0'; j++)
         {
-          int c;
-
           assert (phase2_pushback_length + j < SIZEOF (phase2_pushback));
-          c = phase2_getc ();
+          int c = phase2_getc ();
           if (c == UEOF)
             goto eof;
           if (c != start[j])
@@ -1255,12 +1244,10 @@ phase5_scan_xml_markup (token_ty *tp)
         /* Skip until the end marker.  */
         for (;;)
           {
-            int c;
-
             for (j = 0; end[j] != '\0'; j++)
               {
                 assert (phase2_pushback_length + 1 < SIZEOF (phase2_pushback));
-                c = phase2_getc ();
+                int c = phase2_getc ();
                 if (c == UEOF)
                   goto eof;
                 if (c != end[j])
@@ -1283,7 +1270,7 @@ phase5_scan_xml_markup (token_ty *tp)
 
             if (end[j] == '\0')
               {
-                c = phase2_getc ();
+                int c = phase2_getc ();
                 if (c == UEOF)
                   goto eof;
                 if (c != '>')
@@ -1309,8 +1296,6 @@ phase5_scan_xml_markup (token_ty *tp)
 static void
 phase5_get (token_ty *tp)
 {
-  int c;
-
   if (phase5_pushback_length)
     {
       *tp = phase5_pushback[--phase5_pushback_length];
@@ -1320,6 +1305,8 @@ phase5_get (token_ty *tp)
 
   for (;;)
     {
+      int c;
+
       tp->line_number = line_number;
       c = phase3_getc ();
 
@@ -1372,7 +1359,6 @@ phase5_get (token_ty *tp)
           /* Symbol, or part of a number.  */
           {
             struct string_buffer buffer;
-
             sb_init (&buffer);
             for (;;)
               {
@@ -1414,8 +1400,8 @@ phase5_get (token_ty *tp)
           {
             int quote_char = c;
             lexical_context_ty saved_lexical_context = lexical_context;
-            struct mixed_string_buffer msb;
 
+            struct mixed_string_buffer msb;
             lexical_context = lc_string;
             /* Start accumulating the string.  */
             mixed_string_buffer_init (&msb, lexical_context,
@@ -1451,7 +1437,6 @@ phase5_get (token_ty *tp)
           /* Template literals.  */
           {
             struct mixed_string_buffer msb;
-
             lexical_context = lc_string;
             /* Start accumulating the string.  */
             mixed_string_buffer_init (&msb, lexical_context,
@@ -1636,7 +1621,6 @@ phase5_get (token_ty *tp)
             {
               /* Middle or right part of template literal.  */
               struct mixed_string_buffer msb;
-
               lexical_context = lc_string;
               /* Start accumulating the string.  */
               mixed_string_buffer_init (&msb, lexical_context,
@@ -1743,13 +1727,13 @@ x_javascript_lex (token_ty *tp)
       for (;;)
         {
           token_ty token2;
-
           phase5_get (&token2);
+
           if (token2.type == token_type_plus)
             {
               token_ty token3;
-
               phase5_get (&token3);
+
               if (token3.type == token_type_string
                   || token3.type == token_type_template)
                 {
@@ -1769,8 +1753,8 @@ x_javascript_lex (token_ty *tp)
   else if (tp->type == token_type_symbol)
     {
       token_ty token2;
-
       phase5_get (&token2);
+
       if (token2.type == token_type_template
           || token2.type == token_type_ltemplate)
         {
@@ -1872,14 +1856,13 @@ extract_balanced (message_list_ty *mlp,
   for (;;)
     {
       token_ty token;
-
       x_javascript_lex (&token);
+
       switch (token.type)
         {
         case token_type_symbol:
           {
             void *keyword_value;
-
             if (hash_find_entry (&keywords, token.string, strlen (token.string),
                                  &keyword_value)
                 == 0)
@@ -2004,7 +1987,6 @@ extract_balanced (message_list_ty *mlp,
         case token_type_rtemplate:
           {
             lex_pos_ty pos;
-
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 
@@ -2016,8 +1998,8 @@ extract_balanced (message_list_ty *mlp,
                 && token.template_tag != NULL)
               {
                 const char *tag = token.template_tag;
-                string_list_ty *parts;
 
+                string_list_ty *parts;
                 if (token.type == token_type_template)
                   {
                     parts = string_list_alloc ();

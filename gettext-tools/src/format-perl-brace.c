@@ -60,14 +60,12 @@ format_parse (const char *format, bool translated, char *fdi,
               char **invalid_reason)
 {
   const char *const format_start = format;
-  struct spec spec;
-  size_t named_allocated;
-  struct spec *result;
 
+  struct spec spec;
   spec.directives = 0;
   spec.named_arg_count = 0;
   spec.named = NULL;
-  named_allocated = 0;
+  size_t named_allocated = 0;
 
   for (; *format != '\0';)
     if (*format++ == '{')
@@ -85,14 +83,13 @@ format_parse (const char *format, bool translated, char *fdi,
             if (c == '}')
               {
                 /* A directive.  */
-                char *name;
+                FDI_SET (format - 1, FMTDIR_START);
+
                 const char *name_start = format;
                 const char *name_end = f;
                 size_t n = name_end - name_start;
 
-                FDI_SET (format - 1, FMTDIR_START);
-
-                name = XNMALLOC (n + 1, char);
+                char *name = XNMALLOC (n + 1, char);
                 memcpy (name, name_start, n);
                 name[n] = '\0';
 
@@ -116,12 +113,11 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the named argument array, and eliminate duplicates.  */
   if (spec.named_arg_count > 1)
     {
-      size_t i, j;
-
       qsort (spec.named, spec.named_arg_count, sizeof (struct named_arg),
              named_arg_compare);
 
       /* Remove duplicates: Copy from i to j, keeping 0 <= j <= i.  */
+      size_t i, j;
       for (i = j = 0; i < spec.named_arg_count; i++)
         if (j > 0 && strcmp (spec.named[i].name, spec.named[j-1].name) == 0)
           free (spec.named[i].name);
@@ -134,7 +130,7 @@ format_parse (const char *format, bool translated, char *fdi,
       spec.named_arg_count = j;
     }
 
-  result = XMALLOC (struct spec);
+  struct spec *result = XMALLOC (struct spec);
   *result = spec;
   return result;
 }
@@ -146,8 +142,7 @@ format_free (void *descr)
 
   if (spec->named != NULL)
     {
-      size_t i;
-      for (i = 0; i < spec->named_arg_count; i++)
+      for (size_t i = 0; i < spec->named_arg_count; i++)
         free (spec->named[i].name);
       free (spec->named);
     }
@@ -173,7 +168,6 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
   if (spec1->named_arg_count + spec2->named_arg_count > 0)
     {
-      size_t i, j;
       size_t n1 = spec1->named_arg_count;
       size_t n2 = spec2->named_arg_count;
 
@@ -181,6 +175,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
          Additional arguments in spec2 are allowed; they expand to themselves
          (including the surrounding braces) at runtime.
          Both arrays are sorted.  We search for the differences.  */
+      size_t i, j;
       for (i = 0, j = 0; i < n1 || j < n2; )
         {
           int cmp = (i >= n1 ? 1 :
@@ -233,7 +228,6 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  size_t i;
 
   if (spec == NULL)
     {
@@ -242,7 +236,7 @@ format_print (void *descr)
     }
 
   printf ("{");
-  for (i = 0; i < spec->named_arg_count; i++)
+  for (size_t i = 0; i < spec->named_arg_count; i++)
     {
       if (i > 0)
         printf (", ");
@@ -258,18 +252,14 @@ main ()
     {
       char *line = NULL;
       size_t line_size = 0;
-      int line_len;
-      char *invalid_reason;
-      void *descr;
-
-      line_len = getline (&line, &line_size, stdin);
+      int line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
         break;
       if (line_len > 0 && line[line_len - 1] == '\n')
         line[--line_len] = '\0';
 
-      invalid_reason = NULL;
-      descr = format_parse (line, false, NULL, &invalid_reason);
+      char *invalid_reason = NULL;
+      void *descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

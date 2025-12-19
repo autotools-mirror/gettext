@@ -116,19 +116,14 @@ format_parse (const char *format, bool translated, char *fdi,
               char **invalid_reason)
 {
   const char *const format_start = format;
-  struct spec spec;
-  size_t numbered_arg_count;
-  size_t numbered_allocated;
-  struct numbered_arg *numbered;
-  struct spec *result;
-  size_t number;
 
+  struct spec spec;
   spec.directives = 0;
-  numbered_arg_count = 0;
-  numbered_allocated = 0;
-  numbered = NULL;
+  size_t numbered_arg_count = 0;
+  size_t numbered_allocated = 0;
+  struct numbered_arg *numbered = NULL;
   spec.uses_currentloc = false;
-  number = 1;
+  size_t number = 1;
 
   for (; *format != '\0';)
     if (*format++ == '%')
@@ -139,8 +134,6 @@ format_parse (const char *format, bool translated, char *fdi,
 
         if (*format != '%')
           {
-            format_arg_type_t type;
-
             if (c_isdigit (*format))
               {
                 const char *f = format;
@@ -166,6 +159,7 @@ format_parse (const char *format, bool translated, char *fdi,
                   }
               }
 
+            format_arg_type_t type;
             if (*format == 'C')
               {
                 type = FAT_VOID;
@@ -228,21 +222,19 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the numbered argument array, and eliminate duplicates.  */
   if (numbered_arg_count > 1)
     {
-      size_t i, j;
-      bool err;
-
       qsort (numbered, numbered_arg_count,
              sizeof (struct numbered_arg), numbered_arg_compare);
 
       /* Remove duplicates: Copy from i to j, keeping 0 <= j <= i.  */
-      err = false;
+      bool err = false;
+      size_t i, j;
       for (i = j = 0; i < numbered_arg_count; i++)
         if (j > 0 && numbered[i].number == numbered[j-1].number)
           {
             format_arg_type_t type1 = numbered[i].type;
             format_arg_type_t type2 = numbered[j-1].type;
-            format_arg_type_t type_both;
 
+            format_arg_type_t type_both;
             if (type1 == type2)
               type_both = type1;
             else
@@ -274,35 +266,27 @@ format_parse (const char *format, bool translated, char *fdi,
 
   /* Verify that the format string uses all arguments up to the highest
      numbered one.  */
-  {
-    size_t i;
-
-    for (i = 0; i < numbered_arg_count; i++)
-      if (numbered[i].number != i + 1)
-        {
-          *invalid_reason =
-            xasprintf (_("The string refers to argument number %zu but ignores argument number %zu."), numbered[i].number, i + 1);
-          goto bad_format;
-        }
-  }
+  for (size_t i = 0; i < numbered_arg_count; i++)
+    if (numbered[i].number != i + 1)
+      {
+        *invalid_reason =
+          xasprintf (_("The string refers to argument number %zu but ignores argument number %zu."), numbered[i].number, i + 1);
+        goto bad_format;
+      }
 
   /* So now the numbered arguments array is equivalent to a sequence
      of unnumbered arguments.  Eliminate the FAT_VOID placeholders.  */
   {
-    size_t i;
-
     spec.unnumbered_arg_count = 0;
-    for (i = 0; i < numbered_arg_count; i++)
+    for (size_t i = 0; i < numbered_arg_count; i++)
       if (numbered[i].type != FAT_VOID)
         spec.unnumbered_arg_count++;
 
     if (spec.unnumbered_arg_count > 0)
       {
-        size_t j;
-
         spec.unnumbered = XNMALLOC (spec.unnumbered_arg_count, struct unnumbered_arg);
-        j = 0;
-        for (i = 0; i < numbered_arg_count; i++)
+        size_t j = 0;
+        for (size_t i = 0; i < numbered_arg_count; i++)
           if (numbered[i].type != FAT_VOID)
             spec.unnumbered[j++].type = numbered[i].type;
       }
@@ -311,7 +295,7 @@ format_parse (const char *format, bool translated, char *fdi,
   }
   free (numbered);
 
-  result = XMALLOC (struct spec);
+  struct spec *result = XMALLOC (struct spec);
   *result = spec;
   return result;
 
@@ -347,7 +331,6 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
   bool err = false;
-  size_t i;
 
   /* Check the argument types are the same.  */
   if (equality
@@ -361,7 +344,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
       err = true;
     }
   else
-    for (i = 0; i < spec2->unnumbered_arg_count; i++)
+    for (size_t i = 0; i < spec2->unnumbered_arg_count; i++)
       if (spec1->unnumbered[i].type != spec2->unnumbered[i].type)
         {
           if (error_logger)
@@ -413,7 +396,6 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  size_t i;
 
   if (spec == NULL)
     {
@@ -422,7 +404,7 @@ format_print (void *descr)
     }
 
   printf ("(");
-  for (i = 0; i < spec->unnumbered_arg_count; i++)
+  for (size_t i = 0; i < spec->unnumbered_arg_count; i++)
     {
       if (i > 0)
         printf (" ");
@@ -468,18 +450,14 @@ main ()
     {
       char *line = NULL;
       size_t line_size = 0;
-      int line_len;
-      char *invalid_reason;
-      void *descr;
-
-      line_len = getline (&line, &line_size, stdin);
+      int line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
         break;
       if (line_len > 0 && line[line_len - 1] == '\n')
         line[--line_len] = '\0';
 
-      invalid_reason = NULL;
-      descr = format_parse (line, false, NULL, &invalid_reason);
+      char *invalid_reason = NULL;
+      void *descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

@@ -44,9 +44,7 @@
 desktop_reader_ty *
 desktop_reader_alloc (desktop_reader_class_ty *method_table)
 {
-  desktop_reader_ty *reader;
-
-  reader = (desktop_reader_ty *) xmalloc (method_table->size);
+  desktop_reader_ty *reader = (desktop_reader_ty *) xmalloc (method_table->size);
   reader->methods = method_table;
   if (method_table->constructor)
     method_table->constructor (reader);
@@ -106,9 +104,7 @@ static FILE *fp;
 static int
 phase1_getc ()
 {
-  int c;
-
-  c = getc (fp);
+  int c = getc (fp);
 
   if (c == EOF)
     {
@@ -230,9 +226,6 @@ desktop_lex (token_ty *tp)
 
         case '[':
           {
-            bool non_blank = false;
-            size_t non_blank_lineno = 0;
-
             for (;;)
               {
                 c = phase2_getc ();
@@ -252,6 +245,8 @@ desktop_lex (token_ty *tp)
                 APPEND (c);
               }
             /* Skip until newline.  */
+            bool non_blank = false;
+            size_t non_blank_lineno = 0;
             while (c != '\n' && c != EOF)
               {
                 c = phase2_getc ();
@@ -305,7 +300,6 @@ desktop_lex (token_ty *tp)
           {
             size_t locale_start;
             bool found_locale = false;
-            size_t value_start;
             for (;;)
               {
                 APPEND (c);
@@ -405,7 +399,7 @@ desktop_lex (token_ty *tp)
               }
 
             size_t before_value_lineno = pos.line_number;
-            value_start = sd_length (sb_contents (&buffer));
+            size_t value_start = sd_length (sb_contents (&buffer));
             for (;;)
               {
                 c = phase2_getc ();
@@ -476,6 +470,7 @@ desktop_parse (desktop_reader_ty *reader, FILE *file,
     {
       struct token_ty token;
       desktop_lex (&token);
+
       switch (token.type)
         {
         case token_type_eof:
@@ -514,52 +509,53 @@ desktop_parse (desktop_reader_ty *reader, FILE *file,
 char *
 desktop_escape_string (const char *s, bool is_list)
 {
-  char *buffer, *p;
+  char *buffer = XNMALLOC (strlen (s) * 2 + 1, char);
+  {
+    char *p = buffer;
 
-  p = buffer = XNMALLOC (strlen (s) * 2 + 1, char);
+    /* The first character must not be a whitespace.  */
+    if (*s == ' ')
+      {
+        p = stpcpy (p, "\\s");
+        s++;
+      }
+    else if (*s == '\t')
+      {
+        p = stpcpy (p, "\\t");
+        s++;
+      }
 
-  /* The first character must not be a whitespace.  */
-  if (*s == ' ')
-    {
-      p = stpcpy (p, "\\s");
-      s++;
-    }
-  else if (*s == '\t')
-    {
-      p = stpcpy (p, "\\t");
-      s++;
-    }
+    for (;; s++)
+      {
+        if (*s == '\0')
+          {
+            *p = '\0';
+            break;
+          }
 
-  for (;; s++)
-    {
-      if (*s == '\0')
-        {
-          *p = '\0';
-          break;
-        }
-
-      switch (*s)
-        {
-        case '\n':
-          p = stpcpy (p, "\\n");
-          break;
-        case '\r':
-          p = stpcpy (p, "\\r");
-          break;
-        case '\\':
-          if (is_list && *(s + 1) == ';')
-            {
-              p = stpcpy (p, "\\;");
-              s++;
-            }
-          else
-            p = stpcpy (p, "\\\\");
-          break;
-        default:
-          *p++ = *s;
-          break;
-        }
-    }
+        switch (*s)
+          {
+          case '\n':
+            p = stpcpy (p, "\\n");
+            break;
+          case '\r':
+            p = stpcpy (p, "\\r");
+            break;
+          case '\\':
+            if (is_list && *(s + 1) == ';')
+              {
+                p = stpcpy (p, "\\;");
+                s++;
+              }
+            else
+              p = stpcpy (p, "\\\\");
+            break;
+          default:
+            *p++ = *s;
+            break;
+          }
+      }
+  }
 
   return buffer;
 }
@@ -567,52 +563,54 @@ desktop_escape_string (const char *s, bool is_list)
 char *
 desktop_unescape_string (const char *s, bool is_list)
 {
-  char *buffer, *p;
+  char *buffer = XNMALLOC (strlen (s) + 1, char);
+  {
+    char *p = buffer;
+    for (;; s++)
+      {
+        if (*s == '\0')
+          {
+            *p = '\0';
+            break;
+          }
 
-  p = buffer = XNMALLOC (strlen (s) + 1, char);
-  for (;; s++)
-    {
-      if (*s == '\0')
-        {
-          *p = '\0';
-          break;
-        }
+        if (*s == '\\')
+          {
+            s++;
 
-      if (*s == '\\')
-        {
-          s++;
+            if (*s == '\0')
+              {
+                *p = '\0';
+                break;
+              }
 
-          if (*s == '\0')
-            {
-              *p = '\0';
-              break;
-            }
+            switch (*s)
+              {
+              case 's':
+                *p++ = ' ';
+                break;
+              case 'n':
+                *p++ = '\n';
+                break;
+              case 't':
+                *p++ = '\t';
+                break;
+              case 'r':
+                *p++ = '\r';
+                break;
+              case ';':
+                p = stpcpy (p, "\\;");
+                break;
+              default:
+                *p++ = *s;
+                break;
+              }
+          }
+        else
+          *p++ = *s;
+      }
+  }
 
-          switch (*s)
-            {
-            case 's':
-              *p++ = ' ';
-              break;
-            case 'n':
-              *p++ = '\n';
-              break;
-            case 't':
-              *p++ = '\t';
-              break;
-            case 'r':
-              *p++ = '\r';
-              break;
-            case ';':
-              p = stpcpy (p, "\\;");
-              break;
-            default:
-              *p++ = *s;
-              break;
-            }
-        }
-      else
-        *p++ = *s;
-    }
   return buffer;
 }
 

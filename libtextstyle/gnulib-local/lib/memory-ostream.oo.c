@@ -1,5 +1,5 @@
 /* Output stream that accumulates the output in memory.
-   Copyright (C) 2006-2024 Free Software Foundation, Inc.
+   Copyright (C) 2006-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -91,7 +91,6 @@ memory_ostream_t
 memory_ostream_create (void)
 {
   memory_ostream_t stream = XMALLOC (struct memory_ostream_representation);
-
   stream->base.vtable = &memory_ostream_vtable;
   stream->allocated = 250;
   stream->buffer = XNMALLOC (stream->allocated, char);

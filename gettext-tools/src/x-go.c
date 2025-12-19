@@ -227,9 +227,8 @@ create_function_type (unsigned int n_values, struct go_type *values[])
 {
   go_type_t *result = XMALLOC (struct go_type);
   go_type_t **heap_values = XNMALLOC (n_values, go_type_t *);
-  unsigned int i;
 
-  for (i = 0; i < n_values; i++)
+  for (unsigned int i = 0; i < n_values; i++)
     heap_values[i] = values[i];
   result->e = function;
   result->u.function_def.n_values = n_values;
@@ -243,9 +242,8 @@ create_struct_type (unsigned int n_members, struct go_struct_member members[])
   go_type_t *result = XMALLOC (struct go_type);
   struct go_struct_member *heap_members =
     XNMALLOC (n_members, struct go_struct_member);
-  unsigned int i;
 
-  for (i = 0; i < n_members; i++)
+  for (unsigned int i = 0; i < n_members; i++)
     heap_members[i] = members[i];
   result->e = go_struct;
   result->u.struct_def.n_members = n_members;
@@ -264,11 +262,10 @@ create_interface_type (unsigned int n_methods, struct go_interface_member method
   struct go_interface_member *heap_methods =
     XNMALLOC (n_methods, struct go_interface_member);
   struct go_type **heap_interfaces = XNMALLOC (n_interfaces, struct go_type *);
-  unsigned int i;
 
-  for (i = 0; i < n_methods; i++)
+  for (unsigned int i = 0; i < n_methods; i++)
     heap_methods[i] = methods[i];
-  for (i = 0; i < n_interfaces; i++)
+  for (unsigned int i = 0; i < n_interfaces; i++)
     heap_interfaces[i] = interfaces[i];
   result->e = go_interface;
   result->u.interface_def.n_methods = n_methods;
@@ -322,9 +319,8 @@ print_type_recurse (go_type_t *type, int maxdepth, FILE *fp)
         print_type_recurse (type->u.function_def.values[0], maxdepth, fp);
       else
         {
-          unsigned int i;
           fprintf (fp, "(");
-          for (i = 0; i < type->u.function_def.n_values; i++)
+          for (unsigned int i = 0; i < type->u.function_def.n_values; i++)
             {
               if (i > 0)
                 fprintf (fp, ", ");
@@ -335,16 +331,15 @@ print_type_recurse (go_type_t *type, int maxdepth, FILE *fp)
       break;
     case go_struct:
       {
-        unsigned int i;
         fprintf (fp, "struct {\n");
-        for (i = 0; i < type->u.struct_def.n_members; i++)
+        for (unsigned int i = 0; i < type->u.struct_def.n_members; i++)
           {
             fprintf (fp, "  %s ", type->u.struct_def.members[i].name);
             print_type_recurse (type->u.struct_def.members[i].type, maxdepth, fp);
             fprintf (fp, ";\n");
           }
         fprintf (fp, "  -- methods:\n");
-        for (i = 0; i < type->u.struct_def.n_methods; i++)
+        for (unsigned int i = 0; i < type->u.struct_def.n_methods; i++)
           {
             fprintf (fp, "  %s ", type->u.struct_def.methods[i].name);
             print_type_recurse (type->u.struct_def.methods[i].type, maxdepth, fp);
@@ -355,16 +350,15 @@ print_type_recurse (go_type_t *type, int maxdepth, FILE *fp)
       break;
     case go_interface:
       {
-        unsigned int i;
         fprintf (fp, "interface {\n");
-        for (i = 0; i < type->u.interface_def.n_methods; i++)
+        for (unsigned int i = 0; i < type->u.interface_def.n_methods; i++)
           {
             fprintf (fp, "  %s ", type->u.interface_def.methods[i].name);
             print_type_recurse (type->u.interface_def.methods[i].type, maxdepth, fp);
             fprintf (fp, ";\n");
           }
         fprintf (fp, "  -- interfaces:\n");
-        for (i = 0; i < type->u.interface_def.n_interfaces; i++)
+        for (unsigned int i = 0; i < type->u.interface_def.n_interfaces; i++)
           {
             fprintf (fp, "  ");
             print_type_recurse (type->u.interface_def.interfaces[i], maxdepth, fp);
@@ -677,10 +671,6 @@ x_go_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         {
           hash_init (&keywords, 100);
@@ -690,10 +680,12 @@ x_go_keyword (const char *name)
           snapcore_type_keywords = gl_map_create_empty (GL_HASH_MAP, NULL, NULL, NULL, NULL);
         }
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         {
           /* The characters between name and end should form
@@ -1052,8 +1044,7 @@ string_literal_accumulate_pieces (TSNode node,
       || ts_node_symbol (node) == ts_symbol_interpreted_string_literal)
     {
       uint32_t count = ts_node_named_child_count (node);
-      uint32_t i;
-      for (i = count; i > 0; )
+      for (uint32_t i = count; i > 0; )
         {
           i--;
           TSNode subnode = ts_node_named_child (node, i);
@@ -1133,8 +1124,7 @@ string_literal_accumulate_pieces (TSNode node,
                   /* Only exactly 3 octal digits are accepted.  */
                   if (escape_end - escape_start == 1 + 3)
                     {
-                      const char *p;
-                      for (p = escape_start + 1; p < escape_end; p++)
+                      for (const char *p = escape_start + 1; p < escape_end; p++)
                         {
                           /* No overflow is possible.  */
                           char c = *p;
@@ -1154,8 +1144,7 @@ string_literal_accumulate_pieces (TSNode node,
                        || (escape_start[1] == 'U' && escape_end - escape_start == 2 + 8))
                 {
                   unsigned int value = 0;
-                  const char *p;
-                  for (p = escape_start + 2; p < escape_end; p++)
+                  for (const char *p = escape_start + 2; p < escape_end; p++)
                     {
                       /* No overflow is possible.  */
                       char c = *p;
@@ -1302,15 +1291,13 @@ static void
 scan_import_declaration (TSNode node)
 {
   uint32_t count = ts_node_named_child_count (node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode subnode = ts_node_named_child (node, i);
       if (ts_node_symbol (subnode) == ts_symbol_import_spec_list)
         {
           uint32_t count2 = ts_node_named_child_count (subnode);
-          uint32_t j;
-          for (j = 0; j < count2; j++)
+          for (uint32_t j = 0; j < count2; j++)
             {
               TSNode subsubnode = ts_node_named_child (subnode, j);
               if (ts_node_symbol (subsubnode) == ts_symbol_import_spec)
@@ -1335,8 +1322,7 @@ init_package_table (TSNode root_node)
   /* Single pass through all top-level import declarations.  */
   {
     uint32_t count = ts_node_named_child_count (root_node);
-    uint32_t i;
-    for (i = 0; i < count; i++)
+    for (uint32_t i = 0; i < count; i++)
       {
         TSNode node = ts_node_named_child (root_node, i);
         if (ts_node_symbol (node) == ts_symbol_import_declaration)
@@ -1434,29 +1420,26 @@ get_type_from_type_name (string_desc_t type_name, type_env_t tenv, bool use_indi
                            &found_type)
           == 0)
         return (go_type_t *) found_type;
-      {
-        size_t i;
-        for (i = 0; i < unqualified_packages.nitems; i++)
-          {
-            const char *unqualified_package = unqualified_packages.item[i];
-            if (strcmp (unqualified_package, GOTEXT_PACKAGE_FULLNAME) == 0)
-              {
-                if (hash_find_entry (&gotext_package.defined_types,
-                                     sd_data (type_name), sd_length (type_name),
-                                     &found_type)
-                    == 0)
-                  return (go_type_t *) found_type;
-              }
-            else if (strcmp (unqualified_package, SNAPCORE_PACKAGE_FULLNAME) == 0)
-              {
-                if (hash_find_entry (&snapcore_package.defined_types,
-                                     sd_data (type_name), sd_length (type_name),
-                                     &found_type)
-                    == 0)
-                  return (go_type_t *) found_type;
-              }
-          }
-      }
+      for (size_t i = 0; i < unqualified_packages.nitems; i++)
+        {
+          const char *unqualified_package = unqualified_packages.item[i];
+          if (strcmp (unqualified_package, GOTEXT_PACKAGE_FULLNAME) == 0)
+            {
+              if (hash_find_entry (&gotext_package.defined_types,
+                                   sd_data (type_name), sd_length (type_name),
+                                   &found_type)
+                  == 0)
+                return (go_type_t *) found_type;
+            }
+          else if (strcmp (unqualified_package, SNAPCORE_PACKAGE_FULLNAME) == 0)
+            {
+              if (hash_find_entry (&snapcore_package.defined_types,
+                                   sd_data (type_name), sd_length (type_name),
+                                   &found_type)
+                  == 0)
+                return (go_type_t *) found_type;
+            }
+        }
       return &unknown_type;
     }
 }
@@ -1487,10 +1470,9 @@ get_type_from_function_or_method_node (TSNode type_node, type_env_t tenv, bool u
       /* A function with multiple return values.  */
       uint32_t count = ts_node_named_child_count (result_node);
       unsigned int n_values;
-      uint32_t i;
       {
         n_values = 0;
-        for (i = 0; i < count; i++)
+        for (uint32_t i = 0; i < count; i++)
           {
             TSNode subnode = ts_node_named_child (result_node, i);
             if (ts_node_symbol (subnode) == ts_symbol_parameter_declaration)
@@ -1500,7 +1482,7 @@ get_type_from_function_or_method_node (TSNode type_node, type_env_t tenv, bool u
       struct go_type **values = XNMALLOC (n_values, struct go_type *);
       {
         unsigned int n = 0;
-        for (i = 0; i < count; i++)
+        for (uint32_t i = 0; i < count; i++)
           {
             TSNode subnode = ts_node_named_child (result_node, i);
             if (ts_node_symbol (subnode) == ts_symbol_parameter_declaration)
@@ -1609,17 +1591,15 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
         {
           uint32_t count = ts_node_named_child_count (fdlnode);
           unsigned int n_members;
-          uint32_t i;
           {
             n_members = 0;
-            for (i = 0; i < count; i++)
+            for (uint32_t i = 0; i < count; i++)
               {
                 TSNode fdnode = ts_node_named_child (fdlnode, i);
                 if (ts_node_symbol (fdnode) == ts_symbol_field_declaration)
                   {
                     uint32_t count2 = ts_node_named_child_count (fdnode);
-                    uint32_t j;
-                    for (j = 0; j < count2; j++)
+                    for (uint32_t j = 0; j < count2; j++)
                       {
                         TSNode subnode = ts_node_named_child (fdnode, j);
                         if (ts_node_symbol (subnode) == ts_symbol_field_identifier)
@@ -1632,7 +1612,7 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
           struct go_struct_member *members = XNMALLOC (n_members, struct go_struct_member);
           {
             unsigned int n = 0;
-            for (i = 0; i < count; i++)
+            for (uint32_t i = 0; i < count; i++)
               {
                 TSNode fdnode = ts_node_named_child (fdlnode, i);
                 if (ts_node_symbol (fdnode) == ts_symbol_field_declaration)
@@ -1641,8 +1621,7 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
                     go_type_t *eltype =
                       get_type_from_type_node (eltype_node, tenv, use_indirections);
                     uint32_t count2 = ts_node_named_child_count (fdnode);
-                    uint32_t j;
-                    for (j = 0; j < count2; j++)
+                    for (uint32_t j = 0; j < count2; j++)
                       {
                         TSNode subnode = ts_node_named_child (fdnode, j);
                         if (ts_node_symbol (subnode) == ts_symbol_field_identifier)
@@ -1670,11 +1649,10 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
       uint32_t count = ts_node_named_child_count (type_node);
       unsigned int n_methods;
       unsigned int n_interfaces;
-      uint32_t i;
       {
         n_methods = 0;
         n_interfaces = 0;
-        for (i = 0; i < count; i++)
+        for (uint32_t i = 0; i < count; i++)
           {
             TSNode subnode = ts_node_named_child (type_node, i);
             if (ts_node_symbol (subnode) == ts_symbol_method_elem)
@@ -1689,7 +1667,7 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
       {
         unsigned int nm = 0;
         unsigned int ni = 0;
-        for (i = 0; i < count; i++)
+        for (uint32_t i = 0; i < count; i++)
           {
             TSNode subnode = ts_node_named_child (type_node, i);
             if (ts_node_symbol (subnode) == ts_symbol_method_elem)
@@ -1748,8 +1726,7 @@ static void
 store_type_declaration (TSNode node)
 {
   uint32_t count = ts_node_named_child_count (node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode subnode = ts_node_named_child (node, i);
       if (ts_node_symbol (subnode) == ts_symbol_type_alias
@@ -1778,8 +1755,7 @@ static void
 store_top_level_type_declarations (TSNode root_node)
 {
   uint32_t count = ts_node_named_child_count (root_node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode node = ts_node_named_child (root_node, i);
       if (ts_node_symbol (node) == ts_symbol_type_declaration)
@@ -1871,36 +1847,31 @@ resolve_indirections (go_type_t **type_p)
     case function:
       {
         unsigned int n = type->u.function_def.n_values;
-        unsigned int i;
-        for (i = 0; i < n; i++)
+        for (unsigned int i = 0; i < n; i++)
           resolve_indirections (&type->u.function_def.values[i]);
       }
       break;
     case go_struct:
       {
         unsigned int n = type->u.struct_def.n_members;
-        unsigned int i;
-        for (i = 0; i < n; i++)
+        for (unsigned int i = 0; i < n; i++)
           resolve_indirections (&type->u.struct_def.members[i].type);
       }
       {
         unsigned int n = type->u.struct_def.n_methods;
-        unsigned int i;
-        for (i = 0; i < n; i++)
+        for (unsigned int i = 0; i < n; i++)
           resolve_indirections (&type->u.struct_def.methods[i].type);
       }
       break;
     case go_interface:
       {
         unsigned int n = type->u.interface_def.n_methods;
-        unsigned int i;
-        for (i = 0; i < n; i++)
+        for (unsigned int i = 0; i < n; i++)
           resolve_indirections (&type->u.interface_def.methods[i].type);
       }
       {
         unsigned int n = type->u.interface_def.n_interfaces;
-        unsigned int i;
-        for (i = 0; i < n; i++)
+        for (unsigned int i = 0; i < n; i++)
           resolve_indirections (&type->u.interface_def.interfaces[i]);
       }
       break;
@@ -2022,29 +1993,26 @@ variable_env_lookup (string_desc_t var_name, variable_env_t venv)
                          &found_type)
         == 0)
       return (go_type_t *) found_type;
-    {
-      size_t i;
-      for (i = 0; i < unqualified_packages.nitems; i++)
-        {
-          const char *unqualified_package = unqualified_packages.item[i];
-          if (strcmp (unqualified_package, GOTEXT_PACKAGE_FULLNAME) == 0)
-            {
-              if (hash_find_entry (&gotext_package.globals,
-                                   sd_data (var_name), sd_length (var_name),
-                                   &found_type)
-                  == 0)
-                return (go_type_t *) found_type;
-            }
-          else if (strcmp (unqualified_package, SNAPCORE_PACKAGE_FULLNAME) == 0)
-            {
-              if (hash_find_entry (&snapcore_package.globals,
-                                   sd_data (var_name), sd_length (var_name),
-                                   &found_type)
-                  == 0)
-                return (go_type_t *) found_type;
-            }
-        }
-    }
+    for (size_t i = 0; i < unqualified_packages.nitems; i++)
+      {
+        const char *unqualified_package = unqualified_packages.item[i];
+        if (strcmp (unqualified_package, GOTEXT_PACKAGE_FULLNAME) == 0)
+          {
+            if (hash_find_entry (&gotext_package.globals,
+                                 sd_data (var_name), sd_length (var_name),
+                                 &found_type)
+                == 0)
+              return (go_type_t *) found_type;
+          }
+        else if (strcmp (unqualified_package, SNAPCORE_PACKAGE_FULLNAME) == 0)
+          {
+            if (hash_find_entry (&snapcore_package.globals,
+                                 sd_data (var_name), sd_length (var_name),
+                                 &found_type)
+                == 0)
+              return (go_type_t *) found_type;
+          }
+      }
     return &unknown_type;
   }
 }
@@ -2076,8 +2044,7 @@ type_equals (go_type_t *type1, go_type_t *type2, unsigned int maxdepth)
           if (type1->u.function_def.n_values == type2->u.function_def.n_values)
             {
               unsigned int n = type1->u.function_def.n_values;
-              unsigned int i;
-              for (i = 0; i < n; i++)
+              for (unsigned int i = 0; i < n; i++)
                 if (!type_equals (type1->u.function_def.values[i],
                                   type2->u.function_def.values[i],
                                   maxdepth))
@@ -2091,12 +2058,11 @@ type_equals (go_type_t *type1, go_type_t *type2, unsigned int maxdepth)
             {
               {
                 unsigned int n = type1->u.struct_def.n_members;
-                unsigned int i;
-                for (i = 0; i < n; i++)
+                for (unsigned int i = 0; i < n; i++)
                   if (strcmp (type1->u.struct_def.members[i].name,
                               type2->u.struct_def.members[i].name) != 0)
                     return false;
-                for (i = 0; i < n; i++)
+                for (unsigned int i = 0; i < n; i++)
                   if (!type_equals (type1->u.struct_def.members[i].type,
                                     type2->u.struct_def.members[i].type,
                                     maxdepth))
@@ -2104,12 +2070,11 @@ type_equals (go_type_t *type1, go_type_t *type2, unsigned int maxdepth)
               }
               {
                 unsigned int n = type1->u.struct_def.n_methods;
-                unsigned int i;
-                for (i = 0; i < n; i++)
+                for (unsigned int i = 0; i < n; i++)
                   if (strcmp (type1->u.struct_def.methods[i].name,
                               type2->u.struct_def.methods[i].name) != 0)
                     return false;
-                for (i = 0; i < n; i++)
+                for (unsigned int i = 0; i < n; i++)
                   if (!type_equals (type1->u.struct_def.methods[i].type,
                                     type2->u.struct_def.methods[i].type,
                                     maxdepth))
@@ -2124,12 +2089,11 @@ type_equals (go_type_t *type1, go_type_t *type2, unsigned int maxdepth)
             {
               {
                 unsigned int n = type1->u.interface_def.n_methods;
-                unsigned int i;
-                for (i = 0; i < n; i++)
+                for (unsigned int i = 0; i < n; i++)
                   if (strcmp (type1->u.interface_def.methods[i].name,
                               type2->u.interface_def.methods[i].name) != 0)
                     return false;
-                for (i = 0; i < n; i++)
+                for (unsigned int i = 0; i < n; i++)
                   if (!type_equals (type1->u.interface_def.methods[i].type,
                                     type2->u.interface_def.methods[i].type,
                                     maxdepth))
@@ -2137,8 +2101,7 @@ type_equals (go_type_t *type1, go_type_t *type2, unsigned int maxdepth)
               }
               {
                 unsigned int n = type1->u.interface_def.n_interfaces;
-                unsigned int i;
-                for (i = 0; i < n; i++)
+                for (unsigned int i = 0; i < n; i++)
                   if (!type_equals (type1->u.interface_def.interfaces[i],
                                     type2->u.interface_def.interfaces[i],
                                     maxdepth))
@@ -2210,8 +2173,7 @@ get_mvtypes_of_expression (unsigned int mvcount, go_type_t **result,
         {
           /* Each of the mvcount expressions in node is expected to produce
              a single value.  */
-          unsigned int i;
-          for (i = 0; i < mvcount; i++)
+          for (unsigned int i = 0; i < mvcount; i++)
             result[i] = get_type_of_expression (ts_node_named_child (node, i), tenv, venv);
           return mvcount;
         }
@@ -2315,11 +2277,10 @@ get_mvtypes_of_expression (unsigned int mvcount, go_type_t **result,
         operand_type = operand_type->u.eltype;
       if (operand_type->e == go_struct)
         {
-          unsigned int i;
-          for (i = 0; i < operand_type->u.struct_def.n_members; i++)
+          for (unsigned int i = 0; i < operand_type->u.struct_def.n_members; i++)
             if (sd_equals (field_name, sd_from_c (operand_type->u.struct_def.members[i].name)))
               return1 (operand_type->u.struct_def.members[i].type);
-          for (i = 0; i < operand_type->u.struct_def.n_methods; i++)
+          for (unsigned int i = 0; i < operand_type->u.struct_def.n_methods; i++)
             if (sd_equals (field_name, sd_from_c (operand_type->u.struct_def.methods[i].name)))
               return1 (operand_type->u.struct_def.methods[i].type);
           /* TODO: Handle embedded fields.  */
@@ -2341,8 +2302,7 @@ get_mvtypes_of_expression (unsigned int mvcount, go_type_t **result,
                 {
                   gl_set_add (visited_interfaces, itf);
                   /* Search among the methods directly defined in itf.  */
-                  unsigned int i;
-                  for (i = 0; i < itf->u.interface_def.n_methods; i++)
+                  for (unsigned int i = 0; i < itf->u.interface_def.n_methods; i++)
                     if (sd_equals (field_name, sd_from_c (itf->u.interface_def.methods[i].name)))
                       {
                         gl_set_free (visited_interfaces);
@@ -2350,7 +2310,7 @@ get_mvtypes_of_expression (unsigned int mvcount, go_type_t **result,
                         return1 (itf->u.interface_def.methods[i].type);
                       }
                   /* Enqueue the embedded interfaces of itf.  */
-                  for (i = 0; i < itf->u.interface_def.n_interfaces; i++)
+                  for (unsigned int i = 0; i < itf->u.interface_def.n_interfaces; i++)
                     gl_list_add_last (queued_interfaces, itf->u.interface_def.interfaces[i]);
                 }
             }
@@ -2434,8 +2394,7 @@ get_mvtypes_of_expression (unsigned int mvcount, go_type_t **result,
       if (function_type->e == function
           && function_type->u.function_def.n_values == mvcount)
         {
-          unsigned int i;
-          for (i = 0; i < mvcount; i++)
+          for (unsigned int i = 0; i < mvcount; i++)
             result[i] = function_type->u.function_def.values[i];
           return mvcount;
         }
@@ -2485,8 +2444,7 @@ store_var_spec (TSNode node)
       /* "If a type is present, each variable is given that type."  */
       go_type_t *type = get_type_from_type_node (type_node, NULL, false);
       uint32_t count = ts_node_named_child_count (node);
-      uint32_t i;
-      for (i = 0; i < count; i++)
+      for (uint32_t i = 0; i < count; i++)
         {
           TSNode subnode = ts_node_named_child (node, i);
           if (ts_node_symbol (subnode) == ts_symbol_identifier)
@@ -2511,11 +2469,9 @@ store_var_spec (TSNode node)
           initialization value in the assignment."  */
       uint32_t count = ts_node_named_child_count (node);
       unsigned int mvcount;
-
-      mvcount = 0;
       {
-        uint32_t i;
-        for (i = 0; i < count; i++)
+        mvcount = 0;
+        for (uint32_t i = 0; i < count; i++)
           {
             TSNode subnode = ts_node_named_child (node, i);
             if (ts_node_symbol (subnode) == ts_symbol_identifier)
@@ -2531,13 +2487,11 @@ store_var_spec (TSNode node)
             get_mvtypes_of_expression (mvcount, value_types, value_node, NULL, NULL);
           if (value_mvcount != mvcount)
             {
-              unsigned int j;
-              for (j = 0; j < mvcount; j++)
+              for (unsigned int j = 0; j < mvcount; j++)
                 value_types[j] = &unknown_type;
             }
           unsigned int j = 0;
-          uint32_t i;
-          for (i = 0; i < count; i++)
+          for (uint32_t i = 0; i < count; i++)
             {
               TSNode subnode = ts_node_named_child (node, i);
               if (ts_node_symbol (subnode) == ts_symbol_identifier)
@@ -2566,8 +2520,7 @@ static void
 store_var_spec_list (TSNode node)
 {
   uint32_t count = ts_node_named_child_count (node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode subnode = ts_node_named_child (node, i);
       if (ts_node_symbol (subnode) == ts_symbol_var_spec)
@@ -2580,8 +2533,7 @@ static void
 store_var_declaration (TSNode node)
 {
   uint32_t count = ts_node_named_child_count (node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode subnode = ts_node_named_child (node, i);
       if (ts_node_symbol (subnode) == ts_symbol_var_spec_list)
@@ -2615,8 +2567,7 @@ static void
 store_const_declaration (TSNode node)
 {
   uint32_t count = ts_node_named_child_count (node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode subnode = ts_node_named_child (node, i);
       if (ts_node_symbol (subnode) == ts_symbol_const_spec)
@@ -2646,8 +2597,7 @@ static void
 store_top_level_declarations (TSNode root_node)
 {
   uint32_t count = ts_node_named_child_count (root_node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode node = ts_node_named_child (root_node, i);
       if (ts_node_symbol (node) == ts_symbol_var_declaration)
@@ -2678,8 +2628,7 @@ augment_for_type_declaration (TSNode node, type_env_t tenv)
 {
   /* Similar to store_type_declaration.  */
   uint32_t count = ts_node_named_child_count (node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode subnode = ts_node_named_child (node, i);
       if (ts_node_symbol (subnode) == ts_symbol_type_alias
@@ -2708,15 +2657,13 @@ augment_for_parameter_list (TSNode node, type_env_t tenv, variable_env_t venv)
 {
   variable_env_t augmented_venv = venv;
   uint32_t count = ts_node_named_child_count (node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode subnode = ts_node_named_child (node, i);
       if (ts_node_symbol (subnode) == ts_symbol_parameter_declaration)
         {
           uint32_t count2 = ts_node_named_child_count (subnode);
-          uint32_t j;
-          for (j = 0; j < count2; j++)
+          for (uint32_t j = 0; j < count2; j++)
             {
               TSNode subsubnode = ts_node_named_child (subnode, j);
               if (ts_node_symbol (subsubnode) == ts_symbol_identifier)
@@ -2737,8 +2684,7 @@ augment_for_parameter_list (TSNode node, type_env_t tenv, variable_env_t venv)
       else if (ts_node_symbol (subnode) == ts_symbol_variadic_parameter_declaration)
         {
           uint32_t count2 = ts_node_named_child_count (subnode);
-          uint32_t j;
-          for (j = 0; j < count2; j++)
+          for (uint32_t j = 0; j < count2; j++)
             {
               TSNode subsubnode = ts_node_named_child (subnode, j);
               if (ts_node_symbol (subsubnode) == ts_symbol_identifier)
@@ -2772,8 +2718,7 @@ augment_for_var_spec (TSNode node, type_env_t tenv, variable_env_t venv)
       /* "If a type is present, each variable is given that type."  */
       go_type_t *type = get_type_from_type_node (type_node, tenv, false);
       uint32_t count = ts_node_named_child_count (node);
-      uint32_t i;
-      for (i = 0; i < count; i++)
+      for (uint32_t i = 0; i < count; i++)
         {
           TSNode subnode = ts_node_named_child (node, i);
           if (ts_node_symbol (subnode) == ts_symbol_identifier)
@@ -2795,11 +2740,9 @@ augment_for_var_spec (TSNode node, type_env_t tenv, variable_env_t venv)
           initialization value in the assignment."  */
       uint32_t count = ts_node_named_child_count (node);
       unsigned int mvcount;
-
-      mvcount = 0;
       {
-        uint32_t i;
-        for (i = 0; i < count; i++)
+        mvcount = 0;
+        for (uint32_t i = 0; i < count; i++)
           {
             TSNode subnode = ts_node_named_child (node, i);
             if (ts_node_symbol (subnode) == ts_symbol_identifier)
@@ -2815,13 +2758,11 @@ augment_for_var_spec (TSNode node, type_env_t tenv, variable_env_t venv)
             get_mvtypes_of_expression (mvcount, value_types, value_node, tenv, venv);
           if (value_mvcount != mvcount)
             {
-              unsigned int j;
-              for (j = 0; j < mvcount; j++)
+              for (unsigned int j = 0; j < mvcount; j++)
                 value_types[j] = &unknown_type;
             }
           unsigned int j = 0;
-          uint32_t i;
-          for (i = 0; i < count; i++)
+          for (uint32_t i = 0; i < count; i++)
             {
               TSNode subnode = ts_node_named_child (node, i);
               if (ts_node_symbol (subnode) == ts_symbol_identifier)
@@ -2849,8 +2790,7 @@ augment_for_var_spec_list (TSNode node, type_env_t tenv, variable_env_t venv)
 {
   /* Similar to store_var_spec_list.  */
   uint32_t count = ts_node_named_child_count (node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode subnode = ts_node_named_child (node, i);
       if (ts_node_symbol (subnode) == ts_symbol_var_spec)
@@ -2865,8 +2805,7 @@ augment_for_variable_declaration (TSNode node, type_env_t tenv, variable_env_t v
 {
   /* Similar to store_var_declaration.  */
   uint32_t count = ts_node_named_child_count (node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode subnode = ts_node_named_child (node, i);
       if (ts_node_symbol (subnode) == ts_symbol_var_spec_list)
@@ -2900,8 +2839,7 @@ augment_for_const_declaration (TSNode node, type_env_t tenv, variable_env_t venv
 {
   /* Similar to store_const_declaration.  */
   uint32_t count = ts_node_named_child_count (node);
-  uint32_t i;
-  for (i = 0; i < count; i++)
+  for (uint32_t i = 0; i < count; i++)
     {
       TSNode subnode = ts_node_named_child (node, i);
       if (ts_node_symbol (subnode) == ts_symbol_const_spec)
@@ -2927,26 +2865,22 @@ augment_for_short_variable_declaration (TSNode node, type_env_t tenv, variable_e
     get_mvtypes_of_expression (mvcount, mvtypes, right_node, tenv, venv);
   if (right_mvcount != mvcount)
     {
-      unsigned int i;
-      for (i = 0; i < mvcount; i++)
+      for (unsigned int i = 0; i < mvcount; i++)
         mvtypes[i] = &unknown_type;
     }
   /* Now augment venv.  */
-  {
-    unsigned int i;
-    for (i = 0; i < mvcount; i++)
-      {
-        TSNode left_var_node = ts_node_named_child (left_node, i);
-        if (ts_node_symbol (left_var_node) == ts_symbol_identifier)
-          {
-            string_desc_t left_var_name =
-              sd_new_addr (ts_node_end_byte (left_var_node) - ts_node_start_byte (left_var_node),
-                           contents + ts_node_start_byte (left_var_node));
-            if (!sd_equals (left_var_name, sd_from_c ("_")))
-              venv = variable_env_augment (venv, left_var_name, mvtypes[i]);
-          }
-      }
-  }
+  for (unsigned int i = 0; i < mvcount; i++)
+    {
+      TSNode left_var_node = ts_node_named_child (left_node, i);
+      if (ts_node_symbol (left_var_node) == ts_symbol_identifier)
+        {
+          string_desc_t left_var_name =
+            sd_new_addr (ts_node_end_byte (left_var_node) - ts_node_start_byte (left_var_node),
+                         contents + ts_node_start_byte (left_var_node));
+          if (!sd_equals (left_var_name, sd_from_c ("_")))
+            venv = variable_env_augment (venv, left_var_name, mvtypes[i]);
+        }
+    }
   free (mvtypes);
   return venv;
 }
@@ -3205,10 +3139,9 @@ extract_from_function_call (TSNode callee_node,
 
       /* Current argument number.  */
       uint32_t arg;
-      uint32_t i;
 
       arg = 0;
-      for (i = 0; i < args_count; i++)
+      for (uint32_t i = 0; i < args_count; i++)
         {
           TSNode arg_node = ts_node_child (args_node, i);
           handle_comments (arg_node);
@@ -3273,9 +3206,7 @@ extract_from_function_call (TSNode callee_node,
 
   /* Recurse.  */
 
-  uint32_t i;
-
-  for (i = 0; i < args_count; i++)
+  for (uint32_t i = 0; i < args_count; i++)
     {
       TSNode arg_node = ts_node_child (args_node, i);
       handle_comments (arg_node);
@@ -3362,8 +3293,7 @@ extract_from_node (TSNode node,
               /* Handle the potential comments before the 'arguments'.  */
               {
                 uint32_t count = ts_node_child_count (node);
-                uint32_t i;
-                for (i = 0; i < count; i++)
+                for (uint32_t i = 0; i < count; i++)
                   {
                     TSNode subnode = ts_node_child (node, i);
                     if (ts_node_eq (subnode, args_node))
@@ -3396,8 +3326,7 @@ extract_from_node (TSNode node,
               fprintf (stderr, "gettext arguments: %s\n", ts_node_string (argsnode));
               fprintf (stderr, "gettext children:\n");
               uint32_t count = ts_node_named_child_count (node);
-              uint32_t i;
-              for (i = 0; i < count; i++)
+              for (uint32_t i = 0; i < count; i++)
                 fprintf (stderr, "%u -> %s\n", i, ts_node_string (ts_node_named_child (node, i)));
             }
         }
@@ -3413,8 +3342,7 @@ extract_from_node (TSNode node,
                || (ts_node_symbol (node) == ts_symbol_import_declaration)
                || is_string_literal (node);
       uint32_t count = ts_node_child_count (node);
-      uint32_t i;
-      for (i = 0; i < count; i++)
+      for (uint32_t i = 0; i < count; i++)
         {
           TSNode subnode = ts_node_child (node, i);
           handle_comments (subnode);
@@ -3650,9 +3578,8 @@ extract_go (FILE *f,
     }
 
   /* Read the file into memory.  */
-  char *contents_data;
   size_t contents_length;
-  contents_data = read_file (real_filename, 0, &contents_length);
+  char *contents_data = read_file (real_filename, 0, &contents_length);
   if (contents_data == NULL)
     error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
            real_filename);

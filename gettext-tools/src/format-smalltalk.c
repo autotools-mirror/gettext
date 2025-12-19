@@ -49,9 +49,8 @@ format_parse (const char *format, bool translated, char *fdi,
               char **invalid_reason)
 {
   const char *const format_start = format;
-  struct spec spec;
-  struct spec *result;
 
+  struct spec spec;
   spec.directives = 0;
   spec.arg_count = 0;
 
@@ -95,7 +94,7 @@ format_parse (const char *format, bool translated, char *fdi,
         FDI_SET (format - 1, FMTDIR_END);
       }
 
-  result = XMALLOC (struct spec);
+  struct spec *result = XMALLOC (struct spec);
   *result = spec;
   return result;
 
@@ -127,9 +126,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
   struct spec *spec1 = (struct spec *) msgid_descr;
   struct spec *spec2 = (struct spec *) msgstr_descr;
   bool err = false;
-  size_t i;
 
-  for (i = 0; i < spec1->arg_count || i < spec2->arg_count; i++)
+  for (size_t i = 0; i < spec1->arg_count || i < spec2->arg_count; i++)
     {
       bool arg_used1 = (i < spec1->arg_count && spec1->args_used[i]);
       bool arg_used2 = (i < spec2->arg_count && spec2->args_used[i]);
@@ -187,7 +185,6 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  size_t i;
 
   if (spec == NULL)
     {
@@ -196,7 +193,7 @@ format_print (void *descr)
     }
 
   printf ("(");
-  for (i = 0; i < spec->arg_count; i++)
+  for (size_t i = 0; i < spec->arg_count; i++)
     {
       if (i > 0)
         printf (" ");
@@ -215,18 +212,14 @@ main ()
     {
       char *line = NULL;
       size_t line_size = 0;
-      int line_len;
-      char *invalid_reason;
-      void *descr;
-
-      line_len = getline (&line, &line_size, stdin);
+      int line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
         break;
       if (line_len > 0 && line[line_len - 1] == '\n')
         line[--line_len] = '\0';
 
-      invalid_reason = NULL;
-      descr = format_parse (line, false, NULL, &invalid_reason);
+      char *invalid_reason = NULL;
+      void *descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

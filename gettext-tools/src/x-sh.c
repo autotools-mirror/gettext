@@ -94,18 +94,16 @@ x_sh_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -510,15 +508,16 @@ phase2_getc ()
          final output.  */
       unsigned int expected_count =
         (unsigned int) 1 << debackslashify;
+
       /* Number of backslashes found.  */
       unsigned int count;
-
       for (count = 1; count < expected_count; count++)
         {
           c = phase1_getc ();
           if (c != '\\')
             break;
         }
+
       if (count == expected_count)
         return '\\';
 
@@ -677,8 +676,6 @@ static void
 read_word (struct word *wp, int looking_for, flag_region_ty *region)
 {
   int c;
-  bool all_unquoted_digits;
-  bool all_unquoted_name_characters;
 
   do
     {
@@ -787,13 +784,13 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                             logical_file_name, line_number);
   wp->line_number_at_start = line_number;
   /* True while all characters in the token seen so far are digits.  */
-  all_unquoted_digits = true;
+  bool all_unquoted_digits = true;
   /* True while all characters in the token seen so far form a "name":
      all characters are unquoted underscores, digits, or alphabetics from the
      portable character set, and the first character is not a digit.  Cf.
      <https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/V1_chap03.html#tag_03_235>
    */
-  all_unquoted_name_characters = true;
+  bool all_unquoted_name_characters = true;
 
   for (;; c = phase2_getc ())
     {
@@ -844,8 +841,6 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
 
       if (c == '$')
         {
-          int c2;
-
           /* An unquoted dollar indicates we are not inside '...'.  */
           if (open_singlequote)
             abort ();
@@ -853,6 +848,9 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
              character from an earlier lookahead.  */
           if (phase2_pushback_length > 0)
             abort ();
+
+          int c2;
+
           /* Therefore we can use phase1 without interfering with phase2.
              We need to recognize $( outside and inside double-quotes.
              It would be incorrect to do
@@ -862,21 +860,18 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
           c2 = phase1_getc ();
           if (c2 == '(')
             {
-              bool saved_open_doublequote;
-              int c3;
-
               phase1_ungetc (c2);
 
               /* The entire inner command or arithmetic expression is read
                  ignoring possible surrounding double-quotes.  */
-              saved_open_doublequote = open_doublequote;
+              bool saved_open_doublequote = open_doublequote;
               open_doublequote = false;
 
               c2 = phase2_getc ();
               if (c2 != '(')
                 abort ();
 
-              c3 = phase2_getc ();
+              int c3 = phase2_getc ();
               if (c3 == '(')
                 {
                   /* Arithmetic expression (Bash syntax).  Skip until the
@@ -1010,7 +1005,6 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                                   || (c >= 'a' && c <= 'f'))
                                 {
                                   int n;
-
                                   if (c >= '0' && c <= '9')
                                     n = c - '0';
                                   else if (c >= 'A' && c <= 'F')
@@ -1074,9 +1068,8 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                               {
                                 unsigned char buf[8];
                                 int j;
-                                unsigned int n;
 
-                                n = 0;
+                                unsigned int n = 0;
                                 for (j = 0; j < (c == 'u' ? 4 : 8); j++)
                                   {
                                     int c1 = phase1_getc ();
@@ -1126,13 +1119,14 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
               else if (c2 == '"' && !open_doublequote)
                 {
                   /* $"...": Bash builtin for internationalized string.  */
-                  lex_pos_ty pos;
-                  struct mixed_string_buffer string;
-
                   saw_opening_singlequote ();
                   open_singlequote_terminator = '"';
+
+                  lex_pos_ty pos;
                   pos.file_name = logical_file_name;
                   pos.line_number = line_number;
+
+                  struct mixed_string_buffer string;
                   mixed_string_buffer_init (&string, lc_string,
                                             logical_file_name, line_number);
                   for (;;)
@@ -1219,13 +1213,11 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
 
       if (c == '<' || c == '>')
         {
-          int c2;
-
           /* An unquoted c indicates we are not inside '...' nor "...".  */
           if (open_singlequote || open_doublequote)
             abort ();
 
-          c2 = phase2_getc ();
+          int c2 = phase2_getc ();
           if (c2 == '(')
             {
               /* Process substitution (Bash syntax).  */
@@ -1286,9 +1278,7 @@ read_command (int looking_for, flag_region_ty *outer_region)
 
   for (;;)
     {
-      struct word inner;
       flag_region_ty *inner_region;
-
       if (arg == 0)
         inner_region = null_context_region ();
       else
@@ -1297,6 +1287,7 @@ read_command (int looking_for, flag_region_ty *outer_region)
                              flag_context_list_iterator_advance (
                                &context_iter));
 
+      struct word inner;
       read_word (&inner, looking_for, inner_region);
 
       /* Recognize end of command.  */
@@ -1315,9 +1306,9 @@ read_command (int looking_for, flag_region_ty *outer_region)
           if (inner.type == t_string)
             {
               lex_pos_ty pos;
-
               pos.file_name = logical_file_name;
               pos.line_number = inner.line_number_at_start;
+
               remember_a_message (mlp, NULL,
                                   mixed_string_contents_free1 (
                                     mixed_string_buffer_cloned_result (inner.token)),
@@ -1367,7 +1358,6 @@ read_command (int looking_for, flag_region_ty *outer_region)
                   else
                     {
                       void *keyword_value;
-
                       if (hash_find_entry (&keywords,
                                            function_name,
                                            strlen (function_name),
@@ -1514,9 +1504,7 @@ read_command_list (int looking_for, flag_region_ty *outer_region)
               _("too deeply nested command list"));
   for (;;)
     {
-      enum word_type terminator;
-
-      terminator = read_command (looking_for, outer_region);
+      enum word_type terminator = read_command (looking_for, outer_region);
       if (terminator != t_separator)
         return terminator;
     }

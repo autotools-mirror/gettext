@@ -87,19 +87,17 @@ x_java_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid Java
          identifier sequence with dots.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -266,10 +264,10 @@ static int phase2_pushback_length;
 static int
 phase2_getc ()
 {
-  int c;
-
   if (phase2_pushback_length)
     return phase2_pushback[--phase2_pushback_length];
+
+  int c;
 
   c = phase1_getc ();
   if (c == EOF)
@@ -280,10 +278,6 @@ phase2_getc ()
       if (c == 'u')
         {
           unsigned int u_count = 1;
-          unsigned char buf[4];
-          unsigned int n;
-          int i;
-
           for (;;)
             {
               c = phase1_getc ();
@@ -293,8 +287,9 @@ phase2_getc ()
             }
           phase1_ungetc (c);
 
-          n = 0;
-          for (i = 0; i < 4; i++)
+          unsigned char buf[4];
+          unsigned int n = 0;
+          for (int i = 0; i < 4; i++)
             {
               c = phase1_getc ();
 
@@ -481,11 +476,9 @@ static int last_non_comment_line;
 static int
 phase4_getc ()
 {
-  int c0;
   int c;
-  bool last_was_star;
 
-  c0 = phase3_getc ();
+  int c0 = phase3_getc ();
   if (RED (c0) != '/')
     return c0;
   c = phase3_getc ();
@@ -496,45 +489,47 @@ phase4_getc ()
       return c0;
 
     case '*':
-      /* C style comment.  */
-      comment_start ();
-      last_was_star = false;
-      for (;;)
-        {
-          c = phase3_getc ();
-          if (c == P2_EOF)
+      {
+        /* C style comment.  */
+        comment_start ();
+        bool last_was_star = false;
+        for (;;)
+          {
+            c = phase3_getc ();
+            if (c == P2_EOF)
+              break;
+            /* We skip all leading white space, but not EOLs.  */
+            if (!(comment_at_start () && (RED (c) == ' ' || RED (c) == '\t')))
+              comment_add (c);
+            switch (RED (c))
+              {
+              case '\n':
+                comment_line_end (1);
+                comment_start ();
+                last_was_star = false;
+                continue;
+
+              case '*':
+                last_was_star = true;
+                continue;
+
+              case '/':
+                if (last_was_star)
+                  {
+                    comment_line_end (2);
+                    break;
+                  }
+                FALLTHROUGH;
+
+              default:
+                last_was_star = false;
+                continue;
+              }
             break;
-          /* We skip all leading white space, but not EOLs.  */
-          if (!(comment_at_start () && (RED (c) == ' ' || RED (c) == '\t')))
-            comment_add (c);
-          switch (RED (c))
-            {
-            case '\n':
-              comment_line_end (1);
-              comment_start ();
-              last_was_star = false;
-              continue;
-
-            case '*':
-              last_was_star = true;
-              continue;
-
-            case '/':
-              if (last_was_star)
-                {
-                  comment_line_end (2);
-                  break;
-                }
-              FALLTHROUGH;
-
-            default:
-              last_was_star = false;
-              continue;
-            }
-          break;
-        }
-      last_comment_line = line_number;
-      return ' ';
+          }
+        last_comment_line = line_number;
+        return ' ';
+      }
 
     case '/':
       /* C++ style comment.  */
@@ -685,10 +680,10 @@ do_getc_escaped ()
 static void
 accumulate_escaped (struct mixed_string_buffer *literal, int delimiter)
 {
-  int c;
-
   for (;;)
     {
+      int c;
+
       /* Use phase 3, because phase 4 elides comments.  */
       c = phase3_getc ();
       if (c == P2_EOF || RED (c) == delimiter)
@@ -725,9 +720,8 @@ strip_indent (mixed_string_ty *ms)
   {
     size_t curr_line_indentation = 0;
     bool curr_line_blank = true;
-    size_t i;
 
-    for (i = 0; i < nsegments; i++)
+    for (size_t i = 0; i < nsegments; i++)
       {
         struct mixed_string_segment *segment = ms->segments[i];
 
@@ -737,9 +731,8 @@ strip_indent (mixed_string_ty *ms)
           {
             /* Consider Unicode whitespace characters.  */
             size_t seglength = segment->length;
-            size_t j;
 
-            for (j = 0; j < seglength; )
+            for (size_t j = 0; j < seglength; )
               {
                 ucs4_t uc;
                 int bytes =
@@ -775,9 +768,8 @@ strip_indent (mixed_string_ty *ms)
             /* When the encoding is not UTF-8, consider only ASCII whitespace
                characters.  */
             size_t seglength = segment->length;
-            size_t j;
 
-            for (j = 0; j < seglength; j++)
+            for (size_t j = 0; j < seglength; j++)
               {
                 char c = segment->contents[j];
                 if (c == '\n')
@@ -821,9 +813,8 @@ strip_indent (mixed_string_ty *ms)
     size_t start_of_trailing_whitespace_i = 0;
     size_t start_of_trailing_whitespace_j = 0;
     size_t whitespace_to_remove = minimum_indentation;
-    size_t i;
 
-    for (i = 0; i < nsegments; i++)
+    for (size_t i = 0; i < nsegments; i++)
       {
         struct mixed_string_segment *segment = ms->segments[i];
         /* Perform a sliding copy from segment->contents[from_j] to
@@ -853,9 +844,8 @@ strip_indent (mixed_string_ty *ms)
                            whitespace characters.  Remove all this whitespace.  */
                         if (start_of_curr_line_i < i)
                           {
-                            size_t k;
                             ms->segments[start_of_curr_line_i]->length = start_of_curr_line_j;
-                            for (k = start_of_curr_line_i + 1; k < i; k++)
+                            for (size_t k = start_of_curr_line_i + 1; k < i; k++)
                               ms->segments[k]->length = 0;
                             to_j = 0;
                           }
@@ -868,9 +858,8 @@ strip_indent (mixed_string_ty *ms)
                            current line.  */
                         if (start_of_trailing_whitespace_i < i)
                           {
-                            size_t k;
                             ms->segments[start_of_trailing_whitespace_i]->length = start_of_trailing_whitespace_j;
-                            for (k = start_of_trailing_whitespace_i + 1; k < i; k++)
+                            for (size_t k = start_of_trailing_whitespace_i + 1; k < i; k++)
                               ms->segments[k]->length = 0;
                             to_j = 0;
                           }
@@ -901,9 +890,8 @@ strip_indent (mixed_string_ty *ms)
                            characters from the current line.  */
                         if (start_of_curr_line_i < i)
                           {
-                            size_t k;
                             ms->segments[start_of_curr_line_i]->length = start_of_curr_line_j;
-                            for (k = start_of_curr_line_i + 1; k < i; k++)
+                            for (size_t k = start_of_curr_line_i + 1; k < i; k++)
                               ms->segments[k]->length = 0;
                             to_j = 0;
                           }
@@ -940,9 +928,8 @@ strip_indent (mixed_string_ty *ms)
                            whitespace characters.  Remove all this whitespace.  */
                         if (start_of_curr_line_i < i)
                           {
-                            size_t k;
                             ms->segments[start_of_curr_line_i]->length = start_of_curr_line_j;
-                            for (k = start_of_curr_line_i + 1; k < i; k++)
+                            for (size_t k = start_of_curr_line_i + 1; k < i; k++)
                               ms->segments[k]->length = 0;
                             to_j = 0;
                           }
@@ -955,9 +942,8 @@ strip_indent (mixed_string_ty *ms)
                            current line.  */
                         if (start_of_trailing_whitespace_i < i)
                           {
-                            size_t k;
                             ms->segments[start_of_trailing_whitespace_i]->length = start_of_trailing_whitespace_j;
-                            for (k = start_of_trailing_whitespace_i + 1; k < i; k++)
+                            for (size_t k = start_of_trailing_whitespace_i + 1; k < i; k++)
                               ms->segments[k]->length = 0;
                             to_j = 0;
                           }
@@ -987,9 +973,8 @@ strip_indent (mixed_string_ty *ms)
                            characters from the current line.  */
                         if (start_of_curr_line_i < i)
                           {
-                            size_t k;
                             ms->segments[start_of_curr_line_i]->length = start_of_curr_line_j;
-                            for (k = start_of_curr_line_i + 1; k < i; k++)
+                            for (size_t k = start_of_curr_line_i + 1; k < i; k++)
                               ms->segments[k]->length = 0;
                             to_j = 0;
                           }
@@ -1016,9 +1001,8 @@ strip_indent (mixed_string_ty *ms)
                    whitespace characters.  Remove all this whitespace.  */
                 if (start_of_curr_line_i < i)
                   {
-                    size_t k;
                     ms->segments[start_of_curr_line_i]->length = start_of_curr_line_j;
-                    for (k = start_of_curr_line_i + 1; k < i; k++)
+                    for (size_t k = start_of_curr_line_i + 1; k < i; k++)
                       ms->segments[k]->length = 0;
                     to_j = 0;
                   }
@@ -1031,9 +1015,8 @@ strip_indent (mixed_string_ty *ms)
                    current line.  */
                 if (start_of_trailing_whitespace_i < i)
                   {
-                    size_t k;
                     ms->segments[start_of_trailing_whitespace_i]->length = start_of_trailing_whitespace_j;
-                    for (k = start_of_trailing_whitespace_i + 1; k < i; k++)
+                    for (size_t k = start_of_trailing_whitespace_i + 1; k < i; k++)
                       ms->segments[k]->length = 0;
                     to_j = 0;
                   }
@@ -1055,8 +1038,6 @@ static int phase5_pushback_length;
 static void
 phase5_get (token_ty *tp)
 {
-  int c;
-
   if (phase5_pushback_length)
     {
       *tp = phase5_pushback[--phase5_pushback_length];
@@ -1066,6 +1047,8 @@ phase5_get (token_ty *tp)
 
   for (;;)
     {
+      int c;
+
       tp->line_number = line_number;
       c = phase4_getc ();
 
@@ -1201,9 +1184,6 @@ phase5_get (token_ty *tp)
                   {
                     /* Text block.  Specification:
                        <https://docs.oracle.com/javase/specs/jls/se13/preview/text-blocks.html>  */
-                    struct mixed_string_buffer block;
-                    unsigned int consecutive_unescaped_doublequotes;
-                    mixed_string_ty *block_content;
 
                     /* Parse the part up to and including the first newline.  */
                     for (;;)
@@ -1232,9 +1212,10 @@ phase5_get (token_ty *tp)
                       }
 
                     /* Parse the part after the first newline.  */
+                    struct mixed_string_buffer block;
                     mixed_string_buffer_init (&block, lc_string,
                                               logical_file_name, line_number);
-                    consecutive_unescaped_doublequotes = 0;
+                    unsigned int consecutive_unescaped_doublequotes = 0;
                     for (;;)
                       {
                         int ic = phase3_getc ();
@@ -1263,7 +1244,7 @@ phase5_get (token_ty *tp)
                             mixed_string_buffer_append (&block, ic);
                           }
                       }
-                    block_content = mixed_string_buffer_result (&block);
+                    mixed_string_ty *block_content = mixed_string_buffer_result (&block);
 
                     /* Remove the common indentation from the content.  */
                     strip_indent (block_content);
@@ -1280,7 +1261,6 @@ phase5_get (token_ty *tp)
           /* String literal.  */
           {
             struct mixed_string_buffer literal;
-
             mixed_string_buffer_init (&literal, lc_string,
                                       logical_file_name, line_number);
             accumulate_escaped (&literal, '"');
@@ -1294,7 +1274,6 @@ phase5_get (token_ty *tp)
           /* Character literal.  */
           {
             struct mixed_string_buffer literal;
-
             mixed_string_buffer_init (&literal, lc_outside,
                                       logical_file_name, line_number);
             accumulate_escaped (&literal, '\'');
@@ -1584,18 +1563,18 @@ phase6_get (token_ty *tp)
       for (;;)
         {
           token_ty token2;
-
           phase5_get (&token2);
+
           if (token2.type == token_type_plus)
             {
               token_ty token3;
-
               phase5_get (&token3);
+
               if (token3.type == token_type_string_literal)
                 {
                   token_ty token_after;
-
                   phase5_get (&token_after);
+
                   if (token_after.type != token_type_dot)
                     {
                       sum = mixed_string_concat_free1 (sum, token3.mixed_string);
@@ -1705,8 +1684,8 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
   for (;;)
     {
       token_ty token;
-
       x_java_lex (&token);
+
       switch (token.type)
         {
         case token_type_symbol:
@@ -1718,19 +1697,17 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
                symbolJ.....symbolN with J > I.  */
             char *sum = token.string;
             size_t sum_len = strlen (sum);
-            const char *dottedname;
-            flag_context_list_ty *context_list;
 
             for (;;)
               {
                 token_ty token2;
-
                 x_java_lex (&token2);
+
                 if (token2.type == token_type_dot)
                   {
                     token_ty token3;
-
                     x_java_lex (&token3);
+
                     if (token3.type == token_type_symbol)
                       {
                         char *addend = token3.string;
@@ -1761,10 +1738,9 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
                they should not.  */
             if (strcmp (sum, "return") != 0)
               {
-                for (dottedname = sum;;)
+                for (const char *dottedname = sum;;)
                   {
                     void *keyword_value;
-
                     if (hash_find_entry (&keywords, dottedname, strlen (dottedname),
                                          &keyword_value)
                         == 0)
@@ -1783,7 +1759,8 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
                     dottedname++;
                   }
 
-                for (dottedname = sum;;)
+                flag_context_list_ty *context_list;
+                for (const char *dottedname = sum;;)
                   {
                     context_list =
                       flag_context_list_table_lookup (
@@ -1952,7 +1929,6 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
         case token_type_string_literal:
           {
             lex_pos_ty pos;
-
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 

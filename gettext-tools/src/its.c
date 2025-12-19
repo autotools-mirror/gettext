@@ -108,7 +108,6 @@ static void
 generic_error (void *data, const char *message, ...)
 {
   va_list args;
-
   va_start (args, message);
   vfprintf (stderr, message, args);
   va_end (args);
@@ -136,7 +135,6 @@ its_value_list_append (struct its_value_list_ty *values,
                        const char *value)
 {
   struct its_value_ty _value;
-
   _value.name = xstrdup (name);
   _value.value = xstrdup (value);
 
@@ -155,9 +153,7 @@ static const char *
 its_value_list_get_value (struct its_value_list_ty *values,
                           const char *name)
 {
-  size_t i;
-
-  for (i = 0; i < values->nitems; i++)
+  for (size_t i = 0; i < values->nitems; i++)
     {
       struct its_value_ty *value = &values->items[i];
       if (strcmp (value->name, name) == 0)
@@ -172,7 +168,6 @@ its_value_list_set_value (struct its_value_list_ty *values,
                           const char *value)
 {
   size_t i;
-
   for (i = 0; i < values->nitems; i++)
     {
       struct its_value_ty *_value = &values->items[i];
@@ -192,13 +187,11 @@ static void
 its_value_list_merge (struct its_value_list_ty *values,
                       struct its_value_list_ty *other)
 {
-  size_t i;
-
-  for (i = 0; i < other->nitems; i++)
+  for (size_t i = 0; i < other->nitems; i++)
     {
       struct its_value_ty *other_value = &other->items[i];
-      size_t j;
 
+      size_t j;
       for (j = 0; j < values->nitems; j++)
         {
           struct its_value_ty *value = &values->items[j];
@@ -220,9 +213,7 @@ its_value_list_merge (struct its_value_list_ty *values,
 static void
 its_value_list_destroy (struct its_value_list_ty *values)
 {
-  size_t i;
-
-  for (i = 0; i < values->nitems; i++)
+  for (size_t i = 0; i < values->nitems; i++)
     {
       free (values->items[i].name);
       free (values->items[i].value);
@@ -240,8 +231,6 @@ struct its_pool_ty
 static struct its_value_list_ty *
 its_pool_alloc_value_list (struct its_pool_ty *pool)
 {
-  struct its_value_list_ty *values;
-
   if (pool->nitems == pool->nitems_max)
     {
       pool->nitems_max = 2 * pool->nitems_max + 1;
@@ -250,7 +239,7 @@ its_pool_alloc_value_list (struct its_pool_ty *pool)
                   sizeof (struct its_value_list_ty) * pool->nitems_max);
     }
 
-  values = &pool->items[pool->nitems++];
+  struct its_value_list_ty *values = &pool->items[pool->nitems++];
   memset (values, 0, sizeof (struct its_value_list_ty));
   return values;
 }
@@ -262,10 +251,8 @@ its_pool_get_value_for_node (struct its_pool_ty *pool, xmlNode *node,
   intptr_t index = (intptr_t) node->_private;
   if (index > 0)
     {
-      struct its_value_list_ty *values;
-
       assert (index <= pool->nitems);
-      values = &pool->items[index - 1];
+      struct its_value_list_ty *values = &pool->items[index - 1];
 
       return its_value_list_get_value (values, name);
     }
@@ -275,9 +262,7 @@ its_pool_get_value_for_node (struct its_pool_ty *pool, xmlNode *node,
 static void
 its_pool_destroy (struct its_pool_ty *pool)
 {
-  size_t i;
-
-  for (i = 0; i < pool->nitems; i++)
+  for (size_t i = 0; i < pool->nitems; i++)
     its_value_list_destroy (&pool->items[i]);
   free (pool->items);
 }
@@ -349,8 +334,7 @@ its_rule_destructor (struct its_rule_ty *rule)
   its_value_list_destroy (&rule->values);
   if (rule->namespaces)
     {
-      size_t i;
-      for (i = 0; rule->namespaces[i] != NULL; i++)
+      for (size_t i = 0; rule->namespaces[i] != NULL; i++)
         xmlFreeNs (rule->namespaces[i]);
       free (rule->namespaces);
     }
@@ -359,16 +343,13 @@ its_rule_destructor (struct its_rule_ty *rule)
 static void
 its_rule_apply (struct its_rule_ty *rule, struct its_pool_ty *pool, xmlDoc *doc)
 {
-  xmlXPathContext *context;
-  xmlXPathObject *object;
-
   if (!rule->selector)
     {
       error (0, 0, _("selector is not specified"));
       return;
     }
 
-  context = xmlXPathNewContext (doc);
+  xmlXPathContext *context = xmlXPathNewContext (doc);
   if (!context)
     {
       error (0, 0, _("cannot create XPath context"));
@@ -377,15 +358,14 @@ its_rule_apply (struct its_rule_ty *rule, struct its_pool_ty *pool, xmlDoc *doc)
 
   if (rule->namespaces)
     {
-      size_t i;
-      for (i = 0; rule->namespaces[i] != NULL; i++)
+      for (size_t i = 0; rule->namespaces[i] != NULL; i++)
         {
           xmlNs *ns = rule->namespaces[i];
           xmlXPathRegisterNs (context, ns->prefix, ns->href);
         }
     }
 
-  object = xmlXPathEval (BAD_CAST rule->selector, context);
+  xmlXPathObject *object = xmlXPathEval (BAD_CAST rule->selector, context);
   if (!object)
     {
       xmlXPathFreeContext (context);
@@ -396,18 +376,17 @@ its_rule_apply (struct its_rule_ty *rule, struct its_pool_ty *pool, xmlDoc *doc)
   if (object->nodesetval)
     {
       xmlNodeSet *nodes = object->nodesetval;
-      size_t i;
 
-      for (i = 0; i < nodes->nodeNr; i++)
+      for (size_t i = 0; i < nodes->nodeNr; i++)
         {
           xmlNode *node = nodes->nodeTab[i];
-          struct its_value_list_ty *values;
 
           /* We can't store VALUES in NODE, since the address can
              change when realloc()ed.  */
           intptr_t index = (intptr_t) node->_private;
-
           assert (index <= pool->nitems);
+
+          struct its_value_list_ty *values;
           if (index > 0)
             values = &pool->items[index - 1];
           else
@@ -427,12 +406,9 @@ its_rule_apply (struct its_rule_ty *rule, struct its_pool_ty *pool, xmlDoc *doc)
 static char *
 _its_get_attribute (xmlNode *node, const char *attr, const char *namespace)
 {
-  xmlChar *value;
-  char *result;
+  xmlChar *value = xmlGetNsProp (node, BAD_CAST attr, BAD_CAST namespace);
 
-  value = xmlGetNsProp (node, BAD_CAST attr, BAD_CAST namespace);
-
-  result = xstrdup ((const char *) value);
+  char *result = xstrdup ((const char *) value);
   xmlFree (value);
 
   return result;
@@ -456,41 +432,34 @@ normalize_whitespace (const char *text, enum its_whitespace_type_ty whitespace)
         char *result = xstrdup (text);
         /* Go through the string, shrinking it, reading from *p++
            and writing to *out++.  (result <= out <= p.)  */
-        const char *start_of_paragraph;
-        char *out;
-
-        out = result;
-        for (start_of_paragraph = result; *start_of_paragraph != '\0';)
+        char *out = result;
+        for (const char *start_of_paragraph = result; *start_of_paragraph != '\0';)
           {
             const char *end_of_paragraph;
             const char *next_paragraph;
 
             /* Find the next paragraph boundary.  */
-            {
-              const char *p;
-
-              for (p = start_of_paragraph;;)
+            for (const char *p = start_of_paragraph;;)
+              {
+                const char *nl = strchrnul (p, '\n');
+                if (*nl == '\0')
+                  {
+                    end_of_paragraph = nl;
+                    next_paragraph = end_of_paragraph;
+                    break;
+                  }
+                p = nl + 1;
                 {
-                  const char *nl = strchrnul (p, '\n');
-                  if (*nl == '\0')
+                  const char *past_whitespace = p + strspn (p, " \t\n");
+                  if (memchr (p, '\n', past_whitespace - p) != NULL)
                     {
                       end_of_paragraph = nl;
-                      next_paragraph = end_of_paragraph;
+                      next_paragraph = past_whitespace;
                       break;
                     }
-                  p = nl + 1;
-                  {
-                    const char *past_whitespace = p + strspn (p, " \t\n");
-                    if (memchr (p, '\n', past_whitespace - p) != NULL)
-                      {
-                        end_of_paragraph = nl;
-                        next_paragraph = past_whitespace;
-                        break;
-                      }
-                    p = past_whitespace;
-                  }
+                  p = past_whitespace;
                 }
-            }
+              }
 
             /* Normalize whitespaces in the paragraph.  */
             {
@@ -534,11 +503,9 @@ normalize_whitespace (const char *text, enum its_whitespace_type_ty whitespace)
          at the beginning nor the end of the text.  */
       {
         char *result = xstrdup (text);
-        char *out;
-        const char *p;
 
-        out = result;
-        for (p = result; *p != '\0';)
+        char *out = result;
+        for (const char *p = result; *p != '\0';)
           {
             if (*p == ' ' || *p == '\t' || *p == '\n')
               {
@@ -559,11 +526,8 @@ normalize_whitespace (const char *text, enum its_whitespace_type_ty whitespace)
 static char *
 _its_encode_special_chars (const char *content, bool is_attribute)
 {
-  const char *str;
   size_t amount = 0;
-  char *result, *p;
-
-  for (str = content; *str != '\0'; str++)
+  for (const char *str = content; *str != '\0'; str++)
     {
       switch (*str)
         {
@@ -588,34 +552,36 @@ _its_encode_special_chars (const char *content, bool is_attribute)
         }
     }
 
-  result = XNMALLOC (amount + 1, char);
+  char *result = XNMALLOC (amount + 1, char);
   *result = '\0';
-  p = result;
-  for (str = content; *str != '\0'; str++)
-    {
-      switch (*str)
-        {
-        case '&':
-          p = stpcpy (p, "&amp;");
-          break;
-        case '<':
-          p = stpcpy (p, "&lt;");
-          break;
-        case '>':
-          p = stpcpy (p, "&gt;");
-          break;
-        case '"':
-          if (is_attribute)
-            p = stpcpy (p, "&quot;");
-          else
-            *p++ = '"';
-          break;
-        default:
-          *p++ = *str;
-          break;
-        }
-    }
-  *p = '\0';
+  {
+    char *p = result;
+    for (const char *str = content; *str != '\0'; str++)
+      {
+        switch (*str)
+          {
+          case '&':
+            p = stpcpy (p, "&amp;");
+            break;
+          case '<':
+            p = stpcpy (p, "&lt;");
+            break;
+          case '>':
+            p = stpcpy (p, "&gt;");
+            break;
+          case '"':
+            if (is_attribute)
+              p = stpcpy (p, "&quot;");
+            else
+              *p++ = '"';
+            break;
+          default:
+            *p++ = *str;
+            break;
+          }
+      }
+    *p = '\0';
+  }
   return result;
 }
 
@@ -625,11 +591,9 @@ _its_collect_text_content (xmlNode *node,
                            bool do_escape)
 {
   struct string_buffer buffer;
-  xmlNode *n;
-
   sb_init (&buffer);
 
-  for (n = node->children; n; n = n->next)
+  for (xmlNode *n = node->children; n; n = n->next)
     {
       char *content = NULL;
 
@@ -639,12 +603,11 @@ _its_collect_text_content (xmlNode *node,
         case XML_CDATA_SECTION_NODE:
           {
             xmlChar *xcontent = xmlNodeGetContent (n);
-            char *econtent;
-            const char *ccontent;
 
             /* We can't expect xmlTextWriterWriteString() encode
                special characters as we write text outside of the
                element.  */
+            char *econtent;
             if (do_escape)
               econtent =
                 _its_encode_special_chars ((const char *) xcontent,
@@ -655,7 +618,7 @@ _its_collect_text_content (xmlNode *node,
 
             /* Skip whitespaces at the beginning of the text, if this
                is the first node.  */
-            ccontent = econtent;
+            const char *ccontent = econtent;
             if (whitespace == ITS_WHITESPACE_NORMALIZE && !n->prev)
               ccontent = ccontent + strspn (ccontent, " \t\n");
             content =
@@ -684,9 +647,7 @@ _its_collect_text_content (xmlNode *node,
           {
             xmlOutputBuffer *obuffer = xmlAllocOutputBuffer (NULL);
             xmlTextWriter *writer = xmlNewTextWriter (obuffer);
-            char *p = _its_collect_text_content (n, whitespace,
-                                                 do_escape);
-            const char *ccontent;
+            char *p = _its_collect_text_content (n, whitespace, do_escape);
 
             xmlTextWriterStartElement (writer, BAD_CAST n->name);
             if (n->properties)
@@ -704,7 +665,8 @@ _its_collect_text_content (xmlNode *node,
             if (*p != '\0')
               xmlTextWriterWriteRaw (writer, BAD_CAST p);
             xmlTextWriterEndElement (writer);
-            ccontent = (const char *) xmlOutputBufferGetContent (obuffer);
+
+            const char *ccontent = (const char *) xmlOutputBufferGetContent (obuffer);
             content = normalize_whitespace (ccontent, whitespace);
             xmlFreeTextWriter (writer);
             free (p);
@@ -741,8 +703,6 @@ _its_error_missing_attribute (xmlNode *node, const char *attribute)
 static void
 its_translate_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
 {
-  char *prop;
-
   if (!xmlHasProp (node, BAD_CAST "selector"))
     {
       _its_error_missing_attribute (node, "selector");
@@ -755,13 +715,16 @@ its_translate_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
       return;
     }
 
-  prop = _its_get_attribute (node, "selector", NULL);
-  if (prop)
-    rule->selector = prop;
-
-  prop = _its_get_attribute (node, "translate", NULL);
-  its_value_list_append (&rule->values, "translate", prop);
-  free (prop);
+  {
+    char *prop = _its_get_attribute (node, "selector", NULL);
+    if (prop)
+      rule->selector = prop;
+  }
+  {
+    char *prop = _its_get_attribute (node, "translate", NULL);
+    its_value_list_append (&rule->values, "translate", prop);
+    free (prop);
+  }
 }
 
 static struct its_value_list_ty *
@@ -776,9 +739,7 @@ its_translate_rule_eval (struct its_rule_ty *rule, struct its_pool_ty *pool,
                        translate="no" for attributes.
      - Inheritance for element nodes: Textual content of element,
        including content of child elements, but excluding attributes.  */
-  struct its_value_list_ty *result;
-
-  result = XCALLOC (1, struct its_value_list_ty);
+  struct its_value_list_ty *result = XCALLOC (1, struct its_value_list_ty);
 
   switch (node->type)
     {
@@ -801,21 +762,17 @@ its_translate_rule_eval (struct its_rule_ty *rule, struct its_pool_ty *pool,
     case XML_ELEMENT_NODE:
       /* Inherit from the parent elements.  */
       {
-        const char *value;
-
         /* A local attribute overrides the global rule.  */
         if (xmlHasNsProp (node, BAD_CAST "translate", BAD_CAST ITS_NS))
           {
-            char *prop;
-
-            prop = _its_get_attribute (node, "translate", ITS_NS);
+            char *prop = _its_get_attribute (node, "translate", ITS_NS);
             its_value_list_append (result, "translate", prop);
             free (prop);
             return result;
           }
 
         /* Check value for the current node.  */
-        value = its_pool_get_value_for_node (pool, node, "translate");
+        const char *value = its_pool_get_value_for_node (pool, node, "translate");
         if (value != NULL)
           {
             its_value_list_set_value (result, "translate", value);
@@ -829,9 +786,8 @@ its_translate_rule_eval (struct its_rule_ty *rule, struct its_pool_ty *pool,
           its_value_list_append (result, "translate", "yes");
         else
           {
-            struct its_value_list_ty *values;
-
-            values = its_translate_rule_eval (rule, pool, node->parent);
+            struct its_value_list_ty *values =
+              its_translate_rule_eval (rule, pool, node->parent);
             its_value_list_merge (result, values);
             its_value_list_destroy (values);
             free (values);
@@ -862,9 +818,6 @@ static struct its_rule_class_ty its_translate_rule_class =
 static void
 its_localization_note_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
 {
-  char *prop;
-  xmlNode *n;
-
   if (!xmlHasProp (node, BAD_CAST "selector"))
     {
       _its_error_missing_attribute (node, "selector");
@@ -877,10 +830,13 @@ its_localization_note_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
       return;
     }
 
-  prop = _its_get_attribute (node, "selector", NULL);
-  if (prop)
-    rule->selector = prop;
+  {
+    char *prop = _its_get_attribute (node, "selector", NULL);
+    if (prop)
+      rule->selector = prop;
+  }
 
+  xmlNode *n;
   for (n = node->children; n; n = n->next)
     {
       if (n->type == XML_ELEMENT_NODE
@@ -889,10 +845,12 @@ its_localization_note_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
         break;
     }
 
-  prop = _its_get_attribute (node, "locNoteType", NULL);
-  if (prop)
-    its_value_list_append (&rule->values, "locNoteType", prop);
-  free (prop);
+  {
+    char *prop = _its_get_attribute (node, "locNoteType", NULL);
+    if (prop)
+      its_value_list_append (&rule->values, "locNoteType", prop);
+    free (prop);
+  }
 
   if (n)
     {
@@ -904,7 +862,7 @@ its_localization_note_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
     }
   else if (xmlHasProp (node, BAD_CAST "locNotePointer"))
     {
-      prop = _its_get_attribute (node, "locNotePointer", NULL);
+      char *prop = _its_get_attribute (node, "locNotePointer", NULL);
       its_value_list_append (&rule->values, "locNotePointer", prop);
       free (prop);
     }
@@ -923,29 +881,27 @@ its_localization_note_rule_eval (struct its_rule_ty *rule,
      - Default values: none
      - Inheritance for element nodes: Textual content of element,
        including content of child elements, but excluding attributes.  */
-  struct its_value_list_ty *result;
-
-  result = XCALLOC (1, struct its_value_list_ty);
+  struct its_value_list_ty *result = XCALLOC (1, struct its_value_list_ty);
 
   switch (node->type)
     {
     case XML_ATTRIBUTE_NODE:
       /* Attribute nodes don't inherit from the parent elements.  */
       {
-        const char *value;
-
-        value = its_pool_get_value_for_node (pool, node, "locNoteType");
+        const char *value = its_pool_get_value_for_node (pool, node, "locNoteType");
         if (value != NULL)
           its_value_list_set_value (result, "locNoteType", value);
-
-        value = its_pool_get_value_for_node (pool, node, "locNote");
+      }
+      {
+        const char *value = its_pool_get_value_for_node (pool, node, "locNote");
         if (value != NULL)
           {
             its_value_list_set_value (result, "locNote", value);
             return result;
           }
-
-        value = its_pool_get_value_for_node (pool, node, "locNotePointer");
+      }
+      {
+        const char *value = its_pool_get_value_for_node (pool, node, "locNotePointer");
         if (value != NULL)
           {
             its_value_list_set_value (result, "locNotePointer", value);
@@ -957,18 +913,14 @@ its_localization_note_rule_eval (struct its_rule_ty *rule,
     case XML_ELEMENT_NODE:
       /* Inherit from the parent elements.  */
       {
-        const char *value;
-
         /* Local attributes overrides the global rule.  */
         if (xmlHasNsProp (node, BAD_CAST "locNote", BAD_CAST ITS_NS)
             || xmlHasNsProp (node, BAD_CAST "locNoteRef", BAD_CAST ITS_NS)
             || xmlHasNsProp (node, BAD_CAST "locNoteType", BAD_CAST ITS_NS))
           {
-            char *prop;
-
             if (xmlHasNsProp (node, BAD_CAST "locNote", BAD_CAST ITS_NS))
               {
-                prop = _its_get_attribute (node, "locNote", ITS_NS);
+                char *prop = _its_get_attribute (node, "locNote", ITS_NS);
                 its_value_list_append (result, "locNote", prop);
                 free (prop);
               }
@@ -977,7 +929,7 @@ its_localization_note_rule_eval (struct its_rule_ty *rule,
 
             if (xmlHasNsProp (node, BAD_CAST "locNoteType", BAD_CAST ITS_NS))
               {
-                prop = _its_get_attribute (node, "locNoteType", ITS_NS);
+                char *prop = _its_get_attribute (node, "locNoteType", ITS_NS);
                 its_value_list_append (result, "locNoteType", prop);
                 free (prop);
               }
@@ -986,23 +938,27 @@ its_localization_note_rule_eval (struct its_rule_ty *rule,
           }
 
         /* Check value for the current node.  */
-        value = its_pool_get_value_for_node (pool, node, "locNoteType");
-        if (value != NULL)
-          its_value_list_set_value (result, "locNoteType", value);
-
-        value = its_pool_get_value_for_node (pool, node, "locNote");
-        if (value != NULL)
-          {
-            its_value_list_set_value (result, "locNote", value);
-            return result;
-          }
-
-        value = its_pool_get_value_for_node (pool, node, "locNotePointer");
-        if (value != NULL)
-          {
-            its_value_list_set_value (result, "locNotePointer", value);
-            return result;
-          }
+        {
+          const char *value = its_pool_get_value_for_node (pool, node, "locNoteType");
+          if (value != NULL)
+            its_value_list_set_value (result, "locNoteType", value);
+        }
+        {
+          const char *value = its_pool_get_value_for_node (pool, node, "locNote");
+          if (value != NULL)
+            {
+              its_value_list_set_value (result, "locNote", value);
+              return result;
+            }
+        }
+        {
+          const char *value = its_pool_get_value_for_node (pool, node, "locNotePointer");
+          if (value != NULL)
+            {
+              its_value_list_set_value (result, "locNotePointer", value);
+              return result;
+            }
+        }
 
         /* Recursively check value for the parent node.  */
         if (node->parent == NULL
@@ -1010,9 +966,8 @@ its_localization_note_rule_eval (struct its_rule_ty *rule,
           return result;
         else
           {
-            struct its_value_list_ty *values;
-
-            values = its_localization_note_rule_eval (rule, pool, node->parent);
+            struct its_value_list_ty *values =
+              its_localization_note_rule_eval (rule, pool, node->parent);
             its_value_list_merge (result, values);
             its_value_list_destroy (values);
             free (values);
@@ -1045,8 +1000,6 @@ static void
 its_element_within_text_rule_constructor (struct its_rule_ty *rule,
                                           xmlNode *node)
 {
-  char *prop;
-
   if (!xmlHasProp (node, BAD_CAST "selector"))
     {
       _its_error_missing_attribute (node, "selector");
@@ -1059,13 +1012,16 @@ its_element_within_text_rule_constructor (struct its_rule_ty *rule,
       return;
     }
 
-  prop = _its_get_attribute (node, "selector", NULL);
-  if (prop)
-    rule->selector = prop;
-
-  prop = _its_get_attribute (node, "withinText", NULL);
-  its_value_list_append (&rule->values, "withinText", prop);
-  free (prop);
+  {
+    char *prop = _its_get_attribute (node, "selector", NULL);
+    if (prop)
+      rule->selector = prop;
+  }
+  {
+    char *prop = _its_get_attribute (node, "withinText", NULL);
+    its_value_list_append (&rule->values, "withinText", prop);
+    free (prop);
+  }
 }
 
 static struct its_value_list_ty *
@@ -1079,10 +1035,7 @@ its_element_within_text_rule_eval (struct its_rule_ty *rule,
      - Global, rule-based selection: Yes
      - Default values: withinText="no"
      - Inheritance for element nodes: none  */
-  struct its_value_list_ty *result;
-  const char *value;
-
-  result = XCALLOC (1, struct its_value_list_ty);
+  struct its_value_list_ty *result = XCALLOC (1, struct its_value_list_ty);
 
   if (node->type != XML_ELEMENT_NODE)
     return result;
@@ -1090,9 +1043,7 @@ its_element_within_text_rule_eval (struct its_rule_ty *rule,
   /* A local attribute overrides the global rule.  */
   if (xmlHasNsProp (node, BAD_CAST "withinText", BAD_CAST ITS_NS))
     {
-      char *prop;
-
-      prop = _its_get_attribute (node, "withinText", ITS_NS);
+      char *prop = _its_get_attribute (node, "withinText", ITS_NS);
       its_value_list_append (result, "withinText", prop);
       free (prop);
       return result;
@@ -1100,9 +1051,11 @@ its_element_within_text_rule_eval (struct its_rule_ty *rule,
 
   /* Doesn't inherit from the parent elements, and the default value
      is "no".  */
-  value = its_pool_get_value_for_node (pool, node, "withinText");
-  if (value != NULL)
-    its_value_list_set_value (result, "withinText", value);
+  {
+    const char *value = its_pool_get_value_for_node (pool, node, "withinText");
+    if (value != NULL)
+      its_value_list_set_value (result, "withinText", value);
+  }
 
   return result;
 }
@@ -1124,8 +1077,6 @@ static void
 its_preserve_space_rule_constructor (struct its_rule_ty *rule,
                                      xmlNode *node)
 {
-  char *prop;
-
   if (!xmlHasProp (node, BAD_CAST "selector"))
     {
       _its_error_missing_attribute (node, "selector");
@@ -1138,30 +1089,33 @@ its_preserve_space_rule_constructor (struct its_rule_ty *rule,
       return;
     }
 
-  prop = _its_get_attribute (node, "selector", NULL);
-  if (prop)
-    rule->selector = prop;
+  {
+    char *prop = _its_get_attribute (node, "selector", NULL);
+    if (prop)
+      rule->selector = prop;
+  }
+  {
+    char *prop = _its_get_attribute (node, "space", NULL);
+    if (prop
+        && !(strcmp (prop, "preserve") ==0
+             || strcmp (prop, "default") == 0
+             /* gettext extension: remove leading/trailing whitespaces only.  */
+             || (node->ns && xmlStrEqual (node->ns->href, BAD_CAST GT_NS)
+                 && strcmp (prop, "trim") == 0)
+             /* gettext extension: same as default except keeping
+                paragraph boundaries.  */
+             || (node->ns && xmlStrEqual (node->ns->href, BAD_CAST GT_NS)
+                 && strcmp (prop, "paragraph") == 0)))
+      {
+        error (0, 0, _("invalid attribute value \"%s\" for \"%s\""),
+               prop, "space");
+        free (prop);
+        return;
+      }
 
-  prop = _its_get_attribute (node, "space", NULL);
-  if (prop
-      && !(strcmp (prop, "preserve") ==0 
-           || strcmp (prop, "default") == 0
-           /* gettext extension: remove leading/trailing whitespaces only.  */
-           || (node->ns && xmlStrEqual (node->ns->href, BAD_CAST GT_NS)
-               && strcmp (prop, "trim") == 0)
-           /* gettext extension: same as default except keeping
-              paragraph boundaries.  */
-           || (node->ns && xmlStrEqual (node->ns->href, BAD_CAST GT_NS)
-               && strcmp (prop, "paragraph") == 0)))
-    {
-      error (0, 0, _("invalid attribute value \"%s\" for \"%s\""),
-             prop, "space");
-      free (prop);
-      return;
-    }
-
-  its_value_list_append (&rule->values, "space", prop);
-  free (prop);
+    its_value_list_append (&rule->values, "space", prop);
+    free (prop);
+  }
 }
 
 static struct its_value_list_ty *
@@ -1176,11 +1130,7 @@ its_preserve_space_rule_eval (struct its_rule_ty *rule,
      - Default values: space="default"
      - Inheritance for element nodes: Textual content of element,
        including attributes and child elements.  */
-  struct its_value_list_ty *result;
-  struct its_value_list_ty *values;
-  const char *value;
-
-  result = XCALLOC (1, struct its_value_list_ty);
+  struct its_value_list_ty *result = XCALLOC (1, struct its_value_list_ty);
 
   if (node->type != XML_ELEMENT_NODE)
     return result;
@@ -1197,12 +1147,14 @@ its_preserve_space_rule_eval (struct its_rule_ty *rule,
     }
 
   /* Check value for the current node.  */
-  value = its_pool_get_value_for_node (pool, node, "space");
-  if (value != NULL)
-    {
-      its_value_list_set_value (result, "space", value);
-      return result;
-    }
+  {
+    const char *value = its_pool_get_value_for_node (pool, node, "space");
+    if (value != NULL)
+      {
+        its_value_list_set_value (result, "space", value);
+        return result;
+      }
+  }
 
   if (node->parent == NULL
       || node->parent->type != XML_ELEMENT_NODE)
@@ -1213,7 +1165,8 @@ its_preserve_space_rule_eval (struct its_rule_ty *rule,
     }
 
   /* Recursively check value for the parent node.  */
-  values = its_preserve_space_rule_eval (rule, pool, node->parent);
+  struct its_value_list_ty *values =
+    its_preserve_space_rule_eval (rule, pool, node->parent);
   its_value_list_merge (result, values);
   its_value_list_destroy (values);
   free (values);
@@ -1237,8 +1190,6 @@ static struct its_rule_class_ty its_preserve_space_rule_class =
 static void
 its_extension_context_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
 {
-  char *prop;
-
   if (!xmlHasProp (node, BAD_CAST "selector"))
     {
       _its_error_missing_attribute (node, "selector");
@@ -1251,17 +1202,20 @@ its_extension_context_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
       return;
     }
 
-  prop = _its_get_attribute (node, "selector", NULL);
-  if (prop)
-    rule->selector = prop;
-
-  prop = _its_get_attribute (node, "contextPointer", NULL);
-  its_value_list_append (&rule->values, "contextPointer", prop);
-  free (prop);
+  {
+    char *prop = _its_get_attribute (node, "selector", NULL);
+    if (prop)
+      rule->selector = prop;
+  }
+  {
+    char *prop = _its_get_attribute (node, "contextPointer", NULL);
+    its_value_list_append (&rule->values, "contextPointer", prop);
+    free (prop);
+  }
 
   if (xmlHasProp (node, BAD_CAST "textPointer"))
     {
-      prop = _its_get_attribute (node, "textPointer", NULL);
+      char *prop = _its_get_attribute (node, "textPointer", NULL);
       its_value_list_append (&rule->values, "textPointer", prop);
       free (prop);
     }
@@ -1277,20 +1231,20 @@ its_extension_context_rule_eval (struct its_rule_ty *rule,
      - Global, rule-based selection: Yes
      - Default values: none
      - Inheritance for element nodes: none  */
-  struct its_value_list_ty *result;
-  const char *value;
-
-  result = XCALLOC (1, struct its_value_list_ty);
+  struct its_value_list_ty *result = XCALLOC (1, struct its_value_list_ty);
 
   /* Doesn't inherit from the parent elements, and the default value
      is None.  */
-  value = its_pool_get_value_for_node (pool, node, "contextPointer");
-  if (value != NULL)
-    its_value_list_set_value (result, "contextPointer", value);
-
-  value = its_pool_get_value_for_node (pool, node, "textPointer");
-  if (value != NULL)
-    its_value_list_set_value (result, "textPointer", value);
+  {
+    const char *value = its_pool_get_value_for_node (pool, node, "contextPointer");
+    if (value != NULL)
+      its_value_list_set_value (result, "contextPointer", value);
+  }
+  {
+    const char *value = its_pool_get_value_for_node (pool, node, "textPointer");
+    if (value != NULL)
+      its_value_list_set_value (result, "textPointer", value);
+  }
 
   return result;
 }
@@ -1311,8 +1265,6 @@ static struct its_rule_class_ty its_extension_context_rule_class =
 static void
 its_extension_escape_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
 {
-  char *prop;
-
   if (!xmlHasProp (node, BAD_CAST "selector"))
     {
       _its_error_missing_attribute (node, "selector");
@@ -1325,17 +1277,20 @@ its_extension_escape_rule_constructor (struct its_rule_ty *rule, xmlNode *node)
       return;
     }
 
-  prop = _its_get_attribute (node, "selector", NULL);
-  if (prop)
-    rule->selector = prop;
-
-  prop = _its_get_attribute (node, "escape", NULL);
-  its_value_list_append (&rule->values, "escape", prop);
-  free (prop);
+  {
+    char *prop = _its_get_attribute (node, "selector", NULL);
+    if (prop)
+      rule->selector = prop;
+  }
+  {
+    char *prop = _its_get_attribute (node, "escape", NULL);
+    its_value_list_append (&rule->values, "escape", prop);
+    free (prop);
+  }
 
   if (xmlHasProp (node, BAD_CAST "unescape-if"))
     {
-      prop = _its_get_attribute (node, "unescape-if", NULL);
+      char *prop = _its_get_attribute (node, "unescape-if", NULL);
       its_value_list_append (&rule->values, "unescape-if", prop);
       free (prop);
     }
@@ -1352,9 +1307,7 @@ its_extension_escape_rule_eval (struct its_rule_ty *rule,
      - Default values: escape="no" unescape-if="no" (handled in the caller)
      - Inheritance for element nodes: Textual content of element,
        including content of child elements, but excluding attributes.  */
-  struct its_value_list_ty *result;
-
-  result = XCALLOC (1, struct its_value_list_ty);
+  struct its_value_list_ty *result = XCALLOC (1, struct its_value_list_ty);
 
   switch (node->type)
     {
@@ -1374,8 +1327,6 @@ its_extension_escape_rule_eval (struct its_rule_ty *rule,
     case XML_ELEMENT_NODE:
       /* Inherit from the parent elements.  */
       {
-        const char *value;
-
         /* A local attribute overrides the global rule.  */
         if (xmlHasNsProp (node, BAD_CAST "escape", BAD_CAST GT_NS)
             || xmlHasNsProp (node, BAD_CAST "unescape-if", BAD_CAST GT_NS))
@@ -1415,24 +1366,27 @@ its_extension_escape_rule_eval (struct its_rule_ty *rule,
           }
 
         /* Check value for the current node.  */
-        value = its_pool_get_value_for_node (pool, node, "unescape-if");
-        if (value != NULL)
-          its_value_list_set_value (result, "unescape-if", value);
+        {
+          const char *value = its_pool_get_value_for_node (pool, node, "unescape-if");
+          if (value != NULL)
+            its_value_list_set_value (result, "unescape-if", value);
+        }
 
-        value = its_pool_get_value_for_node (pool, node, "escape");
-        if (value != NULL)
-          {
-            its_value_list_set_value (result, "escape", value);
-            return result;
-          }
+        {
+          const char *value = its_pool_get_value_for_node (pool, node, "escape");
+          if (value != NULL)
+            {
+              its_value_list_set_value (result, "escape", value);
+              return result;
+            }
+        }
 
         /* Recursively check value for the parent node.  */
         if (node->parent != NULL
             && node->parent->type == XML_ELEMENT_NODE)
           {
-            struct its_value_list_ty *values;
-
-            values = its_extension_escape_rule_eval (rule, pool, node->parent);
+            struct its_value_list_ty *values =
+              its_extension_escape_rule_eval (rule, pool, node->parent);
             its_value_list_merge (result, values);
             its_value_list_destroy (values);
             free (values);
@@ -1464,9 +1418,7 @@ static hash_table classes;
 static struct its_rule_ty *
 its_rule_alloc (struct its_rule_class_ty *method_table, xmlNode *node)
 {
-  struct its_rule_ty *rule;
-
-  rule = (struct its_rule_ty *) xcalloc (1, method_table->size);
+  struct its_rule_ty *rule = (struct its_rule_ty *) xcalloc (1, method_table->size);
   rule->methods = method_table;
   if (method_table->constructor)
     method_table->constructor (rule, node);
@@ -1477,25 +1429,27 @@ static struct its_rule_ty *
 its_rule_parse (xmlDoc *doc, xmlNode *node)
 {
   const char *name = (const char *) node->name;
-  void *value;
 
+  void *value;
   if (hash_find_entry (&classes, name, strlen (name), &value) == 0)
     {
-      struct its_rule_ty *result;
-      xmlNs **namespaces;
+      struct its_rule_ty *result =
+        its_rule_alloc ((struct its_rule_class_ty *) value, node);
 
-      result = its_rule_alloc ((struct its_rule_class_ty *) value, node);
-      namespaces = xmlGetNsList (doc, node);
+      xmlNs **namespaces = xmlGetNsList (doc, node);
       if (namespaces)
         {
-          size_t i;
-          for (i = 0; namespaces[i] != NULL; i++)
-            ;
-          result->namespaces = XCALLOC (i + 1, xmlNs *);
-          for (i = 0; namespaces[i] != NULL; i++)
+          {
+            size_t i;
+            for (i = 0; namespaces[i] != NULL; i++)
+              ;
+            result->namespaces = XCALLOC (i + 1, xmlNs *);
+          }
+          for (size_t i = 0; namespaces[i] != NULL; i++)
             result->namespaces[i] = xmlCopyNamespace (namespaces[i]);
         }
       xmlFree (namespaces);
+
       return result;
     }
 
@@ -1540,24 +1494,20 @@ struct its_rule_list_ty
 struct its_rule_list_ty *
 its_rule_list_alloc (void)
 {
-  struct its_rule_list_ty *result;
-
   if (classes.table == NULL)
     {
       hash_init (&classes, 10);
       init_classes ();
     }
 
-  result = XCALLOC (1, struct its_rule_list_ty);
+  struct its_rule_list_ty *result = XCALLOC (1, struct its_rule_list_ty);
   return result;
 }
 
 void
 its_rule_list_free (struct its_rule_list_ty *rules)
 {
-  size_t i;
-
-  for (i = 0; i < rules->nitems; i++)
+  for (size_t i = 0; i < rules->nitems; i++)
     {
       its_rule_destroy (rules->items[i]);
       free (rules->items[i]);
@@ -1570,9 +1520,7 @@ static bool
 its_rule_list_add_from_doc (struct its_rule_list_ty *rules,
                             xmlDoc *doc)
 {
-  xmlNode *root, *node;
-
-  root = xmlDocGetRootElement (doc);
+  xmlNode *root = xmlDocGetRootElement (doc);
   if (!(xmlStrEqual (root->name, BAD_CAST "rules")
         && xmlStrEqual (root->ns->href, BAD_CAST ITS_NS)))
     {
@@ -1583,11 +1531,9 @@ its_rule_list_add_from_doc (struct its_rule_list_ty *rules,
       return false;
     }
 
-  for (node = root->children; node; node = node->next)
+  for (xmlNode *node = root->children; node; node = node->next)
     {
-      struct its_rule_ty *rule;
-
-      rule = its_rule_parse (doc, node);
+      struct its_rule_ty *rule = its_rule_parse (doc, node);
       if (rule != NULL)
         {
           if (rules->nitems == rules->nitems_max)
@@ -1608,14 +1554,11 @@ bool
 its_rule_list_add_from_file (struct its_rule_list_ty *rules,
                              const char *filename)
 {
-  xmlDoc *doc;
-  bool result;
-
-  doc = xmlReadFile (filename, "utf-8",
-                     XML_PARSE_NONET
-                     | XML_PARSE_NOWARNING
-                     | XML_PARSE_NOBLANKS
-                     | XML_PARSE_NOERROR);
+  xmlDoc *doc = xmlReadFile (filename, "utf-8",
+                             XML_PARSE_NONET
+                             | XML_PARSE_NOWARNING
+                             | XML_PARSE_NOBLANKS
+                             | XML_PARSE_NOERROR);
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
@@ -1624,6 +1567,7 @@ its_rule_list_add_from_file (struct its_rule_list_ty *rules,
       return false;
     }
 
+  bool result;
   if (setjmp (xml_error_exit) == 0)
     {
       xmlSetStructuredErrorFunc (NULL, structured_error);
@@ -1646,16 +1590,13 @@ bool
 its_rule_list_add_from_string (struct its_rule_list_ty *rules,
                                const char *rule)
 {
-  xmlDoc *doc;
-  bool result;
-
-  doc = xmlReadMemory (rule, strlen (rule),
-                       "(internal)",
-                       NULL,
-                       XML_PARSE_NONET
-                       | XML_PARSE_NOWARNING
-                       | XML_PARSE_NOBLANKS
-                       | XML_PARSE_NOERROR);
+  xmlDoc *doc = xmlReadMemory (rule, strlen (rule),
+                               "(internal)",
+                               NULL,
+                               XML_PARSE_NONET
+                               | XML_PARSE_NOWARNING
+                               | XML_PARSE_NOBLANKS
+                               | XML_PARSE_NOERROR);
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
@@ -1664,6 +1605,7 @@ its_rule_list_add_from_string (struct its_rule_list_ty *rules,
       return false;
     }
 
+  bool result;
   if (setjmp (xml_error_exit) == 0)
     {
       xmlSetStructuredErrorFunc (NULL, structured_error);
@@ -1685,9 +1627,7 @@ its_rule_list_add_from_string (struct its_rule_list_ty *rules,
 static void
 its_rule_list_apply (struct its_rule_list_ty *rules, xmlDoc *doc)
 {
-  size_t i;
-
-  for (i = 0; i < rules->nitems; i++)
+  for (size_t i = 0; i < rules->nitems; i++)
     {
       struct its_rule_ty *rule = rules->items[i];
       rule->methods->apply (rule, &rules->pool, doc);
@@ -1697,16 +1637,12 @@ its_rule_list_apply (struct its_rule_list_ty *rules, xmlDoc *doc)
 static struct its_value_list_ty *
 its_rule_list_eval (its_rule_list_ty *rules, xmlNode *node)
 {
-  struct its_value_list_ty *result;
-  size_t i;
+  struct its_value_list_ty *result = XCALLOC (1, struct its_value_list_ty);
 
-  result = XCALLOC (1, struct its_value_list_ty);
-  for (i = 0; i < rules->nitems; i++)
+  for (size_t i = 0; i < rules->nitems; i++)
     {
       struct its_rule_ty *rule = rules->items[i];
-      struct its_value_list_ty *values;
-
-      values = rule->methods->eval (rule, &rules->pool, node);
+      struct its_value_list_ty *values = rule->methods->eval (rule, &rules->pool, node);
       its_value_list_merge (result, values);
       its_value_list_destroy (values);
       free (values);
@@ -1720,29 +1656,27 @@ its_rule_list_is_translatable (its_rule_list_ty *rules,
                                xmlNode *node,
                                int depth)
 {
-  struct its_value_list_ty *values;
-  const char *value;
-  xmlNode *n;
-
   if (node->type != XML_ELEMENT_NODE
       && node->type != XML_ATTRIBUTE_NODE)
     return false;
 
-  values = its_rule_list_eval (rules, node);
+  struct its_value_list_ty *values = its_rule_list_eval (rules, node);
 
   /* Check if NODE has translate="yes".  */
-  value = its_value_list_get_value (values, "translate");
-  if (!(value && strcmp (value, "yes") == 0))
-    {
-      its_value_list_destroy (values);
-      free (values);
-      return false;
-    }
+  {
+    const char *value = its_value_list_get_value (values, "translate");
+    if (!(value && strcmp (value, "yes") == 0))
+      {
+        its_value_list_destroy (values);
+        free (values);
+        return false;
+      }
+  }
 
   /* Check if NODE has withinText="yes", if NODE is not top-level.  */
   if (depth > 0)
     {
-      value = its_value_list_get_value (values, "withinText");
+      const char *value = its_value_list_get_value (values, "withinText");
       if (!(value && strcmp (value, "yes") == 0))
         {
           its_value_list_destroy (values);
@@ -1754,7 +1688,7 @@ its_rule_list_is_translatable (its_rule_list_ty *rules,
   its_value_list_destroy (values);
   free (values);
 
-  for (n = node->children; n; n = n->next)
+  for (xmlNode *n = node->children; n; n = n->next)
     {
       switch (n->type)
         {
@@ -1786,8 +1720,7 @@ its_rule_list_extract_nodes (its_rule_list_ty *rules,
     {
       if (node->properties)
         {
-          xmlAttr *attr;
-          for (attr = node->properties; attr; attr = attr->next)
+          for (xmlAttr *attr = node->properties; attr; attr = attr->next)
             {
               xmlNode *n = (xmlNode *) attr;
               if (its_rule_list_is_translatable (rules, n, 0))
@@ -1799,8 +1732,7 @@ its_rule_list_extract_nodes (its_rule_list_ty *rules,
         its_node_list_append (nodes, node);
       else
         {
-          xmlNode *n;
-          for (n = node->children; n; n = n->next)
+          for (xmlNode *n = node->children; n; n = n->next)
             its_rule_list_extract_nodes (rules, nodes, n);
         }
     }
@@ -1812,37 +1744,28 @@ _its_get_content (struct its_rule_list_ty *rules, xmlNode *node,
                   enum its_whitespace_type_ty whitespace,
                   bool do_escape)
 {
-  xmlXPathContext *context;
-  xmlXPathObject *object;
-  char *result = NULL;
-
-  context = xmlXPathNewContext (node->doc);
+  xmlXPathContext *context = xmlXPathNewContext (node->doc);
   if (!context)
     {
       error (0, 0, _("cannot create XPath context"));
       return NULL;
     }
 
-  {
-    size_t i;
-
-    for (i = 0; i < rules->nitems; i++)
-      {
-        struct its_rule_ty *rule = rules->items[i];
-        if (rule->namespaces)
-          {
-            size_t j;
-            for (j = 0; rule->namespaces[j] != NULL; j++)
-              {
-                xmlNs *ns = rule->namespaces[j];
-                xmlXPathRegisterNs (context, ns->prefix, ns->href);
-              }
-          }
-      }
-  }
+  for (size_t i = 0; i < rules->nitems; i++)
+    {
+      struct its_rule_ty *rule = rules->items[i];
+      if (rule->namespaces)
+        {
+          for (size_t j = 0; rule->namespaces[j] != NULL; j++)
+            {
+              xmlNs *ns = rule->namespaces[j];
+              xmlXPathRegisterNs (context, ns->prefix, ns->href);
+            }
+        }
+    }
 
   xmlXPathSetContextNode (node, context);
-  object = xmlXPathEvalExpression (BAD_CAST pointer, context);
+  xmlXPathObject *object = xmlXPathEvalExpression (BAD_CAST pointer, context);
   if (!object)
     {
       xmlXPathFreeContext (context);
@@ -1851,16 +1774,15 @@ _its_get_content (struct its_rule_list_ty *rules, xmlNode *node,
       return NULL;
     }
 
+  char *result = NULL;
   switch (object->type)
     {
     case XPATH_NODESET:
       {
         xmlNodeSet *nodes = object->nodesetval;
         string_list_ty sl;
-        size_t i;
-
         string_list_init (&sl);
-        for (i = 0; i < nodes->nodeNr; i++)
+        for (size_t i = 0; i < nodes->nodeNr; i++)
           {
             char *content = _its_collect_text_content (nodes->nodeTab[i],
                                                        whitespace,
@@ -1928,19 +1850,15 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
   if (node->type == XML_ELEMENT_NODE
       || node->type == XML_ATTRIBUTE_NODE)
     {
-      struct its_value_list_ty *values;
-      const char *value;
-      char *msgid = NULL, *msgctxt = NULL, *comment = NULL;
+      struct its_value_list_ty *values = its_rule_list_eval (rules, node);
+
       bool do_escape;
-      bool do_escape_during_extract;
-      enum its_whitespace_type_ty whitespace;
-      
-      values = its_rule_list_eval (rules, node);
+      {
+        const char *value = its_value_list_get_value (values, "escape");
+        do_escape = value != NULL && strcmp (value, "yes") == 0;
+      }
 
-      value = its_value_list_get_value (values, "escape");
-      do_escape = value != NULL && strcmp (value, "yes") == 0;
-
-      do_escape_during_extract = do_escape;
+      bool do_escape_during_extract = do_escape;
       /* But no, during message extraction (i.e. what xgettext does), we do
          *not* want escaping to be done.  The contents of the POT file is meant
          for translators, and
@@ -1951,35 +1869,36 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
          does) instead.  */
       do_escape_during_extract = false;
 
-      value = its_value_list_get_value (values, "locNote");
-      if (value)
-        comment = xstrdup (value);
-      else
-        {
-          value = its_value_list_get_value (values, "locNotePointer");
-          if (value)
-            comment = _its_get_content (rules, node, value, ITS_WHITESPACE_TRIM,
-                                        do_escape_during_extract);
-        }
+      char *comment = NULL;
+      {
+        const char *value = its_value_list_get_value (values, "locNote");
+        if (value)
+          comment = xstrdup (value);
+        else
+          {
+            value = its_value_list_get_value (values, "locNotePointer");
+            if (value)
+              comment = _its_get_content (rules, node, value, ITS_WHITESPACE_TRIM,
+                                          do_escape_during_extract);
+          }
+      }
 
       if (comment != NULL && *comment != '\0')
         {
           string_list_ty comments;
-          char *tmp;
-
           string_list_init (&comments);
           _its_comment_append (&comments, comment);
-          tmp = string_list_join (&comments, "\n", '\0', false);
+          char *tmp = string_list_join (&comments, "\n", '\0', false);
           free (comment);
           comment = tmp;
         }
       else
         /* Extract comments preceding the node.  */
         {
-          xmlNode *sibling;
           string_list_ty comments;
-
           string_list_init (&comments);
+
+          xmlNode *sibling;
           for (sibling = node->prev; sibling; sibling = sibling->prev)
             if (sibling->type != XML_COMMENT_NODE || sibling->prev == NULL)
               break;
@@ -1999,26 +1918,36 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
               string_list_destroy (&comments);
             }
         }
-      
-      value = its_value_list_get_value (values, "space");
-      if (value && strcmp (value, "preserve") == 0)
-        whitespace = ITS_WHITESPACE_PRESERVE;
-      else if (value && strcmp (value, "trim") == 0)
-        whitespace = ITS_WHITESPACE_TRIM;
-      else if (value && strcmp (value, "paragraph") == 0)
-        whitespace = ITS_WHITESPACE_NORMALIZE_PARAGRAPH;
-      else
-        whitespace = ITS_WHITESPACE_NORMALIZE;
 
-      value = its_value_list_get_value (values, "contextPointer");
-      if (value)
-        msgctxt = _its_get_content (rules, node, value, ITS_WHITESPACE_PRESERVE,
+      enum its_whitespace_type_ty whitespace;
+      {
+        const char *value = its_value_list_get_value (values, "space");
+        if (value && strcmp (value, "preserve") == 0)
+          whitespace = ITS_WHITESPACE_PRESERVE;
+        else if (value && strcmp (value, "trim") == 0)
+          whitespace = ITS_WHITESPACE_TRIM;
+        else if (value && strcmp (value, "paragraph") == 0)
+          whitespace = ITS_WHITESPACE_NORMALIZE_PARAGRAPH;
+        else
+          whitespace = ITS_WHITESPACE_NORMALIZE;
+      }
+
+      char *msgctxt = NULL;
+      {
+        const char *value = its_value_list_get_value (values, "contextPointer");
+        if (value)
+          msgctxt = _its_get_content (rules, node, value, ITS_WHITESPACE_PRESERVE,
+                                      do_escape_during_extract);
+      }
+
+      char *msgid = NULL;
+      {
+        const char *value = its_value_list_get_value (values, "textPointer");
+        if (value)
+          msgid = _its_get_content (rules, node, value, ITS_WHITESPACE_PRESERVE,
                                     do_escape_during_extract);
+      }
 
-      value = its_value_list_get_value (values, "textPointer");
-      if (value)
-        msgid = _its_get_content (rules, node, value, ITS_WHITESPACE_PRESERVE,
-                                  do_escape_during_extract);
       its_value_list_destroy (values);
       free (values);
 
@@ -2028,11 +1957,10 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       if (*msgid != '\0')
         {
           lex_pos_ty pos;
-          char *marker;
-
           pos.file_name = xstrdup (logical_filename);
           pos.line_number = xmlGetLineNo (node);
 
+          char *marker;
           if (node->type == XML_ELEMENT_NODE)
             {
               assert (node->parent);
@@ -2069,13 +1997,11 @@ its_rule_list_extract (its_rule_list_ty *rules,
                        msgdomain_list_ty *mdlp,
                        its_extract_callback_ty callback)
 {
-  xmlDoc *doc;
-
-  doc = xmlReadFd (fileno (fp), logical_filename, NULL,
-                   XML_PARSE_NONET
-                   | XML_PARSE_NOWARNING
-                   | XML_PARSE_NOBLANKS
-                   | XML_PARSE_NOERROR);
+  xmlDoc *doc = xmlReadFd (fileno (fp), logical_filename, NULL,
+                           XML_PARSE_NONET
+                           | XML_PARSE_NOWARNING
+                           | XML_PARSE_NOBLANKS
+                           | XML_PARSE_NOERROR);
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
@@ -2097,8 +2023,7 @@ its_rule_list_extract (its_rule_list_ty *rules,
                                    &nodes,
                                    xmlDocGetRootElement (doc));
 
-      size_t i;
-      for (i = 0; i < nodes.nitems; i++)
+      for (size_t i = 0; i < nodes.nitems; i++)
         its_rule_list_extract_text (rules, nodes.items[i],
                                     logical_filename,
                                     mdlp->item[0]->messages,
@@ -2144,8 +2069,7 @@ _its_copy_node_with_attributes (xmlNode *node)
 #else
   copy = xmlNewNode (node->ns, node->name);
 
-  xmlAttr *attributes;
-  for (attributes = node->properties;
+  for (xmlAttr *attributes = node->properties;
        attributes != NULL;
        attributes = attributes->next)
     {
@@ -2245,11 +2169,8 @@ starts_with_character_reference (const char *s, unsigned int *ucs_p)
 static char *
 _its_encode_special_chars_for_merge (const char *content)
 {
-  const char *str;
   size_t amount = 0;
-  char *result, *p;
-
-  for (str = content; *str != '\0'; str++)
+  for (const char *str = content; *str != '\0'; str++)
     {
       if (*str == '&' && starts_with_character_reference (str, NULL))
         amount += sizeof ("&amp;");
@@ -2261,21 +2182,23 @@ _its_encode_special_chars_for_merge (const char *content)
         amount += 1;
     }
 
-  result = XNMALLOC (amount + 1, char);
+  char *result = XNMALLOC (amount + 1, char);
   *result = '\0';
-  p = result;
-  for (str = content; *str != '\0'; str++)
-    {
-      if (*str == '&' && starts_with_character_reference (str, NULL))
-        p = stpcpy (p, "&amp;");
-      else if (*str == '<')
-        p = stpcpy (p, "&lt;");
-      else if (*str == '>')
-        p = stpcpy (p, "&gt;");
-      else
-        *p++ = *str;
-    }
-  *p = '\0';
+  {
+    char *p = result;
+    for (const char *str = content; *str != '\0'; str++)
+      {
+        if (*str == '&' && starts_with_character_reference (str, NULL))
+          p = stpcpy (p, "&amp;");
+        else if (*str == '<')
+          p = stpcpy (p, "&lt;");
+        else if (*str == '>')
+          p = stpcpy (p, "&gt;");
+        else
+          *p++ = *str;
+      }
+    *p = '\0';
+  }
   return result;
 }
 
@@ -2354,12 +2277,11 @@ _its_is_valid_simple_gen_xml (const char *contents,
               xmlAddChild (parent_node, text_node);
             }
 
-          bool slash_before_tag = false;
-          bool slash_after_tag = false;
-
           c = *++p;
           if (c == '\0')
             return false;
+
+          bool slash_before_tag = false;
           if (c == '/')
             {
               slash_before_tag = true;
@@ -2367,6 +2289,7 @@ _its_is_valid_simple_gen_xml (const char *contents,
               if (c == '\0')
                 return false;
             }
+
           /* Parse a name.
              <https://www.w3.org/TR/xml/#NT-Name>  */
           if (!((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z')
@@ -2383,6 +2306,7 @@ _its_is_valid_simple_gen_xml (const char *contents,
                  || c == '_' || c == ':'
                  || (c >= '0' && c <= '9') || c == '-' || c == '.');
           const char *name_end = p;
+
           xmlNode *current_node = NULL;
           if (add_to_node != NULL && !slash_before_tag)
             {
@@ -2392,8 +2316,7 @@ _its_is_valid_simple_gen_xml (const char *contents,
               if (ignore_case)
                 {
                   /* Convert the name to lower case.  */
-                  char *np;
-                  for (np = name_c; *np != '\0'; np++)
+                  for (char *np = name_c; *np != '\0'; np++)
                     *np = c_tolower (*np);
                 }
               current_node =
@@ -2401,6 +2324,7 @@ _its_is_valid_simple_gen_xml (const char *contents,
                                       NULL);
               xmlAddChild (parent_node, current_node);
             }
+
           /* Skip over whitespace.
              <https://www.w3.org/TR/xml/#sec-common-syn>  */
           while (c == ' ' || c == '\t' || c == '\n' || c == '\r')
@@ -2409,6 +2333,8 @@ _its_is_valid_simple_gen_xml (const char *contents,
               if (c == '\0')
                 return false;
             }
+
+          bool slash_after_tag = false;
           if (!slash_before_tag)
             {
               /* Parse a sequence of attributes.
@@ -2519,6 +2445,7 @@ _its_is_valid_simple_gen_xml (const char *contents,
           if (c != '>')
             return false;
           /* Seen a complete <...> element start/end.  */
+
           /* Verify that the tag is allowed.  */
           string_desc_t tag = sd_new_addr (name_end - name_start, name_start);
           if (!(valid_element == NULL || valid_element (tag)))
@@ -2891,63 +2818,62 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
 {
   if (node->type == XML_ELEMENT_NODE)
     {
-      struct its_value_list_ty *values;
-      const char *value;
-      char *msgid = NULL, *msgctxt = NULL;
+      struct its_value_list_ty *values = its_rule_list_eval (context->rules, node);
+
       bool do_escape;
-      bool do_escape_during_extract;
-      bool do_escape_during_merge;
-      const char *do_unescape_if;
-      enum its_whitespace_type_ty whitespace;
+      {
+        const char *value = its_value_list_get_value (values, "escape");
+        do_escape = value != NULL && strcmp (value, "yes") == 0;
+      }
 
-      values = its_rule_list_eval (context->rules, node);
-
-      value = its_value_list_get_value (values, "escape");
-      do_escape = value != NULL && strcmp (value, "yes") == 0;
-
-      do_escape_during_extract = do_escape;
+      bool do_escape_during_extract = do_escape;
       /* Like above, in its_rule_list_extract_text.  */
       do_escape_during_extract = false;
 
-      do_escape_during_merge = do_escape;
+      bool do_escape_during_merge = do_escape;
 
-      do_unescape_if = its_value_list_get_value (values, "unescape-if");
+      const char *do_unescape_if = its_value_list_get_value (values, "unescape-if");
 
-      value = its_value_list_get_value (values, "space");
-      if (value && strcmp (value, "preserve") == 0)
-        whitespace = ITS_WHITESPACE_PRESERVE;
-      else if (value && strcmp (value, "trim") == 0)
-        whitespace = ITS_WHITESPACE_TRIM;
-      else if (value && strcmp (value, "paragraph") == 0)
-        whitespace = ITS_WHITESPACE_NORMALIZE_PARAGRAPH;
-      else
-        whitespace = ITS_WHITESPACE_NORMALIZE;
+      enum its_whitespace_type_ty whitespace;
+      {
+        const char *value = its_value_list_get_value (values, "space");
+        if (value && strcmp (value, "preserve") == 0)
+          whitespace = ITS_WHITESPACE_PRESERVE;
+        else if (value && strcmp (value, "trim") == 0)
+          whitespace = ITS_WHITESPACE_TRIM;
+        else if (value && strcmp (value, "paragraph") == 0)
+          whitespace = ITS_WHITESPACE_NORMALIZE_PARAGRAPH;
+        else
+          whitespace = ITS_WHITESPACE_NORMALIZE;
+      }
 
-      value = its_value_list_get_value (values, "contextPointer");
-      if (value)
-        msgctxt = _its_get_content (context->rules, node, value,
+      char *msgctxt = NULL;
+      {
+        const char *value = its_value_list_get_value (values, "contextPointer");
+        if (value)
+          msgctxt = _its_get_content (context->rules, node, value,
+                                      ITS_WHITESPACE_PRESERVE,
+                                      do_escape_during_extract);
+      }
+
+      char *msgid = NULL;
+      {
+        const char *value = its_value_list_get_value (values, "textPointer");
+        if (value)
+          msgid = _its_get_content (context->rules, node, value,
                                     ITS_WHITESPACE_PRESERVE,
                                     do_escape_during_extract);
-
-      value = its_value_list_get_value (values, "textPointer");
-      if (value)
-        msgid = _its_get_content (context->rules, node, value,
-                                  ITS_WHITESPACE_PRESERVE,
-                                  do_escape_during_extract);
+      }
 
       if (msgid == NULL)
         msgid = _its_collect_text_content (node, whitespace,
                                            do_escape_during_extract);
       if (*msgid != '\0')
         {
-          message_ty *mp;
-
-          mp = message_list_search (mlp, msgctxt, msgid);
+          message_ty *mp = message_list_search (mlp, msgctxt, msgid);
           if (mp && *mp->msgstr != '\0')
             {
               xmlNode *translated;
-              char language_bcp47[BCP47_MAX];
-
               if (replace_text)
                 {
                   /* Reuse the node.  But first, clear its text content and all
@@ -2966,6 +2892,7 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
                  <https://www.w3.org/International/questions/qa-when-xmllang.en.html>
                  says: "The value of the xml:lang attribute is a language tag
                  defined by BCP 47."  */
+              char language_bcp47[BCP47_MAX];
               xpg_to_bcp47 (language_bcp47, language);
               xmlSetProp (translated, BAD_CAST "xml:lang", BAD_CAST language_bcp47);
 
@@ -3077,8 +3004,7 @@ its_merge_context_merge (its_merge_context_ty *context,
       xmlSetStructuredErrorFunc (NULL, structured_error);
       xmlSetGenericErrorFunc (NULL, generic_error);
 
-      size_t i;
-      for (i = 0; i < context->nodes.nitems; i++)
+      for (size_t i = 0; i < context->nodes.nitems; i++)
         its_merge_context_merge_node (context, context->nodes.items[i],
                                       language,
                                       mlp,
@@ -3096,14 +3022,11 @@ struct its_merge_context_ty *
 its_merge_context_alloc (its_rule_list_ty *rules,
                          const char *filename)
 {
-  xmlDoc *doc;
-  struct its_merge_context_ty *result;
-
-  doc = xmlReadFile (filename, NULL,
-                     XML_PARSE_NONET
-                     | XML_PARSE_NOWARNING
-                     | XML_PARSE_NOBLANKS
-                     | XML_PARSE_NOERROR);
+  xmlDoc *doc = xmlReadFile (filename, NULL,
+                             XML_PARSE_NONET
+                             | XML_PARSE_NOWARNING
+                             | XML_PARSE_NOBLANKS
+                             | XML_PARSE_NOERROR);
   if (doc == NULL)
     {
       const xmlError *err = xmlGetLastError ();
@@ -3112,6 +3035,7 @@ its_merge_context_alloc (its_rule_list_ty *rules,
       return NULL;
     }
 
+  struct its_merge_context_ty *result;
   if (setjmp (xml_error_exit) == 0)
     {
       xmlSetStructuredErrorFunc (NULL, structured_error);

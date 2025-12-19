@@ -441,9 +441,7 @@ apply_format_string (const struct format_string *fmts,
                      size_t argc, char *argv[])
 {
   size_t npieces = fmts->npieces;
-  size_t i;
-
-  for (i = 0; i < npieces; i++)
+  for (size_t i = 0; i < npieces; i++)
     {
       struct format_piece *piece = &fmts->pieces[i];
 
@@ -457,10 +455,10 @@ apply_format_string (const struct format_string *fmts,
       else
         {
           /* Convert and print an argument.  */
-          char *arg;
           char zero[2] = { '0', '\0' };
           char *empty = zero + 1;
 
+          char *arg;
           if (piece->arg_number - 1 < argc)
             arg = argv[piece->arg_number - 1];
           else
@@ -485,9 +483,9 @@ apply_format_string (const struct format_string *fmts,
                  multibyte character.  */
               {
                 mbstate_t state;
-                char32_t wc;
-
                 mbszero (&state);
+
+                char32_t wc;
                 size_t ret = mbrtoc32 (&wc, arg, strnlen1 (arg, MB_CUR_MAX), &state);
                 arg[(int) ret >= 0 ? ret : 1] = '\0';
               }
@@ -514,9 +512,9 @@ apply_format_string (const struct format_string *fmts,
                        Use the first first multibyte character, if arg starts
                        with a valid multibyte character.  */
                     mbstate_t state;
-                    char32_t wc;
-
                     mbszero (&state);
+
+                    char32_t wc;
                     size_t ret = mbrtoc32 (&wc, arg + 1, strnlen1 (arg + 1, MB_CUR_MAX), &state);
                     if ((int) ret > 0)
                       arg_value = wc;
@@ -582,9 +580,9 @@ apply_format_string (const struct format_string *fmts,
                        Use the first first multibyte character, if arg starts
                        with a valid multibyte character.  */
                     mbstate_t state;
-                    char32_t wc;
-
                     mbszero (&state);
+
+                    char32_t wc;
                     size_t ret = mbrtoc32 (&wc, arg + 1, strnlen1 (arg + 1, MB_CUR_MAX), &state);
                     if ((int) ret > 0)
                       arg_value = wc;

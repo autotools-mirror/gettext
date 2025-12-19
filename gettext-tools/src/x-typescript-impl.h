@@ -81,18 +81,16 @@ NOTE_OPTION_KEYWORD (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid identifier.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -391,10 +389,10 @@ sbru_xprepend_unicode (struct string_buffer_reversed_unicode *buffer,
   if (buffer->utf16_surr != 0 && (c >= 0xd800 && c < 0xdc00))
     {
       unsigned short utf16buf[2];
-      ucs4_t uc;
-
       utf16buf[0] = c;
       utf16buf[1] = buffer->utf16_surr;
+
+      ucs4_t uc;
       if (u16_mbtouc (&uc, utf16buf, 2) != 2)
         abort ();
 
@@ -459,8 +457,7 @@ is_string_literal (TSNode node)
          'escape_sequence' (and thus none of type 'template_substitution' or
          'ERROR').  */
       uint32_t count = ts_node_named_child_count (node);
-      uint32_t i;
-      for (i = 0; i < count; i++)
+      for (uint32_t i = 0; i < count; i++)
         {
           TSNode subnode = ts_node_named_child (node, i);
           if (!(ts_node_symbol (subnode) == ts_symbol_string_fragment
@@ -491,8 +488,7 @@ string_literal_accumulate_pieces (TSNode node,
       || ts_node_symbol (node) == ts_symbol_template_string)
     {
       uint32_t count = ts_node_named_child_count (node);
-      uint32_t i;
-      for (i = count; i > 0; )
+      for (uint32_t i = count; i > 0; )
         {
           i--;
           TSNode subnode = ts_node_named_child (node, i);
@@ -561,8 +557,7 @@ string_literal_accumulate_pieces (TSNode node,
                   /* Only up to 3 octal digits are accepted.  */
                   if (escape_end - escape_start <= 1 + 3)
                     {
-                      const char *p;
-                      for (p = escape_start + 1; p < escape_end; p++)
+                      for (const char *p = escape_start + 1; p < escape_end; p++)
                         {
                           /* No overflow is possible.  */
                           char c = *p;
@@ -581,8 +576,7 @@ string_literal_accumulate_pieces (TSNode node,
                        || (escape_start[1] == 'u' && escape_end - escape_start == 2 + 4))
                 {
                   unsigned int value = 0;
-                  const char *p;
-                  for (p = escape_start + 2; p < escape_end; p++)
+                  for (const char *p = escape_start + 2; p < escape_end; p++)
                     {
                       /* No overflow is possible.  */
                       char c = *p;
@@ -608,8 +602,7 @@ string_literal_accumulate_pieces (TSNode node,
                        && escape_start[2] == '{' && escape_end[-1] == '}')
                 {
                   unsigned int value = 0;
-                  const char *p;
-                  for (p = escape_start + 3; p < escape_end - 1; p++)
+                  for (const char *p = escape_start + 3; p < escape_end - 1; p++)
                     {
                       char c = *p;
                       if (c >= '0' && c <= '9')
@@ -757,10 +750,9 @@ extract_from_function_call (TSNode callee_node,
 
       /* Current argument number.  */
       uint32_t arg;
-      uint32_t i;
 
       arg = 0;
-      for (i = 0; i < args_count; i++)
+      for (uint32_t i = 0; i < args_count; i++)
         {
           TSNode arg_node = ts_node_child (args_node, i);
           handle_comments (arg_node);
@@ -825,10 +817,9 @@ extract_from_function_call (TSNode callee_node,
 
   /* Current argument number.  */
   uint32_t arg;
-  uint32_t i;
 
   arg = 0;
-  for (i = 0; i < args_count; i++)
+  for (uint32_t i = 0; i < args_count; i++)
     {
       TSNode arg_node = ts_node_child (args_node, i);
       handle_comments (arg_node);
@@ -894,8 +885,7 @@ extract_from_node (TSNode node,
               /* Handle the potential comments between 'function' and 'arguments'.  */
               {
                 uint32_t count = ts_node_child_count (node);
-                uint32_t i;
-                for (i = 0; i < count; i++)
+                for (uint32_t i = 0; i < count; i++)
                   {
                     TSNode subnode = ts_node_child (node, i);
                     if (ts_node_eq (subnode, args_node))
@@ -927,8 +917,7 @@ extract_from_node (TSNode node,
               fprintf (stderr, "gettext arguments: %s\n", ts_node_string (argsnode));
               fprintf (stderr, "gettext children:\n");
               uint32_t count = ts_node_named_child_count (node);
-              uint32_t i;
-              for (i = 0; i < count; i++)
+              for (uint32_t i = 0; i < count; i++)
                 fprintf (stderr, "%u -> %s\n", i, ts_node_string (ts_node_named_child (node, i)));
             }
         }
@@ -940,8 +929,7 @@ extract_from_node (TSNode node,
     {
       ignore = ignore || is_string_literal (node);
       uint32_t count = ts_node_child_count (node);
-      uint32_t i;
-      for (i = 0; i < count; i++)
+      for (uint32_t i = 0; i < count; i++)
         {
           TSNode subnode = ts_node_child (node, i);
           handle_comments (subnode);

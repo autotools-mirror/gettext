@@ -58,11 +58,9 @@ plural_expression_histogram (const struct plural_distribution *self,
   if (min <= max)
     {
       const struct expression *expr = self->expr;
-      unsigned long n;
-      unsigned int count;
 
-      count = 0;
-      for (n = min; n <= max; n++)
+      unsigned int count = 0;
+      for (unsigned long n = min; n <= max; n++)
         {
           struct eval_result res = plural_eval (expr, n);
 
@@ -101,9 +99,7 @@ check_plural_eval (const struct expression *plural_expr,
     /* nplurals_value is nonsense.  Don't risk an out-of-memory.  */
     array = NULL;
 
-  unsigned long n;
-
-  for (n = 0; n <= 1000; n++)
+  for (unsigned long n = 0; n <= 1000; n++)
     {
       struct eval_result res = plural_eval (plural_expr, n);
       if (res.status != PE_OK)
@@ -152,9 +148,7 @@ check_plural_eval (const struct expression *plural_expr,
   /* Normalize the array[val] statistics.  */
   if (array != NULL)
     {
-      unsigned long val;
-
-      for (val = 0; val < nplurals_value; val++)
+      for (unsigned long val = 0; val < nplurals_value; val++)
         array[val] = (array[val] == OFTEN ? 1 : 0);
     }
 
@@ -176,20 +170,15 @@ plural_help (const char *nullentry)
   struct plural_table_entry *ptentry = NULL;
 
   {
-    const char *language;
-
-    language = c_strstr (nullentry, "Language: ");
+    const char *language = c_strstr (nullentry, "Language: ");
     if (language != NULL)
       {
-        size_t len;
-
         language += 10;
-        len = strcspn (language, " \t\n");
+
+        size_t len = strcspn (language, " \t\n");
         if (len > 0)
           {
-            size_t j;
-
-            for (j = 0; j < plural_table_size; j++)
+            for (size_t j = 0; j < plural_table_size; j++)
               if (len == strlen (plural_table[j].lang)
                   && strncmp (language, plural_table[j].lang, len) == 0)
                 {
@@ -202,15 +191,12 @@ plural_help (const char *nullentry)
 
   if (ptentry == NULL)
     {
-      const char *language;
-
-      language = c_strstr (nullentry, "Language-Team: ");
+      const char *language = c_strstr (nullentry, "Language-Team: ");
       if (language != NULL)
         {
-          size_t j;
-
           language += 15;
-          for (j = 0; j < plural_table_size; j++)
+
+          for (size_t j = 0; j < plural_table_size; j++)
             if (str_startswith (language, plural_table[j].language))
               {
                 ptentry = &plural_table[j];
@@ -246,26 +232,14 @@ check_plural (const message_list_ty *mlp,
               xerror_handler_ty xeh)
 {
   int seen_errors = 0;
-  const message_ty *has_plural;
-  unsigned long min_nplurals;
-  const message_ty *min_pos;
-  unsigned long max_nplurals;
-  const message_ty *max_pos;
-  struct plural_distribution distribution;
-  size_t j;
-  message_ty *header;
 
   /* Determine whether mlp has plural entries.  */
-  has_plural = NULL;
-  min_nplurals = ULONG_MAX;
-  min_pos = NULL;
-  max_nplurals = 0;
-  max_pos = NULL;
-  distribution.expr = NULL;
-  distribution.often = NULL;
-  distribution.often_length = 0;
-  distribution.histogram = NULL;
-  for (j = 0; j < mlp->nitems; j++)
+  const message_ty *has_plural = NULL;
+  unsigned long min_nplurals = ULONG_MAX;
+  const message_ty *min_pos = NULL;
+  unsigned long max_nplurals = 0;
+  const message_ty *max_pos = NULL;
+  for (size_t j = 0; j < mlp->nitems; j++)
     {
       message_ty *mp = mlp->item[j];
 
@@ -274,18 +248,20 @@ check_plural (const message_list_ty *mlp,
           && !(ignore_fuzzy_messages && (mp->is_fuzzy && !is_header (mp)))
           && mp->msgid_plural != NULL)
         {
-          const char *p;
-          const char *p_end;
-          unsigned long n;
-
           if (has_plural == NULL)
             has_plural = mp;
 
-          n = 0;
-          for (p = mp->msgstr, p_end = p + mp->msgstr_len;
-               p < p_end;
-               p += strlen (p) + 1)
-            n++;
+          unsigned long n;
+          {
+            n = 0;
+            const char *p;
+            const char *p_end;
+            for (p = mp->msgstr, p_end = p + mp->msgstr_len;
+                 p < p_end;
+                 p += strlen (p) + 1)
+              n++;
+          }
+
           if (min_nplurals > n)
             {
               min_nplurals = n;
@@ -299,19 +275,21 @@ check_plural (const message_list_ty *mlp,
         }
     }
 
+  struct plural_distribution distribution;
+  distribution.expr = NULL;
+  distribution.often = NULL;
+  distribution.often_length = 0;
+  distribution.histogram = NULL;
+
   /* Look at the plural entry for this domain.
-     Cf, function extract_plural_expression.  */
-  header = message_list_search (mlp, NULL, "");
+     Cf. function extract_plural_expression.  */
+  message_ty *header = message_list_search (mlp, NULL, "");
   if (header != NULL && !header->obsolete)
     {
-      const char *nullentry;
-      const char *plural;
-      const char *nplurals;
+      const char *nullentry = header->msgstr;
 
-      nullentry = header->msgstr;
-
-      plural = c_strstr (nullentry, "plural=");
-      nplurals = c_strstr (nullentry, "nplurals=");
+      const char *plural = c_strstr (nullentry, "plural=");
+      const char *nplurals = c_strstr (nullentry, "nplurals=");
       if (plural == NULL && has_plural != NULL)
         {
           const char *msg1 =
@@ -362,62 +340,64 @@ check_plural (const message_list_ty *mlp,
         }
       if (plural != NULL && nplurals != NULL)
         {
-          const char *endp;
-          unsigned long int nplurals_value;
-          struct parse_args args;
-          const struct expression *plural_expr;
-
           /* First check the number.  */
           nplurals += 9;
-          while (*nplurals != '\0' && c_isspace ((unsigned char) *nplurals))
-            ++nplurals;
-          endp = nplurals;
-          nplurals_value = 0;
-          if (*nplurals >= '0' && *nplurals <= '9')
-            nplurals_value = strtoul (nplurals, (char **) &endp, 10);
-          if (nplurals == endp)
-            {
-              const char *msg = _("invalid nplurals value");
-              char *help = plural_help (nullentry);
+          unsigned long int nplurals_value;
+          {
+            while (*nplurals != '\0' && c_isspace ((unsigned char) *nplurals))
+              ++nplurals;
+            const char *endp = nplurals;
+            nplurals_value = 0;
+            if (*nplurals >= '0' && *nplurals <= '9')
+              nplurals_value = strtoul (nplurals, (char **) &endp, 10);
+            if (nplurals == endp)
+              {
+                const char *msg = _("invalid nplurals value");
+                char *help = plural_help (nullentry);
 
-              if (help != NULL)
-                {
-                  char *msgext = xasprintf ("%s\n%s", msg, help);
-                  xeh->xerror (CAT_SEVERITY_ERROR, header, NULL, 0, 0, true,
-                               msgext);
-                  free (msgext);
-                  free (help);
-                }
-              else
-                xeh->xerror (CAT_SEVERITY_ERROR, header, NULL, 0, 0, false,
-                             msg);
+                if (help != NULL)
+                  {
+                    char *msgext = xasprintf ("%s\n%s", msg, help);
+                    xeh->xerror (CAT_SEVERITY_ERROR, header, NULL, 0, 0, true,
+                                 msgext);
+                    free (msgext);
+                    free (help);
+                  }
+                else
+                  xeh->xerror (CAT_SEVERITY_ERROR, header, NULL, 0, 0, false,
+                               msg);
 
-              seen_errors++;
-            }
+                seen_errors++;
+              }
+          }
 
           /* Then check the expression.  */
           plural += 7;
-          args.cp = plural;
-          if (parse_plural_expression (&args) != 0)
-            {
-              const char *msg = _("invalid plural expression");
-              char *help = plural_help (nullentry);
+          const struct expression *plural_expr;
+          {
+            struct parse_args args;
+            args.cp = plural;
+            if (parse_plural_expression (&args) != 0)
+              {
+                const char *msg = _("invalid plural expression");
+                char *help = plural_help (nullentry);
 
-              if (help != NULL)
-                {
-                  char *msgext = xasprintf ("%s\n%s", msg, help);
-                  xeh->xerror (CAT_SEVERITY_ERROR, header, NULL, 0, 0, true,
-                               msgext);
-                  free (msgext);
-                  free (help);
-                }
-              else
-                xeh->xerror (CAT_SEVERITY_ERROR, header, NULL, 0, 0, false,
-                             msg);
+                if (help != NULL)
+                  {
+                    char *msgext = xasprintf ("%s\n%s", msg, help);
+                    xeh->xerror (CAT_SEVERITY_ERROR, header, NULL, 0, 0, true,
+                                 msgext);
+                    free (msgext);
+                    free (help);
+                  }
+                else
+                  xeh->xerror (CAT_SEVERITY_ERROR, header, NULL, 0, 0, false,
+                               msg);
 
-              seen_errors++;
-            }
-          plural_expr = args.res;
+                seen_errors++;
+              }
+            plural_expr = args.res;
+          }
 
           /* See whether nplurals and plural fit together.  */
           if (!seen_errors)
@@ -520,12 +500,13 @@ formatstring_error_logger (void *data, const char *format, ...)
   struct formatstring_error_logger_locals *l =
     (struct formatstring_error_logger_locals *) data;
   va_list args;
-  char *msg;
-
   va_start (args, format);
+
+  char *msg;
   if (vasprintf (&msg, format, args) < 0)
     l->xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
                     _("memory exhausted"));
+
   va_end (args);
   l->xeh->xerror (CAT_SEVERITY_ERROR,
                   l->curr_mp,
@@ -555,100 +536,100 @@ check_pair (const message_ty *mp,
             int check_accelerators, char accelerator_char,
             xerror_handler_ty xeh)
 {
-  int seen_errors;
-  int has_newline;
-  unsigned int j;
-
   /* If the msgid string is empty we have the special entry reserved for
      information about the translation.  */
   if (msgid[0] == '\0')
     return 0;
 
-  seen_errors = 0;
+  int seen_errors = 0;
 
   if (check_newlines)
     {
       /* Test 1: check whether all or none of the strings begin with a '\n'.  */
-      has_newline = (msgid[0] == '\n');
-#define TEST_NEWLINE(p) (p[0] == '\n')
-      if (msgid_plural != NULL)
-        {
-          const char *p;
-
-          if (TEST_NEWLINE(msgid_plural) != has_newline)
-            {
-              xeh->xerror (CAT_SEVERITY_ERROR,
-                           mp, msgid_pos->file_name, msgid_pos->line_number,
-                           (size_t)(-1), false,
-                           _("'msgid' and 'msgid_plural' entries do not both begin with '\\n'"));
-              seen_errors++;
-            }
-          for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
-            if (TEST_NEWLINE(p) != has_newline)
+      {
+        int has_newline = (msgid[0] == '\n');
+        #define TEST_NEWLINE(p) (p[0] == '\n')
+        if (msgid_plural != NULL)
+          {
+            if (TEST_NEWLINE(msgid_plural) != has_newline)
               {
-                char *msg =
-                  xasprintf (_("'msgid' and 'msgstr[%u]' entries do not both begin with '\\n'"),
-                             j);
                 xeh->xerror (CAT_SEVERITY_ERROR,
                              mp, msgid_pos->file_name, msgid_pos->line_number,
-                             (size_t)(-1), false, msg);
-                free (msg);
+                             (size_t)(-1), false,
+                             _("'msgid' and 'msgid_plural' entries do not both begin with '\\n'"));
                 seen_errors++;
               }
-        }
-      else
-        {
-          if (TEST_NEWLINE(msgstr) != has_newline)
-            {
-              xeh->xerror (CAT_SEVERITY_ERROR,
-                           mp, msgid_pos->file_name, msgid_pos->line_number,
-                           (size_t)(-1), false,
-                           _("'msgid' and 'msgstr' entries do not both begin with '\\n'"));
-              seen_errors++;
-            }
-        }
-#undef TEST_NEWLINE
+            const char *p;
+            unsigned int j;
+            for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
+              if (TEST_NEWLINE(p) != has_newline)
+                {
+                  char *msg =
+                    xasprintf (_("'msgid' and 'msgstr[%u]' entries do not both begin with '\\n'"),
+                               j);
+                  xeh->xerror (CAT_SEVERITY_ERROR,
+                               mp, msgid_pos->file_name, msgid_pos->line_number,
+                               (size_t)(-1), false, msg);
+                  free (msg);
+                  seen_errors++;
+                }
+          }
+        else
+          {
+            if (TEST_NEWLINE(msgstr) != has_newline)
+              {
+                xeh->xerror (CAT_SEVERITY_ERROR,
+                             mp, msgid_pos->file_name, msgid_pos->line_number,
+                             (size_t)(-1), false,
+                             _("'msgid' and 'msgstr' entries do not both begin with '\\n'"));
+                seen_errors++;
+              }
+          }
+        #undef TEST_NEWLINE
+      }
 
       /* Test 2: check whether all or none of the strings end with a '\n'.  */
-      has_newline = (msgid[strlen (msgid) - 1] == '\n');
-#define TEST_NEWLINE(p) (p[0] != '\0' && p[strlen (p) - 1] == '\n')
-      if (msgid_plural != NULL)
-        {
-          const char *p;
-
-          if (TEST_NEWLINE(msgid_plural) != has_newline)
-            {
-              xeh->xerror (CAT_SEVERITY_ERROR,
-                           mp, msgid_pos->file_name, msgid_pos->line_number,
-                           (size_t)(-1), false,
-                           _("'msgid' and 'msgid_plural' entries do not both end with '\\n'"));
-              seen_errors++;
-            }
-          for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
-            if (TEST_NEWLINE(p) != has_newline)
+      {
+        int has_newline = (msgid[strlen (msgid) - 1] == '\n');
+        #define TEST_NEWLINE(p) (p[0] != '\0' && p[strlen (p) - 1] == '\n')
+        if (msgid_plural != NULL)
+          {
+            if (TEST_NEWLINE(msgid_plural) != has_newline)
               {
-                char *msg =
-                  xasprintf (_("'msgid' and 'msgstr[%u]' entries do not both end with '\\n'"),
-                             j);
                 xeh->xerror (CAT_SEVERITY_ERROR,
                              mp, msgid_pos->file_name, msgid_pos->line_number,
-                             (size_t)(-1), false, msg);
-                free (msg);
+                             (size_t)(-1), false,
+                             _("'msgid' and 'msgid_plural' entries do not both end with '\\n'"));
                 seen_errors++;
               }
-        }
-      else
-        {
-          if (TEST_NEWLINE(msgstr) != has_newline)
-            {
-              xeh->xerror (CAT_SEVERITY_ERROR,
-                           mp, msgid_pos->file_name, msgid_pos->line_number,
-                           (size_t)(-1), false,
-                           _("'msgid' and 'msgstr' entries do not both end with '\\n'"));
-              seen_errors++;
-            }
-        }
-#undef TEST_NEWLINE
+            const char *p;
+            unsigned int j;
+            for (p = msgstr, j = 0; p < msgstr + msgstr_len; p += strlen (p) + 1, j++)
+              if (TEST_NEWLINE(p) != has_newline)
+                {
+                  char *msg =
+                    xasprintf (_("'msgid' and 'msgstr[%u]' entries do not both end with '\\n'"),
+                               j);
+                  xeh->xerror (CAT_SEVERITY_ERROR,
+                               mp, msgid_pos->file_name, msgid_pos->line_number,
+                               (size_t)(-1), false, msg);
+                  free (msg);
+                  seen_errors++;
+                }
+          }
+        else
+          {
+            if (TEST_NEWLINE(msgstr) != has_newline)
+              {
+                xeh->xerror (CAT_SEVERITY_ERROR,
+                             mp, msgid_pos->file_name, msgid_pos->line_number,
+                             (size_t)(-1), false,
+                             _("'msgid' and 'msgstr' entries do not both end with '\\n'"));
+                seen_errors++;
+              }
+          }
+        #undef TEST_NEWLINE
+      }
     }
 
   if (check_compatibility && msgid_plural != NULL)
@@ -681,15 +662,12 @@ check_pair (const message_ty *mp,
        two accelerators collide, only whether the translator has bothered
        thinking about them.  */
     {
-      const char *p;
-
       /* We are only interested in msgids that contain exactly one '&'.  */
-      p = strchr (msgid, accelerator_char);
+      const char *p = strchr (msgid, accelerator_char);
       if (p != NULL && strchr (p + 1, accelerator_char) == NULL)
         {
           /* Count the number of '&' in msgstr, but ignore '&&'.  */
           unsigned int count = 0;
-
           for (p = msgstr; (p = strchr (p, accelerator_char)) != NULL; p++)
             if (p[1] == accelerator_char)
               p++;
@@ -752,9 +730,8 @@ check_header_entry (const message_ty *mp, const char *msgstr_string,
   const size_t nrequiredfields = nfields - 1;
 #endif
   int seen_errors = 0;
-  int cnt;
 
-  for (cnt = 0; cnt < nfields; ++cnt)
+  for (int cnt = 0; cnt < nfields; ++cnt)
     {
 #if 0
       int severity =
@@ -765,8 +742,8 @@ check_header_entry (const message_ty *mp, const char *msgstr_string,
 #endif
       const char *field = required_fields[cnt];
       size_t len = strlen (field);
-      const char *line;
 
+      const char *line;
       for (line = msgstr_string; *line != '\0'; )
         {
           if (strncmp (line, field, len) == 0 && line[len] == ':')
@@ -859,9 +836,8 @@ check_message_list (const message_list_ty *mlp,
                     xerror_handler_ty xeh)
 {
   int seen_errors = 0;
-  struct plural_distribution distribution;
-  size_t j;
 
+  struct plural_distribution distribution;
   distribution.expr = NULL;
   distribution.often = NULL;
   distribution.often_length = 0;
@@ -871,7 +847,7 @@ check_message_list (const message_list_ty *mlp,
     seen_errors += check_plural (mlp, ignore_untranslated_messages,
                                  ignore_fuzzy_messages, &distribution, xeh);
 
-  for (j = 0; j < mlp->nitems; j++)
+  for (size_t j = 0; j < mlp->nitems; j++)
     {
       message_ty *mp = mlp->item[j];
 

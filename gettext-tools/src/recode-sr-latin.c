@@ -52,10 +52,6 @@ static void process (FILE *stream);
 int
 main (int argc, char *argv[])
 {
-  /* Default values for command line options.  */
-  bool do_help = false;
-  bool do_version = false;
-
   /* Set program name for message texts.  */
   set_program_name (argv[0]);
 
@@ -70,6 +66,10 @@ main (int argc, char *argv[])
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
   static const struct program_option options[] =
@@ -79,21 +79,23 @@ main (int argc, char *argv[])
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int opt;
-  while ((opt = get_next_option ()) != -1)
-    switch (opt)
-      {
-      case '\0':          /* Long option with key == 0.  */
-        break;
-      case 'h':
-        do_help = true;
-        break;
-      case 'V':
-        do_version = true;
-        break;
-      default:
-        usage (EXIT_FAILURE);
-      }
+  {
+    int opt;
+    while ((opt = get_next_option ()) != -1)
+      switch (opt)
+        {
+        case '\0':          /* Long option with key == 0.  */
+          break;
+        case 'h':
+          do_help = true;
+          break;
+        case 'V':
+          do_version = true;
+          break;
+        default:
+          usage (EXIT_FAILURE);
+        }
+  }
 
   /* Version information is requested.  */
   if (do_version)
@@ -256,6 +258,8 @@ static void
 process (FILE *stream)
 {
   struct linebuffer lb;
+  init_linebuffer (&lb);
+
   const char *locale_code = locale_charset ();
   bool need_code_conversion = (c_strcasecmp (locale_code, "UTF-8") != 0);
 #if HAVE_ICONV
@@ -266,8 +270,6 @@ process (FILE *stream)
   char *last_backconv_line;
   size_t last_backconv_line_len;
 #endif
-
-  init_linebuffer (&lb);
 
   /* Initialize the conversion descriptors.  */
   if (need_code_conversion)
@@ -301,16 +303,11 @@ process (FILE *stream)
      in a whole chunk would take an excessive amount of memory.  */
   for (;;)
     {
-      char *line;
-      size_t line_len;
-      char *filtered_line;
-      size_t filtered_line_len;
-
       /* Read a line.  */
       if (read_linebuffer (&lb, stream) == NULL)
         break;
-      line = lb.buffer;
-      line_len = lb.length;
+      char *line = lb.buffer;
+      size_t line_len = lb.length;
       /* read_linebuffer always returns a non-void result.  */
       if (line_len == 0)
         abort ();
@@ -341,6 +338,8 @@ process (FILE *stream)
 #endif
 
       /* Apply the filter.  */
+      char *filtered_line;
+      size_t filtered_line_len;
       serbian_to_latin (line, line_len, &filtered_line, &filtered_line_len);
 
 #if HAVE_ICONV

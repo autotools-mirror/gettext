@@ -84,13 +84,6 @@ static void process_msgdomain_list (const msgdomain_list_ty *mdlp);
 int
 main (int argc, char **argv)
 {
-  bool do_help;
-  bool do_version;
-  const char *input_file;
-  msgdomain_list_ty *result;
-  catalog_input_format_ty input_syntax = &input_format_po;
-  size_t i;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
@@ -108,10 +101,11 @@ main (int argc, char **argv)
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  /* Set default values for variables.  */
-  do_help = false;
-  do_version = false;
-  input_file = NULL;
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+  const char *input_file = NULL;
+  catalog_input_format_ty input_syntax = &input_format_po;
 
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
@@ -129,50 +123,52 @@ main (int argc, char **argv)
   /* The flag NON_OPTION_TERMINATES_OPTIONS causes option parsing to terminate
      when the first non-option, i.e. the subprogram name, is encountered.  */
   start_options (argc, argv, options, NON_OPTION_TERMINATES_OPTIONS, 0);
-  int opt;
-  while ((opt = get_next_option ()) != -1)
-    switch (opt)
-      {
-      case '\0':                /* Long option with key == 0.  */
-        break;
+  {
+    int opt;
+    while ((opt = get_next_option ()) != -1)
+      switch (opt)
+        {
+        case '\0':                /* Long option with key == 0.  */
+          break;
 
-      case 'D':
-        dir_list_append (optarg);
-        break;
+        case 'D':
+          dir_list_append (optarg);
+          break;
 
-      case 'h':
-        do_help = true;
-        break;
+        case 'h':
+          do_help = true;
+          break;
 
-      case 'i':
-        if (input_file != NULL)
-          {
-            error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
-            usage (EXIT_FAILURE);
-          }
-        input_file = optarg;
-        break;
+        case 'i':
+          if (input_file != NULL)
+            {
+              error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
+              usage (EXIT_FAILURE);
+            }
+          input_file = optarg;
+          break;
 
-      case 'P':
-        input_syntax = &input_format_properties;
-        break;
+        case 'P':
+          input_syntax = &input_format_properties;
+          break;
 
-      case 'V':
-        do_version = true;
-        break;
+        case 'V':
+          do_version = true;
+          break;
 
-      case CHAR_MAX + 1: /* --stringtable-input */
-        input_syntax = &input_format_stringtable;
-        break;
+        case CHAR_MAX + 1: /* --stringtable-input */
+          input_syntax = &input_format_stringtable;
+          break;
 
-      case CHAR_MAX + 2: /* --newline */
-        newline = true;
-        break;
+        case CHAR_MAX + 2: /* --newline */
+          newline = true;
+          break;
 
-      default:
-        usage (EXIT_FAILURE);
-        break;
-      }
+        default:
+          usage (EXIT_FAILURE);
+          break;
+        }
+  }
 
   /* Version information is requested.  */
   if (do_version)
@@ -202,16 +198,19 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* Build argument list for the program.  */
   sub_argc = argc - optind;
   sub_argv = XNMALLOC (sub_argc + 1, const char *);
-  for (i = 0; i < sub_argc; i++)
-    sub_argv[i] = argv[optind + i];
-  sub_argv[i] = NULL;
+  {
+    size_t i;
+    for (i = 0; i < sub_argc; i++)
+      sub_argv[i] = argv[optind + i];
+    sub_argv[i] = NULL;
+  }
 
   /* By default, input comes from standard input.  */
   if (input_file == NULL)
     input_file = "-";
 
   /* Read input file.  */
-  result = read_catalog_file (input_file, input_syntax);
+  msgdomain_list_ty *result = read_catalog_file (input_file, input_syntax);
 
   if (strcmp (sub_name, "0") != 0)
     {
@@ -224,9 +223,9 @@ There is NO WARRANTY, to the extent permitted by law.\n\
          strings must continue nevertheless.  */
       {
         sigset_t sigpipe_set;
-
         sigemptyset (&sigpipe_set);
         sigaddset (&sigpipe_set, SIGPIPE);
+
         sigprocmask (SIG_UNBLOCK, &sigpipe_set, NULL);
       }
 
@@ -360,12 +359,6 @@ process_string (const message_ty *mp, const char *str, size_t len)
   else
     {
       /* General command.  */
-      char *location;
-      pid_t child;
-      int fd[1];
-      void (*orig_sigpipe_handler)(int);
-      int exitstatus;
-      char *newstr;
 
       /* Set environment variables for the subprocess.
          Note: These environment variables, especially MSGEXEC_MSGCTXT and
@@ -388,10 +381,12 @@ process_string (const message_ty *mp, const char *str, size_t len)
         xsetenv ("MSGEXEC_MSGID_PLURAL", mp->msgid_plural, 1);
       else
         unsetenv ("MSGEXEC_MSGID_PLURAL");
-      location = xasprintf ("%s:%ld", mp->pos.file_name,
-                            (long) mp->pos.line_number);
-      xsetenv ("MSGEXEC_LOCATION", location, 1);
-      free (location);
+      {
+        char *location =
+          xasprintf ("%s:%ld", mp->pos.file_name, (long) mp->pos.line_number);
+        xsetenv ("MSGEXEC_LOCATION", location, 1);
+        free (location);
+      }
       if (mp->prev_msgctxt != NULL)
         xsetenv ("MSGEXEC_PREV_MSGCTXT", mp->prev_msgctxt, 1);
       else
@@ -406,29 +401,34 @@ process_string (const message_ty *mp, const char *str, size_t len)
         unsetenv ("MSGEXEC_PREV_MSGID_PLURAL");
 
       /* Open a pipe to a subprocess.  */
-      child = create_pipe_out (sub_name, sub_path, sub_argv, NULL, NULL,
-                               NULL, false, true, true, fd);
+      int fd[1];
+      pid_t child = create_pipe_out (sub_name, sub_path, sub_argv, NULL, NULL,
+                                     NULL, false, true, true, fd);
 
       /* Ignore SIGPIPE here.  We don't care if the subprocesses terminates
          successfully without having read all of the input that we feed it.  */
+      void (*orig_sigpipe_handler)(int);
       orig_sigpipe_handler = signal (SIGPIPE, SIG_IGN);
 
-      if (newline)
-        {
-          newstr = XNMALLOC (len + 1, char);
-          memcpy (newstr, str, len);
-          newstr[len++] = '\n';
-        }
-      else
-        newstr = (char *) str;
+      {
+        char *newstr;
+        if (newline)
+          {
+            newstr = XNMALLOC (len + 1, char);
+            memcpy (newstr, str, len);
+            newstr[len++] = '\n';
+          }
+        else
+          newstr = (char *) str;
 
-      if (full_write (fd[0], newstr, len) < len)
-        if (errno != EPIPE)
-          error (EXIT_FAILURE, errno,
-                 _("write to %s subprocess failed"), sub_name);
+        if (full_write (fd[0], newstr, len) < len)
+          if (errno != EPIPE)
+            error (EXIT_FAILURE, errno,
+                   _("write to %s subprocess failed"), sub_name);
 
-      if (newstr != str)
-        free (newstr);
+        if (newstr != str)
+          free (newstr);
+      }
 
       close (fd[0]);
 
@@ -437,7 +437,7 @@ process_string (const message_ty *mp, const char *str, size_t len)
       /* Remove zombie process from process list, and retrieve exit status.  */
       /* FIXME: Should ignore_sigpipe be set to true here? It depends on the
          semantics of the subprogram...  */
-      exitstatus =
+      int exitstatus =
         wait_subprocess (child, sub_name, false, false, true, true, NULL);
       if (exitcode < exitstatus)
         exitcode = exitstatus;
@@ -450,10 +450,10 @@ process_message (const message_ty *mp)
 {
   const char *msgstr = mp->msgstr;
   size_t msgstr_len = mp->msgstr_len;
-  const char *p;
-  size_t k;
 
   /* Process each NUL delimited substring separately.  */
+  const char *p;
+  size_t k;
   for (p = msgstr, k = 0; p < msgstr + msgstr_len; k++)
     {
       size_t length = strlen (p);
@@ -477,9 +477,7 @@ process_message (const message_ty *mp)
 static void
 process_message_list (const message_list_ty *mlp)
 {
-  size_t j;
-
-  for (j = 0; j < mlp->nitems; j++)
+  for (size_t j = 0; j < mlp->nitems; j++)
     process_message (mlp->item[j]);
 }
 
@@ -487,8 +485,6 @@ process_message_list (const message_list_ty *mlp)
 static void
 process_msgdomain_list (const msgdomain_list_ty *mdlp)
 {
-  size_t k;
-
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     process_message_list (mdlp->item[k]->messages);
 }

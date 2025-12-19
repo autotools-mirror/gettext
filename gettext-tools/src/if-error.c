@@ -110,7 +110,6 @@ if_error (int severity,
           bool multiline, const char *format, ...)
 {
   va_list args;
-
   va_start (args, format);
   if_verror (severity, filename, lineno, column, multiline, format, args);
   va_end (args);

@@ -61,8 +61,7 @@ write_tcl8_string (FILE *stream, const char *str)
   while (str < str_limit)
     {
       ucs4_t uc;
-      unsigned int count;
-      count = u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
+      unsigned int count = u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       if (uc < 0x10000)
         {
           /* Single UCS-2 'char'.  */
@@ -119,8 +118,7 @@ write_tcl9_string (FILE *stream, const char *str)
   while (str < str_limit)
     {
       ucs4_t uc;
-      unsigned int count;
-      count = u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
+      unsigned int count = u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       if (uc < 0x10000)
         {
           /* Single UCS-2 'char'.  */
@@ -171,8 +169,7 @@ is_entirely_ucs2 (const char *str)
   while (str < str_limit)
     {
       ucs4_t uc;
-      unsigned int count;
-      count = u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
+      unsigned int count = u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
       if (uc >= 0x10000)
         return false;
       str += count;
@@ -207,13 +204,11 @@ write_tcl_string (FILE *stream, const char *str)
 static void
 write_msg (FILE *output_file, message_list_ty *mlp, const char *locale_name)
 {
-  size_t j;
-
   /* We don't care about esthetic formattic of the output (like respecting
      a maximum line width, or including the translator comments) because
      the \unnnn notation is unesthetic anyway.  Translators shall edit
      the PO file.  */
-  for (j = 0; j < mlp->nitems; j++)
+  for (size_t j = 0; j < mlp->nitems; j++)
     {
       message_ty *mp = mlp->item[j];
 
@@ -242,13 +237,11 @@ msgdomain_write_tcl (message_list_ty *mlp, const char *canon_encoding,
 
   /* Determine whether mlp has entries with context.  */
   {
-    bool has_context;
-    size_t j;
-
-    has_context = false;
-    for (j = 0; j < mlp->nitems; j++)
+    bool has_context = false;
+    for (size_t j = 0; j < mlp->nitems; j++)
       if (mlp->item[j]->msgctxt != NULL)
         has_context = true;
+
     if (has_context)
       {
         multiline_error (xstrdup (""),
@@ -261,13 +254,11 @@ but the Tcl message catalog format doesn't support contexts\n")));
 
   /* Determine whether mlp has plural entries.  */
   {
-    bool has_plural;
-    size_t j;
-
-    has_plural = false;
-    for (j = 0; j < mlp->nitems; j++)
+    bool has_plural = false;
+    for (size_t j = 0; j < mlp->nitems; j++)
       if (mlp->item[j]->msgid_plural != NULL)
         has_plural = true;
+
     if (has_plural)
       {
         multiline_error (xstrdup (""),
@@ -288,28 +279,24 @@ but the Tcl message catalog format doesn't support plural handling\n")));
 
   /* Now create the file.  */
   {
-    size_t len;
-    char *frobbed_locale_name;
-    char *p;
-    char *file_name;
-    FILE *output_file;
-
     /* Convert the locale name to lowercase and remove any encoding.  */
-    len = strlen (locale_name);
-    frobbed_locale_name = (char *) xmalloca (len + 1);
-    memcpy (frobbed_locale_name, locale_name, len + 1);
-    for (p = frobbed_locale_name; *p != '\0'; p++)
-      if (*p >= 'A' && *p <= 'Z')
-        *p = *p - 'A' + 'a';
-      else if (*p == '.')
-        {
-          *p = '\0';
-          break;
-        }
+    size_t len = strlen (locale_name);
+    char *frobbed_locale_name = (char *) xmalloca (len + 1);
+    {
+      memcpy (frobbed_locale_name, locale_name, len + 1);
+      for (char *p = frobbed_locale_name; *p != '\0'; p++)
+        if (*p >= 'A' && *p <= 'Z')
+          *p = *p - 'A' + 'a';
+        else if (*p == '.')
+          {
+            *p = '\0';
+            break;
+          }
+    }
 
-    file_name = xconcatenated_filename (directory, frobbed_locale_name, ".msg");
+    char *file_name = xconcatenated_filename (directory, frobbed_locale_name, ".msg");
 
-    output_file = fopen (file_name, "wb");
+    FILE *output_file = fopen (file_name, "wb");
     if (output_file == NULL)
       {
         error (0, errno, _("error while opening \"%s\" for writing"),

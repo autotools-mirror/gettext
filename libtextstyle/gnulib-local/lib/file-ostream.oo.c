@@ -1,5 +1,5 @@
 /* Output stream referring to an stdio FILE.
-   Copyright (C) 2006, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019-2020, 2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -100,7 +100,6 @@ file_ostream_t
 file_ostream_create (FILE *fp)
 {
   file_ostream_t stream = XMALLOC (struct file_ostream_representation);
-
   stream->base.vtable = &file_ostream_vtable;
   stream->fp = fp;
 

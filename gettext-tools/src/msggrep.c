@@ -105,18 +105,6 @@ static msgdomain_list_ty *process_msgdomain_list (msgdomain_list_ty *mdlp);
 int
 main (int argc, char **argv)
 {
-  bool do_help;
-  bool do_version;
-  char *output_file;
-  const char *input_file;
-  int grep_pass;
-  msgdomain_list_ty *result;
-  catalog_input_format_ty input_syntax = &input_format_po;
-  catalog_output_format_ty output_syntax = &output_format_po;
-  bool sort_by_filepos = false;
-  bool sort_by_msgid = false;
-  size_t i;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
@@ -134,27 +122,27 @@ main (int argc, char **argv)
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  /* Set default values for variables.  */
-  do_help = false;
-  do_version = false;
-  output_file = NULL;
-  input_file = NULL;
-  grep_pass = -1;
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+  char *output_file = NULL;
+  catalog_input_format_ty input_syntax = &input_format_po;
+  catalog_output_format_ty output_syntax = &output_format_po;
   location_files = string_list_alloc ();
   domain_names = string_list_alloc ();
   workflow_flags = string_list_alloc ();
   sticky_flags = string_list_alloc ();
-
-  for (i = 0; i < 5; i++)
+  for (size_t i = 0; i < 5; i++)
     {
       struct grep_task *gt = &grep_task[i];
-
       gt->matcher = &matcher_grep;
       gt->pattern_count = 0;
       gt->patterns = NULL;
       gt->patterns_size = 0;
       gt->case_insensitive = false;
     }
+  bool sort_by_filepos = false;
+  bool sort_by_msgid = false;
 
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
@@ -200,228 +188,230 @@ main (int argc, char **argv)
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int opt;
-  while ((opt = get_next_option ()) != -1)
-    switch (opt)
-      {
-      case '\0':                /* Long option with key == 0.  */
-        break;
-
-      case 'C':
-        grep_pass = 3;
-        break;
-
-      case 'D':
-        dir_list_append (optarg);
-        break;
-
-      case 'e':
-        if (grep_pass < 0)
-          no_pass (opt);
+  {
+    int grep_pass = -1;
+    int opt;
+    while ((opt = get_next_option ()) != -1)
+      switch (opt)
         {
-          struct grep_task *gt = &grep_task[grep_pass];
-          /* Append optarg and a newline to gt->patterns.  */
-          size_t len = strlen (optarg);
-          gt->patterns =
-            (char *) xrealloc (gt->patterns, gt->patterns_size + len + 1);
-          memcpy (gt->patterns + gt->patterns_size, optarg, len);
-          gt->patterns_size += len;
-          *(gt->patterns + gt->patterns_size) = '\n';
-          gt->patterns_size += 1;
-          gt->pattern_count++;
-        }
-        break;
+        case '\0':                /* Long option with key == 0.  */
+          break;
 
-      case 'E':
-        if (grep_pass < 0)
-          no_pass (opt);
-        grep_task[grep_pass].matcher = &matcher_egrep;
-        break;
+        case 'C':
+          grep_pass = 3;
+          break;
 
-      case 'f':
-        if (grep_pass < 0)
-          no_pass (opt);
-        {
-          struct grep_task *gt = &grep_task[grep_pass];
-          /* Append the contents of the specified file to gt->patterns.  */
-          FILE *fp = fopen (optarg, "r");
+        case 'D':
+          dir_list_append (optarg);
+          break;
 
-          if (fp == NULL)
-            error (EXIT_FAILURE, errno,
-                   _("error while opening \"%s\" for reading"), optarg);
+        case 'e':
+          if (grep_pass < 0)
+            no_pass (opt);
+          {
+            struct grep_task *gt = &grep_task[grep_pass];
+            /* Append optarg and a newline to gt->patterns.  */
+            size_t len = strlen (optarg);
+            gt->patterns =
+              (char *) xrealloc (gt->patterns, gt->patterns_size + len + 1);
+            memcpy (gt->patterns + gt->patterns_size, optarg, len);
+            gt->patterns_size += len;
+            *(gt->patterns + gt->patterns_size) = '\n';
+            gt->patterns_size += 1;
+            gt->pattern_count++;
+          }
+          break;
 
-          while (!feof (fp))
-            {
-              char buf[4096];
-              size_t count = fread (buf, 1, sizeof buf, fp);
+        case 'E':
+          if (grep_pass < 0)
+            no_pass (opt);
+          grep_task[grep_pass].matcher = &matcher_egrep;
+          break;
 
-              if (count == 0)
-                {
-                  if (ferror (fp))
-                    error (EXIT_FAILURE, errno,
-                           _("error while reading \"%s\""), optarg);
-                  /* EOF reached.  */
-                  break;
-                }
+        case 'f':
+          if (grep_pass < 0)
+            no_pass (opt);
+          {
+            struct grep_task *gt = &grep_task[grep_pass];
 
-              gt->patterns =
-                (char *) xrealloc (gt->patterns, gt->patterns_size + count);
-              memcpy (gt->patterns + gt->patterns_size, buf, count);
-              gt->patterns_size += count;
-            }
+            /* Append the contents of the specified file to gt->patterns.  */
+            FILE *fp = fopen (optarg, "r");
+            if (fp == NULL)
+              error (EXIT_FAILURE, errno,
+                     _("error while opening \"%s\" for reading"), optarg);
 
-          /* Append a final newline if file ended in a non-newline.  */
-          if (gt->patterns_size > 0
-              && *(gt->patterns + gt->patterns_size - 1) != '\n')
-            {
-              gt->patterns =
-                (char *) xrealloc (gt->patterns, gt->patterns_size + 1);
-              *(gt->patterns + gt->patterns_size) = '\n';
-              gt->patterns_size += 1;
-            }
+            while (!feof (fp))
+              {
+                char buf[4096];
+                size_t count = fread (buf, 1, sizeof buf, fp);
 
-          fclose (fp);
-          gt->pattern_count++;
-        }
-        break;
+                if (count == 0)
+                  {
+                    if (ferror (fp))
+                      error (EXIT_FAILURE, errno,
+                             _("error while reading \"%s\""), optarg);
+                    /* EOF reached.  */
+                    break;
+                  }
 
-      case 'F':
-        if (grep_pass < 0)
-          no_pass (opt);
-        grep_task[grep_pass].matcher = &matcher_fgrep;
-        break;
+                gt->patterns =
+                  (char *) xrealloc (gt->patterns, gt->patterns_size + count);
+                memcpy (gt->patterns + gt->patterns_size, buf, count);
+                gt->patterns_size += count;
+              }
 
-      case 'h':
-        do_help = true;
-        break;
+            /* Append a final newline if file ended in a non-newline.  */
+            if (gt->patterns_size > 0
+                && *(gt->patterns + gt->patterns_size - 1) != '\n')
+              {
+                gt->patterns =
+                  (char *) xrealloc (gt->patterns, gt->patterns_size + 1);
+                *(gt->patterns + gt->patterns_size) = '\n';
+                gt->patterns_size += 1;
+              }
 
-      case 'i':
-        if (grep_pass < 0)
-          no_pass (opt);
-        grep_task[grep_pass].case_insensitive = true;
-        break;
+            fclose (fp);
+            gt->pattern_count++;
+          }
+          break;
 
-      case 'J':
-        grep_pass = 0;
-        break;
+        case 'F':
+          if (grep_pass < 0)
+            no_pass (opt);
+          grep_task[grep_pass].matcher = &matcher_fgrep;
+          break;
 
-      case 'K':
-        grep_pass = 1;
-        break;
+        case 'h':
+          do_help = true;
+          break;
 
-      case 'M':
-        string_list_append (domain_names, optarg);
-        break;
+        case 'i':
+          if (grep_pass < 0)
+            no_pass (opt);
+          grep_task[grep_pass].case_insensitive = true;
+          break;
 
-      case 'n':            /* -n */
-      case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
-        if (handle_filepos_comment_option (optarg))
+        case 'J':
+          grep_pass = 0;
+          break;
+
+        case 'K':
+          grep_pass = 1;
+          break;
+
+        case 'M':
+          string_list_append (domain_names, optarg);
+          break;
+
+        case 'n':            /* -n */
+        case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
+          if (handle_filepos_comment_option (optarg))
+            usage (EXIT_FAILURE);
+          break;
+
+        case 'N':
+          string_list_append (location_files, optarg);
+          break;
+
+        case 'o':
+          output_file = optarg;
+          break;
+
+        case 'p':
+          output_syntax = &output_format_properties;
+          break;
+
+        case 'P':
+          input_syntax = &input_format_properties;
+          break;
+
+        case CHAR_MAX + 12: /* --strict */
+          message_print_style_uniforum ();
+          break;
+
+        case 'S':
+          string_list_append (sticky_flags, optarg);
+          break;
+
+        case 'T':
+          grep_pass = 2;
+          break;
+
+        case 'v':
+          invert_match = true;
+          break;
+
+        case 'V':
+          do_version = true;
+          break;
+
+        case 'w':
+          {
+            char *endp;
+            int value = strtol (optarg, &endp, 10);
+            if (endp != optarg)
+              message_page_width_set (value);
+          }
+          break;
+
+        case 'W':
+          string_list_append (workflow_flags, optarg);
+          break;
+
+        case 'X':
+          grep_pass = 4;
+          break;
+
+        case CHAR_MAX + 1:
+          message_print_style_escape (true);
+          break;
+
+        case CHAR_MAX + 2:
+          message_print_style_indent ();
+          break;
+
+        case CHAR_MAX + 3:
+          message_print_style_escape (false);
+          break;
+
+        case CHAR_MAX + 4:
+          sort_by_filepos = true;
+          break;
+
+        case CHAR_MAX + 5:
+          sort_by_msgid = true;
+          break;
+
+        case CHAR_MAX + 6: /* --no-wrap */
+          message_page_width_ignore ();
+          break;
+
+        case CHAR_MAX + 7: /* --stringtable-input */
+          input_syntax = &input_format_stringtable;
+          break;
+
+        case CHAR_MAX + 8: /* --stringtable-output */
+          output_syntax = &output_format_stringtable;
+          break;
+
+        case CHAR_MAX + 9: /* --color */
+          if (handle_color_option (optarg) || color_test_mode)
+            usage (EXIT_FAILURE);
+          break;
+
+        case CHAR_MAX + 10: /* --style */
+          handle_style_option (optarg);
+          break;
+
+        case CHAR_MAX + 11: /* --no-location */
+          message_print_style_filepos (filepos_comment_none);
+          break;
+
+        default:
           usage (EXIT_FAILURE);
-        break;
-
-      case 'N':
-        string_list_append (location_files, optarg);
-        break;
-
-      case 'o':
-        output_file = optarg;
-        break;
-
-      case 'p':
-        output_syntax = &output_format_properties;
-        break;
-
-      case 'P':
-        input_syntax = &input_format_properties;
-        break;
-
-      case CHAR_MAX + 12: /* --strict */
-        message_print_style_uniforum ();
-        break;
-
-      case 'S':
-        string_list_append (sticky_flags, optarg);
-        break;
-
-      case 'T':
-        grep_pass = 2;
-        break;
-
-      case 'v':
-        invert_match = true;
-        break;
-
-      case 'V':
-        do_version = true;
-        break;
-
-      case 'w':
-        {
-          int value;
-          char *endp;
-          value = strtol (optarg, &endp, 10);
-          if (endp != optarg)
-            message_page_width_set (value);
+          break;
         }
-        break;
-
-      case 'W':
-        string_list_append (workflow_flags, optarg);
-        break;
-
-      case 'X':
-        grep_pass = 4;
-        break;
-
-      case CHAR_MAX + 1:
-        message_print_style_escape (true);
-        break;
-
-      case CHAR_MAX + 2:
-        message_print_style_indent ();
-        break;
-
-      case CHAR_MAX + 3:
-        message_print_style_escape (false);
-        break;
-
-      case CHAR_MAX + 4:
-        sort_by_filepos = true;
-        break;
-
-      case CHAR_MAX + 5:
-        sort_by_msgid = true;
-        break;
-
-      case CHAR_MAX + 6: /* --no-wrap */
-        message_page_width_ignore ();
-        break;
-
-      case CHAR_MAX + 7: /* --stringtable-input */
-        input_syntax = &input_format_stringtable;
-        break;
-
-      case CHAR_MAX + 8: /* --stringtable-output */
-        output_syntax = &output_format_stringtable;
-        break;
-
-      case CHAR_MAX + 9: /* --color */
-        if (handle_color_option (optarg) || color_test_mode)
-          usage (EXIT_FAILURE);
-        break;
-
-      case CHAR_MAX + 10: /* --style */
-        handle_style_option (optarg);
-        break;
-
-      case CHAR_MAX + 11: /* --no-location */
-        message_print_style_filepos (filepos_comment_none);
-        break;
-
-      default:
-        usage (EXIT_FAILURE);
-        break;
-      }
+  }
 
   /* Version information is requested.  */
   if (do_version)
@@ -444,6 +434,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     usage (EXIT_SUCCESS);
 
   /* Test whether we have an .po file name as argument.  */
+  const char *input_file = NULL;
   if (optind == argc)
     input_file = "-";
   else if (optind + 1 == argc)
@@ -460,7 +451,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
            "--sort-output", "--sort-by-file");
 
   /* Compile the patterns.  */
-  for (grep_pass = 0; grep_pass < 5; grep_pass++)
+  for (int grep_pass = 0; grep_pass < 5; grep_pass++)
     {
       struct grep_task *gt = &grep_task[grep_pass];
 
@@ -479,7 +470,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     }
 
   /* Read input file.  */
-  result = read_catalog_file (input_file, input_syntax);
+  msgdomain_list_ty *result = read_catalog_file (input_file, input_syntax);
 
   if (grep_task[0].pattern_count > 0
       || grep_task[1].pattern_count > 0
@@ -672,9 +663,7 @@ or by email to <%s>.\n"),
 static bool
 filename_list_match (const string_list_ty *slp, const char *filename)
 {
-  size_t j;
-
-  for (j = 0; j < slp->nitems; ++j)
+  for (size_t j = 0; j < slp->nitems; ++j)
     if (fnmatch (slp->item[j], filename, FNM_PATHNAME) == 0)
       return true;
   return false;
@@ -691,9 +680,7 @@ is_string_selected (int grep_pass, const char *str, size_t len)
   if (gt->pattern_count > 0)
     {
       size_t match_size;
-      size_t match_offset;
-
-      match_offset =
+      size_t match_offset =
         gt->matcher->execute (gt->compiled_patterns, str, len,
                               &match_size, false);
       return (match_offset != (size_t) -1);
@@ -708,13 +695,8 @@ is_string_selected (int grep_pass, const char *str, size_t len)
 static bool
 is_message_selected_no_invert (const message_ty *mp)
 {
-  size_t i;
-  const char *msgstr;
-  size_t msgstr_len;
-  const char *p;
-
   /* Test whether one of mp->filepos[] is selected.  */
-  for (i = 0; i < mp->filepos_count; i++)
+  for (size_t i = 0; i < mp->filepos_count; i++)
     if (filename_list_match (location_files, mp->filepos[i].file_name))
       return true;
 
@@ -728,7 +710,7 @@ is_message_selected_no_invert (const message_ty *mp)
       || (mp->do_wrap == no && string_list_member (sticky_flags, "no-wrap")))
     return true;
   /* Recognize flag "[no-]<language>-format".  */
-  for (i = 0; i < sticky_flags->nitems; i++)
+  for (size_t i = 0; i < sticky_flags->nitems; i++)
     {
       const char *flag = sticky_flags->item[i];
       size_t flag_len = strlen (flag);
@@ -741,8 +723,7 @@ is_message_selected_no_invert (const message_ty *mp)
               flag += 3;
               flag_len -= 3;
             }
-          size_t j;
-          for (j = 0; j < NFORMATS; j++)
+          for (size_t j = 0; j < NFORMATS; j++)
             if (strlen (format_language[j]) == flag_len
                 && memcmp (format_language[j], flag, flag_len) == 0)
               {
@@ -766,47 +747,48 @@ is_message_selected_no_invert (const message_ty *mp)
     return true;
 
   /* Test msgstr using the --msgstr arguments.  */
-  msgstr = mp->msgstr;
-  msgstr_len = mp->msgstr_len;
-  /* Process each NUL delimited substring separately.  */
-  for (p = msgstr; p < msgstr + msgstr_len; )
-    {
-      size_t length = strlen (p);
+  {
+    const char *msgstr = mp->msgstr;
+    size_t msgstr_len = mp->msgstr_len;
+    /* Process each NUL delimited substring separately.  */
+    for (const char *p = msgstr; p < msgstr + msgstr_len; )
+      {
+        size_t length = strlen (p);
 
-      if (is_string_selected (2, p, length))
-        return true;
+        if (is_string_selected (2, p, length))
+          return true;
 
-      p += length + 1;
-    }
+        p += length + 1;
+      }
+  }
 
   /* Test translator comments using the --comment arguments.  */
   if (grep_task[3].pattern_count > 0
       && mp->comment != NULL && mp->comment->nitems > 0)
     {
       size_t length;
-      char *total_comment;
-      char *q;
-      size_t j;
-      bool selected;
+      {
+        length = 0;
+        for (size_t j = 0; j < mp->comment->nitems; j++)
+          length += strlen (mp->comment->item[j]) + 1;
+      }
+      char *total_comment = (char *) xmalloca (length);
 
-      length = 0;
-      for (j = 0; j < mp->comment->nitems; j++)
-        length += strlen (mp->comment->item[j]) + 1;
-      total_comment = (char *) xmalloca (length);
+      {
+        char *q = total_comment;
+        for (size_t j = 0; j < mp->comment->nitems; j++)
+          {
+            size_t l = strlen (mp->comment->item[j]);
 
-      q = total_comment;
-      for (j = 0; j < mp->comment->nitems; j++)
-        {
-          size_t l = strlen (mp->comment->item[j]);
+            memcpy (q, mp->comment->item[j], l);
+            q += l;
+            *q++ = '\n';
+          }
+        if (q != total_comment + length)
+          abort ();
+      }
 
-          memcpy (q, mp->comment->item[j], l);
-          q += l;
-          *q++ = '\n';
-        }
-      if (q != total_comment + length)
-        abort ();
-
-      selected = is_string_selected (3, total_comment, length);
+      bool selected = is_string_selected (3, total_comment, length);
 
       freea (total_comment);
 
@@ -819,29 +801,28 @@ is_message_selected_no_invert (const message_ty *mp)
       && mp->comment_dot != NULL && mp->comment_dot->nitems > 0)
     {
       size_t length;
-      char *total_comment;
-      char *q;
-      size_t j;
-      bool selected;
+      {
+        length = 0;
+        for (size_t j = 0; j < mp->comment_dot->nitems; j++)
+          length += strlen (mp->comment_dot->item[j]) + 1;
+      }
+      char *total_comment = (char *) xmalloca (length);
 
-      length = 0;
-      for (j = 0; j < mp->comment_dot->nitems; j++)
-        length += strlen (mp->comment_dot->item[j]) + 1;
-      total_comment = (char *) xmalloca (length);
+      {
+        char *q = total_comment;
+        for (size_t j = 0; j < mp->comment_dot->nitems; j++)
+          {
+            size_t l = strlen (mp->comment_dot->item[j]);
 
-      q = total_comment;
-      for (j = 0; j < mp->comment_dot->nitems; j++)
-        {
-          size_t l = strlen (mp->comment_dot->item[j]);
+            memcpy (q, mp->comment_dot->item[j], l);
+            q += l;
+            *q++ = '\n';
+          }
+        if (q != total_comment + length)
+          abort ();
+      }
 
-          memcpy (q, mp->comment_dot->item[j], l);
-          q += l;
-          *q++ = '\n';
-        }
-      if (q != total_comment + length)
-        abort ();
-
-      selected = is_string_selected (4, total_comment, length);
+      bool selected = is_string_selected (4, total_comment, length);
 
       freea (total_comment);
 
@@ -857,13 +838,11 @@ is_message_selected_no_invert (const message_ty *mp)
 static bool
 is_message_selected (const message_ty *mp)
 {
-  bool result;
-
   /* Always keep the header entry.  */
   if (is_header (mp))
     return true;
 
-  result = is_message_selected_no_invert (mp);
+  bool result = is_message_selected_no_invert (mp);
 
   if (invert_match)
     return !result;
@@ -887,9 +866,7 @@ process_message_list (const char *domain, message_list_ty *mlp)
 static msgdomain_list_ty *
 process_msgdomain_list (msgdomain_list_ty *mdlp)
 {
-  size_t k;
-
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     process_message_list (mdlp->item[k]->domain, mdlp->item[k]->messages);
 
   return mdlp;

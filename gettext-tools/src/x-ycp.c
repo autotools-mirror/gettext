@@ -135,12 +135,10 @@ static int phase2_pushback_length;
 static int
 phase2_getc ()
 {
-  int lineno;
-  int c;
-  bool last_was_star;
-
   if (phase2_pushback_length)
     return phase2_pushback[--phase2_pushback_length];
+
+  int c;
 
   if (char_in_line == 0)
     {
@@ -154,7 +152,7 @@ phase2_getc ()
           /* sh comment.  */
           struct string_buffer buffer;
           sb_init (&buffer);
-          lineno = line_number;
+          int lineno = line_number;
           for (;;)
             {
               c = phase1_getc ();
@@ -188,8 +186,8 @@ phase2_getc ()
           {
             struct string_buffer buffer;
             sb_init (&buffer);
-            lineno = line_number;
-            last_was_star = false;
+            int lineno = line_number;
+            bool last_was_star = false;
             for (;;)
               {
                 c = phase1_getc ();
@@ -249,7 +247,7 @@ phase2_getc ()
           {
             struct string_buffer buffer;
             sb_init (&buffer);
-            lineno = line_number;
+            int lineno = line_number;
             for (;;)
               {
                 c = phase1_getc ();
@@ -317,10 +315,10 @@ struct token_ty
 static int
 get_string_element ()
 {
-  int c;
-
   for (;;)
     {
+      int c;
+
       /* Use phase 1, because phase 2 elides comments.  */
       c = phase1_getc ();
 
@@ -351,10 +349,8 @@ get_string_element ()
           case '0': case '1': case '2': case '3':
           case '4': case '5': case '6': case '7':
             {
-              int n, j;
-
-              n = 0;
-              for (j = 0; j < 3; ++j)
+              int n = 0;
+              for (int j = 0; j < 3; ++j)
                 {
                   n = n * 8 + c - '0';
                   c = phase1_getc ();
@@ -400,8 +396,6 @@ static int phase5_pushback_length;
 static void
 phase5_get (token_ty *tp)
 {
-  int c;
-
   if (phase5_pushback_length)
     {
       *tp = phase5_pushback[--phase5_pushback_length];
@@ -409,6 +403,8 @@ phase5_get (token_ty *tp)
     }
   for (;;)
     {
+      int c;
+
       tp->line_number = line_number;
       c = phase2_getc ();
 
@@ -564,15 +560,15 @@ phase8_get (token_ty *tp)
   for (;;)
     {
       token_ty tmp;
-      size_t len;
-
       phase5_get (&tmp);
+
       if (tmp.type != token_type_string_literal)
         {
           phase5_unget (&tmp);
           return;
         }
-      len = strlen (tp->string);
+
+      size_t len = strlen (tp->string);
       tp->string = xrealloc (tp->string, len + strlen (tmp.string) + 1);
       strcpy (tp->string + len, tmp.string);
       free_token (&tmp);
@@ -647,7 +643,6 @@ extract_parenthesized (message_list_ty *mlp,
   for (;;)
     {
       token_ty token;
-
       if (in_i18n)
         phase8_get (&token);
       else
@@ -682,7 +677,6 @@ extract_parenthesized (message_list_ty *mlp,
                 {
                   /* Seen an msgid.  */
                   token_ty token2;
-
                   if (in_i18n)
                     phase8_get (&token2);
                   else

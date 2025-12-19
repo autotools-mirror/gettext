@@ -52,13 +52,11 @@
 void
 check_pot_charset (const msgdomain_list_ty *mdlp, const char *filename)
 {
-  size_t j, k;
-
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     {
       const message_list_ty *mlp = mdlp->item[k]->messages;
 
-      for (j = 0; j < mlp->nitems; j++)
+      for (size_t j = 0; j < mlp->nitems; j++)
         if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
           {
             const char *header = mlp->item[j]->msgstr;
@@ -69,12 +67,10 @@ check_pot_charset (const msgdomain_list_ty *mdlp, const char *filename)
 
                 if (charsetstr != NULL)
                   {
-                    size_t len;
-                    char *charset;
-
                     charsetstr += strlen ("charset=");
-                    len = strcspn (charsetstr, " \t\n");
-                    charset = (char *) xmalloca (len + 1);
+                    size_t len = strcspn (charsetstr, " \t\n");
+
+                    char *charset = (char *) xmalloca (len + 1);
                     memcpy (charset, charsetstr, len);
                     charset[len] = '\0';
 
@@ -103,21 +99,16 @@ check_pot_charset (const msgdomain_list_ty *mdlp, const char *filename)
 void
 compare_po_locale_charsets (const msgdomain_list_ty *mdlp)
 {
-  const char *locale_code;
-  const char *canon_locale_code;
-  bool warned;
-  size_t j, k;
-
   /* Check whether the locale encoding and the PO file's encoding are the
      same.  Otherwise emit a warning.  */
-  locale_code = locale_charset ();
-  canon_locale_code = po_charset_canonicalize (locale_code);
-  warned = false;
-  for (k = 0; k < mdlp->nitems; k++)
+  const char *locale_code = locale_charset ();
+  const char *canon_locale_code = po_charset_canonicalize (locale_code);
+  bool warned = false;
+  for (size_t k = 0; k < mdlp->nitems; k++)
     {
       const message_list_ty *mlp = mdlp->item[k]->messages;
 
-      for (j = 0; j < mlp->nitems; j++)
+      for (size_t j = 0; j < mlp->nitems; j++)
         if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
           {
             const char *header = mlp->item[j]->msgstr;
@@ -128,22 +119,21 @@ compare_po_locale_charsets (const msgdomain_list_ty *mdlp)
 
                 if (charsetstr != NULL)
                   {
-                    size_t len;
-                    char *charset;
-                    const char *canon_charset;
-
                     charsetstr += strlen ("charset=");
-                    len = strcspn (charsetstr, " \t\n");
-                    charset = (char *) xmalloca (len + 1);
+                    size_t len = strcspn (charsetstr, " \t\n");
+
+                    char *charset = (char *) xmalloca (len + 1);
                     memcpy (charset, charsetstr, len);
                     charset[len] = '\0';
 
-                    canon_charset = po_charset_canonicalize (charset);
+                    const char *canon_charset = po_charset_canonicalize (charset);
                     if (canon_charset == NULL)
                       error (EXIT_FAILURE, 0,
                              _("present charset \"%s\" is not a portable encoding name"),
                              charset);
+
                     freea (charset);
+
                     if (canon_locale_code != canon_charset)
                       {
                         size_t prefix_width =

@@ -55,28 +55,28 @@ typedef int (* syntax_check_function) (const message_ty *mp, const char *msgid);
 static int
 syntax_check_ellipsis_unicode (const message_ty *mp, const char *msgid)
 {
-  const char *str = msgid;
-  const char *str_limit = str + strlen (msgid);
   int seen_errors = 0;
+  {
+    const char *str = msgid;
+    const char *str_limit = str + strlen (msgid);
+    while (str < str_limit)
+      {
+        ucs4_t ending_char;
+        const char *end = sentence_end (str, &ending_char);
 
-  while (str < str_limit)
-    {
-      const char *end, *cp;
-      ucs4_t ending_char;
+        /* sentence_end doesn't treat '...' specially.  */
+        const char *cp = end - (ending_char == '.' ? 2 : 3);
 
-      end = sentence_end (str, &ending_char);
+        if (cp >= str && memcmp (cp, "...", 3) == 0)
+          {
+            po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false,
+                       _("ASCII ellipsis ('...') instead of Unicode"));
+            seen_errors++;
+          }
 
-      /* sentence_end doesn't treat '...' specially.  */
-      cp = end - (ending_char == '.' ? 2 : 3);
-      if (cp >= str && memcmp (cp, "...", 3) == 0)
-        {
-          po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false,
-                     _("ASCII ellipsis ('...') instead of Unicode"));
-          seen_errors++;
-        }
-
-      str = end + 1;
-    }
+        str = end + 1;
+      }
+  }
 
   return seen_errors;
 }
@@ -87,72 +87,69 @@ syntax_check_ellipsis_unicode (const message_ty *mp, const char *msgid)
 static int
 syntax_check_space_ellipsis (const message_ty *mp, const char *msgid)
 {
-  const char *str = msgid;
-  const char *str_limit = str + strlen (msgid);
   int seen_errors = 0;
+  {
+    const char *str = msgid;
+    const char *str_limit = str + strlen (msgid);
+    while (str < str_limit)
+      {
+        ucs4_t ending_char;
+        const char *end = sentence_end (str, &ending_char);
 
-  while (str < str_limit)
-    {
-      const char *end, *ellipsis = NULL;
-      ucs4_t ending_char;
+        const char *ellipsis = NULL;
+        if (ending_char == 0x2026)
+          ellipsis = end;
+        else if (ending_char == '.')
+          {
+            /* sentence_end doesn't treat '...' specially.  */
+            const char *cp = end - 2;
+            if (cp >= str && memcmp (cp, "...", 3) == 0)
+              ellipsis = cp;
+          }
+        else
+          {
+            /* Look for a '...'.  */
+            const char *cp = end - 3;
+            if (cp >= str && memcmp (cp, "...", 3) == 0)
+              ellipsis = cp;
+            else
+              {
+                /* Look for a U+2026.  */
+                ucs4_t uc = 0xfffd;
+                for (cp = end - 1; cp >= str; cp--)
+                  {
+                    u8_mbtouc (&uc, (const unsigned char *) cp, end - cp);
+                    if (uc != 0xfffd)
+                      break;
+                  }
 
-      end = sentence_end (str, &ending_char);
+                if (uc == 0x2026)
+                  ellipsis = cp;
+              }
+          }
 
-      if (ending_char == 0x2026)
-        ellipsis = end;
-      else if (ending_char == '.')
-        {
-          /* sentence_end doesn't treat '...' specially.  */
-          const char *cp = end - 2;
-          if (cp >= str && memcmp (cp, "...", 3) == 0)
-            ellipsis = cp;
-        }
-      else
-        {
-          /* Look for a '...'.  */
-          const char *cp = end - 3;
-          if (cp >= str && memcmp (cp, "...", 3) == 0)
-            ellipsis = cp;
-          else
-            {
-              ucs4_t uc = 0xfffd;
+        if (ellipsis)
+          {
+            /* Look at the character before ellipsis.  */
+            ucs4_t uc = 0xfffd;
+            for (const char *cp = ellipsis - 1; cp >= str; cp--)
+              {
+                u8_mbtouc (&uc, (const unsigned char *) cp, ellipsis - cp);
+                if (uc != 0xfffd)
+                  break;
+              }
 
-              /* Look for a U+2026.  */
-              for (cp = end - 1; cp >= str; cp--)
-                {
-                  u8_mbtouc (&uc, (const unsigned char *) cp, end - cp);
-                  if (uc != 0xfffd)
-                    break;
-                }
+            if (uc != 0xfffd && uc_is_space (uc))
+              {
+                po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false,
+                           _("space before ellipsis found in user visible strings"));
+                seen_errors++;
+              }
+          }
 
-              if (uc == 0x2026)
-                ellipsis = cp;
-            }
-        }
-
-      if (ellipsis)
-        {
-          const char *cp;
-          ucs4_t uc = 0xfffd;
-
-          /* Look at the character before ellipsis.  */
-          for (cp = ellipsis - 1; cp >= str; cp--)
-            {
-              u8_mbtouc (&uc, (const unsigned char *) cp, ellipsis - cp);
-              if (uc != 0xfffd)
-                break;
-            }
-
-          if (uc != 0xfffd && uc_is_space (uc))
-            {
-              po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false,
-                         _("space before ellipsis found in user visible strings"));
-              seen_errors++;
-            }
-        }
-
-      str = end + 1;
-    }
+        str = end + 1;
+      }
+  }
 
   return seen_errors;
 }
@@ -195,7 +192,6 @@ static int
 syntax_check_quote_unicode (const message_ty *mp, const char *msgid)
 {
   struct callback_arg arg;
-
   arg.mp = mp;
   arg.seen_errors = 0;
 
@@ -226,82 +222,82 @@ static struct bullet_stack_ty bullet_stack;
 static int
 syntax_check_bullet_unicode (const message_ty *mp, const char *msgid)
 {
-  const char *str = msgid;
-  const char *str_limit = str + strlen (msgid);
-  struct bullet_ty *last_bullet = NULL;
   bool seen_error = false;
 
   bullet_stack.nitems = 0;
+  struct bullet_ty *last_bullet = NULL;
 
-  while (str < str_limit)
-    {
-      const char *p = str, *end;
+  {
+    const char *str = msgid;
+    const char *str_limit = str + strlen (msgid);
+    while (str < str_limit)
+      {
+        const char *p = str;
 
-      while (p < str_limit && c_isspace (*p))
-        p++;
+        while (p < str_limit && c_isspace (*p))
+          p++;
 
-      if ((*p == '*' || *p == '-') && *(p + 1) == ' ')
-        {
-          size_t depth = p - str;
-          if (last_bullet == NULL || depth > last_bullet->depth)
-            {
-              struct bullet_ty bullet;
+        if ((*p == '*' || *p == '-') && *(p + 1) == ' ')
+          {
+            size_t depth = p - str;
+            if (last_bullet == NULL || depth > last_bullet->depth)
+              {
+                struct bullet_ty bullet;
+                bullet.c = *p;
+                bullet.depth = depth;
 
-              bullet.c = *p;
-              bullet.depth = depth;
+                if (bullet_stack.nitems >= bullet_stack.nitems_max)
+                  {
+                    bullet_stack.nitems_max = 2 * bullet_stack.nitems_max + 4;
+                    bullet_stack.items = xrealloc (bullet_stack.items,
+                                                   bullet_stack.nitems_max
+                                                   * sizeof (struct bullet_ty));
+                  }
 
-              if (bullet_stack.nitems >= bullet_stack.nitems_max)
-                {
-                  bullet_stack.nitems_max = 2 * bullet_stack.nitems_max + 4;
-                  bullet_stack.items = xrealloc (bullet_stack.items,
-                                                 bullet_stack.nitems_max
-                                                 * sizeof (struct bullet_ty));
-                }
+                last_bullet = &bullet_stack.items[bullet_stack.nitems++];
+                memcpy (last_bullet, &bullet, sizeof (struct bullet_ty));
+              }
+            else
+              {
+                if (depth < last_bullet->depth)
+                  {
+                    if (bullet_stack.nitems > 1)
+                      {
+                        bullet_stack.nitems--;
+                        last_bullet =
+                          &bullet_stack.items[bullet_stack.nitems - 1];
+                      }
+                    else
+                      last_bullet = NULL;
+                  }
 
-              last_bullet = &bullet_stack.items[bullet_stack.nitems++];
-              memcpy (last_bullet, &bullet, sizeof (struct bullet_ty));
-            }
-          else
-            {
-              if (depth < last_bullet->depth)
-                {
-                  if (bullet_stack.nitems > 1)
-                    {
-                      bullet_stack.nitems--;
-                      last_bullet =
-                        &bullet_stack.items[bullet_stack.nitems - 1];
-                    }
-                  else
-                    last_bullet = NULL;
-                }
+                if (last_bullet && depth == last_bullet->depth)
+                  {
+                    if (last_bullet->c != *p)
+                      last_bullet->c = *p;
+                    else
+                      {
+                        seen_error = true;
+                        break;
+                      }
+                  }
+              }
+          }
+        else
+          {
+            bullet_stack.nitems = 0;
+            last_bullet = NULL;
+          }
 
-              if (last_bullet && depth == last_bullet->depth)
-                {
-                  if (last_bullet->c != *p)
-                    last_bullet->c = *p;
-                  else
-                    {
-                      seen_error = true;
-                      break;
-                    }
-                }
-            }
-        }
-      else
-        {
-          bullet_stack.nitems = 0;
-          last_bullet = NULL;
-        }
-
-      end = strchrnul (str, '\n');
-      str = end + 1;
-    }
+        const char *end = strchrnul (str, '\n');
+        str = end + 1;
+      }
+  }
 
   if (seen_error)
     {
-      char *msg;
-      msg = xasprintf (_("ASCII bullet ('%c') instead of Unicode"),
-                       last_bullet->c);
+      char *msg = xasprintf (_("ASCII bullet ('%c') instead of Unicode"),
+                             last_bullet->c);
       po_xerror (PO_SEVERITY_ERROR, mp, NULL, 0, 0, false, msg);
       free (msg);
       return 1;
@@ -327,9 +323,8 @@ static int
 syntax_check_message (const message_ty *mp)
 {
   int seen_errors = 0;
-  int i;
 
-  for (i = 0; i < NSYNTAXCHECKS; i++)
+  for (int i = 0; i < NSYNTAXCHECKS; i++)
     {
       if (mp->do_syntax_check[i] == yes)
         {
@@ -359,8 +354,8 @@ formatstring_error_logger (void *data, const char *format, ...)
 {
   struct formatstring_error_logger_locals *l =
     (struct formatstring_error_logger_locals *) data;
-  va_list args;
 
+  va_list args;
   va_start (args, format);
   if_verror (IF_SEVERITY_ERROR,
              l->pos->file_name, l->pos->line_number, (size_t)(-1), false,
@@ -375,13 +370,12 @@ static int
 format_check_message (const message_ty *mp)
 {
   int seen_errors = 0;
-  size_t i;
 
   if (mp->msgid_plural != NULL)
     {
       /* Look for format string incompatibilities between msgid and
          msgid_plural.  */
-      for (i = 0; i < NFORMATS; i++)
+      for (size_t i = 0; i < NFORMATS; i++)
         if (possible_format_p (mp->is_format[i]))
           {
             struct formatstring_parser *parser = formatstring_parsers[i];
@@ -430,16 +424,14 @@ string_has_url (const char *string)
     "ftp://",
     "irc://", "ircs://"
   };
-  size_t i;
 
-  for (i = 0; i < SIZEOF (patterns); i++)
+  for (size_t i = 0; i < SIZEOF (patterns); i++)
     {
       const char *pattern = patterns[i];
       /* msgid and msgid_plural are typically entirely ASCII.  Therefore here
          it's OK to use the <c-ctype.h> functions; no need for UTF-8 aware
          <unictype.h> functions.  */
-      const char *string_tail;
-      for (string_tail = string;;)
+      for (const char *string_tail = string;;)
         {
           const char *found = c_strstr (string_tail, pattern);
           if (found == NULL)
@@ -487,8 +479,7 @@ message_has_url (const message_ty *mp)
 static bool
 string_has_email (const char *string)
 {
-  const char *string_tail;
-  for (string_tail = string;;)
+  for (const char *string_tail = string;;)
     {
       /* An email address consists of LOCALPART@DOMAIN.  */
       const char *at = strchr (string_tail, '@');
@@ -584,9 +575,8 @@ int
 xgettext_check_message_list (message_list_ty *mlp)
 {
   int seen_errors = 0;
-  size_t j;
 
-  for (j = 0; j < mlp->nitems; j++)
+  for (size_t j = 0; j < mlp->nitems; j++)
     {
       message_ty *mp = mlp->item[j];
 

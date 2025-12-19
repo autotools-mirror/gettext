@@ -66,19 +66,18 @@ msgfmt_desktop_handle_pair (desktop_reader_ty *reader,
                             const char *value)
 {
   msgfmt_desktop_reader_ty *msgfmt_reader = (msgfmt_desktop_reader_ty *) reader;
-  void *keyword_value;
 
   if (!locale)
     {
       /* Write translated pair, if any.  */
+      void *keyword_value;
       if (hash_find_entry (msgfmt_reader->keywords, key, strlen (key),
                            &keyword_value) == 0)
         {
           bool is_list = (bool) (uintptr_t) keyword_value;
           char *unescaped = desktop_unescape_string (value, is_list);
-          size_t i;
 
-          for (i = 0; i < msgfmt_reader->operands->nitems; i++)
+          for (size_t i = 0; i < msgfmt_reader->operands->nitems; i++)
             {
               msgfmt_operand_ty *operand = &msgfmt_reader->operands->items[i];
               message_ty *mp;
@@ -142,12 +141,8 @@ msgdomain_write_desktop_bulk (msgfmt_operand_list_ty *operands,
                               hash_table *keywords,
                               const char *file_name)
 {
-  desktop_reader_ty *reader;
-  msgfmt_desktop_reader_ty *msgfmt_reader;
-  FILE *template_file;
-
-  reader = desktop_reader_alloc (&msgfmt_methods);
-  msgfmt_reader = (msgfmt_desktop_reader_ty *) reader;
+  desktop_reader_ty *reader = desktop_reader_alloc (&msgfmt_methods);
+  msgfmt_desktop_reader_ty *msgfmt_reader = (msgfmt_desktop_reader_ty *) reader;
 
   msgfmt_reader->operands = operands;
   msgfmt_reader->keywords = keywords;
@@ -166,7 +161,7 @@ msgdomain_write_desktop_bulk (msgfmt_operand_list_ty *operands,
         }
     }
 
-  template_file = fopen (template_file_name, "r");
+  FILE *template_file = fopen (template_file_name, "r");
   if (template_file == NULL)
     {
       desktop_reader_free (reader);
@@ -198,9 +193,6 @@ msgdomain_write_desktop (message_list_ty *mlp,
                          hash_table *keywords,
                          const char *file_name)
 {
-  msgfmt_operand_ty operand;
-  msgfmt_operand_list_ty operands;
-
   /* Convert the messages to Unicode.  */
   iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL,
                       textmode_xerror_handler);
@@ -210,8 +202,10 @@ msgdomain_write_desktop (message_list_ty *mlp,
   message_list_delete_header_field (mlp, "POT-Creation-Date:");
 
   /* Create a single-element operands and run the bulk operation on it.  */
+  msgfmt_operand_ty operand;
   operand.language = (char *) locale_name;
   operand.mlp = mlp;
+  msgfmt_operand_list_ty operands;
   operands.nitems = 1;
   operands.items = &operand;
 

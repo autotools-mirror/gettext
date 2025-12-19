@@ -196,18 +196,14 @@ color_distance (const hsv_t *color1, const hsv_t *color2)
 static unsigned int
 nearest_color (rgb_t given, const rgb_t *table, unsigned int table_size)
 {
-  hsv_t given_hsv;
-  unsigned int best_index;
-  float best_distance;
-  unsigned int i;
-
   assert (table_size > 0);
 
+  hsv_t given_hsv;
   rgb_to_hsv (given, &given_hsv);
 
-  best_index = 0;
-  best_distance = 1000000.0f;
-  for (i = 0; i < table_size; i++)
+  unsigned int best_index = 0;
+  float best_distance = 1000000.0f;
+  for (unsigned int i = 0; i < table_size; i++)
     {
       hsv_t i_hsv;
 
@@ -303,9 +299,9 @@ static inline term_color_t
 rgb_to_color_common8 (int r, int g, int b)
 {
   rgb_t color;
-  hsv_t hsv;
-
   color.red = r; color.green = g; color.blue = b;
+
+  hsv_t hsv;
   rgb_to_hsv (color, &hsv);
 
   if (hsv.saturation < 0.065f)
@@ -361,9 +357,9 @@ static inline term_color_t
 rgb_to_color_xterm8 (int r, int g, int b)
 {
   rgb_t color;
-  hsv_t hsv;
-
   color.red = r; color.green = g; color.blue = b;
+
+  hsv_t hsv;
   rgb_to_hsv (color, &hsv);
 
   if (hsv.saturation < 0.065f)
@@ -409,9 +405,9 @@ static inline term_color_t
 rgb_to_color_xterm16 (int r, int g, int b)
 {
   rgb_t color;
-  hsv_t hsv;
-
   color.red = r; color.green = g; color.blue = b;
+
+  hsv_t hsv;
   rgb_to_hsv (color, &hsv);
 
   if (hsv.saturation < 0.065f)
@@ -535,9 +531,9 @@ static inline term_color_t
 rgb_to_color_xterm88 (int r, int g, int b)
 {
   rgb_t color;
-  hsv_t hsv;
-
   color.red = r; color.green = g; color.blue = b;
+
+  hsv_t hsv;
   rgb_to_hsv (color, &hsv);
 
   if (hsv.saturation < 0.065f)
@@ -847,9 +843,9 @@ static inline term_color_t
 rgb_to_color_xterm256 (int r, int g, int b)
 {
   rgb_t color;
-  hsv_t hsv;
-
   color.red = r; color.green = g; color.blue = b;
+
+  hsv_t hsv;
   rgb_to_hsv (color, &hsv);
 
   if (hsv.saturation < 0.065f)
@@ -1164,12 +1160,10 @@ generate_hyperlink_id (term_ostream_t stream)
       stream->id_serial
     };
   char *p = id;
-  unsigned int i;
-  for (i = 0; i < 4; i++)
+  for (unsigned int i = 0; i < 4; i++)
     {
       uint32_t word = words[i];
-      unsigned int j;
-      for (j = 0; j < 32 / 4; j++)
+      for (unsigned int j = 0; j < 32 / 4; j++)
         *p++ = hexdigits[(word >> (32 - 4 * (j + 1))) & 0x0f];
     }
   *p = '\0';
@@ -1198,8 +1192,8 @@ static int
 out_char (int c)
 {
   char bytes[1];
-
   bytes[0] = (char)c;
+
   /* We have to write directly to the file descriptor, not to a buffer with
      the same destination, because of the padding and sleeping that tputs()
      does.  */
@@ -1223,8 +1217,8 @@ static _GL_ASYNC_SAFE int
 out_char_unchecked (int c)
 {
   char bytes[1];
-
   bytes[0] = (char)c;
+
   full_write (out_fd, bytes, 1);
   return 0;
 }
@@ -1312,11 +1306,10 @@ out_color_change (term_ostream_t stream, term_color_t new_color,
       assert (new_color >= 0 && new_color < 88);
       {
         char bytes[10];
-        char *p;
         bytes[0] = 0x1B; bytes[1] = '[';
         bytes[2] = '3'; bytes[3] = '8'; bytes[4] = ';';
         bytes[5] = '5'; bytes[6] = ';';
-        p = bytes + 7;
+        char *p = bytes + 7;
         if (new_color >= 10)
           *p++ = '0' + (new_color / 10);
         *p++ = '0' + (new_color % 10);
@@ -1330,11 +1323,10 @@ out_color_change (term_ostream_t stream, term_color_t new_color,
       assert (new_color >= 0 && new_color < 256);
       {
         char bytes[11];
-        char *p;
         bytes[0] = 0x1B; bytes[1] = '[';
         bytes[2] = '3'; bytes[3] = '8'; bytes[4] = ';';
         bytes[5] = '5'; bytes[6] = ';';
-        p = bytes + 7;
+        char *p = bytes + 7;
         if (new_color >= 100)
           *p++ = '0' + (new_color / 100);
         if (new_color >= 10)
@@ -1350,14 +1342,13 @@ out_color_change (term_ostream_t stream, term_color_t new_color,
       assert (new_color >= 0 && new_color < 0x1000000);
       {
         char bytes[19];
-        char *p;
         unsigned int r = (new_color >> 16) & 0xff;
         unsigned int g = (new_color >> 8) & 0xff;
         unsigned int b = new_color & 0xff;
         bytes[0] = 0x1B; bytes[1] = '[';
         bytes[2] = '3'; bytes[3] = '8'; bytes[4] = ';';
         bytes[5] = '2'; bytes[6] = ';';
-        p = bytes + 7;
+        char *p = bytes + 7;
         if (r >= 100)
           *p++ = '0' + (r / 100);
         if (r >= 10)
@@ -1463,11 +1454,10 @@ out_bgcolor_change (term_ostream_t stream, term_color_t new_bgcolor,
       assert (new_bgcolor >= 0 && new_bgcolor < 88);
       {
         char bytes[10];
-        char *p;
         bytes[0] = 0x1B; bytes[1] = '[';
         bytes[2] = '4'; bytes[3] = '8'; bytes[4] = ';';
         bytes[5] = '5'; bytes[6] = ';';
-        p = bytes + 7;
+        char *p = bytes + 7;
         if (new_bgcolor >= 10)
           *p++ = '0' + (new_bgcolor / 10);
         *p++ = '0' + (new_bgcolor % 10);
@@ -1481,11 +1471,10 @@ out_bgcolor_change (term_ostream_t stream, term_color_t new_bgcolor,
       assert (new_bgcolor >= 0 && new_bgcolor < 256);
       {
         char bytes[11];
-        char *p;
         bytes[0] = 0x1B; bytes[1] = '[';
         bytes[2] = '4'; bytes[3] = '8'; bytes[4] = ';';
         bytes[5] = '5'; bytes[6] = ';';
-        p = bytes + 7;
+        char *p = bytes + 7;
         if (new_bgcolor >= 100)
           *p++ = '0' + (new_bgcolor / 100);
         if (new_bgcolor >= 10)
@@ -1501,14 +1490,13 @@ out_bgcolor_change (term_ostream_t stream, term_color_t new_bgcolor,
       assert (new_bgcolor >= 0 && new_bgcolor < 0x1000000);
       {
         char bytes[19];
-        char *p;
         unsigned int r = (new_bgcolor >> 16) & 0xff;
         unsigned int g = (new_bgcolor >> 8) & 0xff;
         unsigned int b = new_bgcolor & 0xff;
         bytes[0] = 0x1B; bytes[1] = '[';
         bytes[2] = '4'; bytes[3] = '8'; bytes[4] = ';';
         bytes[5] = '2'; bytes[6] = ';';
-        p = bytes + 7;
+        char *p = bytes + 7;
         if (r >= 100)
           *p++ = '0' + (r / 100);
         if (r >= 10)
@@ -1664,8 +1652,6 @@ out_attr_change (term_ostream_t stream, attributes_t new_attr)
   else
   #endif
     {
-      bool cleared_attributes;
-
       /* For out_char to work.  */
       out_stream = stream;
       out_fd = stream->fd;
@@ -1702,7 +1688,7 @@ out_attr_change (term_ostream_t stream, attributes_t new_attr)
          The variable 'cleared_attributes' tells whether an escape sequence
          has been output that may have cleared all attributes and all color
          settings.  */
-      cleared_attributes = false;
+      bool cleared_attributes = false;
       if (old_attr.posture != POSTURE_NORMAL
           && new_attr.posture == POSTURE_NORMAL
           && stream->exit_italics_mode != NULL)
@@ -1899,35 +1885,33 @@ activate_default_attr (term_ostream_t stream)
 static void
 output_buffer (term_ostream_t stream, attributes_t goal_attr)
 {
-  const char *cp;
-  const attributes_t *ap;
-  size_t len;
-  size_t n;
+  const char *cp = stream->buffer;
+  const attributes_t *ap = stream->attrbuffer;
+  size_t len = stream->buflen;
 
-  cp = stream->buffer;
-  ap = stream->attrbuffer;
-  len = stream->buflen;
-
-  /* See how much we can output without blocking signals.  */
-  for (n = 0; n < len && equal_attributes (ap[n], stream->active_attr); n++)
-    ;
-  if (n > 0)
-    {
-      if (full_write (stream->fd, cp, n) < n)
-        {
-          int error_code = errno;
-          /* Do output to stderr only after we have switched back to the
-             default attributes.  Otherwise this output may come out with
-             the wrong text attributes.  */
-          if (!equal_attributes (stream->active_attr, stream->default_attr))
-            activate_default_attr (stream);
-          error (EXIT_FAILURE, error_code, _("error writing to %s"),
-                 stream->filename);
-        }
-      cp += n;
-      ap += n;
-      len -= n;
-    }
+  {
+    /* See how much we can output without blocking signals.  */
+    size_t n;
+    for (n = 0; n < len && equal_attributes (ap[n], stream->active_attr); n++)
+      ;
+    if (n > 0)
+      {
+        if (full_write (stream->fd, cp, n) < n)
+          {
+            int error_code = errno;
+            /* Do output to stderr only after we have switched back to the
+               default attributes.  Otherwise this output may come out with
+               the wrong text attributes.  */
+            if (!equal_attributes (stream->active_attr, stream->default_attr))
+              activate_default_attr (stream);
+            error (EXIT_FAILURE, error_code, _("error writing to %s"),
+                   stream->filename);
+          }
+        cp += n;
+        ap += n;
+        len -= n;
+      }
+  }
   if (len > 0)
     {
       if (!equal_attributes (*ap, stream->default_attr))
@@ -1939,6 +1923,7 @@ output_buffer (term_ostream_t stream, attributes_t goal_attr)
           out_attr_change (stream, *ap);
           /* See how many characters we can output without further attribute
              changes.  */
+          size_t n;
           for (n = 1; n < len && equal_attributes (ap[n], stream->active_attr); n++)
             ;
           if (full_write (stream->fd, cp, n) < n)
@@ -1976,8 +1961,7 @@ output_buffer (term_ostream_t stream, attributes_t goal_attr)
   {
     size_t count = stream->hyperlinks_count;
     size_t j = 0;
-    size_t i;
-    for (i = 0; i < count; i++)
+    for (size_t i = 0; i < count; i++)
       {
         /* Here 0 <= j <= i.  */
         hyperlink_t *hyperlink = stream->hyperlinks_array[i];
@@ -2132,8 +2116,7 @@ term_ostream::free (term_ostream_t stream)
   if (stream->hyperlinks_array != NULL)
     {
       size_t count = stream->hyperlinks_count;
-      size_t i;
-      for (i = 0; i < count; i++)
+      for (size_t i = 0; i < count; i++)
         free_hyperlink (stream->hyperlinks_array[i]);
       free (stream->hyperlinks_array);
     }
@@ -2233,7 +2216,6 @@ term_ostream::set_hyperlink (term_ostream_t stream,
     {
       /* Create a new hyperlink_t object.  */
       hyperlink_t *hyperlink = XMALLOC (hyperlink_t);
-
       hyperlink->ref = xstrdup (ref);
       if (id != NULL)
         {
@@ -2408,7 +2390,6 @@ term_ostream_t
 term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
 {
   term_ostream_t stream = XMALLOC (struct term_ostream_representation);
-
   stream->base.vtable = &term_ostream_vtable;
   stream->fd = fd;
   #if HAVE_WINDOWS_CONSOLES
@@ -2421,12 +2402,12 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
            <https://docs.microsoft.com/en-us/windows/console/getconsolemode>  */
         && GetConsoleMode (stream->handle, &mode) != 0)
       {
-        CONSOLE_SCREEN_BUFFER_INFO info;
         BOOL ok;
 
         /* GetConsoleScreenBufferInfo
            <https://docs.microsoft.com/en-us/windows/console/getconsolescreenbufferinfo>
            <https://docs.microsoft.com/en-us/windows/console/console-screen-buffer-info-str>  */
+        CONSOLE_SCREEN_BUFFER_INFO info;
         ok = GetConsoleScreenBufferInfo (stream->handle, &info);
         if (!ok)
           {
@@ -2527,10 +2508,8 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
   else
   #endif
     {
-      const char *term;
-
       /* Retrieve the terminal type.  */
-      term = getenv ("TERM");
+      const char *term = getenv ("TERM");
       if (term != NULL && term[0] != '\0')
         {
           /* When the terminfo function are available, we prefer them over the
@@ -2565,11 +2544,10 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
              bytes long.  <https://tldp.org/LDP/lpg/node91.html> suggests a
              buffer size of 2048 bytes.  */
           struct { char buf[2048]; char canary[4]; } termcapbuf;
-          int retval;
 
           /* Call tgetent, being defensive against buffer overflow.  */
           memcpy (termcapbuf.canary, "CnRy", 4);
-          retval = tgetent (termcapbuf.buf, term);
+          int retval = tgetent (termcapbuf.buf, term);
           if (memcmp (termcapbuf.canary, "CnRy", 4) != 0)
             /* Buffer overflow!  */
             abort ();
@@ -2748,8 +2726,7 @@ term_ostream_create (int fd, const char *filename, ttyctl_t tty_control)
         uint32_t h = 0;
         if (hostname != NULL)
           {
-            const char *p;
-            for (p = hostname; *p; p++)
+            for (const char *p = hostname; *p; p++)
               h = (unsigned char) *p + ((h << 9) | (h >> (32 - 9)));
           }
         stream->hostname_hash = h;

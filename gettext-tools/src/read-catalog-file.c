@@ -29,10 +29,10 @@ read_catalog_file (const char *filename, catalog_input_format_ty input_syntax)
 {
   char *real_filename;
   FILE *fp = open_catalog_file (filename, &real_filename, true);
-  msgdomain_list_ty *result;
 
-  result = read_catalog_stream (fp, real_filename, filename, input_syntax,
-                                textmode_xerror_handler);
+  msgdomain_list_ty *result =
+    read_catalog_stream (fp, real_filename, filename, input_syntax,
+                         textmode_xerror_handler);
 
   if (fp != stdin)
     fclose (fp);

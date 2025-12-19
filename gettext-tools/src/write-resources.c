@@ -64,25 +64,21 @@ execute_writing_input (const char *progname,
                        void *private_data)
 {
   struct locals *l = (struct locals *) private_data;
-  pid_t child;
-  int fd[1];
-  FILE *fp;
-  int exitstatus;
 
   /* Open a pipe to the C# execution engine.  */
-  child = create_pipe_out (progname, prog_path, prog_argv, NULL, NULL,
-                           NULL, false, true, true, fd);
+  int fd[1];
+  pid_t child = create_pipe_out (progname, prog_path, prog_argv, NULL, NULL,
+                                 NULL, false, true, true, fd);
 
-  fp = fdopen (fd[0], "wb");
+  FILE *fp = fdopen (fd[0], "wb");
   if (fp == NULL)
     error (EXIT_FAILURE, errno, _("fdopen() failed"));
 
   /* Write the message list.  */
   {
     message_list_ty *mlp = l->mlp;
-    size_t j;
 
-    for (j = 0; j < mlp->nitems; j++)
+    for (size_t j = 0; j < mlp->nitems; j++)
       {
         message_ty *mp = mlp->item[j];
 
@@ -99,7 +95,7 @@ execute_writing_input (const char *progname,
   /* He we can ignore SIGPIPE because WriteResource either writes to a file
      - then it never gets SIGPIPE - or to standard output, and in the latter
      case it has no side effects other than writing to standard output.  */
-  exitstatus =
+  int exitstatus =
     wait_subprocess (child, progname, true, false, true, true, NULL);
   if (exitstatus != 0)
     error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
@@ -119,13 +115,11 @@ msgdomain_write_csharp_resources (message_list_ty *mlp,
     {
       /* Determine whether mlp has entries with context.  */
       {
-        bool has_context;
-        size_t j;
-
-        has_context = false;
-        for (j = 0; j < mlp->nitems; j++)
+        bool has_context = false;
+        for (size_t j = 0; j < mlp->nitems; j++)
           if (mlp->item[j]->msgctxt != NULL)
             has_context = true;
+
         if (has_context)
           {
             multiline_error (xstrdup (""),
@@ -138,13 +132,11 @@ but the C# .resources format doesn't support contexts\n")));
 
       /* Determine whether mlp has plural entries.  */
       {
-        bool has_plural;
-        size_t j;
-
-        has_plural = false;
-        for (j = 0; j < mlp->nitems; j++)
+        bool has_plural = false;
+        for (size_t j = 0; j < mlp->nitems; j++)
           if (mlp->item[j]->msgid_plural != NULL)
             has_plural = true;
+
         if (has_plural)
           {
             multiline_error (xstrdup (""),
@@ -168,24 +160,21 @@ but the C# .resources format doesn't support plural handling\n")));
 
       /* Execute the WriteResource program.  */
       {
-        const char *args[2];
-        const char *gettextexedir;
-        char *assembly_path;
-        struct locals locals;
-
         /* Prepare arguments.  */
+        const char *args[2];
         args[0] = file_name_converted;
         args[1] = NULL;
 
         /* Make it possible to override the .exe location.  This is
            necessary for running the testsuite before "make install".  */
-        gettextexedir = getenv ("GETTEXTCSHARPEXEDIR");
+        const char *gettextexedir = getenv ("GETTEXTCSHARPEXEDIR");
         if (gettextexedir == NULL || gettextexedir[0] == '\0')
           gettextexedir = relocate (LIBDIR "/gettext");
 
-        assembly_path =
+        char *assembly_path =
           xconcatenated_filename (gettextexedir, "msgfmt.net", ".exe");
 
+        struct locals locals;
         locals.mlp = mlp;
 
         if (execute_csharp_program (assembly_path, NULL, 0,

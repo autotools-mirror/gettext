@@ -71,14 +71,12 @@ format_parse (const char *format, bool translated, char *fdi,
               char **invalid_reason)
 {
   const char *const format_start = format;
-  struct spec spec;
-  size_t args_allocated;
-  struct spec *result;
 
+  struct spec spec;
   spec.directives = 0;
   spec.arg_count = 0;
   spec.args = NULL;
-  args_allocated = 0;
+  size_t args_allocated = 0;
 
   for (; *format != '\0';)
     {
@@ -93,8 +91,6 @@ format_parse (const char *format, bool translated, char *fdi,
 
               if (*format != '%')
                 {
-                  enum format_arg_type type;
-
                   /* Parse flags.  */
                   if (*format == '-')
                     format++;
@@ -105,6 +101,7 @@ format_parse (const char *format, bool translated, char *fdi,
                   while (c_isdigit (*format))
                     format++;
 
+                  enum format_arg_type type;
                   switch (*format)
                     {
                     case 's':
@@ -149,7 +146,7 @@ format_parse (const char *format, bool translated, char *fdi,
         }
     }
 
-  result = XMALLOC (struct spec);
+  struct spec *result = XMALLOC (struct spec);
   *result = spec;
   return result;
 
@@ -210,11 +207,9 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
         }
       else
         {
-          size_t i;
-
           /* Check that the argument types are the same.  */
           if (!err)
-            for (i = 0; i < n2; i++)
+            for (size_t i = 0; i < n2; i++)
               {
                 if (spec1->args[i] != spec2->args[i])
                   {
@@ -255,7 +250,6 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  size_t i;
 
   if (spec == NULL)
     {
@@ -264,7 +258,7 @@ format_print (void *descr)
     }
 
   printf ("(");
-  for (i = 0; i < spec->arg_count; i++)
+  for (size_t i = 0; i < spec->arg_count; i++)
     {
       if (i > 0)
         printf (" ");
@@ -296,18 +290,14 @@ main ()
     {
       char *line = NULL;
       size_t line_size = 0;
-      int line_len;
-      char *invalid_reason;
-      void *descr;
-
-      line_len = getline (&line, &line_size, stdin);
+      int line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
         break;
       if (line_len > 0 && line[line_len - 1] == '\n')
         line[--line_len] = '\0';
 
-      invalid_reason = NULL;
-      descr = format_parse (line, false, NULL, &invalid_reason);
+      char *invalid_reason = NULL;
+      void *descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

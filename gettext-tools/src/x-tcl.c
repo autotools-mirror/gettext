@@ -94,12 +94,11 @@ x_tcl_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid Tcl
@@ -445,15 +444,14 @@ free_word (struct word *wp)
 static char *
 string_of_word (const struct word *wp)
 {
-  char *str;
-  int n;
-
   if (!(wp->type == t_string))
     abort ();
-  n = wp->token->charcount;
-  str = XNMALLOC (n + 1, char);
+  int n = wp->token->charcount;
+
+  char *str = XNMALLOC (n + 1, char);
   memcpy (str, wp->token->chars, n);
   str[n] = '\0';
+
   return str;
 }
 
@@ -669,10 +667,10 @@ static int
 accumulate_word (struct word *wp, enum terminator looking_for,
                  flag_region_ty *region)
 {
-  int c;
-
   for (;;)
     {
+      int c;
+
       c = phase2_getc ();
 
       if (c == EOF || c == CL_BRACE)
@@ -705,7 +703,6 @@ accumulate_word (struct word *wp, enum terminator looking_for,
           else
             {
               bool nonempty = false;
-
               for (; c != EOF && c != CL_BRACE; c = phase2_getc ())
                 {
                   if (c_isalnum ((unsigned char) c) || (c == '_'))
@@ -731,6 +728,7 @@ accumulate_word (struct word *wp, enum terminator looking_for,
                     }
                   break;
                 }
+
               if (c == '(')
                 {
                   /* $varname(index) */
@@ -806,10 +804,9 @@ accumulate_word (struct word *wp, enum terminator looking_for,
           {
             unsigned char utf8buf[6];
             int count = u8_uctomb (utf8buf, uc, 6);
-            int i;
             assert (count > 0);
             if (wp->type == t_string)
-              for (i = 0; i < count; i++)
+              for (int i = 0; i < count; i++)
                 {
                   grow_token (wp->token);
                   wp->token->chars[wp->token->charcount++] = utf8buf[i];
@@ -880,19 +877,17 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
 
   if (c == '{')
     {
-      int previous_depth;
-      enum word_type terminator;
-
       /* Start a new nested character group, which lasts until the next
          balanced '}' (ignoring \} things).  */
-      previous_depth = phase2_push () - 1;
+      int previous_depth = phase2_push () - 1;
 
       /* Interpret it as a command list.  */
       if (++brace_nesting_depth > MAX_NESTING_DEPTH)
         if_error (IF_SEVERITY_FATAL_ERROR,
                   logical_file_name, line_number, (size_t)(-1), false,
                   _("too many open braces"));
-      terminator = read_command_list ('\0', null_context_region ());
+      enum word_type terminator =
+        read_command_list ('\0', null_context_region ());
       brace_nesting_depth--;
 
       if (terminator == t_brace)
@@ -1010,9 +1005,9 @@ read_command (int looking_for, flag_region_ty *outer_region)
             if (inner.type == t_string)
               {
                 lex_pos_ty pos;
-
                 pos.file_name = logical_file_name;
                 pos.line_number = inner.line_number_at_start;
+
                 remember_a_message (mlp, NULL, string_of_word (&inner), false,
                                     false, inner_region, &pos,
                                     NULL, savable_comment, false);
@@ -1025,14 +1020,13 @@ read_command (int looking_for, flag_region_ty *outer_region)
             if (inner.type == t_string)
               {
                 char *function_name = string_of_word (&inner);
-                char *stripped_name;
-                void *keyword_value;
 
                 /* A leading "::" is redundant.  */
-                stripped_name = function_name;
+                char *stripped_name = function_name;
                 if (function_name[0] == ':' && function_name[1] == ':')
                   stripped_name += 2;
 
+                void *keyword_value;
                 if (hash_find_entry (&keywords,
                                      stripped_name, strlen (stripped_name),
                                      &keyword_value)
@@ -1087,9 +1081,7 @@ read_command_list (int looking_for, flag_region_ty *outer_region)
 {
   for (;;)
     {
-      enum word_type terminator;
-
-      terminator = read_command (looking_for, outer_region);
+      enum word_type terminator = read_command (looking_for, outer_region);
       if (terminator != t_separator)
         return terminator;
     }

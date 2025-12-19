@@ -115,60 +115,53 @@ format_parse (const char *format, bool translated, char *fdi,
               char **invalid_reason)
 {
   const char *const format_start = format;
-  struct spec spec;
-  size_t allocated;
-  struct spec *result;
 
+  struct spec spec;
   spec.directives = 0;
   spec.likely_intentional_directives = 0;
   spec.named_arg_count = 0;
   spec.unnamed_arg_count = 0;
   spec.named = NULL;
   spec.unnamed = NULL;
-  allocated = 0;
+  size_t allocated = 0;
 
   for (; *format != '\0';)
     if (*format++ == '%')
       {
         /* A directive.  */
-        char *name = NULL;
-        bool zero_precision = false;
-        enum format_arg_type type;
-        bool likely_intentional = true;
-
         FDI_SET (format - 1, FMTDIR_START);
         spec.directives++;
+        bool likely_intentional = true;
 
+        char *name = NULL;
         if (*format == '(')
           {
+            const char *name_start = ++format;
             size_t depth;
-            const char *name_start;
-            const char *name_end;
-            size_t n;
-
-            name_start = ++format;
-            depth = 0;
-            for (; *format != '\0'; format++)
-              {
-                if (*format == '(')
-                  depth++;
-                else if (*format == ')')
-                  {
-                    if (depth == 0)
-                      break;
-                    else
-                      depth--;
-                  }
-              }
+            {
+              depth = 0;
+              for (; *format != '\0'; format++)
+                {
+                  if (*format == '(')
+                    depth++;
+                  else if (*format == ')')
+                    {
+                      if (depth == 0)
+                        break;
+                      else
+                        depth--;
+                    }
+                }
+            }
             if (*format == '\0')
               {
                 *invalid_reason = INVALID_UNTERMINATED_DIRECTIVE ();
                 FDI_SET (format - 1, FMTDIR_ERROR);
                 goto bad_format;
               }
-            name_end = format++;
+            const char *name_end = format++;
 
-            n = name_end - name_start;
+            size_t n = name_end - name_start;
             name = XNMALLOC (n + 1, char);
             memcpy (name, name_start, n);
             name[n] = '\0';
@@ -208,6 +201,7 @@ format_parse (const char *format, bool translated, char *fdi,
             do format++; while (c_isdigit (*format));
           }
 
+        bool zero_precision = false;
         if (*format == '.')
           {
             format++;
@@ -249,6 +243,7 @@ format_parse (const char *format, bool translated, char *fdi,
         if (*format == 'h' || *format == 'l' || *format == 'L')
           format++;
 
+        enum format_arg_type type;
         switch (*format)
           {
           case '%':
@@ -336,21 +331,19 @@ format_parse (const char *format, bool translated, char *fdi,
   /* Sort the named argument array, and eliminate duplicates.  */
   if (spec.named_arg_count > 1)
     {
-      size_t i, j;
-      bool err;
-
       qsort (spec.named, spec.named_arg_count, sizeof (struct named_arg),
              named_arg_compare);
 
       /* Remove duplicates: Copy from i to j, keeping 0 <= j <= i.  */
-      err = false;
+      bool err = false;
+      size_t i, j;
       for (i = j = 0; i < spec.named_arg_count; i++)
         if (j > 0 && strcmp (spec.named[i].name, spec.named[j-1].name) == 0)
           {
             enum format_arg_type type1 = spec.named[i].type;
             enum format_arg_type type2 = spec.named[j-1].type;
-            enum format_arg_type type_both;
 
+            enum format_arg_type type_both;
             if (type1 == type2 || type2 == FAT_ANY)
               type_both = type1;
             else if (type1 == FAT_ANY)
@@ -383,15 +376,14 @@ format_parse (const char *format, bool translated, char *fdi,
         goto bad_format;
     }
 
-  result = XMALLOC (struct spec);
+  struct spec *result = XMALLOC (struct spec);
   *result = spec;
   return result;
 
  bad_format:
   if (spec.named != NULL)
     {
-      size_t i;
-      for (i = 0; i < spec.named_arg_count; i++)
+      for (size_t i = 0; i < spec.named_arg_count; i++)
         free (spec.named[i].name);
       free (spec.named);
     }
@@ -407,8 +399,7 @@ format_free (void *descr)
 
   if (spec->named != NULL)
     {
-      size_t i;
-      for (i = 0; i < spec->named_arg_count; i++)
+      for (size_t i = 0; i < spec->named_arg_count; i++)
         free (spec->named[i].name);
       free (spec->named);
     }
@@ -462,75 +453,78 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
     {
       if (spec1->named_arg_count + spec2->named_arg_count > 0)
         {
-          size_t i, j;
           size_t n1 = spec1->named_arg_count;
           size_t n2 = spec2->named_arg_count;
 
           /* Check the argument names in spec2 are contained in those of spec1.
              Both arrays are sorted.  We search for the first difference.  */
-          for (i = 0, j = 0; i < n1 || j < n2; )
-            {
-              int cmp = (i >= n1 ? 1 :
-                         j >= n2 ? -1 :
-                         strcmp (spec1->named[i].name, spec2->named[j].name));
+          {
+            size_t i, j;
+            for (i = 0, j = 0; i < n1 || j < n2; )
+              {
+                int cmp = (i >= n1 ? 1 :
+                           j >= n2 ? -1 :
+                           strcmp (spec1->named[i].name, spec2->named[j].name));
 
-              if (cmp > 0)
+                if (cmp > 0)
+                  {
+                    if (error_logger)
+                      error_logger (error_logger_data,
+                                    _("a format specification for argument '%s', as in '%s', doesn't exist in '%s'"),
+                                    spec2->named[j].name, pretty_msgstr,
+                                    pretty_msgid);
+                    err = true;
+                    break;
+                  }
+                else if (cmp < 0)
+                  {
+                    if (equality)
+                      {
+                        if (error_logger)
+                          error_logger (error_logger_data,
+                                        _("a format specification for argument '%s' doesn't exist in '%s'"),
+                                        spec1->named[i].name, pretty_msgstr);
+                        err = true;
+                        break;
+                      }
+                    else
+                      i++;
+                  }
+                else
+                  j++, i++;
+              }
+          }
+          /* Check the argument types are the same.  */
+          if (!err)
+            {
+              size_t i, j;
+              for (i = 0, j = 0; j < n2; )
                 {
-                  if (error_logger)
-                    error_logger (error_logger_data,
-                                  _("a format specification for argument '%s', as in '%s', doesn't exist in '%s'"),
-                                  spec2->named[j].name, pretty_msgstr,
-                                  pretty_msgid);
-                  err = true;
-                  break;
-                }
-              else if (cmp < 0)
-                {
-                  if (equality)
+                  if (strcmp (spec1->named[i].name, spec2->named[j].name) == 0)
                     {
-                      if (error_logger)
-                        error_logger (error_logger_data,
-                                      _("a format specification for argument '%s' doesn't exist in '%s'"),
-                                      spec1->named[i].name, pretty_msgstr);
-                      err = true;
-                      break;
+                      if (!(spec1->named[i].type == spec2->named[j].type
+                            || (!equality
+                                && (spec1->named[i].type == FAT_ANY
+                                    || spec2->named[j].type == FAT_ANY))))
+                        {
+                          if (error_logger)
+                            error_logger (error_logger_data,
+                                          _("format specifications in '%s' and '%s' for argument '%s' are not the same"),
+                                          pretty_msgid, pretty_msgstr,
+                                          spec2->named[j].name);
+                          err = true;
+                          break;
+                        }
+                      j++, i++;
                     }
                   else
                     i++;
                 }
-              else
-                j++, i++;
             }
-          /* Check the argument types are the same.  */
-          if (!err)
-            for (i = 0, j = 0; j < n2; )
-              {
-                if (strcmp (spec1->named[i].name, spec2->named[j].name) == 0)
-                  {
-                    if (!(spec1->named[i].type == spec2->named[j].type
-                          || (!equality
-                              && (spec1->named[i].type == FAT_ANY
-                                  || spec2->named[j].type == FAT_ANY))))
-                      {
-                        if (error_logger)
-                          error_logger (error_logger_data,
-                                        _("format specifications in '%s' and '%s' for argument '%s' are not the same"),
-                                        pretty_msgid, pretty_msgstr,
-                                        spec2->named[j].name);
-                        err = true;
-                        break;
-                      }
-                    j++, i++;
-                  }
-                else
-                  i++;
-              }
         }
 
       if (spec1->unnamed_arg_count + spec2->unnamed_arg_count > 0)
         {
-          size_t i;
-
           /* Check the argument types are the same.  */
           if (spec1->unnamed_arg_count != spec2->unnamed_arg_count)
             {
@@ -541,7 +535,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
               err = true;
             }
           else
-            for (i = 0; i < spec2->unnamed_arg_count; i++)
+            for (size_t i = 0; i < spec2->unnamed_arg_count; i++)
               if (!(spec1->unnamed[i].type == spec2->unnamed[i].type
                     || (!equality
                         && (spec1->unnamed[i].type == FAT_ANY
@@ -604,7 +598,6 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  size_t i;
 
   if (spec == NULL)
     {
@@ -618,7 +611,7 @@ format_print (void *descr)
         abort ();
 
       printf ("{");
-      for (i = 0; i < spec->named_arg_count; i++)
+      for (size_t i = 0; i < spec->named_arg_count; i++)
         {
           if (i > 0)
             printf (", ");
@@ -649,7 +642,7 @@ format_print (void *descr)
   else
     {
       printf ("(");
-      for (i = 0; i < spec->unnamed_arg_count; i++)
+      for (size_t i = 0; i < spec->unnamed_arg_count; i++)
         {
           if (i > 0)
             printf (" ");
@@ -685,18 +678,14 @@ main ()
     {
       char *line = NULL;
       size_t line_size = 0;
-      int line_len;
-      char *invalid_reason;
-      void *descr;
-
-      line_len = getline (&line, &line_size, stdin);
+      int line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
         break;
       if (line_len > 0 && line[line_len - 1] == '\n')
         line[--line_len] = '\0';
 
-      invalid_reason = NULL;
-      descr = format_parse (line, false, NULL, &invalid_reason);
+      char *invalid_reason = NULL;
+      void *descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

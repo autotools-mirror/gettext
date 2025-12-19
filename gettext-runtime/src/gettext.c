@@ -52,18 +52,6 @@ _GL_NORETURN_FUNC static void usage (int status);
 int
 main (int argc, char *argv[])
 {
-  const char *msgid;
-
-  /* Default values for command line options.  */
-  bool do_help = false;
-  bool do_shell = false;
-  bool do_version = false;
-  const char *domain = getenv ("TEXTDOMAIN");
-  const char *domaindir = getenv ("TEXTDOMAINDIR");
-  const char *context = NULL;
-  inhibit_added_newline = false;
-  do_expand = false;
-
   /* Set program name for message texts.  */
   set_program_name (argv[0]);
 
@@ -77,6 +65,16 @@ main (int argc, char *argv[])
 
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
+
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_shell = false;
+  bool do_version = false;
+  const char *domain = getenv ("TEXTDOMAIN");
+  const char *domaindir = getenv ("TEXTDOMAINDIR");
+  const char *context = NULL;
+  inhibit_added_newline = false;
+  do_expand = false;
 
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
@@ -93,39 +91,41 @@ main (int argc, char *argv[])
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, NON_OPTION_TERMINATES_OPTIONS, 0);
-  int optchar;
-  while ((optchar = get_next_option ()) != -1)
-    switch (optchar)
-      {
-      case '\0':          /* Long option with key == 0.  */
-        break;
-      case 'c':
-        context = optarg;
-        break;
-      case 'd':
-        domain = optarg;
-        break;
-      case 'e':
-        do_expand = true;
-        break;
-      case 'E':
-        /* Ignore.  Just for compatibility.  */
-        break;
-      case 'h':
-        do_help = true;
-        break;
-      case 'n':
-        inhibit_added_newline = true;
-        break;
-      case 's':
-        do_shell = true;
-        break;
-      case 'V':
-        do_version = true;
-        break;
-      default:
-        usage (EXIT_FAILURE);
-      }
+  {
+    int optchar;
+    while ((optchar = get_next_option ()) != -1)
+      switch (optchar)
+        {
+        case '\0':          /* Long option with key == 0.  */
+          break;
+        case 'c':
+          context = optarg;
+          break;
+        case 'd':
+          domain = optarg;
+          break;
+        case 'e':
+          do_expand = true;
+          break;
+        case 'E':
+          /* Ignore.  Just for compatibility.  */
+          break;
+        case 'h':
+          do_help = true;
+          break;
+        case 'n':
+          inhibit_added_newline = true;
+          break;
+        case 's':
+          do_shell = true;
+          break;
+        case 'V':
+          do_version = true;
+          break;
+        default:
+          usage (EXIT_FAILURE);
+        }
+  }
 
   /* Version information is requested.  */
   if (do_version)
@@ -170,7 +170,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
             error (EXIT_FAILURE, 0, _("missing arguments"));
         }
 
-      msgid = argv[optind++];
+      const char *msgid = argv[optind++];
 
       /* Expand escape sequences if enabled.  */
       if (do_expand)
@@ -210,7 +210,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
           /* We have to simulate 'echo'.  All arguments are strings.  */
           do
             {
-              msgid = argv[optind++];
+              const char *msgid = argv[optind++];
 
               /* Expand escape sequences if enabled.  */
               if (do_expand)

@@ -53,13 +53,6 @@ _GL_NORETURN_FUNC static void usage (int status);
 int
 main (int argc, char *argv[])
 {
-  /* Default values for command line options.  */
-  bool do_help = false;
-  bool do_version = false;
-  const char *domain = getenv ("TEXTDOMAIN");
-  const char *domaindir = getenv ("TEXTDOMAINDIR");
-  const char *context = NULL;
-
   /* Set program name for message texts.  */
   set_program_name (argv[0]);
 
@@ -74,6 +67,11 @@ main (int argc, char *argv[])
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+  const char *context = NULL;
+
   /* Parse command line options.  */
   {
     BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
@@ -85,24 +83,26 @@ main (int argc, char *argv[])
     };
     END_ALLOW_OMITTING_FIELD_INITIALIZERS
     start_options (argc, argv, options, NON_OPTION_TERMINATES_OPTIONS, 0);
-    int optchar;
-    while ((optchar = get_next_option ()) != -1)
-      switch (optchar)
-        {
-        case '\0':          /* Long option with key == 0.  */
-          break;
-        case 'c':
-          context = optarg;
-          break;
-        case 'h':
-          do_help = true;
-          break;
-        case 'V':
-          do_version = true;
-          break;
-        default:
-          usage (EXIT_FAILURE);
-        }
+    {
+      int optchar;
+      while ((optchar = get_next_option ()) != -1)
+        switch (optchar)
+          {
+          case '\0':          /* Long option with key == 0.  */
+            break;
+          case 'c':
+            context = optarg;
+            break;
+          case 'h':
+            do_help = true;
+            break;
+          case 'V':
+            do_version = true;
+            break;
+          default:
+            usage (EXIT_FAILURE);
+          }
+    }
   }
 
   /* Version information is requested.  */
@@ -164,6 +164,10 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     args_each_round =
       (args_consumed_1 >= args_consumed_2 ? args_consumed_1 : args_consumed_2);
   }
+
+  /* Consider the environment variables.  */
+  const char *domain = getenv ("TEXTDOMAIN");
+  const char *domaindir = getenv ("TEXTDOMAINDIR");
 
   if (domain != NULL && domain[0] != '\0')
     {

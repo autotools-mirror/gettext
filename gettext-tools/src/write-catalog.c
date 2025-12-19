@@ -90,16 +90,12 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
                       xerror_handler_ty xeh,
                       bool force, bool debug)
 {
-  bool to_stdout;
-
   /* We will not write anything if, for every domain, we have no message
      or only the header entry.  */
   if (!force)
     {
       bool found_nonempty = false;
-      size_t k;
-
-      for (k = 0; k < mdlp->nitems; k++)
+      for (size_t k = 0; k < mdlp->nitems; k++)
         {
           message_list_ty *mlp = mdlp->item[k]->messages;
 
@@ -129,16 +125,12 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
     {
       if (!output_syntax->supports_contexts)
         {
-          const lex_pos_ty *has_context;
-          size_t k;
-
-          has_context = NULL;
-          for (k = 0; k < mdlp->nitems; k++)
+          const lex_pos_ty *has_context = NULL;
+          for (size_t k = 0; k < mdlp->nitems; k++)
             {
               message_list_ty *mlp = mdlp->item[k]->messages;
-              size_t j;
 
-              for (j = 0; j < mlp->nitems; j++)
+              for (size_t j = 0; j < mlp->nitems; j++)
                 {
                   message_ty *mp = mlp->item[j];
 
@@ -159,16 +151,12 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
 
       if (!output_syntax->supports_plurals)
         {
-          const lex_pos_ty *has_plural;
-          size_t k;
-
-          has_plural = NULL;
-          for (k = 0; k < mdlp->nitems; k++)
+          const lex_pos_ty *has_plural = NULL;
+          for (size_t k = 0; k < mdlp->nitems; k++)
             {
               message_list_ty *mlp = mdlp->item[k]->messages;
-              size_t j;
 
-              for (j = 0; j < mlp->nitems; j++)
+              for (size_t j = 0; j < mlp->nitems; j++)
                 {
                   message_ty *mp = mlp->item[j];
 
@@ -196,8 +184,8 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
         }
     }
 
-  to_stdout = (filename == NULL || strcmp (filename, "-") == 0
-               || strcmp (filename, "/dev/stdout") == 0);
+  bool to_stdout = (filename == NULL || strcmp (filename, "-") == 0
+                    || strcmp (filename, "/dev/stdout") == 0);
 
 #if ENABLE_COLOR
   if (output_syntax->supports_color
@@ -206,10 +194,8 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
               && isatty (STDOUT_FILENO)
               && getenv ("NO_COLOR") == NULL)))
     {
-      int fd;
-      ostream_t stream;
-
       /* Open the output file.  */
+      int fd;
       if (!to_stdout)
         {
           fd = open (filename, O_WRONLY | O_CREAT | O_TRUNC,
@@ -233,7 +219,7 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
       style_file_prepare ("PO_STYLE",
                           "GETTEXTSTYLESDIR", relocate (GETTEXTSTYLESDIR),
                           "po-default.css");
-      stream =
+      ostream_t stream =
         styled_ostream_create (fd, filename, TTYCTL_AUTO, style_file_name);
       output_syntax->print (mdlp, stream, page_width, xeh, debug);
       ostream_free (stream);
@@ -251,10 +237,8 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
   else
 #endif
     {
-      FILE *fp;
-      file_ostream_t stream;
-
       /* Open the output file.  */
+      FILE *fp;
       if (!to_stdout)
         {
           fp = fopen (filename, "wb");
@@ -273,13 +257,11 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
           filename = _("standard output");
         }
 
-      stream = file_ostream_create (fp);
+      file_ostream_t stream = file_ostream_create (fp);
 
 #if ENABLE_COLOR
       if (output_syntax->supports_color && color_mode == color_html)
         {
-          html_styled_ostream_t html_stream;
-
           /* Convert mdlp to UTF-8 encoding.  */
           if (mdlp->encoding != po_charset_utf8)
             {
@@ -291,15 +273,15 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
           style_file_prepare ("PO_STYLE",
                               "GETTEXTSTYLESDIR", relocate (GETTEXTSTYLESDIR),
                               "po-default.css");
-          html_stream = html_styled_ostream_create (stream, style_file_name);
+          html_styled_ostream_t html_stream =
+            html_styled_ostream_create (stream, style_file_name);
           output_syntax->print (mdlp, html_stream, page_width, xeh, debug);
           ostream_free (html_stream);
         }
       else
         {
-          noop_styled_ostream_t styled_stream;
-
-          styled_stream = noop_styled_ostream_create (stream, false);
+          noop_styled_ostream_t styled_stream =
+            noop_styled_ostream_create (stream, false);
           output_syntax->print (mdlp, styled_stream, page_width, xeh, debug);
           ostream_free (styled_stream);
         }
@@ -353,9 +335,7 @@ cmp_by_msgid (const void *va, const void *vb)
 void
 msgdomain_list_sort_by_msgid (msgdomain_list_ty *mdlp)
 {
-  size_t k;
-
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     {
       message_list_ty *mlp = mdlp->item[k]->messages;
 
@@ -372,9 +352,8 @@ cmp_filepos (const void *va, const void *vb)
 {
   const lex_pos_ty *a = (const lex_pos_ty *) va;
   const lex_pos_ty *b = (const lex_pos_ty *) vb;
-  int cmp;
 
-  cmp = strcmp (a->file_name, b->file_name);
+  int cmp = strcmp (a->file_name, b->file_name);
   if (cmp == 0)
     cmp = (int) a->line_number - (int) b->line_number;
 
@@ -384,13 +363,11 @@ cmp_filepos (const void *va, const void *vb)
 static void
 msgdomain_list_sort_filepos (msgdomain_list_ty *mdlp)
 {
-  size_t j, k;
-
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     {
       message_list_ty *mlp = mdlp->item[k]->messages;
 
-      for (j = 0; j < mlp->nitems; j++)
+      for (size_t j = 0; j < mlp->nitems; j++)
         {
           message_ty *mp = mlp->item[j];
 
@@ -409,10 +386,9 @@ cmp_by_filepos (const void *va, const void *vb)
 {
   const message_ty *a = *(const message_ty **) va;
   const message_ty *b = *(const message_ty **) vb;
-  int cmp;
 
   /* No filepos is smaller than any other filepos.  */
-  cmp = (a->filepos_count != 0) - (b->filepos_count != 0);
+  int cmp = (a->filepos_count != 0) - (b->filepos_count != 0);
   if (cmp != 0)
     return cmp;
 
@@ -451,13 +427,11 @@ cmp_by_filepos (const void *va, const void *vb)
 void
 msgdomain_list_sort_by_filepos (msgdomain_list_ty *mdlp)
 {
-  size_t k;
-
   /* It makes sense to compare filepos[0] of different messages only after
      the filepos[] array of each message has been sorted.  Sort it now.  */
   msgdomain_list_sort_filepos (mdlp);
 
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     {
       message_list_ty *mlp = mdlp->item[k]->messages;
 

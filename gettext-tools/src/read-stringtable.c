@@ -81,12 +81,10 @@ static int phase1_pushback_length;
 static int
 phase1_getc (abstract_catalog_reader_ty *catr)
 {
-  int c;
-
   if (phase1_pushback_length)
     return phase1_pushback[--phase1_pushback_length];
 
-  c = getc (fp);
+  int c = getc (fp);
 
   if (c == EOF)
     {
@@ -144,12 +142,10 @@ phase2_getc (abstract_catalog_reader_ty *catr)
   if (encoding == enc_undetermined)
     {
       /* Determine the input file's encoding.  */
-      int c0, c1;
-
-      c0 = phase1_getc (catr);
+      int c0 = phase1_getc (catr);
       if (c0 == EOF)
         return UEOF;
-      c1 = phase1_getc (catr);
+      int c1 = phase1_getc (catr);
       if (c1 == EOF)
         {
           phase1_ungetc (c0);
@@ -161,9 +157,7 @@ phase2_getc (abstract_catalog_reader_ty *catr)
         encoding = enc_ucs2le;
       else
         {
-          int c2;
-
-          c2 = phase1_getc (catr);
+          int c2 = phase1_getc (catr);
           if (c2 == EOF)
             {
               phase1_ungetc (c1);
@@ -187,12 +181,10 @@ phase2_getc (abstract_catalog_reader_ty *catr)
     case enc_ucs2be:
       /* Read an UCS-2BE encoded character.  */
       {
-        int c0, c1;
-
-        c0 = phase1_getc (catr);
+        int c0 = phase1_getc (catr);
         if (c0 == EOF)
           return UEOF;
-        c1 = phase1_getc (catr);
+        int c1 = phase1_getc (catr);
         if (c1 == EOF)
           return UEOF;
         return (c0 << 8) + c1;
@@ -201,12 +193,10 @@ phase2_getc (abstract_catalog_reader_ty *catr)
     case enc_ucs2le:
       /* Read an UCS-2LE encoded character.  */
       {
-        int c0, c1;
-
-        c0 = phase1_getc (catr);
+        int c0 = phase1_getc (catr);
         if (c0 == EOF)
           return UEOF;
-        c1 = phase1_getc (catr);
+        int c1 = phase1_getc (catr);
         if (c1 == EOF)
           return UEOF;
         return c0 + (c1 << 8);
@@ -217,8 +207,8 @@ phase2_getc (abstract_catalog_reader_ty *catr)
       {
         unsigned char buf[6];
         unsigned int count;
+
         int c;
-        ucs4_t uc;
 
         c = phase1_getc (catr);
         if (c == EOF)
@@ -275,7 +265,9 @@ phase2_getc (abstract_catalog_reader_ty *catr)
               }
           }
 
+        ucs4_t uc;
         u8_mbtouc (&uc, buf, count);
+
         return uc;
       }
 
@@ -283,7 +275,6 @@ phase2_getc (abstract_catalog_reader_ty *catr)
       /* Read an ISO-8859-1 encoded character.  */
       {
         int c = phase1_getc (catr);
-
         if (c == EOF)
           return UEOF;
         return c;
@@ -328,25 +319,21 @@ phase3_ungetc (int c)
 static char *
 conv_from_ucs4 (const int *buffer, size_t buflen)
 {
-  unsigned char *utf8_string;
-  size_t i;
-  unsigned char *q;
 
   /* Each UCS-4 word needs 6 bytes at worst.  */
-  utf8_string = XNMALLOC (6 * buflen + 1, unsigned char);
-
-  for (i = 0, q = utf8_string; i < buflen; )
-    {
-      unsigned int uc;
-      int n;
-
-      uc = buffer[i++];
-      n = u8_uctomb (q, uc, 6);
-      assert (n > 0);
-      q += n;
-    }
-  *q = '\0';
-  assert (q - utf8_string <= 6 * buflen);
+  unsigned char *utf8_string = XNMALLOC (6 * buflen + 1, unsigned char);
+  {
+    unsigned char *q = utf8_string;
+    for (size_t i = 0; i < buflen; )
+      {
+        unsigned int uc = buffer[i++];
+        int n = u8_uctomb (q, uc, 6);
+        assert (n > 0);
+        q += n;
+      }
+    *q = '\0';
+    assert (q - utf8_string <= 6 * buflen);
+  }
 
   return (char *) utf8_string;
 }
@@ -358,14 +345,17 @@ conv_from_ucs4 (const int *buffer, size_t buflen)
 static char *
 parse_escaped_string (const int *string, size_t length)
 {
-  static int *buffer;
-  static size_t bufmax;
-  static size_t buflen;
   const int *string_limit = string + length;
-  int c;
 
   if (string == string_limit)
     return NULL;
+
+  static int *buffer;
+  static size_t bufmax;
+  static size_t buflen;
+
+  int c;
+
   c = *string++;
   if (c != '"')
     return NULL;
@@ -385,8 +375,7 @@ parse_escaped_string (const int *string, size_t length)
           if (c >= '0' && c <= '7')
             {
               unsigned int n = 0;
-              int j = 0;
-              for (;;)
+              for (int j = 0;;)
                 {
                   n = n * 8 + (c - '0');
                   if (++j == 3)
@@ -403,8 +392,7 @@ parse_escaped_string (const int *string, size_t length)
           else if (c == 'u' || c == 'U')
             {
               unsigned int n = 0;
-              int j;
-              for (j = 0; j < 4; j++)
+              for (int j = 0; j < 4; j++)
                 {
                   if (string == string_limit)
                     break;
@@ -515,8 +503,6 @@ static void
 comment_line_end (abstract_catalog_reader_ty *catr,
                   size_t chars_to_remove, bool test_for_fuzzy_msgstr)
 {
-  char *line;
-
   buflen -= chars_to_remove;
   /* Drop trailing white space, but not EOLs.  */
   while (buflen >= 1
@@ -534,7 +520,7 @@ comment_line_end (abstract_catalog_reader_ty *catr,
                                 buflen - (buffer[buflen - 1] == ';') - 2)))
     return;
 
-  line = conv_from_ucs4 (buffer, buflen);
+  char *line = conv_from_ucs4 (buffer, buflen);
 
   if (strcmp (line, "Flag: untranslated") == 0)
     {
@@ -590,14 +576,10 @@ phase4_getc (abstract_catalog_reader_ty *catr)
     case '*':
       /* C style comment.  */
       {
-        bool last_was_star;
-        size_t trailing_stars;
-        bool seen_newline;
-
         comment_start ();
-        last_was_star = false;
-        trailing_stars = 0;
-        seen_newline = false;
+        bool last_was_star = false;
+        size_t trailing_stars = 0;
+        bool seen_newline = false;
         /* Drop additional stars at the beginning of the comment.  */
         for (;;)
           {
@@ -712,6 +694,7 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *start_pos)
   static int *buffer;
   static size_t bufmax;
   static size_t buflen;
+
   int c;
 
   /* Skip whitespace before the string.  */
@@ -741,8 +724,7 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *start_pos)
               if (c >= '0' && c <= '7')
                 {
                   unsigned int n = 0;
-                  int j = 0;
-                  for (;;)
+                  for (int j = 0;;)
                     {
                       n = n * 8 + (c - '0');
                       if (++j == 3)
@@ -759,8 +741,7 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *start_pos)
               else if (c == 'u' || c == 'U')
                 {
                   unsigned int n = 0;
-                  int j;
-                  for (j = 0; j < 4; j++)
+                  for (int j = 0; j < 4; j++)
                     {
                       c = phase3_getc (catr);
                       if (c >= '0' && c <= '9')
@@ -840,12 +821,6 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
 
   for (;;)
     {
-      char *msgid;
-      lex_pos_ty msgid_pos;
-      char *msgstr;
-      lex_pos_ty msgstr_pos;
-      int c;
-
       /* Prepare for next msgid/msgstr pair.  */
       special_comment_reset ();
       next_is_obsolete = false;
@@ -853,11 +828,14 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
       fuzzy_msgstr = NULL;
 
       /* Read the key and all the comments preceding it.  */
-      msgid = read_string (catr, &msgid_pos);
+      lex_pos_ty msgid_pos;
+      char *msgid = read_string (catr, &msgid_pos);
       if (msgid == NULL)
         break;
 
       special_comment_finish (catr);
+
+      int c;
 
       /* Skip whitespace.  */
       do
@@ -877,8 +855,8 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
         {
           /* "key"; is an abbreviation for "key"=""; and does not
              necessarily designate an untranslated entry.  */
-          msgstr = xstrdup ("");
-          msgstr_pos = msgid_pos;
+          char *msgstr = xstrdup ("");
+          lex_pos_ty msgstr_pos = msgid_pos;
           catalog_reader_seen_message (catr,
                                        NULL, msgid, &msgid_pos, NULL,
                                        msgstr, strlen (msgstr) + 1, &msgstr_pos,
@@ -888,7 +866,8 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
       else if (c == '=')
         {
           /* Read the value.  */
-          msgstr = read_string (catr, &msgstr_pos);
+          lex_pos_ty msgstr_pos;
+          char *msgstr = read_string (catr, &msgstr_pos);
           if (msgstr == NULL)
             {
               catr->xeh->xerror (CAT_SEVERITY_ERROR, NULL,

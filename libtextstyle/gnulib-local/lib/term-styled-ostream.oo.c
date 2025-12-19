@@ -1,5 +1,5 @@
 /* Output stream for CSS styled text, producing ANSI escape sequences.
-   Copyright (C) 2006-2007, 2019-2020 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2019-2020, 2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -152,14 +152,11 @@ typedef struct _CRXStyle
 static CRXStyle *
 crx_style_new (gboolean a_set_props_to_initial_values)
 {
-  CRStyle *base;
-  CRXStyle *result;
-
-  base = cr_style_new (a_set_props_to_initial_values);
+  CRStyle *base = cr_style_new (a_set_props_to_initial_values);
   if (base == NULL)
     return NULL;
 
-  result = XMALLOC (CRXStyle);
+  CRXStyle *result = XMALLOC (CRXStyle);
   result->base = base;
   if (a_set_props_to_initial_values)
     result->text_decoration = TEXT_DECORATION_NONE;
@@ -184,21 +181,19 @@ crx_sel_eng_get_matched_style (CRSelEng * a_this, CRCascade * a_cascade,
                                CRXStyle * a_parent_style, CRXStyle ** a_style,
                                gboolean a_set_props_to_initial_values)
 {
-  enum CRStatus status;
-  CRPropList *props = NULL;
 
   if (!(a_this && a_cascade && a_node && a_style))
     return CR_BAD_PARAM_ERROR;
 
-  status = cr_sel_eng_get_matched_properties_from_cascade (a_this, a_cascade,
-                                                           a_node, &props);
+  CRPropList *props = NULL;
+  enum CRStatus status =
+    cr_sel_eng_get_matched_properties_from_cascade (a_this, a_cascade, a_node,
+                                                    &props);
   if (!(status == CR_OK))
     return status;
 
   if (props)
     {
-      CRXStyle *style;
-
       if (!*a_style)
         {
           *a_style = crx_style_new (a_set_props_to_initial_values);
@@ -218,52 +213,48 @@ crx_sel_eng_get_matched_style (CRSelEng * a_this, CRCascade * a_cascade,
               (*a_style)->text_decoration = TEXT_DECORATION_INHERIT;
             }
         }
-      style = *a_style;
+      CRXStyle *style = *a_style;
       style->parent_style = a_parent_style;
       style->base->parent_style =
         (a_parent_style != NULL ? a_parent_style->base : NULL);
 
-      {
-        CRPropList *cur;
+      for (CRPropList *cur = props; cur != NULL; cur = cr_prop_list_get_next (cur))
+        {
+          CRDeclaration *decl = NULL;
+          cr_prop_list_get_decl (cur, &decl);
 
-        for (cur = props; cur != NULL; cur = cr_prop_list_get_next (cur))
-          {
-            CRDeclaration *decl = NULL;
+          cr_style_set_style_from_decl (style->base, decl);
+          if (decl != NULL
+              && decl->property != NULL
+              && decl->property->stryng != NULL
+              && decl->property->stryng->str != NULL)
+            {
+              if (strcmp (decl->property->stryng->str, "text-decoration") == 0
+                  && decl->value != NULL
+                  && decl->value->type == TERM_IDENT
+                  && decl->value->content.str != NULL)
+                {
+                  const char *value =
+                    cr_string_peek_raw_str (decl->value->content.str);
 
-            cr_prop_list_get_decl (cur, &decl);
-            cr_style_set_style_from_decl (style->base, decl);
-            if (decl != NULL
-                && decl->property != NULL
-                && decl->property->stryng != NULL
-                && decl->property->stryng->str != NULL)
-              {
-                if (strcmp (decl->property->stryng->str, "text-decoration") == 0
-                    && decl->value != NULL
-                    && decl->value->type == TERM_IDENT
-                    && decl->value->content.str != NULL)
-                  {
-                    const char *value =
-                      cr_string_peek_raw_str (decl->value->content.str);
-
-                    if (value != NULL)
-                      {
-                        if (strcmp (value, "none") == 0)
-                          style->text_decoration = TEXT_DECORATION_NONE;
-                        else if (strcmp (value, "underline") == 0)
-                          style->text_decoration = TEXT_DECORATION_UNDERLINE;
-                        else if (strcmp (value, "overline") == 0)
-                          style->text_decoration = TEXT_DECORATION_OVERLINE;
-                        else if (strcmp (value, "line-through") == 0)
-                          style->text_decoration = TEXT_DECORATION_LINE_THROUGH;
-                        else if (strcmp (value, "blink") == 0)
-                          style->text_decoration = TEXT_DECORATION_BLINK;
-                        else if (strcmp (value, "inherit") == 0)
-                          style->text_decoration = TEXT_DECORATION_INHERIT;
-                      }
-                  }
-              }
-          }
-      }
+                  if (value != NULL)
+                    {
+                      if (strcmp (value, "none") == 0)
+                        style->text_decoration = TEXT_DECORATION_NONE;
+                      else if (strcmp (value, "underline") == 0)
+                        style->text_decoration = TEXT_DECORATION_UNDERLINE;
+                      else if (strcmp (value, "overline") == 0)
+                        style->text_decoration = TEXT_DECORATION_OVERLINE;
+                      else if (strcmp (value, "line-through") == 0)
+                        style->text_decoration = TEXT_DECORATION_LINE_THROUGH;
+                      else if (strcmp (value, "blink") == 0)
+                        style->text_decoration = TEXT_DECORATION_BLINK;
+                      else if (strcmp (value, "inherit") == 0)
+                        style->text_decoration = TEXT_DECORATION_INHERIT;
+                    }
+                }
+            }
+        }
 
       cr_prop_list_destroy (props);
     }
@@ -298,16 +289,12 @@ style_compute_color_value (CRStyle *style, enum CRRgbProp which,
       else
         {
           CRRgb rgb;
-          int r;
-          int g;
-          int b;
-
           cr_rgb_copy (&rgb, &style->rgb_props[which].sv);
           if (cr_rgb_compute_from_percentage (&rgb) != CR_OK)
             abort ();
-          r = rgb.red & 0xff;
-          g = rgb.green & 0xff;
-          b = rgb.blue & 0xff;
+          int r = rgb.red & 0xff;
+          int g = rgb.green & 0xff;
+          int b = rgb.blue & 0xff;
           return term_ostream_rgb_to_color (stream, r, g, b);
         }
     }
@@ -422,52 +409,45 @@ style_compute_text_underline_value (const CRXStyle *style)
 static attributes_t *
 match (term_styled_ostream_t stream)
 {
-  xmlNodePtr root;
-  xmlNodePtr curr;
-  char *p_end;
-  char *p_start;
-  CRXStyle *curr_style;
-  CRStyle *curr_style_base;
-  attributes_t *attr;
-
   /* Create a hierarchy of XML nodes.  */
-  root = xmlNewNode (NULL, (const xmlChar *) "__root__");
+  xmlNode *root = xmlNewNode (NULL, (const xmlChar *) "__root__");
   root->type = XML_ELEMENT_NODE;
-  curr = root;
-  p_end = &stream->curr_classes[stream->curr_classes_length];
-  p_start = stream->curr_classes;
-  while (p_start < p_end)
-    {
-      char *p;
-      xmlNodePtr child;
+  {
+    xmlNode *curr = root;
+    char *p_end = &stream->curr_classes[stream->curr_classes_length];
+    char *p_start = stream->curr_classes;
+    while (p_start < p_end)
+      {
+        if (!(*p_start == ' '))
+          abort ();
+        p_start++;
 
-      if (!(*p_start == ' '))
-        abort ();
-      p_start++;
-      for (p = p_start; p < p_end && *p != ' '; p++)
-        ;
+        char *p;
+        for (p = p_start; p < p_end && *p != ' '; p++)
+          ;
 
-      /* Temporarily replace the ' ' by '\0'.  */
-      *p = '\0';
-      child = xmlNewNode (NULL, (const xmlChar *) p_start);
-      child->type = XML_ELEMENT_NODE;
-      xmlSetProp (child, (const xmlChar *) "class", (const xmlChar *) p_start);
-      *p = ' ';
+        /* Temporarily replace the ' ' by '\0'.  */
+        *p = '\0';
+        xmlNode *child = xmlNewNode (NULL, (const xmlChar *) p_start);
+        child->type = XML_ELEMENT_NODE;
+        xmlSetProp (child, (const xmlChar *) "class", (const xmlChar *) p_start);
+        *p = ' ';
 
-      if (xmlAddChild (curr, child) == NULL)
-        /* Error! Shouldn't happen.  */
-        abort ();
+        if (xmlAddChild (curr, child) == NULL)
+          /* Error! Shouldn't happen.  */
+          abort ();
 
-      curr = child;
-      p_start = p;
-    }
+        curr = child;
+        p_start = p;
+      }
+  }
 
   /* Retrieve the matching CSS declarations.  */
   /* Not curr_style = crx_style_new (TRUE); because that assumes that the
      default foreground color is black and that the default background color
      is white, which is not necessarily true in a terminal context.  */
-  curr_style = NULL;
-  for (curr = root; curr != NULL; curr = curr->children)
+  CRXStyle *curr_style = NULL;
+  for (xmlNode *curr = root; curr != NULL; curr = curr->children)
     {
       CRXStyle *parent_style = curr_style;
       curr_style = NULL;
@@ -485,10 +465,10 @@ match (term_styled_ostream_t stream)
         /* curr_style is a new style, inheriting from parent_style.  */
         ;
     }
-  curr_style_base = (curr_style != NULL ? curr_style->base : NULL);
+  CRStyle *curr_style_base = (curr_style != NULL ? curr_style->base : NULL);
 
   /* Extract the CSS declarations that we can use.  */
-  attr = XMALLOC (attributes_t);
+  attributes_t *attr = XMALLOC (attributes_t);
   attr->color =
     style_compute_color_value (curr_style_base, RGB_PROP_COLOR,
                                stream->destination);
@@ -531,16 +511,12 @@ static void
 term_styled_ostream::begin_use_class (term_styled_ostream_t stream,
                                       const char *classname)
 {
-  size_t classname_len;
-  char *p;
-  void *found;
-
   if (classname[0] == '\0' || strchr (classname, ' ') != NULL)
     /* Invalid classname argument.  */
     abort ();
 
   /* Push the classname onto the classname list.  */
-  classname_len = strlen (classname);
+  size_t classname_len = strlen (classname);
   if (stream->curr_classes_length + 1 + classname_len + 1
       > stream->curr_classes_allocated)
     {
@@ -551,12 +527,13 @@ term_styled_ostream::begin_use_class (term_styled_ostream_t stream,
       stream->curr_classes = xrealloc (stream->curr_classes, new_allocated);
       stream->curr_classes_allocated = new_allocated;
     }
-  p = &stream->curr_classes[stream->curr_classes_length];
+  char *p = &stream->curr_classes[stream->curr_classes_length];
   *p++ = ' ';
   memcpy (p, classname, classname_len);
   stream->curr_classes_length += 1 + classname_len;
 
-  /* Uodate stream->curr_attr.  */
+  /* Update stream->curr_attr.  */
+  void *found;
   if (hash_find_entry (&stream->cache,
                        stream->curr_classes, stream->curr_classes_length,
                        &found) < 0)
@@ -569,21 +546,16 @@ static void
 term_styled_ostream::end_use_class (term_styled_ostream_t stream,
                                     const char *classname)
 {
-  char *p_end;
-  char *p_start;
-  char *p;
-  void *found;
-
   if (stream->curr_classes_length == 0)
     /* No matching call to begin_use_class.  */
     abort ();
 
   /* Remove the trailing classname.  */
-  p_end = &stream->curr_classes[stream->curr_classes_length];
-  p = p_end;
+  char *p_end = &stream->curr_classes[stream->curr_classes_length];
+  char *p = p_end;
   while (*--p != ' ')
     ;
-  p_start = p + 1;
+  char *p_start = p + 1;
   if (!(p_end - p_start == strlen (classname)
         && memcmp (p_start, classname, p_end - p_start) == 0))
     /* The match ing call to begin_use_class used a different classname.  */
@@ -591,6 +563,7 @@ term_styled_ostream::end_use_class (term_styled_ostream_t stream,
   stream->curr_classes_length = p - stream->curr_classes;
 
   /* Update stream->curr_attr.  */
+  void *found;
   if (hash_find_entry (&stream->cache,
                        stream->curr_classes, stream->curr_classes_length,
                        &found) < 0)
@@ -635,21 +608,18 @@ term_styled_ostream_t
 term_styled_ostream_create (int fd, const char *filename, ttyctl_t tty_control,
                             const char *css_filename)
 {
-  term_styled_ostream_t stream;
-  CRStyleSheet *css_file_contents;
-
   /* If css_filename is NULL, no styling is desired.  The code below would end
      up returning NULL anyway.  But it's better to not rely on such details of
      libcroco behaviour.  */
   if (css_filename == NULL)
     return NULL;
 
-  stream = XMALLOC (struct term_styled_ostream_representation);
-
+  term_styled_ostream_t stream = XMALLOC (struct term_styled_ostream_representation);
   stream->base.base.vtable = &term_styled_ostream_vtable;
   stream->destination = term_ostream_create (fd, filename, tty_control);
   stream->css_filename = xstrdup (css_filename);
 
+  CRStyleSheet *css_file_contents;
   if (cr_om_parser_simply_parse_file ((const guchar *) css_filename,
                                       CR_UTF_8, /* CR_AUTO is not supported */
                                       &css_file_contents) != CR_OK)

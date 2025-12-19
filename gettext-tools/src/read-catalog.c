@@ -92,7 +92,6 @@ void
 default_constructor (abstract_catalog_reader_ty *catr)
 {
   default_catalog_reader_ty *dcatr = (default_catalog_reader_ty *) catr;
-  size_t i;
 
   dcatr->domain = MESSAGE_DOMAIN_DEFAULT;
   dcatr->comment = NULL;
@@ -100,7 +99,7 @@ default_constructor (abstract_catalog_reader_ty *catr)
   dcatr->filepos_count = 0;
   dcatr->filepos = NULL;
   dcatr->is_fuzzy = false;
-  for (i = 0; i < NFORMATS; i++)
+  for (size_t i = 0; i < NFORMATS; i++)
     dcatr->is_format[i] = undecided;
   dcatr->range.min = -1;
   dcatr->range.max = -1;
@@ -112,7 +111,6 @@ void
 default_destructor (abstract_catalog_reader_ty *catr)
 {
   default_catalog_reader_ty *dcatr = (default_catalog_reader_ty *) catr;
-  size_t j;
 
   /* Do not free dcatr->mdlp and dcatr->mlp.  */
   if (dcatr->handle_comments)
@@ -123,7 +121,7 @@ default_destructor (abstract_catalog_reader_ty *catr)
         string_list_free (dcatr->comment_dot);
     }
 
-  for (j = 0; j < dcatr->filepos_count; ++j)
+  for (size_t j = 0; j < dcatr->filepos_count; ++j)
     free ((char *) dcatr->filepos[j].file_name);
   if (dcatr->filepos != NULL)
     free (dcatr->filepos);
@@ -149,26 +147,23 @@ default_parse_debrief (abstract_catalog_reader_ty *catr)
 static void
 default_copy_comment_state (default_catalog_reader_ty *dcatr, message_ty *mp)
 {
-  size_t j, i;
-
   if (dcatr->handle_comments)
     {
       if (dcatr->comment != NULL)
-        for (j = 0; j < dcatr->comment->nitems; ++j)
+        for (size_t j = 0; j < dcatr->comment->nitems; ++j)
           message_comment_append (mp, dcatr->comment->item[j]);
       if (dcatr->comment_dot != NULL)
-        for (j = 0; j < dcatr->comment_dot->nitems; ++j)
+        for (size_t j = 0; j < dcatr->comment_dot->nitems; ++j)
           message_comment_dot_append (mp, dcatr->comment_dot->item[j]);
     }
-  for (j = 0; j < dcatr->filepos_count; ++j)
+  for (size_t j = 0; j < dcatr->filepos_count; ++j)
     {
-      lex_pos_ty *pp;
+      lex_pos_ty *pp = &dcatr->filepos[j];
 
-      pp = &dcatr->filepos[j];
       message_comment_filepos (mp, pp->file_name, pp->line_number);
     }
   mp->is_fuzzy = dcatr->is_fuzzy;
-  for (i = 0; i < NFORMATS; i++)
+  for (size_t i = 0; i < NFORMATS; i++)
     mp->is_format[i] = dcatr->is_format[i];
   mp->range = dcatr->range;
   mp->do_wrap = dcatr->do_wrap;
@@ -178,8 +173,6 @@ default_copy_comment_state (default_catalog_reader_ty *dcatr, message_ty *mp)
 static void
 default_reset_comment_state (default_catalog_reader_ty *dcatr)
 {
-  size_t j, i;
-
   if (dcatr->handle_comments)
     {
       if (dcatr->comment != NULL)
@@ -193,14 +186,14 @@ default_reset_comment_state (default_catalog_reader_ty *dcatr)
           dcatr->comment_dot = NULL;
         }
     }
-  for (j = 0; j < dcatr->filepos_count; ++j)
+  for (size_t j = 0; j < dcatr->filepos_count; ++j)
     free ((char *) dcatr->filepos[j].file_name);
   if (dcatr->filepos != NULL)
     free (dcatr->filepos);
   dcatr->filepos_count = 0;
   dcatr->filepos = NULL;
   dcatr->is_fuzzy = false;
-  for (i = 0; i < NFORMATS; i++)
+  for (size_t i = 0; i < NFORMATS; i++)
     dcatr->is_format[i] = undecided;
   dcatr->range.min = -1;
   dcatr->range.max = -1;
@@ -282,12 +275,11 @@ default_comment_filepos (abstract_catalog_reader_ty *catr,
                          const char *file_name, size_t line_number)
 {
   default_catalog_reader_ty *dcatr = (default_catalog_reader_ty *) catr;
-  size_t nbytes;
-  lex_pos_ty *pp;
 
-  nbytes = (dcatr->filepos_count + 1) * sizeof (dcatr->filepos[0]);
+  size_t nbytes = (dcatr->filepos_count + 1) * sizeof (dcatr->filepos[0]);
   dcatr->filepos = xrealloc (dcatr->filepos, nbytes);
-  pp = &dcatr->filepos[dcatr->filepos_count++];
+
+  lex_pos_ty *pp = &dcatr->filepos[dcatr->filepos_count++];
   pp->file_name = xstrdup (file_name);
   pp->line_number = line_number;
 }
@@ -298,18 +290,17 @@ void
 default_comment_special (abstract_catalog_reader_ty *catr, const char *s)
 {
   default_catalog_reader_ty *dcatr = (default_catalog_reader_ty *) catr;
+
   bool tmp_fuzzy;
   enum is_format tmp_format[NFORMATS];
   struct argument_range tmp_range;
   enum is_wrap tmp_wrap;
-  size_t i;
-
   parse_comment_special (s, &tmp_fuzzy, tmp_format, &tmp_range, &tmp_wrap,
                          NULL);
 
   if (tmp_fuzzy)
     dcatr->is_fuzzy = true;
-  for (i = 0; i < NFORMATS; i++)
+  for (size_t i = 0; i < NFORMATS; i++)
     if (tmp_format[i] != undecided)
       dcatr->is_format[i] = tmp_format[i];
   if (has_range_p (tmp_range))
@@ -364,12 +355,11 @@ default_add_message (default_catalog_reader_ty *dcatr,
                      char *prev_msgid_plural,
                      bool force_fuzzy, bool obsolete)
 {
-  message_ty *mp;
-
   if (dcatr->mdlp != NULL)
     /* Select the appropriate sublist of dcatr->mdlp.  */
     dcatr->mlp = msgdomain_list_sublist (dcatr->mdlp, dcatr->domain, true);
 
+  message_ty *mp;
   if (dcatr->allow_duplicates && msgid[0] != '\0')
     /* Doesn't matter if this message ID has been seen before.  */
     mp = NULL;
@@ -493,10 +483,8 @@ read_catalog_stream (FILE *fp, const char *real_filename,
                      catalog_input_format_ty input_syntax,
                      xerror_handler_ty xerror_handler)
 {
-  default_catalog_reader_ty *dcatr;
-  msgdomain_list_ty *mdlp;
-
-  dcatr = default_catalog_reader_alloc (&default_methods, xerror_handler);
+  default_catalog_reader_ty *dcatr =
+    default_catalog_reader_alloc (&default_methods, xerror_handler);
   dcatr->pass_obsolete_entries = true;
   dcatr->handle_comments = true;
   dcatr->allow_domain_directives = true;
@@ -508,9 +496,11 @@ read_catalog_stream (FILE *fp, const char *real_filename,
   if (input_syntax->produces_utf8)
     /* We know a priori that input_syntax->parse convert strings to UTF-8.  */
     dcatr->mdlp->encoding = po_charset_utf8;
+
   catalog_reader_parse ((abstract_catalog_reader_ty *) dcatr, fp, real_filename,
                         logical_filename, false, input_syntax);
-  mdlp = dcatr->mdlp;
+
+  msgdomain_list_ty *mdlp = dcatr->mdlp;
   catalog_reader_free ((abstract_catalog_reader_ty *) dcatr);
   return mdlp;
 }

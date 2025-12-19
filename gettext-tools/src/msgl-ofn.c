@@ -29,9 +29,8 @@ bool
 message_has_filenames_with_spaces (const message_ty *mp)
 {
   size_t n = mp->filepos_count;
-  size_t i;
 
-  for (i = 0; i < n; i++)
+  for (size_t i = 0; i < n; i++)
     if (pos_filename_has_spaces (&mp->filepos[i]))
       return true;
 
@@ -41,9 +40,7 @@ message_has_filenames_with_spaces (const message_ty *mp)
 bool
 message_list_has_filenames_with_spaces (const message_list_ty *mlp)
 {
-  size_t j;
-
-  for (j = 0; j < mlp->nitems; j++)
+  for (size_t j = 0; j < mlp->nitems; j++)
     if (message_has_filenames_with_spaces (mlp->item[j]))
       return true;
 
@@ -53,9 +50,7 @@ message_list_has_filenames_with_spaces (const message_list_ty *mlp)
 bool
 msgdomain_list_has_filenames_with_spaces (const msgdomain_list_ty *mdlp)
 {
-  size_t k;
-
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     if (message_list_has_filenames_with_spaces (mdlp->item[k]->messages))
       return true;
 

@@ -1,5 +1,5 @@
 /* Multiline error-reporting functions.
-   Copyright (C) 2001-2024 Free Software Foundation, Inc.
+   Copyright (C) 2001-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -41,13 +41,11 @@
 static size_t
 multiline_internal (char *prefix, size_t prefix_width, char *message)
 {
-  size_t width;
-  const char *cp;
-
   fflush (stdout);
 
-  cp = message;
+  const char *cp = message;
 
+  size_t width;
   if (prefix != NULL)
     {
       width = 0;
@@ -66,17 +64,11 @@ multiline_internal (char *prefix, size_t prefix_width, char *message)
 
   for (;;)
     {
-      const char *np;
-
-      {
-        size_t i;
-
-        for (i = width; i > 0; i--)
-          putc (' ', stderr);
-      }
+      for (size_t i = width; i > 0; i--)
+        putc (' ', stderr);
 
     after_indent:
-      np = strchr (cp, '\n');
+      const char *np = strchr (cp, '\n');
 
       if (np == NULL || np[1] == '\0')
         {

@@ -94,18 +94,16 @@ x_perl_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -430,18 +428,15 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
   /* Accumulator for the entire here document, including a NUL byte
      at the end.  */
   struct string_buffer buffer;
+  sb_init (&buffer);
+
   /* Current line being appended.  */
   static char *my_linebuf = NULL;
   static size_t my_linebuf_size = 0;
 
-  sb_init (&buffer);
-
   for (;;)
     {
       int read_bytes = getline (&my_linebuf, &my_linebuf_size, xp->input.fp);
-      char *my_line_utf8;
-      bool chomp;
-
       if (read_bytes < 0)
         {
           if (ferror (xp->input.fp))
@@ -462,7 +457,7 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
       ++(xp->eaten_here);
 
       /* Convert to UTF-8.  */
-      my_line_utf8 =
+      char *my_line_utf8 =
         from_current_source_encoding (my_linebuf, lc_string, logical_file_name,
                                       xp->line_number + xp->eaten_here);
       if (my_line_utf8 != my_linebuf)
@@ -491,7 +486,7 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
         }
 
       /* Temporarily remove the trailing newline from my_linebuf.  */
-      chomp = false;
+      bool chomp = false;
       if (read_bytes >= 1 && my_linebuf[read_bytes - 1] == '\n')
         {
           chomp = true;
@@ -554,7 +549,6 @@ skip_pod (struct perl_extractor *xp)
 static int
 phase2_getc (struct perl_extractor *xp)
 {
-  int lineno;
   int c;
 
   c = phase1_getc (xp);
@@ -562,7 +556,7 @@ phase2_getc (struct perl_extractor *xp)
     {
       struct string_buffer buffer;
       sb_init (&buffer);
-      lineno = xp->line_number;
+      int lineno = xp->line_number;
       /* Skip leading whitespace.  */
       for (;;)
         {
@@ -741,13 +735,12 @@ static rw_string_desc_t
 extract_quotelike_pass1 (struct perl_extractor *xp, int delim)
 {
   struct string_buffer buffer;
-  bool nested = true;
-  int counter_delim;
-
   sb_init (&buffer);
   sb_xappend1 (&buffer, delim);
 
   /* Find the closing delimiter.  */
+  bool nested = true;
+  int counter_delim;
   switch (delim)
     {
     case '(':
@@ -864,8 +857,8 @@ extract_hex (const char *string, size_t len, unsigned int *result)
   for (i = 0; i < len; i++)
     {
       char c = string[i];
-      int number;
 
+      int number;
       if (c >= 'A' && c <= 'F')
         number = c - 'A' + 10;
       else if (c >= 'a' && c <= 'f')
@@ -895,8 +888,8 @@ extract_oct (const char *string, size_t len, unsigned int *result)
   for (i = 0; i < len; i++)
     {
       char c = string[i];
-      int number;
 
+      int number;
       if (c >= '0' && c <= '7')
         number = c - '0';
       else
@@ -935,14 +928,14 @@ static void
 extract_triple_quotelike (struct perl_extractor *xp, token_ty *tp, int delim,
                           bool interpolate)
 {
-  rw_string_desc_t string;
-
   tp->type = token_type_regex_op;
 
-  string = extract_quotelike_pass1_utf8 (xp, delim);
-  if (interpolate)
-    interpolate_keywords (xp, sd_readonly (string), xp->line_number);
-  sd_free (string);
+  {
+    rw_string_desc_t string = extract_quotelike_pass1_utf8 (xp, delim);
+    if (interpolate)
+      interpolate_keywords (xp, sd_readonly (string), xp->line_number);
+    sd_free (string);
+  }
 
   if (delim == '(' || delim == '<' || delim == '{' || delim == '[')
     {
@@ -956,10 +949,13 @@ extract_triple_quotelike (struct perl_extractor *xp, token_ty *tp, int delim,
           delim = phase2_getc (xp);
         }
     }
-  string = extract_quotelike_pass1_utf8 (xp, delim);
-  if (interpolate)
-    interpolate_keywords (xp, sd_readonly (string), xp->line_number);
-  sd_free (string);
+
+  {
+    rw_string_desc_t string = extract_quotelike_pass1_utf8 (xp, delim);
+    if (interpolate)
+      interpolate_keywords (xp, sd_readonly (string), xp->line_number);
+    sd_free (string);
+  }
 }
 
 /* Perform pass 3 of quotelike extraction (interpolation).
@@ -971,12 +967,6 @@ extract_triple_quotelike (struct perl_extractor *xp, token_ty *tp, int delim,
 static void
 extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
 {
-  struct string_buffer buffer;
-  const char *crs;
-  bool uppercase;
-  bool lowercase;
-  bool quotemeta;
-
   #if DEBUG_PERL
   switch (tp->sub_type)
     {
@@ -1001,17 +991,16 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
   if (tp->sub_type == string_type_verbatim)
     return;
 
+  struct string_buffer buffer;
   sb_init (&buffer);
 
   /* Loop over tp->string, accumulating the expansion in buffer.  */
-  crs = tp->string;
-  uppercase = false;
-  lowercase = false;
-  quotemeta = false;
+  const char *crs = tp->string;
+  bool uppercase = false;
+  bool lowercase = false;
+  bool quotemeta = false;
   while (*crs)
     {
-      bool backslashed;
-
       if (tp->sub_type == string_type_q)
         {
           switch (*crs)
@@ -1069,7 +1058,6 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
             case '4': case '5': case '6': case '7':
               {
                 unsigned int oct_number;
-
                 crs = extract_oct (crs + 1, 3, &oct_number);
 
                 /* FIXME: If one of the variables UPPERCASE or LOWERCASE is
@@ -1098,9 +1086,9 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
               continue;
             case 'x':
               {
-                unsigned int hex_number = 0;
-
                 crs += 2;
+
+                unsigned int hex_number = 0;
                 if (*crs == '{')
                   {
                     const char *end = strchr (crs, '}');
@@ -1164,14 +1152,11 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                   const char *end = strchr (crs + 1, '}');
                   if (end != NULL)
                     {
-                      char *name;
-                      unsigned int unicode;
-
-                      name = XNMALLOC (end - (crs + 1) + 1, char);
+                      char *name = XNMALLOC (end - (crs + 1) + 1, char);
                       memcpy (name, crs + 1, end - (crs + 1));
                       name[end - (crs + 1)] = '\0';
 
-                      unicode = unicode_name_character (name);
+                      unsigned int unicode = unicode_name_character (name);
                       if (unicode != UNINAME_INVALID)
                         {
                           /* FIXME: Convert to upper/lowercase if the
@@ -1194,6 +1179,7 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
         }
 
       /* No escape sequence, go on.  */
+      bool backslashed;
       if (*crs == '\\')
         {
           ++crs;
@@ -1344,10 +1330,6 @@ static void
 extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
 {
   struct string_buffer buffer;
-  size_t varbody_length = 0;
-  bool maybe_hash_deref = false;
-  bool maybe_hash_value = false;
-
   sb_init (&buffer);
 
   tp->type = token_type_variable;
@@ -1356,6 +1338,10 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
   fprintf (stderr, "%s:%d: extracting variable type '%c'\n",
            real_file_name, xp->line_number, first);
   #endif
+
+  size_t varbody_length = 0;
+  bool maybe_hash_deref = false;
+  bool maybe_hash_value = false;
 
   /*
    * 1) Consume dollars and so on (not euros ...).  Unconditionally
@@ -1486,13 +1472,13 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
 
   if (maybe_hash_deref || maybe_hash_value)
     {
-      bool is_dereference = false;
       int c;
 
       do
         c = phase2_getc (xp);
       while (is_whitespace (c));
 
+      bool is_dereference = false;
       if (c == '-')
         {
           int c2 = phase1_getc (xp);
@@ -1532,13 +1518,12 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
       /* Do NOT change that into else if (see above).  */
       if ((maybe_hash_value || maybe_hash_deref) && c == '{')
         {
-          void *keyword_value;
-
           #if DEBUG_PERL
           fprintf (stderr, "%s:%d: first keys preceded by '{'\n",
                    real_file_name, xp->line_number);
           #endif
 
+          void *keyword_value;
           if (hash_find_entry (&keywords, tp->string, strlen (tp->string),
                                &keyword_value) == 0)
             {
@@ -1581,14 +1566,12 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
                     token_ty *t2 = x_perl_lex (xp);
                     if (t2->type == token_type_rbrace)
                       {
-                        flag_region_ty *region;
-                        lex_pos_ty pos;
-
-                        region =
+                        flag_region_ty *region =
                           inheriting_region (null_context_region (),
                                              flag_context_list_iterator_advance (
                                                &context_iter));
 
+                        lex_pos_ty pos;
                         pos.line_number = xp->line_number;
                         pos.file_name = logical_file_name;
 
@@ -1630,7 +1613,6 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
   for (;;)
     {
       int c = phase2_getc (xp);
-      int c2;
 
       switch (c)
         {
@@ -1659,23 +1641,25 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
           break;
 
         case '-':
-          c2 = phase1_getc (xp);
-          if (c2 == '>')
-            {
-              #if DEBUG_PERL
-              fprintf (stderr, "%s:%d: another \"->\" after varname\n",
-                       real_file_name, xp->line_number);
-              #endif
-              break;
-            }
-          else if (c2 != '\n')
-            {
-              /* Discarding the newline is harmless here.  The only
-                 special character recognized after a minus is greater-than
-                 for dereference.  However, the sequence "-\n>" that we
-                 treat incorrectly here, is a syntax error.  */
-              phase1_ungetc (xp, c2);
-            }
+          {
+            int c2 = phase1_getc (xp);
+            if (c2 == '>')
+              {
+                #if DEBUG_PERL
+                fprintf (stderr, "%s:%d: another \"->\" after varname\n",
+                         real_file_name, xp->line_number);
+                #endif
+                break;
+              }
+            else if (c2 != '\n')
+              {
+                /* Discarding the newline is harmless here.  The only
+                   special character recognized after a minus is greater-than
+                   for dereference.  However, the sequence "-\n>" that we
+                   treat incorrectly here, is a syntax error.  */
+                phase1_ungetc (xp, c2);
+              }
+          }
           FALLTHROUGH;
 
         default:
@@ -1696,39 +1680,15 @@ static void
 interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                       int lineno)
 {
-  struct string_buffer buffer;
-  flag_region_ty *region;
-  size_t length;
-  size_t index;
-  char c;
-  bool maybe_hash_deref = false;
-  enum parser_state
-    {
-      initial,
-      one_dollar,
-      two_dollars,
-      identifier,
-      seen_lbracket,
-      lbracket_dquote,
-      lbracket_squote,
-      minus,
-      wait_lbrace,
-      seen_lbrace,
-      lbrace_dquote,
-      lbrace_squote,
-      lbrace_barekey,
-      wait_rbrace
-    } state;
-  token_ty token;
-
-  lex_pos_ty pos;
-
-  sb_init (&buffer);
-
   if (++(xp->nesting_depth) > MAX_NESTING_DEPTH)
     if_error (IF_SEVERITY_FATAL_ERROR,
               logical_file_name, xp->line_number, (size_t)(-1), false,
               _("too deeply nested expressions"));
+
+  struct string_buffer buffer;
+  sb_init (&buffer);
+
+  bool maybe_hash_deref = false;
 
   /* States are:
    *
@@ -1756,12 +1716,31 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
    * in the states minus...wait_rbrace the context is the one suitable for the
    * first argument of the last seen identifier.
    */
-  state = initial;
-  region = null_context_region ();
+  enum parser_state
+    {
+      initial,
+      one_dollar,
+      two_dollars,
+      identifier,
+      seen_lbracket,
+      lbracket_dquote,
+      lbracket_squote,
+      minus,
+      wait_lbrace,
+      seen_lbrace,
+      lbrace_dquote,
+      lbrace_squote,
+      lbrace_barekey,
+      wait_rbrace
+    }
+    state = initial;
 
-  length = sd_length (string);
-  index = 0;
+  flag_region_ty *region = null_context_region ();
 
+  size_t length = sd_length (string);
+  size_t index = 0;
+
+  token_ty token;
   token.type = token_type_string;
   token.sub_type = string_type_qq;
   token.line_number = xp->line_number;
@@ -1769,12 +1748,13 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
      We can let token.comment uninitialized here, and use savable_comment
      directly, because this function only parses the given string and does
      not call phase2_getc.  */
+  lex_pos_ty pos;
   pos.file_name = logical_file_name;
   pos.line_number = lineno;
 
   while (index < length)
     {
-      void *keyword_value;
+      char c;
 
       c = sd_char_at (string, index++);
       if (state == initial)
@@ -1851,6 +1831,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
             case '-':
               {
                 string_desc_t contents = sb_contents (&buffer);
+                void *keyword_value;
                 if (hash_find_entry (&keywords,
                                      sd_data (contents),
                                      sd_length (contents),
@@ -1882,6 +1863,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                 string_desc_t contents = sb_contents (&buffer);
                 if (!maybe_hash_deref)
                   ((char *) sd_data (contents))[0] = '%';
+                void *keyword_value;
                 if (hash_find_entry (&keywords,
                                      sd_data (contents),
                                      sd_length (contents),
@@ -2290,10 +2272,10 @@ prefer_regexp_over_division (token_type_ty type)
 static void
 x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
 {
-  int c;
-
   for (;;)
     {
+      int c;
+
       c = phase2_getc (xp);
       tp->line_number = xp->line_number;
       tp->last_type = xp->last_token_type;
@@ -2663,9 +2645,8 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
               c = phase1_getc (xp);
               if (c == '\'')
                 {
-                  char *string;
                   extract_quotelike (xp, tp, c);
-                  string = get_here_document (xp, tp->string);
+                  char *string = get_here_document (xp, tp->string);
                   free (tp->string);
                   tp->string = string;
                   tp->type = token_type_string;
@@ -2675,9 +2656,8 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                 }
               else if (c == '"')
                 {
-                  char *string;
                   extract_quotelike (xp, tp, c);
-                  string = get_here_document (xp, tp->string);
+                  char *string = get_here_document (xp, tp->string);
                   free (tp->string);
                   tp->string = string;
                   tp->type = token_type_string;
@@ -2709,9 +2689,9 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                     }
                   else
                     {
-                      char *string;
                       phase1_ungetc (xp, c);
-                      string = get_here_document (xp, sb_xdupfree_c (&buffer));
+                      char *string =
+                        get_here_document (xp, sb_xdupfree_c (&buffer));
                       tp->string = string;
                       tp->type = token_type_string;
                       tp->sub_type = string_type_qq;
@@ -2797,10 +2777,8 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
 static int
 token_stack_dump (token_stack_ty *stack)
 {
-  size_t i;
-
   fprintf (stderr, "BEGIN STACK DUMP\n");
-  for (i = 0; i < stack->nitems; i++)
+  for (size_t i = 0; i < stack->nitems; i++)
     {
       token_ty *token = stack->items[i];
       fprintf (stderr, "  [%s]\n", token2string (token));
@@ -2829,10 +2807,8 @@ token_stack_push (token_stack_ty *stack, token_ty *token)
 {
   if (stack->nitems >= stack->nitems_max)
     {
-      size_t nbytes;
-
       stack->nitems_max = 2 * stack->nitems_max + 4;
-      nbytes = stack->nitems_max * sizeof (token_ty *);
+      size_t nbytes = stack->nitems_max * sizeof (token_ty *);
       stack->items = xrealloc (stack->items, nbytes);
     }
   stack->items[stack->nitems++] = token;
@@ -2864,9 +2840,7 @@ token_stack_peek (const token_stack_ty *stack)
 static inline void
 token_stack_free (token_stack_ty *stack)
 {
-  size_t i;
-
-  for (i = 0; i < stack->nitems; i++)
+  for (size_t i = 0; i < stack->nitems; i++)
     free_token (stack->items[i]);
   free (stack->items);
 }
@@ -3020,12 +2994,13 @@ x_perl_lex (struct perl_extractor *xp)
              characters is allowed inside parentheses but we leave
              complaints to the interpreter and are prepared for
              future extensions to the Perl syntax.  */
-          int c;
 
           #if DEBUG_PERL
           fprintf (stderr, "%s:%d: consuming prototype information\n",
                    real_file_name, xp->line_number);
           #endif
+
+          int c;
 
           do
             {
@@ -3060,10 +3035,10 @@ x_perl_unlex (struct perl_extractor *xp, token_ty *tp)
 static char *
 collect_message (struct perl_extractor *xp, token_ty *tp)
 {
+  extract_quotelike_pass3 (xp, tp);
+
   char *string;
   size_t len;
-
-  extract_quotelike_pass3 (xp, tp);
   if (tp->type == token_type_string)
     {
       string = xstrdup (tp->string);
@@ -3248,9 +3223,7 @@ extract_balanced (struct perl_extractor *xp,
   for (;;)
     {
       /* The current token.  */
-      token_ty *tp;
-
-      tp = x_perl_lex (xp);
+      token_ty *tp = x_perl_lex (xp);
 
       if (first)
         {
@@ -3315,19 +3288,16 @@ extract_balanced (struct perl_extractor *xp,
       if (next_is_argument && tp->type != token_type_lparen)
         {
           /* An argument list starts, even though there is no '('.  */
-          bool next_comma_delim;
-
           x_perl_unlex (xp, tp);
 
+          bool next_comma_delim;
           if (next_shapes != NULL)
             /* We know something about the function being called.  Assume
                that it consumes only one argument if no argument number or
                total > 1 is specified.  */
             {
-              size_t i;
-
               next_comma_delim = true;
-              for (i = 0; i < next_shapes->nshapes; i++)
+              for (size_t i = 0; i < next_shapes->nshapes; i++)
                 {
                   const struct callshape *shape = &next_shapes->shapes[i];
 
@@ -3387,7 +3357,6 @@ extract_balanced (struct perl_extractor *xp,
 
               {
                 void *keyword_value;
-
                 if (hash_find_entry (&keywords, tp->string, strlen (tp->string),
                                      &keyword_value) == 0)
                   {
@@ -3561,9 +3530,9 @@ extract_balanced (struct perl_extractor *xp,
                   if (string != NULL)
                     {
                       lex_pos_ty pos;
-
                       pos.file_name = logical_file_name;
                       pos.line_number = tp->line_number;
+
                       remember_a_message (xp->mlp, NULL, string, true, false,
                                           inner_region, &pos, NULL, tp->comment,
                                           true);
@@ -3576,9 +3545,8 @@ extract_balanced (struct perl_extractor *xp,
                   bool must_collect = false;
                   {
                     size_t nalternatives = argparser->nalternatives;
-                    size_t i;
 
-                    for (i = 0; i < nalternatives; i++)
+                    for (size_t i = 0; i < nalternatives; i++)
                       {
                         struct partial_call *cp = &argparser->alternative[i];
 

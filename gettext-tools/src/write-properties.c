@@ -57,13 +57,11 @@ conv_to_java (const char *string)
   /* We cannot use iconv to "JAVA" because not all iconv() implementations
      know about the "JAVA" encoding.  */
   static const char hexdigit[] = "0123456789abcdef";
-  size_t length;
-  char *result;
 
   if (is_ascii_string (string))
     return string;
 
-  length = 0;
+  size_t length = 0;
   {
     const char *str = string;
     const char *str_limit = str + strlen (str);
@@ -76,7 +74,7 @@ conv_to_java (const char *string)
       }
   }
 
-  result = XNMALLOC (length + 1, char);
+  char *result = XNMALLOC (length + 1, char);
 
   {
     char *newstr = result;
@@ -128,8 +126,8 @@ write_escaped_string (ostream_t stream, const char *str, bool in_key)
 {
   static const char hexdigit[] = "0123456789abcdef";
   const char *str_limit = str + strlen (str);
-  bool first = true;
 
+  bool first = true;
   while (str < str_limit)
     {
       ucs4_t uc;
@@ -243,26 +241,23 @@ write_properties (ostream_t stream, message_list_ty *mlp,
                   const char *canon_encoding, size_t page_width,
                   xerror_handler_ty xeh, bool debug)
 {
-  bool blank_line;
-  size_t j, i;
-
   /* Convert the messages to Unicode.  */
   iconv_message_list (mlp, canon_encoding, po_charset_utf8, NULL, xeh);
-  for (j = 0; j < mlp->nitems; ++j)
+  for (size_t j = 0; j < mlp->nitems; ++j)
     {
       message_ty *mp = mlp->item[j];
 
       if (mp->comment != NULL)
-        for (i = 0; i < mp->comment->nitems; ++i)
+        for (size_t i = 0; i < mp->comment->nitems; ++i)
           mp->comment->item[i] = conv_to_java (mp->comment->item[i]);
       if (mp->comment_dot != NULL)
-        for (i = 0; i < mp->comment_dot->nitems; ++i)
+        for (size_t i = 0; i < mp->comment_dot->nitems; ++i)
           mp->comment_dot->item[i] = conv_to_java (mp->comment_dot->item[i]);
     }
 
   /* Loop through the messages.  */
-  blank_line = false;
-  for (j = 0; j < mlp->nitems; ++j)
+  bool blank_line = false;
+  for (size_t j = 0; j < mlp->nitems; ++j)
     {
       const message_ty *mp = mlp->item[j];
 
@@ -285,11 +280,11 @@ msgdomain_list_print_properties (msgdomain_list_ty *mdlp, ostream_t stream,
                                  bool debug)
 {
   message_list_ty *mlp;
-
   if (mdlp->nitems == 1)
     mlp = mdlp->item[0]->messages;
   else
     mlp = message_list_alloc (false);
+
   write_properties (stream, mlp, mdlp->encoding, page_width, xeh, debug);
 }
 

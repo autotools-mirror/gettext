@@ -110,9 +110,7 @@ significant_format_p (enum is_format is_format)
 static bool
 has_significant_format_p (const enum is_format is_format[NFORMATS])
 {
-  size_t i;
-
-  for (i = 0; i < NFORMATS; i++)
+  for (size_t i = 0; i < NFORMATS; i++)
     if (significant_format_p (is_format[i]))
       return true;
   return false;
@@ -247,20 +245,17 @@ message_print_comment (const message_ty *mp, ostream_t stream)
 {
   if (print_comment && mp->comment != NULL)
     {
-      size_t j;
-
       begin_css_class (stream, class_translator_comment);
 
-      for (j = 0; j < mp->comment->nitems; ++j)
+      for (size_t j = 0; j < mp->comment->nitems; ++j)
         {
           const char *s = mp->comment->item[j];
           do
             {
-              const char *e;
               ostream_write_str (stream, "#");
               if (*s != '\0')
                 ostream_write_str (stream, " ");
-              e = strchr (s, '\n');
+              const char *e = strchr (s, '\n');
               if (e == NULL)
                 {
                   ostream_write_str (stream, s);
@@ -288,11 +283,9 @@ message_print_comment_dot (const message_ty *mp, ostream_t stream)
 {
   if (mp->comment_dot != NULL)
     {
-      size_t j;
-
       begin_css_class (stream, class_extracted_comment);
 
-      for (j = 0; j < mp->comment_dot->nitems; ++j)
+      for (size_t j = 0; j < mp->comment_dot->nitems; ++j)
         {
           const char *s = mp->comment_dot->item[j];
           ostream_write_str (stream, "#.");
@@ -319,23 +312,20 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
   if (filepos_comment_type != filepos_comment_none
       && mp->filepos_count != 0)
     {
-      size_t filepos_count;
-      lex_pos_ty *filepos;
-
       begin_css_class (stream, class_reference_comment);
 
+      lex_pos_ty *filepos;
+      size_t filepos_count;
       if (filepos_comment_type == filepos_comment_file)
         {
-          size_t i;
-
           filepos_count = 0;
           filepos = XNMALLOC (mp->filepos_count, lex_pos_ty);
 
-          for (i = 0; i < mp->filepos_count; ++i)
+          for (size_t i = 0; i < mp->filepos_count; ++i)
             {
               lex_pos_ty *pp = &mp->filepos[i];
-              size_t j;
 
+              size_t j;
               for (j = 0; j < filepos_count; j++)
                 if (strcmp (filepos[j].file_name, pp->file_name) == 0)
                   break;
@@ -356,22 +346,20 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
 
       if (uniforum)
         {
-          size_t j;
-
-          for (j = 0; j < filepos_count; ++j)
+          for (size_t j = 0; j < filepos_count; ++j)
             {
               lex_pos_ty *pp = &filepos[j];
-              const char *cp = pp->file_name;
-              char *str;
 
+              const char *cp = pp->file_name;
               while (cp[0] == '.' && cp[1] == '/')
                 cp += 2;
+
               ostream_write_str (stream, "# ");
               begin_css_class (stream, class_reference);
               /* There are two Sun formats to choose from: SunOS and
                  Solaris.  Use the Solaris form here.  */
-              str = xasprintf ("File: %s, line: %ld",
-                               cp, (long) pp->line_number);
+              char *str = xasprintf ("File: %s, line: %ld",
+                                     cp, (long) pp->line_number);
               assume (str != NULL);
               ostream_write_str (stream, str);
               end_css_class (stream, class_reference);
@@ -381,25 +369,19 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
         }
       else
         {
-          const char *canon_charset;
-          size_t column;
-          size_t j;
-
-          canon_charset = po_charset_canonicalize (charset);
+          const char *canon_charset = po_charset_canonicalize (charset);
 
           ostream_write_str (stream, "#:");
-          column = 2;
-          for (j = 0; j < filepos_count; ++j)
+          size_t column = 2;
+          for (size_t j = 0; j < filepos_count; ++j)
             {
-              lex_pos_ty *pp;
-              char buffer[22];
-              const char *cp;
-              size_t width;
+              lex_pos_ty *pp = &filepos[j];
 
-              pp = &filepos[j];
-              cp = pp->file_name;
+              const char *cp = pp->file_name;
               while (cp[0] == '.' && cp[1] == '/')
                 cp += 2;
+
+              char buffer[22];
               if (filepos_comment_type == filepos_comment_file
                   /* Some xgettext input formats, like RST, lack line
                      numbers.  */
@@ -407,9 +389,10 @@ message_print_comment_filepos (const message_ty *mp, ostream_t stream,
                 buffer[0] = '\0';
               else
                 sprintf (buffer, ":%ld", (long) pp->line_number);
+
               /* File names are usually entirely ASCII.  Therefore strlen is
                  sufficient to determine their printed width.  */
-              width = strlen (cp) + strlen (buffer) + 1;
+              size_t width = strlen (cp) + strlen (buffer) + 1;
               if (column > 2 && column + width > page_width)
                 {
                   ostream_write_str (stream, "\n#:");
@@ -466,7 +449,6 @@ message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
       || mp->do_wrap == no)
     {
       bool first_flag = true;
-      size_t i;
 
       begin_css_class (stream, class_flag_comment);
 
@@ -486,18 +468,17 @@ message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
           first_flag = false;
         }
 
-      for (i = 0; i < NFORMATS; i++)
+      for (size_t i = 0; i < NFORMATS; i++)
         if (significant_format_p (mp->is_format[i]))
           {
-            char *string;
-
             if (!first_flag)
               ostream_write_str (stream, ",");
 
             ostream_write_str (stream, " ");
             begin_css_class (stream, class_flag);
-            string = make_format_description_string (mp->is_format[i],
-                                                     format_language[i], debug);
+            char *string =
+              make_format_description_string (mp->is_format[i],
+                                              format_language[i], debug);
             ostream_write_str (stream, string);
             free (string);
             end_css_class (stream, class_flag);
@@ -506,14 +487,12 @@ message_print_comment_flags (const message_ty *mp, ostream_t stream, bool debug)
 
       if (has_range_p (mp->range))
         {
-          char *string;
-
           if (!first_flag)
             ostream_write_str (stream, ",");
 
           ostream_write_str (stream, " ");
           begin_css_class (stream, class_flag);
-          string = make_range_description_string (mp->range);
+          char *string = make_range_description_string (mp->range);
           ostream_write_str (stream, string);
           free (string);
           end_css_class (stream, class_flag);
@@ -658,19 +637,9 @@ wrap (const message_ty *mp, ostream_t stream,
       enum is_wrap do_wrap, size_t page_width,
       const char *charset, xerror_handler_ty xeh)
 {
-  const char *canon_charset;
-  char *fmtdir;
-  char *fmtdirattr;
-  const char *s;
-  bool first_line;
-#if HAVE_ICONV
-  const char *envval;
-  iconv_t conv;
-#endif
+  const char *canon_charset = po_charset_canonicalize (charset);
+
   bool weird_cjk;
-
-  canon_charset = po_charset_canonicalize (charset);
-
 #if HAVE_ICONV
   /* The old Solaris/openwin msgfmt and GNU msgfmt <= 0.10.35 don't know
      about multibyte encodings, and require a spurious backslash after
@@ -678,17 +647,20 @@ wrap (const message_ty *mp, ostream_t stream,
      like vim, distribute PO files in this broken format.  It is important
      for such programs that GNU msgmerge continues to support this old
      PO file format when the Makefile requests it.  */
-  envval = getenv ("OLD_PO_FILE_OUTPUT");
-  if (envval != NULL && *envval != '\0')
-    /* Write a PO file in old format, with extraneous backslashes.  */
-    conv = (iconv_t)(-1);
-  else
-    if (canon_charset == NULL)
-      /* Invalid PO file encoding.  */
+  iconv_t conv;
+  {
+    const char *envval = getenv ("OLD_PO_FILE_OUTPUT");
+    if (envval != NULL && *envval != '\0')
+      /* Write a PO file in old format, with extraneous backslashes.  */
       conv = (iconv_t)(-1);
     else
-      /* Use iconv() to parse multibyte characters.  */
-      conv = iconv_open ("UTF-8", canon_charset);
+      if (canon_charset == NULL)
+        /* Invalid PO file encoding.  */
+        conv = (iconv_t)(-1);
+      else
+        /* Use iconv() to parse multibyte characters.  */
+        conv = iconv_open ("UTF-8", canon_charset);
+  }
 
   if (conv != (iconv_t)(-1))
     weird_cjk = false;
@@ -703,35 +675,33 @@ wrap (const message_ty *mp, ostream_t stream,
     canon_charset = po_charset_ascii;
 
   /* Determine the extent of format string directives.  */
-  fmtdir = NULL;
-  fmtdirattr = NULL;
+  char *fmtdir = NULL;
+  char *fmtdirattr = NULL;
   if (value[0] != '\0')
     {
       bool is_msgstr =
         (strlen (name) >= 6 && memcmp (name, "msgstr", 6) == 0);
         /* or equivalent: = (css_class == class_msgstr) */
-      size_t i;
 
-      for (i = 0; i < NFORMATS; i++)
+      for (size_t i = 0; i < NFORMATS; i++)
         if (possible_format_p (mp->is_format[i]))
           {
             size_t len = strlen (value);
             struct formatstring_parser *parser = formatstring_parsers[i];
-            char *invalid_reason = NULL;
-            void *descr;
-            const char *fdp;
-            const char *fd_end;
-            char *fdap;
 
             fmtdir = XCALLOC (len, char);
-            descr = parser->parse (value, is_msgstr, fmtdir, &invalid_reason);
+
+            char *invalid_reason = NULL;
+            void *descr = parser->parse (value, is_msgstr, fmtdir, &invalid_reason);
             if (descr != NULL)
               parser->free (descr);
 
             /* Locate the FMTDIR_* bits and transform the array to an array
                of attributes.  */
             fmtdirattr = XCALLOC (len, char);
-            fd_end = fmtdir + len;
+            const char *fd_end = fmtdir + len;
+            const char *fdp;
+            char *fdap;
             for (fdp = fmtdir, fdap = fmtdirattr; fdp < fd_end; fdp++, fdap++)
               if (*fdp & FMTDIR_START)
                 {
@@ -759,8 +729,8 @@ wrap (const message_ty *mp, ostream_t stream,
     }
 
   /* Loop over the '\n' delimited portions of value.  */
-  s = value;
-  first_line = true;
+  const char *s = value;
+  bool first_line = true;
   do
     {
       /* The usual escapes, as defined by the ANSI C Standard.  */
@@ -769,23 +739,13 @@ wrap (const message_ty *mp, ostream_t stream,
          || (c) == '\r' || (c) == '\t' || (c) == '\v')
 
       const char *es;
-      const char *ep;
-      size_t portion_len;
-      char *portion;
-      char *overrides;
-      char *attributes;
-      char *linebreaks;
-      char *pp;
-      char *op;
-      char *ap;
-      int startcol, startcol_after_break, width;
-      size_t i;
-
       for (es = s; *es != '\0'; )
         if (*es++ == '\n')
           break;
 
       /* Expand escape sequences in each portion.  */
+      const char *ep;
+      size_t portion_len;
       for (ep = s, portion_len = 0; ep < es; ep++)
         {
           char c = *ep;
@@ -867,9 +827,13 @@ wrap (const message_ty *mp, ostream_t stream,
                 }
             }
         }
-      portion = XNMALLOC (portion_len, char);
-      overrides = XNMALLOC (portion_len, char);
-      attributes = XNMALLOC (portion_len, char);
+
+      char *portion = XNMALLOC (portion_len, char);
+      char *overrides = XNMALLOC (portion_len, char);
+      char *attributes = XNMALLOC (portion_len, char);
+      char *pp;
+      char *op;
+      char *ap;
       for (ep = s, pp = portion, op = overrides, ap = attributes; ep < es; ep++)
         {
           char c = *ep;
@@ -1015,17 +979,17 @@ wrap (const message_ty *mp, ostream_t stream,
       if (es > s && es[-1] == '\n')
         overrides[portion_len - 2] = UC_BREAK_PROHIBITED;
 
-      linebreaks = XNMALLOC (portion_len, char);
+      char *linebreaks = XNMALLOC (portion_len, char);
 
       /* Subsequent lines after a break are all indented.
          See INDENT-S.  */
-      startcol_after_break = (line_prefix ? strlen (line_prefix) : 0);
+      int startcol_after_break = (line_prefix ? strlen (line_prefix) : 0);
       if (indent)
         startcol_after_break = (startcol_after_break + extra_indent + 8) & ~7;
       startcol_after_break++;
 
       /* The line width.  Allow room for the closing quote character.  */
-      width = (wrap_strings && do_wrap != no ? page_width : INT_MAX) - 1;
+      int width = (wrap_strings && do_wrap != no ? page_width : INT_MAX) - 1;
       /* Adjust for indentation of subsequent lines.  */
       width -= startcol_after_break;
 
@@ -1033,7 +997,7 @@ wrap (const message_ty *mp, ostream_t stream,
       /* The line starts with different things depending on whether it
          is the first line, and if we are using the indented style.
          See INDENT-F.  */
-      startcol = (line_prefix ? strlen (line_prefix) : 0);
+      int startcol = (line_prefix ? strlen (line_prefix) : 0);
       if (first_line)
         {
           startcol += strlen (name);
@@ -1130,18 +1094,16 @@ wrap (const message_ty *mp, ostream_t stream,
 
       /* Print the portion itself, with linebreaks where necessary.  */
       {
-        char currattr = 0;
-
         begin_css_class (stream, class_string);
         ostream_write_str (stream, "\"");
         begin_css_class (stream, class_text);
 
-        for (i = 0; i < portion_len; i++)
+        char currattr = 0;
+
+        for (size_t i = 0; i < portion_len; i++)
           {
             if (linebreaks[i] == UC_BREAK_POSSIBLE)
               {
-                int currcol;
-
                 /* Change currattr so that it becomes 0.  */
                 if (currattr & ATTR_ESCAPE_SEQUENCE)
                   {
@@ -1166,7 +1128,7 @@ wrap (const message_ty *mp, ostream_t stream,
                 end_css_class (stream, class_string);
                 end_css_class (stream, css_class);
                 ostream_write_str (stream, "\n");
-                currcol = 0;
+                int currcol = 0;
                 /* INDENT-S.  */
                 if (line_prefix != NULL)
                   {
@@ -1291,8 +1253,6 @@ message_print (const message_ty *mp, ostream_t stream,
                const char *charset, size_t page_width, bool blank_line,
                xerror_handler_ty xeh, bool debug)
 {
-  int extra_indent;
-
   /* Separate messages with a blank line.  Uniforum doesn't like blank
      lines, so use an empty comment (unless there already is one).  */
   if (blank_line && (!uniforum
@@ -1339,10 +1299,10 @@ message_print (const message_ty *mp, ostream_t stream,
     wrap (mp, stream, "#| ", 0, class_previous, "msgid_plural",
           mp->prev_msgid_plural, mp->do_wrap, page_width, charset, xeh);
   end_css_class (stream, class_previous_comment);
-  extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
-                  || mp->prev_msgid_plural != NULL
-                  ? 3
-                  : 0);
+  int extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
+                      || mp->prev_msgid_plural != NULL
+                      ? 3
+                      : 0);
 
   end_css_class (stream, class_comment);
 
@@ -1387,14 +1347,13 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
           mp->do_wrap, page_width, charset, xeh);
   else
     {
-      char prefix_buf[20];
       unsigned int i;
       const char *p;
-
       for (p = mp->msgstr, i = 0;
            p < mp->msgstr + mp->msgstr_len;
            p += strlen (p) + 1, i++)
         {
+          char prefix_buf[20];
           sprintf (prefix_buf, "msgstr[%u]", i);
           wrap (mp, stream, NULL, extra_indent, class_msgstr, prefix_buf, p,
                 mp->do_wrap, page_width, charset, xeh);
@@ -1417,8 +1376,6 @@ message_print_obsolete (const message_ty *mp, ostream_t stream,
                         const char *charset, size_t page_width, bool blank_line,
                         xerror_handler_ty xeh, bool debug)
 {
-  int extra_indent;
-
   /* If msgstr is the empty string we print nothing.  */
   if (mp->msgstr[0] == '\0')
     return;
@@ -1457,7 +1414,6 @@ message_print_obsolete (const message_ty *mp, ostream_t stream,
       || mp->do_wrap == no)
     {
       bool first_flag = true;
-      size_t i;
 
       ostream_write_str (stream, "#,");
 
@@ -1467,17 +1423,16 @@ message_print_obsolete (const message_ty *mp, ostream_t stream,
           first_flag = false;
         }
 
-      for (i = 0; i < NFORMATS; i++)
+      for (size_t i = 0; i < NFORMATS; i++)
         if (significant_format_p (mp->is_format[i]))
           {
-            char *string;
-
             if (!first_flag)
               ostream_write_str (stream, ",");
 
             ostream_write_str (stream, " ");
-            string = make_format_description_string (mp->is_format[i],
-                                                     format_language[i], debug);
+            char *string =
+              make_format_description_string (mp->is_format[i],
+                                              format_language[i], debug);
             ostream_write_str (stream, string);
             free (string);
             first_flag = false;
@@ -1510,10 +1465,10 @@ message_print_obsolete (const message_ty *mp, ostream_t stream,
     wrap (mp, stream, "#~| ", 0, class_previous, "msgid_plural",
           mp->prev_msgid_plural, mp->do_wrap, page_width, charset, xeh);
   end_css_class (stream, class_previous_comment);
-  extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
-                  || mp->prev_msgid_plural != NULL
-                  ? 1
-                  : 0);
+  int extra_indent = (mp->prev_msgctxt != NULL || mp->prev_msgid != NULL
+                      || mp->prev_msgid_plural != NULL
+                      ? 1
+                      : 0);
 
   end_css_class (stream, class_comment);
 
@@ -1557,14 +1512,13 @@ different from yours. Consider using a pure ASCII msgid instead.\n\
           mp->do_wrap, page_width, charset, xeh);
   else
     {
-      char prefix_buf[20];
       unsigned int i;
       const char *p;
-
       for (p = mp->msgstr, i = 0;
            p < mp->msgstr + mp->msgstr_len;
            p += strlen (p) + 1, i++)
         {
+          char prefix_buf[20];
           sprintf (prefix_buf, "msgstr[%u]", i);
           wrap (mp, stream, "#~ ", extra_indent, class_msgstr, prefix_buf, p,
                 mp->do_wrap, page_width, charset, xeh);
@@ -1579,18 +1533,10 @@ static void
 msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
                          size_t page_width, xerror_handler_ty xeh, bool debug)
 {
-  size_t j, k;
-  bool blank_line;
-
   /* Write out the messages for each domain.  */
-  blank_line = false;
-  for (k = 0; k < mdlp->nitems; k++)
+  bool blank_line = false;
+  for (size_t k = 0; k < mdlp->nitems; k++)
     {
-      message_list_ty *mlp;
-      const char *header;
-      const char *charset;
-      char *allocated_charset;
-
       /* If the first domain is the default, don't bother emitting
          the domain name, because it is the default.  */
       if (!(k == 0
@@ -1613,11 +1559,11 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
           blank_line = true;
         }
 
-      mlp = mdlp->item[k]->messages;
+      message_list_ty *mlp = mdlp->item[k]->messages;
 
       /* Search the header entry.  */
-      header = NULL;
-      for (j = 0; j < mlp->nitems; ++j)
+      const char *header = NULL;
+      for (size_t j = 0; j < mlp->nitems; ++j)
         if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
           {
             header = mlp->item[j]->msgstr;
@@ -1625,21 +1571,21 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
           }
 
       /* Extract the charset name.  */
-      charset = "ASCII";
-      allocated_charset = NULL;
+      const char *charset = "ASCII";
+      char *allocated_charset = NULL;
       if (header != NULL)
         {
           const char *charsetstr = c_strstr (header, "charset=");
 
           if (charsetstr != NULL)
             {
-              size_t len;
-
               charsetstr += strlen ("charset=");
-              len = strcspn (charsetstr, " \t\n");
+              size_t len = strcspn (charsetstr, " \t\n");
+
               allocated_charset = (char *) xmalloca (len + 1);
               memcpy (allocated_charset, charsetstr, len);
               allocated_charset[len] = '\0';
+
               charset = allocated_charset;
 
               /* Treat the dummy default value as if it were absent.  */
@@ -1649,7 +1595,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
         }
 
       /* Write out each of the messages for this domain.  */
-      for (j = 0; j < mlp->nitems; ++j)
+      for (size_t j = 0; j < mlp->nitems; ++j)
         if (!mlp->item[j]->obsolete)
           {
             message_print (mlp->item[j], stream, charset, page_width,
@@ -1658,7 +1604,7 @@ msgdomain_list_print_po (msgdomain_list_ty *mdlp, ostream_t stream,
           }
 
       /* Write out each of the obsolete messages for this domain.  */
-      for (j = 0; j < mlp->nitems; ++j)
+      for (size_t j = 0; j < mlp->nitems; ++j)
         if (mlp->item[j]->obsolete)
           {
             message_print_obsolete (mlp->item[j], stream, charset, page_width,

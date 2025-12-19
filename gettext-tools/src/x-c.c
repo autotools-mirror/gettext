@@ -123,18 +123,16 @@ add_keyword (const char *name, hash_table *keywords)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords->table == NULL)
         hash_init (keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (keywords, name, end - name, &shape);
     }
@@ -711,12 +709,12 @@ static int phase2_pushback_length;
 static int
 phase2_getc ()
 {
-  int c;
-
   if (phase2_pushback_length)
     return phase2_pushback[--phase2_pushback_length];
   if (!trigraphs)
     return phase1_getc ();
+
+  int c;
 
   c = phase1_getc ();
   if (c != '?')
@@ -865,7 +863,6 @@ static int
 phase4_getc ()
 {
   int c;
-  bool last_was_star;
 
   c = phase3_getc ();
   if (c != '/')
@@ -880,7 +877,7 @@ phase4_getc ()
     case '*':
       /* C comment.  */
       comment_start ();
-      last_was_star = false;
+      bool last_was_star = false;
       for (;;)
         {
           c = phase3_getc ();
@@ -1021,7 +1018,7 @@ struct token_ty
 static int
 get_string_element (int context)
 {
-  int c, j;
+  int c;
 
   /* Use phase 3, because phase 4 elides comments.  */
   c = phase3_getc ();
@@ -1108,12 +1105,9 @@ get_string_element (int context)
            - In wide strings, warn and assume the programmer meant Unicode code
              points.  */
         unsigned int n_limit = (context > 0 ? 0x110000 : 0x100);
-        unsigned int n;
-        bool overflow;
 
-        n = 0;
-        overflow = false;
-
+        unsigned int n = 0;
+        bool overflow = false;
         for (;;)
           {
             switch (c)
@@ -1166,10 +1160,8 @@ get_string_element (int context)
     case '0': case '1': case '2': case '3':
     case '4': case '5': case '6': case '7':
       {
-        int n;
-
-        n = 0;
-        for (j = 0; j < 3; ++j)
+        int n = 0;
+        for (int j = 0; j < 3; ++j)
           {
             n = n * 8 + c - '0';
             c = phase3_getc ();
@@ -1191,9 +1183,9 @@ get_string_element (int context)
     case 'U': case 'u':
       {
         unsigned char buf[8];
-        unsigned int n;
+        int j;
 
-        n = 0;
+        unsigned int n = 0;
         for (j = 0; j < (c == 'u' ? 4 : 8); j++)
           {
             int c1 = phase3_getc ();
@@ -1265,13 +1257,14 @@ static int phase5_pushback_length;
 static void
 phase5_get (token_ty *tp)
 {
-  int c;
-
   if (phase5_pushback_length)
     {
       *tp = phase5_pushback[--phase5_pushback_length];
       return;
     }
+
+  int c;
+
   tp->string = NULL;
   tp->number = 0;
   tp->line_number = line_number;
@@ -1441,16 +1434,17 @@ phase5_get (token_ty *tp)
                       if (c == '(')
                         {
                           struct mixed_string_buffer msb;
+
+                          /* Start accumulating the string.  */
+                          mixed_string_buffer_init (&msb, lc_string,
+                                                    logical_file_name, line_number);
+
                           /* The state is either 0 or
                              N, after a ')' and N-1 bytes of the delimiter have been
                              encountered.  */
                           int state;
 
-                          /* Start accumulating the string.  */
-                          mixed_string_buffer_init (&msb, lc_string,
-                                                    logical_file_name, line_number);
                           state = 0;
-
                           for (;;)
                             {
                               c = phase3_getc ();
@@ -1481,11 +1475,9 @@ phase5_get (token_ty *tp)
                                 }
                               else
                                 {
-                                  int i;
-
                                   /* None of the bytes raw_buf[0]...raw_buf[state-1]
                                      can be ')'.  */
-                                  for (i = 0; i < state; i++)
+                                  for (int i = 0; i < state; i++)
                                     mixed_string_buffer_append_char (&msb, raw_buf[i]);
 
                                   /* But c may be ')'.  */
@@ -1841,8 +1833,8 @@ phaseX_get (token_ty *tp)
           if (tp->type == token_type_white_space)
             {
               token_ty next;
-
               phase5_get (&next);
+
               if (next.type == token_type_hash)
                 *tp = next;
               else
@@ -1866,16 +1858,12 @@ static int phase6_pushback_length;
 static void
 phase6_get (token_ty *tp)
 {
-  static token_ty *buf;
-  static int bufmax;
-  int bufpos;
-  int j;
-
   if (phase6_pushback_length)
     {
       *tp = phase6_pushback[--phase6_pushback_length];
       return;
     }
+
   for (;;)
     {
       /* Get the next token.  If it is not a '#' at the beginning of a
@@ -1886,7 +1874,9 @@ phase6_get (token_ty *tp)
 
       /* Accumulate the rest of the directive in a buffer, until the
          "define" keyword is seen or until end of line.  */
-      bufpos = 0;
+      static token_ty *buf;
+      static int bufmax;
+      int bufpos = 0;
       for (;;)
         {
           phaseX_get (tp);
@@ -1933,7 +1923,7 @@ phase6_get (token_ty *tp)
         }
 
       /* Release the storage held by the directive.  */
-      for (j = 0; j < bufpos; ++j)
+      for (int j = 0; j < bufpos; ++j)
         free_token (&buf[j]);
 
       /* We must reset the selected comments.  */
@@ -2064,17 +2054,18 @@ phase8b_unget (token_ty *tp)
 static void
 phase8c_get (token_ty *tp)
 {
-  token_ty tmp;
-
   phase8b_get (tp);
   if (tp->type != token_type_objc_special)
     return;
+
+  token_ty tmp;
   phase8b_get (&tmp);
   if (tmp.type != token_type_string_literal)
     {
       phase8b_unget (&tmp);
       return;
     }
+
   /* Drop the '@' token and return immediately the following string.  */
   drop_reference (tmp.comment);
   tmp.comment = tp->comment;
@@ -2102,8 +2093,8 @@ phase8_get (token_ty *tp)
   for (;;)
     {
       token_ty tmp;
-
       phase8c_get (&tmp);
+
       if (tmp.type != token_type_string_literal)
         {
           phase8c_unget (&tmp);
@@ -2166,9 +2157,8 @@ x_c_lex (xgettext_token_ty *tp)
   for (;;)
     {
       token_ty token;
-      void *keyword_value;
-
       phase8_get (&token);
+
       switch (token.type)
         {
         case token_type_eof:
@@ -2176,22 +2166,25 @@ x_c_lex (xgettext_token_ty *tp)
           return;
 
         case token_type_name:
-          last_non_comment_line = newline_count;
+          {
+            last_non_comment_line = newline_count;
 
-          if (hash_find_entry (objc_extensions ? &objc_keywords : &c_keywords,
-                               token.string, strlen (token.string),
-                               &keyword_value)
-              == 0)
-            {
-              tp->type = xgettext_token_type_keyword;
-              tp->shapes = (const struct callshapes *) keyword_value;
-              tp->pos.file_name = logical_file_name;
-              tp->pos.line_number = token.line_number;
-            }
-          else
-            tp->type = xgettext_token_type_symbol;
-          tp->string = token.string;
-          return;
+            void *keyword_value;
+            if (hash_find_entry (objc_extensions ? &objc_keywords : &c_keywords,
+                                 token.string, strlen (token.string),
+                                 &keyword_value)
+                == 0)
+              {
+                tp->type = xgettext_token_type_keyword;
+                tp->shapes = (const struct callshapes *) keyword_value;
+                tp->pos.file_name = logical_file_name;
+                tp->pos.line_number = token.line_number;
+              }
+            else
+              tp->type = xgettext_token_type_symbol;
+            tp->string = token.string;
+            return;
+          }
 
         case token_type_lparen:
           last_non_comment_line = newline_count;
@@ -2305,8 +2298,8 @@ extract_parenthesized (message_list_ty *mlp,
   for (;;)
     {
       xgettext_token_ty token;
-
       x_c_lex (&token);
+
       switch (token.type)
         {
         case xgettext_token_type_keyword:

@@ -104,21 +104,19 @@ x_d_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (function_keywords.table == NULL)
         hash_init (&function_keywords, 100);
       if (template_keywords.table == NULL)
         hash_init (&template_keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid identifier,
          possibly with a trailing '!'.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         {
           if (end > name && end[-1] == '!')
@@ -389,8 +387,7 @@ is_add_expression_with_tilde (TSNode node,
     {
       uint32_t count = ts_node_child_count (node);
       uint32_t other_subnodes = 0;
-      uint32_t i;
-      for (i = 0; i < count; i++)
+      for (uint32_t i = 0; i < count; i++)
         {
           TSNode subnode = ts_node_child (node, i);
           if (!(ts_node_symbol (subnode) == ts_symbol_comment
@@ -433,8 +430,7 @@ is_string_literal (TSNode node)
       fprintf (stderr, "[%s]|%s|%.*s|\n", ts_node_type (node), ts_node_string (node), (int) sd_length (node_contents), sd_data (node_contents));
       #if 0
       uint32_t count = ts_node_child_count (node);
-      uint32_t i;
-      for (i = 0; i < count; i++)
+      for (uint32_t i = 0; i < count; i++)
         {
           TSNode subnode = ts_node_named_child (node, i);
           string_desc_t subnode_contents =
@@ -442,8 +438,7 @@ is_string_literal (TSNode node)
                          contents + ts_node_start_byte (subnode));
           fprintf (stderr, "%u -> [%s]|%s|%.*s|\n", i, ts_node_type (subnode), ts_node_string (subnode), (int) sd_length (subnode_contents), sd_data (subnode_contents));
           uint32_t count2 = ts_node_child_count (subnode);
-          uint32_t j;
-          for (j = 0; j < count2; j++)
+          for (uint32_t j = 0; j < count2; j++)
             {
               fprintf (stderr, "%u %u -> [%s]|%s|\n", i, j, ts_node_type (ts_node_child (subnode, j)), ts_node_string (ts_node_child (subnode, j)));
             }
@@ -530,8 +525,7 @@ string_literal_accumulate_pieces (TSNode node,
           const char *ptr = sd_data (node_contents) + sd_length (node_contents);
           /* Iterate through the nodes of type escape_sequence under the subnode.  */
           uint32_t count = ts_node_named_child_count (subnode);
-          uint32_t i;
-          for (i = count; i > 0; )
+          for (uint32_t i = count; i > 0; )
             {
               i--;
               TSNode escnode = ts_node_named_child (subnode, i);
@@ -595,8 +589,7 @@ string_literal_accumulate_pieces (TSNode node,
                       /* Only up to 3 octal digits are accepted.  */
                       if (escape_end - escape_start <= 1 + 3)
                         {
-                          const char *p;
-                          for (p = escape_start + 1; p < escape_end; p++)
+                          for (const char *p = escape_start + 1; p < escape_end; p++)
                             {
                               /* No overflow is possible.  */
                               char c = *p;
@@ -616,8 +609,7 @@ string_literal_accumulate_pieces (TSNode node,
                            || (escape_start[1] == 'U' && escape_end - escape_start == 2 + 8))
                     {
                       unsigned int value = 0;
-                      const char *p;
-                      for (p = escape_start + 2; p < escape_end; p++)
+                      for (const char *p = escape_start + 2; p < escape_end; p++)
                         {
                           /* No overflow is possible.  */
                           char c = *p;
@@ -688,8 +680,7 @@ string_literal_accumulate_pieces (TSNode node,
           node_contents = sd_substring (node_contents, 2, sd_length (node_contents) - 1);
           int shift = 0;
           int value = 0;
-          ptrdiff_t i;
-          for (i = sd_length (node_contents) - 1; i >= 0; i--)
+          for (ptrdiff_t i = sd_length (node_contents) - 1; i >= 0; i--)
             {
               char c = sd_char_at (node_contents, i);
               if (c >= '0' && c <= '9')
@@ -972,8 +963,7 @@ extract_from_function_call (TSNode node,
                 /* Handle the potential comments in the callee_node, between
                    arg_expr_node and function_node.  */
                 uint32_t count = ts_node_child_count (callee_node);
-                uint32_t i;
-                for (i = 1; i < count; i++)
+                for (uint32_t i = 1; i < count; i++)
                   {
                     TSNode subnode = ts_node_child (callee_node, i);
                     if (ts_node_eq (subnode, function_node))
@@ -989,8 +979,7 @@ extract_from_function_call (TSNode node,
              callee_node and args_node.  */
           {
             uint32_t count = ts_node_child_count (node);
-            uint32_t i;
-            for (i = 1; i < count; i++)
+            for (uint32_t i = 1; i < count; i++)
               {
                 TSNode subnode = ts_node_child (node, i);
                 if (ts_node_eq (subnode, args_node))
@@ -999,8 +988,7 @@ extract_from_function_call (TSNode node,
               }
           }
 
-          uint32_t i;
-          for (i = 0; i < args_count; i++)
+          for (uint32_t i = 0; i < args_count; i++)
             {
               TSNode arg_node = ts_node_child (args_node, i);
               handle_comments (arg_node);
@@ -1102,8 +1090,7 @@ extract_from_function_call (TSNode node,
         /* Handle the potential comments in the callee_node, between
            arg_expr_node and function_node.  */
         uint32_t count = ts_node_child_count (callee_node);
-        uint32_t i;
-        for (i = 1; i < count; i++)
+        for (uint32_t i = 1; i < count; i++)
           {
             TSNode subnode = ts_node_child (callee_node, i);
             if (ts_node_eq (subnode, function_node))
@@ -1119,8 +1106,7 @@ extract_from_function_call (TSNode node,
      callee_node and args_node.  */
   {
     uint32_t count = ts_node_child_count (node);
-    uint32_t i;
-    for (i = 1; i < count; i++)
+    for (uint32_t i = 1; i < count; i++)
       {
         TSNode subnode = ts_node_child (node, i);
         if (ts_node_eq (subnode, args_node))
@@ -1129,8 +1115,7 @@ extract_from_function_call (TSNode node,
       }
   }
 
-  uint32_t i;
-  for (i = 0; i < args_count; i++)
+  for (uint32_t i = 0; i < args_count; i++)
     {
       TSNode arg_node = ts_node_child (args_node, i);
       handle_comments (arg_node);
@@ -1257,8 +1242,7 @@ extract_from_function_call_without_args (TSNode callee_node,
             /* Handle the potential comments in the callee_node, between
                arg_expr_node and function_node.  */
             uint32_t count = ts_node_child_count (callee_node);
-            uint32_t i;
-            for (i = 1; i < count; i++)
+            for (uint32_t i = 1; i < count; i++)
               {
                 TSNode subnode = ts_node_child (callee_node, i);
                 if (ts_node_eq (subnode, function_node))
@@ -1305,8 +1289,7 @@ extract_from_function_call_without_args (TSNode callee_node,
     /* Handle the potential comments in the callee_node, between
        arg_expr_node and function_node.  */
     uint32_t count = ts_node_child_count (callee_node);
-    uint32_t i;
-    for (i = 1; i < count; i++)
+    for (uint32_t i = 1; i < count; i++)
       {
         TSNode subnode = ts_node_child (callee_node, i);
         if (ts_node_eq (subnode, function_node))
@@ -1339,8 +1322,7 @@ extract_from_template_instantiation (TSNode node,
      identifier_node and args_node.  */
   {
     uint32_t count = ts_node_child_count (node);
-    uint32_t i;
-    for (i = 1; i < count; i++)
+    for (uint32_t i = 1; i < count; i++)
       {
         TSNode subnode = ts_node_child (node, i);
         if (ts_node_eq (subnode, args_node))
@@ -1374,8 +1356,7 @@ extract_from_template_instantiation (TSNode node,
       /* Current argument number.  */
       uint32_t arg = 0;
 
-      uint32_t i;
-      for (i = 0; i < args_count; i++)
+      for (uint32_t i = 0; i < args_count; i++)
         {
           TSNode arg_node = ts_node_child (args_node, i);
           handle_comments (arg_node);
@@ -1502,8 +1483,7 @@ extract_from_template_instantiation (TSNode node,
   /* Current argument number.  */
   MAYBE_UNUSED uint32_t arg = 0;
 
-  uint32_t i;
-  for (i = 0; i < args_count; i++)
+  for (uint32_t i = 0; i < args_count; i++)
     {
       TSNode arg_node = ts_node_child (args_node, i);
       handle_comments (arg_node);
@@ -1631,8 +1611,7 @@ extract_from_node (TSNode node,
               fprintf (stderr, "gettext arguments: %s\n", ts_node_string (argsnode));
               fprintf (stderr, "gettext children:\n");
               uint32_t count = ts_node_named_child_count (node);
-              uint32_t i;
-              for (i = 0; i < count; i++)
+              for (uint32_t i = 0; i < count; i++)
                 fprintf (stderr, "%u -> %s\n", i, ts_node_string (ts_node_named_child (node, i)));
             }
         }
@@ -1647,8 +1626,7 @@ extract_from_node (TSNode node,
     {
       ignore = ignore || is_string_literal (node);
       uint32_t count = ts_node_child_count (node);
-      uint32_t i;
-      for (i = 0; i < count; i++)
+      for (uint32_t i = 0; i < count; i++)
         {
           TSNode subnode = ts_node_child (node, i);
           handle_comments (subnode);
@@ -1710,9 +1688,8 @@ extract_d (FILE *f,
     }
 
   /* Read the file into memory.  */
-  char *contents_data;
   size_t contents_length;
-  contents_data = read_file (real_filename, 0, &contents_length);
+  char *contents_data = read_file (real_filename, 0, &contents_length);
   if (contents_data == NULL)
     error (EXIT_FAILURE, errno, _("error while reading \"%s\""),
            real_filename);
@@ -1735,8 +1712,7 @@ extract_d (FILE *f,
          contain at least one U+000A, and U+0A000000 is invalid.  */
       if ((contents_length % 4) == 0)
         {
-          int round;
-          for (round = 0; round < 2; round++)
+          for (int round = 0; round < 2; round++)
             {
               if (u32_check ((uint32_t *) contents_data, contents_length / 4) == NULL)
                 {

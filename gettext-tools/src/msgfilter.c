@@ -97,17 +97,6 @@ static msgdomain_list_ty *process_msgdomain_list (msgdomain_list_ty *mdlp);
 int
 main (int argc, char **argv)
 {
-  bool do_help;
-  bool do_version;
-  char *output_file;
-  const char *input_file;
-  msgdomain_list_ty *result;
-  catalog_input_format_ty input_syntax = &input_format_po;
-  catalog_output_format_ty output_syntax = &output_format_po;
-  bool sort_by_filepos = false;
-  bool sort_by_msgid = false;
-  int i;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
@@ -125,11 +114,15 @@ main (int argc, char **argv)
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  /* Set default values for variables.  */
-  do_help = false;
-  do_version = false;
-  output_file = NULL;
-  input_file = NULL;
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+  char *output_file = NULL;
+  const char *input_file = NULL;
+  catalog_input_format_ty input_syntax = &input_format_po;
+  catalog_output_format_ty output_syntax = &output_format_po;
+  bool sort_by_filepos = false;
+  bool sort_by_msgid = false;
 
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
@@ -165,119 +158,120 @@ main (int argc, char **argv)
   /* The flag NON_OPTION_TERMINATES_OPTIONS causes option parsing to terminate
      when the first non-option, i.e. the subprogram name, is encountered.  */
   start_options (argc, argv, options, NON_OPTION_TERMINATES_OPTIONS, 0);
-  int opt;
-  while ((opt = get_next_option ()) != -1)
-    switch (opt)
-      {
-      case '\0':                /* Long option with key == 0.  */
-        break;
-
-      case 'D':
-        dir_list_append (optarg);
-        break;
-
-      case 'E':
-        message_print_style_escape (true);
-        break;
-
-      case 'F':
-        sort_by_filepos = true;
-        break;
-
-      case 'h':
-        do_help = true;
-        break;
-
-      case 'i':
-        if (input_file != NULL)
-          {
-            error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
-            usage (EXIT_FAILURE);
-          }
-        input_file = optarg;
-        break;
-
-      case 'n':            /* -n */
-      case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
-        if (handle_filepos_comment_option (optarg))
-          usage (EXIT_FAILURE);
-        break;
-
-      case 'o':
-        output_file = optarg;
-        break;
-
-      case 'p':
-        output_syntax = &output_format_properties;
-        break;
-
-      case 'P':
-        input_syntax = &input_format_properties;
-        break;
-
-      case 's':
-        sort_by_msgid = true;
-        break;
-
-      case CHAR_MAX + 10: /* --strict */
-        message_print_style_uniforum ();
-        break;
-
-      case 'V':
-        do_version = true;
-        break;
-
-      case 'w':
+  {
+    int opt;
+    while ((opt = get_next_option ()) != -1)
+      switch (opt)
         {
-          int value;
-          char *endp;
-          value = strtol (optarg, &endp, 10);
-          if (endp != optarg)
-            message_page_width_set (value);
-        }
-        break;
+        case '\0':                /* Long option with key == 0.  */
+          break;
 
-      case CHAR_MAX + 1:
-        message_print_style_indent ();
-        break;
+        case 'D':
+          dir_list_append (optarg);
+          break;
 
-      case CHAR_MAX + 2:
-        message_print_style_escape (false);
-        break;
+        case 'E':
+          message_print_style_escape (true);
+          break;
 
-      case CHAR_MAX + 3: /* --no-wrap */
-        message_page_width_ignore ();
-        break;
+        case 'F':
+          sort_by_filepos = true;
+          break;
 
-      case CHAR_MAX + 4: /* --stringtable-input */
-        input_syntax = &input_format_stringtable;
-        break;
+        case 'h':
+          do_help = true;
+          break;
 
-      case CHAR_MAX + 5: /* --stringtable-output */
-        output_syntax = &output_format_stringtable;
-        break;
+        case 'i':
+          if (input_file != NULL)
+            {
+              error (EXIT_SUCCESS, 0, _("at most one input file allowed"));
+              usage (EXIT_FAILURE);
+            }
+          input_file = optarg;
+          break;
 
-      case CHAR_MAX + 6: /* --color */
-        if (handle_color_option (optarg) || color_test_mode)
+        case 'n':            /* -n */
+        case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
+          if (handle_filepos_comment_option (optarg))
+            usage (EXIT_FAILURE);
+          break;
+
+        case 'o':
+          output_file = optarg;
+          break;
+
+        case 'p':
+          output_syntax = &output_format_properties;
+          break;
+
+        case 'P':
+          input_syntax = &input_format_properties;
+          break;
+
+        case 's':
+          sort_by_msgid = true;
+          break;
+
+        case CHAR_MAX + 10: /* --strict */
+          message_print_style_uniforum ();
+          break;
+
+        case 'V':
+          do_version = true;
+          break;
+
+        case 'w':
+          {
+            char *endp;
+            int value = strtol (optarg, &endp, 10);
+            if (endp != optarg)
+              message_page_width_set (value);
+          }
+          break;
+
+        case CHAR_MAX + 1:
+          message_print_style_indent ();
+          break;
+
+        case CHAR_MAX + 2:
+          message_print_style_escape (false);
+          break;
+
+        case CHAR_MAX + 3: /* --no-wrap */
+          message_page_width_ignore ();
+          break;
+
+        case CHAR_MAX + 4: /* --stringtable-input */
+          input_syntax = &input_format_stringtable;
+          break;
+
+        case CHAR_MAX + 5: /* --stringtable-output */
+          output_syntax = &output_format_stringtable;
+          break;
+
+        case CHAR_MAX + 6: /* --color */
+          if (handle_color_option (optarg) || color_test_mode)
+            usage (EXIT_FAILURE);
+          break;
+
+        case CHAR_MAX + 7: /* --style */
+          handle_style_option (optarg);
+          break;
+
+        case CHAR_MAX + 8: /* --no-location */
+          message_print_style_filepos (filepos_comment_none);
+          break;
+
+        case CHAR_MAX + 9: /* --newline */
+          newline = true;
+          break;
+
+        default:
           usage (EXIT_FAILURE);
-        break;
-
-      case CHAR_MAX + 7: /* --style */
-        handle_style_option (optarg);
-        break;
-
-      case CHAR_MAX + 8: /* --no-location */
-        message_print_style_filepos (filepos_comment_none);
-        break;
-
-      case CHAR_MAX + 9: /* --newline */
-        newline = true;
-        break;
-
-      default:
-        usage (EXIT_FAILURE);
-        break;
-      }
+          break;
+        }
+  }
 
   /* Version information is requested.  */
   if (do_version)
@@ -312,9 +306,12 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* Build argument list for the program.  */
   sub_argc = argc - optind;
   sub_argv = XNMALLOC (sub_argc + 1, const char *);
-  for (i = 0; i < sub_argc; i++)
-    sub_argv[i] = argv[optind + i];
-  sub_argv[i] = NULL;
+  {
+    size_t i;
+    for (i = 0; i < sub_argc; i++)
+      sub_argv[i] = argv[optind + i];
+    sub_argv[i] = NULL;
+  }
 
   /* Extra checks for sed scripts.  */
   if (strcmp (sub_name, "sed") == 0)
@@ -324,7 +321,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
                _("at least one sed script must be specified"));
 
       /* Replace GNU sed specific options with portable sed options.  */
-      for (i = 1; i < sub_argc; i++)
+      for (int i = 1; i < sub_argc; i++)
         {
           if (strcmp (sub_argv[i], "--expression") == 0)
             sub_argv[i] = "-e";
@@ -345,7 +342,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     input_file = "-";
 
   /* Read input file.  */
-  result = read_catalog_file (input_file, input_syntax);
+  msgdomain_list_ty *result = read_catalog_file (input_file, input_syntax);
 
   /* Recognize special programs as built-ins.  */
   if (strcmp (sub_name, "recode-sr-latin") == 0 && sub_argc == 1)
@@ -621,7 +618,6 @@ process_string (const char *str, size_t len, char **resultp, size_t *lengthp)
 {
   char *result;
   size_t length;
-
   filter (str, len, &result, &length);
 
   /* Remove NUL bytes from result.  */
@@ -632,9 +628,7 @@ process_string (const char *str, size_t len, char **resultp, size_t *lengthp)
     for (; p < pend; p++)
       if (*p == '\0')
         {
-          char *q;
-
-          q = p;
+          char *q = p;
           for (; p < pend; p++)
             if (*p != '\0')
               *q++ = *p;
@@ -655,14 +649,12 @@ static void
 process_string_with_newline (const char *str, size_t len, char **resultp,
                              size_t *lengthp)
 {
-  char *newstr;
-  char *result;
-  size_t length;
-
-  newstr = XNMALLOC (len + 1, char);
+  char *newstr = XNMALLOC (len + 1, char);
   memcpy (newstr, str, len);
   newstr[len] = '\n';
 
+  char *result;
+  size_t length;
   process_string (newstr, len + 1, &result, &length);
 
   free (newstr);
@@ -680,20 +672,12 @@ process_string_with_newline (const char *str, size_t len, char **resultp,
 static void
 process_message (message_ty *mp)
 {
-  const char *msgstr = mp->msgstr;
-  size_t msgstr_len = mp->msgstr_len;
-  char *location;
-  size_t nsubstrings;
-  char **substrings;
-  size_t total_len;
-  char *total_str;
-  const char *p;
-  char *q;
-  size_t k;
-
   /* Keep the header entry unmodified, if --keep-header was given.  */
   if (is_header (mp) && keep_header)
     return;
+
+  const char *msgstr = mp->msgstr;
+  size_t msgstr_len = mp->msgstr_len;
 
   /* Set environment variables for the subprocess.
      Note: These environment variables, especially MSGFILTER_MSGCTXT and
@@ -716,10 +700,12 @@ process_message (message_ty *mp)
     xsetenv ("MSGFILTER_MSGID_PLURAL", mp->msgid_plural, 1);
   else
     unsetenv ("MSGFILTER_MSGID_PLURAL");
-  location = xasprintf ("%s:%ld", mp->pos.file_name,
-                        (long) mp->pos.line_number);
-  xsetenv ("MSGFILTER_LOCATION", location, 1);
-  free (location);
+  {
+    char *location =
+      xasprintf ("%s:%ld", mp->pos.file_name, (long) mp->pos.line_number);
+    xsetenv ("MSGFILTER_LOCATION", location, 1);
+    free (location);
+  }
   if (mp->prev_msgctxt != NULL)
     xsetenv ("MSGFILTER_PREV_MSGCTXT", mp->prev_msgctxt, 1);
   else
@@ -734,50 +720,61 @@ process_message (message_ty *mp)
     unsetenv ("MSGFILTER_PREV_MSGID_PLURAL");
 
   /* Count NUL delimited substrings.  */
-  for (p = msgstr, nsubstrings = 0;
-       p < msgstr + msgstr_len;
-       p += strlen (p) + 1, nsubstrings++);
+  size_t nsubstrings;
+  {
+    nsubstrings = 0;
+    for (const char *p = msgstr; p < msgstr + msgstr_len; p += strlen (p) + 1)
+      nsubstrings++;
+  }
 
   /* Process each NUL delimited substring separately.  */
-  substrings = XNMALLOC (nsubstrings, char *);
-  for (p = msgstr, k = 0, total_len = 0; k < nsubstrings; k++)
-    {
-      char *result;
-      size_t length;
+  char **substrings = XNMALLOC (nsubstrings, char *);
+  size_t total_len;
+  {
+    const char *p;
+    size_t k;
+    for (p = msgstr, k = 0, total_len = 0; k < nsubstrings; k++)
+      {
+        if (mp->msgid_plural != NULL)
+          {
+            char *plural_form_string = xasprintf ("%lu", (unsigned long) k);
 
-      if (mp->msgid_plural != NULL)
-        {
-          char *plural_form_string = xasprintf ("%lu", (unsigned long) k);
+            xsetenv ("MSGFILTER_PLURAL_FORM", plural_form_string, 1);
+            free (plural_form_string);
+          }
+        else
+          unsetenv ("MSGFILTER_PLURAL_FORM");
 
-          xsetenv ("MSGFILTER_PLURAL_FORM", plural_form_string, 1);
-          free (plural_form_string);
-        }
-      else
-        unsetenv ("MSGFILTER_PLURAL_FORM");
+        char *result;
+        size_t length;
+        if (newline)
+          process_string_with_newline (p, strlen (p), &result, &length);
+        else
+          process_string (p, strlen (p), &result, &length);
 
-      if (newline)
-        process_string_with_newline (p, strlen (p), &result, &length);
-      else
-        process_string (p, strlen (p), &result, &length);
+        result = (char *) xrealloc (result, length + 1);
+        result[length] = '\0';
+        substrings[k] = result;
+        total_len += length + 1;
 
-      result = (char *) xrealloc (result, length + 1);
-      result[length] = '\0';
-      substrings[k] = result;
-      total_len += length + 1;
-
-      p += strlen (p) + 1;
-    }
+        p += strlen (p) + 1;
+      }
+  }
 
   /* Concatenate the results, including the NUL after each.  */
-  total_str = XNMALLOC (total_len, char);
-  for (k = 0, q = total_str; k < nsubstrings; k++)
-    {
-      size_t length = strlen (substrings[k]);
+  char *total_str = XNMALLOC (total_len, char);
+  {
+    size_t k;
+    char *q;
+    for (k = 0, q = total_str; k < nsubstrings; k++)
+      {
+        size_t length = strlen (substrings[k]);
 
-      memcpy (q, substrings[k], length + 1);
-      free (substrings[k]);
-      q += length + 1;
-    }
+        memcpy (q, substrings[k], length + 1);
+        free (substrings[k]);
+        q += length + 1;
+      }
+  }
   free (substrings);
 
   mp->msgstr = total_str;
@@ -788,9 +785,7 @@ process_message (message_ty *mp)
 static void
 process_message_list (message_list_ty *mlp)
 {
-  size_t j;
-
-  for (j = 0; j < mlp->nitems; j++)
+  for (size_t j = 0; j < mlp->nitems; j++)
     process_message (mlp->item[j]);
 }
 
@@ -798,9 +793,7 @@ process_message_list (message_list_ty *mlp)
 static msgdomain_list_ty *
 process_msgdomain_list (msgdomain_list_ty *mdlp)
 {
-  size_t k;
-
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     process_message_list (mdlp->item[k]->messages);
 
   return mdlp;

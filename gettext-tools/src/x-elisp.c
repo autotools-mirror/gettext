@@ -87,18 +87,17 @@ x_elisp_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
 
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid Lisp
          symbol.  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -221,9 +220,7 @@ static inline bool
 is_float (const char *p)
 {
   enum { LEAD_INT = 1, DOT_CHAR = 2, TRAIL_INT = 4, E_CHAR = 8, EXP_INT = 16 };
-  int state;
-
-  state = 0;
+  int state = 0;
   if (*p == '+' || *p == '-')
     p++;
   if (*p >= '0' && *p <= '9')
@@ -279,14 +276,12 @@ is_float (const char *p)
 static bool
 read_token (struct token *tp, int first)
 {
-  int c;
-  bool quoted = false;
-
   init_token (tp);
 
-  c = first;
+  int c;
 
-  for (;; c = do_getc ())
+  bool quoted = false;
+  for (c = first;; c = do_getc ())
     {
       if (c == EOF)
         break;
@@ -414,15 +409,14 @@ free_object (struct object *op)
 static char *
 string_of_object (const struct object *op)
 {
-  char *str;
-  int n;
-
   if (!(op->type == t_symbol || op->type == t_string))
     abort ();
-  n = op->token->charcount;
-  str = XNMALLOC (n + 1, char);
+  int n = op->token->charcount;
+
+  char *str = XNMALLOC (n + 1, char);
   memcpy (str, op->token->chars, n);
   str[n] = '\0';
+
   return str;
 }
 
@@ -672,9 +666,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 
             for (;; arg++)
               {
-                struct object inner;
                 flag_region_ty *inner_region;
-
                 if (arg == 0)
                   inner_region = null_context_region ();
                 else
@@ -684,6 +676,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
                                          &context_iter));
 
                 ++nesting_depth;
+                struct object inner;
                 read_object (&inner, arg == 0, new_backquote_flag,
                              inner_region);
                 nesting_depth--;
@@ -713,8 +706,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
                     if (inner.type == t_symbol)
                       {
                         char *symbol_name = string_of_object (&inner);
-                        void *keyword_value;
 
+                        void *keyword_value;
                         if (hash_find_entry (&keywords,
                                              symbol_name, strlen (symbol_name),
                                              &keyword_value)
@@ -775,9 +768,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
           {
             for (;;)
               {
-                struct object inner;
-
                 ++nesting_depth;
+                struct object inner;
                 read_object (&inner, false, new_backquote_flag,
                              null_context_region ());
                 nesting_depth--;
@@ -812,9 +804,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 
         case '\'':
           {
-            struct object inner;
-
             ++nesting_depth;
+            struct object inner;
             read_object (&inner, false, new_backquote_flag,
                          null_context_region ());
             nesting_depth--;
@@ -832,9 +823,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
           if (first_in_list)
             goto default_label;
           {
-            struct object inner;
-
             ++nesting_depth;
+            struct object inner;
             read_object (&inner, false, true, null_context_region ());
             nesting_depth--;
 
@@ -858,9 +848,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
               do_ungetc (c);
           }
           {
-            struct object inner;
-
             ++nesting_depth;
+            struct object inner;
             read_object (&inner, false, false, null_context_region ());
             nesting_depth--;
 
@@ -875,10 +864,9 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 
         case ';':
           {
-            bool all_semicolons = true;
-
             last_comment_line = line_number;
             comment_start ();
+            bool all_semicolons = true;
             for (;;)
               {
                 int c = do_getc ();
@@ -940,9 +928,9 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
             if (extract_all)
               {
                 lex_pos_ty pos;
-
                 pos.file_name = logical_file_name;
                 pos.line_number = op->line_number_at_start;
+
                 remember_a_message (mlp, NULL, string_of_object (op), false,
                                     false, null_context_region (), &pos,
                                     NULL, savable_comment, false);
@@ -1000,9 +988,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
                       /* Read a char table, same syntax as a vector.  */
                       for (;;)
                         {
-                          struct object inner;
-
                           ++nesting_depth;
+                          struct object inner;
                           read_object (&inner, false, new_backquote_flag,
                                        null_context_region ());
                           nesting_depth--;
@@ -1073,9 +1060,9 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
               case '(':
                 /* Read a string with properties, same syntax as a list.  */
                 {
-                  struct object inner;
                   do_ungetc (dmc);
                   ++nesting_depth;
+                  struct object inner;
                   read_object (&inner, false, new_backquote_flag,
                                null_context_region ());
                   nesting_depth--;
@@ -1119,8 +1106,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
               case ':':
               case 'S': case 's': /* XEmacs only */
                 {
-                  struct object inner;
                   ++nesting_depth;
+                  struct object inner;
                   read_object (&inner, false, new_backquote_flag,
                                null_context_region ());
                   nesting_depth--;
@@ -1226,8 +1213,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
               case '-': /* XEmacs only */
                 /* Simply assume every feature expression is true.  */
                 {
-                  struct object inner;
                   ++nesting_depth;
+                  struct object inner;
                   read_object (&inner, false, new_backquote_flag,
                                null_context_region ());
                   nesting_depth--;
@@ -1269,10 +1256,8 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
             continue;
           /* Read a token.  */
           {
-            bool symbol;
-
             op->token = XMALLOC (struct token);
-            symbol = read_token (op->token, ch);
+            bool symbol = read_token (op->token, ch);
             if (symbol)
               {
                 op->type = t_symbol;

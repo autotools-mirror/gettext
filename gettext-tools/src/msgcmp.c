@@ -74,10 +74,6 @@ static void compare (const char *fn1, const char *fn2,
 int
 main (int argc, char *argv[])
 {
-  bool do_help;
-  bool do_version;
-  catalog_input_format_ty input_syntax = &input_format_po;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
@@ -95,8 +91,10 @@ main (int argc, char *argv[])
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  do_help = false;
-  do_version = false;
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+  catalog_input_format_ty input_syntax = &input_format_po;
 
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
@@ -114,53 +112,55 @@ main (int argc, char *argv[])
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int optchar;
-  while ((optchar = get_next_option ()) != -1)
-    switch (optchar)
-      {
-      case '\0':                /* Long option with key == 0.  */
-        break;
+  {
+    int optchar;
+    while ((optchar = get_next_option ()) != -1)
+      switch (optchar)
+        {
+        case '\0':                /* Long option with key == 0.  */
+          break;
 
-      case 'D':
-        dir_list_append (optarg);
-        break;
+        case 'D':
+          dir_list_append (optarg);
+          break;
 
-      case 'h':
-        do_help = true;
-        break;
+        case 'h':
+          do_help = true;
+          break;
 
-      case 'm':
-        multi_domain_mode = true;
-        break;
+        case 'm':
+          multi_domain_mode = true;
+          break;
 
-      case 'N':
-        use_fuzzy_matching = false;
-        break;
+        case 'N':
+          use_fuzzy_matching = false;
+          break;
 
-      case 'P':
-        input_syntax = &input_format_properties;
-        break;
+        case 'P':
+          input_syntax = &input_format_properties;
+          break;
 
-      case 'V':
-        do_version = true;
-        break;
+        case 'V':
+          do_version = true;
+          break;
 
-      case CHAR_MAX + 1:        /* --stringtable-input */
-        input_syntax = &input_format_stringtable;
-        break;
+        case CHAR_MAX + 1:        /* --stringtable-input */
+          input_syntax = &input_format_stringtable;
+          break;
 
-      case CHAR_MAX + 2:        /* --use-fuzzy */
-        include_fuzzies = true;
-        break;
+        case CHAR_MAX + 2:        /* --use-fuzzy */
+          include_fuzzies = true;
+          break;
 
-      case CHAR_MAX + 3:        /* --use-untranslated */
-        include_untranslated = true;
-        break;
+        case CHAR_MAX + 3:        /* --use-untranslated */
+          include_untranslated = true;
+          break;
 
-      default:
-        usage (EXIT_FAILURE);
-        break;
-      }
+        default:
+          usage (EXIT_FAILURE);
+          break;
+        }
+  }
 
   /* Version information is requested.  */
   if (do_version)
@@ -293,9 +293,7 @@ is_message_selected (const message_ty *mp)
 static msgdomain_list_ty *
 remove_obsoletes (msgdomain_list_ty *mdlp)
 {
-  size_t k;
-
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     message_list_remove_if_not (mdlp->item[k]->messages, is_message_selected);
 
   return mdlp;
@@ -309,17 +307,13 @@ match_domain (const char *fn1, const char *fn2,
               message_list_ty *refmlp,
               int *nerrors)
 {
-  size_t j;
-
-  for (j = 0; j < refmlp->nitems; j++)
+  for (size_t j = 0; j < refmlp->nitems; j++)
     {
-      message_ty *refmsg;
-      message_ty *defmsg;
-
-      refmsg = refmlp->item[j];
+      message_ty *refmsg = refmlp->item[j];
 
       /* See if it is in the other file.  */
-      defmsg = message_list_search (defmlp, refmsg->msgctxt, refmsg->msgid);
+      message_ty *defmsg =
+        message_list_search (defmlp, refmsg->msgctxt, refmsg->msgid);
       if (defmsg)
         {
           if (!include_untranslated && defmsg->msgstr[0] == '\0')
@@ -390,29 +384,24 @@ match_domain (const char *fn1, const char *fn2,
 static void
 compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
 {
-  msgdomain_list_ty *def;
-  msgdomain_list_ty *ref;
-  int nerrors;
-  size_t j, k;
-  const char *def_canon_charset;
-  message_list_ty *empty_list;
-
   /* This is the master file, created by a human.  */
-  def = remove_obsoletes (read_catalog_file (fn1, input_syntax));
+  msgdomain_list_ty *def =
+    remove_obsoletes (read_catalog_file (fn1, input_syntax));
 
   /* This is the generated file, created by groping the sources with
      the xgettext program.  */
-  ref = remove_obsoletes (read_catalog_file (fn2, input_syntax));
+  msgdomain_list_ty *ref =
+    remove_obsoletes (read_catalog_file (fn2, input_syntax));
 
   /* The references file can be either in ASCII or in UTF-8.  If it is
      in UTF-8, we have to convert the definitions to UTF-8 as well.  */
   {
     bool was_utf8 = false;
-    for (k = 0; k < ref->nitems; k++)
+    for (size_t k = 0; k < ref->nitems; k++)
       {
         message_list_ty *mlp = ref->item[k]->messages;
 
-        for (j = 0; j < mlp->nitems; j++)
+        for (size_t j = 0; j < mlp->nitems; j++)
           if (is_header (mlp->item[j]) /* && !mlp->item[j]->obsolete */)
             {
               const char *header = mlp->item[j]->msgstr;
@@ -423,10 +412,8 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
 
                   if (charsetstr != NULL)
                     {
-                      size_t len;
-
                       charsetstr += strlen ("charset=");
-                      len = strcspn (charsetstr, " \t\n");
+                      size_t len = strcspn (charsetstr, " \t\n");
                       if (len == strlen ("UTF-8")
                           && c_strncasecmp (charsetstr, "UTF-8", len) == 0)
                         was_utf8 = true;
@@ -441,6 +428,7 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
 
   /* Determine canonicalized encoding name of the definitions now, after
      conversion.  Only used for fuzzy matching.  */
+  const char *def_canon_charset;
   if (use_fuzzy_matching)
     {
       def_canon_charset = def->encoding;
@@ -449,11 +437,11 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
           char *charset = NULL;
 
           /* Get the encoding of the definitions file.  */
-          for (k = 0; k < def->nitems; k++)
+          for (size_t k = 0; k < def->nitems; k++)
             {
               message_list_ty *mlp = def->item[k]->messages;
 
-              for (j = 0; j < mlp->nitems; j++)
+              for (size_t j = 0; j < mlp->nitems; j++)
                 if (is_header (mlp->item[j]) && !mlp->item[j]->obsolete)
                   {
                     const char *header = mlp->item[j]->msgstr;
@@ -464,10 +452,8 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
 
                         if (charsetstr != NULL)
                           {
-                            size_t len;
-
                             charsetstr += strlen ("charset=");
-                            len = strcspn (charsetstr, " \t\n");
+                            size_t len = strcspn (charsetstr, " \t\n");
                             charset = (char *) xmalloca (len + 1);
                             memcpy (charset, charsetstr, len);
                             charset[len] = '\0';
@@ -488,24 +474,22 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
   else
     def_canon_charset = NULL;
 
-  empty_list = message_list_alloc (false);
+  message_list_ty *empty_list = message_list_alloc (false);
 
   /* Every entry in the xgettext generated file must be matched by a
      (single) entry in the human created file.  */
-  nerrors = 0;
+  int nerrors = 0;
   if (!multi_domain_mode)
-    for (k = 0; k < ref->nitems; k++)
+    for (size_t k = 0; k < ref->nitems; k++)
       {
         const char *domain = ref->item[k]->domain;
         message_list_ty *refmlp = ref->item[k]->messages;
-        message_list_ty *defmlp;
-        message_fuzzy_index_ty *defmlp_findex;
 
-        defmlp = msgdomain_list_sublist (def, domain, false);
+        message_list_ty *defmlp = msgdomain_list_sublist (def, domain, false);
         if (defmlp == NULL)
           defmlp = empty_list;
 
-        defmlp_findex = NULL;
+        message_fuzzy_index_ty *defmlp_findex = NULL;
 
         match_domain (fn1, fn2, defmlp, &defmlp_findex, def_canon_charset,
                       refmlp, &nerrors);
@@ -519,7 +503,7 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
          the definition domains.  */
       message_list_ty *refmlp = ref->item[0]->messages;
 
-      for (k = 0; k < def->nitems; k++)
+      for (size_t k = 0; k < def->nitems; k++)
         {
           message_list_ty *defmlp = def->item[k]->messages;
 
@@ -540,11 +524,11 @@ compare (const char *fn1, const char *fn2, catalog_input_format_ty input_syntax)
   /* Look for messages in the definition file, which are not present
      in the reference file, indicating messages which defined but not
      used in the program.  */
-  for (k = 0; k < def->nitems; ++k)
+  for (size_t k = 0; k < def->nitems; ++k)
     {
       message_list_ty *defmlp = def->item[k]->messages;
 
-      for (j = 0; j < defmlp->nitems; j++)
+      for (size_t j = 0; j < defmlp->nitems; j++)
         {
           message_ty *defmsg = defmlp->item[j];
 

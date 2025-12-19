@@ -42,9 +42,7 @@ string_list_init (string_list_ty *slp)
 string_list_ty *
 string_list_alloc ()
 {
-  string_list_ty *slp;
-
-  slp = XMALLOC (string_list_ty);
+  string_list_ty *slp = XMALLOC (string_list_ty);
   slp->item = NULL;
   slp->nitems = 0;
   slp->nitems_max = 0;
@@ -60,10 +58,8 @@ string_list_append (string_list_ty *slp, const char *s)
   /* Grow the list.  */
   if (slp->nitems >= slp->nitems_max)
     {
-      size_t nbytes;
-
       slp->nitems_max = slp->nitems_max * 2 + 4;
-      nbytes = slp->nitems_max * sizeof (slp->item[0]);
+      size_t nbytes = slp->nitems_max * sizeof (slp->item[0]);
       slp->item = (const char **) xrealloc (slp->item, nbytes);
     }
 
@@ -80,10 +76,8 @@ string_list_append_move (string_list_ty *slp, char *s)
   /* Grow the list.  */
   if (slp->nitems >= slp->nitems_max)
     {
-      size_t nbytes;
-
       slp->nitems_max = slp->nitems_max * 2 + 4;
-      nbytes = slp->nitems_max * sizeof (slp->item[0]);
+      size_t nbytes = slp->nitems_max * sizeof (slp->item[0]);
       slp->item = (const char **) xrealloc (slp->item, nbytes);
     }
 
@@ -97,10 +91,8 @@ string_list_append_move (string_list_ty *slp, char *s)
 void
 string_list_append_unique (string_list_ty *slp, const char *s)
 {
-  size_t j;
-
   /* Do nothing if the string is already in the list.  */
-  for (j = 0; j < slp->nitems; ++j)
+  for (size_t j = 0; j < slp->nitems; ++j)
     if (strcmp (slp->item[j], s) == 0)
       return;
 
@@ -122,10 +114,8 @@ void
 string_list_append_unique_desc (string_list_ty *slp,
                                 const char *s, size_t s_len)
 {
-  size_t j;
-
   /* Do nothing if the string is already in the list.  */
-  for (j = 0; j < slp->nitems; ++j)
+  for (size_t j = 0; j < slp->nitems; ++j)
     if (strlen (slp->item[j]) == s_len && memcmp (slp->item[j], s, s_len) == 0)
       return;
 
@@ -153,9 +143,7 @@ string_list_append_unique_desc (string_list_ty *slp,
 void
 string_list_destroy (string_list_ty *slp)
 {
-  size_t j;
-
-  for (j = 0; j < slp->nitems; ++j)
+  for (size_t j = 0; j < slp->nitems; ++j)
     free ((char *) slp->item[j]);
   if (slp->item != NULL)
     free (slp->item);
@@ -166,9 +154,7 @@ string_list_destroy (string_list_ty *slp)
 void
 string_list_free (string_list_ty *slp)
 {
-  size_t j;
-
-  for (j = 0; j < slp->nitems; ++j)
+  for (size_t j = 0; j < slp->nitems; ++j)
     free ((char *) slp->item[j]);
   if (slp->item != NULL)
     free (slp->item);
@@ -181,23 +167,23 @@ string_list_free (string_list_ty *slp)
 char *
 string_list_concat (const string_list_ty *slp)
 {
-  size_t len;
-  size_t j;
   char *result;
-  size_t pos;
-
-  len = 1;
-  for (j = 0; j < slp->nitems; ++j)
-    len += strlen (slp->item[j]);
-  result = XNMALLOC (len, char);
-  pos = 0;
-  for (j = 0; j < slp->nitems; ++j)
-    {
-      len = strlen (slp->item[j]);
-      memcpy (result + pos, slp->item[j], len);
-      pos += len;
-    }
-  result[pos] = '\0';
+  {
+    size_t len = 1;
+    for (size_t j = 0; j < slp->nitems; ++j)
+      len += strlen (slp->item[j]);
+    result = XNMALLOC (len, char);
+  }
+  {
+    size_t pos = 0;
+    for (size_t j = 0; j < slp->nitems; ++j)
+      {
+        size_t len = strlen (slp->item[j]);
+        memcpy (result + pos, slp->item[j], len);
+        pos += len;
+      }
+    result[pos] = '\0';
+  }
   return result;
 }
 
@@ -234,40 +220,44 @@ string_list_join (const string_list_ty *slp, const char *separator,
                   char terminator, bool drop_redundant_terminator)
 {
   size_t separator_len = strlen (separator);
-  size_t len;
-  size_t j;
-  char *result;
-  size_t pos;
 
-  len = 1;
-  for (j = 0; j < slp->nitems; ++j)
+  char *result;
+  {
+    size_t len = 1;
+    for (size_t j = 0; j < slp->nitems; ++j)
+      {
+        if (j > 0)
+          len += separator_len;
+        len += strlen (slp->item[j]);
+      }
+    if (terminator)
+      ++len;
+    result = XNMALLOC (len, char);
+  }
+  {
+    size_t pos = 0;
+    for (size_t j = 0; j < slp->nitems; ++j)
+      {
+        if (j > 0)
+          {
+            memcpy (result + pos, separator, separator_len);
+            pos += separator_len;
+          }
+        size_t len = strlen (slp->item[j]);
+        memcpy (result + pos, slp->item[j], len);
+        pos += len;
+      }
     {
-      if (j > 0)
-        len += separator_len;
-      len += strlen (slp->item[j]);
+      size_t len;
+      if (terminator
+          && !(drop_redundant_terminator
+               && slp->nitems > 0
+               && (len = strlen (slp->item[slp->nitems - 1])) > 0
+               && slp->item[slp->nitems - 1][len - 1] == terminator))
+        result[pos++] = terminator;
     }
-  if (terminator)
-    ++len;
-  result = XNMALLOC (len, char);
-  pos = 0;
-  for (j = 0; j < slp->nitems; ++j)
-    {
-      if (j > 0)
-        {
-          memcpy (result + pos, separator, separator_len);
-          pos += separator_len;
-        }
-      len = strlen (slp->item[j]);
-      memcpy (result + pos, slp->item[j], len);
-      pos += len;
-    }
-  if (terminator
-      && !(drop_redundant_terminator
-           && slp->nitems > 0
-           && (len = strlen (slp->item[slp->nitems - 1])) > 0
-           && slp->item[slp->nitems - 1][len - 1] == terminator))
-    result[pos++] = terminator;
-  result[pos] = '\0';
+    result[pos] = '\0';
+  }
   return result;
 }
 
@@ -276,9 +266,7 @@ string_list_join (const string_list_ty *slp, const char *separator,
 bool
 string_list_member (const string_list_ty *slp, const char *s)
 {
-  size_t j;
-
-  for (j = 0; j < slp->nitems; ++j)
+  for (size_t j = 0; j < slp->nitems; ++j)
     if (strcmp (slp->item[j], s) == 0)
       return true;
   return false;
@@ -288,9 +276,7 @@ string_list_member (const string_list_ty *slp, const char *s)
 bool
 string_list_member_desc (const string_list_ty *slp, const char *s, size_t s_len)
 {
-  size_t j;
-
-  for (j = 0; j < slp->nitems; ++j)
+  for (size_t j = 0; j < slp->nitems; ++j)
     if (strlen (slp->item[j]) == s_len && memcmp (slp->item[j], s, s_len) == 0)
       return true;
   return false;
@@ -301,9 +287,7 @@ string_list_member_desc (const string_list_ty *slp, const char *s, size_t s_len)
 const char *
 string_list_remove (string_list_ty *slp, const char *s)
 {
-  size_t j;
-
-  for (j = 0; j < slp->nitems; ++j)
+  for (size_t j = 0; j < slp->nitems; ++j)
     if (strcmp (slp->item[j], s) == 0)
       {
         const char *found = slp->item[j];

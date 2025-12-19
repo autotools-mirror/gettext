@@ -111,7 +111,6 @@ is_reference (const char *input)
   const char *str = input;
   const char *str_limit = str + strlen (input);
   ucs4_t uc;
-  int i;
 
   str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
   assert (uc == '&');
@@ -150,27 +149,40 @@ is_reference (const char *input)
   else
     {
       /* EntityRef */
-      for (i = 0; i < SIZEOF (name_chars1); i++)
-        if (name_chars1[i].start <= uc && uc <= name_chars1[i].end)
-          break;
+      {
+        bool isNameStartChar = false;
+        for (int i = 0; i < SIZEOF (name_chars1); i++)
+          if (name_chars1[i].start <= uc && uc <= name_chars1[i].end)
+            {
+              isNameStartChar = true;
+              break;
+            }
 
-      if (i == SIZEOF (name_chars1))
-        return false;
+        if (!isNameStartChar)
+          return false;
+      }
 
       while (str < str_limit)
         {
           str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
-          for (i = 0; i < SIZEOF (name_chars1); i++)
+
+          bool isNameChar = false;
+          for (int i = 0; i < SIZEOF (name_chars1); i++)
             if (name_chars1[i].start <= uc && uc <= name_chars1[i].end)
-              break;
-          if (i == SIZEOF (name_chars1))
-            {
-              for (i = 0; i < SIZEOF (name_chars2); i++)
-                if (name_chars2[i].start <= uc && uc <= name_chars2[i].end)
+              {
+                isNameChar = true;
+                break;
+              }
+          if (!isNameChar)
+            for (int i = 0; i < SIZEOF (name_chars2); i++)
+              if (name_chars2[i].start <= uc && uc <= name_chars2[i].end)
+                {
+                  isNameChar = true;
                   break;
-              if (i == SIZEOF (name_chars2))
-                return false;
-            }
+                }
+
+          if (!isNameChar)
+            return false;
         }
       return uc == ';';
     }
@@ -184,18 +196,13 @@ format_parse (const char *format, bool translated, char *fdi,
               char **invalid_reason)
 {
   struct spec spec;
-  struct spec *result;
-  const char *str;
-  const char *str_limit;
-  size_t amp_count;
-  char *buffer, *bp;
-
   spec.base = NULL;
 
   /* Preprocess the input, putting the content in a <gt:kuit> element.  */
-  str = format;
-  str_limit = str + strlen (format);
+  const char *str = format;
+  const char *str_limit = str + strlen (format);
 
+  size_t amp_count;
   for (amp_count = 0; str < str_limit; amp_count++)
     {
       const char *amp = strchrnul (str, '&');
@@ -204,37 +211,38 @@ format_parse (const char *format, bool translated, char *fdi,
       str = amp + 1;
     }
 
-  buffer = xmalloc (amp_count * 4
-                    + strlen (format)
-                    + strlen ("<gt:kuit xmlns:gt=\"" XML_NS "\"></gt:kuit>")
-                    + 1);
+  char *buffer =
+    xmalloc (amp_count * 4
+             + strlen (format)
+             + strlen ("<gt:kuit xmlns:gt=\"" XML_NS "\"></gt:kuit>")
+             + 1);
   *buffer = '\0';
 
-  bp = buffer;
-  bp = stpcpy (bp, "<gt:kuit xmlns:gt=\"" XML_NS "\">");
-  str = format;
-  while (str < str_limit)
-    {
-      const char *amp = strchrnul (str, '&');
+  {
+    char *bp = buffer;
+    bp = stpcpy (bp, "<gt:kuit xmlns:gt=\"" XML_NS "\">");
+    str = format;
+    while (str < str_limit)
+      {
+        const char *amp = strchrnul (str, '&');
 
-      bp = stpncpy (bp, str, amp - str);
-      if (*amp != '&')
-        break;
+        bp = stpncpy (bp, str, amp - str);
+        if (*amp != '&')
+          break;
 
-      bp = stpcpy (bp, is_reference (amp) ? "&" : "&amp;");
-      str = amp + 1;
-    }
-  stpcpy (bp, "</gt:kuit>");
+        bp = stpcpy (bp, is_reference (amp) ? "&" : "&amp;");
+        str = amp + 1;
+      }
+    stpcpy (bp, "</gt:kuit>");
+  }
 
 #if FORMAT_KDE_KUIT_USE_LIBXML2
     {
-      xmlDocPtr doc;
-
-      doc = xmlReadMemory (buffer, strlen (buffer), "", NULL,
-                           XML_PARSE_NONET
-                           | XML_PARSE_NOWARNING
-                           | XML_PARSE_NOERROR
-                           | XML_PARSE_NOBLANKS);
+      xmlDocPtr doc = xmlReadMemory (buffer, strlen (buffer), "", NULL,
+                                     XML_PARSE_NONET
+                                     | XML_PARSE_NOWARNING
+                                     | XML_PARSE_NOERROR
+                                     | XML_PARSE_NOBLANKS);
       if (doc == NULL)
         {
           const xmlError *err = xmlGetLastError ();
@@ -252,10 +260,11 @@ format_parse (const char *format, bool translated, char *fdi,
 #elif FORMAT_KDE_KUIT_USE_FALLBACK_MARKUP
     {
       markup_parser_ty parser;
-      markup_parse_context_ty *context;
-
       memset (&parser, 0, sizeof (markup_parser_ty));
-      context = markup_parse_context_new (&parser, 0, NULL);
+
+      markup_parse_context_ty *context =
+        markup_parse_context_new (&parser, 0, NULL);
+
       if (!markup_parse_context_parse (context, buffer, strlen (buffer)))
         {
           *invalid_reason =
@@ -288,7 +297,7 @@ format_parse (const char *format, bool translated, char *fdi,
   if (spec.base == NULL)
     return NULL;
 
-  result = XMALLOC (struct spec);
+  struct spec *result = XMALLOC (struct spec);
   *result = spec;
   return result;
 }
@@ -354,9 +363,6 @@ static void
 format_print (void *descr)
 {
   struct spec *spec = (struct spec *) descr;
-  struct kde_spec *kspec;
-  size_t last;
-  size_t i;
 
   if (spec == NULL)
     {
@@ -364,7 +370,7 @@ format_print (void *descr)
       return;
     }
 
-  kspec = (struct kde_spec *) spec->base;
+  struct kde_spec *kspec = (struct kde_spec *) spec->base;
 
   if (kspec == NULL)
     {
@@ -373,8 +379,8 @@ format_print (void *descr)
     }
 
   printf ("(");
-  last = 1;
-  for (i = 0; i < kspec->numbered_arg_count; i++)
+  size_t last = 1;
+  for (size_t i = 0; i < kspec->numbered_arg_count; i++)
     {
       size_t number = kspec->numbered[i].number;
 
@@ -397,18 +403,14 @@ main ()
     {
       char *line = NULL;
       size_t line_size = 0;
-      int line_len;
-      char *invalid_reason;
-      void *descr;
-
-      line_len = getline (&line, &line_size, stdin);
+      int line_len = getline (&line, &line_size, stdin);
       if (line_len < 0)
         break;
       if (line_len > 0 && line[line_len - 1] == '\n')
         line[--line_len] = '\0';
 
-      invalid_reason = NULL;
-      descr = format_parse (line, false, NULL, &invalid_reason);
+      char *invalid_reason = NULL;
+      void *descr = format_parse (line, false, NULL, &invalid_reason);
 
       format_print (descr);
       printf ("\n");

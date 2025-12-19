@@ -1,6 +1,5 @@
 /* Expand escape sequences in a string.
-   Copyright (C) 1995-1997, 2000-2007, 2012, 2018-2020 Free Software
-   Foundation, Inc.
+   Copyright (C) 1995-1997, 2000-2007, 2012, 2018-2020, 2025 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, May 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -42,92 +41,90 @@ expand_escapes (const char *str, bool *backslash_c_seen)
       ++cp;
     }
 
+  char *retval = XNMALLOC (strlen (str), char);
+
+  memcpy (retval, str, cp - str);
   {
-    char *retval = XNMALLOC (strlen (str), char);
+    char *rp = retval + (cp - str);
 
-    memcpy (retval, str, cp - str);
-    {
-      char *rp = retval + (cp - str);
-
-      do
-        {
-          /* Here cp[0] == '\\'.  */
-          switch (*++cp)
+    do
+      {
+        /* Here cp[0] == '\\'.  */
+        switch (*++cp)
+          {
+          case 'a':               /* alert */
+            *rp++ = '\a';
+            ++cp;
+            break;
+          case 'b':               /* backspace */
+            *rp++ = '\b';
+            ++cp;
+            break;
+          case 'f':               /* form feed */
+            *rp++ = '\f';
+            ++cp;
+            break;
+          case 'n':               /* new line */
+            *rp++ = '\n';
+            ++cp;
+            break;
+          case 'r':               /* carriage return */
+            *rp++ = '\r';
+            ++cp;
+            break;
+          case 't':               /* horizontal tab */
+            *rp++ = '\t';
+            ++cp;
+            break;
+          case 'v':               /* vertical tab */
+            *rp++ = '\v';
+            ++cp;
+            break;
+          case '\\':
+            *rp++ = '\\';
+            ++cp;
+            break;
+          case '0': case '1': case '2': case '3':
+          case '4': case '5': case '6': case '7':
             {
-            case 'a':               /* alert */
-              *rp++ = '\a';
-              ++cp;
-              break;
-            case 'b':               /* backspace */
-              *rp++ = '\b';
-              ++cp;
-              break;
-            case 'f':               /* form feed */
-              *rp++ = '\f';
-              ++cp;
-              break;
-            case 'n':               /* new line */
-              *rp++ = '\n';
-              ++cp;
-              break;
-            case 'r':               /* carriage return */
-              *rp++ = '\r';
-              ++cp;
-              break;
-            case 't':               /* horizontal tab */
-              *rp++ = '\t';
-              ++cp;
-              break;
-            case 'v':               /* vertical tab */
-              *rp++ = '\v';
-              ++cp;
-              break;
-            case '\\':
-              *rp++ = '\\';
-              ++cp;
-              break;
-            case '0': case '1': case '2': case '3':
-            case '4': case '5': case '6': case '7':
-              {
-                int ch = *cp++ - '0';
+              int ch = *cp++ - '0';
 
-                if (*cp >= '0' && *cp <= '7')
-                  {
-                    ch *= 8;
-                    ch += *cp++ - '0';
-
-                    if (*cp >= '0' && *cp <= '7')
-                      {
-                        ch *= 8;
-                        ch += *cp++ - '0';
-                      }
-                  }
-                *rp++ = ch;
-              }
-              break;
-            case 'c':
-              if (backslash_c_seen != NULL)
+              if (*cp >= '0' && *cp <= '7')
                 {
-                  *backslash_c_seen = true;
-                  ++cp;
-                  break;
+                  ch *= 8;
+                  ch += *cp++ - '0';
+
+                  if (*cp >= '0' && *cp <= '7')
+                    {
+                      ch *= 8;
+                      ch += *cp++ - '0';
+                    }
                 }
-              FALLTHROUGH;
-            default:
-              *rp++ = '\\';
-              break;
+              *rp++ = ch;
             }
+            break;
+          case 'c':
+            if (backslash_c_seen != NULL)
+              {
+                *backslash_c_seen = true;
+                ++cp;
+                break;
+              }
+            FALLTHROUGH;
+          default:
+            *rp++ = '\\';
+            break;
+          }
 
-          /* Find the next escape sequence.  */
-          while (cp[0] != '\0' && cp[0] != '\\')
-            *rp++ = *cp++;
-        }
-      while (cp[0] != '\0');
+        /* Find the next escape sequence.  */
+        while (cp[0] != '\0' && cp[0] != '\\')
+          *rp++ = *cp++;
+      }
+    while (cp[0] != '\0');
 
-      /* Terminate the resulting string.  */
-      *rp = '\0';
-    }
-
-    return retval;
+    /* Terminate the resulting string.  */
+    *rp = '\0';
   }
+
+  return retval;
 }

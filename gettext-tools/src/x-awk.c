@@ -75,18 +75,16 @@ x_awk_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -170,7 +168,6 @@ phase1_ungetc (int c)
 static int
 phase2_getc ()
 {
-  int lineno;
   int c;
 
   c = phase1_getc ();
@@ -178,7 +175,7 @@ phase2_getc ()
     {
       struct string_buffer buffer;
       sb_init (&buffer);
-      lineno = line_number;
+      int lineno = line_number;
       for (;;)
         {
           c = phase1_getc ();
@@ -368,8 +365,6 @@ static int phase3_pushback_length;
 static void
 phase3_get (token_ty *tp)
 {
-  int c;
-
   if (phase3_pushback_length)
     {
       *tp = phase3_pushback[--phase3_pushback_length];
@@ -378,6 +373,8 @@ phase3_get (token_ty *tp)
 
   for (;;)
     {
+      int c;
+
       tp->line_number = line_number;
       c = phase2_getc ();
 
@@ -679,13 +676,14 @@ phase4_get (token_ty *tp)
   for (;;)
     {
       token_ty tmp;
-
       phase3_get (&tmp);
+
       if (tmp.type != token_type_string)
         {
           phase3_unget (&tmp);
           return;
         }
+
       tp->string = string_concat_free1 (tp->string, tmp.string);
       free_token (&tmp);
     }
@@ -753,7 +751,6 @@ extract_parenthesized (message_list_ty *mlp,
   for (;;)
     {
       token_ty token;
-
       phase4_get (&token);
 
       if (next_is_argument && token.type != token_type_lparen)
@@ -772,7 +769,6 @@ extract_parenthesized (message_list_ty *mlp,
         case token_type_symbol:
           {
             void *keyword_value;
-
             if (hash_find_entry (&keywords, token.string, strlen (token.string),
                                  &keyword_value)
                 == 0)

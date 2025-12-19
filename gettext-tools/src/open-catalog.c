@@ -42,18 +42,13 @@
 static FILE *
 try_open_catalog_file (const char *input_name, char **real_file_name_p)
 {
-  static const char *extension[] = { "", ".po", ".pot", };
-  char *file_name;
-  FILE *ret_val;
-  int j;
-  size_t k;
-  const char *dir;
-
   if (strcmp (input_name, "-") == 0 || strcmp (input_name, "/dev/stdin") == 0)
     {
       *real_file_name_p = xstrdup (_("<stdin>"));
       return stdin;
     }
+
+  static const char *extension[] = { "", ".po", ".pot", };
 
   /* We have a real name for the input file.  */
   if (IS_RELATIVE_FILE_NAME (input_name))
@@ -61,17 +56,19 @@ try_open_catalog_file (const char *input_name, char **real_file_name_p)
       /* For relative file names, look through the directory search list,
          trying the various extensions.  If no directory search list is
          specified, the current directory is used.  */
-      for (j = 0; (dir = dir_list_nth (j)) != NULL; ++j)
-        for (k = 0; k < SIZEOF (extension); ++k)
+      const char *dir;
+      for (int j = 0; (dir = dir_list_nth (j)) != NULL; ++j)
+        for (size_t k = 0; k < SIZEOF (extension); ++k)
           {
-            file_name = xconcatenated_filename (dir, input_name, extension[k]);
+            char *file_name =
+              xconcatenated_filename (dir, input_name, extension[k]);
 
-            ret_val = fopen (file_name, "r");
-            if (ret_val != NULL || errno != ENOENT)
+            FILE *fp = fopen (file_name, "r");
+            if (fp != NULL || errno != ENOENT)
               {
                 /* We found the file.  */
                 *real_file_name_p = file_name;
-                return ret_val;
+                return fp;
               }
 
             free (file_name);
@@ -81,16 +78,17 @@ try_open_catalog_file (const char *input_name, char **real_file_name_p)
     {
       /* The name is not relative.  Try the various extensions, but ignore the
          directory search list.  */
-      for (k = 0; k < SIZEOF (extension); ++k)
+      for (size_t k = 0; k < SIZEOF (extension); ++k)
         {
-          file_name = xconcatenated_filename ("", input_name, extension[k]);
+          char *file_name =
+            xconcatenated_filename ("", input_name, extension[k]);
 
-          ret_val = fopen (file_name, "r");
-          if (ret_val != NULL || errno != ENOENT)
+          FILE *fp = fopen (file_name, "r");
+          if (fp != NULL || errno != ENOENT)
             {
               /* We found the file.  */
               *real_file_name_p = file_name;
-              return ret_val;
+              return fp;
             }
 
           free (file_name);

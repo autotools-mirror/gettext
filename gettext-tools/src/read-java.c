@@ -56,16 +56,13 @@ execute_and_read_po_output (const char *progname,
                             void *private_data)
 {
   struct locals *l = (struct locals *) private_data;
-  pid_t child;
-  int fd[1];
-  FILE *fp;
-  int exitstatus;
 
   /* Open a pipe to the JVM.  */
-  child = create_pipe_in (progname, prog_path, prog_argv, NULL, NULL,
-                          DEV_NULL, false, true, true, fd);
+  int fd[1];
+  pid_t child = create_pipe_in (progname, prog_path, prog_argv, NULL, NULL,
+                                DEV_NULL, false, true, true, fd);
 
-  fp = fdopen (fd[0], "r");
+  FILE *fp = fdopen (fd[0], "r");
   if (fp == NULL)
     error (EXIT_FAILURE, errno, _("fdopen() failed"));
 
@@ -76,7 +73,7 @@ execute_and_read_po_output (const char *progname,
   fclose (fp);
 
   /* Remove zombie process from process list, and retrieve exit status.  */
-  exitstatus =
+  int exitstatus =
     wait_subprocess (child, progname, false, false, true, true, NULL);
   if (exitstatus != 0)
     error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
@@ -90,13 +87,10 @@ msgdomain_list_ty *
 msgdomain_read_java (const char *resource_name, const char *locale_name)
 {
   const char *class_name = "gnu.gettext.DumpResource";
-  const char *gettextjar;
-  const char *args[3];
-  struct locals locals;
 
   /* Make it possible to override the gettext.jar location.  This is
      necessary for running the testsuite before "make install".  */
-  gettextjar = getenv ("GETTEXTJAR");
+  const char *gettextjar = getenv ("GETTEXTJAR");
   if (gettextjar == NULL || gettextjar[0] == '\0')
     gettextjar = relocate (GETTEXTJAR);
 
@@ -105,6 +99,7 @@ msgdomain_read_java (const char *resource_name, const char *locale_name)
     resource_name = "Messages";
 
   /* Prepare arguments.  */
+  const char *args[3];
   args[0] = resource_name;
   if (locale_name != NULL)
     {
@@ -117,6 +112,7 @@ msgdomain_read_java (const char *resource_name, const char *locale_name)
   /* Dump the resource and retrieve the resulting output.
      Here we use the user's CLASSPATH, not a minimal one, so that the
      resource can be found.  */
+  struct locals locals;
   if (execute_java_class (class_name, &gettextjar, 1, false, NULL,
                           args,
                           verbose, false,

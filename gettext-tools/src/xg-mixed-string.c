@@ -65,7 +65,6 @@ mixed_string_alloc_simple (const char *string,
                            int line_number)
 {
   struct mixed_string *ms = XMALLOC (struct mixed_string);
-
   if (*string == '\0')
     {
       /* An empty string.  */
@@ -101,7 +100,6 @@ mixed_string_alloc_utf8 (const char *string,
                          int line_number)
 {
   struct mixed_string *ms = XMALLOC (struct mixed_string);
-
   if (*string == '\0')
     {
       /* An empty string.  */
@@ -124,9 +122,9 @@ mixed_string_alloc_utf8 (const char *string,
 mixed_string_ty *
 mixed_string_clone (const mixed_string_ty *ms1)
 {
-  struct mixed_string *ms = XMALLOC (struct mixed_string);
   size_t nsegments = ms1->nsegments;
 
+  struct mixed_string *ms = XMALLOC (struct mixed_string);
   if (nsegments == 0)
     {
       ms->segments = NULL;
@@ -134,10 +132,8 @@ mixed_string_clone (const mixed_string_ty *ms1)
     }
   else
     {
-      size_t i;
-
       ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
-      for (i = 0; i < nsegments; i++)
+      for (size_t i = 0; i < nsegments; i++)
         ms->segments[i] = segment_clone (ms1->segments[i]);
       ms->nsegments = nsegments;
     }
@@ -165,80 +161,63 @@ mixed_string_contents (const mixed_string_ty *ms)
       return string;
     }
   /* General case.  */
-  {
-    size_t i;
-
-    for (i = 0; i < nsegments - 1; i++)
-      if (memchr (ms->segments[i]->contents, '\0', ms->segments[i]->length)
-          != NULL)
-        {
-          /* Segment i contains a NUL character.  Ignore the remaining
-             segments.  */
-          nsegments = i + 1;
-          break;
-        }
-  }
+  for (size_t i = 0; i < nsegments - 1; i++)
+    if (memchr (ms->segments[i]->contents, '\0', ms->segments[i]->length)
+        != NULL)
+      {
+        /* Segment i contains a NUL character.  Ignore the remaining
+           segments.  */
+        nsegments = i + 1;
+        break;
+      }
   {
     char **converted_segments = XNMALLOC (nsegments, char *);
-    size_t length;
+    size_t length = 0;
+    for (size_t i = 0; i < nsegments; i++)
+      if (ms->segments[i]->type == source_encoded)
+        {
+          /* Copy the segment's contents, with a NUL at the end.  */
+          char *source_encoded_string;
+          {
+            size_t len = ms->segments[i]->length;
+            source_encoded_string = XNMALLOC (len + 1, char);
+            memcpy (source_encoded_string, ms->segments[i]->contents, len);
+            source_encoded_string[len] = '\0';
+          }
+          /* Convert it to UTF-8 encoding.  */
+          char *utf8_encoded_string =
+            from_current_source_encoding (source_encoded_string,
+                                          ms->lcontext,
+                                          ms->logical_file_name,
+                                          ms->line_number);
+          if (utf8_encoded_string != source_encoded_string)
+            free (source_encoded_string);
+          converted_segments[i] = utf8_encoded_string;
+          length += strlen (utf8_encoded_string);
+        }
+      else
+        length += ms->segments[i]->length;
 
-    length = 0;
+    char *string = XNMALLOC (length + 1, char);
     {
-      size_t i;
-
-      for (i = 0; i < nsegments; i++)
+      char *p = string;
+      for (size_t i = 0; i < nsegments; i++)
         if (ms->segments[i]->type == source_encoded)
           {
-            char *source_encoded_string;
-            char *utf8_encoded_string;
-
-            /* Copy the segment's contents, with a NUL at the end.  */
-            {
-              size_t len = ms->segments[i]->length;
-              source_encoded_string = XNMALLOC (len + 1, char);
-              memcpy (source_encoded_string, ms->segments[i]->contents, len);
-              source_encoded_string[len] = '\0';
-            }
-            /* Convert it to UTF-8 encoding.  */
-            utf8_encoded_string =
-              from_current_source_encoding (source_encoded_string,
-                                            ms->lcontext,
-                                            ms->logical_file_name,
-                                            ms->line_number);
-            if (utf8_encoded_string != source_encoded_string)
-              free (source_encoded_string);
-            converted_segments[i] = utf8_encoded_string;
-            length += strlen (utf8_encoded_string);
+            p = stpcpy (p, converted_segments[i]);
+            free (converted_segments[i]);
           }
         else
-          length += ms->segments[i]->length;
+          {
+            memcpy (p, ms->segments[i]->contents, ms->segments[i]->length);
+            p += ms->segments[i]->length;
+          }
+      assert (p == string + length);
+      *p = '\0';
     }
 
-    {
-      char *string = XNMALLOC (length + 1, char);
-      {
-        char *p;
-        size_t i;
-
-        p = string;
-        for (i = 0; i < nsegments; i++)
-          if (ms->segments[i]->type == source_encoded)
-            {
-              p = stpcpy (p, converted_segments[i]);
-              free (converted_segments[i]);
-            }
-          else
-            {
-              memcpy (p, ms->segments[i]->contents, ms->segments[i]->length);
-              p += ms->segments[i]->length;
-            }
-        assert (p == string + length);
-        *p = '\0';
-      }
-
-      free (converted_segments);
-      return string;
-    }
+    free (converted_segments);
+    return string;
   }
 }
 
@@ -249,8 +228,7 @@ mixed_string_free (mixed_string_ty *ms)
   size_t nsegments = ms->nsegments;
   if (nsegments > 0)
     {
-      size_t i;
-      for (i = 0; i < nsegments; i++)
+      for (size_t i = 0; i < nsegments; i++)
         free (segments[i]);
     }
   free (segments);
@@ -282,38 +260,37 @@ mixed_string_concat (const mixed_string_ty *ms1,
     if (ms1->segments[ms1->nsegments-1]->type == ms2->segments[0]->type)
       {
         /* Combine the last segment of ms1 with the first segment of ms2.  */
-        size_t i;
-
         nsegments -= 1;
         ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
         j = 0;
-        for (i = 0; i < ms1->nsegments - 1; i++)
-          ms->segments[j++] = segment_clone (ms1->segments[i]);
         {
-          size_t len1 = ms1->segments[i]->length;
-          size_t len2 = ms2->segments[0]->length;
-          struct mixed_string_segment *newseg =
-            (struct mixed_string_segment *)
-            xmalloc (FLEXSIZEOF (struct mixed_string_segment, contents,
-                                 len1 + len2));
-          newseg->type = ms2->segments[0]->type;
-          newseg->length = len1 + len2;
-          memcpy (newseg->contents, ms1->segments[i]->contents, len1);
-          memcpy (newseg->contents + len1, ms2->segments[0]->contents, len2);
-          ms->segments[j++] = newseg;
+          size_t i;
+          for (i = 0; i < ms1->nsegments - 1; i++)
+            ms->segments[j++] = segment_clone (ms1->segments[i]);
+          {
+            size_t len1 = ms1->segments[i]->length;
+            size_t len2 = ms2->segments[0]->length;
+            struct mixed_string_segment *newseg =
+              (struct mixed_string_segment *)
+              xmalloc (FLEXSIZEOF (struct mixed_string_segment, contents,
+                                   len1 + len2));
+            newseg->type = ms2->segments[0]->type;
+            newseg->length = len1 + len2;
+            memcpy (newseg->contents, ms1->segments[i]->contents, len1);
+            memcpy (newseg->contents + len1, ms2->segments[0]->contents, len2);
+            ms->segments[j++] = newseg;
+          }
         }
-        for (i = 1; i < ms2->nsegments; i++)
+        for (size_t i = 1; i < ms2->nsegments; i++)
           ms->segments[j++] = segment_clone (ms2->segments[i]);
       }
     else
       {
-        size_t i;
-
         ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
         j = 0;
-        for (i = 0; i < ms1->nsegments; i++)
+        for (size_t i = 0; i < ms1->nsegments; i++)
           ms->segments[j++] = segment_clone (ms1->segments[i]);
-        for (i = 0; i < ms2->nsegments; i++)
+        for (size_t i = 0; i < ms2->nsegments; i++)
           ms->segments[j++] = segment_clone (ms2->segments[i]);
       }
     assert (j == nsegments);
@@ -345,39 +322,38 @@ mixed_string_concat_free1 (mixed_string_ty *ms1, const mixed_string_ty *ms2)
     if (ms1->segments[ms1->nsegments-1]->type == ms2->segments[0]->type)
       {
         /* Combine the last segment of ms1 with the first segment of ms2.  */
-        size_t i;
-
         nsegments -= 1;
         ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
         j = 0;
-        for (i = 0; i < ms1->nsegments - 1; i++)
-          ms->segments[j++] = ms1->segments[i];
         {
-          size_t len1 = ms1->segments[i]->length;
-          size_t len2 = ms2->segments[0]->length;
-          struct mixed_string_segment *newseg =
-            (struct mixed_string_segment *)
-            xmalloc (FLEXSIZEOF (struct mixed_string_segment, contents,
-                                 len1 + len2));
-          newseg->type = ms2->segments[0]->type;
-          newseg->length = len1 + len2;
-          memcpy (newseg->contents, ms1->segments[i]->contents, len1);
-          memcpy (newseg->contents + len1, ms2->segments[0]->contents, len2);
-          ms->segments[j++] = newseg;
+          size_t i;
+          for (i = 0; i < ms1->nsegments - 1; i++)
+            ms->segments[j++] = ms1->segments[i];
+          {
+            size_t len1 = ms1->segments[i]->length;
+            size_t len2 = ms2->segments[0]->length;
+            struct mixed_string_segment *newseg =
+              (struct mixed_string_segment *)
+              xmalloc (FLEXSIZEOF (struct mixed_string_segment, contents,
+                                   len1 + len2));
+            newseg->type = ms2->segments[0]->type;
+            newseg->length = len1 + len2;
+            memcpy (newseg->contents, ms1->segments[i]->contents, len1);
+            memcpy (newseg->contents + len1, ms2->segments[0]->contents, len2);
+            ms->segments[j++] = newseg;
+          }
+          free (ms1->segments[i]);
         }
-        free (ms1->segments[i]);
-        for (i = 1; i < ms2->nsegments; i++)
+        for (size_t i = 1; i < ms2->nsegments; i++)
           ms->segments[j++] = segment_clone (ms2->segments[i]);
       }
     else
       {
-        size_t i;
-
         ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
         j = 0;
-        for (i = 0; i < ms1->nsegments; i++)
+        for (size_t i = 0; i < ms1->nsegments; i++)
           ms->segments[j++] = ms1->segments[i];
-        for (i = 0; i < ms2->nsegments; i++)
+        for (size_t i = 0; i < ms2->nsegments; i++)
           ms->segments[j++] = segment_clone (ms2->segments[i]);
       }
     assert (j == nsegments);
@@ -616,10 +592,10 @@ mixed_string_buffer_append_unicode (struct mixed_string_buffer *bp, int c)
   if (bp->utf16_surr != 0 && (c >= 0xdc00 && c < 0xe000))
     {
       unsigned short utf16buf[2];
-      ucs4_t uc;
-
       utf16buf[0] = bp->utf16_surr;
       utf16buf[1] = c;
+
+      ucs4_t uc;
       if (u16_mbtouc (&uc, utf16buf, 2) != 2)
         abort ();
 
@@ -646,8 +622,7 @@ mixed_string_buffer_destroy (struct mixed_string_buffer *bp)
   size_t nsegments = bp->nsegments;
   if (nsegments > 0)
     {
-      size_t i;
-      for (i = 0; i < nsegments; i++)
+      for (size_t i = 0; i < nsegments; i++)
         free (segments[i]);
     }
   free (segments);
@@ -695,10 +670,8 @@ mixed_string_buffer_cloned_result (struct mixed_string_buffer *bp)
 
     if (nsegments > 0)
       {
-        size_t i;
-
         ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
-        for (i = 0; i < nsegments; i++)
+        for (size_t i = 0; i < nsegments; i++)
           ms->segments[i] = segment_clone (bp->segments[i]);
       }
     else

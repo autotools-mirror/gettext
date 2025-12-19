@@ -248,11 +248,9 @@ markup_parse_context_new (const markup_parser_ty *parser,
                           markup_parse_flags_ty flags,
                           void *user_data)
 {
-  markup_parse_context_ty *context;
-
   assert (parser != NULL);
 
-  context = XMALLOC (markup_parse_context_ty);
+  markup_parse_context_ty *context = XMALLOC (markup_parse_context_ty);
 
   context->parser = parser;
   context->flags = flags;
@@ -358,30 +356,33 @@ emit_error (markup_parse_context_ty *context, const char *error_text)
 static bool
 slow_name_validate (markup_parse_context_ty *context, const char *name)
 {
-  const char *p = name;
-  ucs4_t uc;
-
   if (u8_check ((const uint8_t *) name, strlen (name)) != NULL)
     {
       emit_error (context, _("invalid UTF-8 sequence"));
       return false;
     }
 
-  if (!(c_isalpha (*p)
-        || (!IS_COMMON_NAME_END_CHAR (*p)
-            && (*p == '_'
-                || *p == ':'
-                || (u8_mbtouc (&uc, (const uint8_t *) name, strlen (name)) > 0
-                    && uc_is_alpha (uc))))))
-    {
-      char *error_text = xasprintf (_("'%s' is not a valid name: %c"),
-                                    name, *p);
-      emit_error (context, error_text);
-      free (error_text);
-      return false;
-    }
+  ucs4_t uc;
 
-  for (p = (const char *) u8_next (&uc, (const uint8_t *) name);
+  {
+    const char *p = name;
+
+    if (!(c_isalpha (*p)
+          || (!IS_COMMON_NAME_END_CHAR (*p)
+              && (*p == '_'
+                  || *p == ':'
+                  || (u8_mbtouc (&uc, (const uint8_t *) name, strlen (name)) > 0
+                      && uc_is_alpha (uc))))))
+      {
+        char *error_text = xasprintf (_("'%s' is not a valid name: %c"),
+                                      name, *p);
+        emit_error (context, error_text);
+        free (error_text);
+        return false;
+      }
+  }
+
+  for (const char *p = (const char *) u8_next (&uc, (const uint8_t *) name);
        p != NULL;
        p = (const char *) u8_next (&uc, (const uint8_t *) p))
     {
@@ -398,6 +399,7 @@ slow_name_validate (markup_parse_context_ty *context, const char *name)
           return false;
         }
     }
+
   return true;
 }
 
@@ -407,28 +409,29 @@ slow_name_validate (markup_parse_context_ty *context, const char *name)
 static bool
 name_validate (markup_parse_context_ty *context, const char *name)
 {
-  char mask;
-  const char *p;
-
   /* name start char */
-  p = name;
+  const char *p = name;
   if (IS_COMMON_NAME_END_CHAR (*p)
       || !(c_isalpha (*p) || *p == '_' || *p == ':'))
     goto slow_validate;
 
-  for (mask = *p++; *p != '\0'; p++)
-    {
-      mask |= *p;
+  {
+    char mask;
 
-      /* is_name_char */
-      if (!(c_isalnum (*p)
-            || (!IS_COMMON_NAME_END_CHAR (*p)
-                && (*p == '.' || *p == '-' || *p == '_' || *p == ':'))))
-        goto slow_validate;
-    }
+    for (mask = *p++; *p != '\0'; p++)
+      {
+        mask |= *p;
 
-  if (mask & 0x80) /* un-common / non-ascii */
-    goto slow_validate;
+        /* is_name_char */
+        if (!(c_isalnum (*p)
+              || (!IS_COMMON_NAME_END_CHAR (*p)
+                  && (*p == '.' || *p == '-' || *p == '_' || *p == ':'))))
+          goto slow_validate;
+      }
+
+    if (mask & 0x80) /* un-common / non-ascii */
+      goto slow_validate;
+  }
 
   return true;
 
@@ -459,16 +462,13 @@ unescape_string_inplace (markup_parse_context_ty *context,
                          markup_string_ty *string,
                          bool *is_ascii)
 {
-  char mask, *to;
-  const char *from;
-  bool normalize_attribute;
-
   if (string->buflen == 0)
     return true;
 
   *is_ascii = false;
 
   /* are we unescaping an attribute or not ? */
+  bool normalize_attribute;
   if (context->state == STATE_INSIDE_ATTRIBUTE_VALUE_SQ
       || context->state == STATE_INSIDE_ATTRIBUTE_VALUE_DQ)
     normalize_attribute = true;
@@ -480,7 +480,9 @@ unescape_string_inplace (markup_parse_context_ty *context,
    * for &lt; etc. this is obvious, for &#xffff; more
    * thought is required, but this is patently so.
    */
-  mask = 0;
+  char mask = 0;
+  const char *from;
+  char *to;
   for (from = to = string->buffer; *from != '\0'; from++, to++)
     {
       *to = *from;
@@ -499,18 +501,17 @@ unescape_string_inplace (markup_parse_context_ty *context,
           from++;
           if (*from == '#')
             {
-              int base = 10;
-              unsigned long l;
-              char *end = NULL;
-
               from++;
 
+              int base = 10;
               if (*from == 'x')
                 {
                   base = 16;
                   from++;
                 }
 
+              unsigned long l;
+              char *end = NULL;
               if (!(base == 16 ? c_isxdigit (*from) : c_isdigit (*from))
                   || /* No need to reset and test errno here, because in case
                         of overflow, l will be == ULONG_MAX, which is
@@ -539,8 +540,7 @@ unescape_string_inplace (markup_parse_context_ty *context,
                        || (0xE000 <= l && l <= 0xFFFD) || (0x10000 <= l && l <= 0x10FFFF))
                 {
                   char buf[8];
-                  int length;
-                  length = u8_uctomb ((uint8_t *) buf, l, 8);
+                  int length = u8_uctomb ((uint8_t *) buf, l, 8);
                   memcpy (to, buf, length);
                   to += length - 1;
                   from = end;
@@ -586,8 +586,6 @@ unescape_string_inplace (markup_parse_context_ty *context,
           else
             {
               const char *reason;
-              char *error_text;
-
               if (*from == ';')
                 reason = _("empty");
               else
@@ -598,8 +596,9 @@ unescape_string_inplace (markup_parse_context_ty *context,
                   else
                     reason = _("no ending ';'");
                 }
-              error_text = xasprintf (_("invalid entity reference: %s"),
-                                      reason);
+
+              char *error_text = xasprintf (_("invalid entity reference: %s"),
+                                            reason);
               emit_error (context, error_text);
               free (error_text);
               return false;
@@ -623,9 +622,9 @@ advance_char (markup_parse_context_ty *context)
   context->char_number++;
 
   if (context->iter == context->current_text_end)
-      return false;
+    return false;
 
-  else if (*context->iter == '\n')
+  if (*context->iter == '\n')
     {
       context->line_number++;
       context->char_number = 1;
@@ -776,9 +775,7 @@ markup_parse_context_push (markup_parse_context_ty *context,
                            const markup_parser_ty *parser,
                            void *user_data)
 {
-  markup_recursion_tracker_ty *tracker;
-
-  tracker = XMALLOC (markup_recursion_tracker_ty);
+  markup_recursion_tracker_ty *tracker = XMALLOC (markup_recursion_tracker_ty);
   tracker->prev_element = context->subparser_element;
   tracker->prev_parser = context->parser;
   tracker->prev_user_data = context->user_data;
@@ -808,11 +805,6 @@ markup_parse_context_pop (markup_parse_context_ty *context)
 static inline void
 emit_start_element (markup_parse_context_ty *context)
 {
-  int i, j = 0;
-  const char *start_name;
-  const char **attr_names;
-  const char **attr_values;
-
   /* In case we want to ignore qualified tags and we see that we have
    * one here, we push a subparser.  This will ignore all tags inside of
    * the qualified tag.
@@ -828,24 +820,27 @@ emit_start_element (markup_parse_context_ty *context)
       return;
     }
 
-  attr_names = XCALLOC (context->cur_attr + 2, const char *);
-  attr_values = XCALLOC (context->cur_attr + 2, const char *);
-  for (i = 0; i < context->cur_attr + 1; i++)
-    {
-      /* Possibly omit qualified attribute names from the list */
-      if (!((context->flags & MARKUP_IGNORE_QUALIFIED)
-            && strchr (context->attr_names[i], ':')))
-        {
-          attr_names[j] = context->attr_names[i];
-          attr_values[j] = context->attr_values[i];
-          j++;
-        }
-    }
-  attr_names[j] = NULL;
-  attr_values[j] = NULL;
+  const char **attr_names = XCALLOC (context->cur_attr + 2, const char *);
+  const char **attr_values = XCALLOC (context->cur_attr + 2, const char *);
+  {
+    int j = 0;
+    for (int i = 0; i < context->cur_attr + 1; i++)
+      {
+        /* Possibly omit qualified attribute names from the list */
+        if (!((context->flags & MARKUP_IGNORE_QUALIFIED)
+              && strchr (context->attr_names[i], ':')))
+          {
+            attr_names[j] = context->attr_names[i];
+            attr_values[j] = context->attr_values[i];
+            j++;
+          }
+      }
+    attr_names[j] = NULL;
+    attr_values[j] = NULL;
+  }
 
   /* Call user callback for element start */
-  start_name = current_element (context);
+  const char *start_name = current_element (context);
 
   if (context->parser->start_element && name_validate (context, start_name))
     (* context->parser->start_element) (context,
@@ -1202,7 +1197,6 @@ markup_parse_context_parse (markup_parse_context_ty *context,
             }
           else
             {
-              bool is_ascii;
               /* The value has ended at the quote mark. Combine it
                * with the partial chunk if any; set it for the current
                * attribute.
@@ -1211,6 +1205,7 @@ markup_parse_context_parse (markup_parse_context_ty *context,
 
               assert (context->cur_attr >= 0);
 
+              bool is_ascii;
               if (unescape_string_inplace (context, context->partial_chunk,
                                            &is_ascii)
                   && (is_ascii
@@ -1248,11 +1243,10 @@ markup_parse_context_parse (markup_parse_context_ty *context,
 
           if (context->iter != context->current_text_end)
             {
-              bool is_ascii;
-
               /* The text has ended at the open angle. Call the text
                * callback.
                */
+              bool is_ascii;
               if (unescape_string_inplace (context, context->partial_chunk,
                                            &is_ascii)
                   && (is_ascii
@@ -1311,9 +1305,7 @@ markup_parse_context_parse (markup_parse_context_ty *context,
 
           if (context->iter != context->current_text_end)
             {
-              markup_string_ty *close_name;
-
-              close_name = context->partial_chunk;
+              markup_string_ty *close_name = context->partial_chunk;
               context->partial_chunk = NULL;
 
               if (*context->iter != '>')
@@ -1354,15 +1346,12 @@ markup_parse_context_parse (markup_parse_context_ty *context,
                 context->balance++;
               if (*context->iter == '>')
                 {
-                  char *str;
-                  size_t len;
-
                   context->balance--;
                   add_to_partial (context, context->start, context->iter);
                   context->start = context->iter;
 
-                  str = context->partial_chunk->buffer;
-                  len = context->partial_chunk->buflen;
+                  char *str = context->partial_chunk->buffer;
+                  size_t len = context->partial_chunk->buflen;
 
                   if (str[1] == '?' && str[len - 1] == '?')
                     break;
@@ -1448,8 +1437,6 @@ markup_parse_context_parse (markup_parse_context_ty *context,
 bool
 markup_parse_context_end_parse (markup_parse_context_ty *context)
 {
-  const char *location = NULL;
-
   assert (context != NULL);
   assert (!context->parsing);
   assert (context->state != STATE_ERROR);
@@ -1468,6 +1455,7 @@ markup_parse_context_end_parse (markup_parse_context_ty *context)
 
   context->parsing = true;
 
+  const char *location = NULL;
   switch (context->state)
     {
     case STATE_START:

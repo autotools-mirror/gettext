@@ -77,22 +77,9 @@ static void msgdomain_list_stablesort_by_obsolete (msgdomain_list_ty *mdlp);
 int
 main (int argc, char **argv)
 {
-  bool do_help;
-  bool do_version;
-  char *output_file;
-  char *color;
-  msgdomain_list_ty *def;
-  msgdomain_list_ty *result;
-  catalog_input_format_ty input_syntax = &input_format_po;
-  catalog_output_format_ty output_syntax = &output_format_po;
-  bool sort_by_filepos = false;
-  bool sort_by_msgid = false;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
-  verbosity_level = 0;
-  quiet = false;
   gram_max_allowed_errors = UINT_MAX;
 
   /* Set locale via LC_ALL.  */
@@ -107,11 +94,17 @@ main (int argc, char **argv)
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
 
-  /* Set default values for variables.  */
-  do_help = false;
-  do_version = false;
-  output_file = NULL;
-  color = NULL;
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+  verbosity_level = 0;
+  quiet = false;
+  char *output_file = NULL;
+  char *color = NULL;
+  catalog_input_format_ty input_syntax = &input_format_po;
+  catalog_output_format_ty output_syntax = &output_format_po;
+  bool sort_by_filepos = false;
+  bool sort_by_msgid = false;
 
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
@@ -154,151 +147,152 @@ main (int argc, char **argv)
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int opt;
-  while ((opt = get_next_option ()) != -1)
-    switch (opt)
-      {
-      case '\0':                /* Long option with key == 0.  */
-        break;
-
-      case 'C':
-        compendium (optarg);
-        break;
-
-      case 'D':
-        dir_list_append (optarg);
-        break;
-
-      case 'e':
-        message_print_style_escape (false);
-        break;
-
-      case 'E':
-        message_print_style_escape (true);
-        break;
-
-      case 'F':
-        sort_by_filepos = true;
-        break;
-
-      case 'h':
-        do_help = true;
-        break;
-
-      case 'i':
-        message_print_style_indent ();
-        break;
-
-      case 'm':
-        multi_domain_mode = true;
-        break;
-
-      case 'n':            /* -n */
-      case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
-        if (handle_filepos_comment_option (optarg))
-          usage (EXIT_FAILURE);
-        break;
-
-      case 'N':
-        use_fuzzy_matching = false;
-        break;
-
-      case 'o':
-        output_file = optarg;
-        break;
-
-      case 'p':
-        output_syntax = &output_format_properties;
-        break;
-
-      case 'P':
-        input_syntax = &input_format_properties;
-        break;
-
-      case 'q':
-        quiet = true;
-        break;
-
-      case 's':
-        sort_by_msgid = true;
-        break;
-
-      case 'U':
-        update_mode = true;
-        break;
-
-      case 'v':
-        ++verbosity_level;
-        break;
-
-      case 'V':
-        do_version = true;
-        break;
-
-      case 'w':
+  {
+    int opt;
+    while ((opt = get_next_option ()) != -1)
+      switch (opt)
         {
-          int value;
-          char *endp;
-          value = strtol (optarg, &endp, 10);
-          if (endp != optarg)
-            message_page_width_set (value);
-        }
-        break;
+        case '\0':                /* Long option with key == 0.  */
+          break;
 
-      case CHAR_MAX + 1: /* --backup */
-        version_control_string = optarg;
-        break;
+        case 'C':
+          compendium (optarg);
+          break;
 
-      case CHAR_MAX + 2: /* --strict */
-        message_print_style_uniforum ();
-        break;
+        case 'D':
+          dir_list_append (optarg);
+          break;
 
-      case CHAR_MAX + 3: /* --suffix */
-        backup_suffix_string = optarg;
-        break;
+        case 'e':
+          message_print_style_escape (false);
+          break;
 
-      case CHAR_MAX + 4: /* --no-wrap */
-        message_page_width_ignore ();
-        break;
+        case 'E':
+          message_print_style_escape (true);
+          break;
 
-      case CHAR_MAX + 5: /* --stringtable-input */
-        input_syntax = &input_format_stringtable;
-        break;
+        case 'F':
+          sort_by_filepos = true;
+          break;
 
-      case CHAR_MAX + 6: /* --stringtable-output */
-        output_syntax = &output_format_stringtable;
-        break;
+        case 'h':
+          do_help = true;
+          break;
 
-      case CHAR_MAX + 7: /* --previous */
-        keep_previous = true;
-        break;
+        case 'i':
+          message_print_style_indent ();
+          break;
 
-      case CHAR_MAX + 8: /* --lang */
-        catalogname = optarg;
-        break;
+        case 'm':
+          multi_domain_mode = true;
+          break;
 
-      case CHAR_MAX + 9: /* --color */
-        if (handle_color_option (optarg) || color_test_mode)
+        case 'n':            /* -n */
+        case CHAR_MAX + 'n': /* --add-location[={full|yes|file|never|no}] */
+          if (handle_filepos_comment_option (optarg))
+            usage (EXIT_FAILURE);
+          break;
+
+        case 'N':
+          use_fuzzy_matching = false;
+          break;
+
+        case 'o':
+          output_file = optarg;
+          break;
+
+        case 'p':
+          output_syntax = &output_format_properties;
+          break;
+
+        case 'P':
+          input_syntax = &input_format_properties;
+          break;
+
+        case 'q':
+          quiet = true;
+          break;
+
+        case 's':
+          sort_by_msgid = true;
+          break;
+
+        case 'U':
+          update_mode = true;
+          break;
+
+        case 'v':
+          ++verbosity_level;
+          break;
+
+        case 'V':
+          do_version = true;
+          break;
+
+        case 'w':
+          {
+            char *endp;
+            int value = strtol (optarg, &endp, 10);
+            if (endp != optarg)
+              message_page_width_set (value);
+          }
+          break;
+
+        case CHAR_MAX + 1: /* --backup */
+          version_control_string = optarg;
+          break;
+
+        case CHAR_MAX + 2: /* --strict */
+          message_print_style_uniforum ();
+          break;
+
+        case CHAR_MAX + 3: /* --suffix */
+          backup_suffix_string = optarg;
+          break;
+
+        case CHAR_MAX + 4: /* --no-wrap */
+          message_page_width_ignore ();
+          break;
+
+        case CHAR_MAX + 5: /* --stringtable-input */
+          input_syntax = &input_format_stringtable;
+          break;
+
+        case CHAR_MAX + 6: /* --stringtable-output */
+          output_syntax = &output_format_stringtable;
+          break;
+
+        case CHAR_MAX + 7: /* --previous */
+          keep_previous = true;
+          break;
+
+        case CHAR_MAX + 8: /* --lang */
+          catalogname = optarg;
+          break;
+
+        case CHAR_MAX + 9: /* --color */
+          if (handle_color_option (optarg) || color_test_mode)
+            usage (EXIT_FAILURE);
+          color = optarg;
+          break;
+
+        case CHAR_MAX + 10: /* --style */
+          handle_style_option (optarg);
+          break;
+
+        case CHAR_MAX + 11: /* --no-location */
+          message_print_style_filepos (filepos_comment_none);
+          break;
+
+        case CHAR_MAX + 12: /* --for-msgfmt */
+          for_msgfmt = true;
+          break;
+
+        default:
           usage (EXIT_FAILURE);
-        color = optarg;
-        break;
-
-      case CHAR_MAX + 10: /* --style */
-        handle_style_option (optarg);
-        break;
-
-      case CHAR_MAX + 11: /* --no-location */
-        message_print_style_filepos (filepos_comment_none);
-        break;
-
-      case CHAR_MAX + 12: /* --for-msgfmt */
-        for_msgfmt = true;
-        break;
-
-      default:
-        usage (EXIT_FAILURE);
-        break;
-      }
+          break;
+        }
+  }
 
   /* Version information is requested.  */
   if (do_version)
@@ -410,7 +404,9 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   #endif
 
   /* Merge the two files.  */
-  result = merge (argv[optind], argv[optind + 1], input_syntax, &def);
+  msgdomain_list_ty *def;
+  msgdomain_list_ty *result =
+    merge (argv[optind], argv[optind + 1], input_syntax, &def);
 
   /* Sort the results.  */
   if (sort_by_filepos)
@@ -431,12 +427,9 @@ There is NO WARRANTY, to the extent permitted by law.\n\
          which don't put the .pot file under CVS.  */
       if (!msgdomain_list_equal (def, result, true))
         {
-          /* Back up def.po.  */
-          enum backup_type backup_type;
-          char *backup_file;
-
           output_file = argv[optind];
 
+          /* Back up def.po.  */
           if (backup_suffix_string == NULL)
             {
               backup_suffix_string = getenv ("SIMPLE_BACKUP_SUFFIX");
@@ -447,10 +440,12 @@ There is NO WARRANTY, to the extent permitted by law.\n\
           if (backup_suffix_string != NULL)
             simple_backup_suffix = backup_suffix_string;
 
-          backup_type = xget_version (_("backup type"), version_control_string);
+          enum backup_type backup_type =
+            xget_version (_("backup type"), version_control_string);
           if (backup_type != none)
             {
-              backup_file = find_backup_file_name (output_file, backup_type);
+              char *backup_file =
+                find_backup_file_name (output_file, backup_type);
               xcopy_file_preserving (output_file, backup_file);
             }
 
@@ -634,16 +629,13 @@ or by email to <%s>.\n"),
 static void
 compendium (const char *filename)
 {
-  msgdomain_list_ty *mdlp;
-  size_t k;
-
-  mdlp = read_catalog_file (filename, &input_format_po);
+  msgdomain_list_ty *mdlp = read_catalog_file (filename, &input_format_po);
   if (compendiums == NULL)
     {
       compendiums = message_list_list_alloc ();
       compendium_filenames = string_list_alloc ();
     }
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     {
       message_list_list_append (compendiums, mdlp->item[k]->messages);
       string_list_append (compendium_filenames, filename);
@@ -655,9 +647,7 @@ compendium (const char *filename)
 static void
 msgdomain_list_stablesort_by_obsolete (msgdomain_list_ty *mdlp)
 {
-  size_t k;
-
-  for (k = 0; k < mdlp->nitems; k++)
+  for (size_t k = 0; k < mdlp->nitems; k++)
     {
       message_list_ty *mlp = mdlp->item[k]->messages;
 
@@ -665,16 +655,13 @@ msgdomain_list_stablesort_by_obsolete (msgdomain_list_ty *mdlp)
       if (mlp->nitems > 0)
         {
           message_ty **l1 = XNMALLOC (mlp->nitems, message_ty *);
-          size_t n1;
           message_ty **l2 = XNMALLOC (mlp->nitems, message_ty *);
-          size_t n2;
-          size_t j;
 
           /* Sort the non-obsolete messages into l1 and the obsolete messages
              into l2.  */
-          n1 = 0;
-          n2 = 0;
-          for (j = 0; j < mlp->nitems; j++)
+          size_t n1 = 0;
+          size_t n2 = 0;
+          for (size_t j = 0; j < mlp->nitems; j++)
             {
               message_ty *mp = mlp->item[j];
 

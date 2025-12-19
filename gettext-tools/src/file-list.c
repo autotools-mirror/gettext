@@ -36,11 +36,7 @@
 string_list_ty *
 read_names_from_file (const char *file_name)
 {
-  size_t line_len = 0;
-  char *line_buf = NULL;
   FILE *fp;
-  string_list_ty *result;
-
   if (strcmp (file_name, "-") == 0)
     fp = stdin;
   else
@@ -51,8 +47,10 @@ read_names_from_file (const char *file_name)
                _("error while opening \"%s\" for reading"), file_name);
     }
 
-  result = string_list_alloc ();
+  string_list_ty *result = string_list_alloc ();
 
+  size_t line_len = 0;
+  char *line_buf = NULL;
   while (!feof (fp))
     {
       /* Read next line from file.  */

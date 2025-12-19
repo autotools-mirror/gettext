@@ -181,11 +181,8 @@ format_parse_entrails (const char *format, bool translated,
                        struct spec *result)
 {
   const char *const format_start = format;
-  struct spec spec;
-  size_t numbered_arg_count;
-  struct numbered_arg *numbered;
-  size_t allocated;
 
+  struct spec spec;
   spec.directives = 0;
   spec.likely_intentional_directives = 0;
   spec.unnumbered_arg_count = 0;
@@ -193,26 +190,20 @@ format_parse_entrails (const char *format, bool translated,
   spec.unlikely_intentional = false;
   spec.sysdep_directives_count = 0;
   spec.sysdep_directives = NULL;
-  numbered_arg_count = 0;
-  numbered = NULL;
-  allocated = 0;
+  size_t numbered_arg_count = 0;
+  struct numbered_arg *numbered = NULL;
+  size_t allocated = 0;
 
   for (; *format != '\0';)
     /* Invariant: spec.unnumbered_arg_count == 0 || numbered_arg_count == 0.  */
     if (*format++ == '%')
       {
         /* A directive.  */
-        size_t number = 0;
-        format_arg_type_t type;
-        /* Relevant for the conversion characters d, i, b, o, u, x, X, n.  */
-        format_arg_type_t integer_size;
-        /* Relevant for the conversion characters a, A, e, E, f, F, g, G.  */
-        format_arg_type_t floatingpoint_size;
-        bool likely_intentional = true;
-
         FDI_SET (format - 1, FMTDIR_START);
         spec.directives++;
+        bool likely_intentional = true;
 
+        size_t number = 0;
         if (c_isdigit (*format))
           {
             const char *f = format;
@@ -436,6 +427,8 @@ format_parse_entrails (const char *format, bool translated,
               }
           }
 
+        format_arg_type_t type;
+
         if (!SYSDEP_SEGMENTS_PROCESSED && *format == '<')
           {
             spec.sysdep_directives =
@@ -608,6 +601,11 @@ format_parse_entrails (const char *format, bool translated,
           }
         else
           {
+            /* Relevant for the conversion characters d, i, b, o, u, x, X, n.  */
+            format_arg_type_t integer_size;
+            /* Relevant for the conversion characters a, A, e, E, f, F, g, G.  */
+            format_arg_type_t floatingpoint_size;
+
             /* Parse size.  */
             integer_size = 0;
             floatingpoint_size = 0;
@@ -879,21 +877,19 @@ format_parse_entrails (const char *format, bool translated,
   /* Sort the numbered argument array, and eliminate duplicates.  */
   if (numbered_arg_count > 1)
     {
-      size_t i, j;
-      bool err;
-
       qsort (numbered, numbered_arg_count,
              sizeof (struct numbered_arg), numbered_arg_compare);
 
       /* Remove duplicates: Copy from i to j, keeping 0 <= j <= i.  */
-      err = false;
+      bool err = false;
+      size_t i, j;
       for (i = j = 0; i < numbered_arg_count; i++)
         if (j > 0 && numbered[i].number == numbered[j-1].number)
           {
             format_arg_type_t type1 = numbered[i].type;
             format_arg_type_t type2 = numbered[j-1].type;
-            format_arg_type_t type_both;
 
+            format_arg_type_t type_both;
             if (type1 == type2)
               type_both = type1;
             else
@@ -927,9 +923,7 @@ format_parse_entrails (const char *format, bool translated,
      numbered one.  */
   if (numbered_arg_count > 0)
     {
-      size_t i;
-
-      for (i = 0; i < numbered_arg_count; i++)
+      for (size_t i = 0; i < numbered_arg_count; i++)
         if (numbered[i].number != i + 1)
           {
             *invalid_reason = INVALID_IGNORED_ARGUMENT (numbered[i].number, i + 1);
@@ -942,7 +936,7 @@ format_parse_entrails (const char *format, bool translated,
       allocated = spec.unnumbered_arg_count;
       spec.unnumbered = XNMALLOC (allocated, struct unnumbered_arg);
       IF_OOM (spec.unnumbered, goto bad_format;)
-      for (i = 0; i < spec.unnumbered_arg_count; i++)
+      for (size_t i = 0; i < spec.unnumbered_arg_count; i++)
         spec.unnumbered[i].type = numbered[i].type;
       free (numbered);
       numbered_arg_count = 0;

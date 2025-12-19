@@ -95,18 +95,16 @@ x_python_keyword (const char *name)
     default_keywords = false;
   else
     {
-      const char *end;
-      struct callshape shape;
-      const char *colon;
-
       if (keywords.table == NULL)
         hash_init (&keywords, 100);
 
+      const char *end;
+      struct callshape shape;
       split_keywordspec (name, &end, &shape);
 
       /* The characters between name and end should form a valid C identifier.
          A colon means an invalid parse in split_keywordspec().  */
-      colon = strchr (name, ':');
+      const char *colon = strchr (name, ':');
       if (colon == NULL || colon >= end)
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
@@ -334,8 +332,6 @@ as specified in https://www.python.org/peps/pep-0263.html.\n")));
               else if (errno == EINVAL)
                 {
                   /* An incomplete multibyte character.  */
-                  int c;
-
                   if (bufcount == MAX_PHASE1_PUSHBACK)
                     {
                       /* An overlong incomplete multibyte sequence was
@@ -350,7 +346,7 @@ comment as specified in https://www.python.org/peps/pep-0263.html.\n"),
                     }
 
                   /* Read one more byte and retry iconv.  */
-                  c = phase1_getc ();
+                  int c = phase1_getc ();
                   if (c == EOF)
                     goto incomplete_at_eof;
                   if (c == '\n')
@@ -366,7 +362,6 @@ comment as specified in https://www.python.org/peps/pep-0263.html.\n"),
             {
               size_t outbytes = sizeof (scratchbuf) - outsize;
               size_t bytes = bufcount - insize;
-              ucs4_t uc;
 
               /* We expect that one character has been produced.  */
               if (bytes == 0)
@@ -377,6 +372,7 @@ comment as specified in https://www.python.org/peps/pep-0263.html.\n"),
               while (insize > 0)
                 phase1_ungetc (buf[--insize]);
               /* Convert the character from UTF-8 to UCS-4.  */
+              ucs4_t uc;
               if (u8_mbtoucr (&uc, scratchbuf, outbytes) < (int) outbytes)
                 {
                   /* scratchbuf contains an out-of-range Unicode character
@@ -666,8 +662,8 @@ try_to_extract_coding (const char *comment)
                 {
                   /* Extract the encoding string.  */
                   size_t encoding_len = encoding_end - encoding_start;
-                  char *encoding = XNMALLOC (encoding_len + 1, char);
 
+                  char *encoding = XNMALLOC (encoding_len + 1, char);
                   memcpy (encoding, encoding_start, encoding_len);
                   encoding[encoding_len] = '\0';
 
@@ -706,10 +702,10 @@ static bool continuation_or_nonblank_line;
 static int
 phase3_getc ()
 {
-  int c;
-
   for (;;)
     {
+      int c;
+
       c = phase2_getc ();
       if (c == '\\')
         {
@@ -727,8 +723,6 @@ phase3_getc ()
       else if (c == '#')
         {
           /* Eat a comment.  */
-          const char *comment;
-
           last_comment_line = line_number;
           comment_start ();
           for (;;)
@@ -740,7 +734,7 @@ phase3_getc ()
               if (!(comment_at_start () && (c == ' ' || c == '\t')))
                 comment_add (c);
             }
-          comment = comment_line_end ();
+          const char *comment = comment_line_end ();
           if (line_number - 1 <= 2 && !continuation_or_nonblank_line)
             try_to_extract_coding (comment);
           continuation_or_nonblank_line = false;
@@ -851,10 +845,10 @@ phase7_getuc (int quote_char,
               bool f_string,
               unsigned int *backslash_counter)
 {
-  int c;
-
   for (;;)
     {
+      int c;
+
       /* Use phase 2, because phase 3 elides comments.  */
       c = phase2_getc ();
 
@@ -1012,8 +1006,8 @@ phase7_getuc (int quote_char,
           case 'x':
             {
               int c1 = phase2_getc ();
-              int n1;
 
+              int n1;
               if (c1 >= '0' && c1 <= '9')
                 n1 = c1 - '0';
               else if (c1 >= 'A' && c1 <= 'F')
@@ -1026,8 +1020,8 @@ phase7_getuc (int quote_char,
               if (n1 >= 0)
                 {
                   int c2 = phase2_getc ();
-                  int n2;
 
+                  int n2;
                   if (c2 >= '0' && c2 <= '9')
                     n2 = c2 - '0';
                   else if (c2 >= 'A' && c2 <= 'F')
@@ -1068,9 +1062,8 @@ phase7_getuc (int quote_char,
             {
               unsigned char buf[4];
               unsigned int n = 0;
-              int i;
 
-              for (i = 0; i < 4; i++)
+              for (int i = 0; i < 4; i++)
                 {
                   int c1 = phase2_getc ();
 
@@ -1148,7 +1141,6 @@ phase7_getuc (int quote_char,
                 {
                   unsigned char buf[UNINAME_MAX + 1];
                   int i;
-                  unsigned int n;
 
                   for (i = 0; i < UNINAME_MAX; i++)
                     {
@@ -1169,7 +1161,7 @@ phase7_getuc (int quote_char,
                     }
                   buf[i] = '\0';
 
-                  n = unicode_name_character ((char *) buf);
+                  unsigned int n = unicode_name_character ((char *) buf);
                   if (n != UNINAME_INVALID)
                     {
                       *backslash_counter = 0;
@@ -1247,8 +1239,6 @@ static int phase5_pushback_length;
 static void
 phase5_get (token_ty *tp)
 {
-  int c;
-
   if (phase5_pushback_length)
     {
       *tp = phase5_pushback[--phase5_pushback_length];
@@ -1257,6 +1247,8 @@ phase5_get (token_ty *tp)
 
   for (;;)
     {
+      int c;
+
       tp->line_number = line_number;
       c = phase3_getc ();
 
@@ -1316,7 +1308,6 @@ phase5_get (token_ty *tp)
           /* Symbol, or part of a number.  */
           {
             struct string_buffer buffer;
-
             sb_init (&buffer);
             for (;;)
               {
@@ -1484,10 +1475,10 @@ phase5_get (token_ty *tp)
               backslash_counter = 0;
               {
                 struct mixed_string_buffer msb;
-
                 /* Start accumulating the string.  */
                 mixed_string_buffer_init (&msb, lexical_context,
                                           logical_file_name, line_number);
+
                 for (;;)
                   {
                     int uc = phase7_getuc (quote_char, triple, interpret_ansic,
@@ -1636,15 +1627,17 @@ x_python_lex (token_ty *tp)
       for (;;)
         {
           token_ty token2;
+          phase5_get (&token2);
+
           token_ty token3;
           token_ty *tp2 = NULL;
 
-          phase5_get (&token2);
           switch (token2.type)
             {
             case token_type_plus:
               {
                 phase5_get (&token3);
+
                 if (token3.type == token_type_string
                     || token3.type == token_type_498)
                   {
@@ -1740,14 +1733,13 @@ extract_balanced (message_list_ty *mlp,
   for (;;)
     {
       token_ty token;
-
       x_python_lex (&token);
+
       switch (token.type)
         {
         case token_type_symbol:
           {
             void *keyword_value;
-
             if (hash_find_entry (&keywords, token.string, strlen (token.string),
                                  &keyword_value)
                 == 0)
@@ -1841,7 +1833,6 @@ extract_balanced (message_list_ty *mlp,
         case token_type_498:
           {
             lex_pos_ty pos;
-
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 

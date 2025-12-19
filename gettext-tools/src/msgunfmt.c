@@ -85,13 +85,6 @@ static void read_one_file (message_list_ty *mlp, const char *filename);
 int
 main (int argc, char **argv)
 {
-  bool do_help = false;
-  bool do_version = false;
-  const char *output_file = "-";
-  msgdomain_list_ty *result;
-  catalog_output_format_ty output_syntax = &output_format_po;
-  bool sort_by_msgid = false;
-
   /* Set program name for messages.  */
   set_program_name (argv[0]);
   error_print_progname = maybe_print_progname;
@@ -107,6 +100,13 @@ main (int argc, char **argv)
 
   /* Ensure that write errors on stdout are detected.  */
   atexit (close_stdout);
+
+  /* Default values for command line options.  */
+  bool do_help = false;
+  bool do_version = false;
+  const char *output_file = "-";
+  catalog_output_format_ty output_syntax = &output_format_po;
+  bool sort_by_msgid = false;
 
   /* Parse command line options.  */
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
@@ -138,116 +138,117 @@ main (int argc, char **argv)
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   start_options (argc, argv, options, MOVE_OPTIONS_FIRST, 0);
-  int optchar;
-  while ((optchar = get_next_option ()) != -1)
-    switch (optchar)
-      {
-      case '\0':                /* Long option with key == 0.  */
-        break;
-
-      case 'd':
-        csharp_base_directory = optarg;
-        tcl_base_directory = optarg;
-        break;
-
-      case 'e':
-        message_print_style_escape (false);
-        break;
-
-      case 'E':
-        message_print_style_escape (true);
-        break;
-
-      case 'h':
-        do_help = true;
-        break;
-
-      case 'i':
-        message_print_style_indent ();
-        break;
-
-      case 'j':
-        java_mode = true;
-        break;
-
-      case 'l':
-        java_locale_name = optarg;
-        csharp_locale_name = optarg;
-        tcl_locale_name = optarg;
-        break;
-
-      case 'o':
-        output_file = optarg;
-        break;
-
-      case 'p':
-        output_syntax = &output_format_properties;
-        break;
-
-      case 'r':
-        java_resource_name = optarg;
-        csharp_resource_name = optarg;
-        break;
-
-      case 's':
-        sort_by_msgid = true;
-        break;
-
-      case CHAR_MAX + 8: /* --strict */
-        message_print_style_uniforum ();
-        break;
-
-      case 'v':
-        verbose = true;
-        break;
-
-      case 'V':
-        do_version = true;
-        break;
-
-      case 'w':
+  {
+    int optchar;
+    while ((optchar = get_next_option ()) != -1)
+      switch (optchar)
         {
-          int value;
-          char *endp;
-          value = strtol (optarg, &endp, 10);
-          if (endp != optarg)
-            message_page_width_set (value);
-        }
-        break;
+        case '\0':                /* Long option with key == 0.  */
+          break;
 
-      case CHAR_MAX + 1: /* --tcl */
-        tcl_mode = true;
-        break;
+        case 'd':
+          csharp_base_directory = optarg;
+          tcl_base_directory = optarg;
+          break;
 
-      case CHAR_MAX + 2: /* --no-wrap */
-        message_page_width_ignore ();
-        break;
+        case 'e':
+          message_print_style_escape (false);
+          break;
 
-      case CHAR_MAX + 3: /* --stringtable-output */
-        output_syntax = &output_format_stringtable;
-        break;
+        case 'E':
+          message_print_style_escape (true);
+          break;
 
-      case CHAR_MAX + 4: /* --csharp */
-        csharp_mode = true;
-        break;
+        case 'h':
+          do_help = true;
+          break;
 
-      case CHAR_MAX + 5: /* --csharp-resources */
-        csharp_resources_mode = true;
-        break;
+        case 'i':
+          message_print_style_indent ();
+          break;
 
-      case CHAR_MAX + 6: /* --color */
-        if (handle_color_option (optarg) || color_test_mode)
+        case 'j':
+          java_mode = true;
+          break;
+
+        case 'l':
+          java_locale_name = optarg;
+          csharp_locale_name = optarg;
+          tcl_locale_name = optarg;
+          break;
+
+        case 'o':
+          output_file = optarg;
+          break;
+
+        case 'p':
+          output_syntax = &output_format_properties;
+          break;
+
+        case 'r':
+          java_resource_name = optarg;
+          csharp_resource_name = optarg;
+          break;
+
+        case 's':
+          sort_by_msgid = true;
+          break;
+
+        case CHAR_MAX + 8: /* --strict */
+          message_print_style_uniforum ();
+          break;
+
+        case 'v':
+          verbose = true;
+          break;
+
+        case 'V':
+          do_version = true;
+          break;
+
+        case 'w':
+          {
+            char *endp;
+            int value = strtol (optarg, &endp, 10);
+            if (endp != optarg)
+              message_page_width_set (value);
+          }
+          break;
+
+        case CHAR_MAX + 1: /* --tcl */
+          tcl_mode = true;
+          break;
+
+        case CHAR_MAX + 2: /* --no-wrap */
+          message_page_width_ignore ();
+          break;
+
+        case CHAR_MAX + 3: /* --stringtable-output */
+          output_syntax = &output_format_stringtable;
+          break;
+
+        case CHAR_MAX + 4: /* --csharp */
+          csharp_mode = true;
+          break;
+
+        case CHAR_MAX + 5: /* --csharp-resources */
+          csharp_resources_mode = true;
+          break;
+
+        case CHAR_MAX + 6: /* --color */
+          if (handle_color_option (optarg) || color_test_mode)
+            usage (EXIT_FAILURE);
+          break;
+
+        case CHAR_MAX + 7: /* --style */
+          handle_style_option (optarg);
+          break;
+
+        default:
           usage (EXIT_FAILURE);
-        break;
-
-      case CHAR_MAX + 7: /* --style */
-        handle_style_option (optarg);
-        break;
-
-      default:
-        usage (EXIT_FAILURE);
-        break;
-      }
+          break;
+        }
+  }
 
   /* Version information is requested.  */
   if (do_version)
@@ -283,15 +284,17 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       {
         const char *first_option;
         const char *second_option;
-        unsigned int i;
-        for (i = 0; ; i++)
-          if (modes & (1 << i))
-            break;
-        first_option = mode_options[i];
-        for (i = i + 1; ; i++)
-          if (modes & (1 << i))
-            break;
-        second_option = mode_options[i];
+        {
+          unsigned int i;
+          for (i = 0; ; i++)
+            if (modes & (1 << i))
+              break;
+          first_option = mode_options[i];
+          for (i = i + 1; ; i++)
+            if (modes & (1 << i))
+              break;
+          second_option = mode_options[i];
+        }
         error (EXIT_FAILURE, 0, _("%s and %s are mutually exclusive"),
                first_option, second_option);
       }
@@ -368,6 +371,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     }
 
   /* Read the given .mo file. */
+  msgdomain_list_ty *result;
   if (java_mode)
     {
       result = msgdomain_read_java (java_resource_name, java_locale_name);
@@ -383,9 +387,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     }
   else
     {
-      message_list_ty *mlp;
-
-      mlp = message_list_alloc (false);
+      message_list_ty *mlp = message_list_alloc (false);
       if (optind < argc)
         {
           do

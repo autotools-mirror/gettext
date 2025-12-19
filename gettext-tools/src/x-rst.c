@@ -70,15 +70,11 @@ extract_rst (FILE *f,
              msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
-  int line_number;
 
-  line_number = 1;
+  int line_number = 1;
   for (;;)
     {
       int c;
-      char *location;
-      char *msgid;
-      lex_pos_ty pos;
 
       c = getc (f);
       if (c == EOF)
@@ -104,6 +100,7 @@ extract_rst (FILE *f,
         }
 
       /* Read ModuleName.ConstName.  */
+      char *location;
       {
         struct string_buffer buffer;
         sb_init (&buffer);
@@ -127,6 +124,7 @@ extract_rst (FILE *f,
       }
 
       /* Read StringExpression.  */
+      char *msgid;
       {
         struct string_buffer buffer;
         sb_init (&buffer);
@@ -161,7 +159,6 @@ extract_rst (FILE *f,
               }
             else if (c == '#')
               {
-                int n;
                 c = getc (f);
                 if (c == EOF && ferror (f))
                   {
@@ -172,7 +169,7 @@ extract_rst (FILE *f,
                   if_error (IF_SEVERITY_FATAL_ERROR,
                             logical_filename, line_number, (size_t)(-1), false,
                             _("missing number after #"));
-                n = (c - '0');
+                int n = (c - '0');
                 for (;;)
                   {
                     c = getc (f);
@@ -203,6 +200,7 @@ extract_rst (FILE *f,
         msgid = sb_xdupfree_c (&buffer);
       }
 
+      lex_pos_ty pos;
       pos.file_name = location;
       pos.line_number = (size_t)(-1);
 
@@ -344,9 +342,10 @@ static enum parse_result
 parse_integer ()
   _GL_ATTRIBUTE_ACQUIRE_CAPABILITY (buffer.data)
 {
+  sb_init (&buffer);
+
   int c;
 
-  sb_init (&buffer);
   c = phase2_getc ();
   for (;;)
     {
@@ -374,6 +373,7 @@ parse_string ()
       phase2_ungetc (c);
       return pr_none;
     }
+
   mixed_string_buffer_init (&stringbuf, lc_string,
                             logical_file_name, line_number);
   for (;;)
@@ -391,9 +391,8 @@ parse_string ()
           if (c == 'u')
             {
               unsigned int n = 0;
-              int i;
 
-              for (i = 0; i < 4; i++)
+              for (int i = 0; i < 4; i++)
                 {
                   c = phase1_getc ();
 
@@ -450,7 +449,6 @@ extract_rsj (FILE *f,
              msgdomain_list_ty *mdlp)
 {
   message_list_ty *mlp = mdlp->item[0]->messages;
-  int c;
 
   fp = f;
   real_file_name = real_filename;
@@ -460,197 +458,200 @@ extract_rsj (FILE *f,
   /* JSON is always in UTF-8.  */
   xgettext_current_source_encoding = po_charset_utf8;
 
-  /* Parse the initial opening brace.  */
-  c = phase2_getc ();
-  if (c != '{')
-    goto invalid_json;
+  {
+    int c;
 
-  c = phase2_getc ();
-  if (c != '}')
-    {
-      phase2_ungetc (c);
-      for (;;)
-        {
-          /* Parse a string.  */
-          char *s1;
-          if (parse_string () != pr_parsed)
-            goto invalid_json;
-          s1 = mixed_string_contents_free1 (
-                 mixed_string_buffer_result (&stringbuf));
+    /* Parse the initial opening brace.  */
+    c = phase2_getc ();
+    if (c != '{')
+      goto invalid_json;
 
-          /* Parse a colon.  */
-          c = phase2_getc ();
-          if (c != ':')
-            goto invalid_json;
+    c = phase2_getc ();
+    if (c != '}')
+      {
+        phase2_ungetc (c);
+        for (;;)
+          {
+            /* Parse a string.  */
+            if (parse_string () != pr_parsed)
+              goto invalid_json;
+            char *s1 = mixed_string_contents_free1 (
+                         mixed_string_buffer_result (&stringbuf));
 
-          if (strcmp (s1, "version") == 0)
-            {
-              /* Parse an integer.  */
-              if (parse_integer () != pr_parsed)
-                {
-                  sb_free (&buffer);
+            /* Parse a colon.  */
+            c = phase2_getc ();
+            if (c != ':')
+              goto invalid_json;
+
+            if (strcmp (s1, "version") == 0)
+              {
+                /* Parse an integer.  */
+                if (parse_integer () != pr_parsed)
+                  {
+                    sb_free (&buffer);
+                    goto invalid_rsj;
+                  }
+                if (strcmp (sb_xcontents_c (&buffer), "1") != 0)
+                  {
+                    sb_free (&buffer);
+                    goto invalid_rsj_version;
+                  }
+                sb_free (&buffer);
+              }
+            else if (strcmp (s1, "strings") == 0)
+              {
+                /* Parse an array.  */
+                c = phase2_getc ();
+                if (c != '[')
                   goto invalid_rsj;
-                }
-              if (strcmp (sb_xcontents_c (&buffer), "1") != 0)
-                {
-                  sb_free (&buffer);
-                  goto invalid_rsj_version;
-                }
-              sb_free (&buffer);
-            }
-          else if (strcmp (s1, "strings") == 0)
-            {
-              /* Parse an array.  */
-              c = phase2_getc ();
-              if (c != '[')
-                goto invalid_rsj;
 
-              c = phase2_getc ();
-              if (c != ']')
-                {
-                  phase2_ungetc (c);
-                  for (;;)
-                    {
-                      char *location = NULL;
-                      char *msgid = NULL;
-                      lex_pos_ty pos;
+                c = phase2_getc ();
+                if (c != ']')
+                  {
+                    phase2_ungetc (c);
+                    for (;;)
+                      {
+                        /* Parse an object.  */
+                        c = phase2_getc ();
+                        if (c != '{')
+                          goto invalid_rsj;
 
-                      /* Parse an object.  */
-                      c = phase2_getc ();
-                      if (c != '{')
-                        goto invalid_rsj;
+                        char *location = NULL;
+                        char *msgid = NULL;
 
-                      c = phase2_getc ();
-                      if (c != '}')
-                        {
-                          phase2_ungetc (c);
-                          for (;;)
-                            {
-                              /* Parse a string.  */
-                              char *s2;
-                              if (parse_string () != pr_parsed)
-                                goto invalid_json;
-                              s2 = mixed_string_contents_free1 (
-                                     mixed_string_buffer_result (&stringbuf));
+                        c = phase2_getc ();
+                        if (c != '}')
+                          {
+                            phase2_ungetc (c);
+                            for (;;)
+                              {
+                                /* Parse a string.  */
+                                if (parse_string () != pr_parsed)
+                                  goto invalid_json;
+                                char *s2 =
+                                  mixed_string_contents_free1 (
+                                    mixed_string_buffer_result (&stringbuf));
 
-                              /* Parse a colon.  */
-                              c = phase2_getc ();
-                              if (c != ':')
-                                goto invalid_json;
+                                /* Parse a colon.  */
+                                c = phase2_getc ();
+                                if (c != ':')
+                                  goto invalid_json;
 
-                              if (strcmp (s2, "hash") == 0)
-                                {
-                                  /* Parse an integer.  */
-                                  if (parse_integer () != pr_parsed)
-                                    {
-                                      sb_free (&buffer);
+                                if (strcmp (s2, "hash") == 0)
+                                  {
+                                    /* Parse an integer.  */
+                                    if (parse_integer () != pr_parsed)
+                                      {
+                                        sb_free (&buffer);
+                                        goto invalid_rsj;
+                                      }
+                                    sb_free (&buffer);
+                                  }
+                                else if (strcmp (s2, "name") == 0)
+                                  {
+                                    /* Parse a string.  */
+                                    enum parse_result r = parse_string ();
+                                    if (r == pr_none)
                                       goto invalid_rsj;
-                                    }
-                                  sb_free (&buffer);
-                                }
-                              else if (strcmp (s2, "name") == 0)
-                                {
-                                  /* Parse a string.  */
-                                  enum parse_result r = parse_string ();
-                                  if (r == pr_none)
-                                    goto invalid_rsj;
-                                  if (r == pr_syntax || location != NULL)
-                                    goto invalid_json;
-                                  location =
-                                    mixed_string_contents_free1 (
-                                      mixed_string_buffer_result (&stringbuf));
-                                }
-                              else if (strcmp (s2, "sourcebytes") == 0)
-                                {
-                                  /* Parse an array.  */
-                                  c = phase2_getc ();
-                                  if (c != '[')
-                                    goto invalid_rsj;
+                                    if (r == pr_syntax || location != NULL)
+                                      goto invalid_json;
+                                    location =
+                                      mixed_string_contents_free1 (
+                                        mixed_string_buffer_result (&stringbuf));
+                                  }
+                                else if (strcmp (s2, "sourcebytes") == 0)
+                                  {
+                                    /* Parse an array.  */
+                                    c = phase2_getc ();
+                                    if (c != '[')
+                                      goto invalid_rsj;
 
-                                  c = phase2_getc ();
-                                  if (c != ']')
-                                    {
-                                      phase2_ungetc (c);
-                                      for (;;)
-                                        {
-                                          /* Parse an integer.  */
-                                          if (parse_integer () != pr_parsed)
-                                            {
-                                              sb_free (&buffer);
-                                              goto invalid_rsj;
-                                            }
-                                          sb_free (&buffer);
+                                    c = phase2_getc ();
+                                    if (c != ']')
+                                      {
+                                        phase2_ungetc (c);
+                                        for (;;)
+                                          {
+                                            /* Parse an integer.  */
+                                            if (parse_integer () != pr_parsed)
+                                              {
+                                                sb_free (&buffer);
+                                                goto invalid_rsj;
+                                              }
+                                            sb_free (&buffer);
 
-                                          /* Parse a comma.  */
-                                          c = phase2_getc ();
-                                          if (c == ']')
-                                            break;
-                                          if (c != ',')
-                                            goto invalid_json;
-                                        }
-                                    }
-                                }
-                              else if (strcmp (s2, "value") == 0)
-                                {
-                                  /* Parse a string.  */
-                                  enum parse_result r = parse_string ();
-                                  if (r == pr_none)
-                                    goto invalid_rsj;
-                                  if (r == pr_syntax || msgid != NULL)
-                                    goto invalid_json;
-                                  msgid =
-                                    mixed_string_contents_free1 (
-                                      mixed_string_buffer_result (&stringbuf));
-                                }
-                              else
-                                goto invalid_rsj;
+                                            /* Parse a comma.  */
+                                            c = phase2_getc ();
+                                            if (c == ']')
+                                              break;
+                                            if (c != ',')
+                                              goto invalid_json;
+                                          }
+                                      }
+                                  }
+                                else if (strcmp (s2, "value") == 0)
+                                  {
+                                    /* Parse a string.  */
+                                    enum parse_result r = parse_string ();
+                                    if (r == pr_none)
+                                      goto invalid_rsj;
+                                    if (r == pr_syntax || msgid != NULL)
+                                      goto invalid_json;
+                                    msgid =
+                                      mixed_string_contents_free1 (
+                                        mixed_string_buffer_result (&stringbuf));
+                                  }
+                                else
+                                  goto invalid_rsj;
 
-                              free (s2);
+                                free (s2);
 
-                              /* Parse a comma.  */
-                              c = phase2_getc ();
-                              if (c == '}')
-                                break;
-                              if (c != ',')
-                                goto invalid_json;
-                            }
-                        }
+                                /* Parse a comma.  */
+                                c = phase2_getc ();
+                                if (c == '}')
+                                  break;
+                                if (c != ',')
+                                  goto invalid_json;
+                              }
+                          }
 
-                      if (location == NULL || msgid == NULL)
-                        goto invalid_rsj;
+                        if (location == NULL || msgid == NULL)
+                          goto invalid_rsj;
 
-                      pos.file_name = location;
-                      pos.line_number = (size_t)(-1);
+                        lex_pos_ty pos;
+                        pos.file_name = location;
+                        pos.line_number = (size_t)(-1);
 
-                      remember_a_message (mlp, NULL, msgid, true, false,
-                                          null_context_region (), &pos,
-                                          NULL, NULL, false);
+                        remember_a_message (mlp, NULL, msgid, true, false,
+                                            null_context_region (), &pos,
+                                            NULL, NULL, false);
 
-                      /* Parse a comma.  */
-                      c = phase2_getc ();
-                      if (c == ']')
-                        break;
-                      if (c != ',')
-                        goto invalid_json;
-                    }
-                }
-            }
-          else
-            goto invalid_rsj;
+                        /* Parse a comma.  */
+                        c = phase2_getc ();
+                        if (c == ']')
+                          break;
+                        if (c != ',')
+                          goto invalid_json;
+                      }
+                  }
+              }
+            else
+              goto invalid_rsj;
 
-          /* Parse a comma.  */
-          c = phase2_getc ();
-          if (c == '}')
-            break;
-          if (c != ',')
-            goto invalid_json;
-        }
-    }
+            /* Parse a comma.  */
+            c = phase2_getc ();
+            if (c == '}')
+              break;
+            if (c != ',')
+              goto invalid_json;
+          }
+      }
 
-  /* Seen the closing brace.  */
-  c = phase2_getc ();
-  if (c != EOF)
-    goto invalid_json;
+    /* Seen the closing brace.  */
+    c = phase2_getc ();
+    if (c != EOF)
+      goto invalid_json;
+  }
 
   fp = NULL;
   real_file_name = NULL;

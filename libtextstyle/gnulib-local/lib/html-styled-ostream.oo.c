@@ -1,5 +1,5 @@
 /* Output stream for CSS styled text, producing HTML output.
-   Copyright (C) 2006-2024 Free Software Foundation, Inc.
+   Copyright (C) 2006-2025 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -131,7 +131,6 @@ html_styled_ostream_create (ostream_t destination, const char *css_filename)
 {
   html_styled_ostream_t stream =
     XMALLOC (struct html_styled_ostream_representation);
-
   stream->base.base.vtable = &html_styled_ostream_vtable;
   stream->destination = destination;
   stream->css_filename = xstrdup (css_filename);
@@ -160,10 +159,7 @@ html_styled_ostream_create (ostream_t destination, const char *css_filename)
 
       /* Include the contents of CSS_FILENAME literally.  */
       {
-        int fd;
-        char buf[4096];
-
-        fd = open (css_filename, O_RDONLY | O_TEXT);
+        int fd = open (css_filename, O_RDONLY | O_TEXT);
         if (fd < 0)
           error (EXIT_FAILURE, errno,
                  _("error while opening \"%s\" for reading"),
@@ -171,6 +167,7 @@ html_styled_ostream_create (ostream_t destination, const char *css_filename)
 
         for (;;)
           {
+            char buf[4096];
             size_t n_read = safe_read (fd, buf, sizeof (buf));
             if (n_read == SAFE_READ_ERROR)
               error (EXIT_FAILURE, errno, _("error reading \"%s\""),
