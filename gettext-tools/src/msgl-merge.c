@@ -817,20 +817,21 @@ match_domain (const char *definitions_file_name,
       XNMALLOC (refmlp->nitems, struct search_result);
     {
       long int nn = refmlp->nitems;
+      long int jj;
 
       /* Tell the OpenMP capable compiler to distribute this loop across
          several threads.  The schedule is dynamic, because for some messages
          the loop body can be executed very quickly, whereas for others it takes
          a long time.
-         Note: The Sun Workshop 6.2 C compiler does not allow a space between
-         '#' and 'pragma'.  */
+         Notes: The Sun Workshop 6.2 C compiler does not allow a space between
+         '#' and 'pragma'.  The MSVC 14 C compiler does not allow a 'for' loop
+         with a variable declaration.  */
       #ifdef _OPENMP
        #pragma omp parallel for schedule(dynamic)
       #endif
-      for (long int jj = 0; jj < nn; jj++)
+      for (jj = 0; jj < nn; jj++)
         {
           message_ty *refmsg = refmlp->item[jj];
-          message_ty *defmsg;
 
           /* Because merging can take a while we print something to signal
              we are not dead.  */
@@ -842,7 +843,7 @@ match_domain (const char *definitions_file_name,
           (*processed)++;
 
           /* See if it is in the other file.  */
-          defmsg =
+          message_ty *defmsg =
             definitions_search (definitions, refmsg->msgctxt, refmsg->msgid);
           if (defmsg != NULL)
             {
