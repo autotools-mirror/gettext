@@ -384,7 +384,7 @@ format_parse (const char *format, bool translated, char *fdi,
               }
           }
 
-       parse_specifier:
+       parse_specifier: ;
         /* Parse the specifier.  */
         enum format_arg_type type;
         switch (*format)

@@ -993,7 +993,7 @@ wrap (const message_ty *mp, ostream_t stream,
       /* Adjust for indentation of subsequent lines.  */
       width -= startcol_after_break;
 
-    recompute:
+    recompute: ;
       /* The line starts with different things depending on whether it
          is the first line, and if we are using the indented style.
          See INDENT-F.  */

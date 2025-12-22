@@ -67,7 +67,7 @@ multiline_internal (char *prefix, size_t prefix_width, char *message)
       for (size_t i = width; i > 0; i--)
         putc (' ', stderr);
 
-    after_indent:
+    after_indent: ;
       const char *np = strchr (cp, '\n');
 
       if (np == NULL || np[1] == '\0')
