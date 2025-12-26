@@ -19,7 +19,7 @@
 # Lines beginning with '#' are comments.
 #
 # Updated from https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
-# 2014-02-10 by Daiki Ueno
+# 2025-12-26 by Bruno Haible
 #
 #country-
 #code	country name
@@ -62,7 +62,7 @@ BY	Belarus
 BZ	Belize
 CA	Canada
 CC	Cocos (Keeling) Islands
-CD	Congo, The Democratic Republic of the
+CD	Congo, Democratic Republic of the
 CF	Central African Republic
 CG	Congo
 CH	Switzerland
@@ -74,11 +74,11 @@ CN	China
 CO	Colombia
 CR	Costa Rica
 CU	Cuba
-CV	Cape Verde
+CV	Cabo Verde
 CW	Curaçao
 CX	Christmas Island
 CY	Cyprus
-CZ	Czech Republic
+CZ	Czechia
 DE	Germany
 DJ	Djibouti
 DK	Denmark
@@ -99,7 +99,7 @@ FM	Micronesia, Federated States of
 FO	Faroe Islands
 FR	France
 GA	Gabon
-GB	United Kingdom
+GB	United Kingdom of Great Britain and Northern Ireland
 GD	Grenada
 GE	Georgia
 GF	French Guiana
@@ -188,7 +188,7 @@ NE	Niger
 NF	Norfolk Island
 NG	Nigeria
 NI	Nicaragua
-NL	Netherlands
+NL	Netherlands, Kingdom of the
 NO	Norway
 NP	Nepal
 NR	Nauru
@@ -255,14 +255,14 @@ TZ	Tanzania, United Republic of
 UA	Ukraine
 UG	Uganda
 UM	United States Minor Outlying Islands
-US	United States
+US	United States of America
 UY	Uruguay
 UZ	Uzbekistan
-VA	Holy See (Vatican City State)
+VA	Holy See
 VC	Saint Vincent and the Grenadines
 VE	Venezuela, Bolivarian Republic of
-VG	Virgin Islands, British
-VI	Virgin Islands, U.S.
+VG	Virgin Islands (British)
+VI	Virgin Islands (U.S.)
 VN	Viet Nam
 VU	Vanuatu
 WF	Wallis and Futuna
