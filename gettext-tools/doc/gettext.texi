@@ -169,6 +169,7 @@ version @value{VERSION}.
 * Template::                    Making the PO Template File
 * Creating::                    Creating a New PO File
 * Updating::                    Updating Existing PO Files
+* Pretranslating::              Pretranslating PO Files
 * Editing::                     Editing PO Files
 * Manipulating::                Manipulating PO Files
 * Binaries::                    Producing Binary MO Files
@@ -253,6 +254,11 @@ Creating a New PO File
 Updating Existing PO Files
 
 * msgmerge Invocation::         Invoking the @code{msgmerge} Program
+
+Pretranslating PO Files
+
+* Installing an LLM::           Installing a Large Language Model
+* spit Invocation::             Invoking the @code{spit} Program
 
 Editing PO Files
 
@@ -4034,6 +4040,83 @@ format of the plural forms field is described in @ref{Plural forms} and
 @section Invoking the @code{msgmerge} Program
 
 @include msgmerge.texi
+
+@node Pretranslating
+@chapter Pretranslating PO Files
+@cindex Pretranslating PO Files
+@cindex Machine translation
+
+As a translator,
+you may save yourself some work
+by starting from a reasonably good translation produced by a machine,
+and modify that translation, to make it perfect.
+
+Thus, before you start working on a translation,
+you might have the PO file @emph{pretranslated}.
+
+This process, also called @emph{machine translation},
+is nowadays best performed through a Large Language Model (LLM).
+(See @url{https://en.wikipedia.org/wiki/Machine_translation#Neural_MT},
+@url{https://en.wikipedia.org/wiki/Neural_machine_translation#Generative_LLMs}.)
+
+@node Installing an LLM
+@section Installing a Large Language Model
+
+We don't recommend to use machine translation
+through a web service in the cloud, controlled by someone else than yourself.
+Such a machine translation service would be have major drawbacks
+(it could go away any time,
+it could be used to spy on you or manipulate you,
+or the costs could go up beyond your control);
+see @url{https://www.gnu.org/philosophy/who-does-that-server-really-serve.en.html}.
+Additionally, such a service typically has some cost
+(between $10 and $25 per megabyte, as of 2025).
+
+Instead, we recommend a Large Language Model execution engine
+that runs on hardware under your control.
+This can be a desktop computer,
+or for instance a single-board computer in your local network.
+
+@cindex ollama
+At this point (in 2025),
+a Large Language Model execution engine that is Free Software is
+@samp{ollama}, that can be downloaded from @url{https://ollama.com/}.
+
+Together with an LLM of reasonable quality,
+such as the model @code{ministral-3:14b},
+the system requirements are as follows:
+@itemize @bullet
+@item
+RAM: 16 GB.
+@item
+Disk space: 10 GB (1 GB for @code{ollama}, 9 GB for the model).
+@item
+GPU or TPU: A GPU (Graphics Processing Unit) or TPU (Tensor Processing Unit)
+is not needed.
+As of 2025, a high-end GPU from certain vendors
+can be used by @code{ollama} to provide an optional speedup.
+@end itemize
+
+Additional configuration:
+@itemize @bullet
+@item
+If you are running @code{ollama} on your computer directly,
+no further configuration is needed.
+@item
+If you are running @code{ollama} on a separate machine,
+and want to make it accessible from all machines in the LAN:
+Edit the file @file{/etc/systemd/system/ollama.services},
+adding a line: @code{Environment="OLLAMA_HOST=0.0.0.0"}.
+See @url{https://github.com/ollama/ollama/issues/703}.
+@item
+If you are running @code{ollama} in a virtual machine,
+make the port 11434 accessible through port forwarding.
+@end itemize
+
+@node spit Invocation
+@section Invoking the @code{spit} Program
+
+@include spit.texi
 
 @node Editing
 @chapter Editing PO Files

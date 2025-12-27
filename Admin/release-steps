@@ -143,6 +143,8 @@ We assume that the following environment variables are set:
     gettext-tools/src/msgunfmt.c
     gettext-tools/src/msguniq.c
     gettext-tools/src/recode-sr-latin.c
+    gettext-tools/src/spit.c
+    gettext-tools/src/spit.py.in
     gettext-tools/src/urlget.c
     gettext-tools/src/xgettext.c
 

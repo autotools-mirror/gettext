@@ -189,6 +189,16 @@ msggrep.c       Main source for the 'msggrep' program.
 |
 +-------------- The 'msgen' program
 
++-------------- The 'spit' program
+| country-table.h
+| country-table.c
+|               Territory names according to ISO 3166.
+| spit.c
+|               Main source for the 'spit' program.
+| spit.py.in
+|               The same program, as a Python script.
++-------------- The 'spit' program
+
 po-time.h
 po-time.c
                 Create time stamps for use in PO/POT files.

@@ -45,6 +45,7 @@ gettext_TEXINFOS = \
   xgettext.texi \
   msginit.texi \
   msgmerge.texi \
+  spit.texi \
   msgcat.texi \
   msgconv.texi \
   msggrep.texi \

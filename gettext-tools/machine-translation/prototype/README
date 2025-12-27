@@ -1,0 +1,89 @@
+This directory contains a prototype program 'ollama-spit'
+that passes an input to an LLM and prints the output.
+Since it implements an HTTP client with some JSON processing, it
+needs the following dependencies, depending on the programming language:
+
+  Language                    HTTP client               JSON library
+
+  C                           libcurl                   libjson-c
+
+  C++                         httplib.h                 json.hpp
+
+  Python                      request                   json (built-in)
+
+  Java                        java.net.http.HttpClient  Gson
+                              (built-in)
+
+  Go                          net/http                  encoding/json
+                              (built-in)                (built-in)
+
+  Shell                       curl                      jq
+
+Example:
+  $ echo 'Translate into German: "Welcome to the GNU project!"' | ollama-spit --model=ministral-3:14b
+  "Willkommen zum GNU-Projekt!"
+
+More elaborate code of the same kind, in various programming languages,
+can be found at
+<https://github.com/ollama/ollama?tab=readme-ov-file#libraries-1>.
+
+The programs behave identically, except for the Shell implementation that
+has bad error handling.
+
+Discussion of the other implementations:
+
+  * Deployment considerations:
+
+    The C program depends on libcurl and libjson-c. libcurl is big (> 700 KB
+    binary code size, with lots of further dependencies shown by 'ldd').
+    But libcurl and libjson-c are the de-facto standards in the C ecosystem:
+    in Debian, more than 250 packages depend on libcurl4t64,
+    and        more than 100 packages depend on libjson-c5.
+    (libjansson, which is sometimes considered as an alternative to libjson-c,
+    is too buggy for serious use:
+    <https://github.com/akheron/jansson/issues/642>,
+    <https://github.com/akheron/jansson/issues/475>.)
+
+    The C++ program depends on
+    https://github.com/yhirose/cpp-httplib
+    https://github.com/nlohmann/json
+    which are header-only C++ libraries, not widely used in the C++ ecosystem.
+    The compiled executable has > 500 KB binary code size, but no dependency
+    to shared libraries other than libstdc++ and libc.
+
+    The Python program depends on the 'requests' module, that is widely used
+    in the Python ecosystem. The user may need to install it via
+    $ pip install requests
+
+    The Java program depends on the Gson library. It is widely used in the Java
+    ecosystem. The user may need to fetch it from
+    https://mvnrepository.com/artifact/com.google.code.gson/gson
+
+    The Go program would need to depend on the 'pflag' module, that is widely
+    used on the Go ecosystem. <https://pkg.go.dev/github.com/spf13/pflag>
+    In Debian, it would also
+    - either depend on libgo, the Go runtime library, which is 60 MB large,
+    - or be statically linked, and be more than 25 MB large.
+
+  * Development considerations:
+
+    The C program is a bit clumsy, because libcurl does not provide an easy
+    way to have separate code paths for the success case and for the error case.
+
+    The C++ program takes 13 seconds to compile with g++.
+
+    The Python program has no issues.
+
+    The Java program has no issues.
+
+    The Go program is a pain to develop and maintain, because the Go authors put
+    language minimality above developer needs
+    <https://gcc.gnu.org/bugzilla/show_bug.cgi?id=123293>.
+
+As a consequence, we will use
+  - primarily a C implementation and
+  - as fallback for users who don't like to install many packages before
+    building GNU gettext: a Python implementation.
+    (Why Python, not Java?
+     1. Because it does not need a Java compiler during "make && make install",
+     2. Because Python is more popular and thus more likely to be maintained.)

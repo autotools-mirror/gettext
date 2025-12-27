@@ -1,0 +1,62 @@
+This directory contains programs for interfacing to machine translation tools.
+
+Which types of machine translation tools to support?
+
+  * We don't support machine translation through web services in the cloud,
+    because
+      - They are not under the control of the user (the famous SaaS problem:
+        <https://www.gnu.org/philosophy/who-does-that-server-really-serve.en.html>).
+      - They typically have some cost (between $10 and $25 per megabyte,
+        as of 2025).
+  * We therefore only support locally running machine translation engines.
+
+Which kinds of machine translation tools to support?
+
+  * Large Language Models (LLMs) produce good quality translations nowadays
+    (December 2025), at least regarding French and German.
+    With 'ollama' there exists an execution engine (so-called "inference engine")
+    that does not require a graphics card; it can run directly on a CPU.
+    'llama.cpp' and 'KoboldCpp' seem to be roughly equivalent to 'ollama',
+    therefore here we focus on 'ollama'.
+  * The Argos Translate tools, which are based on neural networks but not LLMs,
+    https://github.com/argosopentech/argos-translate
+    https://www.argosopentech.com/
+    work:
+      $ ./argos-translate --from-lang en --to-lang de "You are lucky"
+      Du hast Glück
+    and would be theoretically acceptable, but they have two problems:
+      - Unclear copyright of some of the language models
+        <https://github.com/argosopentech/argos-translate/issues/507>,
+      - Translation quality not as good as the one from LLMs.
+
+Prerequisite:
+
+  * ollama
+    Homepage: https://ollama.com/
+    Source code: https://github.com/ollama/ollama
+    Binaries exist for various platforms:
+      - for GNU/Linux, macOS, Windows: https://ollama.com/download
+      - for various distributions: https://repology.org/project/ollama/versions
+      - for GNU Guix: https://codeberg.org/tusharhero/ollama-guix
+      - for Ubuntu: https://snapcraft.io/ollama
+    System requirements (for ollama with model 'ministral-3:14b'):
+      - 16 GB RAM,
+      - 10 GB disk space (1 GB for ollama, 9 GB for the model).
+    Configuration:
+      - If you have it on a separate machine, and want to make it accessible
+        from all machines in the LAN:
+        Edit /etc/systemd/system/ollama.services :
+        Add a line: Environment="OLLAMA_HOST=0.0.0.0"
+        Cf. <https://github.com/ollama/ollama/issues/703>.
+      - If you have it running in a virtual machine, make the port 11434
+        accessible through port forwarding.
+
+Programs:
+
+  * spit
+    is an extension of 'ollama-spit', with an option --to=LANGUAGE for
+    machine translation of a single input.
+
+  * msgpre
+    applies machine translation to the untranslated (and optionally, fuzzy)
+    messages of a PO file.

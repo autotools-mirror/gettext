@@ -1,4 +1,4 @@
-Version 1.0 - October 2025
+Version 1.0 - December 2025
 
 # Improvements for maintainers and distributors:
   * In a po/ directory, the PO files are now exactly those that the
@@ -35,6 +35,11 @@ Version 1.0 - October 2025
     - When the PO file already exists, 'msginit' now updates it w.r.t. the
       POT file, like 'msgmerge' would do. Previously, 'msginit' failed with
       an error message in this situation.
+
+  * Pretranslation:
+    - A new program 'spit' is provided, that implements machine translation
+      through a locally installed Large Language Model (LLM).
+    - The documentation has a new chapter "Pretranslation".
 
 # Programming languages support:
   * OCaml:

@@ -477,6 +477,90 @@ AS_IF([test "$MODULA2_CHOICE" != no],
   ])
 AC_SUBST([BUILDMODULA2])
 
+dnl Check for the libjson-c library.
+dnl Set INCJSON_C to the -I option for the include files.
+dnl Set LIBJSON_C to the -L and -l options for the library.
+AC_MSG_CHECKING([for the libjson-c library])
+LIBJSON_C=?
+AC_COMPILE_IFELSE(
+  [AC_LANG_PROGRAM([[#include <json-c/json_c_version.h>]], [[]])],
+  [],
+  [dnl The include files are not present.
+   LIBJSON_C=
+  ])
+if test "$LIBJSON_C" = "?"; then
+  save_LIBS="$LIBS"
+  LIBS="$LIBS -ljson-c"
+  AC_LINK_IFELSE(
+    [AC_LANG_PROGRAM(
+       [[#include <json-c/json_c_version.h>]],
+       [[return json_c_version () [0] != '0';]])
+    ],
+    [LIBJSON_C="-ljson-c"],
+    [dnl The library is not present.
+     LIBJSON_C=
+    ])
+  LIBS="$save_LIBS"
+fi
+dnl Find the location of the include files <json-c/> subdirectory.
+INCJSON_C=
+if test -n "$LIBJSON_C"; then
+  gl_ABSOLUTE_HEADER_ONE([json-c/json_c_version.h])
+  if test -n "$gl_cv_absolute_json_c_json_c_version_h"; then
+    INCJSON_C="-I"`echo "$gl_cv_absolute_json_c_json_c_version_h" | sed -e 's|.json_c_version[.]h$||'`
+  else
+    dnl Could not find the include files <json-c/> subdirectory.
+    LIBJSON_C=
+  fi
+fi
+AC_SUBST([INCJSON_C])
+AC_SUBST([LIBJSON_C])
+if test -n "$LIBJSON_C"; then
+  gt_libjson_c_found=yes
+else
+  gt_libjson_c_found=no
+fi
+AC_MSG_RESULT([$gt_libjson_c_found])
+
+dnl Check for the libcurl library.
+dnl Set INCCURL to the -I option for the include files.
+dnl Set LIBCURL to the -L and -l options for the library.
+dnl TODO: Support linking with libcurl.a and its many dependencies.
+AC_MSG_CHECKING([for the libcurl library])
+INCCURL=
+LIBCURL=?
+AC_COMPILE_IFELSE(
+  [AC_LANG_PROGRAM([[#include <curl/curlver.h>]], [[]])],
+  [],
+  [dnl The include files are not present.
+   LIBCURL=
+  ])
+if test "$LIBCURL" = "?"; then
+  save_LIBS="$LIBS"
+  LIBS="$LIBS -lcurl"
+  AC_LINK_IFELSE(
+    [AC_LANG_PROGRAM(
+       [[#include <curl/curl.h>]],
+       [[curl_global_init (CURL_GLOBAL_DEFAULT);]])
+    ],
+    [LIBCURL="-lcurl"],
+    [dnl The library is not present.
+     LIBCURL=
+    ])
+  LIBS="$save_LIBS"
+fi
+AC_SUBST([INCCURL])
+AC_SUBST([LIBCURL])
+if test -n "$LIBCURL"; then
+  gt_libcurl_found=yes
+else
+  gt_libcurl_found=no
+fi
+AC_MSG_RESULT([$gt_libcurl_found])
+
+dnl Check in which form to install the 'spit' program.
+AM_CONDITIONAL([BUILD_SPIT_IN_C], [test -n "$LIBJSON_C" && test -n "$LIBCURL"])
+
 dnl Check for Emacs and where to install .elc files.
 dnl Sometimes Emacs is badly installed. Allow the user to work around it.
 AC_ARG_WITH([emacs],
@@ -737,6 +821,7 @@ AC_CONFIG_FILES([libgrep/gnulib-lib/Makefile])
 
 AC_CONFIG_FILES([src/Makefile])
 AC_CONFIG_FILES([src/user-email:src/user-email.sh.in])
+AC_CONFIG_FILES([src/spit.py], [chmod a+x src/spit.py])
 
 AC_CONFIG_FILES([libgettextpo/Makefile])
 AC_CONFIG_FILES([libgettextpo/exported.sh])

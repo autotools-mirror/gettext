@@ -30,8 +30,13 @@ bin_PROGRAMS = \
 msgcmp msgfmt msgmerge msgunfmt xgettext \
 msgattrib msgcat msgcomm msgconv msgen msgexec msgfilter msggrep msginit msguniq \
 recode-sr-latin
+if BUILD_SPIT_IN_C
+bin_PROGRAMS += spit
+endif
 
 noinst_PROGRAMS = hostname urlget cldr-plurals
+
+noinst_SCRIPTS = spit.py
 
 if INSTALL_PRIVATE_LIBRARIES
 # Specify that libgettextsrc should be installed in $(libdir).
@@ -65,7 +70,7 @@ noinst_HEADERS = \
   write-qt.h \
   read-desktop.h write-desktop.h \
   write-xml.h \
-  po-time.h plural-table.h lang-table.h format.h filters.h \
+  po-time.h plural-table.h lang-table.h country-table.h format.h filters.h \
   xgettext.h \
   if-error.h \
   rc-str-list.h xg-pos.h xg-encoding.h xg-mixed-string.h xg-formatstring.h \
@@ -409,6 +414,10 @@ else
 msguniq_SOURCES = ../woe32dll/c++msguniq.cc
 endif
 recode_sr_latin_SOURCES = recode-sr-latin.c filter-sr-latin.c
+if BUILD_SPIT_IN_C
+spit_SOURCES = spit.c country-table.c
+spit_CFLAGS = $(AM_CFLAGS) $(INCJSON_C) $(INCCURL)
+endif
 hostname_SOURCES = hostname.c
 urlget_SOURCES = urlget.c
 cldr_plurals_SOURCES = cldr-plural.y cldr-plural-exp.c cldr-plurals.c
@@ -527,6 +536,9 @@ msgfilter_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msggrep_LDADD = $(LIBGREP) libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msginit_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msguniq_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+if BUILD_SPIT_IN_C
+spit_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(LIBJSON_C) $(LIBCURL) $(WOE32_LDADD)
+endif
 hostname_LDADD = $(LDADD) $(GETADDRINFO_LIB)
 
 # Specify when to relink the programs.
@@ -546,6 +558,9 @@ msggrep_DEPENDENCIES = $(LIBGREP) libgettextsrc.la ../gnulib-lib/libgettextlib.l
 msginit_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msguniq_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 recode_sr_latin_DEPENDENCIES = $(OTHERPROGDEPENDENCIES)
+if BUILD_SPIT_IN_C
+spit_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
+endif
 hostname_DEPENDENCIES = $(OTHERPROGDEPENDENCIES)
 urlget_DEPENDENCIES = $(OTHERPROGDEPENDENCIES)
 
@@ -566,6 +581,9 @@ msggrep_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
 msginit_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
 msguniq_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
 recode_sr_latin_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+if BUILD_SPIT_IN_C
+spit_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+endif
 hostname_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(pkglibexecdir_c_make)
 urlget_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(pkglibexecdir_c_make)
 cldr_plurals_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(pkglibexecdir_c_make)
@@ -586,6 +604,9 @@ msggrep_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msginit_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msguniq_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 recode_sr_latin_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+if BUILD_SPIT_IN_C
+spit_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+endif
 hostname_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibexecdir)`
 urlget_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibexecdir)`
 cldr_plurals_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(pkglibexecdir)`
@@ -771,9 +792,13 @@ EXTRA_DIST += cldr-plural.c cldr-plural.h
 built-sources: $(BUILT_SOURCES)
 
 
-# Special rules for installation of auxiliary programs.
+# Special rules for installation of 'spit' and auxiliary programs.
 
 install-exec-local:
+if !BUILD_SPIT_IN_C
+	$(MKDIR_P) $(DESTDIR)$(bindir)
+	$(INSTALL_SCRIPT) spit.py $(DESTDIR)$(bindir)/spit
+endif
 	$(MKDIR_P) $(DESTDIR)$(pkglibexecdir)
 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) hostname$(EXEEXT) $(DESTDIR)$(pkglibexecdir)/hostname$(EXEEXT)
 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL) --mode=install $(INSTALL_PROGRAM) urlget$(EXEEXT) $(DESTDIR)$(pkglibexecdir)/urlget$(EXEEXT)
@@ -782,16 +807,22 @@ install-exec-local:
 	$(INSTALL_SCRIPT) $(srcdir)/project-id $(DESTDIR)$(pkglibexecdir)/project-id
 
 installdirs-local:
+if !BUILD_SPIT_IN_C
+	$(MKDIR_P) $(DESTDIR)$(bindir)
+endif
 	$(MKDIR_P) $(DESTDIR)$(pkglibexecdir)
 
 uninstall-local:
+if !BUILD_SPIT_IN_C
+	$(RM) $(DESTDIR)$(bindir)/spit
+endif
 	$(RM) $(DESTDIR)$(pkglibexecdir)/hostname$(EXEEXT)
 	$(RM) $(DESTDIR)$(pkglibexecdir)/urlget$(EXEEXT)
 	$(RM) $(DESTDIR)$(pkglibexecdir)/cldr-plurals$(EXEEXT)
 	$(RM) $(DESTDIR)$(pkglibexecdir)/user-email
 	$(RM) $(DESTDIR)$(pkglibexecdir)/project-id
 
-DISTCLEANFILES += user-email
+DISTCLEANFILES += spit.py user-email
 
 
 # Special rules for Java compilation.

@@ -15,6 +15,7 @@
 /gettext-runtime/doc/Admin/jdom-1.0.jar
 /gettext-runtime/doc/Admin/Matrix*.class
 /gettext-runtime/doc/Admin/matrix.xml
+/gettext-tools/machine-translation/prototype/OllamaSpit.class
 
 # Files brought in by autopull.sh:
 /gettext-tools/tree-sitter-*
@@ -550,6 +551,8 @@
 /gettext-tools/man/msguniq.1.html
 /gettext-tools/man/recode-sr-latin.1
 /gettext-tools/man/recode-sr-latin.1.html
+/gettext-tools/man/spit.1
+/gettext-tools/man/spit.1.html
 /gettext-tools/man/xgettext.1
 /gettext-tools/man/xgettext.1.html
 /gettext-tools/po/gettext-tools.pot
@@ -680,6 +683,7 @@ autom4te.cache/
 /gettext-tools/po/Makefile
 /gettext-tools/projects/Makefile
 /gettext-tools/src/Makefile
+/gettext-tools/src/spit.py
 /gettext-tools/src/user-email
 /gettext-tools/styles/Makefile
 /gettext-tools/system-tests/Makefile
@@ -792,6 +796,8 @@ autom4te.cache/
 /gettext-tools/src/msguniq.exe
 /gettext-tools/src/recode-sr-latin
 /gettext-tools/src/recode-sr-latin.exe
+/gettext-tools/src/spit
+/gettext-tools/src/spit.exe
 /gettext-tools/src/urlget
 /gettext-tools/src/urlget.exe
 /gettext-tools/src/xgettext
