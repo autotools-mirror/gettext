@@ -128,31 +128,31 @@ main (int argc, char **argv)
   BEGIN_ALLOW_OMITTING_FIELD_INITIALIZERS
   static const struct program_option options[] =
   {
-    { "add-location",      CHAR_MAX + 'n', optional_argument },
-    { NULL,                'n',            no_argument       },
-    { "color",             CHAR_MAX + 6,   optional_argument },
-    { "directory",         'D',            required_argument },
-    { "escape",            'E',            no_argument       },
-    { "force-po",           0,             no_argument,      &force_po, 1 },
-    { "help",               'h',           no_argument       },
-    { "indent",             CHAR_MAX + 1,  no_argument       },
-    { "input",              'i',           required_argument },
-    { "keep-header",        0,             no_argument,      &keep_header, 1 },
-    { "newline",            CHAR_MAX + 9,  no_argument       },
-    { "no-escape",          CHAR_MAX + 2,  no_argument       },
-    { "no-location",        CHAR_MAX + 8,  no_argument       },
-    { "no-wrap",            CHAR_MAX + 3,  no_argument       },
-    { "output-file",        'o',           required_argument },
-    { "properties-input",   'P',           no_argument       },
-    { "properties-output",  'p',           no_argument       },
-    { "sort-by-file",       'F',           no_argument       },
-    { "sort-output",        's',           no_argument       },
-    { "strict",             CHAR_MAX + 10, no_argument       },
-    { "stringtable-input",  CHAR_MAX + 4,  no_argument       },
-    { "stringtable-output", CHAR_MAX + 5,  no_argument       },
-    { "style",              CHAR_MAX + 7,  required_argument },
-    { "version",            'V',           no_argument       },
-    { "width",              'w',           required_argument },
+    { "add-location",       CHAR_MAX + 'n', optional_argument },
+    { NULL,                 'n',            no_argument       },
+    { "color",              CHAR_MAX + 6,   optional_argument },
+    { "directory",          'D',            required_argument },
+    { "escape",             'E',            no_argument       },
+    { "force-po",           0,              no_argument,      &force_po, 1 },
+    { "help",               'h',            no_argument       },
+    { "indent",             CHAR_MAX + 1,   no_argument       },
+    { "input",              'i',            required_argument },
+    { "keep-header",        0,              no_argument,      &keep_header, 1 },
+    { "newline",            CHAR_MAX + 9,   no_argument       },
+    { "no-escape",          CHAR_MAX + 2,   no_argument       },
+    { "no-location",        CHAR_MAX + 8,   no_argument       },
+    { "no-wrap",            CHAR_MAX + 3,   no_argument       },
+    { "output-file",        'o',            required_argument },
+    { "properties-input",   'P',            no_argument       },
+    { "properties-output",  'p',            no_argument       },
+    { "sort-by-file",       'F',            no_argument       },
+    { "sort-output",        's',            no_argument       },
+    { "strict",             CHAR_MAX + 10,  no_argument       },
+    { "stringtable-input",  CHAR_MAX + 4,   no_argument       },
+    { "stringtable-output", CHAR_MAX + 5,   no_argument       },
+    { "style",              CHAR_MAX + 7,   required_argument },
+    { "version",            'V',            no_argument       },
+    { "width",              'w',            required_argument },
   };
   END_ALLOW_OMITTING_FIELD_INITIALIZERS
   /* The flag NON_OPTION_TERMINATES_OPTIONS causes option parsing to terminate
@@ -517,7 +517,7 @@ Informative output:\n"));
          email address for this package.  Please add _another line_ saying
          "Report translation bugs to <...>\n" with the address for translation
          bugs (typically your translation team's web or email address).  */
-      printf(_("\
+      printf (_("\
 Report bugs in the bug tracker at <%s>\n\
 or by email to <%s>.\n"),
              "https://savannah.gnu.org/projects/gettext",
@@ -594,7 +594,6 @@ static void
 generic_filter (const char *str, size_t len, char **resultp, size_t *lengthp)
 {
   struct locals l;
-
   l.str = str;
   l.len = len;
   l.allocated = len + (len >> 2) + 1;
