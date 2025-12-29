@@ -1,5 +1,5 @@
 # gettext.m4
-# serial 84 (gettext-0.27)
+# serial 84 (gettext-1.0)
 dnl Copyright (C) 1995-2025 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
