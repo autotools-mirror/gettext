@@ -545,6 +545,8 @@
 /gettext-tools/man/msginit.1.html
 /gettext-tools/man/msgmerge.1
 /gettext-tools/man/msgmerge.1.html
+/gettext-tools/man/msgpre.1
+/gettext-tools/man/msgpre.1.html
 /gettext-tools/man/msgunfmt.1
 /gettext-tools/man/msgunfmt.1.html
 /gettext-tools/man/msguniq.1
@@ -790,6 +792,8 @@ autom4te.cache/
 /gettext-tools/src/msginit.exe
 /gettext-tools/src/msgmerge
 /gettext-tools/src/msgmerge.exe
+/gettext-tools/src/msgpre
+/gettext-tools/src/msgpre.exe
 /gettext-tools/src/msgunfmt
 /gettext-tools/src/msgunfmt.exe
 /gettext-tools/src/msguniq

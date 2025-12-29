@@ -178,6 +178,7 @@ programs-for-distdir:
 	   msgfilter$(EXEEXT) \
 	   msggrep$(EXEEXT) \
 	   msginit$(EXEEXT) \
+	   msgpre$(EXEEXT) \
 	   msguniq$(EXEEXT) \
 	   recode-sr-latin$(EXEEXT)
 
@@ -200,6 +201,7 @@ distdir1: \
   man/msgfilter.1 \
   man/msggrep.1 \
   man/msginit.1 \
+  man/msgpre.1 \
   man/msguniq.1 \
   man/recode-sr-latin.1
 man/msgcmp.1 \
@@ -216,6 +218,7 @@ man/msgcmp.1 \
   man/msgfilter.1 \
   man/msggrep.1 \
   man/msginit.1 \
+  man/msgpre.1 \
   man/msguniq.1 \
   man/recode-sr-latin.1 \
   : gen-man1
@@ -235,6 +238,7 @@ gen-man1: programs-for-distdir \
           src/msgfilter.c man/msgfilter.x \
           src/msggrep.c man/msggrep.x \
           src/msginit.c man/msginit.x \
+          src/msgpre.c man/msgpre.x \
           src/msguniq.c man/msguniq.x \
           src/recode-sr-latin.c man/recode-sr-latin.x
 	cd man \
@@ -253,6 +257,7 @@ gen-man1: programs-for-distdir \
 	   msgfilter.1 \
 	   msggrep.1 \
 	   msginit.1 \
+	   msgpre.1 \
 	   msguniq.1 \
 	   recode-sr-latin.1
 

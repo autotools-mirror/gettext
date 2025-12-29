@@ -37,8 +37,10 @@ Version 1.0 - December 2025
       an error message in this situation.
 
   * Pretranslation:
-    - A new program 'spit' is provided, that implements machine translation
-      through a locally installed Large Language Model (LLM).
+    - Two new programs, 'msgpre' and 'spit', are provided, that implement
+      machine translation through a locally installed Large Language Model
+      (LLM).  'msgpre' applies to an entire PO file, 'spit' to a single
+      message.
     - The documentation has a new chapter "Pretranslation".
 
 # Programming languages support:

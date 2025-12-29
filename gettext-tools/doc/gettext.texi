@@ -258,6 +258,7 @@ Updating Existing PO Files
 Pretranslating PO Files
 
 * Installing an LLM::           Installing a Large Language Model
+* msgpre Invocation::           Invoking the @code{msgpre} Program
 * spit Invocation::             Invoking the @code{spit} Program
 
 Editing PO Files
@@ -4112,6 +4113,11 @@ See @url{https://github.com/ollama/ollama/issues/703}.
 If you are running @code{ollama} in a virtual machine,
 make the port 11434 accessible through port forwarding.
 @end itemize
+
+@node msgpre Invocation
+@section Invoking the @code{msgpre} Program
+
+@include msgpre.texi
 
 @node spit Invocation
 @section Invoking the @code{spit} Program

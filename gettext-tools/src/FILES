@@ -199,6 +199,8 @@ msggrep.c       Main source for the 'msggrep' program.
 |               The same program, as a Python script.
 +-------------- The 'spit' program
 
+msgpre.c        Main source for the 'msgpre' program.
+
 po-time.h
 po-time.c
                 Create time stamps for use in PO/POT files.

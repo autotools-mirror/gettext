@@ -27,7 +27,7 @@ EXTRA_DIST =
 man_aux = \
 msgcmp.x msgfmt.x msgmerge.x msgunfmt.x xgettext.x \
 msgattrib.x msgcat.x msgcomm.x msgconv.x msgen.x msgexec.x msgfilter.x \
-msggrep.x msginit.x msguniq.x \
+msggrep.x msginit.x msgpre.x msguniq.x \
 recode-sr-latin.x \
 spit.x \
 gettextize.x autopoint.x
@@ -37,7 +37,7 @@ gettextize.x autopoint.x
 man_MAN1SRC = \
 msgcmp.1 msgfmt.1 msgmerge.1 msgunfmt.1 xgettext.1 \
 msgattrib.1 msgcat.1 msgcomm.1 msgconv.1 msgen.1 msgexec.1 msgfilter.1 \
-msggrep.1 msginit.1 msguniq.1 \
+msggrep.1 msginit.1 msgpre.1 msguniq.1 \
 recode-sr-latin.1 \
 spit.1
 man_MAN1WIZARD = \
@@ -50,7 +50,8 @@ man_MANS = $(man_MAN1)
 man_HTML = \
 msgcmp.1.html msgfmt.1.html msgmerge.1.html msgunfmt.1.html xgettext.1.html \
 msgattrib.1.html msgcat.1.html msgcomm.1.html msgconv.1.html msgen.1.html \
-msgexec.1.html msgfilter.1.html msggrep.1.html msginit.1.html msguniq.1.html \
+msgexec.1.html msgfilter.1.html msggrep.1.html msginit.1.html msgpre.1.html \
+msguniq.1.html \
 recode-sr-latin.1.html \
 spit.1.html \
 gettextize.1.html autopoint.1.html
@@ -120,6 +121,7 @@ msgexec.1: msgexec.x ../src/msgexec.c
 msgfilter.1: msgfilter.x ../src/msgfilter.c
 msggrep.1: msggrep.x ../src/msggrep.c
 msginit.1: msginit.x ../src/msginit.c
+msgpre.1: msgpre.x ../src/msgpre.c
 msguniq.1: msguniq.x ../src/msguniq.c
 recode-sr-latin.1: recode-sr-latin.x ../src/recode-sr-latin.c
 spit.1: spit.x ../src/spit.c
@@ -164,6 +166,7 @@ msgexec.1.html: msgexec.1
 msgfilter.1.html: msgfilter.1
 msggrep.1.html: msggrep.1
 msginit.1.html: msginit.1
+msgpre.1.html: msgpre.1
 msguniq.1.html: msguniq.1
 recode-sr-latin.1.html: recode-sr-latin.1
 spit.1.html: spit.1

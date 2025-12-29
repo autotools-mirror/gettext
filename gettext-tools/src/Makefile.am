@@ -27,9 +27,10 @@ MAINTAINERCLEANFILES =
 RM = rm -f
 
 bin_PROGRAMS = \
-msgcmp msgfmt msgmerge msgunfmt xgettext \
-msgattrib msgcat msgcomm msgconv msgen msgexec msgfilter msggrep msginit msguniq \
-recode-sr-latin
+  msgcmp msgfmt msgmerge msgunfmt xgettext \
+  msgattrib msgcat msgcomm msgconv msgen msgexec msgfilter msggrep msginit \
+  msgpre msguniq \
+  recode-sr-latin
 if BUILD_SPIT_IN_C
 bin_PROGRAMS += spit
 endif
@@ -408,6 +409,7 @@ endif
 msginit_SOURCES = msginit.c
 msginit_SOURCES += msgl-merge.c
 msginit_SOURCES += ../../gettext-runtime/intl/localealias.c
+msgpre_SOURCES = msgpre.c
 if !WOE32DLL
 msguniq_SOURCES = msguniq.c
 else
@@ -535,6 +537,7 @@ msgexec_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msgfilter_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msggrep_LDADD = $(LIBGREP) libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msginit_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
+msgpre_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 msguniq_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(WOE32_LDADD)
 if BUILD_SPIT_IN_C
 spit_LDADD = libgettextsrc.la @INTL_MACOSX_LIBS@ $(LIBJSON_C) $(LIBCURL) $(WOE32_LDADD)
@@ -556,6 +559,7 @@ msgexec_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_L
 msgfilter_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msggrep_DEPENDENCIES = $(LIBGREP) libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msginit_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
+msgpre_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 msguniq_DEPENDENCIES = libgettextsrc.la ../gnulib-lib/libgettextlib.la $(WOE32_LDADD)
 recode_sr_latin_DEPENDENCIES = $(OTHERPROGDEPENDENCIES)
 if BUILD_SPIT_IN_C
@@ -579,6 +583,7 @@ msgexec_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
 msgfilter_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
 msggrep_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
 msginit_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
+msgpre_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
 msguniq_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
 recode_sr_latin_CPPFLAGS = $(AM_CPPFLAGS) -DINSTALLDIR=$(bindir_c_make)
 if BUILD_SPIT_IN_C
@@ -602,6 +607,7 @@ msgexec_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msgfilter_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msggrep_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msginit_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
+msgpre_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 msguniq_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 recode_sr_latin_LDFLAGS = `$(RELOCATABLE_LDFLAGS) $(bindir)`
 if BUILD_SPIT_IN_C
