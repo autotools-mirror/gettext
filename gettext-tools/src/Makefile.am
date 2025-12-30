@@ -38,6 +38,9 @@ endif
 noinst_PROGRAMS = hostname urlget cldr-plurals
 
 noinst_SCRIPTS = spit.py
+if !BUILD_SPIT_IN_C
+noinst_SCRIPTS += spit
+endif
 
 if INSTALL_PRIVATE_LIBRARIES
 # Specify that libgettextsrc should be installed in $(libdir).
@@ -791,6 +794,16 @@ BUILT_SOURCES += cldr-plural.c cldr-plural.h
 MOSTLYCLEANFILES += cldr-plural.tab.c cldr-plural.tab.h cldr-plural.c-tmp cldr-plural.h-tmp
 MAINTAINERCLEANFILES += cldr-plural.c cldr-plural.h
 EXTRA_DIST += cldr-plural.c cldr-plural.h
+
+
+if !BUILD_SPIT_IN_C
+# Ensure that the program 'spit' is available as a script,
+# so that its manual page can be generated through 'help2man'.
+spit: spit.py
+	cp spit.py spit
+BUILT_SOURCES += spit
+MOSTLYCLEANFILES += spit
+endif
 
 
 # This is implicit in "make all", but is needed explicitly before other target
