@@ -33,8 +33,8 @@ struct country_table_entry
   const char *english;
 };
 
-extern LIBGETTEXTSRC_DLL_VARIABLE struct country_table_entry country_table[];
-extern LIBGETTEXTSRC_DLL_VARIABLE const size_t country_table_size;
+extern struct country_table_entry country_table[];
+extern const size_t country_table_size;
 
 
 #ifdef __cplusplus
