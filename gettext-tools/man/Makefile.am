@@ -129,14 +129,14 @@ spit.1: spit.x ../src/spit.c
 $(man_MAN1WIZARD): help2man $(top_srcdir)/../.version
 	progname=`echo $@ | sed -e 's/\.in$$//' -e 's/\.1$$//'`; \
 	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" \
-	  ../wizard/$${progname}$(EXEEXT) $(srcdir)/$${progname}.x $@
+	  ../wizard/$${progname} $(srcdir)/$${progname}.x $@
 
 gettextize.1: gettextize.x ../wizard/gettextize.in
 
 $(man_MAN1AUTOTOOLS): help2man $(top_srcdir)/../.version
 	progname=`echo $@ | sed -e 's/\.in$$//' -e 's/\.1$$//'`; \
 	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN) --version-option=--version-without-config" \
-	  ../autotools/$${progname}$(EXEEXT) $(srcdir)/$${progname}.x $@
+	  ../autotools/$${progname} $(srcdir)/$${progname}.x $@
 
 autopoint.1: autopoint.x ../autotools/autopoint.in
 
