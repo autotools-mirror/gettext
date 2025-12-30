@@ -477,15 +477,19 @@ AS_IF([test "$MODULA2_CHOICE" != no],
   ])
 AC_SUBST([BUILDMODULA2])
 
-dnl Check for the libjson-c library.
+dnl Check for the libjson-c library, version 0.13 or newer.
 dnl Set INCJSON_C to the -I option for the include files.
 dnl Set LIBJSON_C to the -L and -l options for the library.
 AC_MSG_CHECKING([for the libjson-c library])
 LIBJSON_C=?
 AC_COMPILE_IFELSE(
-  [AC_LANG_PROGRAM([[#include <json-c/json_c_version.h>]], [[]])],
+  [AC_LANG_PROGRAM(
+     [[#include <json-c/json_c_version.h>
+       int version_check[2 * (JSON_C_MAJOR_VERSION + (JSON_C_MINOR_VERSION >= 13) > 0) - 1];
+     ]],
+     [[]])],
   [],
-  [dnl The include files are not present.
+  [dnl The include files are not present or are too old.
    LIBJSON_C=
   ])
 if test "$LIBJSON_C" = "?"; then
