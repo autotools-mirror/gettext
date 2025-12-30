@@ -144,12 +144,14 @@ the following file list.
       $prefix/share/man/man1/xgettext.1
       $prefix/share/man/man1/gettextize.1
       $prefix/share/man/man1/autopoint.1
+      $prefix/share/man/man1/po-fetch.1
       $prefix/share/man/man1/recode*.1
       $prefix/share/man/man1/spit.1
       $prefix/share/doc/gettext/msg*.1.html
       $prefix/share/doc/gettext/xgettext.1.html
       $prefix/share/doc/gettext/gettextize.1.html
       $prefix/share/doc/gettext/autopoint.1.html
+      $prefix/share/doc/gettext/po-fetch.1.html
       $prefix/share/doc/gettext/recode*.1.html
       $prefix/share/doc/gettext/spit.1.html
       $prefix/share/doc/gettext/gettext_*.html
