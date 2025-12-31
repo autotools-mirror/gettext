@@ -4084,6 +4084,22 @@ At this point (in 2025),
 a Large Language Model execution engine that is Free Software is
 @samp{ollama}, that can be downloaded from @url{https://ollama.com/}.
 
+Next, you will need to pick a Large Language Model.
+There are two properties to watch out for:
+@itemize @bullet
+@item
+The license under which the LLM is released.
+While some LLMs are under a Free Software license
+(most often the Apache 2.0 license)
+and are thus ``open weights'' models
+(see @url{https://opensource.org/ai/open-weights}),
+others have licenses with usage restrictions.
+@item
+The size of the LLM.
+Generally, it should be smaller than the available RAM size
+of your machine on which you will run the LLM execution engine.
+@end itemize
+
 Together with an LLM of reasonable quality,
 such as the model @code{ministral-3:14b},
 the system requirements are as follows:
