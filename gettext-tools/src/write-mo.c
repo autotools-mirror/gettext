@@ -1010,7 +1010,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
   offset = end_offset;
 
   /* A few zero bytes for padding.  */
-  char *null = (char *) alloca (alignment);
+  char *null = (char *) xmalloca (alignment);
   memset (null, '\0', alignment);
 
   /* Now write the original strings.  */
