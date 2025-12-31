@@ -37,6 +37,10 @@ Make changes in the @code{git} index, to prepare for a @code{git} commit.
 
 @end table
 
+@subsubsection Output files location
+
+The PO files and the @code{LINGUAS} file are stored in the current directory.
+
 @subsubsection Informative output
 
 @table @samp

@@ -95,6 +95,10 @@ The first argument indicates the kind of translation project:
 Options:
       --git      Make changes in the git index, to prepare for a git commit.
 
+Output files location:
+
+The PO files and the LINGUAS file are stored in the current directory.
+
 Informative output:
 
       --help     Show this help text.
