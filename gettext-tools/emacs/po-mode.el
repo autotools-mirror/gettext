@@ -478,6 +478,11 @@ or remove the -m if you are not using the GNU version of 'uuencode'."
   :type 'string
   :group 'po)
 
+(defcustom po-subedit-mode-hook nil
+  "Hook run when entering PO subedit mode."
+  :type 'hook
+  :group 'po)
+
 
 ;;; Emacs portability matters - part II.
 
