@@ -1,11 +1,12 @@
 ;;; po-mode.el --- major mode for GNU gettext PO files
 
-;; Copyright (C) 1995-2025 Free Software Foundation, Inc.
+;; Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
 ;; Authors: François Pinard <pinard@iro.umontreal.ca>
 ;;          Greg McGary <gkm@magilla.cichlid.com>
 ;; Keywords: i18n gettext
 ;; Created: 1995
+;; Package-Requires: ((emacs "24"))
 
 ;; This file is part of GNU gettext.
 
@@ -477,9 +478,6 @@ or remove the -m if you are not using the GNU version of 'uuencode'."
   :type 'string
   :group 'po)
 
-(defvar po-subedit-mode-syntax-table
-  (copy-syntax-table text-mode-syntax-table)
-  "Syntax table used while in PO mode.")
 
 ;;; Emacs portability matters - part II.
 
@@ -873,10 +871,6 @@ M-S  Ignore path          M-A  Ignore PO file      *M-L  Ignore lexicon
 (if (not (fboundp 'po-find-file-coding-system))
   (require 'po-compat))
 
-(defvar po-mode-abbrev-table nil
-  "Abbrev table used while in PO mode.")
-(define-abbrev-table 'po-mode-abbrev-table ())
-
 (defvar po-mode-map
   ;; Use (make-keymap) because (make-sparse-keymap) does not work on Demacs.
   (let ((po-mode-map (make-keymap)))
@@ -1004,6 +998,14 @@ all reachable through 'M-x customize', in group 'Emacs.Editing.I18n.Po'."
 
   (run-mode-hooks 'po-mode-hook)
   (message (_"You may type 'h' or '?' for a short PO mode reminder.")))
+
+(define-derived-mode po-subedit-mode text-mode
+  ; The mode name is taken from the menu string in po-subedit-mode-menu-layout.
+  "PO-Edit"
+  "PO subedit mode."
+  :group 'po
+  (easy-menu-define po-subedit-mode-menu po-subedit-mode-map ""
+    po-subedit-mode-menu-layout))
 
 (defvar po-subedit-mode-map
   ;; Use (make-keymap) because (make-sparse-keymap) does not work on Demacs.
@@ -2196,21 +2198,15 @@ Run functions on po-subedit-mode-hook."
           (setq slot (list marker edit-buffer overlay)
                 po-edited-fields (cons slot po-edited-fields))
           (pop-to-buffer edit-buffer)
-          (text-mode)
+          (po-subedit-mode)
           (set (make-local-variable 'po-subedit-back-pointer) slot)
           (set (make-local-variable 'indent-line-function)
                'indent-relative)
           (setq buffer-file-coding-system edit-coding)
-          (setq local-abbrev-table po-mode-abbrev-table)
           (erase-buffer)
           (insert string "<")
           (goto-char (point-min))
           (and expand-tabs (setq indent-tabs-mode nil))
-          (use-local-map po-subedit-mode-map)
-          (easy-menu-define po-subedit-mode-menu po-subedit-mode-map ""
-            po-subedit-mode-menu-layout)
-          (set-syntax-table po-subedit-mode-syntax-table)
-          (run-hooks 'po-subedit-mode-hook)
           (message po-subedit-message)))))
 
 (defun po-edit-comment ()
