@@ -6,7 +6,7 @@
 ;;          Greg McGary <gkm@magilla.cichlid.com>
 ;; Keywords: i18n gettext
 ;; Created: 1995
-;; Package-Requires: ((emacs "24"))
+;; Package-Requires: ((emacs "23"))
 
 ;; This file is part of GNU gettext.
 
@@ -63,7 +63,7 @@
 
 ;;; Code:
 
-(defconst po-mode-version-string "2.31" "\
+(defconst po-mode-version-string "2.32" "\
 Version number of this version of po-mode.el.")
 
 ;;; Emacs portability matters - part I.
