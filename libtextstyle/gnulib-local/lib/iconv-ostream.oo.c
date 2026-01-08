@@ -1,5 +1,5 @@
 /* Output stream that converts the output to another encoding.
-   Copyright (C) 2006-2025 Free Software Foundation, Inc.
+   Copyright (C) 2006-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -242,7 +242,7 @@ iconv_ostream::write_mem (iconv_ostream_t stream, const void *data, size_t len)
 }
 
 static void
-iconv_ostream::flush (iconv_ostream_t stream)
+iconv_ostream::flush (iconv_ostream_t stream, ostream_flush_scope_t scope)
 {
   abort ();
 }
