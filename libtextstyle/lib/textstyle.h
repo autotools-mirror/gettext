@@ -1,5 +1,5 @@
 /* Public API of the libtextstyle library.
-   Copyright (C) 2006-2007, 2019-2021 Free Software Foundation, Inc.
+   Copyright (C) 2006-2007, 2019-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -20,9 +20,9 @@
 #define _TEXTSTYLE_H
 
 #include <stdarg.h>
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdio.h>
-#include <textstyle/stdbool.h>
 #include <textstyle/woe32dll.h>
 
 /* Meta information.  */

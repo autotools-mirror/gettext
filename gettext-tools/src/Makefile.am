@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/src subdirectory of GNU gettext
-## Copyright (C) 1995-2025 Free Software Foundation, Inc.
+## Copyright (C) 1995-2026 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -433,12 +433,12 @@ if USE_INSTALLED_LIBTEXTSTYLE
 LT_LIBTEXTSTYLE = @LTLIBTEXTSTYLE@
 else
 # How to get the include files of libtextstyle.
-textstyle.h textstyle/stdbool.h textstyle/version.h textstyle/woe32dll.h:
+textstyle.h textstyle/version.h textstyle/woe32dll.h:
 	here=`pwd`; \
 	cd ../../libtextstyle/lib && \
 	  $(MAKE) install-nobase_includeHEADERS install-nobase_nodist_includeHEADERS DESTDIR= includedir="$$here"
-BUILT_SOURCES    += textstyle.h textstyle/stdbool.h textstyle/version.h textstyle/woe32dll.h
-MOSTLYCLEANFILES += textstyle.h textstyle/stdbool.h textstyle/version.h textstyle/woe32dll.h
+BUILT_SOURCES    += textstyle.h textstyle/version.h textstyle/woe32dll.h
+MOSTLYCLEANFILES += textstyle.h textstyle/version.h textstyle/woe32dll.h
 # Where to find the built libtextstyle library.
 LT_LIBTEXTSTYLE = ../../libtextstyle/lib/libtextstyle.la
 endif

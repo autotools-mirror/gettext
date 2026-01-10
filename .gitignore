@@ -968,7 +968,6 @@ core
 /gettext-tools/po/??@*.insert-header
 /gettext-tools/src/gettext.res
 /gettext-tools/src/textstyle.h
-/gettext-tools/src/textstyle/stdbool.h
 /gettext-tools/src/textstyle/version.h
 /gettext-tools/src/textstyle/woe32dll.h
 

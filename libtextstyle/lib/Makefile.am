@@ -1,5 +1,5 @@
 ## Makefile for the lib subdirectory of GNU libtextstyle.
-## Copyright (C) 2009-2025 Free Software Foundation, Inc.
+## Copyright (C) 2009-2026 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -67,37 +67,6 @@ libtextstyle_la_SOURCES += \
   color.h color.c \
   misc.h misc.c \
   version.c
-
-# The <stdbool.h> replacement that can be installed.
-nobase_nodist_include_HEADERS += \
-  textstyle/stdbool.h
-
-# Produce a textstyle/stdbool.h that is not compiler dependent.
-# GCC >= 2.95 has <stdbool.h>.
-# AIX >= 5.3 has <stdbool.h>.
-# Solaris 10 and some HP-UX 11 versions have <stdbool.h> but it does not
-# necessarily work.
-textstyle/stdbool.h : $(STDBOOL_H) stdbool.mini.h
-	@MKDIR_P@ textstyle
-	rm -f $@-t $@
-	{ echo '/* DO NOT EDIT! GENERATED AUTOMATICALLY! */'; \
-	  echo '#if !defined _GL_STDBOOL_H'; \
-	  if test -f /usr/include/stdbool.h; then \
-	    echo '#if (__GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 95)) || defined _AIX'; \
-	  else \
-	    echo '#if (__GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 95))'; \
-	  fi; \
-	  echo '#include <stdbool.h>'; \
-	  echo '#else'; \
-	  cat $(srcdir)/stdbool.mini.h; \
-	  echo '#endif'; \
-	  echo '#endif'; \
-	} > $@-t
-	mv $@-t $@
-BUILT_SOURCES    += textstyle/stdbool.h
-MOSTLYCLEANFILES += textstyle/stdbool.h-t
-CLEANFILES       += textstyle/stdbool.h
-EXTRA_DIST       += stdbool.mini.h
 
 # textstyle/version.h is public.
 nobase_nodist_include_HEADERS += textstyle/version.h
