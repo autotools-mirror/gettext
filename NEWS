@@ -43,6 +43,16 @@ Version 1.0 - December 2025
       message.
     - The documentation has a new chapter "Pretranslation".
 
+# Improvements for maintainers:
+  * xgettext:
+    - The refactoring suggestion when a translatable string contains an URL
+      or email address can now be inhibited through a command-line option
+      '--no-check=url' or '--no-check=email', or through a comment in the
+      source code of the form
+          /* xgettext: no-url-check */
+      or
+          /* xgettext: no-email-check */
+
 # Programming languages support:
   * OCaml:
     - xgettext now supports OCaml.

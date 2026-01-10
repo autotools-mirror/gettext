@@ -1,5 +1,5 @@
 /* Extracting a message.  Accumulating the message list.
-   Copyright (C) 2001-2025 Free Software Foundation, Inc.
+   Copyright (C) 2001-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -231,7 +231,7 @@ decide_syntax_check (message_ty *mp)
 {
   for (size_t i = 0; i < NSYNTAXCHECKS; i++)
     if (mp->do_syntax_check[i] == undecided)
-      mp->do_syntax_check[i] = default_syntax_check[i] == yes ? yes : no;
+      mp->do_syntax_check[i] = default_syntax_check[i];
 }
 
 

@@ -1,5 +1,5 @@
 /* Extracts strings from C source file to Uniforum style .po file.
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -239,8 +239,16 @@ static bool recognize_format_kde;
 /* If true, recognize Boost format strings.  */
 static bool recognize_format_boost;
 
-/* Syntax checks enabled by default.  */
-enum is_syntax_check default_syntax_check[NSYNTAXCHECKS];
+/* Syntax checks enabled through a command-line option or by default.  */
+enum is_syntax_check default_syntax_check[NSYNTAXCHECKS] =
+{
+  /* sc_ellipsis_unicode */     no,
+  /* sc_space_ellipsis */       no,
+  /* sc_quote_unicode */        no,
+  /* sc_bullet_unicode */       no,
+  /* sc_url */                  yes,
+  /* sc_email */                yes
+};
 
 static locating_rule_list_ty *its_locating_rules;
 
@@ -391,11 +399,11 @@ main (int argc, char *argv[])
     { "force-po",           0,              no_argument,      &force_po, 1 },
     { "foreign-user",       CHAR_MAX + 2,   no_argument       },
     { "from-code",          CHAR_MAX + 3,   required_argument },
-    { "generated",          CHAR_MAX + 24,  required_argument },
+    { "generated",          CHAR_MAX + 25,  required_argument },
     { "help",               'h',            no_argument       },
     { "indent",             'i',            no_argument       },
-    { "its",                CHAR_MAX + 20,  required_argument },
-    { "itstool",            CHAR_MAX + 19,  no_argument       },
+    { "its",                CHAR_MAX + 21,  required_argument },
+    { "itstool",            CHAR_MAX + 20,  no_argument       },
     { "join-existing",      'j',            no_argument       },
     { "kde",                CHAR_MAX + 10,  no_argument       },
     { "keyword",            'k',            optional_argument },
@@ -403,8 +411,9 @@ main (int argc, char *argv[])
     { "msgid-bugs-address", CHAR_MAX + 5,   required_argument },
     { "msgstr-prefix",      'm',            optional_argument },
     { "msgstr-suffix",      'M',            optional_argument },
+    { "no-check",           CHAR_MAX + 18,  required_argument },
     { "no-escape",          'e',            no_argument       },
-    { "no-git",             CHAR_MAX + 23,  no_argument       },
+    { "no-git",             CHAR_MAX + 24,  no_argument       },
     { "no-location",        CHAR_MAX + 16,  no_argument       },
     { "no-wrap",            CHAR_MAX + 4,   no_argument       },
     { "omit-header",        0,              no_argument,      &xgettext_omit_header, 1 },
@@ -414,15 +423,15 @@ main (int argc, char *argv[])
     { "package-version",    CHAR_MAX + 13,  required_argument },
     { "properties-output",  CHAR_MAX + 6,   no_argument       },
     { "qt",                 CHAR_MAX + 9,   no_argument       },
-    { "reference",          CHAR_MAX + 22,  required_argument },
-    { "sentence-end",       CHAR_MAX + 18,  required_argument },
+    { "reference",          CHAR_MAX + 23,  required_argument },
+    { "sentence-end",       CHAR_MAX + 19,  required_argument },
     { "sort-by-file",       'F',            no_argument       },
     { "sort-output",        's',            no_argument       },
-    { "strict",             CHAR_MAX + 25,  no_argument       },
+    { "strict",             CHAR_MAX + 26,  no_argument       },
     { "string-limit",       'l',            required_argument },
     { "stringtable-output", CHAR_MAX + 7,   no_argument       },
     { "style",              CHAR_MAX + 15,  required_argument },
-    { "tag",                CHAR_MAX + 21,  required_argument },
+    { "tag",                CHAR_MAX + 22,  required_argument },
     { "trigraphs",          'T',            no_argument       },
     { "verbose",            'v',            no_argument       },
     { "version",            'V',            no_argument       },
@@ -604,7 +613,7 @@ main (int argc, char *argv[])
           sort_by_msgid = true;
           break;
 
-        case CHAR_MAX + 25: /* --strict */
+        case CHAR_MAX + 26: /* --strict */
           message_print_style_uniforum ();
           break;
 
@@ -722,7 +731,23 @@ main (int argc, char *argv[])
           }
           break;
 
-        case CHAR_MAX + 18: /* --sentence-end */
+        case CHAR_MAX + 18: /* --no-check */
+          {
+            size_t i;
+            for (i = 0; i < NSYNTAXCHECKS; i++)
+              {
+                if (strcmp (optarg, syntax_check_name[i]) == 0)
+                  {
+                    default_syntax_check[i] = no;
+                    break;
+                  }
+              }
+            if (i == NSYNTAXCHECKS)
+              error (EXIT_FAILURE, 0, _("syntax check '%s' unknown"), optarg);
+          }
+          break;
+
+        case CHAR_MAX + 19: /* --sentence-end */
           if (strcmp (optarg, "single-space") == 0)
             sentence_end_required_spaces = 1;
           else if (strcmp (optarg, "double-space") == 0)
@@ -731,27 +756,27 @@ main (int argc, char *argv[])
             error (EXIT_FAILURE, 0, _("sentence end type '%s' unknown"), optarg);
           break;
 
-        case CHAR_MAX + 19: /* --itstool */
+        case CHAR_MAX + 20: /* --itstool */
           add_itstool_comments = true;
           break;
 
-        case CHAR_MAX + 20: /* --its */
+        case CHAR_MAX + 21: /* --its */
           explicit_its_filename = optarg;
           break;
 
-        case CHAR_MAX + 21: /* --tag */
+        case CHAR_MAX + 22: /* --tag */
           x_javascript_tag (optarg);
           break;
 
-        case CHAR_MAX + 22: /* --reference */
+        case CHAR_MAX + 23: /* --reference */
           string_list_append (&files_for_vc_mtime, optarg);
           break;
 
-        case CHAR_MAX + 23: /* --no-git */
+        case CHAR_MAX + 24: /* --no-git */
           xgettext_no_git = true;
           break;
 
-        case CHAR_MAX + 24: /* --generated */
+        case CHAR_MAX + 25: /* --generated */
           gl_set_add (generated_files, optarg);
           break;
 
@@ -1211,6 +1236,9 @@ Operation mode:\n"));
       --check=NAME            perform syntax check on messages\n\
                                 (ellipsis-unicode, space-ellipsis,\n\
                                  quote-unicode, bullet-unicode)\n"));
+      printf (_("\
+      --no-check=NAME         don't perform syntax check on messages\n\
+                                (url, email)\n"));
       printf (_("\
       --sentence-end=TYPE     type describing the end of sentence\n\
                                 (single-space, which is the default, \n\

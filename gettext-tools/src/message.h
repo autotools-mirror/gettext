@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -134,9 +134,11 @@ enum syntax_check_type
   sc_ellipsis_unicode,
   sc_space_ellipsis,
   sc_quote_unicode,
-  sc_bullet_unicode
+  sc_bullet_unicode,
+  sc_url,
+  sc_email
 };
-#define NSYNTAXCHECKS 4
+#define NSYNTAXCHECKS 6
 extern LIBGETTEXTSRC_DLL_VARIABLE const char *const syntax_check_name[NSYNTAXCHECKS];
 
 /* Is current msgid subject to a syntax check?  */
