@@ -64,6 +64,8 @@ The following packages should be installed before GNU gettext is installed
     - On Debian and Debian-based systems: libjson-c-dev,
     - On Red Hat distributions: json-c-devel.
     - Other: https://repology.org/project/json-c/versions
+  + When building with the MS Visual C/C++ tool chain, version 0.19 or newer
+    is required.
 
 * libcurl
   + Recommended.
