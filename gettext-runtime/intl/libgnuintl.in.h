@@ -1,5 +1,5 @@
 /* Message catalogs for internationalization.
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -120,7 +120,7 @@ extern int libintl_version;
 /* The user can define _INTL_REDIRECT_INLINE or _INTL_REDIRECT_MACROS.
    If he doesn't, we choose the method.  */
 #if !(defined _INTL_REDIRECT_INLINE || defined _INTL_REDIRECT_MACROS)
-# if defined __GNUC__ && __GNUC__ >= 2 && !(defined __APPLE_CC__ && __APPLE_CC__ > 1) && !defined __MINGW32__ && !(__GNUC__ == 2 && defined _AIX) && (defined __STDC__ || defined __cplusplus)
+# if ((defined __GNUC__ && __GNUC__ >= 2) || defined __clang__) && !(defined __APPLE_CC__ && __APPLE_CC__ > 1) && !defined __MINGW32__ && !(__GNUC__ == 2 && defined _AIX) && (defined __STDC__ || defined __cplusplus)
 #  define _INTL_REDIRECT_ASM
 # else
 #  if defined __cplusplus && defined _INTL_HAS_FORCE_INLINE
