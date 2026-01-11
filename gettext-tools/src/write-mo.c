@@ -1,5 +1,5 @@
 /* Writing binary .mo files.
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
    Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
 
    This program is free software: you can redistribute it and/or modify
@@ -59,7 +59,7 @@
 
 /* Usually defined in <sys/param.h>.  */
 #ifndef roundup
-# if defined __GNUC__ && __GNUC__ >= 2
+# if (defined __GNUC__ && __GNUC__ >= 2) || defined __clang__
 #  define roundup(x, y) ({typeof(x) _x = (x); typeof(y) _y = (y); \
                           ((_x + _y - 1) / _y) * _y; })
 # else
