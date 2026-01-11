@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files - contained in libgettextpo.
-   Copyright (C) 2003-2025 Free Software Foundation, Inc.
+   Copyright (C) 2003-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -59,7 +59,7 @@ struct po_error_handler
      Must not return if STATUS is nonzero.  */
   void (*error) (int status, int errnum,
                  const char *format, ...)
-#if ((__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3) && !__STRICT_ANSI__
+#if (((__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3) || defined __clang__) && !__STRICT_ANSI__
   __attribute__ ((__format__ (__printf__, 3, 4)))
 #endif
   ;
@@ -72,7 +72,7 @@ struct po_error_handler
   void (*error_at_line) (int status, int errnum,
                          const char *filename, unsigned int lineno,
                          const char *format, ...)
-#if ((__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3) && !__STRICT_ANSI__
+#if (((__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3) || defined __clang__) && !__STRICT_ANSI__
   __attribute__ ((__format__ (__printf__, 5, 6)))
 #endif
   ;

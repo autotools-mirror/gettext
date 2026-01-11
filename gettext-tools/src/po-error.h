@@ -1,5 +1,5 @@
 /* Error handling during reading and writing of PO files.
-   Copyright (C) 2004-2025 Free Software Foundation, Inc.
+   Copyright (C) 2004-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2004.
 
    This program is free software: you can redistribute it and/or modify
@@ -19,13 +19,13 @@
 #define _PO_ERROR_H
 
 #ifndef __attribute__
-/* This feature is available in gcc versions 2.5 and later.  */
-# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 5) || __STRICT_ANSI__
+/* This feature is available in gcc versions 2.5 and later and in clang.  */
+# if !((__GNUC__ >= 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 5) || defined __clang__) && !__STRICT_ANSI__)
 #  define __attribute__(Spec) /* empty */
 # endif
-/* The __-protected variants of 'format' and 'printf' attributes
-   are accepted by gcc versions 2.6.4 (effectively 2.7) and later.  */
-# if __GNUC__ < 2 || (__GNUC__ == 2 && __GNUC_MINOR__ < 7)
+/* The __-protected variants of 'format' and 'printf' attributes are
+   accepted by gcc versions 2.6.4 (effectively 2.7) and later and in clang.  */
+# if !(__GNUC__ > 2 || (__GNUC__ == 2 && __GNUC_MINOR__ >= 7) || defined __clang__)
 #  define __format__ format
 #  define __printf__ printf
 # endif
@@ -45,7 +45,7 @@ extern "C" {
 extern LIBGETTEXTSRC_DLL_VARIABLE
        void (*po_error) (int status, int errnum,
                          const char *format, ...)
-#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3
+#if ((__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3) || defined __clang__
        __attribute__ ((__format__ (__printf__, 3, 4)))
 #endif
        ;
@@ -53,7 +53,7 @@ extern LIBGETTEXTSRC_DLL_VARIABLE
        void (*po_error_at_line) (int status, int errnum,
                                  const char *filename, unsigned int lineno,
                                  const char *format, ...)
-#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3
+#if ((__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3) || defined __clang__
        __attribute__ ((__format__ (__printf__, 5, 6)))
 #endif
        ;

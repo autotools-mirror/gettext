@@ -1,5 +1,5 @@
 /* Format strings.
-   Copyright (C) 2001-2025 Free Software Foundation, Inc.
+   Copyright (C) 2001-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <haible@clisp.cons.org>, 2001.
 
    This program is free software: you can redistribute it and/or modify
@@ -56,7 +56,7 @@ enum
 
 /* This type of callback is responsible for showing an error.  */
 typedef void (*formatstring_error_logger_t) (void *data, const char *format, ...)
-#if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)
+#if (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)) || defined __clang__
      __attribute__ ((__format__ (__printf__, 2, 3)))
 #endif
 ;

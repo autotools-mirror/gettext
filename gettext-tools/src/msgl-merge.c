@@ -1,5 +1,5 @@
 /* Merging a .po file with a .pot file.
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -283,7 +283,7 @@ definitions_destroy (definitions_ty *definitions)
    occurred at all.  */
 static void
 silent_error_logger (void *data, const char *format, ...)
-#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 7) || __GNUC__ > 2)
+#if (defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 7) || __GNUC__ > 2)) || defined __clang__
      __attribute__ ((__format__ (__printf__, 2, 3)))
 #endif
 ;

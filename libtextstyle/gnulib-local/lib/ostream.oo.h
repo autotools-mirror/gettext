@@ -1,5 +1,5 @@
 /* Abstract output stream data type.
-   Copyright (C) 2006, 2019 Free Software Foundation, Inc.
+   Copyright (C) 2006, 2019-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -70,13 +70,13 @@ extern void ostream_write_str (ostream_t stream, const char *string);
    Returns the size of formatted output, or a negative value in case of an
    error.  */
 extern ptrdiff_t ostream_printf (ostream_t stream, const char *format, ...)
-#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3
+#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3 || defined __clang__
   __attribute__ ((__format__ (__printf__, 2, 3)))
 #endif
   ;
 extern ptrdiff_t ostream_vprintf (ostream_t stream,
                                   const char *format, va_list args)
-#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3
+#if (__GNUC__ == 3 && __GNUC_MINOR__ >= 1) || __GNUC__ > 3 || defined __clang__
   __attribute__ ((__format__ (__printf__, 2, 0)))
 #endif
   ;

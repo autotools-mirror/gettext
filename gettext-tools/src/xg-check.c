@@ -559,7 +559,7 @@ struct formatstring_error_logger_locals
 };
 static void
 formatstring_error_logger (void *data, const char *format, ...)
-#if defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 7) || __GNUC__ > 2)
+#if (defined __GNUC__ && ((__GNUC__ == 2 && __GNUC_MINOR__ >= 7) || __GNUC__ > 2)) || defined __clang__
      __attribute__ ((__format__ (__printf__, 2, 3)))
 #endif
 ;

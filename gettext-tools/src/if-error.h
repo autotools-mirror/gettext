@@ -1,5 +1,5 @@
 /* Error handling during reading of input files.
-   Copyright (C) 2023-2025 Free Software Foundation, Inc.
+   Copyright (C) 2023-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -47,14 +47,14 @@ extern "C" {
 extern void if_error (int severity,
                       const char *filename, size_t lineno, size_t column,
                       bool multiline, const char *format, ...)
-#if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)
+#if (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)) || defined __clang__
      __attribute__ ((__format__ (__printf__, 6, 7)))
 #endif
      ;
 extern void if_verror (int severity,
                        const char *filename, size_t lineno, size_t column,
                        bool multiline, const char *format, va_list args)
-#if __GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)
+#if (__GNUC__ > 3 || (__GNUC__ == 3 && __GNUC_MINOR__ >= 1)) || defined __clang__
      __attribute__ ((__format__ (__printf__, 6, 0)))
 #endif
      ;
