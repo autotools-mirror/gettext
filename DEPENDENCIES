@@ -79,6 +79,8 @@ The following packages should be installed before GNU gettext is installed
     - On Debian and Debian-based systems: libcurl4-gnutls-dev or libcurl4-openssl-dev,
     - On Red Hat distributions: libcurl-devel.
     - Other: https://repology.org/project/curl/versions
+  + When building against a static libcurl on Windows, you need to include
+    "-DCURL_STATICLIB" in the CPPFLAGS.
 
 * libacl
   + Recommended on Linux systems.
