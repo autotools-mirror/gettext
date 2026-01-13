@@ -438,7 +438,7 @@ License GPLv3+: GNU GPL version 3 or later <%s>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-              "2015-2025", "https://gnu.org/licenses/gpl.html");
+              "2015-2026", "https://gnu.org/licenses/gpl.html");
       printf (_("Written by %s.\n"), proper_name ("Daiki Ueno"));
       exit (EXIT_SUCCESS);
     }

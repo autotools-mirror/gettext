@@ -1,5 +1,5 @@
 /* Recode Serbian text from Cyrillic to Latin script.
-   Copyright (C) 2006-2025 Free Software Foundation, Inc.
+   Copyright (C) 2006-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
@@ -108,7 +108,7 @@ License GPLv3+: GNU GPL version 3 or later <%s>\n\
 This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
-              "2006-2025", "https://gnu.org/licenses/gpl.html");
+              "2006-2026", "https://gnu.org/licenses/gpl.html");
       printf (_("Written by %s and %s.\n"),
               /* TRANSLATORS: This is a proper name. The last name is
                  (with Unicode escapes) "\u0160egan" or (with HTML entities)
