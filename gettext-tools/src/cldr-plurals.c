@@ -1,5 +1,5 @@
 /* Unicode CLDR plural rule parser and converter
-   Copyright (C) 2015-2025 Free Software Foundation, Inc.
+   Copyright (C) 2015-2026 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -39,6 +39,11 @@
 #define _(s) gettext(s)
 
 
+/**
+ * Extract the rules from a CLDR plurals.xml file
+ * @return NULL in case of errors, the CLDR rules otherwise
+ * @example "one: i = 1 and v = 0 @integer 1; other: @integer 0, 2~16, 100, 1000, 10000, 100000, 1000000, \u2026 @decimal 0.0~1.5, 10.0, 100.0, 1000.0, 10000.0, 100000.0, 1000000.0, \u2026"
+ */
 static char *
 extract_rules (FILE *fp,
                const char *real_filename, const char *logical_filename,
@@ -71,8 +76,15 @@ extract_rules (FILE *fp,
     for (n = node->children; n; n = n->next)
       {
         if (n->type == XML_ELEMENT_NODE
-            && xmlStrEqual (n->name, BAD_CAST "plurals"))
-          break;
+            && xmlStrEqual (n->name, BAD_CAST "plurals")
+            && xmlHasProp (n, BAD_CAST "type"))
+          {
+            xmlChar *type = xmlGetProp (n, BAD_CAST "type");
+            bool is_cardinal = xmlStrEqual (type, BAD_CAST "cardinal") != 0;
+            xmlFree (type);
+            if (is_cardinal)
+               break;
+          }
       }
     if (!n)
       {
@@ -154,6 +166,157 @@ extract_rules (FILE *fp,
  out:
   xmlFreeDoc (doc);
   return sb_xdupfree_c (&buffer);
+}
+
+/**
+ * Find the position after the string in format XcY (eg "1c9")
+ * @param str the possible starting position of the string XcY
+ * @return NULL if str does not start with a XcY string,
+ *         the position of str after the XcY string (and after a comma/spaces
+           after it) otherwise
+ */
+static const char *
+get_XcY_end (const char *str)
+{
+  bool found_c = false;
+  if (str[0] < '0' || str[0] > '9')
+    return NULL;
+  str++;
+  while (str[0] != '\0')
+    {
+      if (str[0] == 'c')
+        {
+          if (found_c || str[1] < '0' || str[1] > '9')
+            return NULL;
+          found_c = true;
+        }
+      else if ((str[0] < '0' || str[0] > '9') && str[0] != '.')
+        break;
+      str++;
+    }
+  if (!found_c)
+    return NULL;
+  while (str[0] == ' ')
+    str++;
+  if (str[0] == ',')
+    {
+      str++;
+      while (str[0] == ' ')
+        str++;
+    }
+  return str;
+}
+
+static void
+force_spaces (char *input)
+{
+  while (input[0] != '\0')
+    {
+      if (c_isspace (input[0]))
+        input[0] = ' ';
+      input++;
+    }
+}
+
+static char *
+remove_XcY (const char *input)
+{
+  const char *p = (char *) input;
+  const char *p_next;
+  struct string_buffer buffer;
+  sb_init (&buffer);
+  for (;;)
+    {
+      int comma_and_spaces = -1;
+      const char *p_next1 = strstr (p, "@integer ");
+      const char *p_next2 = strstr (p, "@decimal ");
+      if (p_next1 == NULL && p_next2 == NULL)
+        {
+          sb_append_c (&buffer, p);
+          break;
+        }
+      if (p_next1 != NULL && (p_next2 == NULL || p_next1 < p_next2))
+        p_next = p_next1 + /* strlen ("@integer ") */ 9;
+      else
+        p_next = p_next2 + /* strlen ("@decimal ") */ 9;
+      while (p < p_next)
+        sb_append1 (&buffer, *p++);
+      while (p[0] == ' ')
+        sb_append1 (&buffer, *p++);
+      for (;;)
+        {
+          const char *XcY_end;
+          if (p[0] < '0' || p[0] > '9')
+            break;
+          XcY_end = get_XcY_end (p);
+          if (XcY_end != NULL)
+            {
+              p = XcY_end;
+              continue;
+            }
+          if (comma_and_spaces >= 0)
+            {
+              sb_append1 (&buffer, ',');
+              while (comma_and_spaces > 0)
+                {
+                  sb_append1 (&buffer, ' ');
+                  comma_and_spaces--;
+                }
+            }
+          while ((p[0] >= '0' && p[0] <= '9') || p[0] == '.' || p[0] == '~')
+            {
+              sb_append1 (&buffer, p[0]);
+              p++;
+            }
+          if (p[0] != ',')
+            break;
+          comma_and_spaces = 0;
+          p++;
+          while (p[0] == ' ')
+            {
+              comma_and_spaces++;
+              p++;
+            }
+        }
+      if (comma_and_spaces > 0 && (
+          (p[0] == '\xE2' && p[1] == '\x80' && p[2] == '\xA6')
+          ||
+          (p[0] == '.' && p[1] == '.' && p[2] == '.')
+      ))
+        {
+          sb_append1 (&buffer, ',');
+          while (comma_and_spaces > 0)
+            {
+              sb_append1 (&buffer, ' ');
+              comma_and_spaces--;
+            }
+        }
+    }
+  return sb_dupfree_c (&buffer);
+}
+
+static void
+remove_empty_examples (char *input)
+{
+  const char *prefixes[] =
+    {
+      " @integer \xE2\x80\xA6", " @integer ...",
+      " @decimal \xE2\x80\xA6", " @decimal ..."
+    };
+  int num_prefixes = sizeof (prefixes) / sizeof (prefixes[0]);
+  int i;
+  for (i = 0; i < num_prefixes; i++)
+    {
+      const char *prefix = prefixes[i];
+      size_t prefix_length = strlen (prefix);
+      char *p = input;
+      while ((p = strstr (p, prefix)) != NULL)
+        {
+          memmove (p, p + prefix_length, strlen (p + prefix_length) + 1);
+          while (p[0] == ' ')
+            memmove (p, p + 1, strlen (p + 1) + 1);
+        }
+    }
 }
 
 /* Display usage information and exit.  */
@@ -306,6 +469,16 @@ There is NO WARRANTY, to the extent permitted by law.\n\
         printf ("%s\n", extracted_rules);
       else
         {
+          force_spaces (extracted_rules);
+          {
+            char *tmp = remove_XcY (extracted_rules);
+            if (tmp != NULL)
+              {
+                free (extracted_rules);
+                extracted_rules = tmp;
+                remove_empty_examples (extracted_rules);
+              }
+          }
           struct cldr_plural_rule_list_ty *result =
             cldr_plural_parse (extracted_rules);
           if (result == NULL)

@@ -1,5 +1,5 @@
 /* Unicode CLDR plural rule parser and converter.
-   Copyright (C) 2015-2025 Free Software Foundation, Inc.
+   Copyright (C) 2015-2026 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -133,10 +133,11 @@ eval_relation (struct cldr_plural_relation_ty *relation)
       break;
     case 'f': case 't':
     case 'v': case 'w':
+    case 'c': case 'e':
       {
         /* Since plural expression in gettext only supports unsigned
            integer, turn relations whose operand is either 'f', 't',
-           'v', or 'w' into a constant truth value.  */
+           'v', 'w', 'c', or 'e' into a constant truth value.  */
         /* FIXME: check mod?  */
         for (size_t i = 0; i < relation->ranges->nitems; i++)
           {

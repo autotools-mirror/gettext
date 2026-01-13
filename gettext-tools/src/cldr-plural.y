@@ -1,5 +1,5 @@
 /* Unicode CLDR plural rule parser and converter.
-   Copyright (C) 2015-2025 Free Software Foundation, Inc.
+   Copyright (C) 2015-2026 Free Software Foundation, Inc.
 
    This file was written by Daiki Ueno <ueno@gnu.org>, 2015.
 
@@ -428,7 +428,8 @@ yylex (YYSTYPE *lval, struct cldr_plural_parse_args *arg)
           {
             switch (ident[0])
               {
-              case 'n': case 'i': case 'f': case 't': case 'v': case 'w':
+              // See https://unicode.org/reports/tr35/tr35-numbers.html#table-plural-operand-meanings
+              case 'n': case 'i': case 'f': case 't': case 'v': case 'w': case 'c': case 'e':
                 arg->cp = exp;
                 lval->ival = ident[0];
                 sb_free (&buffer);
