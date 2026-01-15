@@ -1,6 +1,6 @@
 # gettext.m4
-# serial 84 (gettext-1.0)
-dnl Copyright (C) 1995-2025 Free Software Foundation, Inc.
+# serial 85 (gettext-1.0)
+dnl Copyright (C) 1995-2026 Free Software Foundation, Inc.
 dnl This file is free software; the Free Software Foundation
 dnl gives unlimited permission to copy and/or distribute it,
 dnl with or without modifications, as long as this notice is preserved.
@@ -93,8 +93,17 @@ AC_DEFUN([AM_GNU_GETTEXT],
     AC_REQUIRE([AM_ICONV_LINKFLAGS_BODY])
   ])
 
-  dnl Sometimes, on Mac OS X, libintl requires linking with CoreFoundation.
+  dnl On Mac OS X, libintl requires linking with CoreFoundation.
   gt_INTL_MACOSX
+
+  dnl On native Windows, libintl requires linking with advapi32,
+  dnl because langprefs.c (_nl_language_preferences_win32_95) uses functions
+  dnl from advapi32.dll.
+  AC_REQUIRE([AC_CANONICAL_HOST])
+  INTL_WINDOWS_LIBS=
+  case "$host_os" in
+    mingw* | windows*) INTL_WINDOWS_LIBS='-ladvapi32' ;;
+  esac
 
   dnl Set USE_NLS.
   AC_REQUIRE([AM_NLS])
@@ -262,11 +271,13 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
               [eval "$gt_func_gnugettext_libintl=yes"],
               [eval "$gt_func_gnugettext_libintl=no"])
             dnl Now see whether libintl exists and depends on libiconv or other
-            dnl OS dependent libraries, specifically on macOS and AIX.
-            gt_LIBINTL_EXTRA="$INTL_MACOSX_LIBS"
-            AC_REQUIRE([AC_CANONICAL_HOST])
+            dnl OS dependent libraries, specifically on macOS, AIX, and native
+            dnl Windows.
+            gt_LIBINTL_EXTRA=
             case "$host_os" in
-              aix*) gt_LIBINTL_EXTRA="-lpthread" ;;
+              darwin*)           gt_LIBINTL_EXTRA="$INTL_MACOSX_LIBS" ;;
+              aix*)              gt_LIBINTL_EXTRA="-lpthread" ;;
+              mingw* | windows*) gt_LIBINTL_EXTRA="$INTL_WINDOWS_LIBS" ;;
             esac
             if { eval "gt_val=\$$gt_func_gnugettext_libintl"; test "$gt_val" != yes; } \
                && { test -n "$LIBICONV" || test -n "$gt_LIBINTL_EXTRA"; }; then
@@ -353,9 +364,18 @@ return * gettext ("")$gt_expression_test_code + __GNU_GETTEXT_SYMBOL_EXPRESSION
     if test -n "$INTL_MACOSX_LIBS"; then
       if test "$gt_use_preinstalled_gnugettext" = "yes" \
          || test "$gt_cv_use_gnu_libintl" = "yes"; then
-        dnl Some extra flags are needed during linking.
+        dnl Some extra options are needed during linking.
         LIBINTL="$LIBINTL $INTL_MACOSX_LIBS"
         LTLIBINTL="$LTLIBINTL $INTL_MACOSX_LIBS"
+      fi
+    fi
+
+    if test -n "$INTL_WINDOWS_LIBS"; then
+      if test "$gt_use_preinstalled_gnugettext" = "yes" \
+         || test "$gt_cv_use_gnu_libintl" = "yes"; then
+        dnl Some extra options are needed during linking.
+        LIBINTL="$LIBINTL $INTL_WINDOWS_LIBS"
+        LTLIBINTL="$LTLIBINTL $INTL_WINDOWS_LIBS"
       fi
     fi
 

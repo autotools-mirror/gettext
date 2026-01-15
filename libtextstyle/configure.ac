@@ -1,5 +1,5 @@
 dnl Configuration for the toplevel directory of GNU libtextstyle
-dnl Copyright (C) 2009-2025 Free Software Foundation, Inc.
+dnl Copyright (C) 2009-2026 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -172,6 +172,12 @@ AC_PATH_PROG([PERL], [perl], [$ac_aux_dir_abs/missing perl])
 
 dnl Test for features used in install-tests.
 dnl shlibpath_var and PATH_SEPARATOR are set by LT_INIT.
+INSTALLED_LIBTEXTSTYLE="-ltextstyle"
+dnl Link dependencies: $(GETHOSTNAME_LIB).
+case "$host_os" in
+  mingw* | windows*) INSTALLED_LIBTEXTSTYLE="$INSTALLED_LIBTEXTSTYLE -lws2_32" ;;
+esac
+AC_SUBST([INSTALLED_LIBTEXTSTYLE])
 if test -n "${shlibpath_var}"; then
   if test "${shlibpath_var}" = PATH; then
     AUGMENT_SHLIBPATH="PATH='\$(bindir)'${PATH_SEPARATOR}\"\$\$PATH\";"

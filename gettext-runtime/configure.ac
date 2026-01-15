@@ -1,5 +1,5 @@
 dnl Configuration for the gettext-runtime directory of GNU gettext
-dnl Copyright (C) 1995-2025 Free Software Foundation, Inc.
+dnl Copyright (C) 1995-2026 Free Software Foundation, Inc.
 dnl
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -241,7 +241,7 @@ AC_SUBST([ENABLE_SHARED])
 dnl Test for features used in install-tests.
 dnl shlibpath_var and PATH_SEPARATOR are set by LT_INIT.
 if test $USE_INCLUDED_LIBINTL = yes; then
-  INSTALLED_LIBINTL="-lintl $LIBICONV $INTL_MACOSX_LIBS"
+  INSTALLED_LIBINTL="-lintl $LIBICONV $INTL_MACOSX_LIBS $INTL_WINDOWS_LIBS"
 else
   INSTALLED_LIBINTL=
 fi
