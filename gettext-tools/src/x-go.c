@@ -1,5 +1,5 @@
 /* xgettext Go backend.
-   Copyright (C) 2001-2025 Free Software Foundation, Inc.
+   Copyright (C) 2001-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -393,7 +393,7 @@ struct go_package
 static void
 add_to_hash_table (hash_table *htab, const char *name, go_type_t *type)
 {
-  if (hash_insert_entry (htab, name, strlen (name), type) == 0)
+  if (hash_insert_entry (htab, name, strlen (name), type) == NULL)
     /* We have duplicates!  */
     abort ();
 }

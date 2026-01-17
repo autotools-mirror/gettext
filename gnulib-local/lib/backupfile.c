@@ -1,5 +1,5 @@
 /* backupfile.c -- make Emacs style backup file names
-   Copyright (C) 1990-2003, 2005-2006, 2012, 2020, 2025 Free Software Foundation, Inc.
+   Copyright (C) 1990-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -139,7 +139,7 @@ max_backup_version (const char *file, const char *dir)
   size_t file_name_length = strlen (file);
 
   struct dirent *dp;
-  while ((dp = readdir (dirp)) != 0)
+  while ((dp = readdir (dirp)) != NULL)
     {
       if (REAL_DIR_ENTRY (dp) && strlen (dp->d_name) >= file_name_length + 4)
         {
@@ -186,7 +186,7 @@ static const char * const backup_args[] =
   "simple", "never",
   "existing", "nil",
   "numbered", "t",
-  0
+  NULL
 };
 
 static const enum backup_type backup_types[] =
@@ -205,7 +205,7 @@ static const enum backup_type backup_types[] =
 enum backup_type
 get_version (const char *context, const char *version)
 {
-  if (version == 0 || *version == 0)
+  if (version == NULL || *version == '\0')
     return numbered_existing;
   else
     return XARGMATCH (context, version, backup_args, backup_types);
