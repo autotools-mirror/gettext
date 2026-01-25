@@ -370,6 +370,7 @@ The Maintainer's View
 * gettextize Invocation::       Invoking the @code{gettextize} Program
 * Adjusting Files::             Files You Must Create or Alter
 * autoconf macros::             Autoconf macros for use in @file{configure.ac}
+* Interfacing with the Translators::
 * Version Control Issues::      
 * Release Management::          Creating a Distribution Tarball
 
@@ -8950,6 +8951,7 @@ for changes.
 * gettextize Invocation::       Invoking the @code{gettextize} Program
 * Adjusting Files::             Files You Must Create or Alter
 * autoconf macros::             Autoconf macros for use in @file{configure.ac}
+* Interfacing with the Translators::
 * Version Control Issues::      
 * Release Management::          Creating a Distribution Tarball
 @end menu
@@ -9973,6 +9975,43 @@ library support, like SCO.
 
 @file{iconv.m4} is distributed with the GNU gettext package because
 @file{gettext.m4} relies on it.
+
+@node Interfacing with the Translators
+@section Interfacing with the Translators
+
+You need to decide whether your package joins a translation project or
+whether you want to connect to translators in an ad-hoc way.
+
+@cindex translation project
+In a translation project, teams of translators work on a number of
+packages.  They work together by exchanging common practice, technical
+dictionaries, or advice.  Common translation projects are:
+@itemize @bullet
+@item
+The @uref{https://translationproject.org/, ``Translation Project''}.
+This translation project is a good place for GNU packages.
+@item
+The
+@uref{https://wiki.gnome.org/TranslationProject, GNOME translation project}.
+This is the natural place for GNOME packages.
+@item
+The @uref{https://l10n.kde.org/, KDE localization project}.
+This is the canonical place for KDE packages.
+Note: KDE packages don't store their localizations in a @file{po/}
+directory.
+@item
+There are also many translation projects that use
+the @url{https://weblate.org/, Weblate} localization suite.
+@end itemize
+
+Connecting to translators in an ad-hoc way may be useful in the beginning
+if your package has highly specialized terms and translator volunteers
+already waiting.  In the long term, though, you will get more language
+coverage by joining a translation team.
+
+When and how are the files in the @file{po/} directory created, is related
+to this choice.
+See section @ref{Translations under Version Control?} for details.
 
 @node Version Control Issues
 @section Integrating with Version Control Systems
