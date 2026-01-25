@@ -1,5 +1,5 @@
 /* Reading textual message catalogs (such as PO files), abstract class.
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -152,13 +152,15 @@ void
 catalog_reader_parse (abstract_catalog_reader_ty *catr, FILE *fp,
                       const char *real_filename, const char *logical_filename,
                       bool is_pot_role,
-                      catalog_input_format_ty input_syntax)
+                      catalog_input_format_ty input_syntax,
+                      string_list_ty *arena)
 {
   *(catr->xeh->error_message_count_p) = 0;
 
   /* Parse the stream's content.  */
   call_parse_brief (catr);
-  input_syntax->parse (catr, fp, real_filename, logical_filename, is_pot_role);
+  input_syntax->parse (catr, fp, real_filename, logical_filename,
+                       is_pot_role, arena);
   call_parse_debrief (catr);
 
   unsigned int num_errors = *(catr->xeh->error_message_count_p);

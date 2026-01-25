@@ -1,5 +1,5 @@
 /* xgettext PO, JavaProperties, and NXStringTable backends.
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -37,6 +37,7 @@
 #include "read-po.h"
 #include "read-properties.h"
 #include "read-stringtable.h"
+#include "str-list.h"
 #include "msgl-header.h"
 #include "msgl-iconv.h"
 #include "msgl-ascii.h"
@@ -163,8 +164,12 @@ extract (FILE *fp,
   dcatr->file_name = real_filename;
   dcatr->mdlp = NULL;
   dcatr->mlp = mdlp->item[0]->messages;
+
+  string_list_ty arena;
+  string_list_init (&arena);
   catalog_reader_parse ((abstract_catalog_reader_ty *) dcatr, fp, real_filename,
-                        logical_filename, true, input_syntax);
+                        logical_filename, true, input_syntax, &arena);
+
   catalog_reader_free ((abstract_catalog_reader_ty *) dcatr);
 
   if (header_charset != NULL)

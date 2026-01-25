@@ -1,5 +1,5 @@
 /* Reading NeXTstep/GNUstep .strings files.
-   Copyright (C) 2003-2025 Free Software Foundation, Inc.
+   Copyright (C) 2003-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -809,7 +809,7 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *start_pos)
 static void
 stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
                    const char *real_filename, const char *logical_filename,
-                   bool is_pot_role)
+                   bool is_pot_role, string_list_ty *arena)
 {
   fp = file;
   real_file_name = real_filename;

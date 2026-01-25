@@ -1,5 +1,5 @@
 /* GNU gettext - internationalization aids
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>.
    Multibyte character handling by Bruno Haible <haible@clisp.cons.org>.
@@ -784,11 +784,16 @@ mbfile_ungetc (const mbchar_t mbc, mbfile_t mbf)
 /* Prepare lexical analysis.  */
 void
 lex_start (struct po_parser_state *ps,
-           FILE *fp, const char *real_filename, const char *logical_filename)
+           FILE *fp, const char *real_filename, const char *logical_filename,
+           string_list_ty *arena)
 {
   /* Ignore the logical_filename, because PO file entries already have
      their file names attached.  But use real_filename for error messages.  */
-  ps->gram_pos.file_name = xstrdup (real_filename);
+  {
+    char *allocated_file_name = xstrdup (real_filename);
+    string_list_append_move (arena, allocated_file_name);
+    ps->gram_pos.file_name = allocated_file_name;
+  }
 
   mbfile_init (ps->mbf, fp);
 

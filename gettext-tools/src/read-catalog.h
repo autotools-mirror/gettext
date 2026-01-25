@@ -1,5 +1,5 @@
 /* Reading textual message catalogs (such as PO files).
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
    This file was written by Bruno Haible <haible@clisp.cons.org>.
 
    This program is free software: you can redistribute it and/or modify
@@ -21,6 +21,7 @@
 #include "message.h"
 #include "read-catalog-abstract.h"
 #include "xerror-handler.h"
+#include "str-list.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -179,7 +180,8 @@ extern msgdomain_list_ty *
                             const char *real_filename,
                             const char *logical_filename,
                             catalog_input_format_ty input_syntax,
-                            xerror_handler_ty xerror_handler);
+                            xerror_handler_ty xerror_handler,
+                            string_list_ty *arena);
 
 
 #ifdef __cplusplus

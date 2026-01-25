@@ -1467,7 +1467,12 @@ read_exclusion_file (char *filename)
 
   abstract_catalog_reader_ty *catr =
     catalog_reader_alloc (&exclude_methods, textmode_xerror_handler);
-  catalog_reader_parse (catr, fp, real_filename, filename, true, &input_format_po);
+
+  string_list_ty arena;
+  string_list_init (&arena);
+  catalog_reader_parse (catr, fp, real_filename, filename, true,
+                        &input_format_po, &arena);
+
   catalog_reader_free (catr);
 
   if (fp != stdin)

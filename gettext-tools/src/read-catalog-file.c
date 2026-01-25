@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software: you can redistribute it and/or modify
@@ -21,6 +21,7 @@
 #include "read-catalog-file.h"
 
 #include "open-catalog.h"
+#include "str-list.h"
 #include "xerror-handler.h"
 
 
@@ -30,9 +31,11 @@ read_catalog_file (const char *filename, catalog_input_format_ty input_syntax)
   char *real_filename;
   FILE *fp = open_catalog_file (filename, &real_filename, true);
 
+  string_list_ty arena;
+  string_list_init (&arena);
   msgdomain_list_ty *result =
     read_catalog_stream (fp, real_filename, filename, input_syntax,
-                         textmode_xerror_handler);
+                         textmode_xerror_handler, &arena);
 
   if (fp != stdin)
     fclose (fp);

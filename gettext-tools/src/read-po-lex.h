@@ -24,6 +24,7 @@
 #include <stdbool.h>
 
 #include <error.h>
+#include "str-list.h"
 #include "pos.h"
 #include "read-catalog-abstract.h"
 
@@ -55,7 +56,8 @@ struct po_parser_state;
 /* Prepare lexical analysis.  */
 extern void lex_start (struct po_parser_state *ps,
                        FILE *fp, const char *real_filename,
-                       const char *logical_filename);
+                       const char *logical_filename,
+                       string_list_ty *arena);
 
 /* Terminate lexical analysis.  */
 extern void lex_end (struct po_parser_state *ps);

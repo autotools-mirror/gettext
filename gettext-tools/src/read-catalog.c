@@ -1,5 +1,5 @@
 /* Reading textual message catalogs (such as PO files).
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
    This program is free software: you can redistribute it and/or modify
@@ -481,7 +481,8 @@ msgdomain_list_ty *
 read_catalog_stream (FILE *fp, const char *real_filename,
                      const char *logical_filename,
                      catalog_input_format_ty input_syntax,
-                     xerror_handler_ty xerror_handler)
+                     xerror_handler_ty xerror_handler,
+                     string_list_ty *arena)
 {
   default_catalog_reader_ty *dcatr =
     default_catalog_reader_alloc (&default_methods, xerror_handler);
@@ -498,7 +499,7 @@ read_catalog_stream (FILE *fp, const char *real_filename,
     dcatr->mdlp->encoding = po_charset_utf8;
 
   catalog_reader_parse ((abstract_catalog_reader_ty *) dcatr, fp, real_filename,
-                        logical_filename, false, input_syntax);
+                        logical_filename, false, input_syntax, arena);
 
   msgdomain_list_ty *mdlp = dcatr->mdlp;
   catalog_reader_free ((abstract_catalog_reader_ty *) dcatr);

@@ -1,5 +1,5 @@
 /* Public API for GNU gettext PO files.
-   Copyright (C) 2003-2025 Free Software Foundation, Inc.
+   Copyright (C) 2003-2026 Free Software Foundation, Inc.
    Written by Bruno Haible <bruno@clisp.org>, 2003.
 
    This program is free software: you can redistribute it and/or modify
@@ -26,6 +26,7 @@
 #include <string.h>
 
 #include "message.h"
+#include "str-list.h"
 #include "xalloc.h"
 #include "read-catalog.h"
 #include "read-po.h"
@@ -45,6 +46,9 @@ struct po_file
   const char *real_filename;
   const char *logical_filename;
   const char **domains;
+  /* Heap allocations that are guaranteed to persist until the po_file_free
+     call.  */
+  string_list_ty arena;
 };
 
 struct po_message_iterator
@@ -83,6 +87,7 @@ po_file_create (void)
   file->real_filename = _("<unnamed>");
   file->logical_filename = file->real_filename;
   file->domains = NULL;
+  string_list_init (&file->arena);
   return file;
 }
 
@@ -122,9 +127,10 @@ po_file_read (const char *filename, po_xerror_handler_t handler)
   file = XMALLOC (struct po_file);
   file->real_filename = filename;
   file->logical_filename = filename;
+  string_list_init (&file->arena);
   file->mdlp = read_catalog_stream (fp, file->real_filename,
                                     file->logical_filename, &input_format_po,
-                                    &local_xerror_handler);
+                                    &local_xerror_handler, &file->arena);
   file->domains = NULL;
 
   if (fp != stdin)
@@ -165,6 +171,7 @@ po_file_free (po_file_t file)
   msgdomain_list_free (file->mdlp);
   if (file->domains != NULL)
     free (file->domains);
+  string_list_destroy (&file->arena);
   free (file);
 }
 

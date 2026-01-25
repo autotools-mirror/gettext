@@ -1,5 +1,5 @@
 /* Reading textual message catalogs (such as PO files), abstract class.
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This file was written by Peter Miller <millerp@canb.auug.org.au>
 
@@ -24,6 +24,7 @@
 
 #include "message.h"
 #include "xerror-handler.h"
+#include "str-list.h"
 
 
 #ifdef __cplusplus
@@ -158,7 +159,7 @@ struct catalog_input_format
   /* Parses the contents of FP, invoking the appropriate callbacks.  */
   void (*parse) (abstract_catalog_reader_ty *catr, FILE *fp,
                  const char *real_filename, const char *logical_filename,
-                 bool is_pot_role);
+                 bool is_pot_role, string_list_ty *arena);
 
   /* Whether the parse function always produces messages encoded in UTF-8
      encoding.  */
@@ -181,7 +182,8 @@ extern void
                              const char *real_filename,
                              const char *logical_filename,
                              bool is_pot_role,
-                             catalog_input_format_ty input_syntax);
+                             catalog_input_format_ty input_syntax,
+                             string_list_ty *arena);
 
 /* Call the destructor and deallocate a abstract_catalog_reader_ty (or derived
    class) instance.  */

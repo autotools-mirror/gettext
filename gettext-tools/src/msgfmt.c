@@ -1437,8 +1437,10 @@ read_catalog_file_msgfmt (char *filename, catalog_input_format_ty input_syntax)
       dcatr->mlp = current_domain->mlp;
     }
 
+  string_list_ty arena;
+  string_list_init (&arena);
   catalog_reader_parse ((abstract_catalog_reader_ty *) dcatr, fp, real_filename,
-                        filename, false, input_syntax);
+                        filename, false, input_syntax, &arena);
 
   catalog_reader_free ((abstract_catalog_reader_ty *) dcatr);
 

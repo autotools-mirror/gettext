@@ -1,5 +1,5 @@
 /* Reading PO files.
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -30,12 +30,12 @@
 static void
 po_parse (abstract_catalog_reader_ty *catr, FILE *fp,
           const char *real_filename, const char *logical_filename,
-          bool is_pot_role)
+          bool is_pot_role, string_list_ty *arena)
 {
   struct po_parser_state ps;
   ps.catr = catr;
   ps.gram_pot_role = is_pot_role;
-  lex_start (&ps, fp, real_filename, logical_filename);
+  lex_start (&ps, fp, real_filename, logical_filename, arena);
   po_gram_parse (&ps);
   lex_end (&ps);
 }
