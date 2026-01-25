@@ -1,5 +1,5 @@
 /* GLIB - Library of useful routines for C programming
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2026 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -124,7 +124,7 @@ gsize	              g_strlcat        (gchar	     *dest,
 					const gchar  *src,
 					gsize         dest_size);
 #endif
-gchar *               g_strstr_len     (const gchar  *haystack,
+const gchar *         g_strstr_len     (const gchar  *haystack,
 					gssize        haystack_len,
 					const gchar  *needle);
 #if 0

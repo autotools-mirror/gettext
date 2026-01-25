@@ -158,7 +158,7 @@ extract_rules (FILE *fp,
 
   {
     /* Scrub the last semicolon, if any.  */
-    char *p = strrchr (sb_xcontents_c (&buffer), ';');
+    char *p = strrchr ((char *) sb_xcontents_c (&buffer), ';');
     if (p)
       *p = '\0';
   }

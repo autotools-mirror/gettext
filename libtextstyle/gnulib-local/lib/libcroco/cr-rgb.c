@@ -1,7 +1,7 @@
 /* -*- Mode: C; indent-tabs-mode:nil; c-basic-offset: 8-*- */
 
 /* libcroco - Library for parsing and applying CSS
- * Copyright (C) 2006-2019 Free Software Foundation, Inc.
+ * Copyright (C) 2006-2026 Free Software Foundation, Inc.
  *
  * This file is not part of the GNU gettext program, but is used with
  * GNU gettext.
@@ -483,7 +483,7 @@ enum CRStatus
 cr_rgb_set_from_name (CRRgb * a_this, const guchar * a_color_name)
 {
         enum CRStatus status = CR_OK;
-        CRRgb *result;
+        CRRgb const *result;
 
         g_return_val_if_fail (a_this && a_color_name, CR_BAD_PARAM_ERROR);
 
