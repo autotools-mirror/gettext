@@ -1,26 +1,30 @@
 ;;; po-mode.el --- major mode for GNU gettext PO files
 
 ;; Copyright (C) 1995-2026 Free Software Foundation, Inc.
+;;
+;; This file is part of GNU gettext.
+;;
+;; This program is free software: you can redistribute it and/or modify
+;; it under the terms of the GNU General Public License as published by
+;; the Free Software Foundation; either version 3 of the License, or
+;; (at your option) any later version.
+;;
+;; This program is distributed in the hope that it will be useful,
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+;; GNU General Public License for more details.
+;;
+;; You should have received a copy of the GNU General Public License
+;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+;;; Meta information understood by ELPA:
 
 ;; Authors: François Pinard, Greg McGary, Ulrich Drepper, Bruno Haible.
 ;; Keywords: i18n gettext
 ;; Created: 1995
 ;; Package-Requires: ((emacs "23"))
-
-;; This file is part of GNU gettext.
-
-;; This program is free software: you can redistribute it and/or modify
-;; it under the terms of the GNU General Public License as published by
-;; the Free Software Foundation; either version 3 of the License, or
-;; (at your option) any later version.
-
-;; This program is distributed in the hope that it will be useful,
-;; but WITHOUT ANY WARRANTY; without even the implied warranty of
-;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-;; GNU General Public License for more details.
-
-;; You should have received a copy of the GNU General Public License
-;; along with this program.  If not, see <https://www.gnu.org/licenses/>.
+;; Version: 2.32
+(defconst po-mode-version-string "2.32" "Version number of this version of po-mode.el.")
 
 ;;; Commentary:
 
@@ -62,9 +66,6 @@
 
 ;;; Code:
 
-(defconst po-mode-version-string "2.32" "\
-Version number of this version of po-mode.el.")
-
 ;;; Emacs portability matters - part I.
 ;;; Here is the minimum for customization to work.  See part II.
 
