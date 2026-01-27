@@ -1,6 +1,5 @@
 /* Error handling during reading and writing of PO files.
-   Copyright (C) 2005-2024 Free Software Foundation, Inc.
-   Written by Bruno Haible <bruno@clisp.org>, 2005.
+   Copyright (C) 2005-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,6 +13,8 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Bruno Haible.  */
 
 #ifndef _PO_XERROR_H
 #define _PO_XERROR_H

@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
+# Written by Bruno Haible.
 
 # Usage: convert-archive FROM TO [FROMFILE [TOFILE]]
 # where FROM is dir or dirgz or dirbz2 or dirxz or cvs or git

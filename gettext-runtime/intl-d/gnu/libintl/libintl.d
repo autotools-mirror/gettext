@@ -1,5 +1,5 @@
 /+ D bindings to the GNU gettext runtime library.
-   Copyright © 2025 Free Software Foundation, Inc.
+   Copyright © 2025-2026 Free Software Foundation, Inc.
 
    Boost Software License - Version 1.0 - August 17th, 2003
 
@@ -26,7 +26,7 @@
    DEALINGS IN THE SOFTWARE.
  +/
 
-/* Written by Bruno Haible <bruno@clisp.org>, 2025.  */
+/* Written by Bruno Haible.  */
 
 module gnu.libintl.libintl;
 

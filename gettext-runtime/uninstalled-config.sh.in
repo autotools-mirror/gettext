@@ -1,6 +1,6 @@
 #! /bin/sh
 #
-# Copyright (C) 2022 Free Software Foundation, Inc.
+# Copyright (C) 2022-2026 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
+# Written by Bruno Haible.
 
 # This script makes it possible to build this package in a sibling directory
 # of a package such as GCC, gdb, or binutils, and use the binaries in the

@@ -1,5 +1,5 @@
 /* xgettext TypeScript and TSX backends.
-   Copyright (C) 2001-2025 Free Software Foundation, Inc.
+   Copyright (C) 2001-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-/* Written by Bruno Haible <bruno@clisp.org>, 2025.  */
+/* Written by Bruno Haible.  */
 
 /* The languages TypeScript and TSX (= TypeScript with JSX) are very similar.
    The extractor code is therefore nearly identical.  */

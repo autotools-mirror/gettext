@@ -2,8 +2,7 @@
 
 ;; Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
-;; Authors: François Pinard <pinard@iro.umontreal.ca>
-;;          Greg McGary <gkm@magilla.cichlid.com>
+;; Authors: François Pinard, Greg McGary, Ulrich Drepper, Bruno Haible.
 ;; Keywords: i18n gettext
 ;; Created: 1995
 ;; Package-Requires: ((emacs "23"))

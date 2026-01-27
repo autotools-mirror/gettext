@@ -1,7 +1,7 @@
 #!/bin/sh
 # join-v-1 - Filter out a set of items from another set of items.
 
-# Copyright (C) 2021 Free Software Foundation, Inc.
+# Copyright (C) 2021-2026 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +15,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Written by Bruno Haible and Bernhard Voelker.
 
 # Usage: join-v-1 FILE1 FILE2
 # Produces on stdout a list of items that are contained in FILE1 but not

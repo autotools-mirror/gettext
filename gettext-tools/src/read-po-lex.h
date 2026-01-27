@@ -1,8 +1,6 @@
 /* GNU gettext - internationalization aids
    Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
-   This file was written by Peter Miller <millerp@canb.auug.org.au>
-
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
    the Free Software Foundation; either version 3 of the License, or
@@ -15,6 +13,8 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Peter Miller, Ulrich Drepper, and Bruno Haible.  */
 
 #ifndef _PO_LEX_H
 #define _PO_LEX_H

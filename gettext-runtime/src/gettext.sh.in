@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU Lesser General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
+# Written by Bruno Haible.
 
 # Find a way to echo strings without interpreting backslash.
 if test "X`(echo '\t') 2>/dev/null`" = 'X\t'; then

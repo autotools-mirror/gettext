@@ -1,10 +1,8 @@
 ;;; po-compat.el --- basic support of PO translation files -*- coding: latin-1; -*-
 
-;; Copyright (C) 1995-2002, 2010, 2016, 2019, 2023 Free Software Foundation, Inc.
+;; Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
-;; Authors: François Pinard <pinard@iro.umontreal.ca>,
-;;          Greg McGary <gkm@magilla.cichlid.com>,
-;;          Bruno Haible <bruno@clisp.org>.
+;; Authors: François Pinard, Greg McGary, Ulrich Drepper, Bruno Haible.
 ;; Keywords: i18n, files
 
 ;; This file is part of GNU gettext.

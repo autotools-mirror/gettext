@@ -14,8 +14,8 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-/* Written by David MacKenzie <djm@gnu.ai.mit.edu>.
-   Some algorithms adapted from GNU Emacs. */
+/* Written by David MacKenzie, Jim Meyering, and Bruno Haible.
+   Some algorithms adapted from GNU Emacs.  */
 
 #include <config.h>
 

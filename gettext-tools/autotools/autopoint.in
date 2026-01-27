@@ -15,6 +15,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #
+# Written by Bruno Haible and Daiki Ueno.
 
 # This file is meant for authors, maintainers, co-maintainers or installers
 # of packages which are internationalized with the help of GNU gettext.  For

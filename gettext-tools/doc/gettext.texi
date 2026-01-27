@@ -124,6 +124,8 @@ A copy of the license is included in @ref{GNU GPL}.
 @author Jim Meyering
 @author Fran@,{c}ois Pinard
 @author Bruno Haible
+@author Daiki Ueno
+@author Miguel @'Angel Arruga Vivas
 
 @ifnothtml
 @page

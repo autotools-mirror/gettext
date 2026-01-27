@@ -1,6 +1,5 @@
 /* GNU gettext for C#
- * Copyright (C) 2003-2024 Free Software Foundation, Inc.
- * Written by Bruno Haible <bruno@clisp.org>, 2003.
+ * Copyright (C) 2003-2026 Free Software Foundation, Inc.
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Lesser General Public License as published by
@@ -15,6 +14,8 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+/* Written by Bruno Haible.  */
 
 /*
  * Using the GNU gettext approach, compiled message catalogs are assemblies

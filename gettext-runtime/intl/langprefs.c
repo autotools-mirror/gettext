@@ -1,5 +1,5 @@
 /* Determine the user's language preferences.
-   Copyright (C) 2004-2007, 2018-2024 Free Software Foundation, Inc.
+   Copyright (C) 2004-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -14,8 +14,8 @@
    You should have received a copy of the GNU Lesser General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-/* Written by Bruno Haible <bruno@clisp.org>.
-   Win32 code originally by Michele Cicciotti <hackbunny@reactos.com>.  */
+/* Written by Bruno Haible.
+   Win32 code originally by Michele Cicciotti.  */
 
 #ifdef HAVE_CONFIG_H
 # include <config.h>

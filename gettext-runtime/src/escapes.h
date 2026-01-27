@@ -1,6 +1,5 @@
 /* Expand escape sequences in a string.
-   Copyright (C) 1995-1997, 2000-2007, 2012, 2018-2020, 2025 Free Software Foundation, Inc.
-   Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, May 1995.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,6 +13,8 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Ulrich Drepper.  */
 
 /* Expand some escape sequences found in the argument string.
    If backslash_c_seen is != NULL, '\c' sequences are recognized and

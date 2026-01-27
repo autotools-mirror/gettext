@@ -1,6 +1,5 @@
 /* Writing Desktop Entry files.
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
-   This file was written by Daiki Ueno <ueno@gnu.org>.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,6 +13,8 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Daiki Ueno.  */
 
 #include <config.h>
 

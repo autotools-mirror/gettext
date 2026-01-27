@@ -1,6 +1,5 @@
 /* xgettext Desktop Entry backend.
-   Copyright (C) 2014, 2018, 2020 Free Software Foundation, Inc.
-   Written by Daiki Ueno <ueno@gnu.org>, 2014.
+   Copyright (C) 2014-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,6 +14,7 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
+/* Written by Daiki Ueno.  */
 
 #include <stdio.h>
 

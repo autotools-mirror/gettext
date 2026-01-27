@@ -14,6 +14,8 @@
    You should have received a copy of the GNU Lesser General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
+/* Written by Ulrich Drepper and Bruno Haible.  */
+
 #ifndef _LIBINTL_H
 #define _LIBINTL_H 1
 

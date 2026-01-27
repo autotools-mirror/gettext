@@ -1,7 +1,7 @@
 #!/bin/bash
 # Script that checks against build infrastructure mistakes in the examples.
 
-# Copyright (C) 2018-2025 Free Software Foundation, Inc.
+# Copyright (C) 2018-2026 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
+#
+# Written by Bruno Haible.
 
 # func_init sample
 # sets environment variables for building and running the given sample.

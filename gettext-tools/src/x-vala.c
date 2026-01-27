@@ -1,7 +1,5 @@
 /* xgettext Vala backend.
-   Copyright (C) 2013-2025 Free Software Foundation, Inc.
-
-   This file was written by Daiki Ueno <ueno@gnu.org>, 2013.
+   Copyright (C) 2013-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,6 +13,8 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Peter Miller, Bruno Haible, and Daiki Ueno.  */
 
 #include <config.h>
 

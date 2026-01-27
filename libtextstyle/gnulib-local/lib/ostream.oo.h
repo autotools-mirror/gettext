@@ -1,6 +1,5 @@
 /* Abstract output stream data type.
    Copyright (C) 2006, 2019-2026 Free Software Foundation, Inc.
-   Written by Bruno Haible <bruno@clisp.org>, 2006.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,6 +13,8 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Bruno Haible.  */
 
 #ifndef _OSTREAM_H
 #define _OSTREAM_H

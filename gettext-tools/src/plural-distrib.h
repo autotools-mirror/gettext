@@ -1,6 +1,5 @@
 /* Value distribution of plural form expressions.
-   Copyright (C) 2001-2008 Free Software Foundation, Inc.
-   Written by Bruno Haible <bruno@clisp.org>, 2001-2005.
+   Copyright (C) 2001-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,6 +13,8 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Bruno Haible.  */
 
 #ifndef _PLURAL_DISTRIB_H
 #define _PLURAL_DISTRIB_H

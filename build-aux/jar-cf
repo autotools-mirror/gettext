@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-# Written by Bruno Haible <bruno@clisp.org>, 2024.
+# Written by Bruno Haible.
 
 # func_usage
 # outputs to stdout the --help usage message.

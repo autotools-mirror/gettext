@@ -1,6 +1,5 @@
 /* Message list header manipulation.
-   Copyright (C) 2007-2024 Free Software Foundation, Inc.
-   Written by Bruno Haible <bruno@clisp.org>, 2007.
+   Copyright (C) 2007-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -14,6 +13,8 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Bruno Haible.  */
 
 #ifndef _MSGL_HEADER_H
 #define _MSGL_HEADER_H

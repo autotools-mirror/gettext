@@ -1,7 +1,6 @@
 #! /usr/bin/sed -f
 #
-# Copyright (C) 2006 Free Software Foundation, Inc.
-# Written by Bruno Haible <bruno@clisp.org>, 2006.
+# Copyright (C) 2006-2026 Free Software Foundation, Inc.
 #
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,6 +14,8 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
+#
+# Written by Bruno Haible.
 #
 #
 # Each line of the form ^...   .* contains the code for a language.

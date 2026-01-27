@@ -14,7 +14,7 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-/* Written by Bruno Haible <bruno@clisp.org>, 2006, 2019.  */
+/* Written by Bruno Haible.  */
 
 #ifndef _TEXTSTYLE_H
 #define _TEXTSTYLE_H

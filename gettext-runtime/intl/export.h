@@ -1,5 +1,5 @@
 /* Control of exported symbols from libintl.
-   Copyright (C) 2005-2023 Free Software Foundation, Inc.
+   Copyright (C) 2005-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU Lesser General Public License as published by
@@ -13,6 +13,8 @@
 
    You should have received a copy of the GNU Lesser General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Bruno Haible.  */
 
 #if @HAVE_VISIBILITY@ && BUILDING_LIBINTL
 # define LIBINTL_SHLIB_EXPORTED __attribute__((__visibility__("default")))

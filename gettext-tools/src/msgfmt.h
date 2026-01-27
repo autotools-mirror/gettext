@@ -1,7 +1,5 @@
 /* msgfmt specifics
-   Copyright (C) 1995-1998, 2000-2001, 2009, 2015 Free Software
-   Foundation, Inc.
-   Written by Ulrich Drepper <drepper@gnu.ai.mit.edu>, April 1995.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,6 +13,8 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Bruno Haible and Daiki Ueno.  */
 
 #ifndef _MSGFMT_H
 #define _MSGFMT_H

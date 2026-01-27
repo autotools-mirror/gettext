@@ -14,7 +14,7 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-/* Written by Daiki Ueno <ueno@gnu.org> and Bruno Haible <bruno@clisp.org>.  */
+/* Written by Daiki Ueno and Bruno Haible.  */
 
 #include <config.h>
 

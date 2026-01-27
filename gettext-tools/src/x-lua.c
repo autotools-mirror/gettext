@@ -1,7 +1,5 @@
 /* xgettext Lua backend.
-   Copyright (C) 2012-2025 Free Software Foundation, Inc.
-
-   This file was written by Ľubomír Remák <lubomirr@lubomirr.eu>, 2012.
+   Copyright (C) 2012-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -15,6 +13,8 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Ľubomír Remák and Bruno Haible.  */
 
 #include <config.h>
 

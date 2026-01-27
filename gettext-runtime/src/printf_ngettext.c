@@ -14,7 +14,7 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
 
-/* Written by Bruno Haible <bruno@clisp.org>, 2025.  */
+/* Written by Bruno Haible.  */
 
 /* This program is a combination of the 'ngettext' program with the 'printf'
    program.  It takes the (English) singular and plural form of a format string,

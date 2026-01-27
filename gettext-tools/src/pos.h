@@ -1,5 +1,5 @@
 /* Source file positions.
-   Copyright (C) 1995-1998, 2000-2001, 2021, 2023 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -13,6 +13,8 @@
 
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <https://www.gnu.org/licenses/>.  */
+
+/* Written by Peter Miller, Ulrich Drepper, and Bruno Haible.  */
 
 #ifndef _POS_H
 #define _POS_H
