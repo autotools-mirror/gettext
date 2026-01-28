@@ -408,7 +408,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* Merge the two files.  */
   msgdomain_list_ty *def;
   msgdomain_list_ty *result =
-    merge (argv[optind], argv[optind + 1], input_syntax, &def);
+    merge (argv[optind], input_syntax, argv[optind + 1], input_syntax, &def);
 
   /* Sort the results.  */
   if (sort_by_filepos)

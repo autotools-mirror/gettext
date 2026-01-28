@@ -1,5 +1,5 @@
 /* Merging a .po file with a .pot file.
-   Copyright (C) 1995-2025 Free Software Foundation, Inc.
+   Copyright (C) 1995-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -64,8 +64,9 @@ extern string_list_ty *compendium_filenames;
 
 extern msgdomain_list_ty *
        merge (const char *definitions_file_name,
+              catalog_input_format_ty definitions_file_syntax,
               const char *references_file_name,
-              catalog_input_format_ty input_syntax,
+              catalog_input_format_ty references_file_syntax,
               msgdomain_list_ty **defp);
 
 

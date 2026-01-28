@@ -144,6 +144,7 @@ main (int argc, char **argv)
   char *output_file = NULL;
   const char *input_file = NULL;
   catalog_input_format_ty input_syntax = &input_format_po;
+  catalog_input_format_ty output_file_input_syntax = &input_format_po;
   catalog_output_format_ty output_syntax = &output_format_po;
   locale = NULL;
 
@@ -198,6 +199,7 @@ main (int argc, char **argv)
           break;
 
         case 'p':
+          output_file_input_syntax = &input_format_properties;
           output_syntax = &output_format_properties;
           break;
 
@@ -231,6 +233,7 @@ main (int argc, char **argv)
           break;
 
         case CHAR_MAX + 4: /* --stringtable-output */
+          output_file_input_syntax = &input_format_stringtable;
           output_syntax = &output_format_stringtable;
           break;
 
@@ -334,7 +337,9 @@ This is necessary so you can test your translations.\n"),
       quiet = true;
       keep_previous = true;
       msgdomain_list_ty *def;
-      result = merge (output_file, input_file, input_syntax, &def);
+      result = merge (output_file, output_file_input_syntax,
+                      input_file, input_syntax,
+                      &def);
 
       /* Update the header entry.  */
       result = fill_header (result, false);

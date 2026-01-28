@@ -1070,19 +1070,23 @@ match_domain (const char *definitions_file_name,
 }
 
 msgdomain_list_ty *
-merge (const char *definitions_file_name, const char *references_file_name,
-       catalog_input_format_ty input_syntax,
+merge (const char *definitions_file_name,
+       catalog_input_format_ty definitions_file_syntax,
+       const char *references_file_name,
+       catalog_input_format_ty references_file_syntax,
        msgdomain_list_ty **defp)
 {
   struct statistics stats;
   stats.merged = stats.fuzzied = stats.missing = stats.obsolete = 0;
 
   /* This is the definitions file, created by a human.  */
-  msgdomain_list_ty *def = read_catalog_file (definitions_file_name, input_syntax);
+  msgdomain_list_ty *def =
+    read_catalog_file (definitions_file_name, definitions_file_syntax);
 
   /* This is the references file, created by groping the sources with
      the xgettext program.  */
-  msgdomain_list_ty *ref = read_catalog_file (references_file_name, input_syntax);
+  msgdomain_list_ty *ref =
+    read_catalog_file (references_file_name, references_file_syntax);
   check_pot_charset (ref, references_file_name);
   /* Add a dummy header entry, if the references file contains none.  */
   for (size_t k = 0; k < ref->nitems; k++)
