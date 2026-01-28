@@ -75,13 +75,13 @@ We assume that the following environment variables are set:
     run.sh in gettext-runtime/doc/Admin/.  Copy resulting matrix.texi
     into gettext-runtime/doc/.  Update the STATUS date in nls.texi.
 
-  - gettext-runtime/po/Makefile.in.in
+  - gettext-tools/wizard/po-templates/traditional/Makefile.in.in
 
     Update Origin version.
 
   - gettext-runtime/m4/*.m4
 
-    Update version at the first line.
+    Update version at the second line.
 
   - gettext-runtime/intl/libgnuintl.in.h
 
@@ -166,7 +166,7 @@ We assume that the following environment variables are set:
 
   - gettext-tools/autotools/autopoint.in
 
-    Update the 'case' statement around line 395 to include the latest release.
+    Update the 'case' statement around line 410 to include the latest release.
 
 ** If you got any translation updates, update translations:
 

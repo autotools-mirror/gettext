@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2025 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2026 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node The original ABOUT-NLS
@@ -12,7 +12,7 @@ as a file named @code{ABOUT-NLS}.
 @strong{ NOTE: } This documentation section is outdated.  It it included
 here for historical purposes only.
 
-@set STATUS July 2025
+@set STATUS January 2026
 
 Free software is going international!  The Free Translation Project is
 a way to get maintainers of free software, translators, and users all

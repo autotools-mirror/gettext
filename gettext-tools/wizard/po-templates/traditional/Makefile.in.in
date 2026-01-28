@@ -9,7 +9,7 @@
 #
 # Written by Ulrich Drepper, Bruno Haible, and Daiki Ueno.
 #
-# Origin: gettext-0.26
+# Origin: gettext-1.0
 GETTEXT_MACRO_VERSION = 0.24
 
 # This Makefile makes use of the variable assignment operator != standardized
