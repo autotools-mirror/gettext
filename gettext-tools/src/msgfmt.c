@@ -455,7 +455,10 @@ This is free software: you are free to change and redistribute it.\n\
 There is NO WARRANTY, to the extent permitted by law.\n\
 "),
               "1995-2026", "https://gnu.org/licenses/gpl.html");
-      printf (_("Written by %s.\n"), proper_name ("Ulrich Drepper"));
+      printf (_("Written by %s, %s, and %s.\n"),
+              proper_name ("Ulrich Drepper"),
+              proper_name ("Bruno Haible"),
+              proper_name ("Daiki Ueno"));
       exit (EXIT_SUCCESS);
     }
 
