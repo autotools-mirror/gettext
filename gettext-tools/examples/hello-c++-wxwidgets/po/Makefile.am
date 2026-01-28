@@ -432,6 +432,10 @@ EXTRA_DIST = remove-potcdate.sed LINGUAS $(POFILES) $(GMOFILES)
 distdir1:
 	$(MAKE) update-po
 	$(MAKE) $(srcdir)/stamp-po
+	@for file in fetch-po; do \
+	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
+	  cp -p $$d/$$file $(distdir)/$$file || exit 1; \
+	done
 	@if test -f $(srcdir)/$(DOMAIN).pot; then \
 	  for file in $(DOMAIN).pot stamp-po; do \
 	    if test -f $$file; then d=.; else d=$(srcdir); fi; \

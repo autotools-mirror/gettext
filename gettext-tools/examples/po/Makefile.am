@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples/po subdirectory of GNU gettext
-## Copyright (C) 1995-2025 Free Software Foundation, Inc.
+## Copyright (C) 1995-2026 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -432,6 +432,10 @@ EXTRA_DIST = remove-potcdate.sed xsmallpot.sh mmsmallpo.sh LINGUAS \
 # Hidden from automake, but really activated. Works around an automake-1.5 bug.
 #distdir: distdir1
 distdir1: $(srcdir)/$(DOMAIN).pot
+	for file in fetch-po; do \
+	  if test -f $$file; then d=.; else d=$(srcdir); fi; \
+	  cp -p $$d/$$file $(distdir)/$$file || exit 1; \
+	done
 	if test -f $(srcdir)/$(DOMAIN).pot; then \
 	  for file in $(DOMAIN).pot stamp-po $(SMALLPOTS); do \
 	    if test -f $$file; then d=.; else d=$(srcdir); fi; \
