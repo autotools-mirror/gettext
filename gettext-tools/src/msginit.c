@@ -318,15 +318,18 @@ This is necessary so you can test your translations.\n"),
          continue, based on these translations.  */
 
       /* First, create a backup file.  */
-      {
-        const char *backup_suffix_string = getenv ("SIMPLE_BACKUP_SUFFIX");
-        if (backup_suffix_string != NULL && backup_suffix_string[0] != '\0')
-          simple_backup_suffix = backup_suffix_string;
-      }
-      {
-        char *backup_file = find_backup_file_name (output_file, simple);
-        xcopy_file_preserving (output_file, backup_file);
-      }
+      if (!no_translator)
+        {
+          {
+            const char *backup_suffix_string = getenv ("SIMPLE_BACKUP_SUFFIX");
+            if (backup_suffix_string != NULL && backup_suffix_string[0] != '\0')
+              simple_backup_suffix = backup_suffix_string;
+          }
+          {
+            char *backup_file = find_backup_file_name (output_file, simple);
+            xcopy_file_preserving (output_file, backup_file);
+          }
+        }
 
       /* Initialize OpenMP.  */
       #ifdef _OPENMP
