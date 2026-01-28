@@ -151,6 +151,8 @@ enum token_type_ty
   token_type_dot,               /* . */
   token_type_operator1,         /* * / % ++ -- */
   token_type_operator2,         /* + - ! ~ @ */
+  token_type_lbrace,            /* { */
+  token_type_rbrace,            /* } */
   token_type_string_literal,    /* "abc" */
   token_type_symbol,            /* symbol, number */
   token_type_other              /* misc. operator */
@@ -211,6 +213,7 @@ struct php_extractor
   /* Current nesting depths.  */
   int paren_nesting_depth;
   int bracket_nesting_depth;
+  int brace_nesting_depth;
 };
 
 static inline void
@@ -235,10 +238,15 @@ php_extractor_init_rest (struct php_extractor *xp)
 
   xp->paren_nesting_depth = 0;
   xp->bracket_nesting_depth = 0;
+  xp->brace_nesting_depth = 0;
 }
 
 /* Forward declarations.  */
-static void extract_php_input (struct php_extractor *xp);
+static bool extract_balanced (struct php_extractor *xp,
+                              token_type_ty delim,
+                              flag_region_ty *outer_region,
+                              flag_context_list_iterator_ty context_iter,
+                              struct arglist_parser *argparser);
 
 
 /* ======================== Reading of characters.  ======================== */
@@ -973,81 +981,16 @@ process_dquote_or_heredoc (struct php_extractor *xp, bool heredoc)
 
  string_with_embedded_expressions:
   is_constant = false;
-  {
-    size_t nesting_stack_alloc = 10;
-    char *nesting_stack = xmalloc (nesting_stack_alloc);
-    size_t nesting_stack_depth = 0;
-    /* We just read a '{', so expect a matching '}'.  */
-    nesting_stack[nesting_stack_depth++] = '}';
-
-    /* Find the extent of the expression.  */
-    struct string_buffer buffer;
-    sb_init (&buffer);
-    for (;;)
-      {
-        int c;
-
-        c = phase1_getc (xp);
-        if (!heredoc && c == EOF)
-          break;
-        if (c == (heredoc ? EOF : '"'))
-          {
-            if (nesting_stack_depth > 0)
-              if_error (IF_SEVERITY_WARNING,
-                        logical_file_name, xp->line_number, (size_t)(-1), false,
-                        heredoc
-                        ? _("unterminated expression in heredoc, expected a '%c'")
-                        : _("unterminated expression in string literal, expected a '%c'"),
-                        nesting_stack[nesting_stack_depth - 1]);
-            break;
-          }
-        if (heredoc && c == '\n')
-          xp->line_number++;
-        if (c == '{' || c == '[' || c == '(')
-          {
-            if (nesting_stack_depth >= nesting_stack_alloc)
-              {
-                nesting_stack_alloc = 2 * nesting_stack_alloc;
-                nesting_stack =
-                  xrealloc (nesting_stack, nesting_stack_alloc);
-              }
-            nesting_stack[nesting_stack_depth++] =
-              (c == '{' ? '}' : c == '[' ? ']' : ')');
-          }
-        else if (c == '}' || c == ']' || c == ')')
-          {
-            if (nesting_stack_depth > 0
-                && c == nesting_stack[nesting_stack_depth - 1])
-              {
-                if (--nesting_stack_depth == 0)
-                  break;
-              }
-            else
-              if_error (IF_SEVERITY_WARNING,
-                        logical_file_name, xp->line_number, (size_t)(-1), false,
-                        heredoc
-                        ? _("unterminated expression in heredoc contains unbalanced '%c'")
-                        : _("unterminated expression in string literal contains unbalanced '%c'"),
-                        c);
-          }
-        sb_xappend1 (&buffer, c);
-      }
-
-    /* Recursively extract messages from the expression.  */
-    string_desc_t substring = sb_contents (&buffer);
-
-    struct php_extractor *rxp = XMALLOC (struct php_extractor);
-    rxp->mlp = xp->mlp;
-    sf_istream_init_from_string_desc (&rxp->input, substring);
-    rxp->line_number = xp->line_number;
-    php_extractor_init_rest (rxp);
-
-    extract_php_input (rxp);
-
-    free (rxp);
-    sb_free (&buffer);
-    free (nesting_stack);
-  }
+  if (++(xp->brace_nesting_depth) > MAX_NESTING_DEPTH)
+    if_error (IF_SEVERITY_FATAL_ERROR,
+              logical_file_name, xp->line_number, (size_t)(-1), false,
+              _("too many open braces"));
+  if (extract_balanced (xp, token_type_rbrace,
+                        null_context_region (),
+                        null_context_list_iterator,
+                        arglist_parser_alloc (xp->mlp, NULL)))
+    return NULL;
+  xp->brace_nesting_depth--;
   goto string_continued;
 }
 
@@ -1281,6 +1224,14 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
         case '~':
         case '@':
           tp->type = token_type_operator2;
+          return;
+
+        case '{':
+          tp->type = token_type_lbrace;
+          return;
+
+        case '}':
+          tp->type = token_type_rbrace;
           return;
 
         case '<':
@@ -1698,8 +1649,8 @@ static flag_context_list_table_ty *flag_context_list_table;
 
 /* Extract messages until the next balanced closing parenthesis or bracket.
    Extracted messages are added to XP->MLP.
-   DELIM can be either token_type_rparen or token_type_rbracket, or
-   token_type_eof to accept both.
+   DELIM can be either token_type_rparen or token_type_rbracket or
+   token_type_rbrace, or token_type_eof to accept any of them.
    Return true upon eof, false upon closing parenthesis or bracket.  */
 static bool
 extract_balanced (struct php_extractor *xp,
@@ -1824,6 +1775,36 @@ extract_balanced (struct php_extractor *xp,
           state = 0;
           break;
 
+        case token_type_lbrace:
+          if (++(xp->brace_nesting_depth) > MAX_NESTING_DEPTH)
+            if_error (IF_SEVERITY_FATAL_ERROR,
+                      logical_file_name, xp->line_number, (size_t)(-1), false,
+                      _("too many open braces"));
+          if (extract_balanced (xp, token_type_rbrace,
+                                null_context_region (),
+                                null_context_list_iterator,
+                                arglist_parser_alloc (xp->mlp, NULL)))
+            {
+              arglist_parser_done (argparser, arg);
+              unref_region (inner_region);
+              return true;
+            }
+          xp->brace_nesting_depth--;
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          break;
+
+        case token_type_rbrace:
+          if (delim == token_type_rbrace || delim == token_type_eof)
+            {
+              arglist_parser_done (argparser, arg);
+              unref_region (inner_region);
+              return false;
+            }
+          next_context_iter = null_context_list_iterator;
+          state = 0;
+          break;
+
         case token_type_string_literal:
           {
             lex_pos_ty pos;
@@ -1870,18 +1851,6 @@ extract_balanced (struct php_extractor *xp,
 }
 
 
-static void
-extract_php_input (struct php_extractor *xp)
-{
-  /* Eat tokens until eof is seen.  When extract_balanced returns
-     due to an unbalanced closing parenthesis, just restart it.  */
-  while (!extract_balanced (xp, token_type_eof,
-                            null_context_region (), null_context_list_iterator,
-                            arglist_parser_alloc (xp->mlp, NULL)))
-    ;
-}
-
-
 void
 extract_php (FILE *f,
              const char *real_filename, const char *logical_filename,
@@ -1904,7 +1873,12 @@ extract_php (FILE *f,
   /* Initial mode is HTML mode, not PHP mode.  */
   skip_html (xp);
 
-  extract_php_input (xp);
+  /* Eat tokens until eof is seen.  When extract_balanced returns
+     due to an unbalanced closing parenthesis, just restart it.  */
+  while (!extract_balanced (xp, token_type_eof,
+                            null_context_region (), null_context_list_iterator,
+                            arglist_parser_alloc (xp->mlp, NULL)))
+    ;
 
   /* Close scanner.  */
   free (xp);

@@ -24,22 +24,34 @@ echo _("embedded_1_$foo bar");
 echo _("embedded_2_${foo}bar");
 echo _("embedded_3_{$foo}bar");
 echo _("embedded_4_{$array[func(_('embedded_4_sub1'))]}_bar_{$array[func(_('embedded_4_sub2'))]}_baz");
-echo _("embedded_5");
+echo _("embedded_5_{$array[func(_("embedded_5_sub1"))]}_bar_{$array[func(_("embedded_5_sub2"))]}_baz");
+echo _("embedded_6_{$array[func(_("embedded_6_sub]}1"))]}_bar_{$array[func(_("embedded_6_sub]}2"))]}_baz");
+echo _("embedded_7_{$array[func(_("embedded_7_sub\"1"))]}_bar_{$array[func(_("embedded_7_sub\"2"))]}_baz");
+echo _("embedded_8");
 // Heredoc with with embedded expressions.
 echo _(<<<EOT
-embedded_6_$foo bar
+embedded_11_$foo bar
 EOT);
 echo _(<<<EOT
-embedded_7_${foo}bar
+embedded_12_${foo}bar
 EOT);
 echo _(<<<EOT
-embedded_8_{$foo}bar
+embedded_13_{$foo}bar
 EOT);
 echo _(<<<EOT
-embedded_9_{$array[func(_('embedded_9_sub1'))]}_bar_{$array[func(_('embedded_9_sub2'))]}_baz
+embedded_14_{$array[func(_('embedded_14_sub1'))]}_bar_{$array[func(_('embedded_14_sub2'))]}_baz
 EOT);
 echo _(<<<EOT
-embedded_10
+embedded_15_{$array[func(_("embedded_15_sub1"))]}_bar_{$array[func(_("embedded_15_sub2"))]}_baz
+EOT);
+echo _(<<<EOT
+embedded_16_{$array[func(_("embedded_16_sub]}1"))]}_bar_{$array[func(_("embedded_16_sub]}2"))]}_baz
+EOT);
+echo _(<<<EOT
+embedded_17_{$array[func(_("embedded_17_sub\"1"))]}_bar_{$array[func(_("embedded_17_sub\"2"))]}_baz
+EOT);
+echo _(<<<EOT
+embedded_18
 EOT);
 ?>
 EOF
@@ -76,16 +88,52 @@ msgstr ""
 msgid "embedded_4_sub2"
 msgstr ""
 
-msgid "embedded_5"
+msgid "embedded_5_sub1"
 msgstr ""
 
-msgid "embedded_9_sub1"
+msgid "embedded_5_sub2"
 msgstr ""
 
-msgid "embedded_9_sub2"
+msgid "embedded_6_sub]}1"
 msgstr ""
 
-msgid "embedded_10"
+msgid "embedded_6_sub]}2"
+msgstr ""
+
+msgid "embedded_7_sub\"1"
+msgstr ""
+
+msgid "embedded_7_sub\"2"
+msgstr ""
+
+msgid "embedded_8"
+msgstr ""
+
+msgid "embedded_14_sub1"
+msgstr ""
+
+msgid "embedded_14_sub2"
+msgstr ""
+
+msgid "embedded_15_sub1"
+msgstr ""
+
+msgid "embedded_15_sub2"
+msgstr ""
+
+msgid "embedded_16_sub]}1"
+msgstr ""
+
+msgid "embedded_16_sub]}2"
+msgstr ""
+
+msgid "embedded_17_sub\"1"
+msgstr ""
+
+msgid "embedded_17_sub\"2"
+msgstr ""
+
+msgid "embedded_18"
 msgstr ""
 EOF
 
