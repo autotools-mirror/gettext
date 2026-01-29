@@ -251,6 +251,7 @@
 /lib/strerror-override.h
 /lib/string.c
 /lib/string.in.h
+/lib/strncpy.c
 /lib/styled-ostream.oo.c
 /lib/styled-ostream.oo.h
 /lib/sys-limits.h
