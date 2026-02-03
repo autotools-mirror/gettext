@@ -671,20 +671,19 @@ def main():
 
     # Handle --version, ignoring all other options.
     if cmdargs.version != None:
-        print('''
-spit (GNU gettext-tools) @VERSION@
+        print(
+'''spit (GNU gettext-tools) @VERSION@
 Copyright (C) 2025-2026 Free Software Foundation, Inc.
 License GPLv3+: GNU GPL version 3 or later <https://gnu.org/licenses/gpl.html>
 This is free software: you are free to change and redistribute it.
 There is NO WARRANTY, to the extent permitted by law.
-Written by Bruno Haible.
-''')
+Written by Bruno Haible.''')
         sys.exit(0)
 
     # Handle --help, ignoring all other options.
     if cmdargs.help != None:
-        print('''
-Usage: spit [OPTION...]
+        print(
+'''Usage: spit [OPTION...]
 
 Passes standard input to a Large Language Model (LLM) instance and prints
 the response.
@@ -710,8 +709,7 @@ Informative output:
   -V, --version               Output version information and exit.
 
 Report bugs in the bug tracker at <https://savannah.gnu.org/projects/gettext>
-or by email to <bug-gettext@gnu.org>.
-''')
+or by email to <bug-gettext@gnu.org>.''')
         sys.exit(0)
 
     # Report unhandled arguments.
