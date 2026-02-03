@@ -745,7 +745,7 @@ sub program_basename
 sub get_option_value
 {
     my ($prog, $opt) = @_;
-    my $stderr = $discard_stderr ? '/dev/null' : '&1';
+    my $stderr = $discard_stderr ? '&2' : '&1';
     my $value = join '',
 	map { s/ +$//; expand $_ }
 	map { dec $_ }
