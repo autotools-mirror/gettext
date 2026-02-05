@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/man subdirectory of GNU gettext
-## Copyright (C) 2001-2025 Free Software Foundation, Inc.
+## Copyright (C) 2001-2026 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -145,8 +145,9 @@ autopoint.1: autopoint.x ../autotools/autopoint.in
 $(man_MAN1MISC): help2man $(top_srcdir)/../.version
 	progname=`echo $@ | sed -e 's/\.in$$//' -e 's/\.1$$//'`; \
 	IN_HELP2MAN=1 $(SHELL) x-to-1 $(UPDATEMODE) "$(PERL)" "$(HELP2MAN)" \
-	  ../misc/$${progname} $(srcdir)/$${progname}.x $@
-	patch $@ < $(srcdir)/po-fetch.1.diff
+	  ../misc/$${progname} $(srcdir)/$${progname}.x po-fetch.tmp.1
+	patch po-fetch.tmp.1 < $(srcdir)/po-fetch.1.diff
+	mv po-fetch.tmp.1 po-fetch.1
 
 po-fetch.1: po-fetch.x ../misc/po-fetch.in po-fetch.1.diff
 
