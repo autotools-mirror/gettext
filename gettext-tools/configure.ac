@@ -791,6 +791,9 @@ dnl Test for features used in install-tests.
 dnl shlibpath_var and PATH_SEPARATOR are set by LT_INIT.
 if test $USE_INCLUDED_LIBINTL = yes; then
   INSTALLED_LIBINTL="-lintl $LIBICONV $INTL_MACOSX_LIBS $INTL_WINDOWS_LIBS"
+  case "$host_os" in
+    aix*) INSTALLED_LIBINTL="$INSTALLED_LIBINTL $LIBTHREAD" ;;
+  esac
   INSTALLED_LIBGETTEXTPO_DEPS="$INSTALLED_LIBINTL"
 else
   INSTALLED_LIBINTL=

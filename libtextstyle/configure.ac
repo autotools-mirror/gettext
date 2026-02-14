@@ -172,10 +172,13 @@ AC_PATH_PROG([PERL], [perl], [$ac_aux_dir_abs/missing perl])
 
 dnl Test for features used in install-tests.
 dnl shlibpath_var and PATH_SEPARATOR are set by LT_INIT.
-INSTALLED_LIBTEXTSTYLE="-ltextstyle"
+INSTALLED_LIBTEXTSTYLE="-ltextstyle $LIBXML $LIBTERMINFO $LIBICONV"
 dnl Link dependencies: $(GETHOSTNAME_LIB).
 case "$host_os" in
   mingw* | windows*) INSTALLED_LIBTEXTSTYLE="$INSTALLED_LIBTEXTSTYLE -lws2_32" ;;
+esac
+case "$host_os" in
+  aix*) INSTALLED_LIBTEXTSTYLE="$INSTALLED_LIBTEXTSTYLE $LIBTHREAD" ;;
 esac
 AC_SUBST([INSTALLED_LIBTEXTSTYLE])
 if test -n "${shlibpath_var}"; then
