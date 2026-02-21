@@ -290,7 +290,7 @@
 /gettext-tools/libgettextpo/str_startswith.c
 /gettext-tools/libgettextpo/strchrnul.c
 /gettext-tools/libgettextpo/strchrnul.valgrind
-/gettext-tools/libgettextpo/streq.h
+/gettext-tools/libgettextpo/streq-opt.h
 /gettext-tools/libgettextpo/strerror-override.c
 /gettext-tools/libgettextpo/strerror-override.h
 /gettext-tools/libgettextpo/strerror.c
