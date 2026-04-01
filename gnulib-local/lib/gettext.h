@@ -178,6 +178,11 @@ dcgettext (const char *domain, const char *msgid, int category)
    The letter 'p' stands for 'particular' or 'special'.  */
 
 #include <locale.h> /* for LC_MESSAGES */
+/* The LC_MESSAGES locale category is specified in POSIX, but not in ISO C.
+   On systems that don't define it, use the same value as GNU libintl.  */
+#if !defined LC_MESSAGES
+# define LC_MESSAGES 1729
+#endif
 
 #ifdef DEFAULT_TEXT_DOMAIN
 # define pgettext(Msgctxt, Msgid) \
