@@ -253,7 +253,7 @@ We assume that the following environment variables are set:
 ** Upload tarballs:
 
     gnulib/build-aux/gnupload --to ftp.gnu.org:gettext \
-                              gettext-$CURRENT_VERSION.tar.{gz,xz,lz}
+                              gettext-$CURRENT_VERSION.tar.{gz,xz}
 
 ** Finally:
 
