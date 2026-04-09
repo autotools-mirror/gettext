@@ -87,6 +87,23 @@ You will need reasonably recent versions of the build tools:
       - On Red Hat distributions: perl.
       - Other: https://repology.org/project/perl/versions
 
+  * The Free Pascal compiler ppc386 or ppcx64
+    + Homepage: https://www.freepascal.org/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: fp-compiler, fp-docs,
+      - On Red Hat distributions: fpc (EPEL).
+      - Other: https://repology.org/project/fpc/versions
+  * The Free Pascal Free Component Library
+    + Homepage: https://www.freepascal.org/fcl/fcl.var
+    + Pre-built package name:
+      - On Debian and Debian-based systems: fp-units-fcl,
+      - On Red Hat distributions: --.
+      - Other: https://repology.org/project/fpc/versions
+
+  * Either an internet connection or a recent copy of GNU gnulib.
+    + Homepage:
+      https://www.gnu.org/software/gnulib/
+
   * TeX (for making the doc in .dvi, .ps or .pdf format)
     + Homepage:
       https://tug.org/texlive/
@@ -94,10 +111,6 @@ You will need reasonably recent versions of the build tools:
       - On Debian and Debian-based systems: texlive-base, texlive-latex-base,
       - On Red Hat distributions: texlive-base.
       - Other: https://repology.org/project/texlive/versions
-
-  * Either an internet connection or a recent copy of GNU gnulib.
-    + Homepage:
-      https://www.gnu.org/software/gnulib/
 
   * GNU tar (for creating distributable tarballs)
     + Homepage:
@@ -286,19 +299,6 @@ are skipped. To this effect, you need to install also:
       - On Debian and Debian-based systems: --,
       - On Red Hat distributions: --.
       - Other: https://repology.org/project/lua:gettext/versions
-
-  * The Free Pascal compiler ppc386 or ppcx64
-    + Homepage: https://www.freepascal.org/
-    + Pre-built package name:
-      - On Debian and Debian-based systems: fp-compiler, fp-docs,
-      - On Red Hat distributions: fpc (EPEL).
-      - Other: https://repology.org/project/fpc/versions
-  * The Free Pascal Free Component Library
-    + Homepage: https://www.freepascal.org/fcl/fcl.var
-    + Pre-built package name:
-      - On Debian and Debian-based systems: fp-units-fcl,
-      - On Red Hat distributions: --.
-      - Other: https://repology.org/project/fpc/versions
 
   * OCaml
     + Homepage: https://ocaml.org/
