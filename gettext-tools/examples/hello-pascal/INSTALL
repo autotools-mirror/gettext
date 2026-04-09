@@ -1,5 +1,6 @@
 This example relies on:
-  - Free Pascal 2.0 or newer (ppc386)
+  - Free Pascal 2.0 or newer (ppc386 or ppcx64),
+  - The Free Pascal Free Component Library (fcl).
 
 Installation:
   ./autogen.sh
