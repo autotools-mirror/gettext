@@ -368,7 +368,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
                   size_t len = strcspn (language, " \t\n");
                   if (len > 0)
                     {
-                      char *memory = (char *) malloc (len + 1);
+                      char *memory = (char *) xmalloc (len + 1);
                       memcpy (memory, language, len);
                       memory[len] = '\0';
 
