@@ -513,6 +513,28 @@ For C source code:
   Only static variables are better kept declared upfront in a function or block.
 
 
+Customizing the Undefined Behaviour Sanitizer (UBSAN)
+=====================================================
+
+Using gcc with UBSAN is as usual:
+
+  CC="gcc -fsanitize=undefined,signed-integer-overflow,shift,integer-divide-by-zero -fno-sanitize-recover=undefined"
+  CXX="g++ -fsanitize=undefined,signed-integer-overflow,shift,integer-divide-by-zero -fno-sanitize-recover=undefined"
+  CFLAGS="-O1 -fno-omit-frame-pointer -ggdb"
+  CXXFLAGS="-O1 -fno-omit-frame-pointer -ggdb"
+  export CC CXX CFLAGS CXXFLAGS
+
+Using clang with UBSAN needs a customization, to avoid errors such as
+  "runtime error: call to function get_control_data through pointer to incorrect function type"
+coming from libtextstyle, namely
+
+  CC="clang -fsanitize=undefined,signed-integer-overflow,shift,integer-divide-by-zero -fno-sanitize=function -fno-sanitize-recover=undefined"
+  CXX="clang++ -fsanitize=undefined,signed-integer-overflow,shift,integer-divide-by-zero -fno-sanitize=function -fno-sanitize-recover=undefined"
+  CFLAGS="-O1 -fno-omit-frame-pointer -ggdb"
+  CXXFLAGS="-O1 -fno-omit-frame-pointer -ggdb"
+  export CC CXX CFLAGS CXXFLAGS
+
+
 Submitting patches
 ==================
 
