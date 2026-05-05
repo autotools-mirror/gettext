@@ -171,6 +171,7 @@
 /lib/mem-hash-map.h
 /lib/memchr.c
 /lib/memchr.valgrind
+/lib/memeq.c
 /lib/memory-ostream.oo.c
 /lib/memory-ostream.oo.h
 /lib/minmax.h
@@ -199,6 +200,7 @@
 /lib/printf-parse.h
 /lib/pthread.in.h
 /lib/pthread-once.c
+/lib/pthread_sigmask.c
 /lib/raise.c
 /lib/read.c
 /lib/realloc.c
@@ -233,6 +235,7 @@
 /lib/stat-w32.h
 /lib/stdarg.in.h
 /lib/stdckdint.in.h
+/lib/stdcountof.in.h
 /lib/stddef.in.h
 /lib/stdint.in.h
 /lib/stdio-consolesafe.c
@@ -245,6 +248,7 @@
 /lib/stpcpy.c
 /lib/str_endswith.c
 /lib/str_startswith.c
+/lib/streq.c
 /lib/streq-opt.h
 /lib/strerror.c
 /lib/strerror-override.c
@@ -252,6 +256,7 @@
 /lib/string.c
 /lib/string.in.h
 /lib/strncpy.c
+/lib/strnul.c
 /lib/styled-ostream.oo.c
 /lib/styled-ostream.oo.h
 /lib/sys-limits.h
@@ -307,6 +312,10 @@
 /lib/windows-recmutex.h
 /lib/windows-rwlock.c
 /lib/windows-rwlock.h
+/lib/windows-spin.c
+/lib/windows-spin.h
+/lib/windows-tls.c
+/lib/windows-tls.h
 /lib/write.c
 /lib/xalloc-die.c
 /lib/xalloc-oversized.h
@@ -618,6 +627,8 @@ core
 /lib/stdbool.h-t
 /lib/stdckdint.h
 /lib/stdckdint.h-t
+/lib/stdcountof.h
+/lib/stdcountof.h-t
 /lib/stddef.h
 /lib/stddef.h-t
 /lib/stdint.h

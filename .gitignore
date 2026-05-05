@@ -223,6 +223,7 @@
 /gettext-tools/libgettextpo/mem-hash-map.h
 /gettext-tools/libgettextpo/memchr.c
 /gettext-tools/libgettextpo/memchr.valgrind
+/gettext-tools/libgettextpo/memeq.c
 /gettext-tools/libgettextpo/memmem.c
 /gettext-tools/libgettextpo/memrchr.c
 /gettext-tools/libgettextpo/minmax.h
@@ -275,6 +276,7 @@
 /gettext-tools/libgettextpo/stat.c
 /gettext-tools/libgettextpo/stdarg.in.h
 /gettext-tools/libgettextpo/stdckdint.in.h
+/gettext-tools/libgettextpo/stdcountof.in.h
 /gettext-tools/libgettextpo/stddef.in.h
 /gettext-tools/libgettextpo/stdint.in.h
 /gettext-tools/libgettextpo/stdio-consolesafe.c
@@ -290,6 +292,7 @@
 /gettext-tools/libgettextpo/str_startswith.c
 /gettext-tools/libgettextpo/strchrnul.c
 /gettext-tools/libgettextpo/strchrnul.valgrind
+/gettext-tools/libgettextpo/streq.c
 /gettext-tools/libgettextpo/streq-opt.h
 /gettext-tools/libgettextpo/strerror-override.c
 /gettext-tools/libgettextpo/strerror-override.h
@@ -307,6 +310,7 @@
 /gettext-tools/libgettextpo/string.c
 /gettext-tools/libgettextpo/string.in.h
 /gettext-tools/libgettextpo/strnlen.c
+/gettext-tools/libgettextpo/strnul.c
 /gettext-tools/libgettextpo/strstr.c
 /gettext-tools/libgettextpo/sys-limits.h
 /gettext-tools/libgettextpo/sys_stat.in.h
@@ -344,6 +348,8 @@
 /gettext-tools/libgettextpo/windows-recmutex.h
 /gettext-tools/libgettextpo/windows-rwlock.c
 /gettext-tools/libgettextpo/windows-rwlock.h
+/gettext-tools/libgettextpo/windows-spin.c
+/gettext-tools/libgettextpo/windows-spin.h
 /gettext-tools/libgettextpo/windows-tls.c
 /gettext-tools/libgettextpo/windows-tls.h
 /gettext-tools/libgettextpo/write.c
@@ -944,6 +950,7 @@ core
 /gettext-tools/libgettextpo/signal.h
 /gettext-tools/libgettextpo/stdarg.h
 /gettext-tools/libgettextpo/stdckdint.h
+/gettext-tools/libgettextpo/stdcountof.h
 /gettext-tools/libgettextpo/stddef.h
 /gettext-tools/libgettextpo/stdint.h
 /gettext-tools/libgettextpo/stdio.h
