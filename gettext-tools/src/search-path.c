@@ -195,7 +195,7 @@ get_search_path (const char *sub)
   }
 
   /* Verify that COUNT was sufficient.  */
-  if (!(count <= array.len))
+  if (!(array.len <= count))
     abort ();
 
   /* Add a NULL at the end.  */
