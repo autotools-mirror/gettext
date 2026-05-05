@@ -1532,17 +1532,25 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
               const struct callshapes *shapes =
                 (const struct callshapes *) keyword_value;
               */
-              struct callshapes shapes;
-              shapes.keyword = tp->string; /* XXX storage duration? */
-              shapes.keyword_len = strlen (tp->string);
-              shapes.nshapes = 1;
-              shapes.shapes[0].argnum1 = 1;
-              shapes.shapes[0].argnum2 = 0;
-              shapes.shapes[0].argnumc = 0;
-              shapes.shapes[0].argnum1_glib_context = false;
-              shapes.shapes[0].argnum2_glib_context = false;
-              shapes.shapes[0].argtotal = 0;
-              string_list_init (&shapes.shapes[0].xcomments);
+              /* Allocating a 'struct callshapes' on the stack requires
+                 a union.  */
+              union
+                {
+                  struct callshapes _main;
+                  char room[FLEXSIZEOF (struct callshapes,
+                                        shapes, 1 * sizeof (struct callshape))];
+                } u;
+              #define simple_shapes u._main
+              simple_shapes.keyword = tp->string; /* XXX storage duration? */
+              simple_shapes.keyword_len = strlen (tp->string);
+              simple_shapes.nshapes = 1;
+              simple_shapes.shapes[0].argnum1 = 1;
+              simple_shapes.shapes[0].argnum2 = 0;
+              simple_shapes.shapes[0].argnumc = 0;
+              simple_shapes.shapes[0].argnum1_glib_context = false;
+              simple_shapes.shapes[0].argnum2_glib_context = false;
+              simple_shapes.shapes[0].argtotal = 0;
+              string_list_init (&simple_shapes.shapes[0].xcomments);
 
               {
                 /* Extract a possible string from the key.  Before proceeding
@@ -1593,10 +1601,11 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
                                           token_type_rbrace, true,
                                           false, false, false,
                                           null_context_region (), context_iter,
-                                          1, arglist_parser_alloc (xp->mlp, &shapes)))
+                                          1, arglist_parser_alloc (xp->mlp, &simple_shapes)))
                       return;
                   }
               }
+              #undef simple_shapes
             }
           else
             {

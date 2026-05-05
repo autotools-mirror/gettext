@@ -23,6 +23,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#include "flexmember.h"
 #include "str-list.h"
 #include "mem-hash-map.h"
 
@@ -53,7 +54,7 @@ struct callshapes
   const char *keyword;          /* the keyword, not NUL terminated */
   size_t keyword_len;           /* the keyword's length */
   size_t nshapes;
-  struct callshape shapes[1];   /* actually nshapes elements */
+  struct callshape shapes[FLEXIBLE_ARRAY_MEMBER]; /* nshapes elements */
 };
 
 /* Insert a (keyword, callshape) pair into a hash table mapping keyword to

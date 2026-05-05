@@ -174,7 +174,10 @@ insert_keyword_callshape (hash_table *table,
   if (hash_find_entry (table, keyword, keyword_len, &old_value))
     {
       /* Create a one-element 'struct callshapes'.  */
-      struct callshapes *shapes = XMALLOC (struct callshapes);
+      struct callshapes *shapes =
+        (struct callshapes *)
+        xmalloc (FLEXSIZEOF (struct callshapes, shapes,
+                             1 * sizeof (struct callshape)));
       shapes->nshapes = 1;
       shapes->shapes[0] = *shape;
       keyword =
@@ -211,9 +214,9 @@ insert_keyword_callshape (hash_table *table,
           /* Replace the existing 'struct callshapes' with a new one.  */
           struct callshapes *shapes =
             (struct callshapes *)
-            xmalloc (xsum (sizeof (struct callshapes),
-                           xtimes (old_shapes->nshapes,
-                                   sizeof (struct callshape))));
+            xmalloc (FLEXSIZEOF (struct callshapes, shapes,
+                                 xtimes (old_shapes->nshapes + 1,
+                                         sizeof (struct callshape))));
 
           shapes->keyword = old_shapes->keyword;
           shapes->keyword_len = old_shapes->keyword_len;
