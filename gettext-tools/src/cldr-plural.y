@@ -99,7 +99,8 @@ add_range (struct cldr_plural_range_list_ty *ranges,
                                 sizeof (struct cldr_plural_range_ty *)
                                 * ranges->nitems_max);
     }
-  ranges->items[ranges->nitems++] = range;
+  size_t item_index = ranges->nitems++;
+  ranges->items[item_index] = range;
   return ranges;
 }
 
@@ -187,7 +188,8 @@ rule:   KEYWORD ':' condition samples
                                         sizeof (struct cldr_plural_rule_ty *)
                                         * result->nitems_max);
             }
-          result->items[result->nitems++] = rule;
+          size_t item_index = result->nitems++;
+          result->items[item_index] = rule;
         }
         | OTHER ':' samples
         ;

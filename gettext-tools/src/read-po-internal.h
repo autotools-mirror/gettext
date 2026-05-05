@@ -67,8 +67,8 @@ struct mbfile
   bool eof_seen;
   unsigned int pushback_count; /* <= MBFILE_MAX_PUSHBACK */
   unsigned int bufcount;
-  char buf[MBCHAR_BUF_SIZE];
-  struct mbchar pushback[MBFILE_MAX_PUSHBACK];
+  char buf[MBCHAR_BUF_SIZE]; /* COUNTED_BY (bufcount) */
+  struct mbchar pushback[MBFILE_MAX_PUSHBACK]; /* COUNTED_BY (pushback_count) */
 };
 
 /* We want to pass multibyte streams by reference automatically,

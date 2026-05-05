@@ -22,6 +22,7 @@
 #include <stdlib.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "gettext.h"
@@ -53,7 +54,8 @@ struct spec
 {
   size_t directives;
   size_t numbered_arg_count;
-  struct numbered_arg *numbered;
+  struct numbered_arg *numbered
+    COUNTED_BY (numbered_arg_count);
 };
 
 static int
@@ -101,8 +103,8 @@ format_parse (const char *format, bool translated, char *fdi,
                 numbered_allocated = 2 * numbered_allocated + 1;
                 spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
               }
-            spec.numbered[spec.numbered_arg_count].number = number;
-            spec.numbered_arg_count++;
+            size_t numbered_index = spec.numbered_arg_count++;
+            spec.numbered[numbered_index].number = number;
 
             FDI_SET (format, FMTDIR_END);
 

@@ -246,7 +246,7 @@ struct bullet_ty
 
 struct bullet_stack_ty
 {
-  struct bullet_ty *items;
+  struct bullet_ty *items /* not COUNTED_BY (nitems) ! */;
   size_t nitems;
   size_t nitems_max;
 };

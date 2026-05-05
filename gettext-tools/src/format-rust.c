@@ -24,6 +24,7 @@
 #include <string.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "c-ctype.h"
 #include "unictype.h"
 #include "unistr.h"
@@ -98,8 +99,10 @@ struct spec
   size_t directives;
   size_t named_arg_count;
   size_t numbered_arg_count;
-  struct named_arg *named;
-  struct numbered_arg *numbered;
+  struct named_arg *named
+    COUNTED_BY (named_arg_count);
+  struct numbered_arg *numbered
+    COUNTED_BY (numbered_arg_count);
 };
 
 
@@ -222,8 +225,8 @@ format_parse (const char *format, bool translated, char *fdi,
                                 named_allocated = 2 * named_allocated + 1;
                                 spec.named = (struct named_arg *) xrealloc (spec.named, named_allocated * sizeof (struct named_arg));
                               }
-                            spec.named[spec.named_arg_count].name = name;
-                            spec.named_arg_count++;
+                            size_t named_index = spec.named_arg_count++;
+                            spec.named[named_index].name = name;
 
                             format = f;
                             seen_identifier_or_keyword = true;
@@ -330,8 +333,8 @@ format_parse (const char *format, bool translated, char *fdi,
                       numbered_allocated = 2 * numbered_allocated + 1;
                       spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
                     }
-                  spec.numbered[spec.numbered_arg_count].number = arg_id;
-                  spec.numbered_arg_count++;
+                  size_t numbered_index = spec.numbered_arg_count++;
+                  spec.numbered[numbered_index].number = arg_id;
                 }
 
               FDI_SET (format, FMTDIR_END);

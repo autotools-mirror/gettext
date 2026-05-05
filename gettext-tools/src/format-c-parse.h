@@ -149,10 +149,12 @@ struct spec
      string.  */
   size_t likely_intentional_directives;
   size_t unnumbered_arg_count;
-  struct unnumbered_arg *unnumbered;
+  struct unnumbered_arg *unnumbered
+    COUNTED_BY (unnumbered_arg_count);
   bool unlikely_intentional;
   size_t sysdep_directives_count;
-  const char **sysdep_directives;
+  const char **sysdep_directives
+    /* COUNTED_BY (2 * sysdep_directives_count) */;
 };
 
 /* Whether to recognize the 'I' flag.  */
@@ -332,8 +334,8 @@ format_parse_entrails (const char *format, bool translated,
                     spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, allocated * sizeof (struct unnumbered_arg));
                     IF_OOM (spec.unnumbered, goto bad_format;)
                   }
-                spec.unnumbered[spec.unnumbered_arg_count].type = FAT_INTEGER;
-                spec.unnumbered_arg_count++;
+                size_t unnumbered_index = spec.unnumbered_arg_count++;
+                spec.unnumbered[unnumbered_index].type = FAT_INTEGER;
               }
           }
         else if (c_isdigit (*format))
@@ -418,8 +420,8 @@ format_parse_entrails (const char *format, bool translated,
                         spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, allocated * sizeof (struct unnumbered_arg));
                         IF_OOM (spec.unnumbered, goto bad_format;)
                       }
-                    spec.unnumbered[spec.unnumbered_arg_count].type = FAT_INTEGER;
-                    spec.unnumbered_arg_count++;
+                    size_t unnumbered_index = spec.unnumbered_arg_count++;
+                    spec.unnumbered[unnumbered_index].type = FAT_INTEGER;
                   }
               }
             else if (c_isdigit (*format))
@@ -863,8 +865,8 @@ format_parse_entrails (const char *format, bool translated,
                     spec.unnumbered = (struct unnumbered_arg *) xrealloc (spec.unnumbered, allocated * sizeof (struct unnumbered_arg));
                     IF_OOM (spec.unnumbered, goto bad_format;)
                   }
-                spec.unnumbered[spec.unnumbered_arg_count].type = type;
-                spec.unnumbered_arg_count++;
+                size_t unnumbered_index = spec.unnumbered_arg_count++;
+                spec.unnumbered[unnumbered_index].type = type;
               }
           }
 

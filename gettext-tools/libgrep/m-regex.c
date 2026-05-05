@@ -1,5 +1,5 @@
 /* Pattern Matchers for Regular Expressions.
-   Copyright (C) 1992-2025 Free Software Foundation, Inc.
+   Copyright (C) 1992-2026 Free Software Foundation, Inc.
 
    This program is free software: you can redistribute it and/or modify
    it under the terms of the GNU General Public License as published by
@@ -26,6 +26,7 @@
 #include <regex.h>
 
 #include <error.h>
+#include "attribute.h"
 #include "exitfail.h"
 #include "xalloc.h"
 
@@ -51,8 +52,9 @@ struct compiled_regex {
   char eolbyte;
 
   /* The Regex compiled patterns.  */
-  struct patterns *patterns;
   size_t pcount;
+  struct patterns *patterns
+    COUNTED_BY (pcount);
 };
 
 static void *
@@ -100,12 +102,12 @@ compile (const char *pattern, size_t pattern_size,
           }
 
         cregex->patterns = xrealloc (cregex->patterns, (cregex->pcount + 1) * sizeof (struct patterns));
-        memset (&cregex->patterns[cregex->pcount], '\0', sizeof (struct patterns));
+        size_t pattern_index = cregex->pcount++;
+        memset (&cregex->patterns[pattern_index], '\0', sizeof (struct patterns));
 
         if ((err = re_compile_pattern (motif, len,
-                                       &cregex->patterns[cregex->pcount].regexbuf)) != NULL)
+                                       &cregex->patterns[pattern_index].regexbuf)) != NULL)
           error (exit_failure, 0, "%s", err);
-        cregex->pcount++;
 
         motif = sep;
       }

@@ -25,6 +25,8 @@
 /* Get bool.  */
 #include <stdbool.h>
 
+#include "attribute.h"
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -36,8 +38,9 @@ extern "C" {
 typedef struct string_list_ty string_list_ty;
 struct string_list_ty
 {
-  const char **item;
   size_t nitems;
+  const char **item
+    COUNTED_BY (nitems);
   size_t nitems_max;
 };
 

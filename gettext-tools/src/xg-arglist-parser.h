@@ -23,6 +23,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#include "attribute.h"
 #include "pos.h"
 #include "rc-str-list.h"
 #include "str-list.h"
@@ -64,11 +65,13 @@ struct partial_call
 struct arglist_parser
 {
   message_list_ty *mlp;         /* list where the message shall be added */
-  const char *keyword;          /* the keyword, not NUL terminated */
   size_t keyword_len;           /* the keyword's length */
+  const char *keyword           /* the keyword, not NUL terminated */
+    COUNTED_BY (keyword_len);
   bool next_is_msgctxt;         /* true if the next argument is the msgctxt */
   size_t nalternatives;         /* number of partial_call alternatives */
-  struct partial_call alternative[FLEXIBLE_ARRAY_MEMBER]; /* partial_call alternatives */
+  struct partial_call alternative[FLEXIBLE_ARRAY_MEMBER] /* partial_call alternatives */
+    COUNTED_BY (nalternatives);
 };
 
 /* Creates a fresh arglist_parser recognizing calls.

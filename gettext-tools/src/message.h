@@ -19,6 +19,7 @@
 #ifndef _MESSAGE_H
 #define _MESSAGE_H
 
+#include "attribute.h"
 #include "str-list.h"
 #include "pos.h"
 #include "mem-hash-map.h"
@@ -195,7 +196,8 @@ struct message_ty
      each unique file position instance, sorted by file name and then
      by line.  */
   size_t filepos_count;
-  lex_pos_ty *filepos;
+  lex_pos_ty *filepos
+    COUNTED_BY (filepos_count);
 
   /* Informations from special comments (#,).
      Some of them come from extracted comments.  They are manipulated by
@@ -238,7 +240,8 @@ struct message_ty
 
   /* Used for combining alternative translations, in the msgcat program.  */
   int alternative_count;
-  struct altstr *alternative;
+  struct altstr *alternative
+    COUNTED_BY (alternative_count);
 };
 
 extern message_ty *
@@ -263,8 +266,9 @@ extern message_ty *
 typedef struct message_list_ty message_list_ty;
 struct message_list_ty
 {
-  message_ty **item;
   size_t nitems;
+  message_ty **item
+    COUNTED_BY (nitems);
   size_t nitems_max;
   bool use_hashtable;
   hash_table htable;    /* Table mapping msgid to 'message_ty *'.  */
@@ -317,8 +321,9 @@ extern message_ty *
 typedef struct message_list_list_ty message_list_list_ty;
 struct message_list_list_ty
 {
-  message_list_ty **item;
   size_t nitems;
+  message_list_ty **item
+    COUNTED_BY (nitems);
   size_t nitems_max;
 };
 
@@ -360,8 +365,9 @@ extern void
 typedef struct msgdomain_list_ty msgdomain_list_ty;
 struct msgdomain_list_ty
 {
-  msgdomain_ty **item;
   size_t nitems;
+  msgdomain_ty **item
+    COUNTED_BY (nitems);
   size_t nitems_max;
   bool use_hashtable;
   const char *encoding;         /* canonicalized encoding or NULL if unknown */

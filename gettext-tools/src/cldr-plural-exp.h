@@ -21,6 +21,8 @@
 
 #include <stdio.h>
 
+#include "attribute.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -59,8 +61,9 @@ struct cldr_plural_range_ty
 
 struct cldr_plural_range_list_ty
 {
-  struct cldr_plural_range_ty **items;
   size_t nitems;
+  struct cldr_plural_range_ty **items
+    COUNTED_BY (nitems);
   size_t nitems_max;
 };
 
@@ -107,8 +110,9 @@ struct cldr_plural_rule_ty
 
 struct cldr_plural_rule_list_ty
 {
-  struct cldr_plural_rule_ty **items;
   size_t nitems;
+  struct cldr_plural_rule_ty **items
+    COUNTED_BY (nitems);
   size_t nitems_max;
 };
 

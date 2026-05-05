@@ -261,8 +261,9 @@ typedef struct token_ty token_ty;
 typedef struct token_stack_ty token_stack_ty;
 struct token_stack_ty
 {
-  token_ty **items;
   size_t nitems;
+  token_ty **items
+    COUNTED_BY (nitems);
   size_t nitems_max;
 };
 
@@ -2820,7 +2821,8 @@ token_stack_push (token_stack_ty *stack, token_ty *token)
       size_t nbytes = stack->nitems_max * sizeof (token_ty *);
       stack->items = xrealloc (stack->items, nbytes);
     }
-  stack->items[stack->nitems++] = token;
+  size_t item_index = stack->nitems++;
+  stack->items[item_index] = token;
 }
 
 /* Pops the most recently pushed token from the stack STACK and returns it.
@@ -2829,7 +2831,11 @@ static inline token_ty *
 token_stack_pop (token_stack_ty *stack)
 {
   if (stack->nitems > 0)
-    return stack->items[--(stack->nitems)];
+    {
+      token_ty *token = stack->items[stack->nitems - 1];
+      stack->nitems--;
+      return token;
+    }
   else
     return NULL;
 }

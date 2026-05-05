@@ -21,8 +21,8 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "attribute.h"
 #include "format.h"
+#include "attribute.h"
 #include "c-ctype.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -97,7 +97,8 @@ struct spec
      string.  */
   size_t likely_intentional_directives;
   size_t numbered_arg_count;
-  struct numbered_arg *numbered;
+  struct numbered_arg *numbered
+    COUNTED_BY (numbered_arg_count);
 };
 
 
@@ -123,6 +124,7 @@ format_parse (const char *format, bool translated, char *fdi,
   spec.numbered = NULL;
   size_t numbered_allocated = 0;
   size_t unnumbered_arg_count = 0;
+  struct numbered_arg *unnumbered = NULL;
 
   for (; *format != '\0';)
     /* Invariant: spec.numbered_arg_count == 0 || unnumbered_arg_count == 0.  */
@@ -248,9 +250,9 @@ format_parse (const char *format, bool translated, char *fdi,
                             numbered_allocated = 2 * numbered_allocated + 1;
                             spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
                           }
-                        spec.numbered[spec.numbered_arg_count].number = width_number;
-                        spec.numbered[spec.numbered_arg_count].type = FAT_INTEGER;
-                        spec.numbered_arg_count++;
+                        size_t numbered_index = spec.numbered_arg_count++;
+                        spec.numbered[numbered_index].number = width_number;
+                        spec.numbered[numbered_index].type = FAT_INTEGER;
                       }
                     else
                       {
@@ -269,11 +271,11 @@ format_parse (const char *format, bool translated, char *fdi,
                         if (numbered_allocated == unnumbered_arg_count)
                           {
                             numbered_allocated = 2 * numbered_allocated + 1;
-                            spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
+                            unnumbered = (struct numbered_arg *) xrealloc (unnumbered, numbered_allocated * sizeof (struct numbered_arg));
                           }
-                        spec.numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
-                        spec.numbered[unnumbered_arg_count].type = FAT_INTEGER;
-                        unnumbered_arg_count++;
+                        size_t unnumbered_index = unnumbered_arg_count++;
+                        unnumbered[unnumbered_index].number = unnumbered_index + 1;
+                        unnumbered[unnumbered_index].type = FAT_INTEGER;
                       }
                   }
                 else if (c_isdigit (*format))
@@ -337,9 +339,9 @@ format_parse (const char *format, bool translated, char *fdi,
                                 numbered_allocated = 2 * numbered_allocated + 1;
                                 spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
                               }
-                            spec.numbered[spec.numbered_arg_count].number = precision_number;
-                            spec.numbered[spec.numbered_arg_count].type = FAT_INTEGER;
-                            spec.numbered_arg_count++;
+                            size_t numbered_index = spec.numbered_arg_count++;
+                            spec.numbered[numbered_index].number = precision_number;
+                            spec.numbered[numbered_index].type = FAT_INTEGER;
                           }
                         else
                           {
@@ -358,11 +360,11 @@ format_parse (const char *format, bool translated, char *fdi,
                             if (numbered_allocated == unnumbered_arg_count)
                               {
                                 numbered_allocated = 2 * numbered_allocated + 1;
-                                spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated  * sizeof (struct numbered_arg));
+                                unnumbered = (struct numbered_arg *) xrealloc (unnumbered, numbered_allocated  * sizeof (struct numbered_arg));
                               }
-                            spec.numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
-                            spec.numbered[unnumbered_arg_count].type = FAT_INTEGER;
-                            unnumbered_arg_count++;
+                            size_t unnumbered_index = unnumbered_arg_count++;
+                            unnumbered[unnumbered_index].number = unnumbered_index + 1;
+                            unnumbered[unnumbered_index].type = FAT_INTEGER;
                           }
                       }
                     else if (c_isdigit (*format))
@@ -478,9 +480,9 @@ format_parse (const char *format, bool translated, char *fdi,
                         numbered_allocated = 2 * numbered_allocated + 1;
                         spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
                       }
-                    spec.numbered[spec.numbered_arg_count].number = number;
-                    spec.numbered[spec.numbered_arg_count].type = type;
-                    spec.numbered_arg_count++;
+                    size_t numbered_index = spec.numbered_arg_count++;
+                    spec.numbered[numbered_index].number = number;
+                    spec.numbered[numbered_index].type = type;
                   }
                 else
                   {
@@ -497,11 +499,11 @@ format_parse (const char *format, bool translated, char *fdi,
                     if (numbered_allocated == unnumbered_arg_count)
                       {
                         numbered_allocated = 2 * numbered_allocated + 1;
-                        spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
+                        unnumbered = (struct numbered_arg *) xrealloc (unnumbered, numbered_allocated * sizeof (struct numbered_arg));
                       }
-                    spec.numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
-                    spec.numbered[unnumbered_arg_count].type = type;
-                    unnumbered_arg_count++;
+                    size_t unnumbered_index = unnumbered_arg_count++;
+                    unnumbered[unnumbered_index].number = unnumbered_index + 1;
+                    unnumbered[unnumbered_index].type = type;
                   }
               }
           }
@@ -513,7 +515,10 @@ format_parse (const char *format, bool translated, char *fdi,
 
   /* Convert the unnumbered argument array to numbered arguments.  */
   if (unnumbered_arg_count > 0)
-    spec.numbered_arg_count = unnumbered_arg_count;
+    {
+      spec.numbered = unnumbered;
+      spec.numbered_arg_count = unnumbered_arg_count;
+    }
   /* Sort the numbered argument array, and eliminate duplicates.  */
   else if (spec.numbered_arg_count > 1)
     {
@@ -566,6 +571,8 @@ format_parse (const char *format, bool translated, char *fdi,
   return result;
 
  bad_format:
+  if (unnumbered != NULL)
+    free (unnumbered);
   if (spec.numbered != NULL)
     free (spec.numbered);
   return NULL;

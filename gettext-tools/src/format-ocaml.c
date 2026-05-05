@@ -23,6 +23,7 @@
 #include <string.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "gettext.h"
 #include "xalloc.h"
 #include "format-invalid.h"
@@ -129,7 +130,8 @@ struct spec
 {
   size_t directives;
   size_t numbered_arg_count;
-  struct numbered_arg *numbered;
+  struct numbered_arg *numbered
+    COUNTED_BY (numbered_arg_count);
 };
 
 
@@ -269,6 +271,7 @@ parse_upto (struct spec *spec,
   spec->numbered = NULL;
   size_t numbered_allocated = 0;
   size_t unnumbered_arg_count = 0;
+  struct numbered_arg *unnumbered = NULL;
 
   for (; *format != '\0';)
     /* Invariant: spec->numbered_arg_count == 0 || unnumbered_arg_count == 0.  */
@@ -358,9 +361,9 @@ parse_upto (struct spec *spec,
                     numbered_allocated = 2 * numbered_allocated + 1;
                     spec->numbered = (struct numbered_arg *) xrealloc (spec->numbered, numbered_allocated * sizeof (struct numbered_arg));
                   }
-                spec->numbered[spec->numbered_arg_count].number = width_number;
-                spec->numbered[spec->numbered_arg_count].type = FAT_INTEGER;
-                spec->numbered_arg_count++;
+                size_t numbered_index = spec->numbered_arg_count++;
+                spec->numbered[numbered_index].number = width_number;
+                spec->numbered[numbered_index].type = FAT_INTEGER;
               }
             else
               {
@@ -377,11 +380,11 @@ parse_upto (struct spec *spec,
                 if (numbered_allocated == unnumbered_arg_count)
                   {
                     numbered_allocated = 2 * numbered_allocated + 1;
-                    spec->numbered = (struct numbered_arg *) xrealloc (spec->numbered, numbered_allocated * sizeof (struct numbered_arg));
+                    unnumbered = (struct numbered_arg *) xrealloc (unnumbered, numbered_allocated * sizeof (struct numbered_arg));
                   }
-                spec->numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
-                spec->numbered[unnumbered_arg_count].type = FAT_INTEGER;
-                unnumbered_arg_count++;
+                size_t unnumbered_index = unnumbered_arg_count++;
+                unnumbered[unnumbered_index].number = unnumbered_index + 1;
+                unnumbered[unnumbered_index].type = FAT_INTEGER;
               }
           }
         else if (c_isdigit (*format))
@@ -442,9 +445,9 @@ parse_upto (struct spec *spec,
                         numbered_allocated = 2 * numbered_allocated + 1;
                         spec->numbered = (struct numbered_arg *) xrealloc (spec->numbered, numbered_allocated * sizeof (struct numbered_arg));
                       }
-                    spec->numbered[spec->numbered_arg_count].number = precision_number;
-                    spec->numbered[spec->numbered_arg_count].type = FAT_INTEGER;
-                    spec->numbered_arg_count++;
+                    size_t numbered_index = spec->numbered_arg_count++;
+                    spec->numbered[numbered_index].number = precision_number;
+                    spec->numbered[numbered_index].type = FAT_INTEGER;
                   }
                 else
                   {
@@ -461,11 +464,11 @@ parse_upto (struct spec *spec,
                     if (numbered_allocated == unnumbered_arg_count)
                       {
                         numbered_allocated = 2 * numbered_allocated + 1;
-                        spec->numbered = (struct numbered_arg *) xrealloc (spec->numbered, numbered_allocated * sizeof (struct numbered_arg));
+                        unnumbered = (struct numbered_arg *) xrealloc (unnumbered, numbered_allocated * sizeof (struct numbered_arg));
                       }
-                    spec->numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
-                    spec->numbered[unnumbered_arg_count].type = FAT_INTEGER;
-                    unnumbered_arg_count++;
+                    size_t unnumbered_index = unnumbered_arg_count++;
+                    unnumbered[unnumbered_index].number = unnumbered_index + 1;
+                    unnumbered[unnumbered_index].type = FAT_INTEGER;
                   }
               }
             else if (c_isdigit (*format))
@@ -601,18 +604,20 @@ parse_upto (struct spec *spec,
                             numbered_allocated = new_numbered_arg_count;
                           spec->numbered = (struct numbered_arg *) xrealloc (spec->numbered, numbered_allocated * sizeof (struct numbered_arg));
                         }
-                      spec->numbered[spec->numbered_arg_count].number = number;
-                      spec->numbered[spec->numbered_arg_count].type = type;
-                      spec->numbered[spec->numbered_arg_count].signature = signature;
-                      spec->numbered_arg_count++;
+                      {
+                        size_t numbered_index = spec->numbered_arg_count++;
+                        spec->numbered[numbered_index].number = number;
+                        spec->numbered[numbered_index].type = type;
+                        spec->numbered[numbered_index].signature = signature;
+                      }
                       for (size_t i = 0; i < sub_spec.numbered_arg_count; i++)
                         {
-                          spec->numbered[spec->numbered_arg_count].number = number + sub_spec.numbered[i].number;
-                          spec->numbered[spec->numbered_arg_count].type =
+                          size_t numbered_index = spec->numbered_arg_count++;
+                          spec->numbered[numbered_index].number = number + sub_spec.numbered[i].number;
+                          spec->numbered[numbered_index].type =
                             type_without_translator_constraint (sub_spec.numbered[i].type);
                           if (sub_spec.numbered[i].type == FAT_FORMAT_STRING)
-                            spec->numbered[spec->numbered_arg_count].signature = sub_spec.numbered[i].signature;
-                          spec->numbered_arg_count++;
+                            spec->numbered[numbered_index].signature = sub_spec.numbered[i].signature;
                         }
                     }
                   else
@@ -634,20 +639,22 @@ parse_upto (struct spec *spec,
                           numbered_allocated = 2 * numbered_allocated + 1;
                           if (numbered_allocated < new_unnumbered_arg_count)
                             numbered_allocated = new_unnumbered_arg_count;
-                          spec->numbered = (struct numbered_arg *) xrealloc (spec->numbered, numbered_allocated * sizeof (struct numbered_arg));
+                          unnumbered = (struct numbered_arg *) xrealloc (unnumbered, numbered_allocated * sizeof (struct numbered_arg));
                         }
-                      spec->numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
-                      spec->numbered[unnumbered_arg_count].type = type;
-                      spec->numbered[unnumbered_arg_count].signature = signature;
-                      unnumbered_arg_count++;
+                      {
+                        size_t unnumbered_index = unnumbered_arg_count++;
+                        unnumbered[unnumbered_index].number = unnumbered_index + 1;
+                        unnumbered[unnumbered_index].type = type;
+                        unnumbered[unnumbered_index].signature = signature;
+                      }
                       for (size_t i = 0; i < sub_spec.numbered_arg_count; i++)
                         {
-                          spec->numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
-                          spec->numbered[unnumbered_arg_count].type =
+                          size_t unnumbered_index = unnumbered_arg_count++;
+                          unnumbered[unnumbered_index].number = unnumbered_index + 1;
+                          unnumbered[unnumbered_index].type =
                             type_without_translator_constraint (sub_spec.numbered[i].type);
                           if (sub_spec.numbered[i].type == FAT_FORMAT_STRING)
-                            spec->numbered[unnumbered_arg_count].signature = sub_spec.numbered[i].signature;
-                          unnumbered_arg_count++;
+                            unnumbered[unnumbered_index].signature = sub_spec.numbered[i].signature;
                         }
                     }
 
@@ -710,16 +717,18 @@ parse_upto (struct spec *spec,
                       numbered_allocated = new_numbered_arg_count;
                     spec->numbered = (struct numbered_arg *) xrealloc (spec->numbered, numbered_allocated * sizeof (struct numbered_arg));
                   }
-                spec->numbered[spec->numbered_arg_count].number = number;
-                spec->numbered[spec->numbered_arg_count].type = type;
-                if (type == FAT_FORMAT_STRING)
-                  spec->numbered[spec->numbered_arg_count].signature = signature;
-                spec->numbered_arg_count++;
+                {
+                  size_t numbered_index = spec->numbered_arg_count++;
+                  spec->numbered[numbered_index].number = number;
+                  spec->numbered[numbered_index].type = type;
+                  if (type == FAT_FORMAT_STRING)
+                    spec->numbered[numbered_index].signature = signature;
+                }
                 if (type == FAT_FUNCTION_T)
                   {
-                    spec->numbered[spec->numbered_arg_count].number = number + 1;
-                    spec->numbered[spec->numbered_arg_count].type = FAT_FUNCTION_T2;
-                    spec->numbered_arg_count++;
+                    size_t numbered_index = spec->numbered_arg_count++;
+                    spec->numbered[numbered_index].number = number + 1;
+                    spec->numbered[numbered_index].type = FAT_FUNCTION_T2;
                   }
               }
             else
@@ -741,18 +750,20 @@ parse_upto (struct spec *spec,
                     numbered_allocated = 2 * numbered_allocated + 1;
                     if (numbered_allocated < new_unnumbered_arg_count)
                       numbered_allocated = new_unnumbered_arg_count;
-                    spec->numbered = (struct numbered_arg *) xrealloc (spec->numbered, numbered_allocated * sizeof (struct numbered_arg));
+                    unnumbered = (struct numbered_arg *) xrealloc (unnumbered, numbered_allocated * sizeof (struct numbered_arg));
                   }
-                spec->numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
-                spec->numbered[unnumbered_arg_count].type = type;
-                if (type == FAT_FORMAT_STRING)
-                  spec->numbered[unnumbered_arg_count].signature = signature;
-                unnumbered_arg_count++;
+                {
+                  size_t unnumbered_index = unnumbered_arg_count++;
+                  unnumbered[unnumbered_index].number = unnumbered_index + 1;
+                  unnumbered[unnumbered_index].type = type;
+                  if (type == FAT_FORMAT_STRING)
+                    unnumbered[unnumbered_index].signature = signature;
+                }
                 if (type == FAT_FUNCTION_T)
                   {
-                    spec->numbered[unnumbered_arg_count].number = unnumbered_arg_count + 1;
-                    spec->numbered[unnumbered_arg_count].type = FAT_FUNCTION_T2;
-                    unnumbered_arg_count++;
+                    size_t unnumbered_index = unnumbered_arg_count++;
+                    unnumbered[unnumbered_index].number = unnumbered_index + 1;
+                    unnumbered[unnumbered_index].type = FAT_FUNCTION_T2;
                   }
               }
           }
@@ -773,7 +784,10 @@ parse_upto (struct spec *spec,
  done:
   /* Convert the unnumbered argument array to numbered arguments.  */
   if (unnumbered_arg_count > 0)
-    spec->numbered_arg_count = unnumbered_arg_count;
+    {
+      spec->numbered = unnumbered;
+      spec->numbered_arg_count = unnumbered_arg_count;
+    }
   /* Sort the numbered argument array, and eliminate duplicates.  */
   else if (spec->numbered_arg_count > 1)
     {
@@ -833,6 +847,8 @@ parse_upto (struct spec *spec,
   return true;
 
  bad_format:
+  if (unnumbered != NULL)
+    free (unnumbered);
   destroy_spec (spec);
   return false;
 }

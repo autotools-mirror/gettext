@@ -23,6 +23,7 @@
 #include <stdlib.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "unistr.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -357,7 +358,8 @@ struct kde_spec
 {
   size_t directives;
   size_t numbered_arg_count;
-  struct kde_numbered_arg *numbered;
+  struct kde_numbered_arg *numbered
+    COUNTED_BY (numbered_arg_count);
 };
 
 static void

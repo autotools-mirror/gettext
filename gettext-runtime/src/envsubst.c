@@ -308,8 +308,9 @@ print_variables (const char *string)
 typedef struct string_list_ty string_list_ty;
 struct string_list_ty
 {
-  const char **item;
   size_t nitems;
+  const char **item
+    COUNTED_BY (nitems);
   size_t nitems_max;
 };
 
@@ -335,7 +336,8 @@ string_list_append (string_list_ty *slp, const char *s)
     }
 
   /* Add the string to the end of the list.  */
-  slp->item[slp->nitems++] = s;
+  size_t item_index = slp->nitems++;
+  slp->item[item_index] = s;
 }
 
 /* Compare two strings given by reference.  */

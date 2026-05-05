@@ -23,6 +23,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#include "attribute.h"
 #include "flexmember.h"
 #include "str-list.h"
 #include "mem-hash-map.h"
@@ -51,10 +52,12 @@ extern void split_keywordspec (const char *spec, const char **endp,
 /* Set of alternative calling conventions for a given keyword.  */
 struct callshapes
 {
-  const char *keyword;          /* the keyword, not NUL terminated */
   size_t keyword_len;           /* the keyword's length */
+  const char *keyword           /* the keyword, not NUL terminated */
+    COUNTED_BY (keyword_len);
   size_t nshapes;
-  struct callshape shapes[FLEXIBLE_ARRAY_MEMBER]; /* nshapes elements */
+  struct callshape shapes[FLEXIBLE_ARRAY_MEMBER]
+    COUNTED_BY (nshapes);
 };
 
 /* Insert a (keyword, callshape) pair into a hash table mapping keyword to

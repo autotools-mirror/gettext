@@ -24,6 +24,7 @@
 #include <string.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "c-ctype.h"
 #include "xalloc.h"
 #include "xmalloca.h"
@@ -122,7 +123,8 @@ struct spec
   size_t directives;
   size_t numbered_arg_count;
   size_t allocated;
-  struct numbered_arg *numbered;
+  struct numbered_arg *numbered
+    COUNTED_BY (numbered_arg_count);
 };
 
 
@@ -330,9 +332,9 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
               spec->allocated = 2 * spec->allocated + 1;
               spec->numbered = (struct numbered_arg *) xrealloc (spec->numbered, spec->allocated * sizeof (struct numbered_arg));
             }
-          spec->numbered[spec->numbered_arg_count].number = number;
-          spec->numbered[spec->numbered_arg_count].type = type;
-          spec->numbered_arg_count++;
+          size_t numbered_index = spec->numbered_arg_count++;
+          spec->numbered[numbered_index].number = number;
+          spec->numbered[numbered_index].type = type;
 
           FDI_SET (format - 1, FMTDIR_END);
         }

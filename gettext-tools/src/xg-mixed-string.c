@@ -76,6 +76,7 @@ mixed_string_alloc_simple (const char *string,
   else
     {
       ms->segments = XNMALLOC (1, struct mixed_string_segment *);
+      ms->nsegments = 1;
       if ((xgettext_current_source_encoding == po_charset_ascii
            || xgettext_current_source_encoding == po_charset_utf8)
           && is_ascii_string (string))
@@ -86,7 +87,6 @@ mixed_string_alloc_simple (const char *string,
         /* The general case.  */
         ms->segments[0] =
           segment_alloc (source_encoded, string, strlen (string));
-      ms->nsegments = 1;
     }
   ms->lcontext = lcontext;
   ms->logical_file_name = logical_file_name;
@@ -111,8 +111,8 @@ mixed_string_alloc_utf8 (const char *string,
   else
     {
       ms->segments = XNMALLOC (1, struct mixed_string_segment *);
-      ms->segments[0] = segment_alloc (utf8_encoded, string, strlen (string));
       ms->nsegments = 1;
+      ms->segments[0] = segment_alloc (utf8_encoded, string, strlen (string));
     }
   ms->lcontext = lcontext;
   ms->logical_file_name = logical_file_name;
@@ -135,9 +135,9 @@ mixed_string_clone (const mixed_string_ty *ms1)
   else
     {
       ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
+      ms->nsegments = nsegments;
       for (size_t i = 0; i < nsegments; i++)
         ms->segments[i] = segment_clone (ms1->segments[i]);
-      ms->nsegments = nsegments;
     }
   ms->lcontext = ms1->lcontext;
   ms->logical_file_name = ms1->logical_file_name;
@@ -264,6 +264,7 @@ mixed_string_concat (const mixed_string_ty *ms1,
         /* Combine the last segment of ms1 with the first segment of ms2.  */
         nsegments -= 1;
         ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
+        ms->nsegments = nsegments;
         j = 0;
         {
           size_t i;
@@ -289,6 +290,7 @@ mixed_string_concat (const mixed_string_ty *ms1,
     else
       {
         ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
+        ms->nsegments = nsegments;
         j = 0;
         for (size_t i = 0; i < ms1->nsegments; i++)
           ms->segments[j++] = segment_clone (ms1->segments[i]);
@@ -296,7 +298,6 @@ mixed_string_concat (const mixed_string_ty *ms1,
           ms->segments[j++] = segment_clone (ms2->segments[i]);
       }
     assert (j == nsegments);
-    ms->nsegments = nsegments;
     ms->lcontext = ms1->lcontext;
     ms->logical_file_name = ms1->logical_file_name;
     ms->line_number = ms1->line_number;
@@ -326,6 +327,7 @@ mixed_string_concat_free1 (mixed_string_ty *ms1, const mixed_string_ty *ms2)
         /* Combine the last segment of ms1 with the first segment of ms2.  */
         nsegments -= 1;
         ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
+        ms->nsegments = nsegments;
         j = 0;
         {
           size_t i;
@@ -352,6 +354,7 @@ mixed_string_concat_free1 (mixed_string_ty *ms1, const mixed_string_ty *ms2)
     else
       {
         ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
+        ms->nsegments = nsegments;
         j = 0;
         for (size_t i = 0; i < ms1->nsegments; i++)
           ms->segments[j++] = ms1->segments[i];
@@ -360,7 +363,6 @@ mixed_string_concat_free1 (mixed_string_ty *ms1, const mixed_string_ty *ms2)
       }
     assert (j == nsegments);
     free (ms1->segments);
-    ms->nsegments = nsegments;
     ms->lcontext = ms1->lcontext;
     ms->logical_file_name = ms1->logical_file_name;
     ms->line_number = ms1->line_number;
@@ -543,7 +545,8 @@ mixed_string_buffer_add_segment (struct mixed_string_buffer *bp,
         xrealloc (bp->segments,
                   new_allocated * sizeof (struct mixed_string_segment *));
     }
-  bp->segments[bp->nsegments++] = newseg;
+  size_t segment_index = bp->nsegments++;
+  bp->segments[segment_index] = newseg;
 }
 
 /* Auxiliary function: Flush bp->curr_buffer and bp->utf16_surr into
@@ -640,6 +643,7 @@ mixed_string_buffer_result (struct mixed_string_buffer *bp)
     struct mixed_string *ms = XMALLOC (struct mixed_string);
     size_t nsegments = bp->nsegments;
 
+    ms->nsegments = nsegments;
     if (nsegments > 0)
       ms->segments =
         (struct mixed_string_segment **)
@@ -650,7 +654,6 @@ mixed_string_buffer_result (struct mixed_string_buffer *bp)
         assert (bp->segments == NULL);
         ms->segments = NULL;
       }
-    ms->nsegments = nsegments;
     ms->lcontext = bp->lcontext;
     ms->logical_file_name = bp->logical_file_name;
     ms->line_number = bp->line_number;
@@ -670,6 +673,7 @@ mixed_string_buffer_cloned_result (struct mixed_string_buffer *bp)
     struct mixed_string *ms = XMALLOC (struct mixed_string);
     size_t nsegments = bp->nsegments;
 
+    ms->nsegments = nsegments;
     if (nsegments > 0)
       {
         ms->segments = XNMALLOC (nsegments, struct mixed_string_segment *);
@@ -681,7 +685,6 @@ mixed_string_buffer_cloned_result (struct mixed_string_buffer *bp)
         assert (bp->segments == NULL);
         ms->segments = NULL;
       }
-    ms->nsegments = nsegments;
     ms->lcontext = bp->lcontext;
     ms->logical_file_name = bp->logical_file_name;
     ms->line_number = bp->line_number;

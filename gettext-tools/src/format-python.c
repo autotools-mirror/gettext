@@ -23,6 +23,7 @@
 #include <string.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "c-ctype.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -96,8 +97,10 @@ struct spec
   size_t likely_intentional_directives;
   size_t named_arg_count;
   size_t unnamed_arg_count;
-  struct named_arg *named;
-  struct unnamed_arg *unnamed;
+  struct named_arg *named
+    COUNTED_BY (named_arg_count);
+  struct unnamed_arg *unnamed
+    COUNTED_BY (unnamed_arg_count);
 };
 
 
@@ -194,8 +197,8 @@ format_parse (const char *format, bool translated, char *fdi,
                 allocated = 2 * allocated + 1;
                 spec.unnamed = (struct unnamed_arg *) xrealloc (spec.unnamed, allocated * sizeof (struct unnamed_arg));
               }
-            spec.unnamed[spec.unnamed_arg_count].type = FAT_INTEGER;
-            spec.unnamed_arg_count++;
+            size_t unnamed_index = spec.unnamed_arg_count++;
+            spec.unnamed[unnamed_index].type = FAT_INTEGER;
           }
         else if (c_isdigit (*format))
           {
@@ -225,8 +228,8 @@ format_parse (const char *format, bool translated, char *fdi,
                     allocated = 2 * allocated + 1;
                     spec.unnamed = (struct unnamed_arg *) xrealloc (spec.unnamed, allocated * sizeof (struct unnamed_arg));
                   }
-                spec.unnamed[spec.unnamed_arg_count].type = FAT_INTEGER;
-                spec.unnamed_arg_count++;
+                size_t unnamed_index = spec.unnamed_arg_count++;
+                spec.unnamed[unnamed_index].type = FAT_INTEGER;
               }
             else if (c_isdigit (*format))
               {
@@ -296,9 +299,9 @@ format_parse (const char *format, bool translated, char *fdi,
                 allocated = 2 * allocated + 1;
                 spec.named = (struct named_arg *) xrealloc (spec.named, allocated * sizeof (struct named_arg));
               }
-            spec.named[spec.named_arg_count].name = name;
-            spec.named[spec.named_arg_count].type = type;
-            spec.named_arg_count++;
+            size_t named_index = spec.named_arg_count++;
+            spec.named[named_index].name = name;
+            spec.named[named_index].type = type;
           }
         else if (*format != '%')
           {
@@ -318,8 +321,8 @@ format_parse (const char *format, bool translated, char *fdi,
                 allocated = 2 * allocated + 1;
                 spec.unnamed = (struct unnamed_arg *) xrealloc (spec.unnamed, allocated * sizeof (struct unnamed_arg));
               }
-            spec.unnamed[spec.unnamed_arg_count].type = type;
-            spec.unnamed_arg_count++;
+            size_t unnamed_index = spec.unnamed_arg_count++;
+            spec.unnamed[unnamed_index].type = type;
           }
 
         if (likely_intentional)

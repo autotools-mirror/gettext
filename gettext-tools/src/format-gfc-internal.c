@@ -22,6 +22,7 @@
 #include <stdlib.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "c-ctype.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -98,7 +99,8 @@ struct spec
 {
   size_t directives;
   size_t unnumbered_arg_count;
-  struct unnumbered_arg *unnumbered;
+  struct unnumbered_arg *unnumbered
+    COUNTED_BY (unnumbered_arg_count);
   bool uses_currentloc;
 };
 

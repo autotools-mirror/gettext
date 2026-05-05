@@ -64,7 +64,8 @@ string_list_append (string_list_ty *slp, const char *s)
     }
 
   /* Add a copy of the string to the end of the list.  */
-  slp->item[slp->nitems++] = xstrdup (s);
+  size_t item_index = slp->nitems++;
+  slp->item[item_index] = xstrdup (s);
 }
 
 
@@ -82,7 +83,8 @@ string_list_append_move (string_list_ty *slp, char *s)
     }
 
   /* Add the string itself to the end of the list.  */
-  slp->item[slp->nitems++] = s;
+  size_t item_index = slp->nitems++;
+  slp->item[item_index] = s;
 }
 
 
@@ -106,7 +108,8 @@ string_list_append_unique (string_list_ty *slp, const char *s)
     }
 
   /* Add a copy of the string to the end of the list.  */
-  slp->item[slp->nitems++] = xstrdup (s);
+  size_t item_index = slp->nitems++;
+  slp->item[item_index] = xstrdup (s);
 }
 
 /* Likewise with a string descriptor as argument.  */
@@ -134,7 +137,8 @@ string_list_append_unique_desc (string_list_ty *slp,
     memcpy (copy, s, s_len);
     copy[s_len] = '\0';
 
-    slp->item[slp->nitems++] = copy;
+    size_t item_index = slp->nitems++;
+    slp->item[item_index] = copy;
   }
 }
 
@@ -291,10 +295,10 @@ string_list_remove (string_list_ty *slp, const char *s)
     if (strcmp (slp->item[j], s) == 0)
       {
         const char *found = slp->item[j];
-        slp->nitems--;
-        if (slp->nitems > j)
+        if (slp->nitems > j + 1)
           memmove (&slp->item[j + 1], &slp->item[j],
-                   (slp->nitems - j) * sizeof (const char *));
+                   (slp->nitems - j - 1) * sizeof (const char *));
+        slp->nitems--;
         return found;
       }
   return NULL;

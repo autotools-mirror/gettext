@@ -620,6 +620,7 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
                     size_t i = tmp->alternative_count;
                     size_t nbytes = (i + 1) * sizeof (struct altstr);
                     tmp->alternative = xrealloc (tmp->alternative, nbytes);
+                    tmp->alternative_count = i + 1;
                     tmp->alternative[i].msgstr = mp->msgstr;
                     tmp->alternative[i].msgstr_len = mp->msgstr_len;
                     tmp->alternative[i].msgstr_end =
@@ -627,7 +628,6 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
                     tmp->alternative[i].comment = mp->comment;
                     tmp->alternative[i].comment_dot = mp->comment_dot;
                     tmp->alternative[i].id = id;
-                    tmp->alternative_count = i + 1;
                   }
 
                   for (size_t i = 0; i < mp->filepos_count; i++)

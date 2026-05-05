@@ -129,7 +129,8 @@ struct segment
 {
   size_t count;          /* Number of format_arg records used.  */
   size_t allocated;
-  struct format_arg *element;   /* Argument constraints.  */
+  struct format_arg *element    /* Argument constraints.  */
+    COUNTED_BY (count);
   size_t length;         /* Number of arguments represented by this segment.
                             This is the sum of all repcounts in the segment.  */
 };
@@ -568,11 +569,12 @@ normalize_outermost_list (struct format_arg_list *list)
                 list->repeated.element[0].repcount += moved_repcount;
               else
                 {
-                  size_t newcount = list->repeated.count + 1;
+                  size_t oldcount = list->repeated.count;
+                  size_t newcount = oldcount + 1;
                   ensure_repeated_alloc (list, newcount);
-                  for (size_t i = newcount - 1; i > 0; i--)
-                    list->repeated.element[i] = list->repeated.element[i-1];
                   list->repeated.count = newcount;
+                  for (size_t i = oldcount; i > 0; i--)
+                    list->repeated.element[i] = list->repeated.element[i-1];
                   copy_element (&list->repeated.element[0],
                                 &list->repeated.element[list->repeated.count-1]);
                   list->repeated.element[0].repcount = moved_repcount;
@@ -699,16 +701,17 @@ unfold_loop (struct format_arg_list *list, size_t m)
 {
   if (m > 1)
     {
-      size_t newcount = list->repeated.count * m;
+      size_t oldcount = list->repeated.count;
+      size_t newcount = oldcount * m;
       ensure_repeated_alloc (list, newcount);
-      size_t i = list->repeated.count;
+      list->repeated.count = newcount;
+      size_t i = oldcount;
       for (size_t k = 1; k < m; k++)
-        for (size_t j = 0; j < list->repeated.count; j++)
+        for (size_t j = 0; j < oldcount; j++)
           {
             copy_element (&list->repeated.element[i], &list->repeated.element[j]);
             i++;
           }
-      list->repeated.count = newcount;
       list->repeated.length = list->repeated.length * m;
     }
 }
@@ -726,12 +729,13 @@ rotate_loop (struct format_arg_list *list, size_t m)
     {
       /* Instead of multiple copies of list->repeated.element[0], a single
          copy with higher repcount is appended to list->initial.  */
-      size_t newcount = list->initial.count + 1;
+      size_t oldcount = list->initial.count;
+      size_t newcount = oldcount + 1;
       ensure_initial_alloc (list, newcount);
-      size_t i = list->initial.count;
+      list->initial.count = newcount;
+      size_t i = oldcount;
       copy_element (&list->initial.element[i], &list->repeated.element[0]);
       list->initial.element[i].repcount = m - list->initial.length;
-      list->initial.count = newcount;
       list->initial.length = m;
     }
   else
@@ -760,9 +764,11 @@ rotate_loop (struct format_arg_list *list, size_t m)
          plus the s first elements of list->repeated,
          plus, if t > 0, a splitoff of list->repeated.element[s].  */
       {
-        size_t i = list->initial.count;
+        size_t oldcount = list->initial.count;
+        size_t i = oldcount;
         size_t newcount = i + q * list->repeated.count + s + (t > 0 ? 1 : 0);
         ensure_initial_alloc (list, newcount);
+        list->initial.count = newcount;
         for (size_t k = 0; k < q; k++)
           for (size_t j = 0; j < list->repeated.count; j++)
             {
@@ -781,7 +787,6 @@ rotate_loop (struct format_arg_list *list, size_t m)
             i++;
           }
         ASSERT (i == newcount);
-        list->initial.count = newcount;
         /* The new length of the initial segment is
            = list->initial.length
              + q * list->repeated.length
@@ -854,14 +859,15 @@ initial_splitelement (struct format_arg_list *list, size_t n)
 
   /* Split the entry into two entries.  */
   size_t oldrepcount = list->initial.element[s].repcount;
-  size_t newcount = list->initial.count + 1;
+  size_t oldcount = list->initial.count;
+  size_t newcount = oldcount + 1;
   ensure_initial_alloc (list, newcount);
-  for (size_t i = list->initial.count - 1; i > s; i--)
+  list->initial.count = newcount;
+  for (size_t i = oldcount - 1; i > s; i--)
     list->initial.element[i+1] = list->initial.element[i];
   copy_element (&list->initial.element[s+1], &list->initial.element[s]);
   list->initial.element[s].repcount = t;
   list->initial.element[s+1].repcount = oldrepcount - t;
-  list->initial.count = newcount;
 
   VERIFY_LIST (list);
 
@@ -904,12 +910,13 @@ initial_unshare (struct format_arg_list *list, size_t n)
       /* Split the entry into at most three entries: for indices < n,
          for index n, and for indices > n.  */
       size_t oldrepcount = list->initial.element[s].repcount;
-      size_t newcount =
-        list->initial.count + (t == 0 || t == oldrepcount - 1 ? 1 : 2);
+      size_t oldcount = list->initial.count;
+      size_t newcount = oldcount + (t == 0 || t == oldrepcount - 1 ? 1 : 2);
       ensure_initial_alloc (list, newcount);
+      list->initial.count = newcount;
       if (t == 0 || t == oldrepcount - 1)
         {
-          for (size_t i = list->initial.count - 1; i > s; i--)
+          for (size_t i = oldcount - 1; i > s; i--)
             list->initial.element[i+1] = list->initial.element[i];
           copy_element (&list->initial.element[s+1], &list->initial.element[s]);
           if (t == 0)
@@ -925,7 +932,7 @@ initial_unshare (struct format_arg_list *list, size_t n)
         }
       else
         {
-          for (size_t i = list->initial.count - 1; i > s; i--)
+          for (size_t i = oldcount - 1; i > s; i--)
             list->initial.element[i+2] = list->initial.element[i];
           copy_element (&list->initial.element[s+2], &list->initial.element[s]);
           copy_element (&list->initial.element[s+1], &list->initial.element[s]);
@@ -933,7 +940,6 @@ initial_unshare (struct format_arg_list *list, size_t n)
           list->initial.element[s+1].repcount = 1;
           list->initial.element[s+2].repcount = oldrepcount - 1 - t;
         }
-      list->initial.count = newcount;
       if (t > 0)
         s++;
     }
@@ -1019,15 +1025,16 @@ append_repeated_to_initial (struct format_arg_list *list)
   if (list->repeated.count > 0)
     {
       /* Move list->repeated over to list->initial.  */
-      size_t newcount = list->initial.count + list->repeated.count;
+      size_t oldcount = list->initial.count;
+      size_t newcount = oldcount + list->repeated.count;
       ensure_initial_alloc (list, newcount);
-      size_t i = list->initial.count;
+      list->initial.count = newcount;
+      size_t i = oldcount;
       for (size_t j = 0; j < list->repeated.count; j++)
         {
           list->initial.element[i] = list->repeated.element[j];
           i++;
         }
-      list->initial.count = newcount;
       list->initial.length = list->initial.length + list->repeated.length;
       free (list->repeated.element);
       list->repeated.element = NULL;
@@ -1147,20 +1154,23 @@ make_intersected_list (struct format_arg_list *list1,
       {
         /* Ensure room in result->initial.  */
         grow_initial_alloc (result);
-        struct format_arg *re = &result->initial.element[result->initial.count];
+        size_t repeated_index = result->initial.count++;
+        struct format_arg *re = &result->initial.element[repeated_index];
         re->repcount = MIN (e1->repcount, e2->repcount);
 
         /* Intersect the argument types.  */
         if (!make_intersected_element (re, e1, e2))
           {
+            bool re_is_required = re->presence == FCT_REQUIRED;
+            result->initial.count--;
+
             /* If re->presence == FCT_OPTIONAL, the result list ends here.  */
-            if (re->presence == FCT_REQUIRED)
+            if (re_is_required)
               /* Contradiction.  Backtrack.  */
               result = backtrack_in_initial (result);
             goto done;
           }
 
-        result->initial.count++;
         result->initial.length += re->repcount;
 
         e1->repcount -= re->repcount;
@@ -1230,13 +1240,15 @@ make_intersected_list (struct format_arg_list *list1,
       {
         /* Ensure room in result->repeated.  */
         grow_repeated_alloc (result);
-        struct format_arg *re = &result->repeated.element[result->repeated.count];
+        size_t repeated_index = result->repeated.count++;
+        struct format_arg *re = &result->repeated.element[repeated_index];
         re->repcount = MIN (e1->repcount, e2->repcount);
 
         /* Intersect the argument types.  */
         if (!make_intersected_element (re, e1, e2))
           {
             bool re_is_required = re->presence == FCT_REQUIRED;
+            result->repeated.count--;
 
             append_repeated_to_initial (result);
 
@@ -1248,7 +1260,6 @@ make_intersected_list (struct format_arg_list *list1,
             goto done;
           }
 
-        result->repeated.count++;
         result->repeated.length += re->repcount;
 
         e1->repcount -= re->repcount;

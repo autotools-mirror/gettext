@@ -1576,7 +1576,8 @@ msgfmt_operand_list_append (msgfmt_operand_list_ty *operands,
                                   * operands->nitems_max);
     }
 
-  msgfmt_operand_ty *operand = &operands->items[operands->nitems++];
+  size_t item_index = operands->nitems++;
+  msgfmt_operand_ty *operand = &operands->items[item_index];
   operand->language = xstrdup (language);
   operand->mlp = messages;
 }

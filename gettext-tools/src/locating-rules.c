@@ -29,6 +29,7 @@
 #include <libxml/uri.h>
 
 #include <error.h>
+#include "attribute.h"
 #include "basename-lgpl.h"
 #include "concat-filename.h"
 #include "c-strcase.h"
@@ -55,8 +56,9 @@ struct document_locating_rule_ty
 /* This type represents a list of <documentRule> elements.  */
 struct document_locating_rule_list_ty
 {
-  struct document_locating_rule_ty *items;
   size_t nitems;
+  struct document_locating_rule_ty *items
+    COUNTED_BY (nitems);
   /* nitems_max is the number of allocated elements.  nitems ≤ nitems_max.  */
   size_t nitems_max;
 };
@@ -81,8 +83,9 @@ struct locating_rule_ty
    possibly from different *.loc files.  */
 struct locating_rule_list_ty
 {
-  struct locating_rule_ty *items;
   size_t nitems;
+  struct locating_rule_ty *items
+    COUNTED_BY (nitems);
   /* nitems_max is the number of allocated elements.  nitems ≤ nitems_max.  */
   size_t nitems_max;
 };
@@ -270,7 +273,8 @@ document_locating_rule_list_add (struct document_locating_rule_list_ty *rules,
                   sizeof (struct document_locating_rule_ty)
                   * rules->nitems_max);
     }
-  memcpy (&rules->items[rules->nitems++], &rule,
+  size_t item_index = rules->nitems++;
+  memcpy (&rules->items[item_index], &rule,
           sizeof (struct document_locating_rule_ty));
 }
 
@@ -354,7 +358,8 @@ locating_rule_list_add_from_file (struct locating_rule_list_ty *rules,
                     xrealloc (rules->items,
                               sizeof (struct locating_rule_ty) * rules->nitems_max);
                 }
-              memcpy (&rules->items[rules->nitems++], &rule,
+              size_t item_index = rules->nitems++;
+              memcpy (&rules->items[item_index], &rule,
                       sizeof (struct locating_rule_ty));
             }
         }

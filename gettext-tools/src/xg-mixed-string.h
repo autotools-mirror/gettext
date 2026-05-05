@@ -23,6 +23,7 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#include "attribute.h"
 #include "xg-encoding.h"
 
 #ifdef __cplusplus
@@ -43,15 +44,17 @@ struct mixed_string_segment
 {
   /*enum segment_type*/ unsigned char type;
   size_t length;
-  char contents[FLEXIBLE_ARRAY_MEMBER];
+  char contents[FLEXIBLE_ARRAY_MEMBER]
+    COUNTED_BY (length);
 };
 
 typedef struct mixed_string mixed_string_ty;
 struct mixed_string
 {
-  /* The alternating segments.  */
-  struct mixed_string_segment **segments;
   size_t nsegments;
+  /* The alternating segments.  */
+  struct mixed_string_segment **segments
+    COUNTED_BY (nsegments);
   /* The lexical context.  Used only for error message purposes.  */
   lexical_context_ty lcontext;
   const char *logical_file_name;
@@ -113,8 +116,9 @@ extern void
 struct mixed_string_buffer
 {
   /* The alternating segments that are already finished.  */
-  struct mixed_string_segment **segments;
   size_t nsegments;
+  struct mixed_string_segment **segments
+    COUNTED_BY (nsegments);
   size_t nsegments_allocated;
   /* The segment that is being accumulated.  */
   int curr_type; /* An enum segment_type, or -1. */

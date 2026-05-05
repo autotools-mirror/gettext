@@ -19,6 +19,7 @@
 #ifndef _MSGFMT_H
 #define _MSGFMT_H
 
+#include "attribute.h"
 #include "message.h"
 
 #ifdef __cplusplus
@@ -42,8 +43,9 @@ struct msgfmt_operand_ty
 typedef struct msgfmt_operand_list_ty msgfmt_operand_list_ty;
 struct msgfmt_operand_list_ty
 {
-  msgfmt_operand_ty *items;
   size_t nitems;
+  msgfmt_operand_ty *items
+    COUNTED_BY (nitems);
   size_t nitems_max;
 };
 

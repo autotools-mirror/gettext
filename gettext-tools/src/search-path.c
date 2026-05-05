@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "attribute.h"
 #include "concat-filename.h"
 #include "relocatable.h"
 #include "xalloc.h"
@@ -73,8 +74,9 @@ increment (const char *dir, size_t len, void *data)
 
 /* Data for the FILL callback function.  */
 struct path_array_ty {
-  char **ptr;
   size_t len;
+  char **ptr
+    COUNTED_BY (len);
   /* Transient argument for fill().  */
   const char *sub;
 };
@@ -98,7 +100,8 @@ fill (const char *dir, size_t len, void *data)
       free (base);
     }
 
-  array->ptr[array->len++] = name;
+  size_t index = array->len++;
+  array->ptr[index] = name;
 }
 
 
@@ -153,7 +156,8 @@ get_search_path (const char *sub)
         name = xstrdup (gettextdatadir);
       else
         name = xconcatenated_filename (gettextdatadir, sub, NULL);
-      array.ptr[array.len++] = name;
+      size_t index = array.len++;
+      array.ptr[index] = name;
     }
 
     /* Append elements from GETTEXTDATADIRS.  */
@@ -190,7 +194,8 @@ get_search_path (const char *sub)
           name = xconcatenated_filename (base, sub, NULL);
           free (base);
         }
-      array.ptr[array.len++] = name;
+      size_t index = array.len++;
+      array.ptr[index] = name;
     }
   }
 
@@ -199,7 +204,8 @@ get_search_path (const char *sub)
     abort ();
 
   /* Add a NULL at the end.  */
-  array.ptr[array.len] = NULL;
+  size_t index = array.len++;
+  array.ptr[index] = NULL;
 
   return array.ptr;
 }

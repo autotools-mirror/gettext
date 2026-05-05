@@ -22,6 +22,7 @@
 #include <stdlib.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "c-ctype.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -64,7 +65,8 @@ struct spec
 {
   size_t directives;
   size_t arg_count;
-  enum format_arg_type *args;
+  enum format_arg_type *args
+    COUNTED_BY (arg_count);
 };
 
 static void *
@@ -139,7 +141,8 @@ format_parse (const char *format, bool translated, char *fdi,
                         (enum format_arg_type *)
                         xrealloc (spec.args, args_allocated * sizeof (enum format_arg_type));
                     }
-                  spec.args[spec.arg_count++] = type;
+                  size_t args_index = spec.arg_count++;
+                  spec.args[args_index] = type;
                 }
               FDI_SET (format, FMTDIR_END);
               format++;

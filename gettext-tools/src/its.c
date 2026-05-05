@@ -37,6 +37,7 @@
 #include <libxml/xpathInternals.h>
 
 #define SB_NO_APPENDF
+#include "attribute.h"
 #include <error.h>
 #include "mem-hash-map.h"
 #include "trim.h"
@@ -124,8 +125,9 @@ struct its_value_ty
 
 struct its_value_list_ty
 {
-  struct its_value_ty *items;
   size_t nitems;
+  struct its_value_ty *items
+    COUNTED_BY (nitems);
   size_t nitems_max;
 };
 
@@ -145,8 +147,8 @@ its_value_list_append (struct its_value_list_ty *values,
         xrealloc (values->items,
                   sizeof (struct its_value_ty) * values->nitems_max);
     }
-  memcpy (&values->items[values->nitems++], &_value,
-          sizeof (struct its_value_ty));
+  size_t item_index = values->nitems++;
+  memcpy (&values->items[item_index], &_value, sizeof (struct its_value_ty));
 }
 
 static const char *
@@ -223,8 +225,9 @@ its_value_list_destroy (struct its_value_list_ty *values)
 
 struct its_pool_ty
 {
-  struct its_value_list_ty *items;
   size_t nitems;
+  struct its_value_list_ty *items
+    COUNTED_BY (nitems);
   size_t nitems_max;
 };
 
@@ -239,7 +242,8 @@ its_pool_alloc_value_list (struct its_pool_ty *pool)
                   sizeof (struct its_value_list_ty) * pool->nitems_max);
     }
 
-  struct its_value_list_ty *values = &pool->items[pool->nitems++];
+  size_t item_index = pool->nitems++;
+  struct its_value_list_ty *values = &pool->items[item_index];
   memset (values, 0, sizeof (struct its_value_list_ty));
   return values;
 }
@@ -272,8 +276,9 @@ its_pool_destroy (struct its_pool_ty *pool)
 
 struct its_node_list_ty
 {
-  xmlNode **items;
   size_t nitems;
+  xmlNode **items
+    COUNTED_BY (nitems);
   size_t nitems_max;
 };
 
@@ -287,7 +292,8 @@ its_node_list_append (struct its_node_list_ty *nodes,
       nodes->items =
         xrealloc (nodes->items, sizeof (xmlNode *) * nodes->nitems_max);
     }
-  nodes->items[nodes->nitems++] = node;
+  size_t item_index = nodes->nitems++;
+  nodes->items[item_index] = node;
 }
 
 
@@ -1483,8 +1489,9 @@ init_classes (void)
 
 struct its_rule_list_ty
 {
-  struct its_rule_ty **items;
   size_t nitems;
+  struct its_rule_ty **items
+    COUNTED_BY (nitems);
   size_t nitems_max;
 
   struct its_pool_ty pool;
@@ -1542,7 +1549,8 @@ its_rule_list_add_from_doc (struct its_rule_list_ty *rules,
                 xrealloc (rules->items,
                           sizeof (struct its_rule_ty *) * rules->nitems_max);
             }
-          rules->items[rules->nitems++] = rule;
+          size_t item_index = rules->nitems++;
+          rules->items[item_index] = rule;
         }
     }
 

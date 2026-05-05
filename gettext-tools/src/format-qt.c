@@ -22,6 +22,7 @@
 #include <stdlib.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "gettext.h"
@@ -59,7 +60,8 @@ struct spec
 
   /* Booleans telling which %nn was seen.  */
   size_t arg_count;
-  bool args_used[100];
+  bool args_used[100]
+    /* COUNTED_BY (arg_count) */;
 };
 
 

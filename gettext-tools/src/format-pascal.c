@@ -22,6 +22,7 @@
 #include <stdlib.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "c-ctype.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -83,7 +84,8 @@ struct spec
 {
   size_t directives;
   size_t numbered_arg_count;
-  struct numbered_arg *numbered;
+  struct numbered_arg *numbered
+    COUNTED_BY (numbered_arg_count);
 };
 
 

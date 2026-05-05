@@ -341,8 +341,9 @@ struct mult_index
    The indices are sorted in ascending order.  */
 struct mult_index_list
 {
-  struct mult_index *item;
   size_t nitems;
+  struct mult_index *item
+    COUNTED_BY (nitems);
   size_t nitems_max;
   /* Work area.  */
   struct mult_index *item2;

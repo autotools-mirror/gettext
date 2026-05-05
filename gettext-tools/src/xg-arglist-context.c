@@ -234,7 +234,8 @@ remembered_message_list_append (struct remembered_message_list_ty *list,
       size_t nbytes = list->nitems_max * sizeof (struct remembered_message_ty);
       list->item = xrealloc (list->item, nbytes);
     }
-  list->item[list->nitems++] = element;
+  size_t item_index = list->nitems++;
+  list->item[item_index] = element;
 }
 
 static struct remembered_message_list_ty *
@@ -270,7 +271,7 @@ static flag_region_ty const the_null_context_region =
       { true, undecided, NULL },
       { true, undecided, NULL }
     },
-    NULL, 0, 0,
+    0, NULL, 0,
     true
   };
 
@@ -351,7 +352,8 @@ new_sub_region (flag_region_ty *outer_region, flag_context_ty modifier_context)
           size_t nbytes = outer_region->nsubregions_max * sizeof (struct flag_region_ty *);
           outer_region->subregion = xrealloc (outer_region->subregion, nbytes);
         }
-      outer_region->subregion[outer_region->nsubregions++] = region;
+      size_t subregion_index = outer_region->nsubregions++;
+      outer_region->subregion[subregion_index] = region;
       region->refcount++;
     }
 

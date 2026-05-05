@@ -56,8 +56,9 @@ enum format_arg_type
 struct format_piece
 {
   /* For plain text, directives that take no argument, and escape sequences:  */
-  const char *text_start;
   size_t text_length;
+  const char *text_start
+    COUNTED_BY (text_length);
   /* For directives that take an argument:  */
   enum format_arg_type arg_type;
   size_t arg_number; /* > 0 */
@@ -67,8 +68,9 @@ struct format_piece
 /* The entire format string.  */
 struct format_string
 {
-  struct format_piece *pieces;
   size_t npieces;
+  struct format_piece *pieces
+    COUNTED_BY (npieces);
 };
 
 /* Parses the format string.

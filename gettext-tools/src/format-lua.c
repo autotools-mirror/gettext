@@ -22,6 +22,7 @@
 #include <stdlib.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "gettext.h"
 #include "xalloc.h"
 #include "format-invalid.h"
@@ -69,7 +70,8 @@ struct spec
 {
   size_t directives;
   size_t format_args_count;
-  enum format_arg_type *format_args;
+  enum format_arg_type *format_args
+    COUNTED_BY (format_args_count);
 };
 
 static void *
@@ -169,7 +171,8 @@ format_parse (const char *format, bool translated, char *fdi,
                               format_args_allocated *
                               sizeof (enum format_arg_type));
                 }
-              spec.format_args[spec.format_args_count++] = type;
+              size_t format_args_index = spec.format_args_count++;
+              spec.format_args[format_args_index] = type;
             }
           FDI_SET (fatstr, FMTDIR_END);
           fatstr++;

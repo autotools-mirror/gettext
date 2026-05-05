@@ -23,6 +23,7 @@
 #include <string.h>
 
 #include "format.h"
+#include "attribute.h"
 #include "c-ctype.h"
 #include "xalloc.h"
 #include "format-invalid.h"
@@ -62,7 +63,8 @@ struct spec
 {
   size_t directives;
   size_t named_arg_count;
-  struct named_arg *named;
+  struct named_arg *named
+    COUNTED_BY (named_arg_count);
 };
 
 
@@ -191,8 +193,8 @@ format_parse (const char *format, bool translated, char *fdi,
             named_allocated = 2 * named_allocated + 1;
             spec.named = (struct named_arg *) xrealloc (spec.named, named_allocated * sizeof (struct named_arg));
           }
-        spec.named[spec.named_arg_count].name = name;
-        spec.named_arg_count++;
+        size_t named_index = spec.named_arg_count++;
+        spec.named[named_index].name = name;
 
         FDI_SET (format - 1, FMTDIR_END);
       }

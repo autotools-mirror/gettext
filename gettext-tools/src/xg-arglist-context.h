@@ -22,6 +22,7 @@
 
 #include <stdbool.h>
 
+#include "attribute.h"
 #include "mem-hash-map.h"
 #include "message.h"
 #include "xg-formatstring.h"
@@ -165,8 +166,9 @@ struct remembered_message_ty
 struct remembered_message_list_ty
 {
   unsigned int refcount;
-  struct remembered_message_ty *item;
   size_t nitems;
+  struct remembered_message_ty *item
+    COUNTED_BY (nitems);
   size_t nitems_max;
 };
 
@@ -194,10 +196,11 @@ struct flag_region_ty
 {
   unsigned int refcount;
   struct formatstring_region_ty for_formatstring[NXFORMATS];
+  size_t nsubregions;
   /* Any number of subregions.  They represent disjoint sub-intervals
      of this region.  */
-  struct flag_region_ty **subregion;
-  size_t nsubregions;
+  struct flag_region_ty **subregion
+    COUNTED_BY (nsubregions);
   size_t nsubregions_max;
   /* Whether this region, as a subregion, inherits its flags from its
      parent region.  */
