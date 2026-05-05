@@ -176,8 +176,7 @@ static size_t maxmap;
 /* Prototypes for local functions.  */
 static size_t read_alias_file (const char *fname, int fname_len);
 static int extend_alias_table (void);
-static int alias_compare (const struct alias_map *map1,
-			  const struct alias_map *map2);
+static int alias_compare (const void *, const void *);
 
 #endif
 
@@ -206,9 +205,7 @@ _nl_expand_alias (const char *name)
       if (nmap > 0)
 	retval = (struct alias_map *) bsearch (&item, map, nmap,
 					       sizeof (struct alias_map),
-					       (int (*) (const void *,
-							 const void *)
-						) alias_compare);
+					       alias_compare);
       else
 	retval = NULL;
 
@@ -423,8 +420,7 @@ read_alias_file (const char *fname, int fname_len)
   fclose (fp);
 
   if (added > 0)
-    qsort (map, nmap, sizeof (struct alias_map),
-	   (int (*) (const void *, const void *)) alias_compare);
+    qsort (map, nmap, sizeof (struct alias_map), alias_compare);
 
   return added;
 }
@@ -450,8 +446,10 @@ extend_alias_table (void)
 
 
 static int
-alias_compare (const struct alias_map *map1, const struct alias_map *map2)
+alias_compare (const void *arg1, const void *arg2)
 {
+  const struct alias_map *map1 = (const struct alias_map *) arg1;
+  const struct alias_map *map2 = (const struct alias_map *) arg2;
   return strcasecmp (map1->alias, map2->alias);
 }
 
