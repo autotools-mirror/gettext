@@ -24,6 +24,7 @@
 #include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define SB_NO_APPENDF
 #include <error.h>
@@ -521,7 +522,7 @@ phase4_get (token_ty *tp)
           phase3_get (&token2);
 
           if (token2.type == token_type_symbol
-              && strcmp (token2.string, ",") == 0)
+              && streq (token2.string, ","))
             {
               token_ty token3;
               phase3_get (&token3);
@@ -613,10 +614,10 @@ extract_smalltalk (FILE *f,
         switch (token.type)
           {
           case token_type_symbol:
-            state = (strcmp (token.string, "NLS") == 0 ? 1 :
-                     strcmp (token.string, "?") == 0 && state == 1 ? 2 :
-                     strcmp (token.string, "at:") == 0 && state == 1 ? 3 :
-                     strcmp (token.string, "plural:") == 0 && state == 4 ? 5 :
+            state = (streq (token.string, "NLS") ? 1 :
+                     streq (token.string, "?") && state == 1 ? 2 :
+                     streq (token.string, "at:") && state == 1 ? 3 :
+                     streq (token.string, "plural:") && state == 4 ? 5 :
                      0);
             free_token (&token);
             break;
@@ -645,7 +646,7 @@ extract_smalltalk (FILE *f,
                 plural_mp =
                   remember_a_message (mlp, NULL, token.string, false,
                                       token2.type == token_type_symbol
-                                      && strcmp (token.string, "plural:") == 0,
+                                      && streq (token.string, "plural:"),
                                       null_context_region (), &pos,
                                       NULL, token.comment, false);
 

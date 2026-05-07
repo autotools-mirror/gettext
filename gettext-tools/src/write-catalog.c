@@ -186,8 +186,8 @@ msgdomain_list_print (msgdomain_list_ty *mdlp, const char *filename,
         }
     }
 
-  bool to_stdout = (filename == NULL || strcmp (filename, "-") == 0
-                    || strcmp (filename, "/dev/stdout") == 0);
+  bool to_stdout = (filename == NULL || streq (filename, "-")
+                    || streq (filename, "/dev/stdout"));
 
 #if ENABLE_COLOR
   if (output_syntax->supports_color

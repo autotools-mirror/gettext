@@ -79,7 +79,7 @@ check_pot_charset (const msgdomain_list_ty *mdlp, const char *filename)
 
                     /* "CHARSET" is often used as a placeholder, equivalent
                        to "any" or "ASCII".  */
-                    if (!(strcmp (charset, "CHARSET") == 0)
+                    if (!streq (charset, "CHARSET")
                         && canon_charset == NULL)
                       error (EXIT_FAILURE, 0,
                              _("%s: The present charset \"%s\" is not a portable encoding name."),
@@ -156,9 +156,9 @@ Possible workarounds are:\n\
   then apply '%s',\n\
   then convert back to %s using 'msgconv'.\n\
 "), canon_locale_code, last_component (program_name), canon_charset));
-                        if (strcmp (canon_charset, "UTF-8") != 0
+                        if (!streq (canon_charset, "UTF-8")
                             && (canon_locale_code == NULL
-                                || strcmp (canon_locale_code, "UTF-8") != 0))
+                                || !streq (canon_locale_code, "UTF-8")))
                           multiline_append (prefix_width,
                                             xasprintf (_("\
 - Set LC_ALL to a locale with encoding %s,\n\

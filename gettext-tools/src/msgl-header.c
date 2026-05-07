@@ -81,7 +81,7 @@ msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
   /* Search the field in known_fields[].  */
   int field_index = -1;
   for (size_t k = 0; k < SIZEOF (known_fields); k++)
-    if (strcmp (known_fields[k].name, field) == 0)
+    if (streq (known_fields[k].name, field))
       {
         field_index = k;
         break;

@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define SB_NO_APPENDF
 #include <error.h>
@@ -483,7 +484,7 @@ extract_rsj (FILE *f,
             if (c != ':')
               goto invalid_json;
 
-            if (strcmp (s1, "version") == 0)
+            if (streq (s1, "version"))
               {
                 /* Parse an integer.  */
                 if (parse_integer () != pr_parsed)
@@ -491,14 +492,14 @@ extract_rsj (FILE *f,
                     sb_free (&buffer);
                     goto invalid_rsj;
                   }
-                if (strcmp (sb_xcontents_c (&buffer), "1") != 0)
+                if (!streq (sb_xcontents_c (&buffer), "1"))
                   {
                     sb_free (&buffer);
                     goto invalid_rsj_version;
                   }
                 sb_free (&buffer);
               }
-            else if (strcmp (s1, "strings") == 0)
+            else if (streq (s1, "strings"))
               {
                 /* Parse an array.  */
                 c = phase2_getc ();
@@ -537,7 +538,7 @@ extract_rsj (FILE *f,
                                 if (c != ':')
                                   goto invalid_json;
 
-                                if (strcmp (s2, "hash") == 0)
+                                if (streq (s2, "hash"))
                                   {
                                     /* Parse an integer.  */
                                     if (parse_integer () != pr_parsed)
@@ -547,7 +548,7 @@ extract_rsj (FILE *f,
                                       }
                                     sb_free (&buffer);
                                   }
-                                else if (strcmp (s2, "name") == 0)
+                                else if (streq (s2, "name"))
                                   {
                                     /* Parse a string.  */
                                     enum parse_result r = parse_string ();
@@ -559,7 +560,7 @@ extract_rsj (FILE *f,
                                       mixed_string_contents_free1 (
                                         mixed_string_buffer_result (&stringbuf));
                                   }
-                                else if (strcmp (s2, "sourcebytes") == 0)
+                                else if (streq (s2, "sourcebytes"))
                                   {
                                     /* Parse an array.  */
                                     c = phase2_getc ();
@@ -589,7 +590,7 @@ extract_rsj (FILE *f,
                                           }
                                       }
                                   }
-                                else if (strcmp (s2, "value") == 0)
+                                else if (streq (s2, "value"))
                                   {
                                     /* Parse a string.  */
                                     enum parse_result r = parse_string ();

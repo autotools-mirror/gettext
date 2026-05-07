@@ -495,7 +495,7 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
         }
 
       /* See whether this line terminates the here document.  */
-      if (strcmp (my_linebuf, delimiter) == 0)
+      if (streq (my_linebuf, delimiter))
         break;
 
       /* Add back the trailing newline to my_linebuf.  */
@@ -2383,36 +2383,36 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
               }
             const char *contents = sb_xcontents_c (&buffer);
 
-            if (strcmp (contents, "__END__") == 0
-                || strcmp (contents, "__DATA__") == 0)
+            if (streq (contents, "__END__")
+                || streq (contents, "__DATA__"))
               {
                 sb_free (&buffer);
                 xp->end_of_file = true;
                 tp->type = token_type_eof;
                 return;
               }
-            else if (strcmp (contents, "and") == 0
-                     || strcmp (contents, "cmp") == 0
-                     || strcmp (contents, "eq") == 0
-                     || strcmp (contents, "if") == 0
-                     || strcmp (contents, "ge") == 0
-                     || strcmp (contents, "gt") == 0
-                     || strcmp (contents, "le") == 0
-                     || strcmp (contents, "lt") == 0
-                     || strcmp (contents, "ne") == 0
-                     || strcmp (contents, "not") == 0
-                     || strcmp (contents, "or") == 0
-                     || strcmp (contents, "unless") == 0
-                     || strcmp (contents, "while") == 0
-                     || strcmp (contents, "xor") == 0)
+            else if (streq (contents, "and")
+                     || streq (contents, "cmp")
+                     || streq (contents, "eq")
+                     || streq (contents, "if")
+                     || streq (contents, "ge")
+                     || streq (contents, "gt")
+                     || streq (contents, "le")
+                     || streq (contents, "lt")
+                     || streq (contents, "ne")
+                     || streq (contents, "not")
+                     || streq (contents, "or")
+                     || streq (contents, "unless")
+                     || streq (contents, "while")
+                     || streq (contents, "xor"))
               {
                 tp->type = token_type_named_op;
                 tp->string = sb_xdupfree_c (&buffer);
                 return;
               }
-            else if (strcmp (contents, "s") == 0
-                   || strcmp (contents, "y") == 0
-                   || strcmp (contents, "tr") == 0)
+            else if (streq (contents, "s")
+                   || streq (contents, "y")
+                   || streq (contents, "tr"))
               {
                 int delim = phase1_getc (xp);
 
@@ -2447,7 +2447,7 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                 phase1_ungetc (xp, c);
                 return;
               }
-            else if (strcmp (contents, "m") == 0)
+            else if (streq (contents, "m"))
               {
                 int delim = phase1_getc (xp);
 
@@ -2487,11 +2487,11 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                 phase1_ungetc (xp, c);
                 return;
               }
-            else if (strcmp (contents, "qq") == 0
-                     || strcmp (contents, "q") == 0
-                     || strcmp (contents, "qx") == 0
-                     || strcmp (contents, "qw") == 0
-                     || strcmp (contents, "qr") == 0)
+            else if (streq (contents, "qq")
+                     || streq (contents, "q")
+                     || streq (contents, "qx")
+                     || streq (contents, "qw")
+                     || streq (contents, "qr"))
               {
                 /* The qw (...) construct is not really a string but we
                    can treat in the same manner and then pretend it is
@@ -2560,7 +2560,7 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                 return;
               }
             tp->type = token_type_symbol;
-            tp->sub_type = (strcmp (contents, "sub") == 0
+            tp->sub_type = (streq (contents, "sub")
                             ? symbol_type_sub
                             : symbol_type_none);
             tp->string = sb_xdupfree_c (&buffer);
@@ -2914,28 +2914,28 @@ x_perl_lex (struct perl_extractor *xp)
               /* Instance method, not chained.  */
               xp->last_token_type = token_type_variable;
             }
-          else if (strcmp (tp->string, "wantarray") == 0
-                   || strcmp (tp->string, "fork") == 0
-                   || strcmp (tp->string, "getlogin") == 0
-                   || strcmp (tp->string, "getppid") == 0
-                   || strcmp (tp->string, "getpwent") == 0
-                   || strcmp (tp->string, "getgrent") == 0
-                   || strcmp (tp->string, "gethostent") == 0
-                   || strcmp (tp->string, "getnetent") == 0
-                   || strcmp (tp->string, "getprotoent") == 0
-                   || strcmp (tp->string, "getservent") == 0
-                   || strcmp (tp->string, "setpwent") == 0
-                   || strcmp (tp->string, "setgrent") == 0
-                   || strcmp (tp->string, "endpwent") == 0
-                   || strcmp (tp->string, "endgrent") == 0
-                   || strcmp (tp->string, "endhostent") == 0
-                   || strcmp (tp->string, "endnetent") == 0
-                   || strcmp (tp->string, "endprotoent") == 0
-                   || strcmp (tp->string, "endservent") == 0
-                   || strcmp (tp->string, "time") == 0
-                   || strcmp (tp->string, "times") == 0
-                   || strcmp (tp->string, "wait") == 0
-                   || strcmp (tp->string, "wantarray") == 0)
+          else if (streq (tp->string, "wantarray")
+                   || streq (tp->string, "fork")
+                   || streq (tp->string, "getlogin")
+                   || streq (tp->string, "getppid")
+                   || streq (tp->string, "getpwent")
+                   || streq (tp->string, "getgrent")
+                   || streq (tp->string, "gethostent")
+                   || streq (tp->string, "getnetent")
+                   || streq (tp->string, "getprotoent")
+                   || streq (tp->string, "getservent")
+                   || streq (tp->string, "setpwent")
+                   || streq (tp->string, "setgrent")
+                   || streq (tp->string, "endpwent")
+                   || streq (tp->string, "endgrent")
+                   || streq (tp->string, "endhostent")
+                   || streq (tp->string, "endnetent")
+                   || streq (tp->string, "endprotoent")
+                   || streq (tp->string, "endservent")
+                   || streq (tp->string, "time")
+                   || streq (tp->string, "times")
+                   || streq (tp->string, "wait")
+                   || streq (tp->string, "wantarray"))
             {
               /* A Perl built-in function that does not accept arguments.  */
               xp->last_token_type = token_type_variable;

@@ -284,7 +284,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   if (locale == NULL)
     {
       locale = gl_locale_name (LC_MESSAGES, "LC_MESSAGES");
-      if (strcmp (locale, "C") == 0)
+      if (streq (locale, "C"))
         {
           const char *doc_url =
             "https://www.gnu.org/software/gettext/manual/html_node/Setting-the-POSIX-Locale.html";
@@ -311,7 +311,7 @@ This is necessary so you can test your translations.\n"),
     output_file = xasprintf ("%s.po", catalogname);
 
   msgdomain_list_ty *result;
-  if (strcmp (output_file, "-") != 0
+  if (!streq (output_file, "-")
       && access (output_file, F_OK) == 0)
     {
       /* The output PO file already exists.  Assume the translator wants to
@@ -357,7 +357,7 @@ This is necessary so you can test your translations.\n"),
       result = fill_header (result, true);
 
       /* Initialize translations.  */
-      if (strcmp (language, "en") == 0)
+      if (streq (language, "en"))
         result = msgdomain_list_english (result);
       else
         result = update_msgstr_plurals (result);
@@ -759,7 +759,7 @@ catalogname_for_locale (const char *locale)
 
   /* If the territory is the language's principal territory, drop it.  */
   for (size_t i = 0; i < SIZEOF (locales_with_principal_territory); i++)
-    if (strcmp (locale, locales_with_principal_territory[i]) == 0)
+    if (streq (locale, locales_with_principal_territory[i]))
       {
         const char *language_end = strchr (locale, '_');
         if (language_end == NULL)
@@ -848,7 +848,7 @@ static const char *
 englishname_of_language ()
 {
   for (size_t i = 0; i < language_table_size; i++)
-    if (strcmp (language_table[i].code, language) == 0)
+    if (streq (language_table[i].code, language))
       return language_table[i].english;
 
   return xasprintf ("Language %s", language);
@@ -863,7 +863,7 @@ project_id (const char *header)
      it was already filled in by xgettext.  */
   {
     const char *old_field = get_field (header, "Project-Id-Version");
-    if (old_field != NULL && strcmp (old_field, "PACKAGE VERSION") != 0)
+    if (old_field != NULL && !streq (old_field, "PACKAGE VERSION"))
       {
         /* Remove the last word from old_field.  */
         const char *last_space = strrchr (old_field, ' ');
@@ -958,7 +958,7 @@ project_id_version (const char *header)
      xgettext.  */
   {
     const char *old_field = get_field (header, "Project-Id-Version");
-    if (old_field != NULL && strcmp (old_field, "PACKAGE VERSION") != 0)
+    if (old_field != NULL && !streq (old_field, "PACKAGE VERSION"))
       return old_field;
   }
 
@@ -1222,7 +1222,7 @@ language_team_englishname ()
 {
   /* Search for a name depending on the catalogname.  */
   for (size_t i = 0; i < language_variant_table_size; i++)
-    if (strcmp (language_variant_table[i].code, catalogname) == 0)
+    if (streq (language_variant_table[i].code, catalogname))
       return language_variant_table[i].english;
 
   /* Search for a name depending on the language only.  */
@@ -1365,12 +1365,12 @@ plural_forms ()
 {
   /* Search for a formula depending on the catalogname.  */
   for (size_t i = 0; i < plural_table_size; i++)
-    if (strcmp (plural_table[i].lang, catalogname) == 0)
+    if (streq (plural_table[i].lang, catalogname))
       return plural_table[i].value;
 
   /* Search for a formula depending on the language only.  */
   for (size_t i = 0; i < plural_table_size; i++)
-    if (strcmp (plural_table[i].lang, language) == 0)
+    if (streq (plural_table[i].lang, language))
       return plural_table[i].value;
 
   const char *gettextcldrdir = getenv ("GETTEXTCLDRDIR");
@@ -1645,7 +1645,7 @@ get_title ()
          *not* "Traduzioni inglesi ...".  */
       const char *msgid = N_("English translations for %s package");
       result = gettext (msgid);
-      if (result != msgid && strcmp (result, msgid) != 0)
+      if (result != msgid && !streq (result, msgid))
         /* Use the English and the foreign title.  */
         result = xasprintf ("%s\n%s", english,
                             xstr_iconv (result, locale_charset (),

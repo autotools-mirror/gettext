@@ -213,7 +213,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   /* Read input file.  */
   msgdomain_list_ty *result = read_catalog_file (input_file, input_syntax);
 
-  if (strcmp (sub_name, "0") != 0)
+  if (!streq (sub_name, "0"))
     {
       /* Warn if the current locale is not suitable for this PO file.  */
       compare_po_locale_charsets (result);
@@ -351,7 +351,7 @@ nonintr_close (int fd)
 static void
 process_string (const message_ty *mp, const char *str, size_t len)
 {
-  if (strcmp (sub_name, "0") == 0)
+  if (streq (sub_name, "0"))
     {
       /* Built-in command "0".  */
       if (full_write (STDOUT_FILENO, str, len + 1) < len + 1)

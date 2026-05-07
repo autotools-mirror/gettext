@@ -160,7 +160,7 @@ catenate_msgdomain_list (string_list_ty *file_list,
                                 const char *filename = files[n];
                                 size_t filenamelen = strlen (filename);
 
-                                if (strcmp (charset, "CHARSET") == 0
+                                if (streq (charset, "CHARSET")
                                     && ((filenamelen >= 4
                                          && memeq (filename + filenamelen - 4,
                                                    ".pot", 4))
@@ -395,7 +395,7 @@ catenate_msgdomain_list (string_list_ty *file_list,
          with spaces are present in the target encoding.  */
       if (has_filenames_with_spaces
           && !(canon_to_code == po_charset_utf8
-               || strcmp (canon_to_code, "GB18030") == 0))
+               || streq (canon_to_code, "GB18030")))
         error (EXIT_FAILURE, 0,
                _("Cannot write the control characters that protect file names with spaces in the %s encoding"),
                canon_to_code);
@@ -427,7 +427,7 @@ catenate_msgdomain_list (string_list_ty *file_list,
                     else if (canon_charsets[n][k] != first && second == NULL)
                       second = canon_charsets[n][k];
 
-                    if (strcmp (canon_charsets[n][k], "UTF-8") == 0)
+                    if (streq (canon_charsets[n][k], "UTF-8"))
                       with_UTF8 = true;
 
                     if (!po_charset_ascii_compatible (canon_charsets[n][k]))
@@ -467,7 +467,7 @@ To select a different output encoding, use the --to-code option.\n\
           /* A conversion is needed.  Warn the user since he hasn't asked
              for it and might be surprised.  */
           if (first != NULL
-              && (first == po_charset_utf8 || strcmp (first, "GB18030") == 0))
+              && (first == po_charset_utf8 || streq (first, "GB18030")))
             canon_to_code = first;
           else
             canon_to_code = po_charset_utf8;

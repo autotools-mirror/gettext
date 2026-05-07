@@ -238,7 +238,7 @@ read_mo_file (message_list_ty *mlp, const char *filename)
   static lex_pos_ty pos = { __FILE__, __LINE__ };
 
   FILE *fp;
-  if (strcmp (filename, "-") == 0 || strcmp (filename, "/dev/stdin") == 0)
+  if (streq (filename, "-") || streq (filename, "/dev/stdin"))
     {
       fp = stdin;
       SET_BINARY (fileno (fp));

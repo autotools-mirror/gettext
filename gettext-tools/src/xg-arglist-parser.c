@@ -457,7 +457,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                     best_msgctxt = ctxt;
                   else
                     {
-                      if (strcmp (ctxt, best_msgctxt) != 0)
+                      if (!streq (ctxt, best_msgctxt))
                         if_error (IF_SEVERITY_WARNING,
                                   best_cp->msgid_plural_pos.file_name,
                                   best_cp->msgid_plural_pos.line_number,
@@ -494,7 +494,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                   if (mp != NULL && mp->comment_dot != NULL)
                     {
                       for (size_t k = 0; k < mp->comment_dot->nitems; k++)
-                        if (strcmp (xcomment, mp->comment_dot->item[k]) == 0)
+                        if (streq (xcomment, mp->comment_dot->item[k]))
                           {
                             found = true;
                             break;

@@ -95,7 +95,7 @@ string_list_append_unique (string_list_ty *slp, const char *s)
 {
   /* Do nothing if the string is already in the list.  */
   for (size_t j = 0; j < slp->nitems; ++j)
-    if (strcmp (slp->item[j], s) == 0)
+    if (streq (slp->item[j], s))
       return;
 
   /* Grow the list.  */
@@ -271,7 +271,7 @@ bool
 string_list_member (const string_list_ty *slp, const char *s)
 {
   for (size_t j = 0; j < slp->nitems; ++j)
-    if (strcmp (slp->item[j], s) == 0)
+    if (streq (slp->item[j], s))
       return true;
   return false;
 }
@@ -292,7 +292,7 @@ const char *
 string_list_remove (string_list_ty *slp, const char *s)
 {
   for (size_t j = 0; j < slp->nitems; ++j)
-    if (strcmp (slp->item[j], s) == 0)
+    if (streq (slp->item[j], s))
       {
         const char *found = slp->item[j];
         if (slp->nitems > j + 1)

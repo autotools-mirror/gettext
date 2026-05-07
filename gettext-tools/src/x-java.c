@@ -1737,7 +1737,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
                java-printf-format, whereas in
                  foobar (EXPR).formatted()
                they should not.  */
-            if (strcmp (sum, "return") != 0)
+            if (!streq (sum, "return"))
               {
                 for (const char *dottedname = sum;;)
                   {
@@ -1806,7 +1806,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
                 token_ty token3;
                 x_java_lex (&token3);
                 if (token3.type == token_type_symbol
-                    && strcmp (token3.string, "formatted") == 0)
+                    && streq (token3.string, "formatted"))
                   {
                     /* Mark the messages found in the region as java-printf-format
                        a posteriori.  */

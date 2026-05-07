@@ -204,7 +204,7 @@ gnome_step1 (string_list_ty *parts)
 static tag_step1_fn
 get_tag_step1_fn (const char *format)
 {
-  if (strcmp (format, "javascript-gnome-format") == 0)
+  if (streq (format, "javascript-gnome-format"))
     return gnome_step1;
   /* ... More formats can be added here ...  */
   return NULL;
@@ -1386,8 +1386,8 @@ phase5_get (token_ty *tp)
                 break;
               }
             tp->string = sb_xdupfree_c (&buffer);
-            if (strcmp (tp->string, "return") == 0
-                || strcmp (tp->string, "else") == 0)
+            if (streq (tp->string, "return")
+                || streq (tp->string, "else"))
               tp->type = last_token_type = token_type_keyword;
             else
               tp->type = last_token_type = token_type_symbol;

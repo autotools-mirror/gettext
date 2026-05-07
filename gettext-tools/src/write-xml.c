@@ -25,6 +25,7 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include <error.h>
 #include "msgl-iconv.h"
@@ -47,7 +48,7 @@ msgdomain_write_xml_bulk (msgfmt_operand_list_ty *operands,
                           const char *file_name)
 {
   FILE *fp;
-  if (strcmp (file_name, "-") == 0)
+  if (streq (file_name, "-"))
     fp = stdout;
   else
     {

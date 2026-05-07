@@ -320,7 +320,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     error (EXIT_FAILURE, 0, _("too many arguments"));
 
   /* Check --species option.  */
-  if (strcmp (species, "ollama") != 0)
+  if (!streq (species, "ollama"))
     error (EXIT_FAILURE, 0, _("invalid value for %s option: %s"),
            "--species", species);
 

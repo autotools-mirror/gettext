@@ -26,6 +26,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 
 #include <error.h>
 #include "msgl-iconv.h"
@@ -148,7 +149,7 @@ msgdomain_write_desktop_bulk (msgfmt_operand_list_ty *operands,
   msgfmt_reader->operands = operands;
   msgfmt_reader->keywords = keywords;
 
-  if (strcmp (file_name, "-") == 0)
+  if (streq (file_name, "-"))
     msgfmt_reader->output_file = stdout;
   else
     {

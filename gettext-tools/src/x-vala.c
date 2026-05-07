@@ -781,7 +781,7 @@ phase3_get (token_ty *tp)
                 break;
             }
             const char *contents = sb_xcontents_c (&buffer);
-            if (strcmp (contents, "return") == 0)
+            if (streq (contents, "return"))
               {
                 sb_free (&buffer);
                 tp->type = last_token_type = token_type_return;
@@ -1420,13 +1420,13 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
             token_ty token2;
             x_vala_lex (&token2);
             if (token2.type == token_type_symbol
-                && strcmp (token2.string, ".") == 0)
+                && streq (token2.string, "."))
               {
                 token_ty token3;
                 x_vala_lex (&token3);
                 if (token3.type == token_type_symbol
-                    && (strcmp (token3.string, "printf") == 0
-                        || strcmp (token3.string, "vprintf") == 0))
+                    && (streq (token3.string, "printf")
+                        || streq (token3.string, "vprintf")))
                   {
                     /* Mark the messages found in the region as c-format
                        a posteriori.  */

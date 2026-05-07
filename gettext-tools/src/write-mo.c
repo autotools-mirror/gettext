@@ -1113,7 +1113,7 @@ msgdomain_write_mo (message_list_ty *mlp,
          between builds in the same conditions.  */
       message_list_delete_header_field (mlp, "POT-Creation-Date:");
 
-      if (strcmp (domain_name, "-") == 0)
+      if (streq (domain_name, "-"))
         {
           FILE *output_file = stdout;
           SET_BINARY (fileno (output_file));

@@ -155,7 +155,7 @@ po_lex_charset_set (struct po_parser_state *ps,
              only ASCII msgids.  */
           size_t filenamelen = strlen (filename);
 
-          if (!(strcmp (charset, "CHARSET") == 0
+          if (!(streq (charset, "CHARSET")
                 && ((filenamelen >= 4
                      && memeq (filename + filenamelen - 4, ".pot", 4))
                     || is_pot_role)))
@@ -175,12 +175,12 @@ Message conversion to user's charset might not work.\n"),
         {
           ps->po_lex_charset = canon_charset;
 
-          if (strcmp (canon_charset, "UTF-8") == 0)
+          if (streq (canon_charset, "UTF-8"))
             {
               ps->catr->po_lex_isolate_start = "\xE2\x81\xA8";
               ps->catr->po_lex_isolate_end = "\xE2\x81\xA9";
             }
-          else if (strcmp (canon_charset, "GB18030") == 0)
+          else if (streq (canon_charset, "GB18030"))
             {
               ps->catr->po_lex_isolate_start = "\x81\x36\xAC\x34";
               ps->catr->po_lex_isolate_end = "\x81\x36\xAC\x35";
@@ -928,25 +928,25 @@ keyword_p (struct po_parser_state *ps, const char *s)
 {
   if (!ps->po_lex_previous)
     {
-      if (!strcmp (s, "domain"))
+      if (streq (s, "domain"))
         return DOMAIN;
-      if (!strcmp (s, "msgid"))
+      if (streq (s, "msgid"))
         return MSGID;
-      if (!strcmp (s, "msgid_plural"))
+      if (streq (s, "msgid_plural"))
         return MSGID_PLURAL;
-      if (!strcmp (s, "msgstr"))
+      if (streq (s, "msgstr"))
         return MSGSTR;
-      if (!strcmp (s, "msgctxt"))
+      if (streq (s, "msgctxt"))
         return MSGCTXT;
     }
   else
     {
       /* Inside a "#|" context, the keywords have a different meaning.  */
-      if (!strcmp (s, "msgid"))
+      if (streq (s, "msgid"))
         return PREV_MSGID;
-      if (!strcmp (s, "msgid_plural"))
+      if (streq (s, "msgid_plural"))
         return PREV_MSGID_PLURAL;
-      if (!strcmp (s, "msgctxt"))
+      if (streq (s, "msgctxt"))
         return PREV_MSGCTXT;
     }
   po_gram_error_at_line (ps->catr, &ps->gram_pos,

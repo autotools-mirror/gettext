@@ -267,7 +267,7 @@ message_comment_filepos (message_ty *mp,
   for (size_t j = 0; j < mp->filepos_count; j++)
     {
       lex_pos_ty *pp = &mp->filepos[j];
-      if (strcmp (pp->file_name, file_name) == 0
+      if (streq (pp->file_name, file_name)
           && pp->line_number == line_number)
         return;
     }
@@ -583,9 +583,9 @@ message_list_search (const message_list_ty *mlp,
           message_ty *mp = mlp->item[j];
 
           if ((msgctxt != NULL
-               ? mp->msgctxt != NULL && strcmp (msgctxt, mp->msgctxt) == 0
+               ? mp->msgctxt != NULL && streq (msgctxt, mp->msgctxt)
                : mp->msgctxt == NULL)
-              && strcmp (msgid, mp->msgid) == 0)
+              && streq (msgid, mp->msgid))
             return mp;
         }
       return NULL;
@@ -603,7 +603,7 @@ fuzzy_search_goal_function (const message_ty *mp,
      give mp a small advantage if mp is valid regardless of any context or
      has the same context as the one being looked up.  */
   if (mp->msgctxt == NULL
-      || (msgctxt != NULL && strcmp (msgctxt, mp->msgctxt) == 0))
+      || (msgctxt != NULL && streq (msgctxt, mp->msgctxt)))
     {
       bonus = 0.00001;
       /* Since we will consider (weight + bonus) at the end, we are only
@@ -830,7 +830,7 @@ msgdomain_list_sublist (msgdomain_list_ty *mdlp, const char *domain,
                         bool create)
 {
   for (size_t j = 0; j < mdlp->nitems; j++)
-    if (strcmp (mdlp->item[j]->domain, domain) == 0)
+    if (streq (mdlp->item[j]->domain, domain))
       return mdlp->item[j]->messages;
 
   if (create)

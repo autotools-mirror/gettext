@@ -442,13 +442,13 @@ yylex (YYSTYPE *lval, struct cldr_plural_parse_args *arg)
           }
 
         /* Keywords.  */
-        if (strcmp (ident, "and") == 0)
+        if (streq (ident, "and"))
           {
             arg->cp = exp;
             sb_free (&buffer);
             return AND;
           }
-        else if (strcmp (ident, "or") == 0)
+        else if (streq (ident, "or"))
           {
             arg->cp = exp;
             sb_free (&buffer);

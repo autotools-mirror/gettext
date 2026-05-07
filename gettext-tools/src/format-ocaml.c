@@ -806,8 +806,8 @@ parse_upto (struct spec *spec,
             format_arg_type_t type_both;
             if (((type1 == type2)
                  && (type1 != FAT_FORMAT_STRING
-                     || strcmp (spec->numbered[i].signature,
-                                spec->numbered[j-1].signature) == 0))
+                     || streq (spec->numbered[i].signature,
+                               spec->numbered[j-1].signature)))
                 || (((type1 | type2) & FAT_OPTIONAL_OCAML_SYNTAX) != 0
                     && (((type1 & ~FAT_OPTIONAL_OCAML_SYNTAX) | FAT_OCAML_SYNTAX)
                         == ((type2 & ~FAT_OPTIONAL_OCAML_SYNTAX) | FAT_OCAML_SYNTAX))))
@@ -951,8 +951,8 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
 
                   if (!(((type1 == type2)
                          && (type1 != FAT_FORMAT_STRING
-                             || strcmp (spec1->numbered[i].signature,
-                                        spec2->numbered[j].signature) == 0))
+                             || streq (spec1->numbered[i].signature,
+                                       spec2->numbered[j].signature)))
                         || ((type2 & FAT_OPTIONAL_OCAML_SYNTAX) != 0
                             && (type2 & ~FAT_OPTIONAL_OCAML_SYNTAX)
                                == (type1 & ~FAT_OCAML_SYNTAX))))

@@ -25,6 +25,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define SB_NO_APPENDF
 #include <error.h>
@@ -818,17 +819,17 @@ phase3_get (token_ty *tp)
               phase1_ungetc (c);
 
               const char *contents = sb_xcontents_c (&buffer);
-              if (strcmp (contents, "not") == 0)
+              if (streq (contents, "not"))
                 {
                   sb_free (&buffer);
                   tp->type = token_type_operator1;
                 }
-              else if (strcmp (contents, "and") == 0)
+              else if (streq (contents, "and"))
                 {
                   sb_free (&buffer);
                   tp->type = token_type_operator2;
                 }
-              else if (strcmp (contents, "or") == 0)
+              else if (streq (contents, "or"))
                 {
                   sb_free (&buffer);
                   tp->type = token_type_operator2;

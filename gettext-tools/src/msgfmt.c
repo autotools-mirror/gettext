@@ -408,9 +408,9 @@ main (int argc, char *argv[])
         case CHAR_MAX + 13: /* --endianness={big|little} */
           {
             int endianness;
-            if (strcmp (optarg, "big") == 0)
+            if (streq (optarg, "big"))
               endianness = 1;
-            else if (strcmp (optarg, "little") == 0)
+            else if (streq (optarg, "little"))
               endianness = 0;
             else
               error (EXIT_FAILURE, 0, _("invalid endianness: %s"), optarg);
@@ -1151,7 +1151,7 @@ new_domain (const char *name, const char *file_name)
 {
   struct msg_domain **p_dom = &domain_list;
 
-  while (*p_dom != NULL && strcmp (name, (*p_dom)->domain_name) != 0)
+  while (*p_dom != NULL && !streq (name, (*p_dom)->domain_name))
     p_dom = &(*p_dom)->next;
 
   if (*p_dom == NULL)

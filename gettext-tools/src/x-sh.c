@@ -1349,7 +1349,7 @@ read_command (int looking_for, flag_region_ty *outer_region)
                     mixed_string_contents_free1 (
                       mixed_string_buffer_cloned_result (inner.token));
 
-                  if (strcmp (function_name, "env") == 0)
+                  if (streq (function_name, "env"))
                     {
                       /* The 'env' command just introduces more assignments.
                          Ignore it.  */

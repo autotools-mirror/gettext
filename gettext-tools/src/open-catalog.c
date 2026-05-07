@@ -43,7 +43,7 @@
 static FILE *
 try_open_catalog_file (const char *input_name, char **real_file_name_p)
 {
-  if (strcmp (input_name, "-") == 0 || strcmp (input_name, "/dev/stdin") == 0)
+  if (streq (input_name, "-") || streq (input_name, "/dev/stdin"))
     {
       *real_file_name_p = xstrdup (_("<stdin>"));
       return stdin;

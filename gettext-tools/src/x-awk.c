@@ -488,11 +488,11 @@ phase3_get (token_ty *tp)
                     echo; echo $k; awk "function foo () { $k / 10 }" < /dev/null
                   done
              */
-            if (strcmp (tp->string, "do") == 0
-                || strcmp (tp->string, "exit") == 0
-                || strcmp (tp->string, "print") == 0
-                || strcmp (tp->string, "printf") == 0
-                || strcmp (tp->string, "return") == 0)
+            if (streq (tp->string, "do")
+                || streq (tp->string, "exit")
+                || streq (tp->string, "print")
+                || streq (tp->string, "printf")
+                || streq (tp->string, "return"))
               prefer_division_over_regexp = false;
             else
               prefer_division_over_regexp = true;
@@ -780,8 +780,8 @@ extract_parenthesized (message_list_ty *mlp,
               state = 0;
           }
           next_is_argument =
-            (strcmp (token.string, "print") == 0
-             || strcmp (token.string, "printf") == 0);
+            (streq (token.string, "print")
+             || streq (token.string, "printf"));
           next_context_iter =
             flag_context_list_iterator (
               flag_context_list_table_lookup (

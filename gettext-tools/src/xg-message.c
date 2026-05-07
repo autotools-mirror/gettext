@@ -22,6 +22,7 @@
 #include "xg-message.h"
 
 #include <stdio.h>
+#include <string.h>
 
 #include "c-strstr.h"
 #include "if-error.h"
@@ -497,8 +498,8 @@ meta information, not the empty string.\n"));
           {
             bool repeated = true;
             for (size_t i = 0; i < added; i++)
-              if (strcmp (mp->comment_dot->item[nitems_before - added + i],
-                          mp->comment_dot->item[nitems_before + i]) != 0)
+              if (!streq (mp->comment_dot->item[nitems_before - added + i],
+                          mp->comment_dot->item[nitems_before + i]))
                 {
                   repeated = false;
                   break;

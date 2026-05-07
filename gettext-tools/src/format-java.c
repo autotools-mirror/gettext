@@ -228,10 +228,10 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
               else if (*element == ',')
                 {
                   element++;
-                  if (strcmp (element, "short") == 0
-                      || strcmp (element, "medium") == 0
-                      || strcmp (element, "long") == 0
-                      || strcmp (element, "full") == 0
+                  if (streq (element, "short")
+                      || streq (element, "medium")
+                      || streq (element, "long")
+                      || streq (element, "full")
                       || date_format_parse (element))
                     ;
                   else
@@ -263,9 +263,9 @@ message_format_parse (const char *format, char *fdi, struct spec *spec,
               else if (*element == ',')
                 {
                   element++;
-                  if (strcmp (element, "currency") == 0
-                      || strcmp (element, "percent") == 0
-                      || strcmp (element, "integer") == 0
+                  if (streq (element, "currency")
+                      || streq (element, "percent")
+                      || streq (element, "integer")
                       || number_format_parse (element))
                     ;
                   else

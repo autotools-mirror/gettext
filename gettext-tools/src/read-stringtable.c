@@ -523,12 +523,12 @@ comment_line_end (abstract_catalog_reader_ty *catr,
 
   char *line = conv_from_ucs4 (buffer, buflen);
 
-  if (strcmp (line, "Flag: untranslated") == 0)
+  if (streq (line, "Flag: untranslated"))
     {
       special_comment_add ("fuzzy");
       next_is_fuzzy = true;
     }
-  else if (strcmp (line, "Flag: unmatched") == 0)
+  else if (streq (line, "Flag: unmatched"))
     next_is_obsolete = true;
   else if (strlen (line) >= 6 && memeq (line, "Flag: ", 6))
     special_comment_add (line + 6);
@@ -907,7 +907,7 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
                   phase4_ungetc (c);
                   expect_fuzzy_msgstr_as_cxx_comment = false;
                 }
-              if (fuzzy_msgstr != NULL && strcmp (msgstr, msgid) == 0)
+              if (fuzzy_msgstr != NULL && streq (msgstr, msgid))
                 msgstr = fuzzy_msgstr;
 
               /* A key/value pair.  */

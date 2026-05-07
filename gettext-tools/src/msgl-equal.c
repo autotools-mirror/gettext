@@ -109,7 +109,7 @@ static inline bool
 pos_equal (const lex_pos_ty *pos1, const lex_pos_ty *pos2)
 {
   return ((pos1->file_name == pos2->file_name
-           || strcmp (pos1->file_name, pos2->file_name) == 0)
+           || streq (pos1->file_name, pos2->file_name))
           && pos1->line_number == pos2->line_number);
 }
 
@@ -121,7 +121,7 @@ string_list_equal (const string_list_ty *slp1, const string_list_ty *slp2)
   if (i1 != i2)
     return false;
   for (size_t i = 0; i < i1; i++)
-    if (strcmp (slp1->item[i], slp2->item[i]) != 0)
+    if (!streq (slp1->item[i], slp2->item[i]))
       return false;
   return true;
 }
@@ -131,16 +131,16 @@ message_equal (const message_ty *mp1, const message_ty *mp2,
                bool ignore_potcdate)
 {
   if (!(mp1->msgctxt != NULL
-        ? mp2->msgctxt != NULL && strcmp (mp1->msgctxt, mp2->msgctxt) == 0
+        ? mp2->msgctxt != NULL && streq (mp1->msgctxt, mp2->msgctxt)
         : mp2->msgctxt == NULL))
     return false;
 
-  if (strcmp (mp1->msgid, mp2->msgid) != 0)
+  if (!streq (mp1->msgid, mp2->msgid))
     return false;
 
   if (!(mp1->msgid_plural != NULL
         ? mp2->msgid_plural != NULL
-          && strcmp (mp1->msgid_plural, mp2->msgid_plural) == 0
+          && streq (mp1->msgid_plural, mp2->msgid_plural)
         : mp2->msgid_plural == NULL))
     return false;
 
@@ -180,19 +180,19 @@ message_equal (const message_ty *mp1, const message_ty *mp2,
 
   if (!(mp1->prev_msgctxt != NULL
         ? mp2->prev_msgctxt != NULL
-          && strcmp (mp1->prev_msgctxt, mp2->prev_msgctxt) == 0
+          && streq (mp1->prev_msgctxt, mp2->prev_msgctxt)
         : mp2->prev_msgctxt == NULL))
     return false;
 
   if (!(mp1->prev_msgid != NULL
         ? mp2->prev_msgid != NULL
-          && strcmp (mp1->prev_msgid, mp2->prev_msgid) == 0
+          && streq (mp1->prev_msgid, mp2->prev_msgid)
         : mp2->prev_msgid == NULL))
     return false;
 
   if (!(mp1->prev_msgid_plural != NULL
         ? mp2->prev_msgid_plural != NULL
-          && strcmp (mp1->prev_msgid_plural, mp2->prev_msgid_plural) == 0
+          && streq (mp1->prev_msgid_plural, mp2->prev_msgid_plural)
         : mp2->prev_msgid_plural == NULL))
     return false;
 
@@ -220,7 +220,7 @@ static inline bool
 msgdomain_equal (const msgdomain_ty *mdp1, const msgdomain_ty *mdp2,
                  bool ignore_potcdate)
 {
-  return (strcmp (mdp1->domain, mdp2->domain) == 0
+  return (streq (mdp1->domain, mdp2->domain)
           && message_list_equal (mdp1->messages, mdp2->messages,
                                  ignore_potcdate));
 }

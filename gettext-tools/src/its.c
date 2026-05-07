@@ -27,6 +27,7 @@
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include <libxml/xmlversion.h>
 #include <libxml/xmlerror.h>
@@ -158,7 +159,7 @@ its_value_list_get_value (struct its_value_list_ty *values,
   for (size_t i = 0; i < values->nitems; i++)
     {
       struct its_value_ty *value = &values->items[i];
-      if (strcmp (value->name, name) == 0)
+      if (streq (value->name, name))
         return value->value;
     }
   return NULL;
@@ -173,7 +174,7 @@ its_value_list_set_value (struct its_value_list_ty *values,
   for (i = 0; i < values->nitems; i++)
     {
       struct its_value_ty *_value = &values->items[i];
-      if (strcmp (_value->name, name) == 0)
+      if (streq (_value->name, name))
         {
           free (_value->value);
           _value->value = xstrdup (value);
@@ -198,8 +199,8 @@ its_value_list_merge (struct its_value_list_ty *values,
         {
           struct its_value_ty *value = &values->items[j];
 
-          if (strcmp (value->name, other_value->name) == 0
-              && strcmp (value->value, other_value->value) != 0)
+          if (streq (value->name, other_value->name)
+              && !streq (value->value, other_value->value))
             {
               free (value->value);
               value->value = xstrdup (other_value->value);
@@ -1102,15 +1103,15 @@ its_preserve_space_rule_constructor (struct its_rule_ty *rule,
   {
     char *prop = _its_get_attribute (node, "space", NULL);
     if (prop
-        && !(strcmp (prop, "preserve") ==0
-             || strcmp (prop, "default") == 0
+        && !(streq (prop, "preserve")
+             || streq (prop, "default")
              /* gettext extension: remove leading/trailing whitespaces only.  */
              || (node->ns && xmlStrEqual (node->ns->href, BAD_CAST GT_NS)
-                 && strcmp (prop, "trim") == 0)
+                 && streq (prop, "trim"))
              /* gettext extension: same as default except keeping
                 paragraph boundaries.  */
              || (node->ns && xmlStrEqual (node->ns->href, BAD_CAST GT_NS)
-                 && strcmp (prop, "paragraph") == 0)))
+                 && streq (prop, "paragraph"))))
       {
         error (0, 0, _("invalid attribute value \"%s\" for \"%s\""),
                prop, "space");
@@ -1339,10 +1340,10 @@ its_extension_escape_rule_eval (struct its_rule_ty *rule,
             if (xmlHasNsProp (node, BAD_CAST "escape", BAD_CAST GT_NS))
               {
                 char *prop = _its_get_attribute (node, "escape", GT_NS);
-                if (strcmp (prop, "yes") == 0 || strcmp (prop, "no") == 0)
+                if (streq (prop, "yes") || streq (prop, "no"))
                   {
                     its_value_list_append (result, "escape", prop);
-                    if (strcmp (prop, "no") != 0)
+                    if (!streq (prop, "no"))
                       {
                         free (prop);
                         return result;
@@ -1354,13 +1355,13 @@ its_extension_escape_rule_eval (struct its_rule_ty *rule,
             if (xmlHasNsProp (node, BAD_CAST "unescape-if", BAD_CAST GT_NS))
               {
                 char *prop = _its_get_attribute (node, "unescape-if", GT_NS);
-                if (strcmp (prop, "xml") == 0
-                    || strcmp (prop, "xhtml") == 0
-                    || strcmp (prop, "html") == 0
-                    || strcmp (prop, "no") == 0)
+                if (streq (prop, "xml")
+                    || streq (prop, "xhtml")
+                    || streq (prop, "html")
+                    || streq (prop, "no"))
                   {
                     its_value_list_append (result, "unescape-if", prop);
-                    if (strcmp (prop, "no") != 0)
+                    if (!streq (prop, "no"))
                       {
                         free (prop);
                         return result;
@@ -1672,7 +1673,7 @@ its_rule_list_is_translatable (its_rule_list_ty *rules,
   /* Check if NODE has translate="yes".  */
   {
     const char *value = its_value_list_get_value (values, "translate");
-    if (!(value && strcmp (value, "yes") == 0))
+    if (!(value && streq (value, "yes")))
       {
         its_value_list_destroy (values);
         free (values);
@@ -1684,7 +1685,7 @@ its_rule_list_is_translatable (its_rule_list_ty *rules,
   if (depth > 0)
     {
       const char *value = its_value_list_get_value (values, "withinText");
-      if (!(value && strcmp (value, "yes") == 0))
+      if (!(value && streq (value, "yes")))
         {
           its_value_list_destroy (values);
           free (values);
@@ -1862,7 +1863,7 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       bool do_escape;
       {
         const char *value = its_value_list_get_value (values, "escape");
-        do_escape = value != NULL && strcmp (value, "yes") == 0;
+        do_escape = value != NULL && streq (value, "yes");
       }
 
       bool do_escape_during_extract = do_escape;
@@ -1929,11 +1930,11 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
       enum its_whitespace_type_ty whitespace;
       {
         const char *value = its_value_list_get_value (values, "space");
-        if (value && strcmp (value, "preserve") == 0)
+        if (value && streq (value, "preserve"))
           whitespace = ITS_WHITESPACE_PRESERVE;
-        else if (value && strcmp (value, "trim") == 0)
+        else if (value && streq (value, "trim"))
           whitespace = ITS_WHITESPACE_TRIM;
-        else if (value && strcmp (value, "paragraph") == 0)
+        else if (value && streq (value, "paragraph"))
           whitespace = ITS_WHITESPACE_NORMALIZE_PARAGRAPH;
         else
           whitespace = ITS_WHITESPACE_NORMALIZE;
@@ -2081,7 +2082,7 @@ _its_copy_node_with_attributes (xmlNode *node)
        attributes = attributes->next)
     {
       const xmlChar *attr_name = attributes->name;
-      if (strcmp ((const char *) attr_name, "id") != 0)
+      if (!streq ((const char *) attr_name, "id"))
         {
           xmlNs *attr_ns = attributes->ns;
           xmlChar *attr_value =
@@ -2829,7 +2830,7 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
       bool do_escape;
       {
         const char *value = its_value_list_get_value (values, "escape");
-        do_escape = value != NULL && strcmp (value, "yes") == 0;
+        do_escape = value != NULL && streq (value, "yes");
       }
 
       bool do_escape_during_extract = do_escape;
@@ -2843,11 +2844,11 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
       enum its_whitespace_type_ty whitespace;
       {
         const char *value = its_value_list_get_value (values, "space");
-        if (value && strcmp (value, "preserve") == 0)
+        if (value && streq (value, "preserve"))
           whitespace = ITS_WHITESPACE_PRESERVE;
-        else if (value && strcmp (value, "trim") == 0)
+        else if (value && streq (value, "trim"))
           whitespace = ITS_WHITESPACE_TRIM;
-        else if (value && strcmp (value, "paragraph") == 0)
+        else if (value && streq (value, "paragraph"))
           whitespace = ITS_WHITESPACE_NORMALIZE_PARAGRAPH;
         else
           whitespace = ITS_WHITESPACE_NORMALIZE;
@@ -2945,11 +2946,11 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
                   bool done_unescape = false;
 
                   if (do_unescape_if != NULL
-                       && ((strcmp (do_unescape_if, "xml") == 0
+                       && ((streq (do_unescape_if, "xml")
                            && _its_is_valid_simple_xml (msgstr))
-                          || (strcmp (do_unescape_if, "xhtml") == 0
+                          || (streq (do_unescape_if, "xhtml")
                               && _its_is_valid_simple_xhtml (msgstr))
-                          || (strcmp (do_unescape_if, "html") == 0
+                          || (streq (do_unescape_if, "html")
                               && _its_is_valid_simple_html (msgstr))))
                     {
                       /* It looks like the translator has provided a syntactically
@@ -2960,8 +2961,8 @@ its_merge_context_merge_node (struct its_merge_context_ty *context,
                          translators most often only preserve the markup that was
                          present in the msgid; if they do this, the result will be
                          valid.  */
-                      if (strcmp (do_unescape_if, "xml") == 0
-                          || strcmp (do_unescape_if, "xhtml") == 0)
+                      if (streq (do_unescape_if, "xml")
+                          || streq (do_unescape_if, "xhtml"))
                         {
                           if (_its_set_simple_xml_content (translated, msgstr))
                             done_unescape = true;

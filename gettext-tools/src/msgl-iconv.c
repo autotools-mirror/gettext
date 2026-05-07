@@ -268,7 +268,7 @@ iconv_message_list_internal (message_list_ty *mlp,
                         const char *filename = from_filename;
                         size_t filenamelen;
 
-                        if (strcmp (charset, "CHARSET") == 0
+                        if (streq (charset, "CHARSET")
                             && ((filename != NULL
                                  && (filenamelen = strlen (filename)) >= 4
                                  && memeq (filename + filenamelen - 4, ".pot", 4))
@@ -386,7 +386,7 @@ iconv_msgdomain_list (msgdomain_list_ty *mdlp,
      spaces are present in the target encoding.  */
   if (msgdomain_list_has_filenames_with_spaces (mdlp)
       && !(canon_to_code == po_charset_utf8
-           || strcmp (canon_to_code, "GB18030") == 0))
+           || streq (canon_to_code, "GB18030")))
     xeh->xerror (CAT_SEVERITY_FATAL_ERROR, NULL, NULL, 0, 0, false,
                  xasprintf (_("Cannot write the control characters that protect file names with spaces in the %s encoding"),
                             canon_to_code));
@@ -549,7 +549,7 @@ is_message_list_iconvable (message_list_ty *mlp,
                       {
                         /* Don't give an error for POT files, because POT
                            files usually contain only ASCII msgids.  */
-                        if (strcmp (charset, "CHARSET") == 0)
+                        if (streq (charset, "CHARSET"))
                           canon_charset = po_charset_ascii;
                         else
                           {

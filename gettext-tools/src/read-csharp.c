@@ -21,10 +21,11 @@
 /* Specification.  */
 #include "read-csharp.h"
 
+#include <errno.h>
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <errno.h>
+#include <string.h>
 
 #include <error.h>
 #include "msgunfmt.h"
@@ -111,17 +112,17 @@ msgdomain_read_csharp (const char *resource_name, const char *locale_name,
     char *p = strchr (culture_name, '@');
     if (p != NULL)
       {
-        if (strcmp (p, "@latin") == 0)
+        if (streq (p, "@latin"))
           strcpy (p, "-Latn");
-        else if (strcmp (p, "@cyrillic") == 0)
+        else if (streq (p, "@cyrillic"))
           strcpy (p, "-Cyrl");
       }
-    if (strcmp (culture_name, "sr-SP") == 0)
+    if (streq (culture_name, "sr-SP"))
       {
         free (culture_name);
         culture_name = xstrdup ("sr-SP-Latn");
       }
-    else if (strcmp (culture_name, "uz-UZ") == 0)
+    else if (streq (culture_name, "uz-UZ"))
       {
         free (culture_name);
         culture_name = xstrdup ("uz-UZ-Latn");

@@ -1892,7 +1892,7 @@ phase6_get (token_ty *tp)
                  normal input.  */
               if (bufpos == 0
                   && tp->type == token_type_name
-                  && strcmp (tp->string, "define") == 0)
+                  && streq (tp->string, "define"))
                 return;
 
               /* Accumulate.  */
@@ -1908,7 +1908,7 @@ phase6_get (token_ty *tp)
       /* If it is a #line directive, with no macros to expand, act on
          it.  Ignore all other directives.  */
       if (bufpos >= 3 && buf[0].type == token_type_name
-          && strcmp (buf[0].string, "line") == 0
+          && streq (buf[0].string, "line")
           && buf[1].type == token_type_number
           && buf[2].type == token_type_string_literal)
         {

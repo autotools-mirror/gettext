@@ -363,7 +363,7 @@ MAYBE_UNUSED static inline int
 string_list_member (const string_list_ty *slp, const char *s)
 {
   for (size_t j = 0; j < slp->nitems; ++j)
-    if (strcmp (slp->item[j], s) == 0)
+    if (streq (slp->item[j], s))
       return 1;
   return 0;
 }

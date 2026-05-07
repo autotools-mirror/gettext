@@ -122,6 +122,7 @@ if ! $skip_gnulib; then
     stdint-h
     stdio-h
     stdlib-h
+    streq
     strtoimax
     strtold
     strtoul
@@ -271,6 +272,7 @@ if ! $skip_gnulib; then
     str_startswith
     strchrnul
     strcspn
+    streq
     strerror
     string-desc
     strnlen
@@ -527,6 +529,7 @@ if ! $skip_gnulib; then
     stpncpy
     str_startswith
     strchrnul
+    streq
     strerror
     string-desc
     strnlen

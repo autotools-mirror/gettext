@@ -673,7 +673,7 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
   if (!result->is_fuzzy
       && (ref->msgid_plural != NULL
           ? def->msgid_plural == NULL
-            || strcmp (ref->msgid_plural, def->msgid_plural) != 0
+            || !streq (ref->msgid_plural, def->msgid_plural)
           : def->msgid_plural != NULL))
     result->is_fuzzy = true;
 

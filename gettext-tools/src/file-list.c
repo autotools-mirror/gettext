@@ -39,7 +39,7 @@ string_list_ty *
 read_names_from_file (const char *file_name)
 {
   FILE *fp;
-  if (strcmp (file_name, "-") == 0)
+  if (streq (file_name, "-"))
     fp = stdin;
   else
     {

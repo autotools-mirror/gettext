@@ -342,7 +342,7 @@ format_parse (const char *format, bool translated, char *fdi,
       bool err = false;
       size_t i, j;
       for (i = j = 0; i < spec.named_arg_count; i++)
-        if (j > 0 && strcmp (spec.named[i].name, spec.named[j-1].name) == 0)
+        if (j > 0 && streq (spec.named[i].name, spec.named[j-1].name))
           {
             enum format_arg_type type1 = spec.named[i].type;
             enum format_arg_type type2 = spec.named[j-1].type;
@@ -504,7 +504,7 @@ format_check (void *msgid_descr, void *msgstr_descr, bool equality,
               size_t i, j;
               for (i = 0, j = 0; j < n2; )
                 {
-                  if (strcmp (spec1->named[i].name, spec2->named[j].name) == 0)
+                  if (streq (spec1->named[i].name, spec2->named[j].name))
                     {
                       if (!(spec1->named[i].type == spec2->named[j].type
                             || (!equality

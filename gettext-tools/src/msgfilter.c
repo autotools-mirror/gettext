@@ -315,7 +315,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   }
 
   /* Extra checks for sed scripts.  */
-  if (strcmp (sub_name, "sed") == 0)
+  if (streq (sub_name, "sed"))
     {
       if (sub_argc == 1)
         error (EXIT_FAILURE, 0,
@@ -324,16 +324,16 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       /* Replace GNU sed specific options with portable sed options.  */
       for (int i = 1; i < sub_argc; i++)
         {
-          if (strcmp (sub_argv[i], "--expression") == 0)
+          if (streq (sub_argv[i], "--expression"))
             sub_argv[i] = "-e";
-          else if (strcmp (sub_argv[i], "--file") == 0)
+          else if (streq (sub_argv[i], "--file"))
             sub_argv[i] = "-f";
-          else if (strcmp (sub_argv[i], "--quiet") == 0
-                   || strcmp (sub_argv[i], "--silent") == 0)
+          else if (streq (sub_argv[i], "--quiet")
+                   || streq (sub_argv[i], "--silent"))
             sub_argv[i] = "-n";
 
-          if (strcmp (sub_argv[i], "-e") == 0
-              || strcmp (sub_argv[i], "-f") == 0)
+          if (streq (sub_argv[i], "-e")
+              || streq (sub_argv[i], "-f"))
             i++;
         }
     }
@@ -346,7 +346,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
   msgdomain_list_ty *result = read_catalog_file (input_file, input_syntax);
 
   /* Recognize special programs as built-ins.  */
-  if (strcmp (sub_name, "recode-sr-latin") == 0 && sub_argc == 1)
+  if (streq (sub_name, "recode-sr-latin") && sub_argc == 1)
     {
       filter = serbian_to_latin;
 
@@ -354,7 +354,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file,
                                      textmode_xerror_handler);
     }
-  else if (strcmp (sub_name, "quot") == 0 && sub_argc == 1)
+  else if (streq (sub_name, "quot") && sub_argc == 1)
     {
       filter = ascii_quote_to_unicode;
 
@@ -362,7 +362,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       result = iconv_msgdomain_list (result, po_charset_utf8, true, input_file,
                                      textmode_xerror_handler);
     }
-  else if (strcmp (sub_name, "boldquot") == 0 && sub_argc == 1)
+  else if (streq (sub_name, "boldquot") && sub_argc == 1)
     {
       filter = ascii_quote_to_unicode_bold;
 

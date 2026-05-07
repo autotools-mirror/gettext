@@ -1257,7 +1257,7 @@ scan_import_spec (TSNode import_spec_node)
       /* A package is imported without a name.
          The package_shortname is the last element of the path, except in
          special cases.  */
-      if (strcmp (path, SNAPCORE_PACKAGE_FULLNAME) == 0)
+      if (streq (path, SNAPCORE_PACKAGE_FULLNAME))
         shortname = sd_from_c (SNAPCORE_PACKAGE_SHORTNAME);
       else
         {
@@ -1423,7 +1423,7 @@ get_type_from_type_name (string_desc_t type_name, type_env_t tenv, bool use_indi
       for (size_t i = 0; i < unqualified_packages.nitems; i++)
         {
           const char *unqualified_package = unqualified_packages.item[i];
-          if (strcmp (unqualified_package, GOTEXT_PACKAGE_FULLNAME) == 0)
+          if (streq (unqualified_package, GOTEXT_PACKAGE_FULLNAME))
             {
               if (hash_find_entry (&gotext_package.defined_types,
                                    sd_data (type_name), sd_length (type_name),
@@ -1431,7 +1431,7 @@ get_type_from_type_name (string_desc_t type_name, type_env_t tenv, bool use_indi
                   == 0)
                 return (go_type_t *) found_type;
             }
-          else if (strcmp (unqualified_package, SNAPCORE_PACKAGE_FULLNAME) == 0)
+          else if (streq (unqualified_package, SNAPCORE_PACKAGE_FULLNAME))
             {
               if (hash_find_entry (&snapcore_package.defined_types,
                                    sd_data (type_name), sd_length (type_name),
@@ -1539,7 +1539,7 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
                            &found_package)
           == 0)
         {
-          if (strcmp ((const char *) found_package, GOTEXT_PACKAGE_FULLNAME) == 0)
+          if (streq ((const char *) found_package, GOTEXT_PACKAGE_FULLNAME))
             {
               /* Look up the type.  */
               TSNode name_node = ts_node_child_by_field_id (type_node, ts_field_name);
@@ -1553,7 +1553,7 @@ get_type_from_type_node (TSNode type_node, type_env_t tenv, bool use_indirection
                   == 0)
                 return (go_type_t *) found_type;
             }
-          else if (strcmp ((const char *) found_package, SNAPCORE_PACKAGE_FULLNAME) == 0)
+          else if (streq ((const char *) found_package, SNAPCORE_PACKAGE_FULLNAME))
             {
               /* Look up the type.  */
               TSNode name_node = ts_node_child_by_field_id (type_node, ts_field_name);
@@ -1996,7 +1996,7 @@ variable_env_lookup (string_desc_t var_name, variable_env_t venv)
     for (size_t i = 0; i < unqualified_packages.nitems; i++)
       {
         const char *unqualified_package = unqualified_packages.item[i];
-        if (strcmp (unqualified_package, GOTEXT_PACKAGE_FULLNAME) == 0)
+        if (streq (unqualified_package, GOTEXT_PACKAGE_FULLNAME))
           {
             if (hash_find_entry (&gotext_package.globals,
                                  sd_data (var_name), sd_length (var_name),
@@ -2004,7 +2004,7 @@ variable_env_lookup (string_desc_t var_name, variable_env_t venv)
                 == 0)
               return (go_type_t *) found_type;
           }
-        else if (strcmp (unqualified_package, SNAPCORE_PACKAGE_FULLNAME) == 0)
+        else if (streq (unqualified_package, SNAPCORE_PACKAGE_FULLNAME))
           {
             if (hash_find_entry (&snapcore_package.globals,
                                  sd_data (var_name), sd_length (var_name),
@@ -2059,8 +2059,8 @@ type_equals (go_type_t *type1, go_type_t *type2, unsigned int maxdepth)
               {
                 unsigned int n = type1->u.struct_def.n_members;
                 for (unsigned int i = 0; i < n; i++)
-                  if (strcmp (type1->u.struct_def.members[i].name,
-                              type2->u.struct_def.members[i].name) != 0)
+                  if (!streq (type1->u.struct_def.members[i].name,
+                              type2->u.struct_def.members[i].name))
                     return false;
                 for (unsigned int i = 0; i < n; i++)
                   if (!type_equals (type1->u.struct_def.members[i].type,
@@ -2071,8 +2071,8 @@ type_equals (go_type_t *type1, go_type_t *type2, unsigned int maxdepth)
               {
                 unsigned int n = type1->u.struct_def.n_methods;
                 for (unsigned int i = 0; i < n; i++)
-                  if (strcmp (type1->u.struct_def.methods[i].name,
-                              type2->u.struct_def.methods[i].name) != 0)
+                  if (!streq (type1->u.struct_def.methods[i].name,
+                              type2->u.struct_def.methods[i].name))
                     return false;
                 for (unsigned int i = 0; i < n; i++)
                   if (!type_equals (type1->u.struct_def.methods[i].type,
@@ -2090,8 +2090,8 @@ type_equals (go_type_t *type1, go_type_t *type2, unsigned int maxdepth)
               {
                 unsigned int n = type1->u.interface_def.n_methods;
                 for (unsigned int i = 0; i < n; i++)
-                  if (strcmp (type1->u.interface_def.methods[i].name,
-                              type2->u.interface_def.methods[i].name) != 0)
+                  if (!streq (type1->u.interface_def.methods[i].name,
+                              type2->u.interface_def.methods[i].name))
                     return false;
                 for (unsigned int i = 0; i < n; i++)
                   if (!type_equals (type1->u.interface_def.methods[i].type,
@@ -2249,7 +2249,7 @@ get_mvtypes_of_expression (unsigned int mvcount, go_type_t **result,
               == 0)
             {
               /* The operand is a package name.  */
-              if (strcmp ((const char *) found_package, GOTEXT_PACKAGE_FULLNAME) == 0)
+              if (streq ((const char *) found_package, GOTEXT_PACKAGE_FULLNAME))
                 {
                   /* Look up the entity in the package.  */
                   void *found_type;
@@ -2259,7 +2259,7 @@ get_mvtypes_of_expression (unsigned int mvcount, go_type_t **result,
                       == 0)
                     return1 ((go_type_t *) found_type);
                 }
-              else if (strcmp ((const char *) found_package, SNAPCORE_PACKAGE_FULLNAME) == 0)
+              else if (streq ((const char *) found_package, SNAPCORE_PACKAGE_FULLNAME))
                 {
                   /* Look up the entity in the package.  */
                   void *found_type;
@@ -3072,7 +3072,7 @@ extract_from_function_call (TSNode callee_node,
             {
               qualified_identifier = true;
               /* The operand is a package name.  */
-              if (strcmp ((const char *) found_package, GOTEXT_PACKAGE_FULLNAME) == 0)
+              if (streq ((const char *) found_package, GOTEXT_PACKAGE_FULLNAME))
                 {
                   /* Look in the gotext_keywords table.  */
                   void *keyword_value;
@@ -3082,7 +3082,7 @@ extract_from_function_call (TSNode callee_node,
                       == 0)
                     next_shapes = (const struct callshapes *) keyword_value;
                 }
-              else if (strcmp ((const char *) found_package, SNAPCORE_PACKAGE_FULLNAME) == 0)
+              else if (streq ((const char *) found_package, SNAPCORE_PACKAGE_FULLNAME))
                 {
                   /* Look in the snapcore_keywords table.  */
                   void *keyword_value;

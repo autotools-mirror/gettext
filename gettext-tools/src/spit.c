@@ -69,7 +69,7 @@ static const char *
 englishname_of_language (const char *language)
 {
   for (size_t i = 0; i < language_table_size; i++)
-    if (strcmp (language_table[i].code, language) == 0)
+    if (streq (language_table[i].code, language))
       return language_table[i].english;
 
   return NULL;
@@ -81,7 +81,7 @@ static const char *
 englishname_of_country (const char *country)
 {
   for (size_t i = 0; i < country_table_size; i++)
-    if (strcmp (country_table[i].code, country) == 0)
+    if (streq (country_table[i].code, country))
       return country_table[i].english;
 
   return NULL;
@@ -96,7 +96,7 @@ language_in_english (const char *catalogname)
     {
       /* Treat a few cases specially.  */
       for (size_t i = 0; i < language_variant_table_size; i++)
-        if (strcmp (language_variant_table[i].code, catalogname) == 0)
+        if (streq (language_variant_table[i].code, catalogname))
           return language_variant_table[i].english;
 
       /* Decompose "ll_CC" into "ll" and "CC".  */
@@ -563,7 +563,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
     error (EXIT_FAILURE, 0, _("too many arguments"));
 
   /* Check --species option.  */
-  if (strcmp (species, "ollama") != 0)
+  if (!streq (species, "ollama"))
     error (EXIT_FAILURE, 0, _("invalid value for %s option: %s"),
            "--species", species);
 

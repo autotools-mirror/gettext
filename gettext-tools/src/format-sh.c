@@ -208,7 +208,7 @@ format_parse (const char *format, bool translated, char *fdi,
       /* Remove duplicates: Copy from i to j, keeping 0 <= j <= i.  */
       size_t i, j;
       for (i = j = 0; i < spec.named_arg_count; i++)
-        if (j > 0 && strcmp (spec.named[i].name, spec.named[j-1].name) == 0)
+        if (j > 0 && streq (spec.named[i].name, spec.named[j-1].name))
           free (spec.named[i].name);
         else
           {

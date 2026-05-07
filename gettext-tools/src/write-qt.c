@@ -702,7 +702,7 @@ strings, not in the untranslated strings\n")));
       message_list_delete_header_field (mlp, "POT-Creation-Date:");
 
       FILE *output_file;
-      if (strcmp (domain_name, "-") == 0)
+      if (streq (domain_name, "-"))
         {
           output_file = stdout;
           SET_BINARY (fileno (output_file));
