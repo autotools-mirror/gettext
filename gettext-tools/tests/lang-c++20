@@ -29,8 +29,11 @@ cat <<\EOF > test.cc
 using std::vformat;
 using std::make_format_args;
 #else
+# if __cpp_lib_format < 202603L
+#  define dynamic_format runtime_format
+# endif
 using std::format;
-using std::runtime_format;
+using std::dynamic_format;
 #endif
 EOF
 if ${CXX} ${CXXFLAGS} ${CPPFLAGS} -c test.cc 2>/dev/null; then
@@ -51,6 +54,9 @@ cat <<\EOF > prog.cc
 #include <format>
 #include <iostream>
 using namespace std;
+#if __cpp_lib_format > 202106L && __cpp_lib_format < 202603L
+# define dynamic_format runtime_format
+#endif
 
 #include <libintl.h>
 #include <locale.h>
@@ -76,7 +82,7 @@ int main (int argc, char *argv[])
   cout << vformat (ngettext ("a piece of cake", "{} pieces of cake", n),
                    make_format_args (n))
 #else
-  cout << format (runtime_format (ngettext ("a piece of cake", "{} pieces of cake", n)),
+  cout << format (dynamic_format (ngettext ("a piece of cake", "{} pieces of cake", n)),
                   n)
 #endif
        << endl;
@@ -84,7 +90,7 @@ int main (int argc, char *argv[])
 #if __cpp_lib_format <= 202106L
   cout << vformat (_("{} is replaced by {}."), make_format_args ("FF", "EUR"))
 #else
-  cout << format (runtime_format (_("{} is replaced by {}.")), "FF", "EUR")
+  cout << format (dynamic_format (_("{} is replaced by {}.")), "FF", "EUR")
 #endif
        << endl;
 }

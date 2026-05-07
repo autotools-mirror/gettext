@@ -19,7 +19,7 @@ test "${CXX}" != "no" || {
 cat <<\EOF > test.cc
 #include <format>
 using std::format;
-using std::runtime_format;
+using std::dynamic_format;
 EOF
 if ${CXX} ${CXXFLAGS} ${CPPFLAGS} -c test.cc 2>/dev/null; then
   CXX26=
@@ -58,11 +58,11 @@ int main (int argc, char *argv[])
 
   cout << _("'Your command, please?', asked the waiter.") << endl;
 
-  cout << format (runtime_format (ngettext ("a piece of cake", "{} pieces of cake", n)),
+  cout << format (dynamic_format (ngettext ("a piece of cake", "{} pieces of cake", n)),
                   n)
        << endl;
 
-  cout << format (runtime_format (_("{} is replaced by {}.")), "FF", "EUR")
+  cout << format (dynamic_format (_("{} is replaced by {}.")), "FF", "EUR")
        << endl;
 }
 EOF

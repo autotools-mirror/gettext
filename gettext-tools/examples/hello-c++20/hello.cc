@@ -13,12 +13,19 @@
 // <https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2023/p2918r2.html>,
 // uses a new symbol std::runtime_format, that
 //   - does not exist in g++ 13.3,
-//   - exists in g++ 14 or newer and clang++ 19 or newer, but requires the
+//   - exists in g++ 14..15 and clang++ 19..22, but requires the
 //     option -std=gnu++26.
+// This replacement API was then incompatibly modified in
+// <https://www.open-std.org/jtc1/sc22/wg21/docs/papers/2026/p3953r3.html>,
+// renaming std::runtime_format to std::dynamic_format.  It is supported in
+// g++ 16 or newer and clang++ 23 or newer.
 
 #include <format>
 #include <iostream>
 using namespace std;
+#if __cpp_lib_format > 202106L && __cpp_lib_format < 202603L
+# define dynamic_format runtime_format
+#endif
 
 // Get setlocale() declaration.
 #include <locale.h>
@@ -50,7 +57,7 @@ main ()
   cout << vformat (_("This program is running as process number {:d}."),
                    make_format_args (getpid ()))
 #else
-  cout << format (runtime_format (_("This program is running as process number {:d}.")),
+  cout << format (dynamic_format (_("This program is running as process number {:d}.")),
                   getpid ())
 #endif
        << endl;
