@@ -1,6 +1,6 @@
 # more-warnings.m4
-# serial 5 (gettext-0.25)
-dnl Copyright (C) 2023-2025 Free Software Foundation, Inc.
+# serial 6 (gettext-1.1)
+dnl Copyright (C) 2023-2026 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
 dnl Public License, this file may be distributed as part of a program
@@ -48,6 +48,7 @@ AS_HELP_STRING([[--disable-more-warnings]], [obey exactly the warning options sp
     dnl First, the warnings that are generated already with -O0:
     dnl These warnings enforce a certain programming style that is not ours.
     nw="$nw -Wempty-body"
+    nw="$nw -Wuseless-cast"
     nw="$nw -Wvla"
     dnl All warnings produced by these options (in gcc 13) have been false
     dnl alarms.
@@ -69,6 +70,10 @@ AS_HELP_STRING([[--disable-more-warnings]], [obey exactly the warning options sp
     dnl We use computed format strings in a number of places, and glibc's
     dnl <bits/error.h> does it as well.
     nw="$nw -Wformat-nonliteral"
+    dnl Defining a macro with the same name as a keyword is not dangerous;
+    dnl it merely makes the code a bit harder to understand. Also, older code
+    dnl is overriding 'alignof' or 'inline' for good reasons.
+    nw="$nw -Wkeyword-macro"
     dnl We define a few functions for binary backward compatibility only.
     dnl These functions are not declared on purpose: So that they cannot be
     dnl accidentally used in new code.
