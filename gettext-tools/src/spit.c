@@ -180,7 +180,7 @@ my_header_callback (char *buffer, size_t one, size_t n, void *userdata)
 #if DEBUG
   fprintf (stderr, "in my_header_callback: buffer = %.*s\n", (int) n, buffer);
 #endif
-  if (n >= 5 && memcmp (buffer, "HTTP/", 5) == 0)
+  if (n >= 5 && memeq (buffer, "HTTP/", 5))
     {
       /* buffer contains a line of the form "HTTP/1.1 code description".
          Extract the code.  */

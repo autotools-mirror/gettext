@@ -424,7 +424,7 @@ mixed_string_buffer_equals (const struct mixed_string_buffer *bp,
   size_t other_len = strlen (other);
   return (bp->nsegments == 0
           && bp->curr_buflen == other_len
-          && (other_len == 0 || memcmp (bp->curr_buffer, other, other_len) == 0)
+          && (other_len == 0 || memeq (bp->curr_buffer, other, other_len))
           && bp->utf16_surr == 0);
 }
 
@@ -436,9 +436,9 @@ mixed_string_buffer_startswith (const struct mixed_string_buffer *bp,
   return prefix_len == 0
          || (bp->nsegments == 0
              ? bp->curr_buflen >= prefix_len
-               && memcmp (bp->curr_buffer, prefix, prefix_len) == 0
+               && memeq (bp->curr_buffer, prefix, prefix_len)
              : bp->segments[0]->length >= prefix_len
-               && memcmp (bp->segments[0]->contents, prefix, prefix_len) == 0);
+               && memeq (bp->segments[0]->contents, prefix, prefix_len));
 }
 
 /* Auxiliary function: Ensure count more bytes are available in

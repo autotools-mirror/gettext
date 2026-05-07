@@ -704,7 +704,7 @@ x_go_keyword (const char *name)
                       /* Looks like NAME is PACKAGE . TYPENAME . METHODNAME.  */
                       /* We are only interested in the gotext and snapcore packages.  */
                       if (first_dot - name == strlen (GOTEXT_PACKAGE_FULLNAME)
-                          && memcmp (name, GOTEXT_PACKAGE_FULLNAME, strlen (GOTEXT_PACKAGE_FULLNAME)) == 0)
+                          && memeq (name, GOTEXT_PACKAGE_FULLNAME, strlen (GOTEXT_PACKAGE_FULLNAME)))
                         {
                           void *found_type;
                           if (hash_find_entry (&gotext_package.defined_types,
@@ -726,7 +726,7 @@ x_go_keyword (const char *name)
                             }
                         }
                       else if (first_dot - name == strlen (SNAPCORE_PACKAGE_FULLNAME)
-                               && memcmp (name, SNAPCORE_PACKAGE_FULLNAME, strlen (SNAPCORE_PACKAGE_FULLNAME)) == 0)
+                               && memeq (name, SNAPCORE_PACKAGE_FULLNAME, strlen (SNAPCORE_PACKAGE_FULLNAME)))
                         {
                           void *found_type;
                           if (hash_find_entry (&snapcore_package.defined_types,
@@ -753,12 +753,12 @@ x_go_keyword (const char *name)
                       /* Looks like NAME is PACKAGE . FUNCNAME.  */
                       /* We are only interested in the gotext and snapcore packages.  */
                       if (first_dot - name == strlen (GOTEXT_PACKAGE_FULLNAME)
-                          && memcmp (name, GOTEXT_PACKAGE_FULLNAME, strlen (GOTEXT_PACKAGE_FULLNAME)) == 0)
+                          && memeq (name, GOTEXT_PACKAGE_FULLNAME, strlen (GOTEXT_PACKAGE_FULLNAME)))
                         insert_keyword_callshape (&gotext_keywords,
                                                   first_dot + 1, end - (first_dot + 1),
                                                   &shape);
                       else if (first_dot - name == strlen (SNAPCORE_PACKAGE_FULLNAME)
-                               && memcmp (name, SNAPCORE_PACKAGE_FULLNAME, strlen (SNAPCORE_PACKAGE_FULLNAME)) == 0)
+                               && memeq (name, SNAPCORE_PACKAGE_FULLNAME, strlen (SNAPCORE_PACKAGE_FULLNAME)))
                         insert_keyword_callshape (&snapcore_keywords,
                                                   first_dot + 1, end - (first_dot + 1),
                                                   &shape);

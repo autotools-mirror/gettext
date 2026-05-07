@@ -1136,9 +1136,9 @@ static const char *
 add_mo_suffix (const char *fname)
 {
   size_t len = strlen (fname);
-  if (len > 3 && memcmp (fname + len - 3, ".mo", 3) == 0)
+  if (len > 3 && memeq (fname + len - 3, ".mo", 3))
     return fname;
-  if (len > 4 && memcmp (fname + len - 4, ".gmo", 4) == 0)
+  if (len > 4 && memeq (fname + len - 4, ".gmo", 4))
     return fname;
   char *result = XNMALLOC (len + 4, char);
   stpcpy (stpcpy (result, fname), ".mo");

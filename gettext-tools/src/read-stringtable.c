@@ -530,9 +530,9 @@ comment_line_end (abstract_catalog_reader_ty *catr,
     }
   else if (strcmp (line, "Flag: unmatched") == 0)
     next_is_obsolete = true;
-  else if (strlen (line) >= 6 && memcmp (line, "Flag: ", 6) == 0)
+  else if (strlen (line) >= 6 && memeq (line, "Flag: ", 6))
     special_comment_add (line + 6);
-  else if (strlen (line) >= 9 && memcmp (line, "Comment: ", 9) == 0)
+  else if (strlen (line) >= 9 && memeq (line, "Comment: ", 9))
     /* A comment extracted from the source.  */
     catalog_reader_seen_comment_dot (catr, line + 9);
   else
@@ -541,7 +541,7 @@ comment_line_end (abstract_catalog_reader_ty *catr,
       unsigned long number;
       char *endp;
 
-      if (strlen (line) >= 6 && memcmp (line, "File: ", 6) == 0
+      if (strlen (line) >= 6 && memeq (line, "File: ", 6)
           && (last_colon = strrchr (line + 6, ':')) != NULL
           && c_isdigit (*(last_colon + 1))
           && (number = strtoul (last_colon + 1, &endp, 10), *endp == '\0'))

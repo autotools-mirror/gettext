@@ -990,7 +990,7 @@ xgettext cannot work without keywords to look for"));
           char *reduced = xstrdup (base);
           /* Remove a trailing ".in" - it's a generic suffix.  */
           while (strlen (reduced) >= 3
-                 && memcmp (reduced + strlen (reduced) - 3, ".in", 3) == 0)
+                 && memeq (reduced + strlen (reduced) - 3, ".in", 3))
             reduced[strlen (reduced) - 3] = '\0';
 
           /* If no language is specified with -L, deduce it the extension.  */
@@ -1577,7 +1577,7 @@ xgettext_record_flag (const char *optionstring)
     /* Analyze the flag part.  */
     {
       bool pass = false;
-      if (flag_end - flag_start >= 5 && memcmp (flag_start, "pass-", 5) == 0)
+      if (flag_end - flag_start >= 5 && memeq (flag_start, "pass-", 5))
         {
           pass = true;
           flag_start += 5;
@@ -1586,31 +1586,31 @@ xgettext_record_flag (const char *optionstring)
       /* Unlike parse_comment_special(), we don't accept "fuzzy",
          "wrap", or "check" here - it has no sense.  */
       if (flag_end - flag_start >= 7
-          && memcmp (flag_end - 7, "-format", 7) == 0)
+          && memeq (flag_end - 7, "-format", 7))
         {
           const char *p = flag_start;
           size_t n = flag_end - flag_start - 7;
 
           enum is_format value;
-          if (n >= 3 && memcmp (p, "no-", 3) == 0)
+          if (n >= 3 && memeq (p, "no-", 3))
             {
               p += 3;
               n -= 3;
               value = no;
             }
-          else if (n >= 9 && memcmp (p, "possible-", 9) == 0)
+          else if (n >= 9 && memeq (p, "possible-", 9))
             {
               p += 9;
               n -= 9;
               value = possible;
             }
-          else if (n >= 11 && memcmp (p, "impossible-", 11) == 0)
+          else if (n >= 11 && memeq (p, "impossible-", 11))
             {
               p += 11;
               n -= 11;
               value = impossible;
             }
-          else if (n >= 10 && memcmp (p, "undecided-", 10) == 0)
+          else if (n >= 10 && memeq (p, "undecided-", 10))
             {
               p += 10;
               n -= 10;
@@ -1621,7 +1621,7 @@ xgettext_record_flag (const char *optionstring)
 
           for (size_t type = 0; type < NFORMATS; type++)
             if (strlen (format_language[type]) == n
-                && memcmp (format_language[type], p, n) == 0)
+                && memeq (format_language[type], p, n))
               {
                 /* This dispatch does the reverse mapping of all the SCANNERS_*
                    macros defined in the x-*.h files.  For example,

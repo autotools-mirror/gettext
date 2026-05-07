@@ -271,8 +271,7 @@ iconv_message_list_internal (message_list_ty *mlp,
                         if (strcmp (charset, "CHARSET") == 0
                             && ((filename != NULL
                                  && (filenamelen = strlen (filename)) >= 4
-                                 && memcmp (filename + filenamelen - 4, ".pot", 4)
-                                    == 0)
+                                 && memeq (filename + filenamelen - 4, ".pot", 4))
                                 || is_ascii_message_list (mlp)))
                           canon_charset = po_charset_ascii;
                         else

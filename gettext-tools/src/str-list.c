@@ -119,7 +119,7 @@ string_list_append_unique_desc (string_list_ty *slp,
 {
   /* Do nothing if the string is already in the list.  */
   for (size_t j = 0; j < slp->nitems; ++j)
-    if (strlen (slp->item[j]) == s_len && memcmp (slp->item[j], s, s_len) == 0)
+    if (strlen (slp->item[j]) == s_len && memeq (slp->item[j], s, s_len))
       return;
 
   /* Grow the list.  */
@@ -281,7 +281,7 @@ bool
 string_list_member_desc (const string_list_ty *slp, const char *s, size_t s_len)
 {
   for (size_t j = 0; j < slp->nitems; ++j)
-    if (strlen (slp->item[j]) == s_len && memcmp (slp->item[j], s, s_len) == 0)
+    if (strlen (slp->item[j]) == s_len && memeq (slp->item[j], s, s_len))
       return true;
   return false;
 }

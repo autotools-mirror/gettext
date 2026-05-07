@@ -157,7 +157,7 @@ po_lex_charset_set (struct po_parser_state *ps,
 
           if (!(strcmp (charset, "CHARSET") == 0
                 && ((filenamelen >= 4
-                     && memcmp (filename + filenamelen - 4, ".pot", 4) == 0)
+                     && memeq (filename + filenamelen - 4, ".pot", 4))
                     || is_pot_role)))
             {
               char *warning_message =
@@ -315,7 +315,7 @@ would fix this problem.\n");
       size_t filenamelen = strlen (filename);
 
       if (!(filenamelen >= 4
-            && memcmp (filename + filenamelen - 4, ".pot", 4) == 0))
+            && memeq (filename + filenamelen - 4, ".pot", 4)))
         ps->catr->xeh->xerror (CAT_SEVERITY_WARNING,
                                NULL, filename, (size_t)(-1), (size_t)(-1), true,
                                _("\
@@ -440,7 +440,7 @@ mb_equal (const mbchar_t mbc1, const mbchar_t mbc2)
   else
 #endif
     return (mbc1->bytes == mbc2->bytes
-            && memcmp (mbc1->buf, mbc2->buf, mbc1->bytes) == 0);
+            && memeq (mbc1->buf, mbc2->buf, mbc1->bytes));
 }
 
 /* <ctype.h>, <wctype.h> classification.  */

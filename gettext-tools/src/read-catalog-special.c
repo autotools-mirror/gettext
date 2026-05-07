@@ -61,32 +61,32 @@ parse_comment_special (const char *s,
           size_t len = s - t;
 
           /* Accept fuzzy flag.  */
-          if (len == 5 && memcmp (t, "fuzzy", 5) == 0)
+          if (len == 5 && memeq (t, "fuzzy", 5))
             {
               *fuzzyp = true;
               continue;
             }
 
           /* Accept format description.  */
-          if (len >= 7 && memcmp (t + len - 7, "-format", 7) == 0)
+          if (len >= 7 && memeq (t + len - 7, "-format", 7))
             {
               const char *p = t;
               size_t n = len - 7;
 
               enum is_format value;
-              if (n >= 3 && memcmp (p, "no-", 3) == 0)
+              if (n >= 3 && memeq (p, "no-", 3))
                 {
                   p += 3;
                   n -= 3;
                   value = no;
                 }
-              else if (n >= 9 && memcmp (p, "possible-", 9) == 0)
+              else if (n >= 9 && memeq (p, "possible-", 9))
                 {
                   p += 9;
                   n -= 9;
                   value = possible;
                 }
-              else if (n >= 11 && memcmp (p, "impossible-", 11) == 0)
+              else if (n >= 11 && memeq (p, "impossible-", 11))
                 {
                   p += 11;
                   n -= 11;
@@ -98,7 +98,7 @@ parse_comment_special (const char *s,
               size_t i;
               for (i = 0; i < NFORMATS; i++)
                 if (strlen (format_language[i]) == n
-                    && memcmp (format_language[i], p, n) == 0)
+                    && memeq (format_language[i], p, n))
                   {
                     formatp[i] = value;
                     break;
@@ -108,7 +108,7 @@ parse_comment_special (const char *s,
             }
 
           /* Accept range description "range: <min>..<max>".  */
-          if (len == 6 && memcmp (t, "range:", 6) == 0)
+          if (len == 6 && memeq (t, "range:", 6))
             {
               /* Skip whitespace.  */
               while (*s != '\0' && strchr ("\n \t\r\f\v,", *s) != NULL)
@@ -163,25 +163,25 @@ parse_comment_special (const char *s,
             }
 
           /* Accept wrap description.  */
-          if (len == 4 && memcmp (t, "wrap", 4) == 0)
+          if (len == 4 && memeq (t, "wrap", 4))
             {
               *wrapp = yes;
               continue;
             }
-          if (len == 7 && memcmp (t, "no-wrap", 7) == 0)
+          if (len == 7 && memeq (t, "no-wrap", 7))
             {
               *wrapp = no;
               continue;
             }
 
           /* Accept syntax check description.  */
-          if (scp != NULL && len >= 6 && memcmp (t + len - 6, "-check", 6) == 0)
+          if (scp != NULL && len >= 6 && memeq (t + len - 6, "-check", 6))
             {
               const char *p = t;
               size_t n = len - 6;
 
               enum is_syntax_check value;
-              if (n >= 3 && memcmp (p, "no-", 3) == 0)
+              if (n >= 3 && memeq (p, "no-", 3))
                 {
                   p += 3;
                   n -= 3;
@@ -193,7 +193,7 @@ parse_comment_special (const char *s,
               size_t i;
               for (i = 0; i < NSYNTAXCHECKS; i++)
                 if (strlen (syntax_check_name[i]) == n
-                    && memcmp (syntax_check_name[i], p, n) == 0)
+                    && memeq (syntax_check_name[i], p, n))
                   {
                     scp[i] = value;
                     break;

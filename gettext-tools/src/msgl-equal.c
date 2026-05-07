@@ -31,7 +31,7 @@ msgstr_equal (const char *msgstr1, size_t msgstr1_len,
               const char *msgstr2, size_t msgstr2_len)
 {
   return (msgstr1_len == msgstr2_len
-          && memcmp (msgstr1, msgstr2, msgstr1_len) == 0);
+          && memeq (msgstr1, msgstr2, msgstr1_len));
 }
 
 static bool
@@ -52,7 +52,7 @@ msgstr_equal_ignoring_potcdate (const char *msgstr1, size_t msgstr1_len,
           ptr1 = NULL;
           break;
         }
-      if (memcmp (ptr1, field, fieldlen) == 0)
+      if (memeq (ptr1, field, fieldlen))
         break;
       ptr1 = (const char *) memchr (ptr1, '\n', msgstr1_end - ptr1);
       if (ptr1 == NULL)
@@ -69,7 +69,7 @@ msgstr_equal_ignoring_potcdate (const char *msgstr1, size_t msgstr1_len,
           ptr2 = NULL;
           break;
         }
-      if (memcmp (ptr2, field, fieldlen) == 0)
+      if (memeq (ptr2, field, fieldlen))
         break;
       ptr2 = (const char *) memchr (ptr2, '\n', msgstr2_end - ptr2);
       if (ptr2 == NULL)

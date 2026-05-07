@@ -162,8 +162,8 @@ catenate_msgdomain_list (string_list_ty *file_list,
 
                                 if (strcmp (charset, "CHARSET") == 0
                                     && ((filenamelen >= 4
-                                         && memcmp (filename + filenamelen - 4,
-                                                    ".pot", 4) == 0)
+                                         && memeq (filename + filenamelen - 4,
+                                                   ".pot", 4))
                                         || is_ascii_message_list (mlp)))
                                   canon_charset = po_charset_ascii;
                                 else
@@ -681,8 +681,8 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
               bool all_equal = true;
               for (size_t i = 0; i < tmp->alternative_count; i++)
                 if (!(tmp->alternative[i].msgstr_len == first->msgstr_len
-                      && memcmp (tmp->alternative[i].msgstr, first->msgstr,
-                                 first->msgstr_len) == 0))
+                      && memeq (tmp->alternative[i].msgstr, first->msgstr,
+                                first->msgstr_len)))
                   {
                     all_equal = false;
                     break;

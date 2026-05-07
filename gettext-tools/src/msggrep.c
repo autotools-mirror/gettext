@@ -721,10 +721,10 @@ is_message_selected_no_invert (const message_ty *mp)
     {
       const char *flag = sticky_flags->item[i];
       size_t flag_len = strlen (flag);
-      if (flag_len >= 7 && memcmp (flag + flag_len - 7, "-format", 7) == 0)
+      if (flag_len >= 7 && memeq (flag + flag_len - 7, "-format", 7))
         {
           flag_len -= 7;
-          bool has_no_prefix = (flag_len >= 3 && memcmp (flag, "no-", 3) == 0);
+          bool has_no_prefix = (flag_len >= 3 && memeq (flag, "no-", 3));
           if (has_no_prefix)
             {
               flag += 3;
@@ -732,7 +732,7 @@ is_message_selected_no_invert (const message_ty *mp)
             }
           for (size_t j = 0; j < NFORMATS; j++)
             if (strlen (format_language[j]) == flag_len
-                && memcmp (format_language[j], flag, flag_len) == 0)
+                && memeq (format_language[j], flag, flag_len))
               {
                 /* The value of the flag is stored in mp->is_format[j].  */
                 if (mp->is_format[j] == (has_no_prefix ? no : yes))

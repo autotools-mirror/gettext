@@ -1387,18 +1387,18 @@ read_command (int looking_for, flag_region_ty *outer_region)
                 {
                   bool accepts_context =
                     ((argparser->keyword_len == 7
-                      && memcmp (argparser->keyword, "gettext", 7) == 0)
+                      && memeq (argparser->keyword, "gettext", 7))
                      || (argparser->keyword_len == 8
-                         && memcmp (argparser->keyword, "ngettext", 8) == 0)
+                         && memeq (argparser->keyword, "ngettext", 8))
                      || (argparser->keyword_len == 14
-                         && memcmp (argparser->keyword, "printf_gettext", 14) == 0)
+                         && memeq (argparser->keyword, "printf_gettext", 14))
                      || (argparser->keyword_len == 15
-                         && memcmp (argparser->keyword, "printf_ngettext", 15) == 0));
+                         && memeq (argparser->keyword, "printf_ngettext", 15)));
                   bool accepts_expand =
                     ((argparser->keyword_len == 7
-                      && memcmp (argparser->keyword, "gettext", 7) == 0)
+                      && memeq (argparser->keyword, "gettext", 7))
                      || (argparser->keyword_len == 8
-                         && memcmp (argparser->keyword, "ngettext", 8) == 0));
+                         && memeq (argparser->keyword, "ngettext", 8)));
                   if (accepts_context && argparser->next_is_msgctxt)
                     {
                       mixed_string_ty *ms = mixed_string_buffer_cloned_result (inner.token);
@@ -1444,7 +1444,7 @@ read_command (int looking_for, flag_region_ty *outer_region)
                           char *s = mixed_string_contents (ms);
                           bool expands_backslash_c =
                             (argparser->keyword_len == 7
-                             && memcmp (argparser->keyword, "gettext", 7) == 0);
+                             && memeq (argparser->keyword, "gettext", 7));
                           bool backslash_c = false;
                           char *expanded =
                             (char *)

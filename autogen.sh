@@ -236,6 +236,7 @@ if ! $skip_gnulib; then
     lock
     mem-hash-map
     memchr
+    memeq
     memmove
     memset
     minmax
@@ -514,6 +515,7 @@ if ! $skip_gnulib; then
     libunistring-optional
     markup
     mem-hash-map
+    memeq
     minmax
     once
     open

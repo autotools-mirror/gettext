@@ -680,7 +680,7 @@ wrap (const message_ty *mp, ostream_t stream,
   if (value[0] != '\0')
     {
       bool is_msgstr =
-        (strlen (name) >= 6 && memcmp (name, "msgstr", 6) == 0);
+        (strlen (name) >= 6 && memeq (name, "msgstr", 6));
         /* or equivalent: = (css_class == class_msgstr) */
 
       for (size_t i = 0; i < NFORMATS; i++)

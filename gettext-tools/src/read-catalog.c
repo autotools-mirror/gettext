@@ -372,7 +372,7 @@ default_add_message (default_catalog_reader_ty *dcatr,
     {
       if (!(dcatr->allow_duplicates_if_same_msgstr
             && msgstr_len == mp->msgstr_len
-            && memcmp (msgstr, mp->msgstr, msgstr_len) == 0))
+            && memeq (msgstr, mp->msgstr, msgstr_len)))
         {
           /* We give a fatal error about this, regardless whether the
              translations are equal or different.  This is for consistency

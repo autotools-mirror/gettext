@@ -66,7 +66,7 @@ string_has_ascii_ellipsis (const char *string)
       /* sentence_end doesn't treat '...' specially.  */
       const char *cp = end - (ending_char == '.' ? 2 : 3);
 
-      if (cp >= str && memcmp (cp, "...", 3) == 0)
+      if (cp >= str && memeq (cp, "...", 3))
         return true;
 
       str = end + 1;
@@ -118,14 +118,14 @@ string_has_space_ellipsis (const char *string)
         {
           /* sentence_end doesn't treat '...' specially.  */
           const char *cp = end - 2;
-          if (cp >= str && memcmp (cp, "...", 3) == 0)
+          if (cp >= str && memeq (cp, "...", 3))
             ellipsis = cp;
         }
       else
         {
           /* Look for a '...'.  */
           const char *cp = end - 3;
-          if (cp >= str && memcmp (cp, "...", 3) == 0)
+          if (cp >= str && memeq (cp, "...", 3))
             ellipsis = cp;
           else
             {

@@ -487,7 +487,7 @@ find_pot ()
               const char *name = dp->d_name;
               size_t namlen = strlen (name);
 
-              if (namlen > 4 && memcmp (name + namlen - 4, ".pot", 4) == 0)
+              if (namlen > 4 && memeq (name + namlen - 4, ".pot", 4))
                 {
                   if (found == NULL)
                     found = xstrdup (name);

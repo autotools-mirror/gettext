@@ -505,8 +505,7 @@ write_table (FILE *output_file, message_list_ty *mlp)
                     size_t r;
                     for (r = 0; r < n_sysdep_segments; r++)
                       if (sysdep_segments[r].length == length
-                          && memcmp (sysdep_segments[r].pointer, pointer, length)
-                             == 0)
+                          && memeq (sysdep_segments[r].pointer, pointer, length))
                         break;
                     if (r == n_sysdep_segments)
                       {

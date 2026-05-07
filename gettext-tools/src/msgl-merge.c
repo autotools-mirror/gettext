@@ -498,8 +498,8 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
               for (size_t i = 0; i < language_variant_table_size; i++)
                 if (strlen (language_variant_table[i].english)
                     == language_team_len
-                    && memcmp (language_variant_table[i].english,
-                               language_team_ptr, language_team_len) == 0)
+                    && memeq (language_variant_table[i].english,
+                              language_team_ptr, language_team_len))
                   {
                     header_fields[LANGUAGE].string =
                       language_variant_table[i].code;
@@ -508,8 +508,8 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
               if (header_fields[LANGUAGE].string == NULL)
                 for (size_t i = 0; i < language_table_size; i++)
                   if (strlen (language_table[i].english) == language_team_len
-                      && memcmp (language_table[i].english,
-                                 language_team_ptr, language_team_len) == 0)
+                      && memeq (language_table[i].english,
+                                language_team_ptr, language_team_len))
                     {
                       header_fields[LANGUAGE].string = language_table[i].code;
                       break;
