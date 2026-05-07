@@ -1561,7 +1561,7 @@ phase5_get (token_ty *tp)
               case 'P':
                 /* In C99 and C++17, 'p' and 'P' can be used as an exponent
                    marker.  */
-                FALLTHROUGH;
+                /*FALLTHROUGH;*/
               case 'e':
               case 'E':
                 sb_xappend1 (&buffer, c);
