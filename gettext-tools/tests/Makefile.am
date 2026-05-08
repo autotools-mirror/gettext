@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/tests subdirectory of GNU gettext
-## Copyright (C) 1995-2025 Free Software Foundation, Inc.
+## Copyright (C) 1995-2026 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -104,6 +104,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-csharp-1 xgettext-csharp-2 xgettext-csharp-3 \
 	xgettext-csharp-4 xgettext-csharp-5 xgettext-csharp-6 \
 	xgettext-csharp-7 xgettext-csharp-8 xgettext-csharp-9 \
+	xgettext-csharp-10 \
 	xgettext-csharp-stackovfl-1 xgettext-csharp-stackovfl-2 \
 	xgettext-csharp-stackovfl-3 xgettext-csharp-stackovfl-4 \
 	xgettext-d-1 xgettext-d-2 xgettext-d-3 xgettext-d-4 xgettext-d-5 \
