@@ -2111,7 +2111,6 @@ phase8_get (token_ty *tp)
 enum xgettext_token_type_ty
 {
   xgettext_token_type_eof,
-  xgettext_token_type_keyword,
   xgettext_token_type_symbol,
   xgettext_token_type_lparen,
   xgettext_token_type_rparen,
@@ -2127,11 +2126,7 @@ struct xgettext_token_ty
 {
   xgettext_token_type_ty type;
 
-  /* This field is used only for xgettext_token_type_keyword.  */
-  const struct callshapes *shapes;
-
-  /* This field is used only for xgettext_token_type_keyword,
-     xgettext_token_type_symbol.  */
+  /* This field is used only for xgettext_token_type_symbol.  */
   char *string;
 
   /* This field is used only for xgettext_token_type_string_literal.  */
@@ -2140,7 +2135,7 @@ struct xgettext_token_ty
   /* This field is used only for xgettext_token_type_string_literal.  */
   refcounted_string_list_ty *comment;
 
-  /* This field is used only for xgettext_token_type_keyword,
+  /* This field is used only for xgettext_token_type_symbol,
      xgettext_token_type_string_literal.  */
   lex_pos_ty pos;
 };
@@ -2167,20 +2162,10 @@ x_c_lex (xgettext_token_ty *tp)
           {
             last_non_comment_line = newline_count;
 
-            void *keyword_value;
-            if (hash_find_entry (objc_extensions ? &objc_keywords : &c_keywords,
-                                 token.string, strlen (token.string),
-                                 &keyword_value)
-                == 0)
-              {
-                tp->type = xgettext_token_type_keyword;
-                tp->shapes = (const struct callshapes *) keyword_value;
-                tp->pos.file_name = logical_file_name;
-                tp->pos.line_number = token.line_number;
-              }
-            else
-              tp->type = xgettext_token_type_symbol;
+            tp->type = xgettext_token_type_symbol;
             tp->string = token.string;
+            tp->pos.file_name = logical_file_name;
+            tp->pos.line_number = token.line_number;
             return;
           }
 
@@ -2300,14 +2285,20 @@ extract_parenthesized (message_list_ty *mlp,
 
       switch (token.type)
         {
-        case xgettext_token_type_keyword:
-          next_shapes = token.shapes;
-          state = 1;
-          goto keyword_or_symbol;
-
         case xgettext_token_type_symbol:
-          state = 0;
-        keyword_or_symbol:
+          {
+            void *keyword_value;
+            if (hash_find_entry (objc_extensions ? &objc_keywords : &c_keywords,
+                                 token.string, strlen (token.string),
+                                 &keyword_value)
+                == 0)
+              {
+                next_shapes = (const struct callshapes *) keyword_value;
+                state = 1;
+              }
+            else
+              state = 0;
+          }
           next_context_iter =
             flag_context_list_iterator (
               flag_context_list_table_lookup (
