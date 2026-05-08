@@ -1688,7 +1688,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
         {
         case token_type_symbol:
           {
-            /* Combine symbol1 . ... . symbolN to a single strings, so that
+            /* Combine symbol1 . ... . symbolN to a single string, so that
                we can recognize static function calls like
                GettextResource.gettext.  The information present for
                symbolI.....symbolN has precedence over the information for
