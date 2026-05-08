@@ -1,0 +1,51 @@
+#! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test C++ support: --keyword option with a composed function name.
+
+cat <<\EOF > xg-c-c++-3.cc
+gettext ("Test 1");
+translate ("Test 2");
+foo ("Test 3");
+bar ("Test 4");
+baz ("Test 5");
+ResourceBundles::gettext ("Test 11");
+ResourceBundles::translate ("Test 12");
+i18n::translate ("Test 13");
+bar::baz ("Test 14");
+ResourceBundles::i18n::translate ("Test 21");
+foo::bar::baz ("Test 22");
+foo :: bar :: baz ("Test 23");
+EOF
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location \
+            --keyword=gettext --keyword=i18n::translate --keyword=foo::bar::baz \
+            -d xg-c-c++-3.tmp xg-c-c++-3.cc || Exit 1
+LC_ALL=C tr -d '\r' < xg-c-c++-3.tmp.po > xg-c-c++-3.po || Exit 1
+
+cat <<\EOF > xg-c-c++-3.ok
+msgid "Test 1"
+msgstr ""
+
+msgid "Test 11"
+msgstr ""
+
+msgid "Test 13"
+msgstr ""
+
+msgid "Test 21"
+msgstr ""
+
+msgid "Test 22"
+msgstr ""
+
+msgid "Test 23"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-c-c++-3.ok xg-c-c++-3.po
+result=$?
+
+exit $result
