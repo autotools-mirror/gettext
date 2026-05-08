@@ -101,11 +101,9 @@ x_javascript_keyword (const char *name)
       const char *end;
       struct callshape shape;
       split_keywordspec (name, &end, &shape);
-
-      /* The characters between name and end should form a valid C identifier.
-         A colon means an invalid parse in split_keywordspec().  */
-      const char *colon = strchr (name, ':');
-      if (colon == NULL || colon >= end)
+      if (split_keywordspec_ok (name, end - name))
+        /* The characters between name and end should form a valid
+           C identifier.  */
         insert_keyword_callshape (&keywords, name, end - name, &shape);
     }
 }

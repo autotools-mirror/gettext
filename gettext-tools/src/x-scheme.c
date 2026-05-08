@@ -127,21 +127,17 @@ x_scheme_keyword (const char *name)
       const char *end;
       struct callshape shape;
       split_keywordspec (name, &end, &shape);
-
-      /* The characters between name and end should form a valid Lisp symbol.
-         Extract the symbol name part.  */
-      const char *colon = strchr (name, ':');
-      if (colon != NULL && colon < end)
+      if (split_keywordspec_ok_lisp (name, end - name))
         {
-          name = colon + 1;
-          if (name < end && *name == ':')
-            name++;
-          colon = strchr (name, ':');
-          if (colon != NULL && colon < end)
-            return;
-        }
+          /* The characters between name and end should form a valid Lisp
+             symbol.  */
+          /* Extract the symbol name part.  */
+          const char *colon = memrchr (name, ':', end - name);
+          if (colon != NULL)
+            name = colon + 1;
 
-      insert_keyword_callshape (&keywords, name, end - name, &shape);
+          insert_keyword_callshape (&keywords, name, end - name, &shape);
+        }
     }
 }
 

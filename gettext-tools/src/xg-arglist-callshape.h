@@ -49,6 +49,21 @@ struct callshape
 extern void split_keywordspec (const char *spec, const char **endp,
                                struct callshape *shapep);
 
+/* Test whether the preceding split_keywordspec call was successful,
+   assuming a programming language in which a keyword cannot contain
+   colons.  */
+extern bool split_keywordspec_ok (const char *keyword, size_t keyword_len);
+
+/* Test whether the preceding split_keywordspec call was successful,
+   assuming a programming language in which a keyword cannot contain colons,
+   except in pairs (such as e.g. in C++).  */
+extern bool split_keywordspec_ok2 (const char *keyword, size_t keyword_len);
+
+/* Test whether the preceding split_keywordspec call was successful,
+   assuming a programming language in which a keyword cannot contain colons,
+   except a single colon or a pair of colons (such as e.g. in Common Lisp).  */
+extern bool split_keywordspec_ok_lisp (const char *keyword, size_t keyword_len);
+
 /* Set of alternative calling conventions for a given keyword.  */
 struct callshapes
 {

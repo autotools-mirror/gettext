@@ -683,10 +683,7 @@ x_go_keyword (const char *name)
       const char *end;
       struct callshape shape;
       split_keywordspec (name, &end, &shape);
-
-      /* A colon means an invalid parse in split_keywordspec().  */
-      const char *colon = strchr (name, ':');
-      if (colon == NULL || colon >= end)
+      if (split_keywordspec_ok (name, end - name))
         {
           /* The characters between name and end should form
                - either a valid Go identifier,

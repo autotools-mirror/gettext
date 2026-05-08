@@ -100,13 +100,15 @@ x_tcl_keyword (const char *name)
       const char *end;
       struct callshape shape;
       split_keywordspec (name, &end, &shape);
+      if (split_keywordspec_ok2 (name, end - name))
+        {
+          /* The characters between name and end should form a valid Tcl
+             function name.  A leading "::" is redundant.  */
+          if (end - name >= 2 && name[0] == ':' && name[1] == ':')
+            name += 2;
 
-      /* The characters between name and end should form a valid Tcl
-         function name.  A leading "::" is redundant.  */
-      if (end - name >= 2 && name[0] == ':' && name[1] == ':')
-        name += 2;
-
-      insert_keyword_callshape (&keywords, name, end - name, &shape);
+          insert_keyword_callshape (&keywords, name, end - name, &shape);
+        }
     }
 }
 

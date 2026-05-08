@@ -239,6 +239,7 @@ if ! $skip_gnulib; then
     memchr
     memeq
     memmove
+    memrchr
     memset
     minmax
     mkdir
