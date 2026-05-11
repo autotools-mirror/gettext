@@ -633,6 +633,7 @@ func_emit_source_c ()
       echo "#define super ${main_superclassname}_vtable"
       echo
     fi
+    echo "#include <stdcountof.h>"
     echo "#line "`expr $impl_end_lineno + 1`" \"${source_impl_file_base}\""
     cat "$source_impl_file" | sed -e "1,${impl_end_lineno}d" | sed -e "s,${main_classname}::,${main_classname}__,g"
     echo
@@ -689,7 +690,7 @@ func_emit_source_c ()
     echo "const struct ${main_classname}_implementation ${main_classname}_vtable ="
     echo "{"
     echo "  ${main_classname}_superclasses,"
-    echo "  sizeof (${main_classname}_superclasses) / sizeof (${main_classname}_superclasses[0]),"
+    echo "  countof (${main_classname}_superclasses),"
     echo "  sizeof (struct ${main_classname}_representation),"
     echo "$all_methods" | sed -e "$sed_remove_empty_lines" |
       while read method; do
