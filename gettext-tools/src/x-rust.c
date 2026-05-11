@@ -729,8 +729,9 @@ extract_from_function_call (TSNode callee_node,
 
 /* Extracts messages from a function call like syntax in a macro invocation,
    consisting of
-     - CALLEE_NODE: a tree node of type 'identifier', or NULL for a mere
-       parenthesized expression,
+     - CALLEE_NODE: a tree node of type 'identifier' or
+       a tree node of type 'scoped_identifier' with at least 1 named child,
+       or NULL for a mere parenthesized expression,
      - CALLEE_NAME: a freshly allocated string, representing the qualified name
        of the node sequence of which CALLEE_NODE is the last one,
      - ARGS_NODE: a tree node of type 'token_tree'.
@@ -913,7 +914,7 @@ extract_from_function_call_like (TSNode *callee_node,
                           TSNode identifier_node = ts_node_child (args_node, prev2_token_in_same_arg);
                           extract_from_function_call_like (
                                              &identifier_node,
-                                             generic_identifier_name (identifier_node),
+                                             xsd_copy (sd_readonly (prev2_token_qualifiedname)),
                                              true,
                                              arg_node,
                                              arg_region,
@@ -1026,7 +1027,7 @@ extract_from_function_call_like (TSNode *callee_node,
                   TSNode identifier_node = ts_node_child (args_node, prev2_token_in_same_arg);
                   extract_from_function_call_like (
                                      &identifier_node,
-                                     generic_identifier_name (identifier_node),
+                                     xsd_copy (sd_readonly (prev2_token_qualifiedname)),
                                      true,
                                      arg_node,
                                      arg_region,
@@ -1138,7 +1139,7 @@ extract_from_node (TSNode node,
       if (! ts_node_eq (ts_node_child_by_field_id (node, ts_field_macro),
                         callee_node))
         abort ();
-      if (ts_node_symbol (callee_node) == ts_symbol_identifier)
+      if (is_generic_identifier (callee_node))
         {
           /* We have to search for the args_node.
              It is not always = ts_node_named_child (node, 1),
