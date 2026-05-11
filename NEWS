@@ -1,10 +1,10 @@
 Version 1.1 - July 2026
 
 # Programming languages support:
-  * C++:
+  * C++, Rust:
     - The --keyword option now supports "qualified names" of the form
-      'namespace::function', that specify a namespace or possibly even
-      a nested namespace.
+      'namespace::function', that specify a function in a namespace or
+      possibly even a function in a nested namespace.
 
 Version 1.0 - January 2026
 

@@ -33,6 +33,7 @@
 #include "string-desc.h"
 #include "xstring-desc.h"
 #include "string-buffer.h"
+#include "string-buffer-reversed.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-mixed-string.h"
@@ -95,10 +96,11 @@ x_rust_keyword (const char *name)
       const char *end;
       struct callshape shape;
       split_keywordspec (name, &end, &shape);
-      if (split_keywordspec_ok (name, end - name))
+      if (split_keywordspec_ok2 (name, end - name))
         {
-          /* The characters between name and end should form a valid Rust
-             identifier, possibly with a trailing '!'.  */
+          /* The characters between name and end should form a sequence of
+             valid Rust identifiers, connected with '::', possibly with a
+             trailing '!'.  */
           if (end > name && end[-1] == '!')
             insert_keyword_callshape (&macro_keywords, name, end - 1 - name,
                                       &shape);
@@ -215,10 +217,12 @@ static TSSymbol ts_symbol_token_tree;
 static TSSymbol ts_symbol_open_paren; /* ( */
 static TSSymbol ts_symbol_close_paren; /* ) */
 static TSSymbol ts_symbol_comma; /* , */
+static TSSymbol ts_symbol_double_colon; /* :: */
 static TSSymbol ts_symbol_exclam; /* ! */
 static TSFieldId ts_field_function;
 static TSFieldId ts_field_arguments;
 static TSFieldId ts_field_macro;
+static TSFieldId ts_field_path;
 
 static inline size_t
 ts_node_line_number (TSNode node)
@@ -507,6 +511,60 @@ static void extract_from_node (TSNode node,
                                flag_region_ty *outer_region,
                                message_list_ty *mlp);
 
+/* Returns if the given tree node is
+     - of type 'identifier' or
+     - of type 'scoped_identifier' with at least 1 named child.  */
+static bool
+is_generic_identifier (TSNode node)
+{
+  return (ts_node_symbol (node) == ts_symbol_identifier
+          || (ts_node_symbol (node) == ts_symbol_scoped_identifier
+              && ts_node_named_child_count (node) >= 1));
+}
+
+/* Returns the longest scoped name (from the end) of a given
+   generic identifier, as a freshly allocated string.  */
+static rw_string_desc_t
+generic_identifier_name (TSNode node)
+{
+  if (ts_node_symbol (node) == ts_symbol_identifier)
+    {
+      string_desc_t name =
+        sd_new_addr (ts_node_end_byte (node) - ts_node_start_byte (node),
+                     contents + ts_node_start_byte (node));
+      return xsd_copy (name);
+    }
+  struct string_buffer_reversed buffer;
+  sbr_init (&buffer);
+  for (;;)
+    {
+      /* Here ts_node_symbol (node) == ts_symbol_scoped_identifier
+         and ts_node_named_child_count (node) >= 1.  */
+      {
+        TSNode last_identifier_node =
+          ts_node_named_child (node, ts_node_named_child_count (node) - 1);
+        string_desc_t last_identifier_name =
+          sd_new_addr (ts_node_end_byte (last_identifier_node) - ts_node_start_byte (last_identifier_node),
+                       contents + ts_node_start_byte (last_identifier_node));
+        sbr_xprepend_desc (&buffer, last_identifier_name);
+      }
+      /* Done with the right-hand part.  Now recurse on the left-hand part.  */
+      node = ts_node_child_by_field_id (node, ts_field_path);
+      if (!is_generic_identifier (node))
+        break;
+      sbr_xprepend_c (&buffer, "::");
+      if (ts_node_symbol (node) == ts_symbol_identifier)
+        {
+          string_desc_t identifier_name =
+            sd_new_addr (ts_node_end_byte (node) - ts_node_start_byte (node),
+                         contents + ts_node_start_byte (node));
+          sbr_xprepend_desc (&buffer, identifier_name);
+          break;
+        }
+    }
+  return sbr_xdupfree (&buffer);
+}
+
 /* Extracts messages from the function call consisting of
      - CALLEE_NODE: a tree node of type 'identifier' or
        a tree node of type 'scoped_identifier' with at least 1 named child,
@@ -520,104 +578,117 @@ extract_from_function_call (TSNode callee_node,
 {
   uint32_t args_count = ts_node_child_count (args_node);
 
-  TSNode callee_last_identifier_node;
-  if (ts_node_symbol (callee_node) == ts_symbol_identifier)
-    callee_last_identifier_node = callee_node;
-  else
-    /* Here ts_node_named_child_count (callee_node) >= 1.  */
-    callee_last_identifier_node =
-      ts_node_named_child (callee_node, ts_node_named_child_count (callee_node) - 1);
-
-  string_desc_t callee_name =
-    sd_new_addr (ts_node_end_byte (callee_last_identifier_node) - ts_node_start_byte (callee_last_identifier_node),
-                 contents + ts_node_start_byte (callee_last_identifier_node));
+  rw_string_desc_t callee_name = generic_identifier_name (callee_node);
 
   /* Context iterator.  */
-  flag_context_list_iterator_ty next_context_iter =
-    flag_context_list_iterator (
-      flag_context_list_table_lookup (
-        &flag_table_rust_functions,
-        sd_data (callee_name), sd_length (callee_name)));
-
-  void *keyword_value;
-  if (hash_find_entry (&function_keywords,
-                       sd_data (callee_name), sd_length (callee_name),
-                       &keyword_value)
-      == 0)
+  flag_context_list_ty *context_list;
+  for (string_desc_t qualifiedname = sd_readonly (callee_name);;)
     {
-      /* The callee has some information associated with it.  */
-      const struct callshapes *next_shapes = keyword_value;
+      context_list =
+        flag_context_list_table_lookup (
+          &flag_table_rust_functions,
+          sd_data (qualifiedname), sd_length (qualifiedname));
+      if (context_list != NULL)
+        break;
 
-      /* We have a function, named by a relevant identifier, with an argument
-         list.  */
+      ptrdiff_t colons = sd_contains (qualifiedname, sd_from_c ("::"));
+      if (colons < 0)
+        break;
+      qualifiedname =
+        sd_substring (qualifiedname, colons + 2, sd_length (qualifiedname));
+    }
+  flag_context_list_iterator_ty next_context_iter =
+    flag_context_list_iterator (context_list);
 
-      struct arglist_parser *argparser =
-        arglist_parser_alloc (mlp, next_shapes);
-
-      /* Current argument number.  */
-      uint32_t arg;
-
-      arg = 0;
-      for (uint32_t i = 0; i < args_count; i++)
+  for (string_desc_t qualifiedname = sd_readonly (callee_name);;)
+    {
+      void *keyword_value;
+      if (hash_find_entry (&function_keywords,
+                           sd_data (qualifiedname), sd_length (qualifiedname),
+                           &keyword_value)
+          == 0)
         {
-          TSNode arg_node = ts_node_child (args_node, i);
-          handle_comments (arg_node);
-          if (ts_node_is_named (arg_node)
-              && !(ts_node_symbol (arg_node) == ts_symbol_line_comment
-                   || ts_node_symbol (arg_node) == ts_symbol_block_comment))
+          /* The callee has some information associated with it.  */
+          const struct callshapes *next_shapes = keyword_value;
+
+          /* We have a function, named by a relevant identifier, with an argument
+             list.  */
+
+          struct arglist_parser *argparser =
+            arglist_parser_alloc (mlp, next_shapes);
+
+          /* Current argument number.  */
+          uint32_t arg;
+
+          arg = 0;
+          for (uint32_t i = 0; i < args_count; i++)
             {
-              arg++;
-              flag_region_ty *arg_region =
-                inheriting_region (outer_region,
-                                   flag_context_list_iterator_advance (
-                                     &next_context_iter));
-
-              bool already_extracted = false;
-              if (ts_node_symbol (arg_node) == ts_symbol_string_literal
-                  || ts_node_symbol (arg_node) == ts_symbol_raw_string_literal)
+              TSNode arg_node = ts_node_child (args_node, i);
+              handle_comments (arg_node);
+              if (ts_node_is_named (arg_node)
+                  && !(ts_node_symbol (arg_node) == ts_symbol_line_comment
+                       || ts_node_symbol (arg_node) == ts_symbol_block_comment))
                 {
-                  lex_pos_ty pos;
-                  pos.file_name = logical_file_name;
-                  pos.line_number = ts_node_line_number (arg_node);
+                  arg++;
+                  flag_region_ty *arg_region =
+                    inheriting_region (outer_region,
+                                       flag_context_list_iterator_advance (
+                                         &next_context_iter));
 
-                  char *string = string_literal_value (arg_node);
-
-                  if (extract_all)
+                  bool already_extracted = false;
+                  if (ts_node_symbol (arg_node) == ts_symbol_string_literal
+                      || ts_node_symbol (arg_node) == ts_symbol_raw_string_literal)
                     {
-                      remember_a_message (mlp, NULL, string, true, false,
-                                          arg_region, &pos,
-                                          NULL, savable_comment, true);
-                      already_extracted = true;
+                      lex_pos_ty pos;
+                      pos.file_name = logical_file_name;
+                      pos.line_number = ts_node_line_number (arg_node);
+
+                      char *string = string_literal_value (arg_node);
+
+                      if (extract_all)
+                        {
+                          remember_a_message (mlp, NULL, string, true, false,
+                                              arg_region, &pos,
+                                              NULL, savable_comment, true);
+                          already_extracted = true;
+                        }
+                      else
+                        {
+                          mixed_string_ty *mixed_string =
+                            mixed_string_alloc_utf8 (string, lc_string,
+                                                     pos.file_name, pos.line_number);
+                          arglist_parser_remember (argparser, arg, mixed_string,
+                                                   arg_region,
+                                                   pos.file_name, pos.line_number,
+                                                   savable_comment, true);
+                        }
                     }
-                  else
+
+                  if (!already_extracted)
                     {
-                      mixed_string_ty *mixed_string =
-                        mixed_string_alloc_utf8 (string, lc_string,
-                                                 pos.file_name, pos.line_number);
-                      arglist_parser_remember (argparser, arg, mixed_string,
-                                               arg_region,
-                                               pos.file_name, pos.line_number,
-                                               savable_comment, true);
+                      if (++nesting_depth > MAX_NESTING_DEPTH)
+                        if_error (IF_SEVERITY_FATAL_ERROR,
+                                  logical_file_name, ts_node_line_number (arg_node), (size_t)(-1), false,
+                                  _("too many open parentheses, brackets, or braces"));
+                      extract_from_node (arg_node,
+                                         arg_region,
+                                         mlp);
+                      nesting_depth--;
                     }
-                }
 
-              if (!already_extracted)
-                {
-                  if (++nesting_depth > MAX_NESTING_DEPTH)
-                    if_error (IF_SEVERITY_FATAL_ERROR,
-                              logical_file_name, ts_node_line_number (arg_node), (size_t)(-1), false,
-                              _("too many open parentheses, brackets, or braces"));
-                  extract_from_node (arg_node,
-                                     arg_region,
-                                     mlp);
-                  nesting_depth--;
+                  unref_region (arg_region);
                 }
-
-              unref_region (arg_region);
             }
+          arglist_parser_done (argparser, arg);
+          sd_free (callee_name);
+          return;
         }
-      arglist_parser_done (argparser, arg);
-      return;
+
+      ptrdiff_t colons = sd_contains (qualifiedname, sd_from_c ("::"));
+      if (colons < 0)
+        break;
+      qualifiedname =
+        sd_substring (qualifiedname, colons + 2, sd_length (qualifiedname));
     }
 
   /* Recurse.  */
@@ -652,16 +723,22 @@ extract_from_function_call (TSNode callee_node,
           unref_region (arg_region);
         }
     }
+
+  sd_free (callee_name);
 }
 
 /* Extracts messages from a function call like syntax in a macro invocation,
    consisting of
      - CALLEE_NODE: a tree node of type 'identifier', or NULL for a mere
        parenthesized expression,
+     - CALLEE_NAME: a freshly allocated string, representing the qualified name
+       of the node sequence of which CALLEE_NODE is the last one,
      - ARGS_NODE: a tree node of type 'token_tree'.
    Extracted messages are added to MLP.  */
 static void
-extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
+extract_from_function_call_like (TSNode *callee_node,
+                                 rw_string_desc_t callee_name,
+                                 bool callee_is_macro,
                                  TSNode args_node,
                                  flag_region_ty *outer_region,
                                  message_list_ty *mlp)
@@ -674,38 +751,60 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
 
   /* Context iterator.  */
   flag_context_list_iterator_ty next_context_iter;
+  if (callee_node != NULL)
+    {
+      if (args_count >= 2
+          && ts_node_symbol (ts_node_child (args_node, 0)) == ts_symbol_open_paren)
+        {
+          flag_context_list_ty *context_list;
+          for (string_desc_t qualifiedname = sd_readonly (callee_name);;)
+            {
+              context_list =
+                flag_context_list_table_lookup (
+                  callee_is_macro ? &flag_table_rust_macros : &flag_table_rust_functions,
+                  sd_data (qualifiedname), sd_length (qualifiedname));
+              if (context_list != NULL)
+                break;
+
+              ptrdiff_t colons = sd_contains (qualifiedname, sd_from_c ("::"));
+              if (colons < 0)
+                break;
+              qualifiedname =
+                sd_substring (qualifiedname, colons + 2, sd_length (qualifiedname));
+            }
+          next_context_iter = flag_context_list_iterator (context_list);
+        }
+      else
+        next_context_iter = null_context_list_iterator;
+    }
+  else
+    next_context_iter = passthrough_context_list_iterator;
 
   void *keyword_value;
   if (callee_node != NULL)
     {
-      string_desc_t callee_name =
-        sd_new_addr (ts_node_end_byte (*callee_node) - ts_node_start_byte (*callee_node),
-                     contents + ts_node_start_byte (*callee_node));
-
-      next_context_iter =
-        (args_count >= 2
-         && ts_node_symbol (ts_node_child (args_node, 0)) == ts_symbol_open_paren
-         ? flag_context_list_iterator (
-             flag_context_list_table_lookup (
-               callee_is_macro ? &flag_table_rust_macros : &flag_table_rust_functions,
-               sd_data (callee_name), sd_length (callee_name)))
-         : null_context_list_iterator);
-      if (hash_find_entry (callee_is_macro ? &macro_keywords : &function_keywords,
-                           sd_data (callee_name), sd_length (callee_name),
-                           &keyword_value)
-          == 0)
+      keyword_value = NULL;
+      for (string_desc_t qualifiedname = sd_readonly (callee_name);;)
         {
-          if (keyword_value == NULL)
-            abort ();
+          if (hash_find_entry (callee_is_macro ? &macro_keywords : &function_keywords,
+                               sd_data (qualifiedname), sd_length (qualifiedname),
+                               &keyword_value)
+              == 0)
+            {
+              if (keyword_value == NULL)
+                abort ();
+              break;
+            }
+
+          ptrdiff_t colons = sd_contains (qualifiedname, sd_from_c ("::"));
+          if (colons < 0)
+            break;
+          qualifiedname =
+            sd_substring (qualifiedname, colons + 2, sd_length (qualifiedname));
         }
-      else
-        keyword_value = NULL;
     }
   else
-    {
-      next_context_iter = passthrough_context_list_iterator;
-      keyword_value = NULL;
-    }
+    keyword_value = NULL;
 
   if (keyword_value != NULL)
     {
@@ -732,7 +831,9 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
           uint32_t arg;
           flag_region_ty *arg_region;
           uint32_t prev2_token_in_same_arg;
+          rw_string_desc_t prev2_token_qualifiedname;
           uint32_t prev1_token_in_same_arg;
+          rw_string_desc_t prev1_token_qualifiedname;
 
           arg = 0;
           for (uint32_t i = 0; i < args_count; i++)
@@ -750,7 +851,9 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                                        flag_context_list_iterator_advance (
                                          &next_context_iter));
                   prev2_token_in_same_arg = 0;
+                  prev2_token_qualifiedname = sd_readwrite (sd_new_empty ());
                   prev1_token_in_same_arg = 0;
+                  prev1_token_qualifiedname = sd_readwrite (sd_new_empty ());
                 }
               else
                 {
@@ -795,7 +898,9 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                           /* A token sequence that looks like a function call.  */
                           TSNode identifier_node = ts_node_child (args_node, prev1_token_in_same_arg);
                           extract_from_function_call_like (
-                                             &identifier_node, false,
+                                             &identifier_node,
+                                             xsd_copy (sd_readonly (prev1_token_qualifiedname)),
+                                             false,
                                              arg_node,
                                              arg_region,
                                              mlp);
@@ -807,7 +912,9 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                           /* A token sequence that looks like a macro invocation.  */
                           TSNode identifier_node = ts_node_child (args_node, prev2_token_in_same_arg);
                           extract_from_function_call_like (
-                                             &identifier_node, true,
+                                             &identifier_node,
+                                             generic_identifier_name (identifier_node),
+                                             true,
                                              arg_node,
                                              arg_region,
                                              mlp);
@@ -815,7 +922,9 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                       else
                         /* A token sequence that looks like a parenthesized expression.  */
                         extract_from_function_call_like (
-                                           NULL, false,
+                                           NULL,
+                                           sd_readwrite (sd_new_empty ()),
+                                           false,
                                            arg_node,
                                            arg_region,
                                            mlp);
@@ -832,14 +941,28 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                   if (!(ts_node_symbol (arg_node) == ts_symbol_line_comment
                         || ts_node_symbol (arg_node) == ts_symbol_block_comment))
                     {
+                      rw_string_desc_t arg_qualifiedname =
+                        (ts_node_symbol (arg_node) == ts_symbol_identifier
+                         ? (prev2_token_in_same_arg > 0
+                            && ts_node_symbol (ts_node_child (args_node, prev2_token_in_same_arg)) == ts_symbol_identifier
+                            && ts_node_symbol (ts_node_child (args_node, prev1_token_in_same_arg)) == ts_symbol_double_colon
+                            ? xsd_concat (3, prev2_token_qualifiedname, sd_from_c ("::"), generic_identifier_name (arg_node))
+                            : generic_identifier_name (arg_node))
+                         : sd_readwrite (sd_new_empty ()));
+                      sd_free (prev2_token_qualifiedname);
                       prev2_token_in_same_arg = prev1_token_in_same_arg;
+                      prev2_token_qualifiedname = prev1_token_qualifiedname;
                       prev1_token_in_same_arg = i;
+                      prev1_token_qualifiedname = arg_qualifiedname;
                     }
                 }
             }
+          sd_free (prev1_token_qualifiedname);
+          sd_free (prev2_token_qualifiedname);
           if (arg > 0)
             unref_region (arg_region);
           arglist_parser_done (argparser, arg);
+          sd_free (callee_name);
           return;
         }
     }
@@ -850,7 +973,9 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
   uint32_t arg;
   flag_region_ty *arg_region;
   uint32_t prev2_token_in_same_arg;
+  rw_string_desc_t prev2_token_qualifiedname;
   uint32_t prev1_token_in_same_arg;
+  rw_string_desc_t prev1_token_qualifiedname;
 
   arg = 0;
   for (uint32_t i = 0; i < args_count; i++)
@@ -868,7 +993,9 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                                flag_context_list_iterator_advance (
                                  &next_context_iter));
           prev2_token_in_same_arg = 0;
+          prev2_token_qualifiedname = sd_readwrite (sd_new_empty ());
           prev1_token_in_same_arg = 0;
+          prev1_token_qualifiedname = sd_readwrite (sd_new_empty ());
         }
       else
         {
@@ -884,7 +1011,9 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                   /* A token sequence that looks like a function call.  */
                   TSNode identifier_node = ts_node_child (args_node, prev1_token_in_same_arg);
                   extract_from_function_call_like (
-                                     &identifier_node, false,
+                                     &identifier_node,
+                                     xsd_copy (sd_readonly (prev1_token_qualifiedname)),
+                                     false,
                                      arg_node,
                                      arg_region,
                                      mlp);
@@ -896,7 +1025,9 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
                   /* A token sequence that looks like a macro invocation.  */
                   TSNode identifier_node = ts_node_child (args_node, prev2_token_in_same_arg);
                   extract_from_function_call_like (
-                                     &identifier_node, true,
+                                     &identifier_node,
+                                     generic_identifier_name (identifier_node),
+                                     true,
                                      arg_node,
                                      arg_region,
                                      mlp);
@@ -904,7 +1035,9 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
               else
                 /* A token sequence that looks like a parenthesized expression.  */
                 extract_from_function_call_like (
-                                   NULL, false,
+                                   NULL,
+                                   sd_readwrite (sd_new_empty ()),
+                                   false,
                                    arg_node,
                                    arg_region,
                                    mlp);
@@ -918,13 +1051,28 @@ extract_from_function_call_like (TSNode *callee_node, bool callee_is_macro,
           if (!(ts_node_symbol (arg_node) == ts_symbol_line_comment
                 || ts_node_symbol (arg_node) == ts_symbol_block_comment))
             {
+              rw_string_desc_t arg_qualifiedname =
+                (ts_node_symbol (arg_node) == ts_symbol_identifier
+                 ? (prev2_token_in_same_arg > 0
+                    && ts_node_symbol (ts_node_child (args_node, prev2_token_in_same_arg)) == ts_symbol_identifier
+                    && ts_node_symbol (ts_node_child (args_node, prev1_token_in_same_arg)) == ts_symbol_double_colon
+                    ? xsd_concat (3, prev2_token_qualifiedname, sd_from_c ("::"), generic_identifier_name (arg_node))
+                    : generic_identifier_name (arg_node))
+                 : sd_readwrite (sd_new_empty ()));
+              sd_free (prev2_token_qualifiedname);
               prev2_token_in_same_arg = prev1_token_in_same_arg;
+              prev2_token_qualifiedname = prev1_token_qualifiedname;
               prev1_token_in_same_arg = i;
+              prev1_token_qualifiedname = arg_qualifiedname;
             }
         }
     }
+  sd_free (prev1_token_qualifiedname);
+  sd_free (prev2_token_qualifiedname);
   if (arg > 0)
     unref_region (arg_region);
+
+  sd_free (callee_name);
 }
 
 /* Extracts messages in the syntax tree NODE.
@@ -957,9 +1105,7 @@ extract_from_node (TSNode node,
       if (! ts_node_eq (ts_node_child_by_field_id (node, ts_field_function),
                         callee_node))
         abort ();
-      if (ts_node_symbol (callee_node) == ts_symbol_identifier
-          || (ts_node_symbol (callee_node) == ts_symbol_scoped_identifier
-              && ts_node_named_child_count (callee_node) >= 1))
+      if (is_generic_identifier (callee_node))
         {
           TSNode args_node = ts_node_child_by_field_id (node, ts_field_arguments);
           /* This is the field called 'arguments'.  */
@@ -1011,7 +1157,9 @@ extract_from_node (TSNode node,
                         break;
                       handle_comments (subnode);
                     }
-                  extract_from_function_call_like (&callee_node, true,
+                  extract_from_function_call_like (&callee_node,
+                                                   generic_identifier_name (callee_node),
+                                                   true,
                                                    args_node,
                                                    outer_region,
                                                    mlp);
@@ -1118,10 +1266,12 @@ extract_rust (FILE *f,
       ts_symbol_open_paren         = ts_language_symbol ("(", false);
       ts_symbol_close_paren        = ts_language_symbol (")", false);
       ts_symbol_comma              = ts_language_symbol (",", false);
+      ts_symbol_double_colon       = ts_language_symbol ("::", false);
       ts_symbol_exclam             = ts_language_symbol ("!", false);
       ts_field_function  = ts_language_field ("function");
       ts_field_arguments = ts_language_field ("arguments");
       ts_field_macro     = ts_language_field ("macro");
+      ts_field_path      = ts_language_field ("path");
     }
 
   /* Read the file into memory.  */

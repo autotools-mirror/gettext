@@ -1,0 +1,84 @@
+#! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Rust support: --keyword option with a composed function name.
+
+cat <<\EOF > xg-rs-8.rs
+// Tests of function extract_from_function_call:
+gettext ("Test 1");
+translate ("Test 2");
+foo ("Test 3");
+bar ("Test 4");
+baz ("Test 5");
+ResourceBundles::gettext ("Test 11");
+ResourceBundles::translate ("Test 12");
+i18n::translate ("Test 13");
+bar::baz ("Test 14");
+ResourceBundles::i18n::translate ("Test 21");
+foo::bar::baz ("Test 22");
+foo :: bar :: baz ("Test 23");
+
+// Tests of function extract_from_function_call_like:
+println!(gettext ("PTest 1"));
+println!(translate ("PTest 2"));
+println!(foo ("PTest 3"));
+println!(bar ("PTest 4"));
+println!(baz ("PTest 5"));
+println!(ResourceBundles::gettext ("PTest 11"));
+println!(ResourceBundles::translate ("PTest 12"));
+println!(i18n::translate ("PTest 13"));
+println!(bar::baz ("PTest 14"));
+println!(ResourceBundles::i18n::translate ("PTest 21"));
+println!(foo::bar::baz ("PTest 22"));
+println!(foo :: bar :: baz ("PTest 23"));
+EOF
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location \
+            --keyword=gettext --keyword=i18n::translate --keyword=foo::bar::baz \
+            -d xg-rs-8.tmp xg-rs-8.rs || Exit 1
+LC_ALL=C tr -d '\r' < xg-rs-8.tmp.po > xg-rs-8.po || Exit 1
+
+cat <<\EOF > xg-rs-8.ok
+msgid "Test 1"
+msgstr ""
+
+msgid "Test 11"
+msgstr ""
+
+msgid "Test 13"
+msgstr ""
+
+msgid "Test 21"
+msgstr ""
+
+msgid "Test 22"
+msgstr ""
+
+msgid "Test 23"
+msgstr ""
+
+msgid "PTest 1"
+msgstr ""
+
+msgid "PTest 11"
+msgstr ""
+
+msgid "PTest 13"
+msgstr ""
+
+msgid "PTest 21"
+msgstr ""
+
+msgid "PTest 22"
+msgstr ""
+
+msgid "PTest 23"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-rs-8.ok xg-rs-8.po
+result=$?
+
+exit $result
