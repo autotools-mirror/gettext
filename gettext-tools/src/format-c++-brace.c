@@ -233,7 +233,7 @@ format_parse (const char *format, bool translated, char *fdi,
         else
           {
             /* A replacement field.  */
-            struct numbered_arg *arg_array;
+            struct numbered_arg **arg_array;
             size_t arg_array_index;
 
             /* Parse arg-id.  */
@@ -277,7 +277,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     numbered_allocated = 2 * numbered_allocated + 1;
                     spec.numbered = (struct numbered_arg *) xrealloc (spec.numbered, numbered_allocated * sizeof (struct numbered_arg));
                   }
-                arg_array = spec.numbered;
+                arg_array = &spec.numbered;
                 arg_array_index = spec.numbered_arg_count;
                 size_t numbered_index = spec.numbered_arg_count++;
                 spec.numbered[numbered_index].number = arg_id + 1;
@@ -299,7 +299,7 @@ format_parse (const char *format, bool translated, char *fdi,
                     numbered_allocated = 2 * numbered_allocated + 1;
                     unnumbered = (struct numbered_arg *) xrealloc (unnumbered, numbered_allocated * sizeof (struct numbered_arg));
                   }
-                arg_array = unnumbered;
+                arg_array = &unnumbered;
                 arg_array_index = unnumbered_arg_count;
                 size_t unnumbered_index = unnumbered_arg_count++;
                 unnumbered[unnumbered_index].number = unnumbered_index + 1;
@@ -731,8 +731,8 @@ format_parse (const char *format, bool translated, char *fdi,
                   }
               }
 
-            arg_array[arg_array_index].type = type;
-            arg_array[arg_array_index].presentation = presentation;
+            (*arg_array)[arg_array_index].type = type;
+            (*arg_array)[arg_array_index].presentation = presentation;
 
             if (*format == '\0')
               {
