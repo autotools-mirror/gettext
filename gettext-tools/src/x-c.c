@@ -2496,6 +2496,7 @@ extract_parenthesized (message_list_ty *mlp,
           state = 0;
           break;
 
+        case xgettext_token_type_scope:
         case xgettext_token_type_other:
           next_context_iter = null_context_list_iterator;
           selectorcall_context_iter = null_context_list_iterator;
