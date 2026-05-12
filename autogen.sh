@@ -488,7 +488,7 @@ if ! $skip_gnulib; then
     `for m in $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES; do \
        if test \`$GNULIB_TOOL --extract-applicability $m\` != all; then \
          case $m in \
-           bool | locale-h | stddef-h | stdint-h | stdlib-h | unistd-h | wchar-h | wctype-h) ;; \
+           bool | locale-h | stddef-h | stdint-h | stdlib-h | unistd-h | wchar-h | wctype-h | mbszero) ;; \
            *) echo --avoid=$m ;; \
          esac; \
        fi; \
