@@ -23,6 +23,7 @@
 
 #include <errno.h>
 #include <stdbool.h>
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -44,8 +45,6 @@
 #include "gettext.h"
 
 #define _(s) gettext(s)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* The awk syntax is defined in the gawk manual page and documentation.
@@ -642,7 +641,7 @@ phase3_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
     {
-      if (phase3_pushback_length == SIZEOF (phase3_pushback))
+      if (phase3_pushback_length == countof (phase3_pushback))
         abort ();
       phase3_pushback[phase3_pushback_length++] = *tp;
     }

@@ -20,6 +20,7 @@
 
 #include <assert.h>
 #include <stdbool.h>
+#include <stdcountof.h>
 #include <stdlib.h>
 
 #include "format.h"
@@ -47,8 +48,6 @@
 
 
 #define _(str) gettext (str)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* KUIT (KDE User Interface Text) is an XML-like markup which augments
@@ -153,7 +152,7 @@ is_reference (const char *input)
       /* EntityRef */
       {
         bool isNameStartChar = false;
-        for (int i = 0; i < SIZEOF (name_chars1); i++)
+        for (int i = 0; i < countof (name_chars1); i++)
           if (name_chars1[i].start <= uc && uc <= name_chars1[i].end)
             {
               isNameStartChar = true;
@@ -169,14 +168,14 @@ is_reference (const char *input)
           str += u8_mbtouc (&uc, (const unsigned char *) str, str_limit - str);
 
           bool isNameChar = false;
-          for (int i = 0; i < SIZEOF (name_chars1); i++)
+          for (int i = 0; i < countof (name_chars1); i++)
             if (name_chars1[i].start <= uc && uc <= name_chars1[i].end)
               {
                 isNameChar = true;
                 break;
               }
           if (!isNameChar)
-            for (int i = 0; i < SIZEOF (name_chars2); i++)
+            for (int i = 0; i < countof (name_chars2); i++)
               if (name_chars2[i].start <= uc && uc <= name_chars2[i].end)
                 {
                   isNameChar = true;

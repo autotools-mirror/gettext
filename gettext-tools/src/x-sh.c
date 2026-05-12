@@ -24,6 +24,7 @@
 #include <errno.h>
 #include <limits.h>
 #include <stdbool.h>
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -45,8 +46,6 @@
 #include "gettext.h"
 
 #define _(s) gettext(s)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* The sh syntax is defined in POSIX:2001, see
@@ -233,7 +232,7 @@ phase1_ungetc (int c)
       FALLTHROUGH;
 
     default:
-      if (phase1_pushback_length == SIZEOF (phase1_pushback))
+      if (phase1_pushback_length == countof (phase1_pushback))
         abort ();
       phase1_pushback[phase1_pushback_length++] = c;
       break;
@@ -643,7 +642,7 @@ phase2_ungetc (int c)
       FALLTHROUGH;
 
     default:
-      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+      if (phase2_pushback_length == countof (phase2_pushback))
         abort ();
       phase2_pushback[phase2_pushback_length++] = c;
       break;

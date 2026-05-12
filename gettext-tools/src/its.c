@@ -25,6 +25,7 @@
 #include <errno.h>
 #include <setjmp.h>
 #include <stdarg.h>
+#include <stdcountof.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
@@ -52,8 +53,6 @@
 #include "gettext.h"
 
 #define _(str) gettext (str)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* The Internationalization Tag Set (ITS) 2.0 standard is available at:
@@ -2257,7 +2256,7 @@ _its_is_valid_simple_gen_xml (const char *contents,
   /* Stack of open elements.  */
   string_desc_t open_elements[100];
   size_t open_elements_count = 0;
-  const size_t open_elements_max = SIZEOF (open_elements);
+  const size_t open_elements_max = countof (open_elements);
 
   const char *p = contents;
   const char *curr_text_segment_start = p;
@@ -2519,7 +2518,7 @@ _its_is_valid_simple_gen_xml (const char *contents,
                   if (set_doc_encoding_utf8 (add_to_node->doc))
                     {
                       uint8_t buf[6];
-                      int nbytes = u8_uctomb (buf, ucs, SIZEOF (buf));
+                      int nbytes = u8_uctomb (buf, ucs, countof (buf));
                       if (nbytes <= 0)
                         abort ();
                       xmlNodeSetContentLen (text_node, BAD_CAST buf, nbytes);
@@ -2640,7 +2639,7 @@ is_valid_xhtml_element (string_desc_t tag)
     };
   /* Use binary search.  */
   size_t lo = 0;
-  size_t hi = SIZEOF (allowed);
+  size_t hi = countof (allowed);
   while (lo < hi)
     {
       /* Invariant:
@@ -2738,7 +2737,7 @@ is_valid_html_element (string_desc_t tag)
     };
   /* Use binary search.  */
   size_t lo = 0;
-  size_t hi = SIZEOF (allowed);
+  size_t hi = countof (allowed);
   while (lo < hi)
     {
       /* Invariant:

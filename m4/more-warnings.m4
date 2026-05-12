@@ -1,5 +1,5 @@
 # more-warnings.m4
-# serial 6 (gettext-1.1)
+# serial 7 (gettext-1.1)
 dnl Copyright (C) 2023-2026 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -87,7 +87,7 @@ AS_HELP_STRING([[--disable-more-warnings]], [obey exactly the warning options sp
     dnl are worth eliminating; see below.
     nw="$nw -Wshadow"
     dnl Too many warnings. We often use signed types like 'int' or 'idx_t'
-    dnl for counter variables, yet SIZEOF(array) is an unsigned value.
+    dnl for counter variables, yet countof(array) is an unsigned value.
     nw="$nw -Wsign-compare"
     dnl This warning is based on older ISO C standards. It warns, in particular,
     dnl about function definitions that are valid in ISO C 23 (static and

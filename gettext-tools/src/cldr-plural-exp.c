@@ -18,6 +18,7 @@
 
 #include <config.h>
 
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -551,8 +552,6 @@ static print_condition_function_ty print_condition_functions[] =
     print_condition_greater
   };
 
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
-
 void
 cldr_plural_rule_list_print (struct cldr_plural_rule_list_ty *rules, FILE *fp)
 {
@@ -641,7 +640,7 @@ cldr_plural_rule_list_print (struct cldr_plural_rule_list_ty *rules, FILE *fp)
           break;
 
       struct cldr_plural_condition_ty *condition = rules->items[i]->condition;
-      for (size_t j = 0; j < SIZEOF (print_condition_functions); j++)
+      for (size_t j = 0; j < countof (print_condition_functions); j++)
         if (print_condition_functions[j] (condition, fp))
           return;
     }

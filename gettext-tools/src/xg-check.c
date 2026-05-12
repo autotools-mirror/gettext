@@ -21,6 +21,7 @@
 /* Specification.  */
 #include "xg-check.h"
 
+#include <stdcountof.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -39,8 +40,6 @@
 #include "gettext.h"
 
 #define _(str) gettext (str)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* Function that implements a single syntax check.
@@ -372,7 +371,7 @@ string_has_url (const char *string)
     "irc://", "ircs://"
   };
 
-  for (size_t i = 0; i < SIZEOF (patterns); i++)
+  for (size_t i = 0; i < countof (patterns); i++)
     {
       const char *pattern = patterns[i];
       /* msgid and msgid_plural are typically entirely ASCII.  Therefore here

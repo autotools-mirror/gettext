@@ -23,6 +23,7 @@
 
 #include <errno.h>
 #include <stdbool.h>
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -43,8 +44,6 @@
 #include "gettext.h"
 
 #define _(s) gettext(s)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* The Modula-2 syntax is defined in the book
@@ -275,7 +274,7 @@ phase2_ungetc (int c)
 {
   if (c != EOF)
     {
-      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+      if (phase2_pushback_length == countof (phase2_pushback))
         abort ();
       phase2_pushback[phase2_pushback_length++] = c;
     }
@@ -495,7 +494,7 @@ phase3_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
     {
-      if (phase3_pushback_length == SIZEOF (phase3_pushback))
+      if (phase3_pushback_length == countof (phase3_pushback))
         abort ();
       phase3_pushback[phase3_pushback_length++] = *tp;
     }
@@ -569,7 +568,7 @@ phase4_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
     {
-      if (phase4_pushback_length == SIZEOF (phase4_pushback))
+      if (phase4_pushback_length == countof (phase4_pushback))
         abort ();
       phase4_pushback[phase4_pushback_length++] = *tp;
     }

@@ -23,6 +23,7 @@
 
 #include <errno.h>
 #include <stdbool.h>
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -45,8 +46,6 @@
 #include "gettext.h"
 
 #define _(s) gettext(s)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* The Scheme syntax is described in R5RS and following standards:
@@ -232,7 +231,7 @@ phase1_ungetc (int c)
       if (c == '\n')
         --line_number;
 
-      if (phase1_pushback_length == SIZEOF (phase1_pushback))
+      if (phase1_pushback_length == countof (phase1_pushback))
         abort ();
       phase1_pushback[phase1_pushback_length++] = c;
     }
@@ -1408,7 +1407,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
                       "curly-infix",
                       "curly-infix-and-bracket-lists"
                     };
-                  int num_directives = SIZEOF (directives);
+                  int num_directives = countof (directives);
                   enum { max_directive_len = 29 };
                   bool seen_directive = false;
                   for (int d = 0; d < num_directives; d++)

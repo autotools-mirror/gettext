@@ -25,6 +25,7 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <locale.h>
+#include <stdcountof.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -94,8 +95,6 @@
 #ifndef F_OK
 # define F_OK 0
 #endif
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 extern const char * _nl_expand_alias (const char *name);
 
@@ -758,7 +757,7 @@ catalogname_for_locale (const char *locale)
   }
 
   /* If the territory is the language's principal territory, drop it.  */
-  for (size_t i = 0; i < SIZEOF (locales_with_principal_territory); i++)
+  for (size_t i = 0; i < countof (locales_with_principal_territory); i++)
     if (streq (locale, locales_with_principal_territory[i]))
       {
         const char *language_end = strchr (locale, '_');
@@ -1390,7 +1389,7 @@ plural_forms ()
         dirs[0] = "common";
         dirs[1] = "supplemental";
         dirs[2] = "plurals.xml";
-        for (size_t i = 0; i < SIZEOF (dirs); i++)
+        for (size_t i = 0; i < countof (dirs); i++)
           {
             char *dir = xconcatenated_filename (last_dir, dirs[i], NULL);
             free (last_dir);
@@ -1791,13 +1790,13 @@ fill_header (msgdomain_list_ty *mdlp, bool fresh)
   if (fresh)
     {
       fields = fresh_fields;
-      nfields = SIZEOF (fresh_fields);
+      nfields = countof (fresh_fields);
       field_last_translator = FRESH_FIELDS_LAST_TRANSLATOR;
     }
   else
     {
       fields = update_fields;
-      nfields = SIZEOF (update_fields);
+      nfields = countof (update_fields);
       field_last_translator = UPDATE_FIELDS_LAST_TRANSLATOR;
     }
 
@@ -1873,7 +1872,7 @@ fill_header (msgdomain_list_ty *mdlp, bool fresh)
                              (time (&now), (localtime (&now))->tm_year + 1900));
               }
 
-              subst_string_list (header_mp->comment, SIZEOF (subst), subst);
+              subst_string_list (header_mp->comment, countof (subst), subst);
             }
 
           /* Finally remove the fuzzy attribute.  */

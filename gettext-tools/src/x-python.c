@@ -24,6 +24,7 @@
 #include <assert.h>
 #include <errno.h>
 #include <stdbool.h>
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -60,8 +61,6 @@
 
 #undef max /* clean up after MSVC's <stdlib.h> */
 #define max(a,b) ((a) > (b) ? (a) : (b))
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* The Python syntax is defined in the Python Reference Manual
@@ -236,7 +235,7 @@ phase1_ungetc (int c)
       if (c == '\n')
         --line_number;
 
-      if (phase1_pushback_length == SIZEOF (phase1_pushback))
+      if (phase1_pushback_length == countof (phase1_pushback))
         abort ();
       phase1_pushback[phase1_pushback_length++] = c;
     }
@@ -520,7 +519,7 @@ phase2_ungetc (int c)
 {
   if (c != UEOF)
     {
-      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+      if (phase2_pushback_length == countof (phase2_pushback))
         abort ();
       phase2_pushback[phase2_pushback_length++] = c;
     }
@@ -1603,7 +1602,7 @@ phase5_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
     {
-      if (phase5_pushback_length == SIZEOF (phase5_pushback))
+      if (phase5_pushback_length == countof (phase5_pushback))
         abort ();
       phase5_pushback[phase5_pushback_length++] = *tp;
     }

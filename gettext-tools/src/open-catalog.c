@@ -23,6 +23,7 @@
 
 #include <errno.h>
 #include <stdbool.h>
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -36,9 +37,6 @@
 #include "gettext.h"
 
 #define _(str) gettext (str)
-
-/* This macro is used to determine the number of elements in an array.  */
-#define SIZEOF(a) (sizeof(a)/sizeof(a[0]))
 
 static FILE *
 try_open_catalog_file (const char *input_name, char **real_file_name_p)
@@ -59,7 +57,7 @@ try_open_catalog_file (const char *input_name, char **real_file_name_p)
          specified, the current directory is used.  */
       const char *dir;
       for (int j = 0; (dir = dir_list_nth (j)) != NULL; ++j)
-        for (size_t k = 0; k < SIZEOF (extension); ++k)
+        for (size_t k = 0; k < countof (extension); ++k)
           {
             char *file_name =
               xconcatenated_filename (dir, input_name, extension[k]);
@@ -79,7 +77,7 @@ try_open_catalog_file (const char *input_name, char **real_file_name_p)
     {
       /* The name is not relative.  Try the various extensions, but ignore the
          directory search list.  */
-      for (size_t k = 0; k < SIZEOF (extension); ++k)
+      for (size_t k = 0; k < countof (extension); ++k)
         {
           char *file_name =
             xconcatenated_filename ("", input_name, extension[k]);

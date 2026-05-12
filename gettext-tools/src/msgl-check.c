@@ -22,6 +22,7 @@
 #include "msgl-check.h"
 
 #include <limits.h>
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -40,8 +41,6 @@
 #include "gettext.h"
 
 #define _(str) gettext (str)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* Evaluates the plural formula for min <= n <= max
@@ -723,7 +722,7 @@ check_header_entry (const message_ty *mp, const char *msgstr_string,
     "text/plain; charset=CHARSET", "ENCODING",
     ""
   };
-  const size_t nfields = SIZEOF (required_fields);
+  const size_t nfields = countof (required_fields);
   /* FIXME: We could check if a required header field is missing and
      report it as error.  However, it's could be too rigorous and
      break backward compatibility.  */

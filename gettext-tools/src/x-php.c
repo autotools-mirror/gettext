@@ -23,6 +23,7 @@
 
 #include <errno.h>
 #include <stdbool.h>
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -45,8 +46,6 @@
 #include "gettext.h"
 
 #define _(s) gettext(s)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* The PHP syntax is defined in phpdoc/manual/langref.html.
@@ -286,7 +285,7 @@ phase1_ungetc (struct php_extractor *xp, int c)
       if (c == '\n')
         --(xp->line_number);
 
-      if (xp->phase1_pushback_length == SIZEOF (xp->phase1_pushback))
+      if (xp->phase1_pushback_length == countof (xp->phase1_pushback))
         abort ();
       xp->phase1_pushback[xp->phase1_pushback_length++] = c;
     }
@@ -610,7 +609,7 @@ phase2_ungetc (struct php_extractor *xp, int c)
 {
   if (c != EOF)
     {
-      if (xp->phase2_pushback_length == SIZEOF (xp->phase2_pushback))
+      if (xp->phase2_pushback_length == countof (xp->phase2_pushback))
         abort ();
       xp->phase2_pushback[xp->phase2_pushback_length++] = c;
     }
@@ -793,7 +792,7 @@ phase3_ungetc (struct php_extractor *xp, int c)
 {
   if (c != EOF)
     {
-      if (xp->phase3_pushback_length == SIZEOF (xp->phase3_pushback))
+      if (xp->phase3_pushback_length == countof (xp->phase3_pushback))
         abort ();
       xp->phase3_pushback[xp->phase3_pushback_length++] = c;
     }
@@ -1548,7 +1547,7 @@ phase4_unget (struct php_extractor *xp, token_ty *tp)
 {
   if (tp->type != token_type_eof)
     {
-      if (xp->phase4_pushback_length == SIZEOF (xp->phase4_pushback))
+      if (xp->phase4_pushback_length == countof (xp->phase4_pushback))
         abort ();
       xp->phase4_pushback[xp->phase4_pushback_length++] = *tp;
     }

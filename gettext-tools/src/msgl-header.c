@@ -22,11 +22,10 @@
 /* Specification.  */
 #include "msgl-header.h"
 
+#include <stdcountof.h>
 #include <string.h>
 
 #include "xalloc.h"
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 void
@@ -80,7 +79,7 @@ msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
 
   /* Search the field in known_fields[].  */
   int field_index = -1;
-  for (size_t k = 0; k < SIZEOF (known_fields); k++)
+  for (size_t k = 0; k < countof (known_fields); k++)
     if (streq (known_fields[k].name, field))
       {
         field_index = k;
@@ -149,11 +148,11 @@ msgdomain_list_set_header_field (msgdomain_list_ty *mdlp,
                     /* Test whether h starts with a field name whose index is
                        > field_index.  */
                     size_t k;
-                    for (k = field_index + 1; k < SIZEOF (known_fields); k++)
+                    for (k = field_index + 1; k < countof (known_fields); k++)
                       if (strncmp (h, known_fields[k].name, known_fields[k].len)
                           == 0)
                         break;
-                    if (k < SIZEOF (known_fields))
+                    if (k < countof (known_fields))
                       break;
                     h = strchr (h, '\n');
                     if (h == NULL)

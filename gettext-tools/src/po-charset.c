@@ -23,14 +23,13 @@
 /* Specification.  */
 #include "po-charset.h"
 
+#include <stdcountof.h>
 #include <string.h>
 
 #include "c-strcase.h"
 #include "gettext.h"
 
 #define _(str) gettext (str)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 static const char ascii[] = "ASCII";
 
@@ -96,7 +95,7 @@ po_charset_canonicalize (const char *charset)
     utf8
   };
 
-  for (size_t i = 0; i < SIZEOF (standard_charsets); i++)
+  for (size_t i = 0; i < countof (standard_charsets); i++)
     if (c_strcasecmp (charset, standard_charsets[i]) == 0)
       return standard_charsets[i < 3 ? 0 : i < 27 ? ((i - 3) & ~1) + 3 : i];
   return NULL;
@@ -129,7 +128,7 @@ bool po_is_charset_weird (const char *canon_charset)
     "JOHAB"
   };
 
-  for (size_t i = 0; i < SIZEOF (weird_charsets); i++)
+  for (size_t i = 0; i < countof (weird_charsets); i++)
     if (streq (canon_charset, weird_charsets[i]))
       return true;
   return false;
@@ -151,7 +150,7 @@ bool po_is_charset_weird_cjk (const char *canon_charset)
     "JOHAB"             /* 0x{00..7F},    0x{84..F9}{31..FE} */
   };
 
-  for (size_t i = 0; i < SIZEOF (weird_cjk_charsets); i++)
+  for (size_t i = 0; i < countof (weird_cjk_charsets); i++)
     if (streq (canon_charset, weird_cjk_charsets[i]))
       return true;
   return false;

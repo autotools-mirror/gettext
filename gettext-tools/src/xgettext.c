@@ -140,8 +140,7 @@
 #include "x-appdata.h"
 
 
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
-#define ENDOF(a) ((a) + SIZEOF(a))
+#define ENDOF(a) ((a) + countof (a))
 
 
 /* If true, add all comments immediately preceding one of the keywords. */

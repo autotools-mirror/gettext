@@ -24,6 +24,7 @@
 #include <errno.h>
 #include <limits.h>
 #include <stdbool.h>
+#include <stdcountof.h>
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -42,8 +43,6 @@
 #include "gettext.h"
 
 #define _(s) gettext(s)
-
-#define SIZEOF(a) (sizeof(a) / sizeof(a[0]))
 
 
 /* The YCP syntax is defined in libycp/doc/syntax.html.
@@ -274,7 +273,7 @@ phase2_ungetc (int c)
 {
   if (c != EOF)
     {
-      if (phase2_pushback_length == SIZEOF (phase2_pushback))
+      if (phase2_pushback_length == countof (phase2_pushback))
         abort ();
       phase2_pushback[phase2_pushback_length++] = c;
     }
@@ -533,7 +532,7 @@ phase5_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
     {
-      if (phase5_pushback_length == SIZEOF (phase5_pushback))
+      if (phase5_pushback_length == countof (phase5_pushback))
         abort ();
       phase5_pushback[phase5_pushback_length++] = *tp;
     }
@@ -581,7 +580,7 @@ phase8_unget (token_ty *tp)
 {
   if (tp->type != token_type_eof)
     {
-      if (phase8_pushback_length == SIZEOF (phase8_pushback))
+      if (phase8_pushback_length == countof (phase8_pushback))
         abort ();
       phase8_pushback[phase8_pushback_length++] = *tp;
     }
