@@ -32,6 +32,7 @@
 #include "progname.h"
 #include "propername.h"
 #include "relocatable.h"
+#include <stdcountof.h>
 #include <stdlib.h>
 #include <string.h>
 #include "string-buffer.h"
@@ -303,7 +304,7 @@ remove_empty_examples (char *input)
       " @integer \xE2\x80\xA6", " @integer ...",
       " @decimal \xE2\x80\xA6", " @decimal ..."
     };
-  int num_prefixes = sizeof (prefixes) / sizeof (prefixes[0]);
+  int num_prefixes = countof (prefixes);
   int i;
   for (i = 0; i < num_prefixes; i++)
     {

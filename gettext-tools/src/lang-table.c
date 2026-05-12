@@ -21,6 +21,8 @@
 /* Specification.  */
 #include "lang-table.h"
 
+#include <stdcountof.h>
+
 /* Derived from ISO 639.  */
 struct language_table_entry language_table[] =
   {
@@ -294,7 +296,7 @@ struct language_table_entry language_table[] =
     { "zu", "Zulu" },
     { "zap", "Zapotec" }
   };
-const size_t language_table_size = sizeof (language_table) / sizeof (language_table[0]);
+const size_t language_table_size = countof (language_table);
 
 /* The language names for variants of languages, according to the catalog name
    (usually built from the language code and territory code).
@@ -311,4 +313,4 @@ struct language_table_entry language_variant_table[] =
     { "zh_HK", "Chinese (Hong Kong)" },
     { "zh_TW", "Chinese (traditional)" }
   };
-const size_t language_variant_table_size = sizeof (language_variant_table) / sizeof (language_variant_table[0]);
+const size_t language_variant_table_size = countof (language_variant_table);

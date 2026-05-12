@@ -2161,7 +2161,7 @@ html5_lookup (string_desc_t name)
     {
       /* Binary search.  */
       size_t lo = 0;
-      size_t hi = sizeof (html5short) / sizeof (html5short[0]);
+      size_t hi = countof (html5short);
       while (lo < hi)
         {
           size_t mid = (lo + hi) / 2;
@@ -2178,7 +2178,7 @@ html5_lookup (string_desc_t name)
     {
       /* Binary search.  */
       size_t lo = 0;
-      size_t hi = sizeof (html5long) / sizeof (html5long[0]);
+      size_t hi = countof (html5long);
       while (lo < hi)
         {
           size_t mid = (lo + hi) / 2;

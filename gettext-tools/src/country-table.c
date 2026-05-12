@@ -21,6 +21,8 @@
 /* Specification.  */
 #include "country-table.h"
 
+#include <stdcountof.h>
+
 /* Derived from ISO 3166.  */
 struct country_table_entry country_table[] =
   {
@@ -274,4 +276,4 @@ struct country_table_entry country_table[] =
     { "ZM", "Zambia" },
     { "ZW", "Zimbabwe" }
   };
-const size_t country_table_size = sizeof (country_table) / sizeof (country_table[0]);
+const size_t country_table_size = countof (country_table);
