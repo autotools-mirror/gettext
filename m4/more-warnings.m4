@@ -1,5 +1,5 @@
 # more-warnings.m4
-# serial 7 (gettext-1.1)
+# serial 8 (gettext-1.1)
 dnl Copyright (C) 2023-2026 Free Software Foundation, Inc.
 dnl This file is free software, distributed under the terms of the GNU
 dnl General Public License.  As a special exception to the GNU General
@@ -48,8 +48,14 @@ AS_HELP_STRING([[--disable-more-warnings]], [obey exactly the warning options sp
     dnl First, the warnings that are generated already with -O0:
     dnl These warnings enforce a certain programming style that is not ours.
     nw="$nw -Wempty-body"
-    nw="$nw -Wuseless-cast"
     nw="$nw -Wvla"
+    AC_PREPROC_IFELSE([AC_LANG_PROGRAM([[
+      #if __GNUC__ < 14
+      #error "Option did not exist"
+      #endif
+      ]])],
+      [nw="$nw -Wuseless-cast"
+      ])
     dnl All warnings produced by these options (in gcc 13) have been false
     dnl alarms.
     nw="$nw -Wanalyzer-double-fclose"
@@ -150,7 +156,7 @@ AS_HELP_STRING([[--disable-more-warnings]], [obey exactly the warning options sp
     dnl length buffer [-Wstack-protector]".
     nw="$nw -Wstack-protector"
     dnl With GCC 11 and older, these warnings are pointless:
-    dnl "[-Wanalyzer-use-after-free], "[-Wanalyzer-free-of-non-heap]".
+    dnl "[-Wanalyzer-use-after-free]", "[-Wanalyzer-free-of-non-heap]".
     AC_PREPROC_IFELSE([AC_LANG_PROGRAM([[
       #if __GNUC__ > 11
       #error "You are lucky"
