@@ -3877,7 +3877,7 @@ area.
 Fill in the language code of the language.  This can be in one of three
 forms:
 
-@itemize -
+@itemize @bullet
 @item
 @samp{@var{ll}}, an @w{ISO 639} two-letter language code (lowercase).
 For some languages,
@@ -3895,13 +3895,26 @@ code serves to distinguish the dialects. See @ref{Language Codes} and
 @ref{Country Codes} for the lists of codes.
 
 @item
-@samp{@var{ll}_@var{CC}@@@var{variant}}, where @samp{@var{ll}} is an
-@w{ISO 639} two-letter
-or three-letter
-language code (lowercase), @samp{@var{CC}} is an
-@w{ISO 3166} two-letter country code (uppercase), and @samp{@var{variant}} is
-a variant designator. The variant designator (lowercase) can be a script
-designator, such as @samp{latin} or @samp{cyrillic}.
+@samp{@var{ll}@@@var{variant}} or @samp{@var{ll}_@var{CC}@@@var{variant}},
+where @samp{@var{ll}} is an
+@w{ISO 639} two-letter or three-letter language code (lowercase),
+@samp{@var{CC}} is an
+@w{ISO 3166} two-letter country code (uppercase),
+and @samp{@var{variant}} is a variant designator.
+The variant designator (lowercase) can be a script designator,
+such as @samp{latin} or @samp{cyrillic},
+or it can indicate a dialect.
+For example, the following language codes are in use:
+@itemize -
+@item
+@samp{be@@latin} and @samp{sr@@latin} for Belarusian and Serbian,
+written in Latin script.
+@item
+@samp{uz@@cyrillic} for Uzbek, written in Cyrillic script.
+@item
+@samp{ca@@valencia} for Catalan, as spoken in the region around Valencia
+(the southern Catalan dialect).
+@end itemize
 @end itemize
 
 The naming convention @samp{@var{ll}_@var{CC}} is also the way locales are
