@@ -6850,7 +6850,7 @@ Returns a @code{NULL} terminated array of the supported format types.
 
 @deftypefun {const char *} po_format_pretty_name (const@tie{}char@tie{}*@var{format_type})
 Returns the pretty name associated with @var{format_type}.  For example,
-it returns ``C#'' when @var{format_type} is ``csharp_format''.
+it returns @code{"C#"} when @var{format_type} is @code{"csharp-format"}.
 Return @code{NULL} if @var{format_type} is not a supported format type.
 @end deftypefun
 
