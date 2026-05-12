@@ -7,6 +7,7 @@ lib/moo.h
 m4/moo.m4
 
 Depends-on:
+stdcountof-h
 
 configure.ac:
 gl_MOO

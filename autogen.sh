@@ -163,6 +163,7 @@ if ! $skip_gnulib; then
     localename
     lock
     manywarnings
+    stdcountof-h
     tsearch
     vasnprintf-posix
     vasnwprintf-posix
@@ -266,6 +267,7 @@ if ! $skip_gnulib; then
     sigprocmask
     spawn-pipe
     stat-time
+    stdcountof-h
     stdio-h
     stdlib-h
     stpcpy

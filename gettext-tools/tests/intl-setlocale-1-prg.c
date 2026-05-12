@@ -20,7 +20,6 @@
 #include <config.h>
 
 #include <locale.h>
-#include <stdcountof.h>
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -31,6 +30,9 @@
 # undef _LIBINTL_H
 # include "libgnuintl.h"
 #endif
+
+/* We cannot rely on <stdcountof.h> here.  */
+#define countof(array) ((size_t) (sizeof (array) / sizeof ((array)[0])))
 
 #define N_(string) string
 
