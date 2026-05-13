@@ -484,7 +484,7 @@ string_literal_value (TSNode node)
 /* --------------------- Parsing and string extraction --------------------- */
 
 /* Maximum supported nesting depth.  */
-#define MAX_NESTING_DEPTH 1000
+#define MAX_NESTING_DEPTH 900
 
 static int nesting_depth;
 
