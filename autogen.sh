@@ -469,13 +469,28 @@ if ! $skip_gnulib; then
     uniwidth/width-tests
   '
   GNULIB_MODULES_LIBGETTEXTLIB="$GNULIB_MODULES_TOOLS_FOR_SRC $GNULIB_MODULES_TOOLS_FOR_SRC_COMMON_DEPENDENCIES $GNULIB_MODULES_TOOLS_OTHER"
+  # - Avoid hashcode-string1 because it conflicts with the hash_string function
+  #   in libintl.
+  # - Avoid the float-h-tests because they reference the variables gl_FLT_SNAN,
+  #   gl_DBL_SNAN, gl_LDBL_SNAN and thereby cause trouble in MSVC builds with
+  #   --enable-shared.
+  # - Avoid the *utime* tests because they depend on the 'hash' module, which
+  #   conflicted with a 'hash' module in gettext.
+  # - Avoid the *list* and *map* tests, because they reference variables from
+  #   libgettextlib and thereby cause trouble in native Windows builds with
+  #   --enable-shared.
+  # - Avoid the uninorm/decomposing-form-tests likewise.
+  # - Avoid the thread-optim-tests, because on some platforms (Solaris 11 OmniOS)
+  #   test-thread-optim1 gets linked against libgettextlib, which is linked against
+  #   libxml2, which is linked against liblzma, which may invoke pthread_create.
   $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --tests-base=gnulib-tests --makefile-name=Makefile.gnulib --libtool --with-tests --local-dir=gnulib-local --local-symlink \
     --import \
-    --avoid=float-h-tests \
     --avoid=hashcode-string1 \
+    --avoid=float-h-tests \
     --avoid=fdutimensat-tests --avoid=futimens-tests --avoid=utime-tests --avoid=utimens-tests --avoid=utimensat-tests \
     --avoid=array-list-tests --avoid=array-map-tests --avoid=array-oset-tests --avoid=carray-list-tests --avoid=linked-list-tests --avoid=linkedhash-list-tests \
     --avoid=uninorm/decomposing-form-tests \
+    --avoid=thread-optim-tests \
     `for m in $GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS; do echo --avoid=$m; done` \
     $GNULIB_MODULES_LIBGETTEXTLIB || exit $?
   $GNULIB_TOOL --copy-file m4/libtextstyle.m4 gettext-tools/gnulib-m4/libtextstyle.m4 || exit $?
