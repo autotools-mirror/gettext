@@ -36,7 +36,7 @@
 This manual provides documentation for the GNU @code{libtextstyle} library.
 
 @copying
-Copyright (C) 2018-2024 Free Software Foundation, Inc.
+Copyright (C) 2018-2026 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -68,7 +68,7 @@ A copy of the license is at @url{https://www.gnu.org/licenses/gpl.html}.
 @page
 @vskip 0pt plus 1filll
 @c @insertcopying
-Copyright (C) 2018-2024 Free Software Foundation, Inc.
+Copyright (C) 2018-2026 Free Software Foundation, Inc.
 
 This manual is free documentation.  It is dually licensed under the
 GNU FDL and the GNU GPL.  This means that you can redistribute this
@@ -1010,6 +1010,18 @@ The resulting stream will be line-buffered.
 
 Note: The resulting stream must be closed before @code{@var{fd}} can be
 closed.
+
+Multithreaded programs that use this function must obey two constraints:
+@itemize @bullet
+@item
+After creating a @code{term_ostream_t} in some thread, all output
+to the @code{@var{fd}} up to the moment where the stream gets closed must be done
+in the same thread.
+@item
+If at the moment of creation of a @code{term_ostream_t} the process is
+single-threaded, it @strong{must not} create additional threads until the stream
+gets closed.
+@end itemize
 @end deftypefn
 
 The class adds the following methods:
@@ -1224,6 +1236,18 @@ underlying tty.
 
 Note: The resulting stream must be closed before @code{@var{fd}} can be
 closed.
+
+Multithreaded programs that use this function must obey two constraints:
+@itemize @bullet
+@item
+After creating a @code{term_styled_ostream_t} in some thread, all output
+to the @code{@var{fd}} up to the moment where the stream gets closed must be done
+in the same thread.
+@item
+If at the moment of creation of a @code{term_styled_ostream_t} the process is
+single-threaded, it @strong{must not} create additional threads until the stream
+gets closed.
+@end itemize
 
 Returns @code{NULL} upon failure.
 @end deftypefn

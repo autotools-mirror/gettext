@@ -127,7 +127,14 @@ extern "C" {
    FILENAME is used only for error messages.
    TTY_CONTROL specifies the amount of control to take over the underlying tty.
    The resulting stream will be line-buffered.
-   Note that the resulting stream must be closed before FD can be closed.  */
+   Note that the resulting stream must be closed before FD can be closed.
+   Multithreaded programs that use this function must obey two constraints:
+     - After creating a term_ostream_t in some thread, all output
+       to the FD up to the moment where the stream gets closed must be done
+       in the same thread.
+     - If at the moment of creation of a term_ostream_t the process is
+       single-threaded, it MUST NOT create additional threads until the stream
+       gets closed.  */
 extern term_ostream_t
        term_ostream_create (int fd, const char *filename, ttyctl_t tty_control);
 
