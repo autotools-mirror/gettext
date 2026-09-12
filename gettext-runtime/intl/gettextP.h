@@ -81,8 +81,6 @@ extern char *libintl_dcigettext (const char *__domainname,
 
 #include "gmo.h"		/* Get nls_uint32.  */
 
-/* @@ end of prolog @@ */
-
 #ifndef attribute_hidden
 # define attribute_hidden
 #endif
@@ -277,7 +275,5 @@ extern void _nl_log_untranslated (const char *logfilename,
 				  const char *domainname,
 				  const char *msgid1, const char *msgid2,
 				  int plural);
-
-/* @@ begin of epilog @@ */
 
 #endif /* gettextP.h  */

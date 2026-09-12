@@ -47,7 +47,7 @@
 # include "glthread/lock.h"
 #endif
 
-/* @@ end of prolog @@ */
+
 /* List of already loaded domains.
    On most platforms, it is sorted in decreasing order of ->filename.
    On native Windows platforms, the elements with ->filename != NULL

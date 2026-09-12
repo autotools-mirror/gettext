@@ -355,8 +355,6 @@
    "llX")
 #endif
 
-/* @@ end of prolog @@ */
-
 #ifdef _LIBC
 /* Rename the non ISO C functions.  This is required by the standard
    because some ISO C functions will require linking with this object

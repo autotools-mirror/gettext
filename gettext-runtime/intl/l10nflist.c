@@ -49,8 +49,6 @@
 # endif
 #endif
 
-/* @@ end of prolog @@ */
-
 #ifdef _LIBC
 /* Rename the non ANSI C functions.  This is required by the standard
    because some ANSI C functions will require linking with this object
@@ -401,9 +399,7 @@ _nl_normalize_codeset (const char *codeset, size_t name_len)
   return (const char *) retval;
 }
 
-
-/* @@ begin of epilog @@ */
-
+
 /* We don't want libintl.a to depend on any other library.  So we
    avoid the non-standard function stpcpy.  In GNU C Library this
    function is available, though.  Also allow the symbol HAVE_STPCPY

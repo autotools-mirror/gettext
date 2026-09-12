@@ -21,7 +21,6 @@
 
 #include <limits.h>
 
-/* @@ end of prolog @@ */
 
 /* The magic number of the GNU message catalog format.  */
 #define _MAGIC 0x950412de
@@ -146,7 +145,5 @@ struct sysdep_string
 /* Marker for the end of the segments[] array.  This has the value 0xFFFFFFFF,
    regardless whether 'int' is 16 bit, 32 bit, or 64 bit.  */
 #define SEGMENTS_END ((nls_uint32) ~0)
-
-/* @@ begin of epilog @@ */
 
 #endif	/* gettext.h  */

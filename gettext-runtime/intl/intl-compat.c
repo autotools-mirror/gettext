@@ -22,8 +22,6 @@
 
 #include "gettextP.h"
 
-/* @@ end of prolog @@ */
-
 
 /* This file redirects the gettext functions (without prefix) to those
    defined in the included GNU libintl library (with "libintl_" prefix).

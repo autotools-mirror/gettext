@@ -87,7 +87,6 @@ char *alloca ();
 
 #include "gettextP.h"
 
-/* @@ end of prolog @@ */
 
 #ifdef _LIBC
 /* Rename the non ANSI C functions.  This is required by the standard

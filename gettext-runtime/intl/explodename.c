@@ -34,8 +34,6 @@
 # endif
 #endif
 
-/* @@ end of prolog @@ */
-
 
 int
 _nl_explode_name (char *name,

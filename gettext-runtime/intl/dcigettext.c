@@ -113,8 +113,6 @@ extern int errno;
 # define offsetof(type,ident) ((size_t)&(((type*)0)->ident))
 #endif
 
-/* @@ end of prolog @@ */
-
 #ifdef _LIBC
 /* Rename the non ANSI C functions.  This is required by the standard
    because some ANSI C functions will require linking with this object
@@ -1594,7 +1592,6 @@ get_output_charset (struct binding *domainbinding)
 }
 #endif
 
-/* @@ begin of epilog @@ */
 
 /* We don't want libintl.a to depend on any other library.  So we
    avoid the non-standard function stpcpy.  In GNU C Library this

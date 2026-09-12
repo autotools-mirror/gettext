@@ -16,8 +16,6 @@
 
 /* Written by Ulrich Drepper and Bruno Haible.  */
 
-/* @@ end of prolog @@ */
-
 #ifndef attribute_hidden
 # define attribute_hidden
 #endif

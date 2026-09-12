@@ -36,7 +36,6 @@
 
 #include <locale.h>
 
-/* @@ end of prolog @@ */
 
 /* Names for the libintl functions are a problem.  They must not clash
    with existing names and they should follow ANSI C.  But this source
