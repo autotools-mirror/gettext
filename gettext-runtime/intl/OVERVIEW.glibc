@@ -1,0 +1,73 @@
+Overview of the code
+--------------------
+
+The following files implement public API, declared in libintl.h:
+  gettext.c:          gettext
+  dgettext.c:         dgettext
+  dcgettext.c:        dcgettext
+  ngettext.c:         ngettext
+  dngettext.c:        dngettext
+  dcngettext.c:       dcngettext
+  textdomain.c:       textdomain
+  bindtextdom.c:      bindtextdomain
+                      bind_textdomain_codeset
+
+The following files implement private API.
+  gettextP.h:     dcigettext.c:       __dcigettext
+                                      _nl_find_msg
+                                      _nl_default_dirname
+                                      _nl_domain_bindings
+                                      _nl_default_default_domain
+                                      _nl_current_default_domain
+                  finddomain.c:       _nl_find_domain
+                  loadmsgcat.c:       _nl_load_domain
+                                      _nl_msg_cat_cntr
+  loadinfo.h:     l10nflist.c:        _nl_make_l10nflist
+                                      _nl_normalize_codeset
+                  localealias.c:      _nl_expand_alias
+                  explodename.c:      _nl_explode_name
+  plural-exp.h:   plural.y:           __gettext_free_exp
+                                      __gettextparse
+                  plural-exp.c:       __gettext_germanic_plural
+                                      __gettext_extract_plural
+                  eval-plural.h:      plural_eval
+
+Other files:
+
+  gmo.h:          Describes the GNU MO file format.
+  hash-string.h:  hash-string.c:      __hash_string
+
+Overview of invocation hierarchy
+--------------------------------
+
+gettext
+dgettext
+ \-> dcgettext
+       \-> __dcigettext
+
+ngettext
+dngettext
+ \-> dcngettext
+       \-> __dcigettext
+
+The main general translation lookup function is __dcigettext.
+__dcigettext
+  \-> guess_category_value
+  \-> _nl_find_domain
+        \-> _nl_expand_alias
+        \-> _nl_explode_name
+              \-> _nl_normalize_codeset
+        \-> _nl_make_l10nflist
+        \-> _nl_load_domain
+  \-> _nl_find_msg
+        \-> _nl_load_domain
+        \-> __hash_string
+        \-> get_output_charset
+  \-> plural_lookup
+        \-> plural_eval
+
+_nl_load_domain loads a MO file into memory.
+_nl_load_domain
+  \-> _nl_find_msg (for the header entry only)
+  \-> __gettext_extract_plural
+        \-> __gettextparse

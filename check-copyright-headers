@@ -122,7 +122,8 @@ func_check_file ()
       return 0 ;;
 
     */AUTHORS | */COPYING* | */DEPENDENCIES | */FILES | */HACKING | \
-    */INSTALL* | */JOIN-GNU | */NEWS | */PACKAGING | */README* | */THANKS )
+    */INSTALL* | */JOIN-GNU | */NEWS | */OVERVIEW* | */PACKAGING | */README* | \
+    */THANKS )
       # These files contain convenience information, not worth sueing for.
       return 0 ;;
 
