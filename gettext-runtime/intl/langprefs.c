@@ -104,8 +104,7 @@ _nl_language_preferences_win32_mui (HMODULE kernel32)
                     {
                       const WCHAR *p = buffer;
                       char *q = languages;
-                      ULONG i;
-                      for (i = 0; i < num_languages; i++)
+                      for (ULONG i = 0; i < num_languages; i++)
                         {
                           char *q1;
                           char *q2;
@@ -264,9 +263,8 @@ _nl_language_preferences_default (void)
             char buf[256];
             char buf2[256];
             size_t size = 0;
-            int i;
 
-            for (i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
               {
                 CFTypeRef element = CFArrayGetValueAtIndex (prefArray, i);
                 if (element != NULL
@@ -320,7 +318,7 @@ _nl_language_preferences_default (void)
                   {
                     char *p = languages;
 
-                    for (i = 0; i < n; i++)
+                    for (int i = 0; i < n; i++)
                       {
                         CFTypeRef element =
                           CFArrayGetValueAtIndex (prefArray, i);

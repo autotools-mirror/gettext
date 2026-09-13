@@ -367,9 +367,7 @@ read_alias_file (const char *fname, int fname_len)
 
 		    if (__builtin_expect (string_space != new_pool, 0))
 		      {
-			size_t i;
-
-			for (i = 0; i < nmap; i++)
+			for (size_t i = 0; i < nmap; i++)
 			  {
 			    map[i].alias =
 			      new_pool + (map[i].alias - string_space);

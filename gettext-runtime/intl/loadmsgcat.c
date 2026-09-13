@@ -890,7 +890,6 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 		struct sysdep_string_desc *inmem_orig_sysdep_tab;
 		struct sysdep_string_desc *inmem_trans_sysdep_tab;
 		nls_uint32 *inmem_hash_tab;
-		unsigned int i, j;
 
 		/* Get the values of the system dependent segments.  */
 		n_sysdep_segments =
@@ -902,7 +901,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 		  calloc (n_sysdep_segments, sizeof (const char *));
 		if (sysdep_segment_values == NULL)
 		  goto invalid;
-		for (i = 0; i < n_sysdep_segments; i++)
+		for (unsigned int i = 0; i < n_sysdep_segments; i++)
 		  {
 		    const char *name =
 		      (char *) data
@@ -932,12 +931,12 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 		   an undefined system dependent segment.  */
 		n_inmem_sysdep_strings = 0;
 		memneed = domain->hash_size * sizeof (nls_uint32);
-		for (i = 0; i < n_sysdep_strings; i++)
+		for (unsigned int i = 0; i < n_sysdep_strings; i++)
 		  {
 		    int valid = 1;
 		    size_t needs[2];
 
-		    for (j = 0; j < 2; j++)
+		    for (unsigned int j = 0; j < 2; j++)
 		      {
 			const struct sysdep_string *sysdep_string =
 			  (const struct sysdep_string *)
@@ -1035,11 +1034,11 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 
 		    /* Compute the system dependent strings.  */
 		    k = 0;
-		    for (i = 0; i < n_sysdep_strings; i++)
+		    for (unsigned int i = 0; i < n_sysdep_strings; i++)
 		      {
 			int valid = 1;
 
-			for (j = 0; j < 2; j++)
+			for (unsigned int j = 0; j < 2; j++)
 			  {
 			    const struct sysdep_string *sysdep_string =
 			      (const struct sysdep_string *)
@@ -1077,7 +1076,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 
 			if (valid)
 			  {
-			    for (j = 0; j < 2; j++)
+			    for (unsigned int j = 0; j < 2; j++)
 			      {
 				const struct sysdep_string *sysdep_string =
 				  (const struct sysdep_string *)
@@ -1149,10 +1148,10 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 		      abort ();
 
 		    /* Compute the augmented hash table.  */
-		    for (i = 0; i < domain->hash_size; i++)
+		    for (unsigned int i = 0; i < domain->hash_size; i++)
 		      inmem_hash_tab[i] =
 			W (domain->must_swap_hash_tab, domain->hash_tab[i]);
-		    for (i = 0; i < n_inmem_sysdep_strings; i++)
+		    for (unsigned int i = 0; i < n_inmem_sysdep_strings; i++)
 		      {
 			const char *msgid = inmem_orig_sysdep_tab[i].pointer;
 			nls_uint32 hash_val = __hash_string (msgid);
@@ -1255,12 +1254,10 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 void
 _nl_unload_domain (struct loaded_domain *domain)
 {
-  size_t i;
-
   if (domain->plural != &__gettext_germanic_plural)
     __gettext_free_exp ((struct expression *) domain->plural);
 
-  for (i = 0; i < domain->nconversions; i++)
+  for (size_t i = 0; i < domain->nconversions; i++)
     {
       struct converted_domain *convd = &domain->conversions[i];
 

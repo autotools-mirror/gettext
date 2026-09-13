@@ -1818,7 +1818,6 @@ libintl_newlocale (int category_mask, const char *locale, locale_t base)
       if ((LC_ALL_MASK & ~category_mask) == 0)
         {
           const char *base_name;
-          unsigned int i;
 
           /* Set LC_CTYPE category.  Set all other categories (except possibly
              LC_MESSAGES) to the same value in the same call; this is likely to
@@ -1832,7 +1831,7 @@ libintl_newlocale (int category_mask, const char *locale, locale_t base)
           if (base == NULL)
             return NULL;
 
-          for (i = 1; i < countof (categories); i++)
+          for (unsigned int i = 1; i < countof (categories); i++)
             {
               int category = categories[i].cat;
               int category_mask = categories[i].mask;
@@ -1858,9 +1857,7 @@ libintl_newlocale (int category_mask, const char *locale, locale_t base)
         }
       else
         {
-          unsigned int i;
-
-          for (i = 0; i < countof (categories); i++)
+          for (unsigned int i = 0; i < countof (categories); i++)
             {
               int cat_mask = categories[i].mask;
 

@@ -104,7 +104,6 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
   struct loaded_l10nfile *retval;
   size_t dirlist_count;
   size_t entries;
-  int cnt;
 
   /* If LANGUAGE contains an absolute directory specification, we ignore
      DIRLIST and WDIRLIST.  */
@@ -322,7 +321,7 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
      that the extra bits in the locale name are dropped in this order:
      first the modifier, then the territory, then the codeset, then the
      normalized_codeset.  */
-  for (cnt = dirlist_count > 1 ? mask : mask - 1; cnt >= 0; --cnt)
+  for (int cnt = dirlist_count > 1 ? mask : mask - 1; cnt >= 0; --cnt)
     if ((cnt & ~mask) == 0
 	&& !((cnt & XPG_CODESET) != 0 && (cnt & XPG_NORM_CODESET) != 0))
       {
@@ -367,9 +366,8 @@ _nl_normalize_codeset (const char *codeset, size_t name_len)
   int only_digit = 1;
   char *retval;
   char *wp;
-  size_t cnt;
 
-  for (cnt = 0; cnt < name_len; ++cnt)
+  for (size_t cnt = 0; cnt < name_len; ++cnt)
     if (isalnum ((unsigned char) codeset[cnt]))
       {
 	++len;
@@ -387,7 +385,7 @@ _nl_normalize_codeset (const char *codeset, size_t name_len)
       else
 	wp = retval;
 
-      for (cnt = 0; cnt < name_len; ++cnt)
+      for (size_t cnt = 0; cnt < name_len; ++cnt)
 	if (isalpha ((unsigned char) codeset[cnt]))
 	  *wp++ = tolower ((unsigned char) codeset[cnt]);
 	else if (isdigit ((unsigned char) codeset[cnt]))

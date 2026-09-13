@@ -82,13 +82,9 @@ _nl_explode_name (char *name,
 	  *cp++ = '\0';
 #if defined _AIX
 	  /* Lowercase the language.  */
-	  {
-	    char *lcp;
-
-	    for (lcp = name; lcp < cp; lcp++)
-	      if (*lcp >= 'A' && *lcp <= 'Z')
-		*lcp += 'a' - 'A';
-	  }
+	  for (char *lcp = name; lcp < cp; lcp++)
+	    if (*lcp >= 'A' && *lcp <= 'Z')
+	      *lcp += 'a' - 'A';
 
 	  /* Next is the script or the territory.  It depends on whether
 	     there is another '_'.  */

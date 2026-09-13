@@ -62,11 +62,10 @@ static struct expression *
 new_exp (int nargs, enum expression_operator op,
 	 struct expression * const *args)
 {
-  int i;
   struct expression *newp;
 
   /* If any of the argument could not be malloc'ed, just return NULL.  */
-  for (i = nargs - 1; i >= 0; i--)
+  for (int i = nargs - 1; i >= 0; i--)
     if (args[i] == NULL)
       goto fail;
 
@@ -76,13 +75,13 @@ new_exp (int nargs, enum expression_operator op,
     {
       newp->nargs = nargs;
       newp->operation = op;
-      for (i = nargs - 1; i >= 0; i--)
+      for (int i = nargs - 1; i >= 0; i--)
 	newp->val.args[i] = args[i];
       return newp;
     }
 
  fail:
-  for (i = nargs - 1; i >= 0; i--)
+  for (int i = nargs - 1; i >= 0; i--)
     FREE_EXPRESSION (args[i]);
 
   return NULL;

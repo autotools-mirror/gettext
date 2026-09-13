@@ -698,9 +698,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 
 	  if (retval == NULL)
 	    {
-	      int cnt;
-
-	      for (cnt = 0; domain->successor[cnt] != NULL; ++cnt)
+	      for (int cnt = 0; domain->successor[cnt] != NULL; ++cnt)
 		{
 		  retval = _nl_find_msg (domain->successor[cnt], binding,
 					 msgid1, 1, &retlen);
@@ -960,7 +958,6 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
       const char *encoding = get_output_charset (domainbinding);
       size_t nconversions;
       struct converted_domain *convd;
-      size_t i;
 
       /* Protect against reallocation of the table.  */
       gl_rwlock_rdlock (domain->conversions_lock);
@@ -970,7 +967,7 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
       nconversions = domain->nconversions;
       convd = NULL;
 
-      for (i = nconversions; i > 0; )
+      for (size_t i = nconversions; i > 0; )
 	{
 	  i--;
 	  if (strcmp (domain->conversions[i].encoding, encoding) == 0)
@@ -990,7 +987,7 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 
 	  /* Maybe in the meantime somebody added the translation.
 	     Recheck.  */
-	  for (i = nconversions; i > 0; )
+	  for (size_t i = nconversions; i > 0; )
 	    {
 	      i--;
 	      if (strcmp (domain->conversions[i].encoding, encoding) == 0)

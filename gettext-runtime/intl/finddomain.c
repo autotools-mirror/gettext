@@ -113,15 +113,13 @@ _nl_find_domain (const char *dirname,
   if (retval != NULL)
     {
       /* We know something about this locale.  */
-      int cnt;
-
       if (retval->decided <= 0)
 	_nl_load_domain (retval, domainbinding);
 
       if (retval->data != NULL)
 	return retval;
 
-      for (cnt = 0; retval->successor[cnt] != NULL; ++cnt)
+      for (int cnt = 0; retval->successor[cnt] != NULL; ++cnt)
 	{
 	  if (retval->successor[cnt]->decided <= 0)
 	    _nl_load_domain (retval->successor[cnt], domainbinding);
@@ -178,8 +176,7 @@ _nl_find_domain (const char *dirname,
 	    _nl_load_domain (retval, domainbinding);
 	  if (retval->data == NULL)
 	    {
-	      int cnt;
-	      for (cnt = 0; retval->successor[cnt] != NULL; ++cnt)
+	      for (int cnt = 0; retval->successor[cnt] != NULL; ++cnt)
 		{
 		  if (retval->successor[cnt]->decided <= 0)
 		    _nl_load_domain (retval->successor[cnt], domainbinding);
