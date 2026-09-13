@@ -20,6 +20,7 @@
 # include <config.h>
 #endif
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
@@ -88,7 +89,7 @@ set_binding_values (const char *domainname,
 
   gl_rwlock_wrlock (_nl_state_lock);
 
-  int modified = 0;
+  bool modified = false;
 
   struct binding *binding;
 
@@ -139,7 +140,7 @@ set_binding_values (const char *domainname,
 		      binding->wdirname = NULL;
 #endif
 
-		      modified = 1;
+		      modified = true;
 		    }
 		}
 	      *dirnamep = result;
@@ -173,7 +174,7 @@ set_binding_values (const char *domainname,
 		      free (binding->wdirname);
 		      binding->wdirname = result;
 
-		      modified = 1;
+		      modified = true;
 		    }
 		}
 	      *wdirnamep = result;
@@ -202,7 +203,7 @@ set_binding_values (const char *domainname,
 		      free (binding->codeset);
 
 		      binding->codeset = result;
-		      modified = 1;
+		      modified = true;
 		    }
 		}
 	      *codesetp = result;
@@ -333,7 +334,7 @@ set_binding_values (const char *domainname,
 	  binding->next = new_binding;
 	}
 
-      modified = 1;
+      modified = true;
 
       /* Here we deal with memory allocation failures.  */
       if (0)

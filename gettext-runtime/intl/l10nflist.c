@@ -33,6 +33,7 @@
 #endif
 #include <ctype.h>
 #include <sys/types.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #if defined _WIN32 && !defined __CYGWIN__
 # include <wchar.h>
@@ -358,7 +359,7 @@ const char *
 _nl_normalize_codeset (const char *codeset, size_t name_len)
 {
   size_t len = 0;
-  int only_digit = 1;
+  bool only_digit = true;
 
   for (size_t cnt = 0; cnt < name_len; ++cnt)
     if (isalnum ((unsigned char) codeset[cnt]))
@@ -366,7 +367,7 @@ _nl_normalize_codeset (const char *codeset, size_t name_len)
 	++len;
 
 	if (isalpha ((unsigned char) codeset[cnt]))
-	  only_digit = 0;
+	  only_digit = false;
       }
 
   char *retval = (char *) malloc ((only_digit ? 3 : 0) + len + 1);

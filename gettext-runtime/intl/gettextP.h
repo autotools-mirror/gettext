@@ -19,6 +19,7 @@
 #ifndef _GETTEXTP_H
 #define _GETTEXTP_H
 
+#include <stdbool.h>		/* Get bool.  */
 #include <stddef.h>		/* Get size_t.  */
 
 #ifdef _LIBC
@@ -146,12 +147,12 @@ struct loaded_domain
 {
   /* Pointer to memory containing the .mo file.  */
   const char *data;
-  /* 1 if the memory is mmap()ed, 0 if the memory is malloc()ed.  */
-  int use_mmap;
+  /* true if the memory is mmap()ed, false if the memory is malloc()ed.  */
+  bool use_mmap;
   /* Size of mmap()ed memory.  */
   size_t mmap_size;
-  /* 1 if the .mo file uses a different endianness than this machine.  */
-  int must_swap;
+  /* true if the .mo file uses a different endianness than this machine.  */
+  bool must_swap;
   /* Pointer to additional malloc()ed memory.  */
   void *malloced;
 
@@ -173,8 +174,8 @@ struct loaded_domain
   nls_uint32 hash_size;
   /* Pointer to hash table.  */
   const nls_uint32 *hash_tab;
-  /* 1 if the hash table uses a different endianness than this machine.  */
-  int must_swap_hash_tab;
+  /* true if the hash table uses a different endianness than this machine.  */
+  bool must_swap_hash_tab;
 
   /* Cache of charset conversions of the translated strings.  */
   struct converted_domain *conversions;
@@ -237,7 +238,7 @@ void _nl_load_domain (struct loaded_l10nfile *__domain,
 
 char *_nl_find_msg (struct loaded_l10nfile *domain_file,
 		    struct binding *domainbinding, const char *msgid,
-		    int convert, size_t *lengthp)
+		    bool convert, size_t *lengthp)
      attribute_hidden;
 
 /* The internal variables in the standalone libintl.a must have different
@@ -274,6 +275,6 @@ extern const char *_nl_current_default_domain attribute_hidden;
 extern void _nl_log_untranslated (const char *logfilename,
 				  const char *domainname,
 				  const char *msgid1, const char *msgid2,
-				  int plural);
+				  bool plural);
 
 #endif /* gettextP.h  */

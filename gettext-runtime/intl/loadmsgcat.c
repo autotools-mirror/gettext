@@ -34,6 +34,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
+#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -749,7 +750,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
   }
 
   struct mo_file_header *data = (struct mo_file_header *) -1;
-  int use_mmap = 0;
+  bool use_mmap = false;
 #ifdef HAVE_MMAP
   /* Now we are ready to load the file.  If mmap() is available we try
      this first.  If not available or it failed we try to load it.  */
@@ -761,7 +762,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
       /* mmap() call was successful.  */
       close (fd);
       fd = -1;
-      use_mmap = 1;
+      use_mmap = true;
     }
 
   assert (MAP_FAILED == (void *) -1);
@@ -917,7 +918,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 		size_t memneed = domain->hash_size * sizeof (nls_uint32);
 		for (unsigned int i = 0; i < n_sysdep_strings; i++)
 		  {
-		    int valid = 1;
+		    bool valid = true;
 		    size_t needs[2];
 
 		    for (unsigned int j = 0; j < 2; j++)
@@ -960,7 +961,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 			      if (sysdep_segment_values[sysdepref] == NULL)
 				{
 				  /* This particular string pair is invalid.  */
-				  valid = 0;
+				  valid = false;
 				}
 
 			      need += strlen (sysdep_segment_values[sysdepref]);
@@ -1020,7 +1021,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 		    unsigned int k = 0;
 		    for (unsigned int i = 0; i < n_sysdep_strings; i++)
 		      {
-			int valid = 1;
+			bool valid = true;
 
 			for (unsigned int j = 0; j < 2; j++)
 			  {
@@ -1049,7 +1050,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 				    {
 				      /* This particular string pair is
 					 invalid.  */
-				      valid = 0;
+				      valid = false;
 				      break;
 				    }
 				}
@@ -1164,7 +1165,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 		    domain->trans_sysdep_tab = inmem_trans_sysdep_tab;
 
 		    domain->hash_tab = inmem_hash_tab;
-		    domain->must_swap_hash_tab = 0;
+		    domain->must_swap_hash_tab = false;
 		  }
 		else
 		  {
@@ -1213,7 +1214,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
   /* Get the header entry and look for a plural specification.  */
   size_t nullentrylen;
   const char *nullentry =
-    _nl_find_msg (domain_file, domainbinding, "", 0, &nullentrylen);
+    _nl_find_msg (domain_file, domainbinding, "", false, &nullentrylen);
   if (__builtin_expect (nullentry == (char *) -1, 0))
     {
 #ifdef _LIBC

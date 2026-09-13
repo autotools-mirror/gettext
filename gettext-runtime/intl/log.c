@@ -65,7 +65,8 @@ __libc_lock_define_initialized (static, lock)
 
 static inline void
 _nl_log_untranslated_locked (const char *logfilename, const char *domainname,
-                             const char *msgid1, const char *msgid2, int plural)
+                             const char *msgid1, const char *msgid2,
+                             bool plural)
 {
   /* Can we reuse the last opened logfile?  */
   if (last_logfilename == NULL || strcmp (logfilename, last_logfilename) != 0)
@@ -118,7 +119,7 @@ _nl_log_untranslated_locked (const char *logfilename, const char *domainname,
 /* Add to the log file an entry denoting a failed translation.  */
 void
 _nl_log_untranslated (const char *logfilename, const char *domainname,
-                      const char *msgid1, const char *msgid2, int plural)
+                      const char *msgid1, const char *msgid2, bool plural)
 {
   __libc_lock_lock (lock);
   _nl_log_untranslated_locked (logfilename, domainname, msgid1, msgid2, plural);

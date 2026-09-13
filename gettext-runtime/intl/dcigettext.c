@@ -59,6 +59,7 @@ extern int errno;
 # define __set_errno(val) errno = (val)
 #endif
 
+#include <stdbool.h>
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdio.h>
@@ -689,14 +690,14 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
       if (domain != NULL)
 	{
 	  size_t retlen;
-	  char *retval = _nl_find_msg (domain, binding, msgid1, 1, &retlen);
+	  char *retval = _nl_find_msg (domain, binding, msgid1, true, &retlen);
 
 	  if (retval == NULL)
 	    {
 	      for (int cnt = 0; domain->successor[cnt] != NULL; ++cnt)
 		{
 		  retval = _nl_find_msg (domain->successor[cnt], binding,
-					 msgid1, 1, &retlen);
+					 msgid1, true, &retlen);
 
 		  /* Resource problems are not fatal, instead we return no
 		     translation.  */
@@ -833,7 +834,7 @@ __libc_lock_define_initialized (static, lock)
 char *
 _nl_find_msg (struct loaded_l10nfile *domain_file,
 	      struct binding *domainbinding,
-	      const char *msgid, int convert,
+	      const char *msgid, bool convert,
 	      size_t *lengthp)
 {
   if (domain_file->decided <= 0)
@@ -1022,10 +1023,11 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	    {
 	      /* Get the header entry.  This is a recursion, but it doesn't
 		 reallocate domain->conversions because we pass
-		 encoding = NULL or convert = 0, respectively.  */
+		 encoding = NULL or convert = false, respectively.  */
 	      size_t nullentrylen;
 	      char *nullentry =
-		_nl_find_msg (domain_file, domainbinding, "", 0, &nullentrylen);
+		_nl_find_msg (domain_file, domainbinding, "", false,
+			      &nullentrylen);
 
 	      /* Resource problems are fatal.  If we continue onwards we will
 	         only attempt to calloc a new conv_tab and fail later.  */

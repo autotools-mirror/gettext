@@ -153,6 +153,7 @@ if ! $skip_gnulib; then
     gettext-runtime-intl-misc
     attribute
     bison
+    bool
     filename
     flexmember
     getcwd-lgpl
