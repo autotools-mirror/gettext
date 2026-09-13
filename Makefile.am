@@ -1,5 +1,5 @@
 ## Makefile for the toplevel directory of GNU gettext
-## Copyright (C) 1995-2025 Free Software Foundation, Inc.
+## Copyright (C) 1995-2026 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -92,6 +92,11 @@ distcheck-hook:
 	cmp -s $(srcdir)/gettext-tools/examples/hello-java-awt/m4/TestAWT.class $(srcdir)/gettext-tools/examples/hello-java-swing/m4/TestAWT.class
 # Verify that all files have appropriate copyright headers.
 	if test -d '$(distdir)'; then $(srcdir)/check-copyright-headers '$(distdir)'; fi
+
+# Avoid a failure of the test-u8-conv-from-enc test during "make distcheck",
+# due a preinstalled older libunistring version and due to the gnulib change
+# on 2026-08-16.
+DISTCHECK_CONFIGURE_FLAGS = --with-included-libunistring
 
 
 # Windows support.
