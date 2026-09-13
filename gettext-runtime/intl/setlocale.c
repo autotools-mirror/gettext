@@ -1502,7 +1502,7 @@ libintl_setlocale (int category, const char *locale)
                        language or an existing locale with the same territory.
                        If we can't, print a warning, to limit user
                        expectations.  */
-                    int warn = 0;
+                    bool warn = false;
 
                     if (cat == LC_CTYPE)
                       warn = (setlocale_single (cat, "UTF-8") == NULL);
@@ -1550,7 +1550,7 @@ libintl_setlocale (int category, const char *locale)
 
                                         if (last_try == NULL
                                             || setlocale_single (cat, last_try) == NULL)
-                                          warn = 1;
+                                          warn = true;
                                       }
                                   }
                               }
@@ -1565,7 +1565,7 @@ libintl_setlocale (int category, const char *locale)
 
                         if (last_try == NULL
                             || setlocale_single (cat, last_try) == NULL)
-                          warn = 1;
+                          warn = true;
 #  endif
                       }
                     else
@@ -1589,7 +1589,7 @@ libintl_setlocale (int category, const char *locale)
 
                         if (last_try == NULL
                             || setlocale_single (cat, last_try) == NULL)
-                          warn = 1;
+                          warn = true;
                       }
 
                     if (warn)
