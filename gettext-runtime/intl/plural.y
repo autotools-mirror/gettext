@@ -62,15 +62,13 @@ static struct expression *
 new_exp (int nargs, enum expression_operator op,
 	 struct expression * const *args)
 {
-  struct expression *newp;
-
   /* If any of the argument could not be malloc'ed, just return NULL.  */
   for (int i = nargs - 1; i >= 0; i--)
     if (args[i] == NULL)
       goto fail;
 
   /* Allocate a new expression.  */
-  newp = (struct expression *) malloc (sizeof (*newp));
+  struct expression *newp = (struct expression *) malloc (sizeof (*newp));
   if (newp != NULL)
     {
       newp->nargs = nargs;
@@ -228,7 +226,6 @@ static int
 yylex (YYSTYPE *lval, struct parse_args *arg)
 {
   const char *exp = arg->cp;
-  int result;
 
   while (1)
     {
@@ -244,7 +241,7 @@ yylex (YYSTYPE *lval, struct parse_args *arg)
       ++exp;
     }
 
-  result = *exp++;
+  int result = *exp++;
   switch (result)
     {
     case '0': case '1': case '2': case '3': case '4':

@@ -63,26 +63,20 @@ EXTRACT_PLURAL_EXPRESSION (const char *nullentry,
 {
   if (nullentry != NULL)
     {
-      const char *plural;
-      const char *nplurals;
-
-      plural = strstr (nullentry, "plural=");
-      nplurals = strstr (nullentry, "nplurals=");
+      const char *plural = strstr (nullentry, "plural=");
+      const char *nplurals = strstr (nullentry, "nplurals=");
       if (plural == NULL || nplurals == NULL)
 	goto no_plural;
       else
 	{
-	  char *endp;
-	  unsigned long int n;
-	  struct parse_args args;
-
 	  /* First get the number.  */
 	  nplurals += 9;
 	  while (*nplurals != '\0' && isspace ((unsigned char) *nplurals))
 	    ++nplurals;
 	  if (!(*nplurals >= '0' && *nplurals <= '9'))
 	    goto no_plural;
-	  n = strtoul (nplurals, &endp, 10);
+	  char *endp;
+	  unsigned long int n = strtoul (nplurals, &endp, 10);
 	  if (nplurals == endp)
 	    goto no_plural;
 	  *npluralsp = n;
@@ -92,6 +86,7 @@ EXTRACT_PLURAL_EXPRESSION (const char *nullentry,
 	     passed up from the parser into the same structure which address
 	     is passed down to the parser.  */
 	  plural += 7;
+	  struct parse_args args;
 	  args.cp = plural;
 	  if (PLURAL_PARSE (&args) != 0)
 	    goto no_plural;

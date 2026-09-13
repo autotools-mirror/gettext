@@ -68,21 +68,16 @@ _nl_language_preferences_win32_mui (HMODULE kernel32)
                                        PWSTR pwszLanguagesBuffer,
                                        PULONG pcchLanguagesBuffer);  */
   typedef BOOL (WINAPI *GetUserPreferredUILanguages_func) (DWORD, PULONG, PWSTR, PULONG);
-  GetUserPreferredUILanguages_func p_GetUserPreferredUILanguages;
-
-  p_GetUserPreferredUILanguages =
-   (GetUserPreferredUILanguages_func)
-   GetProcAddress (kernel32, "GetUserPreferredUILanguages");
+  GetUserPreferredUILanguages_func p_GetUserPreferredUILanguages =
+    (GetUserPreferredUILanguages_func)
+    GetProcAddress (kernel32, "GetUserPreferredUILanguages");
   if (p_GetUserPreferredUILanguages != NULL)
     {
       ULONG num_languages;
-      ULONG bufsize;
-      BOOL ret;
-
-      bufsize = 0;
-      ret = p_GetUserPreferredUILanguages (MUI_LANGUAGE_NAME,
-                                           &num_languages,
-                                           NULL, &bufsize);
+      ULONG bufsize = 0;
+      BOOL ret = p_GetUserPreferredUILanguages (MUI_LANGUAGE_NAME,
+                                                &num_languages,
+                                                NULL, &bufsize);
       if ((ret || GetLastError () == STATUS_BUFFER_OVERFLOW)
           && bufsize > 0)
         {
@@ -106,13 +101,10 @@ _nl_language_preferences_win32_mui (HMODULE kernel32)
                       char *q = languages;
                       for (ULONG i = 0; i < num_languages; i++)
                         {
-                          char *q1;
-                          char *q2;
-
-                          q1 = q;
+                          char *q1 = q;
                           if (i > 0)
                             *q++ = ':';
-                          q2 = q;
+                          char *q2 = q;
                           for (; *p != (WCHAR)'\0'; p++)
                             {
                               if ((unsigned char) *p != *p || *p == ':')
@@ -154,11 +146,9 @@ _nl_language_preferences_win32_ME (HMODULE kernel32)
 {
   /* LANGID GetUserDefaultUILanguage (void);  */
   typedef LANGID (WINAPI *GetUserDefaultUILanguage_func) (void);
-  GetUserDefaultUILanguage_func p_GetUserDefaultUILanguage;
-
-  p_GetUserDefaultUILanguage =
-   (GetUserDefaultUILanguage_func)
-   GetProcAddress (kernel32, "GetUserDefaultUILanguage");
+  GetUserDefaultUILanguage_func p_GetUserDefaultUILanguage =
+    (GetUserDefaultUILanguage_func)
+    GetProcAddress (kernel32, "GetUserDefaultUILanguage");
   if (p_GetUserDefaultUILanguage != NULL)
     return gl_locale_name_from_win32_LANGID (p_GetUserDefaultUILanguage ());
   return NULL;
@@ -169,7 +159,6 @@ static const char *
 _nl_language_preferences_win32_95 ()
 {
   HKEY desktop_resource_locale_key;
-
   if (RegOpenKeyExA (HKEY_CURRENT_USER,
                      "Control Panel\\Desktop\\ResourceLocale",
                      0, KEY_QUERY_VALUE, &desktop_resource_locale_key)
@@ -178,10 +167,8 @@ _nl_language_preferences_win32_95 ()
       DWORD type;
       BYTE data[8 + 1];
       DWORD data_size = sizeof (data);
-      DWORD ret;
-
-      ret = RegQueryValueExA (desktop_resource_locale_key, NULL, NULL,
-                              &type, data, &data_size);
+      DWORD ret = RegQueryValueExA (desktop_resource_locale_key, NULL, NULL,
+                                    &type, data, &data_size);
       RegCloseKey (desktop_resource_locale_key);
 
       if (ret == NO_ERROR)
@@ -193,13 +180,12 @@ _nl_language_preferences_win32_95 ()
               && (data_size < sizeof (data)
                   || data[sizeof (data) - 1] == '\0'))
             {
-              LCID lcid;
-              char *endp;
               /* Ensure it's NUL terminated.  */
               if (data_size < sizeof (data))
                 data[data_size] = '\0';
               /* Parse it as a hexadecimal number.  */
-              lcid = strtoul ((char *) data, &endp, 16);
+              char *endp;
+              LCID lcid = strtoul ((char *) data, &endp, 16);
               if (endp > (char *) data && *endp == '\0')
                 return gl_locale_name_from_win32_LCID (lcid);
             }

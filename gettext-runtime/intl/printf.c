@@ -161,10 +161,8 @@ int
 libintl_fprintf (FILE *stream, const char *format, ...)
 {
   va_list args;
-  int retval;
-
   va_start (args, format);
-  retval = libintl_vfprintf (stream, format, args);
+  int retval = libintl_vfprintf (stream, format, args);
   va_end (args);
   return retval;
 }
@@ -181,10 +179,8 @@ int
 libintl_printf (const char *format, ...)
 {
   va_list args;
-  int retval;
-
   va_start (args, format);
-  retval = libintl_vprintf (format, args);
+  int retval = libintl_vprintf (format, args);
   va_end (args);
   return retval;
 }
@@ -221,10 +217,8 @@ int
 libintl_sprintf (char *resultbuf, const char *format, ...)
 {
   va_list args;
-  int retval;
-
   va_start (args, format);
-  retval = libintl_vsprintf (resultbuf, format, args);
+  int retval = libintl_vsprintf (resultbuf, format, args);
   va_end (args);
   return retval;
 }
@@ -284,10 +278,8 @@ int
 libintl_snprintf (char *resultbuf, size_t length, const char *format, ...)
 {
   va_list args;
-  int retval;
-
   va_start (args, format);
-  retval = libintl_vsnprintf (resultbuf, length, format, args);
+  int retval = libintl_vsnprintf (resultbuf, length, format, args);
   va_end (args);
   return retval;
 }
@@ -319,10 +311,8 @@ int
 libintl_asprintf (char **resultp, const char *format, ...)
 {
   va_list args;
-  int retval;
-
   va_start (args, format);
-  retval = libintl_vasprintf (resultp, format, args);
+  int retval = libintl_vasprintf (resultp, format, args);
   va_end (args);
   return retval;
 }
@@ -400,10 +390,8 @@ int
 libintl_fwprintf (FILE *stream, const wchar_t *format, ...)
 {
   va_list args;
-  int retval;
-
   va_start (args, format);
-  retval = libintl_vfwprintf (stream, format, args);
+  int retval = libintl_vfwprintf (stream, format, args);
   va_end (args);
   return retval;
 }
@@ -420,10 +408,8 @@ int
 libintl_wprintf (const wchar_t *format, ...)
 {
   va_list args;
-  int retval;
-
   va_start (args, format);
-  retval = libintl_vwprintf (format, args);
+  int retval = libintl_vwprintf (format, args);
   va_end (args);
   return retval;
 }
@@ -474,10 +460,8 @@ int
 libintl_swprintf (wchar_t *resultbuf, size_t length, const wchar_t *format, ...)
 {
   va_list args;
-  int retval;
-
   va_start (args, format);
-  retval = libintl_vswprintf (resultbuf, length, format, args);
+  int retval = libintl_vswprintf (resultbuf, length, format, args);
   va_end (args);
   return retval;
 }

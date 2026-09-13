@@ -1817,12 +1817,10 @@ libintl_newlocale (int category_mask, const char *locale, locale_t base)
 
       if ((LC_ALL_MASK & ~category_mask) == 0)
         {
-          const char *base_name;
-
           /* Set LC_CTYPE category.  Set all other categories (except possibly
              LC_MESSAGES) to the same value in the same call; this is likely to
              save calls.  */
-          base_name =
+          const char *base_name =
             gl_locale_name_environ (LC_CTYPE, category_to_name (LC_CTYPE));
           if (base_name == NULL)
             base_name = gl_locale_name_default ();
@@ -1835,9 +1833,8 @@ libintl_newlocale (int category_mask, const char *locale, locale_t base)
             {
               int category = categories[i].cat;
               int category_mask = categories[i].mask;
-              const char *name;
 
-              name =
+              const char *name =
                 gl_locale_name_environ (category, category_to_name (category));
               if (name == NULL)
                 name = gl_locale_name_default ();
@@ -1864,14 +1861,13 @@ libintl_newlocale (int category_mask, const char *locale, locale_t base)
               if ((category_mask & cat_mask) != 0)
                 {
                   int cat = categories[i].cat;
-                  const char *name;
-                  locale_t copy;
 
-                  name = gl_locale_name_environ (cat, category_to_name (cat));
+                  const char *name =
+                    gl_locale_name_environ (cat, category_to_name (cat));
                   if (name == NULL)
                     name = gl_locale_name_default ();
 
-                  copy = newlocale (cat_mask, name, base);
+                  locale_t copy = newlocale (cat_mask, name, base);
                   if (copy == NULL)
                     goto fail;
                   /* No need to call freelocale (base) if copy != base; the

@@ -682,20 +682,6 @@ void
 _nl_load_domain (struct loaded_l10nfile *domain_file,
 		 struct binding *domainbinding)
 {
-  int fd = -1;
-  size_t size;
-#ifdef _LIBC
-  struct __stat64_t64 st;
-#else
-  struct stat st;
-#endif
-  struct mo_file_header *data = (struct mo_file_header *) -1;
-  int use_mmap = 0;
-  struct loaded_domain *domain;
-  int revision;
-  const char *nullentry;
-  size_t nullentrylen;
-
   __libc_lock_lock_recursive (lock);
   if (domain_file->decided != 0)
     {
@@ -722,6 +708,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
      might be NULL.  This can happen when according to the given
      specification the locale file name is different for XPG and CEN
      syntax.  */
+  int fd = -1;
   if (domain_file->filename != NULL)
     {
       /* Try to open the addressed file.  */
@@ -742,17 +729,27 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
     goto out;
 
   /* We must know about the size of the file.  */
-  if (
+  size_t size;
+  {
 #ifdef _LIBC
-      __glibc_unlikely (__fstat64_time64 (fd, &st) != 0)
+    struct __stat64_t64 st;
 #else
-      __builtin_expect (fstat (fd, &st) != 0, 0)
+    struct stat st;
 #endif
-      || __builtin_expect ((size = (size_t) st.st_size) != st.st_size, 0)
-      || __builtin_expect (size < sizeof (struct mo_file_header), 0))
-    /* Something went wrong.  */
-    goto out;
+    if (
+#ifdef _LIBC
+	__glibc_unlikely (__fstat64_time64 (fd, &st) != 0)
+#else
+	__builtin_expect (fstat (fd, &st) != 0, 0)
+#endif
+	|| __builtin_expect ((size = (size_t) st.st_size) != st.st_size, 0)
+	|| __builtin_expect (size < sizeof (struct mo_file_header), 0))
+      /* Something went wrong.  */
+      goto out;
+  }
 
+  struct mo_file_header *data = (struct mo_file_header *) -1;
+  int use_mmap = 0;
 #ifdef HAVE_MMAP
   /* Now we are ready to load the file.  If mmap() is available we try
      this first.  If not available or it failed we try to load it.  */
@@ -774,15 +771,12 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
      it manually.  */
   if (data == (struct mo_file_header *) -1)
     {
-      size_t to_read;
-      char *read_ptr;
-
       data = (struct mo_file_header *) malloc (size);
       if (data == NULL)
 	goto out;
 
-      to_read = size;
-      read_ptr = (char *) data;
+      size_t to_read = size;
+      char *read_ptr = (char *) data;
       do
 	{
 	  long int nb = (long int) read (fd, read_ptr, to_read);
@@ -819,7 +813,8 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
       goto out;
     }
 
-  domain = (struct loaded_domain *) malloc (sizeof (struct loaded_domain));
+  struct loaded_domain *domain =
+    (struct loaded_domain *) malloc (sizeof (struct loaded_domain));
   if (domain == NULL)
     {
 #ifdef HAVE_MMAP
@@ -839,7 +834,7 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
   domain->malloced = NULL;
 
   /* Fill in the information about the available tables.  */
-  revision = W (domain->must_swap, data->revision);
+  int revision = W (domain->must_swap, data->revision);
   /* We support only the major revisions 0 and 1.  */
   switch (revision >> 16)
     {
@@ -869,35 +864,22 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 	case 1:
 	default:
 	  {
-	    nls_uint32 n_sysdep_strings;
-
 	    if (domain->hash_tab == NULL)
 	      /* This is invalid.  These minor revisions need a hash table.  */
 	      goto invalid;
 
-	    n_sysdep_strings =
+	    nls_uint32 n_sysdep_strings =
 	      W (domain->must_swap, data->n_sysdep_strings);
 	    if (n_sysdep_strings > 0)
 	      {
-		nls_uint32 n_sysdep_segments;
-		const struct sysdep_segment *sysdep_segments;
-		const char **sysdep_segment_values;
-		const nls_uint32 *orig_sysdep_tab;
-		const nls_uint32 *trans_sysdep_tab;
-		nls_uint32 n_inmem_sysdep_strings;
-		size_t memneed;
-		char *mem;
-		struct sysdep_string_desc *inmem_orig_sysdep_tab;
-		struct sysdep_string_desc *inmem_trans_sysdep_tab;
-		nls_uint32 *inmem_hash_tab;
-
 		/* Get the values of the system dependent segments.  */
-		n_sysdep_segments =
+		nls_uint32 n_sysdep_segments =
 		  W (domain->must_swap, data->n_sysdep_segments);
-		sysdep_segments = (const struct sysdep_segment *)
+		const struct sysdep_segment *sysdep_segments =
+		  (const struct sysdep_segment *)
 		  ((char *) data
 		   + W (domain->must_swap, data->sysdep_segments_offset));
-		sysdep_segment_values =
+		const char **sysdep_segment_values =
 		  calloc (n_sysdep_segments, sizeof (const char *));
 		if (sysdep_segment_values == NULL)
 		  goto invalid;
@@ -918,10 +900,12 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 		    sysdep_segment_values[i] = get_sysdep_segment_value (name);
 		  }
 
-		orig_sysdep_tab = (const nls_uint32 *)
+		const nls_uint32 *orig_sysdep_tab =
+		  (const nls_uint32 *)
 		  ((char *) data
 		   + W (domain->must_swap, data->orig_sysdep_tab_offset));
-		trans_sysdep_tab = (const nls_uint32 *)
+		const nls_uint32 *trans_sysdep_tab =
+		  (const nls_uint32 *)
 		  ((char *) data
 		   + W (domain->must_swap, data->trans_sysdep_tab_offset));
 
@@ -929,8 +913,8 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 		   system dependent strings and the augmented hash table.
 		   At the same time, also drop string pairs which refer to
 		   an undefined system dependent segment.  */
-		n_inmem_sysdep_strings = 0;
-		memneed = domain->hash_size * sizeof (nls_uint32);
+		nls_uint32 n_inmem_sysdep_strings = 0;
+		size_t memneed = domain->hash_size * sizeof (nls_uint32);
 		for (unsigned int i = 0; i < n_sysdep_strings; i++)
 		  {
 		    int valid = 1;
@@ -1012,10 +996,8 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 
 		if (n_inmem_sysdep_strings > 0)
 		  {
-		    unsigned int k;
-
 		    /* Allocate additional memory.  */
-		    mem = (char *) malloc (memneed);
+		    char *mem = (char *) malloc (memneed);
 		    if (mem == NULL)
 		      {
 			free (sysdep_segment_values);
@@ -1023,17 +1005,19 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 		      }
 
 		    domain->malloced = mem;
-		    inmem_orig_sysdep_tab = (struct sysdep_string_desc *) mem;
+		    struct sysdep_string_desc *inmem_orig_sysdep_tab =
+		      (struct sysdep_string_desc *) mem;
 		    mem += n_inmem_sysdep_strings
 			   * sizeof (struct sysdep_string_desc);
-		    inmem_trans_sysdep_tab = (struct sysdep_string_desc *) mem;
+		    struct sysdep_string_desc *inmem_trans_sysdep_tab =
+		      (struct sysdep_string_desc *) mem;
 		    mem += n_inmem_sysdep_strings
 			   * sizeof (struct sysdep_string_desc);
-		    inmem_hash_tab = (nls_uint32 *) mem;
+		    nls_uint32 *inmem_hash_tab = (nls_uint32 *) mem;
 		    mem += domain->hash_size * sizeof (nls_uint32);
 
 		    /* Compute the system dependent strings.  */
-		    k = 0;
+		    unsigned int k = 0;
 		    for (unsigned int i = 0; i < n_sysdep_strings; i++)
 		      {
 			int valid = 1;
@@ -1227,7 +1211,9 @@ _nl_load_domain (struct loaded_l10nfile *domain_file,
 #endif
 
   /* Get the header entry and look for a plural specification.  */
-  nullentry = _nl_find_msg (domain_file, domainbinding, "", 0, &nullentrylen);
+  size_t nullentrylen;
+  const char *nullentry =
+    _nl_find_msg (domain_file, domainbinding, "", 0, &nullentrylen);
   if (__builtin_expect (nullentry == (char *) -1, 0))
     {
 #ifdef _LIBC

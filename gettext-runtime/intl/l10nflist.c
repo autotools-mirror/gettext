@@ -96,15 +96,6 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
 		    const char *modifier,
 		    const char *filename, int do_allocate)
 {
-  char *abs_filename;
-#if defined _WIN32 && !defined __CYGWIN__
-  wchar_t *abs_wfilename;
-#endif
-  struct loaded_l10nfile **lastp;
-  struct loaded_l10nfile *retval;
-  size_t dirlist_count;
-  size_t entries;
-
   /* If LANGUAGE contains an absolute directory specification, we ignore
      DIRLIST and WDIRLIST.  */
   if (!IS_RELATIVE_FILE_NAME (language))
@@ -116,17 +107,18 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
     }
 
   /* Allocate room for the full file name.  */
-  abs_filename = (char *) malloc (dirlist_len
-				  + strlen (language)
-				  + ((mask & XPG_TERRITORY) != 0
-				     ? strlen (territory) + 1 : 0)
-				  + ((mask & XPG_CODESET) != 0
-				     ? strlen (codeset) + 1 : 0)
-				  + ((mask & XPG_NORM_CODESET) != 0
-				     ? strlen (normalized_codeset) + 1 : 0)
-				  + ((mask & XPG_MODIFIER) != 0
-				     ? strlen (modifier) + 1 : 0)
-				  + 1 + strlen (filename) + 1);
+  char *abs_filename =
+    (char *) malloc (dirlist_len
+		     + strlen (language)
+		     + ((mask & XPG_TERRITORY) != 0
+		        ? strlen (territory) + 1 : 0)
+		     + ((mask & XPG_CODESET) != 0
+		        ? strlen (codeset) + 1 : 0)
+		     + ((mask & XPG_NORM_CODESET) != 0
+		        ? strlen (normalized_codeset) + 1 : 0)
+		     + ((mask & XPG_MODIFIER) != 0
+		        ? strlen (modifier) + 1 : 0)
+		     + 1 + strlen (filename) + 1);
 
   if (abs_filename == NULL)
     return NULL;
@@ -175,6 +167,7 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
 
 #if defined _WIN32 && !defined __CYGWIN__
   /* Construct wide-char file name.  */
+  wchar_t *abs_wfilename;
   if (wdirlist_len > 0)
     {
       /* Since dirlist_len == 0, just concatenate wdirlist and abs_filename.  */
@@ -215,7 +208,8 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
 
   /* Look in list of already loaded domains whether it is already
      available.  */
-  lastp = l10nfile_list;
+  struct loaded_l10nfile *retval;
+  struct loaded_l10nfile **lastp = l10nfile_list;
 #if defined _WIN32 && !defined __CYGWIN__
   if (abs_wfilename != NULL)
     {
@@ -270,6 +264,7 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
       return retval;
     }
 
+  size_t dirlist_count;
 #ifdef _LIBC
   dirlist_count = (dirlist_len > 0 ? __argz_count (dirlist, dirlist_len) : 1);
 #else
@@ -308,7 +303,7 @@ _nl_make_l10nflist (struct loaded_l10nfile **l10nfile_list,
   retval->next = *lastp;
   *lastp = retval;
 
-  entries = 0;
+  size_t entries = 0;
   /* Recurse to fill the inheritance list of RETVAL.
      If the DIRLIST is a real list (i.e. DIRLIST_COUNT > 1), the RETVAL
      entry does not correspond to a real file; retval->filename contains
@@ -364,8 +359,6 @@ _nl_normalize_codeset (const char *codeset, size_t name_len)
 {
   size_t len = 0;
   int only_digit = 1;
-  char *retval;
-  char *wp;
 
   for (size_t cnt = 0; cnt < name_len; ++cnt)
     if (isalnum ((unsigned char) codeset[cnt]))
@@ -376,10 +369,12 @@ _nl_normalize_codeset (const char *codeset, size_t name_len)
 	  only_digit = 0;
       }
 
-  retval = (char *) malloc ((only_digit ? 3 : 0) + len + 1);
+  char *retval = (char *) malloc ((only_digit ? 3 : 0) + len + 1);
 
   if (retval != NULL)
     {
+      char *wp;
+
       if (only_digit)
 	wp = stpcpy (retval, "iso");
       else

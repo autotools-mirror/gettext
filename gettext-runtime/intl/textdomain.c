@@ -60,17 +60,15 @@
 char *
 TEXTDOMAIN (const char *domainname)
 {
-  char *new_domain;
-  char *old_domain;
-
   /* A NULL pointer requests the current setting.  */
   if (domainname == NULL)
     return (char *) _nl_current_default_domain;
 
   gl_rwlock_wrlock (_nl_state_lock);
 
-  old_domain = (char *) _nl_current_default_domain;
+  char *old_domain = (char *) _nl_current_default_domain;
 
+  char *new_domain;
   /* If domain name is the null string set to default domain "messages".  */
   if (domainname[0] == '\0'
       || strcmp (domainname, _nl_default_default_domain) == 0)

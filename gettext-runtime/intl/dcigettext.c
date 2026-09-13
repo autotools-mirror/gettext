@@ -227,15 +227,13 @@ static void *root;
 static int
 transcmp (const void *p1, const void *p2)
 {
-  const struct known_translation_t *s1;
-  const struct known_translation_t *s2;
-  int result;
+  const struct known_translation_t *s1 =
+    (const struct known_translation_t *) p1;
+  const struct known_translation_t *s2 =
+    (const struct known_translation_t *) p2;
 
-  s1 = (const struct known_translation_t *) p1;
-  s2 = (const struct known_translation_t *) p2;
-
-  result = strcmp (s1->domain != NULL ? s1->msgid.appended : s1->msgid.ptr,
-		   s2->domain != NULL ? s2->msgid.appended : s2->msgid.ptr);
+  int result = strcmp (s1->domain != NULL ? s1->msgid.appended : s1->msgid.ptr,
+		       s2->domain != NULL ? s2->msgid.appended : s2->msgid.ptr);
   if (result == 0)
     {
       result = strcmp (s1->domainname, s2->domainname);
@@ -405,30 +403,6 @@ char *
 DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	    int plural, unsigned long int n, int category)
 {
-#ifndef HAVE_ALLOCA
-  struct block_list *block_list = NULL;
-#endif
-  struct loaded_l10nfile *domain;
-  struct binding *binding;
-  const char *categoryname;
-  const char *categoryvalue;
-  const char *dirname;
-  char *xdirname = NULL;
-#if defined _WIN32 && !defined __CYGWIN__
-  const wchar_t *wdirname;
-#endif
-  char *xdomainname;
-  char *single_locale;
-  char *retval;
-  size_t retlen;
-  int saved_errno;
-  struct known_translation_t search;
-  struct known_translation_t **foundp = NULL;
-#if defined HAVE_PER_THREAD_LOCALE
-  const char *localename;
-#endif
-  size_t domainname_len;
-
   /* If no real MSGID is given return NULL.  */
   if (msgid1 == NULL)
     return NULL;
@@ -443,7 +417,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 #endif
 
   /* Preserve the `errno' value.  */
-  saved_errno = errno;
+  int saved_errno = errno;
 
 #ifdef _LIBC
   __libc_rwlock_define (extern, __libc_setlocale_lock attribute_hidden)
@@ -464,8 +438,14 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
     category = LC_MESSAGES;
 #endif
 
+  const char *categoryname;
+#if defined HAVE_PER_THREAD_LOCALE
+  const char *localename;
+#endif
+
   /* Try to find the translation among those which we found at
      some time.  */
+  struct known_translation_t search;
   search.domain = NULL;
   search.msgid.ptr = msgid1;
   search.domainname = domainname;
@@ -487,12 +467,15 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
      tsearch calls can be fatal.  */
   gl_rwlock_rdlock (tree_lock);
 
-  foundp = (struct known_translation_t **) tfind (&search, &root, transcmp);
+  struct known_translation_t **foundp =
+    (struct known_translation_t **) tfind (&search, &root, transcmp);
 
   gl_rwlock_unlock (tree_lock);
 
   if (foundp != NULL && (*foundp)->counter == _nl_msg_cat_cntr)
     {
+      char *retval;
+
       /* Now deal with plural.  */
       if (plural)
 	retval = plural_lookup ((*foundp)->domain, n, (*foundp)->translation,
@@ -512,6 +495,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
   DETERMINE_SECURE;
 
   /* First find matching binding.  */
+  struct binding *binding;
   for (binding = _nl_domain_bindings; binding != NULL; binding = binding->next)
     {
       int compare = strcmp (domainname, binding->domainname);
@@ -525,6 +509,15 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	  break;
 	}
     }
+
+  const char *dirname;
+#if defined _WIN32 && !defined __CYGWIN__
+  const wchar_t *wdirname;
+#endif
+  char *xdirname = NULL;
+#ifndef HAVE_ALLOCA
+  struct block_list *block_list = NULL;
+#endif
 
   if (binding == NULL)
     {
@@ -631,11 +624,11 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 #ifndef CATEGORYNAME_INITIALIZED
   categoryname = category_to_name (category);
 #endif
-  categoryvalue = guess_category_value (category, categoryname);
+  const char *categoryvalue = guess_category_value (category, categoryname);
 
-  domainname_len = strlen (domainname);
-  xdomainname = (char *) alloca (strlen (categoryname)
-				 + domainname_len + 5);
+  size_t domainname_len = strlen (domainname);
+  char *xdomainname =
+    (char *) alloca (strlen (categoryname) + domainname_len + 5);
   ADD_BLOCK (block_list, xdomainname);
 
   stpcpy ((char *) mempcpy (stpcpy (stpcpy (xdomainname, categoryname), "/"),
@@ -643,7 +636,7 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	  ".mo");
 
   /* Creating working area.  */
-  single_locale = (char *) alloca (strlen (categoryvalue) + 1);
+  char *single_locale = (char *) alloca (strlen (categoryvalue) + 1);
   ADD_BLOCK (block_list, single_locale);
 
 
@@ -686,15 +679,17 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 
       /* Find structure describing the message catalog matching the
 	 DOMAINNAME and CATEGORY.  */
-      domain = _nl_find_domain (dirname,
+      struct loaded_l10nfile *domain = _nl_find_domain (dirname,
 #if defined _WIN32 && !defined __CYGWIN__
-				wdirname,
+							wdirname,
 #endif
-				single_locale, xdomainname, binding);
+							single_locale,
+							xdomainname, binding);
 
       if (domain != NULL)
 	{
-	  retval = _nl_find_msg (domain, binding, msgid1, 1, &retlen);
+	  size_t retlen;
+	  char *retval = _nl_find_msg (domain, binding, msgid1, 1, &retlen);
 
 	  if (retval == NULL)
 	    {
@@ -731,30 +726,23 @@ DCIGETTEXT (const char *domainname, const char *msgid1, const char *msgid2,
 	      if (foundp == NULL)
 		{
 		  /* Create a new entry and add it to the search tree.  */
-		  size_t msgid_len;
-		  size_t size;
-		  struct known_translation_t *newp;
-
-		  msgid_len = strlen (msgid1) + 1;
-		  size = offsetof (struct known_translation_t, msgid)
-			 + msgid_len + domainname_len + 1;
+		  size_t msgid_len = strlen (msgid1) + 1;
+		  size_t size = offsetof (struct known_translation_t, msgid)
+				+ msgid_len + domainname_len + 1;
 #ifdef HAVE_PER_THREAD_LOCALE
 		  size += strlen (localename) + 1;
 #endif
-		  newp = (struct known_translation_t *) malloc (size);
+		  struct known_translation_t *newp =
+		    (struct known_translation_t *) malloc (size);
 		  if (newp != NULL)
 		    {
-		      char *new_domainname;
-#ifdef HAVE_PER_THREAD_LOCALE
-		      char *new_localename;
-#endif
-
-		      new_domainname =
+		      char *new_domainname =
 			(char *) mempcpy (newp->msgid.appended, msgid1,
 					  msgid_len);
 		      memcpy (new_domainname, domainname, domainname_len + 1);
 #ifdef HAVE_PER_THREAD_LOCALE
-		      new_localename = new_domainname + domainname_len + 1;
+		      char *new_localename =
+		        new_domainname + domainname_len + 1;
 		      strcpy (new_localename, localename);
 #endif
 		      newp->domainname = new_domainname;
@@ -848,23 +836,18 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	      const char *msgid, int convert,
 	      size_t *lengthp)
 {
-  struct loaded_domain *domain;
-  nls_uint32 nstrings;
-  size_t act;
-  char *result;
-  size_t resultlen;
-
   if (domain_file->decided <= 0)
     _nl_load_domain (domain_file, domainbinding);
 
   if (domain_file->data == NULL)
     return NULL;
 
-  domain = (struct loaded_domain *) domain_file->data;
+  struct loaded_domain *domain = (struct loaded_domain *) domain_file->data;
 
-  nstrings = domain->nstrings;
+  nls_uint32 nstrings = domain->nstrings;
 
   /* Locate the MSGID and its translation.  */
+  size_t act;
   if (domain->hash_tab != NULL)
     {
       /* Use the hashing table.  */
@@ -913,18 +896,14 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
     {
       /* Try the default method:  binary search in the sorted array of
 	 messages.  */
-      size_t top, bottom;
-
-      bottom = 0;
-      top = nstrings;
+      size_t bottom = 0;
+      size_t top = nstrings;
       while (bottom < top)
 	{
-	  int cmp_val;
-
 	  act = (bottom + top) / 2;
-	  cmp_val = strcmp (msgid, (domain->data
-				    + W (domain->must_swap,
-					 domain->orig_tab[act].offset)));
+	  int cmp_val = strcmp (msgid, (domain->data
+					+ W (domain->must_swap,
+					     domain->orig_tab[act].offset)));
 	  if (cmp_val < 0)
 	    top = act;
 	  else if (cmp_val > 0)
@@ -936,9 +915,11 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
       return NULL;
     }
 
- found:
+ found: ;
   /* The translation was found at index ACT.  If we have to convert the
      string to use a different character set, this is the time.  */
+  char *result;
+  size_t resultlen;
   if (act < nstrings)
     {
       result = (char *)
@@ -956,16 +937,14 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
     {
       /* We are supposed to do a conversion.  */
       const char *encoding = get_output_charset (domainbinding);
-      size_t nconversions;
-      struct converted_domain *convd;
 
       /* Protect against reallocation of the table.  */
       gl_rwlock_rdlock (domain->conversions_lock);
 
       /* Search whether a table with converted translations for this
 	 encoding has already been allocated.  */
-      nconversions = domain->nconversions;
-      convd = NULL;
+      size_t nconversions = domain->nconversions;
+      struct converted_domain *convd = NULL;
 
       for (size_t i = nconversions; i > 0; )
 	{
@@ -1041,13 +1020,11 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 #  endif
 # endif
 	    {
-	      char *nullentry;
-	      size_t nullentrylen;
-
 	      /* Get the header entry.  This is a recursion, but it doesn't
 		 reallocate domain->conversions because we pass
 		 encoding = NULL or convert = 0, respectively.  */
-	      nullentry =
+	      size_t nullentrylen;
+	      char *nullentry =
 		_nl_find_msg (domain_file, domainbinding, "", 0, &nullentrylen);
 
 	      /* Resource problems are fatal.  If we continue onwards we will
@@ -1060,27 +1037,21 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 
 	      if (nullentry != NULL)
 		{
-		  const char *charsetstr;
-
-		  charsetstr = strstr (nullentry, "charset=");
+		  const char *charsetstr = strstr (nullentry, "charset=");
 		  if (charsetstr != NULL)
 		    {
-		      size_t len;
-		      char *charset;
-		      const char *outcharset;
-
 		      charsetstr += strlen ("charset=");
-		      len = strcspn (charsetstr, " \t\n");
+		      size_t cslen = strcspn (charsetstr, " \t\n");
 
-		      charset = (char *) alloca (len + 1);
+		      char *charset = (char *) alloca (cslen + 1);
 # if defined _LIBC || HAVE_MEMPCPY
-		      *((char *) mempcpy (charset, charsetstr, len)) = '\0';
+		      *((char *) mempcpy (charset, charsetstr, cslen)) = '\0';
 # else
-		      memcpy (charset, charsetstr, len);
-		      charset[len] = '\0';
+		      memcpy (charset, charsetstr, cslen);
+		      charset[cslen] = '\0';
 # endif
 
-		      outcharset = encoding;
+		      const char *outcharset = encoding;
 
 # ifdef _LIBC
 
@@ -1120,10 +1091,8 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
        || defined ICONV_SET_TRANSLITERATE
 		      if (strchr (outcharset, '/') == NULL)
 			{
-			  char *tmp;
-
-			  len = strlen (outcharset);
-			  tmp = (char *) alloca (len + 10 + 1);
+			  size_t len = strlen (outcharset);
+			  char *tmp = (char *) alloca (len + 10 + 1);
 			  memcpy (tmp, outcharset, len);
 			  memcpy (tmp + len, "//TRANSLIT", 10 + 1);
 			  outcharset = tmp;
@@ -1202,22 +1171,16 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 	      static unsigned char *freemem;
 	      static size_t freemem_size;
 
-	      const unsigned char *inbuf;
-	      unsigned char *outbuf;
-	      int malloc_count;
-# ifndef _LIBC
-	      transmem_block_t *transmem_list;
-# endif
-
 	      __libc_lock_lock (lock);
-	    not_translated_yet:
+	    not_translated_yet: ;
 
-	      inbuf = (const unsigned char *) result;
+	      const unsigned char *inbuf = (const unsigned char *) result;
+	      unsigned char *outbuf;
 # ifndef _LIBC
-	      transmem_list = NULL;
+	      transmem_block_t *transmem_list = NULL;
 # endif
 
-	      malloc_count = 0;
+	      int malloc_count = 0;
 	      while (1)
 		{
 		  transmem_block_t *newmem;
@@ -1229,13 +1192,11 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 
 # ifdef _LIBC
 		  size_t non_reversible;
-		  int res;
-
-		  res = __gconv (convd->conv,
-				 &inbuf, inbuf + resultlen,
-				 &outbuf,
-				 outbuf + freemem_size - sizeof (size_t),
-				 &non_reversible);
+		  int res = __gconv (convd->conv,
+				     &inbuf, inbuf + resultlen,
+				     &outbuf,
+				     outbuf + freemem_size - sizeof (size_t),
+				     &non_reversible);
 
 		  if (res == __GCONV_OK || res == __GCONV_EMPTY_INPUT)
 		    break;
@@ -1254,9 +1215,7 @@ _nl_find_msg (struct loaded_l10nfile *domain_file,
 		  const char *inptr = (const char *) inbuf;
 		  size_t inleft = resultlen;
 		  char *outptr = (char *) outbuf;
-		  size_t outleft;
-
-		  outleft = freemem_size - sizeof (size_t);
+		  size_t outleft = freemem_size - sizeof (size_t);
 		  if (iconv (convd->conv,
 			     (ICONV_CONST char **) &inptr, &inleft,
 			     &outptr, &outleft)
@@ -1361,11 +1320,9 @@ plural_lookup (struct loaded_l10nfile *domain, unsigned long int n,
 	       const char *translation, size_t translation_len)
 {
   struct loaded_domain *domaindata = (struct loaded_domain *) domain->data;
-  struct eval_result result;
-  unsigned long int index;
-  const char *p;
 
-  result = plural_eval (domaindata->plural, n);
+  struct eval_result result = plural_eval (domaindata->plural, n);
+  unsigned long int index;
   if (result.status != PE_OK)
     /* The plural expression evaluation failed.  */
     index = 0;
@@ -1376,7 +1333,7 @@ plural_lookup (struct loaded_l10nfile *domain, unsigned long int n,
     index = result.value;
 
   /* Skip INDEX strings at TRANSLATION.  */
-  p = translation;
+  const char *p = translation;
   while (index-- > 0)
     {
       p = strchr (p, '\0');
@@ -1458,10 +1415,8 @@ category_to_name (int category)
 static const char *
 guess_category_value (int category, const char *categoryname)
 {
-  const char *language;
   const char *locale;
 #ifndef _LIBC
-  const char *language_default;
   int locale_defaulted;
 #endif
 
@@ -1520,7 +1475,7 @@ guess_category_value (int category, const char *categoryname)
 
   /* The highest priority value is the value of the 'LANGUAGE' environment
      variable.  */
-  language = getenv ("LANGUAGE");
+  const char *language = getenv ("LANGUAGE");
   if (language != NULL && language[0] != '\0')
     return language;
 #if !defined _LIBC
@@ -1528,7 +1483,7 @@ guess_category_value (int category, const char *categoryname)
   if (locale_defaulted)
     {
       /* The next priority value is the default language preferences list. */
-      language_default = _nl_language_preferences_default ();
+      const char *language_default = _nl_language_preferences_default ();
       if (language_default != NULL)
         return language_default;
     }
@@ -1619,8 +1574,6 @@ mempcpy (void *dest, const void *src, size_t n)
 void
 __intl_freemem (void)
 {
-  void *old;
-
   while (_nl_domain_bindings != NULL)
     {
       struct binding *oldp = _nl_domain_bindings;
@@ -1642,7 +1595,7 @@ __intl_freemem (void)
 
   while (transmem_list != NULL)
     {
-      old = transmem_list;
+      void *old = transmem_list;
       transmem_list = transmem_list->next;
       free (old);
     }

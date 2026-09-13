@@ -67,9 +67,6 @@ static inline void
 _nl_log_untranslated_locked (const char *logfilename, const char *domainname,
                              const char *msgid1, const char *msgid2, int plural)
 {
-  FILE *logfile;
-  const char *separator;
-
   /* Can we reuse the last opened logfile?  */
   if (last_logfilename == NULL || strcmp (logfilename, last_logfilename) != 0)
     {
@@ -93,11 +90,11 @@ _nl_log_untranslated_locked (const char *logfilename, const char *domainname,
       if (last_logfile == NULL)
         return;
     }
-  logfile = last_logfile;
+  FILE *logfile = last_logfile;
 
   fprintf (logfile, "domain ");
   print_escaped (logfile, domainname, domainname + strlen (domainname));
-  separator = strchr (msgid1, MSGCTXT_SEPARATOR);
+  const char *separator = strchr (msgid1, MSGCTXT_SEPARATOR);
   if (separator != NULL)
     {
       /* The part before the MSGCTXT_SEPARATOR is the msgctxt.  */

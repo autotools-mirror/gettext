@@ -72,9 +72,6 @@ set_binding_values (const char *domainname,
 		    const char **dirnamep, const wchar_t **wdirnamep,
 		    const char **codesetp)
 {
-  struct binding *binding;
-  int modified;
-
   /* Some sanity checks.  */
   if (domainname == NULL || domainname[0] == '\0')
     {
@@ -91,7 +88,9 @@ set_binding_values (const char *domainname,
 
   gl_rwlock_wrlock (_nl_state_lock);
 
-  modified = 0;
+  int modified = 0;
+
+  struct binding *binding;
 
   for (binding = _nl_domain_bindings; binding != NULL; binding = binding->next)
     {

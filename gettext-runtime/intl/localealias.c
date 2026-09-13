@@ -187,43 +187,39 @@ _nl_expand_alias (const char *name)
 
 #if defined _LIBC || __GLIBC__ >= 2
   static const char *locale_alias_path;
-  struct alias_map *retval;
-  size_t added;
 
   __libc_lock_lock (lock);
 
   if (locale_alias_path == NULL)
     locale_alias_path = LOCALE_ALIAS_PATH;
 
+  size_t added;
   do
     {
-      struct alias_map item;
-
-      item.alias = name;
-
       if (nmap > 0)
-	retval = (struct alias_map *) bsearch (&item, map, nmap,
-					       sizeof (struct alias_map),
-					       alias_compare);
-      else
-	retval = NULL;
-
-      /* We really found an alias.  Return the value.  */
-      if (retval != NULL)
 	{
-	  result = retval->value;
-	  break;
+	  struct alias_map item;
+	  item.alias = name;
+
+	  struct alias_map *retval =
+	    (struct alias_map *) bsearch (&item, map, nmap,
+					  sizeof (struct alias_map),
+					  alias_compare);
+	  if (retval != NULL)
+	    {
+	      /* We really found an alias.  Return the value.  */
+	      result = retval->value;
+	      break;
+	    }
 	}
 
       /* Perhaps we can find another alias file.  */
       added = 0;
       while (added == 0 && locale_alias_path[0] != '\0')
 	{
-	  const char *start;
-
 	  while (locale_alias_path[0] == PATH_SEPARATOR)
 	    ++locale_alias_path;
-	  start = locale_alias_path;
+	  const char *start = locale_alias_path;
 
 	  while (locale_alias_path[0] != '\0'
 		 && locale_alias_path[0] != PATH_SEPARATOR)
@@ -253,15 +249,13 @@ _nl_expand_alias (const char *name)
 static size_t
 read_alias_file (const char *fname, int fname_len)
 {
-  FILE *fp;
-  char *full_fname;
-  size_t added;
   static const char aliasfile[] = "/locale.alias";
 
-  full_fname = (char *) alloca (fname_len + sizeof aliasfile);
+  char *full_fname = (char *) alloca (fname_len + sizeof aliasfile);
   mempcpy (mempcpy (full_fname, fname, fname_len),
 	   aliasfile, sizeof aliasfile);
 
+  FILE *fp;
 # ifdef _LIBC
   /* Note the file is opened with cancellation in the I/O functions
      disabled.  */
@@ -278,7 +272,7 @@ read_alias_file (const char *fname, int fname_len)
   __fsetlocking (fp, FSETLOCKING_BYCALLER);
 # endif
 
-  added = 0;
+  size_t added = 0;
   while (!FEOF (fp))
     {
       /* It is a reasonable approach to use a fix buffer here because
@@ -289,19 +283,15 @@ read_alias_file (const char *fname, int fname_len)
 	 stack space which we might not have if the program ran out of
 	 memory.  */
       char buf[400];
-      char *alias;
-      char *value;
-      char *cp;
-      int complete_line;
 
       if (FGETS (buf, sizeof buf, fp) == NULL)
 	/* EOF reached.  */
 	break;
 
       /* Determine whether the line is complete.  */
-      complete_line = strchr (buf, '\n') != NULL;
+      int complete_line = strchr (buf, '\n') != NULL;
 
-      cp = buf;
+      char *cp = buf;
       /* Ignore leading white space.  */
       while (isspace ((unsigned char) cp[0]))
 	++cp;
@@ -309,7 +299,7 @@ read_alias_file (const char *fname, int fname_len)
       /* A leading '#' signals a comment line.  */
       if (cp[0] != '\0' && cp[0] != '#')
 	{
-	  alias = cp++;
+	  char *alias = cp++;
 	  while (cp[0] != '\0' && !isspace ((unsigned char) cp[0]))
 	    ++cp;
 	  /* Terminate alias name.  */
@@ -322,7 +312,7 @@ read_alias_file (const char *fname, int fname_len)
 
 	  if (cp[0] != '\0')
 	    {
-	      value = cp++;
+	      char *value = cp++;
 	      while (cp[0] != '\0' && !isspace ((unsigned char) cp[0]))
 		++cp;
 	      /* Terminate value.  */
@@ -337,19 +327,15 @@ read_alias_file (const char *fname, int fname_len)
 	      else if (cp[0] != '\0')
 		*cp++ = '\0';
 
-	      {
-		size_t alias_len;
-		size_t value_len;
+	      if (nmap >= maxmap)
+		if (__builtin_expect (extend_alias_table (), 0))
+		  goto out;
 
-		if (nmap >= maxmap)
-		  if (__builtin_expect (extend_alias_table (), 0))
-		    goto out;
+	      size_t alias_len = strlen (alias) + 1;
+	      size_t value_len = strlen (value) + 1;
 
-		alias_len = strlen (alias) + 1;
-		value_len = strlen (value) + 1;
-
-		if (string_space_act + alias_len + value_len > string_space_max)
-		  {
+	      if (string_space_act + alias_len + value_len > string_space_max)
+		{
 # if defined __GNUC__ && __GNUC__ >= 12
 #  pragma GCC diagnostic push
   /* Suppress the valid GCC 12 warning until the code below is changed
@@ -358,45 +344,44 @@ read_alias_file (const char *fname, int fname_len)
 # endif
 
 		  /* Increase size of memory pool.  */
-		    size_t new_size = (string_space_max
-				       + (alias_len + value_len > 1024
-					  ? alias_len + value_len : 1024));
-		    char *new_pool = (char *) realloc (string_space, new_size);
-		    if (new_pool == NULL)
-		      goto out;
+		  size_t new_size = (string_space_max
+				     + (alias_len + value_len > 1024
+					? alias_len + value_len : 1024));
+		  char *new_pool = (char *) realloc (string_space, new_size);
+		  if (new_pool == NULL)
+		    goto out;
 
-		    if (__builtin_expect (string_space != new_pool, 0))
-		      {
-			for (size_t i = 0; i < nmap; i++)
-			  {
-			    map[i].alias =
-			      new_pool + (map[i].alias - string_space);
-			    map[i].value =
-			      new_pool + (map[i].value - string_space);
-			  }
-		      }
+		  if (__builtin_expect (string_space != new_pool, 0))
+		    {
+		      for (size_t i = 0; i < nmap; i++)
+			{
+			  map[i].alias =
+			    new_pool + (map[i].alias - string_space);
+			  map[i].value =
+			    new_pool + (map[i].value - string_space);
+			}
+		    }
 
-		    string_space = new_pool;
-		    string_space_max = new_size;
-		  }
+		  string_space = new_pool;
+		  string_space_max = new_size;
+		}
 
-		map[nmap].alias =
-		  (const char *) memcpy (&string_space[string_space_act],
-					 alias, alias_len);
-		string_space_act += alias_len;
+	      map[nmap].alias =
+		(const char *) memcpy (&string_space[string_space_act],
+				       alias, alias_len);
+	      string_space_act += alias_len;
 
-		map[nmap].value =
-		  (const char *) memcpy (&string_space[string_space_act],
-					 value, value_len);
-		string_space_act += value_len;
+	      map[nmap].value =
+		(const char *) memcpy (&string_space[string_space_act],
+				       value, value_len);
+	      string_space_act += value_len;
 
 # if defined __GNUC__ && __GNUC__ >= 12
 #  pragma GCC diagnostic pop
 # endif
 
-		++nmap;
-		++added;
-	      }
+	      ++nmap;
+	      ++added;
 	    }
 	}
 
@@ -426,12 +411,9 @@ read_alias_file (const char *fname, int fname_len)
 static int
 extend_alias_table (void)
 {
-  size_t new_size;
-  struct alias_map *new_map;
-
-  new_size = maxmap == 0 ? 100 : 2 * maxmap;
-  new_map = (struct alias_map *) realloc (map, (new_size
-						* sizeof (struct alias_map)));
+  size_t new_size = maxmap == 0 ? 100 : 2 * maxmap;
+  struct alias_map *new_map =
+    (struct alias_map *) realloc (map, new_size * sizeof (struct alias_map));
   if (new_map == NULL)
     /* Simply don't extend: we don't have any more core.  */
     return -1;
