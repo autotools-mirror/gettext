@@ -953,6 +953,7 @@ core
 /gettext-tools/libgettextpo/sched.h
 /gettext-tools/libgettextpo/signal.h
 /gettext-tools/libgettextpo/stdarg.h
+/gettext-tools/libgettextpo/stdbit.h
 /gettext-tools/libgettextpo/stdckdint.h
 /gettext-tools/libgettextpo/stdcountof.h
 /gettext-tools/libgettextpo/stddef.h
