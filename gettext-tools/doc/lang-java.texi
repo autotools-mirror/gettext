@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2025 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2026 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node Java
@@ -16,7 +16,7 @@ With this approach, no PO files, and no support from GNU gettext is possible.
 @item RPMs
 java, java2
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 default-jdk
 
 @item File extension

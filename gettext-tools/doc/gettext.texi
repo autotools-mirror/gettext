@@ -11282,7 +11282,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 @table @asis
 @item RPMs
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 
 @item File extension
 
@@ -11376,7 +11376,7 @@ using GNU gettext.
 @item RPMs
 gettext
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 gettext
 
 @item File extension
@@ -11399,7 +11399,7 @@ files, created by the Free Pascal compiler version 3.0.0 or newer.
 @item RPMs
 fpk
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 fp-compiler
 
 @item File extension
@@ -11416,7 +11416,7 @@ fp-compiler
 @item RPMs
 glade, libglade, glade2, libglade2, intltool
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 glade, libglade2-dev, intltool
 
 @item File extension
@@ -11433,7 +11433,7 @@ glade, libglade2-dev, intltool
 @item RPMs
 glib2
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 libglib2.0-dev
 
 @item File extension
@@ -11453,7 +11453,7 @@ This file format is specified in
 @item RPMs
 appdata-tools, appstream, libappstream-glib, libappstream-glib-builder
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 appdata-tools, appstream, libappstream-glib-dev
 
 @item File extension
@@ -11700,7 +11700,7 @@ or through an attribute @code{gt:escape="yes"} on the particular XML element.
 @table @asis
 @item RPMs
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 
 @item File extension
 

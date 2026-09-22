@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2025 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2026 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node Go
@@ -125,7 +125,7 @@ Its API supports the single-locale case and the multi-locale case in the same wa
 @item RPMs
 golang
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 golang-go (which provides the @command{go} program),
 or gccgo (which provides a @command{go-@var{version}} command).@*
 gccgo has better portability; for example it works on SPARC CPUs.

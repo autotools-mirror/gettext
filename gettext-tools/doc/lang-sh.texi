@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2025 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2026 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node sh
@@ -10,7 +10,7 @@
 @item RPMs
 bash, gettext
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 bash, gettext-base
 
 @item File extension

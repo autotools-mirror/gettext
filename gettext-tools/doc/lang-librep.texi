@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2020 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2026 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node librep
@@ -10,7 +10,7 @@
 @item RPMs
 librep 0.15.3 or newer
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 librep16
 
 @item File extension

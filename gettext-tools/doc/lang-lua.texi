@@ -1,5 +1,5 @@
 @c This file is part of the GNU gettext manual.
-@c Copyright (C) 1995-2024 Free Software Foundation, Inc.
+@c Copyright (C) 1995-2026 Free Software Foundation, Inc.
 @c See the file gettext.texi for copying conditions.
 
 @node Lua
@@ -9,7 +9,7 @@
 @item RPMs
 lua
 
-@item Ubuntu packages
+@item Debian/Ubuntu packages
 lua, lua-gettext
 @*
 You need to install the @code{lua-gettext} package from
