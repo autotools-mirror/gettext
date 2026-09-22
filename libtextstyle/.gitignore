@@ -156,6 +156,8 @@
 /lib/math.in.h
 /lib/mbchar.c
 /lib/mbchar.h
+/lib/mbiter-aux.c
+/lib/mbiter-aux.h
 /lib/mbiterf.c
 /lib/mbiterf.h
 /lib/mbrtoc32.c
@@ -219,6 +221,8 @@
 /lib/sig-handler.c
 /lib/sig-handler.h
 /lib/sigaction.c
+/lib/sigdelay.c
+/lib/sigdelay.h
 /lib/signal.in.h
 /lib/signbitd.c
 /lib/signbitf.c
@@ -234,8 +238,10 @@
 /lib/stat-w32.c
 /lib/stat-w32.h
 /lib/stdarg.in.h
+/lib/stdbit.in.h
 /lib/stdckdint.in.h
 /lib/stdcountof.in.h
+/lib/stdc_rotate_left.c
 /lib/stddef.in.h
 /lib/stdint.in.h
 /lib/stdio-consolesafe.c
@@ -273,6 +279,9 @@
 /lib/term-styled-ostream.oo.c
 /lib/term-styled-ostream.oo.h
 /lib/terminfo.h
+/lib/thread-creators.gperf
+/lib/thread-optim-proto.c
+/lib/thread-optim.c
 /lib/thread-optim.h
 /lib/time.in.h
 /lib/tparm.c

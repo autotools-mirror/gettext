@@ -208,6 +208,8 @@
 /gettext-tools/libgettextpo/math.in.h
 /gettext-tools/libgettextpo/mbchar.c
 /gettext-tools/libgettextpo/mbchar.h
+/gettext-tools/libgettextpo/mbiter-aux.c
+/gettext-tools/libgettextpo/mbiter-aux.h
 /gettext-tools/libgettextpo/mbiterf.c
 /gettext-tools/libgettextpo/mbiterf.h
 /gettext-tools/libgettextpo/mbrtoc32.c
@@ -275,8 +277,10 @@
 /gettext-tools/libgettextpo/stat-w32.h
 /gettext-tools/libgettextpo/stat.c
 /gettext-tools/libgettextpo/stdarg.in.h
+/gettext-tools/libgettextpo/stdbit.in.h
 /gettext-tools/libgettextpo/stdckdint.in.h
 /gettext-tools/libgettextpo/stdcountof.in.h
+/gettext-tools/libgettextpo/stdc_rotate_left.c
 /gettext-tools/libgettextpo/stddef.in.h
 /gettext-tools/libgettextpo/stdint.in.h
 /gettext-tools/libgettextpo/stdio-consolesafe.c
