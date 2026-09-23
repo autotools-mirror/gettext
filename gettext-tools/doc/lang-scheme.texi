@@ -3,8 +3,27 @@
 @c See the file gettext.texi for copying conditions.
 
 @node Scheme
-@subsection GNU guile - Scheme
+@subsection Scheme
 @cindex Scheme
+
+We need to distinguish two kinds of Scheme implementations:
+
+@itemize @bullet
+@item
+GNU guile, which has bindings to the @code{gettext} functions
+in @code{libc} or @code{libintl}.
+@item
+Other Scheme implementations, which can use the @code{gettext} functions
+from GNU slib.
+@end itemize
+
+@menu
+* GNU guile::                   GNU guile
+* Other Schemes::               Other Scheme implementations
+@end menu
+
+@node GNU guile
+@subsubsection GNU guile
 @cindex Guile
 @cindex guile
 
@@ -75,3 +94,102 @@ On platforms without gettext, no translation.
 @end table
 
 An example is available in the @file{examples} directory: @code{hello-guile}.
+
+@node Other Schemes
+@subsubsection Other Scheme implementations
+@cindex slib
+
+The @code{gettext} functions are implemented in GNU slib
+@url{https://www.gnu.org/software/slib/}, version 3c3 or newer.
+
+@table @asis
+@item slib RPMs
+slib
+
+@item slib Debian/Ubuntu packages
+slib
+
+@item RPMs
+@multitable @columnfractions .3 .7
+@headitem Implementation @tab Package
+@item MIT/GNU Scheme @tab --
+@item Chez Scheme @tab chez-scheme
+@item CHICKEN Scheme @tab chicken
+@item GNU SCM @tab --
+@item Scheme48 @tab --
+@c @item chibi-scheme @tab chibi-scheme
+@c @item SISC @tab --
+@c @item Bigloo @tab bigloo
+@c @item Kawa @tab kawa
+@c @item Cyclone Scheme @tab --
+@c @item Gerbil Scheme @tab --
+@c @item Loko Scheme @tab --
+@c @item RScheme @tab --
+@c @item Scheme->C @tab --
+@c @item Scsh @tab --
+@end multitable
+
+@item Debian/Ubuntu packages
+@multitable @columnfractions .3 .7
+@headitem Implementation @tab Package
+@c This table is sorted according to "Debian Popularity Contest" results.
+@item MIT/GNU Scheme @tab mit-scheme
+@item Chez Scheme @tab chezscheme
+@item CHICKEN Scheme @tab chicken-bin
+@item GNU SCM @tab scm
+@item Scheme48 @tab scheme48
+@c @item chibi-scheme @tab chibi-scheme   @c Only in Debian Unstable so far.
+@c @item SISC @tab sisc
+@c @item Bigloo @tab --
+@c @item Kawa @tab --
+@c @item Cyclone Scheme @tab --
+@c @item Gerbil Scheme @tab --
+@c @item Loko Scheme @tab --
+@c @item RScheme @tab --
+@c @item Scheme->C @tab --
+@c @item Scsh @tab --
+@end multitable
+
+@item File extension
+@code{scm}
+
+@item String syntax
+@code{"abc"}
+
+@item gettext shorthand
+@code{(_ "abc")}
+
+@item gettext/ngettext functions
+@code{gettext}, @code{ngettext}
+
+@item textdomain
+@code{textdomain}
+
+@item bindtextdomain
+@code{bindtextdomain}
+
+@item setlocale
+@code{(setlocale LC_ALL "")}
+
+@item Prerequisite
+@code{(require 'i18n)}
+
+@item Use or emulate GNU gettext
+emulate
+
+@item Extractor
+@code{xgettext -L Scheme -k_}
+
+@item Formatting with positions
+@c @code{format "~1@@*~D ~0@@*~D~2@@*"}, requires @code{(require 'format)}
+@c not yet supported
+---
+
+@item Portability
+fully portable
+
+@item po-mode marking
+---
+@end table
+
+An example is available in the @file{examples} directory: @code{hello-scheme}.

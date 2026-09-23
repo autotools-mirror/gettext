@@ -463,7 +463,7 @@ Individual Programming Languages
 * C#::                          C#
 * JavaScript::                  JavaScript
 * TypeScript::                  TypeScript
-* Scheme::                      GNU guile - Scheme
+* Scheme::                      Scheme
 * Common Lisp::                 GNU clisp - Common Lisp
 * clisp C::                     GNU clisp C sources
 * Emacs Lisp::                  Emacs Lisp
@@ -487,6 +487,11 @@ Individual Programming Languages
 * Pike::                        Pike
 * GCC-source::                  GNU Compiler Collection sources
 * YCP::                         YCP - YaST2 scripting language
+
+Scheme
+
+* GNU guile::                   GNU guile
+* Other Schemes::               Other Scheme implementations
 
 sh - Shell Script
 
@@ -11214,7 +11219,7 @@ that language, and to combine the resulting files using @code{msgcat}.
 * C#::                          C#
 * JavaScript::                  JavaScript
 * TypeScript::                  TypeScript
-* Scheme::                      GNU guile - Scheme
+* Scheme::                      Scheme
 * Common Lisp::                 GNU clisp - Common Lisp
 * clisp C::                     GNU clisp C sources
 * Emacs Lisp::                  Emacs Lisp
