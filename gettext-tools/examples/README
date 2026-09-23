@@ -27,6 +27,7 @@ environment.
     hello-csharp               C#
     hello-csharp-forms         C#                Forms
     hello-guile                Scheme
+    hello-scheme               Scheme
     hello-clisp                Lisp
     hello-librep               librep
     hello-rust                 Rust
@@ -77,6 +78,7 @@ Makefile types:
     hello-c++-wxwidgets        .gmo                    Makefile.am
     hello-python               .gmo                    Makefile.am
     hello-guile                .gmo                    Makefile.am
+    hello-scheme               .gmo                    Makefile.am
     hello-clisp                .gmo                    Makefile.am
     hello-librep               .gmo                    Makefile.am
     hello-rust                 .gmo                    Makefile.am

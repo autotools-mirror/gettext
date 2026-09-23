@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/examples subdirectory of GNU gettext
-## Copyright (C) 2001-2025 Free Software Foundation, Inc.
+## Copyright (C) 2001-2026 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -307,6 +307,15 @@ EXAMPLESFILES = \
   hello-guile/m4/Makefile.am \
   hello-guile/po/Makefile.am \
   \
+  hello-scheme/INSTALL \
+  hello-scheme/autogen.sh \
+  hello-scheme/autoclean.sh \
+  hello-scheme/hello.scm \
+  hello-scheme/Makefile.am \
+  hello-scheme/configure.ac \
+  hello-scheme/m4/Makefile.am \
+  hello-scheme/po/Makefile.am \
+  \
   hello-clisp/INSTALL \
   hello-clisp/autogen.sh \
   hello-clisp/autoclean.sh \
@@ -513,6 +522,7 @@ EXAMPLESDIRS = \
   hello-csharp \
   hello-csharp-forms \
   hello-guile \
+  hello-scheme \
   hello-clisp \
   hello-librep \
   hello-rust \

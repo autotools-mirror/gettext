@@ -56,6 +56,7 @@ POTFILES = \
   hello-csharp/hello.cs \
   hello-csharp-forms/hello.cs \
   hello-guile/hello.scm \
+  hello-scheme/hello.scm \
   hello-clisp/hello.lisp.in \
   hello-librep/hello.jl.in \
   hello-rust/src/main.rs.in \
@@ -105,6 +106,7 @@ SMALLPOTS = \
   hello-csharp.pot \
   hello-csharp-forms.pot \
   hello-guile.pot \
+  hello-scheme.pot \
   hello-clisp.pot \
   hello-librep.pot \
   hello-rust.pot \
@@ -353,6 +355,9 @@ hello-csharp-forms.pot : $(POTFILES_DEPS)
 hello-guile.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-guile
 
+hello-scheme.pot : $(POTFILES_DEPS)
+	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-scheme
+
 hello-clisp.pot : $(POTFILES_DEPS)
 	$(USE_BUILT_PROGS) $(SHELL) '$(srcdir)/xsmallpot.sh' '$(srcdir)' hello-clisp
 
@@ -483,6 +488,7 @@ SMALLPOFILES_FOR_lang = \
   $(srcdir)/../hello-csharp/po/$$lang.po \
   $(srcdir)/../hello-csharp-forms/po/$$lang.po \
   $(srcdir)/../hello-guile/po/$$lang.po \
+  $(srcdir)/../hello-scheme/po/$$lang.po \
   $(srcdir)/../hello-clisp/po/$$lang.po \
   $(srcdir)/../hello-librep/po/$$lang.po \
   $(srcdir)/../hello-rust/po/$$lang.po \
@@ -567,6 +573,9 @@ $(srcdir)/../hello-csharp-forms/po/$(LL).po: $(srcdir)/hello-csharp-forms.pot $(
 
 $(srcdir)/../hello-guile/po/$(LL).po: $(srcdir)/hello-guile.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-guile $(LL)
+
+$(srcdir)/../hello-scheme/po/$(LL).po: $(srcdir)/hello-scheme.pot $(srcdir)/$(LL).po
+	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-scheme $(LL)
 
 $(srcdir)/../hello-clisp/po/$(LL).po: $(srcdir)/hello-clisp.pot $(srcdir)/$(LL).po
 	$(USE_BUILT_PROGS) cd $(srcdir) && $(SHELL) mmsmallpo.sh hello-clisp $(LL)

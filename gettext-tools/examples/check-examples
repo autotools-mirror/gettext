@@ -678,6 +678,11 @@ func_check__hello_guile ()
   func_check hello-guile
 }
 
+func_check__hello_scheme ()
+{
+  func_check hello-scheme
+}
+
 func_check__hello_clisp ()
 {
   func_check hello-clisp
@@ -805,6 +810,7 @@ func_check__hello_java_qtjambi
 func_check__hello_csharp          #  133 s
 func_check__hello_csharp_forms    #  136 s
 func_check__hello_guile           #   33 s
+func_check__hello_scheme          #   33 s
 func_check__hello_clisp           #   32 s
 func_check__hello_librep          #   32 s
 func_check__hello_rust            #  385 s
