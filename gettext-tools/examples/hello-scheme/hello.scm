@@ -1,5 +1,5 @@
 #! /bin/sh
-:; exec @SCM@ -l"$0" "$@"
+:; exec @SCM@ -l"$0" "$@"; !#
 
 ;;; Example for use of GNU gettext with GNU slib.
 ;;; This file is in the public domain.
