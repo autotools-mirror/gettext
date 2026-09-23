@@ -215,6 +215,19 @@ are skipped. To this effect, you need to install also:
       - On Red Hat distributions: guile.
       - Other: https://repology.org/project/guile/versions
 
+  * GNU scm
+    + Homepage: https://www.gnu.org/software/scm/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: scm,
+      - On Red Hat distributions: --.
+      - Other: https://repology.org/project/scm/versions
+  * GNU slib
+    + Homepage: https://www.gnu.org/software/slib/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: slib,
+      - On Red Hat distributions: slib.
+      - Other: https://repology.org/project/slib/versions
+
   * GNU clisp
     + Homepage: http://clisp.org/
     + Pre-built package name:
