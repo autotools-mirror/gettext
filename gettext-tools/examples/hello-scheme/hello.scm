@@ -8,6 +8,7 @@
 
 (require 'i18n)
 (require 'format)
+(require 'i/o-extensions) ; for getpid in GNU scm
 
 (setlocale LC_ALL "")
 (textdomain "hello-scheme")
