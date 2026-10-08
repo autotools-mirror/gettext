@@ -91,6 +91,8 @@ There are three ways to create binaries of this package for Microsoft Windows:
      * Cygwin (from https://cygwin.com/),
      * some packages available from the Cygwin package installer:
          make
+         mingw64-i686-binutils (needed for i686-w64-mingw32-windres)
+         mingw64-x86_64-binutils (needed for x86_64-w64-mingw32-windres)
 
    You also need the scripts 'ar-lib' and 'compile' from
      https://git.savannah.gnu.org/gitweb/?p=automake.git;a=blob_plain;f=lib/ar-lib;hb=HEAD
