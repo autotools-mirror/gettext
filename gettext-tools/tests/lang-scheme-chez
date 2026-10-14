@@ -85,16 +85,16 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -c -o fr/LC_MESSAGES/prog.mo fr.po
 
-# Test for presence of Chez Scheme with GNU slib version 3c3 or newer.
-(chezscheme --version) >/dev/null 2>/dev/null \
+# Test for presence of Chez Scheme with GNU slib version 3c4 or newer.
+(chezscheme --version) >/dev/null \
   || { echo "Skipping test: chezscheme not found"; Exit 77; }
 test -d "${SCHEME_LIBRARY_PATH}" \
   || { echo "Skipping test: SCHEME_LIBRARY_PATH is not set"; Exit 77; }
 test -f "${SCHEME_LIBRARY_PATH}slib.texi" \
   || { echo "Skipping test: SCHEME_LIBRARY_PATH does not point to GNU slib sources"; Exit 77; }
 mkdir -p "$HOME/.cache/slib"
-(echo "(require 'i18n)" | CHEZ_IMPLEMENTATION_PATH="$HOME/.cache/slib" chezscheme "${SCHEME_LIBRARY_PATH}chez.init") >/dev/null 2>/dev/null \
-  || { echo "Skipping test: slib does not have the i18n feature"; Exit 77; }
+(echo "(require 'utf-8)" | CHEZ_IMPLEMENTATION_PATH="$HOME/.cache/slib" chezscheme "${SCHEME_LIBRARY_PATH}chez.init") >/dev/null \
+  || { echo "Skipping test: slib does not have a working i18n feature"; Exit 77; }
 
 # Test which of the fr_FR locales are installed.
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}

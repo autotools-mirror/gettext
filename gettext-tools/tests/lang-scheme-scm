@@ -6,6 +6,12 @@
 # Assumes an fr_FR.UTF-8 locale is installed.
 # Assumes the following packages are installed: scm.
 
+# The only way to use a preinstalled 'scm' with a newer 'slib' is
+# to create a wrapper script that defines (library-vicinity) and
+# (implementation-vicinity) before loading scm.init. Setting
+# SCHEME_LIBRARY_PATH does not work.
+unset SCHEME_LIBRARY_PATH
+
 cat <<\EOF > prog.scm
 (require 'i18n)
 (require 'format)
@@ -82,11 +88,11 @@ test -d fr/LC_MESSAGES || mkdir fr/LC_MESSAGES
 : ${MSGFMT=msgfmt}
 ${MSGFMT} -c -o fr/LC_MESSAGES/prog.mo fr.po
 
-# Test for presence of GNU scm with GNU slib version 3c3 or newer.
-(scm --version) >/dev/null 2>/dev/null \
+# Test for presence of GNU scm with GNU slib version 3c4 or newer.
+(scm --version) >/dev/null \
   || { echo "Skipping test: scm not found"; Exit 77; }
-(scm -e"(require 'i18n)") >/dev/null 2>/dev/null \
-  || { echo "Skipping test: scm does not have the i18n feature"; Exit 77; }
+(scm -e"(require 'utf-8)") >/dev/null \
+  || { echo "Skipping test: scm does not have a working i18n feature"; Exit 77; }
 
 # Test which of the fr_FR locales are installed.
 : ${LOCALE_FR_UTF8=fr_FR.UTF-8}
