@@ -1,4 +1,4 @@
-This example relies on GNU scm and GNU slib.
+This example relies on GNU scm and GNU slib (version 3c4 or newer).
 
 Installation:
   ./autogen.sh

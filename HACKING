@@ -215,6 +215,18 @@ are skipped. To this effect, you need to install also:
       - On Red Hat distributions: guile.
       - Other: https://repology.org/project/guile/versions
 
+  * MIT/GNU Scheme
+    + Homepage: https://www.gnu.org/software/mit-scheme/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: mit-scheme,
+      - On Red Hat distributions: --.
+      - Other: https://repology.org/project/mit-scheme/versions
+  * Chez Scheme
+    + Homepage: https://cisco.github.io/ChezScheme/
+    + Pre-built package name:
+      - On Debian and Debian-based systems: chezscheme,
+      - On Red Hat distributions: chez-scheme.
+      - Other: https://repology.org/project/chez-scheme/versions
   * GNU scm
     + Homepage: https://www.gnu.org/software/scm/
     + Pre-built package name:
@@ -227,6 +239,7 @@ are skipped. To this effect, you need to install also:
       - On Debian and Debian-based systems: slib,
       - On Red Hat distributions: slib.
       - Other: https://repology.org/project/slib/versions
+    + Set the environment variable SCHEME_LIBRARY_PATH to point to it.
 
   * GNU clisp
     + Homepage: http://clisp.org/

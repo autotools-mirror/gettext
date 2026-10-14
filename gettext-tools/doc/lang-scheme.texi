@@ -100,7 +100,7 @@ An example is available in the @file{examples} directory: @code{hello-guile}.
 @cindex slib
 
 The @code{gettext} functions are implemented in GNU slib
-@url{https://www.gnu.org/software/slib/}, version 3c3 or newer.
+@url{https://www.gnu.org/software/slib/}, version 3c4 or newer.
 
 @table @asis
 @item slib RPMs
@@ -113,14 +113,14 @@ slib
 @multitable @columnfractions .3 .7
 @headitem Implementation @tab Package
 @item MIT/GNU Scheme @tab --
-@item Chez Scheme @tab chez-scheme
-@item CHICKEN Scheme @tab chicken
+@item Chez Scheme @tab @code{chez-scheme}
+@c @item CHICKEN Scheme @tab @code{chicken}      @c Not supported by slib.
 @item GNU SCM @tab --
-@item Scheme48 @tab --
-@c @item chibi-scheme @tab chibi-scheme
+@c @item Scheme48 @tab --                        @c slib has not been updated for current versions of Scheme48.
+@c @item chibi-scheme @tab @code{chibi-scheme}
 @c @item SISC @tab --
-@c @item Bigloo @tab bigloo
-@c @item Kawa @tab kawa
+@c @item Bigloo @tab @code{bigloo}
+@c @item Kawa @tab @code{kawa}
 @c @item Cyclone Scheme @tab --
 @c @item Gerbil Scheme @tab --
 @c @item Loko Scheme @tab --
@@ -133,13 +133,13 @@ slib
 @multitable @columnfractions .3 .7
 @headitem Implementation @tab Package
 @c This table is sorted according to "Debian Popularity Contest" results.
-@item MIT/GNU Scheme @tab mit-scheme
-@item Chez Scheme @tab chezscheme
-@item CHICKEN Scheme @tab chicken-bin
-@item GNU SCM @tab scm
-@item Scheme48 @tab scheme48
-@c @item chibi-scheme @tab chibi-scheme   @c Only in Debian Unstable so far.
-@c @item SISC @tab sisc
+@item MIT/GNU Scheme @tab @code{mit-scheme}
+@item Chez Scheme @tab @code{chezscheme}
+@c @item CHICKEN Scheme @tab @code{chicken-bin}  @c Not supported by slib.
+@item GNU SCM @tab @code{scm}
+@c @item Scheme48 @tab @code{scheme48}           @c slib has not been updated for current versions of Scheme48.
+@c @item chibi-scheme @tab @code{chibi-scheme}   @c Only in Debian Unstable so far.
+@c @item SISC @tab @code{sisc}
 @c @item Bigloo @tab --
 @c @item Kawa @tab --
 @c @item Cyclone Scheme @tab --
@@ -181,12 +181,10 @@ emulate
 @code{xgettext -L Scheme -k_}
 
 @item Formatting with positions
-@c @code{format "~1@@*~D ~0@@*~D~2@@*"}, requires @code{(require 'format)}
-@c not yet supported
----
+@code{format "~1@@*~D ~0@@*~D"}, requires @code{(require 'format)}
 
 @item Portability
-fully portable
+portable among Scheme implementations supported by @code{slib}
 
 @item po-mode marking
 ---
