@@ -4,7 +4,7 @@
 # also regenerates all aclocal.m4, config.h.in, Makefile.in, configure files
 # with new versions of autoconf or automake.
 #
-# This script requires autoconf-2.64..2.72 and automake-1.13..1.18 in the PATH.
+# This script requires autoconf-2.64..2.73 and automake-1.13..1.19 in the PATH.
 
 # Copyright (C) 2003-2026 Free Software Foundation, Inc.
 #
@@ -483,6 +483,11 @@ if ! $skip_gnulib; then
   # - Avoid the thread-optim-tests, because on some platforms (Solaris 11 OmniOS)
   #   test-thread-optim1 gets linked against libgettextlib, which is linked against
   #   libxml2, which is linked against liblzma, which may invoke pthread_create.
+  # - Avoid some unicase/ and unictype/ tests that fail when an older libunistring
+  #   (libunistring < 1.5) is installed and option --with-included-libunistring
+  #   is not specified. This is a libtool bug: when linking programs such as
+  #   test-ctype_alnum, libtool moves libunistring before libgettextlib. But
+  #   libtool bugs are difficult to fix. Thus this workaround.
   $GNULIB_TOOL --dir=gettext-tools --lib=libgettextlib --source-base=gnulib-lib --m4-base=gnulib-m4 --tests-base=gnulib-tests --makefile-name=Makefile.gnulib --libtool --with-tests --local-dir=gnulib-local --local-symlink \
     --import \
     --avoid=hashcode-string1 \
@@ -491,6 +496,12 @@ if ! $skip_gnulib; then
     --avoid=uninorm/decomposing-form-tests \
     --avoid=fdutimensat-tests --avoid=futimens-tests --avoid=utime-tests --avoid=utimens-tests --avoid=utimensat-tests \
     --avoid=thread-optim-tests \
+    --avoid=unicase/tolower-tests \
+    --avoid=unictype/ctype-alnum-tests --avoid=unictype/ctype-alpha-tests \
+    --avoid=unictype/ctype-graph-tests --avoid=unictype/ctype-lower-tests \
+    --avoid=unictype/ctype-print-tests --avoid=unictype/ctype-punct-tests \
+    --avoid=unictype/ctype-upper-tests --avoid=unictype/property-soft-dotted-tests \
+    --avoid=unictype/property-xid-start-tests --avoid=unictype/property-xid-continue-tests \
     `for m in $GNULIB_MODULES_TOOLS_LIBUNISTRING_TESTS; do echo --avoid=$m; done` \
     $GNULIB_MODULES_LIBGETTEXTLIB || exit $?
   $GNULIB_TOOL --copy-file m4/libtextstyle.m4 gettext-tools/gnulib-m4/libtextstyle.m4 || exit $?
