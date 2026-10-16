@@ -24,7 +24,7 @@ BEGIN
             VALUE "FileDescription", "LGPLed libasprintf for Windows\0"
             VALUE "FileVersion", PACKAGE_VERSION_STRING "\0"
             VALUE "InternalName", "asprintf.dll\0"
-            VALUE "LegalCopyright", "Copyright (C) 2002-2024\0"
+            VALUE "LegalCopyright", "Copyright (C) 2002-2026 Free Software Foundation\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "asprintf.dll\0"
             VALUE "ProductName", "GNU libasprintf: automatic formatted output\0"
