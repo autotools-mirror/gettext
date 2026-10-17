@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/libasprintf subdirectory of GNU gettext
-## Copyright (C) 2002-2025 Free Software Foundation, Inc.
+## Copyright (C) 2002-2026 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU Lesser General Public License as published by
@@ -96,17 +96,32 @@ WOE32_LIBADD = libasprintf.res.lo
 # inlined here, so that they can be written in a Makefile without requiring a
 # temporary file. They must contain literal newlines rather than semicolons,
 # so that they work with the sed-3.02 that is shipped with MSYS.
-libasprintf.res.lo: $(srcdir)/libasprintf.rc
+libasprintf.res.lo: $(srcdir)/libasprintf.rc lib-asprintf.lo
 	nlinit=`echo 'nl="'; echo '"'`; eval "$$nlinit"; \
 	sed_extract_major='/^[0-9]/{'$${nl}'s/^\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
 	sed_extract_minor='/^[0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
 	sed_extract_subminor='/^[0-9][0-9]*[.][0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.][0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
-	$(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
-	  "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
-	  "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
-	  "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
-	  "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
-	  -i $(srcdir)/libasprintf.rc -o libasprintf.res.lo --output-format=coff
+	if test '@OBJEXT@' = obj; then \
+	  rcfile=`cygpath -w '$(srcdir)/libasprintf.rc'`; \
+	  rc -folibasprintf.tmp.res \
+	    "-DPACKAGE_VERSION_STRING=\"$(VERSION)\"" \
+	    "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	    "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	    "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	    "$$rcfile" \
+	  && cvtres -out:libasprintf.res.@OBJEXT@ libasprintf.tmp.res \
+	  && rm -f libasprintf.tmp.res \
+	  && mkdir -p .libs \
+	  && cp libasprintf.res.@OBJEXT@ .libs/libasprintf.res.@OBJEXT@ \
+	  && sed -e 's/lib-asprintf/libasprintf.res/g' < lib-asprintf.lo > libasprintf.res.lo; \
+	else \
+	  $(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
+	    "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
+	    "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	    "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	    "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	    -i $(srcdir)/libasprintf.rc -o libasprintf.res.lo --output-format=coff; \
+	fi
 MOSTLYCLEANFILES += libasprintf.res.lo
 else
 WOE32_LIBADD =

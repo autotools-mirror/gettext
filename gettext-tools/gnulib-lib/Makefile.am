@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools/gnulib-lib subdirectory of GNU gettext
-## Copyright (C) 1995-2025 Free Software Foundation, Inc.
+## Copyright (C) 1995-2026 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -73,17 +73,32 @@ WOE32_LIBADD = libgettextlib.res.lo
 # inlined here, so that they can be written in a Makefile without requiring a
 # temporary file. They must contain literal newlines rather than semicolons,
 # so that they work with the sed-3.02 that is shipped with MSYS.
-libgettextlib.res.lo: $(srcdir)/libgettextlib.rc
+libgettextlib.res.lo: $(srcdir)/libgettextlib.rc libgettextlib_la-progname.lo
 	nlinit=`echo 'nl="'; echo '"'`; eval "$$nlinit"; \
 	sed_extract_major='/^[0-9]/{'$${nl}'s/^\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
 	sed_extract_minor='/^[0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
 	sed_extract_subminor='/^[0-9][0-9]*[.][0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.][0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
-	$(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
-	  "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
-	  "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
-	  "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
-	  "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
-	  -i $(srcdir)/libgettextlib.rc -o libgettextlib.res.lo --output-format=coff
+	if test '@OBJEXT@' = obj; then \
+	  rcfile=`cygpath -w '$(srcdir)/libgettextlib.rc'`; \
+	  rc -folibgettextlib.tmp.res \
+	    "-DPACKAGE_VERSION_STRING=\"$(VERSION)\"" \
+	    "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	    "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	    "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	    "$$rcfile" \
+	  && cvtres -out:libgettextlib.res.@OBJEXT@ libgettextlib.tmp.res \
+	  && rm -f libgettextlib.tmp.res \
+	  && mkdir -p .libs \
+	  && cp libgettextlib.res.@OBJEXT@ .libs/libgettextlib.res.@OBJEXT@ \
+	  && sed -e 's/libgettextlib_la-progname/libgettextlib.res/g' < libgettextlib_la-progname.lo > libgettextlib.res.lo; \
+	else \
+	  $(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
+	    "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
+	    "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	    "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	    "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	    -i $(srcdir)/libgettextlib.rc -o libgettextlib.res.lo --output-format=coff; \
+	fi
 MOSTLYCLEANFILES += libgettextlib.res.lo
 else
 WOE32_LIBADD =

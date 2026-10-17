@@ -91,14 +91,6 @@ There are three ways to create binaries of this package for Microsoft Windows:
      * Cygwin (from https://cygwin.com/),
      * some packages available from the Cygwin package installer:
          make
-     * the mingw cross-compilation tool named 'windres', available from the
-       Cygwin package installer (setup-x86_64.exe):
-       - for creating 32-bit binaries: packages
-           mingw64-i686-binutils,
-           mingw64-i686-gcc-core
-       - for creating 64-bit binaries: packages
-           mingw64-x86_64-binutils,
-           mingw64-x86_64-gcc-core
 
    You also need the scripts 'ar-lib' and 'compile' from
      https://git.savannah.gnu.org/gitweb/?p=automake.git;a=blob_plain;f=lib/ar-lib;hb=HEAD
@@ -133,6 +125,10 @@ There are three ways to create binaries of this package for Microsoft Windows:
       INCLUDE="${WindowsSdkIncludeDir}um;${WindowsSdkIncludeDir}shared;$INCLUDE"
       LIB="${WindowsSdkLibDir}x86;$LIB"
 
+      # Windows tools.
+      WindowsSdkBinDir='C:\Program Files (x86)\Windows Kits\8.1\bin\'
+      PATH=`cygpath -u "${WindowsSdkBinDir}x86"`:"$PATH"
+
       # Visual C++ tools, headers and libraries.
       VSINSTALLDIR='C:\Program Files (x86)\Microsoft Visual Studio 14.0'
       VCINSTALLDIR="${VSINSTALLDIR}"'\VC'
@@ -144,29 +140,33 @@ There are three ways to create binaries of this package for Microsoft Windows:
 
    - for creating 64-bit binaries: through the following bash commands:
 
-     # Set environment variables for using MSVC 14,
-     # for creating native 64-bit Windows executables.
+      # Set environment variables for using MSVC 14,
+      # for creating native 64-bit Windows executables.
 
-     # Windows C library headers and libraries.
-     WindowsCrtIncludeDir='C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt'
-     WindowsCrtLibDir='C:\Program Files (x86)\Windows Kits\10\Lib\10.0.10240.0\ucrt\'
-     INCLUDE="${WindowsCrtIncludeDir};$INCLUDE"
-     LIB="${WindowsCrtLibDir}x64;$LIB"
+      # Windows C library headers and libraries.
+      WindowsCrtIncludeDir='C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt'
+      WindowsCrtLibDir='C:\Program Files (x86)\Windows Kits\10\Lib\10.0.10240.0\ucrt\'
+      INCLUDE="${WindowsCrtIncludeDir};$INCLUDE"
+      LIB="${WindowsCrtLibDir}x64;$LIB"
 
-     # Windows API headers and libraries.
-     WindowsSdkIncludeDir='C:\Program Files (x86)\Windows Kits\8.1\Include\'
-     WindowsSdkLibDir='C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\'
-     INCLUDE="${WindowsSdkIncludeDir}um;${WindowsSdkIncludeDir}shared;$INCLUDE"
-     LIB="${WindowsSdkLibDir}x64;$LIB"
+      # Windows API headers and libraries.
+      WindowsSdkIncludeDir='C:\Program Files (x86)\Windows Kits\8.1\Include\'
+      WindowsSdkLibDir='C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\'
+      INCLUDE="${WindowsSdkIncludeDir}um;${WindowsSdkIncludeDir}shared;$INCLUDE"
+      LIB="${WindowsSdkLibDir}x64;$LIB"
 
-     # Visual C++ tools, headers and libraries.
-     VSINSTALLDIR='C:\Program Files (x86)\Microsoft Visual Studio 14.0'
-     VCINSTALLDIR="${VSINSTALLDIR}"'\VC'
-     PATH=`cygpath -u "${VCINSTALLDIR}"`/bin/amd64:"$PATH"
-     INCLUDE="${VCINSTALLDIR}"'\include;'"${INCLUDE}"
-     LIB="${VCINSTALLDIR}"'\lib\amd64;'"${LIB}"
+      # Windows tools.
+      WindowsSdkBinDir='C:\Program Files (x86)\Windows Kits\8.1\bin\'
+      PATH=`cygpath -u "${WindowsSdkBinDir}x64"`:"$PATH"
 
-     export INCLUDE LIB
+      # Visual C++ tools, headers and libraries.
+      VSINSTALLDIR='C:\Program Files (x86)\Microsoft Visual Studio 14.0'
+      VCINSTALLDIR="${VSINSTALLDIR}"'\VC'
+      PATH=`cygpath -u "${VCINSTALLDIR}"`/bin/amd64:"$PATH"
+      INCLUDE="${VCINSTALLDIR}"'\include;'"${INCLUDE}"
+      LIB="${VCINSTALLDIR}"'\lib\amd64;'"${LIB}"
+
+      export INCLUDE LIB
 
    Building 32-bit binaries with MSVC is achieved through the following
    preparation, configure, and build commands:

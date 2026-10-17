@@ -229,17 +229,32 @@ WOE32_LIBADD = libtextstyle.res.lo
 # inlined here, so that they can be written in a Makefile without requiring a
 # temporary file. They must contain literal newlines rather than semicolons,
 # so that they work with the sed-3.02 that is shipped with MSYS.
-libtextstyle.res.lo: $(srcdir)/libtextstyle.rc
+libtextstyle.res.lo: $(srcdir)/libtextstyle.rc libtextstyle_la-ostream.lo
 	nlinit=`echo 'nl="'; echo '"'`; eval "$$nlinit"; \
 	sed_extract_major='/^[0-9]/{'$${nl}'s/^\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
 	sed_extract_minor='/^[0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
 	sed_extract_subminor='/^[0-9][0-9]*[.][0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.][0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
-	$(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
-	  "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
-	  "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
-	  "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
-	  "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
-	  -i $(srcdir)/libtextstyle.rc -o libtextstyle.res.lo --output-format=coff
+	if test '@OBJEXT@' = obj; then \
+	  rcfile=`cygpath -w '$(srcdir)/libtextstyle.rc'`; \
+	  rc -folibtextstyle.tmp.res \
+	    "-DPACKAGE_VERSION_STRING=\"$(VERSION)\"" \
+	    "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	    "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	    "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	    "$$rcfile" \
+	  && cvtres -out:libtextstyle.res.@OBJEXT@ libtextstyle.tmp.res \
+	  && rm -f libtextstyle.tmp.res \
+	  && mkdir -p .libs \
+	  && cp libtextstyle.res.@OBJEXT@ .libs/libtextstyle.res.@OBJEXT@ \
+	  && sed -e 's/libtextstyle_la-ostream/libtextstyle.res/g' < libtextstyle_la-ostream.lo > libtextstyle.res.lo; \
+	else \
+	  $(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
+	    "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
+	    "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	    "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	    "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	    -i $(srcdir)/libtextstyle.rc -o libtextstyle.res.lo --output-format=coff; \
+	fi
 MOSTLYCLEANFILES += libtextstyle.res.lo
 else
 WOE32_LIBADD =

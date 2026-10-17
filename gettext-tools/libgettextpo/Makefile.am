@@ -150,8 +150,18 @@ RELOCATABLE_LIBRARY_PATH = $(libdir)
 EXTRA_DIST += libgettextpo.rc
 if WOE32
 WOE32_LIBADD = libgettextpo.res.lo
-libgettextpo.res.lo : $(srcdir)/libgettextpo.rc
-	$(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(srcdir)/libgettextpo.rc -o libgettextpo.res.lo --output-format=coff
+libgettextpo.res.lo : $(srcdir)/libgettextpo.rc gettext-po.lo
+	if test '@OBJEXT@' = obj; then \
+	  rcfile=`cygpath -w '$(srcdir)/libgettextpo.rc'`; \
+	  rc -folibgettextpo.tmp.res `$(SHELL) $(top_srcdir)/../windows/windres-options $(VERSION)` "$$rcfile" \
+	  && cvtres -out:libgettextpo.res.@OBJEXT@ libgettextpo.tmp.res \
+	  && rm -f libgettextpo.tmp.res \
+	  && mkdir -p .libs \
+	  && cp libgettextpo.res.@OBJEXT@ .libs/libgettextpo.res.@OBJEXT@ \
+	  && sed -e 's/gettext-po/libgettextpo.res/g' < gettext-po.lo > libgettextpo.res.lo; \
+	else \
+	  $(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(srcdir)/libgettextpo.rc -o libgettextpo.res.lo --output-format=coff; \
+	fi
 MOSTLYCLEANFILES += libgettextpo.res.lo
 else
 WOE32_LIBADD =

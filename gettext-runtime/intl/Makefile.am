@@ -312,17 +312,32 @@ WOE32_LIBADD = libintl.res.lo
 # inlined here, so that they can be written in a Makefile without requiring a
 # temporary file. They must contain literal newlines rather than semicolons,
 # so that they work with the sed-3.02 that is shipped with MSYS.
-libintl.res.lo: $(srcdir)/libintl.rc
+libintl.res.lo: $(srcdir)/libintl.rc gettext.lo
 	nlinit=`echo 'nl="'; echo '"'`; eval "$$nlinit"; \
 	sed_extract_major='/^[0-9]/{'$${nl}'s/^\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
 	sed_extract_minor='/^[0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
 	sed_extract_subminor='/^[0-9][0-9]*[.][0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.][0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
-	$(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
-	  "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
-	  "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
-	  "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
-	  "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
-	  -i $(srcdir)/libintl.rc -o libintl.res.lo --output-format=coff
+	if test '@OBJEXT@' = obj; then \
+	  rcfile=`cygpath -w '$(srcdir)/libintl.rc'`; \
+	  rc -folibintl.tmp.res \
+	    "-DPACKAGE_VERSION_STRING=\"$(VERSION)\"" \
+	    "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	    "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	    "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	    "$$rcfile" \
+	  && cvtres -out:libintl.res.@OBJEXT@ libintl.tmp.res \
+	  && rm -f libintl.tmp.res \
+	  && mkdir -p .libs \
+	  && cp libintl.res.@OBJEXT@ .libs/libintl.res.@OBJEXT@ \
+	  && sed -e 's/gettext/libintl.res/g' < gettext.lo > libintl.res.lo; \
+	else \
+	  $(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
+	    "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
+	    "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	    "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	    "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	    -i $(srcdir)/libintl.rc -o libintl.res.lo --output-format=coff; \
+	fi
 MOSTLYCLEANFILES += libintl.res.lo
 else
 WOE32_LIBADD =

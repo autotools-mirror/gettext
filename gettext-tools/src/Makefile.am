@@ -453,17 +453,32 @@ WOE32_LIBADD = libgettextsrc.res.lo
 # inlined here, so that they can be written in a Makefile without requiring a
 # temporary file. They must contain literal newlines rather than semicolons,
 # so that they work with the sed-3.02 that is shipped with MSYS.
-libgettextsrc.res.lo: $(srcdir)/libgettextsrc.rc
+libgettextsrc.res.lo: $(srcdir)/libgettextsrc.rc message.lo
 	nlinit=`echo 'nl="'; echo '"'`; eval "$$nlinit"; \
 	sed_extract_major='/^[0-9]/{'$${nl}'s/^\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
 	sed_extract_minor='/^[0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
 	sed_extract_subminor='/^[0-9][0-9]*[.][0-9][0-9]*[.][0-9]/{'$${nl}'s/^[0-9]*[.][0-9]*[.]\([0-9]*\).*/\1/p'$${nl}q$${nl}'}'$${nl}'c\'$${nl}0$${nl}q; \
-	$(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
-	  "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
-	  "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
-	  "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
-	  "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
-	  -i $(srcdir)/libgettextsrc.rc -o libgettextsrc.res.lo --output-format=coff
+	if test '@OBJEXT@' = obj; then \
+	  rcfile=`cygpath -w '$(srcdir)/libgettextsrc.rc'`; \
+	  rc -folibgettextsrc.tmp.res \
+	    "-DPACKAGE_VERSION_STRING=\"$(VERSION)\"" \
+	    "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	    "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	    "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	    "$$rcfile" \
+	  && cvtres -out:libgettextsrc.res.@OBJEXT@ libgettextsrc.tmp.res \
+	  && rm -f libgettextsrc.tmp.res \
+	  && mkdir -p .libs \
+	  && cp libgettextsrc.res.@OBJEXT@ .libs/libgettextsrc.res.@OBJEXT@ \
+	  && sed -e 's/message/libgettextsrc.res/g' < message.lo > libgettextsrc.res.lo; \
+	else \
+	  $(LIBTOOL) --tag=RC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) --mode=compile $(RC) \
+	    "-DPACKAGE_VERSION_STRING=\\\"$(VERSION)\\\"" \
+	    "-DPACKAGE_VERSION_MAJOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_major"` \
+	    "-DPACKAGE_VERSION_MINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_minor"` \
+	    "-DPACKAGE_VERSION_SUBMINOR="`echo '$(VERSION)' | sed -n -e "$$sed_extract_subminor"` \
+	    -i $(srcdir)/libgettextsrc.rc -o libgettextsrc.res.lo --output-format=coff; \
+	fi
 MOSTLYCLEANFILES += libgettextsrc.res.lo
 else
 WOE32_LIBADD =
@@ -963,7 +978,14 @@ RELOCATABLE_STRIP = :
 if WOE32
 WOE32_LDADD = gettext.res
 gettext.res : $(top_srcdir)/../windows/gettext.rc
-	$(WINDRES) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(top_srcdir)/../windows/gettext.rc -o gettext.res --output-format=coff
+	if test '@OBJEXT@' = obj; then \
+	  rcfile=`cygpath -w '$(top_srcdir)/../windows/gettext.rc'`; \
+	  rc -fogettext.tmp.res `$(SHELL) $(top_srcdir)/../windows/windres-options $(VERSION)` "$$rcfile" \
+	  && cvtres -out:gettext.res gettext.tmp.res \
+	  && rm -f gettext.tmp.res; \
+	else \
+	  $(WINDRES) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(top_srcdir)/../windows/gettext.rc -o gettext.res --output-format=coff; \
+	fi
 MOSTLYCLEANFILES += gettext.res
 else
 WOE32_LDADD =

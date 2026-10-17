@@ -1,5 +1,5 @@
 ## Makefile for the gettext-runtime/src subdirectory of GNU gettext
-## Copyright (C) 1995-2025 Free Software Foundation, Inc.
+## Copyright (C) 1995-2026 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -82,7 +82,14 @@ RELOCATABLE_STRIP = :
 if WOE32
 WOE32_LDADD = gettext.res
 gettext.res : $(top_srcdir)/../windows/gettext.rc
-	$(WINDRES) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(top_srcdir)/../windows/gettext.rc -o gettext.res --output-format=coff
+	if test '@OBJEXT@' = obj; then \
+	  rcfile=`cygpath -w '$(top_srcdir)/../windows/gettext.rc'`; \
+	  rc -fogettext.tmp.res `$(SHELL) $(top_srcdir)/../windows/windres-options $(VERSION)` "$$rcfile" \
+	  && cvtres -out:gettext.res gettext.tmp.res \
+	  && rm -f gettext.tmp.res; \
+	else \
+	  $(WINDRES) `$(SHELL) $(top_srcdir)/../windows/windres-options --escape $(VERSION)` -i $(top_srcdir)/../windows/gettext.rc -o gettext.res --output-format=coff; \
+	fi
 MOSTLYCLEANFILES += gettext.res
 else
 WOE32_LDADD =
