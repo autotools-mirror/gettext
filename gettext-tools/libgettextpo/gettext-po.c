@@ -790,10 +790,11 @@ po_message_remove_filepos (po_message_t message, int i)
 
       if (j < n)
         {
-          mp->filepos_count = n = n - 1;
+          n = n - 1;
           free ((char *) mp->filepos[j].file_name);
           for (; j < n; j++)
             mp->filepos[j] = mp->filepos[j + 1];
+          mp->filepos_count = n;
         }
     }
 }
