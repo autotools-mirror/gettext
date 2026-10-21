@@ -327,6 +327,11 @@ Producing Binary MO Files
 * MO Files::                    The Format of GNU MO Files
 * Security of MO Files::        Security considerations around MO Files
 
+Security of MO Files
+
+* Security recommendations::    How to install MO files
+* Security FAQ::                Are PO and MO files secure?
+
 The Programmer's View
 
 * catgets::                     About @code{catgets}
@@ -7106,6 +7111,14 @@ T + ((N-1)*8)| length & offset (N-1)th translation      |  | | | |
 @node Security of MO Files
 @section Security considerations around MO Files
 
+@menu
+* Security recommendations::    How to install MO files
+* Security FAQ::                Are PO and MO files secure?
+@end menu
+
+@node Security recommendations
+@subsection Security recommendations
+
 A @code{.mo} file should be installed
 with the same write permissions as the program or library to which it belongs.
 For instance,
@@ -7128,10 +7141,82 @@ as the untranslated format string.
 @end itemize
 
 For these two reasons also, it is recommended that
-the @code{.mo} filesare created through @samp{msgfmt -c}.
+the @code{.mo} files are created through @samp{msgfmt -c}.
 The use of @code{msgfmt} will guarantee that the @code{.mo} file is well-formed,
 and the use of the @code{-c} or @code{--check} option will guarantee
 the consistency of the translations of format strings.
+
+@node Security FAQ
+@subsection Security FAQ
+
+Here we discuss the security topics in the form of a question - answer
+dialogue.
+
+Q: Can malicious @code{.mo} files crash a program?
+
+A: Yes.
+This can happen in two ways:
+@itemize @bullet
+@item
+If an offset in the @code{.mo} file is out-of-range,
+@code{_nl_find_msg} in @code{intl/dcigettext.c} will do
+an out-of-range memory access.
+@item
+Consider an msgid that is
+a format string that has @var{n} argument-consuming format directives.
+Usually the *printf invocation in the program passes exactly @var{n} arguments.
+If the translation is a format string that consumes more than @var{n} arguments,
+the *printf invocation encounters undefined behaviour and is likely to crash.
+(Note that this is a property of *printf, as available in C/C++/ObjC.
+In many other programming languages,
+the string formatting facility fails in a controlled way
+if passed too few arguments.)
+@end itemize
+
+Q: Can glibc or libintl harden the @code{.mo} file handling,
+so that malicious @code{.mo} files can no longer crash a program?
+
+A: No.
+While glibc or libintl can protect
+against dereferencing out-of-range offsets,
+it can not do anything regarding the *printf invocation
+(because @code{gettext()} does not receive the information
+about the expected number of argument-consuming format directives).
+
+Q: Can @code{.mo} files shipped in a distribution crash the programs,
+and if not, why not?
+
+A: No, they cannot, because the @code{.mo} files are
+@itemize @bullet
+@item
+created through @code{msgmerge} followed by @code{msgfmt -c},
+which avoids both of the dangers mentioned above,
+@item
+installed in a read-only location (under @code{/usr/share/locale/}).
+@end itemize
+
+Q: Are @code{.mo} files generally trusted to not crash the program?
+
+A: Yes, if they were created
+through @code{msgmerge} followed by @code{msgfmt -c}.
+@code{msgfmt -c} rejects translations that are marked as @code{c-format}
+but don't have matching format string directives.
+@code{msgmerge} makes sure that a malicious translator
+cannot circumvent this by removing the @code{c-format} flag on a translation.
+
+Q: Are PO files from the translators trusted to not crash the program?
+
+A: No.
+Translators may translate format strings incorrectly,
+or may remove @code{c-format} flags.
+It is the job of @code{msgmerge} and @code{msgfmt -c}
+to eliminate these possibilities.
+
+Q: Can PO files from the translators be malicious in other ways?
+
+A: Yes.
+There have been cases of translators submitting PO files full of swear words.
+Protections against such scenarios are not in place so far.
 
 @node Programmers
 @chapter The Programmer's View
