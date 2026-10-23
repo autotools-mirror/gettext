@@ -700,7 +700,8 @@ accumulate_escaped (struct mixed_string_buffer *literal, int delimiter)
         }
       if (RED (c) == '\\')
         c = do_getc_escaped ();
-      mixed_string_buffer_append (literal, c);
+      if (literal)
+        mixed_string_buffer_append (literal, c);
     }
 }
 
@@ -1269,15 +1270,9 @@ phase5_get (token_ty *tp)
 
         case '\'':
           /* Character literal.  */
-          {
-            struct mixed_string_buffer literal;
-            mixed_string_buffer_init (&literal, lc_outside,
-                                      logical_file_name, line_number);
-            accumulate_escaped (&literal, '\'');
-            mixed_string_buffer_destroy (&literal);
-            tp->type = token_type_other;
-            return;
-          }
+          accumulate_escaped (NULL, '\'');
+          tp->type = token_type_other;
+          return;
 
         case '+':
           c = phase3_getc ();
