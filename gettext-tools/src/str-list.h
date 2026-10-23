@@ -82,18 +82,19 @@ extern char *string_list_concat_destroy (string_list_ty *slp);
    strings in the list, separated by the separator string, terminated
    by the terminator character.  The terminator character is not added if
    drop_redundant_terminator is true and the last string already ends with
-   the terminator. */
+   the terminator.  */
 extern char *string_list_join (const string_list_ty *slp, const char *separator,
                                char terminator, bool drop_redundant_terminator);
 
-/* Return 1 if s is contained in the list of strings, 0 otherwise.  */
+/* Return true if s is contained in the list of strings, false otherwise.  */
 extern bool string_list_member (const string_list_ty *slp, const char *s);
 /* Likewise with a string descriptor as argument.  */
 extern bool string_list_member_desc (const string_list_ty *slp,
                                      const char *s, size_t s_len);
 
-/* Remove s from the list of strings.  Return the removed string or NULL.  */
-extern const char * string_list_remove (string_list_ty *slp, const char *s);
+/* Remove s from the list of strings.  Return the removed string, now owned
+   by the caller, or NULL.  */
+extern char * string_list_remove (string_list_ty *slp, const char *s);
 
 
 #ifdef __cplusplus

@@ -221,11 +221,11 @@ extract_ruby (const char *found_in_dir, const char *real_filename,
                           if (interesting)
                             if (mp->comment_dot != NULL)
                               {
-                                const char *removed =
+                                char *removed =
                                   string_list_remove (mp->comment_dot, s);
 
                                 if (removed != NULL)
-                                  free ((char *) removed);
+                                  free (removed);
                               }
                         }
                     }

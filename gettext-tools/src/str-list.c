@@ -218,7 +218,7 @@ string_list_concat_destroy (string_list_ty *slp)
    strings in the list, separated by the separator string, terminated
    by the terminator character.  The terminator character is not added if
    drop_redundant_terminator is true and the last string already ends with
-   the terminator. */
+   the terminator.  */
 char *
 string_list_join (const string_list_ty *slp, const char *separator,
                   char terminator, bool drop_redundant_terminator)
@@ -266,7 +266,7 @@ string_list_join (const string_list_ty *slp, const char *separator,
 }
 
 
-/* Return 1 if s is contained in the list of strings, 0 otherwise.  */
+/* Return true if s is contained in the list of strings, false otherwise.  */
 bool
 string_list_member (const string_list_ty *slp, const char *s)
 {
@@ -287,8 +287,9 @@ string_list_member_desc (const string_list_ty *slp, const char *s, size_t s_len)
 }
 
 
-/* Remove s from the list of strings.  Return the removed string or NULL.  */
-const char *
+/* Remove s from the list of strings.  Return the removed string, now owned
+   by the caller, or NULL.  */
+char *
 string_list_remove (string_list_ty *slp, const char *s)
 {
   for (size_t j = 0; j < slp->nitems; ++j)
@@ -299,7 +300,7 @@ string_list_remove (string_list_ty *slp, const char *s)
           memmove (&slp->item[j + 1], &slp->item[j],
                    (slp->nitems - j - 1) * sizeof (const char *));
         slp->nitems--;
-        return found;
+        return (char *) found;
       }
   return NULL;
 }
