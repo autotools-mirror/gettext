@@ -58,7 +58,7 @@ noinst_HEADERS = \
   open-catalog.h read-catalog-special.h \
   read-catalog-abstract.h read-catalog.h read-catalog-file.h \
   read-po.h read-properties.h read-stringtable.h \
-  string-list.h \
+  string-list.h string-desc-list.h \
   write-catalog.h write-po.h write-properties.h write-stringtable.h \
   dir-list.h file-list.h read-po-gram.h cldr-plural.h \
   cldr-plural-exp.h locating-rules.h its.h search-path.h \
@@ -188,7 +188,8 @@ COMMON_SOURCE += \
   read-stringtable.c \
   open-catalog.c \
   dir-list.c \
-  string-list.c
+  string-list.c \
+  string-desc-list.c
 
 # xgettext and msgfmt deal with format strings.
 if !WOE32DLL
