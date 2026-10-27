@@ -20,7 +20,7 @@
 #define _MESSAGE_H
 
 #include "attribute.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "pos.h"
 #include "mem-hash-map.h"
 

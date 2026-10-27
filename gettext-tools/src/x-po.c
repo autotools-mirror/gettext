@@ -37,7 +37,7 @@
 #include "read-po.h"
 #include "read-properties.h"
 #include "read-stringtable.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "msgl-header.h"
 #include "msgl-iconv.h"
 #include "msgl-ascii.h"

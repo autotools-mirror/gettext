@@ -33,7 +33,7 @@
 #include <error.h>
 #include "attribute.h"
 #include "message.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "rc-str-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"

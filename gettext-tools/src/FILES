@@ -5,8 +5,8 @@ The msg* and xgettext programs.
 
 Bottom-up structure:
 
-str-list.h
-str-list.c
+string-list.h
+string-list.c
                 A list-of-immutable-strings type.
 
 dir-list.h

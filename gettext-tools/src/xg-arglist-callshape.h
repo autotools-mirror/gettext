@@ -25,7 +25,7 @@
 
 #include "attribute.h"
 #include "flexmember.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "mem-hash-map.h"
 
 #ifdef __cplusplus

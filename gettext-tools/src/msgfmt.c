@@ -32,7 +32,7 @@
 #include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "dir-list.h"
 #include "error-progname.h"
 #include "progname.h"

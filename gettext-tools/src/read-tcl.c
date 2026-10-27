@@ -35,7 +35,7 @@
 #include "wait-process.h"
 #include "read-catalog.h"
 #include "read-po.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "xerror-handler.h"
 #include "xmalloca.h"
 #include "gettext.h"

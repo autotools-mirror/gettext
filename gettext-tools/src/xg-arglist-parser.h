@@ -26,7 +26,7 @@
 #include "attribute.h"
 #include "pos.h"
 #include "rc-str-list.h"
-#include "str-list.h"
+#include "string-list.h"
 
 #include "xg-mixed-string.h"
 #include "xg-arglist-context.h"

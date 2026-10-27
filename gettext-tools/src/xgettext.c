@@ -51,7 +51,7 @@
 #include "closeout.h"
 #include "dir-list.h"
 #include "file-list.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "gl_set.h"
 #include "gl_xset.h"
 #include "gl_hash_set.h"

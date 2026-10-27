@@ -23,7 +23,7 @@
 #include <stdio.h>
 #include "mem-hash-map.h"
 #include "pos.h"
-#include "str-list.h"
+#include "string-list.h"
 
 #ifdef __cplusplus
 extern "C" {

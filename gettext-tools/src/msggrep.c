@@ -57,7 +57,7 @@
 #include "write-properties.h"
 #include "write-stringtable.h"
 #include "xerror-handler.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "msgl-charset.h"
 #include "xalloc.h"
 #include "xmalloca.h"

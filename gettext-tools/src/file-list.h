@@ -19,7 +19,7 @@
 #ifndef _FILE_LIST_H
 #define _FILE_LIST_H
 
-#include "str-list.h"
+#include "string-list.h"
 
 
 #ifdef __cplusplus

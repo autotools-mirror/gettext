@@ -24,7 +24,7 @@
 
 #include "message.h"
 #include "xerror-handler.h"
-#include "str-list.h"
+#include "string-list.h"
 
 
 #ifdef __cplusplus

@@ -52,7 +52,7 @@
 #include "c-strstr.h"
 #include "pos.h"
 #include "message.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "read-po.h"
 #include "read-po-internal.h"
 #include "read-po-gram.h"

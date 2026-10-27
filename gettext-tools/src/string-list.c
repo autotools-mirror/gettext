@@ -19,7 +19,7 @@
 #include <config.h>
 
 /* Specification.  */
-#include "str-list.h"
+#include "string-list.h"
 
 #include <stdio.h>
 #include <stdlib.h>

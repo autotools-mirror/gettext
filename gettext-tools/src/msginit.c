@@ -84,7 +84,7 @@
 #include "copy-file.h"
 #include "xsetenv.h"
 #include "xstriconv.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "propername.h"
 #include "gettext.h"
 

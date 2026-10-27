@@ -22,7 +22,7 @@
 #include "message.h"
 #include "read-catalog-abstract.h"
 #include "xerror-handler.h"
-#include "str-list.h"
+#include "string-list.h"
 
 #include <stdbool.h>
 #include <stdio.h>

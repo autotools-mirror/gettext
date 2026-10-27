@@ -24,7 +24,7 @@
 #include <stdbool.h>
 
 #include <error.h>
-#include "str-list.h"
+#include "string-list.h"
 #include "pos.h"
 #include "read-catalog-abstract.h"
 

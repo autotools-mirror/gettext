@@ -44,7 +44,7 @@
 #include "xg-message.h"
 #include "if-error.h"
 #include "xalloc.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "mem-hash-map.h"
 #include "gl_map.h"
 #include "gl_xmap.h"

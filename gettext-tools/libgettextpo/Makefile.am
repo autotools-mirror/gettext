@@ -53,7 +53,7 @@ libgettextpo_la_SOURCES = \
   $(libgettextpo_la_AUXSOURCES)
 # These are auxiliary sources whose symbols should not be exported.
 libgettextpo_la_AUXSOURCES = \
-  ../src/str-list.c \
+  ../src/string-list.c \
   ../src/message.c \
   ../src/pos.c \
   ../src/msgl-ascii.c \

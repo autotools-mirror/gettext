@@ -25,7 +25,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 
-#include "str-list.h"
+#include "string-list.h"
 
 static string_list_ty *directory /* = NULL */;
 

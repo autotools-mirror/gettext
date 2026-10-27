@@ -22,7 +22,7 @@
 #include "read-catalog-file.h"
 
 #include "open-catalog.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "xerror-handler.h"
 
 

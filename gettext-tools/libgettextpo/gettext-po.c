@@ -27,7 +27,7 @@
 #include <string.h>
 
 #include "message.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "xalloc.h"
 #include "read-catalog.h"
 #include "read-po.h"

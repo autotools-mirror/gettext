@@ -58,7 +58,7 @@ noinst_HEADERS = \
   open-catalog.h read-catalog-special.h \
   read-catalog-abstract.h read-catalog.h read-catalog-file.h \
   read-po.h read-properties.h read-stringtable.h \
-  str-list.h \
+  string-list.h \
   write-catalog.h write-po.h write-properties.h write-stringtable.h \
   dir-list.h file-list.h read-po-gram.h cldr-plural.h \
   cldr-plural-exp.h locating-rules.h its.h search-path.h \
@@ -164,11 +164,11 @@ CSHARPCOMPFLAGS = @CSHARPCOMPFLAGS@
 # All programs deal with message lists.
 # All programs must read PO files. (msgunfmt also, for read-java.c,
 # read-csharp.c and read-resources.c.)
-# message.c -> str-list.c.
-# (read-catalog-abstract.c <--> read-po-gram.y <--> read-po-lex.c) -> str-list.c.
+# message.c -> string-list.c.
+# (read-catalog-abstract.c <--> read-po-gram.y <--> read-po-lex.c) -> string-list.c.
 # (read-catalog-abstract.c <--> read-po-gram.y <--> read-po-lex.c) -> po-charset.c.
-# (read-catalog-abstract.c <--> read-po-gram.y <--> read-po-lex.c) -> message.c -> str-list.c.
-# read-catalog-file.c -> open-catalog.c -> dir-list.c -> str-list.c.
+# (read-catalog-abstract.c <--> read-po-gram.y <--> read-po-lex.c) -> message.c -> string-list.c.
+# read-catalog-file.c -> open-catalog.c -> dir-list.c -> string-list.c.
 COMMON_SOURCE = \
   message.c \
   pos.c \
@@ -188,7 +188,7 @@ COMMON_SOURCE += \
   read-stringtable.c \
   open-catalog.c \
   dir-list.c \
-  str-list.c
+  string-list.c
 
 # xgettext and msgfmt deal with format strings.
 if !WOE32DLL

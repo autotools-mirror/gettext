@@ -28,7 +28,7 @@
 #include <string.h>
 
 #include <error.h>
-#include "str-list.h"
+#include "string-list.h"
 #include "read-po-lex.h"
 #include "po-charset.h"
 #include "xalloc.h"

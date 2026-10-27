@@ -31,7 +31,7 @@
 #include "noreturn.h"
 #include "closeout.h"
 #include "dir-list.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "error-progname.h"
 #include "progname.h"
 #include "relocatable.h"

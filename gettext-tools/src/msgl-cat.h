@@ -22,7 +22,7 @@
 #include <stdbool.h>
 
 #include "message.h"
-#include "str-list.h"
+#include "string-list.h"
 #include "read-catalog-abstract.h"
 
 

@@ -16,8 +16,8 @@
 
 /* Written by Peter Miller, Ulrich Drepper, and Bruno Haible.  */
 
-#ifndef _STR_LIST_H
-#define _STR_LIST_H 1
+#ifndef _STRING_LIST_H
+#define _STRING_LIST_H 1
 
 /* Get size_t and NULL.  */
 #include <stddef.h>
@@ -102,4 +102,4 @@ extern char * string_list_remove (string_list_ty *slp, const char *s);
 #endif
 
 
-#endif /* _STR_LIST_H */
+#endif /* _STRING_LIST_H */
