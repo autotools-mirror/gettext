@@ -139,7 +139,7 @@ extract_desktop_handle_comment (struct desktop_reader_ty *reader,
   while (bufpos < buflen
          && c_isspace (buffer[bufpos]))
     ++bufpos;
-  while (buflen >= bufpos
+  while (buflen > bufpos
          && c_isspace (buffer[buflen - 1]))
     --buflen;
   if (bufpos < buflen)
