@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Shell support: NUL characters in extracted comments.
+
+{
+printf '# TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+gettext "one"
+EOF
+} > xg-sh-nul-1.sh
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-sh-nul-1.tmp xg-sh-nul-1.sh || Exit 1
+LC_ALL=C tr -d '\r' < xg-sh-nul-1.tmp.po > xg-sh-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+EOF
+} > xg-sh-nul-1.ok
+
+cmp xg-sh-nul-1.ok xg-sh-nul-1.po
+result=$?
+
+exit $result

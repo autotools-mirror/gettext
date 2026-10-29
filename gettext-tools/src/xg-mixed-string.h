@@ -24,6 +24,7 @@
 #include <stddef.h>
 
 #include "attribute.h"
+#include "string-desc.h"
 #include "xg-encoding.h"
 
 #ifdef __cplusplus
@@ -83,7 +84,7 @@ extern mixed_string_ty *
 /* Returns the contents of a mixed_string as an UTF-8 encoded string.
    This may provoke an error if no source encoding has been specified
    through --from-code.  The result is freshly allocated.  */
-extern char *
+extern rw_string_desc_t
        mixed_string_contents (const mixed_string_ty *ms);
 
 /* Frees a mixed_string.  */
@@ -92,7 +93,7 @@ extern void
 
 /* Returns the contents of a mixed_string as an UTF-8 encoded string,
    and frees the argument.  */
-extern char *
+extern rw_string_desc_t
        mixed_string_contents_free1 (mixed_string_ty *ms);
 
 /* Concatenates two mixed_strings.  */

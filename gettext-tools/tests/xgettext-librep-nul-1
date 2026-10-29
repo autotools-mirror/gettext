@@ -1,0 +1,39 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test librep support: NUL characters in extracted comments.
+
+{
+printf '; TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+(princ (_ "one"))
+EOF
+printf '#| TRANSLATORS: This \0too. |#\n'
+cat <<\EOF
+(princ (_ "two"))
+EOF
+} > xg-lr-nul-1.jl
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-lr-nul-1.tmp xg-lr-nul-1.jl || Exit 1
+LC_ALL=C tr -d '\r' < xg-lr-nul-1.tmp.po > xg-lr-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+
+EOF
+printf '#. TRANSLATORS: This \0too.\n'
+cat <<\EOF
+msgid "two"
+msgstr ""
+EOF
+} > xg-lr-nul-1.ok
+
+cmp xg-lr-nul-1.ok xg-lr-nul-1.po
+result=$?
+
+exit $result

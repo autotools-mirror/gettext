@@ -30,6 +30,7 @@
 #define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
 #include "message.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -137,13 +138,7 @@ comment_line_end ()
   while (buflen >= 1
          && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
-  if (buflen >= bufmax)
-    {
-      bufmax = 2 * bufmax + 10;
-      buffer = xrealloc (buffer, bufmax);
-    }
-  buffer[buflen] = '\0';
-  savable_comment_add (buffer);
+  savable_comment_add (sd_new_addr (buflen, (const char *) buffer));
 }
 
 
@@ -170,8 +165,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;         /* for token_type_string_literal, token_type_symbol */
-  refcounted_string_list_ty *comment;  /* for token_type_string_literal */
+  char *string;                            /* for token_type_string_literal, token_type_symbol */
+  refcounted_string_desc_list_ty *comment; /* for token_type_string_literal */
   int line_number;
 };
 
@@ -629,7 +624,7 @@ extract_smalltalk (FILE *f,
                 pos.line_number = token.line_number;
                 remember_a_message (mlp, NULL, token.string, false, false,
                                     null_context_region (), &pos,
-                                    NULL, token.comment, false);
+                                    sd_new_empty (), token.comment, false);
                 state = 0;
                 break;
               }
@@ -647,7 +642,7 @@ extract_smalltalk (FILE *f,
                                       token2.type == token_type_symbol
                                       && streq (token.string, "plural:"),
                                       null_context_region (), &pos,
-                                      NULL, token.comment, false);
+                                      sd_new_empty (), token.comment, false);
 
                 phase4_unget (&token2);
 

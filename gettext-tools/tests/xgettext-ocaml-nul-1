@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test OCaml support: NUL characters in extracted comments.
+
+{
+printf '(* TRANSLATORS: This is an \0extracted comment. *)\n'
+cat <<\EOF
+let s1 = s_ "one" in
+EOF
+} > xg-oc-nul-1.ml
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-oc-nul-1.tmp xg-oc-nul-1.ml || Exit 1
+LC_ALL=C tr -d '\r' < xg-oc-nul-1.tmp.po > xg-oc-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+EOF
+} > xg-oc-nul-1.ok
+
+cmp xg-oc-nul-1.ok xg-oc-nul-1.po
+result=$?
+
+exit $result

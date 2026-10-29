@@ -32,8 +32,10 @@
 #define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "message.h"
-#include "rc-str-list.h"
+#include "rc-string-desc-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
@@ -835,13 +837,7 @@ comment_line_end (size_t chars_to_remove)
   while (buflen >= 1
          && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
-  if (chars_to_remove == 0 && buflen >= bufmax)
-    {
-      bufmax = 2 * bufmax + 10;
-      buffer = xrealloc (buffer, bufmax);
-    }
-  buffer[buflen] = '\0';
-  savable_comment_add (buffer);
+  savable_comment_add (sd_new_addr (buflen, (const char *) buffer));
 }
 
 
@@ -973,10 +969,10 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;                         /* for token_type_name */
-  mixed_string_ty *mixed_string;        /* for token_type_string_literal */
-  refcounted_string_list_ty *comment;   /* for token_type_string_literal,
-                                           token_type_objc_special */
+  char *string;                            /* for token_type_name */
+  mixed_string_ty *mixed_string;           /* for token_type_string_literal */
+  refcounted_string_desc_list_ty *comment; /* for token_type_string_literal,
+                                              token_type_objc_special */
   long number;
   int line_number;
 };
@@ -1921,13 +1917,17 @@ phase6_get (token_ty *tp)
           && buf[1].type == token_type_number
           && buf[2].type == token_type_string_literal)
         {
-          logical_file_name = mixed_string_contents (buf[2].mixed_string);
+          rw_string_desc_t token2_string = mixed_string_contents (buf[2].mixed_string);
+          logical_file_name = xsd_c (token2_string);
+          sd_free (token2_string);
           line_number = buf[1].number;
         }
       if (bufpos >= 2 && buf[0].type == token_type_number
           && buf[1].type == token_type_string_literal)
         {
-          logical_file_name = mixed_string_contents (buf[1].mixed_string);
+          rw_string_desc_t token1_string = mixed_string_contents (buf[1].mixed_string);
+          logical_file_name = xsd_c (token1_string);
+          sd_free (token1_string);
           line_number = buf[0].number;
         }
 
@@ -2145,7 +2145,7 @@ struct xgettext_token_ty
   mixed_string_ty *mixed_string;
 
   /* This field is used only for xgettext_token_type_string_literal.  */
-  refcounted_string_list_ty *comment;
+  refcounted_string_desc_list_ty *comment;
 
   /* This field is used only for xgettext_token_type_symbol,
      xgettext_token_type_string_literal.  */
@@ -2476,11 +2476,12 @@ extract_parenthesized (message_list_ty *mlp,
           {
             if (extract_all)
               {
-                char *string = mixed_string_contents (token.mixed_string);
+                rw_string_desc_t string = mixed_string_contents (token.mixed_string);
                 mixed_string_free (token.mixed_string);
-                remember_a_message (mlp, NULL, string, true, false,
+                char *msgid = xsd_c (string);
+                remember_a_message (mlp, NULL, msgid, true, false,
                                     inner_region, &token.pos,
-                                    NULL, token.comment, false);
+                                    sd_new_empty (), token.comment, false);
               }
             else
               arglist_parser_remember (argparser, arg, token.mixed_string,

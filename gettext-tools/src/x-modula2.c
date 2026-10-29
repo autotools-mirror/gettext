@@ -30,6 +30,7 @@
 
 #define SB_NO_APPENDF
 #include <error.h>
+#include "string-desc.h"
 #include "attribute.h"
 #include "message.h"
 #include "xgettext.h"
@@ -230,7 +231,7 @@ phase2_getc ()
                              && (buffer.data[buffer.length - 1] == ' '
                                  || buffer.data[buffer.length - 1] == '\t'))
                         --buffer.length;
-                      savable_comment_add (sb_xdupfree_c (&buffer));
+                      savable_comment_add (sd_readonly (sb_xdupfree (&buffer)));
                       break;
                     }
                   nesting--;
@@ -250,7 +251,7 @@ phase2_getc ()
                          && (buffer.data[buffer.length - 1] == ' '
                              || buffer.data[buffer.length - 1] == '\t'))
                     --buffer.length;
-                  savable_comment_add (sb_xdupfree_c (&buffer));
+                  savable_comment_add (sd_readonly (sb_xdupfree (&buffer)));
                   sb_init (&buffer);
                   lineno = line_number;
                 }
@@ -302,8 +303,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;         /* for token_type_string_literal, token_type_symbol */
-  refcounted_string_list_ty *comment;   /* for token_type_string_literal */
+  char *string;                            /* for token_type_string_literal, token_type_symbol */
+  refcounted_string_desc_list_ty *comment; /* for token_type_string_literal */
   int line_number;
 };
 
@@ -715,7 +716,7 @@ extract_parenthesized (message_list_ty *mlp,
             if (extract_all)
               remember_a_message (mlp, NULL, token.string, false, false,
                                   inner_region, &pos,
-                                  NULL, token.comment, false);
+                                  sd_new_empty (), token.comment, false);
             else
               {
                 mixed_string_ty *ms =

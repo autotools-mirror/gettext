@@ -30,6 +30,8 @@
 
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "message.h"
 #include "xgettext.h"
 #include "unicase.h"
@@ -900,13 +902,7 @@ comment_line_end (size_t chars_to_remove)
   while (buflen >= 1
          && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
-  if (chars_to_remove == 0 && buflen >= bufmax)
-    {
-      bufmax = 2 * bufmax + 10;
-      buffer = xrealloc (buffer, bufmax);
-    }
-  buffer[buflen] = '\0';
-  savable_comment_add (buffer);
+  savable_comment_add (sd_new_addr (buflen, (const char *) buffer));
 }
 
 
@@ -974,7 +970,9 @@ string_of_object (const struct object *op)
     }
   else if (op->type == t_string)
     {
-      str = mixed_string_contents (op->mixed_string);
+      rw_string_desc_t string = mixed_string_contents (op->mixed_string);
+      str = xsd_c (string);
+      sd_free (string);
       /* In this case, str is UTF-8 encoded.  */
     }
   else
@@ -1755,7 +1753,7 @@ read_object (struct object *op, flag_region_ty *outer_region)
 
                 remember_a_message (mlp, NULL, string_of_object (op), true,
                                     false, null_context_region (), &pos,
-                                    NULL, savable_comment, false);
+                                    sd_new_empty (), savable_comment, false);
               }
             last_non_comment_line = line_number;
             return;

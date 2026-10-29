@@ -30,6 +30,8 @@
 #include <string.h>
 
 #include <error.h>
+#include "string-desc.h"
+#include "string-desc-list.h"
 #include "xerror.h"
 #include "xvasprintf.h"
 #include "message.h"
@@ -800,8 +802,8 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
                 bool all_comments_equal = true;
                 for (size_t i = 0; i < tmp->alternative_count; i++)
                   if (tmp->alternative[i].comment_dot == NULL
-                      || !string_list_equal (tmp->alternative[i].comment_dot,
-                                             first->comment_dot))
+                      || !string_desc_list_equal (tmp->alternative[i].comment_dot,
+                                                  first->comment_dot))
                     {
                       all_comments_equal = false;
                       break;
@@ -815,12 +817,12 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
                      separated by markers.  */
                   for (size_t i = 0; i < tmp->alternative_count; i++)
                     {
-                      string_list_ty *slp = tmp->alternative[i].comment_dot;
+                      string_desc_list_ty *slp = tmp->alternative[i].comment_dot;
 
                       if (slp != NULL)
                         {
                           message_comment_dot_append (tmp,
-                                                      tmp->alternative[i].id);
+                                                      sd_from_c (tmp->alternative[i].id));
                           for (size_t l = 0; l < slp->nitems; l++)
                             message_comment_dot_append (tmp, slp->item[l]);
                         }

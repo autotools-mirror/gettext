@@ -25,6 +25,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "string-desc.h"
+#include "string-desc-list.h"
 #include "po-charset.h"
 #include "read-po-lex.h"
 #include "xerror-handler.h"
@@ -119,7 +121,7 @@ default_destructor (abstract_catalog_reader_ty *catr)
       if (dcatr->comment != NULL)
         string_list_free (dcatr->comment);
       if (dcatr->comment_dot != NULL)
-        string_list_free (dcatr->comment_dot);
+        string_desc_list_free (dcatr->comment_dot);
     }
 
   for (size_t j = 0; j < dcatr->filepos_count; ++j)
@@ -183,7 +185,7 @@ default_reset_comment_state (default_catalog_reader_ty *dcatr)
         }
       if (dcatr->comment_dot != NULL)
         {
-          string_list_free (dcatr->comment_dot);
+          string_desc_list_free (dcatr->comment_dot);
           dcatr->comment_dot = NULL;
         }
     }
@@ -258,15 +260,15 @@ default_comment (abstract_catalog_reader_ty *catr, const char *s)
 
 
 void
-default_comment_dot (abstract_catalog_reader_ty *catr, const char *s)
+default_comment_dot (abstract_catalog_reader_ty *catr, string_desc_t s)
 {
   default_catalog_reader_ty *dcatr = (default_catalog_reader_ty *) catr;
 
   if (dcatr->handle_comments)
     {
       if (dcatr->comment_dot == NULL)
-        dcatr->comment_dot = string_list_alloc ();
-      string_list_append (dcatr->comment_dot, s);
+        dcatr->comment_dot = string_desc_list_alloc ();
+      string_desc_list_append (dcatr->comment_dot, s);
     }
 }
 

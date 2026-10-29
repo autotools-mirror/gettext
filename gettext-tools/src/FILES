@@ -352,7 +352,7 @@ msgl-check.c
 | if-error.h
 | if-error.c
 |               Error handling during reading of input files.
-| rc-str-list.h
+| rc-string-desc-list.h
 |               A reference-counted list-of-immutable-strings type.
 | xg-pos.h
 | xg-pos.c

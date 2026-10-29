@@ -25,6 +25,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "if-error.h"
 #include "flexmember.h"
 #include "xalloc.h"
@@ -142,7 +144,7 @@ arglist_parser_remember (struct arglist_parser *ap,
                          int argnum, mixed_string_ty *string,
                          flag_region_ty *region,
                          const char *file_name, size_t line_number,
-                         refcounted_string_list_ty *comment,
+                         refcounted_string_desc_list_ty *comment,
                          bool comment_is_utf8)
 {
   if (!(argnum > 0))
@@ -393,18 +395,18 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
 
           char *best_msgctxt =
             (best_cp->msgctxt != NULL
-             ? mixed_string_contents_free1 (best_cp->msgctxt)
+             ? xsd_c (mixed_string_contents_free1 (best_cp->msgctxt))
              : NULL);
           char *best_msgid =
             (best_cp->msgid != NULL
-             ? mixed_string_contents_free1 (best_cp->msgid)
+             ? xsd_c (mixed_string_contents_free1 (best_cp->msgid))
              : NULL);
           char *best_msgid_plural =
             (best_cp->msgid_plural != NULL
              ? /* Special support for the 3-argument tr operator in Qt.  */
                (best_cp->msgid_plural == best_cp->msgid
                 ? xstrdup (best_msgid)
-                : mixed_string_contents_free1 (best_cp->msgid_plural))
+                : xsd_c (mixed_string_contents_free1 (best_cp->msgid_plural)))
              : NULL);
 
           /* Split strings in the GNOME glib syntax "msgctxt|msgid".  */
@@ -474,7 +476,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                                 best_msgid_plural != NULL,
                                 msgid_region,
                                 &best_cp->msgid_pos,
-                                NULL, best_cp->msgid_comment,
+                                sd_new_empty (), best_cp->msgid_comment,
                                 best_cp->msgid_comment_is_utf8);
           if (mp != NULL && best_msgid_plural != NULL)
             remember_a_message_plural (mp, best_msgid_plural, true,
@@ -488,13 +490,13 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                  present.  */
               for (size_t j = 0; j < best_cp->xcomments.nitems; j++)
                 {
-                  const char *xcomment = best_cp->xcomments.item[j];
+                  string_desc_t xcomment = best_cp->xcomments.item[j];
 
                   bool found = false;
                   if (mp != NULL && mp->comment_dot != NULL)
                     {
                       for (size_t k = 0; k < mp->comment_dot->nitems; k++)
-                        if (streq (xcomment, mp->comment_dot->item[k]))
+                        if (sd_equals (xcomment, mp->comment_dot->item[k]))
                           {
                             found = true;
                             break;

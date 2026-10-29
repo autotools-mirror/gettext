@@ -25,8 +25,9 @@
 
 #include "attribute.h"
 #include "pos.h"
-#include "rc-str-list.h"
+#include "rc-string-desc-list.h"
 #include "string-list.h"
+#include "string-desc-list.h"
 
 #include "xg-mixed-string.h"
 #include "xg-arglist-context.h"
@@ -41,19 +42,19 @@ extern "C" {
    'struct callshape'.  */
 struct partial_call
 {
-  int argnumc;                  /* number of context argument, 0 when seen */
-  int argnum1;                  /* number of singular argument, 0 when seen */
-  int argnum2;                  /* number of plural argument, 0 when seen */
-  bool argnum1_glib_context;    /* argument argnum1 has the syntax "ctxt|msgid" */
-  bool argnum2_glib_context;    /* argument argnum2 has the syntax "ctxt|msgid" */
-  int argtotal;                 /* total number of arguments, 0 if unspecified */
-  string_list_ty xcomments;     /* auto-extracted comments */
-  mixed_string_ty *msgctxt;     /* context - owned mixed_string, or NULL */
+  int argnumc;                   /* number of context argument, 0 when seen */
+  int argnum1;                   /* number of singular argument, 0 when seen */
+  int argnum2;                   /* number of plural argument, 0 when seen */
+  bool argnum1_glib_context;     /* argument argnum1 has the syntax "ctxt|msgid" */
+  bool argnum2_glib_context;     /* argument argnum2 has the syntax "ctxt|msgid" */
+  int argtotal;                  /* total number of arguments, 0 if unspecified */
+  string_desc_list_ty xcomments; /* auto-extracted comments */
+  mixed_string_ty *msgctxt;      /* context - owned mixed_string, or NULL */
   lex_pos_ty msgctxt_pos;
-  mixed_string_ty *msgid;       /* msgid - owned mixed_string, or NULL */
+  mixed_string_ty *msgid;        /* msgid - owned mixed_string, or NULL */
   flag_region_ty *msgid_region;
   lex_pos_ty msgid_pos;
-  refcounted_string_list_ty *msgid_comment;
+  refcounted_string_desc_list_ty *msgid_comment;
   bool msgid_comment_is_utf8;
   mixed_string_ty *msgid_plural; /* msgid_plural - owned mixed_string, or NULL */
   flag_region_ty *msgid_plural_region;
@@ -64,12 +65,12 @@ struct partial_call
    'struct callshapes'.  */
 struct arglist_parser
 {
-  message_list_ty *mlp;         /* list where the message shall be added */
-  size_t keyword_len;           /* the keyword's length */
-  const char *keyword           /* the keyword, not NUL terminated */
+  message_list_ty *mlp;          /* list where the message shall be added */
+  size_t keyword_len;            /* the keyword's length */
+  const char *keyword            /* the keyword, not NUL terminated */
     COUNTED_BY (keyword_len);
-  bool next_is_msgctxt;         /* true if the next argument is the msgctxt */
-  size_t nalternatives;         /* number of partial_call alternatives */
+  bool next_is_msgctxt;          /* true if the next argument is the msgctxt */
+  size_t nalternatives;          /* number of partial_call alternatives */
   struct partial_call alternative[FLEXIBLE_ARRAY_MEMBER] /* partial_call alternatives */
     COUNTED_BY (nalternatives);
 };
@@ -92,7 +93,7 @@ extern void arglist_parser_remember (struct arglist_parser *ap,
                                      int argnum, mixed_string_ty *string,
                                      flag_region_ty *region,
                                      const char *file_name, size_t line_number,
-                                     refcounted_string_list_ty *comment,
+                                     refcounted_string_desc_list_ty *comment,
                                      bool comment_is_utf8);
 /* Adds a string argument as msgctxt to an arglist_parser, without incrementing
    the current argument number.

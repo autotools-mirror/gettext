@@ -29,6 +29,7 @@
 #include <string.h>
 
 #include <error.h>
+#include "string-desc.h"
 #include "msgl-iconv.h"
 #include "xerror-handler.h"
 #include "msgl-header.h"
@@ -108,12 +109,12 @@ msgfmt_desktop_handle_pair (desktop_reader_ty *reader,
 }
 
 static void
-msgfmt_desktop_handle_comment (struct desktop_reader_ty *reader, const char *s)
+msgfmt_desktop_handle_comment (struct desktop_reader_ty *reader, string_desc_t s)
 {
   msgfmt_desktop_reader_ty *msgfmt_reader = (msgfmt_desktop_reader_ty *) reader;
 
   fputc ('#', msgfmt_reader->output_file);
-  fputs (s, msgfmt_reader->output_file);
+  sd_fwrite (msgfmt_reader->output_file, s);
   fputc ('\n', msgfmt_reader->output_file);
 }
 

@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Ruby support: NUL characters in extracted comments.
+
+{
+printf '# TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+_("one")
+EOF
+} > xg-ru-nul-1.rb
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-ru-nul-1.tmp xg-ru-nul-1.rb || Exit 1
+LC_ALL=C tr -d '\r' < xg-ru-nul-1.tmp.po > xg-ru-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+EOF
+} > xg-ru-nul-1.ok
+
+cmp xg-ru-nul-1.ok xg-ru-nul-1.po
+result=$?
+
+exit $result

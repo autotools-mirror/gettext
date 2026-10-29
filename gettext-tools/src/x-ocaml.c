@@ -29,9 +29,9 @@
 #include <string.h>
 
 #include <error.h>
-#include "message.h"
 #include "string-desc.h"
 #include "xstring-desc.h"
+#include "message.h"
 #include "string-buffer.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -258,7 +258,7 @@ static void save_comment_line (string_desc_t gist)
              || sd_char_at (gist, len - 1) == '\t'))
     len--;
   gist = sd_substring (gist, 0, len);
-  savable_comment_add (sd_c (gist));
+  savable_comment_add (gist);
 }
 
 /* Does the comment handling for NODE.
@@ -740,7 +740,7 @@ extract_from_function_call (TSNode function_node,
                     {
                       remember_a_message (mlp, NULL, string, true, false,
                                           arg_region, &pos,
-                                          NULL, savable_comment, true);
+                                          sd_new_empty (), savable_comment, true);
                       already_extracted = true;
                     }
                   else
@@ -822,7 +822,7 @@ extract_from_node (TSNode node,
 
       remember_a_message (mlp, NULL, string, true, false,
                           outer_region, &pos,
-                          NULL, savable_comment, true);
+                          sd_new_empty (), savable_comment, true);
     }
 
   if (ts_node_symbol (node) == ts_symbol_application_expression

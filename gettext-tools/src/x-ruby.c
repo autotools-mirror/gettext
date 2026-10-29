@@ -28,6 +28,9 @@
 #include <string.h>
 
 #include <error.h>
+#include "string-desc.h"
+#include "xstring-desc.h"
+#include "string-desc-list.h"
 #include "message.h"
 #include "sh-quote.h"
 #include "spawn-pipe.h"
@@ -36,7 +39,6 @@
 #include "x-po.h"
 #include "xgettext.h"
 #include "xg-message.h"
-#include "c-strstr.h"
 #include "read-catalog-special.h"
 #include "gettext.h"
 
@@ -167,17 +169,17 @@ extract_ruby (const char *found_in_dir, const char *real_filename,
 
               if (mp2 != NULL && mp2->comment_dot != NULL)
                 {
-                  string_list_ty *mp2_comment_dot = mp2->comment_dot;
+                  string_desc_list_ty *mp2_comment_dot = mp2->comment_dot;
 
                   for (size_t k = 0; k < mp2_comment_dot->nitems; k++)
                     {
-                      const char *s = mp2_comment_dot->item[k];
+                      string_desc_t s = mp2_comment_dot->item[k];
 
                       /* To reduce the possibility of unwanted matches we do a
                          two step match: the line must contain 'xgettext:' and
                          one of the possible format description strings.  */
-                      const char *t = c_strstr (s, "xgettext:");
-                      if (t != NULL)
+                      ptrdiff_t t = sd_contains (s, sd_from_c ("xgettext:"));
+                      if (t >= 0)
                         {
                           t += strlen ("xgettext:");
 
@@ -186,9 +188,10 @@ extract_ruby (const char *found_in_dir, const char *real_filename,
                           struct argument_range tmp_range;
                           enum is_wrap tmp_wrap;
                           enum is_syntax_check tmp_syntax_check[NSYNTAXCHECKS];
-                          parse_comment_special (t, &tmp_fuzzy, tmp_format,
-                                                 &tmp_range, &tmp_wrap,
-                                                 tmp_syntax_check);
+                          parse_comment_special (
+                            xsd_c (sd_new_addr (sd_length (s) - t, sd_data (s) + t)),
+                            &tmp_fuzzy, tmp_format, &tmp_range, &tmp_wrap,
+                            tmp_syntax_check);
 
                           bool interesting = false;
                           for (size_t i = 0; i < NFORMATS; i++)
@@ -221,11 +224,11 @@ extract_ruby (const char *found_in_dir, const char *real_filename,
                           if (interesting)
                             if (mp->comment_dot != NULL)
                               {
-                                char *removed =
-                                  string_list_remove (mp->comment_dot, s);
+                                rw_string_desc_t removed =
+                                  string_desc_list_remove (mp->comment_dot, s);
 
-                                if (removed != NULL)
-                                  free (removed);
+                                if (sd_data (removed) != NULL)
+                                  sd_free (removed);
                               }
                         }
                     }

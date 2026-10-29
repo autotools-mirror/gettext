@@ -35,6 +35,7 @@
 #include "progname.h"
 #include "basename-lgpl.h"
 #include "string-desc.h"
+#include "string-desc-list.h"
 #include "message.h"
 #include "po-charset.h"
 #include "msgl-header.h"
@@ -131,6 +132,24 @@ convert_string (const iconveh_t *cd, const char *string,
   return NULL;
 }
 
+static rw_string_desc_t
+convert_string_desc (const iconveh_t *cd, string_desc_t string,
+                     const struct conversion_context* context,
+                     xerror_handler_ty xeh)
+{
+  char *result = NULL;
+  size_t resultlen = 0;
+
+  if (xmem_cd_iconveh (sd_data (string), sd_length (string),
+                       cd, iconveh_error, NULL,
+                       &result, &resultlen) == 0)
+    return sd_new_addr (resultlen, result);
+
+  conversion_error (context, xeh);
+  /* NOTREACHED */
+  return sd_readwrite (sd_new_empty ());
+}
+
 static void
 convert_string_list (const iconveh_t *cd, string_list_ty *slp,
                      const struct conversion_context* context,
@@ -139,6 +158,17 @@ convert_string_list (const iconveh_t *cd, string_list_ty *slp,
   if (slp != NULL)
     for (size_t i = 0; i < slp->nitems; i++)
       slp->item[i] = convert_string (cd, slp->item[i], context, xeh);
+}
+
+static void
+convert_string_desc_list (const iconveh_t *cd, string_desc_list_ty *slp,
+                          const struct conversion_context* context,
+                          xerror_handler_ty xeh)
+{
+  if (slp != NULL)
+    for (size_t i = 0; i < slp->nitems; i++)
+      slp->item[i] =
+        sd_readonly (convert_string_desc (cd, slp->item[i], context, xeh));
 }
 
 static void
@@ -334,7 +364,7 @@ iconv_message_list_internal (message_list_ty *mlp,
             msgids_changed = true;
           context.message = mp;
           convert_string_list (&cd, mp->comment, &context, xeh);
-          convert_string_list (&cd, mp->comment_dot, &context, xeh);
+          convert_string_desc_list (&cd, mp->comment_dot, &context, xeh);
           convert_prev_msgid (&cd, mp, &context, xeh);
           convert_msgid (&cd, mp, &context, xeh);
           convert_msgstr (&cd, mp, &context, xeh);
@@ -422,11 +452,37 @@ iconvable_string (const iconveh_t *cd, const char *string)
 }
 
 static bool
+iconvable_string_desc (const iconveh_t *cd, string_desc_t string)
+{
+  char *result = NULL;
+  size_t resultlen = 0;
+
+  if (xmem_cd_iconveh (sd_data (string), sd_length (string),
+                       cd, iconveh_error, NULL,
+                       &result, &resultlen) == 0)
+    {
+      free (result);
+      return true;
+    }
+  return false;
+}
+
+static bool
 iconvable_string_list (const iconveh_t *cd, string_list_ty *slp)
 {
   if (slp != NULL)
     for (size_t i = 0; i < slp->nitems; i++)
       if (!iconvable_string (cd, slp->item[i]))
+        return false;
+  return true;
+}
+
+static bool
+iconvable_string_desc_list (const iconveh_t *cd, string_desc_list_ty *slp)
+{
+  if (slp != NULL)
+    for (size_t i = 0; i < slp->nitems; i++)
+      if (!iconvable_string_desc (cd, slp->item[i]))
         return false;
   return true;
 }
@@ -597,7 +653,7 @@ is_message_list_iconvable (message_list_ty *mlp,
           message_ty *mp = mlp->item[j];
 
           if (!(iconvable_string_list (&cd, mp->comment)
-                && iconvable_string_list (&cd, mp->comment_dot)
+                && iconvable_string_desc_list (&cd, mp->comment_dot)
                 && iconvable_prev_msgid (&cd, mp)
                 && iconvable_msgid (&cd, mp)
                 && iconvable_msgstr (&cd, mp)))

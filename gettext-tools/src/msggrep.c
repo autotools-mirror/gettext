@@ -57,7 +57,9 @@
 #include "write-properties.h"
 #include "write-stringtable.h"
 #include "xerror-handler.h"
+#include "string-desc.h"
 #include "string-list.h"
+#include "string-desc-list.h"
 #include "msgl-charset.h"
 #include "xalloc.h"
 #include "xmalloca.h"
@@ -811,7 +813,7 @@ is_message_selected_no_invert (const message_ty *mp)
       {
         length = 0;
         for (size_t j = 0; j < mp->comment_dot->nitems; j++)
-          length += strlen (mp->comment_dot->item[j]) + 1;
+          length += sd_length (mp->comment_dot->item[j]) + 1;
       }
       char *total_comment = (char *) xmalloca (length);
 
@@ -819,9 +821,9 @@ is_message_selected_no_invert (const message_ty *mp)
         char *q = total_comment;
         for (size_t j = 0; j < mp->comment_dot->nitems; j++)
           {
-            size_t l = strlen (mp->comment_dot->item[j]);
+            size_t l = sd_length (mp->comment_dot->item[j]);
 
-            memcpy (q, mp->comment_dot->item[j], l);
+            memcpy (q, sd_data (mp->comment_dot->item[j]), l);
             q += l;
             *q++ = '\n';
           }

@@ -1,0 +1,48 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Go support: NUL characters in extracted comments.
+
+{
+cat <<\EOF
+package main
+import (
+  "fmt"
+  "github.com/leonelquinteros/gotext"
+)
+func main () {
+EOF
+printf '// TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+fmt.Println(gotext.Get("one"))
+EOF
+printf '/* TRANSLATORS: This \0too. */\n'
+cat <<\EOF
+fmt.Println(gotext.Get("two"))
+}
+EOF
+} > xg-go-nul-1.go
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-go-nul-1.tmp xg-go-nul-1.go || Exit 1
+LC_ALL=C tr -d '\r' < xg-go-nul-1.tmp.po > xg-go-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+
+EOF
+printf '#. TRANSLATORS: This \0too.\n'
+cat <<\EOF
+msgid "two"
+msgstr ""
+EOF
+} > xg-go-nul-1.ok
+
+cmp xg-go-nul-1.ok xg-go-nul-1.po
+result=$?
+
+exit $result

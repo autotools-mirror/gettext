@@ -30,6 +30,7 @@
 
 #define SB_NO_APPENDF
 #include <error.h>
+#include "string-desc.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "string-buffer.h"
@@ -79,7 +80,7 @@ desktop_reader_handle_pair (desktop_reader_ty *reader,
 }
 
 void
-desktop_reader_handle_comment (desktop_reader_ty *reader, const char *s)
+desktop_reader_handle_comment (desktop_reader_ty *reader, string_desc_t s)
 {
   if (reader->methods->handle_comment)
     reader->methods->handle_comment (reader, s);
@@ -189,6 +190,7 @@ struct token_ty
 {
   token_type_ty type;
   char *string;
+  rw_string_desc_t stringdesc;
   const char *value;
   const char *locale;
   size_t lineno;
@@ -199,8 +201,10 @@ static inline void
 free_token (token_ty *tp)
 {
   if (tp->type == token_type_group || tp->type == token_type_pair
-      || tp->type == token_type_comment || tp->type == token_type_blank)
+      || tp->type == token_type_blank)
     free (tp->string);
+  else if (tp->type == token_type_comment)
+    sd_free (tp->stringdesc);
 }
 
 static void
@@ -279,9 +283,8 @@ desktop_lex (token_ty *tp)
                   break;
                 APPEND (c);
               }
-            APPEND (0);
             tp->type = token_type_comment;
-            tp->string = sb_xdupfree_c (&buffer);
+            tp->stringdesc = sb_xdupfree (&buffer);
             return;
           }
 
@@ -480,7 +483,7 @@ desktop_parse (desktop_reader_ty *reader, FILE *file,
           desktop_reader_handle_group (reader, token.string);
           break;
         case token_type_comment:
-          desktop_reader_handle_comment (reader, token.string);
+          desktop_reader_handle_comment (reader, sd_readonly (token.stringdesc));
           break;
         case token_type_pair:
           {

@@ -1,0 +1,45 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test C# support: NUL characters in extracted comments.
+
+{
+cat <<\EOF
+class TestCase {
+  public TestCase() {
+EOF
+printf '// TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+    String s1 = rm.GetString("one");
+EOF
+printf '/* TRANSLATORS: This \0too. */\n'
+cat <<\EOF
+    String s2 = rm.GetString("two");
+  }
+}
+EOF
+} > xg-cs-nul-1.cs
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-cs-nul-1.tmp xg-cs-nul-1.cs || Exit 1
+LC_ALL=C tr -d '\r' < xg-cs-nul-1.tmp.po > xg-cs-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+
+EOF
+printf '#. TRANSLATORS: This \0too.\n'
+cat <<\EOF
+msgid "two"
+msgstr ""
+EOF
+} > xg-cs-nul-1.ok
+
+cmp xg-cs-nul-1.ok xg-cs-nul-1.po
+result=$?
+
+exit $result

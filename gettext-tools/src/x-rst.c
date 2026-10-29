@@ -30,6 +30,8 @@
 
 #define SB_NO_APPENDF
 #include <error.h>
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "c-ctype.h"
 #include "po-charset.h"
 #include "message.h"
@@ -207,7 +209,7 @@ extract_rst (FILE *f,
 
       remember_a_message (mlp, NULL, msgid, false, false,
                           null_context_region (), &pos,
-                          NULL, NULL, false);
+                          sd_new_empty (), NULL, false);
 
       /* Here c is the last read character: EOF or '\n'.  */
       if (c == EOF)
@@ -476,15 +478,15 @@ extract_rsj (FILE *f,
             /* Parse a string.  */
             if (parse_string () != pr_parsed)
               goto invalid_json;
-            char *s1 = mixed_string_contents_free1 (
-                         mixed_string_buffer_result (&stringbuf));
+            rw_string_desc_t s1 =
+              mixed_string_contents_free1 (mixed_string_buffer_result (&stringbuf));
 
             /* Parse a colon.  */
             c = phase2_getc ();
             if (c != ':')
               goto invalid_json;
 
-            if (streq (s1, "version"))
+            if (sd_equals (s1, sd_from_c ("version")))
               {
                 /* Parse an integer.  */
                 if (parse_integer () != pr_parsed)
@@ -499,7 +501,7 @@ extract_rsj (FILE *f,
                   }
                 sb_free (&buffer);
               }
-            else if (streq (s1, "strings"))
+            else if (sd_equals (s1, sd_from_c ("strings")))
               {
                 /* Parse an array.  */
                 c = phase2_getc ();
@@ -529,7 +531,7 @@ extract_rsj (FILE *f,
                                 /* Parse a string.  */
                                 if (parse_string () != pr_parsed)
                                   goto invalid_json;
-                                char *s2 =
+                                rw_string_desc_t s2 =
                                   mixed_string_contents_free1 (
                                     mixed_string_buffer_result (&stringbuf));
 
@@ -538,7 +540,7 @@ extract_rsj (FILE *f,
                                 if (c != ':')
                                   goto invalid_json;
 
-                                if (streq (s2, "hash"))
+                                if (sd_equals (s2, sd_from_c ("hash")))
                                   {
                                     /* Parse an integer.  */
                                     if (parse_integer () != pr_parsed)
@@ -548,7 +550,7 @@ extract_rsj (FILE *f,
                                       }
                                     sb_free (&buffer);
                                   }
-                                else if (streq (s2, "name"))
+                                else if (sd_equals (s2, sd_from_c ("name")))
                                   {
                                     /* Parse a string.  */
                                     enum parse_result r = parse_string ();
@@ -556,11 +558,13 @@ extract_rsj (FILE *f,
                                       goto invalid_rsj;
                                     if (r == pr_syntax || location != NULL)
                                       goto invalid_json;
-                                    location =
+                                    rw_string_desc_t string =
                                       mixed_string_contents_free1 (
                                         mixed_string_buffer_result (&stringbuf));
+                                    location = xsd_c (string);
+                                    sd_free (string);
                                   }
-                                else if (streq (s2, "sourcebytes"))
+                                else if (sd_equals (s2, sd_from_c ("sourcebytes")))
                                   {
                                     /* Parse an array.  */
                                     c = phase2_getc ();
@@ -590,7 +594,7 @@ extract_rsj (FILE *f,
                                           }
                                       }
                                   }
-                                else if (streq (s2, "value"))
+                                else if (sd_equals (s2, sd_from_c ("value")))
                                   {
                                     /* Parse a string.  */
                                     enum parse_result r = parse_string ();
@@ -598,14 +602,16 @@ extract_rsj (FILE *f,
                                       goto invalid_rsj;
                                     if (r == pr_syntax || msgid != NULL)
                                       goto invalid_json;
-                                    msgid =
+                                    rw_string_desc_t string =
                                       mixed_string_contents_free1 (
                                         mixed_string_buffer_result (&stringbuf));
+                                    msgid = xsd_c (string);
+                                    sd_free (string);
                                   }
                                 else
                                   goto invalid_rsj;
 
-                                free (s2);
+                                sd_free (s2);
 
                                 /* Parse a comma.  */
                                 c = phase2_getc ();
@@ -625,7 +631,7 @@ extract_rsj (FILE *f,
 
                         remember_a_message (mlp, NULL, msgid, true, false,
                                             null_context_region (), &pos,
-                                            NULL, NULL, false);
+                                            sd_new_empty (), NULL, false);
 
                         /* Parse a comma.  */
                         c = phase2_getc ();

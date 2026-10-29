@@ -90,6 +90,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-git-1 \
 	xgettext-appdata-1 xgettext-appdata-2 xgettext-appdata-3 \
 	xgettext-awk-1 xgettext-awk-2 xgettext-awk-3 \
+	xgettext-awk-nul-1 \
 	xgettext-awk-stackovfl-1 xgettext-awk-stackovfl-2 \
 	xgettext-c-2 xgettext-c-3 xgettext-c-4 xgettext-c-5 xgettext-c-6 \
 	xgettext-c-7 xgettext-c-8 \
@@ -100,18 +101,23 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-c-format-4 xgettext-c-format-5 xgettext-c-format-6 \
 	xgettext-c-ctxt-1 xgettext-c-ctxt-2 xgettext-c-ctxt-3 \
 	xgettext-c-c++-1 xgettext-c-c++-2 xgettext-c-c++-3 \
+	xgettext-c-nul-1 \
 	xgettext-c-stackovfl-1 xgettext-c-stackovfl-2 \
 	xgettext-csharp-1 xgettext-csharp-2 xgettext-csharp-3 \
 	xgettext-csharp-4 xgettext-csharp-5 xgettext-csharp-6 \
 	xgettext-csharp-7 xgettext-csharp-8 xgettext-csharp-9 \
 	xgettext-csharp-10 \
+	xgettext-csharp-nul-1 \
 	xgettext-csharp-stackovfl-1 xgettext-csharp-stackovfl-2 \
 	xgettext-csharp-stackovfl-3 xgettext-csharp-stackovfl-4 \
 	xgettext-d-1 xgettext-d-2 xgettext-d-3 xgettext-d-4 xgettext-d-5 \
 	xgettext-d-6 \
+	xgettext-d-nul-1 \
 	xgettext-desktop-1 xgettext-desktop-2 xgettext-desktop-3 \
+	xgettext-desktop-nul-1 \
 	xgettext-docbook-1 \
 	xgettext-elisp-1 xgettext-elisp-2 xgettext-elisp-3 \
+	xgettext-elisp-nul-1 \
 	xgettext-elisp-stackovfl-1 xgettext-elisp-stackovfl-2 \
 	xgettext-elisp-stackovfl-3 xgettext-elisp-stackovfl-4 \
 	xgettext-glade-1 xgettext-glade-2 xgettext-glade-3 xgettext-glade-4 \
@@ -120,12 +126,14 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-go-6 xgettext-go-7 xgettext-go-8 xgettext-go-9 xgettext-go-10 \
 	xgettext-go-11 xgettext-go-12 xgettext-go-13 xgettext-go-14 \
 	xgettext-go-15 xgettext-go-16 xgettext-go-17 xgettext-go-18 \
+	xgettext-go-nul-1 \
 	xgettext-go-stackovfl-1 xgettext-go-stackovfl-2 \
 	xgettext-gsettings-1 \
 	xgettext-its-1 xgettext-its-2 \
 	xgettext-java-1 xgettext-java-2 xgettext-java-3 xgettext-java-4 \
 	xgettext-java-5 xgettext-java-6 xgettext-java-7 xgettext-java-8 \
 	xgettext-java-9 xgettext-java-10 \
+	xgettext-java-nul-1 \
 	xgettext-java-stackovfl-1 xgettext-java-stackovfl-2 \
 	xgettext-java-stackovfl-3 xgettext-java-stackovfl-4 \
 	xgettext-javascript-1 xgettext-javascript-2 xgettext-javascript-3 \
@@ -133,69 +141,87 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-javascript-7 xgettext-javascript-8 xgettext-javascript-9 \
 	xgettext-javascript-10 xgettext-javascript-11 xgettext-javascript-12 \
 	xgettext-javascript-13 xgettext-javascript-14 \
+	xgettext-javascript-nul-1 \
 	xgettext-javascript-stackovfl-1 xgettext-javascript-stackovfl-2 \
 	xgettext-javascript-stackovfl-3 xgettext-javascript-stackovfl-4 \
 	xgettext-javascript-stackovfl-5 xgettext-javascript-stackovfl-6 \
 	xgettext-javascript-stackovfl-7 xgettext-javascript-stackovfl-8 \
 	xgettext-librep-1 xgettext-librep-2 xgettext-librep-3 \
+	xgettext-librep-nul-1 \
 	xgettext-librep-stackovfl-1 xgettext-librep-stackovfl-2 \
 	xgettext-lisp-1 xgettext-lisp-2 xgettext-lisp-3 xgettext-lisp-4 \
 	xgettext-lisp-5 xgettext-lisp-6 \
+	xgettext-lisp-nul-1 \
 	xgettext-lisp-stackovfl-1 xgettext-lisp-stackovfl-2 \
 	xgettext-lua-1 xgettext-lua-2 xgettext-lua-3 \
+	xgettext-lua-nul-1 \
 	xgettext-lua-stackovfl-1 xgettext-lua-stackovfl-2 \
 	xgettext-lua-stackovfl-3 xgettext-lua-stackovfl-4 \
 	xgettext-modula2-1 xgettext-modula2-2 \
+	xgettext-modula2-nul-1 \
 	xgettext-ocaml-1 xgettext-ocaml-2 \
+	xgettext-ocaml-nul-1 \
 	xgettext-objc-1 xgettext-objc-2 \
 	xgettext-perl-1 xgettext-perl-2 xgettext-perl-3 xgettext-perl-4 \
 	xgettext-perl-5 xgettext-perl-6 xgettext-perl-7 xgettext-perl-8 \
 	xgettext-perl-9 xgettext-perl-10 xgettext-perl-11 \
+	xgettext-perl-nul-1 \
 	xgettext-perl-stackovfl-1 xgettext-perl-stackovfl-2 \
 	xgettext-perl-stackovfl-3 xgettext-perl-stackovfl-4 \
 	xgettext-perl-stackovfl-5 \
 	xgettext-php-1 xgettext-php-2 xgettext-php-3 xgettext-php-4 \
 	xgettext-php-5 \
+	xgettext-php-nul-1 \
 	xgettext-php-stackovfl-1 xgettext-php-stackovfl-2 \
 	xgettext-php-stackovfl-3 xgettext-php-stackovfl-4 \
 	xgettext-po-1 xgettext-po-2 xgettext-po-3 xgettext-po-4 xgettext-po-5 \
 	xgettext-properties-1 xgettext-properties-2 xgettext-properties-3 \
 	xgettext-properties-4 \
-	xgettext-rst-1 xgettext-rst-2 \
 	xgettext-python-1 xgettext-python-2 xgettext-python-3 \
 	xgettext-python-4 xgettext-python-5 xgettext-python-6 \
 	xgettext-python-7 xgettext-python-8 xgettext-python-9 \
+	xgettext-python-nul-1 \
 	xgettext-python-stackovfl-1 xgettext-python-stackovfl-2 \
 	xgettext-python-stackovfl-3 xgettext-python-stackovfl-4 \
+	xgettext-rst-1 xgettext-rst-2 \
 	xgettext-ruby-1 xgettext-ruby-2 \
+	xgettext-ruby-nul-1 \
 	xgettext-rust-1 xgettext-rust-2 xgettext-rust-3 xgettext-rust-4 \
 	xgettext-rust-5 xgettext-rust-6 xgettext-rust-7 xgettext-rust-8 \
 	xgettext-rust-9 \
+	xgettext-rust-nul-1 \
 	xgettext-rust-stackovfl-1 xgettext-rust-stackovfl-2 \
 	xgettext-rust-stackovfl-3 xgettext-rust-stackovfl-4 \
 	xgettext-scheme-1 xgettext-scheme-2 xgettext-scheme-3 \
 	xgettext-scheme-4 xgettext-scheme-5 xgettext-scheme-6 \
 	xgettext-scheme-7 xgettext-scheme-8 \
 	xgettext-scheme-format-1 xgettext-scheme-format-2 \
+	xgettext-scheme-nul-1 \
 	xgettext-scheme-stackovfl-1 xgettext-scheme-stackovfl-2 \
 	xgettext-sh-1 xgettext-sh-2 xgettext-sh-3 xgettext-sh-4 xgettext-sh-5 \
 	xgettext-sh-6 xgettext-sh-7 xgettext-sh-8 xgettext-sh-9 \
+	xgettext-sh-nul-1 \
 	xgettext-sh-stackovfl-1 xgettext-sh-stackovfl-2 \
 	xgettext-sh-stackovfl-3 xgettext-sh-stackovfl-4 \
 	xgettext-sh-stackovfl-5 \
 	xgettext-smalltalk-1 xgettext-smalltalk-2 \
+	xgettext-smalltalk-nul-1 \
 	xgettext-stringtable-1 \
 	xgettext-tcl-1 xgettext-tcl-2 xgettext-tcl-3 xgettext-tcl-4 \
 	xgettext-tcl-5 \
+	xgettext-tcl-nul-1 \
 	xgettext-tcl-stackovfl-1 xgettext-tcl-stackovfl-2 \
 	xgettext-tcl-stackovfl-3 xgettext-tcl-stackovfl-4 \
 	xgettext-typescript-1 xgettext-typescript-2 xgettext-typescript-3 \
 	xgettext-typescript-4 xgettext-typescript-5 xgettext-typescript-6 \
 	xgettext-typescript-7 \
+	xgettext-typescript-nul-1 \
 	xgettext-vala-1 xgettext-vala-2 xgettext-vala-3 xgettext-vala-4 \
 	xgettext-vala-5 xgettext-vala-6 xgettext-vala-7 \
+	xgettext-vala-nul-1 \
 	xgettext-vala-stackovfl-1 xgettext-vala-stackovfl-2 \
 	xgettext-ycp-1 xgettext-ycp-2 xgettext-ycp-3 xgettext-ycp-4 \
+	xgettext-ycp-nul-1 \
 	xgettext-ycp-stackovfl-1 xgettext-ycp-stackovfl-2 \
 	xgettext-ycp-stackovfl-3 xgettext-ycp-stackovfl-4 \
 	format-awk-1 format-awk-2 format-awk-3 \
@@ -265,6 +291,12 @@ TESTS = gettext-1 gettext-2 \
 
 # Expected test failures.
 XFAIL_TESTS =
+# tree-sitter does not cope well with NUL bytes in the input.
+XFAIL_TESTS += \
+	xgettext-d-nul-1 \
+	xgettext-go-nul-1 \
+	xgettext-rust-nul-1 \
+	xgettext-typescript-nul-1
 if OS_IS_NATIVE_WINDOWS
 # Tests that rely on shell scripts.
 XFAIL_TESTS += \

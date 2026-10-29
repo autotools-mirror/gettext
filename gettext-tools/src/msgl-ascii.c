@@ -23,6 +23,8 @@
 #include "msgl-ascii.h"
 
 #include "c-ctype.h"
+#include "string-desc.h"
+#include "string-desc-list.h"
 
 
 /* This file's structure parallels msgl-iconv.c.  */
@@ -58,6 +60,16 @@ is_ascii_string_list (const string_list_ty *slp)
 }
 
 bool
+is_ascii_string_desc_list (const string_desc_list_ty *slp)
+{
+  if (slp != NULL)
+    for (size_t i = 0; i < slp->nitems; i++)
+      if (!is_ascii_string_desc (slp->item[i]))
+        return false;
+  return true;
+}
+
+bool
 is_ascii_message (const message_ty *mp)
 {
   {
@@ -71,7 +83,7 @@ is_ascii_message (const message_ty *mp)
 
   if (!is_ascii_string_list (mp->comment))
     return false;
-  if (!is_ascii_string_list (mp->comment_dot))
+  if (!is_ascii_string_desc_list (mp->comment_dot))
     return false;
 
   /* msgid and msgid_plural are normally ASCII, so why checking?

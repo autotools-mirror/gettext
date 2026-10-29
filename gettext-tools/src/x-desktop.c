@@ -28,6 +28,7 @@
 #include <string.h>
 
 #include <error.h>
+#include "string-desc.h"
 #include "message.h"
 #include "xgettext.h"
 #include "xg-message.h"
@@ -124,30 +125,28 @@ extract_desktop_handle_pair (struct desktop_reader_ty *reader,
       remember_a_message (extract_reader->mlp, NULL,
                           desktop_unescape_string (value, is_list), false,
                           false, null_context_region (), key_pos,
-                          NULL, savable_comment, false);
+                          sd_new_empty (), savable_comment, false);
     }
   savable_comment_reset ();
 }
 
 static void
 extract_desktop_handle_comment (struct desktop_reader_ty *reader,
-                                const char *buffer)
+                                string_desc_t buffer)
 {
-  size_t buflen = strlen (buffer);
-  size_t bufpos = 0;
+  idx_t buflen = sd_length (buffer);
+  idx_t bufpos = 0;
 
   while (bufpos < buflen
-         && c_isspace (buffer[bufpos]))
+         && c_isspace (sd_char_at (buffer, bufpos)))
     ++bufpos;
   while (buflen > bufpos
-         && c_isspace (buffer[buflen - 1]))
+         && c_isspace (sd_char_at (buffer, buflen - 1)))
     --buflen;
   if (bufpos < buflen)
     {
-      char *comment = xstrdup (buffer);
-      comment[buflen] = 0;
-      savable_comment_add (&comment[bufpos]);
-      free (comment);
+      string_desc_t comment = sd_substring (buffer, bufpos, buflen);
+      savable_comment_add (comment);
     }
 }
 

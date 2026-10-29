@@ -1,0 +1,39 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test TypeScript support: NUL characters in extracted comments.
+
+{
+printf '/* TRANSLATORS: This is an \0extracted comment. */\n'
+cat <<\EOF
+let s1: string = _("one");
+EOF
+printf '// TRANSLATORS: This \0too.\n'
+cat <<\EOF
+let s2: string = _("two");
+EOF
+} > xg-ts-nul-1.ts
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-ts-nul-1.tmp xg-ts-nul-1.ts || Exit 1
+LC_ALL=C tr -d '\r' < xg-ts-nul-1.tmp.po > xg-ts-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+
+EOF
+printf '#. TRANSLATORS: This \0too.\n'
+cat <<\EOF
+msgid "two"
+msgstr ""
+EOF
+} > xg-ts-nul-1.ok
+
+cmp xg-ts-nul-1.ok xg-ts-nul-1.po
+result=$?
+
+exit $result

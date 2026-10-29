@@ -26,6 +26,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "string-desc.h"
+#include "string-list.h"
+#include "string-desc-list.h"
 #include "xalloc.h"
 #include "xsize.h"
 
@@ -143,9 +146,10 @@ split_keywordspec (const char *spec,
           shapep->argnum2_glib_context = argnum2_glib_context;
           shapep->argtotal = argtotal;
           /* Reverse the order of the xcomments.  */
-          string_list_init (&shapep->xcomments);
+          string_desc_list_init (&shapep->xcomments);
           for (size_t i = xcomments.nitems; i > 0; )
-            string_list_append (&shapep->xcomments, xcomments.item[--i]);
+            string_desc_list_append (&shapep->xcomments,
+                                     sd_from_c (xcomments.item[--i]));
           string_list_destroy (&xcomments);
           return;
         }
@@ -159,7 +163,7 @@ split_keywordspec (const char *spec,
   shapep->argnum1_glib_context = false;
   shapep->argnum2_glib_context = false;
   shapep->argtotal = 0;
-  string_list_init (&shapep->xcomments);
+  string_desc_list_init (&shapep->xcomments);
   string_list_destroy (&xcomments);
 }
 

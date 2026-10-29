@@ -35,6 +35,7 @@
 
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
 #include "c-ctype.h"
 #include "uniwidth.h"
 #include "gettext.h"
@@ -1138,31 +1139,29 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
             ps->signal_eilseq = false;
             if (ps->catr->pass_comments)
               {
-                {
-                  size_t bufpos = 0;
-                  for (;;)
-                    {
-                      while (bufpos + mb_len (mbc) >= bufmax)
-                        {
-                          bufmax += 100;
-                          buf = xrealloc (buf, bufmax);
-                          ps->bufmax = bufmax;
-                          ps->buf = buf;
-                        }
-                      if (mb_iseof (mbc) || mb_iseq (mbc, '\n'))
-                        break;
+                size_t bufpos = 0;
+                for (;;)
+                  {
+                    while (bufpos + mb_len (mbc) >= bufmax)
+                      {
+                        bufmax += 100;
+                        buf = xrealloc (buf, bufmax);
+                        ps->bufmax = bufmax;
+                        ps->buf = buf;
+                      }
+                    if (mb_iseof (mbc) || mb_iseq (mbc, '\n'))
+                      break;
 
-                      memcpy_small (&buf[bufpos], mb_ptr (mbc), mb_len (mbc));
-                      bufpos += mb_len (mbc);
+                    memcpy_small (&buf[bufpos], mb_ptr (mbc), mb_len (mbc));
+                    bufpos += mb_len (mbc);
 
-                      lex_getc (ps, mbc);
-                    }
-                  buf[bufpos] = '\0';
-                }
+                    lex_getc (ps, mbc);
+                  }
 
-                lval->string.string = buf;
-                lval->string.pos = ps->gram_pos;
-                lval->string.obsolete = ps->po_lex_obsolete;
+                lval->stringdesc.string =
+                  sd_new_addr (bufpos, (const char *) buf);
+                lval->stringdesc.pos = ps->gram_pos;
+                lval->stringdesc.obsolete = ps->po_lex_obsolete;
                 ps->po_lex_obsolete = false;
                 ps->signal_eilseq = true;
                 return COMMENT;

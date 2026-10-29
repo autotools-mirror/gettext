@@ -1,0 +1,39 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Lua support: NUL characters in extracted comments.
+
+{
+printf '\055- TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+print(_"one")
+EOF
+printf '\055-[[ TRANSLATORS: This \0too. ]]\n'
+cat <<\EOF
+print(_"two")
+EOF
+} > xg-lu-nul-1.lua
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-lu-nul-1.tmp xg-lu-nul-1.lua || Exit 1
+LC_ALL=C tr -d '\r' < xg-lu-nul-1.tmp.po > xg-lu-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+
+EOF
+printf '#. TRANSLATORS: This \0too.\n'
+cat <<\EOF
+msgid "two"
+msgstr ""
+EOF
+} > xg-lu-nul-1.ok
+
+cmp xg-lu-nul-1.ok xg-lu-nul-1.po
+result=$?
+
+exit $result

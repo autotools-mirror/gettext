@@ -30,6 +30,7 @@
 
 #define SB_NO_APPENDF
 #include <error.h>
+#include "string-desc.h"
 #include "message.h"
 #include "read-catalog-abstract.h"
 #include "xalloc.h"
@@ -179,19 +180,20 @@ phase3_ungetc (int c)
 
 
 /* Converts a string from ISO-8859-1 encoding to UTF-8 encoding.  */
-static char *
-conv_from_iso_8859_1 (char *string)
+static rw_string_desc_t
+conv_from_iso_8859_1 (rw_string_desc_t string)
 {
-  if (is_ascii_string (string))
+  if (is_ascii_string_desc (sd_readonly (string)))
     return string;
   else
     {
-      size_t length = strlen (string);
+      size_t length = sd_length (string);
       /* Each ISO-8859-1 character needs 2 bytes at worst.  */
-      unsigned char *utf8_string = XNMALLOC (2 * length + 1, unsigned char);
+      unsigned char *utf8_string = XNMALLOC (2 * length, unsigned char);
+      unsigned char *utf8_string_end;
       {
         unsigned char *q = utf8_string;
-        const char *str = string;
+        const char *str = sd_data (string);
         const char *str_limit = str + length;
         while (str < str_limit)
           {
@@ -200,28 +202,29 @@ conv_from_iso_8859_1 (char *string)
             assert (n > 0);
             q += n;
           }
-        *q = '\0';
         assert (q - utf8_string <= 2 * length);
+        utf8_string_end = q;
       }
 
-      return (char *) utf8_string;
+      return sd_new_addr (utf8_string_end - utf8_string, (char *) utf8_string);
     }
 }
 
 
 /* Converts a string from JAVA encoding (with \uxxxx sequences) to UTF-8
    encoding.  May destructively modify the argument string.  */
-static char *
-conv_from_java (char *string)
+static rw_string_desc_t
+conv_from_java (rw_string_desc_t string)
 {
   /* This conversion can only shrink the string, never increase its size.
      So there is no need to xmalloc the result freshly.  */
-  const char *p = string;
-  unsigned char *q = (unsigned char *) string;
+  const char *p_limit = sd_data (string) + sd_length (string);
+  const char *p = sd_data (string);
+  unsigned char *q = (unsigned char *) sd_data (string);
 
-  while (*p != '\0')
+  while (p < p_limit && *p != '\0')
     {
-      if (p[0] == '\\' && p[1] == 'u')
+      if (p[0] == '\\' && p[1] == 'u' && p_limit - p >= 2 + 4)
         {
           unsigned int n = 0;
           int i;
@@ -246,7 +249,7 @@ conv_from_java (char *string)
 
               if (n >= 0xd800 && n < 0xdc00)
                 {
-                  if (p[6] == '\\' && p[7] == 'u')
+                  if (p[6] == '\\' && p[7] == 'u' && p_limit - p >= 6 + 2 + 4)
                     {
                       unsigned int m = 0;
                       int i2;
@@ -290,8 +293,7 @@ conv_from_java (char *string)
       just_one_byte:
         *q++ = (unsigned char) *p++;
     }
-  *q = '\0';
-  return string;
+  return sd_new_addr (q - (unsigned char *) sd_data (string), sd_data (string));
 }
 
 
@@ -647,12 +649,13 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
 
               sb_xappend1 (&buffer, c);
             }
-          char *contents = sb_xdupfree_c (&buffer);
+          rw_string_desc_t contents = sb_xdupfree (&buffer);
 
           catalog_reader_seen_generic_comment (
             catr,
-            conv_from_java (
-              assume_utf8 ? contents : conv_from_iso_8859_1 (contents)));
+            sd_readonly (
+              conv_from_java (
+                assume_utf8 ? contents : conv_from_iso_8859_1 (contents))));
         }
       else
         {

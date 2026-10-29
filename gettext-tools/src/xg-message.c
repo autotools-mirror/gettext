@@ -24,7 +24,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include "c-strstr.h"
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "if-error.h"
 #include "format.h"
 #include "read-catalog-special.h"
@@ -41,8 +42,8 @@
 
 
 #define CONVERT_STRING(string, lcontext) \
-  string = from_current_source_encoding (string, lcontext, pos->file_name, \
-                                         pos->line_number);
+  string = from_current_source_encoding (string, lcontext, \
+                                         pos->file_name, pos->line_number);
 
 
 /* Validates the modified value of mp->is_format[i].  */
@@ -259,8 +260,9 @@ message_ty *
 remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
                     bool is_utf8, bool pluralp, flag_region_ty *region,
                     lex_pos_ty *pos,
-                    const char *extracted_comment,
-                    refcounted_string_list_ty *comment, bool comment_is_utf8)
+                    string_desc_t extracted_comment,
+                    refcounted_string_desc_list_ty *comment,
+                    bool comment_is_utf8)
 {
   /* See whether we shall exclude this message.  */
   if (exclude != NULL && message_list_search (exclude, msgctxt, msgid) != NULL)
@@ -373,29 +375,23 @@ meta information, not the empty string.\n"));
     size_t nitems_before =
       (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
 
-    if (extracted_comment != NULL)
+    if (sd_length (extracted_comment) > 0)
       {
-        char *copy = xstrdup (extracted_comment);
-        {
-          char *rest = copy;
-          while (*rest != '\0')
-            {
-              char *newline = strchr (rest, '\n');
-
-              if (newline != NULL)
-                {
-                  *newline = '\0';
-                  message_comment_dot_append (mp, rest);
-                  rest = newline + 1;
-                }
-              else
-                {
-                  message_comment_dot_append (mp, rest);
-                  break;
-                }
-            }
-        }
-        free (copy);
+        string_desc_t xc = extracted_comment;
+        while (sd_length (xc) > 0)
+          {
+            ptrdiff_t newline = sd_index (xc, '\n');
+            if (newline >= 0)
+              {
+                message_comment_dot_append (mp, sd_substring (xc, 0, newline));
+                xc = sd_substring (xc, newline + 1, sd_length (xc));
+              }
+            else
+              {
+                message_comment_dot_append (mp, xc);
+                break;
+              }
+          }
       }
 
     /* The string before the comment tag.  For example, If "** TRANSLATORS:"
@@ -405,21 +401,22 @@ meta information, not the empty string.\n"));
     size_t comment_tag_prefix_length = 0;
 
     bool add_all_remaining_comments = add_all_comments;
-    for (int j = 0; ; ++j)
+    size_t j_limit = xgettext_comment_count ();
+    for (size_t j = 0; j < j_limit; j++)
       {
-        const char *s = xgettext_comment (j);
-        if (s == NULL)
-          break;
+        string_desc_t s = xgettext_comment (j);
 
         if (!comment_is_utf8)
-          CONVERT_STRING (s, lc_comment);
+          s = sd_readonly (
+                string_desc_from_current_source_encoding (s, lc_comment,
+                                                          pos->file_name, pos->line_number));
 
         /* To reduce the possibility of unwanted matches we do a two
            step match: the line must contain 'xgettext:' and one of
            the possible format description strings.  */
         {
-          const char *t = c_strstr (s, "xgettext:");
-          if (t != NULL)
+          ptrdiff_t t = sd_contains (s, sd_from_c ("xgettext:"));
+          if (t >= 0)
             {
               t += strlen ("xgettext:");
 
@@ -428,8 +425,10 @@ meta information, not the empty string.\n"));
               struct argument_range tmp_range;
               enum is_wrap tmp_wrap;
               enum is_syntax_check tmp_syntax_check[NSYNTAXCHECKS];
-              parse_comment_special (t, &tmp_fuzzy, tmp_format, &tmp_range,
-                                     &tmp_wrap, tmp_syntax_check);
+              parse_comment_special (
+                xsd_c (sd_new_addr (sd_length (s) - t, sd_data (s) + t)),
+                &tmp_fuzzy, tmp_format, &tmp_range, &tmp_wrap,
+                tmp_syntax_check);
 
               bool interesting = false;
               for (size_t i = 0; i < NFORMATS; i++)
@@ -467,19 +466,19 @@ meta information, not the empty string.\n"));
           {
             /* When the comment tag is seen, it drags in not only the line
                which it starts, but all remaining comment lines.  */
-            const char *t = c_strstr (s, comment_tag);
-            if (t != NULL)
+            ptrdiff_t t = sd_contains (s, sd_from_c (comment_tag));
+            if (t >= 0)
               {
                 add_all_remaining_comments = true;
-                comment_tag_prefix = s;
-                comment_tag_prefix_length = t - s;
+                comment_tag_prefix = sd_data (s);
+                comment_tag_prefix_length = t;
               }
           }
 
         if (add_all_remaining_comments)
           {
-            if (strncmp (s, comment_tag_prefix, comment_tag_prefix_length) == 0)
-              s += comment_tag_prefix_length;
+            if (sd_startswith (s, sd_new_addr (comment_tag_prefix_length, comment_tag_prefix)))
+              s = sd_substring (s, comment_tag_prefix_length, sd_length (s));
             message_comment_dot_append (mp, s);
           }
       }
@@ -498,8 +497,8 @@ meta information, not the empty string.\n"));
           {
             bool repeated = true;
             for (size_t i = 0; i < added; i++)
-              if (!streq (mp->comment_dot->item[nitems_before - added + i],
-                          mp->comment_dot->item[nitems_before + i]))
+              if (!sd_equals (mp->comment_dot->item[nitems_before - added + i],
+                              mp->comment_dot->item[nitems_before + i]))
                 {
                   repeated = false;
                   break;
@@ -508,7 +507,7 @@ meta information, not the empty string.\n"));
             if (repeated)
               {
                 for (size_t i = 0; i < added; i++)
-                  free ((char *) mp->comment_dot->item[nitems_before + i]);
+                  sd_free (sd_readwrite (mp->comment_dot->item[nitems_before + i]));
                 mp->comment_dot->nitems = nitems_before;
               }
           }
@@ -542,7 +541,7 @@ meta information, not the empty string.\n"));
 void
 remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
                            flag_region_ty *region, lex_pos_ty *pos,
-                           refcounted_string_list_ty *comment,
+                           refcounted_string_desc_list_ty *comment,
                            bool comment_is_utf8)
 {
   char *msgid_plural = string;

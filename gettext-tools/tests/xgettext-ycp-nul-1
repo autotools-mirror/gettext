@@ -1,0 +1,49 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test YCP support: NUL characters in extracted comments.
+
+{
+printf '// TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+print (_("one"));
+EOF
+printf '# TRANSLATORS: This \0too.\n'
+cat <<\EOF
+print (_("two"));
+EOF
+printf '/* TRANSLATORS: This \0as well. */\n'
+cat <<\EOF
+print (_("three"));
+EOF
+} > xg-y-nul-1.ycp
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-y-nul-1.tmp xg-y-nul-1.ycp || Exit 1
+LC_ALL=C tr -d '\r' < xg-y-nul-1.tmp.po > xg-y-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+
+EOF
+printf '#. TRANSLATORS: This \0too.\n'
+cat <<\EOF
+msgid "two"
+msgstr ""
+
+EOF
+printf '#. TRANSLATORS: This \0as well.\n'
+cat <<\EOF
+msgid "three"
+msgstr ""
+EOF
+} > xg-y-nul-1.ok
+
+cmp xg-y-nul-1.ok xg-y-nul-1.po
+result=$?
+
+exit $result

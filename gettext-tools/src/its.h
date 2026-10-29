@@ -21,6 +21,7 @@
 
 #include <stdio.h>
 
+#include "string-desc.h"
 #include "message.h"
 #include "pos.h"
 
@@ -63,7 +64,7 @@ typedef message_ty *
                                     const char *msgctxt,
                                     const char *msgid,
                                     lex_pos_ty *pos,
-                                    const char *extracted_comment,
+                                    string_desc_t extracted_comment,
                                     const char *marker,
                                     enum its_whitespace_type_ty whitespace);
 

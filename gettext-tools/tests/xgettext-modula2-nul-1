@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Modula-2 support: NUL characters in extracted comments.
+
+{
+printf '(* TRANSLATORS: This is an \0extracted comment. *)\n'
+cat <<\EOF
+s1 = Gettext("one");
+EOF
+} > xg-m2-nul-1.mod
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-m2-nul-1.tmp xg-m2-nul-1.mod || Exit 1
+LC_ALL=C tr -d '\r' < xg-m2-nul-1.tmp.po > xg-m2-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+EOF
+} > xg-m2-nul-1.ok
+
+cmp xg-m2-nul-1.ok xg-m2-nul-1.po
+result=$?
+
+exit $result

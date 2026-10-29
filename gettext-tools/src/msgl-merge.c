@@ -28,6 +28,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "string-desc-list.h"
 #include "message.h"
 #include "read-catalog-file.h"
 #include "msgl-charset.h"
@@ -1410,7 +1411,7 @@ merge (const char *definitions_file_name,
                   /* Clear the extracted comments.  */
                   if (mp->comment_dot != NULL)
                     {
-                      string_list_free (mp->comment_dot);
+                      string_desc_list_free (mp->comment_dot);
                       mp->comment_dot = NULL;
                     }
                   /* Clear the file position comments.  */

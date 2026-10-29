@@ -29,6 +29,7 @@
 
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
 #include "message.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -347,13 +348,7 @@ comment_line_end (size_t chars_to_remove)
   while (buflen >= 1
          && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
-  if (chars_to_remove == 0 && buflen >= bufmax)
-    {
-      bufmax = 2 * bufmax + 10;
-      buffer = xrealloc (buffer, bufmax);
-    }
-  buffer[buflen] = '\0';
-  savable_comment_add (buffer);
+  savable_comment_add (sd_new_addr (buflen, (const char *) buffer));
 }
 
 
@@ -931,7 +926,7 @@ read_object (struct object *op, bool first_in_list, bool new_backquote_flag,
 
                 remember_a_message (mlp, NULL, string_of_object (op), false,
                                     false, null_context_region (), &pos,
-                                    NULL, savable_comment, false);
+                                    sd_new_empty (), savable_comment, false);
               }
             last_non_comment_line = line_number;
             return;

@@ -22,6 +22,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 
+#include "string-desc.h"
 #include "message.h"
 #include "xerror-handler.h"
 #include "string-list.h"
@@ -101,7 +102,8 @@ struct abstract_catalog_reader_class_ty
      by xgettext).  The expectation is that they will be accumulated,
      and added to the next message definition seen.  Or completely
      ignored.  */
-  void (*comment_dot) (struct abstract_catalog_reader_ty *catr, const char *s);
+  void (*comment_dot) (struct abstract_catalog_reader_ty *catr,
+                       string_desc_t s);
 
   /* What to do with a file position seen in a comment (i.e. a message
      location comment extracted by xgettext).  The expectation is that
@@ -219,7 +221,7 @@ extern void
    has been seen.  It invokes the 'comment_dot' method.  */
 extern void
        catalog_reader_seen_comment_dot (abstract_catalog_reader_ty *catr,
-                                        const char *s);
+                                        string_desc_t s);
 /* This callback is called whenever a source file reference has been seen.
    It invokes the 'comment_filepos' method.  */
 extern void
@@ -235,7 +237,7 @@ extern void
    It parses s and invokes the appropriate method.  */
 extern void
        catalog_reader_seen_generic_comment (abstract_catalog_reader_ty *catr,
-                                            const char *s);
+                                            string_desc_t s);
 
 
 #ifdef __cplusplus

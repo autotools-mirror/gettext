@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test awk support: NUL characters in extracted comments.
+
+{
+printf '# TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+print _"one"
+EOF
+} > xg-a-nul-1.awk
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-a-nul-1.tmp xg-a-nul-1.awk || Exit 1
+LC_ALL=C tr -d '\r' < xg-a-nul-1.tmp.po > xg-a-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+EOF
+} > xg-a-nul-1.ok
+
+cmp xg-a-nul-1.ok xg-a-nul-1.po
+result=$?
+
+exit $result

@@ -27,6 +27,8 @@
 #include <string.h>
 
 #include <error.h>
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "po-charset.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -122,7 +124,7 @@ call_comment (abstract_catalog_reader_ty *catr, const char *s)
 }
 
 static inline void
-call_comment_dot (abstract_catalog_reader_ty *catr, const char *s)
+call_comment_dot (abstract_catalog_reader_ty *catr, string_desc_t s)
 {
   if (catr->methods->comment_dot != NULL)
     catr->methods->comment_dot (catr, s);
@@ -215,7 +217,7 @@ catalog_reader_seen_comment (abstract_catalog_reader_ty *catr, const char *s)
 
 void
 catalog_reader_seen_comment_dot (abstract_catalog_reader_ty *catr,
-                                 const char *s)
+                                 string_desc_t s)
 {
   call_comment_dot (catr, s);
 }
@@ -562,42 +564,54 @@ parse_comment_solaris_filepos (abstract_catalog_reader_ty *catr, const char *s)
    call_comment_special.  */
 void
 catalog_reader_seen_generic_comment (abstract_catalog_reader_ty *catr,
-                                     const char *s)
+                                     string_desc_t s)
 {
-  if (*s == '.')
+  const char *s_end = sd_data (s) + sd_length (s);
+  const char *p = sd_data (s);
+  if (p < s_end && *p == '.')
     {
-      s++;
+      p++;
       /* There is usually a space before the comment.  People don't
          consider it part of the comment, therefore remove it here.  */
-      if (*s == ' ')
-        s++;
-      catalog_reader_seen_comment_dot (catr, s);
+      if (p < s_end && *p == ' ')
+        p++;
+      catalog_reader_seen_comment_dot (catr, sd_new_addr (s_end - p, p));
     }
-  else if (*s == ':')
+  else if (p < s_end && *p == ':')
     {
+      p++;
       /* Parse the file location string.  The appropriate callback will be
          invoked.  */
-      parse_comment_filepos (catr, s + 1);
+      char *rest = xsd_c (sd_new_addr (s_end - p, p));
+      parse_comment_filepos (catr, rest);
+      free (rest);
     }
-  else if (*s == ',' || *s == '=' || *s == '!')
+  else if (p < s_end && (*p == ',' || *p == '=' || *p == '!'))
     {
+      p++;
       /* Get all entries in the special comment line.  */
-      catalog_reader_seen_comment_special (catr, s + 1);
+      char *rest = xsd_c (sd_new_addr (s_end - p, p));
+      catalog_reader_seen_comment_special (catr, rest);
+      free (rest);
     }
   else
     {
       /* It looks like a plain vanilla comment, but Solaris-style file
          position lines do, too.  Try to parse the lot.  If the parse
          succeeds, the appropriate callback will be invoked.  */
-      if (parse_comment_solaris_filepos (catr, s))
+      char *line = xsd_c (s);
+      if (parse_comment_solaris_filepos (catr, line))
         /* Do nothing, it is a Sun-style file pos line.  */ ;
       else
         {
           /* There is usually a space before the comment.  People don't
              consider it part of the comment, therefore remove it here.  */
-          if (*s == ' ')
-            s++;
-          catalog_reader_seen_comment (catr, s);
+          if (p < s_end && *p == ' ')
+            p++;
+          char *rest = xsd_c (sd_new_addr (s_end - p, p));
+          catalog_reader_seen_comment (catr, rest);
+          free (rest);
         }
+      free (line);
     }
 }

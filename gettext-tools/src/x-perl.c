@@ -30,11 +30,12 @@
 #define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
-#include "message.h"
-#include "sf-istream.h"
-#include "rc-str-list.h"
 #include "string-desc.h"
 #include "xstring-desc.h"
+#include "message.h"
+#include "sf-istream.h"
+#include "rc-string-desc-list.h"
+#include "string-desc-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
@@ -577,14 +578,14 @@ phase2_getc (struct perl_extractor *xp)
           sb_xappend1 (&buffer, c);
         }
       /* Convert it to UTF-8.  */
-      const char *contents = sb_xcontents_c (&buffer);
-      char *utf8_contents =
-        from_current_source_encoding (contents, lc_comment,
-                                      logical_file_name, lineno);
+      string_desc_t contents = sb_contents (&buffer);
+      rw_string_desc_t utf8_contents =
+        string_desc_from_current_source_encoding (contents, lc_comment,
+                                                  logical_file_name, lineno);
       /* Save it until we encounter the corresponding string.  */
-      savable_comment_add (utf8_contents);
-      if (utf8_contents != contents)
-        free (utf8_contents);
+      savable_comment_add (sd_readonly (utf8_contents));
+      if (sd_data (utf8_contents) != sd_data (contents))
+        sd_free (utf8_contents);
       sb_free (&buffer);
       xp->last_comment_line = lineno;
     }
@@ -647,7 +648,7 @@ struct token_ty
                                    token_type_variable  global_source_encoding
                                    token_type_object    global_source_encoding
                                  */
-  refcounted_string_list_ty *comment; /* for token_type_string */
+  refcounted_string_desc_list_ty *comment; /* for token_type_string */
   int line_number;
 };
 
@@ -1549,7 +1550,7 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
               simple_shapes.shapes[0].argnum1_glib_context = false;
               simple_shapes.shapes[0].argnum2_glib_context = false;
               simple_shapes.shapes[0].argtotal = 0;
-              string_list_init (&simple_shapes.shapes[0].xcomments);
+              string_desc_list_init (&simple_shapes.shapes[0].xcomments);
 
               {
                 /* Extract a possible string from the key.  Before proceeding
@@ -1584,7 +1585,7 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
 
                         remember_a_message (xp->mlp, NULL, xstrdup (t1->string),
                                             true, false, region, &pos,
-                                            NULL, savable_comment, true);
+                                            sd_new_empty (), savable_comment, true);
                         free_token (t2);
                         free_token (t1);
                       }
@@ -2166,7 +2167,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                   if (token.type == token_type_string)
                     {
                       remember_a_message (xp->mlp, NULL, token.string, true,
-                                          false, region, &pos, NULL,
+                                          false, region, &pos, sd_new_empty (),
                                           savable_comment, true);
                     }
                   sb_init (&buffer);
@@ -3547,8 +3548,8 @@ extract_balanced (struct perl_extractor *xp,
                       pos.line_number = tp->line_number;
 
                       remember_a_message (xp->mlp, NULL, string, true, false,
-                                          inner_region, &pos, NULL, tp->comment,
-                                          true);
+                                          inner_region, &pos, sd_new_empty (),
+                                          tp->comment, true);
                     }
                 }
               else if (!skip_until_comma)

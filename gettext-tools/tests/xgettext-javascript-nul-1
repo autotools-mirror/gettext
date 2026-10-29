@@ -1,0 +1,39 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test JavaScript support: NUL characters in extracted comments.
+
+{
+printf '/* TRANSLATORS: This is an \0extracted comment. */\n'
+cat <<\EOF
+var s1 = _("one");
+EOF
+printf '// TRANSLATORS: This \0too.\n'
+cat <<\EOF
+var s2 = _("two");
+EOF
+} > xg-js-nul-1.js
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-js-nul-1.tmp xg-js-nul-1.js || Exit 1
+LC_ALL=C tr -d '\r' < xg-js-nul-1.tmp.po > xg-js-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+
+EOF
+printf '#. TRANSLATORS: This \0too.\n'
+cat <<\EOF
+msgid "two"
+msgstr ""
+EOF
+} > xg-js-nul-1.ok
+
+cmp xg-js-nul-1.ok xg-js-nul-1.po
+result=$?
+
+exit $result

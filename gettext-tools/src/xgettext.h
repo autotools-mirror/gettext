@@ -22,8 +22,9 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#include "string-desc.h"
 #include "message.h"
-#include "rc-str-list.h"
+#include "rc-string-desc-list.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -65,7 +66,8 @@ extern enum is_syntax_check default_syntax_check[NSYNTAXCHECKS];
 extern void xgettext_record_flag (const char *optionstring);
 
 
-extern const char * xgettext_comment (size_t n);
+extern size_t xgettext_comment_count (void);
+extern string_desc_t xgettext_comment (size_t n);
 extern void xgettext_comment_reset (void);
 
 /* Comment handling for backends which support combining adjacent strings
@@ -83,11 +85,11 @@ extern void xgettext_comment_reset (void);
    In order to avoid excessive copying of strings, we use reference
    counting.  */
 
-extern refcounted_string_list_ty *savable_comment;
-extern void savable_comment_add (const char *str);
+extern refcounted_string_desc_list_ty *savable_comment;
+extern void savable_comment_add (string_desc_t str);
 extern void savable_comment_reset (void);
 extern void
-       savable_comment_to_xgettext_comment (refcounted_string_list_ty *rslp);
+       savable_comment_to_xgettext_comment (refcounted_string_desc_list_ty *rslp);
 
 
 extern bool recognize_qt_formatstrings (void);

@@ -1,0 +1,47 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Scheme support: NUL characters in extracted comments.
+
+{
+printf '; TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+(display (_ "one"))
+EOF
+printf '#! TRANSLATORS: This \0too. !#\n'
+cat <<\EOF
+(display (_ "two"))
+EOF
+printf '#; (begin\n'
+printf '     (display (_ "This \0is not.")))\n'
+cat <<\EOF
+(display (_ "three"))
+EOF
+} > xg-sc-nul-1.scm
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: -k_ \
+  -d xg-sc-nul-1.tmp xg-sc-nul-1.scm || Exit 1
+LC_ALL=C tr -d '\r' < xg-sc-nul-1.tmp.po > xg-sc-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+
+EOF
+printf '#. TRANSLATORS: This \0too.\n'
+cat <<\EOF
+msgid "two"
+msgstr ""
+
+msgid "three"
+msgstr ""
+EOF
+} > xg-sc-nul-1.ok
+
+cmp xg-sc-nul-1.ok xg-sc-nul-1.po
+result=$?
+
+exit $result

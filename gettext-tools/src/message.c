@@ -24,6 +24,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "string-desc.h"
+#include "string-desc-list.h"
 #include "fstrcmp.h"
 #include "mem-hash-map.h"
 #include "xalloc.h"
@@ -226,7 +228,7 @@ message_free (message_ty *mp)
   if (mp->comment != NULL)
     string_list_free (mp->comment);
   if (mp->comment_dot != NULL)
-    string_list_free (mp->comment_dot);
+    string_desc_list_free (mp->comment_dot);
   for (size_t j = 0; j < mp->filepos_count; ++j)
     free ((char *) mp->filepos[j].file_name);
   if (mp->filepos != NULL)
@@ -251,11 +253,11 @@ message_comment_append (message_ty *mp, const char *s)
 
 
 void
-message_comment_dot_append (message_ty *mp, const char *s)
+message_comment_dot_append (message_ty *mp, string_desc_t s)
 {
   if (mp->comment_dot == NULL)
-    mp->comment_dot = string_list_alloc ();
-  string_list_append (mp->comment_dot, s);
+    mp->comment_dot = string_desc_list_alloc ();
+  string_desc_list_append (mp->comment_dot, s);
 }
 
 

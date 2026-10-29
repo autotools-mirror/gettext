@@ -31,6 +31,7 @@
 #define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
 #include "message.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -183,7 +184,7 @@ phase2_getc ()
                 && (c == ' ' || c == '\t')))
             sb_xappend1 (&buffer, c);
         }
-      savable_comment_add (sb_xdupfree_c (&buffer));
+      savable_comment_add (sd_readonly (sb_xdupfree (&buffer)));
       last_comment_line = lineno;
     }
   return c;
@@ -832,7 +833,7 @@ extract_parenthesized (message_list_ty *mlp,
             if (extract_all)
               remember_a_message (mlp, NULL, token.string, false, false,
                                   inner_region, &pos,
-                                  NULL, savable_comment, false);
+                                  sd_new_empty (), savable_comment, false);
             else
               {
                 mixed_string_ty *ms =
@@ -858,7 +859,7 @@ extract_parenthesized (message_list_ty *mlp,
 
             remember_a_message (mlp, NULL, token.string, false, false,
                                 inner_region, &pos,
-                                NULL, savable_comment, false);
+                                sd_new_empty (), savable_comment, false);
           }
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;

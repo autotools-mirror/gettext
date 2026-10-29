@@ -31,6 +31,8 @@
 
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "message.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -276,13 +278,7 @@ comment_line_end ()
   while (buflen >= 1
          && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
-  if (buflen >= bufmax)
-    {
-      bufmax = 2 * bufmax + 10;
-      buffer = xrealloc (buffer, bufmax);
-    }
-  buffer[buflen] = '\0';
-  savable_comment_add (buffer);
+  savable_comment_add (sd_new_addr (buflen, (const char *) buffer));
 }
 
 
@@ -1124,8 +1120,8 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                   pos.file_name = logical_file_name;
                   pos.line_number = line_number;
 
-                  struct mixed_string_buffer string;
-                  mixed_string_buffer_init (&string, lc_string,
+                  struct mixed_string_buffer msb;
+                  mixed_string_buffer_init (&msb, lc_string,
                                             logical_file_name, line_number);
                   for (;;)
                     {
@@ -1137,13 +1133,14 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                           saw_closing_singlequote ();
                           break;
                         }
-                      mixed_string_buffer_append_char (&string, (unsigned char) c);
+                      mixed_string_buffer_append_char (&msb, (unsigned char) c);
                     }
-                  remember_a_message (mlp, NULL,
-                                      mixed_string_contents_free1 (
-                                        mixed_string_buffer_result (&string)),
+                  rw_string_desc_t string =
+                    mixed_string_contents_free1 (mixed_string_buffer_result (&msb));
+                  remember_a_message (mlp, NULL, xsd_c (string),
                                       true, false, region, &pos,
-                                      NULL, savable_comment, false);
+                                      sd_new_empty (), savable_comment, false);
+                  sd_free (string);
 
                   if_error (IF_SEVERITY_WARNING,
                             pos.file_name, pos.line_number, (size_t)(-1), false,
@@ -1307,11 +1304,12 @@ read_command (int looking_for, flag_region_ty *outer_region)
               pos.file_name = logical_file_name;
               pos.line_number = inner.line_number_at_start;
 
-              remember_a_message (mlp, NULL,
-                                  mixed_string_contents_free1 (
-                                    mixed_string_buffer_cloned_result (inner.token)),
+              rw_string_desc_t string =
+                mixed_string_contents_free1 (mixed_string_buffer_cloned_result (inner.token));
+              remember_a_message (mlp, NULL, xsd_c (string),
                                   true, false, inner_region, &pos,
-                                  NULL, savable_comment, false);
+                                  sd_new_empty (), savable_comment, false);
+              sd_free (string);
             }
         }
 
@@ -1342,11 +1340,11 @@ read_command (int looking_for, flag_region_ty *outer_region)
                 }
               else if (inner.type == t_string)
                 {
-                  char *function_name =
+                  rw_string_desc_t function_name =
                     mixed_string_contents_free1 (
                       mixed_string_buffer_cloned_result (inner.token));
 
-                  if (streq (function_name, "env"))
+                  if (sd_equals (function_name, sd_from_c ("env")))
                     {
                       /* The 'env' command just introduces more assignments.
                          Ignore it.  */
@@ -1357,8 +1355,8 @@ read_command (int looking_for, flag_region_ty *outer_region)
                     {
                       void *keyword_value;
                       if (hash_find_entry (&keywords,
-                                           function_name,
-                                           strlen (function_name),
+                                           sd_data (function_name),
+                                           sd_length (function_name),
                                            &keyword_value)
                           == 0)
                         shapes = (const struct callshapes *) keyword_value;
@@ -1369,10 +1367,10 @@ read_command (int looking_for, flag_region_ty *outer_region)
                         flag_context_list_iterator (
                           flag_context_list_table_lookup (
                             flag_context_list_table,
-                            function_name, strlen (function_name)));
+                            sd_data (function_name), sd_length (function_name)));
                     }
 
-                  free (function_name);
+                  sd_free (function_name);
                 }
               else
                 context_iter = null_context_list_iterator;
@@ -1438,17 +1436,18 @@ read_command (int looking_for, flag_region_ty *outer_region)
                       /* When '-e' was specified, expand escape sequences in s.  */
                       if (accepts_expand && must_expand_arg_strings)
                         {
-                          char *s = mixed_string_contents (ms);
+                          rw_string_desc_t s = mixed_string_contents (ms);
+                          char *cs = xsd_c (s);
                           bool expands_backslash_c =
                             (argparser->keyword_len == 7
                              && memeq (argparser->keyword, "gettext", 7));
                           bool backslash_c = false;
                           char *expanded =
                             (char *)
-                            expand_escapes (s, expands_backslash_c ? &backslash_c : NULL);
+                            expand_escapes (cs, expands_backslash_c ? &backslash_c : NULL);
                           /* We can ignore the value of expands_backslash_c, because
                              here we don't support the gettext '-s' option.  */
-                          if (expanded != s)
+                          if (expanded != cs)
                             {
                               mixed_string_ty *expanded_ms =
                                 mixed_string_alloc_utf8 (expanded, ms->lcontext,
@@ -1457,7 +1456,8 @@ read_command (int looking_for, flag_region_ty *outer_region)
                               mixed_string_free (ms);
                               ms = expanded_ms;
                             }
-                          free (s);
+                          free (cs);
+                          sd_free (s);
                         }
 
                       arglist_parser_remember (argparser, arg, ms,

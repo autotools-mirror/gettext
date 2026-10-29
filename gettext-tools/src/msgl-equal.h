@@ -21,6 +21,7 @@
 
 #include <stdbool.h>
 
+#include "string-desc-list.h"
 #include "message.h"
 
 
@@ -32,6 +33,10 @@ extern "C" {
 extern bool
        string_list_equal (const string_list_ty *slp1,
                           const string_list_ty *slp2);
+
+extern bool
+       string_desc_list_equal (const string_desc_list_ty *slp1,
+                               const string_desc_list_ty *slp2);
 
 /* Test whether the written representation of two messages / message lists
    would be the same.  */

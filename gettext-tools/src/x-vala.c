@@ -32,8 +32,10 @@
 #define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "message.h"
-#include "rc-str-list.h"
+#include "rc-string-desc-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
@@ -285,13 +287,7 @@ comment_line_end (size_t chars_to_remove)
   while (buflen >= 1
          && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
     --buflen;
-  if (chars_to_remove == 0 && buflen >= bufmax)
-    {
-      bufmax = 2 * bufmax + 10;
-      buffer = xrealloc (buffer, bufmax);
-    }
-  buffer[buflen] = '\0';
-  savable_comment_add (buffer);
+  savable_comment_add (sd_new_addr (buflen, (const char *) buffer));
 }
 
 
@@ -416,9 +412,9 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;                         /* for token_type_symbol */
-  mixed_string_ty *mixed_string;        /* for token_type_string_literal */
-  refcounted_string_list_ty *comment;   /* for token_type_string_literal */
+  char *string;                            /* for token_type_symbol */
+  mixed_string_ty *mixed_string;           /* for token_type_string_literal */
+  refcounted_string_desc_list_ty *comment; /* for token_type_string_literal */
   int line_number;
 };
 
@@ -1528,11 +1524,13 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
 
             if (extract_all)
               {
-                char *string = mixed_string_contents (token.mixed_string);
+                rw_string_desc_t string = mixed_string_contents (token.mixed_string);
                 mixed_string_free (token.mixed_string);
-                remember_a_message (mlp, NULL, string, true, false,
+                char *msgid = xsd_c (string);
+                remember_a_message (mlp, NULL, msgid, true, false,
                                     inner_region, &pos,
-                                    NULL, token.comment, false);
+                                    sd_new_empty (), token.comment, false);
+                sd_free (string);
               }
             else
               {

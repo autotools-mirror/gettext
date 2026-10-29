@@ -30,6 +30,7 @@
 
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
 #include "read-catalog-abstract.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -534,7 +535,7 @@ comment_line_end (abstract_catalog_reader_ty *catr,
     special_comment_add (line + 6);
   else if (strlen (line) >= 9 && memeq (line, "Comment: ", 9))
     /* A comment extracted from the source.  */
-    catalog_reader_seen_comment_dot (catr, line + 9);
+    catalog_reader_seen_comment_dot (catr, sd_from_c (line + 9));
   else
     {
       char *last_colon;

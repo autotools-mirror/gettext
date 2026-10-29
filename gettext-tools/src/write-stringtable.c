@@ -27,6 +27,7 @@
 
 #include <textstyle.h>
 
+#include "string-desc.h"
 #include "message.h"
 #include "msgl-ascii.h"
 #include "msgl-iconv.h"
@@ -144,41 +145,42 @@ write_message (ostream_t stream, const message_ty *mp,
     {
       for (size_t j = 0; j < mp->comment_dot->nitems; ++j)
         {
-          const char *s = mp->comment_dot->item[j];
+          string_desc_t s = mp->comment_dot->item[j];
 
           /* Test whether it is safe to output the comment in C style, or
              whether we need C++ style for it.  */
-          if (c_strstr (s, "*/") == NULL)
+          if (sd_contains (s, sd_from_c ("*/")) >= 0)
             {
               ostream_write_str (stream, "/* Comment: ");
-              ostream_write_str (stream, s);
+              ostream_write_mem (stream, sd_data (s), sd_length (s));
               ostream_write_str (stream, " */\n");
             }
           else
             {
               bool first = true;
+              bool done = false;
               do
                 {
                   ostream_write_str (stream, "//");
-                  if (first || (*s != '\0' && *s != '\n'))
+                  if (first || (sd_length (s) > 0 && sd_char_at (s, 0) != '\n'))
                     ostream_write_str (stream, " ");
                   if (first)
                     ostream_write_str (stream, "Comment: ");
-                  const char *e = strchr (s, '\n');
-                  if (e == NULL)
+                  ptrdiff_t e = sd_index (s, '\n');
+                  if (e < 0)
                     {
-                      ostream_write_str (stream, s);
-                      s = NULL;
+                      ostream_write_mem (stream, sd_data (s), sd_length (s));
+                      done = true;
                     }
                   else
                     {
-                      ostream_write_mem (stream, s, e - s);
-                      s = e + 1;
+                      ostream_write_mem (stream, sd_data (s), e);
+                      s = sd_substring (s, e + 1, sd_length (s));
                     }
                   ostream_write_str (stream, "\n");
                   first = false;
                 }
-              while (s != NULL);
+              while (!done);
             }
         }
     }

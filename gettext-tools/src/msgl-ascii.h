@@ -20,6 +20,7 @@
 #define _MSGL_ASCII_H
 
 #include "string-desc.h"
+#include "string-desc-list.h"
 #include "message.h"
 
 #include <stdbool.h>
@@ -36,6 +37,8 @@ extern bool
        is_ascii_string_desc (string_desc_t string);
 extern bool
        is_ascii_string_list (const string_list_ty *slp);
+extern bool
+       is_ascii_string_desc_list (const string_desc_list_ty *slp);
 extern bool
        is_ascii_message (const message_ty *mp);
 extern bool

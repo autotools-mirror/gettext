@@ -30,6 +30,8 @@
 #include <textstyle.h>
 
 #include <error.h>
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "message.h"
 #include "msgl-ascii.h"
 #include "msgl-iconv.h"
@@ -52,20 +54,20 @@
 
 /* Converts a string to JAVA encoding (with \uxxxx sequences for non-ASCII
    characters).  */
-static const char *
-conv_to_java (const char *string)
+static string_desc_t
+conv_to_java (string_desc_t string)
 {
   /* We cannot use iconv to "JAVA" because not all iconv() implementations
      know about the "JAVA" encoding.  */
   static const char hexdigit[] = "0123456789abcdef";
 
-  if (is_ascii_string (string))
+  if (is_ascii_string_desc (string))
     return string;
 
   size_t length = 0;
   {
-    const char *str = string;
-    const char *str_limit = str + strlen (str);
+    const char *str = sd_data (string);
+    const char *str_limit = str + sd_length (string);
 
     while (str < str_limit)
       {
@@ -75,12 +77,12 @@ conv_to_java (const char *string)
       }
   }
 
-  char *result = XNMALLOC (length + 1, char);
+  char *result = XNMALLOC (length, char);
 
   {
     char *newstr = result;
-    const char *str = string;
-    const char *str_limit = str + strlen (str);
+    const char *str = sd_data (string);
+    const char *str_limit = str + sd_length (string);
 
     while (str < str_limit)
       {
@@ -115,10 +117,9 @@ conv_to_java (const char *string)
             newstr += 6;
           }
       }
-    *newstr = '\0';
   }
 
-  return result;
+  return sd_new_addr (length, (const char *) result);
 }
 
 /* Writes a key or value to the stream, without newline.  */
@@ -250,7 +251,8 @@ write_properties (ostream_t stream, message_list_ty *mlp,
 
       if (mp->comment != NULL)
         for (size_t i = 0; i < mp->comment->nitems; ++i)
-          mp->comment->item[i] = conv_to_java (mp->comment->item[i]);
+          mp->comment->item[i] =
+            xsd_c (conv_to_java (sd_from_c (mp->comment->item[i])));
       if (mp->comment_dot != NULL)
         for (size_t i = 0; i < mp->comment_dot->nitems; ++i)
           mp->comment_dot->item[i] = conv_to_java (mp->comment_dot->item[i]);

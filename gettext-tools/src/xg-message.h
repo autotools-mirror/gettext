@@ -23,7 +23,7 @@
 
 #include "message.h"
 #include "pos.h"
-#include "rc-str-list.h"
+#include "rc-string-desc-list.h"
 
 #include "xg-arglist-context.h"
 #include "xg-encoding.h"
@@ -43,7 +43,7 @@ extern "C" {
    follow.
    POS->file_name must be allocated with indefinite extent.
    EXTRACTED_COMMENT is a comment that needs to be copied into the POT file,
-   or NULL.
+   or (0, NULL).
    COMMENT may be savable_comment, or it may be a saved copy of savable_comment
    (then add_reference must be used when saving it, and drop_reference while
    dropping it).  Clear savable_comment.
@@ -56,8 +56,8 @@ extern message_ty *remember_a_message (message_list_ty *mlp,
                                        bool pluralp,
                                        flag_region_ty *region,
                                        lex_pos_ty *pos,
-                                       const char *extracted_comment,
-                                       refcounted_string_list_ty *comment,
+                                       string_desc_t extracted_comment,
+                                       refcounted_string_desc_list_ty *comment,
                                        bool comment_is_utf8);
 
 /* Add an msgid_plural to a message previously returned by
@@ -75,7 +75,7 @@ extern void remember_a_message_plural (message_ty *mp,
                                        bool is_utf8,
                                        flag_region_ty *region,
                                        lex_pos_ty *pos,
-                                       refcounted_string_list_ty *comment,
+                                       refcounted_string_desc_list_ty *comment,
                                        bool comment_is_utf8);
 
 

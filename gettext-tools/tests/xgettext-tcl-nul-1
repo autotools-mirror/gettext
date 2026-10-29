@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Tcl support: NUL characters in extracted comments.
+
+{
+printf '# TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+puts [_ "one"]
+EOF
+} > xg-t-nul-1.tcl
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: -k_ \
+  -d xg-t-nul-1.tmp xg-t-nul-1.tcl || Exit 1
+LC_ALL=C tr -d '\r' < xg-t-nul-1.tmp.po > xg-t-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+EOF
+} > xg-t-nul-1.ok
+
+cmp xg-t-nul-1.ok xg-t-nul-1.po
+result=$?
+
+exit $result

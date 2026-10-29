@@ -31,10 +31,12 @@
 
 #define SB_NO_APPENDF
 #include <error.h>
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "attribute.h"
 #include "message.h"
 #include "string-list.h"
-#include "rc-str-list.h"
+#include "rc-string-desc-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
@@ -50,7 +52,6 @@
 #include "xvasprintf.h"
 #include "xalloc.h"
 #include "string-buffer.h"
-#include "c-strstr.h"
 #include "c-ctype.h"
 #include "po-charset.h"
 #include "unistr.h"
@@ -578,20 +579,21 @@ comment_add (int c)
   mixed_string_buffer_append_unicode (&comment_buffer, c);
 }
 
-static inline const char *
+static inline string_desc_t
 comment_line_end (size_t chars_to_remove)
 {
-  char *buffer =
+  rw_string_desc_t buffer =
     mixed_string_contents_free1 (mixed_string_buffer_result (&comment_buffer));
-  size_t buflen = strlen (buffer) - chars_to_remove;
-
-  while (buflen >= 1
-         && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
-    --buflen;
-  buffer[buflen] = '\0';
-  savable_comment_add (buffer);
+  {
+    char *bufp = sd_data (buffer);
+    size_t buflen = sd_length (buffer) - chars_to_remove;
+    while (buflen >= 1 && (bufp[buflen - 1] == ' ' || bufp[buflen - 1] == '\t'))
+      --buflen;
+    buffer = sd_new_addr (buflen, bufp);
+  }
+  savable_comment_add (sd_readonly (buffer));
   lexical_context = lc_outside;
-  return buffer;
+  return sd_readonly (buffer);
 }
 
 
@@ -789,15 +791,15 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *template_tag;                 /* for token_type_template, token_type_ltemplate,
-                                         token_type_rtemplate */
-  char *string;                       /* for token_type_symbol, token_type_keyword */
-  mixed_string_ty *mixed_string;      /* for token_type_string, token_type_template,
-                                         token_type_ltemplate, token_type_mtemplate,
-                                         token_type_rtemplate */
-  string_list_ty *template_parts;     /* for token_type_rtemplate */
-  refcounted_string_list_ty *comment; /* for token_type_string, token_type_template,
-                                         token_type_ltemplate, token_type_rtemplate */
+  char *template_tag;                      /* for token_type_template, token_type_ltemplate,
+                                              token_type_rtemplate */
+  char *string;                            /* for token_type_symbol, token_type_keyword */
+  mixed_string_ty *mixed_string;           /* for token_type_string, token_type_template,
+                                              token_type_ltemplate, token_type_mtemplate,
+                                              token_type_rtemplate */
+  string_list_ty *template_parts;          /* for token_type_rtemplate */
+  refcounted_string_desc_list_ty *comment; /* for token_type_string, token_type_template,
+                                              token_type_ltemplate, token_type_rtemplate */
   int line_number;
 };
 
@@ -1158,9 +1160,9 @@ enum level_ty
 struct level_info
 {
   enum level_ty type;
-  char *template_tag;                          /* for level_template_literal */
-  string_list_ty *template_parts;              /* for level_template_literal */
-  refcounted_string_list_ty *template_comment; /* for level_template_literal */
+  char *template_tag;                               /* for level_template_literal */
+  string_list_ty *template_parts;                   /* for level_template_literal */
+  refcounted_string_desc_list_ty *template_comment; /* for level_template_literal */
 };
 /* The level stack.  */
 static struct level_info *levels /* = NULL */;
@@ -1632,8 +1634,9 @@ phase5_get (token_ty *tp)
                     {
                       tp->mixed_string = mixed_string_buffer_result (&msb);
                       tp->type = last_token_type = token_type_rtemplate;
-                      string_list_append_move (levels[level - 1].template_parts,
-                                               mixed_string_contents_free1 (tp->mixed_string));
+                      rw_string_desc_t string = mixed_string_contents_free1 (tp->mixed_string);
+                      string_list_append_move (levels[level - 1].template_parts, xsd_c (string));
+                      sd_free (string);
                       /* Move info from the current level to the token.  */
                       tp->template_tag = levels[level - 1].template_tag;
                       tp->template_parts = levels[level - 1].template_parts;
@@ -1782,8 +1785,9 @@ x_javascript_lex (token_ty *tp)
           levels[level - 1].template_comment = tp->comment;
           tp->comment = NULL;
         }
-      string_list_append_move (levels[level - 1].template_parts,
-                               mixed_string_contents_free1 (tp->mixed_string));
+      rw_string_desc_t string = mixed_string_contents_free1 (tp->mixed_string);
+      string_list_append_move (levels[level - 1].template_parts, xsd_c (string));
+      sd_free (string);
     }
 }
 
@@ -1999,8 +2003,9 @@ extract_balanced (message_list_ty *mlp,
                 if (token.type == token_type_template)
                   {
                     parts = string_list_alloc ();
-                    string_list_append_move (parts,
-                                             mixed_string_contents (mixed_string));
+                    rw_string_desc_t string = mixed_string_contents (mixed_string);
+                    string_list_append_move (parts, xsd_c (string));
+                    sd_free (string);
                   }
                 else /* (token.type == token_type_rtemplate) */
                   parts = token.template_parts;
@@ -2017,7 +2022,7 @@ extract_balanced (message_list_ty *mlp,
                     /* Extract the string.  */
                     remember_a_message (mlp, NULL, string, true, false,
                                         inner_region, &pos,
-                                        NULL, token.comment, true);
+                                        sd_new_empty (), token.comment, true);
                   }
 
                 string_list_free (parts);
@@ -2030,10 +2035,12 @@ extract_balanced (message_list_ty *mlp,
               {
                 if (extract_all)
                   {
-                    char *string = mixed_string_contents_free1 (mixed_string);
-                    remember_a_message (mlp, NULL, string, true, false,
+                    rw_string_desc_t string = mixed_string_contents_free1 (mixed_string);
+                    char *msgid = xsd_c (string);
+                    remember_a_message (mlp, NULL, msgid, true, false,
                                         inner_region, &pos,
-                                        NULL, token.comment, true);
+                                        sd_new_empty (), token.comment, true);
+                    sd_free (string);
                   }
                 else
                   arglist_parser_remember (argparser, arg, mixed_string,

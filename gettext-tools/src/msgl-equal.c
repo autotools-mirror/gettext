@@ -25,6 +25,9 @@
 #include <stddef.h>
 #include <string.h>
 
+#include "string-desc.h"
+#include "string-desc-list.h"
+
 
 static inline bool
 msgstr_equal (const char *msgstr1, size_t msgstr1_len,
@@ -127,6 +130,19 @@ string_list_equal (const string_list_ty *slp1, const string_list_ty *slp2)
 }
 
 bool
+string_desc_list_equal (const string_desc_list_ty *slp1, const string_desc_list_ty *slp2)
+{
+  size_t i1 = (slp1 != NULL ? slp1->nitems : 0);
+  size_t i2 = (slp2 != NULL ? slp2->nitems : 0);
+  if (i1 != i2)
+    return false;
+  for (size_t i = 0; i < i1; i++)
+    if (!sd_equals (slp1->item[i], slp2->item[i]))
+      return false;
+  return true;
+}
+
+bool
 message_equal (const message_ty *mp1, const message_ty *mp2,
                bool ignore_potcdate)
 {
@@ -157,7 +173,7 @@ message_equal (const message_ty *mp1, const message_ty *mp2,
   if (!string_list_equal (mp1->comment, mp2->comment))
     return false;
 
-  if (!string_list_equal (mp1->comment_dot, mp2->comment_dot))
+  if (!string_desc_list_equal (mp1->comment_dot, mp2->comment_dot))
     return false;
 
   size_t i1 = mp1->filepos_count;

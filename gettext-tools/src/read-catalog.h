@@ -19,10 +19,12 @@
 #ifndef _READ_CATALOG_H
 #define _READ_CATALOG_H
 
+#include "string-desc.h"
 #include "message.h"
 #include "read-catalog-abstract.h"
 #include "xerror-handler.h"
 #include "string-list.h"
+#include "string-desc-list.h"
 
 #include <stdbool.h>
 #include <stdio.h>
@@ -107,7 +109,7 @@ struct default_catalog_reader_class_ty
                                                                         \
   /* Accumulate comments for next message directive.  */                \
   string_list_ty *comment;                                              \
-  string_list_ty *comment_dot;                                          \
+  string_desc_list_ty *comment_dot;                                     \
                                                                         \
   /* Accumulate filepos comments for the next message directive.  */    \
   size_t filepos_count;                                                 \
@@ -144,7 +146,7 @@ extern void default_directive_message (abstract_catalog_reader_ty *catr,
                                        bool force_fuzzy, bool obsolete);
 extern void default_comment (abstract_catalog_reader_ty *catr, const char *s);
 extern void default_comment_dot (abstract_catalog_reader_ty *catr,
-                                 const char *s);
+                                 string_desc_t s);
 extern void default_comment_filepos (abstract_catalog_reader_ty *catr,
                                      const char *file_name, size_t line_number);
 extern void default_comment_special (abstract_catalog_reader_ty *catr,

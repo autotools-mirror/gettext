@@ -32,8 +32,10 @@
 #define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "message.h"
-#include "rc-str-list.h"
+#include "rc-string-desc-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
@@ -557,20 +559,21 @@ comment_add (int c)
   mixed_string_buffer_append_unicode (&comment_buffer, c);
 }
 
-static inline const char *
+static inline string_desc_t
 comment_line_end ()
 {
-  char *buffer =
+  rw_string_desc_t buffer =
     mixed_string_contents_free1 (mixed_string_buffer_result (&comment_buffer));
-  size_t buflen = strlen (buffer);
-
-  while (buflen >= 1
-         && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
-    --buflen;
-  buffer[buflen] = '\0';
-  savable_comment_add (buffer);
+  {
+    char *bufp = sd_data (buffer);
+    size_t buflen = sd_length (buffer);
+    while (buflen >= 1 && (bufp[buflen - 1] == ' ' || bufp[buflen - 1] == '\t'))
+      --buflen;
+    buffer = sd_new_addr (buflen, bufp);
+  }
+  savable_comment_add (sd_readonly (buffer));
   lexical_context = lc_outside;
-  return buffer;
+  return sd_readonly (buffer);
 }
 
 
@@ -731,9 +734,13 @@ phase3_getc ()
               if (!(comment_at_start () && (c == ' ' || c == '\t')))
                 comment_add (c);
             }
-          const char *comment = comment_line_end ();
+          string_desc_t comment = comment_line_end ();
           if (line_number - 1 <= 2 && !continuation_or_nonblank_line)
-            try_to_extract_coding (comment);
+            {
+              char *comment_c = xsd_c (comment);
+              try_to_extract_coding (comment_c);
+              free (comment_c);
+            }
           continuation_or_nonblank_line = false;
           return c;
         }
@@ -802,9 +809,9 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;                       /* for token_type_symbol */
-  mixed_string_ty *mixed_string;      /* for token_type_string, token_type_498 */
-  refcounted_string_list_ty *comment; /* for token_type_string, token_type_498 */
+  char *string;                            /* for token_type_symbol */
+  mixed_string_ty *mixed_string;           /* for token_type_string, token_type_498 */
+  refcounted_string_desc_list_ty *comment; /* for token_type_string, token_type_498 */
   int line_number;
 };
 
@@ -1835,11 +1842,13 @@ extract_balanced (message_list_ty *mlp,
 
             if (extract_all)
               {
-                char *string = mixed_string_contents (token.mixed_string);
+                rw_string_desc_t string = mixed_string_contents (token.mixed_string);
                 mixed_string_free (token.mixed_string);
-                remember_a_message (mlp, NULL, string, true, false,
+                char *msgid = xsd_c (string);
+                remember_a_message (mlp, NULL, msgid, true, false,
                                     inner_region, &pos,
-                                    NULL, token.comment, true);
+                                    sd_new_empty (), token.comment, true);
+                sd_free (string);
               }
             else
               arglist_parser_remember (argparser, arg, token.mixed_string,

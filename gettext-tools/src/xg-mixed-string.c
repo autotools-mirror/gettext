@@ -27,6 +27,7 @@
 #include <string.h>
 
 #include <error.h>
+#include "string-desc.h"
 #include "if-error.h"
 #include "flexmember.h"
 #include "msgl-ascii.h"
@@ -146,81 +147,75 @@ mixed_string_clone (const mixed_string_ty *ms1)
   return ms;
 }
 
-char *
+rw_string_desc_t
 mixed_string_contents (const mixed_string_ty *ms)
 {
   size_t nsegments = ms->nsegments;
   /* Trivial cases.  */
   if (nsegments == 0)
-    return xstrdup ("");
+    return sd_readwrite (sd_new_empty ());
   if (nsegments == 1 && ms->segments[0]->type == utf8_encoded)
     {
-      /* Return the segment, with a NUL at the end.  */
+      /* Return the segment.  */
       size_t len = ms->segments[0]->length;
-      char *string = XNMALLOC (len + 1, char);
+      char *string = XNMALLOC (len, char);
       memcpy (string, ms->segments[0]->contents, len);
-      string[len] = '\0';
-      return string;
+      return sd_new_addr (len, string);
     }
   /* General case.  */
-  for (size_t i = 0; i < nsegments - 1; i++)
-    if (memchr (ms->segments[i]->contents, '\0', ms->segments[i]->length)
-        != NULL)
+  rw_string_desc_t *converted_segments = XNMALLOC (nsegments, rw_string_desc_t);
+  size_t length = 0;
+  for (size_t i = 0; i < nsegments; i++)
+    if (ms->segments[i]->type == source_encoded)
       {
-        /* Segment i contains a NUL character.  Ignore the remaining
-           segments.  */
-        nsegments = i + 1;
-        break;
+        /* Copy the segment's contents.  */
+        rw_string_desc_t source_encoded_string;
+        {
+          size_t len = ms->segments[i]->length;
+          char *p = XNMALLOC (len, char);
+          memcpy (p, ms->segments[i]->contents, len);
+          source_encoded_string = sd_new_addr (len, p);
+        }
+        /* Convert it to UTF-8 encoding.  */
+        rw_string_desc_t utf8_encoded_string =
+          string_desc_from_current_source_encoding (sd_readonly (source_encoded_string),
+                                                    ms->lcontext,
+                                                    ms->logical_file_name,
+                                                    ms->line_number);
+        if (sd_data (utf8_encoded_string) != sd_data (source_encoded_string))
+          sd_free (source_encoded_string);
+        converted_segments[i] = utf8_encoded_string;
+        length += sd_length (utf8_encoded_string);
       }
+    else
+      length += ms->segments[i]->length;
+
+  char *string = XNMALLOC (length, char);
   {
-    char **converted_segments = XNMALLOC (nsegments, char *);
-    size_t length = 0;
+    char *p = string;
     for (size_t i = 0; i < nsegments; i++)
       if (ms->segments[i]->type == source_encoded)
         {
-          /* Copy the segment's contents, with a NUL at the end.  */
-          char *source_encoded_string;
-          {
-            size_t len = ms->segments[i]->length;
-            source_encoded_string = XNMALLOC (len + 1, char);
-            memcpy (source_encoded_string, ms->segments[i]->contents, len);
-            source_encoded_string[len] = '\0';
-          }
-          /* Convert it to UTF-8 encoding.  */
-          char *utf8_encoded_string =
-            from_current_source_encoding (source_encoded_string,
-                                          ms->lcontext,
-                                          ms->logical_file_name,
-                                          ms->line_number);
-          if (utf8_encoded_string != source_encoded_string)
-            free (source_encoded_string);
-          converted_segments[i] = utf8_encoded_string;
-          length += strlen (utf8_encoded_string);
+          if (sd_length (converted_segments[i]) > 0)
+            {
+              memcpy (p, sd_data (converted_segments[i]), sd_length (converted_segments[i]));
+              p += sd_length (converted_segments[i]);
+            }
+          sd_free (converted_segments[i]);
         }
       else
-        length += ms->segments[i]->length;
-
-    char *string = XNMALLOC (length + 1, char);
-    {
-      char *p = string;
-      for (size_t i = 0; i < nsegments; i++)
-        if (ms->segments[i]->type == source_encoded)
-          {
-            p = stpcpy (p, converted_segments[i]);
-            free (converted_segments[i]);
-          }
-        else
-          {
-            memcpy (p, ms->segments[i]->contents, ms->segments[i]->length);
-            p += ms->segments[i]->length;
-          }
-      assert (p == string + length);
-      *p = '\0';
-    }
-
-    free (converted_segments);
-    return string;
+        {
+          if (ms->segments[i]->length > 0)
+            {
+              memcpy (p, ms->segments[i]->contents, ms->segments[i]->length);
+              p += ms->segments[i]->length;
+            }
+        }
+    assert (p == string + length);
   }
+
+  free (converted_segments);
+  return sd_new_addr (length, string);
 }
 
 void
@@ -237,10 +232,10 @@ mixed_string_free (mixed_string_ty *ms)
   free (ms);
 }
 
-char *
+rw_string_desc_t
 mixed_string_contents_free1 (mixed_string_ty *ms)
 {
-  char *contents = mixed_string_contents (ms);
+  rw_string_desc_t contents = mixed_string_contents (ms);
   mixed_string_free (ms);
   return contents;
 }

@@ -1,0 +1,53 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test PHP support: NUL characters in extracted comments.
+
+{
+cat <<\EOF
+<?
+EOF
+printf '// TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+echo _("one");
+EOF
+printf '# TRANSLATORS: This \0too.\n'
+cat <<\EOF
+echo _("two");
+EOF
+printf '/* TRANSLATORS: This \0as well. */\n'
+cat <<\EOF
+echo _("three");
+?>
+EOF
+} > xg-ph-nul-1.php
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-ph-nul-1.tmp xg-ph-nul-1.php || Exit 1
+LC_ALL=C tr -d '\r' < xg-ph-nul-1.tmp.po > xg-ph-nul-1.po || Exit 1
+
+{
+printf '#. TRANSLATORS: This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+
+EOF
+printf '#. TRANSLATORS: This \0too.\n'
+cat <<\EOF
+msgid "two"
+msgstr ""
+
+EOF
+printf '#. TRANSLATORS: This \0as well.\n'
+cat <<\EOF
+msgid "three"
+msgstr ""
+EOF
+} > xg-ph-nul-1.ok
+
+cmp xg-ph-nul-1.ok xg-ph-nul-1.po
+result=$?
+
+exit $result

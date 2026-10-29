@@ -43,7 +43,9 @@
 #include <error.h>
 #include "options.h"
 #include "noreturn.h"
-#include "rc-str-list.h"
+#include "string-desc.h"
+#include "string-desc-list.h"
+#include "rc-string-desc-list.h"
 #include "xg-encoding.h"
 #include "xg-formatstring.h"
 #include "xg-arglist-context.h"
@@ -1888,21 +1890,27 @@ err:
 /* Comment handling: There is a list of automatic comments that may be appended
    to the next message.  Used by remember_a_message().  */
 
-static string_list_ty *comment;
+static string_desc_list_ty *comment;
 
 static void
-xgettext_comment_add (const char *str)
+xgettext_comment_add (string_desc_t str)
 {
   if (comment == NULL)
-    comment = string_list_alloc ();
-  string_list_append (comment, str);
+    comment = string_desc_list_alloc ();
+  string_desc_list_append (comment, str);
 }
 
-const char *
+size_t
+xgettext_comment_count (void)
+{
+  return (comment == NULL ? 0 : comment->nitems);
+}
+
+string_desc_t
 xgettext_comment (size_t n)
 {
   if (comment == NULL || n >= comment->nitems)
-    return NULL;
+    abort ();
   return comment->item[n];
 }
 
@@ -1911,36 +1919,36 @@ xgettext_comment_reset (void)
 {
   if (comment != NULL)
     {
-      string_list_free (comment);
+      string_desc_list_free (comment);
       comment = NULL;
     }
 }
 
 
-refcounted_string_list_ty *savable_comment;
+refcounted_string_desc_list_ty *savable_comment;
 
 void
-savable_comment_add (const char *str)
+savable_comment_add (string_desc_t str)
 {
   if (savable_comment == NULL)
     {
-      savable_comment = XMALLOC (refcounted_string_list_ty);
+      savable_comment = XMALLOC (refcounted_string_desc_list_ty);
       savable_comment->refcount = 1;
-      string_list_init (&savable_comment->contents);
+      string_desc_list_init (&savable_comment->contents);
     }
   else if (savable_comment->refcount > 1)
     {
       /* Unshare the list by making copies.  */
       savable_comment->refcount--;
-      struct string_list_ty *oldcontents = &savable_comment->contents;
+      struct string_desc_list_ty *oldcontents = &savable_comment->contents;
 
-      savable_comment = XMALLOC (refcounted_string_list_ty);
+      savable_comment = XMALLOC (refcounted_string_desc_list_ty);
       savable_comment->refcount = 1;
-      string_list_init (&savable_comment->contents);
+      string_desc_list_init (&savable_comment->contents);
       for (size_t i = 0; i < oldcontents->nitems; i++)
-        string_list_append (&savable_comment->contents, oldcontents->item[i]);
+        string_desc_list_append (&savable_comment->contents, oldcontents->item[i]);
     }
-  string_list_append (&savable_comment->contents, str);
+  string_desc_list_append (&savable_comment->contents, str);
 }
 
 void
@@ -1951,7 +1959,7 @@ savable_comment_reset ()
 }
 
 void
-savable_comment_to_xgettext_comment (refcounted_string_list_ty *rslp)
+savable_comment_to_xgettext_comment (refcounted_string_desc_list_ty *rslp)
 {
   xgettext_comment_reset ();
   if (rslp != NULL)
@@ -2141,7 +2149,7 @@ xgettext_its_extract_callback (message_list_ty *mlp,
                                const char *msgctxt,
                                const char *msgid,
                                lex_pos_ty *pos,
-                               const char *extracted_comment,
+                               string_desc_t extracted_comment,
                                const char *marker,
                                enum its_whitespace_type_ty whitespace)
 {
@@ -2156,7 +2164,7 @@ xgettext_its_extract_callback (message_list_ty *mlp,
   if (add_itstool_comments)
     {
       char *dot = xasprintf ("(itstool) path: %s", marker);
-      message_comment_dot_append (message, dot);
+      message_comment_dot_append (message, sd_from_c (dot));
       free (dot);
 
       if (whitespace == ITS_WHITESPACE_PRESERVE)

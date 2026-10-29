@@ -31,8 +31,9 @@
 #define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
 #include "message.h"
-#include "rc-str-list.h"
+#include "rc-string-desc-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-arglist-context.h"
@@ -162,7 +163,7 @@ phase2_getc ()
                     && (c == ' ' || c == '\t')))
                 sb_xappend1 (&buffer, c);
             }
-          savable_comment_add (sb_xdupfree_c (&buffer));
+          savable_comment_add (sd_readonly (sb_xdupfree (&buffer)));
           last_comment_line = lineno;
           return '\n';
         }
@@ -208,7 +209,7 @@ phase2_getc ()
                            && (buffer.data[buffer.length - 1] == ' '
                                || buffer.data[buffer.length - 1] == '\t'))
                       --buffer.length;
-                    savable_comment_add (sb_xdupfree_c (&buffer));
+                    savable_comment_add (sd_readonly (sb_xdupfree (&buffer)));
                     sb_init (&buffer);
                     lineno = line_number;
                     last_was_star = false;
@@ -226,7 +227,7 @@ phase2_getc ()
                                && (buffer.data[buffer.length - 1] == ' '
                                    || buffer.data[buffer.length - 1] == '\t'))
                           --buffer.length;
-                        savable_comment_add (sb_xdupfree_c (&buffer));
+                        savable_comment_add (sd_readonly (sb_xdupfree (&buffer)));
                         break;
                       }
                     FALLTHROUGH;
@@ -257,7 +258,7 @@ phase2_getc ()
                       && (c == ' ' || c == '\t')))
                   sb_xappend1 (&buffer, c);
               }
-            savable_comment_add (sb_xdupfree_c (&buffer));
+            savable_comment_add (sd_readonly (sb_xdupfree (&buffer)));
             last_comment_line = lineno;
             return '\n';
           }
@@ -300,8 +301,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;         /* for token_type_string_literal, token_type_symbol */
-  refcounted_string_list_ty *comment;   /* for token_type_string_literal */
+  char *string;                            /* for token_type_string_literal, token_type_symbol */
+  refcounted_string_desc_list_ty *comment; /* for token_type_string_literal */
   int line_number;
 };
 
@@ -685,7 +686,7 @@ extract_parenthesized (message_list_ty *mlp,
                     remember_a_message (mlp, NULL, token.string, false,
                                         token2.type == token_type_comma,
                                         inner_region, &pos,
-                                        NULL, token.comment, false);
+                                        sd_new_empty (), token.comment, false);
 
                   if (in_i18n)
                     phase8_unget (&token2);

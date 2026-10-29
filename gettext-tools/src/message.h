@@ -20,7 +20,9 @@
 #define _MESSAGE_H
 
 #include "attribute.h"
+#include "string-desc.h"
 #include "string-list.h"
+#include "string-desc-list.h"
 #include "pos.h"
 #include "mem-hash-map.h"
 
@@ -161,7 +163,7 @@ struct altstr
   size_t msgstr_len;
   const char *msgstr_end;
   string_list_ty *comment;
-  string_list_ty *comment_dot;
+  string_desc_list_ty *comment_dot;
   char *id;
 };
 
@@ -190,7 +192,7 @@ struct message_ty
   string_list_ty *comment;
 
   /* Extracted comments (#.) appearing before the message.  */
-  string_list_ty *comment_dot;
+  string_desc_list_ty *comment_dot;
 
   /* File position comments (#:) appearing before the message, one for
      each unique file position instance, sorted by file name and then
@@ -255,7 +257,7 @@ extern void
 extern void
        message_comment_append (message_ty *mp, const char *comment);
 extern void
-       message_comment_dot_append (message_ty *mp, const char *comment);
+       message_comment_dot_append (message_ty *mp, string_desc_t comment);
 extern void
        message_comment_filepos (message_ty *mp,
                                 const char *file_name, size_t line_number);

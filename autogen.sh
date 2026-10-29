@@ -579,6 +579,7 @@ if ! $skip_gnulib; then
     xmalloca
     xstrerror
     xstriconv
+    xstring-desc
     xvasprintf
   '
   # Module 'fdopen' is enabled in gettext-tools/config.status,

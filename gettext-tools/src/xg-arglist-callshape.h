@@ -25,7 +25,7 @@
 
 #include "attribute.h"
 #include "flexmember.h"
-#include "string-list.h"
+#include "string-desc-list.h"
 #include "mem-hash-map.h"
 
 #ifdef __cplusplus
@@ -42,7 +42,7 @@ struct callshape
   bool argnum1_glib_context; /* argument argnum1 has the syntax "ctxt|msgid" */
   bool argnum2_glib_context; /* argument argnum2 has the syntax "ctxt|msgid" */
   int argtotal; /* total number of arguments */
-  string_list_ty xcomments; /* auto-extracted comments */
+  string_desc_list_ty xcomments; /* auto-extracted comments */
 };
 
 /* Split keyword spec into keyword, argnum1, argnum2, argnumc.  */

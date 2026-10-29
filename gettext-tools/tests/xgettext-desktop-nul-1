@@ -1,0 +1,32 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Desktop Entry support: NUL characters in extracted comments.
+
+{
+cat <<\EOF
+[Desktop Entry]
+EOF
+printf '# This is an \0extracted comment.\n'
+cat <<\EOF
+Name=one
+EOF
+} > xg-de-nul-1.desktop
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments \
+  -d xg-de-nul-1.tmp xg-de-nul-1.desktop || Exit 1
+LC_ALL=C tr -d '\r' < xg-de-nul-1.tmp.po > xg-de-nul-1.po || Exit 1
+
+{
+printf '#. This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "one"
+msgstr ""
+EOF
+} > xg-de-nul-1.ok
+
+cmp xg-de-nul-1.ok xg-de-nul-1.po
+result=$?
+
+exit $result

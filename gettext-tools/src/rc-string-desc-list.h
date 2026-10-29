@@ -16,12 +16,12 @@
 
 /* Written by Bruno Haible.  */
 
-#ifndef _RC_STR_LIST_H
-#define _RC_STR_LIST_H
+#ifndef _RC_STRING_DESC_LIST_H
+#define _RC_STRING_DESC_LIST_H
 
 #include <stdlib.h>
 
-#include "string-list.h"
+#include "string-desc-list.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,15 +30,15 @@ extern "C" {
 
 /* A reference-counted list-of-immutable-strings type.  */
 
-typedef struct refcounted_string_list_ty refcounted_string_list_ty;
-struct refcounted_string_list_ty
+typedef struct refcounted_string_desc_list_ty refcounted_string_desc_list_ty;
+struct refcounted_string_desc_list_ty
 {
   unsigned int refcount;
-  struct string_list_ty contents;
+  struct string_desc_list_ty contents;
 };
 
-static inline refcounted_string_list_ty *
-add_reference (refcounted_string_list_ty *rslp)
+static inline refcounted_string_desc_list_ty *
+add_reference (refcounted_string_desc_list_ty *rslp)
 {
   if (rslp != NULL)
     rslp->refcount++;
@@ -46,7 +46,7 @@ add_reference (refcounted_string_list_ty *rslp)
 }
 
 static inline void
-drop_reference (refcounted_string_list_ty *rslp)
+drop_reference (refcounted_string_desc_list_ty *rslp)
 {
   if (rslp != NULL)
     {
@@ -54,7 +54,7 @@ drop_reference (refcounted_string_list_ty *rslp)
         rslp->refcount--;
       else
         {
-          string_list_destroy (&rslp->contents);
+          string_desc_list_destroy (&rslp->contents);
           free (rslp);
         }
     }
@@ -66,4 +66,4 @@ drop_reference (refcounted_string_list_ty *rslp)
 #endif
 
 
-#endif /* _RC_STR_LIST_H */
+#endif /* _RC_STRING_DESC_LIST_H */

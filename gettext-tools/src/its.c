@@ -46,6 +46,7 @@
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "string-buffer.h"
+#include "string-desc.h"
 #include "xstring-desc.h"
 #include "c-ctype.h"
 #include "unistr.h"
@@ -1988,7 +1989,9 @@ its_rule_list_extract_text (its_rule_list_ty *rules,
               msgctxt = NULL;
             }
 
-          callback (mlp, msgctxt, msgid, &pos, comment, marker, whitespace);
+          callback (mlp, msgctxt, msgid, &pos,
+                    comment != NULL ? sd_from_c (comment) : sd_new_empty (),
+                    marker, whitespace);
           free (marker);
         }
       free (msgctxt);

@@ -30,8 +30,10 @@
 
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
+#include "xstring-desc.h"
 #include "message.h"
-#include "rc-str-list.h"
+#include "rc-string-desc-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-encoding.h"
@@ -548,16 +550,16 @@ comment_add (int c)
 static inline void
 comment_line_end (size_t chars_to_remove)
 {
-  char *buffer =
+  rw_string_desc_t buffer =
     mixed_string_contents_free1 (mixed_string_buffer_result (&comment_buffer));
-  size_t buflen = strlen (buffer);
-
-  buflen -= chars_to_remove;
-  while (buflen >= 1
-         && (buffer[buflen - 1] == ' ' || buffer[buflen - 1] == '\t'))
-    --buflen;
-  buffer[buflen] = '\0';
-  savable_comment_add (buffer);
+  {
+    char *bufp = sd_data (buffer);
+    size_t buflen = sd_length (buffer) - chars_to_remove;
+    while (buflen >= 1 && (bufp[buflen - 1] == ' ' || bufp[buflen - 1] == '\t'))
+      --buflen;
+    buffer = sd_new_addr (buflen, bufp);
+  }
+  savable_comment_add (sd_readonly (buffer));
   lexical_context = lc_outside;
 }
 
@@ -1259,9 +1261,9 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;                         /* for token_type_symbol */
-  mixed_string_ty *mixed_string;        /* for token_type_string_literal, token_type_template */
-  refcounted_string_list_ty *comment;   /* for token_type_string_literal, token_type_template */
+  char *string;                            /* for token_type_symbol */
+  mixed_string_ty *mixed_string;           /* for token_type_string_literal, token_type_template */
+  refcounted_string_desc_list_ty *comment; /* for token_type_string_literal, token_type_template */
   int line_number;
   int logical_line_number;
 };
@@ -1749,7 +1751,9 @@ phase6_get (token_ty *tp)
                 }
               phase4_ungetc (c);
               mixed_string_ty *mixed_string = mixed_string_buffer_result (&buffer);
-              tp->string = mixed_string_contents (mixed_string);
+              rw_string_desc_t string = mixed_string_contents (mixed_string);
+              tp->string = xsd_c (string);
+              sd_free (string);
               mixed_string_free (mixed_string);
               tp->type = token_type_symbol;
               return;
@@ -2096,11 +2100,13 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
 
             if (extract_all)
               {
-                char *string = mixed_string_contents (token.mixed_string);
+                rw_string_desc_t string = mixed_string_contents (token.mixed_string);
                 mixed_string_free (token.mixed_string);
-                remember_a_message (mlp, NULL, string, true, false,
+                char *msgid = xsd_c (string);
+                remember_a_message (mlp, NULL, msgid, true, false,
                                     inner_region, &pos,
-                                    NULL, token.comment, true);
+                                    sd_new_empty (), token.comment, true);
+                sd_free (string);
               }
             else
               arglist_parser_remember (argparser, arg, token.mixed_string,

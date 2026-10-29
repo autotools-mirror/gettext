@@ -30,9 +30,10 @@
 #define SB_NO_APPENDF
 #include <error.h>
 #include "attribute.h"
+#include "string-desc.h"
 #include "message.h"
 #include "sf-istream.h"
-#include "rc-str-list.h"
+#include "rc-string-desc-list.h"
 #include "xgettext.h"
 #include "xg-pos.h"
 #include "xg-mixed-string.h"
@@ -160,8 +161,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;         /* for token_type_string_literal, token_type_symbol */
-  refcounted_string_list_ty *comment;   /* for token_type_string_literal */
+  char *string;                            /* for token_type_string_literal, token_type_symbol */
+  refcounted_string_desc_list_ty *comment; /* for token_type_string_literal */
   int line_number;
 };
 
@@ -645,13 +646,7 @@ comment_line_end (struct php_extractor *xp, size_t chars_to_remove)
          && (xp->buffer[xp->buflen - 1] == ' '
              || xp->buffer[xp->buflen - 1] == '\t'))
     --(xp->buflen);
-  if (chars_to_remove == 0 && xp->buflen >= xp->bufmax)
-    {
-      xp->bufmax = 2 * xp->bufmax + 10;
-      xp->buffer = xrealloc (xp->buffer, xp->bufmax);
-    }
-  xp->buffer[xp->buflen] = '\0';
-  savable_comment_add (xp->buffer);
+  savable_comment_add (sd_new_addr (xp->buflen, (const char *) xp->buffer));
 }
 
 
@@ -1811,7 +1806,7 @@ extract_balanced (struct php_extractor *xp,
             if (extract_all)
               remember_a_message (xp->mlp, NULL, token.string, false, false,
                                   inner_region, &pos,
-                                  NULL, token.comment, false);
+                                  sd_new_empty (), token.comment, false);
             else
               {
                 mixed_string_ty *ms =

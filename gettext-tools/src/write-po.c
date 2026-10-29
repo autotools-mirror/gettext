@@ -35,6 +35,7 @@
 #include <textstyle.h>
 
 #include "attribute.h"
+#include "string-desc.h"
 #include "c-ctype.h"
 #include "po-charset.h"
 #include "format.h"
@@ -287,11 +288,11 @@ message_print_comment_dot (const message_ty *mp, ostream_t stream)
 
       for (size_t j = 0; j < mp->comment_dot->nitems; ++j)
         {
-          const char *s = mp->comment_dot->item[j];
+          string_desc_t s = mp->comment_dot->item[j];
           ostream_write_str (stream, "#.");
-          if (*s != '\0')
+          if (sd_length (s) > 0)
             ostream_write_str (stream, " ");
-          ostream_write_str (stream, s);
+          ostream_write_mem (stream, sd_data (s), sd_length (s));
           ostream_write_str (stream, "\n");
         }
 
