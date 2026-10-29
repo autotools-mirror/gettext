@@ -538,6 +538,23 @@ For C source code:
       that contribute to the complexity of a function.
   Only static variables are better kept declared upfront in a function or block.
 
+* Line length: While the GNU Coding Standards recommend a maximum line length
+  of 79 (because in the 1990ies many people were still using a non-resizable
+  terminal emulator of size 80x25, and because Emacs uses the last column for
+  displaying a backslash), current computing environments don't have such a
+  limitation any more. Moreover:
+    - As software gets more complex, function names becomes longer.
+      Function names with 40 characters (such as
+      'string_desc_from_current_source_encoding') are not rare any more.
+    - "git diff"'s output is more useful if a function's body, enclosed in
+      { ... }, has only spaces in the first column, between the '{' and the '}'.
+  Therefore:
+    - Try to use a maximum line length of 80 for simple code.
+    - Try to use a maximum line length of 100 for more complicated code.
+    - Don't abbreviate function names when it would make them less legible.
+    - Don't break string literals across lines with backslash-newline, just
+      because they would otherwise produce a long line.
+
 
 Customizing the Undefined Behaviour Sanitizer (UBSAN)
 =====================================================
