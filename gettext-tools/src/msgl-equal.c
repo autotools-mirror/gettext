@@ -170,7 +170,7 @@ message_equal (const message_ty *mp1, const message_ty *mp2,
   if (!pos_equal (&mp1->pos, &mp2->pos))
     return false;
 
-  if (!string_list_equal (mp1->comment, mp2->comment))
+  if (!string_desc_list_equal (mp1->comment, mp2->comment))
     return false;
 
   if (!string_desc_list_equal (mp1->comment_dot, mp2->comment_dot))

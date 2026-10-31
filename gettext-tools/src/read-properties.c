@@ -222,9 +222,9 @@ conv_from_java (rw_string_desc_t string)
   const char *p = sd_data (string);
   unsigned char *q = (unsigned char *) sd_data (string);
 
-  while (p < p_limit && *p != '\0')
+  while (p < p_limit)
     {
-      if (p[0] == '\\' && p[1] == 'u' && p_limit - p >= 2 + 4)
+      if (p_limit - p >= 2 + 4 && p[0] == '\\' && p[1] == 'u')
         {
           unsigned int n = 0;
           int i;
@@ -249,7 +249,7 @@ conv_from_java (rw_string_desc_t string)
 
               if (n >= 0xd800 && n < 0xdc00)
                 {
-                  if (p[6] == '\\' && p[7] == 'u' && p_limit - p >= 6 + 2 + 4)
+                  if (p_limit - p >= 6 + 2 + 4 && p[6] == '\\' && p[7] == 'u')
                     {
                       unsigned int m = 0;
                       int i2;

@@ -117,7 +117,7 @@ call_directive_message (abstract_catalog_reader_ty *catr,
 }
 
 static inline void
-call_comment (abstract_catalog_reader_ty *catr, const char *s)
+call_comment (abstract_catalog_reader_ty *catr, string_desc_t s)
 {
   if (catr->methods->comment != NULL)
     catr->methods->comment (catr, s);
@@ -209,7 +209,7 @@ catalog_reader_seen_message (abstract_catalog_reader_ty *catr,
 
 
 void
-catalog_reader_seen_comment (abstract_catalog_reader_ty *catr, const char *s)
+catalog_reader_seen_comment (abstract_catalog_reader_ty *catr, string_desc_t s)
 {
   call_comment (catr, s);
 }
@@ -608,9 +608,7 @@ catalog_reader_seen_generic_comment (abstract_catalog_reader_ty *catr,
              consider it part of the comment, therefore remove it here.  */
           if (p < s_end && *p == ' ')
             p++;
-          char *rest = xsd_c (sd_new_addr (s_end - p, p));
-          catalog_reader_seen_comment (catr, rest);
-          free (rest);
+          catalog_reader_seen_comment (catr, sd_new_addr (s_end - p, p));
         }
       free (line);
     }

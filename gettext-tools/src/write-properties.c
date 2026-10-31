@@ -251,8 +251,7 @@ write_properties (ostream_t stream, message_list_ty *mlp,
 
       if (mp->comment != NULL)
         for (size_t i = 0; i < mp->comment->nitems; ++i)
-          mp->comment->item[i] =
-            xsd_c (conv_to_java (sd_from_c (mp->comment->item[i])));
+          mp->comment->item[i] = conv_to_java (mp->comment->item[i]);
       if (mp->comment_dot != NULL)
         for (size_t i = 0; i < mp->comment_dot->nitems; ++i)
           mp->comment_dot->item[i] = conv_to_java (mp->comment_dot->item[i]);

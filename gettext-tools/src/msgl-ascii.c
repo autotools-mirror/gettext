@@ -81,7 +81,7 @@ is_ascii_message (const message_ty *mp)
         return false;
   }
 
-  if (!is_ascii_string_list (mp->comment))
+  if (!is_ascii_string_desc_list (mp->comment))
     return false;
   if (!is_ascii_string_desc_list (mp->comment_dot))
     return false;

@@ -226,7 +226,7 @@ message_free (message_ty *mp)
     free ((char *) mp->msgid_plural);
   free ((char *) mp->msgstr);
   if (mp->comment != NULL)
-    string_list_free (mp->comment);
+    string_desc_list_free (mp->comment);
   if (mp->comment_dot != NULL)
     string_desc_list_free (mp->comment_dot);
   for (size_t j = 0; j < mp->filepos_count; ++j)
@@ -244,11 +244,11 @@ message_free (message_ty *mp)
 
 
 void
-message_comment_append (message_ty *mp, const char *s)
+message_comment_append (message_ty *mp, string_desc_t s)
 {
   if (mp->comment == NULL)
-    mp->comment = string_list_alloc ();
-  string_list_append (mp->comment, s);
+    mp->comment = string_desc_list_alloc ();
+  string_desc_list_append (mp->comment, s);
 }
 
 

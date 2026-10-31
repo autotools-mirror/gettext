@@ -1,0 +1,33 @@
+#! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Verify that msgcat supports NUL characters in translator comments and
+# extracted comments, with --stringtable-output.
+
+{
+printf '# This is a translator \0comment\n'
+printf '# with several \0\0NUL\0\0 characters.\n'
+printf '#. This is an \0extracted comment.\n'
+cat <<\EOF
+msgid "Simple"
+msgstr "Einfach"
+EOF
+} > mcat-s-nul-2.in
+
+: ${MSGCAT=msgcat}
+${MSGCAT} --stringtable-output -o mcat-s-nul-2.tmp mcat-s-nul-2.in || Exit 1
+LC_ALL=C tr -d '\r' < mcat-s-nul-2.tmp > mcat-s-nul-2.out || Exit 1
+
+{
+printf '// This is a translator \0comment\n'
+printf '// with several \0\0NUL\0\0 characters.\n'
+printf '// Comment: This is an \0extracted comment.\n'
+cat <<\EOF
+"Simple" = "Einfach";
+EOF
+} > mcat-s-nul-2.ok
+
+cmp mcat-s-nul-2.ok mcat-s-nul-2.out
+result=$?
+
+exit $result

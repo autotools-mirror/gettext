@@ -363,7 +363,7 @@ iconv_message_list_internal (message_list_ty *mlp,
               || !is_ascii_string (mp->msgid))
             msgids_changed = true;
           context.message = mp;
-          convert_string_list (&cd, mp->comment, &context, xeh);
+          convert_string_desc_list (&cd, mp->comment, &context, xeh);
           convert_string_desc_list (&cd, mp->comment_dot, &context, xeh);
           convert_prev_msgid (&cd, mp, &context, xeh);
           convert_msgid (&cd, mp, &context, xeh);
@@ -652,7 +652,7 @@ is_message_list_iconvable (message_list_ty *mlp,
         {
           message_ty *mp = mlp->item[j];
 
-          if (!(iconvable_string_list (&cd, mp->comment)
+          if (!(iconvable_string_desc_list (&cd, mp->comment)
                 && iconvable_string_desc_list (&cd, mp->comment_dot)
                 && iconvable_prev_msgid (&cd, mp)
                 && iconvable_msgid (&cd, mp)

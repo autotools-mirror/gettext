@@ -108,7 +108,7 @@ struct default_catalog_reader_class_ty
   message_list_ty *mlp;                                                 \
                                                                         \
   /* Accumulate comments for next message directive.  */                \
-  string_list_ty *comment;                                              \
+  string_desc_list_ty *comment;                                         \
   string_desc_list_ty *comment_dot;                                     \
                                                                         \
   /* Accumulate filepos comments for the next message directive.  */    \
@@ -144,7 +144,7 @@ extern void default_directive_message (abstract_catalog_reader_ty *catr,
                                        char *prev_msgid,
                                        char *prev_msgid_plural,
                                        bool force_fuzzy, bool obsolete);
-extern void default_comment (abstract_catalog_reader_ty *catr, const char *s);
+extern void default_comment (abstract_catalog_reader_ty *catr, string_desc_t s);
 extern void default_comment_dot (abstract_catalog_reader_ty *catr,
                                  string_desc_t s);
 extern void default_comment_filepos (abstract_catalog_reader_ty *catr,

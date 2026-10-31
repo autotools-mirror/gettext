@@ -771,8 +771,8 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
                 bool all_comments_equal = true;
                 for (size_t i = 0; i < tmp->alternative_count; i++)
                   if (tmp->alternative[i].comment == NULL
-                      || !string_list_equal (tmp->alternative[i].comment,
-                                             first->comment))
+                      || !string_desc_list_equal (tmp->alternative[i].comment,
+                                                  first->comment))
                     {
                       all_comments_equal = false;
                       break;
@@ -786,11 +786,12 @@ UTF-8 encoded from the beginning, i.e. already in your source code files.\n"),
                      separated by markers.  */
                   for (size_t i = 0; i < tmp->alternative_count; i++)
                     {
-                      string_list_ty *slp = tmp->alternative[i].comment;
+                      string_desc_list_ty *slp = tmp->alternative[i].comment;
 
                       if (slp != NULL)
                         {
-                          message_comment_append (tmp, tmp->alternative[i].id);
+                          message_comment_append (tmp,
+                                                  sd_from_c (tmp->alternative[i].id));
                           for (size_t l = 0; l < slp->nitems; l++)
                             message_comment_append (tmp, slp->item[l]);
                         }

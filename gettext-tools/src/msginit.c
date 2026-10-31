@@ -44,6 +44,8 @@
 #include <textstyle.h>
 
 #include <error.h>
+#include "string-desc.h"
+#include "string-desc-list.h"
 #include "options.h"
 #include "noreturn.h"
 #include "closeout.h"
@@ -84,7 +86,6 @@
 #include "copy-file.h"
 #include "xsetenv.h"
 #include "xstriconv.h"
-#include "string-list.h"
 #include "propername.h"
 #include "gettext.h"
 
@@ -1675,9 +1676,9 @@ get_title ()
 /* Perform a set of substitutions in a string and return the resulting
    string.  When subst[j][0] found, it is replaced with subst[j][1].
    subst[j][0] must not be the empty string.  */
-static const char *
-subst_string (const char *str,
-              unsigned int nsubst, const char *(*subst)[2])
+static string_desc_t
+subst_string_desc (string_desc_t str,
+                   unsigned int nsubst, const char *(*subst)[2])
 {
   if (nsubst > 0)
     {
@@ -1691,28 +1692,36 @@ subst_string (const char *str,
 
       char *malloced = NULL;
 
-      for (size_t i = 0;;)
+      for (idx_t i = 0;;)
         {
-          if (str[i] == '\0')
+          if (i == sd_length (str))
             break;
           unsigned int j;
           for (j = 0; j < nsubst; j++)
-            if (*(str + i) == *subst[j][0]
-                && strncmp (str + i, subst[j][0], substlen[j]) == 0)
-              {
-                size_t replacement_len = strlen (subst[j][1]);
-                size_t new_len = strlen (str) - substlen[j] + replacement_len;
-                char *new_str = XNMALLOC (new_len + 1, char);
-                memcpy (new_str, str, i);
-                memcpy (new_str + i, subst[j][1], replacement_len);
-                strcpy (new_str + i + replacement_len, str + i + substlen[j]);
-                if (malloced != NULL)
-                  free (malloced);
-                str = new_str;
-                malloced = new_str;
-                i += replacement_len;
-                break;
-              }
+            {
+              const char *original = subst[j][0];
+              size_t original_len = substlen[j]; /* = strlen (original) */
+              if (sd_char_at (str, i) == *original
+                  && sd_length (str) - i >= original_len
+                  && memcmp (sd_data (str) + i, original, original_len) == 0)
+                {
+                  const char *replacement = subst[j][1];
+                  size_t replacement_len = strlen (replacement);
+                  size_t new_len = sd_length (str) - original_len + replacement_len;
+                  char *new_str = XNMALLOC (new_len, char);
+                  memcpy (new_str, sd_data (str), i);
+                  memcpy (new_str + i, replacement, replacement_len);
+                  memcpy (new_str + i + replacement_len,
+                          sd_data (str) + i + original_len,
+                          sd_length (str) - original_len - i);
+                  if (malloced != NULL)
+                    free (malloced);
+                  str = sd_new_addr (new_len, (const char *) new_str);
+                  malloced = new_str;
+                  i += replacement_len;
+                  break;
+                }
+            }
           if (j == nsubst)
             i++;
         }
@@ -1727,11 +1736,11 @@ subst_string (const char *str,
    When subst[j][0] found, it is replaced with subst[j][1].  subst[j][0]
    must not be the empty string.  */
 static void
-subst_string_list (string_list_ty *slp,
-                   unsigned int nsubst, const char *(*subst)[2])
+subst_string_desc_list (string_desc_list_ty *slp,
+                        unsigned int nsubst, const char *(*subst)[2])
 {
   for (size_t j = 0; j < slp->nitems; j++)
-    slp->item[j] = subst_string (slp->item[j], nsubst, subst);
+    slp->item[j] = subst_string_desc (slp->item[j], nsubst, subst);
 }
 
 
@@ -1872,7 +1881,7 @@ fill_header (msgdomain_list_ty *mdlp, bool fresh)
                              (time (&now), (localtime (&now))->tm_year + 1900));
               }
 
-              subst_string_list (header_mp->comment, countof (subst), subst);
+              subst_string_desc_list (header_mp->comment, countof (subst), subst);
             }
 
           /* Finally remove the fuzzy attribute.  */

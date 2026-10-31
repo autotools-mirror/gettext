@@ -119,7 +119,7 @@ default_destructor (abstract_catalog_reader_ty *catr)
   if (dcatr->handle_comments)
     {
       if (dcatr->comment != NULL)
-        string_list_free (dcatr->comment);
+        string_desc_list_free (dcatr->comment);
       if (dcatr->comment_dot != NULL)
         string_desc_list_free (dcatr->comment_dot);
     }
@@ -180,7 +180,7 @@ default_reset_comment_state (default_catalog_reader_ty *dcatr)
     {
       if (dcatr->comment != NULL)
         {
-          string_list_free (dcatr->comment);
+          string_desc_list_free (dcatr->comment);
           dcatr->comment = NULL;
         }
       if (dcatr->comment_dot != NULL)
@@ -246,15 +246,15 @@ default_directive_message (abstract_catalog_reader_ty *catr,
 
 
 void
-default_comment (abstract_catalog_reader_ty *catr, const char *s)
+default_comment (abstract_catalog_reader_ty *catr, string_desc_t s)
 {
   default_catalog_reader_ty *dcatr = (default_catalog_reader_ty *) catr;
 
   if (dcatr->handle_comments)
     {
       if (dcatr->comment == NULL)
-        dcatr->comment = string_list_alloc ();
-      string_list_append (dcatr->comment, s);
+        dcatr->comment = string_desc_list_alloc ();
+      string_desc_list_append (dcatr->comment, s);
     }
 }
 

@@ -2270,7 +2270,7 @@ FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n",
 SOME DESCRIPTIVE TITLE.\n\
 This file is put in the public domain.\n\
 FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.\n");
-  message_comment_append (mp, comment);
+  message_comment_append (mp, sd_from_c (comment));
   free (comment);
 
   mp->is_fuzzy = true;

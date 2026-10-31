@@ -250,26 +250,27 @@ message_print_comment (const message_ty *mp, ostream_t stream)
 
       for (size_t j = 0; j < mp->comment->nitems; ++j)
         {
-          const char *s = mp->comment->item[j];
+          string_desc_t s = mp->comment->item[j];
+          bool done = false;
           do
             {
               ostream_write_str (stream, "#");
-              if (*s != '\0')
+              if (sd_length (s) > 0)
                 ostream_write_str (stream, " ");
-              const char *e = strchr (s, '\n');
-              if (e == NULL)
+              ptrdiff_t e = sd_index (s, '\n');
+              if (e < 0)
                 {
-                  ostream_write_str (stream, s);
-                  s = NULL;
+                  ostream_write_mem (stream, sd_data (s), sd_length (s));
+                  done = true;
                 }
               else
                 {
-                  ostream_write_mem (stream, s, e - s);
-                  s = e + 1;
+                  ostream_write_mem (stream, sd_data (s), e);
+                  s = sd_substring (s, e + 1, sd_length (s));
                 }
               ostream_write_str (stream, "\n");
             }
-          while (s != NULL);
+          while (!done);
         }
 
       end_css_class (stream, class_translator_comment);
@@ -1259,7 +1260,7 @@ message_print (const message_ty *mp, ostream_t stream,
   if (blank_line && (!uniforum
                      || mp->comment == NULL
                      || mp->comment->nitems == 0
-                     || mp->comment->item[0][0] != '\0'))
+                     || sd_length (mp->comment->item[0]) > 0))
     print_blank_line (stream);
 
   if (is_header (mp))

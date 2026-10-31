@@ -663,7 +663,7 @@ po_message_comments (po_message_t message)
   if (mp->comment == NULL || mp->comment->nitems == 0)
     return "";
   else
-    return string_list_join (mp->comment, "\n", '\n', true);
+    return xsd_c (string_desc_list_join (mp->comment, sd_from_c ("\n"), '\n', true));
 }
 
 
@@ -674,34 +674,26 @@ void
 po_message_set_comments (po_message_t message, const char *comments)
 {
   message_ty *mp = (message_ty *) message;
-  string_list_ty *slp = string_list_alloc ();
+  string_desc_list_ty *slp = string_desc_list_alloc ();
 
-  {
-    char *copy = xstrdup (comments);
-    char *rest;
-
-    rest = copy;
-    while (*rest != '\0')
-      {
-        char *newline = strchr (rest, '\n');
-
-        if (newline != NULL)
-          {
-            *newline = '\0';
-            string_list_append (slp, rest);
-            rest = newline + 1;
-          }
-        else
-          {
-            string_list_append (slp, rest);
-            break;
-          }
-      }
-    free (copy);
-  }
+  string_desc_t c = sd_from_c (comments);
+  while (sd_length (c) > 0)
+    {
+      ptrdiff_t newline = sd_index (c, '\n');
+      if (newline >= 0)
+        {
+          string_desc_list_append (slp, sd_substring (c, 0, newline));
+          c = sd_substring (c, newline + 1, sd_length (c));
+        }
+      else
+        {
+          string_desc_list_append (slp, c);
+          break;
+        }
+    }
 
   if (mp->comment != NULL)
-    string_list_free (mp->comment);
+    string_desc_list_free (mp->comment);
 
   mp->comment = slp;
 }

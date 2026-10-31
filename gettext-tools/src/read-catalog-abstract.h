@@ -96,7 +96,7 @@ struct abstract_catalog_reader_class_ty
   /* What to do with a plain-vanilla comment.  The expectation is that
      they will be accumulated, and added to the next message
      definition seen.  Or completely ignored.  */
-  void (*comment) (struct abstract_catalog_reader_ty *catr, const char *s);
+  void (*comment) (struct abstract_catalog_reader_ty *catr, string_desc_t s);
 
   /* What to do with a comment that starts with a dot (i.e. extracted
      by xgettext).  The expectation is that they will be accumulated,
@@ -216,7 +216,7 @@ extern void
    has been seen.  It invokes the 'comment' method.  */
 extern void
        catalog_reader_seen_comment (abstract_catalog_reader_ty *catr,
-                                    const char *s);
+                                    string_desc_t s);
 /* This callback is called whenever a dot comment (a.k.a. extracted comment)
    has been seen.  It invokes the 'comment_dot' method.  */
 extern void

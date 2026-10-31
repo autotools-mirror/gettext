@@ -162,7 +162,7 @@ struct altstr
   const char *msgstr;
   size_t msgstr_len;
   const char *msgstr_end;
-  string_list_ty *comment;
+  string_desc_list_ty *comment;
   string_desc_list_ty *comment_dot;
   char *id;
 };
@@ -189,7 +189,7 @@ struct message_ty
   lex_pos_ty pos;
 
   /* Plain comments (#) appearing before the message.  */
-  string_list_ty *comment;
+  string_desc_list_ty *comment;
 
   /* Extracted comments (#.) appearing before the message.  */
   string_desc_list_ty *comment_dot;
@@ -255,7 +255,7 @@ extern message_ty *
 extern void
        message_free (message_ty *mp);
 extern void
-       message_comment_append (message_ty *mp, const char *comment);
+       message_comment_append (message_ty *mp, string_desc_t comment);
 extern void
        message_comment_dot_append (message_ty *mp, string_desc_t comment);
 extern void

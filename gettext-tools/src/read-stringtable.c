@@ -31,6 +31,7 @@
 #include <error.h>
 #include "attribute.h"
 #include "string-desc.h"
+#include "xstring-desc.h"
 #include "read-catalog-abstract.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
@@ -318,26 +319,22 @@ phase3_ungetc (int c)
 
 
 /* Convert from UCS-4 to UTF-8.  */
-static char *
+static rw_string_desc_t
 conv_from_ucs4 (const int *buffer, size_t buflen)
 {
-
   /* Each UCS-4 word needs 6 bytes at worst.  */
-  unsigned char *utf8_string = XNMALLOC (6 * buflen + 1, unsigned char);
-  {
-    unsigned char *q = utf8_string;
-    for (size_t i = 0; i < buflen; )
-      {
-        unsigned int uc = buffer[i++];
-        int n = u8_uctomb (q, uc, 6);
-        assert (n > 0);
-        q += n;
-      }
-    *q = '\0';
-    assert (q - utf8_string <= 6 * buflen);
-  }
+  unsigned char *utf8_string = XNMALLOC (6 * buflen, unsigned char);
+  unsigned char *q = utf8_string;
+  for (size_t i = 0; i < buflen; )
+    {
+      unsigned int uc = buffer[i++];
+      int n = u8_uctomb (q, uc, 6);
+      assert (n > 0);
+      q += n;
+    }
+  assert (q - utf8_string <= 6 * buflen);
 
-  return (char *) utf8_string;
+  return sd_new_addr (q - utf8_string, (char *) utf8_string);
 }
 
 
@@ -431,7 +428,7 @@ parse_escaped_string (const int *string, size_t length)
       buffer[buflen++] = c;
     }
 
-  return conv_from_ucs4 (buffer, buflen);
+  return xsd_c (conv_from_ucs4 (buffer, buflen));
 }
 
 
@@ -522,37 +519,49 @@ comment_line_end (abstract_catalog_reader_ty *catr,
                                 buflen - (buffer[buflen - 1] == ';') - 2)))
     return;
 
-  char *line = conv_from_ucs4 (buffer, buflen);
+  string_desc_t line = sd_readonly (conv_from_ucs4 (buffer, buflen));
 
-  if (streq (line, "Flag: untranslated"))
+  if (sd_equals (line, sd_from_c ("Flag: untranslated")))
     {
       special_comment_add ("fuzzy");
       next_is_fuzzy = true;
     }
-  else if (streq (line, "Flag: unmatched"))
+  else if (sd_equals (line, sd_from_c ("Flag: unmatched")))
     next_is_obsolete = true;
-  else if (strlen (line) >= 6 && memeq (line, "Flag: ", 6))
-    special_comment_add (line + 6);
-  else if (strlen (line) >= 9 && memeq (line, "Comment: ", 9))
+  else if (sd_startswith (line, sd_from_c ("Flag: ")))
+    {
+      char *rest = xsd_c (sd_substring (line, 6, sd_length (line)));
+      special_comment_add (rest);
+      free (rest);
+    }
+  else if (sd_startswith (line, sd_from_c ("Comment: ")))
     /* A comment extracted from the source.  */
-    catalog_reader_seen_comment_dot (catr, sd_from_c (line + 9));
+    catalog_reader_seen_comment_dot (catr, sd_substring (line, 9, sd_length (line)));
   else
     {
-      char *last_colon;
-      unsigned long number;
-      char *endp;
-
-      if (strlen (line) >= 6 && memeq (line, "File: ", 6)
-          && (last_colon = strrchr (line + 6, ':')) != NULL
-          && c_isdigit (*(last_colon + 1))
-          && (number = strtoul (last_colon + 1, &endp, 10), *endp == '\0'))
+      if (sd_startswith (line, sd_from_c ("File: ")))
         {
-          /* A "File: <filename>:<number>" type comment.  */
-          *last_colon = '\0';
-          catalog_reader_seen_comment_filepos (catr, line + 6, number);
+          ptrdiff_t last_colon = sd_last_index (sd_substring (line, 6, sd_length (line)), ':');
+          if (last_colon >= 0
+              && 6 + last_colon < sd_length (line)
+              && c_isdigit (sd_char_at (line, 6 + last_colon + 1)))
+            {
+              char *rest = xsd_c (sd_substring (line, 6 + last_colon + 1, sd_length (line)));
+              unsigned long number;
+              char *endp;
+              if (number = strtoul (rest, &endp, 10), *endp == '\0')
+                {
+                  /* A "File: <filename>:<number>" type comment.  */
+                  char *filename = xsd_c (sd_substring (line, 6, 6 + last_colon));
+                  catalog_reader_seen_comment_filepos (catr, filename, number);
+                  free (filename);
+                  free (rest);
+                  return;
+                }
+              free (rest);
+            }
         }
-      else
-        catalog_reader_seen_comment (catr, line);
+      catalog_reader_seen_comment (catr, line);
     }
 }
 
@@ -802,7 +811,7 @@ read_string (abstract_catalog_reader_ty *catr, lex_pos_ty *start_pos)
         }
     }
 
-  return conv_from_ucs4 (buffer, buflen);
+  return xsd_c (conv_from_ucs4 (buffer, buflen));
 }
 
 

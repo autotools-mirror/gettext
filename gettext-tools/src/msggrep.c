@@ -779,7 +779,7 @@ is_message_selected_no_invert (const message_ty *mp)
       {
         length = 0;
         for (size_t j = 0; j < mp->comment->nitems; j++)
-          length += strlen (mp->comment->item[j]) + 1;
+          length += sd_length (mp->comment->item[j]) + 1;
       }
       char *total_comment = (char *) xmalloca (length);
 
@@ -787,9 +787,9 @@ is_message_selected_no_invert (const message_ty *mp)
         char *q = total_comment;
         for (size_t j = 0; j < mp->comment->nitems; j++)
           {
-            size_t l = strlen (mp->comment->item[j]);
+            size_t l = sd_length (mp->comment->item[j]);
 
-            memcpy (q, mp->comment->item[j], l);
+            memcpy (q, sd_data (mp->comment->item[j]), l);
             q += l;
             *q++ = '\n';
           }
