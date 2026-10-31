@@ -291,12 +291,6 @@ TESTS = gettext-1 gettext-2 \
 
 # Expected test failures.
 XFAIL_TESTS =
-# tree-sitter does not cope well with NUL bytes in the input.
-XFAIL_TESTS += \
-	xgettext-d-nul-1 \
-	xgettext-go-nul-1 \
-	xgettext-rust-nul-1 \
-	xgettext-typescript-nul-1
 if OS_IS_NATIVE_WINDOWS
 # Tests that rely on shell scripts.
 XFAIL_TESTS += \

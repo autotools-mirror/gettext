@@ -1783,6 +1783,29 @@ extract_d (FILE *f,
     abort ();
   xgettext_current_source_encoding = po_charset_utf8;
 
+  /* tree-sitter does not cope well with NUL bytes in the input.  Therefore
+     replace the NUL bytes with another control character, say 0x1A.  */
+  char *contents_data_for_ts;
+  if (contents_length > 0
+      && memchr (contents_data, '\0', contents_length) != NULL)
+    {
+      contents_data_for_ts = xmalloc (contents_length);
+      memcpy (contents_data_for_ts, contents_data, contents_length);
+      char *p_limit = contents_data_for_ts + contents_length;
+      char *p = contents_data_for_ts;
+      do
+        {
+          char *nul = memchr (p, '\0', p_limit - p);
+          if (nul == NULL)
+            break;
+          *nul = 0x1A;
+          p = nul + 1;
+        }
+      while (p < p_limit);
+    }
+  else
+    contents_data_for_ts = contents_data;
+
   /* Create a parser.  */
   TSParser *parser = ts_parser_new ();
 
@@ -1790,7 +1813,8 @@ extract_d (FILE *f,
   ts_parser_set_language (parser, ts_language);
 
   /* Parse the file, producing a syntax tree.  */
-  TSTree *tree = ts_parser_parse_string (parser, NULL, contents_data, contents_length);
+  TSTree *tree = ts_parser_parse_string (parser, NULL,
+                                         contents_data_for_ts, contents_length);
 
   #if DEBUG_D
   /* For debugging: Print the tree.  */
@@ -1811,6 +1835,8 @@ extract_d (FILE *f,
 
   ts_tree_delete (tree);
   ts_parser_delete (parser);
+  if (contents_data_for_ts != contents_data)
+    free (contents_data_for_ts);
   free (contents_data);
 
   logical_file_name = NULL;
