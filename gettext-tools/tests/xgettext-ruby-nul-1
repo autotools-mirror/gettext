@@ -3,6 +3,9 @@
 
 # Test Ruby support: NUL characters in extracted comments.
 
+(rxgettext --version) >/dev/null 2>/dev/null \
+  || { echo "Skipping test: rxgettext not found"; Exit 77; }
+
 {
 printf '# TRANSLATORS: This is an \0extracted comment.\n'
 cat <<\EOF
