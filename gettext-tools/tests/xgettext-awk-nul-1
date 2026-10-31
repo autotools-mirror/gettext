@@ -3,6 +3,8 @@
 
 # Test awk support: NUL characters in extracted comments.
 
+func_find_good_tr
+
 {
 printf '# TRANSLATORS: This is an \0extracted comment.\n'
 cat <<\EOF
@@ -13,7 +15,7 @@ EOF
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-a-nul-1.tmp xg-a-nul-1.awk || Exit 1
-LC_ALL=C tr -d '\r' < xg-a-nul-1.tmp.po > xg-a-nul-1.po || Exit 1
+LC_ALL=C $TR -d '\r' < xg-a-nul-1.tmp.po > xg-a-nul-1.po || Exit 1
 
 {
 printf '#. TRANSLATORS: This is an \0extracted comment.\n'

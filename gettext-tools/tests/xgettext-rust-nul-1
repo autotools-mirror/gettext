@@ -3,6 +3,8 @@
 
 # Test Rust support: NUL characters in extracted comments.
 
+func_find_good_tr
+
 {
 cat <<\EOF
 pub trait TestCase {
@@ -23,7 +25,7 @@ EOF
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-rs-nul-1.tmp xg-rs-nul-1.rs || Exit 1
-LC_ALL=C tr -d '\r' < xg-rs-nul-1.tmp.po > xg-rs-nul-1.po || Exit 1
+LC_ALL=C $TR -d '\r' < xg-rs-nul-1.tmp.po > xg-rs-nul-1.po || Exit 1
 
 {
 printf '#. TRANSLATORS: This is an \0extracted comment.\n'

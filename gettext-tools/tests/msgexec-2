@@ -3,17 +3,7 @@
 
 # Test the builtin command "0".
 
-# Find a 'tr' program that supports NUL bytes in the input.
-# Solaris /usr/bin/tr does not.
-if test -f /usr/xpg6/bin/tr; then
-  TR=/usr/xpg6/bin/tr
-else
-  if test -f /usr/xpg4/bin/tr; then
-    TR=/usr/xpg4/bin/tr
-  else
-    TR=tr
-  fi
-fi
+func_find_good_tr
 
 cat <<\EOF > mex-test2.po
 # HEADER.

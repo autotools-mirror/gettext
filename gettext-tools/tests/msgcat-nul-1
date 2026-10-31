@@ -4,6 +4,8 @@
 # Verify that msgcat supports NUL characters in translator comments and
 # extracted comments.
 
+func_find_good_tr
+
 {
 printf '# This is a translator \0comment\n'
 printf '# with several \0\0NUL\0\0 characters.\n'
@@ -16,7 +18,7 @@ EOF
 
 : ${MSGCAT=msgcat}
 ${MSGCAT} -o mcat-nul-1.tmp mcat-nul-1.in || Exit 1
-LC_ALL=C tr -d '\r' < mcat-nul-1.tmp > mcat-nul-1.out || Exit 1
+LC_ALL=C $TR -d '\r' < mcat-nul-1.tmp > mcat-nul-1.out || Exit 1
 
 cmp mcat-nul-1.in mcat-nul-1.out
 result=$?

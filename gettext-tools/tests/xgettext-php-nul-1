@@ -3,6 +3,8 @@
 
 # Test PHP support: NUL characters in extracted comments.
 
+func_find_good_tr
+
 {
 cat <<\EOF
 <?
@@ -25,7 +27,7 @@ EOF
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-ph-nul-1.tmp xg-ph-nul-1.php || Exit 1
-LC_ALL=C tr -d '\r' < xg-ph-nul-1.tmp.po > xg-ph-nul-1.po || Exit 1
+LC_ALL=C $TR -d '\r' < xg-ph-nul-1.tmp.po > xg-ph-nul-1.po || Exit 1
 
 {
 printf '#. TRANSLATORS: This is an \0extracted comment.\n'

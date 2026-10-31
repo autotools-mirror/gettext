@@ -3,6 +3,8 @@
 
 # Test EmacsLisp support: NUL characters in extracted comments.
 
+func_find_good_tr
+
 {
 printf '; TRANSLATORS: This is an \0extracted comment.\n'
 cat <<\EOF
@@ -13,7 +15,7 @@ EOF
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-el-nul-1.tmp xg-el-nul-1.el || Exit 1
-LC_ALL=C tr -d '\r' < xg-el-nul-1.tmp.po > xg-el-nul-1.po || Exit 1
+LC_ALL=C $TR -d '\r' < xg-el-nul-1.tmp.po > xg-el-nul-1.po || Exit 1
 
 {
 printf '#. TRANSLATORS: This is an \0extracted comment.\n'

@@ -3,6 +3,8 @@
 
 # Test Ruby support: NUL characters in extracted comments.
 
+func_find_good_tr
+
 (rxgettext --version) >/dev/null 2>/dev/null \
   || { echo "Skipping test: rxgettext not found"; Exit 77; }
 
@@ -16,7 +18,7 @@ EOF
 : ${XGETTEXT=xgettext}
 ${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
   -d xg-ru-nul-1.tmp xg-ru-nul-1.rb || Exit 1
-LC_ALL=C tr -d '\r' < xg-ru-nul-1.tmp.po > xg-ru-nul-1.po || Exit 1
+LC_ALL=C $TR -d '\r' < xg-ru-nul-1.tmp.po > xg-ru-nul-1.po || Exit 1
 
 {
 printf '#. TRANSLATORS: This is an \0extracted comment.\n'
