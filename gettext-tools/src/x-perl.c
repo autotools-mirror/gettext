@@ -286,10 +286,10 @@ struct perl_extractor
   size_t linebuf_size;
 
   /* The size of the current line.  */
-  int linesize;
+  ssize_t linesize;
 
   /* The position in the current line.  */
-  int linepos;
+  ssize_t linepos;
 
   /* Number of lines eaten for here documents.  */
   int eaten_here;
@@ -436,7 +436,7 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
 
   for (;;)
     {
-      int read_bytes = getline (&my_linebuf, &my_linebuf_size, xp->input.fp);
+      ssize_t read_bytes = getline (&my_linebuf, &my_linebuf_size, xp->input.fp);
       if (read_bytes < 0)
         {
           if (ferror (xp->input.fp))

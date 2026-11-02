@@ -497,7 +497,7 @@ There is NO WARRANTY, to the extent permitted by law.\n\
       size_t line_size = 0;
       for (;;)
         {
-          int line_len = getline (&line, &line_size, stdin);
+          ssize_t line_len = getline (&line, &line_size, stdin);
           if (line_len < 0)
             break;
           if (line_len > 0 && line[line_len - 1] == '\n')

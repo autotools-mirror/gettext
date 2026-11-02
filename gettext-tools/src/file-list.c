@@ -56,7 +56,7 @@ read_names_from_file (const char *file_name)
   while (!feof (fp))
     {
       /* Read next line from file.  */
-      int len = getline (&line_buf, &line_len, fp);
+      ssize_t len = getline (&line_buf, &line_len, fp);
 
       /* In case of an error leave loop.  */
       if (len < 0)
