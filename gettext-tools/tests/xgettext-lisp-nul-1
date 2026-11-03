@@ -14,7 +14,6 @@ printf '#| TRANSLATORS: This \0too. |#\n'
 cat <<\EOF
 (write-line (gettext "two"))
 EOF
-EOF
 } > xg-ls-nul-1.lisp
 
 : ${XGETTEXT=xgettext}
