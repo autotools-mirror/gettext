@@ -257,7 +257,8 @@ and a mapping instead of a tuple for the arguments.\n"),
 
 
 message_ty *
-remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
+remember_a_message (message_list_ty *mlp,
+                    const char *msgctxt_c, const char *msgid_c,
                     bool is_utf8, bool pluralp, flag_region_ty *region,
                     lex_pos_ty *pos,
                     string_desc_t extracted_comment,
@@ -267,16 +268,15 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
   message_ty *mp;
 
   /* See whether we shall exclude this message.  */
-  if (exclude != NULL && message_list_search (exclude, msgctxt, msgid) != NULL)
+  if (exclude != NULL && message_list_search (exclude, msgctxt_c, msgid_c) != NULL)
     {
-      if (msgctxt != NULL)
-        free (msgctxt);
-      free (msgid);
-
       mp = NULL;
     }
   else
     {
+      char *msgctxt = (msgctxt_c != NULL ? xstrdup (msgctxt_c): NULL);
+      char *msgid = xstrdup (msgid_c);
+
       savable_comment_to_xgettext_comment (comment);
 
       struct argument_range range;

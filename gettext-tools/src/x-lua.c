@@ -1154,7 +1154,6 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
                 mixed_string_ty *ms =
                   mixed_string_alloc_simple (token.string, lc_string,
                                              pos.file_name, pos.line_number);
-                free (token.string);
                 /* A string immediately after a symbol means a function call.  */
                 if (state)
                   {
@@ -1174,6 +1173,7 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
                                            token.comment, false);
               }
           }
+          free (token.string);
           drop_reference (token.comment);
           next_context_iter = null_context_list_iterator;
           state = 0;

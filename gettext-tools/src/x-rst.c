@@ -210,6 +210,7 @@ extract_rst (FILE *f,
       remember_a_message (mlp, NULL, msgid, false, false,
                           null_context_region (), &pos,
                           sd_new_empty (), NULL, false);
+      free (msgid);
 
       /* Here c is the last read character: EOF or '\n'.  */
       if (c == EOF)
@@ -632,6 +633,7 @@ extract_rsj (FILE *f,
                         remember_a_message (mlp, NULL, msgid, true, false,
                                             null_context_region (), &pos,
                                             sd_new_empty (), NULL, false);
+                        free (msgid);
 
                         /* Parse a comma.  */
                         c = phase2_getc ();

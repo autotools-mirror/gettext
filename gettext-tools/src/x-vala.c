@@ -1530,6 +1530,7 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
                 remember_a_message (mlp, NULL, msgid, true, false,
                                     inner_region, &pos,
                                     sd_new_empty (), token.comment, false);
+                free (msgid);
                 sd_free (string);
               }
             else

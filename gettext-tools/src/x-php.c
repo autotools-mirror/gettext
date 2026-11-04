@@ -1812,11 +1812,11 @@ extract_balanced (struct php_extractor *xp,
                 mixed_string_ty *ms =
                   mixed_string_alloc_simple (token.string, lc_string,
                                              pos.file_name, pos.line_number);
-                free (token.string);
                 arglist_parser_remember (argparser, arg, ms, inner_region,
                                          pos.file_name, pos.line_number,
                                          token.comment, false);
               }
+            free (token.string);
             drop_reference (token.comment);
           }
           next_context_iter = null_context_list_iterator;

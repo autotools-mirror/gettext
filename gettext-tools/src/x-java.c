@@ -1934,6 +1934,7 @@ extract_parenthesized (message_list_ty *mlp, token_type_ty terminator,
                 remember_a_message (mlp, NULL, msgid, true, false,
                                     inner_region, &pos,
                                     sd_new_empty (), token.comment, true);
+                free (msgid);
                 sd_free (string);
               }
             else

@@ -393,11 +393,11 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
               msgid_plural_region->for_formatstring[XFORMAT_FOURTH].is_format = yes_according_to_context;
             }
 
-          char *best_msgctxt =
+          const char *best_msgctxt =
             (best_cp->msgctxt != NULL
              ? xsd_c (mixed_string_contents_free1 (best_cp->msgctxt))
              : NULL);
-          char *best_msgid =
+          const char *best_msgid =
             (best_cp->msgid != NULL
              ? xsd_c (mixed_string_contents_free1 (best_cp->msgid))
              : NULL);
@@ -434,7 +434,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                   memcpy (ctxt, best_msgid, ctxt_len);
                   ctxt[ctxt_len] = '\0';
                   best_msgctxt = ctxt;
-                  best_msgid = xstrdup (separator + 1);
+                  best_msgid = separator + 1;
                 }
             }
           if (best_msgid_plural != NULL && best_cp->argnum2_glib_context)

@@ -34,9 +34,8 @@ extern "C" {
 
 
 /* Add a message to the list of extracted messages.
-   MSGCTXT must be either NULL or a malloc()ed string; its ownership is passed
-   to the callee.
-   MSGID must be a malloc()ed string; its ownership is passed to the callee.
+   MSGCTXT must be either NULL or a string.
+   MSGID must be a string.
    IS_UTF8 must be true if MSGCTXT and MSGID have already been converted to
    UTF-8.
    PLURALP must be true if and only if a call to remember_a_message_plural will
@@ -50,8 +49,8 @@ extern "C" {
    COMMENT_IS_UTF8 must be true if COMMENT has already been converted to UTF-8.
    Return the new or found message, or NULL if the message is excluded.  */
 extern message_ty *remember_a_message (message_list_ty *mlp,
-                                       char *msgctxt,
-                                       char *msgid,
+                                       const char *msgctxt,
+                                       const char *msgid,
                                        bool is_utf8,
                                        bool pluralp,
                                        flag_region_ty *region,

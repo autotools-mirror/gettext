@@ -847,9 +847,11 @@ read_object (struct object *op, flag_region_ty *outer_region)
                 pos.file_name = logical_file_name;
                 pos.line_number = op->line_number_at_start;
 
-                remember_a_message (mlp, NULL, string_of_object (op), false,
+                char *msgid = string_of_object (op);
+                remember_a_message (mlp, NULL, msgid, false,
                                     false, null_context_region (), &pos,
                                     sd_new_empty (), savable_comment, false);
+                free (msgid);
               }
             last_non_comment_line = line_number;
             return;

@@ -2023,6 +2023,8 @@ extract_balanced (message_list_ty *mlp,
                     remember_a_message (mlp, NULL, string, true, false,
                                         inner_region, &pos,
                                         sd_new_empty (), token.comment, true);
+
+                    free (string);
                   }
 
                 string_list_free (parts);
@@ -2040,6 +2042,7 @@ extract_balanced (message_list_ty *mlp,
                     remember_a_message (mlp, NULL, msgid, true, false,
                                         inner_region, &pos,
                                         sd_new_empty (), token.comment, true);
+                    free (msgid);
                     sd_free (string);
                   }
                 else

@@ -753,6 +753,7 @@ extract_from_function_call (TSNode function_node,
                                                pos.file_name, pos.line_number,
                                                savable_comment, true);
                     }
+                  free (string);
                 }
 
               if (!already_extracted)
@@ -823,6 +824,7 @@ extract_from_node (TSNode node,
       remember_a_message (mlp, NULL, string, true, false,
                           outer_region, &pos,
                           sd_new_empty (), savable_comment, true);
+      free (string);
     }
 
   if (ts_node_symbol (node) == ts_symbol_application_expression

@@ -121,11 +121,12 @@ extract_desktop_handle_pair (struct desktop_reader_ty *reader,
       && hash_find_entry (&keywords, key, strlen (key), &keyword_value) == 0)
     {
       bool is_list = (bool) keyword_value;
+      char *msgid = desktop_unescape_string (value, is_list);
 
-      remember_a_message (extract_reader->mlp, NULL,
-                          desktop_unescape_string (value, is_list), false,
+      remember_a_message (extract_reader->mlp, NULL, msgid, false,
                           false, null_context_region (), key_pos,
                           sd_new_empty (), savable_comment, false);
+      free (msgid);
     }
   savable_comment_reset ();
 }

@@ -1004,9 +1004,11 @@ read_command (int looking_for, flag_region_ty *outer_region)
                 pos.file_name = logical_file_name;
                 pos.line_number = inner.line_number_at_start;
 
-                remember_a_message (mlp, NULL, string_of_word (&inner), false,
+                char *msgid = string_of_word (&inner);
+                remember_a_message (mlp, NULL, msgid, false,
                                     false, inner_region, &pos,
                                     sd_new_empty (), savable_comment, false);
+                free (msgid);
               }
           }
 

@@ -622,9 +622,12 @@ extract_smalltalk (FILE *f,
                 lex_pos_ty pos;
                 pos.file_name = logical_file_name;
                 pos.line_number = token.line_number;
+
                 remember_a_message (mlp, NULL, token.string, false, false,
                                     null_context_region (), &pos,
                                     sd_new_empty (), token.comment, false);
+                free (token.string);
+
                 state = 0;
                 break;
               }
@@ -643,6 +646,7 @@ extract_smalltalk (FILE *f,
                                       && streq (token.string, "plural:"),
                                       null_context_region (), &pos,
                                       sd_new_empty (), token.comment, false);
+                free (token.string);
 
                 phase4_unget (&token2);
 

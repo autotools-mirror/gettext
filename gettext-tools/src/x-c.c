@@ -2482,6 +2482,8 @@ extract_parenthesized (message_list_ty *mlp,
                 remember_a_message (mlp, NULL, msgid, true, false,
                                     inner_region, &token.pos,
                                     sd_new_empty (), token.comment, false);
+                free (msgid);
+                sd_free (string);
               }
             else
               arglist_parser_remember (argparser, arg, token.mixed_string,

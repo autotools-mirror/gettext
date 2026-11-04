@@ -839,12 +839,12 @@ extract_parenthesized (message_list_ty *mlp,
                 mixed_string_ty *ms =
                   mixed_string_alloc_simple (token.string, lc_string,
                                              pos.file_name, pos.line_number);
-                free (token.string);
                 arglist_parser_remember (argparser, arg, ms,
                                          inner_region,
                                          pos.file_name, pos.line_number,
                                          savable_comment, false);
               }
+            free (token.string);
           }
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;
@@ -860,6 +860,7 @@ extract_parenthesized (message_list_ty *mlp,
             remember_a_message (mlp, NULL, token.string, false, false,
                                 inner_region, &pos,
                                 sd_new_empty (), savable_comment, false);
+            free (token.string);
           }
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;

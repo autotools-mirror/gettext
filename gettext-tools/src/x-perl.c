@@ -1583,7 +1583,7 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
                         pos.line_number = xp->line_number;
                         pos.file_name = logical_file_name;
 
-                        remember_a_message (xp->mlp, NULL, xstrdup (t1->string),
+                        remember_a_message (xp->mlp, NULL, t1->string,
                                             true, false, region, &pos,
                                             sd_new_empty (), savable_comment, true);
                         free_token (t2);
@@ -2169,6 +2169,7 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
                       remember_a_message (xp->mlp, NULL, token.string, true,
                                           false, region, &pos, sd_new_empty (),
                                           savable_comment, true);
+                      free (token.string);
                     }
                   sb_init (&buffer);
                 }
@@ -3550,6 +3551,7 @@ extract_balanced (struct perl_extractor *xp,
                       remember_a_message (xp->mlp, NULL, string, true, false,
                                           inner_region, &pos, sd_new_empty (),
                                           tp->comment, true);
+                      free (string);
                     }
                 }
               else if (!skip_until_comma)
