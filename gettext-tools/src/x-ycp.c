@@ -687,7 +687,6 @@ extract_parenthesized (message_list_ty *mlp,
                                         token2.type == token_type_comma,
                                         inner_region, &pos,
                                         sd_new_empty (), token.comment, false);
-                  free (token.string);
 
                   if (in_i18n)
                     phase8_unget (&token2);
@@ -706,7 +705,7 @@ extract_parenthesized (message_list_ty *mlp,
                                                token.comment, false);
                   state = 0;
                 }
-              drop_reference (token.comment);
+              free_token (&token);
             }
           else
             {

@@ -61,7 +61,7 @@ extern message_ty *remember_a_message (message_list_ty *mlp,
 
 /* Add an msgid_plural to a message previously returned by
    remember_a_message.
-   STRING must be a malloc()ed string; its ownership is passed to the callee.
+   STRING must be a string.
    IS_UTF8 must be true if STRING has already been converted to UTF-8.
    POS->file_name must be allocated with indefinite extent.
    COMMENT may be savable_comment, or it may be a saved copy of savable_comment
@@ -70,7 +70,7 @@ extern message_ty *remember_a_message (message_list_ty *mlp,
    COMMENT_IS_UTF8 must be true if COMMENT has already been converted to UTF-8.
  */
 extern void remember_a_message_plural (message_ty *mp,
-                                       char *string,
+                                       const char *string,
                                        bool is_utf8,
                                        flag_region_ty *region,
                                        lex_pos_ty *pos,

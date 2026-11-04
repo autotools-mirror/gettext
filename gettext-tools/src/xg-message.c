@@ -538,12 +538,12 @@ meta information, not the empty string.\n"));
 
 
 void
-remember_a_message_plural (message_ty *mp, char *string, bool is_utf8,
+remember_a_message_plural (message_ty *mp, const char *string, bool is_utf8,
                            flag_region_ty *region, lex_pos_ty *pos,
                            refcounted_string_desc_list_ty *comment,
                            bool comment_is_utf8)
 {
-  char *msgid_plural = string;
+  char *msgid_plural = xstrdup (string);
 
   savable_comment_to_xgettext_comment (comment);
 

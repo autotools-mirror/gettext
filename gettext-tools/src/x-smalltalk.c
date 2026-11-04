@@ -658,10 +658,13 @@ extract_smalltalk (FILE *f,
                 lex_pos_ty pos;
                 pos.file_name = logical_file_name;
                 pos.line_number = token.line_number;
+
                 if (plural_mp != NULL)
                   remember_a_message_plural (plural_mp, token.string, false,
                                              null_context_region (), &pos,
                                              token.comment, false);
+                free (token.string);
+
                 state = 0;
                 break;
               }

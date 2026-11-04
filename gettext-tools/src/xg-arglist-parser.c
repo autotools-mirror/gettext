@@ -401,11 +401,11 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
             (best_cp->msgid != NULL
              ? xsd_c (mixed_string_contents_free1 (best_cp->msgid))
              : NULL);
-          char *best_msgid_plural =
+          const char *best_msgid_plural =
             (best_cp->msgid_plural != NULL
              ? /* Special support for the 3-argument tr operator in Qt.  */
                (best_cp->msgid_plural == best_cp->msgid
-                ? xstrdup (best_msgid)
+                ? best_msgid
                 : xsd_c (mixed_string_contents_free1 (best_cp->msgid_plural)))
              : NULL);
 
@@ -467,7 +467,7 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                                   _("context mismatch between singular and plural form"));
                       free (ctxt);
                     }
-                  best_msgid_plural = xstrdup (separator + 1);
+                  best_msgid_plural = separator + 1;
                 }
             }
 
