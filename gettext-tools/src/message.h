@@ -246,6 +246,13 @@ struct message_ty
     COUNTED_BY (alternative_count);
 };
 
+/* Allocate a new message on the heap.
+   MSGCTXT, MSGID, MSGSTR must be allocated with indefinite extent.
+   MSGID must be a malloc()ed string or NULL.
+   MSGSTR must be a malloc()ed string or NULL.
+   If the new message is ever to be freed, the ownership of MSGID and MSGSTR
+   is passed to the callee.
+   PP->file_name must be allocated with indefinite extent.  */
 extern message_ty *
        message_alloc (const char *msgctxt,
                       const char *msgid, const char *msgid_plural,

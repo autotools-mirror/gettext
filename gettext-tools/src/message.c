@@ -292,7 +292,9 @@ message_copy (message_ty *mp)
   message_ty *result =
     message_alloc (mp->msgctxt != NULL ? xstrdup (mp->msgctxt) : NULL,
                    xstrdup (mp->msgid), mp->msgid_plural,
-                   mp->msgstr, mp->msgstr_len, &mp->pos);
+                   /* FIXME: should copy mp->msgstr */
+                   mp->msgstr, mp->msgstr_len,
+                   &mp->pos);
 
   if (mp->comment)
     {
