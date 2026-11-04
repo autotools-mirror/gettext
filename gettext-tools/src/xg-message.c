@@ -264,270 +264,269 @@ remember_a_message (message_list_ty *mlp, char *msgctxt, char *msgid,
                     refcounted_string_desc_list_ty *comment,
                     bool comment_is_utf8)
 {
+  message_ty *mp;
+
   /* See whether we shall exclude this message.  */
   if (exclude != NULL && message_list_search (exclude, msgctxt, msgid) != NULL)
     {
-      /* Tell the lexer to reset its comment buffer, so that the next
-         message gets the correct comments.  */
-      xgettext_comment_reset ();
-      savable_comment_reset ();
-
       if (msgctxt != NULL)
         free (msgctxt);
       free (msgid);
 
-      return NULL;
+      mp = NULL;
     }
-
-  savable_comment_to_xgettext_comment (comment);
-
-  struct argument_range range;
-  range.min = -1;
-  range.max = -1;
-
-  if (!is_utf8)
+  else
     {
-      if (msgctxt != NULL)
-        CONVERT_STRING (msgctxt, lc_string);
-      CONVERT_STRING (msgid, lc_string);
-    }
+      savable_comment_to_xgettext_comment (comment);
 
-  if (msgctxt == NULL && msgid[0] == '\0' && !xgettext_omit_header)
-    if_error (IF_SEVERITY_WARNING,
-              pos->file_name, pos->line_number, (size_t)(-1), true,
-              _("\
+      struct argument_range range;
+      range.min = -1;
+      range.max = -1;
+
+      if (!is_utf8)
+        {
+          if (msgctxt != NULL)
+            CONVERT_STRING (msgctxt, lc_string);
+          CONVERT_STRING (msgid, lc_string);
+        }
+
+      if (msgctxt == NULL && msgid[0] == '\0' && !xgettext_omit_header)
+        if_error (IF_SEVERITY_WARNING,
+                  pos->file_name, pos->line_number, (size_t)(-1), true,
+                  _("\
 Empty msgid.  It is reserved by GNU gettext:\n\
 gettext(\"\") returns the header entry with\n\
 meta information, not the empty string.\n"));
 
-  /* See if we have seen this message before.  */
-  message_ty *mp = message_list_search (mlp, msgctxt, msgid);
-  if (mp != NULL)
-    {
-      if (pluralp != (mp->msgid_plural != NULL))
+      /* See if we have seen this message before.  */
+      mp = message_list_search (mlp, msgctxt, msgid);
+      if (mp != NULL)
         {
-          lex_pos_ty pos1;
-          lex_pos_ty pos2;
-
-          if (pluralp)
+          if (pluralp != (mp->msgid_plural != NULL))
             {
-              pos1 = mp->pos;
-              pos2 = *pos;
+              lex_pos_ty pos1;
+              lex_pos_ty pos2;
+
+              if (pluralp)
+                {
+                  pos1 = mp->pos;
+                  pos2 = *pos;
+                }
+              else
+                {
+                  pos1 = *pos;
+                  pos2 = mp->pos;
+                }
+
+              char buffer1[22];
+              if (pos1.line_number == (size_t)(-1))
+                buffer1[0] = '\0';
+              else
+                sprintf (buffer1, ":%ld", (long) pos1.line_number);
+              char buffer2[22];
+              if (pos2.line_number == (size_t)(-1))
+                buffer2[0] = '\0';
+              else
+                sprintf (buffer2, ":%ld", (long) pos2.line_number);
+              multiline_warning (xstrdup (_("warning: ")),
+                                 xasprintf ("%s\n%s\n%s\n%s\n",
+                                            xasprintf (_("msgid '%s' is used without plural and with plural."),
+                                                       msgid),
+                                            xasprintf (_("%s%s: Here is the occurrence without plural."),
+                                                       pos1.file_name, buffer1),
+                                            xasprintf (_("%s%s: Here is the occurrence with plural."),
+                                                       pos2.file_name, buffer2),
+                                            xstrdup (_("Workaround: If the msgid is a sentence, change the wording of the sentence; otherwise, use contexts for disambiguation."))));
             }
-          else
-            {
-              pos1 = *pos;
-              pos2 = mp->pos;
-            }
 
-          char buffer1[22];
-          if (pos1.line_number == (size_t)(-1))
-            buffer1[0] = '\0';
-          else
-            sprintf (buffer1, ":%ld", (long) pos1.line_number);
-          char buffer2[22];
-          if (pos2.line_number == (size_t)(-1))
-            buffer2[0] = '\0';
-          else
-            sprintf (buffer2, ":%ld", (long) pos2.line_number);
-          multiline_warning (xstrdup (_("warning: ")),
-                             xasprintf ("%s\n%s\n%s\n%s\n",
-                                        xasprintf (_("msgid '%s' is used without plural and with plural."),
-                                                   msgid),
-                                        xasprintf (_("%s%s: Here is the occurrence without plural."),
-                                                   pos1.file_name, buffer1),
-                                        xasprintf (_("%s%s: Here is the occurrence with plural."),
-                                                   pos2.file_name, buffer2),
-                                        xstrdup (_("Workaround: If the msgid is a sentence, change the wording of the sentence; otherwise, use contexts for disambiguation."))));
-        }
-
-      if (msgctxt != NULL)
-        free (msgctxt);
-      free (msgid);
-    }
-  else
-    {
-      const char *msgstr;
-
-      /* Construct the msgstr from the prefix and suffix, otherwise use the
-         empty string.  */
-      if (msgstr_prefix)
-        {
-          msgstr = xasprintf ("%s%s%s", msgstr_prefix, msgid, msgstr_suffix);
-          assume (msgstr != NULL);
+          if (msgctxt != NULL)
+            free (msgctxt);
+          free (msgid);
         }
       else
-        msgstr = "";
-
-      /* Allocate a new message and append the message to the list.  */
-      mp = message_alloc (msgctxt, msgid, NULL, msgstr, strlen (msgstr) + 1,
-                          pos);
-      /* Do not free msgctxt and msgid.  */
-      message_list_append (mlp, mp);
-    }
-
-  /* Determine whether the context specifies that the msgid is a format
-     string.  */
-  set_format_flags_from_context (mp, false, pos, region);
-
-  /* Ask the lexer for the comments it has seen.  */
-  {
-    size_t nitems_before =
-      (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
-
-    if (sd_length (extracted_comment) > 0)
-      {
-        string_desc_t xc = extracted_comment;
-        while (sd_length (xc) > 0)
-          {
-            ptrdiff_t newline = sd_index (xc, '\n');
-            if (newline >= 0)
-              {
-                message_comment_dot_append (mp, sd_substring (xc, 0, newline));
-                xc = sd_substring (xc, newline + 1, sd_length (xc));
-              }
-            else
-              {
-                message_comment_dot_append (mp, xc);
-                break;
-              }
-          }
-      }
-
-    /* The string before the comment tag.  For example, If "** TRANSLATORS:"
-       is seen and the comment tag is "TRANSLATORS:",
-       then comment_tag_prefix is set to "** ".  */
-    const char *comment_tag_prefix = "";
-    size_t comment_tag_prefix_length = 0;
-
-    bool add_all_remaining_comments = add_all_comments;
-    size_t j_limit = xgettext_comment_count ();
-    for (size_t j = 0; j < j_limit; j++)
-      {
-        string_desc_t s = xgettext_comment (j);
-
-        if (!comment_is_utf8)
-          s = sd_readonly (
-                string_desc_from_current_source_encoding (s, lc_comment,
-                                                          pos->file_name, pos->line_number));
-
-        /* To reduce the possibility of unwanted matches we do a two
-           step match: the line must contain 'xgettext:' and one of
-           the possible format description strings.  */
         {
-          ptrdiff_t t = sd_contains (s, sd_from_c ("xgettext:"));
-          if (t >= 0)
+          const char *msgstr;
+
+          /* Construct the msgstr from the prefix and suffix, otherwise use the
+             empty string.  */
+          if (msgstr_prefix)
             {
-              t += strlen ("xgettext:");
-
-              bool tmp_fuzzy;
-              enum is_format tmp_format[NFORMATS];
-              struct argument_range tmp_range;
-              enum is_wrap tmp_wrap;
-              enum is_syntax_check tmp_syntax_check[NSYNTAXCHECKS];
-              parse_comment_special (
-                xsd_c (sd_new_addr (sd_length (s) - t, sd_data (s) + t)),
-                &tmp_fuzzy, tmp_format, &tmp_range, &tmp_wrap,
-                tmp_syntax_check);
-
-              bool interesting = false;
-              for (size_t i = 0; i < NFORMATS; i++)
-                if (tmp_format[i] != undecided)
-                  {
-                    mp->is_format[i] = tmp_format[i];
-                    interesting = true;
-                  }
-              if (has_range_p (tmp_range))
-                {
-                  range = tmp_range;
-                  interesting = true;
-                }
-              if (tmp_wrap != undecided)
-                {
-                  mp->do_wrap = tmp_wrap;
-                  interesting = true;
-                }
-              for (size_t i = 0; i < NSYNTAXCHECKS; i++)
-                if (tmp_syntax_check[i] != undecided)
-                  {
-                    mp->do_syntax_check[i] = tmp_syntax_check[i];
-                    interesting = true;
-                  }
-
-              /* If the "xgettext:" marker was followed by an interesting
-                 keyword, and we updated our mp->is_format/mp->do_wrap
-                 variables, we don't print the comment as a #. comment.  */
-              if (interesting)
-                continue;
+              msgstr = xasprintf ("%s%s%s", msgstr_prefix, msgid, msgstr_suffix);
+              assume (msgstr != NULL);
             }
+          else
+            msgstr = "";
+
+          /* Allocate a new message and append the message to the list.  */
+          mp = message_alloc (msgctxt, msgid, NULL, msgstr, strlen (msgstr) + 1,
+                              pos);
+          /* Do not free msgctxt and msgid.  */
+          message_list_append (mlp, mp);
         }
 
-        if (!add_all_remaining_comments && comment_tag != NULL)
-          {
-            /* When the comment tag is seen, it drags in not only the line
-               which it starts, but all remaining comment lines.  */
-            ptrdiff_t t = sd_contains (s, sd_from_c (comment_tag));
-            if (t >= 0)
-              {
-                add_all_remaining_comments = true;
-                comment_tag_prefix = sd_data (s);
-                comment_tag_prefix_length = t;
-              }
-          }
+      /* Determine whether the context specifies that the msgid is a format
+         string.  */
+      set_format_flags_from_context (mp, false, pos, region);
 
-        if (add_all_remaining_comments)
-          {
-            if (sd_startswith (s, sd_new_addr (comment_tag_prefix_length, comment_tag_prefix)))
-              s = sd_substring (s, comment_tag_prefix_length, sd_length (s));
-            message_comment_dot_append (mp, s);
-          }
-      }
-
-    size_t nitems_after =
-      (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
-
-    /* Don't add the comments if they are a repetition of the tail of the
-       already present comments.  This avoids unneeded duplication if the
-       same message appears several times, each time with the same comment.  */
-    if (nitems_before < nitems_after)
+      /* Ask the lexer for the comments it has seen.  */
       {
-        size_t added = nitems_after - nitems_before;
+        size_t nitems_before =
+          (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
 
-        if (added <= nitems_before)
+        if (sd_length (extracted_comment) > 0)
           {
-            bool repeated = true;
-            for (size_t i = 0; i < added; i++)
-              if (!sd_equals (mp->comment_dot->item[nitems_before - added + i],
-                              mp->comment_dot->item[nitems_before + i]))
-                {
-                  repeated = false;
-                  break;
-                }
-
-            if (repeated)
+            string_desc_t xc = extracted_comment;
+            while (sd_length (xc) > 0)
               {
+                ptrdiff_t newline = sd_index (xc, '\n');
+                if (newline >= 0)
+                  {
+                    message_comment_dot_append (mp, sd_substring (xc, 0, newline));
+                    xc = sd_substring (xc, newline + 1, sd_length (xc));
+                  }
+                else
+                  {
+                    message_comment_dot_append (mp, xc);
+                    break;
+                  }
+              }
+          }
+
+        /* The string before the comment tag.  For example, If "** TRANSLATORS:"
+           is seen and the comment tag is "TRANSLATORS:",
+           then comment_tag_prefix is set to "** ".  */
+        const char *comment_tag_prefix = "";
+        size_t comment_tag_prefix_length = 0;
+
+        bool add_all_remaining_comments = add_all_comments;
+        size_t j_limit = xgettext_comment_count ();
+        for (size_t j = 0; j < j_limit; j++)
+          {
+            string_desc_t s = xgettext_comment (j);
+
+            if (!comment_is_utf8)
+              s = sd_readonly (
+                    string_desc_from_current_source_encoding (s, lc_comment,
+                                                              pos->file_name, pos->line_number));
+
+            /* To reduce the possibility of unwanted matches we do a two
+               step match: the line must contain 'xgettext:' and one of
+               the possible format description strings.  */
+            {
+              ptrdiff_t t = sd_contains (s, sd_from_c ("xgettext:"));
+              if (t >= 0)
+                {
+                  t += strlen ("xgettext:");
+
+                  bool tmp_fuzzy;
+                  enum is_format tmp_format[NFORMATS];
+                  struct argument_range tmp_range;
+                  enum is_wrap tmp_wrap;
+                  enum is_syntax_check tmp_syntax_check[NSYNTAXCHECKS];
+                  parse_comment_special (
+                    xsd_c (sd_new_addr (sd_length (s) - t, sd_data (s) + t)),
+                    &tmp_fuzzy, tmp_format, &tmp_range, &tmp_wrap,
+                    tmp_syntax_check);
+
+                  bool interesting = false;
+                  for (size_t i = 0; i < NFORMATS; i++)
+                    if (tmp_format[i] != undecided)
+                      {
+                        mp->is_format[i] = tmp_format[i];
+                        interesting = true;
+                      }
+                  if (has_range_p (tmp_range))
+                    {
+                      range = tmp_range;
+                      interesting = true;
+                    }
+                  if (tmp_wrap != undecided)
+                    {
+                      mp->do_wrap = tmp_wrap;
+                      interesting = true;
+                    }
+                  for (size_t i = 0; i < NSYNTAXCHECKS; i++)
+                    if (tmp_syntax_check[i] != undecided)
+                      {
+                        mp->do_syntax_check[i] = tmp_syntax_check[i];
+                        interesting = true;
+                      }
+
+                  /* If the "xgettext:" marker was followed by an interesting
+                     keyword, and we updated our mp->is_format/mp->do_wrap
+                     variables, we don't print the comment as a #. comment.  */
+                  if (interesting)
+                    continue;
+                }
+            }
+
+            if (!add_all_remaining_comments && comment_tag != NULL)
+              {
+                /* When the comment tag is seen, it drags in not only the line
+                   which it starts, but all remaining comment lines.  */
+                ptrdiff_t t = sd_contains (s, sd_from_c (comment_tag));
+                if (t >= 0)
+                  {
+                    add_all_remaining_comments = true;
+                    comment_tag_prefix = sd_data (s);
+                    comment_tag_prefix_length = t;
+                  }
+              }
+
+            if (add_all_remaining_comments)
+              {
+                if (sd_startswith (s, sd_new_addr (comment_tag_prefix_length, comment_tag_prefix)))
+                  s = sd_substring (s, comment_tag_prefix_length, sd_length (s));
+                message_comment_dot_append (mp, s);
+              }
+          }
+
+        size_t nitems_after =
+          (mp->comment_dot != NULL ? mp->comment_dot->nitems : 0);
+
+        /* Don't add the comments if they are a repetition of the tail of the
+           already present comments.  This avoids unneeded duplication if the
+           same message appears several times, each time with the same comment.  */
+        if (nitems_before < nitems_after)
+          {
+            size_t added = nitems_after - nitems_before;
+
+            if (added <= nitems_before)
+              {
+                bool repeated = true;
                 for (size_t i = 0; i < added; i++)
-                  sd_free (sd_readwrite (mp->comment_dot->item[nitems_before + i]));
-                mp->comment_dot->nitems = nitems_before;
+                  if (!sd_equals (mp->comment_dot->item[nitems_before - added + i],
+                                  mp->comment_dot->item[nitems_before + i]))
+                    {
+                      repeated = false;
+                      break;
+                    }
+
+                if (repeated)
+                  {
+                    for (size_t i = 0; i < added; i++)
+                      sd_free (sd_readwrite (mp->comment_dot->item[nitems_before + i]));
+                    mp->comment_dot->nitems = nitems_before;
+                  }
               }
           }
       }
-  }
 
-  decide_is_format (mp);
+      decide_is_format (mp);
 
-  intersect_range (mp, &range);
+      intersect_range (mp, &range);
 
-  decide_do_wrap (mp);
+      decide_do_wrap (mp);
 
-  decide_syntax_check (mp);
+      decide_syntax_check (mp);
 
-  /* Warn about the use of non-reorderable format strings when the programming
-     language also provides reorderable format strings.  */
-  warn_format_string (mp->is_format, mp->msgid, pos, "msgid");
+      /* Warn about the use of non-reorderable format strings when the programming
+         language also provides reorderable format strings.  */
+      warn_format_string (mp->is_format, mp->msgid, pos, "msgid");
 
-  /* Remember where we saw this msgid.  */
-  message_comment_filepos (mp, pos->file_name, pos->line_number);
+      /* Remember where we saw this msgid.  */
+      message_comment_filepos (mp, pos->file_name, pos->line_number);
+    }
 
   /* Tell the lexer to reset its comment buffer, so that the next
      message gets the correct comments.  */
