@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test awk support: NUL characters in msgids.
+
+{
+printf 'print _"one\0dot"\n'
+cat <<\EOF
+print _"two dots"
+EOF
+} > xg-a-nul-2.awk
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-a-nul-2.tmp xg-a-nul-2.awk 2>xg-a-nul-2.err || Exit 1
+test -s xg-a-nul-2.err || Exit 1
+cat xg-a-nul-2.err
+LC_ALL=C tr -d '\r' < xg-a-nul-2.tmp.po > xg-a-nul-2.po || Exit 1
+
+cat <<\EOF > xg-a-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-a-nul-2.ok xg-a-nul-2.po
+result=$?
+
+exit $result

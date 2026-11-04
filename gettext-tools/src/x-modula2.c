@@ -303,7 +303,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;                            /* for token_type_string_literal, token_type_symbol */
+  char *string;                            /* for token_type_symbol */
+  rw_string_desc_t stringdesc;             /* for token_type_string_literal */
   refcounted_string_desc_list_ty *comment; /* for token_type_string_literal */
   int line_number;
 };
@@ -313,10 +314,13 @@ struct token_ty
 static inline void
 free_token (token_ty *tp)
 {
-  if (tp->type == token_type_string_literal || tp->type == token_type_symbol)
+  if (tp->type == token_type_symbol)
     free (tp->string);
   if (tp->type == token_type_string_literal)
-    drop_reference (tp->comment);
+    {
+      sd_free (tp->stringdesc);
+      drop_reference (tp->comment);
+    }
 }
 
 
@@ -437,7 +441,7 @@ phase3_get (token_ty *tp)
                   break;
                 sb_xappend1 (&buffer, c);
               }
-            tp->string = sb_xdupfree_c (&buffer);
+            tp->stringdesc = sb_xdupfree (&buffer);
             tp->type = token_type_string_literal;
             tp->comment = add_reference (savable_comment);
           }
@@ -506,17 +510,17 @@ phase3_unget (token_ty *tp)
    Combine "string1" + ... + "stringN" to the concatenated string.  */
 
 /* Concatenates two strings, and frees the first argument.  */
-static char *
-string_concat_free1 (char *s1, const char *s2)
+static rw_string_desc_t
+string_desc_concat_free1 (rw_string_desc_t s1, string_desc_t s2)
 {
-  size_t len1 = strlen (s1);
-  size_t len2 = strlen (s2);
-  size_t len = len1 + len2 + 1;
+  idx_t len1 = sd_length (s1);
+  idx_t len2 = sd_length (s2);
+  idx_t len = len1 + len2;
   char *result = XNMALLOC (len, char);
-  memcpy (result, s1, len1);
-  memcpy (result + len1, s2, len2 + 1);
-  free (s1);
-  return result;
+  memcpy (result, sd_data (s1), len1);
+  memcpy (result + len1, sd_data (s2), len2);
+  sd_free (s1);
+  return sd_new_addr (len, result);
 }
 
 static token_ty phase4_pushback[2];
@@ -534,7 +538,7 @@ phase4_get (token_ty *tp)
   phase3_get (tp);
   if (tp->type == token_type_string_literal)
     {
-      char *sum = tp->string;
+      rw_string_desc_t sum = tp->stringdesc;
 
       for (;;)
         {
@@ -548,7 +552,7 @@ phase4_get (token_ty *tp)
 
               if (token3.type == token_type_string_literal)
                 {
-                  sum = string_concat_free1 (sum, token3.string);
+                  sum = string_desc_concat_free1 (sum, sd_readonly (token3.stringdesc));
 
                   free_token (&token3);
                   free_token (&token2);
@@ -559,7 +563,7 @@ phase4_get (token_ty *tp)
           phase3_unget (&token2);
           break;
         }
-      tp->string = sum;
+      tp->stringdesc = sum;
     }
 }
 
@@ -714,13 +718,13 @@ extract_parenthesized (message_list_ty *mlp,
             pos.line_number = token.line_number;
 
             if (extract_all)
-              remember_a_message (mlp, NULL, token.string, false, false,
+              remember_a_message (mlp, NO_MSGCTXT, sd_readonly (token.stringdesc), false, false,
                                   inner_region, &pos,
                                   sd_new_empty (), token.comment, false);
             else
               {
                 mixed_string_ty *ms =
-                  mixed_string_alloc_simple (token.string, lc_string,
+                  mixed_string_alloc_simple (sd_readonly (token.stringdesc), lc_string,
                                              pos.file_name, pos.line_number);
                 arglist_parser_remember (argparser, arg, ms,
                                          inner_region,
@@ -728,7 +732,7 @@ extract_parenthesized (message_list_ty *mlp,
                                          token.comment, false);
               }
           }
-          free (token.string);
+          sd_free (token.stringdesc);
           next_context_iter = null_context_list_iterator;
           state = 0;
           break;

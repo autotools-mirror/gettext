@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Tcl support: NUL characters in msgids.
+
+{
+printf 'puts [_ "one\0dot"]\n'
+cat <<\EOF
+puts [_ "two dots"]
+EOF
+} > xg-t-nul-2.tcl
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: -k_ \
+  -d xg-t-nul-2.tmp xg-t-nul-2.tcl 2>xg-t-nul-2.err || Exit 1
+test -s xg-t-nul-2.err || Exit 1
+cat xg-t-nul-2.err
+LC_ALL=C tr -d '\r' < xg-t-nul-2.tmp.po > xg-t-nul-2.po || Exit 1
+
+cat <<\EOF > xg-t-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-t-nul-2.ok xg-t-nul-2.po
+result=$?
+
+exit $result

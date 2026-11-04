@@ -251,6 +251,7 @@ if ! $skip_gnulib; then
     open
     opendir
     openmp-init
+    optional
     options
     pipe-filter-ii
     progname

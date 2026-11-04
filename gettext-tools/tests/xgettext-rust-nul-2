@@ -1,0 +1,35 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Rust support: NUL characters in msgids.
+
+{
+cat <<\EOF
+pub trait TestCase {
+  fn main () {
+EOF
+printf '    String s1 = gettext("one\0dot");\n'
+cat <<\EOF
+    String s2 = gettext("two dots");
+  }
+}
+EOF
+} > xg-rs-nul-2.rs
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-rs-nul-2.tmp xg-rs-nul-2.rs 2>xg-rs-nul-2.err || Exit 1
+test -s xg-rs-nul-2.err || Exit 1
+cat xg-rs-nul-2.err
+LC_ALL=C tr -d '\r' < xg-rs-nul-2.tmp.po > xg-rs-nul-2.po || Exit 1
+
+cat <<\EOF > xg-rs-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-rs-nul-2.ok xg-rs-nul-2.po
+result=$?
+
+exit $result

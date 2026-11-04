@@ -26,7 +26,6 @@
 #include <string.h>
 
 #include "string-desc.h"
-#include "xstring-desc.h"
 #include "if-error.h"
 #include "flexmember.h"
 #include "xalloc.h"
@@ -393,33 +392,33 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
               msgid_plural_region->for_formatstring[XFORMAT_FOURTH].is_format = yes_according_to_context;
             }
 
-          const char *best_msgctxt =
+          string_desc_opt best_msgctxt =
             (best_cp->msgctxt != NULL
-             ? xsd_c (mixed_string_contents_free1 (best_cp->msgctxt))
-             : NULL);
-          const char *best_msgid =
+             ? (string_desc_opt) SOME (sd_readonly (mixed_string_contents_free1 (best_cp->msgctxt)))
+             : (string_desc_opt) NONE);
+          string_desc_opt best_msgid =
             (best_cp->msgid != NULL
-             ? xsd_c (mixed_string_contents_free1 (best_cp->msgid))
-             : NULL);
-          const char *best_msgid_plural =
+             ? (string_desc_opt) SOME (sd_readonly (mixed_string_contents_free1 (best_cp->msgid)))
+             : (string_desc_opt) NONE);
+          string_desc_opt best_msgid_plural =
             (best_cp->msgid_plural != NULL
              ? /* Special support for the 3-argument tr operator in Qt.  */
                (best_cp->msgid_plural == best_cp->msgid
-                ? best_msgid
-                : xsd_c (mixed_string_contents_free1 (best_cp->msgid_plural)))
-             : NULL);
+                ? (string_desc_opt) SOME (get_value (best_msgid))
+                : (string_desc_opt) SOME (sd_readonly (mixed_string_contents_free1 (best_cp->msgid_plural))))
+             : (string_desc_opt) NONE);
 
           /* Split strings in the GNOME glib syntax "msgctxt|msgid".  */
           if (best_cp->argnum1_glib_context || best_cp->argnum2_glib_context)
             /* split_keywordspec should not allow the context to be specified
                in two different ways.  */
-            if (best_msgctxt != NULL)
+            if (has_value (best_msgctxt))
               abort ();
           if (best_cp->argnum1_glib_context)
             {
-              const char *separator = strchr (best_msgid, '|');
+              ptrdiff_t separator = sd_index (get_value (best_msgid), '|');
 
-              if (separator == NULL)
+              if (separator < 0)
                 if_error (IF_SEVERITY_WARNING,
                           best_cp->msgid_pos.file_name,
                           best_cp->msgid_pos.line_number,
@@ -428,20 +427,21 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                           (int) ap->keyword_len, ap->keyword);
               else
                 {
-                  size_t ctxt_len = separator - best_msgid;
-                  char *ctxt = XNMALLOC (ctxt_len + 1, char);
+                  string_desc_t ctxt =
+                    sd_substring (get_value (best_msgid), 0, separator);
+                  best_msgctxt = (string_desc_opt) SOME (ctxt);
 
-                  memcpy (ctxt, best_msgid, ctxt_len);
-                  ctxt[ctxt_len] = '\0';
-                  best_msgctxt = ctxt;
-                  best_msgid = separator + 1;
+                  string_desc_t id =
+                    sd_substring (get_value (best_msgid), separator + 1,
+                                  sd_length (get_value (best_msgid)));
+                  best_msgid = (string_desc_opt) SOME (id);
                 }
             }
-          if (best_msgid_plural != NULL && best_cp->argnum2_glib_context)
+          if (has_value (best_msgid_plural) && best_cp->argnum2_glib_context)
             {
-              const char *separator = strchr (best_msgid_plural, '|');
+              ptrdiff_t separator = sd_index (get_value (best_msgid_plural), '|');
 
-              if (separator == NULL)
+              if (separator < 0)
                 if_error (IF_SEVERITY_WARNING,
                           best_cp->msgid_plural_pos.file_name,
                           best_cp->msgid_plural_pos.line_number,
@@ -450,36 +450,37 @@ arglist_parser_done (struct arglist_parser *ap, int argnum)
                           (int) ap->keyword_len, ap->keyword);
               else
                 {
-                  size_t ctxt_len = separator - best_msgid_plural;
-                  char *ctxt = XNMALLOC (ctxt_len + 1, char);
-                  memcpy (ctxt, best_msgid_plural, ctxt_len);
-                  ctxt[ctxt_len] = '\0';
+                  string_desc_t ctxt =
+                    sd_substring (get_value (best_msgid_plural), 0, separator);
 
-                  if (best_msgctxt == NULL)
-                    best_msgctxt = ctxt;
+                  if (!has_value (best_msgctxt))
+                    best_msgctxt = (string_desc_opt) SOME (ctxt);
                   else
                     {
-                      if (!streq (ctxt, best_msgctxt))
+                      if (!sd_equals (ctxt, get_value (best_msgctxt)))
                         if_error (IF_SEVERITY_WARNING,
                                   best_cp->msgid_plural_pos.file_name,
                                   best_cp->msgid_plural_pos.line_number,
                                   (size_t)(-1), false,
                                   _("context mismatch between singular and plural form"));
-                      free (ctxt);
                     }
-                  best_msgid_plural = separator + 1;
+
+                  string_desc_t id_plural =
+                    sd_substring (get_value (best_msgid_plural), separator + 1,
+                                  sd_length (get_value (best_msgid_plural)));
+                  best_msgid_plural = (string_desc_opt) SOME (id_plural);
                 }
             }
 
           message_ty *mp =
-            remember_a_message (ap->mlp, best_msgctxt, best_msgid, true,
-                                best_msgid_plural != NULL,
+            remember_a_message (ap->mlp, best_msgctxt, get_value (best_msgid), true,
+                                has_value (best_msgid_plural),
                                 msgid_region,
                                 &best_cp->msgid_pos,
                                 sd_new_empty (), best_cp->msgid_comment,
                                 best_cp->msgid_comment_is_utf8);
-          if (mp != NULL && best_msgid_plural != NULL)
-            remember_a_message_plural (mp, best_msgid_plural, true,
+          if (mp != NULL && has_value (best_msgid_plural))
+            remember_a_message_plural (mp, get_value (best_msgid_plural), true,
                                        msgid_plural_region,
                                        &best_cp->msgid_plural_pos,
                                        NULL, false);

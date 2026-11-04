@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Smalltalk support: NUL characters in msgids.
+
+{
+printf "Transcript showCr: (NLS ? 'one\0dot').\\n"
+cat <<\EOF
+Transcript showCr: (NLS ? 'two dots').
+EOF
+} > xg-st-nul-2.st
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-st-nul-2.tmp xg-st-nul-2.st 2>xg-st-nul-2.err || Exit 1
+test -s xg-st-nul-2.err || Exit 1
+cat xg-st-nul-2.err
+LC_ALL=C tr -d '\r' < xg-st-nul-2.tmp.po > xg-st-nul-2.po || Exit 1
+
+cat <<\EOF > xg-st-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-st-nul-2.ok xg-st-nul-2.po
+result=$?
+
+exit $result

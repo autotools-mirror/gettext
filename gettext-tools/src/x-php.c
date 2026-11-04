@@ -161,7 +161,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;                            /* for token_type_string_literal, token_type_symbol */
+  char *string;                            /* for token_type_symbol */
+  rw_string_desc_t stringdesc;             /* for token_type_string_literal */
   refcounted_string_desc_list_ty *comment; /* for token_type_string_literal */
   int line_number;
 };
@@ -803,10 +804,13 @@ phase3_ungetc (struct php_extractor *xp, int c)
 static inline void
 free_token (token_ty *tp)
 {
-  if (tp->type == token_type_string_literal || tp->type == token_type_symbol)
+  if (tp->type == token_type_symbol)
     free (tp->string);
   if (tp->type == token_type_string_literal)
-    drop_reference (tp->comment);
+    {
+      sd_free (tp->stringdesc);
+      drop_reference (tp->comment);
+    }
 }
 
 
@@ -817,9 +821,9 @@ free_token (token_ty *tp)
 /* 4. Combine characters into tokens.  Discard whitespace.  */
 
 /* Do the processing of a double-quoted string or heredoc string.
-   Return the processed string, or NULL if it contains variables or embedded
-   expressions.  */
-static char *
+   Return SOME with the processed string, or NONE if it contains variables or
+   embedded expressions.  */
+static rw_string_desc_opt
 process_dquote_or_heredoc (struct php_extractor *xp, bool heredoc)
 {
   bool is_constant = true;
@@ -963,11 +967,13 @@ process_dquote_or_heredoc (struct php_extractor *xp, bool heredoc)
         sb_xappend1 (&buffer, c);
       }
     if (is_constant)
-      return sb_xdupfree_c (&buffer);
+      {
+        return (rw_string_desc_opt) SOME (sb_xdupfree (&buffer));
+      }
     else
       {
         sb_free (&buffer);
-        return NULL;
+        return (rw_string_desc_opt) NONE;
       }
   }
 
@@ -981,7 +987,7 @@ process_dquote_or_heredoc (struct php_extractor *xp, bool heredoc)
                         null_context_region (),
                         null_context_list_iterator,
                         arglist_parser_alloc (xp->mlp, NULL)))
-    return NULL;
+    return (rw_string_desc_opt) NONE;
   xp->brace_nesting_depth--;
   goto string_continued;
 }
@@ -1130,7 +1136,7 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
                 sb_xappend1 (&buffer, c);
               }
             tp->type = token_type_string_literal;
-            tp->string = sb_xdupfree_c (&buffer);
+            tp->stringdesc = sb_xdupfree (&buffer);
             tp->comment = add_reference (savable_comment);
           }
           return;
@@ -1138,11 +1144,12 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
         case '"':
           /* Double-quoted string literal.  */
           {
-            char *string = process_dquote_or_heredoc (xp, false);
-            if (string != NULL)
+            rw_string_desc_opt string_or_none =
+              process_dquote_or_heredoc (xp, false);
+            if (has_value (string_or_none))
               {
                 tp->type = token_type_string_literal;
-                tp->string = string;
+                tp->stringdesc = get_value (string_or_none);
                 tp->comment = add_reference (savable_comment);
               }
             else
@@ -1424,35 +1431,32 @@ phase4_get (struct php_extractor *xp, token_ty *tp)
                           --doc_len;
                       }
 
-                    /* NUL-terminate it.  */
-                    if (doc_len >= doc_alloc)
-                      {
-                        doc_alloc = doc_alloc + 1;
-                        doc = xrealloc (doc, doc_alloc);
-                      }
-                    doc[doc_len++] = '\0';
-
                     /* For a here document, do the same processing as in
                        double-quoted strings (except for recognizing a
                        double-quote as end-of-string, of course).  */
+                    rw_string_desc_t doc_sd = sd_new_addr (doc_len, doc);
+                    bool have_doc = true;
                     if (heredoc)
                       {
                         struct php_extractor hxp;
                         hxp.mlp = xp->mlp;
-                        sf_istream_init_from_string (&hxp.input, doc);
+                        sf_istream_init_from_string_desc (&hxp.input, sd_readonly (doc_sd));
                         hxp.line_number = doc_line_number;
                         php_extractor_init_rest (&hxp);
 
-                        char *processed_doc =
+                        rw_string_desc_opt processed_doc =
                           process_dquote_or_heredoc (&hxp, true);
-                        free (doc);
-                        doc = processed_doc;
+                        sd_free (doc_sd);
+                        if (has_value (processed_doc))
+                          doc_sd = get_value (processed_doc);
+                        else
+                          have_doc = false;
                       }
 
-                    if (doc != NULL)
+                    if (have_doc)
                       {
                         tp->type = token_type_string_literal;
-                        tp->string = doc;
+                        tp->stringdesc = doc_sd;
                         tp->comment = add_reference (savable_comment);
                       }
                     else
@@ -1572,8 +1576,7 @@ x_php_lex (struct php_extractor *xp, token_ty *tp)
            || xp->phase5_last == token_type_operator2
            || xp->phase5_last == token_type_rparen))
     {
-      char *sum = tp->string;
-      size_t sum_len = strlen (sum);
+      rw_string_desc_t sum = tp->stringdesc;
 
       for (;;)
         {
@@ -1592,12 +1595,14 @@ x_php_lex (struct php_extractor *xp, token_ty *tp)
 
                   if (token_after.type != token_type_operator1)
                     {
-                      char *addend = token3.string;
-                      size_t addend_len = strlen (addend);
+                      rw_string_desc_t addend = token3.stringdesc;
 
-                      sum = (char *) xrealloc (sum, sum_len + addend_len + 1);
-                      memcpy (sum + sum_len, addend, addend_len + 1);
-                      sum_len += addend_len;
+                      idx_t new_len = sd_length (sum) + sd_length (addend);
+                      char *new_sum_data =
+                        (char *) xrealloc (sd_data (sum), new_len);
+                      memcpy (new_sum_data + sd_length (sum),
+                              sd_data (addend), sd_length (addend));
+                      sum = sd_new_addr (new_len, new_sum_data);
 
                       phase4_unget (xp, &token_after);
                       free_token (&token3);
@@ -1611,7 +1616,7 @@ x_php_lex (struct php_extractor *xp, token_ty *tp)
           phase4_unget (xp, &token2);
           break;
         }
-      tp->string = sum;
+      tp->stringdesc = sum;
     }
   xp->phase5_last = tp->type;
 }
@@ -1804,19 +1809,19 @@ extract_balanced (struct php_extractor *xp,
             pos.line_number = token.line_number;
 
             if (extract_all)
-              remember_a_message (xp->mlp, NULL, token.string, false, false,
+              remember_a_message (xp->mlp, NO_MSGCTXT, sd_readonly (token.stringdesc), false, false,
                                   inner_region, &pos,
                                   sd_new_empty (), token.comment, false);
             else
               {
                 mixed_string_ty *ms =
-                  mixed_string_alloc_simple (token.string, lc_string,
+                  mixed_string_alloc_simple (sd_readonly (token.stringdesc), lc_string,
                                              pos.file_name, pos.line_number);
                 arglist_parser_remember (argparser, arg, ms, inner_region,
                                          pos.file_name, pos.line_number,
                                          token.comment, false);
               }
-            free (token.string);
+            sd_free (token.stringdesc);
             drop_reference (token.comment);
           }
           next_context_iter = null_context_list_iterator;

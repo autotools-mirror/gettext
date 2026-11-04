@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test JavaScript support: NUL characters in msgids.
+
+{
+printf 'var s1 = _("one\0dot");\n'
+cat <<\EOF
+var s2 = _("two dots");
+EOF
+} > xg-js-nul-2.js
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-js-nul-2.tmp xg-js-nul-2.js 2>xg-js-nul-2.err || Exit 1
+test -s xg-js-nul-2.err || Exit 1
+cat xg-js-nul-2.err
+LC_ALL=C tr -d '\r' < xg-js-nul-2.tmp.po > xg-js-nul-2.po || Exit 1
+
+cat <<\EOF > xg-js-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-js-nul-2.ok xg-js-nul-2.po
+result=$?
+
+exit $result

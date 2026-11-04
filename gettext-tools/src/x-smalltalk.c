@@ -31,6 +31,7 @@
 #include <error.h>
 #include "attribute.h"
 #include "string-desc.h"
+#include "xstring-desc.h"
 #include "message.h"
 #include "xgettext.h"
 #include "xg-pos.h"
@@ -165,7 +166,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;                            /* for token_type_string_literal, token_type_symbol */
+  char *string;                            /* for token_type_symbol */
+  rw_string_desc_t stringdesc;             /* for token_type_string_literal */
   refcounted_string_desc_list_ty *comment; /* for token_type_string_literal */
   int line_number;
 };
@@ -174,10 +176,13 @@ struct token_ty
 static inline void
 free_token (token_ty *tp)
 {
-  if (tp->type == token_type_string_literal || tp->type == token_type_symbol)
+  if (tp->type == token_type_symbol)
     free (tp->string);
   if (tp->type == token_type_string_literal)
-    drop_reference (tp->comment);
+    {
+      sd_free (tp->stringdesc);
+      drop_reference (tp->comment);
+    }
 }
 
 
@@ -273,7 +278,7 @@ phase2_get (token_ty *tp)
                 sb_xappend1 (&buffer, c);
               }
             tp->type = token_type_string_literal;
-            tp->string = sb_xdupfree_c (&buffer);
+            tp->stringdesc = sb_xdupfree (&buffer);
             tp->comment = add_reference (savable_comment);
           }
           return;
@@ -453,9 +458,13 @@ phase3_get (token_ty *tp)
           || token2.type == token_type_string_literal)
         {
           if (token2.type == token_type_string_literal)
-            drop_reference (token2.comment);
+            {
+              tp->stringdesc = token2.stringdesc;
+              drop_reference (token2.comment);
+            }
+          else
+            tp->stringdesc = xsd_copy (sd_from_c (token2.string));
           tp->type = token_type_string_literal;
-          tp->string = token2.string;
           tp->comment = add_reference (savable_comment);
         }
       else
@@ -480,17 +489,17 @@ phase3_unget (token_ty *tp)
    Combine "string1" , "string2" to "string1string2".  */
 
 /* Concatenates two strings, and frees the first argument.  */
-static char *
-string_concat_free1 (char *s1, const char *s2)
+static rw_string_desc_t
+string_desc_concat_free1 (rw_string_desc_t s1, string_desc_t s2)
 {
-  size_t len1 = strlen (s1);
-  size_t len2 = strlen (s2);
-  size_t len = len1 + len2 + 1;
+  idx_t len1 = sd_length (s1);
+  idx_t len2 = sd_length (s2);
+  idx_t len = len1 + len2;
   char *result = XNMALLOC (len, char);
-  memcpy (result, s1, len1);
-  memcpy (result + len1, s2, len2 + 1);
-  free (s1);
-  return result;
+  memcpy (result, sd_data (s1), len1);
+  memcpy (result + len1, sd_data (s2), len2);
+  sd_free (s1);
+  return sd_new_addr (len, result);
 }
 
 static token_ty phase4_pushback[1];
@@ -508,7 +517,7 @@ phase4_get (token_ty *tp)
   phase3_get (tp);
   if (tp->type == token_type_string_literal)
     {
-      char *sum = tp->string;
+      rw_string_desc_t sum = tp->stringdesc;
 
       for (;;)
         {
@@ -523,7 +532,7 @@ phase4_get (token_ty *tp)
 
               if (token3.type == token_type_string_literal)
                 {
-                  sum = string_concat_free1 (sum, token3.string);
+                  sum = string_desc_concat_free1 (sum, sd_readonly (token3.stringdesc));
 
                   free_token (&token3);
                   free_token (&token2);
@@ -534,7 +543,7 @@ phase4_get (token_ty *tp)
           phase3_unget (&token2);
           break;
         }
-      tp->string = sum;
+      tp->stringdesc = sum;
     }
 }
 
@@ -622,11 +631,10 @@ extract_smalltalk (FILE *f,
                 lex_pos_ty pos;
                 pos.file_name = logical_file_name;
                 pos.line_number = token.line_number;
-
-                remember_a_message (mlp, NULL, token.string, false, false,
+                remember_a_message (mlp, NO_MSGCTXT, sd_readonly (token.stringdesc), false, false,
                                     null_context_region (), &pos,
                                     sd_new_empty (), token.comment, false);
-                free (token.string);
+                sd_free (token.stringdesc);
 
                 state = 0;
                 break;
@@ -641,12 +649,12 @@ extract_smalltalk (FILE *f,
                 phase4_get (&token2);
 
                 plural_mp =
-                  remember_a_message (mlp, NULL, token.string, false,
+                  remember_a_message (mlp, NO_MSGCTXT, sd_readonly (token.stringdesc), false,
                                       token2.type == token_type_symbol
-                                      && streq (token.string, "plural:"),
+                                      && sd_equals (token.stringdesc, sd_from_c ("plural:")),
                                       null_context_region (), &pos,
                                       sd_new_empty (), token.comment, false);
-                free (token.string);
+                sd_free (token.stringdesc);
 
                 phase4_unget (&token2);
 
@@ -660,10 +668,10 @@ extract_smalltalk (FILE *f,
                 pos.line_number = token.line_number;
 
                 if (plural_mp != NULL)
-                  remember_a_message_plural (plural_mp, token.string, false,
+                  remember_a_message_plural (plural_mp, sd_readonly (token.stringdesc), false,
                                              null_context_region (), &pos,
                                              token.comment, false);
-                free (token.string);
+                sd_free (token.stringdesc);
 
                 state = 0;
                 break;

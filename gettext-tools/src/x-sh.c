@@ -1137,11 +1137,9 @@ read_word (struct word *wp, int looking_for, flag_region_ty *region)
                     }
                   rw_string_desc_t string =
                     mixed_string_contents_free1 (mixed_string_buffer_result (&msb));
-                  char *msgid = xsd_c (string);
-                  remember_a_message (mlp, NULL, msgid,
+                  remember_a_message (mlp, NO_MSGCTXT, sd_readonly (string),
                                       true, false, region, &pos,
                                       sd_new_empty (), savable_comment, false);
-                  free (msgid);
                   sd_free (string);
 
                   if_error (IF_SEVERITY_WARNING,
@@ -1308,11 +1306,9 @@ read_command (int looking_for, flag_region_ty *outer_region)
 
               rw_string_desc_t string =
                 mixed_string_contents_free1 (mixed_string_buffer_cloned_result (inner.token));
-              char *msgid = xsd_c (string);
-              remember_a_message (mlp, NULL, msgid,
+              remember_a_message (mlp, NO_MSGCTXT, sd_readonly (string),
                                   true, false, inner_region, &pos,
                                   sd_new_empty (), savable_comment, false);
-              free (msgid);
               sd_free (string);
             }
         }
@@ -1454,7 +1450,7 @@ read_command (int looking_for, flag_region_ty *outer_region)
                           if (expanded != cs)
                             {
                               mixed_string_ty *expanded_ms =
-                                mixed_string_alloc_utf8 (expanded, ms->lcontext,
+                                mixed_string_alloc_utf8 (sd_from_c (expanded), ms->lcontext,
                                                          ms->logical_file_name,
                                                          ms->line_number);
                               mixed_string_free (ms);

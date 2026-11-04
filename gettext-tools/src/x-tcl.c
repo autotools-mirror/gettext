@@ -1004,11 +1004,11 @@ read_command (int looking_for, flag_region_ty *outer_region)
                 pos.file_name = logical_file_name;
                 pos.line_number = inner.line_number_at_start;
 
-                char *msgid = string_of_word (&inner);
-                remember_a_message (mlp, NULL, msgid, false,
+                string_desc_t string =
+                    sd_new_addr (inner.token->charcount, (const char *) { inner.token->chars });
+                remember_a_message (mlp, NO_MSGCTXT, string, false,
                                     false, inner_region, &pos,
                                     sd_new_empty (), savable_comment, false);
-                free (msgid);
               }
           }
 
@@ -1049,12 +1049,12 @@ read_command (int looking_for, flag_region_ty *outer_region)
             /* These are the argument positions.  */
             if (argparser != NULL && inner.type == t_string)
               {
-                char *s = string_of_word (&inner);
+                string_desc_t s =
+                  sd_new_addr (inner.token->charcount, (const char *) { inner.token->chars });
                 mixed_string_ty *ms =
                   mixed_string_alloc_simple (s, lc_string,
                                              logical_file_name,
                                              inner.line_number_at_start);
-                free (s);
                 arglist_parser_remember (argparser, arg, ms,
                                          inner_region,
                                          logical_file_name,

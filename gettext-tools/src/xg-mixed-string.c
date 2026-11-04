@@ -62,13 +62,13 @@ segment_clone (const struct mixed_string_segment *segment)
 }
 
 mixed_string_ty *
-mixed_string_alloc_simple (const char *string,
+mixed_string_alloc_simple (string_desc_t string,
                            lexical_context_ty lcontext,
                            const char *logical_file_name,
                            int line_number)
 {
   struct mixed_string *ms = XMALLOC (struct mixed_string);
-  if (*string == '\0')
+  if (sd_length (string) == 0)
     {
       /* An empty string.  */
       ms->segments = NULL;
@@ -80,14 +80,14 @@ mixed_string_alloc_simple (const char *string,
       ms->nsegments = 1;
       if ((xgettext_current_source_encoding == po_charset_ascii
            || xgettext_current_source_encoding == po_charset_utf8)
-          && is_ascii_string (string))
+          && is_ascii_string_desc (string))
         /* An optimization.  */
         ms->segments[0] =
-          segment_alloc (utf8_encoded, string, strlen (string));
+          segment_alloc (utf8_encoded, sd_data (string), sd_length (string));
       else
         /* The general case.  */
         ms->segments[0] =
-          segment_alloc (source_encoded, string, strlen (string));
+          segment_alloc (source_encoded, sd_data (string), sd_length (string));
     }
   ms->lcontext = lcontext;
   ms->logical_file_name = logical_file_name;
@@ -97,13 +97,13 @@ mixed_string_alloc_simple (const char *string,
 }
 
 mixed_string_ty *
-mixed_string_alloc_utf8 (const char *string,
+mixed_string_alloc_utf8 (string_desc_t string,
                          lexical_context_ty lcontext,
                          const char *logical_file_name,
                          int line_number)
 {
   struct mixed_string *ms = XMALLOC (struct mixed_string);
-  if (*string == '\0')
+  if (sd_length (string) == 0)
     {
       /* An empty string.  */
       ms->segments = NULL;
@@ -113,7 +113,8 @@ mixed_string_alloc_utf8 (const char *string,
     {
       ms->segments = XNMALLOC (1, struct mixed_string_segment *);
       ms->nsegments = 1;
-      ms->segments[0] = segment_alloc (utf8_encoded, string, strlen (string));
+      ms->segments[0] =
+        segment_alloc (utf8_encoded, sd_data (string), sd_length (string));
     }
   ms->lcontext = lcontext;
   ms->logical_file_name = logical_file_name;

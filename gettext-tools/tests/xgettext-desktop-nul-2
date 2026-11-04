@@ -1,0 +1,33 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Desktop Entry support: NUL characters in msgids.
+
+{
+cat <<\EOF
+[Desktop Entry 1]
+EOF
+printf 'Name=one\0dot\n'
+cat <<\EOF
+[Desktop Entry 2]
+Name=two dots
+EOF
+} > xg-de-nul-2.desktop
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments \
+  -d xg-de-nul-2.tmp xg-de-nul-2.desktop 2>xg-de-nul-2.err || Exit 1
+test -s xg-de-nul-2.err || Exit 1
+cat xg-de-nul-2.err
+LC_ALL=C tr -d '\r' < xg-de-nul-2.tmp.po > xg-de-nul-2.po || Exit 1
+
+cat <<\EOF > xg-de-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-de-nul-2.ok xg-de-nul-2.po
+result=$?
+
+exit $result

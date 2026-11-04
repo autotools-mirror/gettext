@@ -30,7 +30,6 @@
 
 #include <error.h>
 #include "string-desc.h"
-#include "xstring-desc.h"
 #include "message.h"
 #include "string-buffer.h"
 #include "xgettext.h"
@@ -625,13 +624,13 @@ string_literal_accumulate_pieces (TSNode node,
 
 /* Combines the pieces of a string literal or concatenated string literal.
    Returns a freshly allocated, mostly UTF-8 encoded string.  */
-static char *
+static rw_string_desc_t
 string_literal_value (TSNode node)
 {
   struct string_buffer buffer;
   sb_init (&buffer);
   string_literal_accumulate_pieces (node, &buffer);
-  return sb_xdupfree_c (&buffer);
+  return sb_xdupfree (&buffer);
 }
 
 /* --------------------- Parsing and string extraction --------------------- */
@@ -734,11 +733,11 @@ extract_from_function_call (TSNode function_node,
                   pos.file_name = logical_file_name;
                   pos.line_number = ts_node_line_number (arg_node);
 
-                  char *string = string_literal_value (arg_node);
+                  rw_string_desc_t string = string_literal_value (arg_node);
 
                   if (extract_all)
                     {
-                      remember_a_message (mlp, NULL, string, true, false,
+                      remember_a_message (mlp, NO_MSGCTXT, sd_readonly (string), true, false,
                                           arg_region, &pos,
                                           sd_new_empty (), savable_comment, true);
                       already_extracted = true;
@@ -746,14 +745,14 @@ extract_from_function_call (TSNode function_node,
                   else
                     {
                       mixed_string_ty *mixed_string =
-                        mixed_string_alloc_utf8 (string, lc_string,
+                        mixed_string_alloc_utf8 (sd_readonly (string), lc_string,
                                                  pos.file_name, pos.line_number);
                       arglist_parser_remember (argparser, arg, mixed_string,
                                                arg_region,
                                                pos.file_name, pos.line_number,
                                                savable_comment, true);
                     }
-                  free (string);
+                  sd_free (string);
                 }
 
               if (!already_extracted)
@@ -819,12 +818,12 @@ extract_from_node (TSNode node,
       pos.file_name = logical_file_name;
       pos.line_number = ts_node_line_number (node);
 
-      char *string = string_literal_value (node);
+      rw_string_desc_t string = string_literal_value (node);
 
-      remember_a_message (mlp, NULL, string, true, false,
+      remember_a_message (mlp, NO_MSGCTXT, sd_readonly (string), true, false,
                           outer_region, &pos,
                           sd_new_empty (), savable_comment, true);
-      free (string);
+      sd_free (string);
     }
 
   if (ts_node_symbol (node) == ts_symbol_application_expression

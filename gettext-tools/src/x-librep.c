@@ -30,6 +30,7 @@
 #include <error.h>
 #include "attribute.h"
 #include "string-desc.h"
+#include "xstring-desc.h"
 #include "c-ctype.h"
 #include "message.h"
 #include "xgettext.h"
@@ -482,19 +483,13 @@ free_object (struct object *op)
     }
 }
 
-/* Convert a t_symbol/t_string token to a char*.  */
-static char *
+/* Convert a t_symbol/t_string token to an rw_string_desc_t.  */
+static rw_string_desc_t
 string_of_object (const struct object *op)
 {
   if (!(op->type == t_symbol || op->type == t_string))
     abort ();
-  int n = op->token->charcount;
-
-  char *str = XNMALLOC (n + 1, char);
-  memcpy (str, op->token->chars, n);
-  str[n] = '\0';
-
-  return str;
+  return xsd_copy (sd_new_addr (op->token->charcount, (const char *) { op->token->chars }));
 }
 
 
@@ -663,11 +658,11 @@ read_object (struct object *op, flag_region_ty *outer_region)
                     /* This is the function position.  */
                     if (inner.type == t_symbol)
                       {
-                        char *symbol_name = string_of_object (&inner);
+                        rw_string_desc_t symbol_name = string_of_object (&inner);
 
                         void *keyword_value;
                         if (hash_find_entry (&keywords,
-                                             symbol_name, strlen (symbol_name),
+                                             sd_data (symbol_name), sd_length (symbol_name),
                                              &keyword_value)
                             == 0)
                           shapes = (const struct callshapes *) keyword_value;
@@ -678,9 +673,9 @@ read_object (struct object *op, flag_region_ty *outer_region)
                           flag_context_list_iterator (
                             flag_context_list_table_lookup (
                               flag_context_list_table,
-                              symbol_name, strlen (symbol_name)));
+                              sd_data (symbol_name), sd_length (symbol_name)));
 
-                        free (symbol_name);
+                        sd_free (symbol_name);
                       }
                     else
                       context_iter = null_context_list_iterator;
@@ -690,12 +685,12 @@ read_object (struct object *op, flag_region_ty *outer_region)
                     /* These are the argument positions.  */
                     if (argparser != NULL && inner.type == t_string)
                       {
-                        char *s = string_of_object (&inner);
+                        rw_string_desc_t s = string_of_object (&inner);
                         mixed_string_ty *ms =
-                          mixed_string_alloc_simple (s, lc_string,
+                          mixed_string_alloc_simple (sd_readonly (s), lc_string,
                                                      logical_file_name,
                                                      inner.line_number_at_start);
-                        free (s);
+                        sd_free (s);
                         arglist_parser_remember (argparser, arg, ms,
                                                  inner_region,
                                                  logical_file_name,
@@ -847,11 +842,11 @@ read_object (struct object *op, flag_region_ty *outer_region)
                 pos.file_name = logical_file_name;
                 pos.line_number = op->line_number_at_start;
 
-                char *msgid = string_of_object (op);
-                remember_a_message (mlp, NULL, msgid, false,
+                rw_string_desc_t msgid = string_of_object (op);
+                remember_a_message (mlp, NO_MSGCTXT, sd_readonly (msgid), false,
                                     false, null_context_region (), &pos,
                                     sd_new_empty (), savable_comment, false);
-                free (msgid);
+                sd_free (msgid);
               }
             last_non_comment_line = line_number;
             return;

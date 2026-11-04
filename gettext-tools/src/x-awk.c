@@ -220,7 +220,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;         /* for token_type_{symbol,string,i18nstring} */
+  char *string;                 /* for token_type_symbol */
+  rw_string_desc_t stringdesc;  /* token_type_{string,i18nstring} */
   int line_number;
 };
 
@@ -333,10 +334,12 @@ free_token (token_ty *tp)
 {
   switch (tp->type)
     {
-    case token_type_string:
-    case token_type_i18nstring:
     case token_type_symbol:
       free (tp->string);
+      break;
+    case token_type_string:
+    case token_type_i18nstring:
+      sd_free (tp->stringdesc);
       break;
     default:
       break;
@@ -510,7 +513,7 @@ phase3_get (token_ty *tp)
                   break;
                 sb_xappend1 (&buffer, c);
               }
-            tp->string = sb_xdupfree_c (&buffer);
+            tp->stringdesc = sb_xdupfree (&buffer);
             prefer_division_over_regexp = true;
           }
           return;
@@ -652,17 +655,17 @@ phase3_unget (token_ty *tp)
 /* 8. Concatenate adjacent string literals to form single string literals.  */
 
 /* Concatenates two strings, and frees the first argument.  */
-static char *
-string_concat_free1 (char *s1, const char *s2)
+static rw_string_desc_t
+string_desc_concat_free1 (rw_string_desc_t s1, string_desc_t s2)
 {
-  size_t len1 = strlen (s1);
-  size_t len2 = strlen (s2);
-  size_t len = len1 + len2 + 1;
+  idx_t len1 = sd_length (s1);
+  idx_t len2 = sd_length (s2);
+  idx_t len = len1 + len2;
   char *result = XNMALLOC (len, char);
-  memcpy (result, s1, len1);
-  memcpy (result + len1, s2, len2 + 1);
-  free (s1);
-  return result;
+  memcpy (result, sd_data (s1), len1);
+  memcpy (result + len1, sd_data (s2), len2);
+  sd_free (s1);
+  return sd_new_addr (len, result);
 }
 
 static void
@@ -682,7 +685,8 @@ phase4_get (token_ty *tp)
           return;
         }
 
-      tp->string = string_concat_free1 (tp->string, tmp.string);
+      tp->stringdesc =
+        string_desc_concat_free1 (tp->stringdesc, sd_readonly (tmp.stringdesc));
       free_token (&tmp);
     }
 }
@@ -831,20 +835,20 @@ extract_parenthesized (message_list_ty *mlp,
             pos.line_number = token.line_number;
 
             if (extract_all)
-              remember_a_message (mlp, NULL, token.string, false, false,
+              remember_a_message (mlp, NO_MSGCTXT, sd_readonly (token.stringdesc), false, false,
                                   inner_region, &pos,
                                   sd_new_empty (), savable_comment, false);
             else
               {
                 mixed_string_ty *ms =
-                  mixed_string_alloc_simple (token.string, lc_string,
+                  mixed_string_alloc_simple (sd_readonly (token.stringdesc), lc_string,
                                              pos.file_name, pos.line_number);
                 arglist_parser_remember (argparser, arg, ms,
                                          inner_region,
                                          pos.file_name, pos.line_number,
                                          savable_comment, false);
               }
-            free (token.string);
+            sd_free (token.stringdesc);
           }
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;
@@ -857,10 +861,10 @@ extract_parenthesized (message_list_ty *mlp,
             pos.file_name = logical_file_name;
             pos.line_number = token.line_number;
 
-            remember_a_message (mlp, NULL, token.string, false, false,
+            remember_a_message (mlp, NO_MSGCTXT, sd_readonly (token.stringdesc), false, false,
                                 inner_region, &pos,
                                 sd_new_empty (), savable_comment, false);
-            free (token.string);
+            sd_free (token.stringdesc);
           }
           next_is_argument = false;
           next_context_iter = null_context_list_iterator;

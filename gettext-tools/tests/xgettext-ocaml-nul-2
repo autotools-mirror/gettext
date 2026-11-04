@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test OCaml support: NUL characters in msgids.
+
+{
+printf 'let s1 = s_ "one\0dot" in\n'
+cat <<\EOF
+let s2 = s_ "two dots" in
+EOF
+} > xg-oc-nul-2.ml
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-oc-nul-2.tmp xg-oc-nul-2.ml 2>xg-oc-nul-2.err || Exit 1
+test -s xg-oc-nul-2.err || Exit 1
+cat xg-oc-nul-2.err
+LC_ALL=C tr -d '\r' < xg-oc-nul-2.tmp.po > xg-oc-nul-2.po || Exit 1
+
+cat <<\EOF > xg-oc-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-oc-nul-2.ok xg-oc-nul-2.po
+result=$?
+
+exit $result

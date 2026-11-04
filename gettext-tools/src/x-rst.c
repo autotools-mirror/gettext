@@ -127,7 +127,7 @@ extract_rst (FILE *f,
       }
 
       /* Read StringExpression.  */
-      char *msgid;
+      rw_string_desc_t msgid;
       {
         struct string_buffer buffer;
         sb_init (&buffer);
@@ -200,17 +200,17 @@ extract_rst (FILE *f,
                         logical_filename, line_number, (size_t)(-1), false,
                         _("invalid string expression"));
           }
-        msgid = sb_xdupfree_c (&buffer);
+        msgid = sb_xdupfree (&buffer);
       }
 
       lex_pos_ty pos;
       pos.file_name = location;
       pos.line_number = (size_t)(-1);
 
-      remember_a_message (mlp, NULL, msgid, false, false,
+      remember_a_message (mlp, NO_MSGCTXT, sd_readonly (msgid), false, false,
                           null_context_region (), &pos,
                           sd_new_empty (), NULL, false);
-      free (msgid);
+      sd_free (msgid);
 
       /* Here c is the last read character: EOF or '\n'.  */
       if (c == EOF)
@@ -521,7 +521,8 @@ extract_rsj (FILE *f,
                           goto invalid_rsj;
 
                         char *location = NULL;
-                        char *msgid = NULL;
+                        bool seen_msgid = false;
+                        rw_string_desc_t msgid = sd_readwrite (sd_new_empty ());
 
                         c = phase2_getc ();
                         if (c != '}')
@@ -601,13 +602,12 @@ extract_rsj (FILE *f,
                                     enum parse_result r = parse_string ();
                                     if (r == pr_none)
                                       goto invalid_rsj;
-                                    if (r == pr_syntax || msgid != NULL)
+                                    if (r == pr_syntax || seen_msgid)
                                       goto invalid_json;
-                                    rw_string_desc_t string =
+                                    seen_msgid = true;
+                                    msgid =
                                       mixed_string_contents_free1 (
                                         mixed_string_buffer_result (&stringbuf));
-                                    msgid = xsd_c (string);
-                                    sd_free (string);
                                   }
                                 else
                                   goto invalid_rsj;
@@ -623,17 +623,17 @@ extract_rsj (FILE *f,
                               }
                           }
 
-                        if (location == NULL || msgid == NULL)
+                        if (location == NULL || !seen_msgid)
                           goto invalid_rsj;
 
                         lex_pos_ty pos;
                         pos.file_name = location;
                         pos.line_number = (size_t)(-1);
 
-                        remember_a_message (mlp, NULL, msgid, true, false,
+                        remember_a_message (mlp, NO_MSGCTXT, sd_readonly (msgid), true, false,
                                             null_context_region (), &pos,
                                             sd_new_empty (), NULL, false);
-                        free (msgid);
+                        sd_free (msgid);
 
                         /* Parse a comma.  */
                         c = phase2_getc ();

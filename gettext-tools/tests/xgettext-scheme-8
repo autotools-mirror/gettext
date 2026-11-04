@@ -8,6 +8,7 @@ cat <<\EOF > xg-sc-8.scm
                    drobwllllantysiliogogogoch"))
 (display (gettext "The hotel has a  \
                    pretty garden."))
+(display (gettext "abc\xa;def\x3BB;ghi\x20AC;j"))
 (display (gettext "abc\xa;def\x3BB;ghi\x20AC;jkl\x0001F603;mno"))
 (display (gettext "Abc\x0adef\u03BBghi\u20ACjkl\U01F603mno"))
 #!r6rs
@@ -53,24 +54,24 @@ msgid "The hotel has a                     pretty garden."
 msgstr ""
 
 #: xg-sc-8.scm:5
-msgid "abc�;def;B;ghi AC;jkl"
+msgid "abc�;def;B;ghi AC;j"
 msgstr ""
 
-#: xg-sc-8.scm:6
+#: xg-sc-8.scm:7
 msgid ""
 "Abc\n"
 "defλghi€jkl😃mno"
 msgstr ""
 
-#: xg-sc-8.scm:8
+#: xg-sc-8.scm:9
 msgid "Llanfairpwllgwyngyllgogerychwyrndrobwllllantysiliogogogoch"
 msgstr ""
 
-#: xg-sc-8.scm:10
+#: xg-sc-8.scm:11
 msgid "The hotel has a  pretty garden."
 msgstr ""
 
-#: xg-sc-8.scm:12
+#: xg-sc-8.scm:13
 msgid ""
 "abc\n"
 "defλghi€jkl😃mno"

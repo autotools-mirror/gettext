@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Vala support: NUL characters in msgids.
+
+{
+printf 'var s1 = _("one\0dot");\n'
+cat <<\EOF
+var s2 = _("two dots");
+EOF
+} > xg-vala-nul-2.vala
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-vala-nul-2.tmp xg-vala-nul-2.vala 2>xg-vala-nul-2.err || Exit 1
+test -s xg-vala-nul-2.err || Exit 1
+cat xg-vala-nul-2.err
+LC_ALL=C tr -d '\r' < xg-vala-nul-2.tmp.po > xg-vala-nul-2.po || Exit 1
+
+cat <<\EOF > xg-vala-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-vala-nul-2.ok xg-vala-nul-2.po
+result=$?
+
+exit $result

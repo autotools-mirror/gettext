@@ -53,20 +53,20 @@ struct desktop_reader_class_ty
 
   /* what to do with a group header */
   void (*handle_group) (struct desktop_reader_ty *reader,
-                        const char *group);
+                        string_desc_t group);
 
   /* what to do with a key/value pair */
   void (*handle_pair) (struct desktop_reader_ty *reader,
                        lex_pos_ty *key_pos,
-                       const char *key,
+                       string_desc_t key,
                        const char *locale,
-                       const char *value);
+                       string_desc_t value);
 
   /* what to do with a comment */
   void (*handle_comment) (struct desktop_reader_ty *reader, string_desc_t s);
 
   /* what to do with a blank line */
-  void (*handle_blank) (struct desktop_reader_ty *reader, const char *s);
+  void (*handle_blank) (struct desktop_reader_ty *reader, string_desc_t s);
 };
 
 /* This next structure defines the base class passed to the methods.
@@ -91,19 +91,19 @@ extern desktop_reader_ty *
 extern void desktop_reader_free (desktop_reader_ty *reader);
 
 extern void desktop_reader_handle_group (desktop_reader_ty *reader,
-                                         const char *group);
+                                         string_desc_t group);
 
 extern void desktop_reader_handle_pair (desktop_reader_ty *reader,
                                         lex_pos_ty *key_pos,
-                                        const char *key,
+                                        string_desc_t key,
                                         const char *locale,
-                                        const char *value);
+                                        string_desc_t value);
 
 extern void desktop_reader_handle_comment (desktop_reader_ty *reader,
                                            string_desc_t s);
 
 extern void desktop_reader_handle_blank (desktop_reader_ty *reader,
-                                         const char *s);
+                                         string_desc_t s);
 
 
 extern void desktop_parse (desktop_reader_ty *reader, FILE *file,
@@ -112,7 +112,7 @@ extern void desktop_parse (desktop_reader_ty *reader, FILE *file,
 
 
 extern char *desktop_escape_string (const char *s, bool is_list);
-extern char *desktop_unescape_string (const char *s, bool is_list);
+extern rw_string_desc_t desktop_unescape_string (string_desc_t s, bool is_list);
 
 extern void desktop_add_keyword (hash_table *keywords, const char *name,
                                  bool is_list);

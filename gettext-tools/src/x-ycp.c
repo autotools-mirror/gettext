@@ -301,7 +301,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;                            /* for token_type_string_literal, token_type_symbol */
+  char *string;                            /* for token_type_symbol */
+  rw_string_desc_t stringdesc;             /* for token_type_string_literal */
   refcounted_string_desc_list_ty *comment; /* for token_type_string_literal */
   int line_number;
 };
@@ -381,10 +382,13 @@ get_string_element ()
 static inline void
 free_token (token_ty *tp)
 {
-  if (tp->type == token_type_string_literal || tp->type == token_type_symbol)
+  if (tp->type == token_type_symbol)
     free (tp->string);
   if (tp->type == token_type_string_literal)
-    drop_reference (tp->comment);
+    {
+      sd_free (tp->stringdesc);
+      drop_reference (tp->comment);
+    }
 }
 
 
@@ -499,7 +503,7 @@ phase5_get (token_ty *tp)
                   break;
                 sb_xappend1 (&buffer, c);
               }
-            tp->string = sb_xdupfree_c (&buffer);
+            tp->stringdesc = sb_xdupfree (&buffer);
             tp->type = token_type_string_literal;
             tp->comment = add_reference (savable_comment);
           }
@@ -568,9 +572,12 @@ phase8_get (token_ty *tp)
           return;
         }
 
-      size_t len = strlen (tp->string);
-      tp->string = xrealloc (tp->string, len + strlen (tmp.string) + 1);
-      strcpy (tp->string + len, tmp.string);
+      idx_t len = sd_length (tp->stringdesc);
+      idx_t new_len = len + sd_length (tmp.stringdesc);
+      char *new_string_data = xrealloc (sd_data (tp->stringdesc), new_len);
+      memcpy (new_string_data + len,
+              sd_data (tmp.stringdesc), sd_length (tmp.stringdesc));
+      tp->stringdesc = sd_new_addr (new_len, new_string_data);
       free_token (&tmp);
     }
 }
@@ -683,7 +690,7 @@ extract_parenthesized (message_list_ty *mlp,
                     phase5_get (&token2);
 
                   plural_mp =
-                    remember_a_message (mlp, NULL, token.string, false,
+                    remember_a_message (mlp, NO_MSGCTXT, sd_readonly (token.stringdesc), false,
                                         token2.type == token_type_comma,
                                         inner_region, &pos,
                                         sd_new_empty (), token.comment, false);
@@ -700,7 +707,7 @@ extract_parenthesized (message_list_ty *mlp,
                 {
                   /* Seen an msgid_plural.  */
                   if (plural_mp != NULL)
-                    remember_a_message_plural (plural_mp, token.string, false,
+                    remember_a_message_plural (plural_mp, sd_readonly (token.stringdesc), false,
                                                inner_region, &pos,
                                                token.comment, false);
                   state = 0;

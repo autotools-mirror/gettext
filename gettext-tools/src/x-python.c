@@ -1844,11 +1844,9 @@ extract_balanced (message_list_ty *mlp,
               {
                 rw_string_desc_t string = mixed_string_contents (token.mixed_string);
                 mixed_string_free (token.mixed_string);
-                char *msgid = xsd_c (string);
-                remember_a_message (mlp, NULL, msgid, true, false,
+                remember_a_message (mlp, NO_MSGCTXT, sd_readonly (string), true, false,
                                     inner_region, &pos,
                                     sd_new_empty (), token.comment, true);
-                free (msgid);
                 sd_free (string);
               }
             else

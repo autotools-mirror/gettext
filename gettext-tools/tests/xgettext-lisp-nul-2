@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Lisp support: NUL characters in msgids.
+
+{
+printf '(write-line (gettext "one\0dot"))\n'
+cat <<\EOF
+(write-line (gettext "two dots"))
+EOF
+} > xg-ls-nul-2.lisp
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-ls-nul-2.tmp xg-ls-nul-2.lisp 2>xg-ls-nul-2.err || Exit 1
+test -s xg-ls-nul-2.err || Exit 1
+cat xg-ls-nul-2.err
+LC_ALL=C tr -d '\r' < xg-ls-nul-2.tmp.po > xg-ls-nul-2.po || Exit 1
+
+cat <<\EOF > xg-ls-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-ls-nul-2.ok xg-ls-nul-2.po
+result=$?
+
+exit $result

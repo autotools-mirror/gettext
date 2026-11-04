@@ -32,7 +32,6 @@
 #define SB_NO_APPENDF
 #include <error.h>
 #include "string-desc.h"
-#include "xstring-desc.h"
 #include "attribute.h"
 #include "message.h"
 #include "string-list.h"
@@ -167,32 +166,32 @@ init_flag_table_javascript ()
    The type of format string is not fixed.  */
 
 /* Type of a C function that implements step 1 of what a tag function does.
-   It takes a non-empty string_list_ty as argument and returns a freshly
+   It takes a non-empty string_desc_list_ty as argument and returns a freshly
    allocated string.  */
-typedef char * (*tag_step1_fn) (string_list_ty *parts);
+typedef rw_string_desc_t (*tag_step1_fn) (string_desc_list_ty *parts);
 
 /* Tag step 1 function that produces a format string with placeholders
    {0}, {1}, {2}, etc.  */
-static char *
-gnome_step1 (string_list_ty *parts)
+static rw_string_desc_t
+gnome_step1 (string_desc_list_ty *parts)
 {
   size_t n = parts->nitems - 1;
 
-  string_list_ty pieces;
+  string_desc_list_ty pieces;
   pieces.nitems = 2 * n + 1;
   pieces.nitems_max = pieces.nitems;
-  pieces.item = XNMALLOC (pieces.nitems, const char *);
+  pieces.item = XNMALLOC (pieces.nitems, string_desc_t);
   for (unsigned long i = 0; i <= n; i++)
     {
       pieces.item[2 * i] = parts->item[i];
       if (i < n)
-        pieces.item[2 * i + 1] = xasprintf ("{%lu}", i);
+        pieces.item[2 * i + 1] = sd_from_c (xasprintf ("{%lu}", i));
     }
 
-  char *result = string_list_concat (&pieces);
+  rw_string_desc_t result = string_desc_list_concat (&pieces);
 
   for (unsigned long i = 0; i < n; i++)
-    free ((char *) pieces.item[2 * i + 1]);
+    free ((char *) sd_data (pieces.item[2 * i + 1]));
 
   return result;
 }
@@ -797,7 +796,7 @@ struct token_ty
   mixed_string_ty *mixed_string;           /* for token_type_string, token_type_template,
                                               token_type_ltemplate, token_type_mtemplate,
                                               token_type_rtemplate */
-  string_list_ty *template_parts;          /* for token_type_rtemplate */
+  string_desc_list_ty *template_parts;     /* for token_type_rtemplate */
   refcounted_string_desc_list_ty *comment; /* for token_type_string, token_type_template,
                                               token_type_ltemplate, token_type_rtemplate */
   int line_number;
@@ -1161,7 +1160,7 @@ struct level_info
 {
   enum level_ty type;
   char *template_tag;                               /* for level_template_literal */
-  string_list_ty *template_parts;                   /* for level_template_literal */
+  string_desc_list_ty *template_parts;              /* for level_template_literal */
   refcounted_string_desc_list_ty *template_comment; /* for level_template_literal */
 };
 /* The level stack.  */
@@ -1635,8 +1634,7 @@ phase5_get (token_ty *tp)
                       tp->mixed_string = mixed_string_buffer_result (&msb);
                       tp->type = last_token_type = token_type_rtemplate;
                       rw_string_desc_t string = mixed_string_contents_free1 (tp->mixed_string);
-                      string_list_append_move (levels[level - 1].template_parts, xsd_c (string));
-                      sd_free (string);
+                      string_desc_list_append_move (levels[level - 1].template_parts, string);
                       /* Move info from the current level to the token.  */
                       tp->template_tag = levels[level - 1].template_tag;
                       tp->template_parts = levels[level - 1].template_parts;
@@ -1781,13 +1779,12 @@ x_javascript_lex (token_ty *tp)
         {
           levels[level - 1].template_tag = tp->template_tag;
           tp->template_tag = NULL;
-          levels[level - 1].template_parts = string_list_alloc ();
+          levels[level - 1].template_parts = string_desc_list_alloc ();
           levels[level - 1].template_comment = tp->comment;
           tp->comment = NULL;
         }
       rw_string_desc_t string = mixed_string_contents_free1 (tp->mixed_string);
-      string_list_append_move (levels[level - 1].template_parts, xsd_c (string));
-      sd_free (string);
+      string_desc_list_append_move (levels[level - 1].template_parts, string);
     }
 }
 
@@ -1999,13 +1996,12 @@ extract_balanced (message_list_ty *mlp,
               {
                 const char *tag = token.template_tag;
 
-                string_list_ty *parts;
+                string_desc_list_ty *parts;
                 if (token.type == token_type_template)
                   {
-                    parts = string_list_alloc ();
+                    parts = string_desc_list_alloc ();
                     rw_string_desc_t string = mixed_string_contents (mixed_string);
-                    string_list_append_move (parts, xsd_c (string));
-                    sd_free (string);
+                    string_desc_list_append_move (parts, string);
                   }
                 else /* (token.type == token_type_rtemplate) */
                   parts = token.template_parts;
@@ -2017,17 +2013,17 @@ extract_balanced (message_list_ty *mlp,
                     struct tag_definition *def = tag_value;
 
                     /* Invoke the tag step 1 function.  */
-                    char *string = def->step1_fn (parts);
+                    rw_string_desc_t string = def->step1_fn (parts);
 
                     /* Extract the string.  */
-                    remember_a_message (mlp, NULL, string, true, false,
+                    remember_a_message (mlp, NO_MSGCTXT, sd_readonly (string), true, false,
                                         inner_region, &pos,
                                         sd_new_empty (), token.comment, true);
 
-                    free (string);
+                    sd_free (string);
                   }
 
-                string_list_free (parts);
+                string_desc_list_free (parts);
 
                 /* Due to the tag, the value is not a constant.  */
                 mixed_string = NULL;
@@ -2038,11 +2034,9 @@ extract_balanced (message_list_ty *mlp,
                 if (extract_all)
                   {
                     rw_string_desc_t string = mixed_string_contents_free1 (mixed_string);
-                    char *msgid = xsd_c (string);
-                    remember_a_message (mlp, NULL, msgid, true, false,
+                    remember_a_message (mlp, NO_MSGCTXT, sd_readonly (string), true, false,
                                         inner_region, &pos,
                                         sd_new_empty (), token.comment, true);
-                    free (msgid);
                     sd_free (string);
                   }
                 else

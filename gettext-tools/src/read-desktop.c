@@ -31,6 +31,7 @@
 #define SB_NO_APPENDF
 #include <error.h>
 #include "string-desc.h"
+#include "xstring-desc.h"
 #include "xalloc.h"
 #include "xvasprintf.h"
 #include "string-buffer.h"
@@ -62,7 +63,7 @@ desktop_reader_free (desktop_reader_ty *reader)
 }
 
 void
-desktop_reader_handle_group (desktop_reader_ty *reader, const char *group)
+desktop_reader_handle_group (desktop_reader_ty *reader, string_desc_t group)
 {
   if (reader->methods->handle_group)
     reader->methods->handle_group (reader, group);
@@ -71,9 +72,9 @@ desktop_reader_handle_group (desktop_reader_ty *reader, const char *group)
 void
 desktop_reader_handle_pair (desktop_reader_ty *reader,
                             lex_pos_ty *key_pos,
-                            const char *key,
+                            string_desc_t key,
                             const char *locale,
-                            const char *value)
+                            string_desc_t value)
 {
   if (reader->methods->handle_pair)
     reader->methods->handle_pair (reader, key_pos, key, locale, value);
@@ -87,7 +88,7 @@ desktop_reader_handle_comment (desktop_reader_ty *reader, string_desc_t s)
 }
 
 void
-desktop_reader_handle_blank (desktop_reader_ty *reader, const char *s)
+desktop_reader_handle_blank (desktop_reader_ty *reader, string_desc_t s)
 {
   if (reader->methods->handle_blank)
     reader->methods->handle_blank (reader, s);
@@ -189,9 +190,8 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;
-  rw_string_desc_t stringdesc;
-  const char *value;
+  rw_string_desc_t string;
+  string_desc_t value;
   const char *locale;
   size_t lineno;
 };
@@ -201,10 +201,8 @@ static inline void
 free_token (token_ty *tp)
 {
   if (tp->type == token_type_group || tp->type == token_type_pair
-      || tp->type == token_type_blank)
-    free (tp->string);
-  else if (tp->type == token_type_comment)
-    sd_free (tp->stringdesc);
+      || tp->type == token_type_comment || tp->type == token_type_blank)
+    sd_free (tp->string);
 }
 
 static void
@@ -267,9 +265,8 @@ desktop_lex (token_ty *tp)
               po_xerror (PO_SEVERITY_WARNING, NULL,
                          real_file_name, non_blank_lineno, 0, false,
                          _("invalid non-blank character"));
-            APPEND (0);
             tp->type = token_type_group;
-            tp->string = sb_xdupfree_c (&buffer);
+            tp->string = sb_xdupfree (&buffer);
             return;
           }
 
@@ -284,7 +281,7 @@ desktop_lex (token_ty *tp)
                 APPEND (c);
               }
             tp->type = token_type_comment;
-            tp->stringdesc = sb_xdupfree (&buffer);
+            tp->string = sb_xdupfree (&buffer);
             return;
           }
 
@@ -302,11 +299,14 @@ desktop_lex (token_ty *tp)
         case '0': case '1': case '2': case '3': case '4':
         case '5': case '6': case '7': case '8': case '9':
           {
-            size_t locale_start;
+            size_t key_end = 0;
             bool found_locale = false;
+            size_t locale_start;
+            size_t locale_end;
             for (;;)
               {
                 APPEND (c);
+                key_end = sd_length (sb_contents (&buffer));
 
                 c = phase2_getc ();
                 switch (c)
@@ -328,7 +328,6 @@ desktop_lex (token_ty *tp)
 
                   case '[':
                     /* Finish the key part and start the locale part.  */
-                    APPEND (0);
                     found_locale = true;
                     locale_start = sd_length (sb_contents (&buffer));
 
@@ -339,6 +338,8 @@ desktop_lex (token_ty *tp)
                           break;
                         APPEND (c2);
                       }
+
+                    locale_end = sd_length (sb_contents (&buffer));
                     break;
 
                   default:
@@ -347,7 +348,6 @@ desktop_lex (token_ty *tp)
                   }
                 break;
               }
-            APPEND (0);
 
             /* Skip any space before '='.  */
             size_t before_equals_lineno = pos.line_number;
@@ -411,14 +411,13 @@ desktop_lex (token_ty *tp)
                   break;
                 APPEND (c);
               }
-            APPEND (0);
-            char *buffer_contents = sb_xdupfree_c (&buffer);
+            size_t value_end = sd_length (sb_contents (&buffer));
+            rw_string_desc_t buffer_contents = sb_xdupfree (&buffer);
             tp->type = token_type_pair;
-            tp->string = buffer_contents;
-            /* tp->locale and tp->value are live only as long as tp->string is
-               live.  */
-            tp->locale = found_locale ? &buffer_contents[locale_start] : NULL;
-            tp->value = &buffer_contents[value_start];
+            /* tp->string and tp->value are live only as long as buffer_contents is live.  */
+            tp->string = sd_substring (buffer_contents, 0, key_end);
+            tp->locale = found_locale ? xsd_c (sd_substring (buffer_contents, locale_start, locale_end)) : NULL;
+            tp->value = sd_readonly (sd_substring (buffer_contents, value_start, value_end));
             tp->lineno = before_value_lineno;
             return;
           }
@@ -451,9 +450,8 @@ desktop_lex (token_ty *tp)
                 tp->type = token_type_other;
                 return;
               }
-            APPEND (0);
             tp->type = token_type_blank;
-            tp->string = sb_xdupfree_c (&buffer);
+            tp->string = sb_xdupfree (&buffer);
             return;
           }
         }
@@ -480,10 +478,10 @@ desktop_parse (desktop_reader_ty *reader, FILE *file,
         case token_type_eof:
           goto out;
         case token_type_group:
-          desktop_reader_handle_group (reader, token.string);
+          desktop_reader_handle_group (reader, sd_readonly (token.string));
           break;
         case token_type_comment:
-          desktop_reader_handle_comment (reader, sd_readonly (token.stringdesc));
+          desktop_reader_handle_comment (reader, sd_readonly (token.string));
           break;
         case token_type_pair:
           {
@@ -492,11 +490,11 @@ desktop_parse (desktop_reader_ty *reader, FILE *file,
             token_pos.line_number = token.lineno;
 
             desktop_reader_handle_pair (reader, &token_pos,
-                                        token.string, token.locale, token.value);
+                                        sd_readonly (token.string), token.locale, token.value);
           }
           break;
         case token_type_blank:
-          desktop_reader_handle_blank (reader, token.string);
+          desktop_reader_handle_blank (reader, sd_readonly (token.string));
           break;
         case token_type_other:
           break;
@@ -564,58 +562,51 @@ desktop_escape_string (const char *s, bool is_list)
   return buffer;
 }
 
-char *
-desktop_unescape_string (const char *s, bool is_list)
+rw_string_desc_t
+desktop_unescape_string (string_desc_t s, bool is_list)
 {
-  char *buffer = XNMALLOC (strlen (s) + 1, char);
+  const char *s_end = sd_data (s) + sd_length (s);
+  const char *p = sd_data (s);
+  char *buffer = XNMALLOC (sd_length (s), char);
   {
-    char *p = buffer;
-    for (;; s++)
+    char *q = buffer;
+    for (; p < s_end; p++)
       {
-        if (*s == '\0')
+        if (*p == '\\')
           {
-            *p = '\0';
-            break;
-          }
+            p++;
 
-        if (*s == '\\')
-          {
-            s++;
+            if (p == s_end)
+              break;
 
-            if (*s == '\0')
-              {
-                *p = '\0';
-                break;
-              }
-
-            switch (*s)
+            switch (*p)
               {
               case 's':
-                *p++ = ' ';
+                *q++ = ' ';
                 break;
               case 'n':
-                *p++ = '\n';
+                *q++ = '\n';
                 break;
               case 't':
-                *p++ = '\t';
+                *q++ = '\t';
                 break;
               case 'r':
-                *p++ = '\r';
+                *q++ = '\r';
                 break;
               case ';':
-                p = stpcpy (p, "\\;");
+                *q++ = '\\';
+                *q++ = ';';
                 break;
               default:
-                *p++ = *s;
+                *q++ = *p;
                 break;
               }
           }
         else
-          *p++ = *s;
+          *q++ = *p;
       }
+    return sd_new_addr (q - buffer, buffer);
   }
-
-  return buffer;
 }
 
 void

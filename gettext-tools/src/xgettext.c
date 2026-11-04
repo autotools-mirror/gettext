@@ -2155,8 +2155,10 @@ xgettext_its_extract_callback (message_list_ty *mlp,
 {
   message_ty *message =
     remember_a_message (mlp,
-                        msgctxt == NULL ? NULL : xstrdup (msgctxt),
-                        xstrdup (msgid),
+                        (msgctxt == NULL
+                         ? NO_MSGCTXT
+                         : (string_desc_opt) SOME (sd_from_c (msgctxt))),
+                        sd_from_c (msgid),
                         false, false,
                         null_context_region (), pos,
                         extracted_comment, NULL, false);

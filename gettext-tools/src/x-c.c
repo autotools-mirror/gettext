@@ -2006,7 +2006,7 @@ phase8a_get (token_ty *tp)
       char *new_string = xasprintf ("<%s>", tp->string);
       free (tp->string);
       tp->mixed_string =
-        mixed_string_alloc_utf8 (new_string, lc_string,
+        mixed_string_alloc_utf8 (sd_from_c (new_string), lc_string,
                                  logical_file_name, line_number);
       tp->comment = add_reference (savable_comment);
       tp->type = token_type_string_literal;
@@ -2478,11 +2478,9 @@ extract_parenthesized (message_list_ty *mlp,
               {
                 rw_string_desc_t string = mixed_string_contents (token.mixed_string);
                 mixed_string_free (token.mixed_string);
-                char *msgid = xsd_c (string);
-                remember_a_message (mlp, NULL, msgid, true, false,
+                remember_a_message (mlp, NO_MSGCTXT, sd_readonly (string), true, false,
                                     inner_region, &token.pos,
                                     sd_new_empty (), token.comment, false);
-                free (msgid);
                 sd_free (string);
               }
             else

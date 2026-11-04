@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Scheme support: NUL characters in msgids.
+
+{
+printf '(display (_ "one\0dot"))\n'
+cat <<\EOF
+(display (_ "two dots"))
+EOF
+} > xg-sc-nul-2.scm
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: -k_ \
+  -d xg-sc-nul-2.tmp xg-sc-nul-2.scm 2>xg-sc-nul-2.err || Exit 1
+test -s xg-sc-nul-2.err || Exit 1
+cat xg-sc-nul-2.err
+LC_ALL=C tr -d '\r' < xg-sc-nul-2.tmp.po > xg-sc-nul-2.po || Exit 1
+
+cat <<\EOF > xg-sc-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-sc-nul-2.ok xg-sc-nul-2.po
+result=$?
+
+exit $result

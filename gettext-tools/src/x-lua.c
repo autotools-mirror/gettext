@@ -403,8 +403,9 @@ typedef struct token_ty token_ty;
 struct token_ty
 {
   token_type_ty type;
-  char *string;                             /* for token_type_string_literal, token_type_symbol */
-  refcounted_string_desc_list_ty *comment;  /* for token_type_string_literal */
+  char *string;                             /* for token_type_symbol */
+  rw_string_desc_t stringdesc;              /* for token_type_string */
+  refcounted_string_desc_list_ty *comment;  /* for token_type_string */
   int line_number;
 };
 
@@ -412,10 +413,13 @@ struct token_ty
 static inline void
 free_token (token_ty *tp)
 {
-  if (tp->type == token_type_string || tp->type == token_type_symbol)
+  if (tp->type == token_type_symbol)
     free (tp->string);
   if (tp->type == token_type_string)
-    drop_reference (tp->comment);
+    {
+      sd_free (tp->stringdesc);
+      drop_reference (tp->comment);
+    }
 }
 
 
@@ -563,7 +567,7 @@ phase3_get (token_ty *tp)
                 if (c == EOF || c == c_start || c == '\n')
                   {
                     /* End of string.  */
-                    tp->string = sb_xdupfree_c (&buffer);
+                    tp->stringdesc = sb_xdupfree (&buffer);
                     tp->comment = add_reference (savable_comment);
                     tp->type = token_type_string;
                     return;
@@ -716,7 +720,7 @@ phase3_get (token_ty *tp)
 
                 if (c == EOF)
                   {
-                    tp->string = sb_xdupfree_c (&buffer);
+                    tp->stringdesc = sb_xdupfree (&buffer);
                     tp->comment = add_reference (savable_comment);
                     tp->type = token_type_string;
                     return;
@@ -738,7 +742,7 @@ phase3_get (token_ty *tp)
                         /* We got ']==...==]', where the number of equal
                            signs matches the number of equal signs in
                            the opening bracket.  */
-                        tp->string = sb_xdupfree_c (&buffer);
+                        tp->stringdesc = sb_xdupfree (&buffer);
                         tp->comment = add_reference (savable_comment);
                         tp->type = token_type_string;
                         return;
@@ -876,8 +880,7 @@ phase4_get (token_ty *tp)
            || phase4_last == token_type_doubledot
            || phase4_last == token_type_rparen))
     {
-      char *sum = tp->string;
-      size_t sum_len = strlen (sum);
+      rw_string_desc_t sum = tp->stringdesc;
 
       for (;;)
         {
@@ -896,12 +899,14 @@ phase4_get (token_ty *tp)
 
                   if (token_after.type != token_type_operator1)
                     {
-                      char *addend = token3.string;
-                      size_t addend_len = strlen (addend);
+                      rw_string_desc_t addend = token3.stringdesc;
 
-                      sum = (char *) xrealloc (sum, sum_len + addend_len + 1);
-                      memcpy (sum + sum_len, addend, addend_len + 1);
-                      sum_len += addend_len;
+                      idx_t new_len = sd_length (sum) + sd_length (addend);
+                      char *new_sum_data =
+                        (char *) xrealloc (sd_data (sum), new_len);
+                      memcpy (new_sum_data + sd_length (sum),
+                              sd_data (addend), sd_length (addend));
+                      sum = sd_new_addr (new_len, new_sum_data);
 
                       phase3_unget (&token_after);
                       free_token (&token3);
@@ -915,7 +920,7 @@ phase4_get (token_ty *tp)
           phase3_unget (&token2);
           break;
         }
-      tp->string = sum;
+      tp->stringdesc = sum;
     }
   phase4_last = tp->type;
 }
@@ -1146,13 +1151,13 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
             pos.line_number = token.line_number;
 
             if (extract_all)
-              remember_a_message (mlp, NULL, token.string, false, false,
+              remember_a_message (mlp, NO_MSGCTXT, sd_readonly (token.stringdesc), false, false,
                                   inner_region, &pos,
                                   sd_new_empty (), token.comment, false);
             else
               {
                 mixed_string_ty *ms =
-                  mixed_string_alloc_simple (token.string, lc_string,
+                  mixed_string_alloc_simple (sd_readonly (token.stringdesc), lc_string,
                                              pos.file_name, pos.line_number);
                 /* A string immediately after a symbol means a function call.  */
                 if (state)
@@ -1173,7 +1178,7 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
                                            token.comment, false);
               }
           }
-          free (token.string);
+          sd_free (token.stringdesc);
           drop_reference (token.comment);
           next_context_iter = null_context_list_iterator;
           state = 0;

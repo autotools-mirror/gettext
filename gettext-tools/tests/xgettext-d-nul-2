@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test D support: NUL characters in msgids.
+
+{
+printf 'string s1 = gettext("one\0dot");\n'
+cat <<\EOF
+string s2 = gettext("two dots");
+EOF
+} > xg-d-nul-2.d
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-d-nul-2.tmp xg-d-nul-2.d 2>xg-d-nul-2.err || Exit 1
+test -s xg-d-nul-2.err || Exit 1
+cat xg-d-nul-2.err
+LC_ALL=C tr -d '\r' < xg-d-nul-2.tmp.po > xg-d-nul-2.po || Exit 1
+
+cat <<\EOF > xg-d-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-d-nul-2.ok xg-d-nul-2.po
+result=$?
+
+exit $result

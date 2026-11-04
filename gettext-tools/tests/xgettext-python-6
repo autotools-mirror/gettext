@@ -5,6 +5,7 @@
 
 tr X '\0' <<\EOF > xg-py-6.py
 _("{0:X>}")
+_("{2}")
 EOF
 
 : ${XGETTEXT=xgettext}
@@ -12,7 +13,8 @@ ${XGETTEXT} --omit-header --no-location -d xg-py-6.tmp xg-py-6.py || Exit 1
 LC_ALL=C tr -d '\r' < xg-py-6.tmp.po > xg-py-6.po || Exit 1
 
 cat <<\EOF > xg-py-6.ok
-msgid "{0:"
+#, python-brace-format
+msgid "{2}"
 msgstr ""
 EOF
 

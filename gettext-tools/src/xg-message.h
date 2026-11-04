@@ -21,6 +21,8 @@
 
 #include <stdbool.h>
 
+#include "optional.h"
+#include "string-desc.h"
 #include "message.h"
 #include "pos.h"
 #include "rc-string-desc-list.h"
@@ -33,8 +35,11 @@ extern "C" {
 #endif
 
 
+typedef OPTIONAL_TYPE(string_desc_t) string_desc_opt;
+typedef OPTIONAL_TYPE(rw_string_desc_t) rw_string_desc_opt;
+
 /* Add a message to the list of extracted messages.
-   MSGCTXT must be either NULL or a string.
+   MSGCTXT must be either NO_MSGCTXT or a string.
    MSGID must be a string.
    IS_UTF8 must be true if MSGCTXT and MSGID have already been converted to
    UTF-8.
@@ -49,8 +54,8 @@ extern "C" {
    COMMENT_IS_UTF8 must be true if COMMENT has already been converted to UTF-8.
    Return the new or found message, or NULL if the message is excluded.  */
 extern message_ty *remember_a_message (message_list_ty *mlp,
-                                       const char *msgctxt,
-                                       const char *msgid,
+                                       string_desc_opt msgctxt,
+                                       string_desc_t msgid,
                                        bool is_utf8,
                                        bool pluralp,
                                        flag_region_ty *region,
@@ -58,6 +63,7 @@ extern message_ty *remember_a_message (message_list_ty *mlp,
                                        string_desc_t extracted_comment,
                                        refcounted_string_desc_list_ty *comment,
                                        bool comment_is_utf8);
+#define NO_MSGCTXT  (string_desc_opt) NONE
 
 /* Add an msgid_plural to a message previously returned by
    remember_a_message.
@@ -70,7 +76,7 @@ extern message_ty *remember_a_message (message_list_ty *mlp,
    COMMENT_IS_UTF8 must be true if COMMENT has already been converted to UTF-8.
  */
 extern void remember_a_message_plural (message_ty *mp,
-                                       const char *string,
+                                       string_desc_t string,
                                        bool is_utf8,
                                        flag_region_ty *region,
                                        lex_pos_ty *pos,

@@ -954,25 +954,20 @@ free_object (struct object *op)
     mixed_string_free (op->mixed_string);
 }
 
-/* Convert a t_symbol/t_string token to a char*.  */
-static char *
+/* Convert a t_symbol/t_string token to an rw_string_desc_t.  */
+static rw_string_desc_t
 string_of_object (const struct object *op)
 {
-  char *str;
+  rw_string_desc_t str;
 
   if (op->type == t_symbol)
     {
-      int n = op->token->charcount;
-      str = XNMALLOC (n + 1, char);
-      memcpy (str, op->token->chars, n);
-      str[n] = '\0';
+      str = xsd_copy (sd_new_addr (op->token->charcount, (const char *) { op->token->chars }));
       /* In this case, str's encoding is the xgettext_current_source_encoding.  */
     }
   else if (op->type == t_string)
     {
-      rw_string_desc_t string = mixed_string_contents (op->mixed_string);
-      str = xsd_c (string);
-      sd_free (string);
+      str = mixed_string_contents (op->mixed_string);
       /* In this case, str is UTF-8 encoded.  */
     }
   else
@@ -1096,33 +1091,35 @@ read_object (struct object *op, flag_region_ty *outer_region)
                     if (datum_comment_nesting_depth == 0
                         && inner.type == t_symbol)
                       {
-                        char *symbol_name = string_of_object (&inner);
+                        rw_string_desc_t symbol_name = string_of_object (&inner);
                         if (casefold)
                           {
-                            char *symbol_name_converted =
-                              from_current_source_encoding (symbol_name,
-                                                            lc_outside,
-                                                            logical_file_name,
-                                                            line_number);
+                            rw_string_desc_t symbol_name_converted =
+                              string_desc_from_current_source_encoding (sd_readonly (symbol_name),
+                                                                        lc_outside,
+                                                                        logical_file_name,
+                                                                        line_number);
                             size_t symbol_name_casefolded_len;
                             char *symbol_name_casefolded =
                               (char *)
-                              u8_casefold ((uint8_t *) symbol_name_converted,
-                                           strlen (symbol_name_converted) + 1,
+                              u8_casefold ((uint8_t *) sd_data (symbol_name_converted),
+                                           sd_length (symbol_name_converted),
                                            NULL, UNINORM_NFC,
                                            NULL, &symbol_name_casefolded_len);
-                            if (symbol_name_converted != symbol_name)
-                              free (symbol_name_converted);
+                            if (sd_data (symbol_name_converted) != sd_data (symbol_name))
+                              sd_free (symbol_name_converted);
                             if (symbol_name_casefolded != NULL)
                               {
-                                free (symbol_name);
-                                symbol_name = symbol_name_casefolded;
+                                sd_free (symbol_name);
+                                symbol_name =
+                                  sd_new_addr (symbol_name_casefolded_len,
+                                               symbol_name_casefolded);
                               }
                           }
 
                         void *keyword_value;
                         if (hash_find_entry (&keywords,
-                                             symbol_name, strlen (symbol_name),
+                                             sd_data (symbol_name), sd_length (symbol_name),
                                              &keyword_value)
                             == 0)
                           shapes = (const struct callshapes *) keyword_value;
@@ -1133,9 +1130,9 @@ read_object (struct object *op, flag_region_ty *outer_region)
                           flag_context_list_iterator (
                             flag_context_list_table_lookup (
                               flag_context_list_table,
-                              symbol_name, strlen (symbol_name)));
+                              sd_data (symbol_name), sd_length (symbol_name)));
 
-                        free (symbol_name);
+                        sd_free (symbol_name);
                       }
                     else
                       context_iter = null_context_list_iterator;
@@ -1146,12 +1143,12 @@ read_object (struct object *op, flag_region_ty *outer_region)
                     if (datum_comment_nesting_depth == 0
                         && argparser != NULL && inner.type == t_string)
                       {
-                        char *s = string_of_object (&inner);
+                        rw_string_desc_t s = string_of_object (&inner);
                         mixed_string_ty *ms =
-                          mixed_string_alloc_utf8 (s, lc_string,
+                          mixed_string_alloc_utf8 (sd_readonly (s), lc_string,
                                                    logical_file_name,
                                                    inner.line_number_at_start);
-                        free (s);
+                        sd_free (s);
                         arglist_parser_remember (argparser, arg, ms,
                                                  inner_region,
                                                  logical_file_name,
@@ -1751,11 +1748,11 @@ read_object (struct object *op, flag_region_ty *outer_region)
                 pos.file_name = logical_file_name;
                 pos.line_number = op->line_number_at_start;
 
-                char *msgid = string_of_object (op);
-                remember_a_message (mlp, NULL, msgid, true,
+                rw_string_desc_t msgid = string_of_object (op);
+                remember_a_message (mlp, NO_MSGCTXT, sd_readonly (msgid), true,
                                     false, null_context_region (), &pos,
                                     sd_new_empty (), savable_comment, false);
-                free (msgid);
+                sd_free (msgid);
               }
             last_non_comment_line = line_number;
             return;

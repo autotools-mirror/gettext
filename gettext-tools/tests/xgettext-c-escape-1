@@ -23,7 +23,8 @@ gettext ("二番目の文字列");
 /* 三番目のコメント */
 pgettext ("\u30B3\u30F3\u30C6\u30af\u30B9\u30C8\U0001F600\ud835\udc9ea", "\xBB\xB0\xC8\xD6\xCC\xDC\xA4\xCE\xCA\xB8\xBB\xFA\xCe\363");
 
-gettext ("\"\'\?\\\a\b\f\n\r\t\v\xG\0000");
+gettext ("\"\'\?\\\a\b\f\n\r\t\v\xG");
+gettext ("\"\'\?\\\a\b\f\n\r\t\v\xH\0000");
 gettext ("\u30A");
 EOF
 

@@ -33,7 +33,6 @@
 #include <error.h>
 #include "attribute.h"
 #include "string-desc.h"
-#include "xstring-desc.h"
 #include "message.h"
 #include "rc-string-desc-list.h"
 #include "xgettext.h"
@@ -1526,11 +1525,9 @@ extract_balanced (message_list_ty *mlp, token_type_ty delim,
               {
                 rw_string_desc_t string = mixed_string_contents (token.mixed_string);
                 mixed_string_free (token.mixed_string);
-                char *msgid = xsd_c (string);
-                remember_a_message (mlp, NULL, msgid, true, false,
+                remember_a_message (mlp, NO_MSGCTXT, sd_readonly (string), true, false,
                                     inner_region, &pos,
                                     sd_new_empty (), token.comment, false);
-                free (msgid);
                 sd_free (string);
               }
             else

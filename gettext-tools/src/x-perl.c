@@ -48,6 +48,7 @@
 #include "xalloc.h"
 #include "string-buffer.h"
 #include "c-ctype.h"
+#include "minmax.h"
 #include "po-charset.h"
 #include "unistr.h"
 #include "uniname.h"
@@ -422,8 +423,8 @@ phase1_ungetc (struct perl_extractor *xp, int c)
    The delimiter is an UTF-8 encoded string; the resulting string is UTF-8
    encoded as well.  */
 
-static char *
-get_here_document (struct perl_extractor *xp, const char *delimiter)
+static rw_string_desc_t
+get_here_document (struct perl_extractor *xp, string_desc_t delimiter)
 {
   /* Accumulator for the entire here document, including a NUL byte
      at the end.  */
@@ -431,8 +432,8 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
   sb_init (&buffer);
 
   /* Current line being appended.  */
-  static char *my_linebuf = NULL;
-  static size_t my_linebuf_size = 0;
+  char *my_linebuf = NULL;
+  size_t my_linebuf_size = 0;
 
   for (;;)
     {
@@ -449,7 +450,7 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
               if_error (IF_SEVERITY_WARNING,
                         real_file_name, xp->line_number, (size_t)(-1), false,
                         _("can't find string terminator \"%s\" anywhere before EOF"),
-                        delimiter);
+                        xsd_c (delimiter));
               break;
             }
         }
@@ -457,19 +458,16 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
       ++(xp->eaten_here);
 
       /* Convert to UTF-8.  */
-      char *my_line_utf8 =
-        from_current_source_encoding (my_linebuf, lc_string, logical_file_name,
-                                      xp->line_number + xp->eaten_here);
-      if (my_line_utf8 != my_linebuf)
+      rw_string_desc_t my_line_utf8 =
+        string_desc_from_current_source_encoding (sd_new_addr (read_bytes, (const char *) { my_linebuf }),
+                                                  lc_string,
+                                                  logical_file_name,
+                                                  xp->line_number + xp->eaten_here);
+      if (sd_data (my_line_utf8) != my_linebuf)
         {
-          if (strlen (my_line_utf8) >= my_linebuf_size)
-            {
-              my_linebuf_size = strlen (my_line_utf8) + 1;
-              my_linebuf = xrealloc (my_linebuf, my_linebuf_size);
-            }
-          strcpy (my_linebuf, my_line_utf8);
-          read_bytes = strlen (my_line_utf8);
-          free (my_line_utf8);
+          free (my_linebuf);
+          my_linebuf = sd_data (my_line_utf8);
+          read_bytes = my_linebuf_size = sd_length (my_line_utf8);
         }
 
       /* Undosify.  This is important for catching the end of <<EOF and
@@ -481,25 +479,15 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
           && my_linebuf[read_bytes - 2] == '\r')
         {
           my_linebuf[read_bytes - 2] = '\n';
-          my_linebuf[read_bytes - 1] = '\0';
           --read_bytes;
         }
 
-      /* Temporarily remove the trailing newline from my_linebuf.  */
-      bool chomp = false;
-      if (read_bytes >= 1 && my_linebuf[read_bytes - 1] == '\n')
-        {
-          chomp = true;
-          my_linebuf[read_bytes - 1] = '\0';
-        }
-
-      /* See whether this line terminates the here document.  */
-      if (streq (my_linebuf, delimiter))
+      /* See whether this line (without a trailing newline) terminates the
+         here document.  */
+      if (sd_equals (sd_new_addr (read_bytes - (read_bytes >= 1 && my_linebuf[read_bytes - 1] == '\n'),
+                                  my_linebuf),
+                     delimiter))
         break;
-
-      /* Add back the trailing newline to my_linebuf.  */
-      if (chomp)
-        my_linebuf[read_bytes - 1] = '\n';
 
       /* Append this line to the accumulator.  */
       sb_xappend_desc (&buffer,
@@ -507,7 +495,7 @@ get_here_document (struct perl_extractor *xp, const char *delimiter)
     }
 
   /* Done accumulating the here document.  */
-  return sb_xdupfree_c (&buffer);
+  return sb_xdupfree (&buffer);
 }
 
 /* Skips pod sections.  */
@@ -643,10 +631,12 @@ struct token_ty
   int sub_type;                 /* for token_type_string, token_type_symbol */
   char *string;                 /* for:                 in encoding:
                                    token_type_named_op  ASCII
-                                   token_type_string    UTF-8
-                                   token_type_symbol    ASCII
                                    token_type_variable  global_source_encoding
                                    token_type_object    global_source_encoding
+                                 */
+  rw_string_desc_t stringdesc;  /* for:                 in encoding:
+                                   token_type_string    UTF-8
+                                   token_type_symbol    ASCII
                                  */
   refcounted_string_desc_list_ty *comment; /* for token_type_string */
   int line_number;
@@ -713,12 +703,13 @@ free_token (token_ty *tp)
   switch (tp->type)
     {
     case token_type_named_op:
-    case token_type_string:
-    case token_type_symbol:
     case token_type_variable:
     case token_type_object:
       free (tp->string);
       break;
+    case token_type_string:
+    case token_type_symbol:
+      sd_free (tp->stringdesc);
     default:
       break;
     }
@@ -915,7 +906,7 @@ extract_quotelike (struct perl_extractor *xp, token_ty *tp, int delim)
   /* Take the string without the delimiters at the start and at the end.  */
   if (!(len >= 2))
     abort ();
-  tp->string = xsd_c (sd_substring (string, 1, len - 1));
+  tp->stringdesc = xsd_copy (sd_readonly (sd_substring (string, 1, len - 1)));
   sd_free (string);
   tp->comment = add_reference (savable_comment);
 }
@@ -960,10 +951,9 @@ extract_triple_quotelike (struct perl_extractor *xp, token_ty *tp, int delim,
 
 /* Perform pass 3 of quotelike extraction (interpolation).
    *tp is a token of type token_type_string.
-   This function may either replace tp->string, or change *tp's type to
+   This function may either replace tp->stringdesc, or change *tp's type to
    token_type_string_interpol.
    This function does not access tp->comment.  */
-/* FIXME: Currently may writes null-bytes into the string.  */
 static void
 extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
 {
@@ -983,9 +973,14 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
       fprintf (stderr, "Interpolating string_type_qr:\n");
       break;
     }
-  fprintf (stderr, "%s\n", tp->string);
+  sd_fwrite (stderr, tp->stringdesc);
+  fprintf (stderr, "\n");
   if (tp->sub_type == string_type_verbatim)
-    fprintf (stderr, "---> %s\n", tp->string);
+    {
+      fprintf (stderr, "---> ");
+      sd_fwrite (stderr, tp->stringdesc);
+      fprintf (stderr, "\n");
+    }
   #endif
 
   if (tp->sub_type == string_type_verbatim)
@@ -994,19 +989,20 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
   struct string_buffer buffer;
   sb_init (&buffer);
 
-  /* Loop over tp->string, accumulating the expansion in buffer.  */
-  const char *crs = tp->string;
+  /* Loop over tp->stringdesc, accumulating the expansion in buffer.  */
+  const char *crs_limit = sd_data (tp->stringdesc) + sd_length (tp->stringdesc);
+  const char *crs = sd_data (tp->stringdesc);
   bool uppercase = false;
   bool lowercase = false;
   bool quotemeta = false;
-  while (*crs)
+  while (crs < crs_limit)
     {
       if (tp->sub_type == string_type_q)
         {
           switch (*crs)
             {
             case '\\':
-              if (crs[1] == '\\')
+              if (crs + 1 < crs_limit && crs[1] == '\\')
                 {
                   crs += 2;
                   sb_xappend1 (&buffer, '\\');
@@ -1022,7 +1018,7 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
 
       /* We only get here for double-quoted strings or regular expressions.
          Unescape escape sequences.  */
-      if (*crs == '\\')
+      if (*crs == '\\' && crs + 1 < crs_limit)
         {
           switch (crs[1])
             {
@@ -1058,7 +1054,8 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
             case '4': case '5': case '6': case '7':
               {
                 unsigned int oct_number;
-                crs = extract_oct (crs + 1, 3, &oct_number);
+                crs = extract_oct (crs + 1, MIN (crs_limit - (crs + 1), 3),
+                                   &oct_number);
 
                 /* FIXME: If one of the variables UPPERCASE or LOWERCASE is
                    true, the character should be converted to its uppercase
@@ -1089,9 +1086,9 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                 crs += 2;
 
                 unsigned int hex_number = 0;
-                if (*crs == '{')
+                if (crs < crs_limit && *crs == '{')
                   {
-                    const char *end = strchr (crs, '}');
+                    const char *end = memchr (crs + 1, '}', crs_limit - (crs + 1));
                     if (end == NULL)
                       {
                         if_error (IF_SEVERITY_WARNING,
@@ -1109,7 +1106,7 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
                   }
                 else
                   {
-                    crs = extract_hex (crs, 2, &hex_number);
+                    crs = extract_hex (crs, MIN (crs_limit - crs, 2), &hex_number);
                   }
 
                 /* FIXME: If one of the variables UPPERCASE or LOWERCASE is
@@ -1137,19 +1134,20 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
             case 'c':
               /* Perl's notion of control characters.  */
               crs += 2;
-              if (*crs)
+              if (crs < crs_limit)
                 {
                   int the_char = (unsigned char) *crs;
                   if (the_char >= 'a' && the_char <= 'z')
                     the_char = the_char - 'a' + 'A';
                   sb_xappend1 (&buffer, the_char ^ 0x40);
+                  /* FIXME: No crs++ here?  */
                 }
               continue;
             case 'N':
               crs += 2;
-              if (*crs == '{')
+              if (crs < crs_limit && *crs == '{')
                 {
-                  const char *end = strchr (crs + 1, '}');
+                  const char *end = memchr (crs + 1, '}', crs_limit - (crs + 1));
                   if (end != NULL)
                     {
                       char *name = XNMALLOC (end - (crs + 1) + 1, char);
@@ -1183,87 +1181,96 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
       if (*crs == '\\')
         {
           ++crs;
-          switch (*crs)
-            {
-            case 'E':
-              uppercase = false;
-              lowercase = false;
-              quotemeta = false;
-              ++crs;
-              continue;
-            case 'L':
-              uppercase = false;
-              lowercase = true;
-              ++crs;
-              continue;
-            case 'U':
-              uppercase = true;
-              lowercase = false;
-              ++crs;
-              continue;
-            case 'Q':
-              quotemeta = true;
-              ++crs;
-              continue;
-            case 'l':
-              ++crs;
-              if (*crs >= 'A' && *crs <= 'Z')
-                {
-                  sb_xappend1 (&buffer, *crs - 'A' + 'a');
-                }
-              else if ((unsigned char) *crs >= 0x80)
-                {
-                  if_error (IF_SEVERITY_WARNING,
-                            real_file_name, xp->line_number, (size_t)(-1), false,
-                            _("unsupported interpolation (\"\\l\") of 8bit character \"%c\""),
-                            *crs);
-                }
-              else
-                {
-                  sb_xappend1 (&buffer, *crs);
-                }
-              ++crs;
-              continue;
-            case 'u':
-              ++crs;
-              if (*crs >= 'a' && *crs <= 'z')
-                {
-                  sb_xappend1 (&buffer, *crs - 'a' + 'A');
-                }
-              else if ((unsigned char) *crs >= 0x80)
-                {
-                  if_error (IF_SEVERITY_WARNING,
-                            real_file_name, xp->line_number, (size_t)(-1), false,
-                            _("unsupported interpolation (\"\\u\") of 8bit character \"%c\""),
-                            *crs);
-                }
-              else
-                {
-                  sb_xappend1 (&buffer, *crs);
-                }
-              ++crs;
-              continue;
-            case '\\':
-              sb_xappend1 (&buffer, *crs);
-              ++crs;
-              continue;
-            default:
-              backslashed = true;
-              break;
-            }
+          backslashed = true;
+          if (crs < crs_limit)
+            switch (*crs)
+              {
+              case 'E':
+                uppercase = false;
+                lowercase = false;
+                quotemeta = false;
+                ++crs;
+                continue;
+              case 'L':
+                uppercase = false;
+                lowercase = true;
+                ++crs;
+                continue;
+              case 'U':
+                uppercase = true;
+                lowercase = false;
+                ++crs;
+                continue;
+              case 'Q':
+                quotemeta = true;
+                ++crs;
+                continue;
+              case 'l':
+                if (crs + 1 < crs_limit)
+                  {
+                    ++crs;
+                    if (*crs >= 'A' && *crs <= 'Z')
+                      {
+                        sb_xappend1 (&buffer, *crs - 'A' + 'a');
+                      }
+                    else if ((unsigned char) *crs >= 0x80)
+                      {
+                        if_error (IF_SEVERITY_WARNING,
+                                  real_file_name, xp->line_number, (size_t)(-1), false,
+                                  _("unsupported interpolation (\"\\l\") of 8bit character \"%c\""),
+                                  *crs);
+                      }
+                    else
+                      {
+                        sb_xappend1 (&buffer, *crs);
+                      }
+                    ++crs;
+                    continue;
+                  }
+                break;
+              case 'u':
+                if (crs + 1 < crs_limit)
+                  {
+                    ++crs;
+                    if (*crs >= 'a' && *crs <= 'z')
+                      {
+                        sb_xappend1 (&buffer, *crs - 'a' + 'A');
+                      }
+                    else if ((unsigned char) *crs >= 0x80)
+                      {
+                        if_error (IF_SEVERITY_WARNING,
+                                  real_file_name, xp->line_number, (size_t)(-1), false,
+                                  _("unsupported interpolation (\"\\u\") of 8bit character \"%c\""),
+                                  *crs);
+                      }
+                    else
+                      {
+                        sb_xappend1 (&buffer, *crs);
+                      }
+                    ++crs;
+                    continue;
+                  }
+                break;
+              case '\\':
+                sb_xappend1 (&buffer, *crs);
+                ++crs;
+                continue;
+              }
         }
       else
         backslashed = false;
 
       if (quotemeta
-          && !((*crs >= 'A' && *crs <= 'Z') || (*crs >= 'A' && *crs <= 'z')
-               || (*crs >= '0' && *crs <= '9') || *crs == '_'))
+          && !(crs < crs_limit
+               && ((*crs >= 'A' && *crs <= 'Z') || (*crs >= 'A' && *crs <= 'z')
+                   || (*crs >= '0' && *crs <= '9') || *crs == '_')))
         {
           sb_xappend1 (&buffer, '\\');
           backslashed = true;
         }
 
-      if (!backslashed && !extract_all && (*crs == '$' || *crs == '@'))
+      if (!backslashed && !extract_all
+          && crs < crs_limit && (*crs == '$' || *crs == '@'))
         {
           if_error (IF_SEVERITY_WARNING,
                     real_file_name, xp->line_number, (size_t)(-1), false,
@@ -1271,52 +1278,57 @@ extract_quotelike_pass3 (struct perl_extractor *xp, token_ty *tp)
           tp->type = token_type_string_interpol;
           ++crs;
         }
-      else if (lowercase)
+      else if (crs < crs_limit)
         {
-          if (*crs >= 'A' && *crs <= 'Z')
-            sb_xappend1 (&buffer, *crs - 'A' + 'a');
-          else if ((unsigned char) *crs >= 0x80)
+          if (lowercase)
             {
-              if_error (IF_SEVERITY_WARNING,
-                        real_file_name, xp->line_number, (size_t)(-1), false,
-                        _("unsupported interpolation (\"\\L\") of 8bit character \"%c\""),
-                        *crs);
-              sb_xappend1 (&buffer, *crs);
+              if (*crs >= 'A' && *crs <= 'Z')
+                sb_xappend1 (&buffer, *crs - 'A' + 'a');
+              else if ((unsigned char) *crs >= 0x80)
+                {
+                  if_error (IF_SEVERITY_WARNING,
+                            real_file_name, xp->line_number, (size_t)(-1), false,
+                            _("unsupported interpolation (\"\\L\") of 8bit character \"%c\""),
+                            *crs);
+                  sb_xappend1 (&buffer, *crs);
+                }
+              else
+                sb_xappend1 (&buffer, *crs);
+              ++crs;
+            }
+          else if (uppercase)
+            {
+              if (*crs >= 'a' && *crs <= 'z')
+                sb_xappend1 (&buffer, *crs - 'a' + 'A');
+              else if ((unsigned char) *crs >= 0x80)
+                {
+                  if_error (IF_SEVERITY_WARNING,
+                            real_file_name, xp->line_number, (size_t)(-1), false,
+                            _("unsupported interpolation (\"\\U\") of 8bit character \"%c\""),
+                            *crs);
+                  sb_xappend1 (&buffer, *crs);
+                }
+              else
+                sb_xappend1 (&buffer, *crs);
+              ++crs;
             }
           else
-            sb_xappend1 (&buffer, *crs);
-          ++crs;
-        }
-      else if (uppercase)
-        {
-          if (*crs >= 'a' && *crs <= 'z')
-            sb_xappend1 (&buffer, *crs - 'a' + 'A');
-          else if ((unsigned char) *crs >= 0x80)
             {
-              if_error (IF_SEVERITY_WARNING,
-                        real_file_name, xp->line_number, (size_t)(-1), false,
-                        _("unsupported interpolation (\"\\U\") of 8bit character \"%c\""),
-                        *crs);
-              sb_xappend1 (&buffer, *crs);
+              sb_xappend1 (&buffer, *crs++);
             }
-          else
-            sb_xappend1 (&buffer, *crs);
-          ++crs;
-        }
-      else
-        {
-          sb_xappend1 (&buffer, *crs++);
         }
     }
 
   #if DEBUG_PERL
-  fprintf (stderr, "---> %s\n", buffer);
+  fprintf (stderr, "---> ");
+  sd_fwrite (stderr, sb_contents (&buffer));
+  fprintf (stderr, "\n");
   #endif
 
-  /* Replace tp->string.  */
-  free (tp->string);
+  /* Replace tp->stringdesc.  */
+  sd_free (tp->stringdesc);
   if (tp->type == token_type_string)
-    tp->string = sb_xdupfree_c (&buffer);
+    tp->stringdesc = sb_xdupfree (&buffer);
   else
     sb_free (&buffer);
 }
@@ -1583,7 +1595,10 @@ extract_variable (struct perl_extractor *xp, token_ty *tp, int first)
                         pos.line_number = xp->line_number;
                         pos.file_name = logical_file_name;
 
-                        remember_a_message (xp->mlp, NULL, t1->string,
+                        remember_a_message (xp->mlp, NO_MSGCTXT,
+                                            t1->type == token_type_symbol
+                                            ? sd_readonly (t1->stringdesc)
+                                            : sd_from_c (t1->string),
                                             true, false, region, &pos,
                                             sd_new_empty (), savable_comment, true);
                         free_token (t2);
@@ -2067,13 +2082,13 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
             {
             case '"':
               /* The resulting string has to be interpolated twice.  */
-              token.string = sb_xdupfree_c (&buffer);
+              token.stringdesc = sb_xdupfree (&buffer);
               sb_init (&buffer);
               extract_quotelike_pass3 (xp, &token);
               if (token.type == token_type_string)
                 {
-                  sb_xappend_c (&buffer, token.string);
-                  free (token.string);
+                  sb_xappend_desc (&buffer, sd_readonly (token.stringdesc));
+                  sd_free (token.stringdesc);
                 }
               state = wait_rbrace;
               break;
@@ -2162,14 +2177,14 @@ interpolate_keywords (struct perl_extractor *xp, string_desc_t string,
             case '}':
               if (token.type == token_type_string)
                 {
-                  token.string = sb_xdupfree_c (&buffer);
+                  token.stringdesc = sb_xdupfree (&buffer);
                   extract_quotelike_pass3 (xp, &token);
                   if (token.type == token_type_string)
                     {
-                      remember_a_message (xp->mlp, NULL, token.string, true,
+                      remember_a_message (xp->mlp, NO_MSGCTXT, sd_readonly (token.stringdesc), true,
                                           false, region, &pos, sd_new_empty (),
                                           savable_comment, true);
-                      free (token.string);
+                      sd_free (token.stringdesc);
                     }
                   sb_init (&buffer);
                 }
@@ -2433,7 +2448,7 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                     phase2_ungetc (xp, delim);
                     tp->type = token_type_symbol;
                     tp->sub_type = symbol_type_none;
-                    tp->string = sb_xdupfree_c (&buffer);
+                    tp->stringdesc = sb_xdupfree (&buffer);
                     return;
                   }
                 extract_triple_quotelike (xp, tp, delim,
@@ -2468,15 +2483,15 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                     phase2_ungetc (xp, delim);
                     tp->type = token_type_symbol;
                     tp->sub_type = symbol_type_none;
-                    tp->string = sb_xdupfree_c (&buffer);
+                    tp->stringdesc = sb_xdupfree (&buffer);
                     return;
                   }
                 extract_quotelike (xp, tp, delim);
                 sb_free (&buffer);
                 if (delim != '\'')
-                  interpolate_keywords (xp, sd_from_c (tp->string),
+                  interpolate_keywords (xp, sd_readonly (tp->stringdesc),
                                         xp->line_number);
-                free (tp->string);
+                sd_free (tp->stringdesc);
                 drop_reference (tp->comment);
                 tp->type = token_type_regex_op;
 
@@ -2518,7 +2533,7 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                     phase2_ungetc (xp, delim);
                     tp->type = token_type_symbol;
                     tp->sub_type = symbol_type_none;
-                    tp->string = sb_xdupfree_c (&buffer);
+                    tp->stringdesc = sb_xdupfree (&buffer);
                     return;
                   }
 
@@ -2530,7 +2545,7 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                   case 'x':
                     tp->type = token_type_string;
                     tp->sub_type = string_type_qq;
-                    interpolate_keywords (xp, sd_from_c (tp->string),
+                    interpolate_keywords (xp, sd_readonly (tp->stringdesc),
                                           xp->line_number);
                     break;
                   case 'r':
@@ -2563,21 +2578,21 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
             tp->sub_type = (streq (contents, "sub")
                             ? symbol_type_sub
                             : symbol_type_none);
-            tp->string = sb_xdupfree_c (&buffer);
+            tp->stringdesc = sb_xdupfree (&buffer);
           }
           return;
 
         case '"':
           extract_quotelike (xp, tp, c);
           tp->sub_type = string_type_qq;
-          interpolate_keywords (xp, sd_from_c (tp->string),
+          interpolate_keywords (xp, sd_readonly (tp->stringdesc),
                                 xp->line_number);
           return;
 
         case '`':
           extract_quotelike (xp, tp, c);
           tp->sub_type = string_type_qq;
-          interpolate_keywords (xp, sd_from_c (tp->string),
+          interpolate_keywords (xp, sd_readonly (tp->stringdesc),
                                 xp->line_number);
           return;
 
@@ -2656,9 +2671,10 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
               if (c == '\'')
                 {
                   extract_quotelike (xp, tp, c);
-                  char *string = get_here_document (xp, tp->string);
-                  free (tp->string);
-                  tp->string = string;
+                  rw_string_desc_t string =
+                    get_here_document (xp, sd_readonly (tp->stringdesc));
+                  sd_free (tp->stringdesc);
+                  tp->stringdesc = string;
                   tp->type = token_type_string;
                   tp->sub_type = string_type_verbatim;
                   tp->line_number = xp->line_number + 1;
@@ -2667,13 +2683,14 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
               else if (c == '"')
                 {
                   extract_quotelike (xp, tp, c);
-                  char *string = get_here_document (xp, tp->string);
-                  free (tp->string);
-                  tp->string = string;
+                  rw_string_desc_t string =
+                    get_here_document (xp, sd_readonly (tp->stringdesc));
+                  sd_free (tp->stringdesc);
+                  tp->stringdesc = string;
                   tp->type = token_type_string;
                   tp->sub_type = string_type_qq;
                   tp->line_number = xp->line_number + 1;
-                  interpolate_keywords (xp, sd_from_c (tp->string),
+                  interpolate_keywords (xp, sd_readonly (tp->stringdesc),
                                         tp->line_number);
                   return;
                 }
@@ -2700,14 +2717,14 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
                   else
                     {
                       phase1_ungetc (xp, c);
-                      char *string =
-                        get_here_document (xp, sb_xdupfree_c (&buffer));
-                      tp->string = string;
+                      rw_string_desc_t string =
+                        get_here_document (xp, sd_readonly (sb_xdupfree (&buffer)));
+                      tp->stringdesc = string;
                       tp->type = token_type_string;
                       tp->sub_type = string_type_qq;
                       tp->comment = add_reference (savable_comment);
                       tp->line_number = xp->line_number + 1;
-                      interpolate_keywords (xp, sd_from_c (tp->string),
+                      interpolate_keywords (xp, sd_readonly (tp->stringdesc),
                                             tp->line_number);
                       return;
                     }
@@ -2749,9 +2766,9 @@ x_perl_prelex (struct perl_extractor *xp, token_ty *tp)
           if (prefer_regexp_over_division (tp->last_type))
             {
               extract_quotelike (xp, tp, c);
-              interpolate_keywords (xp, sd_from_c (tp->string),
+              interpolate_keywords (xp, sd_readonly (tp->stringdesc),
                                     xp->line_number);
-              free (tp->string);
+              sd_free (tp->stringdesc);
               drop_reference (tp->comment);
               tp->type = token_type_regex_op;
               /* Eat the following modifiers.  */
@@ -2795,10 +2812,14 @@ token_stack_dump (token_stack_ty *stack)
       switch (token->type)
         {
         case token_type_named_op:
-        case token_type_string:
-        case token_type_symbol:
         case token_type_variable:
           fprintf (stderr, "    string: %s\n", token->string);
+          break;
+        case token_type_string:
+        case token_type_symbol:
+          fprintf (stderr, "    string: ");
+          sd_fwrite (stderr, token->stringdesc);
+          fprintf (stderr, "\n");
           break;
         case token_type_object:
           fprintf (stderr, "    string: %s->\n", token->string);
@@ -2914,28 +2935,28 @@ x_perl_lex (struct perl_extractor *xp)
               /* Instance method, not chained.  */
               xp->last_token_type = token_type_variable;
             }
-          else if (streq (tp->string, "wantarray")
-                   || streq (tp->string, "fork")
-                   || streq (tp->string, "getlogin")
-                   || streq (tp->string, "getppid")
-                   || streq (tp->string, "getpwent")
-                   || streq (tp->string, "getgrent")
-                   || streq (tp->string, "gethostent")
-                   || streq (tp->string, "getnetent")
-                   || streq (tp->string, "getprotoent")
-                   || streq (tp->string, "getservent")
-                   || streq (tp->string, "setpwent")
-                   || streq (tp->string, "setgrent")
-                   || streq (tp->string, "endpwent")
-                   || streq (tp->string, "endgrent")
-                   || streq (tp->string, "endhostent")
-                   || streq (tp->string, "endnetent")
-                   || streq (tp->string, "endprotoent")
-                   || streq (tp->string, "endservent")
-                   || streq (tp->string, "time")
-                   || streq (tp->string, "times")
-                   || streq (tp->string, "wait")
-                   || streq (tp->string, "wantarray"))
+          else if (sd_equals (tp->stringdesc, sd_from_c ("wantarray"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("fork"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("getlogin"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("getppid"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("getpwent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("getgrent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("gethostent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("getnetent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("getprotoent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("getservent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("setpwent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("setgrent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("endpwent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("endgrent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("endhostent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("endnetent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("endprotoent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("endservent"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("time"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("times"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("wait"))
+                   || sd_equals (tp->stringdesc, sd_from_c ("wantarray")))
             {
               /* A Perl built-in function that does not accept arguments.  */
               xp->last_token_type = token_type_variable;
@@ -2979,6 +3000,8 @@ x_perl_lex (struct perl_extractor *xp)
 
       if (next->type == token_type_fat_comma)
         {
+          if (tp->type != token_type_symbol)
+            tp->stringdesc = xsd_copy (sd_from_c (tp->string));
           tp->type = token_type_string;
           tp->sub_type = string_type_q;
           tp->comment = add_reference (savable_comment);
@@ -2994,8 +3017,10 @@ x_perl_lex (struct perl_extractor *xp)
              symbol as a function name, so that we can later eat up
              possible prototype information.  */
           #if DEBUG_PERL
-          fprintf (stderr, "%s:%d: subroutine declaration/definition '%s'\n",
-                   real_file_name, xp->line_number, next->string);
+          fprintf (stderr, "%s:%d: subroutine declaration/definition '",
+                   real_file_name, xp->line_number);
+          sd_fwrite (stderr, next->stringdesc);
+          fprintf (stderr, "'\n");
           #endif
           next->sub_type = symbol_type_function;
         }
@@ -3045,9 +3070,9 @@ x_perl_unlex (struct perl_extractor *xp, token_ty *tp)
 /* Assuming TP is a string token, this function accumulates all subsequent
    . string2 . string3 ... to the string.  (String concatenation.)
    If at least one of the tokens gets transformed into a token of type
-   token_type_string_interpol, it returns NULL instead.  */
+   token_type_string_interpol, it returns NONE instead.  */
 
-static char *
+static rw_string_desc_opt
 collect_message (struct perl_extractor *xp, token_ty *tp)
 {
   extract_quotelike_pass3 (xp, tp);
@@ -3056,8 +3081,8 @@ collect_message (struct perl_extractor *xp, token_ty *tp)
   size_t len;
   if (tp->type == token_type_string)
     {
-      string = xstrdup (tp->string);
-      len = strlen (tp->string) + 1;
+      string = sd_data (xsd_copy (sd_readonly (tp->stringdesc)));
+      len = sd_length (tp->stringdesc);
     }
   else
     {
@@ -3076,7 +3101,10 @@ collect_message (struct perl_extractor *xp, token_ty *tp)
       if (c != '.')
         {
           phase2_ungetc (xp, c);
-          return string;
+          if (string != NULL)
+            return (rw_string_desc_opt) SOME (sd_new_addr (len, string));
+          else
+            return (rw_string_desc_opt) NONE;
         }
 
       do
@@ -3095,7 +3123,10 @@ collect_message (struct perl_extractor *xp, token_ty *tp)
             {
               /* assert (qstring->type == token_type_symbol) */
               x_perl_unlex (xp, qstring);
-              return string;
+              if (string != NULL)
+                return (rw_string_desc_opt) SOME (sd_new_addr (len, string));
+              else
+                return (rw_string_desc_opt) NONE;
             }
 
           extract_quotelike_pass3 (xp, qstring);
@@ -3103,9 +3134,11 @@ collect_message (struct perl_extractor *xp, token_ty *tp)
             {
               if (string != NULL)
                 {
-                  len += strlen (qstring->string);
+                  len += sd_length (qstring->stringdesc);
                   string = xrealloc (string, len);
-                  strcat (string, qstring->string);
+                  memcpy (string + len - sd_length (qstring->stringdesc),
+                          sd_data (qstring->stringdesc),
+                          sd_length (qstring->stringdesc));
                 }
               free_token (qstring);
             }
@@ -3362,7 +3395,39 @@ extract_balanced (struct perl_extractor *xp,
             case token_type_symbol:
               if (sub_seen)
                 break;
-              FALLTHROUGH;
+              #if DEBUG_PERL
+              fprintf (stderr, "%s:%d: type symbol (%d) \"",
+                       logical_file_name, tp->line_number, nesting_level);
+              sd_fwrite (stderr, tp->stringdesc);
+              fprintf (stderr, "\"\n");
+              #endif
+
+              {
+                void *keyword_value;
+                if (hash_find_entry (&keywords,
+                                     sd_data (tp->stringdesc), sd_length (tp->stringdesc),
+                                     &keyword_value) == 0)
+                  {
+                    const struct callshapes *shapes =
+                      (const struct callshapes *) keyword_value;
+
+                    next_shapes = shapes;
+                    next_argparser = arglist_parser_alloc (xp->mlp, shapes);
+                  }
+                else
+                  {
+                    next_shapes = NULL;
+                    next_argparser = arglist_parser_alloc (xp->mlp, NULL);
+                  }
+              }
+              next_is_argument = true;
+              next_context_iter =
+                flag_context_list_iterator (
+                  flag_context_list_table_lookup (
+                    flag_context_list_table,
+                    sd_data (tp->stringdesc), sd_length (tp->stringdesc)));
+              break;
+
             case token_type_keyword_symbol:
               #if DEBUG_PERL
               fprintf (stderr, "%s:%d: type symbol (%d) \"%s\"\n",
@@ -3531,9 +3596,12 @@ extract_balanced (struct perl_extractor *xp,
             case token_type_string_interpol:
               #if DEBUG_PERL
               if (tp->type == token_type_string)
-                fprintf (stderr, "%s:%d: type string (%d): \"%s\"\n",
-                         logical_file_name, tp->line_number, nesting_level,
-                         tp->string);
+                {
+                  fprintf (stderr, "%s:%d: type string (%d): \"",
+                           logical_file_name, tp->line_number, nesting_level);
+                  sd_fwrite (stderr, tp->stringdesc);
+                  fprintf (stderr, "\"\n");
+                }
               else
                 fprintf (stderr, "%s:%d: type string_interpol (%d)\n",
                          logical_file_name, tp->line_number, nesting_level);
@@ -3541,17 +3609,17 @@ extract_balanced (struct perl_extractor *xp,
 
               if (extract_all)
                 {
-                  char *string = collect_message (xp, tp);
-                  if (string != NULL)
+                  rw_string_desc_opt string = collect_message (xp, tp);
+                  if (has_value (string))
                     {
                       lex_pos_ty pos;
                       pos.file_name = logical_file_name;
                       pos.line_number = tp->line_number;
 
-                      remember_a_message (xp->mlp, NULL, string, true, false,
+                      remember_a_message (xp->mlp, NO_MSGCTXT, sd_readonly (get_value (string)), true, false,
                                           inner_region, &pos, sd_new_empty (),
                                           tp->comment, true);
-                      free (string);
+                      sd_free (get_value (string));
                     }
                 }
               else if (!skip_until_comma)
@@ -3574,14 +3642,14 @@ extract_balanced (struct perl_extractor *xp,
 
                   if (must_collect)
                     {
-                      char *string = collect_message (xp, tp);
-                      if (string != NULL)
+                      rw_string_desc_opt string = collect_message (xp, tp);
+                      if (has_value (string))
                         {
                           mixed_string_ty *ms =
-                            mixed_string_alloc_utf8 (string, lc_string,
+                            mixed_string_alloc_utf8 (sd_readonly (get_value (string)), lc_string,
                                                      logical_file_name,
                                                      tp->line_number);
-                          free (string);
+                          sd_free (get_value (string));
                           arglist_parser_remember (argparser, arg, ms,
                                                    inner_region,
                                                    logical_file_name,

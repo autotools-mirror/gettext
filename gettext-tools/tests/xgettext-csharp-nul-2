@@ -1,0 +1,35 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test C# support: NUL characters in msgids.
+
+{
+cat <<\EOF
+class TestCase {
+  public TestCase() {
+EOF
+printf '    String s1 = rm.GetString("one\0dot");\n'
+cat <<\EOF
+    String s2 = rm.GetString("two dots");
+  }
+}
+EOF
+} > xg-cs-nul-2.cs
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-cs-nul-2.tmp xg-cs-nul-2.cs 2>xg-cs-nul-2.err || Exit 1
+test -s xg-cs-nul-2.err || Exit 1
+cat xg-cs-nul-2.err
+LC_ALL=C tr -d '\r' < xg-cs-nul-2.tmp.po > xg-cs-nul-2.po || Exit 1
+
+cat <<\EOF > xg-cs-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-cs-nul-2.ok xg-cs-nul-2.po
+result=$?
+
+exit $result

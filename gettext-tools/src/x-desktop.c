@@ -101,7 +101,7 @@ struct extract_desktop_reader_ty
 
 static void
 extract_desktop_handle_group (struct desktop_reader_ty *reader,
-                              const char *group)
+                              string_desc_t group)
 {
   savable_comment_reset ();
 }
@@ -109,24 +109,24 @@ extract_desktop_handle_group (struct desktop_reader_ty *reader,
 static void
 extract_desktop_handle_pair (struct desktop_reader_ty *reader,
                              lex_pos_ty *key_pos,
-                             const char *key,
+                             string_desc_t key,
                              const char *locale,
-                             const char *value)
+                             string_desc_t value)
 {
   extract_desktop_reader_ty *extract_reader =
     (extract_desktop_reader_ty *) reader;
 
   void *keyword_value;
   if (!locale                   /* Skip already translated entry.  */
-      && hash_find_entry (&keywords, key, strlen (key), &keyword_value) == 0)
+      && hash_find_entry (&keywords, sd_data (key), sd_length (key), &keyword_value) == 0)
     {
       bool is_list = (bool) keyword_value;
-      char *msgid = desktop_unescape_string (value, is_list);
+      rw_string_desc_t msgid = desktop_unescape_string (value, is_list);
 
-      remember_a_message (extract_reader->mlp, NULL, msgid, false,
+      remember_a_message (extract_reader->mlp, NO_MSGCTXT, sd_readonly (msgid), false,
                           false, null_context_region (), key_pos,
                           sd_new_empty (), savable_comment, false);
-      free (msgid);
+      sd_free (msgid);
     }
   savable_comment_reset ();
 }
@@ -153,7 +153,7 @@ extract_desktop_handle_comment (struct desktop_reader_ty *reader,
 
 static void
 extract_desktop_handle_blank (struct desktop_reader_ty *reader,
-                              const char *s)
+                              string_desc_t s)
 {
   savable_comment_reset ();
 }

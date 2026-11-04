@@ -30,6 +30,7 @@
 
 #include <error.h>
 #include "string-desc.h"
+#include "xstring-desc.h"
 #include "msgl-iconv.h"
 #include "xerror-handler.h"
 #include "msgl-header.h"
@@ -54,19 +55,21 @@ struct msgfmt_desktop_reader_ty
 
 static void
 msgfmt_desktop_handle_group (struct desktop_reader_ty *reader,
-                             const char *group)
+                             string_desc_t group)
 {
   msgfmt_desktop_reader_ty *msgfmt_reader = (msgfmt_desktop_reader_ty *) reader;
 
-  fprintf (msgfmt_reader->output_file, "[%s]\n", group);
+  fprintf (msgfmt_reader->output_file, "[");
+  sd_fwrite (msgfmt_reader->output_file, group);
+  fprintf (msgfmt_reader->output_file, "]\n");
 }
 
 static void
 msgfmt_desktop_handle_pair (desktop_reader_ty *reader,
                             lex_pos_ty *key_pos,
-                            const char *key,
+                            string_desc_t key,
                             const char *locale,
-                            const char *value)
+                            string_desc_t value)
 {
   msgfmt_desktop_reader_ty *msgfmt_reader = (msgfmt_desktop_reader_ty *) reader;
 
@@ -74,38 +77,48 @@ msgfmt_desktop_handle_pair (desktop_reader_ty *reader,
     {
       /* Write translated pair, if any.  */
       void *keyword_value;
-      if (hash_find_entry (msgfmt_reader->keywords, key, strlen (key),
+      if (hash_find_entry (msgfmt_reader->keywords, sd_data (key), sd_length (key),
                            &keyword_value) == 0)
         {
           bool is_list = (bool) (uintptr_t) keyword_value;
-          char *unescaped = desktop_unescape_string (value, is_list);
+          rw_string_desc_t unescaped = desktop_unescape_string (value, is_list);
 
-          for (size_t i = 0; i < msgfmt_reader->operands->nitems; i++)
+          if (sd_index (unescaped, '\0') < 0)
             {
-              msgfmt_operand_ty *operand = &msgfmt_reader->operands->items[i];
-              message_ty *mp;
-
-              mp = message_list_search (operand->mlp, NULL, unescaped);
-              if (mp && *mp->msgstr != '\0')
+              char *unescaped_c = xsd_c (unescaped);
+              for (size_t i = 0; i < msgfmt_reader->operands->nitems; i++)
                 {
-                  char *escaped;
-
-                  escaped = desktop_escape_string (mp->msgstr, is_list);
-                  fprintf (msgfmt_reader->output_file,
-                           "%s[%s]=%s\n",
-                           key, operand->language, escaped);
-                  free (escaped);
+                  msgfmt_operand_ty *operand = &msgfmt_reader->operands->items[i];
+                  message_ty *mp = message_list_search (operand->mlp, NULL, unescaped_c);
+                  if (mp != NULL && *mp->msgstr != '\0')
+                    {
+                      char *escaped = desktop_escape_string (mp->msgstr, is_list);
+                      sd_fwrite (msgfmt_reader->output_file, key);
+                      fprintf (msgfmt_reader->output_file,
+                               "[%s]=%s\n",
+                               operand->language, escaped);
+                      free (escaped);
+                    }
                 }
+              free (unescaped_c);
             }
-          free (unescaped);
+          sd_free (unescaped);
         }
 
       /* Write untranslated pair.  */
-      fprintf (msgfmt_reader->output_file, "%s=%s\n", key, value);
+      sd_fwrite (msgfmt_reader->output_file, key);
+      fprintf (msgfmt_reader->output_file, "=");
+      sd_fwrite (msgfmt_reader->output_file, value);
+      fprintf (msgfmt_reader->output_file, "\n");
     }
   else
-    /* Preserve already translated pair.  */
-    fprintf (msgfmt_reader->output_file, "%s[%s]=%s\n", key, locale, value);
+    {
+      /* Preserve already translated pair.  */
+      sd_fwrite (msgfmt_reader->output_file, key);
+      fprintf (msgfmt_reader->output_file, "[%s]=", locale);
+      sd_fwrite (msgfmt_reader->output_file, value);
+      fprintf (msgfmt_reader->output_file, "\n");
+    }
 }
 
 static void
@@ -119,11 +132,11 @@ msgfmt_desktop_handle_comment (struct desktop_reader_ty *reader, string_desc_t s
 }
 
 static void
-msgfmt_desktop_handle_blank (struct desktop_reader_ty *reader, const char *s)
+msgfmt_desktop_handle_blank (struct desktop_reader_ty *reader, string_desc_t s)
 {
   msgfmt_desktop_reader_ty *msgfmt_reader = (msgfmt_desktop_reader_ty *) reader;
 
-  fputs (s, msgfmt_reader->output_file);
+  sd_fwrite (msgfmt_reader->output_file, s);
   fputc ('\n', msgfmt_reader->output_file);
 }
 

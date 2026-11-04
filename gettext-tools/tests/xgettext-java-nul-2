@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Java support: NUL characters in msgids.
+
+{
+printf 'System.out.println(gettext("one\0dot"));\n'
+cat <<\EOF
+System.out.println(gettext("two dots"));
+EOF
+} > xg-j-nul-2.java
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-j-nul-2.tmp xg-j-nul-2.java 2>xg-j-nul-2.err || Exit 1
+test -s xg-j-nul-2.err || Exit 1
+cat xg-j-nul-2.err
+LC_ALL=C tr -d '\r' < xg-j-nul-2.tmp.po > xg-j-nul-2.po || Exit 1
+
+cat <<\EOF > xg-j-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-j-nul-2.ok xg-j-nul-2.po
+result=$?
+
+exit $result

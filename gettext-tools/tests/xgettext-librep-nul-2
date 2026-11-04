@@ -1,0 +1,29 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test librep support: NUL characters in msgids.
+
+{
+printf '(princ (_ "one\0dot"))\n'
+cat <<\EOF
+(princ (_ "two dots"))
+EOF
+} > xg-lr-nul-2.jl
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-lr-nul-2.tmp xg-lr-nul-2.jl 2>xg-lr-nul-2.err || Exit 1
+test -s xg-lr-nul-2.err || Exit 1
+cat xg-lr-nul-2.err
+LC_ALL=C tr -d '\r' < xg-lr-nul-2.tmp.po > xg-lr-nul-2.po || Exit 1
+
+cat <<\EOF > xg-lr-nul-2.ok
+msgid "two dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-lr-nul-2.ok xg-lr-nul-2.po
+result=$?
+
+exit $result

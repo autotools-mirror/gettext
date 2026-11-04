@@ -65,14 +65,14 @@ struct mixed_string
 /* Creates a mixed_string that contains just a string in the
    xgettext_current_source_encoding.  */
 extern mixed_string_ty *
-       mixed_string_alloc_simple (const char *string,
+       mixed_string_alloc_simple (string_desc_t string,
                                   lexical_context_ty lcontext,
                                   const char *logical_file_name,
                                   int line_number);
 
 /* Creates a mixed_string that contains just a UTF-8 string.  */
 extern mixed_string_ty *
-       mixed_string_alloc_utf8 (const char *string,
+       mixed_string_alloc_utf8 (string_desc_t string,
                                 lexical_context_ty lcontext,
                                 const char *logical_file_name,
                                 int line_number);
