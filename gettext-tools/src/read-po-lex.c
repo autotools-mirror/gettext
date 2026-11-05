@@ -1158,6 +1158,13 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                     lex_getc (ps, mbc);
                   }
 
+                /* It is OK to not copy the string through xsd_copy() here,
+                   because
+                     - buf is owned by the po_parser_state.
+                     - The grammar forwards the string down to
+                       catalog_reader_seen_generic_comment immediately,
+                       before we could make use of the same buf for other
+                       tokens.  */
                 lval->stringdesc.string =
                   sd_new_addr (bufpos, (const char *) buf);
                 lval->stringdesc.pos = ps->gram_pos;
