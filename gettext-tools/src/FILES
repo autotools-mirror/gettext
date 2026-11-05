@@ -478,6 +478,9 @@ msgl-check.c
 | x-desktop.h
 | x-desktop.c
 |               String extractor from Desktop Entry file.
+| x-xml.h
+| x-xml.c
+|               String extractor from XML file.
 | x-glade.h
 | x-glade.c
 |               String extractor from .glade files, GNOME GUI descriptions.

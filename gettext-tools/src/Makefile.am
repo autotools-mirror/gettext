@@ -111,6 +111,7 @@ noinst_HEADERS = \
   x-ycp.h \
   x-rst.h \
   x-desktop.h \
+  x-xml.h \
   x-glade.h x-gsettings.h x-appdata.h
 
 EXTRA_DIST += FILES project-id
@@ -366,7 +367,8 @@ xgettext_SOURCES += \
   x-php.c \
   x-ycp.c \
   x-rst.c \
-  x-desktop.c
+  x-desktop.c \
+  x-xml.c
 # x-go.c cannot be compiled by GCC 11 with '-fanalyzer' in 1 GB of RAM.
 # Therefore use special CFLAGS for this compilation unit.
 libxgettextx_a_SOURCES = \

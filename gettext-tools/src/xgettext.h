@@ -57,6 +57,9 @@ extern int verbose;
 /* Syntax checks enabled through a command-line option or by default.  */
 extern enum is_syntax_check default_syntax_check[NSYNTAXCHECKS];
 
+/* If true, add comments used by itstool.  */
+extern bool add_itstool_comments;
+
 
 /* Record a flag in the appropriate backend's table.
    OPTIONSTRING has the syntax WORD:ARG:FLAG (as documented)

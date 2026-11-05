@@ -137,6 +137,7 @@
 #include "x-ycp.h"
 #include "x-rst.h"
 #include "x-desktop.h"
+#include "x-xml.h"
 #include "x-glade.h"
 #include "x-gsettings.h"
 #include "x-appdata.h"
@@ -260,8 +261,8 @@ static locating_rule_list_ty *its_locating_rules;
   "  <its:translateRule selector=\"/*\" translate=\"no\"/>" \
   "</its:rules>"
 
-/* If nonzero add comments used by itstool.  */
-static bool add_itstool_comments = false;
+/* If true, add comments used by itstool.  */
+bool add_itstool_comments = false;
 
 /* The file names whose version-controlled modification times shall be
    considered.  */
@@ -2144,38 +2145,6 @@ extract_from_file (const char *file_name, extractor_ty extractor,
     current_formatstring_parser[fi] = NULL;
 }
 
-static message_ty *
-xgettext_its_extract_callback (message_list_ty *mlp,
-                               const char *msgctxt,
-                               const char *msgid,
-                               lex_pos_ty *pos,
-                               string_desc_t extracted_comment,
-                               const char *marker,
-                               enum its_whitespace_type_ty whitespace)
-{
-  message_ty *message =
-    remember_a_message (mlp,
-                        (msgctxt == NULL
-                         ? NO_MSGCTXT
-                         : (string_desc_opt) SOME (sd_from_c (msgctxt))),
-                        sd_from_c (msgid),
-                        false, false,
-                        null_context_region (), pos,
-                        extracted_comment, NULL, false);
-
-  if (add_itstool_comments)
-    {
-      char *dot = xasprintf ("(itstool) path: %s", marker);
-      message_comment_dot_append (message, sd_from_c (dot));
-      free (dot);
-
-      if (whitespace == ITS_WHITESPACE_PRESERVE)
-        message->do_wrap = no;
-    }
-
-  return message;
-}
-
 static void
 extract_from_xml_file (const char *file_name,
                        its_rule_list_ty *rules,
@@ -2187,18 +2156,7 @@ extract_from_xml_file (const char *file_name,
   if (fp != stdin)
     string_list_append (&files_for_vc_mtime, real_file_name);
 
-  /* The default encoding for XML is UTF-8.  It can be overridden by
-     an XML declaration in the XML file itself, not through the
-     --from-code option.  */
-  xgettext_current_source_encoding = po_charset_utf8;
-
-#if HAVE_ICONV
-  xgettext_current_source_iconv = xgettext_global_source_iconv;
-#endif
-
-  its_rule_list_extract (rules, fp, real_file_name, logical_file_name,
-                         mdlp,
-                         xgettext_its_extract_callback);
+  extract_xml (fp, real_file_name, logical_file_name, rules, mdlp);
 
   if (fp != stdin)
     fclose (fp);
