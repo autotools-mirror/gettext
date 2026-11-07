@@ -106,7 +106,7 @@ do_callback_message (struct po_parser_state *ps,
 {
   struct { string_desc_t string; lex_pos_ty pos; bool obsolete; } comment;
   struct { char *string; lex_pos_ty pos; bool obsolete; } string;
-  struct { string_list_ty stringlist; lex_pos_ty pos; bool obsolete; } stringlist;
+  struct { string_list_ty list; lex_pos_ty pos; bool obsolete; } stringlist;
   struct { char *ctxt; lex_pos_ty pos; bool obsolete; } context;
   struct { long number; lex_pos_ty pos; bool obsolete; } number;
   struct { char *string; lex_pos_ty pos; bool obsolete; } identifier;
@@ -163,8 +163,8 @@ domain
 message
         : message_intro string_list MSGSTR string_list
                 {
-                  char *string2 = string_list_concat_destroy (&$2.stringlist);
-                  char *string4 = string_list_concat_destroy (&$4.stringlist);
+                  char *string2 = string_list_concat_destroy (&$2.list);
+                  char *string4 = string_list_concat_destroy (&$4.list);
 
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
@@ -184,7 +184,7 @@ message
                 }
         | message_intro string_list msgid_pluralform pluralform_list
                 {
-                  char *string2 = string_list_concat_destroy (&$2.stringlist);
+                  char *string2 = string_list_concat_destroy (&$2.list);
 
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
@@ -209,7 +209,7 @@ message
                   check_obsolete ($1, $3);
                   po_gram_error_at_line (ps->catr, &$1.pos, _("missing 'msgstr[]' section"));
                   free_message_intro ($1);
-                  string_list_destroy (&$2.stringlist);
+                  string_list_destroy (&$2.list);
                   free ($3.string);
                 }
         | message_intro string_list pluralform_list
@@ -218,7 +218,7 @@ message
                   check_obsolete ($1, $3);
                   po_gram_error_at_line (ps->catr, &$1.pos, _("missing 'msgid_plural' section"));
                   free_message_intro ($1);
-                  string_list_destroy (&$2.stringlist);
+                  string_list_destroy (&$2.list);
                   free ($3.rhs.msgstr);
                 }
         | message_intro string_list
@@ -226,7 +226,7 @@ message
                   check_obsolete ($1, $2);
                   po_gram_error_at_line (ps->catr, &$1.pos, _("missing 'msgstr' section"));
                   free_message_intro ($1);
-                  string_list_destroy (&$2.stringlist);
+                  string_list_destroy (&$2.list);
                 }
         ;
 
@@ -259,7 +259,7 @@ prev
                 {
                   check_obsolete ($1, $2);
                   $$.ctxt = $1.ctxt;
-                  $$.id = string_list_concat_destroy (&$2.stringlist);
+                  $$.id = string_list_concat_destroy (&$2.list);
                   $$.id_plural = NULL;
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
@@ -269,7 +269,7 @@ prev
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
                   $$.ctxt = $1.ctxt;
-                  $$.id = string_list_concat_destroy (&$2.stringlist);
+                  $$.id = string_list_concat_destroy (&$2.list);
                   $$.id_plural = $3.string;
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
@@ -288,7 +288,7 @@ msg_intro
                 {
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
-                  $$.ctxt = string_list_concat_destroy (&$2.stringlist);
+                  $$.ctxt = string_list_concat_destroy (&$2.list);
                   $$.pos = $3.pos;
                   $$.obsolete = $3.obsolete;
                 }
@@ -305,7 +305,7 @@ prev_msg_intro
                 {
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
-                  $$.ctxt = string_list_concat_destroy (&$2.stringlist);
+                  $$.ctxt = string_list_concat_destroy (&$2.list);
                   $$.pos = $3.pos;
                   $$.obsolete = $3.obsolete;
                 }
@@ -317,7 +317,7 @@ msgid_pluralform
                 {
                   check_obsolete ($1, $2);
                   ps->plural_counter = 0;
-                  $$.string = string_list_concat_destroy (&$2.stringlist);
+                  $$.string = string_list_concat_destroy (&$2.list);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
@@ -327,7 +327,7 @@ prev_msgid_pluralform
         : PREV_MSGID_PLURAL prev_string_list
                 {
                   check_obsolete ($1, $2);
-                  $$.string = string_list_concat_destroy (&$2.stringlist);
+                  $$.string = string_list_concat_destroy (&$2.list);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
@@ -368,7 +368,7 @@ pluralform
                         po_gram_error_at_line (ps->catr, &$1.pos, _("plural form has wrong index"));
                     }
                   ps->plural_counter++;
-                  $$.rhs.msgstr = string_list_concat_destroy (&$5.stringlist);
+                  $$.rhs.msgstr = string_list_concat_destroy (&$5.list);
                   $$.rhs.msgstr_len = strlen ($$.rhs.msgstr) + 1;
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
@@ -379,8 +379,8 @@ pluralform
 string_list
         : STRING
                 {
-                  string_list_init (&$$.stringlist);
-                  string_list_append (&$$.stringlist, $1.string);
+                  string_list_init (&$$.list);
+                  string_list_append (&$$.list, $1.string);
                   free ($1.string);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
@@ -388,8 +388,8 @@ string_list
         | string_list STRING
                 {
                   check_obsolete ($1, $2);
-                  $$.stringlist = $1.stringlist;
-                  string_list_append (&$$.stringlist, $2.string);
+                  $$.list = $1.list;
+                  string_list_append (&$$.list, $2.string);
                   free ($2.string);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
@@ -399,8 +399,8 @@ string_list
 prev_string_list
         : PREV_STRING
                 {
-                  string_list_init (&$$.stringlist);
-                  string_list_append (&$$.stringlist, $1.string);
+                  string_list_init (&$$.list);
+                  string_list_append (&$$.list, $1.string);
                   free ($1.string);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
@@ -408,8 +408,8 @@ prev_string_list
         | prev_string_list PREV_STRING
                 {
                   check_obsolete ($1, $2);
-                  $$.stringlist = $1.stringlist;
-                  string_list_append (&$$.stringlist, $2.string);
+                  $$.list = $1.list;
+                  string_list_append (&$$.list, $2.string);
                   free ($2.string);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
