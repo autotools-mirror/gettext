@@ -1410,9 +1410,9 @@ exclude_directive_domain (abstract_catalog_reader_ty *catr,
 static void
 exclude_directive_message (abstract_catalog_reader_ty *catr,
                            char *msgctxt,
-                           char *msgid,
+                           char *msgid, size_t msgid_len,
                            lex_pos_ty *msgid_pos,
-                           char *msgid_plural,
+                           char *msgid_plural, size_t msgid_plural_len,
                            char *msgstr, size_t msgstr_len,
                            lex_pos_ty *msgstr_pos,
                            char *prev_msgctxt,
@@ -1429,8 +1429,8 @@ exclude_directive_message (abstract_catalog_reader_ty *catr,
   else
     {
       mp = message_alloc (msgctxt,
-                          msgid, strlen (msgid) + 1,
-                          msgid_plural, msgid_plural != NULL ? strlen (msgid_plural) + 1 : 0,
+                          msgid, msgid_len,
+                          msgid_plural, msgid_plural_len,
                           "", strlen ("") + 1, msgstr_pos);
       /* Do not free msgid.  */
       message_list_append (exclude, mp);

@@ -869,7 +869,9 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
           char *msgstr = xstrdup ("");
           lex_pos_ty msgstr_pos = msgid_pos;
           catalog_reader_seen_message (catr,
-                                       NULL, msgid, &msgid_pos, NULL,
+                                       NULL,
+                                       msgid, strlen (msgid) + 1, &msgid_pos,
+                                       NULL, 0,
                                        msgstr, strlen (msgstr) + 1, &msgstr_pos,
                                        NULL, NULL, NULL,
                                        false, next_is_obsolete);
@@ -922,7 +924,9 @@ stringtable_parse (abstract_catalog_reader_ty *catr, FILE *file,
 
               /* A key/value pair.  */
               catalog_reader_seen_message (catr,
-                                           NULL, msgid, &msgid_pos, NULL,
+                                           NULL,
+                                           msgid, strlen (msgid) + 1, &msgid_pos,
+                                           NULL, 0,
                                            msgstr, strlen (msgstr) + 1, &msgstr_pos,
                                            NULL, NULL, NULL,
                                            false, next_is_obsolete);

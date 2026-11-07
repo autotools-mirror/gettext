@@ -55,19 +55,21 @@
 static inline void
 do_callback_message (struct po_parser_state *ps,
                      char *msgctxt,
-                     char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
+                     char *msgid, size_t msgid_len, lex_pos_ty *msgid_pos,
+                     char *msgid_plural, size_t msgid_plural_len,
                      char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
                      char *prev_msgctxt,
                      char *prev_msgid, char *prev_msgid_plural,
                      bool obsolete)
 {
   /* Test for header entry.  Ignore fuzziness of the header entry.  */
-  if (msgctxt == NULL && msgid[0] == '\0' && !obsolete)
+  if (msgctxt == NULL && msgid_len == 0 + 1 && !obsolete)
     po_lex_charset_set (ps, msgstr, ps->gram_pos.file_name, ps->gram_pot_role);
 
   catalog_reader_seen_message (ps->catr,
                                msgctxt,
-                               msgid, msgid_pos, msgid_plural,
+                               msgid, msgid_len, msgid_pos,
+                               msgid_plural, msgid_plural_len,
                                msgstr, msgstr_len, msgstr_pos,
                                prev_msgctxt, prev_msgid, prev_msgid_plural,
                                false, obsolete);
@@ -190,8 +192,9 @@ message
                   if (!$1.obsolete || ps->catr->pass_obsolete_entries)
                     {
                       char *msgid = xsd_c ($1.id);
-                      do_callback_message (ps, $1.ctxt, msgid, &$1.pos,
-                                           NULL,
+                      size_t msgid_len = sd_length ($1.id) + 1;
+                      do_callback_message (ps, $1.ctxt, msgid, msgid_len, &$1.pos,
+                                           NULL, 0,
                                            string4, strlen (string4) + 1, &$2.pos,
                                            $1.prev_ctxt,
                                            $1.prev_id, $1.prev_id_plural,
@@ -211,9 +214,11 @@ message
                   if (!$1.obsolete || ps->catr->pass_obsolete_entries)
                     {
                       char *msgid = xsd_c ($1.id);
+                      size_t msgid_len = sd_length ($1.id) + 1;
                       char *msgid_plural = xsd_c ($2.string);
-                      do_callback_message (ps, $1.ctxt, msgid, &$1.pos,
-                                           msgid_plural,
+                      size_t msgid_plural_len = sd_length ($2.string) + 1;
+                      do_callback_message (ps, $1.ctxt, msgid, msgid_len, &$1.pos,
+                                           msgid_plural, msgid_plural_len,
                                            $3.rhs.msgstr, $3.rhs.msgstr_len, &$3.pos,
                                            $1.prev_ctxt,
                                            $1.prev_id, $1.prev_id_plural,
@@ -495,7 +500,8 @@ prev_stringwithoutnuls_list     // depends on ps->pretty_part being set
 stringwithnuls_list             // depends on ps->pretty_part being set
         : STRING
                 {
-                  check_string_against_nuls ($1, ps->pretty_part);
+                  if (!ps->catr->allow_nul_in_msgid)
+                    check_string_against_nuls ($1, ps->pretty_part);
                   string_desc_list_init (&$$.list);
                   string_desc_list_append (&$$.list, sd_readonly (sd_substring ($1.string, 0, sd_length ($1.string) - 1)));
                   sd_free ($1.string);
@@ -505,7 +511,8 @@ stringwithnuls_list             // depends on ps->pretty_part being set
         | stringwithnuls_list STRING
                 {
                   check_obsolete ($1, $2);
-                  check_string_against_nuls ($2, ps->pretty_part);
+                  if (!ps->catr->allow_nul_in_msgid)
+                    check_string_against_nuls ($2, ps->pretty_part);
                   $$.list = $1.list;
                   string_desc_list_append (&$$.list, sd_readonly (sd_substring ($2.string, 0, sd_length ($2.string) - 1)));
                   sd_free ($2.string);

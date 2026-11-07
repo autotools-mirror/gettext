@@ -677,7 +677,9 @@ properties_parse (abstract_catalog_reader_ty *catr, FILE *file,
               bool force_fuzzy = (hidden && msgid[0] != '\0' && msgstr[0] != '\0');
 
               catalog_reader_seen_message (catr,
-                                           NULL, msgid, &msgid_pos, NULL,
+                                           NULL,
+                                           msgid, strlen (msgid) + 1, &msgid_pos,
+                                           NULL, 0,
                                            msgstr, strlen (msgstr) + 1, &msgstr_pos,
                                            NULL, NULL, NULL,
                                            force_fuzzy, false);

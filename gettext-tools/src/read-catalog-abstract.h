@@ -85,8 +85,9 @@ struct abstract_catalog_reader_class_ty
   /* What to do with a message directive.  */
   void (*directive_message) (struct abstract_catalog_reader_ty *catr,
                              char *msgctxt,
-                             char *msgid, lex_pos_ty *msgid_pos,
-                             char *msgid_plural,
+                             char *msgid, size_t msgid_len,
+                             lex_pos_ty *msgid_pos,
+                             char *msgid_plural, size_t msgid_plural_len,
                              char *msgstr, size_t msgstr_len,
                              lex_pos_ty *msgstr_pos,
                              char *prev_msgctxt,
@@ -140,6 +141,10 @@ struct abstract_catalog_reader_class_ty
                                                                         \
   /* True if obsolete entries shall be considered as valid.  */         \
   bool pass_obsolete_entries;                                           \
+                                                                        \
+  /* True if NUL characters in msgid or msgid_plural shall be           \
+     allowed.  */                                                       \
+  bool allow_nul_in_msgid;                                              \
                                                                         \
   /* Representation of U+2068 FIRST STRONG ISOLATE (FSI) in the         \
      PO file's encoding, or NULL if not available.  */                  \
@@ -205,8 +210,9 @@ extern void
 extern void
        catalog_reader_seen_message (abstract_catalog_reader_ty *catr,
                                     char *msgctxt,
-                                    char *msgid, lex_pos_ty *msgid_pos,
-                                    char *msgid_plural,
+                                    char *msgid, size_t msgid_len,
+                                    lex_pos_ty *msgid_pos,
+                                    char *msgid_plural, size_t msgid_plural_len,
                                     char *msgstr, size_t msgstr_len,
                                     lex_pos_ty *msgstr_pos,
                                     char *prev_msgctxt,

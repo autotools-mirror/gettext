@@ -50,6 +50,7 @@ catalog_reader_alloc (abstract_catalog_reader_class_ty *method_table,
   catr->xeh = xerror_handler;
   catr->pass_comments = false;
   catr->pass_obsolete_entries = false;
+  catr->allow_nul_in_msgid = false;
   catr->po_lex_isolate_start = NULL;
   catr->po_lex_isolate_end = NULL;
   if (method_table->constructor)
@@ -96,9 +97,9 @@ call_directive_domain (abstract_catalog_reader_ty *catr,
 static inline void
 call_directive_message (abstract_catalog_reader_ty *catr,
                         char *msgctxt,
-                        char *msgid,
+                        char *msgid, size_t msgid_len,
                         lex_pos_ty *msgid_pos,
-                        char *msgid_plural,
+                        char *msgid_plural, size_t msgid_plural_len,
                         char *msgstr, size_t msgstr_len,
                         lex_pos_ty *msgstr_pos,
                         char *prev_msgctxt,
@@ -108,7 +109,8 @@ call_directive_message (abstract_catalog_reader_ty *catr,
 {
   if (catr->methods->directive_message)
     catr->methods->directive_message (catr, msgctxt,
-                                      msgid, msgid_pos, msgid_plural,
+                                      msgid, msgid_len, msgid_pos,
+                                      msgid_plural, msgid_plural_len,
                                       msgstr, msgstr_len, msgstr_pos,
                                       prev_msgctxt,
                                       prev_msgid,
@@ -193,7 +195,8 @@ catalog_reader_seen_domain (abstract_catalog_reader_ty *catr,
 void
 catalog_reader_seen_message (abstract_catalog_reader_ty *catr,
                              char *msgctxt,
-                             char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
+                             char *msgid, size_t msgid_len, lex_pos_ty *msgid_pos,
+                             char *msgid_plural, size_t msgid_plural_len,
                              char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
                              char *prev_msgctxt,
                              char *prev_msgid,
@@ -201,7 +204,8 @@ catalog_reader_seen_message (abstract_catalog_reader_ty *catr,
                              bool force_fuzzy, bool obsolete)
 {
   call_directive_message (catr, msgctxt,
-                          msgid, msgid_pos, msgid_plural,
+                          msgid, msgid_len, msgid_pos,
+                          msgid_plural, msgid_plural_len,
                           msgstr, msgstr_len, msgstr_pos,
                           prev_msgctxt, prev_msgid, prev_msgid_plural,
                           force_fuzzy, obsolete);

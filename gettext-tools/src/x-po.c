@@ -56,9 +56,9 @@ static char *header_charset;
 static void
 extract_add_message (default_catalog_reader_ty *this,
                      char *msgctxt,
-                     char *msgid,
+                     char *msgid, size_t msgid_len,
                      lex_pos_ty *msgid_pos,
-                     char *msgid_plural,
+                     char *msgid_plural, size_t msgid_plural_len,
                      char *msgstr, size_t msgstr_len,
                      lex_pos_ty *msgstr_pos,
                      char *prev_msgctxt,
@@ -70,7 +70,7 @@ extract_add_message (default_catalog_reader_ty *this,
      away, we have constructed a new one.  Only remember its charset.
      But if no new one was constructed, keep the old header.  This is useful
      because the old header may contain a charset= directive.  */
-  if (msgctxt == NULL && *msgid == '\0' && !xgettext_omit_header)
+  if (msgctxt == NULL && msgid_len == 0 + 1 && !xgettext_omit_header)
     {
       {
         const char *charsetstr = strstr (msgstr, "charset=");
@@ -107,11 +107,16 @@ extract_add_message (default_catalog_reader_ty *this,
     }
 
   /* See whether we shall exclude this message.  */
-  if (exclude != NULL && message_list_search (exclude, msgctxt, msgid) != NULL)
+  if (exclude != NULL
+      && message_list_search_sd (exclude, msgctxt,
+                                 sd_new_addr (msgid_len - 1, (const char *) { msgid }))
+         != NULL)
     goto discard;
 
   /* Invoke superclass method.  */
-  default_add_message (this, msgctxt, msgid, msgid_pos, msgid_plural,
+  default_add_message (this, msgctxt,
+                       msgid, msgid_len, msgid_pos,
+                       msgid_plural, msgid_plural_len,
                        msgstr, msgstr_len, msgstr_pos,
                        prev_msgctxt, prev_msgid, prev_msgid_plural,
                        force_fuzzy, obsolete);

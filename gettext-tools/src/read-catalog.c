@@ -54,7 +54,8 @@ call_set_domain (struct default_catalog_reader_ty *dcatr,
 static inline void
 call_add_message (struct default_catalog_reader_ty *dcatr,
                   char *msgctxt,
-                  char *msgid, lex_pos_ty *msgid_pos, char *msgid_plural,
+                  char *msgid, size_t msgid_len, lex_pos_ty *msgid_pos,
+                  char *msgid_plural, size_t msgid_plural_len,
                   char *msgstr, size_t msgstr_len, lex_pos_ty *msgstr_pos,
                   char *prev_msgctxt, char *prev_msgid, char *prev_msgid_plural,
                   bool force_fuzzy, bool obsolete)
@@ -64,7 +65,8 @@ call_add_message (struct default_catalog_reader_ty *dcatr,
 
   if (methods->add_message)
     methods->add_message (dcatr, msgctxt,
-                          msgid, msgid_pos, msgid_plural,
+                          msgid, msgid_len, msgid_pos,
+                          msgid_plural, msgid_plural_len,
                           msgstr, msgstr_len, msgstr_pos,
                           prev_msgctxt, prev_msgid, prev_msgid_plural,
                           force_fuzzy, obsolete);
@@ -224,9 +226,9 @@ default_directive_domain (abstract_catalog_reader_ty *catr,
 void
 default_directive_message (abstract_catalog_reader_ty *catr,
                            char *msgctxt,
-                           char *msgid,
+                           char *msgid, size_t msgid_len,
                            lex_pos_ty *msgid_pos,
-                           char *msgid_plural,
+                           char *msgid_plural, size_t msgid_plural_len,
                            char *msgstr, size_t msgstr_len,
                            lex_pos_ty *msgstr_pos,
                            char *prev_msgctxt,
@@ -235,7 +237,8 @@ default_directive_message (abstract_catalog_reader_ty *catr,
 {
   default_catalog_reader_ty *dcatr = (default_catalog_reader_ty *) catr;
 
-  call_add_message (dcatr, msgctxt, msgid, msgid_pos, msgid_plural,
+  call_add_message (dcatr, msgctxt,
+                    msgid, msgid_len, msgid_pos, msgid_plural, msgid_plural_len,
                     msgstr, msgstr_len, msgstr_pos,
                     prev_msgctxt, prev_msgid, prev_msgid_plural,
                     force_fuzzy, obsolete);
@@ -348,9 +351,9 @@ default_set_domain (default_catalog_reader_ty *dcatr,
 void
 default_add_message (default_catalog_reader_ty *dcatr,
                      char *msgctxt,
-                     char *msgid,
+                     char *msgid, size_t msgid_len,
                      lex_pos_ty *msgid_pos,
-                     char *msgid_plural,
+                     char *msgid_plural, size_t msgid_plural_len,
                      char *msgstr, size_t msgstr_len,
                      lex_pos_ty *msgstr_pos,
                      char *prev_msgctxt,
@@ -363,12 +366,13 @@ default_add_message (default_catalog_reader_ty *dcatr,
     dcatr->mlp = msgdomain_list_sublist (dcatr->mdlp, dcatr->domain, true);
 
   message_ty *mp;
-  if (dcatr->allow_duplicates && msgid[0] != '\0')
+  if (dcatr->allow_duplicates && msgid_len != 0 + 1)
     /* Doesn't matter if this message ID has been seen before.  */
     mp = NULL;
   else
     /* See if this message ID has been seen before.  */
-    mp = message_list_search (dcatr->mlp, msgctxt, msgid);
+    mp = message_list_search_sd (dcatr->mlp, msgctxt,
+                                 sd_new_addr (msgid_len - 1, (const char *) { msgid }));
 
   if (mp)
     {
@@ -415,8 +419,8 @@ default_add_message (default_catalog_reader_ty *dcatr,
          It's the caller's responsibility to ignore obsolete messages when
          appropriate.  */
       mp = message_alloc (msgctxt,
-                          msgid, strlen (msgid) + 1,
-                          msgid_plural, msgid_plural != NULL ? strlen (msgid_plural) + 1 : 0,
+                          msgid, msgid_len,
+                          msgid_plural, msgid_plural_len,
                           msgstr, msgstr_len,
                           msgstr_pos);
       if (msgid_plural != NULL)

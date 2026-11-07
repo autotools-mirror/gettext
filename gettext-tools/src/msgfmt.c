@@ -1284,9 +1284,9 @@ msgfmt_set_domain (default_catalog_reader_ty *dcatr,
 static void
 msgfmt_add_message (default_catalog_reader_ty *dcatr,
                     char *msgctxt,
-                    char *msgid,
+                    char *msgid, size_t msgid_len,
                     lex_pos_ty *msgid_pos,
-                    char *msgid_plural,
+                    char *msgid_plural, size_t msgid_plural_len,
                     char *msgstr, size_t msgstr_len,
                     lex_pos_ty *msgstr_pos,
                     char *prev_msgctxt,
@@ -1306,7 +1306,9 @@ msgfmt_add_message (default_catalog_reader_ty *dcatr,
     }
 
   /* Invoke superclass method.  */
-  default_add_message (dcatr, msgctxt, msgid, msgid_pos, msgid_plural,
+  default_add_message (dcatr, msgctxt,
+                       msgid, msgid_len, msgid_pos,
+                       msgid_plural, msgid_plural_len,
                        msgstr, msgstr_len, msgstr_pos,
                        prev_msgctxt, prev_msgid, prev_msgid_plural,
                        force_fuzzy, obsolete);
