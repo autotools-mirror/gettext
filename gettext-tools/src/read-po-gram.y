@@ -97,7 +97,7 @@ do_callback_message (struct po_parser_state *ps,
 %token MSGID
 %token MSGID_PLURAL
 %token MSGSTR
-%token NAME
+%token OTHER_IDENTIFIER
 %token '[' ']'
 %token NUMBER
 %token STRING
@@ -109,6 +109,7 @@ do_callback_message (struct po_parser_state *ps,
   struct { string_list_ty stringlist; lex_pos_ty pos; bool obsolete; } stringlist;
   struct { char *ctxt; lex_pos_ty pos; bool obsolete; } context;
   struct { long number; lex_pos_ty pos; bool obsolete; } number;
+  struct { char *string; lex_pos_ty pos; bool obsolete; } identifier;
   struct { lex_pos_ty pos; bool obsolete; } pos;
   struct { char *ctxt; char *id; char *id_plural; lex_pos_ty pos; bool obsolete; } prev;
   struct { char *prev_ctxt; char *prev_id; char *prev_id_plural; char *ctxt; lex_pos_ty pos; bool obsolete; } message_intro;
@@ -116,11 +117,12 @@ do_callback_message (struct po_parser_state *ps,
 }
 
 %type <comment> COMMENT
-%type <string> STRING PREV_STRING NAME
+%type <string> STRING PREV_STRING
                msgid_pluralform prev_msgid_pluralform
 %type <stringlist> string_list prev_string_list
 %type <context> msg_intro prev_msg_intro
 %type <number> NUMBER
+%type <identifier> OTHER_IDENTIFIER
 %type <pos> DOMAIN
             PREV_MSGCTXT PREV_MSGID PREV_MSGID_PLURAL
             MSGCTXT MSGID MSGID_PLURAL MSGSTR '[' ']'

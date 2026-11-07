@@ -952,7 +952,7 @@ keyword_p (struct po_parser_state *ps, const char *s)
     }
   po_gram_error_at_line (ps->catr, &ps->gram_pos,
                          _("keyword \"%s\" unknown"), s);
-  return NAME;
+  return OTHER_IDENTIFIER;
 }
 
 
@@ -1296,11 +1296,11 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
             }
             {
               int k = keyword_p (ps, buf);
-              if (k == NAME)
+              if (k == OTHER_IDENTIFIER)
                 {
-                  lval->string.string = xstrdup (buf);
-                  lval->string.pos = ps->gram_pos;
-                  lval->string.obsolete = ps->po_lex_obsolete;
+                  lval->identifier.string = xstrdup (buf);
+                  lval->identifier.pos = ps->gram_pos;
+                  lval->identifier.obsolete = ps->po_lex_obsolete;
                 }
               else
                 {
