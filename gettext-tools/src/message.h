@@ -329,6 +329,9 @@ extern message_list_ty *
 extern message_ty *
        message_list_search (const message_list_ty *mlp,
                             const char *msgctxt, const char *msgid);
+extern message_ty *
+       message_list_search_sd (const message_list_ty *mlp,
+                               const char *msgctxt, string_desc_t msgid);
 /* Return the message in MLP which maximizes the fuzzy_search_goal_function.
    Only messages with a fuzzy_search_goal_function > FUZZY_THRESHOLD are
    considered.  In case of several messages with the same goal function value,

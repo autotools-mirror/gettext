@@ -600,6 +600,63 @@ message_list_search (const message_list_ty *mlp,
     }
 }
 
+message_ty *
+message_list_search_sd (const message_list_ty *mlp,
+                        const char *msgctxt, string_desc_t msgid)
+{
+  if (mlp->use_hashtable)
+    {
+      char *key;
+      size_t keylen;
+      if (msgctxt != NULL)
+        {
+          /* Concatenate the msgctxt and msgid, to form the hash table key.  */
+          size_t msgctxt_len = strlen (msgctxt);
+          size_t msgid_len = sd_length (msgid);
+          keylen = msgctxt_len + 1 + msgid_len + 1;
+          key = (char *) xmalloca (keylen);
+          memcpy (key, msgctxt, msgctxt_len);
+          key[msgctxt_len] = MSGCTXT_SEPARATOR;
+          memcpy (key + msgctxt_len + 1, sd_data (msgid), msgid_len);
+          key[msgctxt_len + 1 + msgid_len] = '\0';
+        }
+      else
+        {
+          /* Use only the msgid as the hash table key.  */
+          size_t msgid_len = sd_length (msgid);
+          keylen = msgid_len + 1;
+          key = (char *) xmalloca (keylen);
+          memcpy (key, sd_data (msgid), msgid_len);
+          key[msgid_len] = '\0';
+        }
+
+      void *htable_value;
+      int found = !hash_find_entry (&mlp->htable, key, keylen, &htable_value);
+
+      freea (key);
+
+      if (found)
+        return (message_ty *) htable_value;
+      else
+        return NULL;
+    }
+  else
+    {
+      for (size_t j = 0; j < mlp->nitems; ++j)
+        {
+          message_ty *mp = mlp->item[j];
+
+          if ((msgctxt != NULL
+               ? mp->msgctxt != NULL && streq (msgctxt, mp->msgctxt)
+               : mp->msgctxt == NULL)
+              && mp->msgid_len == sd_length (msgid) + 1
+              && memeq (mp->msgid, sd_data (msgid), sd_length (msgid)))
+            return mp;
+        }
+      return NULL;
+    }
+}
+
 
 double
 fuzzy_search_goal_function (const message_ty *mp,
