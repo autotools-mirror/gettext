@@ -235,7 +235,7 @@ get_sysdep_string (const struct binary_mo_file *bfp, size_t offset,
 void
 read_mo_file (message_list_ty *mlp, const char *filename)
 {
-  static lex_pos_ty pos = { __FILE__, __LINE__ };
+  lex_pos_ty pos = { xstrdup (filename), (size_t)(-1) };
 
   FILE *fp;
   if (streq (filename, "-") || streq (filename, "/dev/stdin"))
