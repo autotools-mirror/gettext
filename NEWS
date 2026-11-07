@@ -1,4 +1,15 @@
-Version 1.1 - October 2026
+Version 1.1 - December 2026
+
+# Improvements for translators:
+  The tools now support NUL characters in PO files, namely in the
+  translator comments and extracted comments of messages.  Previously,
+  such translator comments or extracted comments would get truncated.
+
+# Improvements for maintainers:
+  xgettext now drops messages with an msgid, msgid_plural, or msgctxt
+  that contain a NUL character and warns about it.  Previously, such
+  messages would get added into the POT file with a truncated msgid,
+  msgid_plural, or msgctxt.
 
 # Programming languages support:
   * C++, Rust:
