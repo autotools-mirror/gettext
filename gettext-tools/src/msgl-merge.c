@@ -647,7 +647,8 @@ message_merge (message_ty *def, message_ty *ref, bool force_fuzzy,
 
   message_ty *result =
     message_alloc (ref->msgctxt != NULL ? xstrdup (ref->msgctxt) : NULL,
-                   xstrdup (ref->msgid), ref->msgid_plural,
+                   xstrdup (ref->msgid), strlen (ref->msgid) + 1,
+                   ref->msgid_plural, ref->msgid_plural != NULL ? strlen (ref->msgid_plural) + 1 : 0,
                    msgstr, msgstr_len, &def->pos);
 
   /* Take the comments from the definition file.  There will be none at
@@ -1093,7 +1094,9 @@ merge (const char *definitions_file_name,
     if (message_list_search (ref->item[k]->messages, NULL, "") == NULL)
       {
         static lex_pos_ty pos = { __FILE__, __LINE__ };
-        message_ty *refheader = message_alloc (NULL, "", NULL, "", 1, &pos);
+        message_ty *refheader =
+          message_alloc (NULL, "", strlen ("") + 1, NULL, 0,
+                         "", strlen ("") + 1, &pos);
 
         message_list_prepend (ref->item[k]->messages, refheader);
       }

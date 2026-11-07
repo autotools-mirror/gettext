@@ -440,7 +440,8 @@ fill_header (msgdomain_list_ty *mdlp)
                   "Content-Transfer-Encoding: 8bit\n";
 
                 header_mp =
-                  message_alloc (NULL, "", NULL, msgstr, strlen (msgstr), &pos);
+                  message_alloc (NULL, "", strlen ("") + 1, NULL, 0,
+                                 msgstr, strlen (msgstr), &pos);
                 message_list_prepend (mlp, header_mp);
               }
 

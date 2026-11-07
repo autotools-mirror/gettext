@@ -388,7 +388,10 @@ meta information, not the empty string.\n"));
                 msgstr = "";
 
               /* Allocate a new message and append the message to the list.  */
-              mp = message_alloc (msgctxt, msgid, NULL, msgstr, strlen (msgstr) + 1,
+              mp = message_alloc (msgctxt,
+                                  msgid, strlen (msgid) + 1,
+                                  NULL, 0,
+                                  msgstr, strlen (msgstr) + 1,
                                   pos);
               /* Do not free msgctxt and msgid.  */
               message_list_append (mlp, mp);
@@ -592,6 +595,7 @@ remember_a_message_plural (message_ty *mp,
       if (mp->msgid_plural == NULL)
         {
           mp->msgid_plural = msgid_plural;
+          mp->msgid_plural_len = strlen (msgid_plural) + 1;
 
           /* Construct the first plural form from the prefix and suffix,
              otherwise use the empty string.  The translator will have to

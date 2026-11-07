@@ -421,7 +421,8 @@ po_message_create (void)
 {
   lex_pos_ty pos = { NULL, 0 };
 
-  return (po_message_t) message_alloc (NULL, NULL, NULL, xstrdup (""), 1, &pos);
+  return (po_message_t) message_alloc (NULL, NULL, 0, NULL, 0,
+                                       xstrdup (""), 1, &pos);
 }
 
 
@@ -477,6 +478,7 @@ po_message_set_msgid (po_message_t message, const char *msgid)
       char *old_msgid = (char *) mp->msgid;
 
       mp->msgid = xstrdup (msgid);
+      mp->msgid_len = strlen (msgid) + 1;
       if (old_msgid != NULL)
         free (old_msgid);
     }
@@ -508,6 +510,7 @@ po_message_set_msgid_plural (po_message_t message, const char *msgid_plural)
       char *old_msgid_plural = (char *) mp->msgid_plural;
 
       mp->msgid_plural = (msgid_plural != NULL ? xstrdup (msgid_plural) : NULL);
+      mp->msgid_plural_len = (msgid_plural != NULL ? strlen (msgid_plural) + 1 : 0);
       if (old_msgid_plural != NULL)
         free (old_msgid_plural);
     }

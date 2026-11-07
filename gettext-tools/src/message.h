@@ -176,9 +176,19 @@ struct message_ty
 
   /* The msgid string.  */
   const char *msgid;
+  /* The number of bytes in msgid, including the terminating NUL.
+     Only used in places where msgids with embedded NULs need to be supported.
+     In all other places, it is simply
+     = strlen (msgid) + 1.  */
+  size_t msgid_len;
 
   /* The msgid's plural, if present.  */
   const char *msgid_plural;
+  /* The number of bytes in msgid, including the terminating NUL.
+     Only used in places where msgids with embedded NULs need to be supported.
+     In all other places, it is simply
+     = (msgid_plural != NULL ? strlen (msgid_plural) + 1 : 0).  */
+  size_t msgid_plural_len;
 
   /* The msgstr strings.  */
   const char *msgstr;
@@ -255,7 +265,8 @@ struct message_ty
    PP->file_name must be allocated with indefinite extent.  */
 extern message_ty *
        message_alloc (const char *msgctxt,
-                      const char *msgid, const char *msgid_plural,
+                      const char *msgid, size_t msgid_len,
+                      const char *msgid_plural, size_t msgid_plural_len,
                       const char *msgstr, size_t msgstr_len,
                       const lex_pos_ty *pp);
 #define is_header(mp) ((mp)->msgctxt == NULL && (mp)->msgid[0] == '\0')

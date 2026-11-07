@@ -1428,7 +1428,10 @@ exclude_directive_message (abstract_catalog_reader_ty *catr,
     free (msgid);
   else
     {
-      mp = message_alloc (msgctxt, msgid, msgid_plural, "", 1, msgstr_pos);
+      mp = message_alloc (msgctxt,
+                          msgid, strlen (msgid) + 1,
+                          msgid_plural, msgid_plural != NULL ? strlen (msgid_plural) + 1 : 0,
+                          "", strlen ("") + 1, msgstr_pos);
       /* Do not free msgid.  */
       message_list_append (exclude, mp);
     }
@@ -2214,7 +2217,8 @@ Content-Transfer-Encoding: 8bit\n",
 
   static lex_pos_ty pos = { __FILE__, __LINE__ };
   message_ty *mp =
-    message_alloc (NULL, "", NULL, msgstr, strlen (msgstr) + 1, &pos);
+    message_alloc (NULL, "", strlen ("") + 1, NULL, 0,
+                   msgstr, strlen (msgstr) + 1, &pos);
 
   char *comment;
   if (copyright_holder[0] != '\0')

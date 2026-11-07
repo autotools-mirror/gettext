@@ -407,10 +407,13 @@ read_mo_file (message_list_ty *mlp, const char *filename)
                                      &msgstr_len);
 
           message_ty *mp = message_alloc (msgctxt,
-                                          msgid,
+                                          msgid, strlen (msgid) + 1,
                                           (strlen (msgid) + 1 < msgid_len
                                            ? msgid + strlen (msgid) + 1
                                            : NULL),
+                                          (strlen (msgid) + 1 < msgid_len
+                                           ? strlen (msgid + strlen (msgid) + 1) + 1
+                                           : 0),
                                           msgstr, msgstr_len,
                                           &pos);
           message_list_append (mlp, mp);
@@ -466,10 +469,13 @@ read_mo_file (message_list_ty *mlp, const char *filename)
               }
 
               message_ty *mp = message_alloc (msgctxt,
-                                              msgid,
+                                              msgid, strlen (msgid) + 1,
                                               (strlen (msgid) + 1 < msgid_len
                                                ? msgid + strlen (msgid) + 1
                                                : NULL),
+                                              (strlen (msgid) + 1 < msgid_len
+                                               ? strlen (msgid + strlen (msgid) + 1) + 1
+                                               : 0),
                                               msgstr, msgstr_len,
                                               &pos);
 

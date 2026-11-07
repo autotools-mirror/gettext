@@ -1834,7 +1834,8 @@ fill_header (msgdomain_list_ty *mdlp, bool fresh)
             {
               static lex_pos_ty pos = { __FILE__, __LINE__ };
 
-              header_mp = message_alloc (NULL, "", NULL, "", 1, &pos);
+              header_mp = message_alloc (NULL, "", strlen ("") + 1, NULL, 0,
+                                         "", strlen ("") + 1, &pos);
               message_list_prepend (mlp, header_mp);
             }
 

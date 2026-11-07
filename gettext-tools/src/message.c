@@ -185,14 +185,17 @@ const char *const syntax_check_name[NSYNTAXCHECKS] =
 
 message_ty *
 message_alloc (const char *msgctxt,
-               const char *msgid, const char *msgid_plural,
+               const char *msgid, size_t msgid_len,
+               const char *msgid_plural, size_t msgid_plural_len,
                const char *msgstr, size_t msgstr_len,
                const lex_pos_ty *pp)
 {
   message_ty *mp = XMALLOC (message_ty);
   mp->msgctxt = msgctxt;
   mp->msgid = msgid;
+  mp->msgid_len = msgid_len;
   mp->msgid_plural = (msgid_plural != NULL ? xstrdup (msgid_plural) : NULL);
+  mp->msgid_plural_len = msgid_plural_len;
   mp->msgstr = msgstr;
   mp->msgstr_len = msgstr_len;
   mp->pos = *pp;
@@ -291,7 +294,8 @@ message_copy (message_ty *mp)
 {
   message_ty *result =
     message_alloc (mp->msgctxt != NULL ? xstrdup (mp->msgctxt) : NULL,
-                   xstrdup (mp->msgid), mp->msgid_plural,
+                   xstrdup (mp->msgid), strlen (mp->msgid) + 1,
+                   mp->msgid_plural, mp->msgid_plural != NULL ? strlen (mp->msgid_plural) + 1 : 0,
                    /* FIXME: should copy mp->msgstr */
                    mp->msgstr, mp->msgstr_len,
                    &mp->pos);

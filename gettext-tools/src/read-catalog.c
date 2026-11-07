@@ -414,7 +414,10 @@ default_add_message (default_catalog_reader_ty *dcatr,
          Obsolete message go into the list at least for duplicate checking.
          It's the caller's responsibility to ignore obsolete messages when
          appropriate.  */
-      mp = message_alloc (msgctxt, msgid, msgid_plural, msgstr, msgstr_len,
+      mp = message_alloc (msgctxt,
+                          msgid, strlen (msgid) + 1,
+                          msgid_plural, msgid_plural != NULL ? strlen (msgid_plural) + 1 : 0,
+                          msgstr, msgstr_len,
                           msgstr_pos);
       if (msgid_plural != NULL)
         free (msgid_plural);

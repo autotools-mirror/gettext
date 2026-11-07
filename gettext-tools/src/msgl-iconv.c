@@ -193,8 +193,12 @@ convert_msgid (const iconveh_t *cd, message_ty *mp,
   if (mp->msgctxt != NULL)
     mp->msgctxt = convert_string (cd, mp->msgctxt, context, xeh);
   mp->msgid = convert_string (cd, mp->msgid, context, xeh);
+  mp->msgid_len = strlen (mp->msgid) + 1;
   if (mp->msgid_plural != NULL)
-    mp->msgid_plural = convert_string (cd, mp->msgid_plural, context, xeh);
+    {
+      mp->msgid_plural = convert_string (cd, mp->msgid_plural, context, xeh);
+      mp->msgid_plural_len = strlen (mp->msgid_plural) + 1;
+    }
 }
 
 static void

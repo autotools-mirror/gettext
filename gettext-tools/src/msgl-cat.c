@@ -298,7 +298,9 @@ catenate_msgdomain_list (string_list_ty *file_list,
                 }
               else
                 {
-                  tmp = message_alloc (mp->msgctxt, mp->msgid, mp->msgid_plural,
+                  tmp = message_alloc (mp->msgctxt,
+                                       mp->msgid, strlen (mp->msgid) + 1,
+                                       mp->msgid_plural, mp->msgid_plural != NULL ? strlen (mp->msgid_plural) + 1 : 0,
                                        NULL, 0, &mp->pos);
                   tmp->is_fuzzy = true; /* may be set to false later */
                   for (size_t i = 0; i < NFORMATS; i++)
