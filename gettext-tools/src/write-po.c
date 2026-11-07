@@ -790,25 +790,25 @@ wrap (const message_ty *mp, ostream_t stream,
                     {
                       if (errno == EILSEQ)
                         {
-                          xerror (xeh, CAT_SEVERITY_ERROR, mp, NULL, 0, 0,
+                          xerror (xeh, CAT_SEVERITY_WARNING, mp, NULL, 0, 0,
                                   false,
                                   _("invalid multibyte sequence"));
-                          continue;
                         }
                       else if (errno == EINVAL)
                         {
-                          /* This could happen if an incomplete
-                             multibyte sequence at the end of input
+                          /* This could happen if there is an incomplete
+                             multibyte sequence at the end of the input
                              bytes.  */
-                          xerror (xeh, CAT_SEVERITY_ERROR, mp, NULL, 0, 0,
+                          xerror (xeh, CAT_SEVERITY_WARNING, mp, NULL, 0, 0,
                                   false,
                                   _("incomplete multibyte sequence"));
-                          continue;
+                          insize = es - inptr;
                         }
                       else
                         abort ();
                     }
-                  insize = inptr - ep;
+                  else
+                    insize = inptr - ep;
                   portion_len += insize;
                   ep += insize - 1;
                 }
@@ -931,16 +931,18 @@ wrap (const message_ty *mp, ostream_t stream,
                     }
                   if (res == (size_t)(-1))
                     {
+                      /* No need to report the "invalid multibyte sequence" or
+                         "incomplete multibyte sequence" warning a second time.
+                         Just set insize.  */
                       if (errno == EILSEQ)
-                        {
-                          xerror (xeh, CAT_SEVERITY_ERROR, mp, NULL, 0, 0,
-                                  false, _("invalid multibyte sequence"));
-                          continue;
-                        }
+                        ;
+                      else if (errno == EINVAL)
+                        insize = es - inptr;
                       else
                         abort ();
                     }
-                  insize = inptr - ep;
+                  else
+                    insize = inptr - ep;
                   memcpy_small (pp, ep, insize);
                   pp += insize;
                   *op = brk;
