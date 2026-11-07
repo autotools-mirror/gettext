@@ -1,0 +1,13 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Rust support: Simple things.
+
+cat <<\EOF > xg-rs-10.rs
+/* An unterminated comment.
+EOF
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location -c -d xg-rs-10.tmp xg-rs-10.rs || Exit 1
+
+exit 0

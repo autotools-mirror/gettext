@@ -294,31 +294,35 @@ static void handle_comments (TSNode node)
       string_desc_t entire =
         sd_new_addr (ts_node_end_byte (node) - ts_node_start_byte (node),
                      contents + ts_node_start_byte (node));
-      /* It should start and end with the C comment markers.  */
+      /* It should start with the C comment markers.  */
       if (!(sd_length (entire) >= 4
             && sd_char_at (entire, 0) == '/'
-            && sd_char_at (entire, 1) == '*'
-            && sd_char_at (entire, sd_length (entire) - 2) == '*'
-            && sd_char_at (entire, sd_length (entire) - 1) == '/'))
+            && sd_char_at (entire, 1) == '*'))
         abort ();
-      string_desc_t gist = sd_substring (entire, 2, sd_length (entire) - 2);
-      /* Split into lines.
-         Remove leading and trailing whitespace from each line.  */
-      for (;;)
+      /* It should also end with the C comment markers, unless it's an
+         unterminated comment, i.e. unless it ends at EOF.  */
+      if (sd_char_at (entire, sd_length (entire) - 2) == '*'
+          && sd_char_at (entire, sd_length (entire) - 1) == '/')
         {
-          ptrdiff_t nl_index = sd_index (gist, '\n');
-          if (nl_index >= 0)
+          string_desc_t gist = sd_substring (entire, 2, sd_length (entire) - 2);
+          /* Split into lines.
+             Remove leading and trailing whitespace from each line.  */
+          for (;;)
             {
-              save_comment_line (sd_substring (gist, 0, nl_index));
-              gist = sd_substring (gist, nl_index + 1, sd_length (gist));
+              ptrdiff_t nl_index = sd_index (gist, '\n');
+              if (nl_index >= 0)
+                {
+                  save_comment_line (sd_substring (gist, 0, nl_index));
+                  gist = sd_substring (gist, nl_index + 1, sd_length (gist));
+                }
+              else
+                {
+                  save_comment_line (gist);
+                  break;
+                }
             }
-          else
-            {
-              save_comment_line (gist);
-              break;
-            }
+          last_comment_line = ts_node_end_point (node).row + 1;
         }
-      last_comment_line = ts_node_end_point (node).row + 1;
     }
   else
     last_non_comment_line = ts_node_line_number (node);
