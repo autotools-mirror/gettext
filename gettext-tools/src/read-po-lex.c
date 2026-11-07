@@ -1248,6 +1248,9 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
           case 'S': case 'T': case 'U': case 'V': case 'W': case 'X':
           case 'Y': case 'Z':
           case '_': case '$':
+            /* Accumulate a keyword.
+               It starts with an (ASCII letter or '_' or '$'), and is followed
+               by any number of (ASCII letter or '_' or '$' or ASCII digit).  */
             {
               size_t bufpos = 0;
               for (;;)
@@ -1288,6 +1291,7 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                 }
               lex_ungetc (ps, mbc);
 
+              /* NUL-terminate it.  */
               buf[bufpos] = '\0';
             }
             {
@@ -1308,6 +1312,9 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
 
           case '0': case '1': case '2': case '3': case '4':
           case '5': case '6': case '7': case '8': case '9':
+            /* Accumulate a number.
+               It starts with an ASCII digit, and is followed by any number of
+               ASCII digits.  */
             {
               size_t bufpos = 0;
               for (;;)
@@ -1336,6 +1343,7 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                 }
               lex_ungetc (ps, mbc);
 
+              /* NUL-terminate it.  */
               buf[bufpos] = '\0';
             }
 
