@@ -104,8 +104,8 @@ do_callback_message (struct po_parser_state *ps,
 
 %union
 {
+  struct { string_desc_t string; lex_pos_ty pos; bool obsolete; } comment;
   struct { char *string; lex_pos_ty pos; bool obsolete; } string;
-  struct { string_desc_t string; lex_pos_ty pos; bool obsolete; } stringdesc;
   struct { string_list_ty stringlist; lex_pos_ty pos; bool obsolete; } stringlist;
   struct { long number; lex_pos_ty pos; bool obsolete; } number;
   struct { lex_pos_ty pos; bool obsolete; } pos;
@@ -114,9 +114,9 @@ do_callback_message (struct po_parser_state *ps,
   struct { struct msgstr_def rhs; lex_pos_ty pos; bool obsolete; } rhs;
 }
 
+%type <comment> COMMENT
 %type <string> STRING PREV_STRING NAME
                msg_intro prev_msg_intro msgid_pluralform prev_msgid_pluralform
-%type <stringdesc> COMMENT
 %type <stringlist> string_list prev_string_list
 %type <number> NUMBER
 %type <pos> DOMAIN

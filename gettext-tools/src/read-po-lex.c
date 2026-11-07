@@ -1165,10 +1165,10 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                        catalog_reader_seen_generic_comment immediately,
                        before we could make use of the same buf for other
                        tokens.  */
-                lval->stringdesc.string =
+                lval->comment.string =
                   sd_new_addr (bufpos, (const char *) buf);
-                lval->stringdesc.pos = ps->gram_pos;
-                lval->stringdesc.obsolete = ps->po_lex_obsolete;
+                lval->comment.pos = ps->gram_pos;
+                lval->comment.obsolete = ps->po_lex_obsolete;
                 ps->po_lex_obsolete = false;
                 ps->signal_eilseq = true;
                 return COMMENT;
