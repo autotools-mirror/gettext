@@ -107,6 +107,7 @@ do_callback_message (struct po_parser_state *ps,
   struct { string_desc_t string; lex_pos_ty pos; bool obsolete; } comment;
   struct { char *string; lex_pos_ty pos; bool obsolete; } string;
   struct { string_list_ty stringlist; lex_pos_ty pos; bool obsolete; } stringlist;
+  struct { char *ctxt; lex_pos_ty pos; bool obsolete; } context;
   struct { long number; lex_pos_ty pos; bool obsolete; } number;
   struct { lex_pos_ty pos; bool obsolete; } pos;
   struct { char *ctxt; char *id; char *id_plural; lex_pos_ty pos; bool obsolete; } prev;
@@ -116,8 +117,9 @@ do_callback_message (struct po_parser_state *ps,
 
 %type <comment> COMMENT
 %type <string> STRING PREV_STRING NAME
-               msg_intro prev_msg_intro msgid_pluralform prev_msgid_pluralform
+               msgid_pluralform prev_msgid_pluralform
 %type <stringlist> string_list prev_string_list
+%type <context> msg_intro prev_msg_intro
 %type <number> NUMBER
 %type <pos> DOMAIN
             PREV_MSGCTXT PREV_MSGID PREV_MSGID_PLURAL
@@ -233,7 +235,7 @@ message_intro
                   $$.prev_ctxt = NULL;
                   $$.prev_id = NULL;
                   $$.prev_id_plural = NULL;
-                  $$.ctxt = $1.string;
+                  $$.ctxt = $1.ctxt;
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
@@ -243,7 +245,7 @@ message_intro
                   $$.prev_ctxt = $1.ctxt;
                   $$.prev_id = $1.id;
                   $$.prev_id_plural = $1.id_plural;
-                  $$.ctxt = $2.string;
+                  $$.ctxt = $2.ctxt;
                   $$.pos = $2.pos;
                   $$.obsolete = $2.obsolete;
                 }
@@ -254,7 +256,7 @@ prev
         : prev_msg_intro prev_string_list
                 {
                   check_obsolete ($1, $2);
-                  $$.ctxt = $1.string;
+                  $$.ctxt = $1.ctxt;
                   $$.id = string_list_concat_destroy (&$2.stringlist);
                   $$.id_plural = NULL;
                   $$.pos = $1.pos;
@@ -264,7 +266,7 @@ prev
                 {
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
-                  $$.ctxt = $1.string;
+                  $$.ctxt = $1.ctxt;
                   $$.id = string_list_concat_destroy (&$2.stringlist);
                   $$.id_plural = $3.string;
                   $$.pos = $1.pos;
@@ -276,7 +278,7 @@ prev
 msg_intro
         : MSGID
                 {
-                  $$.string = NULL;
+                  $$.ctxt = NULL;
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
@@ -284,7 +286,7 @@ msg_intro
                 {
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
-                  $$.string = string_list_concat_destroy (&$2.stringlist);
+                  $$.ctxt = string_list_concat_destroy (&$2.stringlist);
                   $$.pos = $3.pos;
                   $$.obsolete = $3.obsolete;
                 }
@@ -293,7 +295,7 @@ msg_intro
 prev_msg_intro
         : PREV_MSGID
                 {
-                  $$.string = NULL;
+                  $$.ctxt = NULL;
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
@@ -301,7 +303,7 @@ prev_msg_intro
                 {
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
-                  $$.string = string_list_concat_destroy (&$2.stringlist);
+                  $$.ctxt = string_list_concat_destroy (&$2.stringlist);
                   $$.pos = $3.pos;
                   $$.obsolete = $3.obsolete;
                 }
