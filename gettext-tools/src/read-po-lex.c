@@ -36,6 +36,7 @@
 #include <error.h>
 #include "attribute.h"
 #include "string-desc.h"
+#include "xstring-desc.h"
 #include "c-ctype.h"
 #include "uniwidth.h"
 #include "gettext.h"
@@ -1222,20 +1223,25 @@ po_gram_lex (union PO_GRAM_STYPE *lval, struct po_parser_state *ps)
                       bufpos += mb_len (mbc);
                     }
                 }
+              /* NUL-terminate it.  */
               buf[bufpos] = '\0';
+
+              /* Strings cannot contain the msgctxt separator, because it cannot
+                 be faithfully represented in the msgid of a .mo file.  */
+              if (memchr (buf, MSGCTXT_SEPARATOR, bufpos) != NULL)
+                po_gram_error_at_line (ps->catr, &ps->gram_pos,
+                                       _("context separator <EOT> within string"));
+
+              /* Return it in the heap, with possible embedded NUL characters,
+                 and with an NUL terminator.  This way, it can be
+                   - easily converted to a C 'char *',
+                   - and also easily converted to an rw_string_desc_t without a
+                     NUL terminator.  */
+              lval->stringdesc.string = xsd_copy (sd_new_addr (bufpos + 1, (const char *) { buf }));
+              lval->stringdesc.pos = ps->gram_pos;
+              lval->stringdesc.obsolete = ps->po_lex_obsolete;
+              return (ps->po_lex_previous ? PREV_STRING : STRING);
             }
-
-            /* Strings cannot contain the msgctxt separator, because it cannot
-               be faithfully represented in the msgid of a .mo file.  */
-            if (strchr (buf, MSGCTXT_SEPARATOR) != NULL)
-              po_gram_error_at_line (ps->catr, &ps->gram_pos,
-                                     _("context separator <EOT> within string"));
-
-            /* FIXME: Treatment of embedded \000 chars is incorrect.  */
-            lval->string.string = xstrdup (buf);
-            lval->string.pos = ps->gram_pos;
-            lval->string.obsolete = ps->po_lex_obsolete;
-            return (ps->po_lex_previous ? PREV_STRING : STRING);
 
           case 'a': case 'b': case 'c': case 'd': case 'e': case 'f':
           case 'g': case 'h': case 'i': case 'j': case 'k': case 'l':

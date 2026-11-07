@@ -29,6 +29,7 @@
 
 #include <error.h>
 #include "string-desc.h"
+#include "xstring-desc.h"
 #include "string-list.h"
 #include "read-po-lex.h"
 #include "po-charset.h"
@@ -42,6 +43,14 @@
   if ((value1).obsolete != (value2).obsolete) \
     po_gram_error_at_line (ps->catr, &(value2).pos, \
                            _("inconsistent use of #~"));
+
+#define warn_about_nul(pretty_part) \
+  po_gram_error_at_line (ps->catr, &ps->gram_pos, \
+                         _("'%s' string contains a NUL character"), \
+                         pretty_part)
+#define check_string_against_nuls(value,pretty_part) \
+  if (sd_index (sd_substring ((value).string, 0, sd_length ((value).string) - 1), '\0') >= 0) \
+    warn_about_nul (pretty_part)
 
 static inline void
 do_callback_message (struct po_parser_state *ps,
@@ -106,28 +115,34 @@ do_callback_message (struct po_parser_state *ps,
 {
   struct { string_desc_t string; lex_pos_ty pos; bool obsolete; } comment;
   struct { char *string; lex_pos_ty pos; bool obsolete; } string;
+  struct { rw_string_desc_t string; lex_pos_ty pos; bool obsolete; } stringdesc;
   struct { string_list_ty list; lex_pos_ty pos; bool obsolete; } stringlist;
+  struct { string_desc_list_ty list; lex_pos_ty pos; bool obsolete; } stringdesclist;
   struct { char *ctxt; lex_pos_ty pos; bool obsolete; } context;
   struct { long number; lex_pos_ty pos; bool obsolete; } number;
   struct { char *string; lex_pos_ty pos; bool obsolete; } identifier;
   struct { lex_pos_ty pos; bool obsolete; } pos;
   struct { char *ctxt; char *id; char *id_plural; lex_pos_ty pos; bool obsolete; } prev;
   struct { char *prev_ctxt; char *prev_id; char *prev_id_plural; char *ctxt; lex_pos_ty pos; bool obsolete; } message_intro;
+  struct { char *prev_ctxt; char *prev_id; char *prev_id_plural; char *ctxt; rw_string_desc_t id; lex_pos_ty pos; bool obsolete; } message_upto_msgid;
   struct { struct msgstr_def rhs; lex_pos_ty pos; bool obsolete; } rhs;
 }
 
 %type <comment> COMMENT
-%type <string> STRING PREV_STRING
-               msgid_pluralform prev_msgid_pluralform
-%type <stringlist> string_list prev_string_list
+%type <string> prev_msgid_pluralform
+%type <stringdesc> STRING PREV_STRING
+                   msgid_pluralform
+%type <stringlist> stringwithoutnuls_list prev_stringwithoutnuls_list
+%type <stringdesclist> stringwithnuls_list
 %type <context> msg_intro prev_msg_intro
 %type <number> NUMBER
 %type <identifier> OTHER_IDENTIFIER
 %type <pos> DOMAIN
             PREV_MSGCTXT PREV_MSGID PREV_MSGID_PLURAL
             MSGCTXT MSGID MSGID_PLURAL MSGSTR '[' ']'
-%type <prev> prev
+%type <prev> prev prev_upto_msgid
 %type <message_intro> message_intro
+%type <message_upto_msgid> message_upto_msgid
 %type <rhs> pluralform pluralform_list
 
 %right MSGSTR
@@ -154,79 +169,101 @@ comment
 domain
         : DOMAIN STRING
                 {
-                   catalog_reader_seen_domain (ps->catr, $2.string,
-                                               &ps->gram_pos);
+                  check_string_against_nuls ($2, "domain");
+                  catalog_reader_seen_domain (ps->catr, sd_data ($2.string),
+                                              &ps->gram_pos);
                 }
         ;
 
 
 message
-        : message_intro string_list MSGSTR string_list
+        : message_upto_msgid MSGSTR
                 {
-                  char *string2 = string_list_concat_destroy (&$2.list);
+                  strcpy (ps->pretty_part, "msgstr");
+                }
+          stringwithoutnuls_list
+                {
                   char *string4 = string_list_concat_destroy (&$4.list);
 
                   check_obsolete ($1, $2);
-                  check_obsolete ($1, $3);
                   check_obsolete ($1, $4);
                   if (!$1.obsolete || ps->catr->pass_obsolete_entries)
-                    do_callback_message (ps, $1.ctxt, string2, &$1.pos, NULL,
-                                         string4, strlen (string4) + 1, &$3.pos,
-                                         $1.prev_ctxt,
-                                         $1.prev_id, $1.prev_id_plural,
-                                         $1.obsolete);
+                    {
+                      char *msgid = xsd_c ($1.id);
+                      do_callback_message (ps, $1.ctxt, msgid, &$1.pos,
+                                           NULL,
+                                           string4, strlen (string4) + 1, &$2.pos,
+                                           $1.prev_ctxt,
+                                           $1.prev_id, $1.prev_id_plural,
+                                           $1.obsolete);
+                    }
                   else
                     {
                       free_message_intro ($1);
-                      free (string2);
                       free (string4);
                     }
+                  sd_free ($1.id);
                 }
-        | message_intro string_list msgid_pluralform pluralform_list
+        | message_upto_msgid msgid_pluralform pluralform_list
                 {
-                  char *string2 = string_list_concat_destroy (&$2.list);
-
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
-                  check_obsolete ($1, $4);
                   if (!$1.obsolete || ps->catr->pass_obsolete_entries)
-                    do_callback_message (ps, $1.ctxt, string2, &$1.pos, $3.string,
-                                         $4.rhs.msgstr, $4.rhs.msgstr_len, &$4.pos,
-                                         $1.prev_ctxt,
-                                         $1.prev_id, $1.prev_id_plural,
-                                         $1.obsolete);
+                    {
+                      char *msgid = xsd_c ($1.id);
+                      char *msgid_plural = xsd_c ($2.string);
+                      do_callback_message (ps, $1.ctxt, msgid, &$1.pos,
+                                           msgid_plural,
+                                           $3.rhs.msgstr, $3.rhs.msgstr_len, &$3.pos,
+                                           $1.prev_ctxt,
+                                           $1.prev_id, $1.prev_id_plural,
+                                           $1.obsolete);
+                    }
                   else
                     {
                       free_message_intro ($1);
-                      free (string2);
-                      free ($3.string);
-                      free ($4.rhs.msgstr);
+                      free ($3.rhs.msgstr);
                     }
+                  sd_free ($1.id);
+                  sd_free ($2.string);
                 }
-        | message_intro string_list msgid_pluralform
+        | message_upto_msgid msgid_pluralform
                 {
                   check_obsolete ($1, $2);
-                  check_obsolete ($1, $3);
                   po_gram_error_at_line (ps->catr, &$1.pos, _("missing 'msgstr[]' section"));
                   free_message_intro ($1);
-                  string_list_destroy (&$2.list);
-                  free ($3.string);
+                  sd_free ($2.string);
                 }
-        | message_intro string_list pluralform_list
+        | message_upto_msgid pluralform_list
                 {
                   check_obsolete ($1, $2);
-                  check_obsolete ($1, $3);
                   po_gram_error_at_line (ps->catr, &$1.pos, _("missing 'msgid_plural' section"));
                   free_message_intro ($1);
-                  string_list_destroy (&$2.list);
-                  free ($3.rhs.msgstr);
+                  free ($2.rhs.msgstr);
                 }
-        | message_intro string_list
+        | message_upto_msgid
                 {
-                  check_obsolete ($1, $2);
                   po_gram_error_at_line (ps->catr, &$1.pos, _("missing 'msgstr' section"));
                   free_message_intro ($1);
-                  string_list_destroy (&$2.list);
+                }
+        ;
+
+
+message_upto_msgid
+        : message_intro
+                {
+                  strcpy (ps->pretty_part, "msgid");
+                }
+          stringwithnuls_list
+                {
+                  check_obsolete ($1, $3);
+                  $$.prev_ctxt = $1.prev_ctxt;
+                  $$.prev_id = $1.prev_id;
+                  $$.prev_id_plural = $1.prev_id_plural;
+                  $$.ctxt = $1.ctxt;
+                  $$.id = string_desc_list_concat_destroy (&$3.list);
+                  $$.pos = $1.pos;
+                  $$.obsolete = $1.obsolete;
                 }
         ;
 
@@ -255,22 +292,37 @@ message_intro
 
 
 prev
-        : prev_msg_intro prev_string_list
+        : prev_upto_msgid
                 {
-                  check_obsolete ($1, $2);
                   $$.ctxt = $1.ctxt;
-                  $$.id = string_list_concat_destroy (&$2.list);
-                  $$.id_plural = NULL;
+                  $$.id = $1.id;
+                  $$.id_plural = $1.id_plural;
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
-        | prev_msg_intro prev_string_list prev_msgid_pluralform
+        | prev_upto_msgid prev_msgid_pluralform
                 {
                   check_obsolete ($1, $2);
+                  $$.ctxt = $1.ctxt;
+                  $$.id = $1.id;
+                  $$.id_plural = $2.string;
+                  $$.pos = $1.pos;
+                  $$.obsolete = $1.obsolete;
+                }
+        ;
+
+
+prev_upto_msgid
+        : prev_msg_intro
+                {
+                  strcpy (ps->pretty_part, "msgid");
+                }
+          prev_stringwithoutnuls_list
+                {
                   check_obsolete ($1, $3);
                   $$.ctxt = $1.ctxt;
-                  $$.id = string_list_concat_destroy (&$2.list);
-                  $$.id_plural = $3.string;
+                  $$.id = string_list_concat_destroy (&$3.list);
+                  $$.id_plural = NULL;
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
@@ -284,13 +336,17 @@ msg_intro
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
-        | MSGCTXT string_list MSGID
+        | MSGCTXT
                 {
-                  check_obsolete ($1, $2);
+                  strcpy (ps->pretty_part, "msgctxt");
+                }
+          stringwithoutnuls_list MSGID
+                {
                   check_obsolete ($1, $3);
-                  $$.ctxt = string_list_concat_destroy (&$2.list);
-                  $$.pos = $3.pos;
-                  $$.obsolete = $3.obsolete;
+                  check_obsolete ($1, $4);
+                  $$.ctxt = string_list_concat_destroy (&$3.list);
+                  $$.pos = $4.pos;
+                  $$.obsolete = $4.obsolete;
                 }
         ;
 
@@ -301,33 +357,45 @@ prev_msg_intro
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
-        | PREV_MSGCTXT prev_string_list PREV_MSGID
+        | PREV_MSGCTXT
                 {
-                  check_obsolete ($1, $2);
+                  strcpy (ps->pretty_part, "msgctxt");
+                }
+          prev_stringwithoutnuls_list PREV_MSGID
+                {
                   check_obsolete ($1, $3);
-                  $$.ctxt = string_list_concat_destroy (&$2.list);
-                  $$.pos = $3.pos;
-                  $$.obsolete = $3.obsolete;
+                  check_obsolete ($1, $4);
+                  $$.ctxt = string_list_concat_destroy (&$3.list);
+                  $$.pos = $4.pos;
+                  $$.obsolete = $4.obsolete;
                 }
         ;
 
 
 msgid_pluralform
-        : MSGID_PLURAL string_list
+        : MSGID_PLURAL
                 {
-                  check_obsolete ($1, $2);
+                  strcpy (ps->pretty_part, "msgid_plural");
+                }
+          stringwithnuls_list
+                {
+                  check_obsolete ($1, $3);
                   ps->plural_counter = 0;
-                  $$.string = string_list_concat_destroy (&$2.list);
+                  $$.string = string_desc_list_concat_destroy (&$3.list);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
         ;
 
 prev_msgid_pluralform
-        : PREV_MSGID_PLURAL prev_string_list
+        : PREV_MSGID_PLURAL
                 {
-                  check_obsolete ($1, $2);
-                  $$.string = string_list_concat_destroy (&$2.list);
+                  strcpy (ps->pretty_part, "msgid_plural");
+                }
+          prev_stringwithoutnuls_list
+                {
+                  check_obsolete ($1, $3);
+                  $$.string = string_list_concat_destroy (&$3.list);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
@@ -354,12 +422,16 @@ pluralform_list
         ;
 
 pluralform
-        : MSGSTR '[' NUMBER ']' string_list
+        : MSGSTR '[' NUMBER ']'
+                {
+                  sprintf (ps->pretty_part, "msgstr[%ld]", $3.number);
+                }
+          stringwithoutnuls_list
                 {
                   check_obsolete ($1, $2);
                   check_obsolete ($1, $3);
                   check_obsolete ($1, $4);
-                  check_obsolete ($1, $5);
+                  check_obsolete ($1, $6);
                   if ($3.number != ps->plural_counter)
                     {
                       if (ps->plural_counter == 0)
@@ -368,7 +440,7 @@ pluralform
                         po_gram_error_at_line (ps->catr, &$1.pos, _("plural form has wrong index"));
                     }
                   ps->plural_counter++;
-                  $$.rhs.msgstr = string_list_concat_destroy (&$5.list);
+                  $$.rhs.msgstr = string_list_concat_destroy (&$6.list);
                   $$.rhs.msgstr_len = strlen ($$.rhs.msgstr) + 1;
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
@@ -376,41 +448,67 @@ pluralform
         ;
 
 
-string_list
+stringwithoutnuls_list          // depends on ps->pretty_part being set
         : STRING
                 {
+                  check_string_against_nuls ($1, ps->pretty_part);
                   string_list_init (&$$.list);
-                  string_list_append (&$$.list, $1.string);
-                  free ($1.string);
+                  string_list_append (&$$.list, sd_data ($1.string));
+                  sd_free ($1.string);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
-        | string_list STRING
+        | stringwithoutnuls_list STRING
                 {
                   check_obsolete ($1, $2);
+                  check_string_against_nuls ($2, ps->pretty_part);
                   $$.list = $1.list;
-                  string_list_append (&$$.list, $2.string);
-                  free ($2.string);
+                  string_list_append (&$$.list, sd_data ($2.string));
+                  sd_free ($2.string);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
         ;
 
-prev_string_list
+prev_stringwithoutnuls_list     // depends on ps->pretty_part being set
         : PREV_STRING
                 {
+                  check_string_against_nuls ($1, ps->pretty_part);
                   string_list_init (&$$.list);
-                  string_list_append (&$$.list, $1.string);
-                  free ($1.string);
+                  string_list_append (&$$.list, sd_data ($1.string));
+                  sd_free ($1.string);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }
-        | prev_string_list PREV_STRING
+        | prev_stringwithoutnuls_list PREV_STRING
                 {
                   check_obsolete ($1, $2);
+                  check_string_against_nuls ($2, ps->pretty_part);
                   $$.list = $1.list;
-                  string_list_append (&$$.list, $2.string);
-                  free ($2.string);
+                  string_list_append (&$$.list, sd_data ($2.string));
+                  sd_free ($2.string);
+                  $$.pos = $1.pos;
+                  $$.obsolete = $1.obsolete;
+                }
+        ;
+
+stringwithnuls_list             // depends on ps->pretty_part being set
+        : STRING
+                {
+                  check_string_against_nuls ($1, ps->pretty_part);
+                  string_desc_list_init (&$$.list);
+                  string_desc_list_append (&$$.list, sd_readonly (sd_substring ($1.string, 0, sd_length ($1.string) - 1)));
+                  sd_free ($1.string);
+                  $$.pos = $1.pos;
+                  $$.obsolete = $1.obsolete;
+                }
+        | stringwithnuls_list STRING
+                {
+                  check_obsolete ($1, $2);
+                  check_string_against_nuls ($2, ps->pretty_part);
+                  $$.list = $1.list;
+                  string_desc_list_append (&$$.list, sd_readonly (sd_substring ($2.string, 0, sd_length ($2.string) - 1)));
+                  sd_free ($2.string);
                   $$.pos = $1.pos;
                   $$.obsolete = $1.obsolete;
                 }

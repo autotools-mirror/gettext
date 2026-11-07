@@ -35,7 +35,7 @@ TESTS = gettext-1 gettext-2 \
 	msgcat-8 msgcat-9 msgcat-10 msgcat-11 msgcat-12 msgcat-13 msgcat-14 \
 	msgcat-15 msgcat-16 msgcat-17 msgcat-18 msgcat-19 msgcat-20 msgcat-21 \
 	msgcat-22 msgcat-23 msgcat-24 \
-	msgcat-nul-1 \
+	msgcat-nul-1 msgcat-nul-2 \
 	msgcat-properties-1 msgcat-properties-2 \
 	msgcat-properties-nul-1 msgcat-properties-nul-2 \
 	msgcat-stringtable-1 \
@@ -56,6 +56,7 @@ TESTS = gettext-1 gettext-2 \
 	msgfmt-1 msgfmt-2 msgfmt-3 msgfmt-4 msgfmt-5 msgfmt-6 msgfmt-7 \
 	msgfmt-8 msgfmt-9 msgfmt-10 msgfmt-11 msgfmt-12 msgfmt-13 msgfmt-14 \
 	msgfmt-15 msgfmt-16 msgfmt-17 msgfmt-18 msgfmt-19 msgfmt-20 msgfmt-21 \
+	msgfmt-nul-1 \
 	msgfmt-properties-1 \
 	msgfmt-tcl-1 msgfmt-tcl-2 \
 	msgfmt-qt-1 msgfmt-qt-2 \

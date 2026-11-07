@@ -1,0 +1,66 @@
+#! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Verify that msgcat rejects NUL characters in msgctxt, msgid, and msgstr strings.
+
+{
+cat <<\EOF
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+EOF
+printf '# This is a\0comment.\n'
+printf 'msgid "abc\0def"\n'
+cat <<\EOF
+msgstr "ABC"
+
+msgid "one"
+EOF
+printf 'msgid_plural "t\0oo"\n'
+cat <<\EOF
+msgstr[0] ""
+msgstr[1] ""
+
+EOF
+printf 'msgctxt "Menu\0Submenu"\n'
+cat <<\EOF
+msgid "abcd"
+EOF
+printf 'msgstr "ABC\0DEF"\n'
+cat <<\EOF
+
+msgid "goal"
+msgid_plural "goals"
+EOF
+printf 'msgstr[0] "Tor\0"\n'
+printf 'msgstr[ 1 ] "Tore\0"\n'
+printf 'msgstr[ 2 ] "Toooooooor\0"\n'
+} > mcat-nul-2.in
+
+: ${MSGCAT=msgcat}
+LC_ALL=C ${MSGCAT} -o mcat-nul-2.out mcat-nul-2.in 2>mcat-nul-2.tmp
+test $? = 1 || Exit 1
+LC_ALL=C tr -d '\r' < mcat-nul-2.tmp > mcat-nul-2.tmq || Exit 1
+grep -v '^==' mcat-nul-2.tmq > mcat-nul-2.err
+
+# Check the reported errors.
+LC_ALL=C sed -e '$d' < mcat-nul-2.err > mcat-nul-2.err1 || Exit 1
+
+cat <<\EOF > mcat-nul-2.ok
+mcat-nul-2.in:8: 'msgid' string contains a NUL character
+mcat-nul-2.in:12: 'msgid_plural' string contains a NUL character
+mcat-nul-2.in:16: 'msgctxt' string contains a NUL character
+mcat-nul-2.in:18: 'msgstr' string contains a NUL character
+mcat-nul-2.in:22: 'msgstr[0]' string contains a NUL character
+mcat-nul-2.in:23: 'msgstr[1]' string contains a NUL character
+mcat-nul-2.in:24: 'msgstr[2]' string contains a NUL character
+EOF
+
+: ${DIFF=diff}
+${DIFF} mcat-nul-2.ok mcat-nul-2.err1
+result=$?
+
+exit $result

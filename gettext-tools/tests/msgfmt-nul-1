@@ -1,0 +1,66 @@
+#! /bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Verify that msgfmt rejects NUL characters in msgctxt, msgid, and msgstr strings.
+
+{
+cat <<\EOF
+msgid ""
+msgstr ""
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+EOF
+printf '# This is a\0comment.\n'
+printf 'msgid "abc\0def"\n'
+cat <<\EOF
+msgstr "ABC"
+
+msgid "one"
+EOF
+printf 'msgid_plural "t\0oo"\n'
+cat <<\EOF
+msgstr[0] ""
+msgstr[1] ""
+
+EOF
+printf 'msgctxt "Menu\0Submenu"\n'
+cat <<\EOF
+msgid "abcd"
+EOF
+printf 'msgstr "ABC\0DEF"\n'
+cat <<\EOF
+
+msgid "goal"
+msgid_plural "goals"
+EOF
+printf 'msgstr[0] "Tor\0"\n'
+printf 'msgstr[ 1 ] "Tore\0"\n'
+printf 'msgstr[ 2 ] "Toooooooor\0"\n'
+} > mf-nul-1.in
+
+: ${MSGFMT=msgfmt}
+LC_ALL=C ${MSGFMT} mf-nul-1.in 2>mf-nul-1.tmp
+test $? = 1 || Exit 1
+LC_ALL=C tr -d '\r' < mf-nul-1.tmp > mf-nul-1.tmq || Exit 1
+grep -v '^==' mf-nul-1.tmq > mf-nul-1.err
+
+# Check the reported errors.
+LC_ALL=C sed -e '$d' < mf-nul-1.err > mf-nul-1.err1 || Exit 1
+
+cat <<\EOF > mf-nul-1.ok
+mf-nul-1.in:8: 'msgid' string contains a NUL character
+mf-nul-1.in:12: 'msgid_plural' string contains a NUL character
+mf-nul-1.in:16: 'msgctxt' string contains a NUL character
+mf-nul-1.in:18: 'msgstr' string contains a NUL character
+mf-nul-1.in:22: 'msgstr[0]' string contains a NUL character
+mf-nul-1.in:23: 'msgstr[1]' string contains a NUL character
+mf-nul-1.in:24: 'msgstr[2]' string contains a NUL character
+EOF
+
+: ${DIFF=diff}
+${DIFF} mf-nul-1.ok mf-nul-1.err1
+result=$?
+
+exit $result
