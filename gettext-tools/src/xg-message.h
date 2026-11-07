@@ -87,6 +87,10 @@ extern void remember_a_message_plural (message_ty *mp,
 /* The following functions are used by remember_a_message.
    Most extractors don't need to invoke them explicitly.  */
 
+/* Warns when an msgid or msgid_plural or msgctxt contains a NUL character.  */
+extern void warn_nul_character (const lex_pos_ty *pos,
+                                const char *pretty_msgstr);
+
 /* Eliminates the 'undecided' values in mp->is_format.  */
 extern void decide_is_format (message_ty *mp);
 

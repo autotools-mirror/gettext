@@ -1,0 +1,41 @@
+#!/bin/sh
+. "${srcdir=.}/init.sh"; path_prepend_ . ../src
+
+# Test Ruby support: NUL characters in msgids.
+
+(rxgettext --version) >/dev/null 2>/dev/null \
+  || { echo "Skipping test: rxgettext not found"; Exit 77; }
+
+{
+printf '_("one\0dot")\n'
+cat <<\EOF
+_("two dots")
+EOF
+printf 'gettext("three\0dots")\n'
+printf 'ngettext("four\0dots", "five dots", 4)\n'
+printf 'ngettext("four dots", "five\0dots", 5)\n'
+cat <<\EOF
+_("six dots")
+EOF
+} > xg-ru-nul-2.rb
+
+: ${XGETTEXT=xgettext}
+${XGETTEXT} --omit-header --no-location --add-comments=TRANSLATORS: \
+  -d xg-ru-nul-2.tmp xg-ru-nul-2.rb 2>xg-ru-nul-2.err || Exit 1
+test -s xg-ru-nul-2.err || Exit 1
+cat xg-ru-nul-2.err
+LC_ALL=C tr -d '\r' < xg-ru-nul-2.tmp.po > xg-ru-nul-2.po || Exit 1
+
+cat <<\EOF > xg-ru-nul-2.ok
+msgid "two dots"
+msgstr ""
+
+msgid "six dots"
+msgstr ""
+EOF
+
+: ${DIFF=diff}
+${DIFF} xg-ru-nul-2.ok xg-ru-nul-2.po
+result=$?
+
+exit $result

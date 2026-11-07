@@ -137,8 +137,8 @@ extract_ruby (const char *found_in_dir, const char *real_filename,
         error (EXIT_FAILURE, errno, _("fdopen() failed"));
 
       /* Read the resulting PO file.  */
-      extract_po (fp, dummy_filename, dummy_filename, flag_table,
-                  pass == 0 ? mdlp : mdlp2);
+      extract_po_for_ruby (fp, dummy_filename, dummy_filename, flag_table,
+                           pass == 0 ? mdlp : mdlp2);
 
       fclose (fp);
 
@@ -148,6 +148,40 @@ extract_ruby (const char *found_in_dir, const char *real_filename,
       if (exitstatus != 0)
         error (EXIT_FAILURE, 0, _("%s subprocess failed with exit code %d"),
                progname, exitstatus);
+    }
+
+  /* Now eliminate messages with NUL characters in msgid or msgid_plural.
+     Like remember_a_message does.  */
+  for (size_t i = 0; i < mdlp->nitems; i++)
+    {
+      message_list_ty *mlp = mdlp->item[0]->messages;
+
+      size_t k = 0;
+      for (size_t j = 0; j < mlp->nitems; j++)
+        {
+          message_ty *mp = mlp->item[j];
+          const lex_pos_ty *pos =
+            (mp->filepos_count > 0 ? &mp->filepos[0] :
+             /* mp->pos.file_name is "(output from 'rxgettext')".
+                Not ideal, but good enough as a fallback.  */
+             &mp->pos);
+
+          if (memchr (mp->msgid, '\0', mp->msgid_len - 1) != NULL)
+            {
+              warn_nul_character (pos, "msgid");
+              message_free (mp);
+            }
+          else if (mp->msgid_plural != NULL
+                   && memchr (mp->msgid_plural, '\0', mp->msgid_plural_len - 1) != NULL)
+            {
+              warn_nul_character (pos, "msgid_plural");
+              message_free (mp);
+            }
+          else
+            /* Copy from mlp->item[j] to mlp->item[k].  0 ≤ k ≤ j < mlp->nitems.  */
+            mlp->item[k++] = mp;
+        }
+      mlp->nitems = k;
     }
 
   /* Add [no-]ruby-format flags and process 'xgettext:' comments.
@@ -165,7 +199,8 @@ extract_ruby (const char *found_in_dir, const char *real_filename,
             {
               /* Find 'xgettext:' comments and apply them to mp.  */
               message_ty *mp2 =
-                message_list_search (mlp2, mp->msgctxt, mp->msgid);
+                message_list_search_sd (mlp2, mp->msgctxt,
+                                        sd_new_addr (mp->msgid_len - 1, mp->msgid));
 
               if (mp2 != NULL && mp2->comment_dot != NULL)
                 {

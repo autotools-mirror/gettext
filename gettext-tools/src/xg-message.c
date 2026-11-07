@@ -47,8 +47,8 @@
 
 
 /* Warns when an msgid or msgid_plural or msgctxt contains a NUL character.  */
-static void
-warn_nul_character (lex_pos_ty *pos, const char *pretty_msgstr)
+void
+warn_nul_character (const lex_pos_ty *pos, const char *pretty_msgstr)
 {
   if_error (IF_SEVERITY_WARNING,
             pos->file_name, pos->line_number, (size_t)(-1), true,

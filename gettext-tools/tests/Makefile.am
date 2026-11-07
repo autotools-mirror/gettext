@@ -189,7 +189,7 @@ TESTS = gettext-1 gettext-2 \
 	xgettext-python-stackovfl-3 xgettext-python-stackovfl-4 \
 	xgettext-rst-1 xgettext-rst-2 \
 	xgettext-ruby-1 xgettext-ruby-2 \
-	xgettext-ruby-nul-1 \
+	xgettext-ruby-nul-1 xgettext-ruby-nul-2 \
 	xgettext-rust-1 xgettext-rust-2 xgettext-rust-3 xgettext-rust-4 \
 	xgettext-rust-5 xgettext-rust-6 xgettext-rust-7 xgettext-rust-8 \
 	xgettext-rust-9 \

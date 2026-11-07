@@ -150,10 +150,14 @@ static default_catalog_reader_class_ty extract_methods =
 };
 
 
+/* The common code of extract_po and variants with different input syntax.
+   If ALLOW_NUL_IN_MSGID is true, NUL characters in msgid or msgid_plural
+   are silently allowed.  */
 static void
 extract (FILE *fp,
          const char *real_filename, const char *logical_filename,
          catalog_input_format_ty input_syntax,
+         bool allow_nul_in_msgid,
          msgdomain_list_ty *mdlp)
 {
   default_catalog_reader_ty *dcatr;
@@ -162,6 +166,7 @@ extract (FILE *fp,
 
   dcatr = default_catalog_reader_alloc (&extract_methods,
                                         textmode_xerror_handler);
+  dcatr->allow_nul_in_msgid = allow_nul_in_msgid;
   dcatr->handle_comments = true;
   dcatr->allow_domain_directives = false;
   dcatr->allow_duplicates = false;
@@ -235,7 +240,17 @@ extract_po (FILE *fp,
             flag_context_list_table_ty *flag_table,
             msgdomain_list_ty *mdlp)
 {
-  extract (fp, real_filename,  logical_filename, &input_format_po, mdlp);
+  extract (fp, real_filename,  logical_filename, &input_format_po, false, mdlp);
+}
+
+
+void
+extract_po_for_ruby (FILE *fp,
+                     const char *real_filename, const char *logical_filename,
+                     flag_context_list_table_ty *flag_table,
+                     msgdomain_list_ty *mdlp)
+{
+  extract (fp, real_filename,  logical_filename, &input_format_po, true, mdlp);
 }
 
 
@@ -246,7 +261,7 @@ extract_properties (FILE *fp,
                     msgdomain_list_ty *mdlp)
 {
   extract (fp, real_filename,  logical_filename, &input_format_properties,
-           mdlp);
+           false, mdlp);
 }
 
 
@@ -257,5 +272,5 @@ extract_stringtable (FILE *fp,
                      msgdomain_list_ty *mdlp)
 {
   extract (fp, real_filename,  logical_filename, &input_format_stringtable,
-           mdlp);
+           false, mdlp);
 }
