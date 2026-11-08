@@ -42,6 +42,11 @@ ${AUTOMAKE} --add-missing >/dev/null 2>/dev/null \
 
 rm -f configure.ac Makefile.am
 
+# Avoid an Autoconf 2.69 bug, where on AlmaLinux 9 it would generate a broken
+# config.status file with a positive probability. See
+# <https://lists.gnu.org/archive/html/autoconf/2026-11/msg00002.html>
+rm -rf autom4te.cache
+
 gettext_datadir=$top_builddir/autotools
 export gettext_datadir
 
