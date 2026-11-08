@@ -326,6 +326,7 @@ EXTRA_DIST += init.sh init.cfg $(TESTS) \
 	testdata/dprog.utf-8.d testdata/dprog.utf-8+bom.d \
 	testdata/dprog.utf-16be.d testdata/dprog.utf-16le.d \
 	testdata/dprog.utf-32be.d testdata/dprog.utf-32le.d \
+	testdata/incomplete.mo \
 	testdata/mf-21.mo \
 	testdata/nonascii.pot \
 	testdata/repo.tar.gz \
