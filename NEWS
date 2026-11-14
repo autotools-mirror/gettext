@@ -1,5 +1,9 @@
 Version 1.1 - December 2026
 
+# The Emacs PO mode is now distributed separately.
+  Its git repository is at https://git.savannah.gnu.org/git/gettext/po-mode.git.
+  Users can fetch it from ELPA or MELPA.
+
 # Improvements for translators:
   The tools now support NUL characters in PO files, namely in the
   translator comments and extracted comments of messages.  Previously,

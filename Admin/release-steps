@@ -113,10 +113,6 @@ We assume that the following environment variables are set:
         * if any interfaces (functions/variables/classes) have been added,
           increment LTV_CURRENT, set LTV_REVISION to 0, increment LTV_AGE.
 
-  - gettext-tools/emacs/po-mode.el
-
-    Update po-mode-version-string, if there is any change.
-
   - gettext-runtime/src/envsubst.c
     gettext-runtime/src/gettext.c
     gettext-runtime/src/gettext.sh.in

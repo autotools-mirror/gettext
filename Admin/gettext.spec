@@ -33,4 +33,3 @@ make install prefix=$RPM_BUILDPREFIX
 /usr/local/info/gettext*
 /usr/local/share/locale/*/LC_MESSAGES/gettext.mo
 /usr/local/share/gettext
-/usr/local/share/emacs/site-lisp/po-mode.elc

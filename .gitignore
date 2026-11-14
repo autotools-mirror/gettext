@@ -457,7 +457,6 @@
 /gettext-tools/Makefile.in
 /gettext-tools/autotools/Makefile.in
 /gettext-tools/doc/Makefile.in
-/gettext-tools/emacs/Makefile.in
 /gettext-tools/examples/aclocal.m4
 /gettext-tools/examples/configure
 /gettext-tools/examples/Makefile.in
@@ -526,7 +525,6 @@
 /gettext-tools/doc/gettext_[0-9].html
 /gettext-tools/doc/gettext_[0-9][0-9].html
 /gettext-tools/doc/gettext_abt.html
-/gettext-tools/emacs/*.elc
 /gettext-tools/examples/po/gettext-examples.pot
 /gettext-tools/examples/po/stamp-po
 /gettext-tools/man/autopoint.1
@@ -682,7 +680,6 @@ autom4te.cache/
 /gettext-tools/build-aux/xml-validate-10
 /gettext-tools/build-aux/xml-validate-11
 /gettext-tools/doc/Makefile
-/gettext-tools/emacs/Makefile
 /gettext-tools/examples/Makefile
 /gettext-tools/examples/installpaths
 /gettext-tools/examples/po/Makefile

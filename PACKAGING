@@ -194,12 +194,6 @@ the following file list.
       $prefix/share/gettext/disclaim-translations.txt
       $prefix/share/gettext-$VERSION/its/*
       $prefix/share/aclocal/nls.m4
-      $prefix/share/emacs/site-lisp/po-compat.el
-      $prefix/share/emacs/site-lisp/po-compat.elc
-      $prefix/share/emacs/site-lisp/po-mode.el
-      $prefix/share/emacs/site-lisp/po-mode.elc
-      $prefix/share/emacs/site-lisp/start-po.el
-      $prefix/share/emacs/site-lisp/start-po.elc
 
 
 Java support:

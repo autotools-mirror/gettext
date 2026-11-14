@@ -71,14 +71,6 @@ You will need reasonably recent versions of the build tools:
       - On Red Hat distributions: texinfo.
       - Other: https://repology.org/project/texinfo/versions
 
-  * GNU emacs
-    + Homepage:
-      https://www.gnu.org/software/emacs/
-    + Pre-built package name:
-      - On Debian and Debian-based systems: emacs,
-      - On Red Hat distributions: emacs.
-      - Other: https://repology.org/project/emacs/versions
-
   * Perl
     + Homepage:
       https://www.perl.org/

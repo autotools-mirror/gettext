@@ -565,25 +565,6 @@ AC_MSG_RESULT([$gt_libcurl_found])
 dnl Check in which form to install the 'spit' program.
 AM_CONDITIONAL([BUILD_SPIT_IN_C], [test -n "$LIBJSON_C" && test -n "$LIBCURL"])
 
-dnl Check for Emacs and where to install .elc files.
-dnl Sometimes Emacs is badly installed. Allow the user to work around it.
-AC_ARG_WITH([emacs],
-  [  --without-emacs         do not use Emacs, don't install po-mode],
-  [gt_use_emacs=$withval],
-  [gt_use_emacs=yes])
-if test "$EMACS" != no; then
-  AC_MSG_CHECKING([whether Emacs support is requested])
-  AC_MSG_RESULT([$gt_use_emacs])
-  if test "$gt_use_emacs" = no; then
-    EMACS=no
-  fi
-fi
-dnl If $EMACS = no, we won't install any Emacs Lisp (*.el) files,
-dnl therefore it's useless to determine $(lispdir).
-if test "$EMACS" != no; then
-  AM_PATH_LISPDIR
-fi
-
 aclocaldir='${datadir}/aclocal'
 AC_SUBST([aclocaldir])
 
@@ -848,8 +829,6 @@ AC_CONFIG_FILES([autotools/convert-archive], [chmod a+x autotools/convert-archiv
 
 AC_CONFIG_FILES([misc/Makefile])
 AC_CONFIG_FILES([misc/po-fetch], [chmod a+x misc/po-fetch])
-
-AC_CONFIG_FILES([emacs/Makefile])
 
 AC_CONFIG_FILES([man/Makefile])
 AC_CONFIG_FILES([man/x-to-1])

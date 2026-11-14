@@ -1,5 +1,5 @@
 ## Makefile for the gettext-tools directory of GNU gettext
-## Copyright (C) 1995-2025 Free Software Foundation, Inc.
+## Copyright (C) 1995-2026 Free Software Foundation, Inc.
 ##
 ## This program is free software: you can redistribute it and/or modify
 ## it under the terms of the GNU General Public License as published by
@@ -19,7 +19,7 @@
 AUTOMAKE_OPTIONS = 1.5 gnu
 ACLOCAL_AMFLAGS = -I m4 -I ../gettext-runtime/m4 -I ../m4 -I gnulib-m4 -I libgrep/gnulib-m4 -I libgettextpo/gnulib-m4 -I tests/gnulib-m4
 
-SUBDIRS = gnulib-lib libgrep src libgettextpo po its projects styles wizard autotools misc emacs man m4 tests system-tests gnulib-tests install-tests examples doc
+SUBDIRS = gnulib-lib libgrep src libgettextpo po its projects styles wizard autotools misc man m4 tests system-tests gnulib-tests install-tests examples doc
 
 EXTRA_DIST =
 MOSTLYCLEANFILES = core *.stackdump
